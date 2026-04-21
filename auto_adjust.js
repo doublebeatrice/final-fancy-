@@ -119,6 +119,10 @@ function dedupeKeyFor(action, meta = {}, sku = '') {
   ].map(v => String(v ?? '')).join('::');
 }
 
+function executionEntityKey(entityType, id) {
+  return `${String(entityType || '')}::${String(id || '')}`;
+}
+
 function isInvalidState(value) {
   const text = String(value ?? '').toUpperCase();
   return /PAUSED|ARCHIVED|DISABLED|ENDED|INCOMPLETE|CAMPAIGN_INCOMPLETE/.test(text) || text === '0' || text === '2';
@@ -273,6 +277,7 @@ function touchActionForEntity(card, entity, entityType, source, rowStats = null,
 function touchActionForSbCampaign(row, source) {
   const stats7 = readStats(row);
   const campaignId = String(row.campaignId || row.campaign_id || '').trim();
+  const sku = String(row.sku || row.SKU || row.raw_sku || row.product_sku || '').trim();
   const currentBudget = toNum(row.budget);
   const stateRisk = isInvalidState(row.state || row.status || row.servingStatus || row.campaignState);
   const base = {
@@ -286,7 +291,7 @@ function touchActionForSbCampaign(row, source) {
     canAutoExecute: true,
     riskLevel: 'low',
     reason: '',
-    sku: '',
+    sku,
     campaignId,
     adGroupId: '',
     keywordId: '',
@@ -481,11 +486,12 @@ function buildSevenDayPlans(cards, spRows, sbRows, rowsByType, history = []) {
     const candidateKey = `SB7::${campaignId}`;
     const action = touchActionForSbCampaign(row, 'sb_7day_untouched');
     if (action) action.dedupeKey = dedupeKeyFor(action, { siteId: row.siteId || 4, campaignId }, '');
-    if (action?.actionType === 'review') review.push({ sku: '', dedupeKey: action.dedupeKey || candidateKey, actionSource: action.actionSource, source: action.source, action });
-    else if (action?.actionType === 'skip') skipped.push({ sku: '', dedupeKey: action.dedupeKey || candidateKey, actionSource: action.actionSource, source: action.source, action });
+    if (action?.actionType === 'review') review.push({ sku: action.sku || '', dedupeKey: action.dedupeKey || candidateKey, actionSource: action.actionSource, source: action.source, action });
+    else if (action?.actionType === 'skip') skipped.push({ sku: action.sku || '', dedupeKey: action.dedupeKey || candidateKey, actionSource: action.actionSource, source: action.source, action });
     else if (action) {
-      if (!planBySku.has(campaignId)) planBySku.set(campaignId, { sku: campaignId, actions: [] });
-      planBySku.get(campaignId).actions.push(action);
+      const planSku = action.sku || campaignId;
+      if (!planBySku.has(planSku)) planBySku.set(planSku, { sku: planSku, actions: [] });
+      planBySku.get(planSku).actions.push(action);
     }
   }
 
@@ -599,6 +605,7 @@ async function run() {
       riskLevel: action.riskLevel || item.riskLevel || '',
       canAutoExecute: action.canAutoExecute !== false,
       dedupeKey: action.dedupeKey || item.dedupeKey || '',
+      executionKey: executionEntityKey(entityType, item.id),
       resultMessage: JSON.stringify(result || {}),
       errorReason: apiStatus === 'api_success' ? '' : JSON.stringify(result || {}),
     });
@@ -657,7 +664,7 @@ async function run() {
     let apiFailed = 0;
     const { groups, skipped } = groupByAccountSite(
       items,
-      item => rows.find(r => String(r.targetId || r.id || '') === String(item.id)),
+      item => rows.find(r => String(r.targetId || r.target_id || r.id || '') === String(item.id)),
       typeLabel
     );
     apiFailed += skipped.length;
@@ -996,8 +1003,8 @@ async function run() {
 
   const kwMeta = Object.fromEntries(kwRows.map(row => [String(row.keywordId), row]));
   const sbKwMeta = Object.fromEntries(sbKwRows.map(row => [String(row.keywordId), row]));
-  const autoTargetIds = new Set(autoTargetRows.map(row => String(row.targetId || row.id || '')));
-  const manualTargetIds = new Set(manualTargetRows.map(row => String(row.targetId || row.id || '')));
+  const autoTargetIds = new Set(autoTargetRows.map(row => String(row.targetId || row.target_id || row.id || '')));
+  const manualTargetIds = new Set(manualTargetRows.map(row => String(row.targetId || row.target_id || row.id || '')));
   const spAutoItems = atItems.filter(item => autoTargetIds.has(String(item.id)));
   const spManualItems = atItems.filter(item => manualTargetIds.has(String(item.id)) && !autoTargetIds.has(String(item.id)));
   const spUnknownItems = atItems.filter(item => !autoTargetIds.has(String(item.id)) && !manualTargetIds.has(String(item.id)));
@@ -1009,7 +1016,7 @@ async function run() {
     let apiFailed = 0;
     for (const item of items) {
       const rows = rowsByEntityType[item.entityType] || [];
-      const meta = rows.find(row => String(row.keywordId || row.targetId || row.id || row.keyword_id || '') === String(item.id));
+      const meta = rows.find(row => String(row.keywordId || row.targetId || row.target_id || row.id || row.keyword_id || '') === String(item.id));
       if (!meta) {
         apiFailed += 1;
         recordExecutionEvent(item, item.entityType, 'failed', { msg: 'missing state row metadata' });
@@ -1044,7 +1051,7 @@ async function run() {
   const finalCounts = summarize(verifiedEvents);
   const eventsBySku = groupEventsBySku(verifiedEvents);
   for (const event of verifiedEvents) {
-    if (event.finalStatus === 'success') landedIds.add(String(event.id));
+    if (event.finalStatus === 'success') landedIds.add(executionEntityKey(event.entityType, event.id));
   }
 
   const nonExecutionEvents = [
@@ -1102,7 +1109,7 @@ async function run() {
   const newHistory = loadHistory();
   for (const p of plan) {
     for (const a of p.actions) {
-      if (!landedIds.has(String(a.id))) continue;
+      if (!landedIds.has(executionEntityKey(a.entityType, a.id))) continue;
       newHistory.push({
         entityId: a.id,
         sku: p.sku,

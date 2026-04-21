@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { analyzeCard } = require('../src/adjust_lib');
+const { analyzeCard, findPanelId, createPanelWs } = require('../src/adjust_lib');
 
 function baseCard(entity) {
   return {
@@ -65,5 +65,8 @@ function baseCard(entity) {
   assert.strictEqual(actions[0].entityType, 'sbKeyword');
   assert.strictEqual(actions[0].direction, 'up');
 }
+
+assert.strictEqual(typeof findPanelId, 'function');
+assert.strictEqual(typeof createPanelWs, 'function');
 
 console.log('adjust_lib tests passed');

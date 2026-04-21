@@ -1,0 +1,6 @@
+﻿node_modules/
+data/snapshots/
+snapshots/
+*.log
+*.tmp
+*.bak

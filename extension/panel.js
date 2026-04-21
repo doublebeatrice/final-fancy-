@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 // YSWG 广告全自动调整台 — panel.js
 // 全部业务逻辑：拉取 → 导出 → 导入计划 → 执行
 // ============================================================
@@ -966,10 +966,22 @@ async function fetchPagedAdRows(path, basePayload, limit = 500) {
   return rows;
 }
 
+function formatYmd(date) {
+  const pad = n => String(n).padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+
+function makeSbDateRange(days) {
+  const end = new Date();
+  const start = new Date();
+  start.setDate(start.getDate() - days + 1);
+  return [formatYmd(start), formatYmd(end)];
+}
+
 function makeSevenDaySpPayload() {
   return {
     siteId: 4,
-    timeRange: [1774022400000, 1776528000000],
+    timeRange: makeAdTimeRange(30),
     state: '1',
     userName: ['HJ17', 'HJ171', 'HJ172'],
     level: 'seller_num',
@@ -988,7 +1000,7 @@ function makeSevenDaySbPayload() {
     searchType: '1',
     userName: ['HJ17', 'HJ171', 'HJ172'],
     level: 'seller_num',
-    selectCampaignDate: ['2026-03-21', '2026-04-19'],
+    selectCampaignDate: makeSbDateRange(30),
     page: 1,
     limit: 500,
     field: 'Spend',
@@ -1067,42 +1079,6 @@ function formatLocalDateTime(date = new Date()) {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 }
 
-function buildInventoryOperationNote(entry) {
-  const plan = entry.plan || {};
-  const action = entry.action || {};
-  const actionLabel = entityTypeLabel(entry.entityType || action.entityType || action.type || '', action.actionType || 'bid');
-  const fromBid = Number.isFinite(action.currentBid) ? action.currentBid : entry.currentBid;
-  const toBid = Number.isFinite(action.suggestedBid) ? action.suggestedBid : entry.bid;
-  const direction = Number.isFinite(fromBid) && Number.isFinite(toBid)
-    ? (toBid > fromBid ? '加投' : toBid < fromBid ? '降投' : '维持')
-    : '调整';
-  const actionText = `${actionLabel} ${entry.id || action.id || ''} bid ${Number.isFinite(fromBid) ? fromBid.toFixed(2) : '-'} -> ${Number.isFinite(toBid) ? toBid.toFixed(2) : '-'}`;
-  const reason = action.reason || entry.reason || plan.summary || '广告执行记录';
-  const strategy = plan.strategy || reason;
-  const stage = plan.stage || plan.health || '未明确阶段，按当前广告数据判断';
-  const target = direction === '加投'
-    ? '维持或扩大有效曝光，争取更多订单和排名机会'
-    : direction === '降投'
-      ? '控制ACOS和无效花费，保留必要流量'
-      : '验证当前动作结果，保持后续可观察';
-  const nextOpportunity = plan.nextOpportunity || plan.next_opportunity || plan.nextChance || '暂无明确节点，按平时流量处理';
-  const resultText = entry.success ? '成功' : '失败';
-  const failReason = entry.success ? '无' : (entry.errorReason || entry.resultMessage || '未知失败原因');
-
-  return [
-    `[时间] ${formatLocalDateTime()}`,
-    `[SKU] ${entry.sku || plan.sku || ''}`,
-    `[阶段] ${stage}`,
-    `[判断] ${plan.summary || reason}`,
-    `[策略] ${strategy}`,
-    `[动作] ${actionText}`,
-    `[目标] ${target}`,
-    `[后续观察] 重点看未来3天点击、7天订单、ACOS、曝光和自然单变化`,
-    `[下次机会] ${nextOpportunity}`,
-    `[执行结果] ${resultText}`,
-    `[原因] ${failReason}`,
-  ].join('\n');
-}
 
 async function setInventoryNoteValue(sku, noteText) {
   const inv = getInventoryRecordBySku(sku);
@@ -2848,7 +2824,7 @@ async function executePlan() {
     const advType = options.advType || 'SP';
     const { groups, skipped } = groupExecutionItems(
       items,
-      item => rows.find(r => String(r.targetId || r.id || '') === String(item.id)),
+      item => rows.find(r => String(r.targetId || r.target_id || r.id || '') === String(item.id)),
       typeLabel
     );
     err += skipped.length;
@@ -2899,10 +2875,10 @@ async function executePlan() {
     for (const item of items) {
       let row = null;
       if (item.type === 'keyword') row = STATE.kwRows.find(r => String(r.keywordId || r.id || r.keyword_id || '') === String(item.id));
-      else if (item.type === 'autoTarget') row = STATE.autoRows.find(r => String(r.targetId || r.id || '') === String(item.id));
-      else if (item.type === 'manualTarget') row = STATE.targetRows.find(r => String(r.targetId || r.id || '') === String(item.id));
+      else if (item.type === 'autoTarget') row = STATE.autoRows.find(r => String(r.targetId || r.target_id || r.id || '') === String(item.id));
+      else if (item.type === 'manualTarget') row = STATE.targetRows.find(r => String(r.targetId || r.target_id || r.id || '') === String(item.id));
       else if (item.type === 'sbKeyword') row = STATE.sbRows.filter(r => String(r.__adProperty || '') === '4').find(r => String(r.keywordId || r.id || '') === String(item.id));
-      else if (item.type === 'sbTarget') row = STATE.sbRows.filter(r => String(r.__adProperty || '') === '6').find(r => String(r.targetId || r.id || '') === String(item.id));
+      else if (item.type === 'sbTarget') row = STATE.sbRows.filter(r => String(r.__adProperty || '') === '6').find(r => String(r.targetId || r.target_id || r.id || '') === String(item.id));
 
       const result = await executeStateToggle(row, item.action, item.type);
       if (result.ok) ok += 1;
@@ -2916,7 +2892,23 @@ async function executePlan() {
     'SB关键词',
     { endpoint: '/keywordSb/batchEditKeywordSbColumn', property: '', advType: 'SB', entityType: 'sbKeyword' }
   );
-  if (atItems.length) await executeTargetBidItems(atItems, [...STATE.autoRows, ...STATE.targetRows], 'SP投放', { entityType: 'autoTarget' });
+  const autoTargetIds = new Set((STATE.autoRows || []).map(r => String(r.targetId || r.target_id || r.id || '')));
+  const manualTargetIds = new Set((STATE.targetRows || []).map(r => String(r.targetId || r.target_id || r.id || '')));
+  const spAutoItems = atItems.filter(item => autoTargetIds.has(String(item.id)));
+  const spManualItems = atItems.filter(item => manualTargetIds.has(String(item.id)) && !autoTargetIds.has(String(item.id)));
+  const spUnknownItems = atItems.filter(item => !autoTargetIds.has(String(item.id)) && !manualTargetIds.has(String(item.id)));
+  spUnknownItems.forEach(item => {
+    err += 1;
+    recordInventoryNoteEvent(item, item.type || 'autoTarget', 'SP target', false, { error: 'missing target row metadata' });
+    log(`SP target missing metadata, skip ${item.id}`, 'error');
+  });
+  if (spAutoItems.length) await executeTargetBidItems(spAutoItems, STATE.autoRows, 'SP auto target', { entityType: 'autoTarget' });
+  if (spManualItems.length) await executeTargetBidItems(
+    spManualItems,
+    STATE.targetRows,
+    'SP manual target',
+    { endpoint: '/advTarget/batchUpdateManualTarget', property: 'manualTarget', entityType: 'manualTarget' }
+  );
   if (sbTargetItems.length) await executeTargetBidItems(
     sbTargetItems,
     STATE.sbRows.filter(r => String(r.__adProperty || '') === '6'),

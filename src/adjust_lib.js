@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const http = require('http');
+const WebSocket = require('ws');
 
 const PANEL_ID = '4091B6ED260DB71319767EFD24A46F55'; // legacy, auto_adjust.js now finds panel dynamically
 const PROJECT_ROOT = path.join(__dirname, '..');
@@ -27,6 +29,33 @@ const ACOS_DOWN_MED     = 1.6;
 const ACOS_DOWN_MILD    = 1.3;
 const ACOS_UP_STRONG    = 0.5;
 const ACOS_UP_MILD      = 0.7;
+
+function findPanelId() {
+  return new Promise((resolve, reject) => {
+    http.get('http://127.0.0.1:9222/json/list', res => {
+      let data = '';
+      res.on('data', chunk => { data += chunk; });
+      res.on('end', () => {
+        try {
+          const tabs = JSON.parse(data);
+          const panel = tabs.find(tab => tab.url && tab.url.includes('panel.html') && tab.url.includes('chrome-extension'));
+          if (!panel?.id) {
+            reject(new Error('Cannot find extension panel page. Open the extension panel first.'));
+            return;
+          }
+          resolve(panel.id);
+        } catch (error) {
+          reject(error);
+        }
+      });
+    }).on('error', reject);
+  });
+}
+
+async function createPanelWs() {
+  const panelId = await findPanelId();
+  return new WebSocket(`ws://127.0.0.1:9222/devtools/page/${panelId}`);
+}
 
 function log(msg) {
   const line = '[' + new Date().toISOString() + '] ' + msg;
@@ -324,4 +353,4 @@ function analyzeCard(card, history) {
   return actions;
 }
 
-module.exports = { log, loadHistory, saveHistory, analyzeCard, hasRecentOutcome, PANEL_ID, LOG_FILE, SNAPSHOTS_DIR, today };
+module.exports = { log, loadHistory, saveHistory, analyzeCard, hasRecentOutcome, PANEL_ID, LOG_FILE, SNAPSHOTS_DIR, today, findPanelId, createPanelWs };

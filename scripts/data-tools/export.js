@@ -1,19 +1,12 @@
-const WebSocket = require('ws');
-const fs = require('fs');
-const PANEL_ID = '00093BBA5BA04621255A5D10C0C5F175';
-const ws = new WebSocket('ws://127.0.0.1:9222/devtools/page/' + PANEL_ID);
-function send(msg) { ws.send(JSON.stringify(msg)); }
+﻿const fs = require('fs');
+const { createPanelWs } = require('../../src/adjust_lib');
 
 let allData = [];
 let offset = 0;
 const BATCH = 50;
+let ws;
 
-ws.on('open', () => {
-  send({ id: 1, method: 'Runtime.evaluate', params: {
-    returnByValue: true,
-    expression: 'STATE.productCards.filter(c => c.adStats && c.adStats["30d"] && c.adStats["30d"].spend > 0).length'
-  }});
-});
+function send(msg) { ws.send(JSON.stringify(msg)); }
 
 function readBatch() {
   const expr = `
@@ -35,30 +28,43 @@ function readBatch() {
       });
     })()
   `;
-  send({ id: 2, method: 'Runtime.evaluate', params: { returnByValue: true, expression: expr }});
+  send({ id: 2, method: 'Runtime.evaluate', params: { returnByValue: true, expression: expr } });
 }
 
-ws.on('message', data => {
-  const r = JSON.parse(data);
-  if (r.id === 1) {
-    console.log('有广告花费产品数:', r.result && r.result.result && r.result.result.value);
-    readBatch();
-  }
-  if (r.id === 2) {
-    const batch = (r.result && r.result.result && r.result.result.value) || [];
-    if (batch.length) {
-      allData.push(...batch);
-      offset += BATCH;
-      console.log('已读取:', allData.length);
+async function run() {
+  ws = await createPanelWs();
+  ws.on('open', () => {
+    send({ id: 1, method: 'Runtime.evaluate', params: {
+      returnByValue: true,
+      expression: 'STATE.productCards.filter(c => c.adStats && c.adStats["30d"] && c.adStats["30d"].spend > 0).length'
+    } });
+  });
+
+  ws.on('message', data => {
+    const r = JSON.parse(data);
+    if (r.id === 1) {
+      console.log('有广告花费产品数:', r.result && r.result.result && r.result.result.value);
       readBatch();
-    } else {
-      const snap = { exportedAt: new Date().toISOString(), products: allData };
-      fs.mkdirSync('D:\\ad-ops-workbench\\snapshots', { recursive: true });
-      const fname = 'D:\\ad-ops-workbench\\snapshots\\' + new Date().toISOString().replace(/[:.]/g,'-').slice(0,19) + '.json';
-      fs.writeFileSync(fname, JSON.stringify(snap, null, 2));
-      console.log('已保存:', fname, '大小:', fs.statSync(fname).size, 'bytes');
-      ws.close();
     }
-  }
-});
-ws.on('error', e => console.error(e.message));
+    if (r.id === 2) {
+      const batch = (r.result && r.result.result && r.result.result.value) || [];
+      if (batch.length) {
+        allData.push(...batch);
+        offset += BATCH;
+        console.log('已读取', allData.length);
+        readBatch();
+      } else {
+        const snap = { exportedAt: new Date().toISOString(), products: allData };
+        fs.mkdirSync('D:\\ad-ops-workbench\\snapshots', { recursive: true });
+        const fname = 'D:\\ad-ops-workbench\\snapshots\\' + new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19) + '.json';
+        fs.writeFileSync(fname, JSON.stringify(snap, null, 2));
+        console.log('已保存', fname, '大小:', fs.statSync(fname).size, 'bytes');
+        ws.close();
+      }
+    }
+  });
+
+  ws.on('error', e => console.error(e.message));
+}
+
+run().catch(e => { console.error(e.message); process.exit(1); });
