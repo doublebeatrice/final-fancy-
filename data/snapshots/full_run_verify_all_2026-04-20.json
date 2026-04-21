@@ -1,0 +1,755 @@
+{
+  "summary": {
+    "autoTarget": {
+      "total": 417,
+      "bidOk": 281,
+      "bidMismatch": 131,
+      "missing": 5
+    },
+    "keyword": {
+      "total": 111,
+      "bidOk": 0,
+      "bidMismatch": 111,
+      "missing": 0
+    },
+    "sbTarget": {
+      "total": 3,
+      "bidOk": 3,
+      "bidMismatch": 0,
+      "missing": 0
+    },
+    "sbKeyword": {
+      "total": 188,
+      "bidOk": 188,
+      "bidMismatch": 0,
+      "missing": 0
+    }
+  },
+  "mismatches": [
+    {
+      "sku": "KV3640",
+      "type": "autoTarget",
+      "id": "367712391178375",
+      "from": 0.47,
+      "to": 0.54,
+      "actualBid": 0.47,
+      "dir": "up"
+    },
+    {
+      "sku": "KV3640",
+      "type": "autoTarget",
+      "id": "410799232056364",
+      "from": 0.28,
+      "to": 0.32,
+      "actualBid": 0.28,
+      "dir": "up"
+    },
+    {
+      "sku": "SC3420",
+      "type": "keyword",
+      "id": "463179748346107",
+      "from": 0.6,
+      "to": 0.42,
+      "actualBid": 0.6,
+      "dir": "down"
+    },
+    {
+      "sku": "SC3420",
+      "type": "keyword",
+      "id": "224575452404431",
+      "from": 0.36,
+      "to": 0.25,
+      "actualBid": 0.36,
+      "dir": "down"
+    },
+    {
+      "sku": "SC3420",
+      "type": "keyword",
+      "id": "168073249825908",
+      "from": 0.33,
+      "to": 0.3,
+      "actualBid": 0.33,
+      "dir": "down"
+    },
+    {
+      "sku": "SC3420",
+      "type": "keyword",
+      "id": "449827323812004",
+      "from": 0.32,
+      "to": 0.22,
+      "actualBid": 0.32,
+      "dir": "down"
+    },
+    {
+      "sku": "TH2619",
+      "type": "keyword",
+      "id": "179339094305908",
+      "from": 0.79,
+      "to": 0.55,
+      "actualBid": 0.79,
+      "dir": "down"
+    },
+    {
+      "sku": "SE5608",
+      "type": "autoTarget",
+      "id": "438850817425403",
+      "from": 0.37,
+      "to": 0.4,
+      "actualBid": 0.37,
+      "dir": "up"
+    },
+    {
+      "sku": "CL4170",
+      "type": "keyword",
+      "id": "299331622561829",
+      "from": 0.49,
+      "to": 0.34,
+      "actualBid": 0.49,
+      "dir": "down"
+    },
+    {
+      "sku": "CL4170",
+      "type": "autoTarget",
+      "id": "507678527067374",
+      "from": 0.23,
+      "to": 0.2,
+      "actualBid": 0.23,
+      "dir": "down"
+    },
+    {
+      "sku": "CL4170",
+      "type": "autoTarget",
+      "id": "469386660464796",
+      "from": 0.5,
+      "to": 0.35,
+      "actualBid": 0.5,
+      "dir": "down"
+    },
+    {
+      "sku": "CL4170",
+      "type": "autoTarget",
+      "id": "222286458544380",
+      "from": 0.34,
+      "to": 0.24,
+      "actualBid": 0.34,
+      "dir": "down"
+    },
+    {
+      "sku": "HAY0218",
+      "type": "autoTarget",
+      "id": "541934356590317",
+      "from": 0.38,
+      "to": 0.32,
+      "actualBid": 0.38,
+      "dir": "down"
+    },
+    {
+      "sku": "HAY0219",
+      "type": "keyword",
+      "id": "477418335529749",
+      "from": 0.5,
+      "to": 0.35,
+      "actualBid": 0.5,
+      "dir": "down"
+    },
+    {
+      "sku": "CL4199",
+      "type": "keyword",
+      "id": "26695621097473",
+      "from": 0.6,
+      "to": 0.42,
+      "actualBid": 0.6,
+      "dir": "down"
+    },
+    {
+      "sku": "CL4199",
+      "type": "autoTarget",
+      "id": "470198135309603",
+      "from": 0.5,
+      "to": 0.35,
+      "actualBid": 0.5,
+      "dir": "down"
+    },
+    {
+      "sku": "CL4199",
+      "type": "autoTarget",
+      "id": "342304312176975",
+      "from": 0.5,
+      "to": 0.35,
+      "actualBid": 0.5,
+      "dir": "down"
+    },
+    {
+      "sku": "CL4199",
+      "type": "autoTarget",
+      "id": "535599780853188",
+      "from": 0.5,
+      "to": 0.35,
+      "actualBid": 0.5,
+      "dir": "down"
+    },
+    {
+      "sku": "KEJ1748",
+      "type": "autoTarget",
+      "id": "551464677779602",
+      "from": 0.37,
+      "to": 0.33,
+      "actualBid": 0.37,
+      "dir": "down"
+    },
+    {
+      "sku": "KEJ1748",
+      "type": "autoTarget",
+      "id": "316191348080622",
+      "from": 0.28,
+      "to": 0.2,
+      "actualBid": 0.28,
+      "dir": "down"
+    },
+    {
+      "sku": "SC3077",
+      "type": "keyword",
+      "id": "66864111799250",
+      "from": 0.54,
+      "to": 0.49,
+      "actualBid": 0.54,
+      "dir": "down"
+    },
+    {
+      "sku": "SC3077",
+      "type": "keyword",
+      "id": "86112979709750",
+      "from": 0.35,
+      "to": 0.24,
+      "actualBid": 0.35,
+      "dir": "down"
+    },
+    {
+      "sku": "SC3077",
+      "type": "keyword",
+      "id": "194023107674735",
+      "from": 0.35,
+      "to": 0.24,
+      "actualBid": 0.35,
+      "dir": "down"
+    },
+    {
+      "sku": "SC3077",
+      "type": "keyword",
+      "id": "80801550720223",
+      "from": 0.35,
+      "to": 0.32,
+      "actualBid": 0.35,
+      "dir": "down"
+    },
+    {
+      "sku": "SC3077",
+      "type": "autoTarget",
+      "id": "26166832880861",
+      "from": 0.35,
+      "to": 0.32,
+      "actualBid": 0.35,
+      "dir": "down"
+    },
+    {
+      "sku": "SC3077",
+      "type": "autoTarget",
+      "id": "230407384583664",
+      "from": 0.35,
+      "to": 0.3,
+      "actualBid": 0.35,
+      "dir": "down"
+    },
+    {
+      "sku": "SC3077",
+      "type": "autoTarget",
+      "id": "208449997473840",
+      "from": 0.3,
+      "to": 0.21,
+      "actualBid": 0.3,
+      "dir": "down"
+    },
+    {
+      "sku": "RHO0122",
+      "type": "autoTarget",
+      "id": "523226297352362",
+      "from": 0.2,
+      "to": 0.16,
+      "actualBid": 0.2,
+      "dir": "down"
+    },
+    {
+      "sku": "XUE2224",
+      "type": "keyword",
+      "id": "528990019320512",
+      "from": 0.6,
+      "to": 0.54,
+      "actualBid": 0.6,
+      "dir": "down"
+    },
+    {
+      "sku": "XUE2224",
+      "type": "keyword",
+      "id": "562766653945581",
+      "from": 0.47,
+      "to": 0.42,
+      "actualBid": 0.47,
+      "dir": "down"
+    },
+    {
+      "sku": "GM3061",
+      "type": "keyword",
+      "id": "408794448368114",
+      "from": 0.35,
+      "to": 0.32,
+      "actualBid": 0.35,
+      "dir": "down"
+    },
+    {
+      "sku": "GM3210",
+      "type": "keyword",
+      "id": "351387669952445",
+      "from": 0.31,
+      "to": 0.28,
+      "actualBid": 0.31,
+      "dir": "down"
+    },
+    {
+      "sku": "GM3210",
+      "type": "autoTarget",
+      "id": "205641504212153",
+      "from": 0.4,
+      "to": 0.43,
+      "actualBid": 0.4,
+      "dir": "up"
+    },
+    {
+      "sku": "JUU1053",
+      "type": "keyword",
+      "id": "326686397000295",
+      "from": 0.29,
+      "to": 0.31,
+      "actualBid": 0.29,
+      "dir": "up"
+    },
+    {
+      "sku": "BIO0026",
+      "type": "autoTarget",
+      "id": "281964347249398",
+      "from": 0.25,
+      "to": 0.17,
+      "actualBid": 0.25,
+      "dir": "down"
+    },
+    {
+      "sku": "BIO0026",
+      "type": "autoTarget",
+      "id": "535076415432222",
+      "from": 0.22,
+      "to": 0.15,
+      "actualBid": 0.22,
+      "dir": "down"
+    },
+    {
+      "sku": "BIO0026",
+      "type": "autoTarget",
+      "id": "478729239265174",
+      "from": 0.35,
+      "to": 0.24,
+      "actualBid": 0.35,
+      "dir": "down"
+    },
+    {
+      "sku": "BIO0026",
+      "type": "autoTarget",
+      "id": "427818919521099",
+      "from": 0.35,
+      "to": 0.3,
+      "actualBid": 0.35,
+      "dir": "down"
+    },
+    {
+      "sku": "GM3207",
+      "type": "keyword",
+      "id": "407093333581570",
+      "from": 0.4,
+      "to": 0.28,
+      "actualBid": 0.4,
+      "dir": "down"
+    },
+    {
+      "sku": "GM3207",
+      "type": "keyword",
+      "id": "385905398160703",
+      "from": 0.31,
+      "to": 0.22,
+      "actualBid": 0.31,
+      "dir": "down"
+    },
+    {
+      "sku": "GM3207",
+      "type": "keyword",
+      "id": "25944654927389",
+      "from": 0.31,
+      "to": 0.28,
+      "actualBid": 0.31,
+      "dir": "down"
+    },
+    {
+      "sku": "UY1623",
+      "type": "keyword",
+      "id": "548004313910503",
+      "from": 1.2,
+      "to": 0.84,
+      "actualBid": 1.2,
+      "dir": "down"
+    },
+    {
+      "sku": "UY1623",
+      "type": "keyword",
+      "id": "368313090491346",
+      "from": 0.6,
+      "to": 0.42,
+      "actualBid": 0.6,
+      "dir": "down"
+    },
+    {
+      "sku": "QQ2806",
+      "type": "autoTarget",
+      "id": "390228684030755",
+      "from": 0.25,
+      "to": 0.27,
+      "actualBid": 0.25,
+      "dir": "up"
+    },
+    {
+      "sku": "QQ2806",
+      "type": "autoTarget",
+      "id": "382678119665889",
+      "from": 0.3,
+      "to": 0.32,
+      "actualBid": 0.3,
+      "dir": "up"
+    },
+    {
+      "sku": "AE2139",
+      "type": "autoTarget",
+      "id": "202806617797867",
+      "from": 0.3,
+      "to": 0.21,
+      "actualBid": 0.3,
+      "dir": "down"
+    },
+    {
+      "sku": "AE2139",
+      "type": "autoTarget",
+      "id": "169070625728685",
+      "from": 0.35,
+      "to": 0.3,
+      "actualBid": 0.35,
+      "dir": "down"
+    },
+    {
+      "sku": "KOU1439",
+      "type": "keyword",
+      "id": "548471551921442",
+      "from": 0.42,
+      "to": 0.38,
+      "actualBid": 0.42,
+      "dir": "down"
+    },
+    {
+      "sku": "CL3563",
+      "type": "keyword",
+      "id": "391251571596768",
+      "from": 0.44,
+      "to": 0.48,
+      "actualBid": 0.44,
+      "dir": "up"
+    },
+    {
+      "sku": "DUN1150",
+      "type": "autoTarget",
+      "id": "381677437838863",
+      "from": 0.26,
+      "to": 0.21,
+      "actualBid": 0.26,
+      "dir": "down"
+    },
+    {
+      "sku": "MH1806",
+      "type": "keyword",
+      "id": "326440655266082",
+      "from": 0.08,
+      "to": 0.06,
+      "actualBid": 0.08,
+      "dir": "down"
+    },
+    {
+      "sku": "SAN1050",
+      "type": "autoTarget",
+      "id": "380539764331705",
+      "from": 0.5,
+      "to": 0.4,
+      "actualBid": 0.5,
+      "dir": "down"
+    },
+    {
+      "sku": "SAN1050",
+      "type": "autoTarget",
+      "id": "495727917139724",
+      "from": 0.36,
+      "to": 0.31,
+      "actualBid": 0.36,
+      "dir": "down"
+    },
+    {
+      "sku": "SAN1050",
+      "type": "autoTarget",
+      "id": "376367763104978",
+      "from": 0.4,
+      "to": 0.32,
+      "actualBid": 0.4,
+      "dir": "down"
+    },
+    {
+      "sku": "YB0698",
+      "type": "autoTarget",
+      "id": "376214437399532",
+      "from": 0.39,
+      "to": 0.27,
+      "actualBid": 0.39,
+      "dir": "down"
+    },
+    {
+      "sku": "SHQ3375",
+      "type": "autoTarget",
+      "id": "372626121936108",
+      "from": 0.15,
+      "to": 0.16,
+      "actualBid": 0.15,
+      "dir": "up"
+    },
+    {
+      "sku": "SHQ3375",
+      "type": "autoTarget",
+      "id": "310792536185715",
+      "from": 0.18,
+      "to": 0.21,
+      "actualBid": 0.18,
+      "dir": "up"
+    },
+    {
+      "sku": "SHQ3375",
+      "type": "autoTarget",
+      "id": "405473638449816",
+      "from": 0.2,
+      "to": 0.17,
+      "actualBid": 0.2,
+      "dir": "down"
+    },
+    {
+      "sku": "SHQ3375",
+      "type": "autoTarget",
+      "id": "400434227889086",
+      "from": 0.37,
+      "to": 0.43,
+      "actualBid": 0.37,
+      "dir": "up"
+    },
+    {
+      "sku": "SHQ3375",
+      "type": "autoTarget",
+      "id": "377633341623976",
+      "from": 0.31,
+      "to": 0.36,
+      "actualBid": 0.31,
+      "dir": "up"
+    },
+    {
+      "sku": "SHQ3375",
+      "type": "autoTarget",
+      "id": "535390567298222",
+      "from": 0.3,
+      "to": 0.26,
+      "actualBid": 0.3,
+      "dir": "down"
+    },
+    {
+      "sku": "SHQ3375",
+      "type": "autoTarget",
+      "id": "51412493218346",
+      "from": 0.21,
+      "to": 0.18,
+      "actualBid": 0.21,
+      "dir": "down"
+    },
+    {
+      "sku": "PR2460",
+      "type": "autoTarget",
+      "id": "480582005540459",
+      "from": 0.39,
+      "to": 0.45,
+      "actualBid": 0.39,
+      "dir": "up"
+    },
+    {
+      "sku": "LM2288",
+      "type": "keyword",
+      "id": "104080414793626",
+      "from": 0.32,
+      "to": 0.22,
+      "actualBid": 0.32,
+      "dir": "down"
+    },
+    {
+      "sku": "LM2288",
+      "type": "keyword",
+      "id": "479605424549774",
+      "from": 0.13,
+      "to": 0.09,
+      "actualBid": 0.13,
+      "dir": "down"
+    },
+    {
+      "sku": "GT3814",
+      "type": "keyword",
+      "id": "417926986043385",
+      "from": 0.27,
+      "to": 0.19,
+      "actualBid": 0.27,
+      "dir": "down"
+    },
+    {
+      "sku": "YUT2927",
+      "type": "keyword",
+      "id": "17508642592683",
+      "from": 0.35,
+      "to": 0.24,
+      "actualBid": 0.35,
+      "dir": "down"
+    },
+    {
+      "sku": "YUT2927",
+      "type": "keyword",
+      "id": "102451283479665",
+      "from": 0.33,
+      "to": 0.23,
+      "actualBid": 0.33,
+      "dir": "down"
+    },
+    {
+      "sku": "PR2214",
+      "type": "keyword",
+      "id": "313428958449288",
+      "from": 0.38,
+      "to": 0.27,
+      "actualBid": 0.38,
+      "dir": "down"
+    },
+    {
+      "sku": "PR2214",
+      "type": "keyword",
+      "id": "547600329810716",
+      "from": 0.33,
+      "to": 0.23,
+      "actualBid": 0.33,
+      "dir": "down"
+    },
+    {
+      "sku": "XUE0890",
+      "type": "autoTarget",
+      "id": "519724412869503",
+      "from": 0.31,
+      "to": 0.22,
+      "actualBid": 0.31,
+      "dir": "down"
+    },
+    {
+      "sku": "QA1157",
+      "type": "keyword",
+      "id": "16640769194899",
+      "from": 0.28,
+      "to": 0.2,
+      "actualBid": 0.28,
+      "dir": "down"
+    },
+    {
+      "sku": "QA1157",
+      "type": "autoTarget",
+      "id": "196584429687982",
+      "from": 0.33,
+      "to": 0.28,
+      "actualBid": 0.33,
+      "dir": "down"
+    },
+    {
+      "sku": "GM2821",
+      "type": "keyword",
+      "id": "352845412546412",
+      "from": 0.28,
+      "to": 0.22,
+      "actualBid": 0.28,
+      "dir": "down"
+    },
+    {
+      "sku": "GM2821",
+      "type": "autoTarget",
+      "id": "286473885989435",
+      "from": 0.35,
+      "to": 0.3,
+      "actualBid": 0.35,
+      "dir": "down"
+    },
+    {
+      "sku": "CL3650",
+      "type": "keyword",
+      "id": "339128787078446",
+      "from": 0.61,
+      "to": 0.49,
+      "actualBid": 0.61,
+      "dir": "down"
+    },
+    {
+      "sku": "CL3650",
+      "type": "keyword",
+      "id": "151080516639710",
+      "from": 0.52,
+      "to": 0.36,
+      "actualBid": 0.52,
+      "dir": "down"
+    },
+    {
+      "sku": "CL3650",
+      "type": "autoTarget",
+      "id": "361752561460392",
+      "from": 0.46,
+      "to": 0.32,
+      "actualBid": 0.46,
+      "dir": "down"
+    },
+    {
+      "sku": "GT3815",
+      "type": "keyword",
+      "id": "350070399168785",
+      "from": 0.24,
+      "to": 0.28,
+      "actualBid": 0.24,
+      "dir": "up"
+    },
+    {
+      "sku": "SHQ0554",
+      "type": "autoTarget",
+      "id": "530739204733648",
+      "from": 0.31,
+      "to": 0.22,
+      "actualBid": 0.31,
+      "dir": "down"
+    }
+  ],
+  "noteStats": {
+    "skuWithAction": 256,
+    "skuWithExecResult": 0,
+    "skuChecked": 270
+  }
+}

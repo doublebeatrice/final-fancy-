@@ -1,0 +1,1089 @@
+(() => {
+  const PANEL_ID = 'yswg-v13-panel';
+  const old = document.getElementById(PANEL_ID);
+  if (old) old.remove();
+
+  const DEFAULT_SKU_TEXT = `YUT4460
+YUT4462
+MED1970
+YUT2946
+HAY1706
+SIJ3881
+XIX2353
+LO3817
+GT3811
+UAN2600
+KA1744
+LE8168
+MK0522
+YAN0656
+SHU2552
+HAY1931
+SAN1203
+YEO1452
+EY0793
+QA1950
+QA1951
+GM3061
+XUE0890
+AE2140
+YEO1463
+LED3339
+YB0698
+UAN3644
+EU0867
+SHQ3834
+YAN2293
+XIX2353
+DN1655
+GM3201
+YAN2712
+ZJ3563
+LE5294
+JAF0832
+HEL2083
+YYW2630
+RO2165
+GM3207
+QA2082
+TH2843
+OYH0257
+WAR1276
+DO0446
+DN2684
+DN1655
+YEO1451
+SHU2552
+YEO0766
+QA3896
+AE2140
+QUN1025
+QA0828
+BOY1281
+COO5293
+COO5293
+QA4115
+XIA3242
+UAN3256
+CLO0343
+JUU1053
+SIJ3881
+LE8150
+KAO0575
+IF1427
+XUE2224
+SAN1084
+BOY1281
+DN3049
+LO3821
+LNE1322
+SAN1103
+GM3207
+YAN2281
+YEO0766
+UAN3644
+RO2165
+YEO1451
+GM2627
+NEW0005
+WOO0172
+LNE1322
+GM3065
+SH0424
+KOU1439
+QA2085
+QA2074
+YMF1073KA1740
+IFS0482
+NEW0005
+SAN0113
+NAY0963
+TH2618
+YAN2278
+YEO1452
+YMF0656
+HL2535
+KA1544
+YEO1463
+KAO0575
+WD3860
+DAY2990
+HEL0606
+BOY1281
+BOY1281
+ZO0892
+QA3896
+YAN1353
+OC1858
+UAN1383
+LIC8799
+YUT2946
+ZO0891
+FE3235
+DH2685
+ZO0892
+QA3874
+LED3945
+DH2685
+LED3945
+YUT2927
+AE1181
+YUT4460
+YUT4462
+DO0446
+NAY0963
+YUT2590
+DUN1392
+YAN0087
+QA3896
+QA3173`;
+
+  const CFG = {
+    cooldownDays: 7,
+    bidFloor: 0.05,
+    requestGapMs: 1000,
+    maxAutoActionsPerRun: 5000,
+    minSpendForNoOrderCut: 3,
+    minSpendForStrongCut: 12,
+    minOrdersForScale: 3,
+    minProfitForScale: 0.15,
+    minDaysForScale: 45,
+    targetAcosDefault: 0.18,
+    keywordMatchTypeMap: {
+      exact: 1,
+      phrase: 2,
+      broad: 3,
+    },
+    clearanceRegex: /清货|尾货|clearanc|liquidat|复活节尾|easter尾|节点尾声/i,
+    supportedAdTypes: new Set(['SP', '', null, undefined]),
+  };
+
+  const state = {
+    rawFiles: [],
+    invRows: [],
+    adRows: [],
+    filteredInvRows: [],
+    filteredAdRows: [],
+    invMap: {},
+    plan: [],
+    review: [],
+    skipped: [],
+    executed: [],
+    skipSummary: {},
+    targetSkuSet: new Set(),
+    matchedSkuSet: new Set(),
+    missingSkuList: [],
+  };
+  window.__yswgAutoBidState = state;
+
+  const panelHtml = `
+    <div id="${PANEL_ID}" style="position:fixed;top:10px;right:10px;width:760px;max-height:94vh;overflow:hidden;background:#fff;border:2px solid #1d4ed8;border-radius:10px;z-index:999999;box-shadow:0 16px 40px rgba(0,0,0,.28);font-family:Arial,sans-serif;">
+      <div style="padding:12px 14px;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;align-items:center;background:#eff6ff;">
+        <div>
+          <div style="font-size:16px;font-weight:700;color:#1e3a8a;">YSWG 自动调 bid 控制台 V13</div>
+          <div style="font-size:12px;color:#475569;margin-top:2px;">仅处理指定 SKU · 成员级七天未调整执行 · 关键词 payload 对齐版</div>
+        </div>
+        <button id="yswg-v13-close" style="border:none;background:transparent;font-size:20px;cursor:pointer;color:#64748b;">×</button>
+      </div>
+
+      <div style="padding:12px 14px 10px 14px;">
+        <div style="font-size:12px;color:#334155;margin-bottom:6px;">目标 SKU 列表</div>
+        <textarea id="yswg-v13-skus" style="width:100%;height:120px;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:6px;padding:8px;font:12px/1.4 Consolas,Monaco,monospace;resize:vertical;margin-bottom:10px;">${DEFAULT_SKU_TEXT}</textarea>
+
+        <input type="file" id="yswg-v13-upload" multiple accept=".json,.csv" style="width:100%;margin-bottom:10px;" />
+
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:10px;font-size:12px;">
+          <div style="background:#eff6ff;padding:8px;border-radius:6px;">目标 SKU<br><b id="yswg-v13-target">0</b></div>
+          <div style="background:#f0fdf4;padding:8px;border-radius:6px;">命中 SKU<br><b id="yswg-v13-hit">0</b></div>
+          <div style="background:#eff6ff;padding:8px;border-radius:6px;">止血组<br><b id="yswg-v13-stop">0</b></div>
+          <div style="background:#ecfdf5;padding:8px;border-radius:6px;">追击组<br><b id="yswg-v13-scale">0</b></div>
+          <div style="background:#fff7ed;padding:8px;border-radius:6px;">人工复核<br><b id="yswg-v13-review">0</b></div>
+          <div style="background:#f8fafc;padding:8px;border-radius:6px;">跳过<br><b id="yswg-v13-skip">0</b></div>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;align-items:center;">
+          <button id="yswg-v13-analyze" style="padding:8px 12px;border:none;background:#1d4ed8;color:#fff;border-radius:6px;cursor:pointer;">生成预演计划</button>
+          <button id="yswg-v13-export" style="padding:8px 12px;border:none;background:#475569;color:#fff;border-radius:6px;cursor:pointer;">导出计划 JSON</button>
+          <button id="yswg-v13-apply" style="padding:8px 12px;border:none;background:#15803d;color:#fff;border-radius:6px;cursor:pointer;">执行已确认计划</button>
+          <label style="font-size:12px;color:#334155;display:flex;align-items:center;gap:4px;">
+            <input type="checkbox" id="yswg-v13-allow-scale" checked /> 允许自动加投
+          </label>
+          <label style="font-size:12px;color:#334155;display:flex;align-items:center;gap:4px;">
+            <input type="checkbox" id="yswg-v13-force-noinv-cut" checked /> 允许无库存映射也调整
+          </label>
+        </div>
+
+        <div id="yswg-v13-progress" style="font-size:12px;font-weight:700;color:#334155;margin-bottom:6px;">待机中</div>
+        <div style="width:100%;height:8px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-bottom:10px;">
+          <div id="yswg-v13-bar" style="width:0%;height:100%;background:#1d4ed8;transition:width .25s;"></div>
+        </div>
+
+        <div id="yswg-v13-log" style="height:360px;overflow:auto;background:#0f172a;color:#a7f3d0;border-radius:8px;padding:10px;font:12px/1.55 Consolas,Monaco,monospace;"></div>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', panelHtml);
+
+  const $ = (id) => document.getElementById(id);
+
+  function escapeHtml(str) {
+    return String(str)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#39;');
+  }
+
+  function log(msg, color = '#a7f3d0') {
+    const area = $('yswg-v13-log');
+    area.insertAdjacentHTML('beforeend', `<div style="color:${color};padding:2px 0;border-bottom:1px solid #1e293b;">&gt; ${escapeHtml(msg)}</div>`);
+    area.scrollTop = area.scrollHeight;
+  }
+
+  function setProgress(text, pct = null) {
+    $('yswg-v13-progress').textContent = text;
+    if (pct !== null) $('yswg-v13-bar').style.width = `${pct}%`;
+  }
+
+  function updateCounters() {
+    $('yswg-v13-target').textContent = state.targetSkuSet.size;
+    $('yswg-v13-hit').textContent = state.matchedSkuSet.size;
+    $('yswg-v13-stop').textContent = state.plan.filter(x => x.action === 'CUT').length;
+    $('yswg-v13-scale').textContent = state.plan.filter(x => x.action === 'SCALE').length;
+    $('yswg-v13-review').textContent = state.review.length;
+    $('yswg-v13-skip').textContent = state.skipped.length;
+  }
+
+  $('yswg-v13-close').onclick = () => document.getElementById(PANEL_ID).remove();
+
+  function clamp(num, min, max) {
+    return Math.min(max, Math.max(min, num));
+  }
+
+  function round2(num) {
+    return Math.round(num * 100) / 100;
+  }
+
+  function toNum(v, fallback = 0) {
+    if (v === null || v === undefined || v === '') return fallback;
+    const n = parseFloat(String(v).replace(/[,%￥$\s]/g, ''));
+    return Number.isFinite(n) ? n : fallback;
+  }
+
+  function toRate(v, fallback = 0) {
+    if (v === null || v === undefined || v === '') return fallback;
+    const raw = String(v).trim();
+    let n = parseFloat(raw.replace('%', '').replace(/[\s,]/g, ''));
+    if (!Number.isFinite(n)) return fallback;
+    if (raw.includes('%') || n > 1) n = n / 100;
+    return n;
+  }
+
+  function safeDate(v) {
+    if (!v) return null;
+    const d = new Date(v);
+    return Number.isNaN(+d) ? null : d;
+  }
+
+  function daysSince(v) {
+    const d = safeDate(v);
+    if (!d) return Infinity;
+    return Math.floor((Date.now() - d.getTime()) / 86400000);
+  }
+
+  function parseCSV(text) {
+    const rows = [];
+    let row = [];
+    let cur = '';
+    let inQuotes = false;
+
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      const next = text[i + 1];
+
+      if (ch === '"') {
+        if (inQuotes && next === '"') {
+          cur += '"';
+          i++;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (ch === ',' && !inQuotes) {
+        row.push(cur);
+        cur = '';
+      } else if ((ch === '\n' || ch === '\r') && !inQuotes) {
+        if (ch === '\r' && next === '\n') i++;
+        row.push(cur);
+        cur = '';
+        if (row.some(cell => String(cell).trim() !== '')) rows.push(row);
+        row = [];
+      } else {
+        cur += ch;
+      }
+    }
+
+    row.push(cur);
+    if (row.some(cell => String(cell).trim() !== '')) rows.push(row);
+    if (!rows.length) return [];
+
+    const headers = rows[0].map(x => String(x ?? '').trim().replace(/^"|"$/g, ''));
+    return rows.slice(1).map(line => {
+      const obj = {};
+      headers.forEach((h, idx) => {
+        obj[h] = String(line[idx] ?? '').trim().replace(/^"|"$/g, '');
+      });
+      return obj;
+    });
+  }
+
+  function extractRows(parsed) {
+    if (Array.isArray(parsed)) return parsed;
+    if (parsed && Array.isArray(parsed.data)) return parsed.data;
+    if (parsed && Array.isArray(parsed.rows)) return parsed.rows;
+    return [];
+  }
+
+  function detectFileType(rows) {
+    const sample = rows[0] || {};
+    const keys = Object.keys(sample);
+    const joined = keys.join('');
+
+    let invScore = 0;
+    let adScore = 0;
+
+    const invSignals = [
+      /profitRate|Q1|净利率|参考净利|当前净利|净利/i,
+      /qty_30|qty30|30天销量|销量30/i,
+      /dynamic_saleday30|sales_day|可卖天|预估可卖天数/i,
+      /input_tag|标签|solr_term|note|备注/i,
+    ];
+
+    const adSignals = [
+      /campaignName|广告活动|campaignId/i,
+      /adGroupId|广告组|groupName/i,
+      /Spend|Clicks|Orders|Sales|ACOS|ROAS|CPC/i,
+      /keywordId|targetId|bid|竞价|matchType|匹配类型/i,
+    ];
+
+    invSignals.forEach(r => { if (r.test(joined)) invScore++; });
+    adSignals.forEach(r => { if (r.test(joined)) adScore++; });
+
+    if (invScore >= 2 && invScore > adScore) return 'inv';
+    if (adScore >= 2 && adScore > invScore) return 'ad';
+    return 'unknown';
+  }
+
+  function pickFirst(obj, fields) {
+    for (const f of fields) {
+      if (obj[f] !== undefined && obj[f] !== null && obj[f] !== '') return obj[f];
+    }
+    return '';
+  }
+
+  function normalizeSku(raw) {
+    const s = String(raw ?? '').trim().toUpperCase();
+    const m = s.match(/[A-Z]+\d+/);
+    return m ? m[0] : '';
+  }
+
+  function extractSkuFromRow(row) {
+    return (
+      normalizeSku(pickFirst(row, ['sku', 'SKU', 'Sku'])) ||
+      normalizeSku(pickFirst(row, ['campaignName', '广告活动名称', '广告活动'])) ||
+      normalizeSku(pickFirst(row, ['adGroupName', '广告组名称']))
+    );
+  }
+
+  function parseTargetSkuSet(text) {
+    const matches = String(text ?? '').toUpperCase().match(/[A-Z]+\d+/g) || [];
+    return new Set(matches);
+  }
+
+  function inferKeywordMatchType(row) {
+    const direct = pickFirst(row, ['matchType', '匹配类型值', 'keywordMatchType', 'match_type']);
+    if (direct !== '' && direct !== null && direct !== undefined && !Number.isNaN(Number(direct))) {
+      return Number(direct);
+    }
+
+    const text = [
+      pickFirst(row, ['匹配类型', 'matchTypeName', 'positionType']),
+      pickFirst(row, ['campaignName', '广告活动名称']),
+      pickFirst(row, ['adGroupName', '广告组名称']),
+    ].join(' ').toLowerCase();
+
+    if (/(^|\s)(exact|kws exact)(\s|$)/i.test(text)) return CFG.keywordMatchTypeMap.exact;
+    if (/(^|\s)(phrase|kws phrase)(\s|$)/i.test(text)) return CFG.keywordMatchTypeMap.phrase;
+    if (/(^|\s)(broad|kws broad)(\s|$)/i.test(text)) return CFG.keywordMatchTypeMap.broad;
+
+    return null;
+  }
+
+  function classifyEntity(row) {
+    const adType = String(pickFirst(row, ['adType', '广告类型']) ?? '').toUpperCase();
+    if (!CFG.supportedAdTypes.has(adType)) {
+      return { type: 'UNSUPPORTED_ADTYPE', editable: false, property: '', adType };
+    }
+
+    const keywordId = pickFirst(row, ['keywordId', '关键词ID']);
+    const targetId = pickFirst(row, ['targetId', '定位ID']);
+    const positionType = String(pickFirst(row, ['positionType', '投放类型', '匹配类型']) ?? '').toLowerCase();
+    const groupName = String(pickFirst(row, ['adGroupName', '广告组名称']) ?? '').toLowerCase();
+
+    if (keywordId) return { type: 'KEYWORD', editable: true, property: 'keyword' };
+
+    if (targetId) {
+      if (/(close match|loose match|substitutes|complements|auto)/i.test(positionType) || /auto/i.test(groupName)) {
+        return { type: 'AUTO_TARGET', editable: true, property: 'autoTarget' };
+      }
+      if (/(asin|product|category|pt|商品定位)/i.test(positionType) || /pt/i.test(groupName)) {
+        return { type: 'PRODUCT_TARGET', editable: false, property: 'productTarget' };
+      }
+      return { type: 'UNKNOWN_TARGET', editable: false, property: '' };
+    }
+
+    return { type: 'UNKNOWN', editable: false, property: '' };
+  }
+
+  function buildInvMap(rows) {
+    const map = {};
+    rows.forEach((row) => {
+      const sku = normalizeSku(pickFirst(row, ['sku', 'SKU', 'Sku']));
+      if (!sku) return;
+
+      const profitCandidates = [
+        ['当前净利率', toRate(row['当前净利率'])],
+        ['Q1-3参考净利', toRate(row['Q1-3参考净利'])],
+        ['Q1净利率', toRate(row['Q1净利率'])],
+        ['netProfitRate', toRate(row.netProfitRate)],
+        ['profitRate', toRate(row.profitRate)],
+        ['profit_rate', toRate(row.profit_rate)],
+      ].filter(([, v]) => Number.isFinite(v) && v !== 0);
+
+      let profit = 0;
+      if (profitCandidates.length) profit = profitCandidates[0][1];
+
+      const qty3 = toNum(pickFirst(row, ['qty_3', '3天销量', '近3天销量']));
+      const qty7 = toNum(pickFirst(row, ['qty_7', '7天销量', '近7天销量']));
+      const qty30 = toNum(pickFirst(row, ['qty_30', '30天销量', '近30天销量']), 0);
+      const days = toNum(pickFirst(row, ['dynamic_saleday30', 'sales_day_30', 'sales_day', '预估可卖天数(142325)', '可卖天数']), 0);
+      const at = toNum(pickFirst(row, ['AT', 'at', '广告依赖度']), 0);
+
+      const tags = [
+        pickFirst(row, ['input_tag', '标签']),
+        pickFirst(row, ['note', '备注']),
+        pickFirst(row, ['solr_term']),
+      ].filter(Boolean).join('  ');
+
+      map[sku] = { sku, profit, qty3, qty7, qty30, days, at, tags, raw: row };
+    });
+    return map;
+  }
+
+  function collectStatusValues(row) {
+    const out = [];
+    const explicitKeys = [
+      'Active', 'active',
+      'state', '状态', 'status', 'Status',
+      'servingStatus',
+      'campaignState', 'campaignStatus', 'campaignServingStatus',
+      'adGroupState', 'adGroupStatus', 'adGroupServingStatus',
+      'keywordState', 'keywordStatus',
+      'targetState', 'targetStatus',
+      '广告活动状态', '广告组状态', '关键词状态', '投放状态', '启用状态'
+    ];
+
+    explicitKeys.forEach(k => {
+      if (row[k] !== undefined && row[k] !== null && row[k] !== '') {
+        out.push({ key: k, value: row[k] });
+      }
+    });
+
+    Object.keys(row).forEach(k => {
+      if (/(active|state|status|serving|启用状态)/i.test(k)) {
+        const v = row[k];
+        if (v !== undefined && v !== null && v !== '') {
+          out.push({ key: k, value: v });
+        }
+      }
+    });
+
+    const seen = new Set();
+    return out.filter(item => {
+      const sig = `${item.key}${String(item.value)}`;
+      if (seen.has(sig)) return false;
+      seen.add(sig);
+      return true;
+    });
+  }
+
+  function isPausedStatusText(text) {
+    return /(暂停|已暂停|关闭|已关闭|停用|已停用|归档|已归档|停止|stopped|paused|archived|disabled|closed|inactive|off)/i.test(String(text));
+  }
+
+  function isPausedMember(m) {
+    if (String(m.stateVal) === '2') return true;
+    if (/(PAUSED|ARCHIVED|DISABLED|CLOSED|STOPPED|INACTIVE)/i.test(String(m.servingStatus || ''))) return true;
+
+    const pairs = collectStatusValues(m.raw || {});
+    for (const { key, value } of pairs) {
+      const k = String(key);
+      const v = value;
+      if ((v === 0 || v === '0') && /(active|启用)/i.test(k)) return true;
+      if ((v === 2 || v === '2') && /(state|状态)/i.test(k)) return true;
+      if (isPausedStatusText(v)) return true;
+    }
+
+    return false;
+  }
+
+  function normalizeAdRow(row) {
+    const entity = classifyEntity(row);
+    const sku = extractSkuFromRow(row);
+    const campaignId = pickFirst(row, ['campaignId', '广告活动ID']);
+    const adGroupId = pickFirst(row, ['adGroupId', '广告组ID']);
+    const accountId = pickFirst(row, ['accountId', '账号ID']);
+    const siteId = pickFirst(row, ['siteId', '站点ID']);
+
+    const keywordId = pickFirst(row, ['keywordId', '关键词ID']);
+    const targetId = pickFirst(row, ['targetId', '定位ID']);
+    const id = String(keywordId || targetId || '');
+    const matchType = keywordId ? inferKeywordMatchType(row) : null;
+
+    const bid = toNum(pickFirst(row, ['bid', '竞价']));
+    const clicks = toNum(pickFirst(row, ['Clicks', '点击量']));
+    const spend = toNum(pickFirst(row, ['Spend', '花费']));
+    const orders = toNum(pickFirst(row, ['Orders', '广告订单量', '30天广告销量']));
+    const sales = toNum(pickFirst(row, ['Sales', '广告销售额']));
+    const acos30Raw = pickFirst(row, ['ACOS', 'Acos', 'acos_30', '30天ACOS', '30天Acos']);
+    const acos30 = sales > 0 ? spend / sales : toRate(acos30Raw, 0);
+
+    const updatedAt = pickFirst(row, ['updatedAt', 'updated_at', '更新时间']);
+    const stateVal = String(pickFirst(row, ['state', '状态']) || '');
+    const servingStatus = String(pickFirst(row, ['servingStatus']) || '');
+
+    return {
+      raw: row,
+      sku,
+      campaignId: String(campaignId || ''),
+      adGroupId: String(adGroupId || ''),
+      accountId: Number(accountId || 0),
+      siteId: Number(siteId || 0),
+      id,
+      keywordId: keywordId ? String(keywordId) : '',
+      targetId: targetId ? String(targetId) : '',
+      matchType,
+      bid,
+      clicks,
+      spend,
+      orders,
+      sales,
+      acos30,
+      updatedAt,
+      stateVal,
+      servingStatus,
+      campaignName: String(pickFirst(row, ['campaignName', '广告活动名称']) || ''),
+      adGroupName: String(pickFirst(row, ['adGroupName', '广告组名称']) || ''),
+      adType: String(pickFirst(row, ['adType', '广告类型']) || '').toUpperCase(),
+      entity,
+    };
+  }
+
+  function aggregateGroups(rows) {
+    const groups = new Map();
+    rows.forEach((r) => {
+      const key = [r.siteId, r.accountId, r.campaignId, r.adGroupId, r.entity.type].join('|');
+      if (!groups.has(key)) {
+        groups.set(key, {
+          key,
+          sku: r.sku,
+          siteId: r.siteId,
+          accountId: r.accountId,
+          campaignId: r.campaignId,
+          adGroupId: r.adGroupId,
+          campaignName: r.campaignName,
+          adGroupName: r.adGroupName,
+          adType: r.adType,
+          entity: r.entity,
+          members: [],
+        });
+      }
+      groups.get(key).members.push(r);
+    });
+    return [...groups.values()];
+  }
+
+  function summarizeMembers(members) {
+    const clicks = members.reduce((s, m) => s + (m.clicks || 0), 0);
+    const spend = members.reduce((s, m) => s + (m.spend || 0), 0);
+    const orders = members.reduce((s, m) => s + (m.orders || 0), 0);
+    const sales = members.reduce((s, m) => s + (m.sales || 0), 0);
+    const bidMembers = members.filter(m => m.bid > 0);
+    const avgBid = bidMembers.length ? bidMembers.reduce((s, m) => s + m.bid, 0) / bidMembers.length : 0;
+    const acos30 = sales > 0 ? spend / sales : (spend > 0 ? 999 : 0);
+    return { clicks, spend, orders, sales, avgBid, acos30 };
+  }
+
+  function calcSafeAcos(profit) {
+    if (!Number.isFinite(profit) || profit <= 0) return CFG.targetAcosDefault;
+    return clamp(profit * 0.75, 0.12, 0.25);
+  }
+
+  function pushReview(group, reason) {
+    state.review.push({
+      sku: group.sku || '-',
+      groupKey: group.key,
+      campaignName: group.campaignName || '',
+      adGroupName: group.adGroupName || '',
+      reason,
+    });
+  }
+
+  function pushSkip(group, reason) {
+    state.skipped.push({
+      sku: group.sku || '-',
+      groupKey: group.key,
+      campaignName: group.campaignName || '',
+      adGroupName: group.adGroupName || '',
+      reason,
+    });
+    state.skipSummary[reason] = (state.skipSummary[reason] || 0) + 1;
+  }
+
+  function calcAdjustedBid(oldBid, factor) {
+    const current = round2(oldBid);
+    let next = round2(Math.max(CFG.bidFloor, current * factor));
+
+    if (next !== current) return next;
+
+    if (factor < 1 && current > CFG.bidFloor) {
+      next = round2(Math.max(CFG.bidFloor, current - 0.01));
+      if (next !== current) return next;
+    }
+
+    if (factor > 1) {
+      next = round2(current + 0.01);
+      if (next !== current) return next;
+    }
+
+    return current;
+  }
+
+  function decideGroup(group, inv, allowScale, allowNoInvCut) {
+    if (!group.sku) return pushReview(group, '广告组无法提取 SKU');
+    if (!group.entity.editable) return pushReview(group, `类型未确认可自动执行：${group.entity.type}`);
+    if (!group.campaignId || !group.adGroupId) return pushReview(group, '缺少 campaignId/adGroupId');
+    if (!group.members.length) return pushSkip(group, '空组');
+
+    const activeMembers = group.members.filter(m => !isPausedMember(m));
+    if (!activeMembers.length) return pushSkip(group, '组内无 active 成员');
+
+    const eligibleMembers = activeMembers.filter(m => daysSince(m.updatedAt) >= CFG.cooldownDays);
+    if (!eligibleMembers.length) return pushSkip(group, '组内无超过7天未调整的 active 成员');
+
+    if (!inv && !allowNoInvCut) {
+      return pushReview(group, '库存表未匹配到 SKU');
+    }
+
+    const stats = summarizeMembers(activeMembers);
+    const profit = inv?.profit || 0;
+    const invDays = inv?.days || 0;
+    const at = inv?.at || 0;
+    const safeAcos = calcSafeAcos(profit);
+    const hardAcos = clamp(safeAcos + 0.08, 0.18, 0.35);
+    const veryHardAcos = clamp(safeAcos + 0.15, 0.22, 0.45);
+    const clearance = CFG.clearanceRegex.test(inv?.tags || '');
+
+    let factor = 1;
+    let reason = '';
+
+    if (stats.orders <= 0 && stats.spend >= CFG.minSpendForStrongCut) {
+      factor = 0.75;
+      reason = '30天无单且高花费，强止血';
+    } else if (stats.orders <= 0 && stats.spend >= CFG.minSpendForNoOrderCut) {
+      factor = 0.85;
+      reason = '30天无单且花费超低效线，止血';
+    } else if (stats.acos30 >= veryHardAcos) {
+      factor = 0.85;
+      reason = 'ACOS明显超极限线，止血';
+    } else if (stats.acos30 >= hardAcos) {
+      factor = 0.90;
+      reason = 'ACOS超安全线，微降';
+    } else if (
+      allowScale &&
+      !clearance &&
+      profit >= CFG.minProfitForScale &&
+      invDays >= CFG.minDaysForScale &&
+      stats.orders >= CFG.minOrdersForScale &&
+      stats.acos30 > 0 &&
+      stats.acos30 <= Math.max(safeAcos - 0.05, 0.08) &&
+      at <= 1.2
+    ) {
+      factor = 1.10;
+      reason = '效率健康且覆盖足，追击';
+    } else {
+      factor = 0.95;
+      reason = '七天未调整池默认微调';
+    }
+
+    let validMembers = eligibleMembers
+      .filter(m => m.id && m.bid > 0)
+      .map(m => ({
+        id: String(m.id),
+        oldBid: round2(m.bid),
+        newBid: calcAdjustedBid(m.bid, factor),
+        accountId: Number(m.accountId),
+        siteId: Number(m.siteId),
+        campaignId: String(m.campaignId),
+        adGroupId: String(m.adGroupId),
+        keywordId: m.keywordId ? String(m.keywordId) : '',
+        targetId: m.targetId ? String(m.targetId) : '',
+        matchType: m.matchType,
+      }))
+      .filter(m => m.newBid !== m.oldBid);
+
+    if (group.entity.property === 'keyword') {
+      validMembers = validMembers.filter(x => x.matchType !== null && x.matchType !== undefined && !Number.isNaN(Number(x.matchType)));
+      if (!validMembers.length) return pushReview(group, '关键词缺少 matchType，无法安全自动执行');
+    }
+
+    if (!validMembers.length) return pushSkip(group, '可调成员动作后 bid 无变化');
+
+    state.plan.push({
+      sku: group.sku,
+      groupKey: group.key,
+      siteId: Number(group.siteId),
+      accountId: Number(group.accountId),
+      campaignId: String(group.campaignId),
+      adGroupId: String(group.adGroupId),
+      campaignName: group.campaignName,
+      adGroupName: group.adGroupName,
+      entityType: group.entity.type,
+      property: group.entity.property,
+      action: factor < 1 ? 'CUT' : 'SCALE',
+      factor,
+      reason,
+      oldAvgBid: round2(stats.avgBid),
+      newAvgBid: round2(stats.avgBid * factor),
+      safeAcos: round2(safeAcos * 10000) / 10000,
+      acos30: stats.acos30,
+      clicks30: stats.clicks,
+      spend30: round2(stats.spend),
+      orders30: stats.orders,
+      sales30: round2(stats.sales),
+      activeCount: activeMembers.length,
+      eligibleCount: eligibleMembers.length,
+      executeCount: validMembers.length,
+      validMembers,
+    });
+  }
+
+  async function loadFiles(fileList) {
+    state.rawFiles = [...fileList];
+    state.invRows = [];
+    state.adRows = [];
+    state.filteredInvRows = [];
+    state.filteredAdRows = [];
+    state.matchedSkuSet = new Set();
+    state.missingSkuList = [];
+
+    log(`收到 ${fileList.length} 个文件，开始识别...`, '#93c5fd');
+
+    for (const f of fileList) {
+      try {
+        const text = await f.text();
+        const parsed = f.name.toLowerCase().endsWith('.csv')
+          ? parseCSV(text)
+          : extractRows(JSON.parse(text));
+
+        const rows = Array.isArray(parsed) ? parsed : [];
+        const type = detectFileType(rows);
+
+        if (type === 'inv') {
+          state.invRows = rows;
+          log(`识别为库存表：${f.name}，${rows.length} 行`, '#86efac');
+        } else if (type === 'ad') {
+          state.adRows = rows;
+          log(`识别为广告表：${f.name}，${rows.length} 行`, '#86efac');
+        } else {
+          log(`无法识别文件类型：${f.name}`, '#fbbf24');
+        }
+      } catch (err) {
+        log(`文件解析失败：${f.name} | ${err.message}`, '#f87171');
+      }
+    }
+
+    if (!state.invRows.length) log('当前未识别到库存表', '#fbbf24');
+    if (!state.adRows.length) log('当前未识别到广告表', '#fbbf24');
+  }
+
+  function renderPlan() {
+    log(`预演完成：止血 ${state.plan.filter(x => x.action === 'CUT').length} 组，追击 ${state.plan.filter(x => x.action === 'SCALE').length} 组，复核 ${state.review.length} 组，跳过 ${state.skipped.length} 组`, '#93c5fd');
+
+    if (state.missingSkuList.length) {
+      log(`广告表中未命中的目标 SKU：${state.missingSkuList.slice(0, 80).join(', ')}`, '#fbbf24');
+    }
+
+    state.plan.slice(0, 120).forEach((x) => {
+      const pct = `${x.action === 'CUT' ? '-' : '+'}${Math.round(Math.abs(1 - x.factor) * 100)}%`;
+      const color = x.action === 'CUT' ? '#fca5a5' : '#86efac';
+      log(`[${x.sku}] ${x.campaignName} | ${x.adGroupName} | ${x.action} ${pct} | 执行 ${x.executeCount}/${x.eligibleCount}/${x.activeCount} | ${x.reason}`, color);
+    });
+
+    const skipPairs = Object.entries(state.skipSummary).sort((a, b) => b[1] - a[1]);
+    if (skipPairs.length) {
+      log('跳过原因汇总：', '#fbbf24');
+      skipPairs.slice(0, 20).forEach(([reason, count]) => {
+        log(`[跳过] ${reason}：${count}`, '#fbbf24');
+      });
+    }
+  }
+
+  async function analyze() {
+    state.plan = [];
+    state.review = [];
+    state.skipped = [];
+    state.executed = [];
+    state.skipSummary = {};
+    state.matchedSkuSet = new Set();
+    state.missingSkuList = [];
+
+    state.targetSkuSet = parseTargetSkuSet($('yswg-v13-skus').value);
+    updateCounters();
+
+    if (!state.targetSkuSet.size) {
+      log('目标 SKU 列表为空', '#f87171');
+      return;
+    }
+    if (!state.invRows.length || !state.adRows.length) {
+      log('请先上传并识别到库存表 + 广告表', '#f87171');
+      return;
+    }
+
+    setProgress('按目标 SKU 过滤数据...', 5);
+
+    state.filteredInvRows = state.invRows.filter(row => {
+      const sku = normalizeSku(pickFirst(row, ['sku', 'SKU', 'Sku']));
+      return sku && state.targetSkuSet.has(sku);
+    });
+
+    const normalizedAllAds = state.adRows.map(normalizeAdRow);
+    state.filteredAdRows = normalizedAllAds.filter(r => r.sku && state.targetSkuSet.has(r.sku));
+
+    state.filteredAdRows.forEach(r => state.matchedSkuSet.add(r.sku));
+    state.missingSkuList = [...state.targetSkuSet].filter(sku => !state.matchedSkuSet.has(sku)).sort();
+
+    log(`目标 SKU：${state.targetSkuSet.size} 个`, '#93c5fd');
+    log(`广告表命中：${state.matchedSkuSet.size} 个 SKU，${state.filteredAdRows.length} 条广告记录`, '#93c5fd');
+    log(`库存表命中：${state.filteredInvRows.length} 条记录`, '#93c5fd');
+
+    setProgress('建立库存映射...', 18);
+    state.invMap = buildInvMap(state.filteredInvRows);
+
+    setProgress('按广告组聚合...', 30);
+    const usableRows = state.filteredAdRows.filter(r => r.campaignId && r.adGroupId);
+    const groups = aggregateGroups(usableRows);
+    log(`过滤后聚合完成：${groups.length} 个组`, '#93c5fd');
+
+    const allowScale = $('yswg-v13-allow-scale').checked;
+    const allowNoInvCut = $('yswg-v13-force-noinv-cut').checked;
+
+    setProgress('按规则生成预演计划...', 45);
+    groups.forEach((group, idx) => {
+      const inv = state.invMap[group.sku] || null;
+      decideGroup(group, inv, allowScale, allowNoInvCut);
+
+      if ((idx + 1) % 20 === 0 || idx === groups.length - 1) {
+        setProgress(`分析中 ${idx + 1}/${groups.length}`, 45 + Math.round(((idx + 1) / Math.max(groups.length, 1)) * 45));
+      }
+    });
+
+    if (state.plan.length > CFG.maxAutoActionsPerRun) {
+      const extra = state.plan.splice(CFG.maxAutoActionsPerRun);
+      extra.forEach(x => pushReview({
+        key: x.groupKey,
+        sku: x.sku,
+        campaignName: x.campaignName,
+        adGroupName: x.adGroupName,
+      }, '超出单次自动动作上限，已转人工复核'));
+      log(`预演动作数超过上限 ${CFG.maxAutoActionsPerRun}，超出部分已转人工复核`, '#fbbf24');
+    }
+
+    updateCounters();
+    setProgress('预演完成', 100);
+    renderPlan();
+  }
+
+  function buildRequestPayload(planItem) {
+    if (planItem.property === 'keyword') {
+      const keywordItems = planItem.validMembers.map(x => ({
+        siteId: Number(x.siteId),
+        accountId: Number(x.accountId),
+        campaignId: String(x.campaignId),
+        adGroupId: String(x.adGroupId),
+        matchType: Number(x.matchType),
+        keywordId: String(x.keywordId || x.id),
+        bid: String(x.newBid.toFixed(2)),
+      }));
+
+      return {
+        column: 'bid',
+        targetArray: keywordItems,
+        property: 'keyword',
+        idArray: keywordItems.map(x => String(x.keywordId)),
+        operation: 'bid',
+        accountId: Number(planItem.accountId),
+        siteId: Number(planItem.siteId),
+        campaignIdArray: [String(planItem.campaignId)],
+        targetNewArray: keywordItems,
+      };
+    }
+
+    if (planItem.property === 'autoTarget') {
+      return {
+        siteId: Number(planItem.siteId),
+        accountId: Number(planItem.accountId),
+        column: 'bid',
+        property: 'autoTarget',
+        operation: 'bid',
+        campaignIdArray: [String(planItem.campaignId)],
+        idArray: planItem.validMembers.map(x => String(x.id)),
+        targetArray: planItem.validMembers.map(x => ({
+          siteId: Number(x.siteId),
+          accountId: Number(x.accountId),
+          campaignId: String(x.campaignId),
+          adGroupId: String(x.adGroupId),
+          targetId: String(x.targetId || x.id),
+          bid: String(x.newBid.toFixed(2)),
+        })),
+      };
+    }
+
+    throw new Error(`未支持的 property: ${planItem.property}`);
+  }
+
+  function getXsrfToken() {
+    const m = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/);
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+
+  async function applyPlan() {
+    if (!state.plan.length) {
+      log('当前没有可执行计划，请先生成预演计划', '#f87171');
+      return;
+    }
+
+    const executable = state.plan.slice();
+    const ok = confirm(`将执行 ${executable.length} 个广告组的 bid 调整。\n仅处理目标 SKU：${state.targetSkuSet.size} 个。\n确认继续？`);
+    if (!ok) return;
+
+    const xsrf = getXsrfToken();
+    if (!xsrf) {
+      log('未读取到 XSRF-TOKEN，已中止执行', '#f87171');
+      return;
+    }
+
+    for (let i = 0; i < executable.length; i++) {
+      const item = executable[i];
+      const url = item.property === 'keyword'
+        ? 'https://adv.yswg.com.cn/keyword/batchKeyword'
+        : item.property === 'autoTarget'
+          ? 'https://adv.yswg.com.cn/advTarget/batchEditAutoTarget'
+          : '';
+
+      if (!url) {
+        state.executed.push({ ...item, status: 'skip', message: '未找到可执行接口' });
+        log(`[跳过][${item.sku}] ${item.campaignName} | ${item.adGroupName} | 未找到可执行接口`, '#fbbf24');
+        continue;
+      }
+
+      let payload;
+      try {
+        payload = buildRequestPayload(item);
+      } catch (err) {
+        state.executed.push({ ...item, status: 'error', error: err.message });
+        log(`[异常][${item.sku}] ${item.campaignName} | ${item.adGroupName} | ${err.message}`, '#f87171');
+        continue;
+      }
+
+      try {
+        const res = await fetch(url, {
+          method: 'PATCH',
+          credentials: 'include',
+          headers: {
+            'accept': 'application/json, text/plain, */*',
+            'content-type': 'application/json',
+            'x-xsrf-token': xsrf,
+          },
+          body: JSON.stringify(payload),
+        });
+
+        let json = null;
+        try { json = await res.json(); } catch (_) {}
+
+        const bizOk = !!(json && (json.code === 200 || json.success === true || json.msg === 'success'));
+        if (res.ok && (bizOk || json === null)) {
+          state.executed.push({ ...item, status: 'ok', response: json });
+          log(`[成功][${item.sku}] ${item.campaignName} | ${item.adGroupName} | ${item.reason} | 执行 ${item.validMembers.length} 条`, '#86efac');
+        } else {
+          const msg = (json && (json.msg || json.message || json.error)) || `HTTP ${res.status}`;
+          state.executed.push({ ...item, status: 'fail', response: json, httpStatus: res.status, payload });
+          log(`[失败][${item.sku}] ${item.campaignName} | ${item.adGroupName} | ${msg}`, '#fca5a5');
+          log(`[失败请求体][${item.sku}] ${JSON.stringify(payload)}`, '#fbbf24');
+        }
+      } catch (err) {
+        state.executed.push({ ...item, status: 'error', error: err.message, payload });
+        log(`[异常][${item.sku}] ${item.campaignName} | ${item.adGroupName} | ${err.message}`, '#f87171');
+        if (payload) log(`[异常请求体][${item.sku}] ${JSON.stringify(payload)}`, '#fbbf24');
+      }
+
+      const pct = Math.round(((i + 1) / executable.length) * 100);
+      setProgress(`执行中 ${i + 1}/${executable.length}`, pct);
+      await new Promise(r => setTimeout(r, CFG.requestGapMs));
+    }
+
+    updateCounters();
+    const okCount = state.executed.filter(x => x.status === 'ok').length;
+    const failCount = state.executed.filter(x => x.status === 'fail' || x.status === 'error').length;
+    setProgress(`执行结束。成功 ${okCount}，失败 ${failCount}`, 100);
+  }
+
+  function exportPlan() {
+    const blob = new Blob([
+      JSON.stringify({
+        exportedAt: new Date().toISOString(),
+        targetSkus: [...state.targetSkuSet],
+        matchedSkus: [...state.matchedSkuSet],
+        missingSkuList: state.missingSkuList,
+        plan: state.plan,
+        review: state.review,
+        skipped: state.skipped,
+        executed: state.executed,
+        skipSummary: state.skipSummary,
+      }, null, 2)
+    ], { type: 'application/json;charset=utf-8' });
+
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `yswg-auto-bid-target-sku-plan-${Date.now()}.json`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+
+    log('计划文件已导出', '#93c5fd');
+  }
+
+  $('yswg-v13-upload').addEventListener('change', async (e) => {
+    const files = e.target.files;
+    if (!files || !files.length) return;
+    await loadFiles(files);
+  });
+
+  $('yswg-v13-analyze').addEventListener('click', analyze);
+  $('yswg-v13-export').addEventListener('click', exportPlan);
+  $('yswg-v13-apply').addEventListener('click', applyPlan);
+
+  state.targetSkuSet = parseTargetSkuSet(DEFAULT_SKU_TEXT);
+  updateCounters();
+  log('控制台已就绪。先上传库存表 + 广告表，再点“生成预演计划”。', '#93c5fd');
+})();

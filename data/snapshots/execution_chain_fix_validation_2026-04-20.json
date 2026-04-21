@@ -1,0 +1,106 @@
+{
+  "date": "2026-04-20",
+  "scope": "execution_chain_consistency_inventory_note_fix",
+  "strategyChanged": false,
+  "targetedVerification": {
+    "freshFetchCounts": {
+      "inventorySkus": 717,
+      "keywords": 6711,
+      "autoTargets": 1525,
+      "manualTargets": 1631,
+      "sponsoredBrands": 3562,
+      "productCards": 427
+    },
+    "checks": [
+      {
+        "sku": "SC3420",
+        "entityType": "keyword",
+        "id": "463179748346107",
+        "endpoint": "/keyword/batchKeyword",
+        "payloadMode": "full_row_payload_with_campaignIdArray",
+        "fromBid": 0.44,
+        "toBid": 0.45,
+        "apiStatus": "api_success",
+        "freshLookupBid": 0.45,
+        "finalStatus": "success",
+        "inventoryNote": "success"
+      },
+      {
+        "sku": "KV3640",
+        "entityType": "manualTarget",
+        "id": "367712391178375",
+        "endpoint": "/advTarget/batchUpdateManualTarget",
+        "fromBid": 0.47,
+        "toBid": 0.48,
+        "apiStatus": "api_success",
+        "freshLookupBid": 0.48,
+        "finalStatus": "success",
+        "inventoryNote": "success"
+      },
+      {
+        "sku": "SHQ2216",
+        "entityType": "autoTarget",
+        "id": "416371830621891",
+        "endpoint": "/advTarget/batchEditAutoTarget",
+        "fromBid": 0.35,
+        "toBid": 0.36,
+        "apiStatus": "api_success",
+        "freshLookupBid": 0.36,
+        "finalStatus": "success",
+        "inventoryNote": "success"
+      }
+    ],
+    "missingAidCheck": {
+      "checkedSkus": [
+        "TH2527",
+        "UY1623",
+        "LM2288",
+        "QUN1382",
+        "OB3296",
+        "OB4139",
+        "RHO1540",
+        "GM4172",
+        "YAN4898",
+        "9179413058379",
+        "11325367019821",
+        "YEO1452",
+        "97540494023288",
+        "255723187790789"
+      ],
+      "foundInCurrentInventoryMap": [],
+      "decision": "do_not_guess_aid"
+    }
+  },
+  "fullRetest": {
+    "snapshot": "data/snapshots/execution_verify_2026-04-20.json",
+    "summary": "data/snapshots/execution_summary_2026-04-20.json",
+    "plannedSkus": 29,
+    "plannedActions": 55,
+    "finalCounts": {
+      "success": 18,
+      "not_landed": 0,
+      "conflict": 37,
+      "failed": 0,
+      "keyword_success": 5,
+      "keyword_conflict": 1,
+      "autoTarget_conflict": 36,
+      "manualTarget_success": 13
+    },
+    "inventoryNotes": {
+      "success": 28,
+      "failed": 1,
+      "failedSkus": [
+        {
+          "sku": "TH2527",
+          "reason": "missing_inventory_record_or_aid"
+        }
+      ]
+    },
+    "sbRegression": {
+      "sbKeywordActions": 0,
+      "sbTargetActions": 0,
+      "note": "current strategy/history state produced no SB actions in this retest; SB code paths were not changed"
+    }
+  },
+  "finalConclusion": "修复后继续复测"
+}

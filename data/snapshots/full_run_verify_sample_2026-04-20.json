@@ -1,0 +1,438 @@
+[
+  {
+    "entityType": "keyword",
+    "id": "463179748346107",
+    "currentBid": 0.6,
+    "suggestedBid": 0.42,
+    "reason": "TACoS35%超目标x2降30% 广告占比17%超8%上限",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 35.3,
+      "targetTacos": 12.3,
+      "clicks30": 58,
+      "orders30": 6,
+      "spend30": 33.35,
+      "adRate": 17.4,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "SC3420"
+  },
+  {
+    "entityType": "keyword",
+    "id": "224575452404431",
+    "currentBid": 0.36,
+    "suggestedBid": 0.25,
+    "reason": "TACoS33%超目标x2降30% 广告占比17%超8%上限",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 33,
+      "targetTacos": 12.3,
+      "clicks30": 102,
+      "orders30": 9,
+      "spend30": 32.16,
+      "adRate": 17.4,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "SC3420"
+  },
+  {
+    "entityType": "keyword",
+    "id": "168073249825908",
+    "currentBid": 0.33,
+    "suggestedBid": 0.3,
+    "reason": "TACoS18%超目标x1.3降10% 广告占比17%超8%上限",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 18,
+      "targetTacos": 12.3,
+      "clicks30": 35,
+      "orders30": 3,
+      "spend30": 11.08,
+      "adRate": 17.4,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "SC3420"
+  },
+  {
+    "entityType": "keyword",
+    "id": "449827323812004",
+    "currentBid": 0.32,
+    "suggestedBid": 0.22,
+    "reason": "TACoS30%超目标x2降30% 广告占比17%超8%上限",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 30.3,
+      "targetTacos": 12.3,
+      "clicks30": 30,
+      "orders30": 1,
+      "spend30": 10.13,
+      "adRate": 17.4,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "SC3420"
+  },
+  {
+    "entityType": "keyword",
+    "id": "299331622561829",
+    "currentBid": 0.49,
+    "suggestedBid": 0.34,
+    "reason": "TACoS8%超目标x2降30% 广告占比11%超8%上限",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 7.8,
+      "targetTacos": 1,
+      "clicks30": 5,
+      "orders30": 1,
+      "spend30": 2.26,
+      "adRate": 11.2,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "CL4170"
+  },
+  {
+    "entityType": "autoTarget",
+    "id": "377199180799827",
+    "currentBid": 0.3,
+    "suggestedBid": 0.21,
+    "reason": "零转化38次点击$11.13降30% 广告占比15%超8%上限",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 9900,
+      "targetTacos": 18,
+      "clicks30": 38,
+      "orders30": 0,
+      "spend30": 11.13,
+      "adRate": 15.3,
+      "windows": [
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "QA1950"
+  },
+  {
+    "entityType": "autoTarget",
+    "id": "467234328047215",
+    "currentBid": 0.3,
+    "suggestedBid": 0.26,
+    "reason": "零转化15次点击$4.35降15% 广告占比15%超8%上限",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 9900,
+      "targetTacos": 18,
+      "clicks30": 15,
+      "orders30": 0,
+      "spend30": 4.35,
+      "adRate": 15.3,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "QA1950"
+  },
+  {
+    "entityType": "autoTarget",
+    "id": "478251452638698",
+    "currentBid": 0.25,
+    "suggestedBid": 0.17,
+    "reason": "TACoS38%超目标x2降30% 广告占比19%超8%上限",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 37.7,
+      "targetTacos": 12.6,
+      "clicks30": 88,
+      "orders30": 6,
+      "spend30": 23.39,
+      "adRate": 19.2,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "SE6599"
+  },
+  {
+    "entityType": "autoTarget",
+    "id": "441394203849372",
+    "currentBid": 0.22,
+    "suggestedBid": 0.18,
+    "reason": "TACoS21%超目标x1.6降20% 广告占比19%超8%上限",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 20.7,
+      "targetTacos": 12.6,
+      "clicks30": 97,
+      "orders30": 7,
+      "spend30": 21.89,
+      "adRate": 19.2,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "SE6599"
+  },
+  {
+    "entityType": "autoTarget",
+    "id": "504406032189642",
+    "currentBid": 0.24,
+    "suggestedBid": 0.28,
+    "reason": "TACoS12%低于目标x0.5强势+15%",
+    "direction": "up",
+    "snapshot": {
+      "wTacos": 12.4,
+      "targetTacos": 28.5,
+      "clicks30": 95,
+      "orders30": 14,
+      "spend30": 32.77,
+      "adRate": 6.3,
+      "windows": [
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "KV3640"
+  },
+  {
+    "entityType": "sbKeyword",
+    "id": "272246266732495",
+    "currentBid": 0.2,
+    "suggestedBid": 0.14,
+    "reason": "TACoS5%超目标x2降30% 广告占比11%超8%上限",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 4.5,
+      "targetTacos": 1,
+      "clicks30": 19,
+      "orders30": 3,
+      "spend30": 3.6,
+      "adRate": 11.2,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "CL4170"
+  },
+  {
+    "entityType": "sbKeyword",
+    "id": "390750937639104",
+    "currentBid": 0.28,
+    "suggestedBid": 0.2,
+    "reason": "TACoS9%超目标x2降30% 广告占比11%超8%上限",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 9.3,
+      "targetTacos": 1,
+      "clicks30": 6,
+      "orders30": 1,
+      "spend30": 1.53,
+      "adRate": 11.2,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "CL4170"
+  },
+  {
+    "entityType": "sbKeyword",
+    "id": "398156251212217",
+    "currentBid": 0.23,
+    "suggestedBid": 0.16,
+    "reason": "TACoS61%超目标x2降30% 广告占比14%超8%上限",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 61.4,
+      "targetTacos": 7.5,
+      "clicks30": 34,
+      "orders30": 1,
+      "spend30": 7.78,
+      "adRate": 14,
+      "windows": [
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "HAY0218"
+  },
+  {
+    "entityType": "sbKeyword",
+    "id": "514110472131408",
+    "currentBid": 0.2,
+    "suggestedBid": 0.14,
+    "reason": "TACoS19%超目标x2降30% 广告占比14%超8%上限",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 19.4,
+      "targetTacos": 7.5,
+      "clicks30": 40,
+      "orders30": 3,
+      "spend30": 7.7,
+      "adRate": 14,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "HAY0218"
+  },
+  {
+    "entityType": "sbKeyword",
+    "id": "331807501472684",
+    "currentBid": 0.2,
+    "suggestedBid": 0.14,
+    "reason": "TACoS25%超目标x2降30% 广告占比14%超8%上限",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 24.5,
+      "targetTacos": 7.5,
+      "clicks30": 9,
+      "orders30": 1,
+      "spend30": 1.75,
+      "adRate": 14,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "HAY0218"
+  },
+  {
+    "entityType": "sbTarget",
+    "id": "383392686978106",
+    "currentBid": 0.35,
+    "suggestedBid": 0.4,
+    "reason": "TACoS10%低于目标x0.5强势+15%",
+    "direction": "up",
+    "snapshot": {
+      "wTacos": 10,
+      "targetTacos": 23.4,
+      "clicks30": 47,
+      "orders30": 10,
+      "spend30": 13.48,
+      "adRate": 5.2,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "SE5608"
+  },
+  {
+    "entityType": "sbTarget",
+    "id": "420680921112788",
+    "currentBid": 0.25,
+    "suggestedBid": 0.23,
+    "reason": "TACoS32%超目标x1.3降10%",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 31.5,
+      "targetTacos": 23.4,
+      "clicks30": 4,
+      "orders30": 1,
+      "spend30": 1.03,
+      "adRate": 5.2,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "SE5608"
+  },
+  {
+    "entityType": "sbTarget",
+    "id": "356835558869652",
+    "currentBid": 0.3,
+    "suggestedBid": 0.26,
+    "reason": "零转化22次点击$7.26降15%",
+    "direction": "down",
+    "snapshot": {
+      "wTacos": 9900,
+      "targetTacos": 28.7,
+      "clicks30": 22,
+      "orders30": 0,
+      "spend30": 7.26,
+      "adRate": 0.8,
+      "windows": [
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "HAY1932"
+  },
+  {
+    "entityType": "autoTarget",
+    "id": "404974428702951",
+    "currentBid": 0.31,
+    "suggestedBid": 0.36,
+    "reason": "TACoS7%低于目标x0.5强势+15%",
+    "direction": "up",
+    "snapshot": {
+      "wTacos": 7.3,
+      "targetTacos": 28.5,
+      "clicks30": 27,
+      "orders30": 8,
+      "spend30": 8.1,
+      "adRate": 6.3,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "KV3640"
+  },
+  {
+    "entityType": "autoTarget",
+    "id": "367712391178375",
+    "currentBid": 0.47,
+    "suggestedBid": 0.54,
+    "reason": "TACoS8%低于目标x0.5强势+15%",
+    "direction": "up",
+    "snapshot": {
+      "wTacos": 7.8,
+      "targetTacos": 28.5,
+      "clicks30": 23,
+      "orders30": 8,
+      "spend30": 10.38,
+      "adRate": 6.3,
+      "windows": [
+        "3d",
+        "7d",
+        "30d"
+      ]
+    },
+    "sku": "KV3640"
+  }
+]

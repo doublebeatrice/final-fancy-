@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "YSWG 广告全自动调整台",
+  "version": "1.0.0",
+  "description": "全量拉取广告+库存+Listing数据，AI分析后自动调整竞价",
+  "action": {
+    "default_title": "广告调整台"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "downloads",
+    "cookies",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://sellerinventory.yswg.com.cn/*",
+    "http://sellerinventory.yswg.com.cn/*",
+    "https://adv.yswg.com.cn/*",
+    "http://adv.yswg.com.cn/*",
+    "https://www.amazon.com/*"
+  ]
+}

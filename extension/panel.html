@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>YSWG 广告全自动调整台</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      background: #0d1117;
+      color: #c9d1d9;
+      width: 780px;
+      min-height: 400px;
+      padding: 12px;
+    }
+    h1 { font-size: 15px; color: #58a6ff; margin-bottom: 12px; font-weight: 600; }
+
+    .section { background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
+    .section-title { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+
+    button {
+      background: #21262d; border: 1px solid #30363d; color: #c9d1d9;
+      border-radius: 4px; padding: 5px 12px; cursor: pointer; font-size: 12px;
+      transition: background .15s;
+    }
+    button:hover { background: #30363d; }
+    button.primary { background: #1f6feb; border-color: #388bfd; color: #fff; }
+    button.primary:hover { background: #388bfd; }
+    button.success { background: #238636; border-color: #2ea043; color: #fff; }
+    button.success:hover { background: #2ea043; }
+    button.danger  { background: #b62324; border-color: #da3633; color: #fff; }
+    button.danger:hover  { background: #da3633; }
+    button:disabled { opacity: .45; cursor: default; }
+
+    .stats-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .stat { display: flex; flex-direction: column; align-items: center; }
+    .stat-val { font-size: 20px; font-weight: 700; color: #58a6ff; line-height: 1.2; }
+    .stat-lbl { font-size: 10px; color: #8b949e; }
+
+    .param-row { display: flex; gap: 16px; align-items: center; }
+    .param-row label { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #8b949e; }
+    .param-row input[type=number] { width: 60px; background: #0d1117; border: 1px solid #30363d; border-radius: 4px; padding: 3px 6px; color: #c9d1d9; font-size: 12px; }
+
+    .progress-wrap { height: 6px; background: #21262d; border-radius: 3px; overflow: hidden; margin-top: 6px; }
+    .progress-bar  { height: 100%; background: #1f6feb; border-radius: 3px; width: 0%; transition: width .3s; }
+
+    .action-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+    .exec-stats { display: flex; gap: 12px; font-size: 12px; }
+    .exec-stats span { color: #8b949e; }
+    .exec-stats span b { color: #c9d1d9; }
+    .exec-stats .ok  b { color: #3fb950; }
+    .exec-stats .err b { color: #f85149; }
+
+    /* 导入区块 */
+    .import-hint { font-size: 12px; color: #8b949e; line-height: 1.6; margin-bottom: 8px; }
+    .import-hint b { color: #58a6ff; }
+    #planTextarea {
+      width: 100%; height: 80px; background: #0d1117; border: 1px solid #30363d;
+      border-radius: 4px; padding: 6px 8px; color: #c9d1d9; font-family: "Consolas", monospace;
+      font-size: 11px; resize: vertical;
+    }
+    #planTextarea:focus { outline: none; border-color: #58a6ff; }
+    #planTextarea::placeholder { color: #484f58; }
+
+    /* 产品卡片 */
+    #cards-container { display: flex; flex-direction: column; gap: 8px; max-height: 460px; overflow-y: auto; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 6px; overflow: hidden; }
+    .card-header { display: flex; align-items: center; gap: 8px; padding: 8px 12px; cursor: pointer; user-select: none; }
+    .card-header:hover { background: #1c2128; }
+    .card-sku  { font-weight: 600; color: #c9d1d9; flex-shrink: 0; }
+    .card-asin { font-size: 11px; color: #58a6ff; flex-shrink: 0; }
+    .tag { font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 10px; letter-spacing: .03em; }
+    .tag-stage-新品    { background: #1f6feb33; color: #79c0ff; border: 1px solid #1f6feb; }
+    .tag-stage-成熟品  { background: #3fb95033; color: #56d364; border: 1px solid #3fb950; }
+    .tag-stage-衰退品  { background: #f8514933; color: #ff7b72; border: 1px solid #f85149; }
+    .tag-stage-节气品  { background: #d2a52033; color: #e3b341; border: 1px solid #d2a520; }
+    .tag-health-盈利   { background: #3fb95022; color: #56d364; border: 1px solid #3fb950; }
+    .tag-health-持平   { background: #58a6ff22; color: #79c0ff; border: 1px solid #58a6ff; }
+    .tag-health-亏损   { background: #f8514933; color: #ff7b72; border: 1px solid #f85149; }
+    .tag-health-高风险 { background: #d2a52033; color: #e3b341; border: 1px solid #d2a520; }
+    .tag-health-Listing异常 { background: #f8514966; color: #ff7b72; border: 1px solid #f85149; }
+    .listing-alert { font-size: 11px; color: #ff7b72; background: #f8514922; border: 1px solid #f8514966; border-radius: 4px; padding: 2px 7px; }
+    .card-strategy { font-size: 11px; color: #8b949e; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .card-toggle   { font-size: 11px; color: #58a6ff; flex-shrink: 0; }
+
+    .card-body { padding: 0 12px 10px; border-top: 1px solid #21262d; }
+    .card-summary { font-size: 12px; color: #8b949e; margin: 8px 0; line-height: 1.5; }
+
+    .actions-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    .actions-table th { color: #8b949e; font-weight: 500; text-align: left; padding: 4px 6px; border-bottom: 1px solid #21262d; }
+    .actions-table td { padding: 4px 6px; border-bottom: 1px solid #161b22; vertical-align: middle; }
+    .actions-table tr:last-child td { border-bottom: none; }
+    .bid-change { font-weight: 600; }
+    .bid-up   { color: #3fb950; }
+    .bid-down { color: #f85149; }
+    .bid-same { color: #8b949e; }
+    .cooldown-badge { font-size: 10px; color: #e3b341; background: #d2a52022; border: 1px solid #d2a52066; border-radius: 3px; padding: 1px 4px; }
+    .reason-text { color: #8b949e; max-width: 220px; }
+
+    #log {
+      background: #0d1117; border: 1px solid #21262d; border-radius: 4px;
+      padding: 8px; font-family: "Consolas", "SF Mono", monospace; font-size: 11px;
+      color: #8b949e; height: 100px; overflow-y: auto; line-height: 1.6;
+    }
+    #log .info  { color: #58a6ff; }
+    #log .ok    { color: #3fb950; }
+    #log .warn  { color: #e3b341; }
+    #log .error { color: #f85149; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <h1>YSWG 广告全自动调整台</h1>
+
+  <!-- 数据拉取 -->
+  <div class="section">
+    <div class="section-title">第一步：拉取全量数据</div>
+    <div class="stats-row">
+      <div class="stat"><span class="stat-val" id="statInv">0</span><span class="stat-lbl">库存 SKU</span></div>
+      <div class="stat"><span class="stat-val" id="statKw">0</span><span class="stat-lbl">关键词</span></div>
+      <div class="stat"><span class="stat-val" id="statAuto">0</span><span class="stat-lbl">自动投放</span></div>
+      <div class="stat"><span class="stat-val" id="statSp7d">0</span><span class="stat-lbl">SP 7d pool</span></div>
+      <div class="stat"><span class="stat-val" id="statSb7d">0</span><span class="stat-lbl">SB 7d pool</span></div>
+      <div class="stat"><span class="stat-val" id="statListing">0</span><span class="stat-lbl">Listing 已抓</span></div>
+      <div style="flex:1"></div>
+      <button id="fetchBtn" class="primary">拉取全量数据</button>
+    </div>
+    <div class="progress-wrap" style="margin-top:8px"><div class="progress-bar" id="fetchProgress"></div></div>
+  </div>
+
+  <!-- 安全参数 -->
+  <div class="section">
+    <div class="section-title">安全参数</div>
+    <div class="param-row">
+      <label>冷却天数 <input type="number" id="cooldownDays" value="7" min="0" max="30" step="1"></label>
+      <label>竞价下限 $ <input type="number" id="bidFloor" value="0.05" min="0.01" max="1" step="0.01"></label>
+    </div>
+  </div>
+
+  <!-- 导出 + 导入 -->
+  <div class="section">
+    <div class="section-title">第二步：导出数据 → 发给 Claude → 导入计划</div>
+    <div class="import-hint">
+      ① 点 <b>导出数据</b>，把下载的 JSON 文件内容粘贴给 Claude 分析<br>
+      ② Claude 返回计划 JSON 后，粘贴到下方文本框，点 <b>解析并展示</b>
+    </div>
+    <div class="action-row" style="margin-bottom:8px">
+      <button id="exportBtn" disabled>导出数据（发给 Claude）</button>
+    </div>
+    <textarea id="planTextarea" placeholder='粘贴 Claude 返回的计划 JSON，例如：[{"sku":"...","stage":"新品",...}]'></textarea>
+    <div class="action-row" style="margin-top:6px">
+      <button id="importBtn" class="success">解析并展示计划</button>
+    </div>
+  </div>
+
+  <!-- 产品卡片 -->
+  <div class="section" id="cardsSection" style="display:none">
+    <div class="section-title" id="cardsSectionTitle">产品分析结果</div>
+    <div id="cards-container"></div>
+  </div>
+
+  <!-- 执行 -->
+  <div class="section">
+    <div class="section-title">第三步：执行</div>
+    <div class="action-row">
+      <button id="executeBtn" class="danger" disabled>执行已勾选项目</button>
+      <div class="exec-stats">
+        <span>待执行: <b id="execPending">0</b></span>
+        <span class="ok">成功: <b id="execOk">0</b></span>
+        <span class="err">失败: <b id="execErr">0</b></span>
+        <span>人工复核: <b id="execReview">0</b></span>
+        <span>403阻塞: <b id="execBlocked">0</b></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 日志 -->
+  <div class="section">
+    <div class="section-title" style="display:flex;justify-content:space-between;align-items:center">
+      <span>日志</span>
+      <button id="copyLogBtn" style="font-size:10px;padding:2px 8px">复制日志</button>
+    </div>
+    <div id="log"></div>
+  </div>
+
+  <script src="panel.js"></script>
+</body>
+</html>

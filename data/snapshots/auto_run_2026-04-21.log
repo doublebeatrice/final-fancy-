@@ -1,0 +1,990 @@
+[2026-04-21T00:18:29.088Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T00:18:29.093Z] === Auto adjustment run started ===
+[2026-04-21T00:18:29.093Z] Fetching full data...
+[2026-04-21T00:18:39.110Z]   [8:18:32 AM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T00:18:49.124Z]   [8:18:32 AM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T00:18:59.133Z]   [8:18:58 AM] 拉取广告关键词…
+[2026-04-21T00:19:09.144Z]   [8:19:06 AM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T00:19:19.154Z]   [8:19:16 AM] 拉取自动投放…
+[2026-04-21T00:19:29.159Z]   [8:19:26 AM] 拉取定位组…
+[2026-04-21T00:19:39.204Z]   [8:19:34 AM] Pulling SB ads data...
+[2026-04-21T00:19:49.213Z]   [8:19:34 AM] Pulling SB ads data...
+[2026-04-21T00:19:59.229Z]   [8:19:59 AM] SP关键词 7天指标：返回 8707 条，匹配 5027 条
+[2026-04-21T00:20:09.240Z]   [8:20:08 AM] SP自动投放 7天指标：返回 1548 条，匹配 1459 条
+[2026-04-21T00:20:19.250Z]   [8:20:16 AM] SP定位组 3天指标：返回 1661 条，匹配 1556 条
+[2026-04-21T00:20:29.259Z] Data ready
+[2026-04-21T00:20:30.818Z] Product cards: 427; SP keywords: 6729; SP auto: 1516; SP manual targets: 1635; SB keywords: 3531; SB targets: 31
+[2026-04-21T00:20:30.819Z] 7d untouched: SP candidates=234; SB candidates=119; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T00:20:30.987Z] Plan: 262 SKUs, 1581 actions; strategySkus=195; 7dSkus=136; overlap=60; manualReview=473; skipped=1881
+[2026-04-21T00:20:31.415Z] SP keyword 150::4: API api_success 4
+[2026-04-21T00:20:32.302Z] SP keyword 357::4: API api_success 6
+[2026-04-21T00:20:33.170Z] SP keyword 113::4: API api_success 5
+[2026-04-21T00:20:34.043Z] SP keyword 120::4: API api_success 15
+[2026-04-21T00:20:34.981Z] SP keyword 388::4: API api_success 23
+[2026-04-21T00:20:35.860Z] SP keyword 103::4: API api_success 15
+[2026-04-21T00:20:36.912Z] SP keyword 546::4: API api_success 14
+[2026-04-21T00:20:37.761Z] SP keyword 752::4: API api_success 1
+[2026-04-21T00:20:38.675Z] SP keyword 765::4: API api_success 9
+[2026-04-21T00:20:39.516Z] SP keyword 864::4: API api_success 1
+[2026-04-21T00:20:40.376Z] SP keyword 528::4: API api_success 18
+[2026-04-21T00:20:41.479Z] SP keyword 311::4: API api_success 36
+[2026-04-21T00:20:42.333Z] SP keyword 567::4: API api_success 1
+[2026-04-21T00:20:43.223Z] SP keyword 615::4: API api_success 2
+[2026-04-21T00:20:44.063Z] SP keyword 380::4: API api_success 1
+[2026-04-21T00:20:44.946Z] SP keyword 296::4: API api_success 19
+[2026-04-21T00:20:45.818Z] SP keyword 195::4: API api_success 5
+[2026-04-21T00:20:46.726Z] SP keyword 171::4: API api_success 27
+[2026-04-21T00:20:47.608Z] SP keyword 876::4: API api_success 3
+[2026-04-21T00:20:48.479Z] SP keyword 508::4: API api_success 1
+[2026-04-21T00:20:49.388Z] SP keyword 604::4: API api_success 5
+[2026-04-21T00:20:50.408Z] SP keyword 453::4: API api_success 7
+[2026-04-21T00:20:51.287Z] SP keyword 167::4: API api_success 4
+[2026-04-21T00:20:52.101Z] SP keyword 639::4: API api_success 2
+[2026-04-21T00:20:52.929Z] SP keyword 803::4: API api_success 7
+[2026-04-21T00:20:53.955Z] SP keyword 737::4: API api_success 50
+[2026-04-21T00:20:54.823Z] SP keyword 737::4: API api_success 3
+[2026-04-21T00:20:55.676Z] SP keyword 244::4: API api_success 4
+[2026-04-21T00:20:56.539Z] SP keyword 333::4: API api_success 3
+[2026-04-21T00:20:57.502Z] SP keyword 707::4: API api_success 7
+[2026-04-21T00:20:58.500Z] SP keyword 515::4: API api_success 9
+[2026-04-21T00:20:59.493Z] SP keyword 798::4: API api_success 1
+[2026-04-21T00:21:00.420Z] SP keyword 148::4: API api_success 2
+[2026-04-21T00:21:01.468Z] SP keyword 426::4: API api_success 3
+[2026-04-21T00:21:02.423Z] SP keyword 295::4: API api_success 9
+[2026-04-21T00:21:03.381Z] SP keyword 423::4: API api_success 7
+[2026-04-21T00:21:04.265Z] SP keyword 117::4: API api_success 24
+[2026-04-21T00:21:05.169Z] SP keyword 84::4: API api_success 16
+[2026-04-21T00:21:06.008Z] SP keyword 665::4: API api_success 1
+[2026-04-21T00:21:06.868Z] SP keyword 256::4: API api_success 4
+[2026-04-21T00:21:07.718Z] SP keyword 689::4: API api_success 2
+[2026-04-21T00:21:08.565Z] SP keyword 487::4: API api_success 4
+[2026-04-21T00:21:09.433Z] SP keyword 700::4: API api_success 3
+[2026-04-21T00:21:10.292Z] SP keyword 479::4: API api_success 1
+[2026-04-21T00:21:11.157Z] SP keyword 772::4: API api_success 16
+[2026-04-21T00:21:12.003Z] SP keyword 620::4: API api_success 3
+[2026-04-21T00:21:12.886Z] SP keyword 431::4: API api_success 2
+[2026-04-21T00:21:13.655Z] SP keyword 15::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T00:21:14.472Z] SP keyword 652::4: API api_success 1
+[2026-04-21T00:21:15.486Z] SP keyword 682::4: API api_success 2
+[2026-04-21T00:21:16.348Z] SP keyword 631::4: API api_success 2
+[2026-04-21T00:21:17.203Z] SP keyword 49::4: API api_success 1
+[2026-04-21T00:21:18.057Z] SP keyword 298::4: API api_success 1
+[2026-04-21T00:21:18.876Z] SP keyword 455::4: API api_success 3
+[2026-04-21T00:21:20.102Z] SP keyword 398::4: API api_success 34
+[2026-04-21T00:21:20.906Z] SP keyword 141::4: API api_success 1
+[2026-04-21T00:21:21.751Z] SP keyword 286::4: API api_success 1
+[2026-04-21T00:21:22.613Z] SP keyword 705::4: API api_success 1
+[2026-04-21T00:21:23.567Z] SP keyword 518::4: API api_success 1
+[2026-04-21T00:21:24.398Z] SP keyword 135::4: API api_success 10
+[2026-04-21T00:21:25.228Z] SP keyword 734::4: API api_success 1
+[2026-04-21T00:21:26.057Z] SP keyword 795::4: API api_success 5
+[2026-04-21T00:21:26.951Z] SP keyword 400::4: API api_success 5
+[2026-04-21T00:21:27.829Z] SP keyword 624::4: API api_success 2
+[2026-04-21T00:21:28.701Z] SP keyword 717::4: API api_success 7
+[2026-04-21T00:21:29.639Z] SP keyword 50::4: API api_success 6
+[2026-04-21T00:21:30.518Z] SP keyword 429::4: API api_success 7
+[2026-04-21T00:21:31.398Z] SP keyword 835::4: API api_success 3
+[2026-04-21T00:21:32.257Z] SP keyword 600::4: API api_success 1
+[2026-04-21T00:21:32.885Z] SB keyword 752::4: API api_success 1
+[2026-04-21T00:21:33.503Z] SB keyword 765::4: API api_success 9
+[2026-04-21T00:21:34.177Z] SB keyword 528::4: API api_success 50
+[2026-04-21T00:21:34.817Z] SB keyword 528::4: API api_success 5
+[2026-04-21T00:21:35.474Z] SB keyword 296::4: API api_success 36
+[2026-04-21T00:21:36.137Z] SB keyword 195::4: API api_success 40
+[2026-04-21T00:21:36.757Z] SB keyword 639::4: API api_success 1
+[2026-04-21T00:21:37.379Z] SB keyword 244::4: API api_success 1
+[2026-04-21T00:21:38.020Z] SB keyword 707::4: API api_success 17
+[2026-04-21T00:21:38.673Z] SB keyword 117::4: API api_success 2
+[2026-04-21T00:21:39.300Z] SB keyword 689::4: API api_success 3
+[2026-04-21T00:21:39.936Z] SB keyword 700::4: API api_success 11
+[2026-04-21T00:21:40.578Z] SB keyword 311::4: API api_success 21
+[2026-04-21T00:21:41.204Z] SB keyword 604::4: API api_success 6
+[2026-04-21T00:21:41.822Z] SB keyword 652::4: API api_success 2
+[2026-04-21T00:21:42.460Z] SB keyword 388::4: API api_success 9
+[2026-04-21T00:21:43.076Z] SB keyword 357::4: API api_success 12
+[2026-04-21T00:21:43.708Z] SB keyword 15::4: API api_success 14
+[2026-04-21T00:21:44.356Z] SB keyword 120::4: API api_success 26
+[2026-04-21T00:21:45.011Z] SB keyword 398::4: API api_success 35
+[2026-04-21T00:21:45.632Z] SB keyword 546::4: API api_success 2
+[2026-04-21T00:21:46.269Z] SB keyword 295::4: API api_success 2
+[2026-04-21T00:21:46.898Z] SB keyword 487::4: API api_success 1
+[2026-04-21T00:21:47.510Z] SB keyword 626::4: API api_success 1
+[2026-04-21T00:21:48.150Z] SB keyword 423::4: API api_success 9
+[2026-04-21T00:21:48.828Z] SB keyword 518::4: API api_success 1
+[2026-04-21T00:21:49.461Z] SB keyword 563::4: API api_success 5
+[2026-04-21T00:21:50.084Z] SB keyword 119::4: API api_success 1
+[2026-04-21T00:21:50.736Z] SB keyword 772::4: API api_success 36
+[2026-04-21T00:21:51.367Z] SB keyword 543::4: API api_success 6
+[2026-04-21T00:21:52.001Z] SB keyword 803::4: API api_success 19
+[2026-04-21T00:21:52.611Z] SB keyword 210::4: API api_success 1
+[2026-04-21T00:21:53.239Z] SB keyword 380::4: API api_success 3
+[2026-04-21T00:21:53.864Z] SB keyword 615::4: API api_success 4
+[2026-04-21T00:21:54.494Z] SB keyword 551::4: API api_success 16
+[2026-04-21T00:21:55.114Z] SB keyword 84::4: API api_success 7
+[2026-04-21T00:21:55.736Z] SB keyword 620::4: API api_success 1
+[2026-04-21T00:21:56.360Z] SB keyword 412::4: API api_success 9
+[2026-04-21T00:21:56.987Z] SB keyword 839::4: API api_success 3
+[2026-04-21T00:21:57.603Z] SB keyword 589::4: API api_success 2
+[2026-04-21T00:21:58.225Z] SB keyword 50::4: API api_success 7
+[2026-04-21T00:21:58.854Z] SB keyword 835::4: API api_success 8
+[2026-04-21T00:21:59.483Z] SB keyword 298::4: API api_success 6
+[2026-04-21T00:22:00.100Z] SB keyword 661::4: API api_success 3
+[2026-04-21T00:22:00.719Z] SB keyword 286::4: API api_success 3
+[2026-04-21T00:22:01.351Z] SB keyword 51::4: API api_success 1
+[2026-04-21T00:22:02.108Z] SP auto target 120::4: API blocked_by_system_recent_adjust 17
+[2026-04-21T00:22:03.292Z] SP auto target 388::4: API api_success 8
+[2026-04-21T00:22:04.171Z] SP auto target 103::4: API api_success 3
+[2026-04-21T00:22:04.882Z] SP auto target 765::4: API blocked_by_system_recent_adjust 5
+[2026-04-21T00:22:05.992Z] SP auto target 311::4: API api_success 21
+[2026-04-21T00:22:06.738Z] SP auto target 615::4: API blocked_by_system_recent_adjust 4
+[2026-04-21T00:22:07.621Z] SP auto target 195::4: API api_success 1
+[2026-04-21T00:22:08.544Z] SP auto target 508::4: API api_success 3
+[2026-04-21T00:22:09.423Z] SP auto target 453::4: API api_success 4
+[2026-04-21T00:22:10.331Z] SP auto target 528::4: API api_success 8
+[2026-04-21T00:22:11.092Z] SP auto target 803::4: API blocked_by_system_recent_adjust 8
+[2026-04-21T00:22:11.904Z] SP auto target 244::4: API api_success 1
+[2026-04-21T00:22:12.832Z] SP auto target 333::4: API api_success 2
+[2026-04-21T00:22:13.609Z] SP auto target 707::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T00:22:14.510Z] SP auto target 557::4: API api_success 4
+[2026-04-21T00:22:15.424Z] SP auto target 423::4: API api_success 6
+[2026-04-21T00:22:16.353Z] SP auto target 117::4: API api_success 3
+[2026-04-21T00:22:17.235Z] SP auto target 722::4: API api_success 4
+[2026-04-21T00:22:18.112Z] SP auto target 546::4: API api_success 3
+[2026-04-21T00:22:18.984Z] SP auto target 622::4: API api_success 1
+[2026-04-21T00:22:19.837Z] SP auto target 487::4: API api_success 2
+[2026-04-21T00:22:20.808Z] SP auto target 296::4: API api_success 6
+[2026-04-21T00:22:21.686Z] SP auto target 479::4: API api_success 2
+[2026-04-21T00:22:22.598Z] SP auto target 737::4: API api_success 2
+[2026-04-21T00:22:23.519Z] SP auto target 772::4: API api_success 3
+[2026-04-21T00:22:24.409Z] SP auto target 432::4: API api_success 1
+[2026-04-21T00:22:25.329Z] SP auto target 431::4: API api_success 2
+[2026-04-21T00:22:26.055Z] SP auto target 753::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T00:22:26.996Z] SP auto target 515::4: API api_success 8
+[2026-04-21T00:22:27.913Z] SP auto target 295::4: API api_success 2
+[2026-04-21T00:22:28.745Z] SP auto target 15::4: API api_success 1
+[2026-04-21T00:22:29.620Z] SP auto target 497::4: API api_success 1
+[2026-04-21T00:22:30.442Z] SP auto target 298::4: API api_success 1
+[2026-04-21T00:22:31.417Z] SP auto target 398::4: API api_success 1
+[2026-04-21T00:22:32.341Z] SP auto target 141::4: API api_success 8
+[2026-04-21T00:22:33.108Z] SP auto target 543::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T00:22:33.960Z] SP auto target 626::4: API api_success 1
+[2026-04-21T00:22:35.010Z] SP auto target 563::4: API blocked_by_system_recent_adjust 4
+[2026-04-21T00:22:35.992Z] SP auto target 144::4: API api_success 1
+[2026-04-21T00:22:36.893Z] SP auto target 864::4: API api_success 2
+[2026-04-21T00:22:37.761Z] SP auto target 867::4: API api_success 1
+[2026-04-21T00:22:38.525Z] SP auto target 705::4: API blocked_by_system_recent_adjust 4
+[2026-04-21T00:22:39.250Z] SP auto target 551::4: API blocked_by_system_recent_adjust 3
+[2026-04-21T00:22:39.990Z] SP auto target 518::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T00:22:40.861Z] SP auto target 324::4: API api_success 1
+[2026-04-21T00:22:41.742Z] SP auto target 700::4: API api_success 1
+[2026-04-21T00:22:42.654Z] SP auto target 150::4: API api_success 3
+[2026-04-21T00:22:43.398Z] SP auto target 856::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T00:22:44.271Z] SP auto target 507::4: API api_success 8
+[2026-04-21T00:22:45.085Z] SP auto target 643::4: API api_success 1
+[2026-04-21T00:22:46.030Z] SP auto target 50::4: API api_success 19
+[2026-04-21T00:22:46.898Z] SP auto target 171::4: API api_success 2
+[2026-04-21T00:22:47.813Z] SP auto target 748::4: API api_success 3
+[2026-04-21T00:22:48.724Z] SP auto target 514::4: API api_success 2
+[2026-04-21T00:22:49.434Z] SP auto target 601::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T00:22:50.189Z] SP auto target 624::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T00:22:51.416Z] SP auto target 135::4: API api_success 1
+[2026-04-21T00:22:52.313Z] SP auto target 196::4: API api_success 2
+[2026-04-21T00:22:53.194Z] SP auto target 42::4: API api_success 1
+[2026-04-21T00:22:54.022Z] SP auto target 495::4: API api_success 1
+[2026-04-21T00:22:54.895Z] SP auto target 628::4: API api_success 1
+[2026-04-21T00:22:55.788Z] SP auto target 876::4: API api_success 4
+[2026-04-21T00:22:56.656Z] SP auto target 400::4: API api_success 3
+[2026-04-21T00:22:57.559Z] SP auto target 84::4: API api_success 15
+[2026-04-21T00:22:58.426Z] SP auto target 167::4: API api_success 2
+[2026-04-21T00:22:59.426Z] SP auto target 174::4: API api_success 2
+[2026-04-21T00:23:00.647Z] SP auto target 412::4: API api_success 3
+[2026-04-21T00:23:01.648Z] SP manual target 150::4: API api_success 19
+[2026-04-21T00:23:02.525Z] SP manual target 120::4: API api_success 1
+[2026-04-21T00:23:03.468Z] SP manual target 103::4: API api_success 16
+[2026-04-21T00:23:04.357Z] SP manual target 528::4: API api_success 16
+[2026-04-21T00:23:05.221Z] SP manual target 311::4: API api_success 5
+[2026-04-21T00:23:06.039Z] SP manual target 567::4: API api_success 5
+[2026-04-21T00:23:06.844Z] SP manual target 195::4: API api_success 1
+[2026-04-21T00:23:07.676Z] SP manual target 803::4: API api_success 13
+[2026-04-21T00:23:08.530Z] SP manual target 244::4: API api_success 6
+[2026-04-21T00:23:09.377Z] SP manual target 333::4: API api_success 2
+[2026-04-21T00:23:10.336Z] SP manual target 167::4: API api_success 4
+[2026-04-21T00:23:11.212Z] SP manual target 707::4: API api_success 23
+[2026-04-21T00:23:12.035Z] SP manual target 357::4: API api_success 1
+[2026-04-21T00:23:12.996Z] SP manual target 84::4: API api_success 24
+[2026-04-21T00:23:13.861Z] SP manual target 117::4: API api_success 7
+[2026-04-21T00:23:14.685Z] SP manual target 49::4: API api_success 1
+[2026-04-21T00:23:15.564Z] SP manual target 772::4: API api_success 22
+[2026-04-21T00:23:16.417Z] SP manual target 487::4: API api_success 6
+[2026-04-21T00:23:17.220Z] SP manual target 431::4: API api_success 9
+[2026-04-21T00:23:18.087Z] SP manual target 388::4: API api_success 28
+[2026-04-21T00:23:18.914Z] SP manual target 426::4: API api_success 1
+[2026-04-21T00:23:20.162Z] SP manual target 876::4: API api_success 8
+[2026-04-21T00:23:21.012Z] SP manual target 398::4: API api_success 26
+[2026-04-21T00:23:22.073Z] SP manual target 141::4: API api_success 12
+[2026-04-21T00:23:22.873Z] SP manual target 295::4: API api_success 1
+[2026-04-21T00:23:23.732Z] SP manual target 144::4: API api_success 6
+[2026-04-21T00:23:24.601Z] SP manual target 135::4: API api_success 14
+[2026-04-21T00:23:25.528Z] SP manual target 515::4: API api_success 23
+[2026-04-21T00:23:26.386Z] SP manual target 113::4: API api_success 5
+[2026-04-21T00:23:27.231Z] SP manual target 171::4: API api_success 11
+[2026-04-21T00:23:28.047Z] SP manual target 543::4: API api_success 3
+[2026-04-21T00:23:28.884Z] SP manual target 875::4: API api_success 1
+[2026-04-21T00:23:29.775Z] SP manual target 748::4: API api_success 5
+[2026-04-21T00:23:30.597Z] SP manual target 447::4: API api_success 2
+[2026-04-21T00:23:31.409Z] SP manual target 510::4: API api_success 1
+[2026-04-21T00:23:32.252Z] SP manual target 402::4: API api_success 3
+[2026-04-21T00:23:33.076Z] SP manual target 607::4: API api_success 5
+[2026-04-21T00:23:33.963Z] SP manual target 652::4: API api_success 4
+[2026-04-21T00:23:34.789Z] SP manual target 400::4: API api_success 3
+[2026-04-21T00:23:35.626Z] SP manual target 423::4: API api_success 4
+[2026-04-21T00:23:36.555Z] SP manual target 624::4: API api_success 9
+[2026-04-21T00:23:37.354Z] SP manual target 546::4: API api_success 3
+[2026-04-21T00:23:38.150Z] SP manual target 174::4: API api_success 3
+[2026-04-21T00:23:38.942Z] SP manual target 798::4: API api_success 1
+[2026-04-21T00:23:39.961Z] SP manual target 380::4: API api_success 5
+[2026-04-21T00:23:40.802Z] SP manual target 50::4: API api_success 6
+[2026-04-21T00:23:41.419Z] SB target 150::4: API api_success 1
+[2026-04-21T00:23:41.925Z] Refreshing data for post-write verification...
+[2026-04-21T00:25:50.838Z] Final lookup: success=1443, not_landed=82, blocked=56, failed=0
+[2026-04-21T00:25:50.838Z] SKU coverage: adjusted=244, blocked=18, suppressed=49, no_action=69, failed=0, unverified=0
+[2026-04-21T00:25:50.838Z] Inventory notes: success=0, failed=1
+[2026-04-21T00:25:50.838Z] === Auto adjustment run finished ===
+[2026-04-21T00:47:39.742Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T00:47:39.747Z] === Auto adjustment run started ===
+[2026-04-21T00:47:39.747Z] Fetching full data...
+[2026-04-21T00:47:49.767Z]   [8:47:41 AM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T00:47:59.771Z]   [8:47:41 AM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T00:48:09.787Z]   [8:48:08 AM] 注入关键词拦截器，等待页面请求…
+[2026-04-21T00:48:19.791Z]   [8:48:13 AM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T00:48:29.807Z]   [8:48:22 AM] 拉取自动投放…
+[2026-04-21T00:48:39.821Z]   [8:48:38 AM] Pulling SB ads data...
+[2026-04-21T00:48:49.828Z]   [8:48:38 AM] Pulling SB ads data...
+[2026-04-21T00:48:59.831Z]   [8:48:54 AM] 拉取广告 3天 / 7天 指标窗口…
+[2026-04-21T00:49:09.834Z]   [8:49:09 AM] SP关键词 3天指标：返回 8697 条，匹配 4627 条
+[2026-04-21T00:49:19.838Z]   [8:49:17 AM] SP定位组 7天指标：返回 1661 条，匹配 1507 条
+[2026-04-21T00:49:29.848Z]   [8:49:28 AM] SB定位 3天指标：返回 31 条，匹配 31 条
+[2026-04-21T00:49:39.852Z] Data ready
+[2026-04-21T00:49:41.334Z] Product cards: 427; SP keywords: 6684; SP auto: 1517; SP manual targets: 1625; SB keywords: 3531; SB targets: 31
+[2026-04-21T00:49:41.335Z] 7d untouched: SP candidates=95; SB candidates=47; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T00:49:41.454Z] Plan: 33 SKUs, 154 actions; strategySkus=32; 7dSkus=1; overlap=7; manualReview=145; skipped=452
+[2026-04-21T00:49:41.455Z] DRY_RUN complete: {"spCandidates":95,"spExecutable":0,"sbCandidates":47,"sbExecutable":90,"overlapWithStrategy":7,"manualReview":145,"invalidSkipped":452,"granularity":{"sp":{"count":95,"entityLevel":"adGroup","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","Orders","ROAS","SPS","Sales","SalesOtherSku7d","SalesSameSku7d","Spend","UnitsSoldOtherSku7d","UnitsSoldSameSku7d","accountId","acos_15","acos_30","acos_7","acos_life_time","adGroupId","adId","asin","campaignId","campaignName","campaignState","created_at","dailyBudget","groupName","groupState","hasPlacement","isPublic","keywordPosition","lastAdvUpdatedDate","lowCost","manualAdjustTheTime","memoKey","moduleId","moduleName","placementACOSMin","positionType","productLine","productVariantInfo","proportion","servingStatus","servingStatusDetail","servingStatusTitle","siteId","sku","skuInvData","startDate","state","test_module","updateWeekday"],"sample":{"ACOS":"0.249766","CPC":"0.435312","CPS":"11.428571428571429","CTR":"0.012682308180088777","Clicks":"160","ConversionRate":"0.0875","Impressions":"12616","Orders":"14","ROAS":"4.003732","SPS":"4.975000","Sales":"278.86","SalesOtherSku7d":"100.94","SalesSameSku7d":"177.92","Spend":"69.65","UnitsSoldOtherSku7d":"6","UnitsSoldSameSku7d":"8","accountId":120,"acos_15":"0.272681","acos_30":"0.270601","acos_7":"0.301854","acos_life_time":"0.216673","adGroupId":443134028184551,"adId":531332514920294,"asin":"B0CDH7KXM1","campaignId":468076353069679,"campaignName":"auto_silicone cable ties_th2837","campaignState":1,"created_at":"2026-01-07 19:41:46","dailyBudget":"3.00","groupName":"auto_silicone cable ties_th2837"}},"sb":{"count":47,"entityLevel":"campaign","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","NTB_orders","NTB_sales","Orders","ROAS","SPS","Sales","Spend","VideoCompleteViews","VideoFirstQuartileViews","VideoMidpointViews","VideoThirdQuartileViews","VideoUnmutes","ViewableImpressions","accountId","adFormat","adGroups","bidMultiplier","bidOptimization","brandEntityId","budget","budgetType","campaignId","costType","created_at","creator","endDate","goal","isMultiAdGroupsEnabled","manualAdjustTheTime","memo","module_id","module_name","name","of_orders_NTB","of_sales_NTB","placements","portfolioId","reason","servingStatus","siteId","startDate","state","supplySource","targetType","test_module","topOfSearchImpressionShare","updated_at","videoType"],"sample":{"ACOS":"0.085579","CPC":"0.262265","CPS":"5.838709677419355","CTR":"0.004875026933850463","Clicks":"181","ConversionRate":"0.1712707182320442","Impressions":"37128","NTB_orders":"29","NTB_sales":"522.71","Orders":"31","ROAS":"11.685064","SPS":"1.531290","Sales":"554.69","Spend":"47.47","VideoCompleteViews":"0","VideoFirstQuartileViews":"0","VideoMidpointViews":"0","VideoThirdQuartileViews":"0","VideoUnmutes":"0","ViewableImpressions":"11256","accountId":357,"adFormat":"productCollection","adGroups":[{"adGroupId":"335836443375988","name":"sbkw_get well soon gifts_kv0324 kv3640 kv4231","state":"ENABLED"}],"bidMultiplier":"0.00","bidOptimization":0,"brandEntityId":"ENTITYJWJDK25JE4KE","budget":"6.00","budgetType":"DAILY","campaignId":"474210459642170","costType":"CPC"}}}}
+[2026-04-21T01:07:50.791Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T01:07:50.796Z] === Auto adjustment run started ===
+[2026-04-21T01:07:50.797Z] Fetching full data...
+[2026-04-21T01:08:00.806Z]   [9:07:52 AM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T01:08:10.819Z]   [9:07:52 AM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T01:08:20.830Z]   [9:08:17 AM] 注入关键词拦截器，等待页面请求…
+[2026-04-21T01:08:30.840Z]   [9:08:21 AM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T01:08:40.851Z]   [9:08:32 AM] 拉取自动投放…
+[2026-04-21T01:08:50.860Z]   [9:08:49 AM] Pulling SB ads data...
+[2026-04-21T01:09:00.866Z]   [9:08:49 AM] Pulling SB ads data...
+[2026-04-21T01:09:10.868Z]   [9:09:05 AM] 拉取广告 3天 / 7天 指标窗口…
+[2026-04-21T01:09:20.873Z]   [9:09:19 AM] SP关键词 3天指标：返回 8697 条，匹配 4665 条
+[2026-04-21T01:09:30.879Z]   [9:09:29 AM] SP定位组 3天指标：返回 1661 条，匹配 1536 条
+[2026-04-21T01:09:40.891Z] Data ready
+[2026-04-21T01:09:42.376Z] Product cards: 427; SP keywords: 6654; SP auto: 1519; SP manual targets: 1617; SB keywords: 3531; SB targets: 31
+[2026-04-21T01:09:42.376Z] 7d untouched: SP candidates=95; SB candidates=47; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T01:09:42.563Z] Plan: 102 SKUs, 273 actions; strategySkus=32; 7dSkus=74; overlap=5; manualReview=39; skipped=364
+[2026-04-21T01:09:42.565Z] DRY_RUN complete: {"spCandidates":95,"spExecutable":167,"sbCandidates":47,"sbExecutable":0,"overlapWithStrategy":5,"manualReview":39,"invalidSkipped":364,"granularity":{"sp":{"count":95,"entityLevel":"adGroup","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","Orders","ROAS","SPS","Sales","SalesOtherSku7d","SalesSameSku7d","Spend","UnitsSoldOtherSku7d","UnitsSoldSameSku7d","accountId","acos_15","acos_30","acos_7","acos_life_time","adGroupId","adId","asin","campaignId","campaignName","campaignState","created_at","dailyBudget","groupName","groupState","hasPlacement","isPublic","keywordPosition","lastAdvUpdatedDate","lowCost","manualAdjustTheTime","memoKey","moduleId","moduleName","placementACOSMin","positionType","productLine","productVariantInfo","proportion","servingStatus","servingStatusDetail","servingStatusTitle","siteId","sku","skuInvData","startDate","state","test_module","updateWeekday"],"sample":{"ACOS":"0.249766","CPC":"0.435312","CPS":"11.428571428571429","CTR":"0.012682308180088777","Clicks":"160","ConversionRate":"0.0875","Impressions":"12616","Orders":"14","ROAS":"4.003732","SPS":"4.975000","Sales":"278.86","SalesOtherSku7d":"100.94","SalesSameSku7d":"177.92","Spend":"69.65","UnitsSoldOtherSku7d":"6","UnitsSoldSameSku7d":"8","accountId":120,"acos_15":"0.272681","acos_30":"0.270601","acos_7":"0.301854","acos_life_time":"0.216673","adGroupId":443134028184551,"adId":531332514920294,"asin":"B0CDH7KXM1","campaignId":468076353069679,"campaignName":"auto_silicone cable ties_th2837","campaignState":1,"created_at":"2026-01-07 19:41:46","dailyBudget":"3.00","groupName":"auto_silicone cable ties_th2837"}},"sb":{"count":47,"entityLevel":"campaign","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","NTB_orders","NTB_sales","Orders","ROAS","SPS","Sales","Spend","VideoCompleteViews","VideoFirstQuartileViews","VideoMidpointViews","VideoThirdQuartileViews","VideoUnmutes","ViewableImpressions","accountId","adFormat","adGroups","bidMultiplier","bidOptimization","brandEntityId","budget","budgetType","campaignId","costType","created_at","creator","endDate","goal","isMultiAdGroupsEnabled","manualAdjustTheTime","memo","module_id","module_name","name","of_orders_NTB","of_sales_NTB","placements","portfolioId","reason","servingStatus","siteId","startDate","state","supplySource","targetType","test_module","topOfSearchImpressionShare","updated_at","videoType"],"sample":{"ACOS":"0.085579","CPC":"0.262265","CPS":"5.838709677419355","CTR":"0.004875026933850463","Clicks":"181","ConversionRate":"0.1712707182320442","Impressions":"37128","NTB_orders":"29","NTB_sales":"522.71","Orders":"31","ROAS":"11.685064","SPS":"1.531290","Sales":"554.69","Spend":"47.47","VideoCompleteViews":"0","VideoFirstQuartileViews":"0","VideoMidpointViews":"0","VideoThirdQuartileViews":"0","VideoUnmutes":"0","ViewableImpressions":"11256","accountId":357,"adFormat":"productCollection","adGroups":[{"adGroupId":"335836443375988","name":"sbkw_get well soon gifts_kv0324 kv3640 kv4231","state":"ENABLED"}],"bidMultiplier":"0.00","bidOptimization":0,"brandEntityId":"ENTITYJWJDK25JE4KE","budget":"6.00","budgetType":"DAILY","campaignId":"474210459642170","costType":"CPC"}}}}
+[2026-04-21T01:10:21.156Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T01:10:21.161Z] === Auto adjustment run started ===
+[2026-04-21T01:10:21.162Z] Fetching full data...
+[2026-04-21T01:10:31.183Z]   [9:10:22 AM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T01:10:41.190Z]   [9:10:22 AM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T01:10:51.216Z]   [9:10:49 AM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T01:11:01.219Z]   [9:10:59 AM] 拉取自动投放…
+[2026-04-21T01:11:11.231Z]   [9:11:07 AM] 拉取定位组…
+[2026-04-21T01:11:21.238Z]   [9:11:15 AM] Pulling SB ads data...
+[2026-04-21T01:11:31.249Z]   [9:11:15 AM] Pulling SB ads data...
+[2026-04-21T01:11:41.259Z]   [9:11:32 AM] 拉取广告 3天 / 7天 指标窗口…
+[2026-04-21T01:11:51.264Z]   [9:11:48 AM] SP关键词 3天指标：返回 8697 条，匹配 4624 条
+[2026-04-21T01:12:01.273Z]   [9:11:58 AM] SP定位组 3天指标：返回 1661 条，匹配 1530 条
+[2026-04-21T01:12:11.291Z] Data ready
+[2026-04-21T01:12:12.898Z] Product cards: 427; SP keywords: 6798; SP auto: 1521; SP manual targets: 1612; SB keywords: 3531; SB targets: 31
+[2026-04-21T01:12:12.898Z] 7d untouched: SP candidates=95; SB candidates=47; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T01:12:13.103Z] Plan: 102 SKUs, 280 actions; strategySkus=32; 7dSkus=74; overlap=5; manualReview=39; skipped=354
+[2026-04-21T01:12:13.105Z] DRY_RUN complete: {"spCandidates":95,"spExecutable":174,"sbCandidates":47,"sbExecutable":47,"overlapWithStrategy":5,"manualReview":39,"invalidSkipped":354,"granularity":{"sp":{"count":95,"entityLevel":"adGroup","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","Orders","ROAS","SPS","Sales","SalesOtherSku7d","SalesSameSku7d","Spend","UnitsSoldOtherSku7d","UnitsSoldSameSku7d","accountId","acos_15","acos_30","acos_7","acos_life_time","adGroupId","adId","asin","campaignId","campaignName","campaignState","created_at","dailyBudget","groupName","groupState","hasPlacement","isPublic","keywordPosition","lastAdvUpdatedDate","lowCost","manualAdjustTheTime","memoKey","moduleId","moduleName","placementACOSMin","positionType","productLine","productVariantInfo","proportion","servingStatus","servingStatusDetail","servingStatusTitle","siteId","sku","skuInvData","startDate","state","test_module","updateWeekday"],"sample":{"ACOS":"0.249766","CPC":"0.435312","CPS":"11.428571428571429","CTR":"0.012682308180088777","Clicks":"160","ConversionRate":"0.0875","Impressions":"12616","Orders":"14","ROAS":"4.003732","SPS":"4.975000","Sales":"278.86","SalesOtherSku7d":"100.94","SalesSameSku7d":"177.92","Spend":"69.65","UnitsSoldOtherSku7d":"6","UnitsSoldSameSku7d":"8","accountId":120,"acos_15":"0.272681","acos_30":"0.270601","acos_7":"0.301854","acos_life_time":"0.216673","adGroupId":443134028184551,"adId":531332514920294,"asin":"B0CDH7KXM1","campaignId":468076353069679,"campaignName":"auto_silicone cable ties_th2837","campaignState":1,"created_at":"2026-01-07 19:41:46","dailyBudget":"3.00","groupName":"auto_silicone cable ties_th2837"}},"sb":{"count":47,"entityLevel":"campaign","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","NTB_orders","NTB_sales","Orders","ROAS","SPS","Sales","Spend","VideoCompleteViews","VideoFirstQuartileViews","VideoMidpointViews","VideoThirdQuartileViews","VideoUnmutes","ViewableImpressions","accountId","adFormat","adGroups","bidMultiplier","bidOptimization","brandEntityId","budget","budgetType","campaignId","costType","created_at","creator","endDate","goal","isMultiAdGroupsEnabled","manualAdjustTheTime","memo","module_id","module_name","name","of_orders_NTB","of_sales_NTB","placements","portfolioId","reason","servingStatus","siteId","startDate","state","supplySource","targetType","test_module","topOfSearchImpressionShare","updated_at","videoType"],"sample":{"ACOS":"0.085579","CPC":"0.262265","CPS":"5.838709677419355","CTR":"0.004875026933850463","Clicks":"181","ConversionRate":"0.1712707182320442","Impressions":"37128","NTB_orders":"29","NTB_sales":"522.71","Orders":"31","ROAS":"11.685064","SPS":"1.531290","Sales":"554.69","Spend":"47.47","VideoCompleteViews":"0","VideoFirstQuartileViews":"0","VideoMidpointViews":"0","VideoThirdQuartileViews":"0","VideoUnmutes":"0","ViewableImpressions":"11256","accountId":357,"adFormat":"productCollection","adGroups":[{"adGroupId":"335836443375988","name":"sbkw_get well soon gifts_kv0324 kv3640 kv4231","state":"ENABLED"}],"bidMultiplier":"0.00","bidOptimization":0,"brandEntityId":"ENTITYJWJDK25JE4KE","budget":"6.00","budgetType":"DAILY","campaignId":"474210459642170","costType":"CPC"}}}}
+[2026-04-21T01:12:23.289Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T01:12:23.294Z] === Auto adjustment run started ===
+[2026-04-21T01:12:23.294Z] Fetching full data...
+[2026-04-21T01:12:33.316Z]   [9:12:24 AM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T01:12:43.403Z]   [9:12:24 AM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T01:12:53.420Z]   [9:12:49 AM] 注入关键词拦截器，等待页面请求…
+[2026-04-21T01:13:03.427Z]   [9:13:02 AM] 拉取自动投放…
+[2026-04-21T01:13:13.432Z]   [9:13:13 AM] 拉取定位组…
+[2026-04-21T01:13:23.444Z]   [9:13:21 AM] Pulling SB ads data...
+[2026-04-21T01:13:33.450Z]   [9:13:21 AM] Pulling SB ads data...
+[2026-04-21T01:13:43.459Z]   [9:13:37 AM] 拉取广告 3天 / 7天 指标窗口…
+[2026-04-21T01:13:53.468Z]   [9:13:53 AM] SP关键词 3天指标：返回 8697 条，匹配 4674 条
+[2026-04-21T01:14:03.482Z]   [9:14:03 AM] SP定位组 3天指标：返回 1661 条，匹配 1522 条
+[2026-04-21T01:14:13.498Z] Data ready
+[2026-04-21T01:14:15.102Z] Product cards: 427; SP keywords: 6698; SP auto: 1526; SP manual targets: 1620; SB keywords: 3531; SB targets: 31
+[2026-04-21T01:14:15.103Z] 7d untouched: SP candidates=95; SB candidates=47; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T01:14:15.329Z] Plan: 102 SKUs, 280 actions; strategySkus=32; 7dSkus=74; overlap=5; manualReview=38; skipped=352
+[2026-04-21T01:14:15.568Z] SP keyword 15::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T01:14:16.401Z] SP keyword 772::4: API api_success 3
+[2026-04-21T01:14:17.680Z] SP keyword 705::4: API api_success 4
+[2026-04-21T01:14:18.547Z] SP keyword 563::4: API api_success 10
+[2026-04-21T01:14:19.635Z] SP keyword 296::4: API api_success 2
+[2026-04-21T01:14:20.784Z] SP keyword 737::4: API api_success 6
+[2026-04-21T01:14:21.773Z] SP keyword 487::4: API api_success 14
+[2026-04-21T01:14:22.631Z] SP keyword 311::4: API api_success 3
+[2026-04-21T01:14:23.496Z] SP keyword 700::4: API api_success 2
+[2026-04-21T01:14:24.445Z] SP keyword 622::4: API api_success 7
+[2026-04-21T01:14:25.255Z] SP keyword 853::4: API api_success 4
+[2026-04-21T01:14:26.109Z] SP keyword 876::4: API api_success 9
+[2026-04-21T01:14:26.939Z] SP keyword 453::4: API api_success 24
+[2026-04-21T01:14:28.456Z] SP keyword 557::4: API api_success 8
+[2026-04-21T01:14:29.077Z] SB keyword 772::4: API api_success 5
+[2026-04-21T01:14:30.153Z] SP auto target 120::4: API blocked_by_system_recent_adjust 18
+[2026-04-21T01:14:32.092Z] SP auto target 765::4: API blocked_by_system_recent_adjust 5
+[2026-04-21T01:14:32.819Z] SP auto target 615::4: API blocked_by_system_recent_adjust 4
+[2026-04-21T01:14:33.852Z] SP auto target 803::4: API blocked_by_system_recent_adjust 10
+[2026-04-21T01:14:34.706Z] SP auto target 707::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T01:14:35.643Z] SP auto target 772::4: API api_success 2
+[2026-04-21T01:14:36.382Z] SP auto target 753::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T01:14:37.617Z] SP auto target 423::4: API api_success 1
+[2026-04-21T01:14:38.672Z] SP auto target 543::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T01:14:39.416Z] SP auto target 563::4: API blocked_by_system_recent_adjust 4
+[2026-04-21T01:14:40.238Z] SP auto target 705::4: API blocked_by_system_recent_adjust 4
+[2026-04-21T01:14:40.962Z] SP auto target 551::4: API blocked_by_system_recent_adjust 3
+[2026-04-21T01:14:41.853Z] SP auto target 518::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T01:14:42.726Z] SP auto target 314::4: API api_success 1
+[2026-04-21T01:14:43.453Z] SP auto target 856::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T01:14:44.156Z] SP auto target 601::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T01:14:44.903Z] SP auto target 624::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T01:14:45.745Z] SP auto target 445::4: API api_success 1
+[2026-04-21T01:14:46.898Z] SP auto target 639::4: API api_success 2
+[2026-04-21T01:14:47.737Z] SP manual target 772::4: API api_success 1
+[2026-04-21T01:14:48.560Z] SP manual target 423::4: API api_success 6
+[2026-04-21T01:14:49.414Z] SP manual target 626::4: API api_success 4
+[2026-04-21T01:14:50.265Z] SP manual target 296::4: API api_success 4
+[2026-04-21T01:14:51.104Z] SP manual target 357::4: API api_success 5
+[2026-04-21T01:14:51.910Z] SP manual target 295::4: API api_success 6
+[2026-04-21T01:14:52.798Z] SP manual target 210::4: API api_success 2
+[2026-04-21T01:14:53.620Z] SP manual target 864::4: API api_success 13
+[2026-04-21T01:14:54.488Z] SP manual target 876::4: API api_success 9
+[2026-04-21T01:14:55.288Z] SP manual target 700::4: API api_success 5
+[2026-04-21T01:14:56.184Z] SP manual target 311::4: API api_success 6
+[2026-04-21T01:14:57.041Z] SP manual target 853::4: API api_success 4
+[2026-04-21T01:14:57.663Z] SB campaign 357::4: API api_success 1
+[2026-04-21T01:14:58.287Z] SB campaign 117::4: API api_success 1
+[2026-04-21T01:14:58.912Z] SB campaign 167::4: API api_success 1
+[2026-04-21T01:14:59.541Z] SB campaign 534::4: API api_success 1
+[2026-04-21T01:15:00.153Z] SB campaign 875::4: API api_success 1
+[2026-04-21T01:15:00.785Z] SB campaign 311::4: API api_success 1
+[2026-04-21T01:15:01.409Z] SB campaign 528::4: API api_success 4
+[2026-04-21T01:15:02.163Z] SB campaign 195::4: API api_success 2
+[2026-04-21T01:15:02.813Z] SB campaign 49::4: API api_success 1
+[2026-04-21T01:15:04.156Z] SB campaign 876::4: API api_success 1
+[2026-04-21T01:15:04.872Z] SB campaign 563::4: API api_success 1
+[2026-04-21T01:15:05.506Z] SB campaign 487::4: API api_success 3
+[2026-04-21T01:15:06.481Z] SB campaign 631::4: API api_success 1
+[2026-04-21T01:15:07.251Z] SB campaign 551::4: API api_success 1
+[2026-04-21T01:15:07.959Z] SB campaign 420::4: API api_success 2
+[2026-04-21T01:15:08.581Z] SB campaign 557::4: API api_success 1
+[2026-04-21T01:15:09.434Z] SB campaign 700::4: API api_success 1
+[2026-04-21T01:15:10.071Z] SB campaign 737::4: API api_success 1
+[2026-04-21T01:15:10.699Z] SB campaign 388::4: API api_success 1
+[2026-04-21T01:15:11.319Z] SB campaign 455::4: API api_success 1
+[2026-04-21T01:15:11.941Z] SB campaign 515::4: API api_success 1
+[2026-04-21T01:15:12.570Z] SB campaign 583::4: API api_success 1
+[2026-04-21T01:15:13.200Z] SB campaign 595::4: API api_success 2
+[2026-04-21T01:15:13.807Z] SB campaign 839::4: API api_success 1
+[2026-04-21T01:15:14.435Z] SB campaign 423::4: API api_success 3
+[2026-04-21T01:15:15.077Z] SB campaign 717::4: API api_success 1
+[2026-04-21T01:15:15.700Z] SB campaign 196::4: API api_success 1
+[2026-04-21T01:15:16.309Z] SB campaign 694::4: API api_success 1
+[2026-04-21T01:15:16.933Z] SB campaign 575::4: API api_success 1
+[2026-04-21T01:15:17.564Z] SB campaign 277::4: API api_success 1
+[2026-04-21T01:15:18.182Z] SB campaign 248::4: API api_success 1
+[2026-04-21T01:15:18.808Z] SB campaign 853::4: API api_success 2
+[2026-04-21T01:15:19.430Z] SB campaign 514::4: API api_success 1
+[2026-04-21T01:15:20.041Z] SB campaign 165::4: API api_success 1
+[2026-04-21T01:15:20.666Z] SB campaign 84::4: API api_success 1
+[2026-04-21T01:15:21.292Z] SB campaign 295::4: API api_success 1
+[2026-04-21T01:15:21.798Z] Refreshing data for post-write verification...
+[2026-04-21T01:16:49.596Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T01:16:49.599Z] === Auto adjustment run started ===
+[2026-04-21T01:16:49.599Z] Fetching full data...
+[2026-04-21T01:16:59.613Z]   [9:16:59 AM] SP自动投放 7天指标：返回 1548 条，匹配 1439 条
+[2026-04-21T01:17:09.615Z]   [9:17:07 AM] SP定位组 3天指标：返回 1661 条，匹配 1526 条
+[2026-04-21T01:17:19.636Z] Data ready
+[2026-04-21T01:17:19.651Z] Product cards: 0; SP keywords: 0; SP auto: 0; SP manual targets: 0; SB keywords: 0; SB targets: 0
+[2026-04-21T01:17:19.652Z] 7d untouched: SP candidates=63; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T01:17:19.653Z] Fatal error: Error: No product cards after full fetch.
+    at run (D:\ad-ops-workbench\auto_adjust.js:717:11)
+[2026-04-21T04:35:40.872Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T04:35:40.876Z] === Auto adjustment run started ===
+[2026-04-21T04:35:40.876Z] Fetching full data...
+[2026-04-21T04:35:50.893Z]   [12:35:43 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T04:36:00.898Z]   [12:35:43 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T04:36:10.903Z]   [12:35:43 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T04:36:20.918Z]   [12:35:43 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T04:36:30.919Z]   [12:36:28 PM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T04:36:40.929Z]   [12:36:36 PM] 拉取自动投放…
+[2026-04-21T04:36:50.938Z]   [12:36:43 PM] 拉取定位组…
+[2026-04-21T04:37:00.952Z]   [12:36:51 PM] Pulling SB ads data...
+[2026-04-21T04:37:10.968Z]   [12:37:08 PM] 拉取广告 3天 / 7天 指标窗口…
+[2026-04-21T04:37:20.973Z]   [12:37:15 PM] SP关键词 7天指标：返回 8726 条，匹配 4985 条
+[2026-04-21T04:37:30.982Z]   [12:37:29 PM] SP定位组 7天指标：返回 1671 条，匹配 1510 条
+[2026-04-21T04:37:41.145Z] Data ready
+[2026-04-21T04:37:42.181Z] Product cards: 426; SP keywords: 6581; SP auto: 1512; SP manual targets: 1633; SB keywords: 3531; SB targets: 31
+[2026-04-21T04:37:42.181Z] 7d untouched: SP candidates=58; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T04:37:42.264Z] Plan: 67 SKUs, 198 actions; strategySkus=45; 7dSkus=26; overlap=5; manualReview=27; skipped=300
+[2026-04-21T04:37:42.265Z] DRY_RUN complete: {"spCandidates":58,"spExecutable":126,"sbCandidates":0,"sbExecutable":0,"overlapWithStrategy":5,"manualReview":27,"invalidSkipped":300,"granularity":{"sp":{"count":58,"entityLevel":"adGroup","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","Orders","ROAS","SPS","Sales","SalesOtherSku7d","SalesSameSku7d","Spend","UnitsSoldOtherSku7d","UnitsSoldSameSku7d","accountId","acos_15","acos_30","acos_7","acos_life_time","adGroupId","adId","asin","campaignId","campaignName","campaignState","created_at","dailyBudget","groupName","groupState","hasPlacement","isPublic","keywordPosition","lastAdvUpdatedDate","lowCost","manualAdjustTheTime","memoKey","moduleId","moduleName","placementACOSMin","positionType","productLine","productVariantInfo","proportion","servingStatus","servingStatusDetail","servingStatusTitle","siteId","sku","skuInvData","startDate","state","test_module","updateWeekday"],"sample":{"ACOS":"0.249766","CPC":"0.435312","CPS":"11.428571428571429","CTR":"0.012686330478908976","Clicks":"160","ConversionRate":"0.0875","Impressions":"12612","Orders":"14","ROAS":"4.003732","SPS":"4.975000","Sales":"278.86","SalesOtherSku7d":"100.94","SalesSameSku7d":"177.92","Spend":"69.65","UnitsSoldOtherSku7d":"6","UnitsSoldSameSku7d":"8","accountId":120,"acos_15":"0.272681","acos_30":"0.270601","acos_7":"0.301854","acos_life_time":"0.216673","adGroupId":443134028184551,"adId":531332514920294,"asin":"B0CDH7KXM1","campaignId":468076353069679,"campaignName":"auto_silicone cable ties_th2837","campaignState":1,"created_at":"2026-01-07 19:41:46","dailyBudget":"3.00","groupName":"auto_silicone cable ties_th2837"}},"sb":{"count":0,"entityLevel":"campaign","sampleKeys":[],"sample":null}}}
+[2026-04-21T04:38:27.018Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T04:38:27.022Z] === Auto adjustment run started ===
+[2026-04-21T04:38:27.022Z] Fetching full data...
+[2026-04-21T04:38:37.030Z]   [12:38:30 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T04:38:47.040Z]   [12:38:30 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T04:38:57.044Z]   [12:38:30 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T04:39:07.057Z]   [12:38:30 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T04:39:17.073Z]   [12:39:14 PM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T04:39:27.078Z]   [12:39:23 PM] 拉取自动投放…
+[2026-04-21T04:39:37.095Z]   [12:39:30 PM] 拉取定位组…
+[2026-04-21T04:39:47.108Z]   [12:39:38 PM] Pulling SB ads data...
+[2026-04-21T04:39:57.123Z]   [12:39:54 PM] 拉取广告 3天 / 7天 指标窗口…
+[2026-04-21T04:40:07.134Z]   [12:40:01 PM] SP关键词 7天指标：返回 8726 条，匹配 5026 条
+[2026-04-21T04:40:17.149Z]   [12:40:16 PM] SP定位组 7天指标：返回 1671 条，匹配 1518 条
+[2026-04-21T04:40:27.161Z]   [12:40:26 PM] SB定位 3天指标：返回 31 条，匹配 31 条
+[2026-04-21T04:40:37.170Z] Data ready
+[2026-04-21T04:40:38.201Z] Product cards: 426; SP keywords: 6679; SP auto: 1515; SP manual targets: 1628; SB keywords: 3531; SB targets: 31
+[2026-04-21T04:40:38.201Z] 7d untouched: SP candidates=58; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T04:40:38.293Z] Plan: 69 SKUs, 207 actions; strategySkus=48; 7dSkus=26; overlap=5; manualReview=27; skipped=297
+[2026-04-21T04:40:38.623Z] SP keyword 333::4: API api_success 1
+[2026-04-21T04:40:39.352Z] SP keyword 15::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T04:40:40.182Z] SP keyword 772::4: API api_success 3
+[2026-04-21T04:40:41.030Z] SP keyword 311::4: API api_success 1
+[2026-04-21T04:40:41.865Z] SP keyword 49::4: API api_success 1
+[2026-04-21T04:40:42.692Z] SP keyword 528::4: API api_success 2
+[2026-04-21T04:40:43.511Z] SP keyword 705::4: API api_success 2
+[2026-04-21T04:40:44.350Z] SP keyword 314::4: API api_success 35
+[2026-04-21T04:40:45.184Z] SP keyword 277::4: API api_success 2
+[2026-04-21T04:40:46.063Z] SP keyword 717::4: API api_success 3
+[2026-04-21T04:40:46.917Z] SP keyword 604::4: API api_success 7
+[2026-04-21T04:40:47.809Z] SP keyword 853::4: API api_success 4
+[2026-04-21T04:40:48.691Z] SP keyword 583::4: API api_success 10
+[2026-04-21T04:40:49.301Z] SB keyword 772::4: API api_success 5
+[2026-04-21T04:40:49.919Z] SB keyword 398::4: API api_success 1
+[2026-04-21T04:40:50.701Z] SP auto target 120::4: API blocked_by_system_recent_adjust 18
+[2026-04-21T04:40:51.604Z] SP auto target 103::4: API api_success 1
+[2026-04-21T04:40:52.339Z] SP auto target 765::4: API blocked_by_system_recent_adjust 5
+[2026-04-21T04:40:53.203Z] SP auto target 615::4: API api_success 4
+[2026-04-21T04:40:53.955Z] SP auto target 803::4: API blocked_by_system_recent_adjust 10
+[2026-04-21T04:40:54.684Z] SP auto target 707::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T04:40:55.571Z] SP auto target 423::4: API api_success 5
+[2026-04-21T04:40:56.459Z] SP auto target 772::4: API api_success 6
+[2026-04-21T04:40:57.225Z] SP auto target 753::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T04:40:58.114Z] SP auto target 339::4: API api_success 1
+[2026-04-21T04:40:58.873Z] SP auto target 543::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T04:40:59.642Z] SP auto target 563::4: API blocked_by_system_recent_adjust 4
+[2026-04-21T04:41:00.411Z] SP auto target 705::4: API blocked_by_system_recent_adjust 4
+[2026-04-21T04:41:01.175Z] SP auto target 551::4: API blocked_by_system_recent_adjust 3
+[2026-04-21T04:41:01.886Z] SP auto target 518::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T04:41:02.860Z] SP auto target 515::4: API api_success 1
+[2026-04-21T04:41:03.744Z] SP auto target 314::4: API api_success 9
+[2026-04-21T04:41:04.492Z] SP auto target 856::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T04:41:05.396Z] SP auto target 507::4: API api_success 1
+[2026-04-21T04:41:06.256Z] SP auto target 445::4: API api_success 1
+[2026-04-21T04:41:07.156Z] SP auto target 295::4: API api_success 1
+[2026-04-21T04:41:07.905Z] SP auto target 601::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T04:41:08.611Z] SP auto target 624::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T04:41:09.511Z] SP auto target 388::4: API api_success 1
+[2026-04-21T04:41:10.376Z] SP auto target 734::4: API api_success 7
+[2026-04-21T04:41:11.265Z] SP auto target 752::4: API api_success 2
+[2026-04-21T04:41:12.165Z] SP auto target 495::4: API api_success 2
+[2026-04-21T04:41:13.031Z] SP auto target 583::4: API api_success 4
+[2026-04-21T04:41:13.928Z] SP auto target 546::4: API api_success 1
+[2026-04-21T04:41:14.715Z] SP manual target 296::4: API api_success 1
+[2026-04-21T04:41:15.538Z] SP manual target 772::4: API api_success 1
+[2026-04-21T04:41:16.334Z] SP manual target 423::4: API api_success 2
+[2026-04-21T04:41:17.155Z] SP manual target 528::4: API api_success 8
+[2026-04-21T04:41:17.948Z] SP manual target 515::4: API api_success 1
+[2026-04-21T04:41:18.770Z] SP manual target 171::4: API api_success 1
+[2026-04-21T04:41:19.575Z] SP manual target 380::4: API api_success 1
+[2026-04-21T04:41:20.401Z] SP manual target 652::4: API api_success 1
+[2026-04-21T04:41:21.258Z] SP manual target 256::4: API api_success 1
+[2026-04-21T04:41:22.085Z] SP manual target 432::4: API api_success 10
+[2026-04-21T04:41:22.596Z] Refreshing data for post-write verification...
+[2026-04-21T04:43:15.644Z] Final lookup: success=130, not_landed=21, blocked=56, failed=0
+[2026-04-21T04:43:15.644Z] SKU coverage: adjusted=40, blocked=29, suppressed=225, no_action=114, failed=0, unverified=0
+[2026-04-21T04:43:15.644Z] Inventory notes: success=0, failed=1
+[2026-04-21T04:43:15.644Z] === Auto adjustment run finished ===
+[2026-04-21T07:01:13.481Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T07:01:13.488Z] === Auto adjustment run started ===
+[2026-04-21T07:01:13.488Z] Fetching full data...
+[2026-04-21T07:01:23.511Z]   [3:01:16 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:01:33.538Z]   [3:01:16 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:01:43.547Z]   [3:01:42 PM] 拉取广告关键词…
+[2026-04-21T07:01:53.557Z]   [3:01:48 PM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T07:02:03.573Z]   [3:01:48 PM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T07:02:13.593Z]   [3:02:06 PM] 拉取自动投放…
+[2026-04-21T07:02:23.600Z]   [3:02:23 PM] Pulling SB ads data...
+[2026-04-21T07:02:33.612Z]   [3:02:23 PM] Pulling SB ads data...
+[2026-04-21T07:02:43.632Z]   [3:02:38 PM] 拉取广告 3天 / 7天 指标窗口…
+[2026-04-21T07:02:53.644Z]   [3:02:49 PM] SP关键词 7天指标：返回 8722 条，匹配 5068 条
+[2026-04-21T07:03:03.658Z]   [3:03:01 PM] SP自动投放 3天指标：返回 1548 条，匹配 1435 条
+[2026-04-21T07:03:13.677Z]   [3:03:13 PM] SB关键词 3天指标：返回 3531 条，匹配 2956 条
+[2026-04-21T07:03:23.693Z] Data ready
+[2026-04-21T07:03:25.305Z] Product cards: 426; SP keywords: 6721; SP auto: 1516; SP manual targets: 1637; SB keywords: 3531; SB targets: 31
+[2026-04-21T07:03:25.305Z] 7d untouched: SP candidates=26; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T07:03:25.438Z] Plan: 48 SKUs, 78 actions; strategySkus=44; 7dSkus=4; overlap=0; manualReview=1; skipped=213
+[2026-04-21T07:03:25.439Z] DRY_RUN complete: {"spCandidates":26,"spExecutable":16,"sbCandidates":0,"sbExecutable":0,"overlapWithStrategy":0,"manualReview":1,"invalidSkipped":213,"granularity":{"sp":{"count":26,"entityLevel":"adGroup","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","Orders","ROAS","SPS","Sales","SalesOtherSku7d","SalesSameSku7d","Spend","UnitsSoldOtherSku7d","UnitsSoldSameSku7d","accountId","acos_15","acos_30","acos_7","acos_life_time","adGroupId","adId","asin","campaignId","campaignName","campaignState","created_at","dailyBudget","groupName","groupState","hasPlacement","isPublic","keywordPosition","lastAdvUpdatedDate","lowCost","manualAdjustTheTime","memoKey","moduleId","moduleName","placementACOSMin","positionType","productLine","productVariantInfo","proportion","servingStatus","servingStatusDetail","servingStatusTitle","siteId","sku","skuInvData","startDate","state","test_module","updateWeekday"],"sample":{"ACOS":"0.125056","CPC":"0.211538","CPS":"13","CTR":"0.02303603071470762","Clicks":"39","ConversionRate":"0.07692307692307693","Impressions":"1693","Orders":"3","ROAS":"7.996363","SPS":"2.750000","Sales":"65.97","SalesOtherSku7d":"0.00","SalesSameSku7d":"65.97","Spend":"8.25","UnitsSoldOtherSku7d":"0","UnitsSoldSameSku7d":"3","accountId":575,"acos_15":"0.119827","acos_30":"0.128694","acos_7":"0.140518","acos_life_time":"0.138039","adGroupId":347054937067834,"adId":505019758306333,"asin":"B0DTX9LKW7","campaignId":361963854941061,"campaignName":"asin_tayler_zun0779","campaignState":1,"created_at":"2025-03-03 15:56:06","dailyBudget":"3.00","groupName":"asin_tayler_zun0779"}},"sb":{"count":0,"entityLevel":"campaign","sampleKeys":[],"sample":null}}}
+[2026-04-21T07:04:27.200Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T07:04:27.205Z] === Auto adjustment run started ===
+[2026-04-21T07:04:27.205Z] Fetching full data...
+[2026-04-21T07:04:37.226Z]   [3:04:29 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:04:47.234Z]   [3:04:29 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:04:57.251Z]   [3:04:56 PM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T07:05:07.274Z]   [3:04:56 PM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T07:05:17.278Z]   [3:05:07 PM] 拉取自动投放…
+[2026-04-21T07:05:27.288Z]   [3:05:25 PM] Pulling SB ads data...
+[2026-04-21T07:05:37.303Z]   [3:05:25 PM] Pulling SB ads data...
+[2026-04-21T07:05:47.306Z]   [3:05:41 PM] 拉取广告 3天 / 7天 指标窗口…
+[2026-04-21T07:05:57.330Z]   [3:05:48 PM] SP关键词 7天指标：返回 8722 条，匹配 5166 条
+[2026-04-21T07:06:07.347Z]   [3:06:03 PM] SP自动投放 3天指标：返回 1548 条，匹配 1431 条
+[2026-04-21T07:06:17.351Z]   [3:06:16 PM] SB关键词 3天指标：返回 3531 条，匹配 2865 条
+[2026-04-21T07:06:27.357Z] Data ready
+[2026-04-21T07:06:28.736Z] Product cards: 426; SP keywords: 6688; SP auto: 1519; SP manual targets: 1633; SB keywords: 3531; SB targets: 31
+[2026-04-21T07:06:28.736Z] 7d untouched: SP candidates=26; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T07:06:28.852Z] Plan: 48 SKUs, 78 actions; strategySkus=44; 7dSkus=4; overlap=0; manualReview=1; skipped=223
+[2026-04-21T07:06:29.190Z] SP keyword 567::4: API api_success 1
+[2026-04-21T07:06:29.907Z] SP keyword 15::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T07:06:30.716Z] SP keyword 682::4: API api_success 1
+[2026-04-21T07:06:31.546Z] SP keyword 563::4: API api_success 1
+[2026-04-21T07:06:32.352Z] SP keyword 339::4: API api_success 1
+[2026-04-21T07:06:33.159Z] SP keyword 752::4: API api_success 1
+[2026-04-21T07:06:33.779Z] SB keyword 103::4: API api_success 1
+[2026-04-21T07:06:34.396Z] SB keyword 604::4: API api_success 1
+[2026-04-21T07:06:35.010Z] SB keyword 515::4: API api_success 1
+[2026-04-21T07:06:35.781Z] SP auto target 120::4: API blocked_by_system_recent_adjust 13
+[2026-04-21T07:06:36.511Z] SP auto target 765::4: API blocked_by_system_recent_adjust 5
+[2026-04-21T07:06:37.318Z] SP auto target 546::4: API api_success 1
+[2026-04-21T07:06:38.057Z] SP auto target 803::4: API blocked_by_system_recent_adjust 8
+[2026-04-21T07:06:38.937Z] SP auto target 737::4: API api_success 1
+[2026-04-21T07:06:39.738Z] SP auto target 707::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T07:06:40.640Z] SP auto target 604::4: API api_success 1
+[2026-04-21T07:06:41.574Z] SP auto target 311::4: API api_success 1
+[2026-04-21T07:06:42.265Z] SP auto target 753::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T07:06:42.994Z] SP auto target 563::4: API blocked_by_system_recent_adjust 4
+[2026-04-21T07:06:43.844Z] SP auto target 795::4: API api_success 1
+[2026-04-21T07:06:44.576Z] SP auto target 543::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T07:06:45.304Z] SP auto target 705::4: API blocked_by_system_recent_adjust 4
+[2026-04-21T07:06:46.159Z] SP auto target 551::4: API blocked_by_system_recent_adjust 3
+[2026-04-21T07:06:47.044Z] SP auto target 518::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T07:06:48.131Z] SP auto target 772::4: API api_success 1
+[2026-04-21T07:06:48.861Z] SP auto target 856::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T07:06:49.575Z] SP auto target 601::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T07:06:50.432Z] SP auto target 624::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T07:06:51.749Z] SP auto target 839::4: API api_success 1
+[2026-04-21T07:06:52.709Z] SP auto target 835::4: API api_success 1
+[2026-04-21T07:06:53.559Z] SP manual target 864::4: API api_success 1
+[2026-04-21T07:06:54.493Z] SP manual target 575::4: API api_success 3
+[2026-04-21T07:06:56.965Z] SP manual target 528::4: API api_success 5
+[2026-04-21T07:06:57.945Z] SP manual target 311::4: API api_success 4
+[2026-04-21T07:06:58.459Z] Refreshing data for post-write verification...
+[2026-04-21T07:08:55.678Z] Final lookup: success=29, not_landed=0, blocked=49, failed=0
+[2026-04-21T07:08:55.678Z] SKU coverage: adjusted=20, blocked=28, suppressed=238, no_action=125, failed=0, unverified=0
+[2026-04-21T07:08:55.679Z] Inventory notes: success=0, failed=1
+[2026-04-21T07:08:55.679Z] === Auto adjustment run finished ===
+[2026-04-21T07:31:28.348Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T07:31:28.352Z] === Auto adjustment run started ===
+[2026-04-21T07:31:28.352Z] Fetching full data...
+[2026-04-21T07:31:38.373Z]   [3:31:31 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:31:48.379Z]   [3:31:31 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:31:58.381Z]   [3:31:56 PM] 注入关键词拦截器，等待页面请求…
+[2026-04-21T07:32:08.394Z]   [3:31:59 PM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T07:32:18.411Z]   [3:32:11 PM] 拉取自动投放…
+[2026-04-21T07:32:28.428Z]   [3:32:27 PM] Pulling SB ads data...
+[2026-04-21T07:32:38.434Z]   [3:32:27 PM] Pulling SB ads data...
+[2026-04-21T07:32:48.451Z]   [3:32:43 PM] 拉取广告 3天 / 7天 指标窗口…
+[2026-04-21T07:32:58.466Z]   [3:32:49 PM] SP关键词 7天指标：返回 8722 条，匹配 5038 条
+[2026-04-21T07:33:08.470Z]   [3:33:07 PM] SP自动投放 3天指标：返回 1548 条，匹配 1413 条
+[2026-04-21T07:33:18.473Z]   [3:33:15 PM] SB关键词 7天指标：返回 3531 条，匹配 2971 条
+[2026-04-21T07:33:28.489Z] Data ready
+[2026-04-21T07:33:29.845Z] Product cards: 426; SP keywords: 6658; SP auto: 1521; SP manual targets: 1628; SB keywords: 3531; SB targets: 31
+[2026-04-21T07:33:29.845Z] 7d untouched: SP candidates=23; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T07:33:29.958Z] Plan: 29 SKUs, 49 actions; strategySkus=28; 7dSkus=1; overlap=0; manualReview=2; skipped=202
+[2026-04-21T07:33:30.195Z] SP keyword 15::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T07:33:30.979Z] SP auto target 120::4: API blocked_by_system_recent_adjust 13
+[2026-04-21T07:33:31.746Z] SP auto target 765::4: API blocked_by_system_recent_adjust 5
+[2026-04-21T07:33:32.476Z] SP auto target 803::4: API blocked_by_system_recent_adjust 8
+[2026-04-21T07:33:33.187Z] SP auto target 707::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T07:33:33.902Z] SP auto target 753::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T07:33:35.411Z] SP auto target 563::4: API blocked_by_system_recent_adjust 4
+[2026-04-21T07:33:36.367Z] SP auto target 543::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T07:33:37.071Z] SP auto target 705::4: API blocked_by_system_recent_adjust 4
+[2026-04-21T07:33:37.830Z] SP auto target 551::4: API blocked_by_system_recent_adjust 3
+[2026-04-21T07:33:38.512Z] SP auto target 518::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T07:33:39.294Z] SP auto target 856::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T07:33:40.024Z] SP auto target 601::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T07:33:40.762Z] SP auto target 624::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T07:33:41.277Z] Refreshing data for post-write verification...
+[2026-04-21T07:35:41.504Z] Final lookup: success=0, not_landed=0, blocked=49, failed=0
+[2026-04-21T07:35:41.505Z] SKU coverage: adjusted=0, blocked=29, suppressed=256, no_action=125, failed=0, unverified=0
+[2026-04-21T07:35:41.505Z] Inventory notes: success=46, failed=0
+[2026-04-21T07:35:41.505Z] === Auto adjustment run finished ===
+[2026-04-21T07:35:46.316Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T07:35:46.322Z] === Auto adjustment run started ===
+[2026-04-21T07:35:46.322Z] Fetching full data...
+[2026-04-21T07:35:56.335Z]   [3:35:49 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:36:06.340Z]   [3:35:49 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:36:16.353Z]   [3:35:49 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:36:26.369Z]   [3:36:22 PM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T07:36:36.377Z]   [3:36:33 PM] 拉取自动投放…
+[2026-04-21T07:36:46.387Z]   [3:36:40 PM] 拉取定位组…
+[2026-04-21T07:36:56.404Z]   [3:36:48 PM] Pulling SB ads data...
+[2026-04-21T07:37:06.420Z]   [3:37:04 PM] 拉取广告 3天 / 7天 指标窗口…
+[2026-04-21T07:37:16.422Z]   [3:37:12 PM] SP关键词 7天指标：返回 8722 条，匹配 5173 条
+[2026-04-21T07:37:26.431Z]   [3:37:24 PM] SP自动投放 7天指标：返回 1548 条，匹配 1478 条
+[2026-04-21T07:37:36.441Z]   [3:37:35 PM] SB关键词 7天指标：返回 3531 条，匹配 2969 条
+[2026-04-21T07:37:46.456Z] Data ready
+[2026-04-21T07:37:48.121Z] Product cards: 426; SP keywords: 6807; SP auto: 1525; SP manual targets: 1635; SB keywords: 3531; SB targets: 31
+[2026-04-21T07:37:48.121Z] 7d untouched: SP candidates=23; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T07:37:48.294Z] Plan: 0 SKUs, 0 actions; strategySkus=0; 7dSkus=0; overlap=0; manualReview=1; skipped=208
+[2026-04-21T07:37:48.294Z] DRY_RUN complete: {"spCandidates":23,"spExecutable":0,"sbCandidates":0,"sbExecutable":0,"overlapWithStrategy":0,"manualReview":1,"invalidSkipped":208,"granularity":{"sp":{"count":23,"entityLevel":"adGroup","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","Orders","ROAS","SPS","Sales","SalesOtherSku7d","SalesSameSku7d","Spend","UnitsSoldOtherSku7d","UnitsSoldSameSku7d","accountId","acos_15","acos_30","acos_7","acos_life_time","adGroupId","adId","asin","campaignId","campaignName","campaignState","created_at","dailyBudget","groupName","groupState","hasPlacement","isPublic","keywordPosition","lastAdvUpdatedDate","lowCost","manualAdjustTheTime","memoKey","moduleId","moduleName","placementACOSMin","positionType","productLine","productVariantInfo","proportion","servingStatus","servingStatusDetail","servingStatusTitle","siteId","sku","skuInvData","startDate","state","test_module","updateWeekday"],"sample":{"ACOS":null,"CPC":"0.364285","CPS":null,"CTR":"0.009162303664921465","Clicks":"14","ConversionRate":"0","Impressions":"1528","Orders":"0","ROAS":"0.000000","SPS":null,"Sales":"0.00","SalesOtherSku7d":"0.00","SalesSameSku7d":"0.00","Spend":"5.10","UnitsSoldOtherSku7d":"0","UnitsSoldSameSku7d":"0","accountId":120,"acos_15":null,"acos_30":null,"acos_7":null,"acos_life_time":"0.186331","adGroupId":335413796452031,"adId":298336744510492,"asin":"B0CLV16D1L","campaignId":396698961698398,"campaignName":"auto_silicone cable ties_th2843","campaignState":1,"created_at":"2025-05-06 17:46:19","dailyBudget":"3.00","groupName":"auto_silicone cable ties_th2843"}},"sb":{"count":0,"entityLevel":"campaign","sampleKeys":[],"sample":null}}}
+[2026-04-21T07:41:29.527Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T07:41:29.533Z] === Auto adjustment run started ===
+[2026-04-21T07:41:29.533Z] Fetching full data...
+[2026-04-21T07:41:39.543Z]   [3:41:32 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:41:49.557Z]   [3:41:32 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:41:59.572Z]   [3:41:57 PM] 注入关键词拦截器，等待页面请求…
+[2026-04-21T07:42:09.576Z]   [3:42:00 PM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T07:42:19.588Z]   [3:42:19 PM] 拉取定位组…
+[2026-04-21T07:42:29.590Z]   [3:42:26 PM] Pulling SB ads data...
+[2026-04-21T07:42:39.597Z]   [3:42:26 PM] Pulling SB ads data...
+[2026-04-21T07:42:49.608Z]   [3:42:43 PM] 拉取广告 3天 / 7天 指标窗口…
+[2026-04-21T07:42:59.614Z]   [3:42:58 PM] SP关键词 3天指标：返回 8722 条，匹配 4752 条
+[2026-04-21T07:43:09.626Z]   [3:43:06 PM] SP定位组 7天指标：返回 1671 条，匹配 1498 条
+[2026-04-21T07:43:19.642Z]   [3:43:17 PM] SB关键词 7天指标：返回 3531 条，匹配 2971 条
+[2026-04-21T07:43:33.848Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T07:43:33.851Z] === Auto adjustment run started ===
+[2026-04-21T07:43:33.852Z] Fetching full data...
+[2026-04-21T07:43:43.860Z]   [3:43:36 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:43:53.867Z]   [3:43:36 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:44:03.873Z]   [3:44:03 PM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T07:44:13.879Z]   [3:44:03 PM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T07:44:23.887Z]   [3:44:15 PM] 拉取自动投放…
+[2026-04-21T07:44:33.902Z]   [3:44:33 PM] Pulling SB ads data...
+[2026-04-21T07:44:43.911Z]   [3:44:33 PM] Pulling SB ads data...
+[2026-04-21T07:44:53.930Z]   [3:44:49 PM] 拉取广告 3天 / 7天 指标窗口…
+[2026-04-21T07:45:03.941Z]   [3:44:57 PM] SP关键词 7天指标：返回 8722 条，匹配 5139 条
+[2026-04-21T07:45:13.954Z]   [3:45:13 PM] SP自动投放 3天指标：返回 1548 条，匹配 1419 条
+[2026-04-21T07:45:23.958Z]   [3:45:23 PM] SB关键词 7天指标：返回 3531 条，匹配 3009 条
+[2026-04-21T07:45:33.974Z] Data ready
+[2026-04-21T07:45:35.066Z] Product cards: 426; SP keywords: 6768; SP auto: 1521; SP manual targets: 1635; SB keywords: 3531; SB targets: 31
+[2026-04-21T07:45:35.066Z] 7d untouched: SP candidates=23; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T07:45:35.143Z] Plan: 0 SKUs, 0 actions; strategySkus=0; 7dSkus=0; overlap=0; manualReview=1; skipped=225
+[2026-04-21T07:45:35.143Z] DRY_RUN complete: {"spCandidates":23,"spExecutable":0,"sbCandidates":0,"sbExecutable":0,"overlapWithStrategy":0,"manualReview":1,"invalidSkipped":225,"granularity":{"sp":{"count":23,"entityLevel":"adGroup","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","Orders","ROAS","SPS","Sales","SalesOtherSku7d","SalesSameSku7d","Spend","UnitsSoldOtherSku7d","UnitsSoldSameSku7d","accountId","acos_15","acos_30","acos_7","acos_life_time","adGroupId","adId","asin","campaignId","campaignName","campaignState","created_at","dailyBudget","groupName","groupState","hasPlacement","isPublic","keywordPosition","lastAdvUpdatedDate","lowCost","manualAdjustTheTime","memoKey","moduleId","moduleName","placementACOSMin","positionType","productLine","productVariantInfo","proportion","servingStatus","servingStatusDetail","servingStatusTitle","siteId","sku","skuInvData","startDate","state","test_module","updateWeekday"],"sample":{"ACOS":null,"CPC":"0.364285","CPS":null,"CTR":"0.009162303664921465","Clicks":"14","ConversionRate":"0","Impressions":"1528","Orders":"0","ROAS":"0.000000","SPS":null,"Sales":"0.00","SalesOtherSku7d":"0.00","SalesSameSku7d":"0.00","Spend":"5.10","UnitsSoldOtherSku7d":"0","UnitsSoldSameSku7d":"0","accountId":120,"acos_15":null,"acos_30":null,"acos_7":null,"acos_life_time":"0.186331","adGroupId":335413796452031,"adId":298336744510492,"asin":"B0CLV16D1L","campaignId":396698961698398,"campaignName":"auto_silicone cable ties_th2843","campaignState":1,"created_at":"2025-05-06 17:46:19","dailyBudget":"3.00","groupName":"auto_silicone cable ties_th2843"}},"sb":{"count":0,"entityLevel":"campaign","sampleKeys":[],"sample":null}}}
+[2026-04-21T07:47:53.903Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T07:47:53.912Z] === Auto adjustment run started ===
+[2026-04-21T07:47:53.912Z] Fetching full data...
+[2026-04-21T07:48:03.925Z]   [3:47:56 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:48:13.953Z]   [3:47:56 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T07:48:23.958Z]   [3:48:22 PM] 注入关键词拦截器，等待页面请求…
+[2026-04-21T07:48:33.975Z]   [3:48:26 PM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T07:48:43.991Z]   [3:48:36 PM] 拉取自动投放…
+[2026-04-21T07:48:54.006Z]   [3:48:53 PM] Pulling SB ads data...
+[2026-04-21T07:49:04.015Z]   [3:48:53 PM] Pulling SB ads data...
+[2026-04-21T07:49:14.021Z]   [3:49:09 PM] 拉取广告 3天 / 7天 指标窗口…
+[2026-04-21T07:49:24.026Z]   [3:49:17 PM] SP关键词 7天指标：返回 8722 条，匹配 5140 条
+[2026-04-21T07:49:34.043Z]   [3:49:32 PM] SP自动投放 3天指标：返回 1548 条，匹配 1429 条
+[2026-04-21T07:49:44.063Z]   [3:49:41 PM] SB关键词 7天指标：返回 3531 条，匹配 3069 条
+[2026-04-21T07:49:54.070Z] Data ready
+[2026-04-21T07:49:55.611Z] Product cards: 426; SP keywords: 6799; SP auto: 1520; SP manual targets: 1634; SB keywords: 3531; SB targets: 31
+[2026-04-21T07:49:55.611Z] 7d untouched: SP candidates=23; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T07:49:55.738Z] Plan: 0 SKUs, 0 actions; strategySkus=0; 7dSkus=0; overlap=0; manualReview=1; skipped=230
+[2026-04-21T07:49:55.739Z] DRY_RUN complete: {"spCandidates":23,"spExecutable":0,"sbCandidates":0,"sbExecutable":0,"overlapWithStrategy":0,"manualReview":1,"invalidSkipped":230,"granularity":{"sp":{"count":23,"entityLevel":"adGroup","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","Orders","ROAS","SPS","Sales","SalesOtherSku7d","SalesSameSku7d","Spend","UnitsSoldOtherSku7d","UnitsSoldSameSku7d","accountId","acos_15","acos_30","acos_7","acos_life_time","adGroupId","adId","asin","campaignId","campaignName","campaignState","created_at","dailyBudget","groupName","groupState","hasPlacement","isPublic","keywordPosition","lastAdvUpdatedDate","lowCost","manualAdjustTheTime","memoKey","moduleId","moduleName","placementACOSMin","positionType","productLine","productVariantInfo","proportion","servingStatus","servingStatusDetail","servingStatusTitle","siteId","sku","skuInvData","startDate","state","test_module","updateWeekday"],"sample":{"ACOS":null,"CPC":"0.364285","CPS":null,"CTR":"0.009162303664921465","Clicks":"14","ConversionRate":"0","Impressions":"1528","Orders":"0","ROAS":"0.000000","SPS":null,"Sales":"0.00","SalesOtherSku7d":"0.00","SalesSameSku7d":"0.00","Spend":"5.10","UnitsSoldOtherSku7d":"0","UnitsSoldSameSku7d":"0","accountId":120,"acos_15":null,"acos_30":null,"acos_7":null,"acos_life_time":"0.186331","adGroupId":335413796452031,"adId":298336744510492,"asin":"B0CLV16D1L","campaignId":396698961698398,"campaignName":"auto_silicone cable ties_th2843","campaignState":1,"created_at":"2025-05-06 17:46:19","dailyBudget":"3.00","groupName":"auto_silicone cable ties_th2843"}},"sb":{"count":0,"entityLevel":"campaign","sampleKeys":[],"sample":null}}}
+[2026-04-21T09:12:43.723Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T09:12:43.729Z] === Auto adjustment run started ===
+[2026-04-21T09:12:43.729Z] Fetching full data...
+[2026-04-21T09:12:53.748Z]   [5:12:46 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T09:13:03.765Z]   [5:12:46 PM] 分页p2结构：keys=["code","count","data","filter","limit","msg","pageNum"] rows=50
+[2026-04-21T09:13:13.783Z]   [5:13:12 PM] 拉取广告关键词…
+[2026-04-21T09:13:23.789Z]   [5:13:21 PM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T09:13:33.806Z]   [5:13:21 PM] 关键词分页拉取：pageSize=500，startPage=1，并发=6
+[2026-04-21T09:13:43.819Z]   [5:13:42 PM] 拉取定位组…
+[2026-04-21T09:13:53.830Z]   [5:13:51 PM] Pulling SB ads data...
+[2026-04-21T09:14:03.834Z]   [5:13:51 PM] Pulling SB ads data...
+[2026-04-21T09:14:13.844Z]   [5:14:10 PM] 拉取广告 3天 / 7天 指标窗口…
+[2026-04-21T09:14:23.858Z]   [5:14:18 PM] SP关键词 7天指标：返回 8681 条，匹配 5143 条
+[2026-04-21T09:14:33.875Z]   [5:14:30 PM] SP自动投放 7天指标：返回 1552 条，匹配 1472 条
+[2026-04-21T09:14:48.816Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T09:14:48.821Z] === Auto adjustment run started ===
+[2026-04-21T09:14:48.821Z] Fetching full data...
+[2026-04-21T09:14:58.832Z] Data ready
+[2026-04-21T09:14:58.840Z] Product cards: 0; SP keywords: 0; SP auto: 0; SP manual targets: 0; SB keywords: 0; SB targets: 0
+[2026-04-21T09:14:58.840Z] 7d untouched: SP candidates=23; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T09:14:58.841Z] Fatal error: Error: No product cards after full fetch.
+    at run (D:\ad-ops-workbench\auto_adjust.js:852:11)
+[2026-04-21T09:23:34.535Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T09:23:34.538Z] === Auto adjustment run started ===
+[2026-04-21T09:23:34.538Z] Fetching full data...
+[2026-04-21T09:25:49.329Z] Data ready on attempt 1: cards=426, kw=6713, auto=1526, target=1643, sb=3562
+[2026-04-21T09:25:50.535Z] Product cards: 426; SP keywords: 6713; SP auto: 1526; SP manual targets: 1643; SB keywords: 3531; SB targets: 31
+[2026-04-21T09:25:50.535Z] 7d untouched: SP candidates=23; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T09:25:50.888Z] Plan: 180 SKUs, 2262 actions; strategySkus=180; 7dSkus=0; overlap=80; manualReview=1; skipped=217
+[2026-04-21T09:25:50.894Z] DRY_RUN complete: {"spCandidates":23,"spExecutable":0,"sbCandidates":0,"sbExecutable":0,"overlapWithStrategy":80,"manualReview":1,"invalidSkipped":217,"granularity":{"sp":{"count":23,"entityLevel":"adGroup","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","Orders","ROAS","SPS","Sales","SalesOtherSku7d","SalesSameSku7d","Spend","UnitsSoldOtherSku7d","UnitsSoldSameSku7d","accountId","acos_15","acos_30","acos_7","acos_life_time","adGroupId","adId","asin","campaignId","campaignName","campaignState","created_at","dailyBudget","groupName","groupState","hasPlacement","isPublic","keywordPosition","lastAdvUpdatedDate","lowCost","manualAdjustTheTime","memoKey","moduleId","moduleName","placementACOSMin","positionType","productLine","productVariantInfo","proportion","servingStatus","servingStatusDetail","servingStatusTitle","siteId","sku","skuInvData","startDate","state","test_module","updateWeekday"],"sample":{"ACOS":null,"CPC":"0.364285","CPS":null,"CTR":"0.009162303664921465","Clicks":"14","ConversionRate":"0","Impressions":"1528","Orders":"0","ROAS":"0.000000","SPS":null,"Sales":"0.00","SalesOtherSku7d":"0.00","SalesSameSku7d":"0.00","Spend":"5.10","UnitsSoldOtherSku7d":"0","UnitsSoldSameSku7d":"0","accountId":120,"acos_15":null,"acos_30":null,"acos_7":null,"acos_life_time":"0.186331","adGroupId":335413796452031,"adId":298336744510492,"asin":"B0CLV16D1L","campaignId":396698961698398,"campaignName":"auto_silicone cable ties_th2843","campaignState":1,"created_at":"2025-05-06 17:46:19","dailyBudget":"3.00","groupName":"auto_silicone cable ties_th2843"}},"sb":{"count":0,"entityLevel":"campaign","sampleKeys":[],"sample":null}}}
+[2026-04-21T09:26:17.790Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T09:26:17.794Z] === Auto adjustment run started ===
+[2026-04-21T09:26:17.794Z] Fetching full data...
+[2026-04-21T09:28:02.936Z] Data ready on attempt 1: cards=426, kw=6713, auto=1523, target=1660, sb=3562
+[2026-04-21T09:28:04.214Z] Product cards: 426; SP keywords: 6713; SP auto: 1523; SP manual targets: 1660; SB keywords: 3531; SB targets: 31
+[2026-04-21T09:28:04.215Z] 7d untouched: SP candidates=23; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T09:28:04.320Z] Plan: 138 SKUs, 254 actions; strategySkus=138; 7dSkus=0; overlap=0; manualReview=1; skipped=218
+[2026-04-21T09:28:04.321Z] DRY_RUN complete: {"spCandidates":23,"spExecutable":0,"sbCandidates":0,"sbExecutable":0,"overlapWithStrategy":0,"manualReview":1,"invalidSkipped":218,"granularity":{"sp":{"count":23,"entityLevel":"adGroup","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","Orders","ROAS","SPS","Sales","SalesOtherSku7d","SalesSameSku7d","Spend","UnitsSoldOtherSku7d","UnitsSoldSameSku7d","accountId","acos_15","acos_30","acos_7","acos_life_time","adGroupId","adId","asin","campaignId","campaignName","campaignState","created_at","dailyBudget","groupName","groupState","hasPlacement","isPublic","keywordPosition","lastAdvUpdatedDate","lowCost","manualAdjustTheTime","memoKey","moduleId","moduleName","placementACOSMin","positionType","productLine","productVariantInfo","proportion","servingStatus","servingStatusDetail","servingStatusTitle","siteId","sku","skuInvData","startDate","state","test_module","updateWeekday"],"sample":{"ACOS":null,"CPC":"0.364285","CPS":null,"CTR":"0.009162303664921465","Clicks":"14","ConversionRate":"0","Impressions":"1528","Orders":"0","ROAS":"0.000000","SPS":null,"Sales":"0.00","SalesOtherSku7d":"0.00","SalesSameSku7d":"0.00","Spend":"5.10","UnitsSoldOtherSku7d":"0","UnitsSoldSameSku7d":"0","accountId":120,"acos_15":null,"acos_30":null,"acos_7":null,"acos_life_time":"0.186331","adGroupId":335413796452031,"adId":298336744510492,"asin":"B0CLV16D1L","campaignId":396698961698398,"campaignName":"auto_silicone cable ties_th2843","campaignState":1,"created_at":"2025-05-06 17:46:19","dailyBudget":"3.00","groupName":"auto_silicone cable ties_th2843"}},"sb":{"count":0,"entityLevel":"campaign","sampleKeys":[],"sample":null}}}
+[2026-04-21T09:28:24.597Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T09:28:24.602Z] === Auto adjustment run started ===
+[2026-04-21T09:28:24.602Z] Fetching full data...
+[2026-04-21T09:30:36.933Z] Data ready on attempt 1: cards=426, kw=6713, auto=1523, target=1644, sb=3562
+[2026-04-21T09:30:38.654Z] Product cards: 426; SP keywords: 6713; SP auto: 1523; SP manual targets: 1644; SB keywords: 3531; SB targets: 31
+[2026-04-21T09:30:38.654Z] 7d untouched: SP candidates=23; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T09:30:38.765Z] Plan: 138 SKUs, 254 actions; strategySkus=138; 7dSkus=0; overlap=0; manualReview=1; skipped=214
+[2026-04-21T09:30:39.127Z] State enable autoTarget 377199180799827: api_success
+[2026-04-21T09:30:39.845Z] State enable keyword 451514635422789: api_success
+[2026-04-21T09:30:41.932Z] State enable keyword 7680447436678: api_success
+[2026-04-21T09:30:42.506Z] State enable keyword 98852046881415: api_success
+[2026-04-21T09:30:42.826Z] State enable sbTarget 466313526027161: api_success
+[2026-04-21T09:30:43.354Z] State enable keyword 388101783849082: api_success
+[2026-04-21T09:30:43.831Z] State enable keyword 362980411266301: api_success
+[2026-04-21T09:30:44.327Z] State enable keyword 465716822627637: api_success
+[2026-04-21T09:30:44.898Z] State enable keyword 502596600090950: api_success
+[2026-04-21T09:30:45.209Z] State enable sbKeyword 398156251212217: api_success
+[2026-04-21T09:30:45.788Z] State enable keyword 479480661419396: api_success
+[2026-04-21T09:30:46.440Z] State enable keyword 437221407283664: api_success
+[2026-04-21T09:30:46.761Z] State enable sbKeyword 540793753436395: api_success
+[2026-04-21T09:30:47.081Z] State enable sbKeyword 391528250802478: api_success
+[2026-04-21T09:30:47.763Z] State enable keyword 155760574290532: api_success
+[2026-04-21T09:30:48.379Z] State enable keyword 161769082137771: api_success
+[2026-04-21T09:30:48.704Z] State enable sbKeyword 159170500424174: api_success
+[2026-04-21T09:30:49.031Z] State enable sbKeyword 155918260541191: api_success
+[2026-04-21T09:30:49.351Z] State enable sbKeyword 126577711753466: api_success
+[2026-04-21T09:30:50.035Z] State enable keyword 493310751378431: api_success
+[2026-04-21T09:30:50.613Z] State enable keyword 296423238802517: api_success
+[2026-04-21T09:30:51.374Z] State enable keyword 433715057093707: api_success
+[2026-04-21T09:30:51.934Z] State enable autoTarget 305280073793632: api_success
+[2026-04-21T09:30:52.546Z] State enable keyword 504178681966686: api_success
+[2026-04-21T09:30:53.259Z] State pause keyword 414545665174017: api_success
+[2026-04-21T09:30:53.879Z] State pause keyword 547878055509636: api_success
+[2026-04-21T09:30:54.496Z] State pause keyword 408794448368114: api_success
+[2026-04-21T09:30:55.065Z] State pause keyword 453046957880680: api_success
+[2026-04-21T09:30:55.627Z] State pause keyword 23864090268540: api_success
+[2026-04-21T09:30:56.450Z] State pause keyword 510190216422020: api_success
+[2026-04-21T09:30:57.062Z] State pause keyword 384038485259457: api_success
+[2026-04-21T09:30:57.624Z] State pause keyword 462883010482892: api_success
+[2026-04-21T09:30:58.192Z] State pause autoTarget 312465768171626: api_success
+[2026-04-21T09:30:58.793Z] State pause autoTarget 540182833878727: api_success
+[2026-04-21T09:30:59.341Z] State pause autoTarget 539919580888177: api_success
+[2026-04-21T09:30:59.674Z] State pause sbKeyword 176667495759901: api_success
+[2026-04-21T09:30:59.996Z] State enable sbKeyword 559619269883250: api_success
+[2026-04-21T09:31:00.317Z] State enable sbKeyword 448234009432710: api_success
+[2026-04-21T09:31:00.649Z] State enable sbKeyword 360562716191477: api_success
+[2026-04-21T09:31:00.975Z] State enable sbKeyword 420868674655508: api_success
+[2026-04-21T09:31:01.297Z] State enable sbKeyword 551540220002429: api_success
+[2026-04-21T09:31:01.611Z] State enable sbKeyword 508148968563310: api_success
+[2026-04-21T09:31:01.948Z] State enable sbKeyword 355282349264413: api_success
+[2026-04-21T09:31:04.316Z] State enable keyword 336837527275345: api_success
+[2026-04-21T09:31:05.121Z] State pause autoTarget 535076415432222: api_success
+[2026-04-21T09:31:06.267Z] State enable keyword 358593610364658: api_success
+[2026-04-21T09:31:06.965Z] State enable keyword 443788506716610: api_success
+[2026-04-21T09:31:07.472Z] State enable keyword 381368306855705: api_success
+[2026-04-21T09:31:08.042Z] State enable keyword 372371719765577: api_success
+[2026-04-21T09:31:08.580Z] State enable keyword 427452066424468: api_success
+[2026-04-21T09:31:09.311Z] State enable keyword 404271946156003: api_success
+[2026-04-21T09:31:09.854Z] State enable keyword 529707871068226: api_success
+[2026-04-21T09:31:10.185Z] State enable sbKeyword 395169285279996: api_success
+[2026-04-21T09:31:10.679Z] State enable keyword 556540536039940: api_success
+[2026-04-21T09:31:13.451Z] State enable autoTarget 418808182909169: api_success
+[2026-04-21T09:31:14.419Z] State enable keyword 547564791932325: api_success
+[2026-04-21T09:31:15.050Z] State enable keyword 356638495054683: api_success
+[2026-04-21T09:31:15.720Z] State enable keyword 387468076086179: api_success
+[2026-04-21T09:31:16.425Z] State pause autoTarget 307039802236563: api_success
+[2026-04-21T09:31:17.228Z] State enable keyword 507098573213470: api_success
+[2026-04-21T09:31:17.998Z] State enable keyword 352893680984535: api_success
+[2026-04-21T09:31:18.322Z] State enable sbKeyword 477604158130240: api_success
+[2026-04-21T09:31:18.656Z] State enable sbKeyword 495785283987477: api_success
+[2026-04-21T09:31:18.980Z] State enable sbKeyword 379207636514175: api_success
+[2026-04-21T09:31:19.299Z] State enable sbKeyword 336191182428587: api_success
+[2026-04-21T09:31:19.877Z] State enable autoTarget 491654281598908: api_success
+[2026-04-21T09:31:20.471Z] State pause autoTarget 449995497246058: api_success
+[2026-04-21T09:31:21.022Z] State pause autoTarget 514999521460236: api_success
+[2026-04-21T09:31:21.588Z] State pause keyword 320304689202897: api_success
+[2026-04-21T09:31:22.089Z] State enable keyword 333435241513909: api_success
+[2026-04-21T09:31:22.847Z] State enable keyword 510998669534183: api_success
+[2026-04-21T09:31:23.177Z] State enable sbKeyword 296853885980198: api_success
+[2026-04-21T09:31:23.733Z] State enable keyword 313428958449288: api_success
+[2026-04-21T09:31:24.272Z] State enable keyword 522739852385858: api_success
+[2026-04-21T09:31:24.911Z] State enable keyword 340366233570428: api_success
+[2026-04-21T09:31:25.225Z] State enable sbKeyword 281900657751394: api_success
+[2026-04-21T09:31:25.543Z] State enable sbKeyword 300727415855471: api_success
+[2026-04-21T09:31:26.042Z] State enable keyword 355736135722042: api_success
+[2026-04-21T09:31:26.754Z] State enable autoTarget 509447974420906: api_success
+[2026-04-21T09:31:27.325Z] State pause keyword 282805552280184: api_success
+[2026-04-21T09:31:27.858Z] State pause keyword 388595082379784: api_success
+[2026-04-21T09:31:28.451Z] State pause keyword 535635867099807: api_success
+[2026-04-21T09:31:28.959Z] State enable keyword 224486676557481: api_success
+[2026-04-21T09:31:29.481Z] State enable keyword 160593933500714: api_success
+[2026-04-21T09:31:29.969Z] State enable keyword 16640769194899: api_success
+[2026-04-21T09:31:30.475Z] State enable keyword 359712792877114: api_success
+[2026-04-21T09:31:30.986Z] State enable autoTarget 369026111814931: api_success
+[2026-04-21T09:31:31.564Z] State enable autoTarget 411983945730697: api_success
+[2026-04-21T09:31:32.138Z] State enable autoTarget 312566761754425: api_success
+[2026-04-21T09:31:32.695Z] State enable keyword 104080414793626: api_success
+[2026-04-21T09:31:33.217Z] State enable keyword 10884137067102: api_success
+[2026-04-21T09:31:33.710Z] State enable keyword 479605424549774: api_success
+[2026-04-21T09:31:34.281Z] State enable keyword 422443259629716: api_success
+[2026-04-21T09:31:35.135Z] State enable keyword 494208290159267: api_success
+[2026-04-21T09:31:35.680Z] State enable keyword 560824775142407: api_success
+[2026-04-21T09:31:36.017Z] State enable sbKeyword 416988016887234: api_success
+[2026-04-21T09:31:36.346Z] State enable sbKeyword 92509345282061: api_success
+[2026-04-21T09:31:36.867Z] State enable keyword 409226485399997: api_success
+[2026-04-21T09:31:37.355Z] State enable keyword 510604652668996: api_success
+[2026-04-21T09:31:37.668Z] State enable sbKeyword 368354492406857: api_success
+[2026-04-21T09:31:38.384Z] State enable keyword 557948373332130: api_success
+[2026-04-21T09:31:39.204Z] State enable keyword 390790851736021: api_success
+[2026-04-21T09:31:39.722Z] State enable keyword 561545528556108: api_success
+[2026-04-21T09:31:40.408Z] State enable keyword 307584778084572: api_success
+[2026-04-21T09:31:41.011Z] State pause autoTarget 473927584602548: api_success
+[2026-04-21T09:31:41.812Z] State enable keyword 317022636134844: api_success
+[2026-04-21T09:31:42.293Z] State pause keyword 544809631760599: api_success
+[2026-04-21T09:31:42.630Z] State enable sbKeyword 458862838030364: api_success
+[2026-04-21T09:31:42.956Z] State enable sbKeyword 318933828515699: api_success
+[2026-04-21T09:31:43.283Z] State enable sbKeyword 521610126165916: api_success
+[2026-04-21T09:31:43.614Z] State enable sbKeyword 412816850370468: api_success
+[2026-04-21T09:31:44.171Z] State enable keyword 396064531037643: api_success
+[2026-04-21T09:31:44.501Z] State enable sbKeyword 312954837348554: api_success
+[2026-04-21T09:31:44.832Z] State enable sbKeyword 536861527188875: api_success
+[2026-04-21T09:31:45.151Z] State enable sbKeyword 519157795567450: api_success
+[2026-04-21T09:31:45.786Z] State pause keyword 336785852804546: api_success
+[2026-04-21T09:31:46.338Z] State enable autoTarget 377617287585383: api_success
+[2026-04-21T09:31:46.859Z] State enable keyword 36792199331287: api_success
+[2026-04-21T09:31:47.606Z] State enable autoTarget 293691416198053: api_success
+[2026-04-21T09:31:47.952Z] State enable sbKeyword 495433779406685: api_success
+[2026-04-21T09:31:48.968Z] State enable keyword 532016054855803: api_success
+[2026-04-21T09:31:49.617Z] State enable keyword 445955100317503: api_success
+[2026-04-21T09:31:50.157Z] State pause keyword 536434026218272: api_success
+[2026-04-21T09:31:50.670Z] State enable keyword 302993486412064: api_success
+[2026-04-21T09:31:51.176Z] State enable keyword 529959672914178: api_success
+[2026-04-21T09:31:51.752Z] State enable autoTarget 460564039419493: api_success
+[2026-04-21T09:31:52.280Z] State pause keyword 427296877264149: api_success
+[2026-04-21T09:31:52.852Z] State pause keyword 525524885465420: api_success
+[2026-04-21T09:31:55.325Z] State enable keyword 549567884226303: api_success
+[2026-04-21T09:31:55.915Z] State enable keyword 553414089626890: api_success
+[2026-04-21T09:31:58.021Z] State enable keyword 346317727999542: api_success
+[2026-04-21T09:31:58.342Z] State enable sbKeyword 57244230775188: api_success
+[2026-04-21T09:31:58.673Z] State enable sbKeyword 98179088581495: api_success
+[2026-04-21T09:31:59.275Z] State pause keyword 538399668945078: api_success
+[2026-04-21T09:31:59.877Z] State pause autoTarget 424662155683910: api_success
+[2026-04-21T09:32:00.645Z] State pause autoTarget 491505823579922: api_success
+[2026-04-21T09:32:01.288Z] State enable keyword 108884425371812: api_success
+[2026-04-21T09:32:01.802Z] State enable keyword 472854968640558: api_success
+[2026-04-21T09:32:02.516Z] State enable keyword 492375541224653: api_success
+[2026-04-21T09:32:03.074Z] State pause keyword 362837875170072: api_success
+[2026-04-21T09:32:03.830Z] State pause autoTarget 306994520351744: api_success
+[2026-04-21T09:32:04.736Z] State enable autoTarget 440633857561621: api_success
+[2026-04-21T09:32:05.939Z] State enable autoTarget 300918273924560: api_success
+[2026-04-21T09:32:06.641Z] State pause autoTarget 327561773069916: api_success
+[2026-04-21T09:32:08.510Z] State enable autoTarget 323592156477774: api_success
+[2026-04-21T09:32:09.246Z] State enable autoTarget 387660363353396: api_success
+[2026-04-21T09:32:10.143Z] State enable autoTarget 349347303610156: api_success
+[2026-04-21T09:32:10.576Z] State enable sbKeyword 458848464311189: api_success
+[2026-04-21T09:32:11.718Z] State enable autoTarget 335454458496701: api_success
+[2026-04-21T09:32:12.038Z] State enable sbKeyword 439047358846743: api_success
+[2026-04-21T09:32:12.661Z] State pause autoTarget 440041164617195: api_success
+[2026-04-21T09:32:14.165Z] State pause autoTarget 383486947543917: api_success
+[2026-04-21T09:32:16.722Z] State pause autoTarget 562055654947398: api_success
+[2026-04-21T09:32:17.591Z] State pause autoTarget 306097038848530: api_success
+[2026-04-21T09:32:18.331Z] State pause autoTarget 389731863699654: api_success
+[2026-04-21T09:32:18.900Z] State pause autoTarget 376445211558656: api_success
+[2026-04-21T09:32:19.737Z] State pause autoTarget 561551457877915: api_success
+[2026-04-21T09:32:20.056Z] State pause sbKeyword 127830259614388: api_success
+[2026-04-21T09:32:20.779Z] State pause autoTarget 113954028713035: api_success
+[2026-04-21T09:32:21.348Z] State pause autoTarget 350602144900193: api_success
+[2026-04-21T09:32:22.042Z] State pause autoTarget 474597278428074: api_success
+[2026-04-21T09:32:22.939Z] State pause autoTarget 394791105973724: api_success
+[2026-04-21T09:32:23.576Z] State pause autoTarget 302003599403871: api_success
+[2026-04-21T09:32:24.473Z] State enable autoTarget 320871644611450: api_success
+[2026-04-21T09:32:25.983Z] State pause autoTarget 304862319402238: api_success
+[2026-04-21T09:32:26.849Z] State pause autoTarget 479482499544400: api_success
+[2026-04-21T09:32:27.196Z] State enable sbKeyword 387867858326214: api_success
+[2026-04-21T09:32:28.043Z] State pause autoTarget 486378706484271: api_success
+[2026-04-21T09:32:28.717Z] State enable autoTarget 317844871422318: api_success
+[2026-04-21T09:32:29.259Z] State pause autoTarget 429942906462107: api_success
+[2026-04-21T09:32:29.802Z] State pause autoTarget 218485652442281: api_success
+[2026-04-21T09:32:30.594Z] State pause autoTarget 461394599700113: api_success
+[2026-04-21T09:32:31.118Z] State pause autoTarget 433371469022594: api_success
+[2026-04-21T09:32:31.703Z] State enable autoTarget 299170834836394: api_success
+[2026-04-21T09:32:32.021Z] State enable sbKeyword 367559298784472: api_success
+[2026-04-21T09:32:32.349Z] State enable sbKeyword 425009453190637: api_success
+[2026-04-21T09:32:32.683Z] State enable sbKeyword 336527925779509: api_success
+[2026-04-21T09:32:33.537Z] State enable autoTarget 534118750869590: api_success
+[2026-04-21T09:32:34.040Z] State enable autoTarget 400418745183437: api_success
+[2026-04-21T09:32:34.618Z] State enable autoTarget 289418948528131: api_success
+[2026-04-21T09:32:35.909Z] State enable autoTarget 320855294875714: api_success
+[2026-04-21T09:32:36.514Z] State enable autoTarget 222692701406269: api_success
+[2026-04-21T09:32:37.126Z] State enable autoTarget 165645257443065: api_success
+[2026-04-21T09:32:37.839Z] State enable autoTarget 444090082488722: api_success
+[2026-04-21T09:32:38.899Z] State enable autoTarget 503754623314606: api_success
+[2026-04-21T09:32:39.689Z] State enable autoTarget 549038660047035: api_success
+[2026-04-21T09:32:40.024Z] State enable sbKeyword 278806763411309: api_success
+[2026-04-21T09:32:40.335Z] State enable sbKeyword 79033636206502: api_success
+[2026-04-21T09:32:40.661Z] State enable sbKeyword 189877368398573: api_success
+[2026-04-21T09:32:41.069Z] State enable sbKeyword 78826227987158: api_success
+[2026-04-21T09:32:41.708Z] State pause autoTarget 342181406546509: api_success
+[2026-04-21T09:32:42.244Z] State enable autoTarget 544814367837225: api_success
+[2026-04-21T09:32:42.811Z] State enable autoTarget 365137648085199: api_success
+[2026-04-21T09:32:43.460Z] State enable autoTarget 384064236234855: api_success
+[2026-04-21T09:32:44.317Z] State enable autoTarget 433976037687524: api_success
+[2026-04-21T09:32:44.875Z] State pause autoTarget 456495506629564: api_success
+[2026-04-21T09:32:45.457Z] State enable autoTarget 100021278955355: api_success
+[2026-04-21T09:32:46.111Z] State enable autoTarget 267939917842643: api_success
+[2026-04-21T09:32:46.637Z] State enable autoTarget 479408410310585: api_success
+[2026-04-21T09:32:47.239Z] State pause autoTarget 356666084115295: api_success
+[2026-04-21T09:32:47.922Z] State pause autoTarget 427566363904219: api_success
+[2026-04-21T09:32:48.526Z] State pause autoTarget 330016983027476: api_success
+[2026-04-21T09:32:48.851Z] State enable sbKeyword 554144166366639: api_success
+[2026-04-21T09:32:49.183Z] State enable sbKeyword 545934496449837: api_success
+[2026-04-21T09:32:49.509Z] State enable sbKeyword 406502443717521: api_success
+[2026-04-21T09:32:50.148Z] State pause autoTarget 473166816551767: api_success
+[2026-04-21T09:32:50.721Z] State pause autoTarget 509065269791704: api_success
+[2026-04-21T09:32:51.280Z] State enable autoTarget 425479250046687: api_success
+[2026-04-21T09:32:52.036Z] State enable autoTarget 304152902615714: api_success
+[2026-04-21T09:32:52.606Z] State enable autoTarget 557758907540534: api_success
+[2026-04-21T09:32:53.175Z] State pause autoTarget 482540015397668: api_success
+[2026-04-21T09:32:53.734Z] State pause autoTarget 325551767902857: api_success
+[2026-04-21T09:32:54.275Z] State enable autoTarget 322985759544862: api_success
+[2026-04-21T09:32:54.912Z] State enable autoTarget 459993636851503: api_success
+[2026-04-21T09:32:55.493Z] State pause autoTarget 411174442516249: api_success
+[2026-04-21T09:32:56.092Z] State pause autoTarget 346349968468448: api_success
+[2026-04-21T09:32:56.421Z] State enable sbKeyword 301556319484941: api_success
+[2026-04-21T09:32:56.742Z] State enable sbKeyword 365958674808460: api_success
+[2026-04-21T09:32:57.299Z] State pause autoTarget 418341498440050: api_success
+[2026-04-21T09:32:57.848Z] State enable autoTarget 342562336406915: api_success
+[2026-04-21T09:32:58.407Z] State pause autoTarget 482778833346007: api_success
+[2026-04-21T09:32:59.254Z] State pause autoTarget 493156681492311: api_success
+[2026-04-21T09:32:59.894Z] State pause autoTarget 459320570327890: api_success
+[2026-04-21T09:33:00.675Z] State pause autoTarget 9494537780285: api_success
+[2026-04-21T09:33:01.805Z] State enable sbKeyword 494801629492412: api_success
+[2026-04-21T09:33:03.284Z] State enable sbKeyword 274431492971745: api_success
+[2026-04-21T09:33:03.870Z] State enable sbKeyword 244719946285926: api_success
+[2026-04-21T09:33:04.367Z] State enable sbKeyword 208066034868673: api_success
+[2026-04-21T09:33:05.310Z] SP keyword 604::4: API api_success 1
+[2026-04-21T09:33:06.181Z] SB keyword 103::4: API api_success 2
+[2026-04-21T09:33:07.018Z] SP auto target 515::4: API api_success 1
+[2026-04-21T09:33:08.021Z] SP auto target 748::4: API api_success 1
+[2026-04-21T09:33:08.838Z] SP manual target 604::4: API api_success 1
+[2026-04-21T09:33:09.339Z] Refreshing data for post-write verification...
+[2026-04-21T09:35:59.204Z] Final lookup: success=234, not_landed=0, blocked=0, failed=20
+[2026-04-21T09:35:59.205Z] SKU coverage: adjusted=130, blocked=0, suppressed=138, no_action=136, failed=8, unverified=0
+[2026-04-21T09:35:59.205Z] Inventory notes: success=145, failed=8
+[2026-04-21T09:35:59.205Z] === Auto adjustment run finished ===
+[2026-04-21T09:40:38.442Z] Panel ID: D65CA75E66908D7B5F275F42D432EC6D
+[2026-04-21T09:40:38.448Z] === Auto adjustment run started ===
+[2026-04-21T09:40:38.449Z] Fetching full data...
+[2026-04-21T09:42:32.524Z] Data ready on attempt 1: cards=427, kw=6860, auto=1512, target=1660, sb=3562
+[2026-04-21T09:42:34.294Z] Product cards: 427; SP keywords: 6860; SP auto: 1512; SP manual targets: 1660; SB keywords: 3531; SB targets: 31
+[2026-04-21T09:42:34.294Z] 7d untouched: SP candidates=23; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T09:42:34.449Z] Plan: 34 SKUs, 46 actions; strategySkus=34; 7dSkus=0; overlap=0; manualReview=1; skipped=21
+[2026-04-21T09:42:34.450Z] DRY_RUN complete: {"spCandidates":23,"spExecutable":0,"sbCandidates":0,"sbExecutable":0,"overlapWithStrategy":0,"manualReview":1,"invalidSkipped":21,"granularity":{"sp":{"count":23,"entityLevel":"adGroup","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","Orders","ROAS","SPS","Sales","SalesOtherSku7d","SalesSameSku7d","Spend","UnitsSoldOtherSku7d","UnitsSoldSameSku7d","accountId","acos_15","acos_30","acos_7","acos_life_time","adGroupId","adId","asin","campaignId","campaignName","campaignState","created_at","dailyBudget","groupName","groupState","hasPlacement","isPublic","keywordPosition","lastAdvUpdatedDate","lowCost","manualAdjustTheTime","memoKey","moduleId","moduleName","placementACOSMin","positionType","productLine","productVariantInfo","proportion","servingStatus","servingStatusDetail","servingStatusTitle","siteId","sku","skuInvData","startDate","state","test_module","updateWeekday"],"sample":{"ACOS":null,"CPC":"0.364285","CPS":null,"CTR":"0.009162303664921465","Clicks":"14","ConversionRate":"0","Impressions":"1528","Orders":"0","ROAS":"0.000000","SPS":null,"Sales":"0.00","SalesOtherSku7d":"0.00","SalesSameSku7d":"0.00","Spend":"5.10","UnitsSoldOtherSku7d":"0","UnitsSoldSameSku7d":"0","accountId":120,"acos_15":null,"acos_30":null,"acos_7":null,"acos_life_time":"0.186331","adGroupId":335413796452031,"adId":298336744510492,"asin":"B0CLV16D1L","campaignId":396698961698398,"campaignName":"auto_silicone cable ties_th2843","campaignState":1,"created_at":"2025-05-06 17:46:19","dailyBudget":"3.00","groupName":"auto_silicone cable ties_th2843"}},"sb":{"count":0,"entityLevel":"campaign","sampleKeys":[],"sample":null}}}

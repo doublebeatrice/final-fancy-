@@ -1,0 +1,1321 @@
+// ============================================================
+// YSWG 广告全自动调整台 — panel.js
+// 全部业务逻辑：拉取 → 导出 → 导入计划 → 执行
+// ============================================================
+
+// ---- 全局状态 ----
+const STATE = {
+  invMap: {},
+  kwRows: [],
+  autoRows: [],
+  targetRows: [],
+  listingMap: {},
+  productCards: [],
+  plan: [],
+  snapshots: [],
+};
+
+// ---- DOM 引用 ----
+const $ = id => document.getElementById(id);
+const logEl      = $('log');
+const fetchBtn   = $('fetchBtn');
+const exportBtn  = $('exportBtn');
+const importBtn  = $('importBtn');
+const executeBtn = $('executeBtn');
+
+// ---- 日志 ----
+function log(msg, type = 'info') {
+  const line = document.createElement('div');
+  line.className = type;
+  line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  logEl.appendChild(line);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+// ---- 进度条 ----
+function setProgress(barId, pct) {
+  const el = $(barId);
+  if (el) el.style.width = Math.min(100, pct) + '%';
+}
+
+// ============================================================
+// 初始化
+// ============================================================
+document.addEventListener('DOMContentLoaded', async () => {
+  fetchBtn.addEventListener('click', fetchAllData);
+  exportBtn.addEventListener('click', exportSnapshot);
+  importBtn.addEventListener('click', importPlan);
+  executeBtn.addEventListener('click', executePlan);
+});
+
+// ============================================================
+// 阶段 1+2+3：全量拉取
+// ============================================================
+async function fetchAllData() {
+  fetchBtn.disabled = true;
+  setProgress('fetchProgress', 5);
+  log('开始拉取全量数据…');
+
+  try {
+    // 1. 库存
+    log('拉取库存数据…');
+    const invRows = await fetchAllInventory();
+    STATE.invMap = buildInvMap(invRows);
+    const asinCount = Object.values(STATE.invMap).filter(v => v.asin).length;
+    $('statInv').textContent = Object.keys(STATE.invMap).length;
+    setProgress('fetchProgress', 30);
+    log(`库存 ${invRows.length} 条，${Object.keys(STATE.invMap).length} 个 SKU，${asinCount} 个有 ASIN`, 'ok');
+
+    // 2. 关键词（已有缓存则跳过，节省测试时间）
+    if (STATE.kwRows.length > 0) {
+      log(`关键词已缓存 ${STATE.kwRows.length} 条，跳过拉取`, 'warn');
+    } else {
+      log('拉取广告关键词…');
+      STATE.kwRows = await fetchAllKeywords();
+      $('statKw').textContent = STATE.kwRows.length;
+      log(`关键词 ${STATE.kwRows.length} 条`, 'ok');
+    }
+    setProgress('fetchProgress', 55);
+
+    // 3. 自动投放
+    log('拉取自动投放…');
+    STATE.autoRows = await fetchAllAutoTargets(STATE.kwCapture);
+    $('statAuto').textContent = STATE.autoRows.length;
+    setProgress('fetchProgress', 65);
+    log(`自动投放 ${STATE.autoRows.length} 条`, 'ok');
+
+    // 4. 定位组（SP定位，property=3）
+    log('拉取定位组…');
+    STATE.targetRows = await fetchAllTargeting(STATE.kwCapture);
+    setProgress('fetchProgress', 80);
+    log(`定位组 ${STATE.targetRows.length} 条`, 'ok');
+
+    // 5. 构建产品画像
+    STATE.productCards = buildProductCards(STATE.kwRows, STATE.autoRows, STATE.invMap, {}, STATE.targetRows);
+
+    setProgress('fetchProgress', 100);
+    log(`全量数据就绪：${STATE.productCards.length} 个产品画像`, 'ok');
+
+    exportBtn.disabled = false;
+  } catch (err) {
+    log('拉取失败：' + err.message, 'error');
+  } finally {
+    fetchBtn.disabled = false;
+  }
+}
+
+// ============================================================
+// 数据拉取层：executeScript 注入方式（解决 SameSite cookie 问题）
+// ============================================================
+
+// 查找匹配 URL 的已打开标签页
+function findTab(urlPattern) {
+  return new Promise((resolve, reject) => {
+    chrome.tabs.query({ url: urlPattern }, tabs => {
+      if (tabs && tabs.length) resolve(tabs[0]);
+      else reject(new Error(`请先在浏览器中打开并登录：${urlPattern.replace(/\*/g, '')}`));
+    });
+  });
+}
+
+// 在目标标签页内注入并执行函数（同域 fetch，session cookie 自动携带）
+function execInTab(tabId, func, args = []) {
+  return new Promise((resolve, reject) => {
+    chrome.scripting.executeScript(
+      { target: { tabId }, func, args, world: 'MAIN' },
+      results => {
+        if (chrome.runtime.lastError) return reject(new Error(chrome.runtime.lastError.message));
+        const r = results && results[0] && results[0].result;
+        if (r && r.error) return reject(new Error(r.error));
+        resolve(r);
+      }
+    );
+  });
+}
+
+// 向标签页所有 frame 注入，返回第一个有效结果（解决 iframe 嵌套问题）
+function execInAnyFrame(tabId, func, args = []) {
+  return new Promise((resolve, reject) => {
+    chrome.scripting.executeScript(
+      { target: { tabId, allFrames: true }, func, args, world: 'MAIN' },
+      results => {
+        if (chrome.runtime.lastError) return reject(new Error(chrome.runtime.lastError.message));
+        const hit = (results || []).find(r => r?.result != null);
+        resolve(hit ? hit.result : null);
+      }
+    );
+  });
+}
+
+// 库存拉取：拦截页面自身的 XHR/fetch（MAIN world，无需知道鉴权细节）
+async function fetchAllInventory() {
+  const tab = await findTab('*://sellerinventory.yswg.com.cn/*');
+  log('注入拦截器，等待库存请求…（如10秒无响应请手动点击查询按钮）');
+
+  // ① 注入拦截器
+  await new Promise((resolve, reject) => {
+    chrome.scripting.executeScript(
+      { target: { tabId: tab.id, allFrames: true }, world: 'MAIN', func: () => {
+        if (window.__invPatched) return;
+        window.__invPatched = true;
+        window.__invCaptures = [];
+
+        // 拦截 XMLHttpRequest
+        const origOpen    = XMLHttpRequest.prototype.open;
+        const origSend    = XMLHttpRequest.prototype.send;
+        const origSetHdr  = XMLHttpRequest.prototype.setRequestHeader;
+
+        XMLHttpRequest.prototype.open = function(m, url, ...r) {
+          this.__iurl = String(url || '');
+          this.__ihdrs = {};
+          return origOpen.call(this, m, url, ...r);
+        };
+        XMLHttpRequest.prototype.setRequestHeader = function(k, v) {
+          if (this.__iurl.includes('/pm/formal/list')) this.__ihdrs[k] = v;
+          return origSetHdr.call(this, k, v);
+        };
+        XMLHttpRequest.prototype.send = function(body) {
+          if (this.__iurl.includes('/pm/formal/list')) {
+            const h = Object.assign({}, this.__ihdrs);
+            this.addEventListener('load', () => {
+              try {
+                const d = JSON.parse(this.responseText);
+                if (Object.keys(d).length > 1)
+                  window.__invCaptures.push({ json: d, body, headers: h });
+              } catch(e) {}
+            }, { once: true });
+          }
+          return origSend.call(this, body);
+        };
+
+        // 拦截 fetch
+        const origFetch = window.fetch;
+        window.fetch = async function(input, init) {
+          const url = typeof input === 'string' ? input : (input?.url || '');
+          if (url.includes('/pm/formal/list')) {
+            const resp = await origFetch.call(this, input, init);
+            resp.clone().json().then(d => {
+              if (Object.keys(d).length > 1)
+                window.__invCaptures.push({ json: d, body: init?.body, headers: init?.headers || {} });
+            }).catch(() => {});
+            return resp;
+          }
+          return origFetch.call(this, input, init);
+        };
+
+        // 尝试自动点击查询按钮
+        const btn = [...document.querySelectorAll('button,.el-button')]
+          .find(b => /^(查询|搜索|确定)$/.test((b.textContent || '').trim()));
+        if (btn) btn.click();
+      }},
+      results => {
+        if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
+        else resolve();
+      }
+    );
+  });
+
+  // ② 轮询等待捕获（最多 30 秒）
+  let capture = null;
+  for (let i = 0; i < 60; i++) {
+    await sleep(500);
+    const found = await new Promise(resolve => {
+      chrome.scripting.executeScript(
+        { target: { tabId: tab.id, allFrames: true }, world: 'MAIN',
+          func: () => window.__invCaptures?.length ? window.__invCaptures[0] : null },
+        results => resolve((results || []).find(r => r?.result)?.result || null)
+      );
+    });
+    if (found) { capture = found; break; }
+  }
+  if (!capture) throw new Error('30秒内未捕获到库存请求，请手动点击页面查询按钮后重试');
+
+  log('已捕获库存请求！');
+
+  // ③ 提取列表 + 分页
+  const getList = d => (
+    Array.isArray(d?.data?.list)    ? d.data.list    :
+    Array.isArray(d?.data?.records) ? d.data.records :
+    Array.isArray(d?.data)          ? d.data         :
+    Array.isArray(d?.list)          ? d.list         : []
+  );
+
+  const rows  = [...getList(capture.json)];
+  const total = capture.json?.count || capture.json?.data?.total || capture.json?.total || rows.length;
+  log(`库存首页 ${rows.length} 条，total=${total}，字段：${JSON.stringify(Object.keys(capture.json))}`);
+
+  // 后续分页（用捕获到的相同参数，只改 pageNum）
+  if (total > rows.length && capture.body) {
+    const baseBody = String(capture.body)
+      .replace(/[&]?pageNum=\d+/g, '')
+      .replace(/[&]?page=\d+/g, '');
+    const pages = Math.min(Math.ceil(total / 50), 100);
+
+    for (let p = 2; p <= pages; p++) {
+      const r = await new Promise(resolve => {
+        chrome.scripting.executeScript(
+          { target: { tabId: tab.id, allFrames: true }, world: 'MAIN',
+            func: async (bodyStr, extraHdrs) => {
+              try {
+                const res = await fetch('/pm/formal/list', {
+                  method: 'POST', credentials: 'include',
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json, text/javascript, */*; q=0.01',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    ...extraHdrs,
+                  },
+                  body: bodyStr,
+                });
+                return { data: await res.json() };
+              } catch(e) { return null; }
+            },
+            args: [`${baseBody}&pageNum=${p}&limit=50`, capture.headers || {}] },
+          results => {
+            const hit = (results || []).find(r => r?.result?.data);
+            resolve(hit ? hit.result : null);
+          }
+        );
+      });
+      if (r?.data) rows.push(...getList(r.data));
+      await sleep(400);
+    }
+  }
+
+  return rows;
+}
+
+// 广告系统 API 调用（注入到 adv.yswg.com.cn 标签页，同域执行，自动读取 XSRF）
+async function execAdApi(tabId, path, payload, method) {
+  return execInTab(tabId, async (path, payload, method) => {
+    try {
+      const xsrf = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/)?.[1] || '';
+      const res = await fetch(path, {
+        method,
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-xsrf-token': decodeURIComponent(xsrf),
+        },
+        body: JSON.stringify(payload),
+      });
+      const text = await res.text();
+      if (text.trimStart().startsWith('<')) return { error: '广告系统未登录，请刷新 adv.yswg.com.cn 后重试' };
+      return { data: JSON.parse(text) };
+    } catch (e) { return { error: e.message }; }
+  }, [path, payload, method]);
+}
+
+// 广告写操作（PATCH），供 executePlan 使用
+async function execAdWrite(path, payload) {
+  const tab = await findTab('*://adv.yswg.com.cn/*');
+  const result = await execAdApi(tab.id, path, payload, 'PATCH');
+  if (!result) throw new Error(`广告接口 ${path} 无响应`);
+  return result.data;
+}
+
+// 广告系统通用拦截器注入（捕获指定路径的第一个请求）
+async function injectAdInterceptor(tabId, pathFragment, varName) {
+  await new Promise((resolve, reject) => {
+    chrome.scripting.executeScript(
+      { target: { tabId, allFrames: true }, world: 'MAIN', func: (frag, vname) => {
+        if (window[vname + '_patched']) return;
+        window[vname + '_patched'] = true;
+        window[vname] = [];
+
+        const origOpen   = XMLHttpRequest.prototype.open;
+        const origSend   = XMLHttpRequest.prototype.send;
+        const origSetHdr = XMLHttpRequest.prototype.setRequestHeader;
+
+        XMLHttpRequest.prototype.open = function(m, url, ...r) {
+          this.__url = String(url || ''); this.__hdrs = {};
+          return origOpen.call(this, m, url, ...r);
+        };
+        XMLHttpRequest.prototype.setRequestHeader = function(k, v) {
+          if (this.__url.includes(frag)) this.__hdrs[k] = v;
+          return origSetHdr.call(this, k, v);
+        };
+        XMLHttpRequest.prototype.send = function(body) {
+          if (this.__url.includes(frag)) {
+            const h = Object.assign({}, this.__hdrs), u = this.__url;
+            this.addEventListener('load', () => {
+              try {
+                const d = JSON.parse(this.responseText);
+                window[vname].push({ json: d, body, headers: h, url: u });
+              } catch(e) {}
+            }, { once: true });
+          }
+          return origSend.call(this, body);
+        };
+
+        const origFetch = window.fetch;
+        window.fetch = async function(input, init) {
+          const url = typeof input === 'string' ? input : (input?.url || '');
+          if (url.includes(frag)) {
+            const resp = await origFetch.call(this, input, init);
+            resp.clone().json().then(d => {
+              window[vname].push({ json: d, body: init?.body, headers: init?.headers || {}, url });
+            }).catch(() => {});
+            return resp;
+          }
+          return origFetch.call(this, input, init);
+        };
+      }, args: [pathFragment, varName] },
+      results => {
+        if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
+        else resolve();
+      }
+    );
+  });
+}
+
+// 等待捕获（轮询所有 frame，最多 waitSec 秒）
+async function waitCapture(tabId, varName, waitSec = 30) {
+  for (let i = 0; i < waitSec * 2; i++) {
+    await sleep(500);
+    const found = await new Promise(resolve => {
+      chrome.scripting.executeScript(
+        { target: { tabId, allFrames: true }, world: 'MAIN',
+          func: (vname) => window[vname]?.length ? window[vname][0] : null,
+          args: [varName] },
+        results => resolve((results || []).find(r => r?.result)?.result || null)
+      );
+    });
+    if (found) return found;
+  }
+  return null;
+}
+
+// 注入拦截器后，尝试点击页面查询按钮触发请求
+async function triggerPageQuery(tabId) {
+  await new Promise(resolve => {
+    chrome.scripting.executeScript(
+      { target: { tabId, allFrames: true }, world: 'MAIN', func: () => {
+        const all = [...document.querySelectorAll('button, .el-button, [class*="btn"]')];
+        const btn = all.find(b => /查询|搜索|Search/.test((b.textContent || '').trim()));
+        if (btn) { btn.click(); return true; }
+        return false;
+      }},
+      results => resolve(results)
+    );
+  });
+}
+
+// 关键词全量拉取（拦截页面请求，捕获销售编号等参数）
+async function fetchAllKeywords() {
+  const tab = await findTab('*://adv.yswg.com.cn/*');
+  log('注入关键词拦截器，等待页面请求…');
+
+  await injectAdInterceptor(tab.id, '/keyword/findAllNew', '__kwCaptures');
+  await triggerPageQuery(tab.id);
+
+  const capture = await waitCapture(tab.id, '__kwCaptures', 30);
+  if (!capture) throw new Error('未捕获到关键词请求，请确认广告系统已打开并有关键词数据');
+
+  STATE.kwCapture = capture;
+  log(`已捕获关键词请求，URL：${capture.url}`);
+
+  const getList = d => d?.data?.records || d?.data?.list || d?.data?.rows ||
+                       d?.records || d?.list || (Array.isArray(d?.data) ? d.data : []);
+
+  const rows = [...getList(capture.json)];
+  const total = capture.json?.count || capture.json?.data?.total || rows.length;
+  log(`关键词首页 ${rows.length} 条，total=${total}`);
+
+  const seen = new Set(rows.map(r => String(r.id || r.keywordId || '')).filter(Boolean));
+
+  if (!capture.body) return rows;
+  let bodyObj;
+  try { bodyObj = JSON.parse(capture.body); } catch(e) { return rows; }
+
+  const pageField = 'page' in bodyObj ? 'page' : 'pageNum' in bodyObj ? 'pageNum' :
+                    'pageNo' in bodyObj ? 'pageNo' : 'current' in bodyObj ? 'current' : 'page';
+
+  // 一次 executeScript 拉完整个切片，结果存到 window[key] 再分批读回
+  async function fetchSliceInPage(sliceBodyObj, sliceKey) {
+    await new Promise(resolve => {
+      chrome.scripting.executeScript(
+        { target: { tabId: tab.id }, world: 'MAIN',
+          func: async (url, baseBody, hdrs, pageField, key) => {
+            const getList = d => d?.data?.records || d?.data?.list || d?.data?.rows ||
+                                 d?.records || d?.list || (Array.isArray(d?.data) ? d.data : []);
+            const sleep = ms => new Promise(r => setTimeout(r, ms));
+            const all = [];
+            for (let p = 2; p <= 500; p++) {
+              try {
+                const body = JSON.stringify({ ...baseBody, [pageField]: p, limit: 100 });
+                const res = await fetch(url, { method: 'POST', credentials: 'include',
+                  headers: { 'Content-Type': 'application/json', ...hdrs }, body });
+                const d = await res.json();
+                const list = getList(d);
+                if (!list.length) break;
+                all.push(...list);
+                if (list.length < 100) break;
+                await sleep(80);
+              } catch(e) { break; }
+            }
+            window[key] = all;
+            return all.length;
+          }, args: [capture.url, sliceBodyObj, capture.headers || {}, pageField, sliceKey] },
+        results => resolve(results?.[0]?.result || 0)
+      );
+    });
+    // 分批读回（每批 200 条）
+    let offset = 0;
+    while (true) {
+      const batch = await new Promise(resolve => {
+        chrome.scripting.executeScript(
+          { target: { tabId: tab.id }, world: 'MAIN',
+            func: (key, offset, size) => (window[key] || []).slice(offset, offset + size),
+            args: [sliceKey, offset, 200] },
+          results => resolve(results?.[0]?.result || [])
+        );
+      });
+      if (!batch.length) break;
+      for (const row of batch) {
+        const id = String(row.id || row.keywordId || '');
+        if (id && !seen.has(id)) { seen.add(id); rows.push(row); }
+      }
+      offset += batch.length;
+      if (batch.length < 200) break;
+    }
+  }
+
+  if (Array.isArray(bodyObj.timeRange) && bodyObj.timeRange.length === 2) {
+    const [tStart, tEnd] = bodyObj.timeRange;
+    const SLICE_MS = 7 * 24 * 60 * 60 * 1000;
+    const sliceCount = Math.ceil((tEnd - tStart) / SLICE_MS);
+    log(`关键词时间切片：${sliceCount} 段（并行）`);
+    const sliceBodies = Array.from({ length: sliceCount }, (_, s) => ({
+      ...bodyObj,
+      timeRange: [tStart + s * SLICE_MS, Math.min(tStart + (s+1) * SLICE_MS, tEnd)],
+      [pageField]: 1, limit: 100,
+    }));
+    await Promise.all(sliceBodies.map((b, i) => fetchSliceInPage(b, `__kwSlice${i}`)));
+    log(`关键词全部切片完成：共 ${rows.length} 条`);
+  } else {
+    await fetchSliceInPage(bodyObj, '__kwSlice0');
+  }
+
+  return rows;
+}
+
+// 自动投放全量拉取（同 /keyword/findAllNew，property=2 + tableName=product_target）
+async function fetchAllAutoTargets(kwCapture) {
+  if (!kwCapture?.body) { log('无关键词捕获，跳过自动投放', 'warn'); return []; }
+
+  const tab = await findTab('*://adv.yswg.com.cn/*');
+  let kwBody;
+  try { kwBody = JSON.parse(kwCapture.body); } catch(e) { return []; }
+
+  const baseBody = { ...kwBody, property: '2', tableName: 'product_target',
+                     filterArray: { campaignState: kwBody.filterArray?.campaignState || '4' } };
+  const pageField = 'page' in kwBody ? 'page' : 'pageNum' in kwBody ? 'pageNum' : 'page';
+
+  const getList = d => d?.data?.records || d?.data?.list || d?.data?.rows ||
+                       d?.records || d?.list || (Array.isArray(d?.data) ? d.data : []);
+
+  async function fetchSliceInPage(sliceBodyObj, sliceKey) {
+    // 把结果存到 window 变量，避免 executeScript 序列化大数组时截断
+    await new Promise(resolve => {
+      chrome.scripting.executeScript(
+        { target: { tabId: tab.id }, world: 'MAIN',
+          func: async (url, baseBody, hdrs, pageField, key) => {
+            const getList = d => d?.data?.records || d?.data?.list || d?.data?.rows ||
+                                 d?.records || d?.list || (Array.isArray(d?.data) ? d.data : []);
+            const sleep = ms => new Promise(r => setTimeout(r, ms));
+            const all = [];
+            for (let p = 1; p <= 500; p++) {
+              try {
+                const body = JSON.stringify({ ...baseBody, [pageField]: p, limit: 100 });
+                const res = await fetch(url, { method: 'POST', credentials: 'include',
+                  headers: { 'Content-Type': 'application/json', ...hdrs }, body });
+                const d = await res.json();
+                const list = getList(d);
+                if (!list.length) break;
+                all.push(...list);
+                if (list.length < 100) break;
+                await sleep(80);
+              } catch(e) { break; }
+            }
+            window[key] = all;
+            return all.length;
+          }, args: [kwCapture.url, sliceBodyObj, kwCapture.headers || {}, pageField, sliceKey] },
+        results => resolve(results?.[0]?.result || 0)
+      );
+    });
+
+    // 分批读取（每批 200 条，避免单次传输过大）
+    const all = [];
+    let offset = 0;
+    while (true) {
+      const batch = await new Promise(resolve => {
+        chrome.scripting.executeScript(
+          { target: { tabId: tab.id }, world: 'MAIN',
+            func: (key, offset, size) => (window[key] || []).slice(offset, offset + size),
+            args: [sliceKey, offset, 200] },
+          results => resolve(results?.[0]?.result || [])
+        );
+      });
+      if (!batch.length) break;
+      all.push(...batch);
+      offset += batch.length;
+      if (batch.length < 200) break;
+    }
+    return { rows: all, rowCount: all.length, debug: `fetched ${all.length}`, err: null };
+  }
+
+  const rows = [];
+  const seen = new Set();
+
+  if (Array.isArray(baseBody.timeRange) && baseBody.timeRange.length === 2) {
+    const [tStart, tEnd] = baseBody.timeRange;
+    const SLICE_MS = 7 * 24 * 60 * 60 * 1000;
+    const sliceCount = Math.ceil((tEnd - tStart) / SLICE_MS);
+    const sliceBodies = Array.from({ length: sliceCount }, (_, s) => ({
+      ...baseBody, timeRange: [tStart + s * SLICE_MS, Math.min(tStart + (s+1) * SLICE_MS, tEnd)],
+    }));
+    const results = await Promise.all(sliceBodies.map((b, i) => fetchSliceInPage(b, `__atSlice${i}`)));
+    for (const res of results) {
+      if (res.debug) log(`自动投放诊断：${res.debug} rows=${res.rowCount}`, 'warn');
+      if (res.err) log(`自动投放错误：${res.err}`, 'error');
+      for (const row of res.rows) { const id = String(row.targetId || row.id || row.keywordId || ''); if (id && !seen.has(id)) { seen.add(id); rows.push(row); } }
+    }
+  } else {
+    const res = await fetchSliceInPage(baseBody, '__atSlice0');
+    if (res.debug) log(`自动投放诊断：${res.debug}`, 'warn');
+    if (res.err) log(`自动投放错误：${res.err}`, 'error');
+    for (const row of res.rows) { const id = String(row.id || row.keywordId || ''); if (id && !seen.has(id)) { seen.add(id); rows.push(row); } }
+  }
+
+  if (rows[0]) log(`自动投放字段：${JSON.stringify(Object.keys(rows[0]))}`, 'warn');
+  else log('自动投放：无数据返回', 'warn');
+  return rows;
+}
+
+// 定位组全量拉取（property=3, tableName=product_manual_target）
+async function fetchAllTargeting(kwCapture) {
+  if (!kwCapture?.body) { log('无关键词捕获，跳过定位组', 'warn'); return []; }
+  const tab = await findTab('*://adv.yswg.com.cn/*');
+  let kwBody;
+  try { kwBody = JSON.parse(kwCapture.body); } catch(e) { return []; }
+
+  const baseBody = { ...kwBody, property: '3', tableName: 'product_manual_target',
+                     filterArray: { campaignState: kwBody.filterArray?.campaignState || '4' } };
+  const pageField = 'page' in kwBody ? 'page' : 'pageNum' in kwBody ? 'pageNum' : 'page';
+
+  const getList = d => d?.data?.records || d?.data?.list || d?.data?.rows ||
+                       d?.records || d?.list || (Array.isArray(d?.data) ? d.data : []);
+
+  async function fetchSliceInPage(sliceBodyObj, sliceKey) {
+    await new Promise(resolve => {
+      chrome.scripting.executeScript(
+        { target: { tabId: tab.id }, world: 'MAIN',
+          func: async (url, baseBody, hdrs, pageField, key) => {
+            const getList = d => d?.data?.records || d?.data?.list || d?.data?.rows ||
+                                 d?.records || d?.list || (Array.isArray(d?.data) ? d.data : []);
+            const sleep = ms => new Promise(r => setTimeout(r, ms));
+            const all = [];
+            for (let p = 1; p <= 500; p++) {
+              try {
+                const body = JSON.stringify({ ...baseBody, [pageField]: p, limit: 100 });
+                const res = await fetch(url, { method: 'POST', credentials: 'include',
+                  headers: { 'Content-Type': 'application/json', ...hdrs }, body });
+                const d = await res.json();
+                const list = getList(d);
+                if (!list.length) break;
+                all.push(...list);
+                if (list.length < 100) break;
+                await sleep(80);
+              } catch(e) { break; }
+            }
+            window[key] = all;
+            return all.length;
+          }, args: [kwCapture.url, sliceBodyObj, kwCapture.headers || {}, pageField, sliceKey] },
+        results => resolve(results?.[0]?.result || 0)
+      );
+    });
+    const all = [];
+    let offset = 0;
+    while (true) {
+      const batch = await new Promise(resolve => {
+        chrome.scripting.executeScript(
+          { target: { tabId: tab.id }, world: 'MAIN',
+            func: (key, offset, size) => (window[key] || []).slice(offset, offset + size),
+            args: [sliceKey, offset, 200] },
+          results => resolve(results?.[0]?.result || [])
+        );
+      });
+      if (!batch.length) break;
+      all.push(...batch);
+      offset += batch.length;
+      if (batch.length < 200) break;
+    }
+    return { rows: all, rowCount: all.length };
+  }
+
+  const rows = [];
+  const seen = new Set();
+
+  if (Array.isArray(baseBody.timeRange) && baseBody.timeRange.length === 2) {
+    const [tStart, tEnd] = baseBody.timeRange;
+    const SLICE_MS = 7 * 24 * 60 * 60 * 1000;
+    const sliceCount = Math.ceil((tEnd - tStart) / SLICE_MS);
+    const sliceBodies = Array.from({ length: sliceCount }, (_, s) => ({
+      ...baseBody, timeRange: [tStart + s * SLICE_MS, Math.min(tStart + (s+1) * SLICE_MS, tEnd)],
+    }));
+    const results = await Promise.all(sliceBodies.map((b, i) => fetchSliceInPage(b, `__tgSlice${i}`)));
+    for (const res of results)
+      for (const row of res.rows) { const id = String(row.targetId || row.id || ''); if (id && !seen.has(id)) { seen.add(id); rows.push(row); } }
+  } else {
+    const res = await fetchSliceInPage(baseBody, '__tgSlice0');
+    for (const row of res.rows) { const id = String(row.targetId || row.id || ''); if (id && !seen.has(id)) { seen.add(id); rows.push(row); } }
+  }
+  return rows;
+}
+
+// ---- Listing 并发抓取（panel 页面直接 fetch 公开页面 + DOMParser）----
+async function fetchListingsConcurrent(asins, onProgress) {
+  let done = 0;
+  const CONCURRENCY = 3;
+  const DELAY_MS = 900;
+
+  async function fetchOne(asin) {
+    await sleep(Math.random() * 400);
+    try {
+      const res = await fetch(`https://www.amazon.com/dp/${asin}`, {
+        credentials: 'omit',
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+          'Accept-Language': 'en-US,en;q=0.9',
+        },
+      });
+      if (res.ok) {
+        const html = await res.text();
+        STATE.listingMap[asin] = parseListing(html, asin);
+      }
+    } catch (_) { /* 失败不阻断 */ }
+    done++;
+    onProgress(done);
+  }
+
+  for (let i = 0; i < asins.length; i += CONCURRENCY) {
+    await Promise.all(asins.slice(i, i + CONCURRENCY).map(fetchOne));
+    if (i + CONCURRENCY < asins.length) await sleep(DELAY_MS);
+  }
+}
+
+// ---- Listing HTML 解析（panel 页面有 DOMParser）----
+function parseListing(html, asin) {
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  const result = { asin, isAvailable: false, reviewCount: null, reviewRating: null, price: null, hasPrime: false, bsr: [], fetchedAt: new Date().toISOString() };
+
+  result.isAvailable = !!(doc.getElementById('add-to-cart-button') || doc.getElementById('buy-now-button'));
+
+  const rcEl = doc.getElementById('acrCustomerReviewText');
+  if (rcEl) { const m = rcEl.textContent.match(/[\d,]+/); if (m) result.reviewCount = parseInt(m[0].replace(/,/g, ''), 10); }
+
+  const ratingEl = doc.querySelector('#acrPopover, .reviewCountTextLinkedHistogram');
+  if (ratingEl) { const t = ratingEl.getAttribute('title') || ratingEl.textContent; const m = t.match(/(\d+\.?\d*)/); if (m) result.reviewRating = parseFloat(m[1]); }
+
+  const priceEl = doc.querySelector('.a-price .a-offscreen, #priceblock_ourprice, #priceblock_dealprice');
+  if (priceEl) { const m = priceEl.textContent.match(/[\d.]+/); if (m) result.price = parseFloat(m[0]); }
+
+  result.hasPrime = !!(doc.querySelector('#isPrimeBadge, .a-icon-prime, [aria-label*="Prime"]'));
+
+  const bsrText = (doc.getElementById('detailBulletsWrapper_feature_div') || doc.getElementById('productDetails_db_sections') || doc.getElementById('SalesRank') || { textContent: '' }).textContent;
+  const bsrRe = /#([\d,]+)\s+in\s+([\w &']+?)(?:\s*\(|See Top)/g;
+  let m;
+  while ((m = bsrRe.exec(bsrText)) !== null) {
+    result.bsr.push({ rank: parseInt(m[1].replace(/,/g, ''), 10), category: m[2].trim() });
+  }
+  return result;
+}
+
+// ============================================================
+// 阶段 3：构建产品画像
+// ============================================================
+function buildInvMap(rows) {
+  const map = {};
+  if (rows[0]) {
+    log(`库存SKU字段样本：sku=${rows[0].sku} raw_sku=${rows[0].raw_sku} product_sku=${rows[0].product_sku} asin=${rows[0].asin}`, 'warn');
+    // 找出所有站点相关字段
+    const siteFields = Object.keys(rows[0]).filter(k => /site|channel|market|amazon_account|salesChannel/i.test(k));
+    log(`库存站点字段：${JSON.stringify(siteFields.map(k => k+'='+rows[0][k]))}`, 'warn');
+  }
+  for (const r of rows) {
+    // 只保留美国站数据（salesChannel=Amazon.com），避免多站点重复
+    if (r.salesChannel && r.salesChannel !== 'Amazon.com') continue;
+    const sku = r.sku || r.SKU || r.Sku || r.raw_sku || r.product_sku || r.rawSku || '';
+    if (!sku) continue;
+    map[sku] = {
+      sku,
+      asin:           r.asin || r.ASIN || null,
+      price:          parseFloat(r.lowestprice || 0),
+      profitRate:     parseFloat(r.profitRate || 0),          // 空运利润率
+      seaProfitRate:  parseFloat(r.seaProfitRate || 0),       // 海运利润率
+      netProfit:      parseFloat(r.net_profit || 0),          // Q1-Q3 参考净利润率
+      busyNetProfit:  parseFloat(r.busy_net_profit || 0),     // Q4 参考净利润率（含旺季仓储费）
+      invDays:        parseFloat(r.dynamic_saleday30 || r.sales_day_30 || 0),
+      unitsSold_30d:  parseFloat(r.qty_30 || 0),
+      unitsSold_7d:   parseFloat(r.qty_7  || 0),
+      unitsSold_3d:   parseFloat(r.qty_3  || 0),
+      adDependency:   parseFloat(r.AT || r.at || 0),
+      note:           String(r.note || r.input_tag || '').trim(),
+      solrTerm:       String(r.solr_term || '').trim(),
+    };
+  }
+  return map;
+}
+
+function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []) {
+  const cooldownDays = parseInt($('cooldownDays').value) || 7;
+  const cutoffDate = new Date(Date.now() - cooldownDays * 86400000);
+
+  // SKU → campaigns → keywords/autoTargets 聚合
+  const skuMap = {};
+
+  function getOrCreate(sku, asin) {
+    if (!skuMap[sku]) {
+      const inv = invMap[sku] || {};
+      skuMap[sku] = {
+        sku,
+        asin: asin || inv.asin || null,
+        price:         inv.price         || 0,
+        profitRate:    inv.profitRate     || 0,
+        seaProfitRate: inv.seaProfitRate  || 0,
+        netProfit:     inv.netProfit      || 0,
+        busyNetProfit: inv.busyNetProfit  || 0,
+        invDays:       inv.invDays        || 0,
+        unitsSold_30d: inv.unitsSold_30d  || 0,
+        unitsSold_7d:  inv.unitsSold_7d   || 0,
+        unitsSold_3d:  inv.unitsSold_3d   || 0,
+        adDependency:  inv.adDependency   || 0,
+        note:          inv.note           || '',
+        solrTerm:      inv.solrTerm       || '',
+        campaigns: {},
+      };
+    }
+    return skuMap[sku];
+  }
+
+  function getOrCreateCampaign(skuObj, campaignId, campaignName) {
+    if (!skuObj.campaigns[campaignId]) {
+      skuObj.campaigns[campaignId] = { campaignId, name: campaignName || '', keywords: [], autoTargets: [] };
+    }
+    return skuObj.campaigns[campaignId];
+  }
+
+  const ASIN_RE = /\bB0[A-Z0-9]{8}\b/;
+  // 预建 SKU 大写列表，用于 campaignName 模糊匹配
+  const invSkus = Object.keys(invMap).map(s => ({ raw: s, up: s.toUpperCase() }));
+
+  // 处理关键词
+  for (const r of kwRows) {
+    let sku  = r.sku  || r.SKU  || '';
+    let asin = r.asin || r.ASIN ||
+               ASIN_RE.exec(r.campaignName || '')?.[0] ||
+               ASIN_RE.exec(r.groupName    || '')?.[0] || '';
+    // 从 campaignName / groupName 里匹配库存 SKU
+    if (!sku) {
+      const campUp = (r.campaignName || r.groupName || '').toUpperCase();
+      const hit = invSkus.find(s => campUp.includes(s.up));
+      if (hit) { sku = hit.raw; if (!asin) asin = invMap[hit.raw]?.asin || ''; }
+    }
+    const key = sku || asin || String(r.campaignId || r.campaign_id || '');
+    if (!key) continue;
+    const skuObj = getOrCreate(key, asin);
+    if (asin && !skuObj.asin) skuObj.asin = asin;
+    const campaignId = String(r.campaignId || r.campaign_id || '');
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '');
+    const updatedAt = r.updatedAt || r.updated_at || r['更新时间'] || '';
+    const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
+    camp.keywords.push({
+      id: String(r.id || r.keywordId || r.keyword_id || ''),
+      text: r.keywordText || r.keyword || r.keywordStr || '',
+      matchType: r.matchType || r.matchTypeName || r.keywordMatchType || '',
+      bid: parseFloat(r.bid || r['竞价'] || 0),
+      state: r.state || r.stateVal || '',
+      updatedAt,
+      onCooldown,
+      stats7d: {
+        spend: parseFloat(r.spend7 || r['7天花费'] || 0),
+        orders: parseFloat(r.orders7 || r['7天订单'] || 0),
+        acos: parseFloat(r.acos7 || r['7天ACOS'] || 0),
+        clicks: parseFloat(r.clicks7 || r['7天点击'] || 0),
+        impressions: parseFloat(r.impressions7 || r['7天曝光'] || 0),
+      },
+      stats30d: {
+        spend: parseFloat(r.Spend || r.spend30 || r['花费'] || r['30天花费'] || 0),
+        orders: parseFloat(r.Orders || r.orders30 || r['广告订单量'] || 0),
+        acos: parseFloat(r.ACOS || r.Acos || r.acos30 || r['30天ACOS'] || 0),
+        clicks: parseFloat(r.Clicks || r.clicks30 || r['点击量'] || 0),
+        impressions: parseFloat(r.impressions30 || r['曝光量'] || 0),
+      },
+    });
+  }
+
+  // 处理自动投放
+  for (const r of autoRows) {
+    let sku  = r.sku  || r.SKU  || '';
+    let asin = r.asin || r.ASIN ||
+               ASIN_RE.exec(r.campaignName || '')?.[0] ||
+               ASIN_RE.exec(r.groupName    || '')?.[0] || '';
+    if (!sku) {
+      const campUp = (r.campaignName || r.groupName || '').toUpperCase();
+      const hit = invSkus.find(s => campUp.includes(s.up));
+      if (hit) { sku = hit.raw; if (!asin) asin = invMap[hit.raw]?.asin || ''; }
+    }
+    const key = sku || asin || String(r.campaignId || r.campaign_id || '');
+    if (!key) continue;
+    const skuObj = getOrCreate(key, asin);
+    if (asin && !skuObj.asin) skuObj.asin = asin;
+    const campaignId = String(r.campaignId || r.campaign_id || '');
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '');
+    const updatedAt = r.updatedAt || r.updated_at || r['更新时间'] || '';
+    const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
+    camp.autoTargets.push({
+      id: String(r.id || r.targetId || r.target_id || ''),
+      targetType: r.targetType || r.positionType || 'auto',
+      bid: parseFloat(r.bid || r['竞价'] || 0),
+      state: r.state || r.stateVal || '',
+      updatedAt,
+      onCooldown,
+      stats7d: {
+        spend: parseFloat(r.spend7 || 0),
+        orders: parseFloat(r.orders7 || 0),
+        acos: parseFloat(r.acos7 || 0),
+        clicks: parseFloat(r.clicks7 || 0),
+        impressions: parseFloat(r.impressions7 || 0),
+      },
+      stats30d: {
+        spend: parseFloat(r.Spend || r.spend30 || r['花费'] || 0),
+        orders: parseFloat(r.Orders || r.orders30 || r['广告订单量'] || 0),
+        acos: parseFloat(r.ACOS || r.Acos || r.acos30 || r['30天ACOS'] || 0),
+        clicks: parseFloat(r.Clicks || r.clicks30 || r['点击量'] || 0),
+        impressions: parseFloat(r.impressions30 || 0),
+      },
+    });
+  }
+
+  // 处理定位组（SP定位，和自动投放结构相同，存入 autoTargets）
+  for (const r of targetRows) {
+    let sku  = r.sku  || r.SKU  || '';
+    let asin = r.asin || r.ASIN ||
+               ASIN_RE.exec(r.campaignName || '')?.[0] ||
+               ASIN_RE.exec(r.groupName    || '')?.[0] || '';
+    if (!sku) {
+      const campUp = (r.campaignName || r.groupName || '').toUpperCase();
+      const hit = invSkus.find(s => campUp.includes(s.up));
+      if (hit) { sku = hit.raw; if (!asin) asin = invMap[hit.raw]?.asin || ''; }
+    }
+    const key = sku || asin || String(r.campaignId || r.campaign_id || '');
+    if (!key) continue;
+    const skuObj = getOrCreate(key, asin);
+    if (asin && !skuObj.asin) skuObj.asin = asin;
+    const campaignId = String(r.campaignId || r.campaign_id || '');
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '');
+    const updatedAt = r.updatedAt || r.updated_at || '';
+    const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
+    camp.autoTargets.push({
+      id: String(r.id || r.targetId || ''),
+      targetType: 'manual',
+      bid: parseFloat(r.bid || 0),
+      state: r.state || '',
+      updatedAt, onCooldown,
+      stats7d: { spend: 0, orders: 0, acos: 0, clicks: 0, impressions: 0 },
+      stats30d: {
+        spend: parseFloat(r.Spend || r.spend30 || 0),
+        orders: parseFloat(r.Orders || r.orders30 || 0),
+        acos: parseFloat(r.ACOS || r.Acos || 0),
+        clicks: parseFloat(r.Clicks || r.clicks30 || 0),
+        impressions: 0,
+      },
+    });
+  }
+
+  // 转换成数组，附加 listing + history
+  return Object.values(skuMap).map(card => {
+    const campaigns = Object.values(card.campaigns);
+    // 聚合广告统计
+    const adStats = { '7d': { spend:0,orders:0,clicks:0,impressions:0 }, '30d': { spend:0,orders:0,clicks:0,impressions:0 } };
+    for (const camp of campaigns) {
+      for (const kw of camp.keywords) {
+        for (const [dim, s] of [['7d', kw.stats7d], ['30d', kw.stats30d]]) {
+          adStats[dim].spend += s.spend; adStats[dim].orders += s.orders;
+          adStats[dim].clicks += s.clicks; adStats[dim].impressions += s.impressions;
+        }
+      }
+      for (const at of camp.autoTargets) {
+        for (const [dim, s] of [['7d', at.stats7d], ['30d', at.stats30d]]) {
+          adStats[dim].spend += s.spend; adStats[dim].orders += s.orders;
+          adStats[dim].clicks += s.clicks; adStats[dim].impressions += s.impressions;
+        }
+      }
+    }
+    for (const dim of ['7d', '30d']) {
+      const s = adStats[dim];
+      s.acos = s.orders > 0 ? s.spend / (s.orders * (card.price || 1)) : (s.spend > 0 ? 99 : 0);
+    }
+    // 附加历史
+    const history = buildHistory(card.sku, card.asin);
+    return {
+      ...card,
+      campaigns,
+      adStats,
+      listing: card.asin ? (listingMap[card.asin] || null) : null,
+      history,
+      snapshot: new Date().toISOString().slice(0, 10),
+    };
+  });
+}
+
+// 从已加载的历史快照中提取该 SKU 的历史
+function buildHistory(sku, asin) {
+  return STATE.snapshots.map(snap => {
+    const card = snap.products?.find(p => p.sku === sku || (asin && p.asin === asin));
+    if (!card) return null;
+    return {
+      date: snap.date,
+      invDays: card.invDays,
+      unitsSold_7d: card.unitsSold_7d,
+      adStats: { '7d': card.adStats?.['7d'] },
+      listing: card.listing ? { bsr: card.listing.bsr, reviewCount: card.listing.reviewCount } : null,
+    };
+  }).filter(Boolean);
+}
+
+// ============================================================
+// 导入 AI 计划（粘贴 Claude 返回的 JSON）
+// ============================================================
+function importPlan() {
+  const text = $('planTextarea').value.trim();
+  if (!text) { log('请先粘贴 Claude 返回的计划 JSON', 'warn'); return; }
+
+  const bidFloor = parseFloat($('bidFloor').value) || 0.05;
+  const results = parseClaudeResponse(text);
+  if (!results.length) { log('未解析到有效计划，请检查粘贴的内容', 'error'); return; }
+
+  // 应用 bidFloor
+  for (const r of results) {
+    for (const a of r.actions || []) {
+      if (a.suggestedBid && a.suggestedBid < bidFloor) a.suggestedBid = bidFloor;
+    }
+  }
+
+  STATE.plan = results;
+  $('cards-container').innerHTML = '';
+  renderCards(results, STATE.productCards);
+  $('cardsSection').style.display = 'block';
+  $('cardsSectionTitle').textContent = `产品分析结果（${results.length} 个）`;
+  executeBtn.disabled = false;
+  updateExecCount();
+  log(`计划导入成功：${results.length} 个产品，${results.reduce((s, r) => s + (r.actions?.length || 0), 0)} 个调整动作`, 'ok');
+}
+
+function buildClaudePrompt(cards) {
+  const today = new Date().toISOString().slice(0, 10);
+  const slim = cards.map(c => ({
+    sku: c.sku,
+    asin: c.asin,
+    profitRate: c.profitRate,
+    invDays: c.invDays,
+    unitsSold_30d: c.unitsSold_30d,
+    unitsSold_7d: c.unitsSold_7d,
+    adDependency: c.adDependency,
+    note: c.note || null,
+    adStats: c.adStats,
+    listing: c.listing ? {
+      bsr: c.listing.bsr,
+      reviewCount: c.listing.reviewCount,
+      reviewRating: c.listing.reviewRating,
+      price: c.listing.price,
+      isAvailable: c.listing.isAvailable,
+      hasPrime: c.listing.hasPrime,
+    } : null,
+    history: c.history?.slice(-4) || [],
+    keywords: c.campaigns.flatMap(camp => camp.keywords.map(kw => ({
+      id: kw.id, text: kw.text, matchType: kw.matchType,
+      bid: kw.bid, onCooldown: kw.onCooldown,
+      stats7d: kw.stats7d, stats30d: kw.stats30d,
+    }))),
+    autoTargets: c.campaigns.flatMap(camp => camp.autoTargets.map(at => ({
+      id: at.id, targetType: at.targetType,
+      bid: at.bid, onCooldown: at.onCooldown,
+      stats7d: at.stats7d, stats30d: at.stats30d,
+    }))),
+  }));
+
+  return `你是一位有10年经验的亚马逊运营专家，今天是 ${today}。
+以下是若干产品的完整画像（库存 + 广告数据 + Listing 前台数据 + 历史趋势）。
+
+请对每个产品进行深度分析：
+1. 判断产品阶段（新品/成熟品/衰退品/节气品）—— 主要依据销量趋势、BSR走势、评论增速，note 标签仅辅助参考（可能已过时）
+2. 判断当前健康度（盈利/持平/亏损/高风险/Listing异常）
+3. 给出广告策略方向
+4. 给出具体调整动作（哪些关键词/自动投放，建议竞价是多少，原因是什么）
+
+分析时重点考虑：
+- Listing 异常：isAvailable=false 的产品广告应立即暂停，评分 < 3.8 说明转化天花板低
+- BSR 趋势：BSR 连续改善 → 自然流量增长，可适当降低广告依赖；BSR 持续恶化 → 产品可能在下滑
+- 新品（评论数 < 50 或近期销量爬坡中）：允许适度亏损换排名，不要轻易止血
+- 节气品：结合当前日期和历史 BSR/销量波动模式推断旺淡季
+- 库存压力（invDays > 60）：广告加速去库存，但控制 ACOS 防止越卖越亏
+- 漏斗诊断：高曝光低点击 → 主图/价格问题；高点击低转化 → Listing/评价问题
+- onCooldown=true 的实体在冷却期内，仍给建议但在 reason 中注明
+- note 权重低，与数据矛盾时优先相信数据
+
+产品数据（JSON）：
+${JSON.stringify(slim, null, 0)}
+
+直接返回 JSON 数组，不要 markdown 包裹：
+[{"sku":"...","asin":"...","stage":"新品|成熟品|衰退品|节气品","health":"盈利|持平|亏损|高风险|Listing异常","listingAlert":null,"strategy":"一句话策略","actions":[{"entityType":"keyword|autoTarget","id":"...","currentBid":0.45,"suggestedBid":0.50,"reason":"..."}],"summary":"2-3句综合判断"}]`;
+}
+
+function parseClaudeResponse(text) {
+  if (!text) return [];
+  const match = text.match(/\[[\s\S]*\]/);
+  if (!match) { log('未找到 JSON 数组', 'warn'); return []; }
+  try {
+    return JSON.parse(match[0]);
+  } catch (e) {
+    log('JSON 解析失败：' + e.message, 'warn');
+    return [];
+  }
+}
+
+// ============================================================
+// 渲染产品卡片
+// ============================================================
+function renderCards(results, batch) {
+  const container = $('cards-container');
+  for (const r of results) {
+    // 找对应的原始卡片（获取 campaigns 详情）
+    const card = batch.find(c => c.sku === r.sku || c.asin === r.asin) || {};
+    const cardEl = document.createElement('div');
+    cardEl.className = 'card';
+    cardEl.dataset.sku = r.sku;
+
+    const stageTag = r.stage ? `<span class="tag tag-stage-${r.stage}">${r.stage}</span>` : '';
+    const healthTag = r.health ? `<span class="tag tag-health-${r.health}">${r.health}</span>` : '';
+    const alertHtml = r.listingAlert ? `<span class="listing-alert">⚠ ${r.listingAlert}</span>` : '';
+    const asinLink = r.asin ? `<span class="card-asin">${r.asin}</span>` : '';
+    const actCount = (r.actions || []).length;
+
+    cardEl.innerHTML = `
+      <div class="card-header" onclick="toggleCard('${r.sku}')">
+        <span class="card-sku">${r.sku || r.asin}</span>
+        ${asinLink}
+        ${stageTag}${healthTag}${alertHtml}
+        <span class="card-strategy">${r.strategy || ''}</span>
+        <span class="card-toggle" id="toggle-${r.sku}">${actCount} 个动作 ▼</span>
+      </div>
+      <div class="card-body" id="body-${r.sku}" style="display:none">
+        <div class="card-summary">${r.summary || ''}</div>
+        ${renderActionsTable(r.actions || [], r)}
+      </div>
+    `;
+    container.appendChild(cardEl);
+  }
+}
+
+function renderActionsTable(actions, result) {
+  if (!actions.length) return '<div style="color:#8b949e;font-size:11px;padding:4px 0">无调整动作</div>';
+  const bidFloor = parseFloat($('bidFloor').value) || 0.05;
+  let rows = '';
+  for (const a of actions) {
+    const isUp   = a.suggestedBid > a.currentBid;
+    const isDown = a.suggestedBid < a.currentBid;
+    const cls    = isUp ? 'bid-up' : isDown ? 'bid-down' : 'bid-same';
+    const arrow  = isUp ? '↑' : isDown ? '↓' : '—';
+    const onCooldown = checkCooldown(a.id, result);
+    const defaultChecked = !onCooldown && result.health !== 'Listing异常';
+    const cooldownBadge = onCooldown ? '<span class="cooldown-badge">冷却中</span>' : '';
+    rows += `
+      <tr>
+        <td><input type="checkbox" class="action-check" data-id="${a.id}" data-type="${a.entityType}" data-bid="${a.suggestedBid}" data-sku="${result.sku}" ${defaultChecked ? 'checked' : ''}></td>
+        <td>${a.entityType === 'keyword' ? '关键词' : '自动投放'}</td>
+        <td style="font-size:10px;color:#8b949e">${a.id}</td>
+        <td>$${a.currentBid?.toFixed(2) || '-'}</td>
+        <td class="bid-change ${cls}">$${a.suggestedBid?.toFixed(2) || '-'} ${arrow}</td>
+        <td>${cooldownBadge}</td>
+        <td class="reason-text">${a.reason || ''}</td>
+      </tr>`;
+  }
+  return `
+    <table class="actions-table">
+      <thead><tr><th></th><th>类型</th><th>ID</th><th>当前竞价</th><th>建议竞价</th><th></th><th>原因</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+function checkCooldown(entityId, result) {
+  // 在原始 productCards 里查找 entity 的 onCooldown
+  const card = STATE.productCards.find(c => c.sku === result.sku || c.asin === result.asin);
+  if (!card) return false;
+  for (const camp of card.campaigns) {
+    const kw = camp.keywords.find(k => k.id === entityId);
+    if (kw) return kw.onCooldown;
+    const at = camp.autoTargets.find(t => t.id === entityId);
+    if (at) return at.onCooldown;
+  }
+  return false;
+}
+
+window.toggleCard = function(sku) {
+  const body = $(`body-${sku}`);
+  const toggle = $(`toggle-${sku}`);
+  if (!body) return;
+  const open = body.style.display !== 'none';
+  body.style.display = open ? 'none' : 'block';
+  if (toggle) toggle.textContent = toggle.textContent.replace(open ? '▲' : '▼', open ? '▼' : '▲');
+};
+
+function updateExecCount() {
+  const checked = document.querySelectorAll('.action-check:checked');
+  $('execPending').textContent = checked.length;
+}
+document.getElementById('copyLogBtn').addEventListener('click', () => {
+  const text = [...logEl.querySelectorAll('div')].map(d => d.textContent).join('\n');
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyLogBtn');
+    btn.textContent = '已复制 ✓';
+    setTimeout(() => btn.textContent = '复制日志', 1500);
+  });
+});
+
+
+
+// ============================================================
+// 阶段 6：执行
+// ============================================================
+async function executePlan() {
+  const checkedEls = [...document.querySelectorAll('.action-check:checked')];
+  if (!checkedEls.length) { log('没有勾选任何动作', 'warn'); return; }
+
+  executeBtn.disabled = true;
+  let ok = 0, err = 0;
+
+  // 按类型分组
+  const kwItems = [], atItems = [];
+  for (const el of checkedEls) {
+    const { id, type, bid, sku } = el.dataset;
+    const item = { id, bid: parseFloat(bid) };
+    if (type === 'keyword') kwItems.push(item);
+    else atItems.push(item);
+  }
+
+  // 执行关键词竞价更新
+  if (kwItems.length) {
+    try {
+      await execAdWrite('/keyword/batchKeyword', {
+        column: 'bid', property: 'keyword', operation: 'bid',
+        idArray: kwItems.map(i => i.id),
+        targetArray: kwItems.map(i => ({ id: i.id, bid: i.bid })),
+        targetNewArray: kwItems.map(i => ({ id: i.id, bid: i.bid })),
+      });
+      ok += kwItems.length;
+      log(`关键词竞价更新成功：${kwItems.length} 条`, 'ok');
+    } catch (e) { err += kwItems.length; log(`关键词更新失败：${e.message}`, 'error'); }
+  }
+
+  // 执行自动投放竞价更新
+  if (atItems.length) {
+    try {
+      // 从原始数据里查找完整字段（需要 siteId/accountId/campaignId/adGroupId）
+      const atRows = [...STATE.autoRows, ...STATE.targetRows];
+      const targetArray = atItems.map(i => {
+        const raw = atRows.find(r => String(r.targetId || r.id || '') === String(i.id)) || {};
+        return {
+          siteId: raw.siteId || 4,
+          accountId: raw.accountId,
+          campaignId: raw.campaignId,
+          adGroupId: raw.adGroupId,
+          targetId: i.id,
+          bid: String(i.bid),
+        };
+      });
+      const accountId = targetArray[0]?.accountId;
+      const siteId = targetArray[0]?.siteId || 4;
+      await execAdWrite('/advTarget/batchEditAutoTarget', {
+        column: 'bid', property: 'autoTarget', operation: 'bid',
+        accountId, siteId,
+        idArray: atItems.map(i => i.id),
+        campaignIdArray: [...new Set(targetArray.map(t => t.campaignId).filter(Boolean))],
+        targetArray,
+        targetNewArray: targetArray,
+      });
+      ok += atItems.length;
+      log(`自动投放竞价更新成功：${atItems.length} 条`, 'ok');
+    } catch (e) { err += atItems.length; log(`自动投放更新失败：${e.message}`, 'error'); }
+  }
+
+  $('execOk').textContent = ok;
+  $('execErr').textContent = err;
+  executeBtn.disabled = false;
+
+  // 保存执行计划存档
+  saveExecutionLog(checkedEls, ok, err);
+}
+
+function saveExecutionLog(checkedEls, ok, err) {
+  const record = {
+    executedAt: new Date().toISOString(),
+    ok, err,
+    actions: [...checkedEls].map(el => ({ id: el.dataset.id, type: el.dataset.type, bid: el.dataset.bid, sku: el.dataset.sku })),
+  };
+  downloadJson(record, `ad-ops/plans/${timestamp()}_plan.json`);
+}
+
+// ============================================================
+// 导出快照
+// ============================================================
+async function exportSnapshot() {
+  if (!STATE.productCards.length) { log('无数据可导出', 'warn'); return; }
+
+  // 只导出有广告花费的产品，精简字段
+  const cards = STATE.productCards.filter(c => c.adStats?.['30d']?.spend > 0);
+  const slim = cards.map(c => ({
+    sku: c.sku,
+    asin: c.asin || null,
+    profitRate: c.profitRate || null,
+    invDays: c.invDays || null,
+    unitsSold_30d: c.unitsSold_30d || null,
+    unitsSold_7d: c.unitsSold_7d || null,
+    note: c.note || null,
+    adStats: c.adStats,
+    keywords: c.campaigns.flatMap(camp => camp.keywords.map(kw => ({
+      id: kw.id, text: kw.text, matchType: kw.matchType,
+      bid: kw.bid, onCooldown: kw.onCooldown, stats30d: kw.stats30d,
+    }))).filter(kw => kw.stats30d?.spend > 0),
+    autoTargets: c.campaigns.flatMap(camp => camp.autoTargets.map(at => ({
+      id: at.id, targetType: at.targetType,
+      bid: at.bid, onCooldown: at.onCooldown, stats30d: at.stats30d,
+    }))).filter(at => at.stats30d?.spend > 0),
+  }));
+
+  const snap = {
+    exportedAt: new Date().toISOString(),
+    date: new Date().toISOString().slice(0, 10),
+    products: slim,
+    prompt: buildClaudePrompt(slim),
+  };
+  downloadJson(snap, `ad-ops/snapshots/${timestamp()}.json`);
+  log(`快照已导出：${slim.length} 个产品，发给 Claude 分析`, 'ok');
+}
+
+// ============================================================
+// 工具函数
+// ============================================================
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function timestamp() {
+  return new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+}
+
+function downloadJson(data, filename) {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  chrome.downloads.download({ url, filename, saveAs: false }, () => URL.revokeObjectURL(url));
+}

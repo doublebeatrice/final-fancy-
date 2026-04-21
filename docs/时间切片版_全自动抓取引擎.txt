@@ -1,0 +1,108 @@
+async function fetchSpKeywordsWithTimeSlicing() {
+    console.log("🚀 启动【时间切片版】全自动抓取引擎，专治翻页受限！");
+
+    // 直接用你刚才发给我的那个有效 Token
+    const YOUR_LATEST_TOKEN = "eyJpdiI6IjQzdllWTGZrUmlFZjIzYWdsV3hIdFE9PSIsInZhbHVlIjoieTlMakhlQUFFVE81eEUyRGNMeCtrV21Jb3ZreTA5b0FWZ0ZkUWlha3FMbTN6RWF6TlExVEhrdTc2SWFEdHdPcSIsIm1hYyI6IjliZmMwZWUyMDNiZmU5MzUwNjI2YjkzNzIxNGU5YzhhMjAwNjNhZjg1ODRmNzE1MGEwMDhkMWFmMzU5Y2EyODQifQ==";
+
+    // 设定你要抓取的总时间范围 (你截图里的时间戳)
+    const overallStartTime = 1773158400000;
+    const overallEndTime = 1775664000000;
+
+    // 设定每次切片的时间跨度 (3 天 = 3 * 24 * 60 * 60 * 1000 毫秒)
+    const sliceDuration = 3 * 24 * 60 * 60 * 1000; 
+
+    let allDataPool = [];
+    const limit = 50;
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    let currentSliceStart = overallStartTime;
+
+    while (currentSliceStart < overallEndTime) {
+        let currentSliceEnd = currentSliceStart + sliceDuration;
+        if (currentSliceEnd > overallEndTime) {
+            currentSliceEnd = overallEndTime;
+        }
+
+        console.log(`\n⏳ 开始抓取时间段：${new Date(currentSliceStart).toLocaleDateString()} 至 ${new Date(currentSliceEnd).toLocaleDateString()}`);
+
+        let currentPage = 1;
+        let totalPages = 1;
+        let hasMoreDataInSlice = true;
+
+        while (hasMoreDataInSlice) {
+            const payload = {
+                "siteId": 4, 
+                "timeRange": [currentSliceStart, currentSliceEnd], 
+                "state": "4", "coreMark": "0", "userName": ["HJ17", "HJ171", "HJ172"],
+                "level": "seller_num", "publicAdv": "2", "lowCost": 2,
+                "page": currentPage, "limit": limit,
+                "property": "1", // 明确指定抓取 SP 关键词
+                "filterArray": {"campaignState": "4"}
+            };
+
+            try {
+                const response = await fetch("https://adv.yswg.com.cn/keyword/findAllNew", {
+                    "headers": {
+                        "accept": "application/json, text/plain, */*",
+                        "content-type": "application/json",
+                        "x-xsrf-token": YOUR_LATEST_TOKEN
+                    },
+                    "body": JSON.stringify(payload),
+                    "method": "POST", "mode": "cors", "credentials": "include"
+                });
+
+                if (!response.ok) {
+                    console.error(`❌ 第 ${currentPage} 页崩溃！状态码: ${response.status}。可能是这个 Token 刚刚过期了。`);
+                    break; 
+                }
+
+                const json = await response.json();
+
+                if (json.code === 200 && json.data && json.data.length > 0) {
+                    allDataPool = allDataPool.concat(json.data);
+
+                    if (currentPage === 1 && json.count) {
+                        totalPages = Math.ceil(json.count / limit);
+                        console.log(`   📊 本时间段发现数据：${json.count} 条，共 ${totalPages} 页。`);
+                    }
+
+                    console.log(`   ✔️ 第 ${currentPage}/${totalPages} 页抓取成功。`);
+
+                    if (currentPage >= totalPages) {
+                        hasMoreDataInSlice = false;
+                    } else {
+                        currentPage++;
+                        await sleep(1500); // 停顿 1.5 秒防拉黑
+                    }
+                } else {
+                    console.log(`   ⚠️ 本时间段抓完了或没有数据。`);
+                    hasMoreDataInSlice = false;
+                }
+            } catch (error) {
+                console.error("💥 网络异常：", error);
+                break;
+            }
+        }
+
+        currentSliceStart = currentSliceEnd;
+        await sleep(2000); 
+    }
+
+    console.log(`\n✅ 所有时间段抓取结束！累计成功抓取了 ${allDataPool.length} 条 SP 关键词数据。准备下载...`);
+
+    if (allDataPool.length > 0) {
+        const blob = new Blob([JSON.stringify(allDataPool, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `SP_Keywords_Full_${new Date().getTime()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    } else {
+        console.log("没抓到数据，如果前面全部报 500，说明那个 Token 确实过期了，可能还得辛苦你重新刷一下网页拿个新的。");
+    }
+}
+
+fetchSpKeywordsWithTimeSlicing();
