@@ -56,13 +56,13 @@
     /* 导入区块 */
     .import-hint { font-size: 12px; color: #8b949e; line-height: 1.6; margin-bottom: 8px; }
     .import-hint b { color: #58a6ff; }
-    #planTextarea {
+    #planTextarea, #spCreateTextarea {
       width: 100%; height: 80px; background: #0d1117; border: 1px solid #30363d;
       border-radius: 4px; padding: 6px 8px; color: #c9d1d9; font-family: "Consolas", monospace;
       font-size: 11px; resize: vertical;
     }
-    #planTextarea:focus { outline: none; border-color: #58a6ff; }
-    #planTextarea::placeholder { color: #484f58; }
+    #planTextarea:focus, #spCreateTextarea:focus { outline: none; border-color: #58a6ff; }
+    #planTextarea::placeholder, #spCreateTextarea::placeholder { color: #484f58; }
 
     /* 产品卡片 */
     #cards-container { display: flex; flex-direction: column; gap: 8px; max-height: 460px; overflow-y: auto; }
@@ -155,6 +155,18 @@
     <textarea id="planTextarea" placeholder='粘贴 Claude 返回的计划 JSON，例如：[{"sku":"...","stage":"新品",...}]'></textarea>
     <div class="action-row" style="margin-top:6px">
       <button id="importBtn" class="success">解析并展示计划</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">SP CreateOneTime</div>
+    <div class="import-hint">
+      粘贴单个 SP 创建参数 JSON，支持 <b>auto</b>、<b>productTarget</b>、<b>keywordTarget</b> 三种模式。<br>
+      示例：<code>{"mode":"auto","coreTerm":"cable organizer straps","sku":"TH3351","asin":"B0GQ33FY4Y","accountId":120,"siteId":4,"dailyBudget":3,"defaultBid":0.3}</code>
+    </div>
+    <textarea id="spCreateTextarea" placeholder='{"mode":"auto","coreTerm":"...","sku":"...","asin":"...","accountId":120,"siteId":4,"dailyBudget":3,"defaultBid":0.3}'></textarea>
+    <div class="action-row" style="margin-top:6px">
+      <button id="createCampaignBtn" class="primary">创建 SP 广告</button>
     </div>
   </div>
 

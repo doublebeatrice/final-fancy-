@@ -27,6 +27,7 @@ const logEl      = $('log');
 const fetchBtn   = $('fetchBtn');
 const exportBtn  = $('exportBtn');
 const importBtn  = $('importBtn');
+const createCampaignBtn = $('createCampaignBtn');
 const executeBtn = $('executeBtn');
 
 // ---- 日志 ----
@@ -51,6 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   fetchBtn.addEventListener('click', fetchAllData);
   exportBtn.addEventListener('click', exportSnapshot);
   importBtn.addEventListener('click', importPlan);
+  if (createCampaignBtn) createCampaignBtn.addEventListener('click', createCampaignFromTextarea);
   executeBtn.addEventListener('click', executePlan);
 });
 
@@ -724,6 +726,242 @@ async function execAdWrite(path, payload) {
   if (!result) throw new Error(`广告接口 ${path} 无响应`);
   return result.data;
 }
+
+function structuredCreateCampaignResult(base = {}, extra = {}) {
+  return {
+    ok: Object.prototype.hasOwnProperty.call(extra, 'ok') ? extra.ok : !!base.ok,
+    stage: extra.stage || base.stage || '',
+    mode: extra.mode || base.mode || '',
+    requestUrl: extra.requestUrl || base.requestUrl || '/campaign/createOneTime',
+    campaignName: extra.campaignName || base.campaignName || '',
+    groupName: extra.groupName || base.groupName || '',
+    requestBody: Object.prototype.hasOwnProperty.call(extra, 'requestBody') ? extra.requestBody : (base.requestBody || null),
+    responseCode: Object.prototype.hasOwnProperty.call(extra, 'responseCode') ? extra.responseCode : (base.responseCode ?? null),
+    responseMsg: Object.prototype.hasOwnProperty.call(extra, 'responseMsg') ? extra.responseMsg : (base.responseMsg || ''),
+    campaignId: Object.prototype.hasOwnProperty.call(extra, 'campaignId') ? extra.campaignId : (base.campaignId || ''),
+    adGroupId: Object.prototype.hasOwnProperty.call(extra, 'adGroupId') ? extra.adGroupId : (base.adGroupId || ''),
+    errorType: Object.prototype.hasOwnProperty.call(extra, 'errorType') ? extra.errorType : (base.errorType || ''),
+    reason: Object.prototype.hasOwnProperty.call(extra, 'reason') ? extra.reason : (base.reason || ''),
+    errors: Object.prototype.hasOwnProperty.call(extra, 'errors') ? extra.errors : (base.errors || []),
+    rawResponse: Object.prototype.hasOwnProperty.call(extra, 'rawResponse') ? extra.rawResponse : (base.rawResponse || null),
+  };
+}
+
+function normalizeCreateMode(value) {
+  const text = String(value || '').trim();
+  if (!text) return '';
+  if (/^(auto|自动组)$/i.test(text)) return 'auto';
+  if (/^(productTarget|定位组)$/i.test(text)) return 'productTarget';
+  if (/^(keywordTarget|关键词组)$/i.test(text)) return 'keywordTarget';
+  return text;
+}
+
+function normalizeStringList(list, transform = value => String(value || '').trim()) {
+  if (!Array.isArray(list)) return [];
+  return [...new Set(list.map(transform).filter(Boolean))];
+}
+
+function buildSpCampaignNames(mode, coreTerm, sku) {
+  const prefixByMode = {
+    auto: 'auto',
+    productTarget: 'asin',
+    keywordTarget: 'kw',
+  };
+  const prefix = prefixByMode[mode] || 'sp';
+  const campaignName = `${prefix}_${coreTerm}_${String(sku || '').toLowerCase()}`;
+  return { campaignName, groupName: campaignName };
+}
+
+function buildSpCreatePayload(input = {}) {
+  const mode = normalizeCreateMode(input.mode || input.positionType);
+  const sku = String(input.sku || '').trim();
+  const asin = String(input.asin || '').trim().toUpperCase();
+  const coreTerm = String(input.coreTerm || '').trim();
+  const accountId = Number(input.accountId);
+  const siteId = Number(input.siteId);
+  const dailyBudget = Number(input.dailyBudget);
+  const defaultBid = Number(input.defaultBid);
+  const errors = [];
+
+  if (!['auto', 'productTarget', 'keywordTarget'].includes(mode)) errors.push('mode must be auto, productTarget, or keywordTarget');
+  if (!coreTerm) errors.push('coreTerm is required by SOP naming rule');
+  if (!sku) errors.push('sku is required');
+  if (!asin) errors.push('asin is required');
+  if (!Number.isFinite(accountId) || accountId <= 0) errors.push('accountId must be a positive number');
+  if (!Number.isFinite(siteId) || siteId <= 0) errors.push('siteId must be a positive number');
+  if (!Number.isFinite(dailyBudget) || dailyBudget <= 0) errors.push('dailyBudget must be a positive number');
+  if (!Number.isFinite(defaultBid) || defaultBid <= 0) errors.push('defaultBid must be a positive number');
+
+  const startDate = formatYmd(new Date());
+  const { campaignName, groupName } = buildSpCampaignNames(mode, coreTerm, sku);
+  const base = {
+    ok: errors.length === 0,
+    stage: 'build',
+    mode,
+    requestUrl: '/campaign/createOneTime',
+    campaignName,
+    groupName,
+    errors,
+  };
+  if (errors.length) return structuredCreateCampaignResult(base, { ok: false });
+
+  const payload = {
+    createType: 'campaign',
+    advType: 'SP',
+    name: '创建 SP 广告活动',
+    campaignName,
+    startDate,
+    accountId,
+    siteId,
+    dailyBudget,
+    offAmazonBudgetControlStrategy: 'MINIMIZE_SPEND',
+    placementTop: 0,
+    placementProductPage: 0,
+    placementRestOfSearch: 0,
+    siteAmazonBusiness: 0,
+    groupName,
+    haulFlag: false,
+    asinArray: [asin],
+    skuArray: [sku],
+    defaultBid,
+  };
+
+  if (mode === 'auto') {
+    payload.targetingType = 'AUTO';
+    payload.positionType = 'auto';
+    payload.strategy = 'LEGACY_FOR_SALES';
+    payload.autoTargetUpdate = {
+      QUERY_HIGH_REL_MATCHES: { bid: defaultBid, state: 'enabled' },
+      QUERY_BROAD_REL_MATCHES: { bid: defaultBid, state: 'enabled' },
+      ASIN_ACCESSORY_RELATED: { bid: defaultBid, state: 'enabled' },
+      ASIN_SUBSTITUTE_RELATED: { bid: defaultBid, state: 'enabled' },
+    };
+    payload.negativeKeywordArray = [];
+    payload.negativeProductTargetArray = [];
+  } else if (mode === 'productTarget') {
+    const targetType = String(input.targetType || '').trim();
+    const targetAsins = normalizeStringList(input.targetAsins, value => String(value || '').trim().toUpperCase());
+    if (!targetType) errors.push('targetType is required for productTarget');
+    if (!targetAsins.length) errors.push('targetAsins must contain at least one ASIN');
+    if (errors.length) return structuredCreateCampaignResult(base, { ok: false, errors });
+
+    payload.targetingType = 'MANUAL';
+    payload.positionType = 'productTarget';
+    payload.strategy = 'LEGACY_FOR_SALES';
+    payload.productTargetArray = targetAsins.map(value => ({
+      bid: defaultBid,
+      targetMark: '',
+      resolvedExpression: [{ type: targetType, value }],
+      expression: [{ type: targetType, value }],
+    }));
+    payload.negativeProductTargetArray = [];
+  } else if (mode === 'keywordTarget') {
+    const matchType = String(input.matchType || '').trim().toUpperCase();
+    const keywords = normalizeStringList(input.keywords);
+    if (!matchType) errors.push('matchType is required for keywordTarget');
+    if (!keywords.length) errors.push('keywords must contain at least one keyword');
+    if (errors.length) return structuredCreateCampaignResult(base, { ok: false, errors });
+
+    payload.targetingType = 'MANUAL';
+    payload.positionType = 'keywordTarget';
+    payload.strategy = 'MANUAL';
+    payload.keywordArray = keywords.map(keywordText => ({
+      keywordText,
+      matchType,
+      bid: defaultBid,
+      coreMark: '',
+    }));
+    payload.keywordGroups = [];
+    payload.negativeKeywordArray = [];
+  }
+
+  return structuredCreateCampaignResult(base, { ok: true, requestBody: payload, errors: [] });
+}
+
+async function createSpCampaign(input = {}) {
+  const built = buildSpCreatePayload(input);
+  if (!built.ok) return built;
+
+  try {
+    const tab = await findTab('*://adv.yswg.com.cn/*');
+    const result = await execAdApi(tab.id, built.requestUrl, built.requestBody, 'POST');
+    if (!result) {
+      return structuredCreateCampaignResult(built, {
+        ok: false,
+        stage: 'request',
+        responseMsg: '广告接口无响应',
+        errors: ['ad api returned empty result'],
+      });
+    }
+    if (result.error) {
+      return structuredCreateCampaignResult(built, {
+        ok: false,
+        stage: 'request',
+        responseMsg: result.error,
+        errors: [result.error],
+      });
+    }
+
+    const json = result.data || {};
+    const productAdsError = json?.data?.productAds?.error || {};
+    const campaignId = String(json?.data?.campaignId || '');
+    const adGroupId = String(json?.data?.adGroupId || '');
+    const ok = Number(json?.code) === 200 && !!campaignId && !!adGroupId;
+    return structuredCreateCampaignResult(built, {
+      ok,
+      stage: 'done',
+      responseCode: json?.code ?? null,
+      responseMsg: json?.msg || '',
+      campaignId,
+      adGroupId,
+      errorType: productAdsError?.errorType || '',
+      reason: productAdsError?.reason || '',
+      rawResponse: json,
+      errors: ok ? [] : [
+        json?.msg || 'createOneTime failed',
+        productAdsError?.errorType || '',
+        productAdsError?.reason || '',
+      ].filter(Boolean),
+    });
+  } catch (e) {
+    return structuredCreateCampaignResult(built, {
+      ok: false,
+      stage: 'exception',
+      responseMsg: e.message,
+      errors: [e.message],
+    });
+  }
+}
+
+async function createCampaignFromTextarea() {
+  const text = $('spCreateTextarea')?.value.trim() || '';
+  if (!text) {
+    log('请先粘贴 SP 创建参数 JSON', 'warn');
+    return;
+  }
+
+  let input;
+  try {
+    input = JSON.parse(text);
+  } catch (e) {
+    log(`SP 创建参数 JSON 解析失败：${e.message}`, 'error');
+    return;
+  }
+
+  createCampaignBtn.disabled = true;
+  const result = await createSpCampaign(input);
+  if (result.ok) {
+    log(`SP 创建成功：${result.mode} campaignId=${result.campaignId} adGroupId=${result.adGroupId}`, 'ok');
+  } else {
+    const detail = [result.responseMsg, result.errorType, result.reason, ...(result.errors || [])].filter(Boolean).join(' | ');
+    log(`SP 创建失败：${result.mode || 'unknown'} ${detail}`, 'error');
+  }
+  console.log('[sp-create]', result);
+  createCampaignBtn.disabled = false;
+}
+
+window.buildSpCreatePayload = buildSpCreatePayload;
+window.createSpCampaign = createSpCampaign;
 
 function structuredToggleResult(base = {}, extra = {}) {
   return {
