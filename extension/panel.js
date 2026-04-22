@@ -772,6 +772,13 @@ function buildSpCampaignNames(mode, coreTerm, sku) {
   return { campaignName, groupName: campaignName };
 }
 
+function buildCreateActionId(action = {}, fallbackSku = '') {
+  const mode = normalizeCreateMode(action?.createInput?.mode || action?.mode || action?.positionType || '');
+  const sku = String(action?.sku || fallbackSku || '').trim();
+  const coreTerm = String(action?.createInput?.coreTerm || action?.coreTerm || '').trim();
+  return `create::${sku || 'unknown'}::${mode || 'unknown'}::${coreTerm || 'unknown'}`;
+}
+
 function buildSpCreatePayload(input = {}) {
   const mode = normalizeCreateMode(input.mode || input.positionType);
   const sku = String(input.sku || '').trim();
@@ -962,6 +969,30 @@ async function createCampaignFromTextarea() {
 
 window.buildSpCreatePayload = buildSpCreatePayload;
 window.createSpCampaign = createSpCampaign;
+
+function normalizeCreateAction(raw = {}, plan = {}) {
+  if (!raw || raw.actionType !== 'create') return raw;
+  const normalized = { ...raw };
+  normalized.entityType = 'spCampaign';
+  normalized.sku = normalized.sku || plan.sku || '';
+  normalized.createInput = {
+    ...(normalized.createInput || {}),
+    mode: normalizeCreateMode(normalized?.createInput?.mode || normalized.mode || normalized.positionType || ''),
+    sku: normalized?.createInput?.sku || normalized.sku || plan.sku || '',
+    asin: normalized?.createInput?.asin || plan.asin || normalized.asin || '',
+    accountId: normalized?.createInput?.accountId ?? normalized.accountId ?? plan?.createContext?.accountId,
+    siteId: normalized?.createInput?.siteId ?? normalized.siteId ?? plan?.createContext?.siteId ?? 4,
+    dailyBudget: normalized?.createInput?.dailyBudget ?? normalized.dailyBudget ?? plan?.createContext?.recommendedDailyBudget,
+    defaultBid: normalized?.createInput?.defaultBid ?? normalized.defaultBid ?? plan?.createContext?.recommendedDefaultBid,
+    coreTerm: normalized?.createInput?.coreTerm || normalized.coreTerm || '',
+    targetType: normalized?.createInput?.targetType || normalized.targetType || '',
+    targetAsins: normalized?.createInput?.targetAsins || normalized.targetAsins || [],
+    matchType: normalized?.createInput?.matchType || normalized.matchType || '',
+    keywords: normalized?.createInput?.keywords || normalized.keywords || [],
+  };
+  if (!normalized.id) normalized.id = buildCreateActionId(normalized, plan.sku || '');
+  return normalized;
+}
 
 function structuredToggleResult(base = {}, extra = {}) {
   return {
@@ -1391,6 +1422,10 @@ function formatInventoryNoteMinute(date = new Date()) {
 }
 
 function actionDirectionText(action, entry) {
+  if ((action.actionType || entry.actionType) === 'create') {
+    const mode = action?.createInput?.mode || action?.mode || 'unknown';
+    return { direction: '建广告', actionText: `创建SP广告/${mode}` };
+  }
   const fromBid = Number(action.currentBid ?? entry.currentBid);
   const toBid = Number(action.suggestedBid ?? entry.suggestedBid ?? entry.bid);
   if (Number.isFinite(fromBid) && Number.isFinite(toBid)) {
@@ -1422,17 +1457,22 @@ function buildOperationalNoteFields(entry) {
   else if (/ACOS|acos|TACOS|tacos|花费|亏损/.test(reason)) currentProblem = 'ACOS偏高';
   else if (direction === '加投') currentProblem = '流量不足';
   else if (direction === '降投') currentProblem = '低效消耗';
+  else if (direction === '建广告') currentProblem = '当前广告覆盖不足';
 
   const coreJudgement = direction === '加投'
     ? '当前仍有测试或放量价值，需要加投验证是否能放大有效点击和订单'
     : direction === '降投'
       ? '当前继续消耗的效率偏弱，需要先收缩低效流量并观察承接情况'
-      : '当前动作以验证广告状态为主，避免脱离真实落地结果记录';
+      : direction === '建广告'
+        ? '当前需要补齐SP广告结构，先把基础投放盘建起来再观察数据反馈'
+        : '当前动作以验证广告状态为主，避免脱离真实落地结果记录';
 
-  const purpose = direction === '加投' ? '测试放量' : direction === '降投' ? '控制低效消耗' : '确认执行结果';
+  const purpose = direction === '加投' ? '测试放量' : direction === '降投' ? '控制低效消耗' : direction === '建广告' ? '补齐基础广告覆盖' : '确认执行结果';
   const observe = direction === '加投'
     ? '看3天内点击是否放大、7天订单是否同步增加'
-    : '看后续花费是否下降、ACOS是否回落、是否仍有自然单承接';
+    : direction === '建广告'
+      ? '看新广告是否开始拿到曝光、点击和首批转化'
+      : '看后续花费是否下降、ACOS是否回落、是否仍有自然单承接';
 
   let remark = '执行结果：成功，已回查确认竞价落地';
   if (finalStatus !== 'success') {
@@ -2414,11 +2454,48 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     return skuMap[sku];
   }
 
-  function getOrCreateCampaign(skuObj, campaignId, campaignName) {
+  function getOrCreateCampaign(skuObj, campaignId, campaignName, meta = {}) {
     if (!skuObj.campaigns[campaignId]) {
-      skuObj.campaigns[campaignId] = { campaignId, name: campaignName || '', keywords: [], autoTargets: [], sponsoredBrands: [] };
+      skuObj.campaigns[campaignId] = {
+        campaignId,
+        name: campaignName || '',
+        accountId: meta.accountId || '',
+        siteId: meta.siteId || 4,
+        adGroupId: meta.adGroupId || '',
+        keywords: [],
+        autoTargets: [],
+        sponsoredBrands: [],
+      };
     }
+    if (!skuObj.campaigns[campaignId].accountId && meta.accountId) skuObj.campaigns[campaignId].accountId = meta.accountId;
+    if (!skuObj.campaigns[campaignId].siteId && meta.siteId) skuObj.campaigns[campaignId].siteId = meta.siteId;
+    if (!skuObj.campaigns[campaignId].adGroupId && meta.adGroupId) skuObj.campaigns[campaignId].adGroupId = meta.adGroupId;
     return skuObj.campaigns[campaignId];
+  }
+
+  function buildCreateContext(card, campaigns) {
+    const firstCampaign = campaigns.find(c => c.accountId) || campaigns[0] || {};
+    const keywordTexts = [...new Set(campaigns.flatMap(c => (c.keywords || []).map(k => String(k.text || '').trim()).filter(Boolean)))].slice(0, 5);
+    const hasSpKeyword = campaigns.some(c => (c.keywords || []).length > 0);
+    const hasSpAuto = campaigns.some(c => (c.autoTargets || []).some(t => String(t.targetType || '').toLowerCase() !== 'manual'));
+    const hasSpManual = campaigns.some(c => (c.autoTargets || []).some(t => String(t.targetType || '').toLowerCase() === 'manual'));
+    const hasSbKeyword = campaigns.some(c => (c.sponsoredBrands || []).some(t => t.entityType === 'sbKeyword'));
+    const hasSbTarget = campaigns.some(c => (c.sponsoredBrands || []).some(t => t.entityType === 'sbTarget'));
+    return {
+      accountId: firstCampaign.accountId || '',
+      siteId: firstCampaign.siteId || 4,
+      existingCampaignCount: campaigns.length,
+      coverage: {
+        hasSpKeyword,
+        hasSpAuto,
+        hasSpManual,
+        hasSbKeyword,
+        hasSbTarget,
+      },
+      recommendedDailyBudget: 3,
+      recommendedDefaultBid: 0.3,
+      keywordSeeds: keywordTexts,
+    };
   }
 
   const ASIN_RE = /\bB0[A-Z0-9]{8}\b/;
@@ -2476,7 +2553,11 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     const skuObj = getOrCreate(key, asin);
     if (asin && !skuObj.asin) skuObj.asin = asin;
     const campaignId = String(r.campaignId || r.campaign_id || '');
-    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '');
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', {
+      accountId: r.accountId,
+      siteId: r.siteId,
+      adGroupId: r.adGroupId || r.ad_group_id || '',
+    });
     const updatedAt = r.updatedAt || r.updated_at || r['更新时间'] || '';
     const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
     camp.keywords.push({
@@ -2501,7 +2582,11 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     const skuObj = getOrCreate(key, asin);
     if (asin && !skuObj.asin) skuObj.asin = asin;
     const campaignId = String(r.campaignId || r.campaign_id || '');
-    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '');
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', {
+      accountId: r.accountId,
+      siteId: r.siteId,
+      adGroupId: r.adGroupId || r.ad_group_id || '',
+    });
     const updatedAt = r.updatedAt || r.updated_at || r['更新时间'] || '';
     const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
     camp.autoTargets.push({
@@ -2525,7 +2610,11 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     const skuObj = getOrCreate(key, asin);
     if (asin && !skuObj.asin) skuObj.asin = asin;
     const campaignId = String(r.campaignId || r.campaign_id || '');
-    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '');
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', {
+      accountId: r.accountId,
+      siteId: r.siteId,
+      adGroupId: r.adGroupId || r.ad_group_id || '',
+    });
     const updatedAt = r.updatedAt || r.updated_at || '';
     const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
     camp.autoTargets.push({
@@ -2548,7 +2637,11 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     const skuObj = getOrCreate(key, asin);
     if (asin && !skuObj.asin) skuObj.asin = asin;
     const campaignId = String(r.campaignId || r.campaign_id || r.campaign_id_str || '');
-    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '');
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', {
+      accountId: r.accountId,
+      siteId: r.siteId,
+      adGroupId: r.adGroupId || r.ad_group_id || '',
+    });
     const updatedAt = r.updatedAt || r.updated_at || r.modifyTime || r.updateTime || '';
     const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
     camp.sponsoredBrands.push({
@@ -2605,6 +2698,7 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     return {
       ...card,
       campaigns,
+      createContext: buildCreateContext(card, campaigns),
       adStats,
       sbStats,
       listing: card.asin ? (listingMap[card.asin] || null) : null,
@@ -2642,6 +2736,7 @@ function importPlan() {
 
   // 应用 bidFloor
   for (const r of results) {
+    r.actions = (r.actions || []).map(action => normalizeCreateAction(action, r));
     for (const a of r.actions || []) {
       if (a.suggestedBid && a.suggestedBid < bidFloor) a.suggestedBid = bidFloor;
     }
@@ -2715,6 +2810,7 @@ function buildClaudePrompt(cards) {
       } : null,
       history: c.history?.slice(-4) || [],
       sbStats: c.sbStats,
+      createContext: c.createContext || null,
       adjustableAds,
       keywords,
       autoTargets,
@@ -2730,6 +2826,7 @@ function buildClaudePrompt(cards) {
 2. 判断当前健康度（盈利/持平/亏损/高风险/Listing异常）
 3. 给出广告策略方向
 4. 给出具体调整动作（SP关键词、SP自动投放、SP手动定位、SB关键词、SB定位都必须纳入判断池，建议竞价是多少，原因是什么）
+5. 如果你判断当前产品需要新建 SP 广告结构，也可以输出 create 动作
 
 分析时重点考虑：
 - Listing 异常：isAvailable=false 的产品广告应立即暂停，评分 < 3.8 说明转化天花板低
@@ -2741,13 +2838,22 @@ function buildClaudePrompt(cards) {
 - onCooldown=true 的实体在冷却期内，仍给建议但在 reason 中注明
 - note 权重低，与数据矛盾时优先相信数据
 - SB 广告必须参与加投、降投、关闭、人工复核判断；差异可以在 reason 中说明，但不能直接排除。
-- action.entityType 必须准确区分：keyword、autoTarget、manualTarget、sbKeyword、sbTarget。action.actionType 可为 bid、enable、pause、review；bid 动作必须提供 currentBid 和 suggestedBid。
+- action.entityType 必须准确区分：keyword、autoTarget、manualTarget、sbKeyword、sbTarget、spCampaign。
+- action.actionType 可为 bid、enable、pause、review、create。
+- bid 动作必须提供 currentBid 和 suggestedBid。
+- create 动作只用于 SP 建广告，必须提供 createInput，不要伪造缺字段的创建动作。
+- createInput 结构：
+  {"mode":"auto|productTarget|keywordTarget","coreTerm":"...","sku":"...","asin":"...","accountId":120,"siteId":4,"dailyBudget":3,"defaultBid":0.3,"targetType":"asinSameAs|asinExpandedFrom|categorySameAs","targetAsins":["B0..."],"matchType":"BROAD|PHRASE|EXACT","keywords":["..."]}
+- mode=auto 时只需要基础字段。
+- mode=productTarget 时必须补 targetType 和 targetAsins。
+- mode=keywordTarget 时必须补 matchType 和 keywords。
+- 如果 createContext 缺 accountId 或 siteId，不要输出 create 动作。
 
 产品数据（JSON）：
 ${JSON.stringify(slim, null, 0)}
 
 直接返回 JSON 数组，不要 markdown 包裹：
-[{"sku":"...","asin":"...","stage":"新品|成熟品|衰退品|节气品","health":"盈利|持平|亏损|高风险|Listing异常","listingAlert":null,"strategy":"一句话策略","actions":[{"entityType":"keyword|autoTarget|manualTarget|sbKeyword|sbTarget","actionType":"bid|enable|pause|review","id":"...","currentBid":0.45,"suggestedBid":0.50,"reason":"..."}],"summary":"2-3句综合判断"}]`;
+[{"sku":"...","asin":"...","stage":"新品|成熟品|衰退品|节气品","health":"盈利|持平|亏损|高风险|Listing异常","listingAlert":null,"strategy":"一句话策略","actions":[{"entityType":"keyword|autoTarget|manualTarget|sbKeyword|sbTarget|spCampaign","actionType":"bid|enable|pause|review|create","id":"...","currentBid":0.45,"suggestedBid":0.50,"reason":"...","createInput":{"mode":"auto","coreTerm":"...","sku":"...","asin":"...","accountId":120,"siteId":4,"dailyBudget":3,"defaultBid":0.3}}],"summary":"2-3句综合判断"}]`;
 }
 
 function parseClaudeResponse(text) {
@@ -2822,6 +2928,7 @@ function renderActionsTable(actions, result) {
     const actionType = a.actionType || (Number.isFinite(a.suggestedBid) ? 'bid' : 'review');
     const isBidAction = actionType === 'bid' && Number.isFinite(a.currentBid) && Number.isFinite(a.suggestedBid);
     const isStateAction = actionType === 'enable' || actionType === 'pause';
+    const isCreateAction = actionType === 'create' && a.createInput && typeof a.createInput === 'object';
     const isUp   = isBidAction && a.suggestedBid > a.currentBid;
     const isDown = isBidAction && a.suggestedBid < a.currentBid;
     const cls    = isUp ? 'bid-up' : isDown ? 'bid-down' : 'bid-same';
@@ -2829,22 +2936,27 @@ function renderActionsTable(actions, result) {
     const onCooldown = checkCooldown(a.id, result);
     const sourceText = Array.isArray(a.actionSource) ? a.actionSource.join('+') : (a.actionSource || a.source || 'strategy');
     const riskText = a.riskLevel || 'normal';
-    const defaultChecked = (isBidAction || isStateAction) && !onCooldown && result.health !== 'Listing异常';
+    const defaultChecked = (isBidAction || isStateAction || isCreateAction) && !onCooldown && result.health !== 'Listing异常';
     const cooldownBadge = onCooldown ? '<span class="cooldown-badge">冷却中</span>' : '';
-    const safeId = escapeHtml(a.id);
+    const safeId = escapeHtml(a.id || (isCreateAction ? buildCreateActionId(a, result.sku || '') : ''));
     const normalizedType = normalizeActionEntityType(a.entityType);
     const safeType = escapeHtml(normalizedType);
     const safeActionType = escapeHtml(actionType);
     const safeBid = isBidAction ? String(a.suggestedBid) : '';
     const safeSku = escapeHtml(result.sku || '');
-    const disabled = (isBidAction || isStateAction) ? '' : 'disabled';
+    const disabled = (isBidAction || isStateAction || isCreateAction) ? '' : 'disabled';
+    const actionCell = isBidAction
+      ? '$' + a.suggestedBid.toFixed(2) + ' ' + arrow
+      : isCreateAction
+        ? `create/${escapeHtml(a.createInput?.mode || 'unknown')}`
+        : actionType;
     rows += `
       <tr>
         <td><input type="checkbox" class="action-check" data-id="${safeId}" data-type="${safeType}" data-action-type="${safeActionType}" data-bid="${safeBid}" data-sku="${safeSku}" ${defaultChecked ? 'checked' : ''} ${disabled}></td>
         <td>${entityTypeLabel(normalizedType, actionType)}</td>
         <td style="font-size:10px;color:#8b949e">${safeId}</td>
         <td>${Number.isFinite(a.currentBid) ? '$' + a.currentBid.toFixed(2) : '-'}</td>
-        <td class="bid-change ${cls}">${Number.isFinite(a.suggestedBid) ? '$' + a.suggestedBid.toFixed(2) + ' ' + arrow : actionType}</td>
+        <td class="bid-change ${cls}">${actionCell}</td>
         <td>${cooldownBadge}</td>
         <td>${escapeHtml(sourceText)}</td>
         <td>${escapeHtml(riskText)}</td>
@@ -2860,6 +2972,7 @@ function renderActionsTable(actions, result) {
 
 function normalizeActionEntityType(type) {
   const t = String(type || '').trim();
+  if (/^spcampaign$/i.test(t) || /^campaigncreate$/i.test(t) || /^createcampaign$/i.test(t)) return 'spCampaign';
   if (/^sbkeyword$/i.test(t) || /^sponsoredBrandKeyword$/i.test(t)) return 'sbKeyword';
   if (/^sbtarget$/i.test(t) || /^sponsoredBrandTarget$/i.test(t) || /^sbentity$/i.test(t)) return 'sbTarget';
   if (/^manualTarget$/i.test(t)) return 'manualTarget';
@@ -2873,6 +2986,7 @@ function entityTypeLabel(type, actionType = 'bid') {
     keyword: 'SP关键词',
     autoTarget: 'SP自动',
     manualTarget: 'SP定位',
+    spCampaign: 'SP建广告',
     sbKeyword: 'SB关键词',
     sbTarget: 'SB定位',
   };
@@ -2939,7 +3053,7 @@ function isAdSystemRecentAdjust(result) {
   return !!(result && (result.code === 403 || /系统已自动调整|禁止手动调整|近期.*自动调整/.test(text)));
 }
 
-function groupExecutionItems(items, getMeta, typeLabel) {
+function groupExecutionItems(items, getMeta, typeLabel, bucketKeys = []) {
   const groups = new Map();
   const skipped = [];
 
@@ -2951,8 +3065,9 @@ function groupExecutionItems(items, getMeta, typeLabel) {
     }
 
     const siteId = meta.siteId || 4;
-    const key = `${meta.accountId}::${siteId}`;
-    if (!groups.has(key)) groups.set(key, { accountId: meta.accountId, siteId, items: [] });
+    const bucketValues = bucketKeys.map(key => String(meta[key] || ''));
+    const key = [meta.accountId, siteId, ...bucketValues].join('::');
+    if (!groups.has(key)) groups.set(key, { accountId: meta.accountId, siteId, bucketValues, items: [] });
     groups.get(key).items.push({ item, meta });
   }
 
@@ -2987,9 +3102,14 @@ async function executePlan() {
   // 按类型分组。SB 不再排除，单独分组便于日志和回滚定位。
   const kwItems = [], atItems = [], sbKwItems = [], sbTargetItems = [];
   const stateToggleItems = [];
+  const createItems = [];
   for (const el of checkedEls) {
     const { id, type, bid, sku, actionType } = el.dataset;
     const normalizedType = normalizeActionEntityType(type);
+    if ((actionType || 'bid') === 'create') {
+      createItems.push({ id, sku, type: normalizedType, action: 'create' });
+      continue;
+    }
     if ((actionType || 'bid') === 'enable' || (actionType || 'bid') === 'pause') {
       stateToggleItems.push({ id, sku, action: actionType || 'pause', type: normalizedType });
       continue;
@@ -3009,7 +3129,8 @@ async function executePlan() {
     const { groups, skipped } = groupExecutionItems(
       items,
       item => rows.find(r => String(r.keywordId || r.id || r.keyword_id || '') === String(item.id)),
-      typeLabel
+      typeLabel,
+      ['campaignId', 'adGroupId']
     );
     err += skipped.length;
 
@@ -3063,7 +3184,8 @@ async function executePlan() {
     const { groups, skipped } = groupExecutionItems(
       items,
       item => rows.find(r => String(r.targetId || r.target_id || r.id || '') === String(item.id)),
-      typeLabel
+      typeLabel,
+      ['campaignId', 'adGroupId']
     );
     err += skipped.length;
 
@@ -3123,6 +3245,33 @@ async function executePlan() {
       else err += 1;
     }
   }
+
+  async function executeCreateItems(items) {
+    for (const item of items) {
+      const { plan, action } = findPlanActionContext(item, 'spCampaign');
+      const createInput = action?.createInput || {};
+      const result = await createSpCampaign(createInput);
+      const success = !!result.ok;
+      if (success) ok += 1;
+      else err += 1;
+      inventoryNoteEvents.push({
+        sku: item.sku || plan.sku,
+        id: item.id,
+        entityType: 'spCampaign',
+        typeLabel: 'SP create',
+        success,
+        plan,
+        action,
+        finalStatus: success ? 'success' : 'failed',
+        resultMessage: success ? `campaignId=${result.campaignId || ''}; adGroupId=${result.adGroupId || ''}` : JSON.stringify(result || {}),
+        errorReason: success ? '无' : JSON.stringify(result || {}),
+      });
+      const detail = [result.responseMsg, result.errorType, result.reason, ...(result.errors || [])].filter(Boolean).join(' | ');
+      log(`SP创建 ${success ? '成功' : '失败'}：${item.sku || '-'} ${detail || `campaignId=${result.campaignId || '-'} adGroupId=${result.adGroupId || '-'}`}`, success ? 'ok' : 'error');
+    }
+  }
+
+  if (createItems.length) await executeCreateItems(createItems);
   if (kwItems.length) await executeKeywordBidItems(kwItems, STATE.kwRows, 'SP关键词', { entityType: 'keyword' });
   if (sbKwItems.length) await executeKeywordBidItems(
     sbKwItems,
@@ -3197,6 +3346,7 @@ async function exportSnapshot() {
     note: c.note || null,
     adStats: c.adStats,
     sbStats: c.sbStats,
+    createContext: c.createContext || null,
     adjustableAds: c.campaigns.flatMap(camp => [
       ...camp.keywords.map(kw => ({
         channel: 'SP', entityType: 'keyword',

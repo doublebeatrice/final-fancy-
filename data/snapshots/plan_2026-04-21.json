@@ -1,5 +1,41 @@
 [
   {
+    "sku": "KV3640",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "330495182793962",
+        "currentBid": 0.1,
+        "suggestedBid": 0.07,
+        "reason": "TACoS479%超目标x2降30%",
+        "direction": "down",
+        "snapshot": {
+          "wTacos": 479.3,
+          "targetTacos": 15,
+          "clicks30": 14,
+          "orders30": 3,
+          "spend30": 14.38,
+          "adRate": 0,
+          "windows": [
+            "3d",
+            "7d",
+            "30d"
+          ]
+        },
+        "sku": "KV3640",
+        "dedupeKey": "4::SP::autoTarget::KV3640::::::::330495182793962",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
     "sku": "CL4170",
     "actions": [
       {
@@ -11,11 +47,11 @@
         "snapshot": {
           "state": "PAUSED",
           "wTacos": 9900,
-          "targetTacos": 1.4,
+          "targetTacos": 15,
           "clicks30": 22,
           "orders30": 0,
           "spend30": 7.33,
-          "invDays": 113
+          "invDays": 0
         },
         "sku": "CL4170",
         "dedupeKey": "4::SP::autoTarget::CL4170::::::::507678527067374",
@@ -42,11 +78,11 @@
         "snapshot": {
           "state": "PAUSED",
           "wTacos": 9900,
-          "targetTacos": 7.8,
+          "targetTacos": 15,
           "clicks30": 28,
           "orders30": 0,
           "spend30": 9.68,
-          "invDays": 67
+          "invDays": 0
         },
         "sku": "HAY0218",
         "dedupeKey": "4::SP::autoTarget::HAY0218::::::::541934356590317",
@@ -66,21 +102,21 @@
     "actions": [
       {
         "entityType": "autoTarget",
-        "id": "485585426974396",
-        "actionType": "pause",
-        "currentBid": 0.34,
-        "reason": "库存仅 1 天且广告仍在消耗，先暂停保库存",
+        "id": "13166121916853",
+        "actionType": "enable",
+        "currentBid": 0.4,
+        "reason": "产品仍有稳定销量，需要恢复广告维持展示份额",
         "snapshot": {
-          "state": "ENABLED",
-          "wTacos": 21,
-          "targetTacos": 29.5,
-          "clicks30": 43,
-          "orders30": 4,
-          "spend30": 20.14,
-          "invDays": 1
+          "state": "PAUSED",
+          "wTacos": 199,
+          "targetTacos": 15,
+          "clicks30": 5,
+          "orders30": 1,
+          "spend30": 1.99,
+          "invDays": 0
         },
         "sku": "GM3061",
-        "dedupeKey": "4::SP::autoTarget::GM3061::::::::485585426974396",
+        "dedupeKey": "4::SP::autoTarget::GM3061::::::::13166121916853",
         "actionSource": [
           "strategy"
         ],
@@ -93,298 +129,57 @@
     ]
   },
   {
-    "sku": "TH2869",
+    "sku": "BIO0026",
     "actions": [
       {
-        "entityType": "keyword",
-        "id": "388004063652088",
-        "currentBid": 0.45,
-        "suggestedBid": 0.32,
-        "reason": "TACoS13%超目标x2降30% 广告占比19%超8%上限",
-        "direction": "down",
-        "snapshot": {
-          "wTacos": 13.2,
-          "targetTacos": 3,
-          "clicks30": 52,
-          "orders30": 18,
-          "spend30": 28.12,
-          "adRate": 19,
-          "windows": [
-            "3d",
-            "7d",
-            "30d"
-          ]
-        },
-        "sku": "TH2869",
-        "dedupeKey": "4::SP::keyword::TH2869::314284966142623::477971254806069::388004063652088::",
-        "actionSource": [
-          "strategy"
-        ],
-        "source": "strategy",
-        "adType": "SP",
-        "entityLevel": "keyword",
-        "canAutoExecute": true,
-        "riskLevel": "strategy"
-      },
-      {
-        "entityType": "keyword",
-        "id": "360039406690002",
+        "entityType": "autoTarget",
+        "id": "535076415432222",
         "actionType": "enable",
-        "currentBid": 0.61,
-        "reason": "产品仍有稳定销量，需要恢复广告维持展示份额",
+        "currentBid": 0.15,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 51.9,
-          "targetTacos": 3,
-          "clicks30": 17,
-          "orders30": 2,
-          "spend30": 10.37,
-          "invDays": 96
+          "wTacos": 3644,
+          "targetTacos": 15,
+          "clicks30": 85,
+          "orders30": 1,
+          "spend30": 19.85,
+          "invDays": 0
         },
-        "sku": "TH2869",
-        "dedupeKey": "4::SP::keyword::TH2869::314284966142623::477971254806069::360039406690002::",
+        "sku": "BIO0026",
+        "dedupeKey": "4::SP::autoTarget::BIO0026::395028048374735::320539431621404::::535076415432222",
         "actionSource": [
           "strategy"
         ],
         "source": "strategy",
         "adType": "SP",
-        "entityLevel": "keyword",
+        "entityLevel": "autoTarget",
         "canAutoExecute": true,
         "riskLevel": "strategy"
       },
       {
-        "entityType": "keyword",
-        "id": "553323340207829",
-        "actionType": "enable",
-        "currentBid": 0.63,
-        "reason": "产品仍有稳定销量，需要恢复广告维持展示份额",
+        "entityType": "autoTarget",
+        "id": "397812997671446",
+        "actionType": "pause",
+        "currentBid": 0.13,
+        "reason": "TACoS 1360% 严重超目标，暂停复盘",
         "snapshot": {
-          "state": "PAUSED",
-          "wTacos": 9900,
-          "targetTacos": 3,
-          "clicks30": 14,
-          "orders30": 0,
-          "spend30": 9.06,
-          "invDays": 96
+          "state": "ENABLED",
+          "wTacos": 1360,
+          "targetTacos": 15,
+          "clicks30": 58,
+          "orders30": 1,
+          "spend30": 13.6,
+          "invDays": 0
         },
-        "sku": "TH2869",
-        "dedupeKey": "4::SP::keyword::TH2869::314284966142623::477971254806069::553323340207829::",
+        "sku": "BIO0026",
+        "dedupeKey": "4::SP::autoTarget::BIO0026::395028048374735::320539431621404::::397812997671446",
         "actionSource": [
           "strategy"
         ],
         "source": "strategy",
         "adType": "SP",
-        "entityLevel": "keyword",
-        "canAutoExecute": true,
-        "riskLevel": "strategy"
-      },
-      {
-        "entityType": "keyword",
-        "id": "382492144524760",
-        "actionType": "enable",
-        "currentBid": 0.27,
-        "reason": "产品仍有稳定销量，需要恢复广告维持展示份额",
-        "snapshot": {
-          "state": "PAUSED",
-          "wTacos": 9900,
-          "targetTacos": 3,
-          "clicks30": 9,
-          "orders30": 0,
-          "spend30": 4.86,
-          "invDays": 96
-        },
-        "sku": "TH2869",
-        "dedupeKey": "4::SP::keyword::TH2869::314284966142623::477971254806069::382492144524760::",
-        "actionSource": [
-          "strategy"
-        ],
-        "source": "strategy",
-        "adType": "SP",
-        "entityLevel": "keyword",
-        "canAutoExecute": true,
-        "riskLevel": "strategy"
-      },
-      {
-        "entityType": "keyword",
-        "id": "534810520403256",
-        "currentBid": 0.5,
-        "suggestedBid": 0.35,
-        "reason": "TACoS46%超目标x2降30% 广告占比19%超8%上限",
-        "direction": "down",
-        "snapshot": {
-          "wTacos": 46.3,
-          "targetTacos": 3,
-          "clicks30": 43,
-          "orders30": 10,
-          "spend30": 22.05,
-          "adRate": 19,
-          "windows": [
-            "3d",
-            "7d",
-            "30d"
-          ]
-        },
-        "sku": "TH2869",
-        "dedupeKey": "4::SP::keyword::TH2869::157148480747022::552770876043117::534810520403256::",
-        "actionSource": [
-          "strategy"
-        ],
-        "source": "strategy",
-        "adType": "SP",
-        "entityLevel": "keyword",
-        "canAutoExecute": true,
-        "riskLevel": "strategy"
-      },
-      {
-        "entityType": "keyword",
-        "id": "370476856519068",
-        "currentBid": 0.51,
-        "suggestedBid": 0.36,
-        "reason": "TACoS43%超目标x2降30% 广告占比19%超8%上限",
-        "direction": "down",
-        "snapshot": {
-          "wTacos": 42.9,
-          "targetTacos": 3,
-          "clicks30": 25,
-          "orders30": 4,
-          "spend30": 12.31,
-          "adRate": 19,
-          "windows": [
-            "3d",
-            "7d",
-            "30d"
-          ]
-        },
-        "sku": "TH2869",
-        "dedupeKey": "4::SP::keyword::TH2869::157148480747022::552770876043117::370476856519068::",
-        "actionSource": [
-          "strategy"
-        ],
-        "source": "strategy",
-        "adType": "SP",
-        "entityLevel": "keyword",
-        "canAutoExecute": true,
-        "riskLevel": "strategy"
-      },
-      {
-        "entityType": "keyword",
-        "id": "554640230711669",
-        "currentBid": 0.49,
-        "suggestedBid": 0.34,
-        "reason": "TACoS22%超目标x2降30% 广告占比19%超8%上限",
-        "direction": "down",
-        "snapshot": {
-          "wTacos": 22.4,
-          "targetTacos": 3,
-          "clicks30": 24,
-          "orders30": 6,
-          "spend30": 10.95,
-          "adRate": 19,
-          "windows": [
-            "7d",
-            "30d"
-          ]
-        },
-        "sku": "TH2869",
-        "dedupeKey": "4::SP::keyword::TH2869::157148480747022::552770876043117::554640230711669::",
-        "actionSource": [
-          "strategy"
-        ],
-        "source": "strategy",
-        "adType": "SP",
-        "entityLevel": "keyword",
-        "canAutoExecute": true,
-        "riskLevel": "strategy"
-      },
-      {
-        "entityType": "keyword",
-        "id": "416852520701394",
-        "currentBid": 0.48,
-        "suggestedBid": 0.34,
-        "reason": "TACoS28%超目标x2降30% 广告占比19%超8%上限",
-        "direction": "down",
-        "snapshot": {
-          "wTacos": 28.4,
-          "targetTacos": 3,
-          "clicks30": 19,
-          "orders30": 4,
-          "spend30": 9.89,
-          "adRate": 19,
-          "windows": [
-            "7d",
-            "30d"
-          ]
-        },
-        "sku": "TH2869",
-        "dedupeKey": "4::SP::keyword::TH2869::157148480747022::552770876043117::416852520701394::",
-        "actionSource": [
-          "strategy"
-        ],
-        "source": "strategy",
-        "adType": "SP",
-        "entityLevel": "keyword",
-        "canAutoExecute": true,
-        "riskLevel": "strategy"
-      },
-      {
-        "entityType": "keyword",
-        "id": "310065705934018",
-        "currentBid": 0.4,
-        "suggestedBid": 0.28,
-        "reason": "TACoS82%超目标x2降30% 广告占比19%超8%上限",
-        "direction": "down",
-        "snapshot": {
-          "wTacos": 81.7,
-          "targetTacos": 3,
-          "clicks30": 15,
-          "orders30": 2,
-          "spend30": 6.52,
-          "adRate": 19,
-          "windows": [
-            "3d",
-            "7d",
-            "30d"
-          ]
-        },
-        "sku": "TH2869",
-        "dedupeKey": "4::SP::keyword::TH2869::157148480747022::552770876043117::310065705934018::",
-        "actionSource": [
-          "strategy"
-        ],
-        "source": "strategy",
-        "adType": "SP",
-        "entityLevel": "keyword",
-        "canAutoExecute": true,
-        "riskLevel": "strategy"
-      },
-      {
-        "entityType": "keyword",
-        "id": "450247182521122",
-        "currentBid": 0.39,
-        "suggestedBid": 0.27,
-        "reason": "TACoS20%超目标x2降30% 广告占比19%超8%上限",
-        "direction": "down",
-        "snapshot": {
-          "wTacos": 19.8,
-          "targetTacos": 3,
-          "clicks30": 11,
-          "orders30": 3,
-          "spend30": 5.08,
-          "adRate": 19,
-          "windows": [
-            "3d",
-            "7d",
-            "30d"
-          ]
-        },
-        "sku": "TH2869",
-        "dedupeKey": "4::SP::keyword::TH2869::157148480747022::552770876043117::450247182521122::",
-        "actionSource": [
-          "strategy"
-        ],
-        "source": "strategy",
-        "adType": "SP",
-        "entityLevel": "keyword",
+        "entityLevel": "autoTarget",
         "canAutoExecute": true,
         "riskLevel": "strategy"
       }
@@ -401,15 +196,98 @@
         "reason": "产品仍有稳定销量，需要恢复广告维持展示份额",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 30,
-          "targetTacos": 9.2,
+          "wTacos": 990,
+          "targetTacos": 15,
           "clicks30": 29,
           "orders30": 1,
           "spend30": 9.9,
-          "invDays": 71
+          "invDays": 0
         },
         "sku": "AE2139",
         "dedupeKey": "4::SP::autoTarget::AE2139::::::::202806617797867",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "DUN1150",
+    "actions": [
+      {
+        "entityType": "keyword",
+        "id": "487681927882012",
+        "actionType": "enable",
+        "currentBid": 0.17,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 1976,
+          "targetTacos": 15,
+          "clicks30": 50,
+          "orders30": 1,
+          "spend30": 19.76,
+          "invDays": 0
+        },
+        "sku": "DUN1150",
+        "dedupeKey": "4::SP::keyword::DUN1150::484320128663086::390668100575591::487681927882012::",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "keyword",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      },
+      {
+        "entityType": "autoTarget",
+        "id": "318837869197936",
+        "actionType": "enable",
+        "currentBid": 0.16,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 4637,
+          "targetTacos": 15,
+          "clicks30": 125,
+          "orders30": 1,
+          "spend30": 34.64,
+          "invDays": 0
+        },
+        "sku": "DUN1150",
+        "dedupeKey": "4::SP::autoTarget::DUN1150::552507356960308::450812482582616::::318837869197936",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      },
+      {
+        "entityType": "autoTarget",
+        "id": "381677437838863",
+        "actionType": "enable",
+        "currentBid": 0.26,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 1225.2,
+          "targetTacos": 15,
+          "clicks30": 144,
+          "orders30": 5,
+          "spend30": 59.7,
+          "invDays": 0
+        },
+        "sku": "DUN1150",
+        "dedupeKey": "4::SP::autoTarget::DUN1150::::::::381677437838863",
         "actionSource": [
           "strategy"
         ],
@@ -432,12 +310,12 @@
         "reason": "产品仍有稳定销量，需要恢复广告维持展示份额",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 27.7,
-          "targetTacos": 16.1,
+          "wTacos": 1079,
+          "targetTacos": 15,
           "clicks30": 22,
           "orders30": 1,
           "spend30": 10.79,
-          "invDays": 54
+          "invDays": 0
         },
         "sku": "SAN1050",
         "dedupeKey": "4::SP::autoTarget::SAN1050::::::::380539764331705",
@@ -459,11 +337,11 @@
         "snapshot": {
           "state": "PAUSED",
           "wTacos": 9900,
-          "targetTacos": 16.1,
+          "targetTacos": 15,
           "clicks30": 20,
           "orders30": 0,
           "spend30": 7.24,
-          "invDays": 54
+          "invDays": 0
         },
         "sku": "SAN1050",
         "dedupeKey": "4::SP::autoTarget::SAN1050::::::::495727917139724",
@@ -489,12 +367,12 @@
         "reason": "产品仍有稳定销量，需要恢复广告维持展示份额",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 19.1,
-          "targetTacos": 28,
+          "wTacos": 706.5,
+          "targetTacos": 15,
           "clicks30": 59,
           "orders30": 2,
           "spend30": 14.13,
-          "invDays": 102
+          "invDays": 0
         },
         "sku": "SHQ3375",
         "dedupeKey": "4::SP::autoTarget::SHQ3375::::::::390634359788535",
@@ -516,14 +394,45 @@
         "snapshot": {
           "state": "PAUSED",
           "wTacos": 9900,
-          "targetTacos": 28,
+          "targetTacos": 15,
           "clicks30": 16,
           "orders30": 0,
           "spend30": 4.66,
-          "invDays": 102
+          "invDays": 0
         },
         "sku": "SHQ3375",
         "dedupeKey": "4::SP::autoTarget::SHQ3375::::::::180567105383268",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "YUT2927",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "449995497246058",
+        "actionType": "enable",
+        "currentBid": 0.24,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 7781,
+          "targetTacos": 15,
+          "clicks30": 62,
+          "orders30": 1,
+          "spend30": 21.28,
+          "invDays": 0
+        },
+        "sku": "YUT2927",
+        "dedupeKey": "4::SP::autoTarget::YUT2927::7259560460467::432094219589501::::449995497246058",
         "actionSource": [
           "strategy"
         ],
@@ -546,12 +455,12 @@
         "reason": "近30天已验证有转化，恢复投放继续拿量",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 75.6,
-          "targetTacos": 18.3,
+          "wTacos": 1058,
+          "targetTacos": 15,
           "clicks30": 38,
           "orders30": 1,
           "spend30": 8.47,
-          "invDays": 129
+          "invDays": 0
         },
         "sku": "QA3173",
         "dedupeKey": "4::SP::keyword::QA3173::560414799365003::307539010545998::320304689202897::",
@@ -561,6 +470,42 @@
         "source": "strategy",
         "adType": "SP",
         "entityLevel": "keyword",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "YB0698",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "123126519438036",
+        "currentBid": 0.07,
+        "suggestedBid": 0.05,
+        "reason": "TACoS80%超目标x2降30%",
+        "direction": "down",
+        "snapshot": {
+          "wTacos": 80.4,
+          "targetTacos": 15,
+          "clicks30": 9,
+          "orders30": 6,
+          "spend30": 4.95,
+          "adRate": 0,
+          "windows": [
+            "3d",
+            "7d",
+            "30d"
+          ]
+        },
+        "sku": "YB0698",
+        "dedupeKey": "4::SP::autoTarget::YB0698::::::::123126519438036",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
         "canAutoExecute": true,
         "riskLevel": "strategy"
       }
@@ -577,15 +522,103 @@
         "reason": "近30天已验证有转化，恢复投放继续拿量",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 63.1,
-          "targetTacos": 18.2,
+          "wTacos": 2460,
+          "targetTacos": 15,
           "clicks30": 30,
           "orders30": 1,
           "spend30": 15.61,
-          "invDays": 17
+          "invDays": 0
         },
         "sku": "XUE0890",
         "dedupeKey": "4::SP::keyword::XUE0890::497059544405045::460561905333669::388595082379784::",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "keyword",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "SHQ0554",
+    "actions": [
+      {
+        "entityType": "keyword",
+        "id": "529510130203969",
+        "actionType": "pause",
+        "currentBid": 0.12,
+        "reason": "TACoS 1062% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 1062,
+          "targetTacos": 15,
+          "clicks30": 28,
+          "orders30": 1,
+          "spend30": 9.99,
+          "invDays": 0
+        },
+        "sku": "SHQ0554",
+        "dedupeKey": "4::SP::keyword::SHQ0554::50051596516395::316082571172257::529510130203969::",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "keyword",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      },
+      {
+        "entityType": "autoTarget",
+        "id": "530739204733648",
+        "actionType": "enable",
+        "currentBid": 0.22,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 1958,
+          "targetTacos": 15,
+          "clicks30": 42,
+          "orders30": 1,
+          "spend30": 13.55,
+          "invDays": 0
+        },
+        "sku": "SHQ0554",
+        "dedupeKey": "4::SP::autoTarget::SHQ0554::::::::530739204733648",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "DUN1128",
+    "actions": [
+      {
+        "entityType": "keyword",
+        "id": "360609426096506",
+        "actionType": "enable",
+        "currentBid": 0.22,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 1545,
+          "targetTacos": 15,
+          "clicks30": 32,
+          "orders30": 1,
+          "spend30": 15.45,
+          "invDays": 0
+        },
+        "sku": "DUN1128",
+        "dedupeKey": "4::SP::keyword::DUN1128::463803435037455::512958907671909::360609426096506::",
         "actionSource": [
           "strategy"
         ],
@@ -605,15 +638,15 @@
         "id": "560824775142407",
         "actionType": "pause",
         "currentBid": 0.34,
-        "reason": "TACoS 38% 严重超目标，暂停复盘",
+        "reason": "TACoS 1448% 严重超目标，暂停复盘",
         "snapshot": {
           "state": "ENABLED",
-          "wTacos": 38.1,
-          "targetTacos": 13.3,
+          "wTacos": 1448,
+          "targetTacos": 15,
           "clicks30": 26,
           "orders30": 1,
           "spend30": 14.48,
-          "invDays": 120
+          "invDays": 0
         },
         "sku": "EY2727",
         "dedupeKey": "4::SP::keyword::EY2727::469229426382386::345385054316301::560824775142407::",
@@ -640,11 +673,11 @@
         "snapshot": {
           "state": "PAUSED",
           "wTacos": 9900,
-          "targetTacos": 5.8,
+          "targetTacos": 15,
           "clicks30": 34,
           "orders30": 0,
           "spend30": 9.53,
-          "invDays": 120
+          "invDays": 0
         },
         "sku": "BOY3171",
         "dedupeKey": "4::SP::autoTarget::BOY3171::::::::544589333323472",
@@ -667,15 +700,15 @@
         "id": "317022636134844",
         "actionType": "pause",
         "currentBid": 0.19,
-        "reason": "TACoS 51% 严重超目标，暂停复盘",
+        "reason": "TACoS 2104% 严重超目标，暂停复盘",
         "snapshot": {
           "state": "ENABLED",
-          "wTacos": 51.3,
-          "targetTacos": 16,
+          "wTacos": 2104,
+          "targetTacos": 15,
           "clicks30": 38,
           "orders30": 1,
           "spend30": 12.73,
-          "invDays": 99
+          "invDays": 0
         },
         "sku": "DUI0086",
         "dedupeKey": "4::SP::keyword::DUI0086::367810412093177::398707918877217::317022636134844::",
@@ -701,12 +734,12 @@
         "reason": "产品仍有稳定销量，需要恢复广告维持展示份额",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 22.7,
-          "targetTacos": 17,
+          "wTacos": 272.4,
+          "targetTacos": 15,
           "clicks30": 63,
           "orders30": 10,
           "spend30": 27.24,
-          "invDays": 201
+          "invDays": 0
         },
         "sku": "SH0424",
         "dedupeKey": "4::SP::autoTarget::SH0424::::::::47990313988856",
@@ -732,15 +765,180 @@
         "reason": "产品仍有稳定销量，需要恢复广告维持展示份额",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 14.6,
-          "targetTacos": 4.4,
+          "wTacos": 335,
+          "targetTacos": 15,
           "clicks30": 25,
           "orders30": 2,
           "spend30": 10,
-          "invDays": 160
+          "invDays": 0
         },
         "sku": "LUO1006",
         "dedupeKey": "4::SP::autoTarget::LUO1006::::::::425194121094708",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "LE8150",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "450538710206222",
+        "currentBid": 0.07,
+        "suggestedBid": 0.05,
+        "reason": "TACoS267%超目标x2降30%",
+        "direction": "down",
+        "snapshot": {
+          "wTacos": 267,
+          "targetTacos": 15,
+          "clicks30": 5,
+          "orders30": 1,
+          "spend30": 2.93,
+          "adRate": 0,
+          "windows": [
+            "3d",
+            "7d",
+            "30d"
+          ]
+        },
+        "sku": "LE8150",
+        "dedupeKey": "4::SP::autoTarget::LE8150::::::::450538710206222",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      },
+      {
+        "entityType": "autoTarget",
+        "id": "314688621417782",
+        "currentBid": 0.07,
+        "suggestedBid": 0.05,
+        "reason": "TACoS58%超目标x2降30%",
+        "direction": "down",
+        "snapshot": {
+          "wTacos": 58,
+          "targetTacos": 15,
+          "clicks30": 1,
+          "orders30": 1,
+          "spend30": 0.58,
+          "adRate": 0,
+          "windows": [
+            "3d",
+            "7d",
+            "30d"
+          ]
+        },
+        "sku": "LE8150",
+        "dedupeKey": "4::SP::autoTarget::LE8150::::::::314688621417782",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "YUT3183",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "382131688436605",
+        "currentBid": 0.09,
+        "suggestedBid": 0.06,
+        "reason": "TACoS686%超目标x2降30%",
+        "direction": "down",
+        "snapshot": {
+          "wTacos": 686.3,
+          "targetTacos": 15,
+          "clicks30": 12,
+          "orders30": 1,
+          "spend30": 9.43,
+          "adRate": 0,
+          "windows": [
+            "3d",
+            "7d",
+            "30d"
+          ]
+        },
+        "sku": "YUT3183",
+        "dedupeKey": "4::SP::autoTarget::YUT3183::::::::382131688436605",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      },
+      {
+        "entityType": "autoTarget",
+        "id": "294040479417774",
+        "currentBid": 0.09,
+        "suggestedBid": 0.06,
+        "reason": "TACoS113%超目标x2降30%",
+        "direction": "down",
+        "snapshot": {
+          "wTacos": 113,
+          "targetTacos": 15,
+          "clicks30": 2,
+          "orders30": 1,
+          "spend30": 1.47,
+          "adRate": 0,
+          "windows": [
+            "3d",
+            "7d",
+            "30d"
+          ]
+        },
+        "sku": "YUT3183",
+        "dedupeKey": "4::SP::autoTarget::YUT3183::::::::294040479417774",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      },
+      {
+        "entityType": "autoTarget",
+        "id": "123101083866150",
+        "currentBid": 0.09,
+        "suggestedBid": 0.07,
+        "reason": "TACoS30%超目标x1.6降20%",
+        "direction": "down",
+        "snapshot": {
+          "wTacos": 30,
+          "targetTacos": 15,
+          "clicks30": 1,
+          "orders30": 1,
+          "spend30": 0.3,
+          "adRate": 0,
+          "windows": [
+            "3d",
+            "7d",
+            "30d"
+          ]
+        },
+        "sku": "YUT3183",
+        "dedupeKey": "4::SP::autoTarget::YUT3183::::::::123101083866150",
         "actionSource": [
           "strategy"
         ],
@@ -763,12 +961,12 @@
         "reason": "近30天已验证有转化，恢复投放继续拿量",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 69.4,
-          "targetTacos": 14.7,
+          "wTacos": 2566,
+          "targetTacos": 15,
           "clicks30": 23,
           "orders30": 1,
           "spend30": 9.7,
-          "invDays": 100
+          "invDays": 0
         },
         "sku": "SAN1213",
         "dedupeKey": "4::SP::keyword::SAN1213::341849241439909::290542207924147::336785852804546::",
@@ -789,17 +987,17 @@
       {
         "entityType": "autoTarget",
         "id": "377617287585383",
-        "actionType": "pause",
+        "actionType": "enable",
         "currentBid": 0.24,
-        "reason": "30天 61 点击 0 订单，暂停止损",
+        "reason": "产品仍有稳定销量，需要恢复广告维持展示份额",
         "snapshot": {
-          "state": "ENABLED",
+          "state": "PAUSED",
           "wTacos": 9900,
-          "targetTacos": 15.3,
+          "targetTacos": 15,
           "clicks30": 61,
           "orders30": 0,
           "spend30": 15.64,
-          "invDays": 75
+          "invDays": 0
         },
         "sku": "TIN2259",
         "dedupeKey": "4::SP::autoTarget::TIN2259::469755247048381::361105737520305::::377617287585383",
@@ -809,6 +1007,254 @@
         "source": "strategy",
         "adType": "SP",
         "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "LNY3098",
+    "actions": [
+      {
+        "entityType": "keyword",
+        "id": "359337912579298",
+        "actionType": "enable",
+        "currentBid": 0.13,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 793,
+          "targetTacos": 15,
+          "clicks30": 31,
+          "orders30": 1,
+          "spend30": 7.93,
+          "invDays": 0
+        },
+        "sku": "LNY3098",
+        "dedupeKey": "4::SP::keyword::LNY3098::302405585754862::502251141670474::359337912579298::",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "keyword",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "YUT2844",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "500268677263060",
+        "currentBid": 0.15,
+        "suggestedBid": 0.1,
+        "reason": "TACoS124%超目标x2降30%",
+        "direction": "down",
+        "snapshot": {
+          "wTacos": 124,
+          "targetTacos": 15,
+          "clicks30": 3,
+          "orders30": 3,
+          "spend30": 3.72,
+          "adRate": 0,
+          "windows": [
+            "3d",
+            "7d",
+            "30d"
+          ]
+        },
+        "sku": "YUT2844",
+        "dedupeKey": "4::SP::autoTarget::YUT2844::::::::500268677263060",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "HEL2084",
+    "actions": [
+      {
+        "entityType": "keyword",
+        "id": "535881305324567",
+        "actionType": "pause",
+        "currentBid": 0.19,
+        "reason": "TACoS 1079% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 1079,
+          "targetTacos": 15,
+          "clicks30": 24,
+          "orders30": 1,
+          "spend30": 8.75,
+          "invDays": 0
+        },
+        "sku": "HEL2084",
+        "dedupeKey": "4::SP::keyword::HEL2084::187595844466590::357104586777701::535881305324567::",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "keyword",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "JOY0431",
+    "actions": [
+      {
+        "entityType": "keyword",
+        "id": "427296877264149",
+        "actionType": "enable",
+        "currentBid": 0.18,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 1712,
+          "targetTacos": 15,
+          "clicks30": 33,
+          "orders30": 1,
+          "spend30": 7.69,
+          "invDays": 0
+        },
+        "sku": "JOY0431",
+        "dedupeKey": "4::SP::keyword::JOY0431::336448751891358::325223801408880::427296877264149::",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "keyword",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "BIO0027",
+    "actions": [
+      {
+        "entityType": "keyword",
+        "id": "359776472113917",
+        "actionType": "pause",
+        "currentBid": 0.22,
+        "reason": "TACoS 2995% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 2995,
+          "targetTacos": 15,
+          "clicks30": 25,
+          "orders30": 1,
+          "spend30": 7.07,
+          "invDays": 0
+        },
+        "sku": "BIO0027",
+        "dedupeKey": "4::SP::keyword::BIO0027::551928504524650::458867356826468::359776472113917::",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "keyword",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      },
+      {
+        "entityType": "keyword",
+        "id": "378565692956466",
+        "actionType": "pause",
+        "currentBid": 0.27,
+        "reason": "TACoS 978% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 978,
+          "targetTacos": 15,
+          "clicks30": 23,
+          "orders30": 1,
+          "spend30": 6,
+          "invDays": 0
+        },
+        "sku": "BIO0027",
+        "dedupeKey": "4::SP::keyword::BIO0027::551928504524650::458867356826468::378565692956466::",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "keyword",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "KAO0575",
+    "actions": [
+      {
+        "entityType": "keyword",
+        "id": "538399668945078",
+        "actionType": "enable",
+        "currentBid": 0.19,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 831,
+          "targetTacos": 15,
+          "clicks30": 25,
+          "orders30": 1,
+          "spend30": 6.66,
+          "invDays": 0
+        },
+        "sku": "KAO0575",
+        "dedupeKey": "4::SP::keyword::KAO0575::455067950091155::421050509109605::538399668945078::",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "keyword",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "XIA3242",
+    "actions": [
+      {
+        "entityType": "sbKeyword",
+        "id": "497116783518417",
+        "actionType": "enable",
+        "currentBid": 0.25,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 571,
+          "targetTacos": 15,
+          "clicks30": 22,
+          "orders30": 1,
+          "spend30": 5.71,
+          "invDays": 0
+        },
+        "sku": "XIA3242",
+        "dedupeKey": "4::SB::sbKeyword::XIA3242::550154280975778::517856843057949::497116783518417::",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SB",
+        "entityLevel": "sbKeyword",
         "canAutoExecute": true,
         "riskLevel": "strategy"
       }
@@ -825,15 +1271,232 @@
         "reason": "近30天已验证有转化，恢复投放继续拿量",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 216.5,
-          "targetTacos": 26.6,
+          "wTacos": 4111,
+          "targetTacos": 15,
           "clicks30": 24,
           "orders30": 1,
           "spend30": 6.32,
-          "invDays": 50
+          "invDays": 0
         },
         "sku": "YUN2646",
         "dedupeKey": "4::SP::autoTarget::YUN2646::463937451493644::408920227743439::::491505823579922",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "SAN0113",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "48928482644132",
+        "currentBid": 0.08,
+        "suggestedBid": 0.06,
+        "reason": "TACoS30%超目标x1.6降20%",
+        "direction": "down",
+        "snapshot": {
+          "wTacos": 30,
+          "targetTacos": 15,
+          "clicks30": 1,
+          "orders30": 1,
+          "spend30": 0.3,
+          "adRate": 0,
+          "windows": [
+            "3d",
+            "7d",
+            "30d"
+          ]
+        },
+        "sku": "SAN0113",
+        "dedupeKey": "4::SP::autoTarget::SAN0113::::::::48928482644132",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "BOY3355",
+    "actions": [
+      {
+        "entityType": "keyword",
+        "id": "468230300069559",
+        "actionType": "pause",
+        "currentBid": 0.05,
+        "reason": "TACoS 281% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 281,
+          "targetTacos": 15,
+          "clicks30": 30,
+          "orders30": 1,
+          "spend30": 2.16,
+          "invDays": 0
+        },
+        "sku": "BOY3355",
+        "dedupeKey": "4::SP::keyword::BOY3355::452859501425151::322548312374354::468230300069559::",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "keyword",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "HAY1931",
+    "actions": [
+      {
+        "entityType": "sbKeyword",
+        "id": "296992733015685",
+        "actionType": "pause",
+        "currentBid": 0.35,
+        "reason": "TACoS 577% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 577,
+          "targetTacos": 15,
+          "clicks30": 20,
+          "orders30": 1,
+          "spend30": 5.77,
+          "invDays": 0
+        },
+        "sku": "HAY1931",
+        "dedupeKey": "4::SB::sbKeyword::HAY1931::494033869454602::332758124839053::296992733015685::",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SB",
+        "entityLevel": "sbKeyword",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "DH2686",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "392593416077151",
+        "actionType": "pause",
+        "currentBid": 0.07,
+        "reason": "TACoS 719% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 719,
+          "targetTacos": 15,
+          "clicks30": 39,
+          "orders30": 1,
+          "spend30": 7.19,
+          "invDays": 0
+        },
+        "sku": "DH2686",
+        "dedupeKey": "4::SP::autoTarget::DH2686::295637565281197::384429691703715::::392593416077151",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "HEL0606",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "489136572773579",
+        "actionType": "enable",
+        "currentBid": 0.09,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 762,
+          "targetTacos": 15,
+          "clicks30": 45,
+          "orders30": 1,
+          "spend30": 7.62,
+          "invDays": 0
+        },
+        "sku": "HEL0606",
+        "dedupeKey": "4::SP::autoTarget::HEL0606::390138790713339::417977828320658::::489136572773579",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      },
+      {
+        "entityType": "autoTarget",
+        "id": "401308869932434",
+        "actionType": "enable",
+        "currentBid": 0.1,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 505,
+          "targetTacos": 15,
+          "clicks30": 28,
+          "orders30": 1,
+          "spend30": 5.05,
+          "invDays": 0
+        },
+        "sku": "HEL0606",
+        "dedupeKey": "4::SP::autoTarget::HEL0606::390138790713339::417977828320658::::401308869932434",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "HEL2083",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "324460697702805",
+        "actionType": "pause",
+        "currentBid": 0.17,
+        "reason": "TACoS 607% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 607,
+          "targetTacos": 15,
+          "clicks30": 26,
+          "orders30": 1,
+          "spend30": 3.58,
+          "invDays": 0
+        },
+        "sku": "HEL2083",
+        "dedupeKey": "4::SP::autoTarget::HEL2083::343044876408479::349482266006759::::324460697702805",
         "actionSource": [
           "strategy"
         ],
@@ -857,14 +1520,143 @@
         "snapshot": {
           "state": "PAUSED",
           "wTacos": 9900,
-          "targetTacos": 19.1,
+          "targetTacos": 15,
           "clicks30": 10,
           "orders30": 0,
           "spend30": 3.75,
-          "invDays": 107
+          "invDays": 0
         },
         "sku": "WAR1276",
         "dedupeKey": "4::SP::autoTarget::WAR1276::::::::324966642938653",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "LE8173",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "519402470585214",
+        "currentBid": 0.07,
+        "suggestedBid": 0.05,
+        "reason": "TACoS76%超目标x2降30%",
+        "direction": "down",
+        "snapshot": {
+          "wTacos": 75.5,
+          "targetTacos": 15,
+          "clicks30": 6,
+          "orders30": 1,
+          "spend30": 3.02,
+          "adRate": 0,
+          "windows": [
+            "3d",
+            "7d",
+            "30d"
+          ]
+        },
+        "sku": "LE8173",
+        "dedupeKey": "4::SP::autoTarget::LE8173::::::::519402470585214",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "YUT2946",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "383486947543917",
+        "actionType": "enable",
+        "currentBid": 0.24,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 3292,
+          "targetTacos": 15,
+          "clicks30": 26,
+          "orders30": 1,
+          "spend30": 8.78,
+          "invDays": 0
+        },
+        "sku": "YUT2946",
+        "dedupeKey": "4::SP::autoTarget::YUT2946::45620203820407::469719289802261::::383486947543917",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "ISI1140",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "437639900077066",
+        "actionType": "enable",
+        "currentBid": 0.48,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 1405,
+          "targetTacos": 15,
+          "clicks30": 29,
+          "orders30": 1,
+          "spend30": 14.05,
+          "invDays": 0
+        },
+        "sku": "ISI1140",
+        "dedupeKey": "4::SP::autoTarget::ISI1140::401578694768690::450988261578248::::437639900077066",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "SAW1720",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "306097038848530",
+        "actionType": "enable",
+        "currentBid": 0.2,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 713,
+          "targetTacos": 15,
+          "clicks30": 21,
+          "orders30": 1,
+          "spend30": 6.29,
+          "invDays": 0
+        },
+        "sku": "SAW1720",
+        "dedupeKey": "4::SP::autoTarget::SAW1720::493334496306881::465384789852258::::306097038848530",
         "actionSource": [
           "strategy"
         ],
@@ -888,14 +1680,231 @@
         "snapshot": {
           "state": "PAUSED",
           "wTacos": 9900,
-          "targetTacos": 16,
+          "targetTacos": 15,
           "clicks30": 14,
           "orders30": 0,
           "spend30": 7.1,
-          "invDays": 104
+          "invDays": 0
         },
         "sku": "KA1589",
         "dedupeKey": "4::SP::autoTarget::KA1589::::::::558058534918352",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "YUT4460",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "561551457877915",
+        "actionType": "enable",
+        "currentBid": 0.24,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 2897,
+          "targetTacos": 15,
+          "clicks30": 38,
+          "orders30": 1,
+          "spend30": 12.96,
+          "invDays": 0
+        },
+        "sku": "YUT4460",
+        "dedupeKey": "4::SP::autoTarget::YUT4460::204553891741::295533719566731::::561551457877915",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      },
+      {
+        "entityType": "sbKeyword",
+        "id": "127830259614388",
+        "actionType": "enable",
+        "currentBid": 0.14,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 1561,
+          "targetTacos": 15,
+          "clicks30": 27,
+          "orders30": 1,
+          "spend30": 4.67,
+          "invDays": 0
+        },
+        "sku": "YUT4460",
+        "dedupeKey": "4::SB::sbKeyword::YUT4460::207690910445880::507330845640337::127830259614388::",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SB",
+        "entityLevel": "sbKeyword",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "LED3945",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "527595130217403",
+        "actionType": "enable",
+        "currentBid": 0.36,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 897,
+          "targetTacos": 15,
+          "clicks30": 26,
+          "orders30": 1,
+          "spend30": 8.97,
+          "invDays": 0
+        },
+        "sku": "LED3945",
+        "dedupeKey": "4::SP::autoTarget::LED3945::525279331763524::341292665176424::::527595130217403",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "BOY1281",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "458880837120370",
+        "currentBid": 0.07,
+        "suggestedBid": 0.05,
+        "reason": "TACoS249%超目标x2降30%",
+        "direction": "down",
+        "snapshot": {
+          "wTacos": 248.7,
+          "targetTacos": 15,
+          "clicks30": 14,
+          "orders30": 3,
+          "spend30": 7.46,
+          "adRate": 0,
+          "windows": [
+            "3d",
+            "7d",
+            "30d"
+          ]
+        },
+        "sku": "BOY1281",
+        "dedupeKey": "4::SP::autoTarget::BOY1281::::::::458880837120370",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      },
+      {
+        "entityType": "autoTarget",
+        "id": "355659174061439",
+        "currentBid": 0.07,
+        "suggestedBid": 0.05,
+        "reason": "TACoS330%超目标x2降30%",
+        "direction": "down",
+        "snapshot": {
+          "wTacos": 330,
+          "targetTacos": 15,
+          "clicks30": 6,
+          "orders30": 1,
+          "spend30": 3.3,
+          "adRate": 0,
+          "windows": [
+            "3d",
+            "7d",
+            "30d"
+          ]
+        },
+        "sku": "BOY1281",
+        "dedupeKey": "4::SP::autoTarget::BOY1281::::::::355659174061439",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      },
+      {
+        "entityType": "autoTarget",
+        "id": "551100469896686",
+        "currentBid": 0.07,
+        "suggestedBid": 0.05,
+        "reason": "TACoS105%超目标x2降30%",
+        "direction": "down",
+        "snapshot": {
+          "wTacos": 105,
+          "targetTacos": 15,
+          "clicks30": 2,
+          "orders30": 1,
+          "spend30": 1.05,
+          "adRate": 0,
+          "windows": [
+            "3d",
+            "7d",
+            "30d"
+          ]
+        },
+        "sku": "BOY1281",
+        "dedupeKey": "4::SP::autoTarget::BOY1281::::::::551100469896686",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      },
+      {
+        "entityType": "autoTarget",
+        "id": "430737435758985",
+        "currentBid": 0.08,
+        "suggestedBid": 0.06,
+        "reason": "TACoS70%超目标x2降30%",
+        "direction": "down",
+        "snapshot": {
+          "wTacos": 70,
+          "targetTacos": 15,
+          "clicks30": 1,
+          "orders30": 1,
+          "spend30": 0.7,
+          "adRate": 0,
+          "windows": [
+            "3d",
+            "7d",
+            "30d"
+          ]
+        },
+        "sku": "BOY1281",
+        "dedupeKey": "4::SP::autoTarget::BOY1281::::::::430737435758985",
         "actionSource": [
           "strategy"
         ],
@@ -919,14 +1928,45 @@
         "snapshot": {
           "state": "PAUSED",
           "wTacos": 9900,
-          "targetTacos": 21.5,
+          "targetTacos": 15,
           "clicks30": 27,
           "orders30": 0,
           "spend30": 8.76,
-          "invDays": 87
+          "invDays": 0
         },
         "sku": "ST2078",
         "dedupeKey": "4::SP::autoTarget::ST2078::::::::312738845221586",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "DN2684",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "320871644611450",
+        "actionType": "pause",
+        "currentBid": 0.35,
+        "reason": "TACoS 1164% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 1164,
+          "targetTacos": 15,
+          "clicks30": 35,
+          "orders30": 1,
+          "spend30": 11.64,
+          "invDays": 0
+        },
+        "sku": "DN2684",
+        "dedupeKey": "4::SP::autoTarget::DN2684::95247866022526::426998050693731::::320871644611450",
         "actionSource": [
           "strategy"
         ],
@@ -944,11 +1984,11 @@
       {
         "entityType": "autoTarget",
         "id": "486378706484271",
-        "actionType": "enable",
+        "actionType": "pause",
         "currentBid": 0.21,
-        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "reason": "TACoS 1359% 严重超目标，暂停复盘",
         "snapshot": {
-          "state": "PAUSED",
+          "state": "ENABLED",
           "wTacos": 1359,
           "targetTacos": 15,
           "clicks30": 21,
@@ -970,25 +2010,56 @@
     ]
   },
   {
-    "sku": "WAR1180",
+    "sku": "JOY0900",
     "actions": [
       {
         "entityType": "autoTarget",
-        "id": "317844871422318",
-        "actionType": "pause",
-        "currentBid": 0.27,
-        "reason": "TACoS 42% 严重超目标，暂停复盘",
+        "id": "429942906462107",
+        "actionType": "enable",
+        "currentBid": 0.07,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
         "snapshot": {
-          "state": "ENABLED",
-          "wTacos": 42.4,
-          "targetTacos": 14.3,
-          "clicks30": 64,
+          "state": "PAUSED",
+          "wTacos": 1066,
+          "targetTacos": 15,
+          "clicks30": 48,
           "orders30": 1,
-          "spend30": 22.03,
-          "invDays": 15
+          "spend30": 6.85,
+          "invDays": 0
         },
-        "sku": "WAR1180",
-        "dedupeKey": "4::SP::autoTarget::WAR1180::288474759680186::444108152825899::::317844871422318",
+        "sku": "JOY0900",
+        "dedupeKey": "4::SP::autoTarget::JOY0900::549169363779630::531801953101783::::429942906462107",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "WEN1029",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "461394599700113",
+        "actionType": "enable",
+        "currentBid": 0.15,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 2009,
+          "targetTacos": 15,
+          "clicks30": 26,
+          "orders30": 1,
+          "spend30": 5.23,
+          "invDays": 0
+        },
+        "sku": "WEN1029",
+        "dedupeKey": "4::SP::autoTarget::WEN1029::405556436425943::415902527395353::::461394599700113",
         "actionSource": [
           "strategy"
         ],
@@ -1011,15 +2082,139 @@
         "reason": "近30天已验证有转化，恢复投放继续拿量",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 65.4,
-          "targetTacos": 25.4,
+          "wTacos": 1701,
+          "targetTacos": 15,
           "clicks30": 22,
           "orders30": 1,
           "spend30": 5.79,
-          "invDays": 139
+          "invDays": 0
         },
         "sku": "UAN3644",
         "dedupeKey": "4::SP::autoTarget::UAN3644::294852644083628::358515767325343::::433371469022594",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "BEU0541",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "218485652442281",
+        "actionType": "enable",
+        "currentBid": 0.13,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 563,
+          "targetTacos": 15,
+          "clicks30": 20,
+          "orders30": 1,
+          "spend30": 5.63,
+          "invDays": 0
+        },
+        "sku": "BEU0541",
+        "dedupeKey": "4::SP::autoTarget::BEU0541::261747902442158::272060541392663::::218485652442281",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "WAR1180",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "317844871422318",
+        "actionType": "pause",
+        "currentBid": 0.27,
+        "reason": "TACoS 2203% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 2203,
+          "targetTacos": 15,
+          "clicks30": 64,
+          "orders30": 1,
+          "spend30": 22.03,
+          "invDays": 0
+        },
+        "sku": "WAR1180",
+        "dedupeKey": "4::SP::autoTarget::WAR1180::288474759680186::444108152825899::::317844871422318",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "YUT2590",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "299170834836394",
+        "actionType": "pause",
+        "currentBid": 0.31,
+        "reason": "TACoS 1515% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 1515,
+          "targetTacos": 15,
+          "clicks30": 47,
+          "orders30": 1,
+          "spend30": 15.15,
+          "invDays": 0
+        },
+        "sku": "YUT2590",
+        "dedupeKey": "4::SP::autoTarget::YUT2590::459261201580553::514134621410856::::299170834836394",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "SIJ2011",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "342181406546509",
+        "actionType": "enable",
+        "currentBid": 0.28,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 5618,
+          "targetTacos": 15,
+          "clicks30": 46,
+          "orders30": 1,
+          "spend30": 19.26,
+          "invDays": 0
+        },
+        "sku": "SIJ2011",
+        "dedupeKey": "4::SP::autoTarget::SIJ2011::538927482078070::465687564623652::::342181406546509",
         "actionSource": [
           "strategy"
         ],
@@ -1042,12 +2237,12 @@
         "reason": "产品仍有稳定销量，需要恢复广告维持展示份额",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 27.6,
-          "targetTacos": 8.1,
+          "wTacos": 771.5,
+          "targetTacos": 15,
           "clicks30": 40,
           "orders30": 2,
           "spend30": 13.33,
-          "invDays": 83
+          "invDays": 0
         },
         "sku": "YCL1250",
         "dedupeKey": "4::SP::autoTarget::YCL1250::::::::375101726884065",
@@ -1067,18 +2262,44 @@
     "actions": [
       {
         "entityType": "autoTarget",
+        "id": "463005230234772",
+        "actionType": "enable",
+        "currentBid": 0.36,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 885.5,
+          "targetTacos": 15,
+          "clicks30": 37,
+          "orders30": 2,
+          "spend30": 17.71,
+          "invDays": 0
+        },
+        "sku": "MED1970",
+        "dedupeKey": "4::SP::autoTarget::MED1970::::::::463005230234772",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      },
+      {
+        "entityType": "autoTarget",
         "id": "347097713268140",
         "actionType": "pause",
         "currentBid": 0.32,
-        "reason": "TACoS 68% 严重超目标，暂停复盘",
+        "reason": "TACoS 2566% 严重超目标，暂停复盘",
         "snapshot": {
           "state": "ENABLED",
-          "wTacos": 67.5,
-          "targetTacos": 12.6,
+          "wTacos": 2566,
+          "targetTacos": 15,
           "clicks30": 27,
           "orders30": 1,
           "spend30": 12.62,
-          "invDays": 95
+          "invDays": 0
         },
         "sku": "MED1970",
         "dedupeKey": "4::SP::autoTarget::MED1970::::::::347097713268140",
@@ -1104,12 +2325,12 @@
         "reason": "近30天已验证有转化，恢复投放继续拿量",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 104.3,
-          "targetTacos": 32.4,
+          "wTacos": 2607,
+          "targetTacos": 15,
           "clicks30": 69,
           "orders30": 1,
           "spend30": 11.93,
-          "invDays": 79
+          "invDays": 0
         },
         "sku": "SII0421",
         "dedupeKey": "4::SP::autoTarget::SII0421::95823772456865::342855065082234::::356666084115295",
@@ -1119,6 +2340,68 @@
         "source": "strategy",
         "adType": "SP",
         "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "UY3670",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "516985610934102",
+        "actionType": "pause",
+        "currentBid": 0.42,
+        "reason": "TACoS 3390% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 3390,
+          "targetTacos": 15,
+          "clicks30": 41,
+          "orders30": 1,
+          "spend30": 22.2,
+          "invDays": 0
+        },
+        "sku": "UY3670",
+        "dedupeKey": "4::SP::autoTarget::UY3670::483509004194382::472314112995899::::516985610934102",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "QA3975",
+    "actions": [
+      {
+        "entityType": "sbKeyword",
+        "id": "285595389052651",
+        "actionType": "enable",
+        "currentBid": 0.25,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 1212,
+          "targetTacos": 15,
+          "clicks30": 30,
+          "orders30": 1,
+          "spend30": 7.74,
+          "invDays": 0
+        },
+        "sku": "QA3975",
+        "dedupeKey": "4::SB::sbKeyword::QA3975::396417859520346::492780668772487::285595389052651::",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SB",
+        "entityLevel": "sbKeyword",
         "canAutoExecute": true,
         "riskLevel": "strategy"
       }
@@ -1135,12 +2418,12 @@
         "reason": "近30天已验证有转化，恢复投放继续拿量",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 59.1,
-          "targetTacos": 12.4,
+          "wTacos": 3662,
+          "targetTacos": 15,
           "clicks30": 36,
           "orders30": 1,
           "spend30": 16.51,
-          "invDays": 99
+          "invDays": 0
         },
         "sku": "GGN2452",
         "dedupeKey": "4::SP::autoTarget::GGN2452::456997505997899::468665698652872::::473166816551767",
@@ -1160,21 +2443,78 @@
     "actions": [
       {
         "entityType": "autoTarget",
+        "id": "434718235638700",
+        "actionType": "enable",
+        "currentBid": 0.14,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 1196,
+          "targetTacos": 15,
+          "clicks30": 37,
+          "orders30": 1,
+          "spend30": 11.21,
+          "invDays": 0
+        },
+        "sku": "LO3817",
+        "dedupeKey": "4::SP::autoTarget::LO3817::22937953647813::458992600609072::::434718235638700",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      },
+      {
+        "entityType": "autoTarget",
         "id": "552405437115885",
         "actionType": "pause",
         "currentBid": 0.34,
-        "reason": "TACoS 72% 严重超目标，暂停复盘",
+        "reason": "TACoS 1511% 严重超目标，暂停复盘",
         "snapshot": {
           "state": "ENABLED",
-          "wTacos": 72,
-          "targetTacos": 16,
+          "wTacos": 1511,
+          "targetTacos": 15,
           "clicks30": 24,
           "orders30": 1,
           "spend30": 8.42,
-          "invDays": 340
+          "invDays": 0
         },
         "sku": "LO3817",
         "dedupeKey": "4::SP::autoTarget::LO3817::::::::552405437115885",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "UAN1810",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "499956017841691",
+        "actionType": "pause",
+        "currentBid": 0.31,
+        "reason": "TACoS 1846% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 1846,
+          "targetTacos": 15,
+          "clicks30": 33,
+          "orders30": 1,
+          "spend30": 14.5,
+          "invDays": 0
+        },
+        "sku": "UAN1810",
+        "dedupeKey": "4::SP::autoTarget::UAN1810::437584015318311::291413461453044::::499956017841691",
         "actionSource": [
           "strategy"
         ],
@@ -1197,15 +2537,77 @@
         "reason": "近30天已验证有转化，恢复投放继续拿量",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 188,
-          "targetTacos": 11.3,
+          "wTacos": 3194,
+          "targetTacos": 15,
           "clicks30": 113,
           "orders30": 1,
           "spend30": 13.58,
-          "invDays": 96
+          "invDays": 0
         },
         "sku": "BOY3381",
         "dedupeKey": "4::SP::autoTarget::BOY3381::469912581189846::402866501457104::::325551767902857",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "DUI3806",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "541241167508020",
+        "actionType": "pause",
+        "currentBid": 0.17,
+        "reason": "TACoS 832% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 832,
+          "targetTacos": 15,
+          "clicks30": 35,
+          "orders30": 1,
+          "spend30": 6.56,
+          "invDays": 0
+        },
+        "sku": "DUI3806",
+        "dedupeKey": "4::SP::autoTarget::DUI3806::532083346932798::531664856310847::::541241167508020",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "KY1342",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "447989229267978",
+        "actionType": "pause",
+        "currentBid": 0.06,
+        "reason": "TACoS 439% 严重超目标，暂停复盘",
+        "snapshot": {
+          "state": "ENABLED",
+          "wTacos": 439,
+          "targetTacos": 15,
+          "clicks30": 30,
+          "orders30": 1,
+          "spend30": 4.15,
+          "invDays": 0
+        },
+        "sku": "KY1342",
+        "dedupeKey": "4::SP::autoTarget::KY1342::491742616024408::344796432461910::::447989229267978",
         "actionSource": [
           "strategy"
         ],
@@ -1237,6 +2639,37 @@
         },
         "sku": "MH0525",
         "dedupeKey": "4::SP::autoTarget::MH0525::531006938111711::299096964921992::::342562336406915",
+        "actionSource": [
+          "strategy"
+        ],
+        "source": "strategy",
+        "adType": "SP",
+        "entityLevel": "autoTarget",
+        "canAutoExecute": true,
+        "riskLevel": "strategy"
+      }
+    ]
+  },
+  {
+    "sku": "LED3942",
+    "actions": [
+      {
+        "entityType": "autoTarget",
+        "id": "353210034159606",
+        "actionType": "enable",
+        "currentBid": 0.19,
+        "reason": "近30天已验证有转化，恢复投放继续拿量",
+        "snapshot": {
+          "state": "PAUSED",
+          "wTacos": 837,
+          "targetTacos": 15,
+          "clicks30": 23,
+          "orders30": 1,
+          "spend30": 5.28,
+          "invDays": 0
+        },
+        "sku": "LED3942",
+        "dedupeKey": "4::SP::autoTarget::LED3942::401340971779546::356378646917326::::353210034159606",
         "actionSource": [
           "strategy"
         ],
@@ -1290,12 +2723,12 @@
         "reason": "近30天已验证有转化，恢复投放继续拿量",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 21.8,
-          "targetTacos": 17.5,
+          "wTacos": 436,
+          "targetTacos": 15,
           "clicks30": 40,
           "orders30": 2,
           "spend30": 8.72,
-          "invDays": 77
+          "invDays": 0
         },
         "sku": "DEA0023",
         "dedupeKey": "4::SP::autoTarget::DEA0023::::::::296617426069031",
@@ -1317,11 +2750,11 @@
         "snapshot": {
           "state": "ENABLED",
           "wTacos": 9900,
-          "targetTacos": 17.5,
+          "targetTacos": 15,
           "clicks30": 39,
           "orders30": 0,
           "spend30": 5.21,
-          "invDays": 77
+          "invDays": 0
         },
         "sku": "DEA0023",
         "dedupeKey": "4::SP::autoTarget::DEA0023::::::::501328000060403",
@@ -1347,12 +2780,12 @@
         "reason": "产品仍有稳定销量，需要恢复广告维持展示份额",
         "snapshot": {
           "state": "PAUSED",
-          "wTacos": 8.7,
-          "targetTacos": 10.9,
+          "wTacos": 227.3,
+          "targetTacos": 15,
           "clicks30": 37,
           "orders30": 4,
           "spend30": 9.09,
-          "invDays": 73
+          "invDays": 0
         },
         "sku": "TIN2263",
         "dedupeKey": "4::SP::autoTarget::TIN2263::::::::8861195038203",
@@ -1362,37 +2795,6 @@
         "source": "strategy",
         "adType": "SP",
         "entityLevel": "autoTarget",
-        "canAutoExecute": true,
-        "riskLevel": "strategy"
-      }
-    ]
-  },
-  {
-    "sku": "UY0879",
-    "actions": [
-      {
-        "entityType": "sbKeyword",
-        "id": "208066034868673",
-        "actionType": "pause",
-        "currentBid": 0.29,
-        "reason": "TACoS 46% 严重超目标，暂停复盘",
-        "snapshot": {
-          "state": "ENABLED",
-          "wTacos": 45.6,
-          "targetTacos": 11.9,
-          "clicks30": 21,
-          "orders30": 1,
-          "spend30": 5.92,
-          "invDays": 99
-        },
-        "sku": "UY0879",
-        "dedupeKey": "4::SB::sbKeyword::UY0879::521638180086609::311116304732374::208066034868673::",
-        "actionSource": [
-          "strategy"
-        ],
-        "source": "strategy",
-        "adType": "SB",
-        "entityLevel": "sbKeyword",
         "canAutoExecute": true,
         "riskLevel": "strategy"
       }

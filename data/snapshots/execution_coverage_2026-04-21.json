@@ -1,52 +1,50 @@
 {
   "summary": {
-    "adjusted": 130,
-    "reason:verified_landed": 130,
-    "suppressed": 138,
-    "reason:history_cooldown_suppressed": 138,
-    "failed": 8,
-    "reason:execution_failed": 8,
-    "no_action": 136,
-    "reason:current_rules_no_bid_change": 89,
-    "skipped": 14,
-    "reason:invalid_or_paused_state": 14,
-    "reason:no_recent_ad_spend": 47
+    "suppressed": 213,
+    "reason:history_cooldown_suppressed": 213,
+    "adjusted": 76,
+    "reason:verified_landed": 76,
+    "failed": 12,
+    "reason:execution_failed": 12,
+    "no_action": 123,
+    "reason:current_rules_no_bid_change": 73,
+    "reason:no_recent_ad_spend": 50,
+    "skipped": 1,
+    "reason:invalid_or_paused_state": 1
   },
   "coverage": [
     {
       "sku": "QA1950",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 77,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 5,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 228.82,
       "sbSpend30": 0
     },
     {
       "sku": "SE6599",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 4,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 136,
-      "spSpend30": 204.57999999999996,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "KV3640",
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 7,
+      "actionsIfIgnoringHistory": 5,
       "finalStatuses": {},
-      "invDays": 74,
+      "invDays": 0,
+      "spSpend30": 204.57999999999996,
+      "sbSpend30": 4.06
+    },
+    {
+      "sku": "KV3640",
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 3,
+      "actionsIfIgnoringHistory": 18,
+      "finalStatuses": {
+        "success": 3
+      },
+      "invDays": 0,
       "spSpend30": 334.15999999999997,
       "sbSpend30": 22.130000000000003
     },
@@ -57,7 +55,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 5,
       "finalStatuses": {},
-      "invDays": 63,
+      "invDays": 0,
       "spSpend30": 204.82000000000002,
       "sbSpend30": 0
     },
@@ -68,7 +66,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 5,
       "finalStatuses": {},
-      "invDays": 130,
+      "invDays": 0,
       "spSpend30": 151.54000000000002,
       "sbSpend30": 0
     },
@@ -76,38 +74,34 @@
       "sku": "SE5608",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 3,
-      "actionsIfIgnoringHistory": 8,
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 13,
       "finalStatuses": {
-        "success": 3
+        "success": 1
       },
-      "invDays": 105,
+      "invDays": 0,
       "spSpend30": 172.87,
       "sbSpend30": 49.78
     },
     {
       "sku": "HAY0219",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 125,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 8,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 110.34999999999998,
       "sbSpend30": 7.5
     },
     {
       "sku": "QA2082",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 2
-      },
-      "invDays": 94,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 86.08,
       "sbSpend30": 0
     },
@@ -116,49 +110,46 @@
       "status": "failed",
       "reason": "execution_failed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 11,
+      "actionsIfIgnoringHistory": 10,
       "finalStatuses": {
         "failed": 1
       },
-      "invDays": 113,
+      "invDays": 0,
       "spSpend30": 144.30000000000004,
-      "sbSpend30": 17.880000000000006
+      "sbSpend30": 1.74
     },
     {
       "sku": "HAY0218",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 3,
-      "actionsIfIgnoringHistory": 11,
+      "status": "failed",
+      "reason": "execution_failed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 13,
       "finalStatuses": {
-        "success": 2,
         "failed": 1
       },
-      "invDays": 67,
+      "invDays": 0,
       "spSpend30": 264.33,
       "sbSpend30": 17.990000000000002
     },
     {
       "sku": "GT2432",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 2,
+      "invDays": 0,
       "spSpend30": 111.38,
       "sbSpend30": 0
     },
     {
       "sku": "NAY0239",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 4,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 50,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 5,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 203.22,
       "sbSpend30": 4.72
     },
@@ -167,70 +158,64 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {},
-      "invDays": 135,
+      "invDays": 0,
       "spSpend30": 197.51000000000002,
       "sbSpend30": 0
     },
     {
       "sku": "CL4199",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 4,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 17,
-      "finalStatuses": {
-        "success": 4
-      },
-      "invDays": 126,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 166.98,
       "sbSpend30": 39.580000000000005
     },
     {
       "sku": "IF1806",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 86,
+      "invDays": 0,
       "spSpend30": 51.19,
       "sbSpend30": 0
     },
     {
       "sku": "SC3077",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 5,
-      "actionsIfIgnoringHistory": 16,
-      "finalStatuses": {
-        "success": 5
-      },
-      "invDays": 89,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 21,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 219.54999999999998,
       "sbSpend30": 31.540000000000003
     },
     {
       "sku": "TH2824",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {},
-      "invDays": 84,
+      "invDays": 0,
       "spSpend30": 87.79,
       "sbSpend30": 1.1099999999999999
     },
     {
       "sku": "KEJ1748",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 5,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 88,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 7,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 110.91,
       "sbSpend30": 3.4599999999999995
     },
@@ -239,20 +224,20 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 5,
       "finalStatuses": {},
-      "invDays": 102,
+      "invDays": 0,
       "spSpend30": 64.03,
       "sbSpend30": 8.44
     },
     {
       "sku": "WC2648",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 168,
+      "invDays": 0,
       "spSpend30": 38.400000000000006,
       "sbSpend30": 0
     },
@@ -261,49 +246,44 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 4,
+      "actionsIfIgnoringHistory": 6,
       "finalStatuses": {},
-      "invDays": 144,
+      "invDays": 0,
       "spSpend30": 76.72000000000001,
       "sbSpend30": 0
     },
     {
       "sku": "HAY1900",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 3,
-      "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {
-        "success": 3
-      },
-      "invDays": 76,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 7,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 322.28999999999996,
       "sbSpend30": 0
     },
     {
       "sku": "SAN0383",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 11,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 200,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 188.89000000000001,
-      "sbSpend30": 0
+      "sbSpend30": 3.6500000000000004
     },
     {
       "sku": "GM3061",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 13,
-      "actionsIfIgnoringHistory": 13,
+      "status": "failed",
+      "reason": "execution_failed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 10,
       "finalStatuses": {
-        "success": 12,
         "failed": 1
       },
-      "invDays": 1,
+      "invDays": 0,
       "spSpend30": 145.19,
       "sbSpend30": 3.74
     },
@@ -311,38 +291,47 @@
       "sku": "GM3210",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 12,
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 17,
       "finalStatuses": {
-        "success": 2
+        "success": 1
       },
-      "invDays": 5,
+      "invDays": 0,
       "spSpend30": 140.11,
       "sbSpend30": 55.559999999999995
     },
     {
       "sku": "JUU1053",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 5,
-      "actionsIfIgnoringHistory": 9,
-      "finalStatuses": {
-        "success": 5
-      },
-      "invDays": 87,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 11,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 73.58999999999999,
       "sbSpend30": 64.21
+    },
+    {
+      "sku": "TH2869",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 8,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 125.25,
+      "sbSpend30": 0
     },
     {
       "sku": "BIO0026",
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 2,
-      "actionsIfIgnoringHistory": 5,
+      "actionsIfIgnoringHistory": 6,
       "finalStatuses": {
         "success": 2
       },
-      "invDays": 84,
+      "invDays": 0,
       "spSpend30": 128.34,
       "sbSpend30": 36.04
     },
@@ -351,32 +340,30 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 10,
+      "actionsIfIgnoringHistory": 12,
       "finalStatuses": {},
-      "invDays": 63,
+      "invDays": 0,
       "spSpend30": 73.71999999999998,
       "sbSpend30": 36.65
     },
     {
       "sku": "KOU1439",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 177,
+      "invDays": 0,
       "spSpend30": 45.629999999999995,
       "sbSpend30": 0
     },
     {
       "sku": "UY1623",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 1
-      },
+      "finalStatuses": {},
       "invDays": 0,
       "spSpend30": 47.60999999999999,
       "sbSpend30": 0
@@ -386,9 +373,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 7,
+      "actionsIfIgnoringHistory": 13,
       "finalStatuses": {},
-      "invDays": 99,
+      "invDays": 0,
       "spSpend30": 171.36,
       "sbSpend30": 1.8699999999999999
     },
@@ -397,37 +384,33 @@
       "status": "failed",
       "reason": "execution_failed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 8,
+      "actionsIfIgnoringHistory": 12,
       "finalStatuses": {
         "failed": 1
       },
-      "invDays": 71,
+      "invDays": 0,
       "spSpend30": 175.16999999999996,
-      "sbSpend30": 7.569999999999999
+      "sbSpend30": 8.74
     },
     {
       "sku": "DN2685",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 133,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 37.96,
       "sbSpend30": 14.469999999999999
     },
     {
       "sku": "SAN1041",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 6,
-      "actionsIfIgnoringHistory": 9,
-      "finalStatuses": {
-        "success": 6
-      },
-      "invDays": 6,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 12,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 80.86000000000001,
       "sbSpend30": 41.19
     },
@@ -435,12 +418,12 @@
       "sku": "CL3563",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 7,
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 12,
       "finalStatuses": {
-        "success": 2
+        "success": 1
       },
-      "invDays": 59,
+      "invDays": 0,
       "spSpend30": 162.04999999999998,
       "sbSpend30": 6.4799999999999995
     },
@@ -457,14 +440,12 @@
     },
     {
       "sku": "QAA3142",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 4,
-      "finalStatuses": {
-        "success": 2
-      },
-      "invDays": 96,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 5,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 41.910000000000004,
       "sbSpend30": 14.74
     },
@@ -475,20 +456,18 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 82,
+      "invDays": 0,
       "spSpend30": 34.69,
       "sbSpend30": 0.3
     },
     {
       "sku": "GT4431",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {
-        "success": 2
-      },
-      "invDays": 93,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 5,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 70.41,
       "sbSpend30": 0
     },
@@ -496,14 +475,15 @@
       "sku": "DUN1150",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 6,
+      "plannedActions": 3,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {
-        "success": 1
+        "success": 2,
+        "failed": 1
       },
-      "invDays": 44,
+      "invDays": 0,
       "spSpend30": 139.98000000000002,
-      "sbSpend30": 25.82
+      "sbSpend30": 0
     },
     {
       "sku": "MH1806",
@@ -521,23 +501,22 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 5,
+      "actionsIfIgnoringHistory": 7,
       "finalStatuses": {},
-      "invDays": 36,
+      "invDays": 0,
       "spSpend30": 77.72,
       "sbSpend30": 0
     },
     {
       "sku": "SAN1050",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 3,
-      "actionsIfIgnoringHistory": 6,
+      "status": "failed",
+      "reason": "execution_failed",
+      "plannedActions": 2,
+      "actionsIfIgnoringHistory": 9,
       "finalStatuses": {
-        "success": 1,
         "failed": 2
       },
-      "invDays": 54,
+      "invDays": 0,
       "spSpend30": 158.58,
       "sbSpend30": 9.73
     },
@@ -545,13 +524,13 @@
       "sku": "SHQ3375",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 7,
-      "actionsIfIgnoringHistory": 17,
+      "plannedActions": 3,
+      "actionsIfIgnoringHistory": 16,
       "finalStatuses": {
-        "success": 5,
-        "failed": 2
+        "failed": 2,
+        "success": 1
       },
-      "invDays": 102,
+      "invDays": 0,
       "spSpend30": 216.56,
       "sbSpend30": 30.830000000000002
     },
@@ -559,12 +538,12 @@
       "sku": "PR2460",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 3,
+      "plannedActions": 2,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {
-        "success": 1
+        "success": 2
       },
-      "invDays": 127,
+      "invDays": 0,
       "spSpend30": 47.51,
       "sbSpend30": 0
     },
@@ -572,12 +551,12 @@
       "sku": "YUT2927",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 2,
+      "plannedActions": 1,
       "actionsIfIgnoringHistory": 5,
       "finalStatuses": {
-        "success": 2
+        "success": 1
       },
-      "invDays": 470,
+      "invDays": 0,
       "spSpend30": 60.71999999999999,
       "sbSpend30": 0
     },
@@ -590,7 +569,7 @@
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 129,
+      "invDays": 0,
       "spSpend30": 28.320000000000004,
       "sbSpend30": 0
     },
@@ -599,74 +578,66 @@
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 10,
+      "actionsIfIgnoringHistory": 11,
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 124,
+      "invDays": 0,
       "spSpend30": 91.07,
       "sbSpend30": 15.450000000000001
     },
     {
       "sku": "AE2891",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 162,
+      "invDays": 0,
       "spSpend30": 17.51,
       "sbSpend30": 0
     },
     {
       "sku": "CL3650",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 3,
-      "actionsIfIgnoringHistory": 12,
-      "finalStatuses": {
-        "success": 3
-      },
-      "invDays": 74,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 19,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 233.86,
-      "sbSpend30": 31.289999999999996
+      "sbSpend30": 47.43
     },
     {
       "sku": "PR2214",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 5,
-      "actionsIfIgnoringHistory": 10,
-      "finalStatuses": {
-        "success": 5
-      },
-      "invDays": 98,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 14,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 98.93999999999998,
       "sbSpend30": 28.100000000000005
     },
     {
       "sku": "GT3814",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 6,
-      "finalStatuses": {
-        "success": 2
-      },
-      "invDays": 66,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 12,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 310.10999999999996,
       "sbSpend30": 17.56
     },
     {
       "sku": "QA4115",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 258,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 3,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 43.25,
       "sbSpend30": 28.6
     },
@@ -675,11 +646,11 @@
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 8,
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 17,
+      "invDays": 0,
       "spSpend30": 62.059999999999995,
       "sbSpend30": 13.819999999999999
     },
@@ -687,36 +658,37 @@
       "sku": "SHQ0554",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 6,
+      "plannedActions": 2,
+      "actionsIfIgnoringHistory": 7,
       "finalStatuses": {
-        "success": 1
+        "success": 1,
+        "failed": 1
       },
-      "invDays": 114,
+      "invDays": 0,
       "spSpend30": 79.69,
       "sbSpend30": 0
     },
     {
       "sku": "QA1157",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 3,
-      "actionsIfIgnoringHistory": 5,
-      "finalStatuses": {
-        "success": 3
-      },
-      "invDays": 78,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 7,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 192.32000000000002,
       "sbSpend30": 1.7100000000000002
     },
     {
       "sku": "DUN1128",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 170,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
       "spSpend30": 29.69,
       "sbSpend30": 0
     },
@@ -725,9 +697,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 8,
       "finalStatuses": {},
-      "invDays": 77,
+      "invDays": 0,
       "spSpend30": 18.239999999999995,
       "sbSpend30": 16.669999999999998
     },
@@ -736,33 +708,33 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 128,
+      "invDays": 0,
       "spSpend30": 18.3,
       "sbSpend30": 4.68
     },
     {
       "sku": "KV0324",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 8,
-      "finalStatuses": {},
-      "invDays": 100,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 2,
+      "actionsIfIgnoringHistory": 22,
+      "finalStatuses": {
+        "success": 2
+      },
+      "invDays": 0,
       "spSpend30": 63.31,
-      "sbSpend30": 68.34
+      "sbSpend30": 117.78999999999999
     },
     {
       "sku": "OLI2213",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 4,
-      "actionsIfIgnoringHistory": 9,
-      "finalStatuses": {
-        "success": 4
-      },
-      "invDays": 353,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 10,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 164.91,
       "sbSpend30": 0.3
     },
@@ -773,33 +745,29 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 4,
       "finalStatuses": {},
-      "invDays": 82,
+      "invDays": 0,
       "spSpend30": 49.94,
       "sbSpend30": 0
     },
     {
       "sku": "LM2288",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 4,
-      "actionsIfIgnoringHistory": 4,
-      "finalStatuses": {
-        "success": 4
-      },
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 3,
+      "finalStatuses": {},
       "invDays": 0,
       "spSpend30": 38.85,
       "sbSpend30": 0
     },
     {
       "sku": "XIA2327",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 60,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 17.69,
       "sbSpend30": 0
     },
@@ -808,11 +776,11 @@
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 120,
+      "invDays": 0,
       "spSpend30": 22.37,
       "sbSpend30": 0
     },
@@ -823,22 +791,20 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 102,
+      "invDays": 0,
       "spSpend30": 14,
       "sbSpend30": 0
     },
     {
       "sku": "HL2535",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 8,
-      "finalStatuses": {
-        "success": 2
-      },
-      "invDays": 69,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 26,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 99.5,
-      "sbSpend30": 111.71000000000004
+      "sbSpend30": 170.7799999999999
     },
     {
       "sku": "IF1427",
@@ -847,73 +813,64 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 4,
       "finalStatuses": {},
-      "invDays": 142,
+      "invDays": 0,
       "spSpend30": 32.199999999999996,
       "sbSpend30": 0
     },
     {
       "sku": "BOY3171",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 4,
+      "status": "failed",
+      "reason": "execution_failed",
+      "plannedActions": 1,
       "actionsIfIgnoringHistory": 12,
       "finalStatuses": {
-        "success": 3,
         "failed": 1
       },
-      "invDays": 120,
+      "invDays": 0,
       "spSpend30": 96.63,
       "sbSpend30": 14.879999999999997
     },
     {
       "sku": "LNE1321",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 7,
-      "finalStatuses": {
-        "success": 2
-      },
-      "invDays": 231,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 9,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 106.95000000000002,
       "sbSpend30": 0.3
     },
     {
       "sku": "OCE1413",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 5,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 63,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 43.519999999999996,
       "sbSpend30": 0
     },
     {
       "sku": "WNE0355",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 193,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 6,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 45.22,
       "sbSpend30": 0
     },
     {
       "sku": "OC1858",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 5,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 291,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 46.71,
       "sbSpend30": 0
     },
@@ -921,12 +878,12 @@
       "sku": "DUI0086",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 2,
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {
-        "success": 2
+        "success": 1
       },
-      "invDays": 99,
+      "invDays": 0,
       "spSpend30": 26.430000000000003,
       "sbSpend30": 6.760000000000001
     },
@@ -937,18 +894,18 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 9,
       "finalStatuses": {},
-      "invDays": 64,
+      "invDays": 0,
       "spSpend30": 107.69000000000001,
       "sbSpend30": 0
     },
     {
       "sku": "YMF1073",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 183,
+      "invDays": 0,
       "spSpend30": 22.08,
       "sbSpend30": 0
     },
@@ -957,35 +914,31 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 142,
+      "invDays": 0,
       "spSpend30": 69.17,
       "sbSpend30": 4.23
     },
     {
       "sku": "HL4004",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 3,
-      "actionsIfIgnoringHistory": 17,
-      "finalStatuses": {
-        "success": 3
-      },
-      "invDays": 85,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 27,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 73.72,
       "sbSpend30": 170.80000000000004
     },
     {
       "sku": "HEL0319",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 6,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 126,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 5,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 79.94,
       "sbSpend30": 13.52
     },
@@ -994,47 +947,49 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 7,
+      "actionsIfIgnoringHistory": 12,
       "finalStatuses": {},
-      "invDays": 359,
+      "invDays": 0,
       "spSpend30": 98.47,
       "sbSpend30": 22.68
     },
     {
       "sku": "SH0424",
-      "status": "failed",
-      "reason": "execution_failed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 1,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 2,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {
-        "failed": 1
+        "failed": 1,
+        "success": 1
       },
-      "invDays": 201,
+      "invDays": 0,
       "spSpend30": 46.83,
       "sbSpend30": 0
     },
     {
       "sku": "LUO1006",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
+      "status": "failed",
+      "reason": "execution_failed",
+      "plannedActions": 1,
       "actionsIfIgnoringHistory": 7,
       "finalStatuses": {
-        "success": 1,
         "failed": 1
       },
-      "invDays": 160,
+      "invDays": 0,
       "spSpend30": 82.54,
       "sbSpend30": 7.11
     },
     {
       "sku": "LE8150",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 152,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 2,
+      "actionsIfIgnoringHistory": 3,
+      "finalStatuses": {
+        "success": 2
+      },
+      "invDays": 0,
       "spSpend30": 26.189999999999994,
       "sbSpend30": 0.27
     },
@@ -1043,57 +998,59 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {},
-      "invDays": 88,
+      "invDays": 0,
       "spSpend30": 109.45,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "WE3925",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 133,
-      "spSpend30": 10.21,
       "sbSpend30": 0
     },
     {
       "sku": "XIX0903",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 3,
-      "actionsIfIgnoringHistory": 12,
+      "plannedActions": 5,
+      "actionsIfIgnoringHistory": 16,
       "finalStatuses": {
-        "success": 3
+        "success": 5
       },
-      "invDays": 86,
+      "invDays": 0,
       "spSpend30": 148.55,
       "sbSpend30": 263.7
     },
     {
-      "sku": "YUT3183",
+      "sku": "WE3925",
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 4,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 142,
-      "spSpend30": 337.31000000000006,
+      "invDays": 0,
+      "spSpend30": 10.21,
       "sbSpend30": 0
+    },
+    {
+      "sku": "YUT3183",
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 3,
+      "actionsIfIgnoringHistory": 10,
+      "finalStatuses": {
+        "success": 3
+      },
+      "invDays": 0,
+      "spSpend30": 337.31000000000006,
+      "sbSpend30": 0.23
     },
     {
       "sku": "SAN1213",
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 100,
+      "invDays": 0,
       "spSpend30": 27.36,
       "sbSpend30": 1.9100000000000001
     },
@@ -1102,40 +1059,16 @@
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 5,
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 75,
+      "invDays": 0,
       "spSpend30": 360.5,
       "sbSpend30": 0
     },
     {
       "sku": "LNY3098",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 125,
-      "spSpend30": 29.48,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "GM3149",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 5,
-      "finalStatuses": {
-        "success": 2
-      },
-      "invDays": 203,
-      "spSpend30": 74.77,
-      "sbSpend30": 17.57
-    },
-    {
-      "sku": "SSU1756",
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
@@ -1143,30 +1076,54 @@
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 86,
+      "invDays": 0,
+      "spSpend30": 29.48,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "GM3149",
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 12,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
+      "spSpend30": 74.77,
+      "sbSpend30": 17.57
+    },
+    {
+      "sku": "SSU1756",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 8,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 171.89,
       "sbSpend30": 42.400000000000006
     },
     {
       "sku": "YUT2844",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {},
-      "invDays": 126,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 4,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
       "spSpend30": 50.93,
       "sbSpend30": 0
     },
     {
       "sku": "GM3054",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 10,
-      "finalStatuses": {
-        "success": 2
-      },
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 15,
+      "finalStatuses": {},
       "invDays": 0,
       "spSpend30": 91.29,
       "sbSpend30": 12.2
@@ -1176,11 +1133,11 @@
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 4,
+      "actionsIfIgnoringHistory": 6,
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 184,
+      "invDays": 0,
       "spSpend30": 86.41999999999999,
       "sbSpend30": 0
     },
@@ -1189,9 +1146,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 690,
+      "invDays": 0,
       "spSpend30": 13.57,
       "sbSpend30": 0
     },
@@ -1200,68 +1157,68 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 4,
+      "actionsIfIgnoringHistory": 8,
       "finalStatuses": {},
-      "invDays": 120,
+      "invDays": 0,
       "spSpend30": 21.94,
       "sbSpend30": 29.51
     },
     {
       "sku": "HAY0221",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 7,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 24,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 10,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 196.91000000000003,
       "sbSpend30": 0
     },
     {
       "sku": "YAN2008",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {
-        "success": 2
-      },
-      "invDays": 125,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 4,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 63.06000000000001,
       "sbSpend30": 0
     },
     {
       "sku": "KV4231",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {},
-      "invDays": 104,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 6,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
       "spSpend30": 82.91999999999999,
-      "sbSpend30": 49.45
+      "sbSpend30": 0
     },
     {
       "sku": "GM2824",
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 6,
       "finalStatuses": {},
-      "invDays": 45,
+      "invDays": 0,
       "spSpend30": 37.11,
       "sbSpend30": 0
     },
     {
       "sku": "IFS0482",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 4,
-      "finalStatuses": {},
-      "invDays": 89,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 2,
+      "actionsIfIgnoringHistory": 8,
+      "finalStatuses": {
+        "success": 2
+      },
+      "invDays": 0,
       "spSpend30": 42.94,
       "sbSpend30": 0
     },
@@ -1269,12 +1226,12 @@
       "sku": "JOY0431",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 4,
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {
-        "success": 2
+        "success": 1
       },
-      "invDays": 365,
+      "invDays": 0,
       "spSpend30": 29.739999999999995,
       "sbSpend30": 0
     },
@@ -1285,7 +1242,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 300,
+      "invDays": 0,
       "spSpend30": 14.84,
       "sbSpend30": 0
     },
@@ -1294,9 +1251,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 150,
+      "invDays": 0,
       "spSpend30": 19.41,
       "sbSpend30": 0.76
     },
@@ -1307,20 +1264,18 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 153,
+      "invDays": 0,
       "spSpend30": 15.89,
       "sbSpend30": 0
     },
     {
       "sku": "QAA3143",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 3,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 5,
-      "finalStatuses": {
-        "success": 3
-      },
-      "invDays": 86,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 69.53,
       "sbSpend30": 16.34
     },
@@ -1329,20 +1284,22 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 5,
+      "actionsIfIgnoringHistory": 9,
       "finalStatuses": {},
-      "invDays": 89,
+      "invDays": 0,
       "spSpend30": 45.459999999999994,
       "sbSpend30": 3.2200000000000006
     },
     {
       "sku": "BIO0027",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {},
-      "invDays": 99,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 2,
+      "actionsIfIgnoringHistory": 3,
+      "finalStatuses": {
+        "success": 2
+      },
+      "invDays": 0,
       "spSpend30": 23.41,
       "sbSpend30": 4.359999999999999
     },
@@ -1362,9 +1319,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {},
-      "invDays": 97,
+      "invDays": 0,
       "spSpend30": 28.900000000000006,
       "sbSpend30": 0
     },
@@ -1373,9 +1330,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 4,
+      "actionsIfIgnoringHistory": 5,
       "finalStatuses": {},
-      "invDays": 2370,
+      "invDays": 0,
       "spSpend30": 30.03,
       "sbSpend30": 0
     },
@@ -1383,12 +1340,12 @@
       "sku": "GM3213",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 3,
-      "actionsIfIgnoringHistory": 19,
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 22,
       "finalStatuses": {
-        "success": 3
+        "success": 1
       },
-      "invDays": 24,
+      "invDays": 0,
       "spSpend30": 101.93000000000005,
       "sbSpend30": 59.79999999999999
     },
@@ -1399,7 +1356,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 24,
+      "invDays": 0,
       "spSpend30": 6.67,
       "sbSpend30": 4.72
     },
@@ -1407,34 +1364,36 @@
       "sku": "KAO0575",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 2,
+      "plannedActions": 1,
       "actionsIfIgnoringHistory": 4,
       "finalStatuses": {
-        "success": 2
+        "success": 1
       },
-      "invDays": 50,
+      "invDays": 0,
       "spSpend30": 44.67,
       "sbSpend30": 0
     },
     {
       "sku": "XIA3242",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 4,
-      "finalStatuses": {},
-      "invDays": 109,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 5,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
       "spSpend30": 21.7,
       "sbSpend30": 11.65
     },
     {
       "sku": "SIJ3881",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 105,
+      "invDays": 0,
       "spSpend30": 23.48,
       "sbSpend30": 0
     },
@@ -1443,11 +1402,11 @@
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 50,
+      "invDays": 0,
       "spSpend30": 15.07,
       "sbSpend30": 0
     },
@@ -1458,30 +1417,30 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 192,
+      "invDays": 0,
       "spSpend30": 35.86,
       "sbSpend30": 1.17
     },
     {
       "sku": "SAN0113",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {},
-      "invDays": 35,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 9,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
       "spSpend30": 78.85999999999999,
       "sbSpend30": 0.93
     },
     {
       "sku": "TH2527",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 1
-      },
+      "finalStatuses": {},
       "invDays": 0,
       "spSpend30": 7.910000000000001,
       "sbSpend30": 0
@@ -1491,9 +1450,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {},
-      "invDays": 122,
+      "invDays": 0,
       "spSpend30": 19.26,
       "sbSpend30": 3.5699999999999994
     },
@@ -1502,9 +1461,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 118,
+      "invDays": 0,
       "spSpend30": 19.400000000000002,
       "sbSpend30": 1.18
     },
@@ -1515,31 +1474,31 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 10,
       "finalStatuses": {},
-      "invDays": 115,
+      "invDays": 0,
       "spSpend30": 98.43,
       "sbSpend30": 0
     },
     {
       "sku": "EY0793",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {},
-      "invDays": 13,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 11,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
       "spSpend30": 339.42000000000013,
       "sbSpend30": 0
     },
     {
       "sku": "UAN3256",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 140,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 18.86,
       "sbSpend30": 0
     },
@@ -1548,22 +1507,20 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 4,
+      "actionsIfIgnoringHistory": 5,
       "finalStatuses": {},
-      "invDays": 174,
+      "invDays": 0,
       "spSpend30": 31.819999999999997,
       "sbSpend30": 2.4299999999999997
     },
     {
       "sku": "KA1544",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 120,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 4,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 27.869999999999997,
       "sbSpend30": 0
     },
@@ -1572,9 +1529,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 15,
       "finalStatuses": {},
-      "invDays": 77,
+      "invDays": 0,
       "spSpend30": 30.21,
       "sbSpend30": 24.600000000000005
     },
@@ -1583,9 +1540,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {},
-      "invDays": 266,
+      "invDays": 0,
       "spSpend30": 73.14,
       "sbSpend30": 1.5400000000000003
     },
@@ -1594,20 +1551,22 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 5,
       "finalStatuses": {},
-      "invDays": 106,
+      "invDays": 0,
       "spSpend30": 48.599999999999994,
       "sbSpend30": 8.75
     },
     {
       "sku": "BOY3355",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {},
-      "invDays": 114,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 2,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
       "spSpend30": 7.01,
       "sbSpend30": 0
     },
@@ -1618,18 +1577,20 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 132,
+      "invDays": 0,
       "spSpend30": 28.389999999999997,
       "sbSpend30": 0
     },
     {
       "sku": "HAY1931",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {},
-      "invDays": 106,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 4,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
       "spSpend30": 4.96,
       "sbSpend30": 16.52
     },
@@ -1638,11 +1599,11 @@
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 327,
+      "invDays": 0,
       "spSpend30": 18.72,
       "sbSpend30": 0
     },
@@ -1653,7 +1614,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 150,
+      "invDays": 0,
       "spSpend30": 4.8100000000000005,
       "sbSpend30": 0
     },
@@ -1675,7 +1636,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 107,
+      "invDays": 0,
       "spSpend30": 13.89,
       "sbSpend30": 0
     },
@@ -1684,22 +1645,20 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 78,
+      "invDays": 0,
       "spSpend30": 19.93,
       "sbSpend30": 0
     },
     {
       "sku": "OYH0257",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 132,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 20.78,
       "sbSpend30": 0
     },
@@ -1708,9 +1667,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {},
-      "invDays": 134,
+      "invDays": 0,
       "spSpend30": 19.310000000000002,
       "sbSpend30": 0
     },
@@ -1719,9 +1678,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 123,
+      "invDays": 0,
       "spSpend30": 84.8,
       "sbSpend30": 0
     },
@@ -1738,27 +1697,25 @@
     },
     {
       "sku": "HAN0044",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 135,
+      "invDays": 0,
       "spSpend30": 7.79,
       "sbSpend30": 0
     },
     {
       "sku": "LE5294",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 10,
-      "finalStatuses": {
-        "success": 2
-      },
-      "invDays": 277,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 12,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 72.09,
-      "sbSpend30": 0.52
+      "sbSpend30": 2.68
     },
     {
       "sku": "OB4139",
@@ -1784,34 +1741,34 @@
     },
     {
       "sku": "YAN2278",
-      "status": "skipped",
-      "reason": "invalid_or_paused_state",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 94,
+      "invDays": 0,
       "spSpend30": 4.83,
       "sbSpend30": 0
     },
     {
       "sku": "AE1181",
-      "status": "skipped",
-      "reason": "invalid_or_paused_state",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 263,
+      "invDays": 0,
       "spSpend30": 6.9,
       "sbSpend30": 0
     },
     {
       "sku": "NAY0963",
-      "status": "skipped",
-      "reason": "invalid_or_paused_state",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 99,
+      "invDays": 0,
       "spSpend30": 5.470000000000001,
       "sbSpend30": 0
     },
@@ -1820,9 +1777,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 6,
       "finalStatuses": {},
-      "invDays": 213,
+      "invDays": 0,
       "spSpend30": 12.459999999999999,
       "sbSpend30": 4.82
     },
@@ -1833,7 +1790,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 100,
+      "invDays": 0,
       "spSpend30": 6.96,
       "sbSpend30": 13.440000000000001
     },
@@ -1844,7 +1801,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 218,
+      "invDays": 0,
       "spSpend30": 53.620000000000005,
       "sbSpend30": 0
     },
@@ -1855,7 +1812,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 360,
+      "invDays": 0,
       "spSpend30": 6.21,
       "sbSpend30": 0
     },
@@ -1866,7 +1823,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 610,
+      "invDays": 0,
       "spSpend30": 6.72,
       "sbSpend30": 0
     },
@@ -1883,12 +1840,12 @@
     },
     {
       "sku": "YUT4466",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 329,
+      "invDays": 0,
       "spSpend30": 6.08,
       "sbSpend30": 0
     },
@@ -1897,22 +1854,20 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 5,
       "finalStatuses": {},
-      "invDays": 86,
+      "invDays": 0,
       "spSpend30": 51.3,
       "sbSpend30": 8.69
     },
     {
       "sku": "YUT4462",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 342,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 3,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 35.65,
       "sbSpend30": 0
     },
@@ -1929,14 +1884,12 @@
     },
     {
       "sku": "MED1032",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 4,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 72,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 5,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 32.49,
       "sbSpend30": 7.54
     },
@@ -1945,9 +1898,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 5,
+      "actionsIfIgnoringHistory": 8,
       "finalStatuses": {},
-      "invDays": 38,
+      "invDays": 0,
       "spSpend30": 90.16999999999999,
       "sbSpend30": 22.04
     },
@@ -1958,7 +1911,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 126,
+      "invDays": 0,
       "spSpend30": 8.47,
       "sbSpend30": 0
     },
@@ -1967,9 +1920,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 180,
+      "invDays": 0,
       "spSpend30": 27.200000000000003,
       "sbSpend30": 14.019999999999998
     },
@@ -1986,34 +1939,38 @@
     },
     {
       "sku": "HEL0606",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {},
-      "invDays": 168,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 2,
+      "actionsIfIgnoringHistory": 4,
+      "finalStatuses": {
+        "success": 2
+      },
+      "invDays": 0,
       "spSpend30": 51.59999999999999,
       "sbSpend30": 0.5
     },
     {
       "sku": "ISI1111",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 5,
       "finalStatuses": {},
-      "invDays": 35,
+      "invDays": 0,
       "spSpend30": 4.75,
       "sbSpend30": 8.21
     },
     {
       "sku": "HEL2083",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
       "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {},
-      "invDays": 146,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
       "spSpend30": 14.220000000000002,
       "sbSpend30": 0
     },
@@ -2024,7 +1981,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 330,
+      "invDays": 0,
       "spSpend30": 5.81,
       "sbSpend30": 0
     },
@@ -2033,34 +1990,36 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 144,
+      "invDays": 0,
       "spSpend30": 14.85,
       "sbSpend30": 5.710000000000001
     },
     {
       "sku": "LE8173",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
       "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {},
-      "invDays": 67,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
       "spSpend30": 26.560000000000002,
-      "sbSpend30": 16.349999999999998
+      "sbSpend30": 0
     },
     {
       "sku": "WAR1276",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 4,
-      "actionsIfIgnoringHistory": 8,
+      "plannedActions": 2,
+      "actionsIfIgnoringHistory": 12,
       "finalStatuses": {
-        "success": 3,
-        "failed": 1
+        "failed": 1,
+        "success": 1
       },
-      "invDays": 107,
+      "invDays": 0,
       "spSpend30": 227.47,
       "sbSpend30": 6.75
     },
@@ -2071,7 +2030,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 371,
+      "invDays": 0,
       "spSpend30": 5.11,
       "sbSpend30": 9.48
     },
@@ -2080,22 +2039,20 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 6,
       "finalStatuses": {},
-      "invDays": 67,
+      "invDays": 0,
       "spSpend30": 20.099999999999998,
       "sbSpend30": 0
     },
     {
       "sku": "GM2627",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 4,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 145,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 5,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 56.50999999999999,
       "sbSpend30": 1.73
     },
@@ -2106,7 +2063,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 146,
+      "invDays": 0,
       "spSpend30": 79.82000000000001,
       "sbSpend30": 0
     },
@@ -2117,9 +2074,9 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 1044,
+      "invDays": 0,
       "spSpend30": 12.04,
-      "sbSpend30": 2.8
+      "sbSpend30": 0.61
     },
     {
       "sku": "KL2977",
@@ -2128,7 +2085,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 4,
       "finalStatuses": {},
-      "invDays": 63,
+      "invDays": 0,
       "spSpend30": 43.46,
       "sbSpend30": 0
     },
@@ -2137,36 +2094,32 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 5,
       "finalStatuses": {},
-      "invDays": 85,
+      "invDays": 0,
       "spSpend30": 70.06,
       "sbSpend30": 1.45
     },
     {
       "sku": "TH1516",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 6,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 100,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 7,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 73.8,
       "sbSpend30": 19.790000000000003
     },
     {
       "sku": "GM2634",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 930,
-      "spSpend30": 16.71,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 6.18,
       "sbSpend30": 2.8499999999999996
     },
     {
@@ -2178,7 +2131,7 @@
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 3570,
+      "invDays": 0,
       "spSpend30": 34.370000000000005,
       "sbSpend30": 0
     },
@@ -2198,9 +2151,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 463,
+      "invDays": 0,
       "spSpend30": 3.4299999999999997,
       "sbSpend30": 11.489999999999998
     },
@@ -2211,20 +2164,18 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 280,
+      "invDays": 0,
       "spSpend30": 6.41,
       "sbSpend30": 0
     },
     {
       "sku": "DEA2064",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 67,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 2,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 21.32,
       "sbSpend30": 0
     },
@@ -2235,84 +2186,90 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 154,
+      "invDays": 0,
       "spSpend30": 13.97,
       "sbSpend30": 0
     },
     {
       "sku": "GM3065",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 92,
-      "spSpend30": 12.310000000000002,
-      "sbSpend30": 1.76
-    },
-    {
-      "sku": "YAN0656",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {},
-      "invDays": 152,
-      "spSpend30": 52.83000000000001,
-      "sbSpend30": 5.55
-    },
-    {
-      "sku": "ISI1140",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {},
-      "invDays": 780,
-      "spSpend30": 28.450000000000003,
-      "sbSpend30": 1.19
-    },
-    {
-      "sku": "SHU2552",
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 133,
+      "invDays": 0,
+      "spSpend30": 12.310000000000002,
+      "sbSpend30": 1.76
+    },
+    {
+      "sku": "YAN0656",
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 4,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
+      "spSpend30": 52.83000000000001,
+      "sbSpend30": 5.55
+    },
+    {
+      "sku": "ISI1140",
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 2,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
+      "spSpend30": 28.450000000000003,
+      "sbSpend30": 1.19
+    },
+    {
+      "sku": "SHU2552",
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 2,
+      "actionsIfIgnoringHistory": 4,
+      "finalStatuses": {
+        "success": 2
+      },
+      "invDays": 0,
       "spSpend30": 17.56,
       "sbSpend30": 0
     },
     {
       "sku": "CLO0343",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 360,
+      "invDays": 0,
       "spSpend30": 3.8599999999999994,
       "sbSpend30": 0
     },
     {
       "sku": "LE8156",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 324,
+      "invDays": 0,
       "spSpend30": 11.07,
-      "sbSpend30": 0.28
+      "sbSpend30": 16.63
     },
     {
       "sku": "NO3390",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 92,
+      "invDays": 0,
       "spSpend30": 20.01,
       "sbSpend30": 0
     },
@@ -2323,29 +2280,29 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 88,
+      "invDays": 0,
       "spSpend30": 81.94000000000001,
       "sbSpend30": 0
     },
     {
       "sku": "AE2140",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 110,
+      "invDays": 0,
       "spSpend30": 15.710000000000003,
-      "sbSpend30": 3.64
+      "sbSpend30": 2.4700000000000006
     },
     {
       "sku": "SAN1103",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 705,
+      "invDays": 0,
       "spSpend30": 17.749999999999996,
       "sbSpend30": 0
     },
@@ -2354,11 +2311,11 @@
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 424,
+      "invDays": 0,
       "spSpend30": 15.09,
       "sbSpend30": 26.45
     },
@@ -2369,7 +2326,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 168,
+      "invDays": 0,
       "spSpend30": 39.370000000000005,
       "sbSpend30": 1.5
     },
@@ -2380,7 +2337,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 322,
+      "invDays": 0,
       "spSpend30": 1.67,
       "sbSpend30": 0
     },
@@ -2389,9 +2346,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 565,
+      "invDays": 0,
       "spSpend30": 11.379999999999999,
       "sbSpend30": 0
     },
@@ -2408,38 +2365,37 @@
     },
     {
       "sku": "YAN3832",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 100,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 4.71,
       "sbSpend30": 13.82
     },
     {
       "sku": "KA1589",
-      "status": "failed",
-      "reason": "execution_failed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 4,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 3,
+      "actionsIfIgnoringHistory": 8,
       "finalStatuses": {
-        "failed": 1
+        "failed": 1,
+        "success": 2
       },
-      "invDays": 104,
+      "invDays": 0,
       "spSpend30": 95.73000000000002,
       "sbSpend30": 0
     },
     {
       "sku": "GT3801",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 109,
+      "invDays": 0,
       "spSpend30": 14.060000000000002,
       "sbSpend30": 0
     },
@@ -2450,20 +2406,18 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 175,
+      "invDays": 0,
       "spSpend30": 10.149999999999999,
       "sbSpend30": 0.9800000000000001
     },
     {
       "sku": "UAN3248",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 137,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 4,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 23.58,
       "sbSpend30": 8.49
     },
@@ -2472,11 +2426,11 @@
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 2,
-      "actionsIfIgnoringHistory": 5,
+      "actionsIfIgnoringHistory": 6,
       "finalStatuses": {
         "success": 2
       },
-      "invDays": 403,
+      "invDays": 0,
       "spSpend30": 35.629999999999995,
       "sbSpend30": 26.659999999999993
     },
@@ -2487,7 +2441,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 283,
+      "invDays": 0,
       "spSpend30": 1.7399999999999998,
       "sbSpend30": 0
     },
@@ -2498,7 +2452,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 97,
+      "invDays": 0,
       "spSpend30": 2.8200000000000003,
       "sbSpend30": 0
     },
@@ -2507,9 +2461,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 5,
       "finalStatuses": {},
-      "invDays": 110,
+      "invDays": 0,
       "spSpend30": 25.33,
       "sbSpend30": 0
     },
@@ -2520,7 +2474,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 999,
+      "invDays": 0,
       "spSpend30": 3.9299999999999997,
       "sbSpend30": 0
     },
@@ -2529,9 +2483,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 5,
       "finalStatuses": {},
-      "invDays": 31,
+      "invDays": 0,
       "spSpend30": 82.82,
       "sbSpend30": 0
     },
@@ -2540,9 +2494,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {},
-      "invDays": 90,
+      "invDays": 0,
       "spSpend30": 34.879999999999995,
       "sbSpend30": 0.31
     },
@@ -2553,51 +2507,53 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 150,
+      "invDays": 0,
       "spSpend30": 0.66,
-      "sbSpend30": 0.23
+      "sbSpend30": 0
     },
     {
       "sku": "LUO1012",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 540,
+      "invDays": 0,
       "spSpend30": 10.980000000000002,
       "sbSpend30": 8.58
     },
     {
       "sku": "LED3945",
-      "status": "skipped",
-      "reason": "invalid_or_paused_state",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 1680,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
       "spSpend30": 24.09,
       "sbSpend30": 0
     },
     {
       "sku": "XIA1681",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 91,
-      "spSpend30": 2.79,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "GM2827",
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 2430,
+      "invDays": 0,
+      "spSpend30": 2.79,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "GM2827",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 1.2,
       "sbSpend30": 15.27
     },
@@ -2606,33 +2562,33 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
       "invDays": 0,
       "spSpend30": 9.51,
-      "sbSpend30": 0
+      "sbSpend30": 18.210000000000004
     },
     {
       "sku": "YAN2293",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 345,
-      "spSpend30": 6.18,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "BOY1281",
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 104,
+      "invDays": 0,
+      "spSpend30": 6.18,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "BOY1281",
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 4,
+      "actionsIfIgnoringHistory": 4,
+      "finalStatuses": {
+        "success": 4
+      },
+      "invDays": 0,
       "spSpend30": 20.759999999999998,
       "sbSpend30": 0.29
     },
@@ -2643,7 +2599,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 999,
+      "invDays": 0,
       "spSpend30": 1.02,
       "sbSpend30": 0.24
     },
@@ -2656,20 +2612,18 @@
       "finalStatuses": {
         "failed": 1
       },
-      "invDays": 87,
+      "invDays": 0,
       "spSpend30": 38.879999999999995,
       "sbSpend30": 0
     },
     {
       "sku": "KEJ0562",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 53,
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 9.49,
       "sbSpend30": 3.73
     },
@@ -2680,42 +2634,40 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 133,
+      "invDays": 0,
       "spSpend30": 0.34,
       "sbSpend30": 0.45
     },
     {
       "sku": "DAY2990",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 261,
-      "spSpend30": 10.99,
-      "sbSpend30": 0.64
-    },
-    {
-      "sku": "YYW2630",
       "status": "no_action",
       "reason": "current_rules_no_bid_change",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 104,
+      "invDays": 0,
+      "spSpend30": 0.33,
+      "sbSpend30": 0.64
+    },
+    {
+      "sku": "YYW2630",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 5.2,
       "sbSpend30": 0
     },
     {
       "sku": "SY4371",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 84,
+      "invDays": 0,
       "spSpend30": 0.3,
       "sbSpend30": 7.5600000000000005
     },
@@ -2726,7 +2678,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 2190,
+      "invDays": 0,
       "spSpend30": 0.6,
       "sbSpend30": 0
     },
@@ -2737,9 +2689,9 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 227,
+      "invDays": 0,
       "spSpend30": 9.949999999999998,
-      "sbSpend30": 23.120000000000005
+      "sbSpend30": 25.310000000000002
     },
     {
       "sku": "JIN3992",
@@ -2748,33 +2700,29 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 750,
+      "invDays": 0,
       "spSpend30": 0.28,
       "sbSpend30": 0
     },
     {
       "sku": "TIN2239",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 165,
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 9.639999999999999,
       "sbSpend30": 84.17
     },
     {
       "sku": "DN2683",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 126,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 135.23999999999998,
       "sbSpend30": 0
     },
@@ -2783,24 +2731,22 @@
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 5,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 146,
+      "invDays": 0,
       "spSpend30": 63.76000000000001,
-      "sbSpend30": 16.9
+      "sbSpend30": 0
     },
     {
       "sku": "SE6621",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 4,
-      "finalStatuses": {
-        "success": 2
-      },
-      "invDays": 47,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 9,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 47.519999999999996,
       "sbSpend30": 34.59
     },
@@ -2811,18 +2757,18 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 638,
+      "invDays": 0,
       "spSpend30": 0.23,
       "sbSpend30": 16.57
     },
     {
       "sku": "LUO1051",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 790,
+      "invDays": 0,
       "spSpend30": 3.26,
       "sbSpend30": 0.21
     },
@@ -2831,11 +2777,11 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 5,
+      "actionsIfIgnoringHistory": 14,
       "finalStatuses": {},
-      "invDays": 92,
+      "invDays": 0,
       "spSpend30": 88.39000000000001,
-      "sbSpend30": 9.57
+      "sbSpend30": 39.419999999999995
     },
     {
       "sku": "DAY2984",
@@ -2844,53 +2790,31 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 27,
+      "invDays": 0,
       "spSpend30": 7.460000000000001,
       "sbSpend30": 0.45
     },
     {
       "sku": "GT2491",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 86,
+      "invDays": 0,
       "spSpend30": 6.0600000000000005,
       "sbSpend30": 0
     },
     {
-      "sku": "DN1655",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {},
-      "invDays": 204,
-      "spSpend30": 120.86999999999999,
-      "sbSpend30": 11.279999999999998
-    },
-    {
-      "sku": "MF6294",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {},
-      "invDays": 0,
-      "spSpend30": 8.3,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "TUR5292",
+      "sku": "YY4568",
       "status": "no_action",
       "reason": "current_rules_no_bid_change",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 211,
-      "spSpend30": 11.23,
-      "sbSpend30": 0
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 6.17
     },
     {
       "sku": "KZ6722",
@@ -2904,15 +2828,15 @@
       "sbSpend30": 0
     },
     {
-      "sku": "YUT3587",
+      "sku": "DN1655",
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 10,
       "finalStatuses": {},
-      "invDays": 160,
-      "spSpend30": 0,
-      "sbSpend30": 6.65
+      "invDays": 0,
+      "spSpend30": 120.86999999999999,
+      "sbSpend30": 28.179999999999993
     },
     {
       "sku": "TH3353",
@@ -2926,30 +2850,15 @@
       "sbSpend30": 0
     },
     {
-      "sku": "TIN0401",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 236,
-      "spSpend30": 0.58,
-      "sbSpend30": 51.37
-    },
-    {
-      "sku": "YEO1452",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
+      "sku": "YUT3587",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
       "invDays": 0,
-      "spSpend30": 6.27,
-      "sbSpend30": 0
+      "spSpend30": 0,
+      "sbSpend30": 6.65
     },
     {
       "sku": "TH3351",
@@ -2963,46 +2872,13 @@
       "sbSpend30": 0
     },
     {
-      "sku": "LEM5778",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 999,
-      "spSpend30": 0.19,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "ZHW0104",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 1200,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "YY4568",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 225,
-      "spSpend30": 0,
-      "sbSpend30": 6.17
-    },
-    {
       "sku": "HOS0946",
       "status": "no_action",
       "reason": "no_recent_ad_spend",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 1050,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 0
     },
@@ -3018,15 +2894,28 @@
       "sbSpend30": 0
     },
     {
-      "sku": "HAY2767",
+      "sku": "YEO1452",
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
+      "spSpend30": 6.27,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "TIN0401",
       "status": "no_action",
       "reason": "current_rules_no_bid_change",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 41,
-      "spSpend30": 15.13,
-      "sbSpend30": 2.14
+      "invDays": 0,
+      "spSpend30": 0.58,
+      "sbSpend30": 51.37
     },
     {
       "sku": "SE5942",
@@ -3035,41 +2924,19 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 74,
+      "invDays": 0,
       "spSpend30": 8.57,
       "sbSpend30": 0
     },
     {
-      "sku": "STA2607",
+      "sku": "LEM5778",
       "status": "no_action",
       "reason": "current_rules_no_bid_change",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 999,
-      "spSpend30": 0,
-      "sbSpend30": 0.44
-    },
-    {
-      "sku": "STA2610",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 2760,
-      "spSpend30": 0,
-      "sbSpend30": 0.81
-    },
-    {
-      "sku": "CEE0304",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 40,
-      "spSpend30": 0,
+      "invDays": 0,
+      "spSpend30": 0.19,
       "sbSpend30": 0
     },
     {
@@ -3079,45 +2946,56 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 999,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 11.340000000000002
     },
     {
-      "sku": "EG3285",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
+      "sku": "HAY2767",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 999,
-      "spSpend30": 0,
+      "invDays": 0,
+      "spSpend30": 15.13,
+      "sbSpend30": 2.14
+    },
+    {
+      "sku": "MF6294",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 8.3,
       "sbSpend30": 0
     },
     {
-      "sku": "OC2977",
+      "sku": "STA2607",
       "status": "no_action",
-      "reason": "no_recent_ad_spend",
+      "reason": "current_rules_no_bid_change",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
       "invDays": 0,
       "spSpend30": 0,
-      "sbSpend30": 0
+      "sbSpend30": 0.44
     },
     {
-      "sku": "RT3296",
+      "sku": "TUR5292",
       "status": "no_action",
-      "reason": "no_recent_ad_spend",
+      "reason": "current_rules_no_bid_change",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
       "invDays": 0,
-      "spSpend30": 0,
+      "spSpend30": 11.23,
       "sbSpend30": 0
     },
     {
-      "sku": "SHU0362",
+      "sku": "ZHW0104",
       "status": "no_action",
       "reason": "no_recent_ad_spend",
       "plannedActions": 0,
@@ -3139,17 +3017,133 @@
       "sbSpend30": 0
     },
     {
-      "sku": "UAN3646",
+      "sku": "YUT2590",
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 120,
-      "spSpend30": 21.57,
-      "sbSpend30": 0.27
+      "invDays": 0,
+      "spSpend30": 25.200000000000003,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "WAR0229",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "UAN3644",
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
+      "spSpend30": 9.98,
+      "sbSpend30": 0.9299999999999999
+    },
+    {
+      "sku": "DO0446",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 7.92,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "YAN1353",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 16.78,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "EG3285",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "AE2739",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "ZO0892",
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "OC2977",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "SHU0362",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "WEN1029",
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
+      "spSpend30": 5.23,
+      "sbSpend30": 0
     },
     {
       "sku": "US2516",
@@ -3163,75 +3157,51 @@
       "sbSpend30": 0
     },
     {
-      "sku": "YAN1353",
-      "status": "skipped",
-      "reason": "invalid_or_paused_state",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {},
-      "invDays": 175,
-      "spSpend30": 16.78,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "DO0446",
-      "status": "skipped",
-      "reason": "invalid_or_paused_state",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 258,
-      "spSpend30": 7.92,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "FE3232",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 999,
-      "spSpend30": 0,
-      "sbSpend30": 1.17
-    },
-    {
-      "sku": "WAR0229",
+      "sku": "MH0924",
       "status": "no_action",
       "reason": "no_recent_ad_spend",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 15,
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "MF1382",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 0
     },
     {
       "sku": "QA3896",
-      "status": "skipped",
-      "reason": "invalid_or_paused_state",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 312,
+      "invDays": 0,
       "spSpend30": 2.15,
       "sbSpend30": 0
     },
     {
-      "sku": "WAR1180",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 15,
-      "spSpend30": 23.17,
-      "sbSpend30": 0
+      "sku": "UAN3646",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 3,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 21.57,
+      "sbSpend30": 0.27
     },
     {
-      "sku": "MH0924",
+      "sku": "MH2355",
       "status": "no_action",
       "reason": "no_recent_ad_spend",
       "plannedActions": 0,
@@ -3254,163 +3224,14 @@
     },
     {
       "sku": "EY5555",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 365,
-      "spSpend30": 8.07,
-      "sbSpend30": 0.41
-    },
-    {
-      "sku": "IF1831",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 96,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "OB1812",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 0,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "RT3297",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 60,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "STA2604",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 999,
-      "spSpend30": 0,
-      "sbSpend30": 0.42
-    },
-    {
-      "sku": "ZO0892",
-      "status": "skipped",
-      "reason": "invalid_or_paused_state",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 365,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "JOY0900",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 653,
-      "spSpend30": 7.029999999999999,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "BEU0541",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 246,
-      "spSpend30": 27.9,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "MF1382",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 0,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "WEN1029",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 990,
-      "spSpend30": 5.23,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "AE2739",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 0,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "MH2355",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 0,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "MH2709",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 999,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "SC3527",
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 105,
-      "spSpend30": 38.68,
-      "sbSpend30": 0
+      "invDays": 0,
+      "spSpend30": 8.07,
+      "sbSpend30": 0.41
     },
     {
       "sku": "MM1820",
@@ -3424,133 +3245,64 @@
       "sbSpend30": 0
     },
     {
-      "sku": "UAN3644",
+      "sku": "STA2610",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0.81
+    },
+    {
+      "sku": "RT3297",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "JOY0900",
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {
         "success": 1
-      },
-      "invDays": 139,
-      "spSpend30": 9.98,
-      "sbSpend30": 0.9299999999999999
-    },
-    {
-      "sku": "YAN0087",
-      "status": "skipped",
-      "reason": "invalid_or_paused_state",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {},
-      "invDays": 119,
-      "spSpend30": 3.42,
-      "sbSpend30": 5.290000000000001
-    },
-    {
-      "sku": "YUT2590",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 148,
-      "spSpend30": 25.200000000000003,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "SHQ2216",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 3,
-      "actionsIfIgnoringHistory": 7,
-      "finalStatuses": {
-        "success": 3
-      },
-      "invDays": 89,
-      "spSpend30": 570.94,
-      "sbSpend30": 35.720000000000006
-    },
-    {
-      "sku": "UAN2599",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 4,
-      "finalStatuses": {},
-      "invDays": 110,
-      "spSpend30": 278.18,
-      "sbSpend30": 6.97
-    },
-    {
-      "sku": "SAN0149",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 4,
-      "actionsIfIgnoringHistory": 6,
-      "finalStatuses": {
-        "success": 4
-      },
-      "invDays": 78,
-      "spSpend30": 275.43000000000006,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "97540494023288",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 2
       },
       "invDays": 0,
-      "spSpend30": 132.86999999999998,
+      "spSpend30": 7.029999999999999,
       "sbSpend30": 0
     },
     {
-      "sku": "HL4017",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 7,
-      "actionsIfIgnoringHistory": 10,
-      "finalStatuses": {
-        "success": 7
-      },
-      "invDays": 66,
-      "spSpend30": 164.92000000000002,
-      "sbSpend30": 59.07
-    },
-    {
-      "sku": "SIJ2011",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 114,
-      "spSpend30": 137.32000000000002,
+      "sku": "RT3296",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
       "sbSpend30": 0
     },
     {
-      "sku": "QUN1025",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 17,
-      "spSpend30": 183.29000000000002,
+      "sku": "IF1831",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
       "sbSpend30": 0
     },
     {
-      "sku": "DN3049",
+      "sku": "BEU0541",
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
@@ -3558,21 +3310,191 @@
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 149,
+      "invDays": 0,
+      "spSpend30": 27.9,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "WAR1180",
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
+      "spSpend30": 23.17,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "FE3232",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 1.17
+    },
+    {
+      "sku": "SC3527",
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
+      "spSpend30": 38.68,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "CEE0304",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "YAN0087",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 3.42,
+      "sbSpend30": 5.290000000000001
+    },
+    {
+      "sku": "STA2604",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0.42
+    },
+    {
+      "sku": "OB1812",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "SHQ2216",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 12,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 570.94,
+      "sbSpend30": 43.610000000000014
+    },
+    {
+      "sku": "UAN2599",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 6,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 278.18,
+      "sbSpend30": 6.97
+    },
+    {
+      "sku": "SAN0149",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 7,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 275.43000000000006,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "97540494023288",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 2,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 132.86999999999998,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "HL4017",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 5,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 164.92000000000002,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "SIJ2011",
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 3,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
+      "spSpend30": 137.32000000000002,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "QUN1025",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 2,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 183.29000000000002,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "DN3049",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 3,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 105.38000000000001,
       "sbSpend30": 0
     },
     {
       "sku": "YCL1250",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 3,
+      "status": "failed",
+      "reason": "execution_failed",
+      "plannedActions": 1,
       "actionsIfIgnoringHistory": 5,
       "finalStatuses": {
-        "success": 2,
         "failed": 1
       },
-      "invDays": 83,
+      "invDays": 0,
       "spSpend30": 129.23,
       "sbSpend30": 0
     },
@@ -3581,9 +3503,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {},
-      "invDays": 39,
+      "invDays": 0,
       "spSpend30": 124.2,
       "sbSpend30": 0
     },
@@ -3594,7 +3516,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 153,
+      "invDays": 0,
       "spSpend30": 55.53999999999999,
       "sbSpend30": 0
     },
@@ -3603,20 +3525,20 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {},
-      "invDays": 82,
+      "invDays": 0,
       "spSpend30": 71.61,
       "sbSpend30": 0.24
     },
     {
       "sku": "XIH2672",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 495,
+      "invDays": 0,
       "spSpend30": 43.69,
       "sbSpend30": 0
     },
@@ -3624,12 +3546,12 @@
       "sku": "MED1970",
       "status": "failed",
       "reason": "execution_failed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
+      "plannedActions": 2,
+      "actionsIfIgnoringHistory": 4,
       "finalStatuses": {
-        "failed": 1
+        "failed": 2
       },
-      "invDays": 95,
+      "invDays": 0,
       "spSpend30": 95.45000000000002,
       "sbSpend30": 3.39
     },
@@ -3638,45 +3560,41 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 5,
       "finalStatuses": {},
-      "invDays": 95,
+      "invDays": 0,
       "spSpend30": 36.379999999999995,
-      "sbSpend30": 0
+      "sbSpend30": 8.120000000000001
     },
     {
       "sku": "SE6685",
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 98,
+      "invDays": 0,
       "spSpend30": 112.97999999999999,
       "sbSpend30": 0
     },
     {
       "sku": "KEI1148",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 158,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 73.12,
       "sbSpend30": 6.869999999999999
     },
     {
       "sku": "11325367019821",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {
-        "success": 2
-      },
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 2,
+      "finalStatuses": {},
       "invDays": 0,
       "spSpend30": 34.830000000000005,
       "sbSpend30": 0
@@ -3685,23 +3603,25 @@
       "sku": "SII0421",
       "status": "adjusted",
       "reason": "verified_landed",
-      "plannedActions": 4,
-      "actionsIfIgnoringHistory": 4,
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {
-        "success": 4
+        "success": 1
       },
-      "invDays": 79,
+      "invDays": 0,
       "spSpend30": 47.48,
       "sbSpend30": 0
     },
     {
       "sku": "UY3670",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {},
-      "invDays": 98,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 4,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
       "spSpend30": 63.28,
       "sbSpend30": 0
     },
@@ -3712,33 +3632,29 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 90,
+      "invDays": 0,
       "spSpend30": 35.489999999999995,
       "sbSpend30": 0
     },
     {
       "sku": "SEV0979",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 109,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 23.56,
       "sbSpend30": 0
     },
     {
       "sku": "UAN3257",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 3,
-      "actionsIfIgnoringHistory": 9,
-      "finalStatuses": {
-        "success": 3
-      },
-      "invDays": 87,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 8,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 67.43999999999998,
       "sbSpend30": 17.919999999999998
     },
@@ -3755,12 +3671,14 @@
     },
     {
       "sku": "QA3975",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {},
-      "invDays": 99,
+      "status": "adjusted",
+      "reason": "verified_landed",
+      "plannedActions": 1,
+      "actionsIfIgnoringHistory": 3,
+      "finalStatuses": {
+        "success": 1
+      },
+      "invDays": 0,
       "spSpend30": 36.5,
       "sbSpend30": 43.540000000000006
     },
@@ -3771,7 +3689,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 164,
+      "invDays": 0,
       "spSpend30": 41.3,
       "sbSpend30": 0
     },
@@ -3780,11 +3698,11 @@
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 99,
+      "invDays": 0,
       "spSpend30": 28.43,
       "sbSpend30": 0
     },
@@ -3793,30 +3711,50 @@
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 2,
-      "actionsIfIgnoringHistory": 6,
+      "actionsIfIgnoringHistory": 7,
       "finalStatuses": {
         "success": 1,
         "failed": 1
       },
-      "invDays": 340,
+      "invDays": 0,
       "spSpend30": 57.760000000000005,
       "sbSpend30": 17.779999999999998
     },
     {
       "sku": "GT3811",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 3,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 92,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 27.43,
       "sbSpend30": 0
     },
     {
       "sku": "CLO0344",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 2,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 24.65,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "GM3068",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 4,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 36.150000000000006,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "UAN1810",
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
@@ -3824,31 +3762,7 @@
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 225,
-      "spSpend30": 24.65,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "GM3068",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 4,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 65,
-      "spSpend30": 36.150000000000006,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "UAN1810",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {},
-      "invDays": 90,
+      "invDays": 0,
       "spSpend30": 21.060000000000002,
       "sbSpend30": 0
     },
@@ -3859,20 +3773,18 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 150,
+      "invDays": 0,
       "spSpend30": 15.41,
       "sbSpend30": 0
     },
     {
       "sku": "JAF0900",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 62,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 3,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 35.349999999999994,
       "sbSpend30": 0
     },
@@ -3881,11 +3793,11 @@
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 96,
+      "invDays": 0,
       "spSpend30": 17.16,
       "sbSpend30": 0
     },
@@ -3894,9 +3806,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 75,
+      "invDays": 0,
       "spSpend30": 13.67,
       "sbSpend30": 0
     },
@@ -3907,20 +3819,18 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 54,
+      "invDays": 0,
       "spSpend30": 10.68,
       "sbSpend30": 0
     },
     {
       "sku": "CL1976",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
       "actionsIfIgnoringHistory": 4,
-      "finalStatuses": {
-        "success": 2
-      },
-      "invDays": 104,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 28.599999999999998,
       "sbSpend30": 0
     },
@@ -3931,7 +3841,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 378,
+      "invDays": 0,
       "spSpend30": 22.4,
       "sbSpend30": 0
     },
@@ -3940,11 +3850,11 @@
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 430,
+      "invDays": 0,
       "spSpend30": 32.739999999999995,
       "sbSpend30": 0
     },
@@ -3957,7 +3867,7 @@
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 173,
+      "invDays": 0,
       "spSpend30": 16.25,
       "sbSpend30": 0
     },
@@ -3968,7 +3878,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 118,
+      "invDays": 0,
       "spSpend30": 10.040000000000001,
       "sbSpend30": 0
     },
@@ -3977,46 +3887,42 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 88,
+      "invDays": 0,
       "spSpend30": 14.04,
       "sbSpend30": 0
     },
     {
       "sku": "SE7586",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 2,
-      "actionsIfIgnoringHistory": 11,
-      "finalStatuses": {
-        "success": 2
-      },
-      "invDays": 73,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 10,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 58.36,
-      "sbSpend30": 31.990000000000002
+      "sbSpend30": 27.93
     },
     {
       "sku": "LIC1392",
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 261,
+      "invDays": 0,
       "spSpend30": 14.01,
       "sbSpend30": 3.59
     },
     {
       "sku": "SAN1096",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 360,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 3,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 16.62,
       "sbSpend30": 3.64
     },
@@ -4025,11 +3931,11 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 3,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 35,
+      "invDays": 0,
       "spSpend30": 10.89,
-      "sbSpend30": 8.120000000000001
+      "sbSpend30": 0
     },
     {
       "sku": "MH0525",
@@ -4051,34 +3957,23 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 390,
+      "invDays": 0,
       "spSpend30": 8.18,
       "sbSpend30": 0.28
     },
     {
       "sku": "WD0559",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 180,
+      "invDays": 0,
       "spSpend30": 7.45,
       "sbSpend30": 0.91
     },
     {
       "sku": "LED3942",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 900,
-      "spSpend30": 5.28,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "HU3765",
       "status": "adjusted",
       "reason": "verified_landed",
       "plannedActions": 1,
@@ -4086,33 +3981,40 @@
       "finalStatuses": {
         "success": 1
       },
-      "invDays": 119,
+      "invDays": 0,
+      "spSpend30": 5.28,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "HU3765",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 6.3,
       "sbSpend30": 0
     },
     {
       "sku": "SHQ3834",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 67,
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 1,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 16.45,
-      "sbSpend30": 11.5
+      "sbSpend30": 3.6100000000000003
     },
     {
       "sku": "QA3278",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 370,
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 7.95,
       "sbSpend30": 0
     },
@@ -4121,9 +4023,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 95,
+      "invDays": 0,
       "spSpend30": 6.08,
       "sbSpend30": 0
     },
@@ -4132,9 +4034,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 290,
+      "invDays": 0,
       "spSpend30": 4.33,
       "sbSpend30": 0
     },
@@ -4160,18 +4062,18 @@
       "finalStatuses": {
         "failed": 2
       },
-      "invDays": 77,
+      "invDays": 0,
       "spSpend30": 36.46999999999999,
       "sbSpend30": 0
     },
     {
       "sku": "SAN1084",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 105,
+      "invDays": 0,
       "spSpend30": 3.71,
       "sbSpend30": 1.7400000000000002
     },
@@ -4182,7 +4084,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 94,
+      "invDays": 0,
       "spSpend30": 3.71,
       "sbSpend30": 0
     },
@@ -4191,9 +4093,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 1590,
+      "invDays": 0,
       "spSpend30": 9.41,
       "sbSpend30": 1.9500000000000002
     },
@@ -4204,7 +4106,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 420,
+      "invDays": 0,
       "spSpend30": 9.79,
       "sbSpend30": 0
     },
@@ -4215,7 +4117,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 70,
+      "invDays": 0,
       "spSpend30": 4.59,
       "sbSpend30": 0
     },
@@ -4226,7 +4128,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 2,
       "finalStatuses": {},
-      "invDays": 22,
+      "invDays": 0,
       "spSpend30": 12.3,
       "sbSpend30": 0
     },
@@ -4237,7 +4139,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 60,
+      "invDays": 0,
       "spSpend30": 4.39,
       "sbSpend30": 0
     },
@@ -4248,7 +4150,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 90,
+      "invDays": 0,
       "spSpend30": 5.1000000000000005,
       "sbSpend30": 0
     },
@@ -4257,9 +4159,9 @@
       "status": "suppressed",
       "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {},
-      "invDays": 238,
+      "invDays": 0,
       "spSpend30": 5.4799999999999995,
       "sbSpend30": 9.320000000000002
     },
@@ -4270,18 +4172,18 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 126,
+      "invDays": 0,
       "spSpend30": 7.58,
       "sbSpend30": 0
     },
     {
       "sku": "AE3311",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 999,
+      "invDays": 0,
       "spSpend30": 2.29,
       "sbSpend30": 0
     },
@@ -4292,7 +4194,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 25,
+      "invDays": 0,
       "spSpend30": 2.44,
       "sbSpend30": 0
     },
@@ -4303,7 +4205,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 1110,
+      "invDays": 0,
       "spSpend30": 1.73,
       "sbSpend30": 0
     },
@@ -4325,18 +4227,18 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 220,
+      "invDays": 0,
       "spSpend30": 0.98,
       "sbSpend30": 0
     },
     {
       "sku": "KA1740",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 999,
+      "invDays": 0,
       "spSpend30": 1.21,
       "sbSpend30": 0
     },
@@ -4347,7 +4249,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 83,
+      "invDays": 0,
       "spSpend30": 0.3,
       "sbSpend30": 0
     },
@@ -4358,7 +4260,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 999,
+      "invDays": 0,
       "spSpend30": 0.15,
       "sbSpend30": 0
     },
@@ -4369,7 +4271,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 590,
+      "invDays": 0,
       "spSpend30": 1.9900000000000002,
       "sbSpend30": 0
     },
@@ -4385,18 +4287,18 @@
       "sbSpend30": 0
     },
     {
-      "sku": "XIX2011",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
+      "sku": "MF6280",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 4,
+      "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 90,
+      "invDays": 0,
       "spSpend30": 0,
-      "sbSpend30": 29.849999999999994
+      "sbSpend30": 0
     },
     {
-      "sku": "MF6280",
+      "sku": "XIX2011",
       "status": "no_action",
       "reason": "no_recent_ad_spend",
       "plannedActions": 0,
@@ -4418,7 +4320,7 @@
       "sbSpend30": 0
     },
     {
-      "sku": "OC2973",
+      "sku": "SE1015",
       "status": "no_action",
       "reason": "no_recent_ad_spend",
       "plannedActions": 0,
@@ -4429,7 +4331,40 @@
       "sbSpend30": 0
     },
     {
-      "sku": "UY3211",
+      "sku": "DUN1392",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "UY3242",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "AE1301",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "259945236786329",
       "status": "no_action",
       "reason": "no_recent_ad_spend",
       "plannedActions": 0,
@@ -4451,24 +4386,13 @@
       "sbSpend30": 0
     },
     {
-      "sku": "LIC8799",
-      "status": "skipped",
-      "reason": "invalid_or_paused_state",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 87,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "TIY2618",
+      "sku": "UY3214",
       "status": "no_action",
       "reason": "no_recent_ad_spend",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 999,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 0
     },
@@ -4479,40 +4403,18 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 164,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 0
     },
     {
-      "sku": "UAN1383",
-      "status": "skipped",
-      "reason": "invalid_or_paused_state",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 999,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "DH2685",
-      "status": "skipped",
-      "reason": "invalid_or_paused_state",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 304,
-      "spSpend30": 0,
-      "sbSpend30": 1.39
-    },
-    {
-      "sku": "UY3214",
+      "sku": "UY3211",
       "status": "no_action",
       "reason": "no_recent_ad_spend",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 999,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 0
     },
@@ -4523,18 +4425,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 10,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "SE1015",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 999,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 0
     },
@@ -4545,45 +4436,56 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 465,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 0.78
     },
     {
-      "sku": "AE1301",
+      "sku": "LIC8799",
       "status": "no_action",
       "reason": "no_recent_ad_spend",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 999,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 0
     },
     {
-      "sku": "DUN1392",
-      "status": "skipped",
-      "reason": "invalid_or_paused_state",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 350,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "UY3242",
+      "sku": "OC2973",
       "status": "no_action",
       "reason": "no_recent_ad_spend",
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 999,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 0
     },
     {
-      "sku": "259945236786329",
+      "sku": "TIY2618",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "DH2685",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 1.39
+    },
+    {
+      "sku": "UAN1383",
       "status": "no_action",
       "reason": "no_recent_ad_spend",
       "plannedActions": 0,
@@ -4598,22 +4500,22 @@
       "status": "failed",
       "reason": "execution_failed",
       "plannedActions": 1,
-      "actionsIfIgnoringHistory": 2,
+      "actionsIfIgnoringHistory": 3,
       "finalStatuses": {
         "failed": 1
       },
-      "invDays": 73,
+      "invDays": 0,
       "spSpend30": 136.45,
       "sbSpend30": 0
     },
     {
       "sku": "GT3308",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
+      "status": "suppressed",
+      "reason": "history_cooldown_suppressed",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
+      "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 91,
+      "invDays": 0,
       "spSpend30": 6.640000000000001,
       "sbSpend30": 0
     },
@@ -4624,7 +4526,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 98,
+      "invDays": 0,
       "spSpend30": 2.17,
       "sbSpend30": 0
     },
@@ -4635,20 +4537,20 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 1,
       "finalStatuses": {},
-      "invDays": 237,
+      "invDays": 0,
       "spSpend30": 3.41,
       "sbSpend30": 12.51
     },
     {
       "sku": "GM2628",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 200,
+      "invDays": 0,
       "spSpend30": 0.83,
-      "sbSpend30": 18.210000000000004
+      "sbSpend30": 0
     },
     {
       "sku": "YUT3184",
@@ -4657,7 +4559,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 215,
+      "invDays": 0,
       "spSpend30": 0.72,
       "sbSpend30": 2.54
     },
@@ -4674,49 +4576,56 @@
     },
     {
       "sku": "QAA4200",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 1,
-      "actionsIfIgnoringHistory": 1,
-      "finalStatuses": {
-        "success": 1
-      },
-      "invDays": 30,
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 74.32
     },
     {
-      "sku": "HAI4870",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
+      "sku": "DUN1127",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 120,
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 25.82
+    },
+    {
+      "sku": "HAI4870",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 16.32
     },
     {
       "sku": "UY0879",
-      "status": "adjusted",
-      "reason": "verified_landed",
-      "plannedActions": 3,
-      "actionsIfIgnoringHistory": 5,
-      "finalStatuses": {
-        "success": 3
-      },
-      "invDays": 99,
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 33.33
     },
     {
       "sku": "LED6372",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 236,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 9.239999999999998
     },
@@ -4727,7 +4636,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 580,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 4.62
     },
@@ -4738,7 +4647,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 2700,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 9.13
     },
@@ -4749,7 +4658,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 218,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 9.720000000000002
     },
@@ -4760,7 +4669,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 60,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 3.0500000000000003
     },
@@ -4771,7 +4680,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 390,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 3.48
     },
@@ -4782,18 +4691,18 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 2775,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 1.35
     },
     {
       "sku": "TAN2986",
-      "status": "suppressed",
-      "reason": "history_cooldown_suppressed",
+      "status": "no_action",
+      "reason": "current_rules_no_bid_change",
       "plannedActions": 0,
-      "actionsIfIgnoringHistory": 1,
+      "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 2580,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 3.92
     },
@@ -4804,7 +4713,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 113,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 1.98
     },
@@ -4815,20 +4724,9 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 130,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 2.13
-    },
-    {
-      "sku": "SAN0384",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 233,
-      "spSpend30": 0,
-      "sbSpend30": 3.6500000000000004
     },
     {
       "sku": "RU2438",
@@ -4837,20 +4735,9 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 1410,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 1.22
-    },
-    {
-      "sku": "LE8163",
-      "status": "no_action",
-      "reason": "current_rules_no_bid_change",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 22,
-      "spSpend30": 0,
-      "sbSpend30": 2.16
     },
     {
       "sku": "YUT2847",
@@ -4859,7 +4746,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 90,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 1.82
     },
@@ -4870,7 +4757,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 234,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 0.29
     },
@@ -4881,12 +4768,12 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 218,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 0.26
     },
     {
-      "sku": "UY3213",
+      "sku": "SAN1222",
       "status": "no_action",
       "reason": "no_recent_ad_spend",
       "plannedActions": 0,
@@ -4914,18 +4801,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 1290,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "SAN1081",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 236,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 0
     },
@@ -4936,40 +4812,7 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 999,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "NO5155",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 1470,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "KS0788",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 324,
-      "spSpend30": 0,
-      "sbSpend30": 0
-    },
-    {
-      "sku": "SAN1222",
-      "status": "no_action",
-      "reason": "no_recent_ad_spend",
-      "plannedActions": 0,
-      "actionsIfIgnoringHistory": 0,
-      "finalStatuses": {},
-      "invDays": 135,
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 0
     },
@@ -4980,7 +4823,51 @@
       "plannedActions": 0,
       "actionsIfIgnoringHistory": 0,
       "finalStatuses": {},
-      "invDays": 297,
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "SAN1081",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "NO5155",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "UY3213",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
+      "spSpend30": 0,
+      "sbSpend30": 0
+    },
+    {
+      "sku": "KS0788",
+      "status": "no_action",
+      "reason": "no_recent_ad_spend",
+      "plannedActions": 0,
+      "actionsIfIgnoringHistory": 0,
+      "finalStatuses": {},
+      "invDays": 0,
       "spSpend30": 0,
       "sbSpend30": 0
     }

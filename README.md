@@ -1,120 +1,217 @@
 # YSWG Ad Ops Workbench
 
-本项目是一个本地广告竞价调整工作台，不是单纯由 Claude 自动执行。当前工作流是：
+本项目是一个本地广告运营工作台，用来抓取广告与库存数据、生成调价计划、执行真实写入、并做事后回查。
 
-1. Chrome 扩展面板使用浏览器登录态抓取库存和广告数据。
-2. Node 脚本读取扩展面板中的产品画像。
-3. `src/adjust_lib.js` 按规则生成竞价调整计划。
-4. Codex/人工检查代码、数据和规则风险。
-5. `auto_adjust.js` 在确认后通过广告后台接口执行竞价写入，并保存执行历史。
+这份 README 只记录已经验证过的信息。没有完成闭环验证的能力，不在这里写成“已可用”。
 
-当前覆盖 SP 关键词、SP 自动投放、SP 手动定位/定位组、SB 关键词和 SB 定位。SB 不再只读，会进入可调整池、策略输出和执行分组。执行写入时 SB 使用独立接口：SB 关键词走 `/keywordSb/batchEditKeywordSbColumn`，SB 定位走 `/sbTarget/batchEditTargetSbColumn`。
+## 当前已验证的能力
 
-## 主入口
+### 1. 数据抓取
 
-- `auto_adjust.js`：自动化编排入口。连接 Chrome DevTools 端口，触发扩展面板抓数，调用规则生成计划，并执行竞价写入。
-- `extension/panel.html`：Chrome 扩展面板入口。
-- `extension/panel.js`：扩展面板主逻辑，负责库存、SP 关键词、SP 自动投放、SP 定位组、SB 关键词/SB 定位抓取、产品画像构建、计划导入展示和执行分组。
-- `src/adjust_lib.js`：核心竞价分析规则和历史/日志写入路径。
+已验证可以从当前 Chrome 登录态下抓取以下数据：
 
-运行自动调整前需要先启动 Chrome 远程调试并登录两个系统：
+- inventory 数据
+- SP keyword
+- SP auto target
+- SP manual target
+- SB keyword
+- SB target
+
+已验证的抓取方式：
+
+- 通过 Chrome 扩展面板发起抓取
+- Node 脚本通过 DevTools 连接扩展面板，触发抓取并读取结果
+
+### 2. 调价执行
+
+已验证存在真实写入并带回查的链路：
+
+- SP keyword bid 调整
+- SP auto target bid 调整
+- SP manual target bid 调整
+- SB keyword bid 调整
+- SB target bid 调整
+
+说明：
+
+- 执行结果不是只看接口 `code=200`
+- 写入后会重新抓取新数据做回查
+- 只有回查确认落地，才会记为最终成功
+
+### 3. 七天未调整任务线
+
+已验证七天未调整任务线已经接入主流程，并且与原有策略并存，不是替代关系。
+
+当前已确认的工程约束：
+
+- 七天未调整是补漏任务线，不覆盖原策略动作
+- SP 七天未调整先按候选层识别，再落到真实执行层
+- 冷却判断已改为候选级精确判断，不再因为某个子对象 blocked 就误伤整组
+- 执行分组已细化到 `accountId + siteId + campaignId + adGroupId`，避免同账号粗粒度混批
+
+### 4. 日志与回查
+
+当前已验证会产出：
+
+- 运行日志
+- 调价计划快照
+- 调价历史记录
+- 事后回查结果
+
+主要输出位置：
+
+- [data/adjustment_history.json](D:/ad-ops-workbench/data/adjustment_history.json)
+- [data/snapshots](D:/ad-ops-workbench/data/snapshots)
+
+## 项目结构
+
+```text
+.
+|-- auto_adjust.js        # Node 主执行入口
+|-- extension/            # Chrome 扩展面板与页面桥接逻辑
+|-- src/                  # 规则、历史、日志等核心库
+|-- tests/                # 自动化测试
+|-- data/                 # 运行历史、快照、日志
+|-- docs/                 # 过程文档与验证报告
+|-- scripts/              # 辅助脚本
+|-- AGENT.md              # 七天未调整经验教训与后续约束
+`-- README.md
+```
+
+## 关键文件
+
+- [auto_adjust.js](D:/ad-ops-workbench/auto_adjust.js)  
+  自动化主入口。负责连接 Chrome 面板、抓取数据、生成计划、执行写入、回查结果。
+
+- [extension/panel.js](D:/ad-ops-workbench/extension/panel.js)  
+  扩展面板核心逻辑。负责真实页面环境下的数据抓取和接口桥接。
+
+- [src/adjust_lib.js](D:/ad-ops-workbench/src/adjust_lib.js)  
+  规则分析、日志、历史记录等共用逻辑。
+
+- [tests/adjust_lib.test.js](D:/ad-ops-workbench/tests/adjust_lib.test.js)  
+  当前自动化测试入口。
+
+- [AGENT.md](D:/ad-ops-workbench/AGENT.md)  
+  七天未调整任务线这次沉淀出的经验教训和开发约束。
+
+## 运行前准备
+
+### 1. 启动 Chrome 远程调试
 
 ```powershell
 Stop-Process -Name chrome -Force
 Start-Process chrome.exe --remote-debugging-port=9222 --user-data-dir="C:\Users\Administrator\AppData\Local\Google\Chrome\User Data" --variations-override-country=us --lang=en-US
 ```
 
-需要打开并登录：
+### 2. 登录目标系统
+
+需要在 Chrome 中登录：
 
 - `https://sellerinventory.yswg.com.cn`
 - `https://adv.yswg.com.cn`
 
-扩展面板：
+### 3. 打开扩展面板
 
 ```text
 chrome-extension://ipidenfkcdlhadnieamoocalimlnhagj/panel.html
 ```
 
-Inventory note scripts:
-```text
-docs/INVENTORY_NOTE_WRITE_SNIPPETS.md
-```
+## 常用命令
 
-执行入口：
+### 运行测试
 
 ```powershell
-node auto_adjust.js
+npm test
 ```
 
-注意：该命令会执行真实竞价写入。做数据检查时应只使用扩展面板抓数或 mock 写接口。
-
-## 当前目录结构
-
-```text
-.
-├── auto_adjust.js              # Node 自动化主入口，保留在根目录便于运行
-├── package.json                # npm 脚本和依赖
-├── package-lock.json
-├── README.md
-├── .mcp.json                   # Chrome DevTools MCP 配置
-├── extension/                  # Chrome 扩展当前版本
-├── src/                        # 核心业务逻辑
-├── tests/                      # 自动测试
-├── data/                       # 数据、快照、日志、历史记录
-├── scripts/                    # 诊断、DevTools、生成类辅助脚本
-├── docs/                       # 文档和整理报告
-├── archive/                    # 历史版本和不确定用途文件
-└── node_modules/
-```
-
-## 输出目录
-
-核心输出现在集中在 `data/`：
-
-- `data/adjustment_history.json`：成功执行后的竞价调整历史，冷却期判断依赖此文件。
-- `data/snapshots/`：每日运行日志、计划快照、测试计划和历史 prompt。
-- `data/snapshots/auto_run_YYYY-MM-DD.log`：自动运行日志。
-- `data/snapshots/plan_YYYY-MM-DD.json`：自动生成的竞价计划。
-
-扩展面板下载的浏览器文件仍会使用 Chrome 下载目录中的 `ad-ops/...` 路径；这是浏览器下载路径，不等同于仓库内 `data/`。
-
-## 规则概览
-
-核心规则在 `src/adjust_lib.js`，当前未在本次根目录整理中修改业务规则。
-
-- 目标：按产品净利润率/TACoS 控制广告竞价，不是单纯压 ACOS。
-- 加权窗口：3d * 4 + 7d * 3 + 30d * 1，只使用实际存在信号的窗口。
-- 冷却：同一 entity 同方向 3 天内已调整则跳过。
-- SB：SB 关键词和 SB 定位进入同一可调整池，动作类型需明确标注为 `sbKeyword` 或 `sbTarget`。
-- 新品：90 天内或带新品标识；新品广告占比上限 11%，老品 8%。
-- 零转化：30 天点击 >= 30 且有花费，降 30%；点击 >= 15 且有花费，降 15%。
-- TACoS 超目标：超过 2.0/1.6/1.3 倍目标分别降 30%/20%/10%。
-- TACoS 低于目标：低于 0.5 倍目标加 15%；低于 0.7 倍目标加 8%。
-- 节气品：预热/爆发期达标可加 10%，尾声期禁止加价。
-
-## 测试
+### 语法检查
 
 ```powershell
-npm.cmd test
 node --check auto_adjust.js
 node --check src\adjust_lib.js
 node --check extension\panel.js
 ```
 
-`npm.cmd test` 当前运行 `tests/adjust_lib.test.js`，覆盖核心加权窗口和基础涨跌价行为。
+### 执行真实自动调价
 
-## 文档
+```powershell
+node auto_adjust.js
+```
 
-- `docs/ROOT_CLEANUP_REPORT.md`：本次根目录整理报告。
-- `docs/ROOT_FILE_MAP.md`：根目录和迁移后文件地图。
-- `docs/FIELD_DICTIONARY.md`：字段字典。
+注意：
 
-## 整理原则
+- 这条命令会执行真实广告写入
+- 不适合当成只读检查命令
 
-- 不删除历史文件。
-- 主入口保留在根目录。
-- 当前扩展版本保留在 `extension/`。
-- 核心规则放入 `src/`。
-- 输出和数据放入 `data/`。
-- 一次性脚本放入 `scripts/`。
-- 历史版本放入 `archive/`。
+### 只做计划与校验，不落真实写入
+
+```powershell
+$env:DRY_RUN='1'
+node auto_adjust.js
+```
+
+## 当前已验证的执行原则
+
+### 1. 写入成功的标准
+
+当前项目里，“成功”指的是：
+
+1. 写接口返回成功
+2. 重新抓取后的新数据确认目标值已经落地
+
+缺一不可。
+
+### 2. 403 的处理
+
+已验证后台存在这种情况：
+
+- 接口返回 `403`
+- 原因是系统近期已经自动调整，当前人工/脚本不允许重复改
+
+当前处理原则：
+
+- 不把它当普通失败反复重试
+- 归类为 `blocked_by_system_recent_adjust`
+- 与一般失败分开统计
+
+### 3. 七天未调整的处理原则
+
+已确认的当前原则：
+
+- 七天未调整是补漏，不是第二套主策略
+- 同一对象同时命中原策略和七天未调整时，优先保留原策略动作
+- 七天未调整只追加来源和原因，不重复生成同一执行任务
+
+## 文档索引
+
+下面这些文档记录的是已经发生过的验证和修复过程：
+
+- [docs/EXECUTION_CHAIN_FIX_REPORT_2026-04-20.md](D:/ad-ops-workbench/docs/EXECUTION_CHAIN_FIX_REPORT_2026-04-20.md)
+- [docs/FULL_REAL_RUN_REPORT_2026-04-20.md](D:/ad-ops-workbench/docs/FULL_REAL_RUN_REPORT_2026-04-20.md)
+- [docs/FULL_DATA_INGESTION_PROGRESS.md](D:/ad-ops-workbench/docs/FULL_DATA_INGESTION_PROGRESS.md)
+- [docs/FIELD_DICTIONARY.md](D:/ad-ops-workbench/docs/FIELD_DICTIONARY.md)
+
+如果你是继续改七天未调整链路，先看：
+
+- [AGENT.md](D:/ad-ops-workbench/AGENT.md)
+
+## 当前未在 README 中宣称完成的事项
+
+为了避免把未验证能力写成既成事实，这些内容不在 README 里当“已完成”宣传：
+
+- 所有状态开关能力的全量端到端回归结论
+- 所有广告类型在所有边界条件下的全量真实写入验证
+- inventory 便签链路的全覆盖成功率
+- 任何尚未做闭环回查的“看起来成功”的接口能力
+
+这些内容如果后续补齐验证，再写入 README。
+
+- 新建广告动作虽然已经接入面板策略主链，但当前仍应视为“需要人工复核”的动作，不在 README 中宣称为可默认全自动执行能力。
+
+## 维护原则
+
+更新这份 README 时，遵守两个原则：
+
+1. 只写已经验证过的信息
+2. 过程性结论、踩坑和约束，优先沉淀到文档，不埋在对话里

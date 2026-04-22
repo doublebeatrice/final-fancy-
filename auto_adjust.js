@@ -8,7 +8,7 @@ const BATCH = 50;
 const VERIFY_TOLERANCE = 0.0001;
 const DRY_RUN = process.env.DRY_RUN === '1';
 
-function groupByAccountSite(items, getMeta, typeLabel) {
+function groupByAccountSite(items, getMeta, typeLabel, bucketKeys = []) {
   const groups = new Map();
   const skipped = [];
 
@@ -19,13 +19,31 @@ function groupByAccountSite(items, getMeta, typeLabel) {
       continue;
     }
     const siteId = meta.siteId || 4;
-    const key = `${meta.accountId}::${siteId}`;
-    if (!groups.has(key)) groups.set(key, { accountId: meta.accountId, siteId, items: [] });
+    const bucketValues = bucketKeys.map(key => String(meta[key] || ''));
+    const key = [meta.accountId, siteId, ...bucketValues].join('::');
+    if (!groups.has(key)) {
+      groups.set(key, {
+        accountId: meta.accountId,
+        siteId,
+        bucketValues,
+        items: [],
+      });
+    }
     groups.get(key).items.push({ item, meta });
   }
 
   if (skipped.length) log(`${typeLabel} skipped ${skipped.length}: missing accountId/metadata`);
   return { groups, skipped };
+}
+
+function hasRecentCandidateBlock(history, candidateKey, days = 7) {
+  if (!candidateKey) return false;
+  return hasRecentOutcome(
+    history,
+    h => String(h.entityId || '') === candidateKey && String(h.candidateKey || '') === candidateKey,
+    'blocked_by_system_recent_adjust',
+    days
+  );
 }
 
 function findPanelId() {
@@ -166,6 +184,22 @@ function touchActionForEntity(card, entity, entityType, source, rowStats = null,
 
   const invDays = Number(card.invDays || 0);
   const lowStockRisk = invDays > 0 && invDays <= 2;
+  const skuSp30 = card.adStats?.['30d'] || {};
+  const skuSb30 = card.sbStats?.['30d'] || {};
+  const skuSpOrders30 = Number(skuSp30.orders || 0);
+  const skuSpSpend30 = Number(skuSp30.spend || 0);
+  const skuSbSpend30 = Number(skuSb30.spend || 0);
+  const skuHistoricalSignal =
+    skuSpOrders30 >= 2 ||
+    skuSpSpend30 >= 8 ||
+    Number(card.unitsSold_30d || 0) >= 30;
+  const skuExploratorySignal =
+    skuHistoricalSignal ||
+    skuSpOrders30 >= 1 ||
+    skuSpSpend30 >= 1 ||
+    skuSbSpend30 >= 1 ||
+    (stats7.spend || 0) >= 1;
+  const minBid = minAllowedBidFor({ entityType }, meta);
   const stateText = String(entity.state || entity.status || entity.servingStatus || '').trim().toUpperCase();
   const stateRisk = isInvalidState(entity.state || entity.status || entity.servingStatus);
   const pausedState = stateText === '2' || stateText.includes('PAUSED');
@@ -194,7 +228,7 @@ function touchActionForEntity(card, entity, entityType, source, rowStats = null,
   }
 
   if (pausedState) {
-    const canReopen =
+    const strongEntitySignal =
       String(source || '').includes('7day') &&
       !lowStockRisk &&
       (
@@ -203,18 +237,38 @@ function touchActionForEntity(card, entity, entityType, source, rowStats = null,
         (stats30.spend || 0) >= 3 ||
         Number(card.unitsSold_30d || 0) >= 80
       );
-    if (!canReopen) {
+    const canReopen = strongEntitySignal || (String(source || '').includes('7day') && !lowStockRisk && skuHistoricalSignal);
+    const canExploratoryReopen =
+      !canReopen &&
+      String(source || '').includes('7day') &&
+      !lowStockRisk &&
+      skuExploratorySignal;
+    const canColdStartPilot =
+      !canReopen &&
+      !canExploratoryReopen &&
+      String(source || '').includes('7day') &&
+      !lowStockRisk &&
+      bid <= 0.36;
+    if (!canReopen && !canExploratoryReopen && !canColdStartPilot) {
       return { ...base, actionType: 'skip', canAutoExecute: false, riskLevel: 'skip', reason: '7day untouched hit, child entity is paused without enough relaunch signal' };
     }
     return {
       ...base,
       actionType: 'enable',
-      reason: '7day untouched hit, child entity is paused but has historical signal, relaunch one representative entity first',
+      riskLevel: canReopen ? 'low' : 'low_confidence',
+      reason: canReopen
+        ? '7day untouched hit, child entity is paused but SKU has relaunch signal, reopen one representative entity first'
+        : canExploratoryReopen
+          ? '7day untouched hit, child entity is paused and SKU still has weak historical signal, reopen one representative entity as small-scope test'
+          : '7day untouched hit, child entity is fully paused with no recent signal, reopen one lowest-risk representative entity for a cold-start test',
       snapshot: {
         spend7: parseFloat((stats7.spend || 0).toFixed(2)),
         spend30: parseFloat((stats30.spend || 0).toFixed(2)),
         orders30: stats30.orders || 0,
         clicks30: stats30.clicks || 0,
+        skuSpOrders30,
+        skuSpSpend30: parseFloat(skuSpSpend30.toFixed(2)),
+        skuSbSpend30: parseFloat(skuSbSpend30.toFixed(2)),
       },
     };
   }
@@ -223,7 +277,12 @@ function touchActionForEntity(card, entity, entityType, source, rowStats = null,
   let direction = 'down';
   let riskLevel = 'low_confidence';
   let reason = '7天未调整触达：数据方向不明确，轻微降3%';
-  if ((stats7.orders || 0) === 0 && (stats7.spend || 0) > 3) {
+  if (String(source || '').includes('7day') && bid <= minBid + 0.0001 && skuHistoricalSignal) {
+    factor = 1.05;
+    direction = 'up';
+    riskLevel = 'low_confidence';
+    reason = '7day untouched hit: entity is already at floor bid but SKU still has history, raise one small step to test traffic';
+  } else if ((stats7.orders || 0) === 0 && (stats7.spend || 0) > 3) {
     factor = 0.90;
     direction = 'down';
     riskLevel = 'low';
@@ -386,7 +445,8 @@ function pickRepresentativeSevenDayEntity(matches) {
     const spend30 = toNum(row.spend30 ?? row.Spend30 ?? row.Spend) || 0;
     const clicks30 = toNum(row.clicks30 ?? row.Clicks30 ?? row.Clicks) || 0;
     const orders30 = toNum(row.orders30 ?? row.Orders30 ?? row.Orders) || 0;
-    return (active ? 100000 : 0) + spend7 * 1000 + spend30 * 100 + orders30 * 10 + clicks30;
+    const bid = toNum(row.bid || row.defaultBid || row.cpcBid) || 0;
+    return (active ? 100000 : 0) + spend7 * 1000 + spend30 * 100 + orders30 * 10 + clicks30 - bid;
   };
   return [...matches].sort((a, b) => score(b) - score(a))[0];
 }
@@ -405,7 +465,7 @@ function buildSevenDayPlans(cards, spRows, sbRows, rowsByType, history = []) {
 
   function handleOutcome(sku, action) {
     if (!action) return;
-    if (action.actionType === 'bid') pushAction(sku, action);
+    if (['bid', 'enable', 'pause'].includes(action.actionType)) pushAction(sku, action);
     else if (action.actionType === 'review') review.push({ sku, dedupeKey: action.dedupeKey || action.candidateKey || '', actionSource: action.actionSource, source: action.source, action });
     else if (action.actionType === 'skip') skipped.push({ sku, dedupeKey: action.dedupeKey || action.candidateKey || '', actionSource: action.actionSource, source: action.source, action });
   }
@@ -415,12 +475,7 @@ function buildSevenDayPlans(cards, spRows, sbRows, rowsByType, history = []) {
     const campaignId = String(row.campaignId || row.campaign_id || '').trim();
     const adGroupId = String(row.adGroupId || row.ad_group_id || '').trim();
     const candidateKey = `SP7::${sku}::${campaignId}::${adGroupId}`;
-    const recentlyBlocked = hasRecentOutcome(
-      history,
-      h => h.candidateKey === candidateKey || (String(h.campaignId || '') === campaignId && String(h.adGroupId || '') === adGroupId),
-      'blocked_by_system_recent_adjust',
-      7
-    );
+    const recentlyBlocked = hasRecentCandidateBlock(history, candidateKey, 7);
     if (recentlyBlocked) {
       skipped.push({
         sku,
@@ -614,7 +669,12 @@ async function run() {
   async function executeKeywordItems(items, metaById, typeLabel, endpoint, property, entityType, advType = 'SP') {
     let apiSuccess = 0;
     let apiFailed = 0;
-    const { groups, skipped } = groupByAccountSite(items, item => metaById[String(item.id)], typeLabel);
+    const { groups, skipped } = groupByAccountSite(
+      items,
+      item => metaById[String(item.id)],
+      typeLabel,
+      ['campaignId', 'adGroupId']
+    );
     apiFailed += skipped.length;
     skipped.forEach(item => recordExecutionEvent(item, entityType, 'failed', { msg: 'missing keyword metadata' }));
 
@@ -665,7 +725,8 @@ async function run() {
     const { groups, skipped } = groupByAccountSite(
       items,
       item => rows.find(r => String(r.targetId || r.target_id || r.id || '') === String(item.id)),
-      typeLabel
+      typeLabel,
+      ['campaignId', 'adGroupId']
     );
     apiFailed += skipped.length;
     skipped.forEach(item => recordExecutionEvent(item, entityType, 'failed', { msg: 'missing target metadata' }));
@@ -1138,6 +1199,28 @@ async function run() {
       reason: action.reason || event.errorReason || event.resultMessage || '',
     });
   }
+  const blockedSevenDayCandidates = new Map();
+  for (const event of verifiedEvents) {
+    if (event.finalStatus !== 'blocked_by_system_recent_adjust') continue;
+    const action = event.action || {};
+    const candidateKey = String(action.candidateKey || '').trim();
+    if (!candidateKey || !normalizeSources(action.actionSource || event.actionSource).includes('sp_7day_untouched')) continue;
+    if (!blockedSevenDayCandidates.has(candidateKey)) {
+      blockedSevenDayCandidates.set(candidateKey, {
+        entityId: candidateKey,
+        sku: event.sku,
+        entityType: 'adGroup',
+        date: today,
+        outcome: 'blocked_by_system_recent_adjust',
+        candidateKey,
+        campaignId: action.campaignId || '',
+        adGroupId: action.adGroupId || '',
+        direction: '',
+        reason: 'seven_day_candidate_all_children_blocked_by_system_recent_adjust',
+      });
+    }
+  }
+  for (const summary of blockedSevenDayCandidates.values()) newHistory.push(summary);
   for (const event of nonExecutionEvents) {
     if (!['manual_review', 'skipped_invalid_state'].includes(event.finalStatus)) continue;
     const action = event.action || {};
@@ -1251,7 +1334,14 @@ async function run() {
   ws.close();
 }
 
-run().catch(e => {
-  log(`Fatal error: ${e.stack || e.message}`);
-  process.exit(1);
-});
+module.exports = {
+  groupByAccountSite,
+  hasRecentCandidateBlock,
+};
+
+if (require.main === module) {
+  run().catch(e => {
+    log(`Fatal error: ${e.stack || e.message}`);
+    process.exit(1);
+  });
+}

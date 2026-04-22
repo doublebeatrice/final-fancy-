@@ -988,3 +988,900 @@
 [2026-04-21T09:42:34.294Z] 7d untouched: SP candidates=23; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
 [2026-04-21T09:42:34.449Z] Plan: 34 SKUs, 46 actions; strategySkus=34; 7dSkus=0; overlap=0; manualReview=1; skipped=21
 [2026-04-21T09:42:34.450Z] DRY_RUN complete: {"spCandidates":23,"spExecutable":0,"sbCandidates":0,"sbExecutable":0,"overlapWithStrategy":0,"manualReview":1,"invalidSkipped":21,"granularity":{"sp":{"count":23,"entityLevel":"adGroup","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","Orders","ROAS","SPS","Sales","SalesOtherSku7d","SalesSameSku7d","Spend","UnitsSoldOtherSku7d","UnitsSoldSameSku7d","accountId","acos_15","acos_30","acos_7","acos_life_time","adGroupId","adId","asin","campaignId","campaignName","campaignState","created_at","dailyBudget","groupName","groupState","hasPlacement","isPublic","keywordPosition","lastAdvUpdatedDate","lowCost","manualAdjustTheTime","memoKey","moduleId","moduleName","placementACOSMin","positionType","productLine","productVariantInfo","proportion","servingStatus","servingStatusDetail","servingStatusTitle","siteId","sku","skuInvData","startDate","state","test_module","updateWeekday"],"sample":{"ACOS":null,"CPC":"0.364285","CPS":null,"CTR":"0.009162303664921465","Clicks":"14","ConversionRate":"0","Impressions":"1528","Orders":"0","ROAS":"0.000000","SPS":null,"Sales":"0.00","SalesOtherSku7d":"0.00","SalesSameSku7d":"0.00","Spend":"5.10","UnitsSoldOtherSku7d":"0","UnitsSoldSameSku7d":"0","accountId":120,"acos_15":null,"acos_30":null,"acos_7":null,"acos_life_time":"0.186331","adGroupId":335413796452031,"adId":298336744510492,"asin":"B0CLV16D1L","campaignId":396698961698398,"campaignName":"auto_silicone cable ties_th2843","campaignState":1,"created_at":"2025-05-06 17:46:19","dailyBudget":"3.00","groupName":"auto_silicone cable ties_th2843"}},"sb":{"count":0,"entityLevel":"campaign","sampleKeys":[],"sample":null}}}
+[2026-04-21T12:40:11.686Z] Fatal error: Error: Cannot find extension panel page. Open the extension panel first.
+    at IncomingMessage.<anonymous> (D:\ad-ops-workbench\auto_adjust.js:41:23)
+    at IncomingMessage.emit (node:events:520:35)
+    at endReadableNT (node:internal/streams/readable:1729:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+[2026-04-21T12:41:21.155Z] Fatal error: Error: Cannot find extension panel page. Open the extension panel first.
+    at IncomingMessage.<anonymous> (D:\ad-ops-workbench\auto_adjust.js:41:23)
+    at IncomingMessage.emit (node:events:520:35)
+    at endReadableNT (node:internal/streams/readable:1729:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+[2026-04-21T12:44:11.686Z] Panel ID: E3D1FFEC24FE099C422BD428D4A95359
+[2026-04-21T12:44:11.689Z] === Auto adjustment run started ===
+[2026-04-21T12:44:11.689Z] Fetching full data...
+[2026-04-21T12:45:24.226Z] Data ready on attempt 1: cards=425, kw=6758, auto=1518, target=1665, sb=3562
+[2026-04-21T12:45:25.363Z] Product cards: 425; SP keywords: 6758; SP auto: 1518; SP manual targets: 1665; SB keywords: 3531; SB targets: 31
+[2026-04-21T12:45:25.364Z] 7d untouched: SP candidates=23; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T12:45:25.494Z] Plan: 236 SKUs, 803 actions; strategySkus=237; 7dSkus=0; overlap=0; manualReview=1; skipped=22
+[2026-04-21T12:45:25.624Z] State enable sbKeyword 365958674808460: api_success
+[2026-04-21T12:45:26.124Z] State enable keyword 388101783849082: api_success
+[2026-04-21T12:45:26.722Z] State enable autoTarget 342165185418681: api_success
+[2026-04-21T12:45:27.078Z] State enable sbKeyword 540793753436395: api_success
+[2026-04-21T12:45:27.390Z] State enable sbKeyword 159170500424174: api_success
+[2026-04-21T12:45:27.708Z] State enable sbKeyword 155918260541191: api_success
+[2026-04-21T12:45:28.284Z] State enable keyword 512921104420164: api_success
+[2026-04-21T12:45:28.918Z] State enable keyword 414545665174017: api_success
+[2026-04-21T12:45:29.545Z] State enable keyword 547878055509636: api_success
+[2026-04-21T12:45:30.199Z] State enable keyword 408794448368114: api_success
+[2026-04-21T12:45:30.728Z] State enable keyword 453046957880680: api_success
+[2026-04-21T12:45:31.278Z] State enable keyword 23864090268540: api_success
+[2026-04-21T12:45:31.995Z] State enable keyword 510190216422020: api_success
+[2026-04-21T12:45:32.532Z] State enable keyword 384038485259457: api_success
+[2026-04-21T12:45:33.037Z] State enable keyword 462883010482892: api_success
+[2026-04-21T12:45:33.637Z] State enable autoTarget 312465768171626: api_success
+[2026-04-21T12:45:34.231Z] State enable autoTarget 540182833878727: api_success
+[2026-04-21T12:45:34.554Z] State enable sbKeyword 176667495759901: api_success
+[2026-04-21T12:45:34.868Z] State enable sbKeyword 559619269883250: api_success
+[2026-04-21T12:45:35.197Z] State enable sbKeyword 448234009432710: api_success
+[2026-04-21T12:45:35.510Z] State enable sbKeyword 551540220002429: api_success
+[2026-04-21T12:45:36.046Z] State enable keyword 360039406690002: api_success
+[2026-04-21T12:45:36.535Z] State enable keyword 553323340207829: api_success
+[2026-04-21T12:45:37.094Z] State enable keyword 382492144524760: api_success
+[2026-04-21T12:45:38.391Z] State enable autoTarget 535076415432222: api_success
+[2026-04-21T12:45:38.974Z] State pause autoTarget 397812997671446: api_success
+[2026-04-21T12:45:39.292Z] State enable sbKeyword 39963227723923: api_success
+[2026-04-21T12:45:39.843Z] State enable keyword 487681927882012: api_success
+[2026-04-21T12:45:40.401Z] State enable autoTarget 318837869197936: api_success
+[2026-04-21T12:45:40.994Z] State enable keyword 138594796554263: api_success
+[2026-04-21T12:45:41.730Z] State enable autoTarget 449995497246058: api_success
+[2026-04-21T12:45:42.246Z] State enable keyword 320304689202897: api_success
+[2026-04-21T12:45:42.766Z] State enable keyword 397790305766136: api_success
+[2026-04-21T12:45:43.272Z] State enable keyword 313428958449288: api_success
+[2026-04-21T12:45:43.589Z] State enable sbKeyword 281900657751394: api_success
+[2026-04-21T12:45:43.915Z] State enable sbKeyword 300727415855471: api_success
+[2026-04-21T12:45:44.452Z] State enable keyword 486027517379776: api_success
+[2026-04-21T12:45:44.960Z] State enable keyword 388595082379784: api_success
+[2026-04-21T12:45:45.496Z] State pause keyword 529510130203969: api_success
+[2026-04-21T12:45:46.022Z] State enable keyword 360609426096506: api_success
+[2026-04-21T12:45:46.739Z] State pause keyword 560824775142407: api_success
+[2026-04-21T12:45:47.059Z] State enable sbKeyword 78826227987158: api_success
+[2026-04-21T12:45:47.385Z] State enable sbKeyword 368354492406857: api_success
+[2026-04-21T12:45:47.915Z] State enable keyword 557948373332130: api_success
+[2026-04-21T12:45:48.454Z] State enable keyword 390790851736021: api_success
+[2026-04-21T12:45:49.866Z] State enable keyword 307584778084572: api_success
+[2026-04-21T12:45:50.514Z] State enable keyword 411388636545288: api_success
+[2026-04-21T12:45:51.281Z] State pause keyword 317022636134844: api_success
+[2026-04-21T12:45:51.832Z] State enable keyword 336785852804546: api_success
+[2026-04-21T12:45:52.448Z] State enable autoTarget 377617287585383: api_success
+[2026-04-21T12:45:53.103Z] State enable keyword 359337912579298: api_success
+[2026-04-21T12:45:53.569Z] State enable sbKeyword 495433779406685: api_success
+[2026-04-21T12:45:54.110Z] State pause keyword 535881305324567: api_success
+[2026-04-21T12:45:54.621Z] State enable keyword 427296877264149: api_success
+[2026-04-21T12:45:55.154Z] State pause keyword 359776472113917: api_success
+[2026-04-21T12:45:55.894Z] State pause keyword 378565692956466: api_success
+[2026-04-21T12:45:56.217Z] State enable sbKeyword 57244230775188: api_success
+[2026-04-21T12:45:56.540Z] State enable sbKeyword 98179088581495: api_success
+[2026-04-21T12:45:57.110Z] State enable keyword 538399668945078: api_success
+[2026-04-21T12:45:57.436Z] State enable sbKeyword 497116783518417: api_success
+[2026-04-21T12:45:57.990Z] State enable autoTarget 491505823579922: api_success
+[2026-04-21T12:45:58.533Z] State pause keyword 468230300069559: api_success
+[2026-04-21T12:45:58.854Z] State pause sbKeyword 296992733015685: api_success
+[2026-04-21T12:45:59.438Z] State pause autoTarget 392593416077151: api_success
+[2026-04-21T12:46:00.021Z] State enable autoTarget 489136572773579: api_success
+[2026-04-21T12:46:00.829Z] State enable autoTarget 401308869932434: api_success
+[2026-04-21T12:46:01.398Z] State pause autoTarget 324460697702805: api_success
+[2026-04-21T12:46:01.958Z] State enable autoTarget 383486947543917: api_success
+[2026-04-21T12:46:02.539Z] State enable autoTarget 437639900077066: api_success
+[2026-04-21T12:46:03.102Z] State enable autoTarget 306097038848530: api_success
+[2026-04-21T12:46:04.304Z] State enable autoTarget 561551457877915: api_success
+[2026-04-21T12:46:05.603Z] State enable sbKeyword 127830259614388: api_success
+[2026-04-21T12:46:06.328Z] State pause autoTarget 372225267962134: api_success
+[2026-04-21T12:46:06.653Z] State enable sbKeyword 507954904347438: api_success
+[2026-04-21T12:46:07.965Z] State enable autoTarget 527595130217403: api_success
+[2026-04-21T12:46:10.335Z] State pause autoTarget 320871644611450: api_success
+[2026-04-21T12:46:11.120Z] State enable sbKeyword 205194424374608: api_success
+[2026-04-21T12:46:11.531Z] State enable sbKeyword 213246403145746: api_success
+[2026-04-21T12:46:11.854Z] State enable sbKeyword 324551210586957: api_success
+[2026-04-21T12:46:12.660Z] State enable autoTarget 486378706484271: api_success
+[2026-04-21T12:46:13.225Z] State pause autoTarget 337860361324420: api_success
+[2026-04-21T12:46:13.913Z] State enable autoTarget 429942906462107: api_success
+[2026-04-21T12:46:14.652Z] State enable autoTarget 461394599700113: api_success
+[2026-04-21T12:46:15.488Z] State pause autoTarget 317844871422318: api_success
+[2026-04-21T12:46:16.138Z] State enable autoTarget 218485652442281: api_success
+[2026-04-21T12:46:16.680Z] State pause autoTarget 299170834836394: api_success
+[2026-04-21T12:46:17.308Z] State enable autoTarget 433371469022594: api_success
+[2026-04-21T12:46:17.701Z] State enable sbKeyword 425009453190637: api_success
+[2026-04-21T12:46:18.662Z] State enable autoTarget 222692701406269: api_success
+[2026-04-21T12:46:19.317Z] State enable autoTarget 342181406546509: api_success
+[2026-04-21T12:46:19.890Z] State enable autoTarget 543085112843672: api_success
+[2026-04-21T12:46:20.670Z] State enable autoTarget 100021278955355: api_success
+[2026-04-21T12:46:21.275Z] State enable autoTarget 267939917842643: api_success
+[2026-04-21T12:46:21.879Z] State enable autoTarget 479408410310585: api_success
+[2026-04-21T12:46:22.533Z] State enable autoTarget 356666084115295: api_success
+[2026-04-21T12:46:23.077Z] State pause autoTarget 516985610934102: api_success
+[2026-04-21T12:46:23.402Z] State enable sbKeyword 285595389052651: api_success
+[2026-04-21T12:46:23.725Z] State enable sbKeyword 185368144581612: api_success
+[2026-04-21T12:46:24.423Z] State enable autoTarget 473166816551767: api_success
+[2026-04-21T12:46:25.023Z] State enable autoTarget 434718235638700: api_success
+[2026-04-21T12:46:25.617Z] State pause autoTarget 499956017841691: api_success
+[2026-04-21T12:46:26.241Z] State enable autoTarget 316129409106470: api_success
+[2026-04-21T12:46:26.844Z] State enable autoTarget 325551767902857: api_success
+[2026-04-21T12:46:27.412Z] State pause autoTarget 541241167508020: api_success
+[2026-04-21T12:46:27.965Z] State pause autoTarget 447989229267978: api_success
+[2026-04-21T12:46:28.536Z] State enable autoTarget 528232797358378: api_success
+[2026-04-21T12:46:29.213Z] State pause autoTarget 342562336406915: api_success
+[2026-04-21T12:46:29.800Z] State enable autoTarget 353210034159606: api_success
+[2026-04-21T12:46:30.337Z] State enable autoTarget 9494537780285: api_success
+[2026-04-21T12:46:30.926Z] SP keyword 388::4: API api_success 12
+[2026-04-21T12:46:31.803Z] SP keyword 357::4: API api_success 12
+[2026-04-21T12:46:32.757Z] SP keyword 150::4: API api_success 3
+[2026-04-21T12:46:33.633Z] SP keyword 546::4: API api_success 12
+[2026-04-21T12:46:34.532Z] SP keyword 167::4: API api_success 10
+[2026-04-21T12:46:35.366Z] SP keyword 752::4: API api_success 2
+[2026-04-21T12:46:36.258Z] SP keyword 432::4: API api_success 3
+[2026-04-21T12:46:37.233Z] SP keyword 400::4: API api_success 5
+[2026-04-21T12:46:38.070Z] SP keyword 113::4: API api_success 4
+[2026-04-21T12:46:39.279Z] SP keyword 120::4: API api_success 11
+[2026-04-21T12:46:40.128Z] SP keyword 765::4: API api_success 1
+[2026-04-21T12:46:40.950Z] SP keyword 707::4: API api_success 3
+[2026-04-21T12:46:41.749Z] SP keyword 402::4: API api_success 1
+[2026-04-21T12:46:42.626Z] SP keyword 864::4: API api_success 3
+[2026-04-21T12:46:43.525Z] SP keyword 311::4: API api_success 22
+[2026-04-21T12:46:44.354Z] SP keyword 567::4: API api_success 3
+[2026-04-21T12:46:45.230Z] SP keyword 615::4: API api_success 2
+[2026-04-21T12:46:46.184Z] SP keyword 508::4: API api_success 1
+[2026-04-21T12:46:47.048Z] SP keyword 296::4: API api_success 6
+[2026-04-21T12:46:47.897Z] SP keyword 195::4: API api_success 3
+[2026-04-21T12:46:48.694Z] SP keyword 171::4: API api_success 1
+[2026-04-21T12:46:49.518Z] SP keyword 528::4: API api_success 4
+[2026-04-21T12:46:50.517Z] SP keyword 103::4: API api_success 8
+[2026-04-21T12:46:51.335Z] SP keyword 604::4: API api_success 2
+[2026-04-21T12:46:52.164Z] SP keyword 803::4: API api_success 4
+[2026-04-21T12:46:53.134Z] SP keyword 333::4: API api_success 2
+[2026-04-21T12:46:54.086Z] SP keyword 515::4: API api_success 4
+[2026-04-21T12:46:54.939Z] SP keyword 557::4: API api_success 1
+[2026-04-21T12:46:55.803Z] SP keyword 426::4: API api_success 2
+[2026-04-21T12:46:57.072Z] SP keyword 295::4: API api_success 4
+[2026-04-21T12:46:58.085Z] SP keyword 117::4: API api_success 6
+[2026-04-21T12:46:59.159Z] SP keyword 453::4: API api_success 2
+[2026-04-21T12:46:59.984Z] SP keyword 665::4: API api_success 1
+[2026-04-21T12:47:00.812Z] SP keyword 722::4: API api_success 2
+[2026-04-21T12:47:01.674Z] SP keyword 734::4: API api_success 3
+[2026-04-21T12:47:02.545Z] SP keyword 49::4: API api_success 2
+[2026-04-21T12:47:03.571Z] SP keyword 398::4: API api_success 2
+[2026-04-21T12:47:04.403Z] SP keyword 287::4: API api_success 1
+[2026-04-21T12:47:05.259Z] SP keyword 772::4: API api_success 2
+[2026-04-21T12:47:06.154Z] SP keyword 737::4: API api_success 7
+[2026-04-21T12:47:07.002Z] SP keyword 620::4: API api_success 2
+[2026-04-21T12:47:07.861Z] SP keyword 487::4: API api_success 2
+[2026-04-21T12:47:08.675Z] SP keyword 431::4: API api_success 1
+[2026-04-21T12:47:09.523Z] SP keyword 652::4: API api_success 3
+[2026-04-21T12:47:10.342Z] SP keyword 682::4: API api_success 1
+[2026-04-21T12:47:11.159Z] SP keyword 607::4: API api_success 1
+[2026-04-21T12:47:11.965Z] SP keyword 135::4: API api_success 2
+[2026-04-21T12:47:12.827Z] SP keyword 15::4: API api_success 5
+[2026-04-21T12:47:13.703Z] SP keyword 700::4: API api_success 1
+[2026-04-21T12:47:14.540Z] SP keyword 497::4: API api_success 1
+[2026-04-21T12:47:15.409Z] SP keyword 84::4: API api_success 1
+[2026-04-21T12:47:16.297Z] SP keyword 298::4: API api_success 1
+[2026-04-21T12:47:17.132Z] SP keyword 795::4: API api_success 1
+[2026-04-21T12:47:17.980Z] SP keyword 455::4: API api_success 2
+[2026-04-21T12:47:18.841Z] SP keyword 559::4: API api_success 2
+[2026-04-21T12:47:19.793Z] SP keyword 423::4: API api_success 4
+[2026-04-21T12:47:20.650Z] SP keyword 543::4: API api_success 1
+[2026-04-21T12:47:21.520Z] SP keyword 712::4: API api_success 1
+[2026-04-21T12:47:22.597Z] SP keyword 551::4: API api_success 2
+[2026-04-21T12:47:23.394Z] SP keyword 429::4: API api_success 2
+[2026-04-21T12:47:24.191Z] SP keyword 324::4: API api_success 2
+[2026-04-21T12:47:25.173Z] SP keyword 621::4: API api_success 1
+[2026-04-21T12:47:26.148Z] SP keyword 624::4: API api_success 1
+[2026-04-21T12:47:26.957Z] SP keyword 783::4: API api_success 1
+[2026-04-21T12:47:27.773Z] SP keyword 165::4: API api_success 1
+[2026-04-21T12:47:28.610Z] SP keyword 693::4: API api_success 1
+[2026-04-21T12:47:29.244Z] SB keyword 357::4: API api_success 18
+[2026-04-21T12:47:29.868Z] SB keyword 546::4: API api_success 5
+[2026-04-21T12:47:30.489Z] SB keyword 752::4: API api_success 1
+[2026-04-21T12:47:31.101Z] SB keyword 765::4: API api_success 1
+[2026-04-21T12:47:31.718Z] SB keyword 707::4: API api_success 5
+[2026-04-21T12:47:32.350Z] SB keyword 311::4: API api_success 10
+[2026-04-21T12:47:33.006Z] SB keyword 296::4: API api_success 7
+[2026-04-21T12:47:33.629Z] SB keyword 195::4: API api_success 1
+[2026-04-21T12:47:34.275Z] SB keyword 528::4: API api_success 7
+[2026-04-21T12:47:34.899Z] SB keyword 103::4: API api_success 2
+[2026-04-21T12:47:35.510Z] SB keyword 604::4: API api_success 2
+[2026-04-21T12:47:36.128Z] SB keyword 803::4: API api_success 6
+[2026-04-21T12:47:36.748Z] SB keyword 167::4: API api_success 4
+[2026-04-21T12:47:37.380Z] SB keyword 515::4: API api_success 7
+[2026-04-21T12:47:38.021Z] SB keyword 117::4: API api_success 28
+[2026-04-21T12:47:38.642Z] SB keyword 84::4: API api_success 1
+[2026-04-21T12:47:39.278Z] SB keyword 772::4: API api_success 10
+[2026-04-21T12:47:39.902Z] SB keyword 737::4: API api_success 1
+[2026-04-21T12:47:40.524Z] SB keyword 432::4: API api_success 1
+[2026-04-21T12:47:41.149Z] SB keyword 15::4: API api_success 4
+[2026-04-21T12:47:41.762Z] SB keyword 398::4: API api_success 4
+[2026-04-21T12:47:42.383Z] SB keyword 400::4: API api_success 1
+[2026-04-21T12:47:43.002Z] SB keyword 543::4: API api_success 1
+[2026-04-21T12:47:43.619Z] SB keyword 295::4: API api_success 3
+[2026-04-21T12:47:44.236Z] SB keyword 551::4: API api_success 3
+[2026-04-21T12:47:44.844Z] SB keyword 286::4: API api_success 1
+[2026-04-21T12:47:45.469Z] SB keyword 120::4: API api_success 1
+[2026-04-21T12:47:46.087Z] SB keyword 324::4: API api_success 1
+[2026-04-21T12:47:46.711Z] SB keyword 423::4: API api_success 1
+[2026-04-21T12:47:47.334Z] SB keyword 150::4: API api_success 4
+[2026-04-21T12:47:47.960Z] SB keyword 171::4: API api_success 1
+[2026-04-21T12:47:48.586Z] SB keyword 875::4: API api_success 1
+[2026-04-21T12:47:49.212Z] SB keyword 835::4: API api_success 1
+[2026-04-21T12:47:50.123Z] SP auto target 388::4: API api_success 8
+[2026-04-21T12:47:51.031Z] SP auto target 357::4: API api_success 9
+[2026-04-21T12:47:52.017Z] SP auto target 150::4: API api_success 7
+[2026-04-21T12:47:52.897Z] SP auto target 546::4: API api_success 13
+[2026-04-21T12:47:53.756Z] SP auto target 752::4: API api_success 1
+[2026-04-21T12:47:54.580Z] SP auto target 113::4: API api_success 1
+[2026-04-21T12:47:55.312Z] SP auto target 765::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T12:47:56.239Z] SP auto target 311::4: API api_success 11
+[2026-04-21T12:47:57.095Z] SP auto target 567::4: API api_success 1
+[2026-04-21T12:47:57.971Z] SP auto target 296::4: API api_success 4
+[2026-04-21T12:47:58.820Z] SP auto target 195::4: API api_success 1
+[2026-04-21T12:48:00.357Z] SP auto target 103::4: API api_success 3
+[2026-04-21T12:48:01.293Z] SP auto target 803::4: API blocked_by_system_recent_adjust 6
+[2026-04-21T12:48:02.167Z] SP auto target 333::4: API api_success 4
+[2026-04-21T12:48:03.063Z] SP auto target 167::4: API api_success 6
+[2026-04-21T12:48:03.982Z] SP auto target 707::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T12:48:04.972Z] SP auto target 557::4: API api_success 1
+[2026-04-21T12:48:05.895Z] SP auto target 117::4: API api_success 6
+[2026-04-21T12:48:06.762Z] SP auto target 665::4: API api_success 2
+[2026-04-21T12:48:07.638Z] SP auto target 722::4: API api_success 1
+[2026-04-21T12:48:08.540Z] SP auto target 622::4: API api_success 1
+[2026-04-21T12:48:09.440Z] SP auto target 772::4: API api_success 2
+[2026-04-21T12:48:10.313Z] SP auto target 432::4: API api_success 2
+[2026-04-21T12:48:11.201Z] SP auto target 737::4: API api_success 4
+[2026-04-21T12:48:12.247Z] SP auto target 487::4: API api_success 1
+[2026-04-21T12:48:13.194Z] SP auto target 423::4: API api_success 2
+[2026-04-21T12:48:14.017Z] SP auto target 431::4: API api_success 1
+[2026-04-21T12:48:15.002Z] SP auto target 604::4: API api_success 4
+[2026-04-21T12:48:15.750Z] SP auto target 753::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T12:48:16.616Z] SP auto target 607::4: API api_success 2
+[2026-04-21T12:48:17.367Z] SP auto target 563::4: API blocked_by_system_recent_adjust 3
+[2026-04-21T12:48:18.635Z] SP auto target 528::4: API api_success 6
+[2026-04-21T12:48:19.532Z] SP auto target 295::4: API api_success 4
+[2026-04-21T12:48:20.419Z] SP auto target 515::4: API api_success 5
+[2026-04-21T12:48:21.303Z] SP auto target 135::4: API api_success 5
+[2026-04-21T12:48:22.432Z] SP auto target 15::4: API api_success 2
+[2026-04-21T12:48:23.353Z] SP auto target 497::4: API api_success 1
+[2026-04-21T12:48:24.212Z] SP auto target 298::4: API api_success 1
+[2026-04-21T12:48:25.959Z] SP auto target 455::4: API api_success 1
+[2026-04-21T12:48:26.786Z] SP auto target 400::4: API api_success 2
+[2026-04-21T12:48:27.526Z] SP auto target 543::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T12:48:28.456Z] SP auto target 626::4: API api_success 4
+[2026-04-21T12:48:29.199Z] SP auto target 120::4: API blocked_by_system_recent_adjust 4
+[2026-04-21T12:48:30.049Z] SP auto target 621::4: API api_success 1
+[2026-04-21T12:48:30.937Z] SP auto target 398::4: API api_success 1
+[2026-04-21T12:48:31.807Z] SP auto target 277::4: API api_success 1
+[2026-04-21T12:48:32.693Z] SP auto target 700::4: API api_success 2
+[2026-04-21T12:48:33.802Z] SP auto target 165::4: API api_success 2
+[2026-04-21T12:48:34.749Z] SP auto target 171::4: API api_success 6
+[2026-04-21T12:48:35.632Z] SP auto target 429::4: API api_success 1
+[2026-04-21T12:48:36.464Z] SP auto target 174::4: API api_success 1
+[2026-04-21T12:48:37.317Z] SP auto target 798::4: API api_success 2
+[2026-04-21T12:48:38.341Z] SP auto target 584::4: API api_success 2
+[2026-04-21T12:48:39.200Z] SP auto target 495::4: API api_success 2
+[2026-04-21T12:48:40.117Z] SP auto target 380::4: API api_success 2
+[2026-04-21T12:48:41.001Z] SP auto target 445::4: API api_success 1
+[2026-04-21T12:48:41.749Z] SP auto target 601::4: API blocked_by_system_recent_adjust 1
+[2026-04-21T12:48:42.501Z] SP auto target 624::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T12:48:43.266Z] SP auto target 628::4: API blocked_by_system_recent_adjust 2
+[2026-04-21T12:48:44.282Z] SP auto target 84::4: API api_success 1
+[2026-04-21T12:48:45.151Z] SP auto target 689::4: API api_success 2
+[2026-04-21T12:48:46.178Z] SP auto target 42::4: API api_success 1
+[2026-04-21T12:48:47.045Z] SP auto target 839::4: API api_success 1
+[2026-04-21T12:48:48.009Z] SP auto target 50::4: API api_success 1
+[2026-04-21T12:48:49.997Z] SP auto target 118::4: API api_success 1
+[2026-04-21T12:48:50.925Z] SP auto target 337::4: API api_success 2
+[2026-04-21T12:48:51.758Z] SP auto target 551::4: API api_success 1
+[2026-04-21T12:48:52.608Z] SP auto target 835::4: API api_success 1
+[2026-04-21T12:48:53.464Z] SP manual target 388::4: API api_success 3
+[2026-04-21T12:48:54.322Z] SP manual target 150::4: API api_success 7
+[2026-04-21T12:48:55.356Z] SP manual target 357::4: API api_success 9
+[2026-04-21T12:48:56.179Z] SP manual target 546::4: API api_success 1
+[2026-04-21T12:48:57.057Z] SP manual target 113::4: API api_success 4
+[2026-04-21T12:48:58.000Z] SP manual target 864::4: API api_success 1
+[2026-04-21T12:48:58.944Z] SP manual target 311::4: API api_success 7
+[2026-04-21T12:48:59.757Z] SP manual target 296::4: API api_success 2
+[2026-04-21T12:49:00.580Z] SP manual target 195::4: API api_success 1
+[2026-04-21T12:49:01.587Z] SP manual target 103::4: API api_success 4
+[2026-04-21T12:49:02.459Z] SP manual target 167::4: API api_success 4
+[2026-04-21T12:49:03.296Z] SP manual target 803::4: API api_success 10
+[2026-04-21T12:49:04.310Z] SP manual target 333::4: API api_success 2
+[2026-04-21T12:49:05.165Z] SP manual target 244::4: API api_success 1
+[2026-04-21T12:49:06.153Z] SP manual target 453::4: API api_success 1
+[2026-04-21T12:49:06.978Z] SP manual target 117::4: API api_success 2
+[2026-04-21T12:49:07.998Z] SP manual target 49::4: API api_success 1
+[2026-04-21T12:49:08.804Z] SP manual target 398::4: API api_success 3
+[2026-04-21T12:49:09.690Z] SP manual target 772::4: API api_success 6
+[2026-04-21T12:49:10.691Z] SP manual target 737::4: API api_success 4
+[2026-04-21T12:49:11.515Z] SP manual target 487::4: API api_success 2
+[2026-04-21T12:49:12.357Z] SP manual target 431::4: API api_success 2
+[2026-04-21T12:49:13.231Z] SP manual target 604::4: API api_success 1
+[2026-04-21T12:49:14.020Z] SP manual target 528::4: API api_success 1
+[2026-04-21T12:49:14.870Z] SP manual target 295::4: API api_success 4
+[2026-04-21T12:49:15.699Z] SP manual target 135::4: API api_success 4
+[2026-04-21T12:49:16.494Z] SP manual target 15::4: API api_success 1
+[2026-04-21T12:49:17.352Z] SP manual target 286::4: API api_success 1
+[2026-04-21T12:49:18.212Z] SP manual target 626::4: API api_success 3
+[2026-04-21T12:49:19.080Z] SP manual target 144::4: API api_success 2
+[2026-04-21T12:49:19.916Z] SP manual target 423::4: API api_success 2
+[2026-04-21T12:49:20.948Z] SP manual target 621::4: API api_success 2
+[2026-04-21T12:49:21.788Z] SP manual target 426::4: API api_success 1
+[2026-04-21T12:49:22.670Z] SP manual target 84::4: API api_success 4
+[2026-04-21T12:49:23.497Z] SP manual target 165::4: API api_success 1
+[2026-04-21T12:49:24.314Z] SP manual target 515::4: API api_success 4
+[2026-04-21T12:49:25.113Z] SP manual target 171::4: API api_success 1
+[2026-04-21T12:49:25.929Z] SP manual target 748::4: API api_success 1
+[2026-04-21T12:49:26.749Z] SP manual target 210::4: API api_success 2
+[2026-04-21T12:49:28.847Z] SP manual target 575::4: API api_success 1
+[2026-04-21T12:49:29.672Z] SP manual target 595::4: API api_success 1
+[2026-04-21T12:49:30.879Z] SP manual target 510::4: API api_success 1
+[2026-04-21T12:49:31.712Z] SP manual target 563::4: API api_success 1
+[2026-04-21T12:49:32.328Z] SB target 150::4: API api_success 1
+[2026-04-21T12:49:32.932Z] SB target 388::4: API api_success 1
+[2026-04-21T12:49:33.438Z] Refreshing data for post-write verification...
+[2026-04-21T12:50:49.180Z] Final lookup: success=757, not_landed=0, blocked=23, failed=23
+[2026-04-21T12:50:49.180Z] SKU coverage: adjusted=229, blocked=3, suppressed=66, no_action=113, failed=4, unverified=0
+[2026-04-21T12:50:49.180Z] Inventory notes: success=0, failed=247
+[2026-04-21T12:50:49.180Z] === Auto adjustment run finished ===
+[2026-04-21T12:53:31.544Z] Panel ID: E3D1FFEC24FE099C422BD428D4A95359
+[2026-04-21T12:53:31.549Z] === Auto adjustment run started ===
+[2026-04-21T12:53:31.549Z] Fetching full data...
+[2026-04-21T12:54:56.132Z] Data ready on attempt 1: cards=425, kw=6813, auto=1515, target=1670, sb=3562
+[2026-04-21T12:54:57.277Z] Product cards: 425; SP keywords: 6813; SP auto: 1515; SP manual targets: 1670; SB keywords: 3531; SB targets: 31
+[2026-04-21T12:54:57.277Z] 7d untouched: SP candidates=23; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T12:54:57.441Z] Plan: 127 SKUs, 214 actions; strategySkus=126; 7dSkus=10; overlap=0; manualReview=1; skipped=11
+[2026-04-21T12:54:57.922Z] State pause autoTarget 535076415432222: api_success
+[2026-04-21T12:54:58.484Z] State enable autoTarget 397812997671446: api_success
+[2026-04-21T12:54:59.030Z] State pause keyword 487681927882012: api_success
+[2026-04-21T12:54:59.593Z] State pause autoTarget 318837869197936: api_success
+[2026-04-21T12:55:00.258Z] State enable keyword 58633322166952: api_success
+[2026-04-21T12:55:00.844Z] State pause autoTarget 449995497246058: api_success
+[2026-04-21T12:55:01.371Z] State pause keyword 320304689202897: api_success
+[2026-04-21T12:55:03.105Z] State pause keyword 388595082379784: api_success
+[2026-04-21T12:55:03.874Z] State enable keyword 529510130203969: api_success
+[2026-04-21T12:55:04.796Z] State pause keyword 360609426096506: api_success
+[2026-04-21T12:55:05.336Z] State enable keyword 560824775142407: api_success
+[2026-04-21T12:55:05.933Z] State enable keyword 317022636134844: api_success
+[2026-04-21T12:55:06.663Z] State pause keyword 336785852804546: api_success
+[2026-04-21T12:55:07.267Z] State pause autoTarget 377617287585383: api_success
+[2026-04-21T12:55:07.782Z] State pause keyword 359337912579298: api_success
+[2026-04-21T12:55:08.305Z] State enable keyword 535881305324567: api_success
+[2026-04-21T12:55:08.930Z] State pause keyword 427296877264149: api_success
+[2026-04-21T12:55:09.387Z] State enable keyword 359776472113917: api_success
+[2026-04-21T12:55:10.111Z] State enable keyword 378565692956466: api_success
+[2026-04-21T12:55:10.616Z] State pause keyword 538399668945078: api_success
+[2026-04-21T12:55:10.941Z] State pause sbKeyword 497116783518417: api_success
+[2026-04-21T12:55:11.621Z] State pause autoTarget 491505823579922: api_success
+[2026-04-21T12:55:12.165Z] State enable keyword 468230300069559: api_success
+[2026-04-21T12:55:12.501Z] State enable sbKeyword 296992733015685: api_success
+[2026-04-21T12:55:13.095Z] State enable autoTarget 392593416077151: api_success
+[2026-04-21T12:55:13.677Z] State pause autoTarget 489136572773579: api_success
+[2026-04-21T12:55:14.226Z] State pause autoTarget 401308869932434: api_success
+[2026-04-21T12:55:15.071Z] State enable autoTarget 324460697702805: api_success
+[2026-04-21T12:55:15.668Z] State pause autoTarget 383486947543917: api_success
+[2026-04-21T12:55:16.189Z] State pause autoTarget 437639900077066: api_success
+[2026-04-21T12:55:16.716Z] State pause autoTarget 306097038848530: api_success
+[2026-04-21T12:55:17.289Z] State pause autoTarget 561551457877915: api_success
+[2026-04-21T12:55:17.612Z] State pause sbKeyword 127830259614388: api_success
+[2026-04-21T12:55:18.457Z] State pause autoTarget 527595130217403: api_success
+[2026-04-21T12:55:19.172Z] State enable keyword 411033166226098: api_success
+[2026-04-21T12:55:20.259Z] State enable manualTarget 304312347765045: api_success
+[2026-04-21T12:55:20.832Z] State enable autoTarget 320871644611450: api_success
+[2026-04-21T12:55:21.419Z] State pause autoTarget 486378706484271: api_success
+[2026-04-21T12:55:22.004Z] State pause autoTarget 429942906462107: api_success
+[2026-04-21T12:55:22.556Z] State enable autoTarget 317844871422318: api_success
+[2026-04-21T12:55:23.106Z] State enable autoTarget 299170834836394: api_success
+[2026-04-21T12:55:23.649Z] State enable keyword 430889214251559: api_success
+[2026-04-21T12:55:24.199Z] State pause autoTarget 218485652442281: api_success
+[2026-04-21T12:55:24.872Z] State pause autoTarget 461394599700113: api_success
+[2026-04-21T12:55:25.440Z] State pause autoTarget 433371469022594: api_success
+[2026-04-21T12:55:26.073Z] State pause autoTarget 342181406546509: api_success
+[2026-04-21T12:55:26.636Z] State pause autoTarget 356666084115295: api_success
+[2026-04-21T12:55:27.224Z] State enable autoTarget 516985610934102: api_success
+[2026-04-21T12:55:27.551Z] State pause sbKeyword 285595389052651: api_success
+[2026-04-21T12:55:28.265Z] State pause autoTarget 473166816551767: api_success
+[2026-04-21T12:55:28.876Z] State pause autoTarget 434718235638700: api_success
+[2026-04-21T12:55:29.401Z] State enable autoTarget 499956017841691: api_success
+[2026-04-21T12:55:30.208Z] State pause autoTarget 325551767902857: api_success
+[2026-04-21T12:55:30.773Z] State enable autoTarget 541241167508020: api_success
+[2026-04-21T12:55:31.349Z] State enable autoTarget 447989229267978: api_success
+[2026-04-21T12:55:31.921Z] State enable autoTarget 342562336406915: api_success
+[2026-04-21T12:55:32.531Z] State pause autoTarget 353210034159606: api_success
+[2026-04-21T12:55:33.116Z] State pause autoTarget 9494537780285: api_success
+[2026-04-21T12:55:33.666Z] State enable manualTarget 324421431891966: api_success
+[2026-04-21T12:55:34.145Z] State enable manualTarget 509584810163024: api_success
+[2026-04-21T12:55:34.691Z] State enable keyword 534312906953368: api_success
+[2026-04-21T12:55:35.408Z] State enable keyword 436160185742767: api_success
+[2026-04-21T12:55:35.989Z] State enable autoTarget 167625003365302: api_success
+[2026-04-21T12:55:36.504Z] State enable manualTarget 369488405797220: api_success
+[2026-04-21T12:55:37.109Z] State enable keyword 126773690566848: api_success
+[2026-04-21T12:55:37.672Z] SP keyword 311::4: API api_success 7
+[2026-04-21T12:55:38.504Z] SP keyword 120::4: API api_success 1
+[2026-04-21T12:55:39.420Z] SP auto target 311::4: API api_success 1
+[2026-04-21T12:55:40.277Z] SP auto target 628::4: API api_success 1
+[2026-04-21T12:55:41.123Z] SP manual target 388::4: API api_success 3
+[2026-04-21T12:55:41.970Z] SP manual target 150::4: API api_success 7
+[2026-04-21T12:55:42.806Z] SP manual target 357::4: API api_success 9
+[2026-04-21T12:55:43.589Z] SP manual target 546::4: API api_success 1
+[2026-04-21T12:55:44.442Z] SP manual target 113::4: API api_success 4
+[2026-04-21T12:55:45.269Z] SP manual target 864::4: API api_success 1
+[2026-04-21T12:55:46.157Z] SP manual target 311::4: API api_success 7
+[2026-04-21T12:55:46.992Z] SP manual target 296::4: API api_success 2
+[2026-04-21T12:55:47.811Z] SP manual target 195::4: API api_success 1
+[2026-04-21T12:55:48.647Z] SP manual target 103::4: API api_success 4
+[2026-04-21T12:55:49.521Z] SP manual target 167::4: API api_success 4
+[2026-04-21T12:55:50.373Z] SP manual target 803::4: API api_success 10
+[2026-04-21T12:55:51.211Z] SP manual target 333::4: API api_success 2
+[2026-04-21T12:55:52.060Z] SP manual target 244::4: API api_success 1
+[2026-04-21T12:55:52.883Z] SP manual target 453::4: API api_success 1
+[2026-04-21T12:55:54.584Z] SP manual target 117::4: API api_success 2
+[2026-04-21T12:55:55.393Z] SP manual target 49::4: API api_success 1
+[2026-04-21T12:55:56.215Z] SP manual target 398::4: API api_success 3
+[2026-04-21T12:55:57.012Z] SP manual target 772::4: API api_success 6
+[2026-04-21T12:55:57.846Z] SP manual target 737::4: API api_success 4
+[2026-04-21T12:55:58.664Z] SP manual target 487::4: API api_success 2
+[2026-04-21T12:55:59.465Z] SP manual target 431::4: API api_success 2
+[2026-04-21T12:56:00.266Z] SP manual target 604::4: API api_success 1
+[2026-04-21T12:56:01.096Z] SP manual target 528::4: API api_success 1
+[2026-04-21T12:56:01.905Z] SP manual target 295::4: API api_success 4
+[2026-04-21T12:56:02.853Z] SP manual target 135::4: API api_success 4
+[2026-04-21T12:56:03.654Z] SP manual target 15::4: API api_success 1
+[2026-04-21T12:56:04.643Z] SP manual target 286::4: API api_success 1
+[2026-04-21T12:56:05.635Z] SP manual target 626::4: API api_success 3
+[2026-04-21T12:56:06.485Z] SP manual target 144::4: API api_success 2
+[2026-04-21T12:56:07.305Z] SP manual target 423::4: API api_success 2
+[2026-04-21T12:56:08.122Z] SP manual target 621::4: API api_success 2
+[2026-04-21T12:56:08.931Z] SP manual target 426::4: API api_success 1
+[2026-04-21T12:56:09.879Z] SP manual target 84::4: API api_success 4
+[2026-04-21T12:56:10.707Z] SP manual target 165::4: API api_success 1
+[2026-04-21T12:56:11.864Z] SP manual target 515::4: API api_success 4
+[2026-04-21T12:56:12.675Z] SP manual target 171::4: API api_success 1
+[2026-04-21T12:56:13.696Z] SP manual target 748::4: API api_success 1
+[2026-04-21T12:56:14.528Z] SP manual target 210::4: API api_success 2
+[2026-04-21T12:56:15.365Z] SP manual target 575::4: API api_success 1
+[2026-04-21T12:56:16.161Z] SP manual target 595::4: API api_success 1
+[2026-04-21T12:56:16.994Z] SP manual target 510::4: API api_success 1
+[2026-04-21T12:56:17.825Z] SP manual target 563::4: API api_success 1
+[2026-04-21T12:56:18.336Z] Refreshing data for post-write verification...
+[2026-04-21T12:57:37.557Z] Final lookup: success=191, not_landed=0, blocked=0, failed=23
+[2026-04-21T12:57:37.557Z] SKU coverage: adjusted=121, blocked=0, suppressed=174, no_action=116, failed=6, unverified=0
+[2026-04-21T12:57:37.557Z] Inventory notes: success=0, failed=1
+[2026-04-21T12:57:37.557Z] === Auto adjustment run finished ===
+[2026-04-21T12:57:47.019Z] Panel ID: E3D1FFEC24FE099C422BD428D4A95359
+[2026-04-21T12:57:47.022Z] === Auto adjustment run started ===
+[2026-04-21T12:57:47.022Z] Fetching full data...
+[2026-04-21T12:58:56.739Z] Data ready on attempt 1: cards=425, kw=6844, auto=1518, target=1674, sb=3562
+[2026-04-21T12:58:57.920Z] Product cards: 425; SP keywords: 6844; SP auto: 1518; SP manual targets: 1674; SB keywords: 3531; SB targets: 31
+[2026-04-21T12:58:57.920Z] 7d untouched: SP candidates=12; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T12:58:58.040Z] Plan: 118 SKUs, 193 actions; strategySkus=124; 7dSkus=0; overlap=0; manualReview=1; skipped=11
+[2026-04-21T12:58:58.500Z] State enable autoTarget 535076415432222: api_success
+[2026-04-21T12:58:59.059Z] State pause autoTarget 397812997671446: api_success
+[2026-04-21T12:58:59.630Z] State enable keyword 487681927882012: api_success
+[2026-04-21T12:59:00.527Z] State enable autoTarget 318837869197936: api_success
+[2026-04-21T12:59:01.272Z] State enable autoTarget 449995497246058: api_success
+[2026-04-21T12:59:01.742Z] State enable keyword 320304689202897: api_success
+[2026-04-21T12:59:03.492Z] State enable keyword 388595082379784: api_success
+[2026-04-21T12:59:04.032Z] State pause keyword 529510130203969: api_success
+[2026-04-21T12:59:04.562Z] State enable keyword 360609426096506: api_success
+[2026-04-21T12:59:05.051Z] State pause keyword 560824775142407: api_success
+[2026-04-21T12:59:05.606Z] State pause keyword 317022636134844: api_success
+[2026-04-21T12:59:06.096Z] State enable keyword 336785852804546: api_success
+[2026-04-21T12:59:06.629Z] State enable autoTarget 377617287585383: api_success
+[2026-04-21T12:59:07.175Z] State enable keyword 359337912579298: api_success
+[2026-04-21T12:59:07.702Z] State pause keyword 535881305324567: api_success
+[2026-04-21T12:59:08.292Z] State enable keyword 427296877264149: api_success
+[2026-04-21T12:59:08.794Z] State pause keyword 359776472113917: api_success
+[2026-04-21T12:59:09.348Z] State pause keyword 378565692956466: api_success
+[2026-04-21T12:59:10.045Z] State enable keyword 538399668945078: api_success
+[2026-04-21T12:59:10.353Z] State enable sbKeyword 497116783518417: api_success
+[2026-04-21T12:59:10.960Z] State enable autoTarget 491505823579922: api_success
+[2026-04-21T12:59:11.469Z] State pause keyword 468230300069559: api_success
+[2026-04-21T12:59:11.797Z] State pause sbKeyword 296992733015685: api_success
+[2026-04-21T12:59:12.540Z] State pause autoTarget 392593416077151: api_success
+[2026-04-21T12:59:13.113Z] State enable autoTarget 489136572773579: api_success
+[2026-04-21T12:59:13.738Z] State enable autoTarget 401308869932434: api_success
+[2026-04-21T12:59:14.273Z] State pause autoTarget 324460697702805: api_success
+[2026-04-21T12:59:14.909Z] State enable autoTarget 383486947543917: api_success
+[2026-04-21T12:59:15.487Z] State enable autoTarget 437639900077066: api_success
+[2026-04-21T12:59:16.038Z] State enable autoTarget 306097038848530: api_success
+[2026-04-21T12:59:16.612Z] State enable autoTarget 561551457877915: api_success
+[2026-04-21T12:59:16.945Z] State enable sbKeyword 127830259614388: api_success
+[2026-04-21T12:59:17.831Z] State enable autoTarget 527595130217403: api_success
+[2026-04-21T12:59:18.389Z] State pause autoTarget 320871644611450: api_success
+[2026-04-21T12:59:18.939Z] State enable autoTarget 486378706484271: api_success
+[2026-04-21T12:59:19.508Z] State enable autoTarget 461394599700113: api_success
+[2026-04-21T12:59:20.063Z] State pause autoTarget 317844871422318: api_success
+[2026-04-21T12:59:20.606Z] State enable autoTarget 429942906462107: api_success
+[2026-04-21T12:59:21.299Z] State enable autoTarget 433371469022594: api_success
+[2026-04-21T12:59:21.823Z] State enable autoTarget 218485652442281: api_success
+[2026-04-21T12:59:22.418Z] State pause autoTarget 299170834836394: api_success
+[2026-04-21T12:59:22.957Z] State enable autoTarget 342181406546509: api_success
+[2026-04-21T12:59:23.709Z] State enable autoTarget 356666084115295: api_success
+[2026-04-21T12:59:24.275Z] State pause autoTarget 516985610934102: api_success
+[2026-04-21T12:59:24.597Z] State enable sbKeyword 285595389052651: api_success
+[2026-04-21T12:59:25.153Z] State enable autoTarget 473166816551767: api_success
+[2026-04-21T12:59:25.919Z] State enable autoTarget 434718235638700: api_success
+[2026-04-21T12:59:26.478Z] State pause autoTarget 499956017841691: api_success
+[2026-04-21T12:59:27.107Z] State enable autoTarget 325551767902857: api_success
+[2026-04-21T12:59:27.837Z] State pause autoTarget 541241167508020: api_success
+[2026-04-21T12:59:28.356Z] State pause autoTarget 447989229267978: api_success
+[2026-04-21T12:59:28.993Z] State pause autoTarget 342562336406915: api_success
+[2026-04-21T12:59:29.518Z] State enable autoTarget 353210034159606: api_success
+[2026-04-21T12:59:30.115Z] State enable autoTarget 9494537780285: api_success
+[2026-04-21T12:59:30.649Z] SP manual target 388::4: API api_success 3
+[2026-04-21T12:59:31.686Z] SP manual target 150::4: API api_success 7
+[2026-04-21T12:59:32.716Z] SP manual target 357::4: API api_success 9
+[2026-04-21T12:59:33.758Z] SP manual target 546::4: API api_success 1
+[2026-04-21T12:59:34.591Z] SP manual target 113::4: API api_success 4
+[2026-04-21T12:59:35.360Z] SP manual target 864::4: API api_success 1
+[2026-04-21T12:59:36.149Z] SP manual target 311::4: API api_success 7
+[2026-04-21T12:59:36.991Z] SP manual target 296::4: API api_success 2
+[2026-04-21T12:59:37.994Z] SP manual target 195::4: API api_success 1
+[2026-04-21T12:59:38.805Z] SP manual target 103::4: API api_success 4
+[2026-04-21T12:59:39.629Z] SP manual target 167::4: API api_success 4
+[2026-04-21T12:59:40.794Z] SP manual target 803::4: API api_success 10
+[2026-04-21T12:59:41.578Z] SP manual target 333::4: API api_success 2
+[2026-04-21T12:59:42.379Z] SP manual target 244::4: API api_success 1
+[2026-04-21T12:59:43.203Z] SP manual target 453::4: API api_success 1
+[2026-04-21T12:59:44.214Z] SP manual target 117::4: API api_success 2
+[2026-04-21T12:59:45.076Z] SP manual target 49::4: API api_success 1
+[2026-04-21T12:59:46.103Z] SP manual target 398::4: API api_success 3
+[2026-04-21T12:59:46.965Z] SP manual target 772::4: API api_success 6
+[2026-04-21T12:59:47.778Z] SP manual target 737::4: API api_success 4
+[2026-04-21T12:59:48.621Z] SP manual target 487::4: API api_success 2
+[2026-04-21T12:59:49.420Z] SP manual target 431::4: API api_success 2
+[2026-04-21T12:59:50.420Z] SP manual target 604::4: API api_success 1
+[2026-04-21T12:59:51.223Z] SP manual target 528::4: API api_success 1
+[2026-04-21T12:59:52.074Z] SP manual target 295::4: API api_success 4
+[2026-04-21T12:59:53.051Z] SP manual target 135::4: API api_success 4
+[2026-04-21T12:59:53.878Z] SP manual target 15::4: API api_success 1
+[2026-04-21T12:59:54.682Z] SP manual target 286::4: API api_success 1
+[2026-04-21T12:59:55.539Z] SP manual target 626::4: API api_success 3
+[2026-04-21T12:59:56.366Z] SP manual target 144::4: API api_success 2
+[2026-04-21T12:59:57.217Z] SP manual target 423::4: API api_success 2
+[2026-04-21T12:59:58.015Z] SP manual target 621::4: API api_success 2
+[2026-04-21T12:59:58.842Z] SP manual target 426::4: API api_success 1
+[2026-04-21T12:59:59.648Z] SP manual target 84::4: API api_success 4
+[2026-04-21T13:00:00.468Z] SP manual target 165::4: API api_success 1
+[2026-04-21T13:00:01.361Z] SP manual target 515::4: API api_success 4
+[2026-04-21T13:00:03.385Z] SP manual target 171::4: API api_success 1
+[2026-04-21T13:00:04.357Z] SP manual target 748::4: API api_success 1
+[2026-04-21T13:00:05.990Z] SP manual target 210::4: API api_success 2
+[2026-04-21T13:00:06.889Z] SP manual target 575::4: API api_success 1
+[2026-04-21T13:00:08.819Z] SP manual target 595::4: API api_success 1
+[2026-04-21T13:00:10.454Z] SP manual target 510::4: API api_success 1
+[2026-04-21T13:00:11.319Z] SP manual target 563::4: API api_success 1
+[2026-04-21T13:00:11.833Z] Refreshing data for post-write verification...
+[2026-04-21T13:01:33.159Z] Final lookup: success=170, not_landed=0, blocked=0, failed=23
+[2026-04-21T13:01:33.159Z] SKU coverage: adjusted=112, blocked=0, suppressed=183, no_action=116, failed=6, unverified=0
+[2026-04-21T13:01:33.159Z] Inventory notes: success=0, failed=127
+[2026-04-21T13:01:33.159Z] === Auto adjustment run finished ===
+[2026-04-21T13:03:03.955Z] Panel ID: E3D1FFEC24FE099C422BD428D4A95359
+[2026-04-21T13:03:03.962Z] === Auto adjustment run started ===
+[2026-04-21T13:03:03.962Z] Fetching full data...
+[2026-04-21T13:04:20.005Z] Data ready on attempt 1: cards=425, kw=6812, auto=1514, target=1673, sb=3562
+[2026-04-21T13:04:21.311Z] Product cards: 425; SP keywords: 6812; SP auto: 1514; SP manual targets: 1673; SB keywords: 3531; SB targets: 31
+[2026-04-21T13:04:21.312Z] 7d untouched: SP candidates=12; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T13:04:21.427Z] Plan: 120 SKUs, 192 actions; strategySkus=123; 7dSkus=3; overlap=0; manualReview=1; skipped=6
+[2026-04-21T13:04:21.838Z] State pause autoTarget 535076415432222: api_success
+[2026-04-21T13:04:22.400Z] State enable autoTarget 397812997671446: api_success
+[2026-04-21T13:04:22.927Z] State pause keyword 487681927882012: api_success
+[2026-04-21T13:04:23.798Z] State pause autoTarget 318837869197936: api_success
+[2026-04-21T13:04:24.392Z] State pause autoTarget 449995497246058: api_success
+[2026-04-21T13:04:24.897Z] State pause keyword 320304689202897: api_success
+[2026-04-21T13:04:25.441Z] State pause keyword 388595082379784: api_success
+[2026-04-21T13:04:25.948Z] State enable keyword 529510130203969: api_success
+[2026-04-21T13:04:26.504Z] State pause keyword 360609426096506: api_success
+[2026-04-21T13:04:28.237Z] State enable keyword 560824775142407: api_success
+[2026-04-21T13:04:28.805Z] State enable keyword 317022636134844: api_success
+[2026-04-21T13:04:29.379Z] State pause keyword 336785852804546: api_success
+[2026-04-21T13:04:29.964Z] State pause autoTarget 377617287585383: api_success
+[2026-04-21T13:04:30.470Z] State pause keyword 359337912579298: api_success
+[2026-04-21T13:04:30.977Z] State enable keyword 535881305324567: api_success
+[2026-04-21T13:04:31.475Z] State pause keyword 427296877264149: api_success
+[2026-04-21T13:04:31.993Z] State enable keyword 359776472113917: api_success
+[2026-04-21T13:04:32.536Z] State enable keyword 378565692956466: api_success
+[2026-04-21T13:04:33.038Z] State pause keyword 538399668945078: api_success
+[2026-04-21T13:04:33.356Z] State pause sbKeyword 497116783518417: api_success
+[2026-04-21T13:04:33.915Z] State pause autoTarget 491505823579922: api_success
+[2026-04-21T13:04:34.471Z] State enable keyword 468230300069559: api_success
+[2026-04-21T13:04:34.800Z] State enable sbKeyword 296992733015685: api_success
+[2026-04-21T13:04:35.359Z] State enable autoTarget 392593416077151: api_success
+[2026-04-21T13:04:36.015Z] State pause autoTarget 489136572773579: api_success
+[2026-04-21T13:04:36.673Z] State pause autoTarget 401308869932434: api_success
+[2026-04-21T13:04:37.248Z] State enable autoTarget 324460697702805: api_success
+[2026-04-21T13:04:37.848Z] State pause autoTarget 383486947543917: api_success
+[2026-04-21T13:04:38.425Z] State pause autoTarget 437639900077066: api_success
+[2026-04-21T13:04:38.992Z] State pause autoTarget 306097038848530: api_success
+[2026-04-21T13:04:39.544Z] State pause autoTarget 561551457877915: api_success
+[2026-04-21T13:04:39.871Z] State pause sbKeyword 127830259614388: api_success
+[2026-04-21T13:04:40.444Z] State pause autoTarget 527595130217403: api_success
+[2026-04-21T13:04:40.990Z] State enable autoTarget 320871644611450: api_success
+[2026-04-21T13:04:41.586Z] State pause autoTarget 486378706484271: api_success
+[2026-04-21T13:04:42.489Z] State pause autoTarget 429942906462107: api_success
+[2026-04-21T13:04:43.710Z] State pause autoTarget 461394599700113: api_success
+[2026-04-21T13:04:44.365Z] State pause autoTarget 218485652442281: api_success
+[2026-04-21T13:04:44.937Z] State pause autoTarget 433371469022594: api_success
+[2026-04-21T13:04:45.507Z] State enable autoTarget 317844871422318: api_success
+[2026-04-21T13:04:46.062Z] State enable autoTarget 299170834836394: api_success
+[2026-04-21T13:04:46.663Z] State pause autoTarget 342181406546509: api_success
+[2026-04-21T13:04:47.220Z] State pause autoTarget 356666084115295: api_success
+[2026-04-21T13:04:47.788Z] State enable autoTarget 516985610934102: api_success
+[2026-04-21T13:04:48.108Z] State pause sbKeyword 285595389052651: api_success
+[2026-04-21T13:04:48.651Z] State pause autoTarget 473166816551767: api_success
+[2026-04-21T13:04:49.256Z] State pause autoTarget 434718235638700: api_success
+[2026-04-21T13:04:49.844Z] State enable autoTarget 499956017841691: api_success
+[2026-04-21T13:04:50.422Z] State pause autoTarget 325551767902857: api_success
+[2026-04-21T13:04:51.053Z] State enable autoTarget 541241167508020: api_success
+[2026-04-21T13:04:51.809Z] State enable autoTarget 447989229267978: api_success
+[2026-04-21T13:04:52.327Z] State enable autoTarget 342562336406915: api_success
+[2026-04-21T13:04:53.045Z] State pause autoTarget 353210034159606: api_success
+[2026-04-21T13:04:53.591Z] State pause autoTarget 9494537780285: api_success
+[2026-04-21T13:04:54.195Z] State enable autoTarget 416441136137765: api_success
+[2026-04-21T13:04:54.744Z] State enable keyword 452470743583045: api_success
+[2026-04-21T13:04:55.291Z] State enable manualTarget 440868404469827: api_success
+[2026-04-21T13:04:55.934Z] State enable autoTarget 328664723640871: api_success
+[2026-04-21T13:04:56.476Z] SP auto target 423::4: API api_success 1
+[2026-04-21T13:04:57.280Z] SP manual target 388::4: API api_success 3
+[2026-04-21T13:04:58.112Z] SP manual target 150::4: API api_success 5
+[2026-04-21T13:04:59.827Z] SP manual target 357::4: API api_success 9
+[2026-04-21T13:05:00.671Z] SP manual target 546::4: API api_success 1
+[2026-04-21T13:05:01.518Z] SP manual target 113::4: API api_success 4
+[2026-04-21T13:05:02.365Z] SP manual target 864::4: API api_success 1
+[2026-04-21T13:05:04.324Z] SP manual target 311::4: API api_success 7
+[2026-04-21T13:05:05.388Z] SP manual target 296::4: API api_success 2
+[2026-04-21T13:05:06.298Z] SP manual target 195::4: API api_success 1
+[2026-04-21T13:05:07.330Z] SP manual target 103::4: API api_success 4
+[2026-04-21T13:05:08.570Z] SP manual target 167::4: API api_success 3
+[2026-04-21T13:05:09.444Z] SP manual target 803::4: API api_success 10
+[2026-04-21T13:05:10.280Z] SP manual target 333::4: API api_success 2
+[2026-04-21T13:05:11.140Z] SP manual target 244::4: API api_success 1
+[2026-04-21T13:05:12.021Z] SP manual target 453::4: API api_success 1
+[2026-04-21T13:05:12.867Z] SP manual target 117::4: API api_success 2
+[2026-04-21T13:05:13.688Z] SP manual target 49::4: API api_success 1
+[2026-04-21T13:05:14.561Z] SP manual target 398::4: API api_success 3
+[2026-04-21T13:05:15.490Z] SP manual target 772::4: API api_success 6
+[2026-04-21T13:05:16.284Z] SP manual target 737::4: API api_success 4
+[2026-04-21T13:05:17.149Z] SP manual target 487::4: API api_success 2
+[2026-04-21T13:05:17.994Z] SP manual target 431::4: API api_success 2
+[2026-04-21T13:05:18.841Z] SP manual target 604::4: API api_success 1
+[2026-04-21T13:05:19.694Z] SP manual target 528::4: API api_success 1
+[2026-04-21T13:05:20.582Z] SP manual target 295::4: API api_success 3
+[2026-04-21T13:05:21.461Z] SP manual target 135::4: API api_success 4
+[2026-04-21T13:05:22.249Z] SP manual target 15::4: API api_success 1
+[2026-04-21T13:05:23.041Z] SP manual target 286::4: API api_success 1
+[2026-04-21T13:05:23.854Z] SP manual target 626::4: API api_success 3
+[2026-04-21T13:05:24.726Z] SP manual target 144::4: API api_success 1
+[2026-04-21T13:05:25.542Z] SP manual target 423::4: API api_success 2
+[2026-04-21T13:05:26.402Z] SP manual target 621::4: API api_success 2
+[2026-04-21T13:05:27.298Z] SP manual target 426::4: API api_success 1
+[2026-04-21T13:05:28.123Z] SP manual target 84::4: API api_success 4
+[2026-04-21T13:05:28.944Z] SP manual target 165::4: API api_success 1
+[2026-04-21T13:05:29.827Z] SP manual target 515::4: API api_success 3
+[2026-04-21T13:05:30.629Z] SP manual target 171::4: API api_success 1
+[2026-04-21T13:05:31.467Z] SP manual target 748::4: API api_success 1
+[2026-04-21T13:05:32.303Z] SP manual target 210::4: API api_success 2
+[2026-04-21T13:05:33.161Z] SP manual target 575::4: API api_success 1
+[2026-04-21T13:05:33.981Z] SP manual target 595::4: API api_success 1
+[2026-04-21T13:05:34.809Z] SP manual target 510::4: API api_success 1
+[2026-04-21T13:05:35.689Z] SP manual target 563::4: API api_success 1
+[2026-04-21T13:05:36.194Z] Refreshing data for post-write verification...
+[2026-04-21T13:06:54.574Z] Final lookup: success=169, not_landed=0, blocked=0, failed=23
+[2026-04-21T13:06:54.574Z] SKU coverage: adjusted=114, blocked=0, suppressed=184, no_action=116, failed=6, unverified=0
+[2026-04-21T13:06:54.574Z] Inventory notes: success=0, failed=1
+[2026-04-21T13:06:54.574Z] === Auto adjustment run finished ===
+[2026-04-21T13:08:00.243Z] Panel ID: E3D1FFEC24FE099C422BD428D4A95359
+[2026-04-21T13:08:00.247Z] === Auto adjustment run started ===
+[2026-04-21T13:08:00.248Z] Fetching full data...
+[2026-04-21T13:09:17.613Z] Data ready on attempt 1: cards=425, kw=6813, auto=1517, target=1661, sb=3562
+[2026-04-21T13:09:19.099Z] Product cards: 425; SP keywords: 6813; SP auto: 1517; SP manual targets: 1661; SB keywords: 3531; SB targets: 31
+[2026-04-21T13:09:19.100Z] 7d untouched: SP candidates=7; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T13:09:19.288Z] Plan: 115 SKUs, 169 actions; strategySkus=118; 7dSkus=3; overlap=0; manualReview=1; skipped=3
+[2026-04-21T13:09:19.670Z] State enable autoTarget 535076415432222: api_success
+[2026-04-21T13:09:20.260Z] State pause autoTarget 397812997671446: api_success
+[2026-04-21T13:09:20.797Z] State enable keyword 487681927882012: api_success
+[2026-04-21T13:09:21.373Z] State enable autoTarget 318837869197936: api_success
+[2026-04-21T13:09:21.972Z] State enable autoTarget 449995497246058: api_success
+[2026-04-21T13:09:22.474Z] State enable keyword 320304689202897: api_success
+[2026-04-21T13:09:22.976Z] State enable keyword 388595082379784: api_success
+[2026-04-21T13:09:24.150Z] State pause keyword 529510130203969: api_success
+[2026-04-21T13:09:24.654Z] State enable keyword 360609426096506: api_success
+[2026-04-21T13:09:25.346Z] State pause keyword 560824775142407: api_success
+[2026-04-21T13:09:25.877Z] State pause keyword 317022636134844: api_success
+[2026-04-21T13:09:26.401Z] State enable keyword 336785852804546: api_success
+[2026-04-21T13:09:27.085Z] State enable autoTarget 377617287585383: api_success
+[2026-04-21T13:09:27.604Z] State enable keyword 359337912579298: api_success
+[2026-04-21T13:09:28.138Z] State pause keyword 535881305324567: api_success
+[2026-04-21T13:09:28.657Z] State enable keyword 427296877264149: api_success
+[2026-04-21T13:09:29.186Z] State pause keyword 359776472113917: api_success
+[2026-04-21T13:09:29.738Z] State pause keyword 378565692956466: api_success
+[2026-04-21T13:09:30.265Z] State enable keyword 538399668945078: api_success
+[2026-04-21T13:09:30.573Z] State enable sbKeyword 497116783518417: api_success
+[2026-04-21T13:09:31.116Z] State enable autoTarget 491505823579922: api_success
+[2026-04-21T13:09:31.617Z] State pause keyword 468230300069559: api_success
+[2026-04-21T13:09:31.939Z] State pause sbKeyword 296992733015685: api_success
+[2026-04-21T13:09:32.506Z] State pause autoTarget 392593416077151: api_success
+[2026-04-21T13:09:33.079Z] State enable autoTarget 489136572773579: api_success
+[2026-04-21T13:09:33.703Z] State enable autoTarget 401308869932434: api_success
+[2026-04-21T13:09:34.315Z] State pause autoTarget 324460697702805: api_success
+[2026-04-21T13:09:34.933Z] State enable autoTarget 383486947543917: api_success
+[2026-04-21T13:09:35.526Z] State enable autoTarget 437639900077066: api_success
+[2026-04-21T13:09:36.125Z] State enable autoTarget 306097038848530: api_success
+[2026-04-21T13:09:36.665Z] State enable autoTarget 561551457877915: api_success
+[2026-04-21T13:09:36.982Z] State enable sbKeyword 127830259614388: api_success
+[2026-04-21T13:09:37.580Z] State enable autoTarget 527595130217403: api_success
+[2026-04-21T13:09:39.685Z] State pause autoTarget 320871644611450: api_success
+[2026-04-21T13:09:40.244Z] State enable autoTarget 486378706484271: api_success
+[2026-04-21T13:09:40.781Z] State enable autoTarget 461394599700113: api_success
+[2026-04-21T13:09:41.330Z] State enable autoTarget 429942906462107: api_success
+[2026-04-21T13:09:41.877Z] State pause autoTarget 317844871422318: api_success
+[2026-04-21T13:09:42.419Z] State enable autoTarget 218485652442281: api_success
+[2026-04-21T13:09:42.980Z] State enable autoTarget 433371469022594: api_success
+[2026-04-21T13:09:43.524Z] State pause autoTarget 299170834836394: api_success
+[2026-04-21T13:09:44.103Z] State enable autoTarget 342181406546509: api_success
+[2026-04-21T13:09:44.673Z] State enable autoTarget 356666084115295: api_success
+[2026-04-21T13:09:45.268Z] State pause autoTarget 516985610934102: api_success
+[2026-04-21T13:09:46.061Z] State enable sbKeyword 285595389052651: api_success
+[2026-04-21T13:09:46.634Z] State enable autoTarget 473166816551767: api_success
+[2026-04-21T13:09:47.192Z] State enable autoTarget 434718235638700: api_success
+[2026-04-21T13:09:47.757Z] State pause autoTarget 499956017841691: api_success
+[2026-04-21T13:09:48.324Z] State enable autoTarget 325551767902857: api_success
+[2026-04-21T13:09:48.900Z] State pause autoTarget 541241167508020: api_success
+[2026-04-21T13:09:49.515Z] State pause autoTarget 447989229267978: api_success
+[2026-04-21T13:09:50.113Z] State pause autoTarget 342562336406915: api_success
+[2026-04-21T13:09:50.677Z] State enable autoTarget 353210034159606: api_success
+[2026-04-21T13:09:51.252Z] State enable autoTarget 9494537780285: api_success
+[2026-04-21T13:09:51.824Z] State enable autoTarget 412563753743227: api_success
+[2026-04-21T13:09:52.403Z] State enable autoTarget 377387332175504: api_success
+[2026-04-21T13:09:52.972Z] State enable autoTarget 304202987624751: api_success
+[2026-04-21T13:09:53.516Z] SP manual target 388::4: API api_success 3
+[2026-04-21T13:09:54.445Z] SP manual target 150::4: API api_success 4
+[2026-04-21T13:09:55.264Z] SP manual target 357::4: API api_success 9
+[2026-04-21T13:09:56.403Z] SP manual target 546::4: API api_success 1
+[2026-04-21T13:09:57.233Z] SP manual target 113::4: API api_success 3
+[2026-04-21T13:09:58.036Z] SP manual target 311::4: API api_success 7
+[2026-04-21T13:09:58.875Z] SP manual target 296::4: API api_success 1
+[2026-04-21T13:09:59.990Z] SP manual target 195::4: API api_success 1
+[2026-04-21T13:10:01.357Z] SP manual target 103::4: API api_success 2
+[2026-04-21T13:10:02.202Z] SP manual target 167::4: API api_success 3
+[2026-04-21T13:10:03.099Z] SP manual target 803::4: API api_success 7
+[2026-04-21T13:10:04.029Z] SP manual target 333::4: API api_success 2
+[2026-04-21T13:10:04.877Z] SP manual target 244::4: API api_success 1
+[2026-04-21T13:10:05.848Z] SP manual target 453::4: API api_success 1
+[2026-04-21T13:10:06.657Z] SP manual target 117::4: API api_success 2
+[2026-04-21T13:10:07.494Z] SP manual target 49::4: API api_success 1
+[2026-04-21T13:10:08.321Z] SP manual target 398::4: API api_success 3
+[2026-04-21T13:10:09.323Z] SP manual target 772::4: API api_success 6
+[2026-04-21T13:10:10.153Z] SP manual target 737::4: API api_success 4
+[2026-04-21T13:10:10.925Z] SP manual target 487::4: API api_success 2
+[2026-04-21T13:10:11.731Z] SP manual target 431::4: API api_success 2
+[2026-04-21T13:10:12.528Z] SP manual target 604::4: API api_success 1
+[2026-04-21T13:10:13.371Z] SP manual target 528::4: API api_success 1
+[2026-04-21T13:10:14.199Z] SP manual target 295::4: API api_success 2
+[2026-04-21T13:10:15.024Z] SP manual target 135::4: API api_success 3
+[2026-04-21T13:10:15.843Z] SP manual target 15::4: API api_success 1
+[2026-04-21T13:10:16.639Z] SP manual target 286::4: API api_success 1
+[2026-04-21T13:10:17.706Z] SP manual target 626::4: API api_success 1
+[2026-04-21T13:10:18.534Z] SP manual target 144::4: API api_success 1
+[2026-04-21T13:10:19.561Z] SP manual target 423::4: API api_success 2
+[2026-04-21T13:10:20.502Z] SP manual target 621::4: API api_success 2
+[2026-04-21T13:10:21.363Z] SP manual target 84::4: API api_success 4
+[2026-04-21T13:10:22.382Z] SP manual target 515::4: API api_success 2
+[2026-04-21T13:10:23.155Z] SP manual target 171::4: API api_success 1
+[2026-04-21T13:10:23.982Z] SP manual target 210::4: API api_success 2
+[2026-04-21T13:10:24.487Z] Refreshing data for post-write verification...
+[2026-04-21T13:11:45.697Z] Final lookup: success=146, not_landed=0, blocked=0, failed=23
+[2026-04-21T13:11:45.697Z] SKU coverage: adjusted=106, blocked=0, suppressed=189, no_action=119, failed=9, unverified=0
+[2026-04-21T13:11:45.697Z] Inventory notes: success=0, failed=1
+[2026-04-21T13:11:45.697Z] === Auto adjustment run finished ===
+[2026-04-21T13:12:14.371Z] Panel ID: E3D1FFEC24FE099C422BD428D4A95359
+[2026-04-21T13:12:14.377Z] === Auto adjustment run started ===
+[2026-04-21T13:12:14.377Z] Fetching full data...
+[2026-04-21T13:13:26.129Z] Data ready on attempt 1: cards=425, kw=6788, auto=1514, target=1669, sb=3562
+[2026-04-21T13:13:27.550Z] Product cards: 425; SP keywords: 6788; SP auto: 1514; SP manual targets: 1669; SB keywords: 3531; SB targets: 31
+[2026-04-21T13:13:27.550Z] 7d untouched: SP candidates=4; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T13:13:27.723Z] Plan: 88 SKUs, 121 actions; strategySkus=93; 7dSkus=1; overlap=0; manualReview=1; skipped=2
+[2026-04-21T13:13:28.082Z] State pause autoTarget 535076415432222: api_success
+[2026-04-21T13:13:28.764Z] State enable autoTarget 397812997671446: api_success
+[2026-04-21T13:13:29.299Z] State pause keyword 487681927882012: api_success
+[2026-04-21T13:13:29.882Z] State pause autoTarget 318837869197936: api_success
+[2026-04-21T13:13:31.485Z] State pause autoTarget 449995497246058: api_success
+[2026-04-21T13:13:32.017Z] State pause keyword 320304689202897: api_success
+[2026-04-21T13:13:32.527Z] State pause keyword 388595082379784: api_success
+[2026-04-21T13:13:33.063Z] State enable keyword 529510130203969: api_success
+[2026-04-21T13:13:33.579Z] State pause keyword 360609426096506: api_success
+[2026-04-21T13:13:34.070Z] State enable keyword 560824775142407: api_success
+[2026-04-21T13:13:34.691Z] State enable keyword 317022636134844: api_success
+[2026-04-21T13:13:35.216Z] State pause keyword 336785852804546: api_success
+[2026-04-21T13:13:35.746Z] State pause autoTarget 377617287585383: api_success
+[2026-04-21T13:13:36.246Z] State pause keyword 359337912579298: api_success
+[2026-04-21T13:13:36.721Z] State enable keyword 535881305324567: api_success
+[2026-04-21T13:13:37.331Z] State pause keyword 427296877264149: api_success
+[2026-04-21T13:13:37.818Z] State enable keyword 359776472113917: api_success
+[2026-04-21T13:13:38.333Z] State enable keyword 378565692956466: api_success
+[2026-04-21T13:13:38.810Z] State pause keyword 538399668945078: api_success
+[2026-04-21T13:13:39.138Z] State pause sbKeyword 497116783518417: api_success
+[2026-04-21T13:13:39.716Z] State pause autoTarget 491505823579922: api_success
+[2026-04-21T13:13:40.262Z] State enable keyword 468230300069559: api_success
+[2026-04-21T13:13:40.578Z] State enable sbKeyword 296992733015685: api_success
+[2026-04-21T13:13:41.116Z] State enable autoTarget 392593416077151: api_success
+[2026-04-21T13:13:41.652Z] State pause autoTarget 489136572773579: api_success
+[2026-04-21T13:13:42.248Z] State pause autoTarget 401308869932434: api_success
+[2026-04-21T13:13:42.804Z] State enable autoTarget 324460697702805: api_success
+[2026-04-21T13:13:43.320Z] State pause autoTarget 383486947543917: api_success
+[2026-04-21T13:13:43.860Z] State pause autoTarget 437639900077066: api_success
+[2026-04-21T13:13:44.608Z] State pause autoTarget 306097038848530: api_success
+[2026-04-21T13:13:45.212Z] State pause autoTarget 561551457877915: api_success
+[2026-04-21T13:13:45.525Z] State pause sbKeyword 127830259614388: api_success
+[2026-04-21T13:13:46.303Z] State pause autoTarget 527595130217403: api_success
+[2026-04-21T13:13:46.994Z] State enable autoTarget 320871644611450: api_success
+[2026-04-21T13:13:47.543Z] State pause autoTarget 486378706484271: api_success
+[2026-04-21T13:13:48.136Z] State enable autoTarget 299170834836394: api_success
+[2026-04-21T13:13:48.699Z] State pause autoTarget 433371469022594: api_success
+[2026-04-21T13:13:49.296Z] State pause autoTarget 461394599700113: api_success
+[2026-04-21T13:13:50.025Z] State pause autoTarget 429942906462107: api_success
+[2026-04-21T13:13:50.538Z] State pause autoTarget 218485652442281: api_success
+[2026-04-21T13:13:51.135Z] State enable autoTarget 317844871422318: api_success
+[2026-04-21T13:13:51.702Z] State pause autoTarget 342181406546509: api_success
+[2026-04-21T13:13:52.439Z] State pause autoTarget 356666084115295: api_success
+[2026-04-21T13:13:52.994Z] State enable autoTarget 516985610934102: api_success
+[2026-04-21T13:13:53.312Z] State pause sbKeyword 285595389052651: api_success
+[2026-04-21T13:13:53.933Z] State pause autoTarget 473166816551767: api_success
+[2026-04-21T13:13:54.539Z] State pause autoTarget 434718235638700: api_success
+[2026-04-21T13:13:55.133Z] State enable autoTarget 499956017841691: api_success
+[2026-04-21T13:13:55.659Z] State pause autoTarget 325551767902857: api_success
+[2026-04-21T13:13:56.181Z] State enable autoTarget 541241167508020: api_success
+[2026-04-21T13:13:57.008Z] State enable autoTarget 447989229267978: api_success
+[2026-04-21T13:13:57.595Z] State enable autoTarget 342562336406915: api_success
+[2026-04-21T13:13:58.196Z] State pause autoTarget 353210034159606: api_success
+[2026-04-21T13:13:58.938Z] State pause autoTarget 9494537780285: api_success
+[2026-04-21T13:13:59.683Z] State enable autoTarget 316661546011554: api_success
+[2026-04-21T13:14:00.340Z] SP manual target 357::4: API api_success 6
+[2026-04-21T13:14:01.129Z] SP manual target 150::4: API api_success 1
+[2026-04-21T13:14:01.942Z] SP manual target 311::4: API api_success 3
+[2026-04-21T13:14:02.781Z] SP manual target 103::4: API api_success 1
+[2026-04-21T13:14:03.625Z] SP manual target 803::4: API api_success 1
+[2026-04-21T13:14:04.460Z] SP manual target 333::4: API api_success 2
+[2026-04-21T13:14:05.413Z] SP manual target 244::4: API api_success 1
+[2026-04-21T13:14:06.325Z] SP manual target 49::4: API api_success 1
+[2026-04-21T13:14:07.161Z] SP manual target 398::4: API api_success 3
+[2026-04-21T13:14:08.030Z] SP manual target 772::4: API api_success 5
+[2026-04-21T13:14:08.864Z] SP manual target 737::4: API api_success 4
+[2026-04-21T13:14:09.701Z] SP manual target 431::4: API api_success 2
+[2026-04-21T13:14:10.536Z] SP manual target 528::4: API api_success 1
+[2026-04-21T13:14:11.377Z] SP manual target 295::4: API api_success 1
+[2026-04-21T13:14:12.218Z] SP manual target 626::4: API api_success 1
+[2026-04-21T13:14:13.020Z] SP manual target 423::4: API api_success 1
+[2026-04-21T13:14:13.857Z] SP manual target 621::4: API api_success 2
+[2026-04-21T13:14:14.629Z] SP manual target 135::4: API api_success 2
+[2026-04-21T13:14:15.435Z] SP manual target 84::4: API api_success 4
+[2026-04-21T13:14:16.274Z] SP manual target 113::4: API api_success 1
+[2026-04-21T13:14:16.787Z] Refreshing data for post-write verification...
+[2026-04-21T13:15:36.207Z] Final lookup: success=98, not_landed=0, blocked=0, failed=23
+[2026-04-21T13:15:36.207Z] SKU coverage: adjusted=76, blocked=0, suppressed=213, no_action=123, failed=12, unverified=0
+[2026-04-21T13:15:36.207Z] Inventory notes: success=0, failed=1
+[2026-04-21T13:15:36.207Z] === Auto adjustment run finished ===
+[2026-04-21T13:47:45.666Z] Panel ID: E3D1FFEC24FE099C422BD428D4A95359
+[2026-04-21T13:47:45.670Z] === Auto adjustment run started ===
+[2026-04-21T13:47:45.670Z] Fetching full data...
+[2026-04-21T13:49:03.560Z] Data ready on attempt 1: cards=425, kw=6872, auto=1524, target=1662, sb=3569
+[2026-04-21T13:49:04.940Z] Product cards: 425; SP keywords: 6872; SP auto: 1524; SP manual targets: 1662; SB keywords: 3538; SB targets: 31
+[2026-04-21T13:49:04.940Z] 7d untouched: SP candidates=2; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T13:49:05.119Z] Plan: 73 SKUs, 91 actions; strategySkus=83; 7dSkus=0; overlap=0; manualReview=2; skipped=0
+[2026-04-21T13:49:05.120Z] DRY_RUN complete: {"spCandidates":2,"spExecutable":0,"sbCandidates":0,"sbExecutable":0,"overlapWithStrategy":0,"manualReview":2,"invalidSkipped":0,"granularity":{"sp":{"count":2,"entityLevel":"adGroup","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","Orders","ROAS","SPS","Sales","SalesOtherSku7d","SalesSameSku7d","Spend","UnitsSoldOtherSku7d","UnitsSoldSameSku7d","accountId","acos_15","acos_30","acos_7","acos_life_time","adGroupId","adId","asin","campaignId","campaignName","campaignState","created_at","dailyBudget","groupName","groupState","hasPlacement","isPublic","keywordPosition","lastAdvUpdatedDate","lowCost","manualAdjustTheTime","memoKey","moduleId","moduleName","placementACOSMin","positionType","productLine","productVariantInfo","proportion","servingStatus","servingStatusDetail","servingStatusTitle","siteId","sku","skuInvData","startDate","state","test_module","updateWeekday"],"sample":{"ACOS":null,"CPC":null,"CPS":null,"CTR":"0","Clicks":"0","ConversionRate":null,"Impressions":"4","Orders":"0","ROAS":null,"SPS":null,"Sales":"0.00","SalesOtherSku7d":"0.00","SalesSameSku7d":"0.00","Spend":"0.00","UnitsSoldOtherSku7d":"0","UnitsSoldSameSku7d":"0","accountId":120,"acos_15":null,"acos_30":null,"acos_7":null,"acos_life_time":null,"adGroupId":315610411790568,"adId":546421849116055,"asin":"B0DFCQX88B","campaignId":212255601735958,"campaignName":"silicone cable ties-th2869-system-keyword-exact","campaignState":1,"created_at":"2026-01-22 04:51:27","dailyBudget":"10.00","groupName":"silicone cable ties-th2869-system-keyword-exact"}},"sb":{"count":0,"entityLevel":"campaign","sampleKeys":[],"sample":null}}}
+[2026-04-21T13:50:29.170Z] Panel ID: E3D1FFEC24FE099C422BD428D4A95359
+[2026-04-21T13:50:29.175Z] === Auto adjustment run started ===
+[2026-04-21T13:50:29.175Z] Fetching full data...
+[2026-04-21T13:51:47.126Z] Data ready on attempt 1: cards=425, kw=6804, auto=1511, target=1664, sb=3569
+[2026-04-21T13:51:48.610Z] Product cards: 425; SP keywords: 6804; SP auto: 1511; SP manual targets: 1664; SB keywords: 3538; SB targets: 31
+[2026-04-21T13:51:48.610Z] 7d untouched: SP candidates=2; SB candidates=0; SP granularity=adGroup; SB granularity=campaign
+[2026-04-21T13:51:48.771Z] Plan: 73 SKUs, 91 actions; strategySkus=83; 7dSkus=0; overlap=0; manualReview=2; skipped=0
+[2026-04-21T13:51:48.772Z] DRY_RUN complete: {"spCandidates":2,"spExecutable":0,"sbCandidates":0,"sbExecutable":0,"overlapWithStrategy":0,"manualReview":2,"invalidSkipped":0,"granularity":{"sp":{"count":2,"entityLevel":"adGroup","sampleKeys":["ACOS","CPC","CPS","CTR","Clicks","ConversionRate","Impressions","Orders","ROAS","SPS","Sales","SalesOtherSku7d","SalesSameSku7d","Spend","UnitsSoldOtherSku7d","UnitsSoldSameSku7d","accountId","acos_15","acos_30","acos_7","acos_life_time","adGroupId","adId","asin","campaignId","campaignName","campaignState","created_at","dailyBudget","groupName","groupState","hasPlacement","isPublic","keywordPosition","lastAdvUpdatedDate","lowCost","manualAdjustTheTime","memoKey","moduleId","moduleName","placementACOSMin","positionType","productLine","productVariantInfo","proportion","servingStatus","servingStatusDetail","servingStatusTitle","siteId","sku","skuInvData","startDate","state","test_module","updateWeekday"],"sample":{"ACOS":null,"CPC":null,"CPS":null,"CTR":"0","Clicks":"0","ConversionRate":null,"Impressions":"4","Orders":"0","ROAS":null,"SPS":null,"Sales":"0.00","SalesOtherSku7d":"0.00","SalesSameSku7d":"0.00","Spend":"0.00","UnitsSoldOtherSku7d":"0","UnitsSoldSameSku7d":"0","accountId":120,"acos_15":null,"acos_30":null,"acos_7":null,"acos_life_time":null,"adGroupId":315610411790568,"adId":546421849116055,"asin":"B0DFCQX88B","campaignId":212255601735958,"campaignName":"silicone cable ties-th2869-system-keyword-exact","campaignState":1,"created_at":"2026-01-22 04:51:27","dailyBudget":"10.00","groupName":"silicone cable ties-th2869-system-keyword-exact"}},"sb":{"count":0,"entityLevel":"campaign","sampleKeys":[],"sample":null}}}

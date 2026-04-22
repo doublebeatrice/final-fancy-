@@ -1,20 +1,20 @@
 {
-  "plannedSkus": 138,
-  "plannedActions": 254,
-  "strategyPlannedSkus": 138,
-  "sevenDayPlannedSkus": 0,
+  "plannedSkus": 88,
+  "plannedActions": 121,
+  "strategyPlannedSkus": 93,
+  "sevenDayPlannedSkus": 1,
   "sevenDayStats": {
-    "spCandidates": 23,
-    "spExecutable": 0,
+    "spCandidates": 4,
+    "spExecutable": 1,
     "sbCandidates": 0,
     "sbExecutable": 0,
     "overlapWithStrategy": 0,
     "manualReview": 1,
-    "invalidSkipped": 214,
+    "invalidSkipped": 2,
     "blockedBySystemRecentAdjust": 0,
     "granularity": {
       "sp": {
-        "count": 23,
+        "count": 4,
         "entityLevel": "adGroup",
         "sampleKeys": [
           "ACOS",
@@ -77,10 +77,10 @@
           "ACOS": null,
           "CPC": "0.364285",
           "CPS": null,
-          "CTR": "0.009162303664921465",
+          "CTR": "0.00979706088173548",
           "Clicks": "14",
           "ConversionRate": "0",
-          "Impressions": "1528",
+          "Impressions": "1429",
           "Orders": "0",
           "ROAS": "0.000000",
           "SPS": null,
@@ -114,26 +114,26 @@
       }
     }
   },
-  "totalProductSkus": 426,
+  "totalProductSkus": 425,
   "apiStats": {
     "state": {
-      "apiSuccess": 228,
-      "apiFailed": 20
+      "apiSuccess": 55,
+      "apiFailed": 23
     },
     "keyword": {
-      "apiSuccess": 1,
+      "apiSuccess": 0,
       "apiFailed": 0
     },
     "sbKeyword": {
-      "apiSuccess": 2,
+      "apiSuccess": 0,
       "apiFailed": 0
     },
     "autoTarget": {
-      "apiSuccess": 2,
+      "apiSuccess": 0,
       "apiFailed": 0
     },
     "manualTarget": {
-      "apiSuccess": 1,
+      "apiSuccess": 43,
       "apiFailed": 0
     },
     "unknownTarget": {
@@ -150,62 +150,32 @@
     }
   },
   "finalCounts": {
-    "success": 234,
-    "autoTarget:success": 91,
-    "keyword:success": 84,
-    "sbTarget:success": 1,
-    "failed": 20,
-    "autoTarget:failed": 20,
-    "sbKeyword:success": 57,
-    "manualTarget:success": 1
+    "failed": 23,
+    "autoTarget:failed": 23,
+    "success": 98,
+    "autoTarget:success": 36,
+    "keyword:success": 15,
+    "sbKeyword:success": 4,
+    "manualTarget:success": 43
   },
   "coverageSummary": {
-    "adjusted": 130,
-    "reason:verified_landed": 130,
-    "suppressed": 138,
-    "reason:history_cooldown_suppressed": 138,
-    "failed": 8,
-    "reason:execution_failed": 8,
-    "no_action": 136,
-    "reason:current_rules_no_bid_change": 89,
-    "skipped": 14,
-    "reason:invalid_or_paused_state": 14,
-    "reason:no_recent_ad_spend": 47
+    "suppressed": 213,
+    "reason:history_cooldown_suppressed": 213,
+    "adjusted": 76,
+    "reason:verified_landed": 76,
+    "failed": 12,
+    "reason:execution_failed": 12,
+    "no_action": 123,
+    "reason:current_rules_no_bid_change": 73,
+    "reason:no_recent_ad_spend": 50,
+    "skipped": 1,
+    "reason:invalid_or_paused_state": 1
   },
-  "noteSuccess": 145,
-  "noteFailure": 8,
+  "noteSuccess": 0,
+  "noteFailure": 1,
   "missingAidSkus": [
     {
-      "sku": "UY1623",
-      "error": "aid / 库存记录缺失：UY1623"
-    },
-    {
-      "sku": "LM2288",
-      "error": "aid / 库存记录缺失：LM2288"
-    },
-    {
-      "sku": "TH2527",
-      "error": "aid / 库存记录缺失：TH2527"
-    },
-    {
-      "sku": "YEO1452",
-      "error": "aid / 库存记录缺失：YEO1452"
-    },
-    {
-      "sku": "97540494023288",
-      "error": "aid / 库存记录缺失：97540494023288"
-    },
-    {
-      "sku": "11325367019821",
-      "error": "aid / 库存记录缺失：11325367019821"
-    },
-    {
-      "sku": "MH0525",
-      "error": "aid / 库存记录缺失：MH0525"
-    },
-    {
-      "sku": "255723187790789",
-      "error": "aid / 库存记录缺失：255723187790789"
+      "error": "Assignment to constant variable."
     }
   ]
 }
