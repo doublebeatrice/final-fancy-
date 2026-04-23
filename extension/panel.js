@@ -1,6 +1,7 @@
 ﻿// ============================================================
 // YSWG 广告全自动调整台 — panel.js
-// 全部业务逻辑：拉取 → 导出 → 导入计划 → 执行
+// 面板层职责：抓数 / 可视化 / 执行桥接 / 结果展示
+// AI 决策主流程已迁移到 Codex，不再在面板内生成策略计划
 // ============================================================
 
 // ---- 全局状态 ----
@@ -30,6 +31,28 @@ const importBtn  = $('importBtn');
 const createCampaignBtn = $('createCampaignBtn');
 const executeBtn = $('executeBtn');
 
+function enableCodexOnlyBoundary() {
+  if (exportBtn) {
+    exportBtn.disabled = true;
+    exportBtn.title = 'AI 决策主流程已迁移到 Codex';
+    exportBtn.textContent = '已迁移到 Codex';
+  }
+  if (importBtn) {
+    importBtn.disabled = true;
+    importBtn.title = 'AI 决策主流程已迁移到 Codex';
+    importBtn.textContent = '已迁移到 Codex';
+  }
+  if (executeBtn) {
+    executeBtn.disabled = true;
+    executeBtn.title = '自动执行主流程已迁移到 Codex';
+    executeBtn.textContent = '由 Codex 执行';
+  }
+  const hint = document.querySelector('.import-hint');
+  if (hint) {
+    hint.innerHTML = 'AI 决策主流程已迁移到 <b>Codex</b>。<br>当前面板只负责抓数、展示、执行桥接和必要的人工确认入口。';
+  }
+}
+
 // ---- 日志 ----
 function log(msg, type = 'info') {
   const line = document.createElement('div');
@@ -50,10 +73,11 @@ function setProgress(barId, pct) {
 // ============================================================
 document.addEventListener('DOMContentLoaded', async () => {
   fetchBtn.addEventListener('click', fetchAllData);
-  exportBtn.addEventListener('click', exportSnapshot);
-  importBtn.addEventListener('click', importPlan);
   if (createCampaignBtn) createCampaignBtn.addEventListener('click', createCampaignFromTextarea);
-  executeBtn.addEventListener('click', executePlan);
+  enableCodexOnlyBoundary();
+  if (exportBtn) exportBtn.addEventListener('click', () => log('AI 决策导出入口已迁移到 Codex', 'warn'));
+  if (importBtn) importBtn.addEventListener('click', () => log('AI 计划导入入口已迁移到 Codex', 'warn'));
+  if (executeBtn) executeBtn.addEventListener('click', () => log('自动执行入口已迁移到 Codex', 'warn'));
 });
 
 // ============================================================
@@ -1189,6 +1213,9 @@ async function executeStateToggle(row, action, hintedType = '') {
 window.toggleAdState = executeStateToggle;
 window.buildStateToggleRequest = buildStateToggleRequest;
 window.detectAdEntityType = detectEntityType;
+window.refreshRowsForExecutionEvents = refreshRowsForExecutionEvents;
+window.hydrateInventorySnapshot = hydrateInventorySnapshot;
+window.ensureInventoryRecordsForSkus = ensureInventoryRecordsForSkus;
 
 function getApiList(json) {
   return json?.data?.records || json?.data?.list || json?.data?.rows ||
@@ -1294,6 +1321,64 @@ async function fetchSevenDayUntouchedPools() {
   return { spRows, sbRows, meta };
 }
 
+async function refreshRowsForExecutionEvents(events = []) {
+  const types = new Set((events || []).map(event => String(event.entityType || '')).filter(Boolean));
+  const refreshed = {};
+  const errors = [];
+
+  try {
+    const needsKeywordCapture = types.has('keyword') || types.has('autoTarget') || types.has('manualTarget');
+    if (needsKeywordCapture && !STATE.kwCapture?.body) {
+      STATE.kwRows = await fetchAllKeywords();
+      refreshed.keyword = STATE.kwRows.length;
+    } else if (types.has('keyword')) {
+      STATE.kwRows = await fetchAllKeywords();
+      refreshed.keyword = STATE.kwRows.length;
+    }
+    if (types.has('autoTarget')) {
+      STATE.autoRows = await fetchAllAutoTargets(STATE.kwCapture);
+      refreshed.autoTarget = STATE.autoRows.length;
+    }
+    if (types.has('manualTarget')) {
+      STATE.targetRows = await fetchAllTargeting(STATE.kwCapture);
+      refreshed.manualTarget = STATE.targetRows.length;
+    }
+    if (types.has('sbKeyword') || types.has('sbTarget')) {
+      STATE.sbRows = await fetchAllSponsoredBrands();
+      refreshed.sbRows = STATE.sbRows.length;
+    }
+    if (types.has('sbCampaign')) {
+      const pools = await fetchSevenDayUntouchedPools();
+      STATE.sp7DayUntouchedRows = pools.spRows;
+      STATE.sb7DayUntouchedRows = pools.sbRows;
+      STATE.sevenDayUntouchedMeta = pools.meta;
+      refreshed.sbCampaign = STATE.sb7DayUntouchedRows.length;
+    }
+  } catch (e) {
+    errors.push(e.message);
+  }
+
+  if (types.has('keyword') && !STATE.kwRows.length) errors.push('keyword rows refresh returned empty');
+  if (types.has('autoTarget') && !STATE.autoRows.length) errors.push('auto target rows refresh returned empty');
+  if (types.has('manualTarget') && !STATE.targetRows.length) errors.push('manual target rows refresh returned empty');
+  if ((types.has('sbKeyword') || types.has('sbTarget')) && !STATE.sbRows.length) errors.push('SB rows refresh returned empty');
+  if (types.has('sbCampaign') && !(STATE.sb7DayUntouchedRows || []).length) errors.push('SB campaign seven day rows refresh returned empty');
+
+  return {
+    ok: errors.length === 0,
+    refreshed,
+    errors,
+    counts: {
+      kwRows: STATE.kwRows.length,
+      autoRows: STATE.autoRows.length,
+      targetRows: STATE.targetRows.length,
+      sbRows: STATE.sbRows.length,
+      sp7: (STATE.sp7DayUntouchedRows || []).length,
+      sb7: (STATE.sb7DayUntouchedRows || []).length,
+    },
+  };
+}
+
 async function execInventoryNoteUpdate(payload) {
   const tab = await findTab('*://sellerinventory.yswg.com.cn/*');
   const result = await execInAnyFrame(tab.id, async (payload) => {
@@ -1341,6 +1426,38 @@ function getInventoryRecordBySku(sku) {
   if (direct) return direct;
   const upper = String(sku || '').toUpperCase();
   return Object.values(STATE.invMap || {}).find(inv => String(inv.sku || '').toUpperCase() === upper) || null;
+}
+
+function hydrateInventorySnapshot(invMap = {}) {
+  const incoming = invMap && typeof invMap === 'object' ? invMap : {};
+  STATE.invMap = STATE.invMap || {};
+  let added = 0;
+  for (const [sku, inv] of Object.entries(incoming)) {
+    if (!sku || !inv) continue;
+    if (!STATE.invMap[sku]) added += 1;
+    STATE.invMap[sku] = inv;
+  }
+  return { ok: true, added, total: Object.keys(STATE.invMap || {}).length };
+}
+
+async function ensureInventoryRecordsForSkus(skus = []) {
+  const requested = [...new Set((skus || []).map(sku => String(sku || '').trim()).filter(Boolean))];
+  const missingBefore = requested.filter(sku => !getInventoryRecordBySku(sku));
+  if (!missingBefore.length) {
+    return { ok: true, requested: requested.length, fetched: 0, missingBefore: [], missingAfter: [] };
+  }
+
+  const invRows = await fetchAllInventory();
+  hydrateInventorySnapshot(buildInvMap(invRows));
+  const missingAfter = requested.filter(sku => !getInventoryRecordBySku(sku));
+  return {
+    ok: missingAfter.length === 0,
+    requested: requested.length,
+    fetched: invRows.length,
+    missingBefore,
+    missingAfter,
+    reason: missingAfter.length ? `inventory records still missing: ${missingAfter.join(', ')}` : '',
+  };
 }
 
 function formatLocalDateTime(date = new Date()) {
@@ -2727,145 +2844,16 @@ function buildHistory(sku, asin) {
 // 导入 AI 计划（粘贴 Claude 返回的 JSON）
 // ============================================================
 function importPlan() {
-  const text = $('planTextarea').value.trim();
-  if (!text) { log('请先粘贴 Claude 返回的计划 JSON', 'warn'); return; }
-
-  const bidFloor = parseFloat($('bidFloor').value) || 0.05;
-  const results = parseClaudeResponse(text);
-  if (!results.length) { log('未解析到有效计划，请检查粘贴的内容', 'error'); return; }
-
-  // 应用 bidFloor
-  for (const r of results) {
-    r.actions = (r.actions || []).map(action => normalizeCreateAction(action, r));
-    for (const a of r.actions || []) {
-      if (a.suggestedBid && a.suggestedBid < bidFloor) a.suggestedBid = bidFloor;
-    }
-  }
-
-  STATE.plan = results;
-  $('cards-container').innerHTML = '';
-  renderCards(results, STATE.productCards);
-  $('cardsSection').style.display = 'block';
-  $('cardsSectionTitle').textContent = `产品分析结果（${results.length} 个）`;
-  executeBtn.disabled = false;
-  updateExecCount();
-  log(`计划导入成功：${results.length} 个产品，${results.reduce((s, r) => s + (r.actions?.length || 0), 0)} 个调整动作`, 'ok');
+  log('AI 计划导入入口已迁移到 Codex，面板不再承担策略判断', 'warn');
 }
 
 function buildClaudePrompt(cards) {
-  const today = new Date().toISOString().slice(0, 10);
-  const slim = cards.map(c => {
-    const keywords = c.keywords || (c.campaigns || []).flatMap(camp => (camp.keywords || []).map(kw => ({
-      id: kw.id, text: kw.text, matchType: kw.matchType,
-      bid: kw.bid, onCooldown: kw.onCooldown,
-      stats3d: kw.stats3d, stats7d: kw.stats7d, stats30d: kw.stats30d,
-    })));
-    const autoTargets = c.autoTargets || (c.campaigns || []).flatMap(camp => (camp.autoTargets || []).map(at => ({
-      id: at.id, targetType: at.targetType,
-      bid: at.bid, onCooldown: at.onCooldown,
-      stats3d: at.stats3d, stats7d: at.stats7d, stats30d: at.stats30d,
-    })));
-    const sponsoredBrands = c.sponsoredBrands || (c.campaigns || []).flatMap(camp => (camp.sponsoredBrands || []).map(sb => ({
-      id: sb.id, entityType: sb.entityType, rawProperty: sb.rawProperty, text: sb.text, matchType: sb.matchType,
-      bid: sb.bid, onCooldown: sb.onCooldown,
-      stats3d: sb.stats3d, stats7d: sb.stats7d, stats30d: sb.stats30d,
-    })));
-    const adjustableAds = c.adjustableAds || (c.campaigns || []).flatMap(camp => [
-      ...(camp.keywords || []).map(kw => ({
-        channel: 'SP', entityType: 'keyword',
-        id: kw.id, text: kw.text, matchType: kw.matchType,
-        bid: kw.bid, onCooldown: kw.onCooldown,
-        stats3d: kw.stats3d, stats7d: kw.stats7d, stats30d: kw.stats30d,
-      })),
-      ...(camp.autoTargets || []).map(at => ({
-        channel: 'SP', entityType: at.targetType === 'manual' ? 'manualTarget' : 'autoTarget',
-        id: at.id, targetType: at.targetType,
-        bid: at.bid, onCooldown: at.onCooldown,
-        stats3d: at.stats3d, stats7d: at.stats7d, stats30d: at.stats30d,
-      })),
-      ...(camp.sponsoredBrands || []).map(sb => ({
-        channel: 'SB', entityType: sb.entityType, rawProperty: sb.rawProperty,
-        id: sb.id, text: sb.text, matchType: sb.matchType,
-        bid: sb.bid, onCooldown: sb.onCooldown,
-        stats3d: sb.stats3d, stats7d: sb.stats7d, stats30d: sb.stats30d,
-      })),
-    ]).filter(ad => ad.stats30d?.spend > 0 || ad.stats7d?.spend > 0 || ad.stats3d?.spend > 0);
-    return {
-      sku: c.sku,
-      asin: c.asin,
-      profitRate: c.profitRate,
-      invDays: c.invDays,
-      unitsSold_30d: c.unitsSold_30d,
-      unitsSold_7d: c.unitsSold_7d,
-      adDependency: c.adDependency,
-      note: c.note || null,
-      adStats: c.adStats,
-      listing: c.listing ? {
-        bsr: c.listing.bsr,
-        reviewCount: c.listing.reviewCount,
-        reviewRating: c.listing.reviewRating,
-        price: c.listing.price,
-        isAvailable: c.listing.isAvailable,
-        hasPrime: c.listing.hasPrime,
-      } : null,
-      history: c.history?.slice(-4) || [],
-      sbStats: c.sbStats,
-      createContext: c.createContext || null,
-      adjustableAds,
-      keywords,
-      autoTargets,
-      sponsoredBrands,
-    };
-  });
-
-  return `你是一位有10年经验的亚马逊运营专家，今天是 ${today}。
-以下是若干产品的完整画像（库存 + 广告数据 + Listing 前台数据 + 历史趋势）。
-
-请对每个产品进行深度分析：
-1. 判断产品阶段（新品/成熟品/衰退品/节气品）—— 主要依据销量趋势、BSR走势、评论增速，note 标签仅辅助参考（可能已过时）
-2. 判断当前健康度（盈利/持平/亏损/高风险/Listing异常）
-3. 给出广告策略方向
-4. 给出具体调整动作（SP关键词、SP自动投放、SP手动定位、SB关键词、SB定位都必须纳入判断池，建议竞价是多少，原因是什么）
-5. 如果你判断当前产品需要新建 SP 广告结构，也可以输出 create 动作
-
-分析时重点考虑：
-- Listing 异常：isAvailable=false 的产品广告应立即暂停，评分 < 3.8 说明转化天花板低
-- BSR 趋势：BSR 连续改善 → 自然流量增长，可适当降低广告依赖；BSR 持续恶化 → 产品可能在下滑
-- 新品（评论数 < 50 或近期销量爬坡中）：允许适度亏损换排名，不要轻易止血
-- 节气品：结合当前日期和历史 BSR/销量波动模式推断旺淡季
-- 库存压力（invDays > 60）：广告加速去库存，但控制 ACOS 防止越卖越亏
-- 漏斗诊断：高曝光低点击 → 主图/价格问题；高点击低转化 → Listing/评价问题
-- onCooldown=true 的实体在冷却期内，仍给建议但在 reason 中注明
-- note 权重低，与数据矛盾时优先相信数据
-- SB 广告必须参与加投、降投、关闭、人工复核判断；差异可以在 reason 中说明，但不能直接排除。
-- action.entityType 必须准确区分：keyword、autoTarget、manualTarget、sbKeyword、sbTarget、spCampaign。
-- action.actionType 可为 bid、enable、pause、review、create。
-- bid 动作必须提供 currentBid 和 suggestedBid。
-- create 动作只用于 SP 建广告，必须提供 createInput，不要伪造缺字段的创建动作。
-- createInput 结构：
-  {"mode":"auto|productTarget|keywordTarget","coreTerm":"...","sku":"...","asin":"...","accountId":120,"siteId":4,"dailyBudget":3,"defaultBid":0.3,"targetType":"asinSameAs|asinExpandedFrom|categorySameAs","targetAsins":["B0..."],"matchType":"BROAD|PHRASE|EXACT","keywords":["..."]}
-- mode=auto 时只需要基础字段。
-- mode=productTarget 时必须补 targetType 和 targetAsins。
-- mode=keywordTarget 时必须补 matchType 和 keywords。
-- 如果 createContext 缺 accountId 或 siteId，不要输出 create 动作。
-
-产品数据（JSON）：
-${JSON.stringify(slim, null, 0)}
-
-直接返回 JSON 数组，不要 markdown 包裹：
-[{"sku":"...","asin":"...","stage":"新品|成熟品|衰退品|节气品","health":"盈利|持平|亏损|高风险|Listing异常","listingAlert":null,"strategy":"一句话策略","actions":[{"entityType":"keyword|autoTarget|manualTarget|sbKeyword|sbTarget|spCampaign","actionType":"bid|enable|pause|review|create","id":"...","currentBid":0.45,"suggestedBid":0.50,"reason":"...","createInput":{"mode":"auto","coreTerm":"...","sku":"...","asin":"...","accountId":120,"siteId":4,"dailyBudget":3,"defaultBid":0.3}}],"summary":"2-3句综合判断"}]`;
+  return 'AI 决策主流程已迁移到 Codex，面板不再生成策略 prompt。';
 }
 
 function parseClaudeResponse(text) {
-  if (!text) return [];
-  const match = text.match(/\[[\s\S]*\]/);
-  if (!match) { log('未找到 JSON 数组', 'warn'); return []; }
-  try {
-    return JSON.parse(match[0]);
-  } catch (e) {
-    log('JSON 解析失败：' + e.message, 'warn');
-    return [];
-  }
+  log('AI 计划解析入口已迁移到 Codex，面板不再解析策略结果', 'warn');
+  return [];
 }
 
 // ============================================================
@@ -3076,247 +3064,7 @@ function groupExecutionItems(items, getMeta, typeLabel, bucketKeys = []) {
 }
 
 async function executePlan() {
-  const checkedEls = [...document.querySelectorAll('.action-check:checked')];
-  if (!checkedEls.length) { log('没有勾选任何动作', 'warn'); return; }
-
-  executeBtn.disabled = true;
-  let ok = 0, err = 0;
-  const inventoryNoteEvents = [];
-
-  function recordInventoryNoteEvent(item, entityType, typeLabel, success, result) {
-    const { plan, action } = findPlanActionContext(item, entityType);
-    inventoryNoteEvents.push({
-      sku: item.sku || plan.sku,
-      id: item.id,
-      bid: item.bid,
-      entityType,
-      typeLabel,
-      success,
-      plan,
-      action,
-      resultMessage: success ? '无' : JSON.stringify(result || {}),
-      errorReason: success ? '无' : JSON.stringify(result || {}),
-    });
-  }
-
-  // 按类型分组。SB 不再排除，单独分组便于日志和回滚定位。
-  const kwItems = [], atItems = [], sbKwItems = [], sbTargetItems = [];
-  const stateToggleItems = [];
-  const createItems = [];
-  for (const el of checkedEls) {
-    const { id, type, bid, sku, actionType } = el.dataset;
-    const normalizedType = normalizeActionEntityType(type);
-    if ((actionType || 'bid') === 'create') {
-      createItems.push({ id, sku, type: normalizedType, action: 'create' });
-      continue;
-    }
-    if ((actionType || 'bid') === 'enable' || (actionType || 'bid') === 'pause') {
-      stateToggleItems.push({ id, sku, action: actionType || 'pause', type: normalizedType });
-      continue;
-    }
-    if ((actionType || 'bid') !== 'bid') continue;
-    const item = { id, bid: parseFloat(bid), sku };
-    if (normalizedType === 'keyword') kwItems.push(item);
-    else if (normalizedType === 'sbKeyword') sbKwItems.push(item);
-    else if (normalizedType === 'sbTarget') sbTargetItems.push(item);
-    else atItems.push(item);
-  }
-
-  async function executeKeywordBidItems(items, rows, typeLabel, options = {}) {
-    const endpoint = options.endpoint || '/keyword/batchKeyword';
-    const property = Object.prototype.hasOwnProperty.call(options, 'property') ? options.property : 'keyword';
-    const advType = options.advType || 'SP';
-    const { groups, skipped } = groupExecutionItems(
-      items,
-      item => rows.find(r => String(r.keywordId || r.id || r.keyword_id || '') === String(item.id)),
-      typeLabel,
-      ['campaignId', 'adGroupId']
-    );
-    err += skipped.length;
-
-    for (const [groupKey, group] of groups.entries()) {
-      for (let i = 0; i < group.items.length; i += EXEC_BATCH_SIZE) {
-        const batch = group.items.slice(i, i + EXEC_BATCH_SIZE);
-        const rows = batch.map(({ item, meta }) => ({
-          keywordId: item.id,
-          bid: item.bid,
-          siteId: meta.siteId || 4,
-          accountId: meta.accountId,
-          campaignId: meta.campaignId,
-          adGroupId: meta.adGroupId,
-          matchType: meta.matchType,
-          advType,
-          bidThreshold: meta.bidThreshold,
-          adFormat: meta.adFormat,
-          costType: meta.costType,
-        }));
-        try {
-          const result = await execAdWrite(endpoint, {
-            column: 'bid', property, operation: 'bid', manualTargetType: '',
-            accountId: group.accountId, siteId: group.siteId,
-            idArray: batch.map(({ item }) => item.id),
-            campaignIdArray: [...new Set(rows.map(t => t.campaignId).filter(Boolean))],
-            targetArray: rows,
-            targetNewArray: rows,
-          });
-          if (result && (result.code === 200 || result.msg === 'success')) {
-            ok += batch.length;
-            batch.forEach(({ item }) => recordInventoryNoteEvent(item, options.entityType, typeLabel, true, result));
-            log(`${typeLabel}竞价更新成功：${groupKey} ${batch.length} 条`, 'ok');
-          } else {
-            err += batch.length;
-            batch.forEach(({ item }) => recordInventoryNoteEvent(item, options.entityType, typeLabel, false, result));
-            log(`${typeLabel}更新失败：${groupKey} ${JSON.stringify(result)}`, 'error');
-          }
-        } catch (e) {
-          err += batch.length;
-          batch.forEach(({ item }) => recordInventoryNoteEvent(item, options.entityType, typeLabel, false, { error: e.message }));
-          log(`${typeLabel}更新失败：${groupKey} ${e.message}`, 'error');
-        }
-      }
-    }
-  }
-
-  async function executeTargetBidItems(items, rows, typeLabel, options = {}) {
-    const endpoint = options.endpoint || '/advTarget/batchEditAutoTarget';
-    const property = Object.prototype.hasOwnProperty.call(options, 'property') ? options.property : 'autoTarget';
-    const advType = options.advType || 'SP';
-    const { groups, skipped } = groupExecutionItems(
-      items,
-      item => rows.find(r => String(r.targetId || r.target_id || r.id || '') === String(item.id)),
-      typeLabel,
-      ['campaignId', 'adGroupId']
-    );
-    err += skipped.length;
-
-    for (const [groupKey, group] of groups.entries()) {
-      for (let i = 0; i < group.items.length; i += EXEC_BATCH_SIZE) {
-        const batch = group.items.slice(i, i + EXEC_BATCH_SIZE);
-        const targetArray = batch.map(({ item, meta: raw }) => ({
-          siteId: raw.siteId || 4,
-          accountId: raw.accountId,
-          campaignId: raw.campaignId,
-          adGroupId: raw.adGroupId,
-          targetId: item.id,
-          bid: String(item.bid),
-          advType,
-          bidThreshold: raw.bidThreshold,
-          adFormat: raw.adFormat,
-          costType: raw.costType,
-        }));
-        try {
-          const result = await execAdWrite(endpoint, {
-            column: 'bid', property, operation: 'bid',
-            accountId: group.accountId, siteId: group.siteId,
-            idArray: batch.map(({ item }) => item.id),
-            campaignIdArray: [...new Set(targetArray.map(t => t.campaignId).filter(Boolean))],
-            targetArray,
-            targetNewArray: targetArray,
-          });
-          if (result && (result.code === 200 || result.msg === 'success')) {
-            ok += batch.length;
-            batch.forEach(({ item }) => recordInventoryNoteEvent(item, options.entityType, typeLabel, true, result));
-            log(`${typeLabel}竞价更新成功：${groupKey} ${batch.length} 条`, 'ok');
-          } else {
-            err += batch.length;
-            batch.forEach(({ item }) => recordInventoryNoteEvent(item, options.entityType, typeLabel, false, result));
-            log(`${typeLabel}更新失败：${groupKey} ${JSON.stringify(result)}`, 'error');
-          }
-        } catch (e) {
-          err += batch.length;
-          batch.forEach(({ item }) => recordInventoryNoteEvent(item, options.entityType, typeLabel, false, { error: e.message }));
-          log(`${typeLabel}更新失败：${groupKey} ${e.message}`, 'error');
-        }
-      }
-    }
-  }
-
-  async function executeStateToggleItems(items) {
-    for (const item of items) {
-      let row = null;
-      if (item.type === 'keyword') row = STATE.kwRows.find(r => String(r.keywordId || r.id || r.keyword_id || '') === String(item.id));
-      else if (item.type === 'autoTarget') row = STATE.autoRows.find(r => String(r.targetId || r.target_id || r.id || '') === String(item.id));
-      else if (item.type === 'manualTarget') row = STATE.targetRows.find(r => String(r.targetId || r.target_id || r.id || '') === String(item.id));
-      else if (item.type === 'sbKeyword') row = STATE.sbRows.filter(r => String(r.__adProperty || '') === '4').find(r => String(r.keywordId || r.id || '') === String(item.id));
-      else if (item.type === 'sbTarget') row = STATE.sbRows.filter(r => String(r.__adProperty || '') === '6').find(r => String(r.targetId || r.target_id || r.id || '') === String(item.id));
-
-      const result = await executeStateToggle(row, item.action, item.type);
-      if (result.ok) ok += 1;
-      else err += 1;
-    }
-  }
-
-  async function executeCreateItems(items) {
-    for (const item of items) {
-      const { plan, action } = findPlanActionContext(item, 'spCampaign');
-      const createInput = action?.createInput || {};
-      const result = await createSpCampaign(createInput);
-      const success = !!result.ok;
-      if (success) ok += 1;
-      else err += 1;
-      inventoryNoteEvents.push({
-        sku: item.sku || plan.sku,
-        id: item.id,
-        entityType: 'spCampaign',
-        typeLabel: 'SP create',
-        success,
-        plan,
-        action,
-        finalStatus: success ? 'success' : 'failed',
-        resultMessage: success ? `campaignId=${result.campaignId || ''}; adGroupId=${result.adGroupId || ''}` : JSON.stringify(result || {}),
-        errorReason: success ? '无' : JSON.stringify(result || {}),
-      });
-      const detail = [result.responseMsg, result.errorType, result.reason, ...(result.errors || [])].filter(Boolean).join(' | ');
-      log(`SP创建 ${success ? '成功' : '失败'}：${item.sku || '-'} ${detail || `campaignId=${result.campaignId || '-'} adGroupId=${result.adGroupId || '-'}`}`, success ? 'ok' : 'error');
-    }
-  }
-
-  if (createItems.length) await executeCreateItems(createItems);
-  if (kwItems.length) await executeKeywordBidItems(kwItems, STATE.kwRows, 'SP关键词', { entityType: 'keyword' });
-  if (sbKwItems.length) await executeKeywordBidItems(
-    sbKwItems,
-    STATE.sbRows.filter(r => String(r.__adProperty || '') === '4'),
-    'SB关键词',
-    { endpoint: '/keywordSb/batchEditKeywordSbColumn', property: '', advType: 'SB', entityType: 'sbKeyword' }
-  );
-  const autoTargetIds = new Set((STATE.autoRows || []).map(r => String(r.targetId || r.target_id || r.id || '')));
-  const manualTargetIds = new Set((STATE.targetRows || []).map(r => String(r.targetId || r.target_id || r.id || '')));
-  const spAutoItems = atItems.filter(item => autoTargetIds.has(String(item.id)));
-  const spManualItems = atItems.filter(item => manualTargetIds.has(String(item.id)) && !autoTargetIds.has(String(item.id)));
-  const spUnknownItems = atItems.filter(item => !autoTargetIds.has(String(item.id)) && !manualTargetIds.has(String(item.id)));
-  spUnknownItems.forEach(item => {
-    err += 1;
-    recordInventoryNoteEvent(item, item.type || 'autoTarget', 'SP target', false, { error: 'missing target row metadata' });
-    log(`SP target missing metadata, skip ${item.id}`, 'error');
-  });
-  if (spAutoItems.length) await executeTargetBidItems(spAutoItems, STATE.autoRows, 'SP auto target', { entityType: 'autoTarget' });
-  if (spManualItems.length) await executeTargetBidItems(
-    spManualItems,
-    STATE.targetRows,
-    'SP manual target',
-    { endpoint: '/advTarget/batchUpdateManualTarget', property: 'manualTarget', entityType: 'manualTarget' }
-  );
-  if (sbTargetItems.length) await executeTargetBidItems(
-    sbTargetItems,
-    STATE.sbRows.filter(r => String(r.__adProperty || '') === '6'),
-    'SB定位',
-    { endpoint: '/sbTarget/batchEditTargetSbColumn', property: '', advType: 'SB', entityType: 'sbTarget' }
-  );
-  if (stateToggleItems.length) await executeStateToggleItems(stateToggleItems);
-
-  if (inventoryNoteEvents.length) {
-    const noteResults = await appendInventoryOperationNotes(inventoryNoteEvents);
-    const failedNotes = noteResults.filter(r => !r.ok);
-    if (failedNotes.length) log(`库存便签写入失败 ${failedNotes.length} 个SKU：${failedNotes.map(r => r.sku).join(', ')}`, 'error');
-    else log(`库存便签写入完成：${noteResults.length} 个SKU`, 'ok');
-  }
-
-  $('execOk').textContent = ok;
-  $('execErr').textContent = err;
-  executeBtn.disabled = false;
-
-  // 保存执行计划存档
-  saveExecutionLog(checkedEls, ok, err);
+  log('自动执行主流程已迁移到 Codex，面板不再执行策略计划', 'warn');
 }
 
 function saveExecutionLog(checkedEls, ok, err) {
@@ -3332,66 +3080,7 @@ function saveExecutionLog(checkedEls, ok, err) {
 // 导出快照
 // ============================================================
 async function exportSnapshot() {
-  if (!STATE.productCards.length) { log('无数据可导出', 'warn'); return; }
-
-  // 只导出有广告花费的产品，精简字段
-  const cards = STATE.productCards.filter(c => c.adStats?.['30d']?.spend > 0 || c.sbStats?.['30d']?.spend > 0);
-  const slim = cards.map(c => ({
-    sku: c.sku,
-    asin: c.asin || null,
-    profitRate: c.profitRate || null,
-    invDays: c.invDays || null,
-    unitsSold_30d: c.unitsSold_30d || null,
-    unitsSold_7d: c.unitsSold_7d || null,
-    note: c.note || null,
-    adStats: c.adStats,
-    sbStats: c.sbStats,
-    createContext: c.createContext || null,
-    adjustableAds: c.campaigns.flatMap(camp => [
-      ...camp.keywords.map(kw => ({
-        channel: 'SP', entityType: 'keyword',
-        id: kw.id, text: kw.text, matchType: kw.matchType,
-        bid: kw.bid, onCooldown: kw.onCooldown,
-        stats3d: kw.stats3d, stats7d: kw.stats7d, stats30d: kw.stats30d,
-      })),
-      ...camp.autoTargets.map(at => ({
-        channel: 'SP', entityType: at.targetType === 'manual' ? 'manualTarget' : 'autoTarget',
-        id: at.id, targetType: at.targetType,
-        bid: at.bid, onCooldown: at.onCooldown,
-        stats3d: at.stats3d, stats7d: at.stats7d, stats30d: at.stats30d,
-      })),
-      ...camp.sponsoredBrands.map(sb => ({
-        channel: 'SB', entityType: sb.entityType, rawProperty: sb.rawProperty,
-        id: sb.id, text: sb.text, matchType: sb.matchType,
-        bid: sb.bid, onCooldown: sb.onCooldown,
-        stats3d: sb.stats3d, stats7d: sb.stats7d, stats30d: sb.stats30d,
-      })),
-    ]).filter(ad => ad.stats30d?.spend > 0 || ad.stats7d?.spend > 0 || ad.stats3d?.spend > 0),
-    keywords: c.campaigns.flatMap(camp => camp.keywords.map(kw => ({
-      id: kw.id, text: kw.text, matchType: kw.matchType,
-      bid: kw.bid, onCooldown: kw.onCooldown,
-      stats3d: kw.stats3d, stats7d: kw.stats7d, stats30d: kw.stats30d,
-    }))).filter(kw => kw.stats30d?.spend > 0 || kw.stats7d?.spend > 0 || kw.stats3d?.spend > 0),
-    autoTargets: c.campaigns.flatMap(camp => camp.autoTargets.map(at => ({
-      id: at.id, targetType: at.targetType,
-      bid: at.bid, onCooldown: at.onCooldown,
-      stats3d: at.stats3d, stats7d: at.stats7d, stats30d: at.stats30d,
-    }))).filter(at => at.stats30d?.spend > 0 || at.stats7d?.spend > 0 || at.stats3d?.spend > 0),
-    sponsoredBrands: c.campaigns.flatMap(camp => camp.sponsoredBrands.map(sb => ({
-      id: sb.id, channel: 'SB', entityType: sb.entityType, rawProperty: sb.rawProperty, text: sb.text, matchType: sb.matchType,
-      bid: sb.bid, onCooldown: sb.onCooldown,
-      stats3d: sb.stats3d, stats7d: sb.stats7d, stats30d: sb.stats30d,
-    }))).filter(sb => sb.stats30d?.spend > 0 || sb.stats7d?.spend > 0 || sb.stats3d?.spend > 0),
-  }));
-
-  const snap = {
-    exportedAt: new Date().toISOString(),
-    date: new Date().toISOString().slice(0, 10),
-    products: slim,
-    prompt: buildClaudePrompt(slim),
-  };
-  downloadJson(snap, `ad-ops/snapshots/${timestamp()}.json`);
-  log(`快照已导出：${slim.length} 个产品，发给 Claude 分析`, 'ok');
+  log('快照导出给 AI 的入口已迁移到 Codex，面板不再承担策略导出', 'warn');
 }
 
 // ============================================================

@@ -1,292 +1,97 @@
-# 七天未调整任务线经验教训
+# Agent Instructions
 
-本文档记录这次在“七天未调整”任务线里踩过的坑、已经确认的实现原则，以及后续继续改这条链路时不能再犯的错误。
+This project is operated by Codex as the only AI decision entry point.
 
-范围只针对：
+## Required Read Order
 
-- SP 七天未调整候选接入
-- SB 七天未调整候选接入
-- 候选归一、去重、执行、回写、冷却
-- 与原有策略并存时的执行纪律
+Before running or changing the workflow, read:
 
-不讨论原有加投/降投策略本身。
+1. `README.md`
+2. `docs/CODEX_HANDOFF_RUNBOOK.md`
+3. `docs/CODEX_AI_BOUNDARY.md`
+4. `docs/Q2_AD_OPS_PLAYBOOK.md`
+5. `docs/CODEX_MINIMAL_CLOSED_LOOP.md`
 
-## 一、先确认数据粒度，不能拿候选层直接执行
+## Architecture Boundary
 
-这次最重要的教训是：
+The extension panel is not an AI product. It only captures data, exports structured snapshots, visualizes rows, exposes execution bridges, shows results, and supports manual confirmation.
 
-- `advProduct/all` 这种接口返回的，很可能不是“真实可写执行对象”
-- 它可能只是 SKU / 广告产品 / 广告组候选层
-- 候选层只能拿来“发现需要处理的对象”，不能直接当执行层
+Codex performs the decision work outside the panel:
 
-已经确认过的经验：
+- Read snapshot and docs.
+- Understand ad, inventory, Q2, product-stage, and history context.
+- Produce a unified action schema.
+- Run dry-run validation.
+- Execute through scripts.
+- Verify result landing.
+- Write inventory notes.
+- Generate summary.
 
-- SP 七天未调整池更像候选池，不等于真实 keyword/target 执行层
-- SB 七天未调整池更接近 campaign 层，可直接进入执行池，但依然要核对当前行字段是否满足真实写接口
+Do not add an OpenAI-compatible provider or AI runtime inside the panel. Do not keep a second strategy layer in code.
 
-后续规则：
+## Execution Discipline
 
-1. 任何新接入的七天未调整源，先打印样本字段和层级
-2. 先回答“这是不是可写实体”
-3. 如果不是，就继续钻取真实执行对象
-4. 找不到真实执行对象时，要明确标成候选未落地，不准假装执行成功
+- Code may validate schema, execute APIs, verify, write notes, and summarize.
+- Code must not secretly decide strategy through old rule trees.
+- If Codex cannot decide, emit `review`.
+- Do not use fallback logic to pretend AI made a decision.
+- All failures must be structured.
+- High-risk actions remain review-only unless explicitly released.
 
-## 二、七天未调整不是新策略引擎，而是“补漏任务线”
+## Current Auto-Executable Scope
 
-七天未调整的定位已经明确：
+Low-risk actions:
 
-- 它不是替代原有调价策略
-- 它是把长时间没人动过的对象重新纳入待处理池
-- 它的本质是运营补漏，不是另起一套竞价哲学
+- `bid_up`
+- `bid_down`
+- `enable`
+- `pause`
+- seven-day untouched low-risk touch actions
 
-因此后续实现必须遵守：
+Review-only actions:
 
-- 原策略仍然优先
-- 七天未调整只能补充，不要覆盖原策略动作
-- 同一对象同时命中时，保留原策略动作，只追加“七天未调整命中”的来源和原因
+- `create`
+- `structure_fix`
+- large bid changes
+- high-sales strong actions
+- listing edits
+- price changes
+- replenishment decisions
 
-## 三、去重一定按“执行实体”去重，不按候选行去重
+## Normal Command Flow
 
-这次做七天未调整时，最容易犯的错是：
+Start debug Chrome:
 
-- 候选池是一层
-- 执行对象是另一层
-- 如果直接按候选行去重，会重复生成任务，甚至重复执行
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\execute\open_debug_browser.ps1
+```
 
-后续统一要求：
+Export snapshot:
 
-- 去重键必须尽量落到真实执行实体
-- 至少包含：
-  - `siteId`
-  - `adType`
-  - `entityLevel`
-  - `sku`
-  - `campaignId`
-  - `adGroupId`
-  - `keywordId`
-  - `targetId`
+```powershell
+node scripts\execute\export_snapshot.js data\snapshots\latest_snapshot.json
+```
 
-经验结论：
+Dry-run:
 
-- “同一个 SKU” 不是执行去重维度
-- “同一个 campaign” 也不够
-- 必须尽量落到 keyword/target 级别
+```powershell
+$env:DRY_RUN='1'
+node scripts\execute\run_actions.js data\snapshots\action_schema.json --snapshot data\snapshots\latest_snapshot.json
+```
 
-## 四、执行分组不能过粗，否则会把可执行对象一起拖死
+Execute:
 
-这是这轮最关键的工程教训之一。
+```powershell
+Remove-Item Env:\DRY_RUN -ErrorAction SilentlyContinue
+node scripts\execute\run_actions.js data\snapshots\action_schema.json --snapshot data\snapshots\latest_snapshot.json
+```
 
-之前自动执行里有一个问题：
+Regression checks:
 
-- 批量写入时按 `accountId + siteId` 聚合
-- 这会把同账号下很多不相干的对象拼进同一批请求
-- 只要其中一部分触发 403 或系统冲突，整批都会一起被标失败
-
-这会造成非常误导的现象：
-
-- 人工单独调一个对象，能成功
-- 自动跑批时，同对象却显示失败
-
-已经确认的修复原则：
-
-- 写入分组至少要细到 `accountId + siteId + campaignId + adGroupId`
-- 不要把同账号不同 adGroup 的 target 混成一个大包
-
-经验总结：
-
-- 自动失败不等于对象本身不可调
-- 很多时候是“混批把它连坐了”
-
-## 五、403 不能当普通失败重试
-
-这次已经验证，后台存在这种返回：
-
-- `403`
-- 含义接近“系统近期已自动调整，禁止手动调整”
-
-这种情况不是普通失败，处理原则必须固定：
-
-1. 标记为 `blocked_by_system_recent_adjust`
-2. 本轮移出待执行池
-3. 单独统计
-4. 进入冷却，而不是立即重试
-5. 日志里明确写“系统近期自动调整阻塞”
-
-不要再做的事情：
-
-- 把 403 当一般失败反复重试
-- 把 403 写成“对象无效”
-- 用模糊文案掩盖真实原因
-
-## 六、冷却判断必须精确到候选对象，不能一刀切误伤整组
-
-这轮还暴露了第二个隐蔽问题：
-
-- 某个子 target 因 403 被标记后
-- 后续代码拿这个结果去压整个七天候选
-- 导致整组对象都不再进入执行
-
-这会出现一种很糟糕的假象：
-
-- 实际上只是某个子对象近期被系统碰过
-- 但整个 SKU / adGroup 候选都被错误冷却
-
-后续规则：
-
-- 七天候选的冷却，必须按精确 `candidateKey` 判断
-- 子对象 blocked，不等于整候选 blocked
-- 只有当候选级别本身被确认 blocked，才能压整候选
-
-一句话：
-
-- 冷却要精确，不能“一个孩子发烧，全家停工”
-
-## 七、没有执行对象，不等于对象不存在
-
-这次用户手动补了 5 个“外层还在、里层执行对象没了”的 case，也说明一个事实：
-
-- 七天未调整候选层和真实执行层可能发生漂移
-
-常见情况有三种：
-
-1. 候选层还在，但 keyword/target 已经没了
-2. 候选层能钻到里层，但里层全是 paused/archived/disabled/incomplete
-3. 候选层和执行层都在，但当前批量执行方式有问题
-
-所以后续排查顺序必须固定：
-
-1. 先看有没有真实执行对象
-2. 再看执行对象是不是有效状态
-3. 再看是不是接口/分组/冷却逻辑误伤
-
-不能一上来就说：
-
-- “后台不让调”
-- “对象没了”
-- “这是系统问题”
-
-要先把链路拆开确认。
-
-## 八、七天未调整默认动作要轻，不要装懂
-
-七天未调整不是让系统“见对象就大调”。
-
-已经验证可行的原则：
-
-- 只命中七天未调整、没有更强策略信号时，默认给低风险 touch action
-- 低风险动作必须是真动作，不是 no-op
-- 但也不能因为想清池，就乱拆成词级别瞎调
-
-建议继续沿用的触达纪律：
-
-- `orders = 0` 且 `spend > 3`：优先小降
-- `ACOS > 30%`：优先小降
-- `ACOS <= 20%` 且 `orders >= 2`：优先小加
-- 数据弱但要脱离未调整状态：做 3%~5% 轻调，并标 `low_confidence`
-- 高销量、高风险、库存/利润承接不明：进人工复核
-
-经验结论：
-
-- 七天未调整要解决“长期没人碰”，不是解决“所有投放问题”
-- 不确定时，轻调或人工复核，比武断大调更对
-
-## 九、开启/关闭能力是七天清池的重要补充，不是装饰
-
-后来补上状态切换能力后，经验更明确了：
-
-- 只靠 bid 调整，清不掉所有七天未调整对象
-- 一部分对象的问题不在 bid，而在状态
-
-典型情况：
-
-- 有历史信号、但当前 paused，需要 reopen 才能重新试投
-- 明显无转化且拖预算，需要 pause 才算真正处理
-
-因此后续在七天未调整链路里要记住：
-
-- “处理”不等于“调 bid”
-- enable / pause 也是有效动作
-- 但开启/关闭也必须走真实接口、真实回查，不能做假状态
-
-## 十、UI 和统计必须把“为什么没执行”说人话
-
-这轮和用户来回最多的，不是代码本身，而是解释不够直白。
-
-以后七天未调整这条线，结果展示必须尽量用人话分层：
-
-1. 找不到真实执行对象
-2. 找到了，但全是无效状态
-3. 可以执行，但被系统近期自动调整拦住
-4. 可以执行，且已成功处理
-5. 风险太高，进入人工复核
-
-不要再只抛这种含糊词：
-
-- “不能执行”
-- “没有合法对象”
-- “blocked”
-
-要把技术原因翻译成运营能理解的话。
-
-## 十一、这条线后续开发时的硬约束
-
-以后谁继续改“七天未调整”，默认遵守下面这些约束：
-
-1. 不要直接拿候选层写接口
-2. 不要让七天未调整覆盖原策略动作
-3. 不要按账号粗粒度混批执行
-4. 不要把 403 当普通失败
-5. 不要用子对象 blocked 去压整个候选
-6. 不要把 paused/archived/incomplete 混成一个模糊失败原因
-7. 不要为了清池而做 no-op
-8. 不要为了“看起来成功”而绕开真实接口或回查
-
-## 十二、建议的排查顺序
-
-以后如果再出现“还有很多七天未调整没清掉”，按这个顺序查：
-
-1. 先核对候选接口返回粒度
-2. 再确认是否能钻取到真实执行对象
-3. 再确认执行对象状态是不是有效
-4. 再抓真实请求，看人工成功和自动失败差异
-5. 再检查是不是混批问题
-6. 再检查是不是被 403 冷却
-7. 最后才讨论策略本身是否需要改
-
-这个顺序能避免盲改。
-
-## 十三、当前沉淀出的核心原则
-
-最后收敛成三句话：
-
-1. 七天未调整是“补漏任务线”，不是第二套策略引擎。
-2. 自动执行要按真实执行实体组织，不能按候选或账号粗暴混批。
-3. 解释失败原因时，要区分“没对象”“对象无效”“系统拦截”“人工复核”，不能混说。
-
-## 十四、关于“新建广告”当前阶段的纪律
-
-当前结论先固定下来：
-
-- 新建广告能力已经接进策略主链
-- 但新建广告动作目前仍然需要人工复核
-- 不能把 create 动作当成和 bid/enable/pause 一样的默认自动执行动作
-
-原因不是技术上发不出去，而是业务上还没闭环到“可放心全自动”：
-
-1. create 需要的字段比 bid 调整多
-2. createInput 很依赖策略判断质量
-3. 建广告一旦建错，后果不是一次竞价偏差，而是多出整套错误结构
-
-所以当前阶段的使用纪律是：
-
-- 策略层允许提出 create 建议
-- UI 可以展示 create 动作
-- 执行前默认需要人工复核 createInput
-- 只有在字段完整、意图明确、命名正确、模式正确时才执行
-
-后续如果要把 create 放开成默认自动执行，至少还要补这几类验证：
-
-1. auto / productTarget / keywordTarget 三种模式分别做真实闭环验证
-2. 验证命名规则和 SOP 是否完全一致
-3. 验证创建后 campaign / adGroup / 首批实体是否都按预期生成
-4. 验证 create 的便签、日志、失败分类是否完整
+```powershell
+node --check auto_adjust.js
+node --check extension\panel.js
+node --check scripts\execute\run_actions.js
+node --check scripts\execute\export_snapshot.js
+npm test
+```

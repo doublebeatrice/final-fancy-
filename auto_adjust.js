@@ -2,7 +2,8 @@ const WebSocket = require('ws');
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
-const { log, loadHistory, saveHistory, analyzeCard, hasRecentOutcome, SNAPSHOTS_DIR, today } = require('./src/adjust_lib');
+const { log, loadHistory, saveHistory, hasRecentOutcome, SNAPSHOTS_DIR, today } = require('./src/adjust_lib');
+const { loadExternalActionSchema } = require('./src/ai_decision');
 
 const BATCH = 50;
 const VERIFY_TOLERANCE = 0.0001;
@@ -66,12 +67,12 @@ function findPanelId() {
 }
 
 function apiOk(result) {
-  return !!(result && (result.code === 200 || result.msg === 'success' || result.msg === '更新成功'));
+  return !!(result && (result.code === 200 || result.msg === 'success' || result.msg === '鏇存柊鎴愬姛'));
 }
 
 function isSystemConflict(result) {
   const text = JSON.stringify(result || {});
-  return !!(result && (result.code === 403 || /系统已自动调整|禁止手动调整/.test(text)));
+  return !!(result && (result.code === 403 || /绯荤粺宸茶嚜鍔ㄨ皟鏁磡绂佹鎵嬪姩璋冩暣/.test(text)));
 }
 
 function classifyApiResult(result) {
@@ -176,437 +177,17 @@ function ensureTouchedBidChange(bid, factor, direction, minBid = 0.05) {
   return null;
 }
 
-function touchActionForEntity(card, entity, entityType, source, rowStats = null, meta = {}) {
-  const stats7 = rowStats || entity.stats7d || { spend: 0, orders: 0, clicks: 0, acos: 0 };
-  const stats30 = entity.stats30d || {};
-  const bid = toNum(entity.bid);
-  if (!bid || bid <= 0) return null;
-
-  const invDays = Number(card.invDays || 0);
-  const lowStockRisk = invDays > 0 && invDays <= 2;
-  const skuSp30 = card.adStats?.['30d'] || {};
-  const skuSb30 = card.sbStats?.['30d'] || {};
-  const skuSpOrders30 = Number(skuSp30.orders || 0);
-  const skuSpSpend30 = Number(skuSp30.spend || 0);
-  const skuSbSpend30 = Number(skuSb30.spend || 0);
-  const skuHistoricalSignal =
-    skuSpOrders30 >= 2 ||
-    skuSpSpend30 >= 8 ||
-    Number(card.unitsSold_30d || 0) >= 30;
-  const skuExploratorySignal =
-    skuHistoricalSignal ||
-    skuSpOrders30 >= 1 ||
-    skuSpSpend30 >= 1 ||
-    skuSbSpend30 >= 1 ||
-    (stats7.spend || 0) >= 1;
-  const minBid = minAllowedBidFor({ entityType }, meta);
-  const stateText = String(entity.state || entity.status || entity.servingStatus || '').trim().toUpperCase();
-  const stateRisk = isInvalidState(entity.state || entity.status || entity.servingStatus);
-  const pausedState = stateText === '2' || stateText.includes('PAUSED');
-  const hardInvalidState = /ARCHIVED|DISABLED|ENDED|INCOMPLETE|CAMPAIGN_INCOMPLETE/.test(stateText) || stateText === '0';
-  const base = {
-    entityType,
-    id: String(entity.id),
-    currentBid: bid,
-    source,
-    actionSource: [source],
-    adType: String(entityType).startsWith('sb') ? 'SB' : 'SP',
-    entityLevel: entityType,
-    canAutoExecute: true,
-    riskLevel: 'low',
-    reason: '',
-    sku: meta.sku || card.sku,
-    campaignId: meta.campaignId || '',
-    adGroupId: meta.adGroupId || '',
-    keywordId: entityType === 'keyword' || entityType === 'sbKeyword' ? String(entity.id) : '',
-    targetId: entityType === 'autoTarget' || entityType === 'manualTarget' || entityType === 'sbTarget' ? String(entity.id) : '',
-    candidateKey: meta.candidateKey || '',
-  };
-
-  if (hardInvalidState) {
-    return { ...base, actionType: 'skip', canAutoExecute: false, riskLevel: 'skip', reason: '7天未调整命中，但对象状态不可执行，跳过' };
-  }
-
-  if (pausedState) {
-    const strongEntitySignal =
-      String(source || '').includes('7day') &&
-      !lowStockRisk &&
-      (
-        (stats30.orders || 0) > 0 ||
-        (stats30.clicks || 0) >= 8 ||
-        (stats30.spend || 0) >= 3 ||
-        Number(card.unitsSold_30d || 0) >= 80
-      );
-    const canReopen = strongEntitySignal || (String(source || '').includes('7day') && !lowStockRisk && skuHistoricalSignal);
-    const canExploratoryReopen =
-      !canReopen &&
-      String(source || '').includes('7day') &&
-      !lowStockRisk &&
-      skuExploratorySignal;
-    const canColdStartPilot =
-      !canReopen &&
-      !canExploratoryReopen &&
-      String(source || '').includes('7day') &&
-      !lowStockRisk &&
-      bid <= 0.36;
-    if (!canReopen && !canExploratoryReopen && !canColdStartPilot) {
-      return { ...base, actionType: 'skip', canAutoExecute: false, riskLevel: 'skip', reason: '7day untouched hit, child entity is paused without enough relaunch signal' };
-    }
-    return {
-      ...base,
-      actionType: 'enable',
-      riskLevel: canReopen ? 'low' : 'low_confidence',
-      reason: canReopen
-        ? '7day untouched hit, child entity is paused but SKU has relaunch signal, reopen one representative entity first'
-        : canExploratoryReopen
-          ? '7day untouched hit, child entity is paused and SKU still has weak historical signal, reopen one representative entity as small-scope test'
-          : '7day untouched hit, child entity is fully paused with no recent signal, reopen one lowest-risk representative entity for a cold-start test',
-      snapshot: {
-        spend7: parseFloat((stats7.spend || 0).toFixed(2)),
-        spend30: parseFloat((stats30.spend || 0).toFixed(2)),
-        orders30: stats30.orders || 0,
-        clicks30: stats30.clicks || 0,
-        skuSpOrders30,
-        skuSpSpend30: parseFloat(skuSpSpend30.toFixed(2)),
-        skuSbSpend30: parseFloat(skuSbSpend30.toFixed(2)),
-      },
-    };
-  }
-
-  let factor = 0.97;
-  let direction = 'down';
-  let riskLevel = 'low_confidence';
-  let reason = '7天未调整触达：数据方向不明确，轻微降3%';
-  if (String(source || '').includes('7day') && bid <= minBid + 0.0001 && skuHistoricalSignal) {
-    factor = 1.05;
-    direction = 'up';
-    riskLevel = 'low_confidence';
-    reason = '7day untouched hit: entity is already at floor bid but SKU still has history, raise one small step to test traffic';
-  } else if ((stats7.orders || 0) === 0 && (stats7.spend || 0) > 3) {
-    factor = 0.90;
-    direction = 'down';
-    riskLevel = 'low';
-    reason = `7天未调整触达：近7天0单且花费$${stats7.spend.toFixed(2)}>3，降10%`;
-  } else if ((stats7.acos || 0) > 0.30) {
-    factor = 0.90;
-    direction = 'down';
-    riskLevel = 'low';
-    reason = `7天未调整触达：近7天ACOS ${(stats7.acos * 100).toFixed(1)}%>30%，降10%`;
-  } else if ((stats7.acos || 0) > 0 && stats7.acos <= 0.20 && (stats7.orders || 0) >= 2) {
-    factor = 1.05;
-    direction = 'up';
-    riskLevel = 'low';
-    reason = `7天未调整触达：近7天ACOS ${(stats7.acos * 100).toFixed(1)}%<=20%且订单${stats7.orders}，加5%`;
-  } else if ((stats7.orders || 0) > 0) {
-    factor = 1.03;
-    direction = 'up';
-    reason = '7天未调整触达：近7天有订单但信号较弱，轻微加3%';
-  }
-
-  const ambiguousHighVolume = ((stats7.orders || 0) >= 20 || (stats7.spend || 0) >= 80 || (stats30.orders || 0) >= 40) && riskLevel === 'low_confidence';
-  if (lowStockRisk || ambiguousHighVolume) {
-    return { ...base, actionType: 'review', canAutoExecute: false, riskLevel: 'manual_review', reason: `7天未调整命中，高风险需人工复核：库存${invDays || '-'}天，7日订单${stats7.orders || 0}，7日花费$${(stats7.spend || 0).toFixed(2)}` };
-  }
-
-  const suggestedBid = ensureTouchedBidChange(bid, factor, direction);
-  if (suggestedBid == null) {
-    return {
-      ...base,
-      actionType: 'skip',
-      canAutoExecute: false,
-      riskLevel: 'skip',
-      reason: `7澶╂湭璋冩暣鍛戒腑锛屼絾褰撳墠鍑轰环 ${bid.toFixed(2)} 宸插埌鏈€灏忓彲瀹夊叏璋冩暣绮惧害锛岃烦杩?`,
-    };
-  }
-  return {
-    ...base,
-    actionType: 'bid',
-    suggestedBid,
-    direction,
-    riskLevel,
-    reason,
-    snapshot: {
-      spend7: parseFloat((stats7.spend || 0).toFixed(2)),
-      orders7: stats7.orders || 0,
-      acos7: parseFloat(((stats7.acos || 0) * 100).toFixed(1)),
-    },
-  };
-}
-
-function touchActionForSbCampaign(row, source) {
-  const stats7 = readStats(row);
-  const campaignId = String(row.campaignId || row.campaign_id || '').trim();
-  const sku = String(row.sku || row.SKU || row.raw_sku || row.product_sku || '').trim();
-  const currentBudget = toNum(row.budget);
-  const stateRisk = isInvalidState(row.state || row.status || row.servingStatus || row.campaignState);
-  const base = {
-    id: campaignId,
-    entityType: 'sbCampaign',
-    entityLevel: 'campaign',
-    actionType: 'budget',
-    source,
-    actionSource: [source],
-    adType: 'SB',
-    canAutoExecute: true,
-    riskLevel: 'low',
-    reason: '',
-    sku,
-    campaignId,
-    adGroupId: '',
-    keywordId: '',
-    targetId: '',
-    candidateKey: `SB7::${campaignId}`,
-    currentBudget,
-    suggestedBudget: null,
-    currentBid: currentBudget,
-    suggestedBid: null,
-  };
-
-  if (!campaignId || !currentBudget || currentBudget <= 0) {
-    return {
-      ...base,
-      actionType: 'review',
-      canAutoExecute: false,
-      riskLevel: 'manual_review',
-      reason: '7天未调整SB活动缺少有效预算或活动ID，进入人工复核',
-    };
-  }
-
-  if (stateRisk) {
-    return {
-      ...base,
-      actionType: 'skip',
-      canAutoExecute: false,
-      riskLevel: 'skip',
-      reason: '7天未调整命中，但SB活动状态不可执行，跳过',
-    };
-  }
-
-  let factor = 0.97;
-  let direction = 'down';
-  let riskLevel = 'low_confidence';
-  let reason = '7天未调整SB活动触达：数据方向不明确，预算轻微下调3%';
-  if ((stats7.orders || 0) === 0 && (stats7.spend || 0) > 3) {
-    factor = 0.90;
-    direction = 'down';
-    riskLevel = 'low';
-    reason = `7天未调整SB活动触达：近7天0单且花费$${stats7.spend.toFixed(2)}>3，预算降10%`;
-  } else if ((stats7.acos || 0) > 0.30) {
-    factor = 0.90;
-    direction = 'down';
-    riskLevel = 'low';
-    reason = `7天未调整SB活动触达：近7天ACOS ${(stats7.acos * 100).toFixed(1)}%>30%，预算降10%`;
-  } else if ((stats7.acos || 0) > 0 && stats7.acos <= 0.20 && (stats7.orders || 0) >= 2) {
-    factor = 1.05;
-    direction = 'up';
-    riskLevel = 'low';
-    reason = `7天未调整SB活动触达：近7天ACOS ${(stats7.acos * 100).toFixed(1)}%<=20%且订单${stats7.orders}，预算加5%`;
-  } else if ((stats7.orders || 0) > 0) {
-    factor = 1.03;
-    direction = 'up';
-    reason = '7天未调整SB活动触达：近7天有订单但信号较弱，预算轻微上调3%';
-  }
-
-  const ambiguousHighVolume = ((stats7.orders || 0) >= 20 || (stats7.spend || 0) >= 80) && riskLevel === 'low_confidence';
-  if (ambiguousHighVolume) {
-    return {
-      ...base,
-      actionType: 'review',
-      canAutoExecute: false,
-      riskLevel: 'manual_review',
-      reason: `7天未调整SB活动命中，但体量较大且方向不明确：7日订单${stats7.orders || 0}，7日花费$${(stats7.spend || 0).toFixed(2)}`,
-    };
-  }
-
-  const suggestedBudget = parseFloat(Math.max(1, currentBudget * factor).toFixed(2));
-  if (Math.abs(suggestedBudget - currentBudget) <= 0.001) return null;
-  return {
-    ...base,
-    suggestedBudget,
-    suggestedBid: suggestedBudget,
-    direction,
-    riskLevel,
-    reason,
-    snapshot: {
-      spend7: parseFloat((stats7.spend || 0).toFixed(2)),
-      orders7: stats7.orders || 0,
-      acos7: parseFloat(((stats7.acos || 0) * 100).toFixed(1)),
-    },
-  };
-}
-
-function pickRepresentativeSevenDayEntity(matches) {
-  if (!matches.length) return null;
-  const score = match => {
-    const row = match.row || {};
-    const state = String(row.state || row.status || row.servingStatus || '').trim();
-    const active = state === '1' || /ENABLED/i.test(state);
-    const spend7 = toNum(row.spend7 ?? row.Spend7 ?? row.Spend) || 0;
-    const spend30 = toNum(row.spend30 ?? row.Spend30 ?? row.Spend) || 0;
-    const clicks30 = toNum(row.clicks30 ?? row.Clicks30 ?? row.Clicks) || 0;
-    const orders30 = toNum(row.orders30 ?? row.Orders30 ?? row.Orders) || 0;
-    const bid = toNum(row.bid || row.defaultBid || row.cpcBid) || 0;
-    return (active ? 100000 : 0) + spend7 * 1000 + spend30 * 100 + orders30 * 10 + clicks30 - bid;
-  };
-  return [...matches].sort((a, b) => score(b) - score(a))[0];
-}
-
-function buildSevenDayPlans(cards, spRows, sbRows, rowsByType, history = []) {
-  const plans = [];
-  const review = [];
-  const skipped = [];
-  const cardBySku = new Map(cards.map(card => [String(card.sku || ''), card]));
-  const planBySku = new Map();
-
-  function pushAction(sku, action) {
-    if (!planBySku.has(sku)) planBySku.set(sku, { sku, actions: [] });
-    planBySku.get(sku).actions.push(action);
-  }
-
-  function handleOutcome(sku, action) {
-    if (!action) return;
-    if (['bid', 'enable', 'pause'].includes(action.actionType)) pushAction(sku, action);
-    else if (action.actionType === 'review') review.push({ sku, dedupeKey: action.dedupeKey || action.candidateKey || '', actionSource: action.actionSource, source: action.source, action });
-    else if (action.actionType === 'skip') skipped.push({ sku, dedupeKey: action.dedupeKey || action.candidateKey || '', actionSource: action.actionSource, source: action.source, action });
-  }
-
-  for (const row of spRows || []) {
-    const sku = String(row.sku || row.SKU || '').trim();
-    const campaignId = String(row.campaignId || row.campaign_id || '').trim();
-    const adGroupId = String(row.adGroupId || row.ad_group_id || '').trim();
-    const candidateKey = `SP7::${sku}::${campaignId}::${adGroupId}`;
-    const recentlyBlocked = hasRecentCandidateBlock(history, candidateKey, 7);
-    if (recentlyBlocked) {
-      skipped.push({
-        sku,
-        dedupeKey: candidateKey,
-        actionSource: ['sp_7day_untouched'],
-        source: 'sp_7day_untouched',
-        action: {
-          id: candidateKey,
-          entityType: 'adGroup',
-          entityLevel: 'adGroup',
-          source: 'sp_7day_untouched',
-          actionSource: ['sp_7day_untouched'],
-          canAutoExecute: false,
-          riskLevel: 'cooldown',
-          actionType: 'skip',
-          reason: '7天未调整对象近期已被系统自动调价拦截，进入冷却期，本轮不重复执行',
-          candidateKey,
-          campaignId,
-          adGroupId,
-          sku,
-        },
-      });
-      continue;
-    }
-    const card = cardBySku.get(sku);
-    if (!card) {
-      review.push({ sku, dedupeKey: candidateKey, actionSource: ['sp_7day_untouched'], source: 'sp_7day_untouched', action: { id: candidateKey, entityType: 'skuCandidate', entityLevel: 'skuCandidate', source: 'sp_7day_untouched', actionSource: ['sp_7day_untouched'], canAutoExecute: false, riskLevel: 'manual_review', actionType: 'review', reason: '7天未调整候选未映射到SKU画像，进入人工复核', candidateKey, campaignId, adGroupId, sku } });
-      continue;
-    }
-    const matches = [
-      ...(rowsByType.keyword || []).filter(r => String(r.campaignId || r.campaign_id || '').trim() === campaignId && String(r.adGroupId || r.ad_group_id || '').trim() === adGroupId).map(r => ({ row: r, entityType: 'keyword' })),
-      ...(rowsByType.autoTarget || []).filter(r => String(r.campaignId || r.campaign_id || '').trim() === campaignId && String(r.adGroupId || r.ad_group_id || '').trim() === adGroupId).map(r => ({ row: r, entityType: 'autoTarget' })),
-      ...(rowsByType.manualTarget || []).filter(r => String(r.campaignId || r.campaign_id || '').trim() === campaignId && String(r.adGroupId || r.ad_group_id || '').trim() === adGroupId).map(r => ({ row: r, entityType: 'manualTarget' })),
-    ];
-    if (!matches.length) {
-      review.push({ sku, dedupeKey: candidateKey, actionSource: ['sp_7day_untouched'], source: 'sp_7day_untouched', action: { id: candidateKey, entityType: 'adGroup', entityLevel: 'adGroup', source: 'sp_7day_untouched', actionSource: ['sp_7day_untouched'], canAutoExecute: false, riskLevel: 'manual_review', actionType: 'review', reason: '7天未调整候选未钻取到真实SP执行层，进入人工复核', candidateKey, campaignId, adGroupId, sku } });
-      continue;
-    }
-    const representative = pickRepresentativeSevenDayEntity(matches);
-    for (const match of representative ? [representative] : []) {
-      const bid = toNum(match.row.bid || match.row.defaultBid || match.row.cpcBid);
-      const entityStats = readStats(match.row);
-      const fallbackStats = readStats(row);
-      const hasEntitySignal = (entityStats.spend || 0) > 0 || (entityStats.orders || 0) > 0 || (entityStats.acos || 0) > 0;
-      const entity = {
-        id: String(match.row.keywordId || match.row.targetId || match.row.id || ''),
-        bid,
-        state: match.row.state || match.row.status || match.row.servingStatus,
-        stats7d: hasEntitySignal ? entityStats : fallbackStats,
-        stats30d: entityStats,
-      };
-      const action = touchActionForEntity(card, entity, match.entityType, 'sp_7day_untouched', hasEntitySignal ? entityStats : fallbackStats, { sku, campaignId, adGroupId, candidateKey });
-      if (action) action.dedupeKey = dedupeKeyFor(action, { siteId: row.siteId || 4, campaignId, adGroupId, keywordId: match.entityType === 'keyword' ? entity.id : '', targetId: match.entityType !== 'keyword' ? entity.id : '' }, sku);
-      handleOutcome(sku, action);
-    }
-    if (!representative) {
-      review.push({ sku, dedupeKey: candidateKey, actionSource: ['sp_7day_untouched'], source: 'sp_7day_untouched', action: { id: candidateKey, entityType: 'adGroup', entityLevel: 'adGroup', source: 'sp_7day_untouched', actionSource: ['sp_7day_untouched'], canAutoExecute: false, riskLevel: 'manual_review', actionType: 'review', reason: '7day untouched candidate has child entities, but no representative executable entity was selected', candidateKey, campaignId, adGroupId, sku } });
-    }
-  }
-
-  for (const row of sbRows || []) {
-    const campaignId = String(row.campaignId || row.campaign_id || '').trim();
-    const candidateKey = `SB7::${campaignId}`;
-    const action = touchActionForSbCampaign(row, 'sb_7day_untouched');
-    if (action) action.dedupeKey = dedupeKeyFor(action, { siteId: row.siteId || 4, campaignId }, '');
-    if (action?.actionType === 'review') review.push({ sku: action.sku || '', dedupeKey: action.dedupeKey || candidateKey, actionSource: action.actionSource, source: action.source, action });
-    else if (action?.actionType === 'skip') skipped.push({ sku: action.sku || '', dedupeKey: action.dedupeKey || candidateKey, actionSource: action.actionSource, source: action.source, action });
-    else if (action) {
-      const planSku = action.sku || campaignId;
-      if (!planBySku.has(planSku)) planBySku.set(planSku, { sku: planSku, actions: [] });
-      planBySku.get(planSku).actions.push(action);
-    }
-  }
-
-  return { plans: [...planBySku.values()], review, skipped };
-}
-
-function mergePlans(strategyPlan, sevenDayPlan, rowsByType) {
-  const mergedBySku = new Map();
-  const actionByKey = new Map();
-  let overlap = 0;
-
-  function addAction(sku, action, source) {
-    const rows = rowsByType[action.entityType] || [];
-    const meta = rows.find(row => String(row.keywordId || row.targetId || row.id || '') === String(action.id)) || {};
-    const normalizedAction = { ...action };
-    if (normalizedAction.actionType !== 'budget' && normalizedAction.suggestedBid != null) {
-      const minBid = minAllowedBidFor(normalizedAction, meta);
-      const currentBid = toNum(normalizedAction.currentBid);
-      const normalizedBid = parseFloat(Math.max(minBid, Number(normalizedAction.suggestedBid)).toFixed(2));
-      if (currentBid != null && Math.abs(normalizedBid - currentBid) <= 0.001) return;
-      normalizedAction.suggestedBid = normalizedBid;
-    }
-    const key = action.dedupeKey || dedupeKeyFor(action, meta, sku);
-    const enriched = {
-      ...normalizedAction,
-      sku,
-      dedupeKey: key,
-      actionSource: normalizeSources(action.actionSource || source),
-      source,
-      adType: action.adType || (String(action.entityType || '').startsWith('sb') ? 'SB' : 'SP'),
-      entityLevel: action.entityLevel || action.entityType,
-      canAutoExecute: action.canAutoExecute !== false && ['bid', 'budget', 'enable', 'pause'].includes(action.actionType || 'bid'),
-      riskLevel: action.riskLevel || 'strategy',
-    };
-    if (actionByKey.has(key)) {
-      overlap++;
-      const existing = actionByKey.get(key);
-      existing.actionSource = [...new Set([...normalizeSources(existing.actionSource), ...normalizeSources(enriched.actionSource)])];
-      if (!String(existing.reason || '').includes('7天未调整') && String(source).includes('7day')) {
-        existing.reason = `${existing.reason || ''}；同时命中7天未调整池`;
-      }
-      return;
-    }
-    actionByKey.set(key, enriched);
-    if (!mergedBySku.has(sku)) mergedBySku.set(sku, { sku, actions: [] });
-    mergedBySku.get(sku).actions.push(enriched);
-  }
-
-  for (const p of strategyPlan || []) for (const a of p.actions || []) addAction(p.sku, a, 'strategy');
-  for (const p of sevenDayPlan || []) for (const a of p.actions || []) addAction(p.sku, a, a.source || 'sp_7day_untouched');
-  return { plan: [...mergedBySku.values()], overlap };
-}
-
-async function run() {
+async function run(options = {}) {
   const panelId = await findPanelId();
   log(`Panel ID: ${panelId}`);
   const ws = new WebSocket(`ws://127.0.0.1:9222/devtools/page/${panelId}`);
   const send = msg => ws.send(JSON.stringify(msg));
   const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
   await new Promise(resolve => ws.on('open', resolve));
+  const closeWs = () => {
+    try { ws.close(); } catch (_) {}
+    try { ws.terminate(); } catch (_) {}
+  };
 
   const eval_ = (expression, awaitPromise = false) => new Promise(resolve => {
     const id = Math.floor(Math.random() * 1000000);
@@ -636,15 +217,33 @@ async function run() {
   const executionEvents = [];
   const landedIds = new Set();
 
-  function recordExecutionEvent(item, entityType, apiStatus, result) {
+  function recordExecutionEvent(item, entityType, apiStatus, result, meta = {}) {
     const planItem = plan.find(p => p.sku === item.sku) ||
       plan.find(p => (p.actions || []).some(a => String(a.id) === String(item.id)));
     const action = (planItem?.actions || []).find(a => String(a.id) === String(item.id) && a.entityType === entityType) ||
       (planItem?.actions || []).find(a => String(a.id) === String(item.id)) ||
       item;
+    const enrichedAction = {
+      ...action,
+      campaignId: action.campaignId || meta.campaignId || '',
+      adGroupId: action.adGroupId || meta.adGroupId || '',
+      accountId: action.accountId || meta.accountId || '',
+      siteId: action.siteId || meta.siteId || '',
+      campaignName: action.campaignName || meta.campaignName || '',
+      groupName: action.groupName || meta.groupName || '',
+      matchType: action.matchType || meta.matchType || '',
+    };
     executionEvents.push({
       sku: item.sku || planItem?.sku,
       id: item.id,
+      siteId: meta.siteId || action.siteId || '',
+      accountId: meta.accountId || action.accountId || '',
+      campaignId: meta.campaignId || action.campaignId || '',
+      adGroupId: meta.adGroupId || action.adGroupId || '',
+      keywordId: meta.keywordId || action.keywordId || (entityType === 'keyword' || entityType === 'sbKeyword' ? item.id : ''),
+      targetId: meta.targetId || meta.target_id || action.targetId || (entityType !== 'keyword' && entityType !== 'sbKeyword' ? item.id : ''),
+      campaignName: meta.campaignName || action.campaignName || '',
+      groupName: meta.groupName || action.groupName || '',
       bid: item.suggestedBid,
       suggestedBid: item.suggestedBid,
       currentBid: item.currentBid,
@@ -654,12 +253,12 @@ async function run() {
       apiStatus,
       success: false,
       plan: planItem || { sku: item.sku },
-      action,
-      source: action.source || item.source || 'strategy',
-      actionSource: normalizeSources(action.actionSource || item.actionSource || action.source || item.source),
-      riskLevel: action.riskLevel || item.riskLevel || '',
-      canAutoExecute: action.canAutoExecute !== false,
-      dedupeKey: action.dedupeKey || item.dedupeKey || '',
+      action: enrichedAction,
+      source: enrichedAction.source || item.source || 'strategy',
+      actionSource: normalizeSources(enrichedAction.actionSource || item.actionSource || enrichedAction.source || item.source),
+      riskLevel: enrichedAction.riskLevel || item.riskLevel || '',
+      canAutoExecute: enrichedAction.canAutoExecute !== false,
+      dedupeKey: enrichedAction.dedupeKey || item.dedupeKey || '',
       executionKey: executionEntityKey(entityType, item.id),
       resultMessage: JSON.stringify(result || {}),
       errorReason: apiStatus === 'api_success' ? '' : JSON.stringify(result || {}),
@@ -711,7 +310,7 @@ async function run() {
         const status = classifyApiResult(result);
         if (status === 'api_success') apiSuccess += batch.length;
         else apiFailed += batch.length;
-        batch.forEach(({ item }) => recordExecutionEvent(item, entityType, status, result));
+        batch.forEach(({ item, meta }) => recordExecutionEvent(item, entityType, status, result, meta));
         log(`${typeLabel} ${accountKey}: API ${status} ${batch.length}`);
         await wait(500);
       }
@@ -762,7 +361,7 @@ async function run() {
         const status = classifyApiResult(result);
         if (status === 'api_success') apiSuccess += batch.length;
         else apiFailed += batch.length;
-        batch.forEach(({ item }) => recordExecutionEvent(item, entityType, status, result));
+        batch.forEach(({ item, meta }) => recordExecutionEvent(item, entityType, status, result, meta));
         log(`${typeLabel} ${accountKey}: API ${status} ${batch.length}`);
         await wait(500);
       }
@@ -801,7 +400,7 @@ async function run() {
         const status = classifyApiResult(result);
         if (status === 'api_success') apiSuccess += batch.length;
         else apiFailed += batch.length;
-        batch.forEach(({ item }) => recordExecutionEvent(item, 'sbCampaign', status, result));
+        batch.forEach(({ item, meta }) => recordExecutionEvent(item, 'sbCampaign', status, result, meta));
         log(`${typeLabel} ${accountKey}: API ${status} ${batch.length}`);
         await wait(500);
       }
@@ -810,9 +409,22 @@ async function run() {
   }
 
   async function verifyLanding() {
-    log('Refreshing data for post-write verification...');
-    await eval_('STATE.kwRows = []; STATE.autoRows = []; STATE.targetRows = []; STATE.sbRows = [];');
-    await eval_('fetchAllData().then(()=>true)', true);
+    log('Refreshing changed rows for post-write verification...');
+    const refreshText = await eval_(
+      `(typeof refreshRowsForExecutionEvents === "function"
+        ? refreshRowsForExecutionEvents(${JSON.stringify(executionEvents)}).then(d => JSON.stringify(d)).catch(e => JSON.stringify({ok:false,errors:[e.message]}))
+        : Promise.resolve(JSON.stringify({ok:false,errors:["refreshRowsForExecutionEvents missing"]})))`,
+      true
+    );
+    let refreshResult = {};
+    try { refreshResult = JSON.parse(refreshText || '{}'); } catch (_) {}
+    if (refreshResult.ok) {
+      log(`Incremental verify refresh: ${JSON.stringify(refreshResult.refreshed || {})}`);
+    } else {
+      log(`Incremental verify refresh failed; falling back to full fetch: ${JSON.stringify(refreshResult.errors || [])}`);
+      await eval_('STATE.kwRows = []; STATE.autoRows = []; STATE.targetRows = []; STATE.sbRows = [];');
+      await eval_('fetchAllData().then(()=>true)', true);
+    }
     const verifyScript = `
       (() => {
         const events = ${JSON.stringify(executionEvents)};
@@ -903,8 +515,8 @@ async function run() {
               out.finalStatus = 'not_landed';
               out.success = false;
               out.errorReason = actual != null && expected != null && Math.abs(actual - expected) < ${VERIFY_TOLERANCE}
-                ? 'SB活动预算已变化，但仍停留在7天未调整池'
-                : 'SB活动预算回查未生效且仍停留在7天未调整池';
+                ? 'sb campaign budget changed but still remains in seven day untouched pool'
+                : 'sb campaign budget verify did not land and still remains in seven day untouched pool';
             }
             return out;
           }
@@ -921,14 +533,63 @@ async function run() {
           } else {
             out.finalStatus = 'not_landed';
             out.success = false;
-            out.errorReason = row ? '接口成功但回查未生效' : '接口成功但回查缺失行';
+            out.errorReason = row ? 'api success but verify value did not land' : 'api success but row missing during verify';
           }
           return out;
         }));
       })()
     `;
     const text = await eval_(verifyScript, true);
-    return JSON.parse(text || '[]');
+    if (!text) {
+      return executionEvents.map(event => ({
+        ...event,
+        finalStatus: event.apiStatus === 'api_success' ? 'verify_failed' : (event.apiStatus || 'failed'),
+        success: false,
+        errorReason: event.apiStatus === 'api_success'
+          ? 'verification script returned empty result'
+          : (event.errorReason || event.resultMessage || ''),
+      }));
+    }
+    try {
+      const parsed = JSON.parse(text);
+      if (Array.isArray(parsed)) {
+        const needsRetry = parsed.some(event =>
+          event.apiStatus === 'api_success' &&
+          event.finalStatus === 'not_landed' &&
+          event.rowFound === false
+        );
+        if (needsRetry) {
+          log('Post-write verification had missing rows; retrying after backend sync delay...');
+          await wait(15000);
+          const retryRefreshText = await eval_(
+            `(typeof refreshRowsForExecutionEvents === "function"
+              ? refreshRowsForExecutionEvents(${JSON.stringify(executionEvents)}).then(d => JSON.stringify(d)).catch(e => JSON.stringify({ok:false,errors:[e.message]}))
+              : Promise.resolve(JSON.stringify({ok:false,errors:["refreshRowsForExecutionEvents missing"]})))`,
+            true
+          );
+          let retryRefresh = {};
+          try { retryRefresh = JSON.parse(retryRefreshText || '{}'); } catch (_) {}
+          if (!retryRefresh.ok) {
+            await eval_('STATE.kwRows = []; STATE.autoRows = []; STATE.targetRows = []; STATE.sbRows = [];');
+            await eval_('fetchAllData().then(()=>true)', true);
+          }
+          const retryText = await eval_(verifyScript, true);
+          try {
+            const retryParsed = JSON.parse(retryText || '[]');
+            if (Array.isArray(retryParsed)) return retryParsed.map(event => ({ ...event, verifyRetry: true }));
+          } catch (_) {}
+        }
+        return parsed;
+      }
+    } catch (_) {}
+    return executionEvents.map(event => ({
+      ...event,
+      finalStatus: event.apiStatus === 'api_success' ? 'verify_failed' : (event.apiStatus || 'failed'),
+      success: false,
+      errorReason: event.apiStatus === 'api_success'
+        ? `verification script returned invalid JSON: ${String(text).slice(0, 300)}`
+        : (event.errorReason || event.resultMessage || ''),
+    }));
   }
 
   async function fetchPanelDataDirect() {
@@ -960,18 +621,65 @@ async function run() {
     return meta;
   }
 
+  function loadSnapshotFile(snapshotFile) {
+    if (!snapshotFile) return null;
+    const resolved = path.resolve(snapshotFile);
+    const snapshot = JSON.parse(fs.readFileSync(resolved, 'utf8'));
+    log(`Using panel snapshot file: ${resolved}`);
+    return {
+      meta: {
+        cards: (snapshot.productCards || []).length,
+        kwRows: (snapshot.kwRows || []).length,
+        autoRows: (snapshot.autoRows || []).length,
+        targetRows: (snapshot.targetRows || []).length,
+        sbRows: (snapshot.sbRows || []).length,
+        invMap: Object.keys(snapshot.invMap || {}).length,
+        sp7: (snapshot.sp7DayUntouchedRows || []).length,
+        sb7: (snapshot.sb7DayUntouchedRows || []).length,
+        snapshotFile: resolved,
+        exportedAt: snapshot.exportedAt || '',
+      },
+      cards: snapshot.productCards || [],
+      kwRows: snapshot.kwRows || [],
+      autoTargetRows: snapshot.autoRows || [],
+      manualTargetRows: snapshot.targetRows || [],
+      sbRows: snapshot.sbRows || [],
+      invMap: snapshot.invMap || {},
+      sp7DayRows: snapshot.sp7DayUntouchedRows || [],
+      sb7DayRows: snapshot.sb7DayUntouchedRows || [],
+      sevenDayMeta: snapshot.sevenDayUntouchedMeta || {},
+    };
+  }
+
   log('=== Auto adjustment run started ===');
-  log('Fetching full data...');
+  const snapshotFile = options.snapshotFile || process.env.PANEL_SNAPSHOT_FILE || '';
+  const snapshotData = loadSnapshotFile(snapshotFile);
+  log(snapshotData ? 'Loading execution context from snapshot...' : 'Fetching full data...');
   let fetchMeta = null;
-  fetchMeta = await fetchPanelDataDirect();
+  fetchMeta = snapshotData ? snapshotData.meta : await fetchPanelDataDirect();
+  if (snapshotData) {
+    const hydrateResultText = await eval_(
+      'window.hydrateInventorySnapshot ? ' +
+      'JSON.stringify(window.hydrateInventorySnapshot(' + JSON.stringify(snapshotData.invMap || {}) + ')) : ' +
+      'JSON.stringify({ ok:false, reason:"hydrateInventorySnapshot unavailable" })',
+      true
+    );
+    try {
+      const hydrateResult = JSON.parse(hydrateResultText || '{}');
+      if (hydrateResult.ok) log(`Hydrated inventory map from snapshot: ${hydrateResult.added || 0} added, total=${hydrateResult.total || 0}`);
+      else log(`Inventory snapshot hydrate skipped: ${hydrateResult.reason || 'unknown'}`);
+    } catch (e) {
+      log(`Inventory snapshot hydrate parse failed: ${e.message}`);
+    }
+  }
   while (false) {
     await wait(10000);
     const logText = await eval_('document.getElementById("log").innerText');
-    if (logText && logText.includes('全量数据就绪')) {
+    if (logText && logText.includes('鍏ㄩ噺鏁版嵁灏辩华')) {
       log('Data ready');
       break;
     }
-    if (logText && logText.includes('拉取失败')) {
+    if (logText && logText.includes('鎷夊彇澶辫触')) {
       log(`Fatal fetch error: ${(logText || '').split('\n').slice(-1)[0]}`);
       ws.close();
       process.exit(1);
@@ -980,34 +688,24 @@ async function run() {
     if (last) log(`  ${last}`);
   }
 
-  const cards = JSON.parse(await eval_('JSON.stringify(STATE.productCards)') || '[]');
-  const kwRows = JSON.parse(await eval_('JSON.stringify(STATE.kwRows)') || '[]');
-  const autoTargetRows = JSON.parse(await eval_('JSON.stringify(STATE.autoRows)') || '[]');
-  const manualTargetRows = JSON.parse(await eval_('JSON.stringify(STATE.targetRows)') || '[]');
-  const sbKwRows = JSON.parse(await eval_('JSON.stringify((STATE.sbRows||[]).filter(r=>String(r.__adProperty)==="4"))') || '[]');
-  const sbTargetRows = JSON.parse(await eval_('JSON.stringify((STATE.sbRows||[]).filter(r=>String(r.__adProperty)==="6"))') || '[]');
-  const sp7DayRows = JSON.parse(await eval_('JSON.stringify(STATE.sp7DayUntouchedRows || [])') || '[]');
-  const sb7DayRows = JSON.parse(await eval_('JSON.stringify(STATE.sb7DayUntouchedRows || [])') || '[]');
-  const sevenDayMeta = JSON.parse(await eval_('JSON.stringify(STATE.sevenDayUntouchedMeta || {})') || '{}');
+  const cards = snapshotData ? snapshotData.cards : JSON.parse(await eval_('JSON.stringify(STATE.productCards)') || '[]');
+  const kwRows = snapshotData ? snapshotData.kwRows : JSON.parse(await eval_('JSON.stringify(STATE.kwRows)') || '[]');
+  const autoTargetRows = snapshotData ? snapshotData.autoTargetRows : JSON.parse(await eval_('JSON.stringify(STATE.autoRows)') || '[]');
+  const manualTargetRows = snapshotData ? snapshotData.manualTargetRows : JSON.parse(await eval_('JSON.stringify(STATE.targetRows)') || '[]');
+  const sbRows = snapshotData ? snapshotData.sbRows : JSON.parse(await eval_('JSON.stringify(STATE.sbRows || [])') || '[]');
+  const sbKwRows = sbRows.filter(r => String(r.__adProperty) === '4');
+  const sbTargetRows = sbRows.filter(r => String(r.__adProperty) === '6');
+  const sp7DayRows = snapshotData ? snapshotData.sp7DayRows : JSON.parse(await eval_('JSON.stringify(STATE.sp7DayUntouchedRows || [])') || '[]');
+  const sb7DayRows = snapshotData ? snapshotData.sb7DayRows : JSON.parse(await eval_('JSON.stringify(STATE.sb7DayUntouchedRows || [])') || '[]');
+  const sevenDayMeta = snapshotData ? snapshotData.sevenDayMeta : JSON.parse(await eval_('JSON.stringify(STATE.sevenDayUntouchedMeta || {})') || '{}');
   log(`Product cards: ${cards.length}; SP keywords: ${kwRows.length}; SP auto: ${autoTargetRows.length}; SP manual targets: ${manualTargetRows.length}; SB keywords: ${sbKwRows.length}; SB targets: ${sbTargetRows.length}`);
   log(`7d untouched: SP candidates=${sp7DayRows.length}; SB candidates=${sb7DayRows.length}; SP granularity=${sevenDayMeta.sp?.entityLevel || 'unknown'}; SB granularity=${sevenDayMeta.sb?.entityLevel || 'unknown'}`);
   if (!cards.length) {
-    ws.close();
+    closeWs();
     throw new Error(`No product cards after full fetch. Last fetch meta: ${JSON.stringify(fetchMeta || {})}`);
   }
 
   const history = loadHistory();
-  const strategyPlan = [];
-  const diagnosticPlanWithoutHistory = new Map();
-  for (const card of cards) {
-    const spSpend = card.adStats?.['30d']?.spend || 0;
-    const sbSpend = card.sbStats?.['30d']?.spend || 0;
-    const noHistoryActions = (spSpend > 0 || sbSpend > 0) ? analyzeCard(card, []) : [];
-    diagnosticPlanWithoutHistory.set(card.sku, noHistoryActions);
-    if (spSpend <= 0 && sbSpend <= 0) continue;
-    const actions = analyzeCard(card, history);
-    if (actions.length) strategyPlan.push({ sku: card.sku, actions });
-  }
   const rowsByType = {
     keyword: kwRows,
     autoTarget: autoTargetRows,
@@ -1016,13 +714,23 @@ async function run() {
     sbTarget: sbTargetRows,
     sbCampaign: sb7DayRows,
   };
-  const sevenDay = buildSevenDayPlans(cards, sp7DayRows, sb7DayRows, rowsByType, history);
-  const merged = mergePlans(strategyPlan, sevenDay.plans, rowsByType);
-  const plan = merged.plan;
+  const aiDecision = loadExternalActionSchema({
+    cards,
+    rowsByType,
+    sp7DayRows,
+    sb7DayRows,
+    history,
+    sevenDayMeta,
+    snapshotDir: SNAPSHOTS_DIR,
+    actionSchemaFile: options.actionSchemaFile || process.env.ACTION_SCHEMA_FILE,
+  });
+  const plan = (aiDecision.plan || []).filter(item => (item.actions || []).length > 0);
+  const aiReview = aiDecision.review || [];
+  const aiSkipped = aiDecision.skipped || [];
   const totalActions = plan.reduce((sum, item) => sum + item.actions.length, 0);
   fs.writeFileSync(path.join(SNAPSHOTS_DIR, `plan_${today}.json`), JSON.stringify(plan, null, 2));
-  fs.writeFileSync(path.join(SNAPSHOTS_DIR, `seven_day_untouched_${today}.json`), JSON.stringify({ meta: sevenDayMeta, spRows: sp7DayRows, sbRows: sb7DayRows, review: sevenDay.review, skipped: sevenDay.skipped }, null, 2));
-  log(`Plan: ${plan.length} SKUs, ${totalActions} actions; strategySkus=${strategyPlan.length}; 7dSkus=${sevenDay.plans.length}; overlap=${merged.overlap}; manualReview=${sevenDay.review.length}; skipped=${sevenDay.skipped.length}`);
+  fs.writeFileSync(path.join(SNAPSHOTS_DIR, `seven_day_untouched_${today}.json`), JSON.stringify({ meta: sevenDayMeta, spRows: sp7DayRows, sbRows: sb7DayRows, review: aiReview, skipped: aiSkipped }, null, 2));
+  log(`External action schema loaded: ${plan.length} SKUs, ${totalActions} actions; review=${aiReview.length}; skipped=${aiSkipped.length}; validationErrors=${(aiDecision.errors || []).length}`);
   if (DRY_RUN) {
     const allActions = plan.flatMap(p => (p.actions || []).map(a => ({ ...a, sku: p.sku })));
     const drySummary = allActions.reduce((acc, action) => {
@@ -1035,23 +743,24 @@ async function run() {
       dryRun: true,
       plannedSkus: plan.length,
       plannedActions: totalActions,
-      strategyPlannedSkus: strategyPlan.length,
-      sevenDayPlannedSkus: sevenDay.plans.length,
+      decisionSource: aiDecision.decisionSource,
+      actionSchemaFile: aiDecision.actionSchemaFile,
+      aiValidationErrors: aiDecision.errors || [],
       sevenDayStats: {
         spCandidates: sp7DayRows.length,
         spExecutable: allActions.filter(a => normalizeSources(a.actionSource).includes('sp_7day_untouched') && a.canAutoExecute !== false).length,
         sbCandidates: sb7DayRows.length,
         sbExecutable: allActions.filter(a => normalizeSources(a.actionSource).includes('sb_7day_untouched') && a.canAutoExecute !== false).length,
-        overlapWithStrategy: merged.overlap,
-        manualReview: sevenDay.review.length,
-        invalidSkipped: sevenDay.skipped.length,
+        overlapWithStrategy: 0,
+        manualReview: aiReview.length,
+        invalidSkipped: aiSkipped.length,
         granularity: sevenDayMeta,
       },
       drySummary,
     };
     fs.writeFileSync(path.join(SNAPSHOTS_DIR, `execution_dry_run_${today}.json`), JSON.stringify(dryReport, null, 2));
     log(`DRY_RUN complete: ${JSON.stringify(dryReport.sevenDayStats)}`);
-    ws.close();
+    closeWs();
     return;
   }
 
@@ -1087,7 +796,7 @@ async function run() {
       const status = result?.ok ? 'api_success' : classifyApiResult(result?.rawResponse || { code: result?.responseCode, msg: result?.responseMsg, reason: result?.reason });
       if (status === 'api_success') apiSuccess += 1;
       else apiFailed += 1;
-      recordExecutionEvent(item, item.entityType, status, result);
+      recordExecutionEvent(item, item.entityType, status, result, meta);
       log(`State ${item.actionType} ${item.entityType} ${item.id}: ${status}`);
       await wait(200);
     }
@@ -1116,12 +825,12 @@ async function run() {
   }
 
   const nonExecutionEvents = [
-    ...sevenDay.review.map(item => ({
+    ...aiReview.map(item => ({
       sku: item.sku,
       id: item.action.id,
       dedupeKey: item.dedupeKey || item.action?.dedupeKey || item.action?.candidateKey || '',
-      source: item.source || item.action?.source || 'sp_7day_untouched',
-      actionSource: item.actionSource || item.action?.actionSource || [item.source || item.action?.source || 'sp_7day_untouched'],
+      source: item.source || item.action?.source || 'ai',
+      actionSource: item.actionSource || item.action?.actionSource || [item.source || item.action?.source || 'ai'],
       bid: item.action.suggestedBid,
       suggestedBid: item.action.suggestedBid,
       currentBid: item.action.currentBid,
@@ -1129,22 +838,22 @@ async function run() {
       apiStatus: 'manual_review',
       finalStatus: 'manual_review',
       success: false,
-      plan: { sku: item.sku, summary: '七天未调整人工复核' },
+      plan: { sku: item.sku, summary: 'AI decision requires manual review' },
       action: item.action,
       resultMessage: 'manual_review',
       errorReason: item.action.reason,
     })),
-    ...sevenDay.skipped.map(item => ({
+    ...aiSkipped.map(item => ({
       sku: item.sku,
       id: item.action.id,
       dedupeKey: item.dedupeKey || item.action?.dedupeKey || item.action?.candidateKey || '',
-      source: item.source || item.action?.source || 'sp_7day_untouched',
-      actionSource: item.actionSource || item.action?.actionSource || [item.source || item.action?.source || 'sp_7day_untouched'],
+      source: item.source || item.action?.source || 'ai',
+      actionSource: item.actionSource || item.action?.actionSource || [item.source || item.action?.source || 'ai'],
       entityType: item.action.entityType,
       apiStatus: 'skipped_invalid_state',
       finalStatus: 'skipped_invalid_state',
       success: false,
-      plan: { sku: item.sku, summary: '七天未调整跳过' },
+      plan: { sku: item.sku, summary: 'AI decision skipped execution' },
       action: item.action,
       resultMessage: 'skipped_invalid_state',
       errorReason: item.action.reason,
@@ -1152,14 +861,54 @@ async function run() {
   ];
 
   const noteEvents = [...verifiedEvents, ...nonExecutionEvents];
-  const noteResultText = noteEvents.length
-    ? await eval_(
-        'appendInventoryOperationNotes(' + JSON.stringify(noteEvents) + ')' +
-        '.then(d => JSON.stringify(d)).catch(e => JSON.stringify([{ok:false,error:e.message}]))',
-        true
-      )
-    : '[]';
-  const noteResults = JSON.parse(noteResultText || '[]');
+  if (snapshotData && noteEvents.length) {
+    const noteSkus = [...new Set(noteEvents.map(event => event.sku).filter(Boolean))];
+    const ensureInventoryText = await eval_(
+      'window.ensureInventoryRecordsForSkus ? ' +
+      'window.ensureInventoryRecordsForSkus(' + JSON.stringify(noteSkus) + ').then(d => JSON.stringify(d)) : ' +
+      'Promise.resolve(JSON.stringify({ ok:false, reason:"ensureInventoryRecordsForSkus unavailable" }))',
+      true
+    );
+    try {
+      const ensureInventory = JSON.parse(ensureInventoryText || '{}');
+      if (ensureInventory.ok) {
+        log(`Inventory records ready for notes: requested=${ensureInventory.requested || 0}, missingAfter=${(ensureInventory.missingAfter || []).length}`);
+      } else {
+        log(`Inventory records check failed before notes: ${ensureInventory.reason || JSON.stringify(ensureInventory)}`);
+      }
+    } catch (e) {
+      log(`Inventory records check parse failed before notes: ${e.message}`);
+    }
+  }
+  async function appendNotesWithStructuredFailure(events) {
+    if (!events.length) return [];
+    const noteResultText = await eval_(
+      'appendInventoryOperationNotes(' + JSON.stringify(events) + ')' +
+      '.then(d => JSON.stringify(d)).catch(e => JSON.stringify(' +
+      JSON.stringify(events.map(event => ({ sku: event.sku, ok: false, error: 'append call failed' }))) +
+      '.map(item => ({...item, error:e.message}))))',
+      true
+    );
+    try {
+      const parsed = JSON.parse(noteResultText || '[]');
+      return Array.isArray(parsed) ? parsed : events.map(event => ({ sku: event.sku, ok: false, error: 'invalid note response' }));
+    } catch (e) {
+      return events.map(event => ({ sku: event.sku, ok: false, error: e.message }));
+    }
+  }
+
+  const noteResults = await appendNotesWithStructuredFailure(noteEvents);
+  const failedNotePairs = noteResults
+    .map((result, index) => ({ result, index, event: noteEvents[index] }))
+    .filter(item => item.event && !item.result?.ok);
+  if (failedNotePairs.length) {
+    log(`Inventory notes had ${failedNotePairs.length} transient failures; retrying failed notes only...`);
+    await wait(5000);
+    const retryResults = await appendNotesWithStructuredFailure(failedNotePairs.map(item => item.event));
+    failedNotePairs.forEach((item, retryIndex) => {
+      noteResults[item.index] = retryResults[retryIndex] || item.result;
+    });
+  }
   const noteFailures = noteResults.filter(r => !r.ok);
 
   fs.writeFileSync(
@@ -1248,35 +997,31 @@ async function run() {
     const reviewEvents = reviewBySku.get(sku) || [];
     const skipEvents = skippedBySku.get(sku) || [];
     const actionCount = planBySku.get(sku)?.actions?.length || 0;
-    const noHistoryActionCount = diagnosticPlanWithoutHistory.get(sku)?.length || 0;
     const finalStatuses = events.reduce((acc, event) => {
       const key = event.finalStatus || 'unknown';
       acc[key] = (acc[key] || 0) + 1;
       return acc;
     }, {});
     let status = 'no_action';
-    let reason = 'current_rules_no_bid_change';
+    let reason = 'ai_no_action';
     if (events.some(event => event.finalStatus === 'success')) {
       status = 'adjusted';
       reason = 'verified_landed';
     } else if (events.some(event => event.finalStatus === 'blocked_by_system_recent_adjust' || event.finalStatus === 'conflict')) {
       status = 'blocked';
       reason = 'blocked_by_system_recent_adjust';
-    } else if (events.some(event => event.finalStatus === 'not_landed')) {
+    } else if (events.some(event => event.finalStatus === 'not_landed' || event.finalStatus === 'verify_failed')) {
       status = 'unverified';
-      reason = 'api_success_but_not_landed';
+      reason = events.some(event => event.finalStatus === 'verify_failed') ? 'verification_failed' : 'api_success_but_not_landed';
     } else if (events.some(event => event.finalStatus === 'failed')) {
       status = 'failed';
       reason = 'execution_failed';
     } else if (reviewEvents.length) {
       status = 'manual_review';
-      reason = 'seven_day_risk_review';
+      reason = 'ai_review';
     } else if (skipEvents.length) {
       status = 'skipped';
       reason = 'invalid_or_paused_state';
-    } else if (actionCount === 0 && noHistoryActionCount > 0) {
-      status = 'suppressed';
-      reason = 'history_cooldown_suppressed';
     } else if (((card.adStats?.['30d']?.spend || 0) <= 0) && ((card.sbStats?.['30d']?.spend || 0) <= 0)) {
       status = 'no_action';
       reason = 'no_recent_ad_spend';
@@ -1286,7 +1031,7 @@ async function run() {
       status,
       reason,
       plannedActions: actionCount,
-      actionsIfIgnoringHistory: noHistoryActionCount,
+      actionsIfIgnoringHistory: 0,
       finalStatuses,
       invDays: card.invDays,
       spSpend30: card.adStats?.['30d']?.spend || 0,
@@ -1302,16 +1047,17 @@ async function run() {
   const report = {
     plannedSkus: plan.length,
     plannedActions: totalActions,
-    strategyPlannedSkus: strategyPlan.length,
-    sevenDayPlannedSkus: sevenDay.plans.length,
+    decisionSource: aiDecision.decisionSource,
+    actionSchemaFile: aiDecision.actionSchemaFile,
+    aiValidationErrors: aiDecision.errors || [],
     sevenDayStats: {
       spCandidates: sp7DayRows.length,
       spExecutable: plan.flatMap(p => p.actions || []).filter(a => normalizeSources(a.actionSource).includes('sp_7day_untouched') && a.canAutoExecute !== false).length,
       sbCandidates: sb7DayRows.length,
       sbExecutable: plan.flatMap(p => p.actions || []).filter(a => normalizeSources(a.actionSource).includes('sb_7day_untouched') && a.canAutoExecute !== false).length,
-      overlapWithStrategy: merged.overlap,
-      manualReview: sevenDay.review.length,
-      invalidSkipped: sevenDay.skipped.length,
+      overlapWithStrategy: 0,
+      manualReview: aiReview.length,
+      invalidSkipped: aiSkipped.length,
       blockedBySystemRecentAdjust: finalCounts.blocked_by_system_recent_adjust || finalCounts.conflict || 0,
       granularity: sevenDayMeta,
     },
@@ -1327,14 +1073,15 @@ async function run() {
   fs.writeFileSync(path.join(SNAPSHOTS_DIR, `execution_coverage_${today}.json`), JSON.stringify({ summary: coverageSummary, coverage }, null, 2));
 
   log(`Final lookup: success=${finalCounts.success || 0}, not_landed=${finalCounts.not_landed || 0}, blocked=${finalCounts.blocked_by_system_recent_adjust || finalCounts.conflict || 0}, failed=${finalCounts.failed || 0}`);
-  log(`SKU coverage: adjusted=${coverageSummary.adjusted || 0}, blocked=${coverageSummary.blocked || 0}, suppressed=${coverageSummary.suppressed || 0}, no_action=${coverageSummary.no_action || 0}, failed=${coverageSummary.failed || 0}, unverified=${coverageSummary.unverified || 0}`);
+  log(`SKU coverage: adjusted=${coverageSummary.adjusted || 0}, blocked=${coverageSummary.blocked || 0}, manual_review=${coverageSummary.manual_review || 0}, no_action=${coverageSummary.no_action || 0}, failed=${coverageSummary.failed || 0}, unverified=${coverageSummary.unverified || 0}`);
   log(`Inventory notes: success=${report.noteSuccess}, failed=${report.noteFailure}`);
   log('=== Auto adjustment run finished ===');
 
-  ws.close();
+  closeWs();
 }
 
 module.exports = {
+  run,
   groupByAccountSite,
   hasRecentCandidateBlock,
 };

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node tests/adjust_lib.test.js"
+    "test": "node tests/adjust_lib.test.js && node tests/ai_decision.test.js"
   },
   "keywords": [],
   "author": "",

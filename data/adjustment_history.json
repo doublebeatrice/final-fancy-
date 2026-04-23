@@ -51426,5 +51426,254 @@
     "adGroupId": "546789717653709",
     "direction": "",
     "reason": "7day untouched hit, child entity is paused without enough relaunch signal"
+  },
+  {
+    "entityId": "100830036836143",
+    "sku": "QA1950",
+    "entityType": "keyword",
+    "date": "2026-04-23",
+    "fromBid": 0.3,
+    "toBid": 0.31,
+    "direction": "up",
+    "reason": "Closed-loop validation: small controlled bid increase to verify execute, post-write check, history, notes, and summary."
+  },
+  {
+    "entityId": "416371830621891",
+    "sku": "SHQ2216",
+    "entityType": "autoTarget",
+    "date": "2026-04-23",
+    "fromBid": 0.36,
+    "toBid": 0.37,
+    "direction": "up",
+    "reason": "Controlled executor validation: SP auto target small bid increase by 0.01."
+  },
+  {
+    "entityId": "361752561460392",
+    "sku": "CL3650",
+    "entityType": "manualTarget",
+    "date": "2026-04-23",
+    "fromBid": 0.46,
+    "toBid": 0.47,
+    "direction": "up",
+    "reason": "Controlled executor validation: SP manual target small bid increase by 0.01."
+  },
+  {
+    "entityId": "312954837348554",
+    "sku": "XIX0903",
+    "entityType": "sbKeyword",
+    "date": "2026-04-23",
+    "fromBid": 0.25,
+    "toBid": 0.26,
+    "direction": "up",
+    "reason": "Controlled executor validation: SB video keyword small bid increase above 0.25 minimum."
+  },
+  {
+    "entityId": "466313526027161",
+    "sku": "SE5608",
+    "entityType": "sbTarget",
+    "date": "2026-04-23",
+    "fromBid": 0.27,
+    "toBid": 0.28,
+    "direction": "up",
+    "reason": "Controlled executor validation: SB target small bid increase by 0.01."
+  },
+  {
+    "entityId": "302948321765926",
+    "sku": "XUE2224",
+    "entityType": "manualTarget",
+    "date": "2026-04-23",
+    "fromBid": 0.43,
+    "toBid": null,
+    "reason": "Controlled executor validation: restore paused SP manual target to enabled state."
+  },
+  {
+    "entityId": "302948321765926",
+    "sku": "XUE2224",
+    "entityType": "manualTarget",
+    "date": "2026-04-23",
+    "fromBid": 0.43,
+    "toBid": null,
+    "reason": "Controlled executor validation: pause one low-risk SP manual target, then restore with enable validation."
+  },
+  {
+    "entityId": "302948321765926",
+    "sku": "XUE2224",
+    "entityType": "manualTarget",
+    "date": "2026-04-23",
+    "fromBid": 0.43,
+    "toBid": null,
+    "reason": "Controlled executor validation: restore paused SP manual target to enabled state."
+  },
+  {
+    "entityId": "17681598801805",
+    "sku": "XUE2224",
+    "entityType": "sbKeyword",
+    "date": "2026-04-23",
+    "fromBid": 0.25,
+    "toBid": null,
+    "reason": "Controlled executor validation: pause one low-risk SB keyword, then restore with enable validation."
+  },
+  {
+    "entityId": "17681598801805",
+    "sku": "XUE2224",
+    "entityType": "sbKeyword",
+    "date": "2026-04-23",
+    "fromBid": 0.25,
+    "toBid": null,
+    "reason": "Controlled executor validation: restore paused SB keyword to enabled state."
+  },
+  {
+    "entityId": "452569706512752",
+    "sku": "AE3519",
+    "entityType": "sbTarget",
+    "date": "2026-04-23",
+    "fromBid": 0.3,
+    "toBid": null,
+    "reason": "Controlled executor validation: pause one low-risk SB target, then restore with enable validation."
+  },
+  {
+    "entityId": "452569706512752",
+    "sku": "AE3519",
+    "entityType": "sbTarget",
+    "date": "2026-04-23",
+    "fromBid": 0.3,
+    "toBid": null,
+    "reason": "Controlled executor validation: restore paused SB target to enabled state."
+  },
+  {
+    "entityId": "100830036836143",
+    "sku": "QA1950",
+    "entityType": "keyword",
+    "date": "2026-04-23",
+    "fromBid": 0.31,
+    "toBid": 0.3,
+    "direction": "down",
+    "reason": "Controlled performance validation: use local snapshot for execution context and incremental keyword refresh for post-write verification."
+  },
+  {
+    "entityId": "100830036836143",
+    "sku": "QA1950",
+    "entityType": "keyword",
+    "date": "2026-04-23",
+    "fromBid": 0.3,
+    "toBid": 0.31,
+    "direction": "up",
+    "reason": "Controlled validation: use local snapshot for execution context, targeted keyword refresh for verification, and snapshot inventory map for note writing."
+  },
+  {
+    "entityId": "100830036836143",
+    "sku": "QA1950",
+    "entityType": "keyword",
+    "date": "2026-04-23",
+    "fromBid": 0.31,
+    "toBid": 0.3,
+    "direction": "down",
+    "reason": "Controlled performance validation: use local snapshot for execution context and incremental keyword refresh for post-write verification."
+  },
+  {
+    "entityId": "137095771959116",
+    "sku": "TIN2263",
+    "entityType": "manualTarget",
+    "date": "2026-04-23",
+    "fromBid": 0.24,
+    "toBid": 0.25,
+    "direction": "up",
+    "reason": "Q2 graduation and summer cruise traffic test: 7d 5 orders, ACOS 12.8%, inventory 69 days. Small bid-up to widen coverage without large risk."
+  },
+  {
+    "entityId": "531260328507055",
+    "sku": "UAN2600",
+    "entityType": "manualTarget",
+    "date": "2026-04-23",
+    "fromBid": 0.2,
+    "toBid": 0.21,
+    "direction": "up",
+    "reason": "Old-product recovery test: 30d sales 53, inventory 134 days, 7d entity 3 orders with ACOS 15.98%. Raise one step for controlled traffic expansion."
+  },
+  {
+    "entityId": "349960594904547",
+    "sku": "GT3811",
+    "entityType": "autoTarget",
+    "date": "2026-04-23",
+    "fromBid": 0.19,
+    "toBid": 0.2,
+    "direction": "up",
+    "reason": "Q2 old-product traffic support: 7d auto target 2 orders, ACOS 2.62%, inventory 85 days. Add one bid step to keep low-cost coverage."
+  },
+  {
+    "entityId": "69310197407443",
+    "sku": "CL3650",
+    "entityType": "keyword",
+    "date": "2026-04-23",
+    "fromBid": 0.46,
+    "toBid": 0.47,
+    "direction": "up",
+    "reason": "Q2 Cinco de Mayo demand window: keyword converted with 7d ACOS 1.70% and very low spend. Small bid-up only, not broad budget expansion."
+  },
+  {
+    "entityId": "190342143479715",
+    "sku": "GM3149",
+    "entityType": "sbKeyword",
+    "date": "2026-04-23",
+    "fromBid": 0.4,
+    "toBid": 0.41,
+    "direction": "up",
+    "reason": "Q2 appreciation/nurse direction: SB keyword has 7d order at ACOS 2.85%. Raise one cent to test SB traffic while keeping CPC controlled."
+  },
+  {
+    "entityId": "80289468477802",
+    "sku": "UY0879",
+    "entityType": "sbKeyword",
+    "date": "2026-04-23",
+    "fromBid": 0.25,
+    "toBid": 0.26,
+    "direction": "up",
+    "reason": "SB floor-bid test: 7d keyword has 1 order and ACOS 5.70%; raise from 0.25 to 0.26 while monitoring overall SB waste."
+  },
+  {
+    "entityId": "452414287964517",
+    "sku": "LNE1321",
+    "entityType": "manualTarget",
+    "date": "2026-04-23",
+    "fromBid": 0.35,
+    "toBid": 0.33,
+    "direction": "down",
+    "reason": "Q2 gift product should keep coverage but control CPC: this target has 7d ACOS 30.58% and inventory 206 days. Lower 5.7%, not pause."
+  },
+  {
+    "entityId": "150512187706163",
+    "sku": "SC3077",
+    "entityType": "keyword",
+    "date": "2026-04-23",
+    "outcome": "manual_review",
+    "candidateKey": "",
+    "campaignId": "",
+    "adGroupId": "",
+    "direction": "",
+    "reason": "Manual review: product 7d ACOS >30% but old-product decline policy says preserve display and sales contribution. Need decide whether to shift spend from inefficient SB to SP coverage instead of simple downbid."
+  },
+  {
+    "entityId": "528057906908284",
+    "sku": "EY0793",
+    "entityType": "autoTarget",
+    "date": "2026-04-23",
+    "outcome": "manual_review",
+    "candidateKey": "",
+    "campaignId": "",
+    "adGroupId": "",
+    "direction": "",
+    "reason": "Manual review for inventory: Q2 Mexican/Cinco demand is strong, 7d 24 ad orders, but sellable days 22 is below the 30-day old-product expansion threshold. Consider price/profit harvest and replenishment before more traffic."
+  },
+  {
+    "entityId": "448464556318875",
+    "sku": "KV0324",
+    "entityType": "sbKeyword",
+    "date": "2026-04-23",
+    "outcome": "manual_review",
+    "candidateKey": "",
+    "campaignId": "",
+    "adGroupId": "",
+    "direction": "",
+    "reason": "Manual review for structure expansion: Q2 gift traffic is efficient and inventory supports it, but new SB target/build-structure actions must remain review-only in current automation boundary."
   }
 ]
