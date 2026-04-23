@@ -23,6 +23,15 @@ Start debug Chrome:
 powershell -ExecutionPolicy Bypass -File scripts\execute\open_debug_browser.ps1
 ```
 
+After starting Chrome, open these pages and wait for manual operator confirmation that both are logged in:
+
+```text
+https://adv.yswg.com.cn/
+https://sellerinventory.yswg.com.cn/
+```
+
+This manual confirmation is part of the real closed loop. Without it, export may return inventory-only data or empty ad rows.
+
 Export snapshot:
 
 ```powershell
@@ -93,4 +102,3 @@ Verified on 2026-04-23:
 - Installed extension panel.
 - Chrome remote debugging on port `9222`.
 - Backend API availability.
-

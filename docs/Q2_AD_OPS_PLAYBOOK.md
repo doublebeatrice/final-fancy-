@@ -4,6 +4,29 @@ This document records verified operating context provided by the operator. Codex
 
 ## Q2 Work Priorities
 
+## KPI Operating Target
+
+The KPI file `docs/2025年半精品销售季度KPI考核 - 组员.xlsx` has been read and is now part of Codex operating context.
+
+For group-member KPI, the advertising workflow must optimize for:
+
+- Old-product average net profit year-over-year growth.
+- Net profit rate.
+- Ad share control, with the normal old-product full-score line at ad share <= 8%.
+- Stuck-stock ratio control, with the full-score line at stuck-stock ratio <= 3%.
+- New-product period profit, success rate, and ad share, with the normal new-product full-score line at ad share <= 11%.
+
+This changes the default operating stance:
+
+- Do not equate low sales with bad product quality. Low sales may mean weak ad coverage.
+- For in-stock and profitable SKUs, Codex should inspect whether traffic coverage can profitably be expanded.
+- For Q2-relevant products with inventory and margin, prefer active coverage repair over passive review.
+- Keep ACOS and ad share under control, but do not cut traffic mechanically when the SKU needs display volume to protect old-product profit recovery.
+- Build missing ad structure when it is the practical way to create profitable reach. Creation must be traceable, low-budget first, and verified after launch.
+- The operator has released SP ad creation from review-only mode. When evidence supports it, Codex should build rather than only recommend.
+- SB is currently adjusted only. Do not create SB campaigns until the real SB creation interface is captured and verified.
+- For upcoming seasonal products with low impressions/clicks and inventory moving toward stuck-stock risk, prefer building missing SP coverage aggressively.
+
 Listing:
 
 - Check title, bullets, and long description keyword coverage.
@@ -84,13 +107,13 @@ Codex may auto-execute low-risk actions when the evidence is clear:
 - Small bid decreases.
 - Enable or pause on clearly valid supported entities.
 - Seven-day untouched low-risk touch actions.
+- Low-budget SP ad creation when the operator has explicitly released creation for testing or rollout and the SKU has inventory, margin, and Q2 or old-product recovery rationale.
 
 Codex must send these to review:
 
-- New ad creation.
+- SB creation until the real SB creation interface is captured and verified.
 - Structure repair.
 - Large bid changes.
-- Strong enable/pause on high-sales products.
 - Listing changes.
 - Price changes.
 - Replenishment decisions.

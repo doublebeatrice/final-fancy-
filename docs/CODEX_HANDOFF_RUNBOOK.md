@@ -46,6 +46,8 @@ https://adv.yswg.com.cn/
 https://sellerinventory.yswg.com.cn/
 ```
 
+The operator must manually check and confirm the login state after these pages open. This is required every time a fresh browser session is started. Do not proceed to snapshot export until both systems are visibly logged in.
+
 Open the extension panel:
 
 ```text
@@ -73,13 +75,13 @@ Low-risk auto-executable actions currently allowed:
 - `enable`
 - `pause`
 - Seven-day untouched low-risk touch actions
+- low-budget SP `create` when backed by inventory, margin, Q2/seasonal timing, low impressions/clicks, stuck-stock risk, or old-product recovery evidence
 
 Review-only actions:
 
-- `create`
+- SB `create` until the real SB creation interface is captured and verified
 - `structure_fix`
 - large bid changes
-- high-sales strong actions
 - listing changes
 - price changes
 - replenishment decisions
@@ -108,7 +110,8 @@ If export fails:
 
 - Confirm debug Chrome is running on port `9222`.
 - Confirm the extension panel is open.
-- Confirm ad and inventory systems are logged in.
+- Confirm ad and inventory systems were manually opened and login was confirmed by the operator.
+- If the snapshot has inventory rows but zero ad rows, reopen `adv.yswg.com.cn`, confirm login, refresh the extension panel, and export again.
 
 If execution fails with missing auth:
 

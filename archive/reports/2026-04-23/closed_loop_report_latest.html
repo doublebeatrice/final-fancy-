@@ -1,0 +1,1247 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>广告全量闭环测试报告 2026/4/23 15:58:17</title>
+  <style>
+    :root { --bg:#f6f7f9; --ink:#18202a; --muted:#667085; --line:#d9dee7; --green:#16794c; --red:#b42318; --amber:#b54708; --blue:#175cd3; --panel:#fff; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.55 "Segoe UI", Arial, sans-serif; }
+    .wrap { max-width:1180px; margin:0 auto; padding:28px 22px 48px; }
+    header { border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:22px; }
+    h1 { margin:0 0 6px; font-size:28px; letter-spacing:0; }
+    h2 { margin:28px 0 12px; font-size:20px; }
+    h3 { margin:0 0 8px; font-size:16px; }
+    .sub { color:var(--muted); }
+    .grid { display:grid; gap:12px; }
+    .kpis { grid-template-columns:repeat(4, minmax(0,1fr)); }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:16px; }
+    .kpi b { display:block; font-size:28px; margin-bottom:2px; }
+    .kpi span { color:var(--muted); }
+    .ok { color:var(--green); }
+    .bad { color:var(--red); }
+    .warn { color:var(--amber); }
+    .blue { color:var(--blue); }
+    .pill { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:2px 8px; background:#fff; margin:2px 4px 2px 0; color:#344054; }
+    table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+    th, td { padding:10px 9px; border-bottom:1px solid var(--line); vertical-align:top; text-align:left; }
+    th { background:#eef2f6; color:#344054; font-weight:600; }
+    tr:last-child td { border-bottom:0; }
+    .small { font-size:12px; color:var(--muted); }
+    .section-note { border-left:4px solid var(--blue); background:#eef4ff; padding:12px 14px; border-radius:6px; margin:10px 0 14px; }
+    .two { grid-template-columns:1.2fr .8fr; }
+    .bar { height:9px; background:#e5e7eb; border-radius:999px; overflow:hidden; margin-top:8px; }
+    .bar > i { display:block; height:100%; background:var(--blue); }
+    @media (max-width:900px) { .kpis, .two { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>广告全量闭环测试报告</h1>
+      <div class="sub">生成时间：2026/4/23 15:58:17　|　快照：aggressive_coverage_snapshot_2026-04-23.json</div>
+    </header>
+
+    <section class="grid kpis">
+      <div class="card kpi"><b>599</b><span>覆盖 SKU</span></div>
+      <div class="card kpi"><b>434</b><span>产品画像</span></div>
+      <div class="card kpi"><b>68</b><span>接口成功动作</span></div>
+      <div class="card kpi"><b class="warn">14</b><span>接口成功但回查未确认</span></div>
+    </section>
+
+    <section class="grid two" style="margin-top:12px">
+      <div class="card">
+        <h3>这次闭环做了什么</h3>
+        <p>本轮先抓取全量广告和库存快照，再由 Codex 评估所有 SKU。执行策略已切到“覆盖率优先”：只要有库存、有利润、符合 Q2 或具备触达价值，就允许更积极地开词、开 SB、轻微加投；负利润和明显浪费的对象则收缩或暂停。建广告仍只做评估，不自动创建。</p>
+        <p>执行后已做接口结果统计、回查、便签写入和覆盖报告落地。</p>
+      </div>
+      <div class="card">
+        <h3>数据完整性</h3>
+        <p>SP关键词 7016，SP自动 1613，SP手动定位 1851，SB行 3641，库存 579。</p>
+        <div class="bar"><i style="width:72%"></i></div>
+        <div class="small">产品画像覆盖 434 / 599</div>
+      </div>
+    </section>
+
+    <h2>执行结果</h2>
+    <div class="section-note">
+      接口层：成功 68，失败 0。回查层：确认落地 54，未确认 14。便签：成功 80，失败 0。<br>
+      本轮计划 SKU 41，计划动作 68，另外有 39 个 SKU 因高销量强动作或风险门控进入人工复核。
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>SKU</th><th>动作</th><th>对象</th><th>执行值</th><th>结果</th><th>原因</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>SE6599</b><div class="small">30天销量 54｜库存 142天｜利润 36.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">461923429444316</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=142；profit=36.1%；unitsSold30=54；q2 matched text=sublimation stuffed bear shirts</td>
+        </tr><tr>
+          <td><b>SE6599</b><div class="small">30天销量 54｜库存 142天｜利润 36.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP自动投放<div class="small">461440979989068</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=142；profit=36.1%；unitsSold30=54；q2 matched text=auto</td>
+        </tr><tr>
+          <td><b>KV3640</b><div class="small">30天销量 237｜库存 72天｜利润 26.0%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">538041963690457</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=72；profit=26.0%；unitsSold30=237；q2 matched text=doll with broken arm</td>
+        </tr><tr>
+          <td><b>KV3640</b><div class="small">30天销量 237｜库存 72天｜利润 26.0%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">538041963690457</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=72；profit=26.0%；unitsSold30=237；q2 matched text=doll with broken arm</td>
+        </tr><tr>
+          <td><b>SC3420</b><div class="small">30天销量 68｜库存 60天｜利润 36.7%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">355861142602889</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=60；profit=36.7%；unitsSold30=68；q2 matched text=red pin</td>
+        </tr><tr>
+          <td><b>SC3420</b><div class="small">30天销量 68｜库存 60天｜利润 36.7%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">372394190121038</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=60；profit=36.7%；unitsSold30=68；q2 matched text=funeral</td>
+        </tr><tr>
+          <td><b>TH2619</b><div class="small">30天销量 49｜库存 127天｜利润 26.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">504353677732333</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=127；profit=26.5%；unitsSold30=49；q2 matched text=silicone cord ties pack</td>
+        </tr><tr>
+          <td><b>TH2619</b><div class="small">30天销量 49｜库存 127天｜利润 26.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">426538062695814</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=127；profit=26.5%；unitsSold30=49；q2 matched text=silicone cord ties bulk</td>
+        </tr><tr>
+          <td><b>SE5608</b><div class="small">30天销量 215｜库存 99天｜利润 34.9%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB商品定位<div class="small">391150146211746</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=99；profit=34.9%；unitsSold30=215；q2 matched text=asin=B0DBHY2HW4</td>
+        </tr><tr>
+          <td><b>SE5608</b><div class="small">30天销量 215｜库存 99天｜利润 34.9%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB商品定位<div class="small">495270709540250</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=99；profit=34.9%；unitsSold30=215；q2 matched text=asin=B09VPGDT93</td>
+        </tr><tr>
+          <td><b>HAY0219</b><div class="small">30天销量 28｜库存 105天｜利润 17.4%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">339774557290958</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=105；profit=17.4%；unitsSold30=28；q2 matched text=cruise rubber ducks</td>
+        </tr><tr>
+          <td><b>HAY0219</b><div class="small">30天销量 28｜库存 105天｜利润 17.4%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">476336108752812</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=105；profit=17.4%；unitsSold30=28；q2 matched text=cruise ducks</td>
+        </tr><tr>
+          <td><b>NAY0239</b><div class="small">30天销量 121｜库存 48天｜利润 21.8%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">413413427385787</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=48；profit=21.8%；unitsSold30=121；q2 matched text=bridal shower favors for guests</td>
+        </tr><tr>
+          <td><b>NAY0239</b><div class="small">30天销量 121｜库存 48天｜利润 21.8%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">492730836668342</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=48；profit=21.8%；unitsSold30=121；q2 matched text=wedding gifts for guests</td>
+        </tr><tr>
+          <td><b>WC2648</b><div class="small">30天销量 15｜库存 132天｜利润 31.2%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">385291045993620</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=132；profit=31.2%；unitsSold30=15；q2 matched text=memorial gifts for loss of father</td>
+        </tr><tr>
+          <td><b>RHO0122</b><div class="small">30天销量 119｜库存 130天｜利润 12.0%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP手动商品定位<div class="small">522230568422034</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=130；profit=12.0%；unitsSold30=119；q2 matched text=manual</td>
+        </tr><tr>
+          <td><b>RHO0122</b><div class="small">30天销量 119｜库存 130天｜利润 12.0%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP手动商品定位<div class="small">509520411492149</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=130；profit=12.0%；unitsSold30=119；q2 matched text=manual</td>
+        </tr><tr>
+          <td><b>JUU1053</b><div class="small">30天销量 75｜库存 96天｜利润 26.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">499738779693406</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=96；profit=26.1%；unitsSold30=75；q2 matched text=cake pop stand</td>
+        </tr><tr>
+          <td><b>JUU1053</b><div class="small">30天销量 75｜库存 96天｜利润 26.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">499738779693406</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=96；profit=26.1%；unitsSold30=75；q2 matched text=cake pop stand</td>
+        </tr><tr>
+          <td><b>GM3207</b><div class="small">30天销量 70｜库存 54天｜利润 18.8%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">309349422708474</div></td>
+          <td>0.38 -> 0.41</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=2；7d spend=0.76；inventory days=54；profit=18.8%</td>
+        </tr><tr>
+          <td><b>QA3173</b><div class="small">30天销量 37｜库存 87天｜利润 21.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">387748543923246</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=87；profit=21.3%；unitsSold30=37；q2 matched text=+soccer +keychains bulk</td>
+        </tr><tr>
+          <td><b>QA3173</b><div class="small">30天销量 37｜库存 87天｜利润 21.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">345188656750022</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=87；profit=21.3%；unitsSold30=37；q2 matched text=soccer keychain for girl</td>
+        </tr><tr>
+          <td><b>QQ2806</b><div class="small">30天销量 212｜库存 105天｜利润 28.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">250279786859641</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=105；profit=28.5%；unitsSold30=212；q2 matched text=gabby dollhouse table cloth</td>
+        </tr><tr>
+          <td><b>QQ2806</b><div class="small">30天销量 212｜库存 105天｜利润 28.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">128421139651479</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=105；profit=28.5%；unitsSold30=212；q2 matched text=gabby dollhouse tablecloth</td>
+        </tr><tr>
+          <td><b>LNE1322</b><div class="small">30天销量 35｜库存 59天｜利润 15.7%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">351415112641242</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=59；profit=15.7%；unitsSold30=35；q2 matched text=christian stocking stuffers for women</td>
+        </tr><tr>
+          <td><b>QAA3142</b><div class="small">30天销量 41｜库存 86天｜利润 33.4%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">419208228607719</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=86；profit=33.4%；unitsSold30=41；q2 matched text=inspirational gifts for women</td>
+        </tr><tr>
+          <td><b>QAA3142</b><div class="small">30天销量 41｜库存 86天｜利润 33.4%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">406961214883771</div></td>
+          <td>0.13 -> 0.14</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=1；7d spend=0.13；inventory days=86；profit=33.4%</td>
+        </tr><tr>
+          <td><b>GM2821</b><div class="small">30天销量 94｜库存 30天｜利润 22.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">434097892357717</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=30；profit=22.3%；unitsSold30=94；q2 matched text=recognition pins</td>
+        </tr><tr>
+          <td><b>GM2821</b><div class="small">30天销量 94｜库存 30天｜利润 22.3%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">104447551967542</div></td>
+          <td>0.35 -> 0.38</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=2；7d spend=0.7；inventory days=30；profit=22.3%</td>
+        </tr><tr>
+          <td><b>SHQ3375</b><div class="small">30天销量 200｜库存 101天｜利润 25.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">344795988782354</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=101；profit=25.6%；unitsSold30=200；q2 matched text=decorate a car set baby shower</td>
+        </tr><tr>
+          <td><b>SHQ3375</b><div class="small">30天销量 200｜库存 101天｜利润 25.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">409690960462736</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=101；profit=25.6%；unitsSold30=200；q2 matched text=cars for baby shower craft</td>
+        </tr><tr>
+          <td><b>YUT2927</b><div class="small">30天销量 12｜库存 353天｜利润 22.9%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">42526098112545</div></td>
+          <td>0.33 -> 0.36</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=5；7d spend=1.65；inventory days=353；profit=22.9%</td>
+        </tr><tr>
+          <td><b>YB0698</b><div class="small">30天销量 42｜库存 112天｜利润 17.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">332085029759059</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=112；profit=17.6%；unitsSold30=42；q2 matched text=get well stuffed animals</td>
+        </tr><tr>
+          <td><b>YB0698</b><div class="small">30天销量 42｜库存 112天｜利润 17.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">485871551984614</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=112；profit=17.6%；unitsSold30=42；q2 matched text=get well</td>
+        </tr><tr>
+          <td><b>PR2214</b><div class="small">30天销量 93｜库存 104天｜利润 24.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">446206651729332</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=104；profit=24.3%；unitsSold30=93；q2 matched text=small stuffed bunny</td>
+        </tr><tr>
+          <td><b>PR2214</b><div class="small">30天销量 93｜库存 104天｜利润 24.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">421046030624377</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=104；profit=24.3%；unitsSold30=93；q2 matched text=bunny keychain</td>
+        </tr><tr>
+          <td><b>KV0324</b><div class="small">30天销量 210｜库存 107天｜利润 14.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">367871552217927</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=107；profit=14.6%；unitsSold30=210；q2 matched text=broken arm stuffed animal for girls</td>
+        </tr><tr>
+          <td><b>KV0324</b><div class="small">30天销量 210｜库存 107天｜利润 14.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">367871552217927</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=107；profit=14.6%；unitsSold30=210；q2 matched text=broken arm stuffed animal for girls</td>
+        </tr><tr>
+          <td><b>SHQ0554</b><div class="small">30天销量 44｜库存 79天｜利润 21.6%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">433880067527964</div></td>
+          <td>0.34 -> 0.37</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=7；7d spend=2.27；inventory days=79；profit=21.6%</td>
+        </tr><tr>
+          <td><b>GT3814</b><div class="small">30天销量 100｜库存 71天｜利润 31.8%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">498221302148958</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=71；profit=31.8%；unitsSold30=100；q2 matched text=memorial ribbons for funeral</td>
+        </tr><tr>
+          <td><b>GT3814</b><div class="small">30天销量 100｜库存 71天｜利润 31.8%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">498221302148958</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=71；profit=31.8%；unitsSold30=100；q2 matched text=memorial ribbons for funeral</td>
+        </tr><tr>
+          <td><b>YAN2061</b><div class="small">30天销量 43｜库存 73天｜利润 17.2%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">544163776090900</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=73；profit=17.2%；unitsSold30=43；q2 matched text=baby shower games</td>
+        </tr><tr>
+          <td><b>YAN2061</b><div class="small">30天销量 43｜库存 73天｜利润 17.2%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">338209353715401</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=73；profit=17.2%；unitsSold30=43；q2 matched text=diaper game baby shower</td>
+        </tr><tr>
+          <td><b>OCE1413</b><div class="small">30天销量 119｜库存 58天｜利润 13.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">444397963328921</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=58；profit=13.6%；unitsSold30=119；q2 matched text=wedding officiant book for ceremony</td>
+        </tr><tr>
+          <td><b>OCE1413</b><div class="small">30天销量 119｜库存 58天｜利润 13.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">349052293881344</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=58；profit=13.6%；unitsSold30=119；q2 matched text=wedding officiant book</td>
+        </tr><tr>
+          <td><b>GT3815</b><div class="small">30天销量 36｜库存 125天｜利润 27.8%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">348550820997827</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=125；profit=27.8%；unitsSold30=36；q2 matched text=green mental health awareness pins</td>
+        </tr><tr>
+          <td><b>GT3815</b><div class="small">30天销量 36｜库存 125天｜利润 27.8%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">384969861222999</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=125；profit=27.8%；unitsSold30=36；q2 matched text=funeral ribbon</td>
+        </tr><tr>
+          <td><b>TH2599</b><div class="small">30天销量 30｜库存 105天｜利润 35.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">302537262272022</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=105；profit=35.3%；unitsSold30=30；q2 matched text=twist ties reusable</td>
+        </tr><tr>
+          <td><b>TH2599</b><div class="small">30天销量 30｜库存 105天｜利润 35.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">492052969450277</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=105；profit=35.3%；unitsSold30=30；q2 matched text=cable organizer straps</td>
+        </tr><tr>
+          <td><b>LNE1321</b><div class="small">30天销量 14｜库存 206天｜利润 14.8%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">514204457523003</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=206；profit=14.8%；unitsSold30=14；q2 matched text=god says you are makeup bag</td>
+        </tr><tr>
+          <td><b>LNE1321</b><div class="small">30天销量 14｜库存 206天｜利润 14.8%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">456824026530854</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=206；profit=14.8%；unitsSold30=14；q2 matched text=bible verse cosmetic bags bulk</td>
+        </tr><tr>
+          <td><b>BOY3171</b><div class="small">30天销量 33｜库存 133天｜利润 13.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">441367342670424</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=133；profit=13.6%；unitsSold30=33；q2 matched text=here comes the son baby shower favors</td>
+        </tr><tr>
+          <td><b>BOY3171</b><div class="small">30天销量 33｜库存 133天｜利润 13.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">496896800840806</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=133；profit=13.6%；unitsSold30=33；q2 matched text=welcome baby party favor boxes for boy</td>
+        </tr><tr>
+          <td><b>WNE0355</b><div class="small">30天销量 19｜库存 171天｜利润 13.8%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">310180244395424</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=171；profit=13.8%；unitsSold30=19；q2 matched text=woodland creatures baby shower</td>
+        </tr><tr>
+          <td><b>WNE0355</b><div class="small">30天销量 19｜库存 171天｜利润 13.8%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">330614199581614</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=171；profit=13.8%；unitsSold30=19；q2 matched text=woodland baby shower</td>
+        </tr><tr>
+          <td><b>IF1427</b><div class="small">30天销量 14｜库存 138天｜利润 18.8%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">347586165181989</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=138；profit=18.8%；unitsSold30=14；q2 matched text=pegboard accessories</td>
+        </tr><tr>
+          <td><b>IF1427</b><div class="small">30天销量 14｜库存 138天｜利润 18.8%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">349600429259149</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=138；profit=18.8%；unitsSold30=14；q2 matched text=pegboard</td>
+        </tr><tr>
+          <td><b>HEL0319</b><div class="small">30天销量 17｜库存 126天｜利润 21.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">430656462723262</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=126；profit=21.5%；unitsSold30=17；q2 matched text=cna week gifts bulk 2024</td>
+        </tr><tr>
+          <td><b>HEL0319</b><div class="small">30天销量 17｜库存 126天｜利润 21.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">411800665425499</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=126；profit=21.5%；unitsSold30=17；q2 matched text=appreciation gifts</td>
+        </tr><tr>
+          <td><b>YMF1073</b><div class="small">30天销量 14｜库存 153天｜利润 32.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">482077198386924</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=153；profit=32.5%；unitsSold30=14；q2 matched text=baby shower favors</td>
+        </tr><tr>
+          <td><b>YMF1073</b><div class="small">30天销量 14｜库存 153天｜利润 32.5%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">297673818554688</div></td>
+          <td>0.12 -> 0.13</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=0；7d spend=0；inventory days=153；profit=32.5%</td>
+        </tr><tr>
+          <td><b>SH0424</b><div class="small">30天销量 29｜库存 198天｜利润 8.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP手动商品定位<div class="small">274454270884346</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=198；profit=8.6%；unitsSold30=29；q2 matched text=manual</td>
+        </tr><tr>
+          <td><b>SH0424</b><div class="small">30天销量 29｜库存 198天｜利润 8.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP手动商品定位<div class="small">145992876750662</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=198；profit=8.6%；unitsSold30=29；q2 matched text=manual</td>
+        </tr><tr>
+          <td><b>JIN1883</b><div class="small">30天销量 8｜库存 124天｜利润 12.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">444899691532803</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=124；profit=12.3%；unitsSold30=8；q2 matched text=table numbers</td>
+        </tr><tr>
+          <td><b>JIN1883</b><div class="small">30天销量 8｜库存 124天｜利润 12.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">553962414650622</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=124；profit=12.3%；unitsSold30=8；q2 matched text=wedding reception table numbers</td>
+        </tr><tr>
+          <td><b>HAY1932</b><div class="small">30天销量 48｜库存 105天｜利润 15.2%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SB商品定位<div class="small">406306991825439</div></td>
+          <td>0.25 -> 0.27</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=2；7d spend=0.5；inventory days=105；profit=15.2%</td>
+        </tr><tr>
+          <td><b>HL4004</b><div class="small">30天销量 232｜库存 87天｜利润 43.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">419770722880132</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=87；profit=43.1%；unitsSold30=232；q2 matched text=cat scat mat with spikes</td>
+        </tr><tr>
+          <td><b>HL4004</b><div class="small">30天销量 232｜库存 87天｜利润 43.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">409193651445079</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=87；profit=43.1%；unitsSold30=232；q2 matched text=window sill cat repellent</td>
+        </tr><tr>
+          <td><b>WE3925</b><div class="small">30天销量 13｜库存 118天｜利润 23.9%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">440056100503836</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=118；profit=23.9%；unitsSold30=13；q2 matched text=pizza cutter keepsake</td>
+        </tr><tr>
+          <td><b>WE3925</b><div class="small">30天销量 13｜库存 118天｜利润 23.9%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">317524268877500</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=118；profit=23.9%；unitsSold30=13；q2 matched text=empty birthday advent calendar</td>
+        </tr><tr>
+          <td><b>TIN2259</b><div class="small">30天销量 73｜库存 70天｜利润 18.9%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">404844091198794</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=70；profit=18.9%；unitsSold30=73；q2 matched text=rubber ducks for cruise ships pack</td>
+        </tr><tr>
+          <td><b>TIN2259</b><div class="small">30天销量 73｜库存 70天｜利润 18.9%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">376126619072112</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=70；profit=18.9%；unitsSold30=73；q2 matched text=carnival cruise card</td>
+        </tr><tr>
+          <td><b>QQ1764</b><div class="small">30天销量 90｜库存 361天｜利润 20.7%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">561096474872059</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=361；profit=20.7%；unitsSold30=90；q2 matched text=rainbow pride table cloth</td>
+        </tr><tr>
+          <td><b>QQ1764</b><div class="small">30天销量 90｜库存 361天｜利润 20.7%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">312038229461862</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=361；profit=20.7%；unitsSold30=90；q2 matched text=rainbow table covering</td>
+        </tr><tr>
+          <td><b>HEL2084</b><div class="small">30天销量 8｜库存 184天｜利润 26.4%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">481936523456437</div></td>
+          <td>0.34 -> 0.36</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=2；7d spend=0.68；inventory days=184；profit=26.4%</td>
+        </tr><tr>
+          <td><b>XIX0903</b><div class="small">30天销量 332｜库存 85天｜利润 23.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">290552088233049</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=85；profit=23.1%；unitsSold30=332；q2 matched text=alphabet stencils</td>
+        </tr><tr>
+          <td><b>XIX0903</b><div class="small">30天销量 332｜库存 85天｜利润 23.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">405750178409871</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=85；profit=23.1%；unitsSold30=332；q2 matched text=letter stencils 4 inch</td>
+        </tr><tr>
+          <td><b>LNY3098</b><div class="small">30天销量 5｜库存 144天｜利润 18.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">501186852243102</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=144；profit=18.6%；unitsSold30=5；q2 matched text=thank you retirement labels</td>
+        </tr><tr>
+          <td><b>IFS0482</b><div class="small">30天销量 52｜库存 85天｜利润 32.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP手动商品定位<div class="small">403758243403336</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=85；profit=32.1%；unitsSold30=52；q2 matched text=manual</td>
+        </tr><tr>
+          <td><b>IFS0482</b><div class="small">30天销量 52｜库存 85天｜利润 32.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP手动商品定位<div class="small">289314563611509</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=85；profit=32.1%；unitsSold30=52；q2 matched text=manual</td>
+        </tr><tr>
+          <td><b>KV4231</b><div class="small">30天销量 48｜库存 107天｜利润 15.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">458089080159459</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=107；profit=15.3%；unitsSold30=48；q2 matched text=get well soon gifts for kids</td>
+        </tr><tr>
+          <td><b>KV4231</b><div class="small">30天销量 48｜库存 107天｜利润 15.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">339753941545924</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=107；profit=15.3%；unitsSold30=48；q2 matched text=get well soon gifts for adults</td>
+        </tr><tr>
+          <td><b>COO1855</b><div class="small">30天销量 24｜库存 147天｜利润 21.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">289454519422054</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=147；profit=21.3%；unitsSold30=24；q2 matched text=coworker appreciation gifts</td>
+        </tr><tr>
+          <td><b>COO1855</b><div class="small">30天销量 24｜库存 147天｜利润 21.3%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">310152409960661</div></td>
+          <td>0.3 -> 0.32</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=8；7d spend=2.4；inventory days=147；profit=21.3%</td>
+        </tr><tr>
+          <td><b>KZ6074</b><div class="small">30天销量 23｜库存 147天｜利润 27.7%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP自动投放<div class="small">537305451566807</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=147；profit=27.7%；unitsSold30=23；q2 matched text=auto</td>
+        </tr><tr>
+          <td><b>KZ6074</b><div class="small">30天销量 23｜库存 147天｜利润 27.7%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP自动投放<div class="small">477434230935075</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=147；profit=27.7%；unitsSold30=23；q2 matched text=auto</td>
+        </tr><tr>
+          <td><b>QAA3143</b><div class="small">30天销量 71｜库存 70天｜利润 36.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">545797955663620</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=70；profit=36.1%；unitsSold30=71；q2 matched text=employee recognition pin</td>
+        </tr><tr>
+          <td><b>QAA3143</b><div class="small">30天销量 71｜库存 70天｜利润 36.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">545797955663620</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=70；profit=36.1%；unitsSold30=71；q2 matched text=employee recognition pin</td>
+        </tr><tr>
+          <td><b>QA0828</b><div class="small">30天销量 125｜库存 96天｜利润 33.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">356678780104914</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=96；profit=33.3%；unitsSold30=125；q2 matched text=death decorations</td>
+        </tr><tr>
+          <td><b>QA0828</b><div class="small">30天销量 125｜库存 96天｜利润 33.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB商品定位<div class="small">533587967928138</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=96；profit=33.3%；unitsSold30=125；q2 matched text=asin=B0BQWF3JC4</td>
+        </tr><tr>
+          <td><b>YUT4458</b><div class="small">30天销量 1｜库存 2370天｜利润 25.0%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">115900319442382</div></td>
+          <td>0.4 -> 0.43</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=3；7d spend=1.2；inventory days=2370；profit=25.0%</td>
+        </tr><tr>
+          <td><b>XIA3242</b><div class="small">30天销量 14｜库存 99天｜利润 23.7%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">331776899429013</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=99；profit=23.7%；unitsSold30=14；q2 matched text=lucky elephant charm</td>
+        </tr><tr>
+          <td><b>XIA3242</b><div class="small">30天销量 14｜库存 99天｜利润 23.7%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">281914250321634</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=99；profit=23.7%；unitsSold30=14；q2 matched text=boss day gifts</td>
+        </tr><tr>
+          <td><b>YUN2646</b><div class="small">30天销量 35｜库存 37天｜利润 16.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">283732605349655</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=37；profit=16.5%；unitsSold30=35；q2 matched text=christian gift sets for women</td>
+        </tr><tr>
+          <td><b>YUN2646</b><div class="small">30天销量 35｜库存 37天｜利润 16.5%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">297419674748431</div></td>
+          <td>0.55 -> 0.58</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=1；7d spend=0.55；inventory days=37；profit=16.5%</td>
+        </tr><tr>
+          <td><b>XIX2353</b><div class="small">30天销量 60｜库存 106天｜利润 28.9%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">446732311626255</div></td>
+          <td>0.42 -> 0.45</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=2；7d spend=0.84；inventory days=106；profit=28.9%</td>
+        </tr><tr>
+          <td><b>KEN1043</b><div class="small">30天销量 35｜库存 192天｜利润 14.0%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">548440920429767</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=192；profit=14.0%；unitsSold30=35；q2 matched text=40 and fabulous gift bag</td>
+        </tr><tr>
+          <td><b>KEN1043</b><div class="small">30天销量 35｜库存 192天｜利润 14.0%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">531557651137266</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=192；profit=14.0%；unitsSold30=35；q2 matched text=40th birthday goodie bags</td>
+        </tr><tr>
+          <td><b>GM2824</b><div class="small">30天销量 34｜库存 39天｜利润 23.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">380626065740811</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=39；profit=23.5%；unitsSold30=34；q2 matched text=employee appreciation</td>
+        </tr><tr>
+          <td><b>GM2824</b><div class="small">30天销量 34｜库存 39天｜利润 23.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">339033179640111</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=39；profit=23.5%；unitsSold30=34；q2 matched text=social work appreciation gifts</td>
+        </tr><tr>
+          <td><b>KV4232</b><div class="small">30天销量 31｜库存 105天｜利润 11.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">433182358177815</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=105；profit=11.3%；unitsSold30=31；q2 matched text=hospital gift teddy bear</td>
+        </tr><tr>
+          <td><b>KV4232</b><div class="small">30天销量 31｜库存 105天｜利润 11.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">303273500089271</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=105；profit=11.3%；unitsSold30=31；q2 matched text=get well soon teddy bear</td>
+        </tr><tr>
+          <td><b>YAN2008</b><div class="small">30天销量 28｜库存 124天｜利润 12.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">560833843940379</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=124；profit=12.5%；unitsSold30=28；q2 matched text=baby shower balloon game</td>
+        </tr><tr>
+          <td><b>YAN2008</b><div class="small">30天销量 28｜库存 124天｜利润 12.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">379659871384987</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=124；profit=12.5%；unitsSold30=28；q2 matched text=baby bottles for baby shower game</td>
+        </tr><tr>
+          <td><b>UAN2600</b><div class="small">30天销量 53｜库存 134天｜利润 10.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">542601483402146</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=134；profit=10.6%；unitsSold30=53；q2 matched text=gifts for recruiters</td>
+        </tr><tr>
+          <td><b>UAN2600</b><div class="small">30天销量 53｜库存 134天｜利润 10.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">542601483402146</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=134；profit=10.6%；unitsSold30=53；q2 matched text=gifts for recruiters</td>
+        </tr><tr>
+          <td><b>KUR0501</b><div class="small">30天销量 70｜库存 130天｜利润 27.4%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP自动投放<div class="small">448651724704593</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=130；profit=27.4%；unitsSold30=70；q2 matched text=auto</td>
+        </tr><tr>
+          <td><b>KUR0501</b><div class="small">30天销量 70｜库存 130天｜利润 27.4%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP自动投放<div class="small">416364078446893</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=130；profit=27.4%；unitsSold30=70；q2 matched text=auto</td>
+        </tr><tr>
+          <td><b>GM2634</b><div class="small">30天销量 2｜库存 915天｜利润 27.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">308612476871297</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=915；profit=27.5%；unitsSold30=2；q2 matched text=christian necklace for women</td>
+        </tr><tr>
+          <td><b>KZ5816</b><div class="small">30天销量 251｜库存 70天｜利润 19.4%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">318594834687807</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=70；profit=19.4%；unitsSold30=251；q2 matched text=movie night banner</td>
+        </tr><tr>
+          <td><b>KZ5816</b><div class="small">30天销量 251｜库存 70天｜利润 19.4%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">341242396764325</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=70；profit=19.4%；unitsSold30=251；q2 matched text=movie night porch sign</td>
+        </tr><tr>
+          <td><b>GM2851</b><div class="small">30天销量 27｜库存 112天｜利润 20.9%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">285728681391548</div></td>
+          <td>0.36 -> 0.39</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=2；7d spend=0.72；inventory days=112；profit=20.9%</td>
+        </tr><tr>
+          <td><b>HAY1931</b><div class="small">30天销量 60｜库存 95天｜利润 17.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">534210085684359</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=95；profit=17.5%；unitsSold30=60；q2 matched text=sailor ducks for cruise ship</td>
+        </tr><tr>
+          <td><b>HAY1931</b><div class="small">30天销量 60｜库存 95天｜利润 17.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">544212607177661</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=95；profit=17.5%；unitsSold30=60；q2 matched text=small cruise ship ducks￼</td>
+        </tr><tr>
+          <td><b>TH2796</b><div class="small">30天销量 14｜库存 133天｜利润 23.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP手动商品定位<div class="small">434858798224538</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=133；profit=23.6%；unitsSold30=14；q2 matched text=manual</td>
+        </tr><tr>
+          <td><b>TH2796</b><div class="small">30天销量 14｜库存 133天｜利润 23.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP手动商品定位<div class="small">476434603483270</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=133；profit=23.6%；unitsSold30=14；q2 matched text=manual</td>
+        </tr><tr>
+          <td><b>QQ2235</b><div class="small">30天销量 33｜库存 220天｜利润 9.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">289485619234061</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=220；profit=9.1%；unitsSold30=33；q2 matched text=rainbow party decorations</td>
+        </tr><tr>
+          <td><b>QQ2235</b><div class="small">30天销量 33｜库存 220天｜利润 9.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP自动投放<div class="small">339927496809164</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=220；profit=9.1%；unitsSold30=33；q2 matched text=auto</td>
+        </tr><tr>
+          <td><b>KA1544</b><div class="small">30天销量 36｜库存 118天｜利润 19.4%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">433652535438447</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=118；profit=19.4%；unitsSold30=36；q2 matched text=turquoise flowers</td>
+        </tr><tr>
+          <td><b>KA1544</b><div class="small">30天销量 36｜库存 118天｜利润 19.4%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">543839896908277</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=118；profit=19.4%；unitsSold30=36；q2 matched text=turquoise decor</td>
+        </tr><tr>
+          <td><b>DAY2987</b><div class="small">30天销量 28｜库存 75天｜利润 24.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">505296912198921</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=75；profit=24.3%；unitsSold30=28；q2 matched text=veterinary technician week gifts</td>
+        </tr><tr>
+          <td><b>DAY2987</b><div class="small">30天销量 28｜库存 75天｜利润 24.3%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">431401188861301</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=75；profit=24.3%；unitsSold30=28；q2 matched text=vet tech week gifts bulk</td>
+        </tr><tr>
+          <td><b>QA1951</b><div class="small">30天销量 29｜库存 76天｜利润 19.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP自动投放<div class="small">339898623358838</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=76；profit=19.6%；unitsSold30=29；q2 matched text=auto</td>
+        </tr><tr>
+          <td><b>QA1951</b><div class="small">30天销量 29｜库存 76天｜利润 19.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">292319396286301</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=76；profit=19.6%；unitsSold30=29；q2 matched text=bulk keychains for adults</td>
+        </tr><tr>
+          <td><b>OYH0257</b><div class="small">30天销量 31｜库存 141天｜利润 17.7%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">439981964646554</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=141；profit=17.7%；unitsSold30=31；q2 matched text=wedding favors</td>
+        </tr><tr>
+          <td><b>OYH0257</b><div class="small">30天销量 31｜库存 141天｜利润 17.7%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">518856473406899</div></td>
+          <td>0.3 -> 0.32</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=11；7d spend=3.26；inventory days=141；profit=17.7%</td>
+        </tr><tr>
+          <td><b>YUT4466</b><div class="small">30天销量 20｜库存 272天｜利润 28.5%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">124563671826198</div></td>
+          <td>0.19 -> 0.2</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖扩面：小幅加价提高展示和点击机会。依据：7d clicks=1；7d spend=0.19；inventory days=272；profit=28.5%</td>
+        </tr><tr>
+          <td><b>YAN2278</b><div class="small">30天销量 173｜库存 91天｜利润 13.0%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">492824139783520</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=91；profit=13.0%；unitsSold30=173；q2 matched text=baby shower games tie your shoe</td>
+        </tr><tr>
+          <td><b>YAN2278</b><div class="small">30天销量 173｜库存 91天｜利润 13.0%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">482195695986872</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=91；profit=13.0%；unitsSold30=173；q2 matched text=baby shower shoe tying game</td>
+        </tr><tr>
+          <td><b>GRA4861</b><div class="small">30天销量 42｜库存 102天｜利润 15.7%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">552030340556061</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=102；profit=15.7%；unitsSold30=42；q2 matched text=bridal shower games 50 guests</td>
+        </tr><tr>
+          <td><b>GRA4861</b><div class="small">30天销量 42｜库存 102天｜利润 15.7%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">424920014276603</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=102；profit=15.7%；unitsSold30=42；q2 matched text=bridal shower games</td>
+        </tr><tr>
+          <td><b>QA3874</b><div class="small">30天销量 3｜库存 240天｜利润 21.0%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">440996494456634</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=240；profit=21.0%；unitsSold30=3；q2 matched text=employee appreciation gifts</td>
+        </tr><tr>
+          <td><b>UAN3256</b><div class="small">30天销量 24｜库存 140天｜利润 14.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP自动投放<div class="small">441444970059124</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=140；profit=14.6%；unitsSold30=24；q2 matched text=auto</td>
+        </tr><tr>
+          <td><b>UAN3256</b><div class="small">30天销量 24｜库存 140天｜利润 14.6%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">551522619290996</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=140；profit=14.6%；unitsSold30=24；q2 matched text=mini notepads</td>
+        </tr><tr>
+          <td><b>AE1079</b><div class="small">30天销量 3｜库存 610天｜利润 19.4%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">441032312838438</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=610；profit=19.4%；unitsSold30=3；q2 matched text=godmother gift</td>
+        </tr><tr>
+          <td><b>AE1079</b><div class="small">30天销量 3｜库存 610天｜利润 19.4%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">489609393332455</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=610；profit=19.4%；unitsSold30=3；q2 matched text=godmother gifts</td>
+        </tr><tr>
+          <td><b>IF1738</b><div class="small">30天销量 26｜库存 96天｜利润 18.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">339695989461651</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=96；profit=18.1%；unitsSold30=26；q2 matched text=pegboard shelf</td>
+        </tr><tr>
+          <td><b>IF1738</b><div class="small">30天销量 26｜库存 96天｜利润 18.1%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">519211038250503</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=96；profit=18.1%；unitsSold30=26；q2 matched text=pegboard baskets and shelves</td>
+        </tr><tr>
+          <td><b>HEL0606</b><div class="small">30天销量 15｜库存 168天｜利润 15.8%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">375913280033627</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=168；profit=15.8%；unitsSold30=15；q2 matched text=sea turtle keychain bulk</td>
+        </tr><tr>
+          <td><b>HEL0606</b><div class="small">30天销量 15｜库存 168天｜利润 15.8%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">514960466698440</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=168；profit=15.8%；unitsSold30=15；q2 matched text=gifts turtle</td>
+        </tr><tr>
+          <td><b>NAY0963</b><div class="small">30天销量 40｜库存 103天｜利润 17.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">471442277302739</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=103；profit=17.5%；unitsSold30=40；q2 matched text=gifts for wedding guests</td>
+        </tr><tr>
+          <td><b>HEL2083</b><div class="small">30天销量 15｜库存 132天｜利润 23.2%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">519223110682365</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=132；profit=23.2%；unitsSold30=15；q2 matched text=employee appreciation gifts bulk</td>
+        </tr><tr>
+          <td><b>HEL2083</b><div class="small">30天销量 15｜库存 132天｜利润 23.2%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">365894477125440</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=132；profit=23.2%；unitsSold30=15；q2 matched text=best team ever gifts</td>
+        </tr><tr>
+          <td><b>RU2391</b><div class="small">30天销量 14｜库存 142天｜利润 9.9%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">416537811799265</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=142；profit=9.9%；unitsSold30=14；q2 matched text=moon themed baby shower table centerpieces set</td>
+        </tr><tr>
+          <td><b>RU2391</b><div class="small">30天销量 14｜库存 142天｜利润 9.9%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">295034333921512</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>覆盖率优先：该对象可用于恢复更多有效触达，且当前 SKU 有库存承接。依据：inventory days=142；profit=9.9%；unitsSold30=14；q2 matched text=moon themed moon and cloud gift table decorations</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>需要你看的建广告评估</h2>
+    <div class="section-note">这里只做建议，不自动建广告。优先看 Q2 礼物、教师节、护士周、基督励志、毕业季、夏季方向，并结合库存和利润。</div>
+    <table>
+      <thead><tr><th>SKU</th><th>建议方向</th><th>为什么值得看</th><th>数据</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>KZ5816</b></td>
+          <td><span class="pill">毕业季</span><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 251｜库存 70天｜利润 19.4%｜SB花费 $24.24</td>
+        </tr><tr>
+          <td><b>XIX0903</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 332｜库存 85天｜利润 23.1%｜SB花费 $242.65</td>
+        </tr><tr>
+          <td><b>KV3640</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 237｜库存 72天｜利润 26.0%｜SB花费 $23.09</td>
+        </tr><tr>
+          <td><b>QQ2806</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 212｜库存 105天｜利润 28.5%｜SB花费 $4.14</td>
+        </tr><tr>
+          <td><b>SE5608</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 215｜库存 99天｜利润 34.9%｜SB花费 $47.13</td>
+        </tr><tr>
+          <td><b>SHQ3375</b></td>
+          <td><span class="pill">墨西哥节/派对</span><span class="pill">Baby Shower</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 200｜库存 101天｜利润 25.6%｜SB花费 $32.47</td>
+        </tr><tr>
+          <td><b>KV0324</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 210｜库存 107天｜利润 14.6%｜SB花费 $61.28</td>
+        </tr><tr>
+          <td><b>HL4004</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 232｜库存 87天｜利润 43.1%｜SB花费 $164.78</td>
+        </tr><tr>
+          <td><b>YAN2278</b></td>
+          <td><span class="pill">墨西哥节/派对</span><span class="pill">Baby Shower</span></td>
+          <td>销量和库存可承接，但SB覆盖偏弱，建议评估新建SB/SBV</td>
+          <td>30天销量 173｜库存 91天｜利润 13.0%｜SB花费 $0.00</td>
+        </tr><tr>
+          <td><b>WAR1276</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 165｜库存 102天｜利润 20.1%｜SB花费 $6.99</td>
+        </tr><tr>
+          <td><b>SE5942</b></td>
+          <td><span class="pill">教师节/谢师周</span><span class="pill">护士周</span><span class="pill">墨西哥节/派对</span></td>
+          <td>销量和库存可承接，但SB覆盖偏弱，建议评估新建SB/SBV</td>
+          <td>30天销量 144｜库存 74天｜利润 36.2%｜SB花费 $0.00</td>
+        </tr><tr>
+          <td><b>EY1448</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 159｜库存 41天｜利润 24.9%｜SB花费 $25.16</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>库存 / 利润 / 备货复核</h2>
+    <table>
+      <thead><tr><th>SKU</th><th>建议</th><th>原因</th><th>关键数据</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>XIX0903</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 332｜库存 85天｜利润 23.1%</td>
+        </tr><tr>
+          <td><b>KZ5816</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 251｜库存 70天｜利润 19.4%</td>
+        </tr><tr>
+          <td><b>KV3640</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 237｜库存 72天｜利润 26.0%</td>
+        </tr><tr>
+          <td><b>HL4004</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 232｜库存 87天｜利润 43.1%</td>
+        </tr><tr>
+          <td><b>EY1448</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 159｜库存 41天｜利润 24.9%</td>
+        </tr><tr>
+          <td><b>SE5942</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 144｜库存 74天｜利润 36.2%</td>
+        </tr><tr>
+          <td><b>HL2535</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 141｜库存 67天｜利润 0.2%</td>
+        </tr><tr>
+          <td><b>UAN0188</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 127｜库存 71天｜利润 6.1%</td>
+        </tr><tr>
+          <td><b>LRU1537</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 126｜库存 83天｜利润 -0.9%</td>
+        </tr><tr>
+          <td><b>NAY0239</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 121｜库存 48天｜利润 21.8%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>本轮建议下一步</h2>
+    <div class="grid two">
+      <div class="card">
+        <h3>先确认</h3>
+        <p>这轮有 14 个动作属于“接口成功但回查未确认”。大概率不是接口失败，而是开启后行不在当前刷新结果里，或页面抓数口径没覆盖到新状态。建议按 keywordId / targetId 在后台点查确认，不要直接当成失败重做。</p>
+      </div>
+      <div class="card">
+        <h3>再推进</h3>
+        <p>优先复核上方建广告建议，特别是有销量、有库存、SB覆盖弱的 Q2 礼物/教师/护士/基督/夏季方向。之后可以继续做第三波：把人工复核中的高销量强动作拆成更小颗粒，再自动执行。</p>
+      </div>
+    </div>
+
+    <h2>沉淀文件</h2>
+    <div class="card small">
+      <div>快照：data\snapshots\aggressive_coverage_snapshot_2026-04-23.json</div>
+      <div>动作 schema：data\snapshots\aggressive_coverage_action_schema_2026-04-23.json</div>
+      <div>执行回查：data\snapshots\execution_verify_2026-04-23.json</div>
+      <div>执行 summary：data\snapshots\execution_summary_2026-04-23.json</div>
+      <div>覆盖明细：data\snapshots\execution_coverage_2026-04-23.json</div>
+    </div>
+  </div>
+</body>
+</html>

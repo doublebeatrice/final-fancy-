@@ -25,12 +25,17 @@ Code owns:
 
 The panel must not contain an AI provider, AI runtime, or second strategy layer.
 
+## Persistent Memory
+
+Read `memory.md` before making operational decisions. It contains durable context that should survive dated handoff files, including KPI口径, the daily priority SKU group, the critical "同" field mapping, and recent execution memory.
+
 ## Quick Start For A New Codex Session
 
 Prerequisites:
 
 - Work from this repo: `D:\ad-ops-workbench`.
 - Chrome is logged in to `adv.yswg.com.cn` and `sellerinventory.yswg.com.cn`.
+- After opening both systems, the operator must manually confirm the login state in the browser. Do not assume the session is usable until the pages are visibly logged in.
 - The extension panel can be opened.
 - Debug Chrome is available on port `9222`.
 
@@ -48,11 +53,35 @@ https://sellerinventory.yswg.com.cn/
 chrome-extension://ipidenfkcdlhadnieamoocalimlnhagj/panel.html
 ```
 
+Important: wait for the operator to confirm both backend pages are logged in before exporting a snapshot. If this step is skipped, snapshot export can produce inventory-only or empty ad data.
+
 Export a full snapshot:
 
 ```powershell
 node scripts\execute\export_snapshot.js data\snapshots\latest_snapshot.json
 ```
+
+Run the daily priority SKU watch report:
+
+```powershell
+node scripts\diagnostics\watch_daily_sku_group.js data\snapshots\latest_snapshot.json
+```
+
+Generate the daily personal trend HTML:
+
+```powershell
+node scripts\execute\generate_personal_trend_report.js data\snapshots\latest_snapshot.json
+```
+
+For the current priority group, "同" must come from `year_over_year_asin_rate`; do not use `year_over_year_rank` as a substitute. Fresh snapshots also include personal seller sales from `/pm/sale/getBySeller` when the inventory session is logged in; credentials are read from the active browser session and must not be stored in the repo.
+
+Daily abnormal-SKU reporting also consumes ad interfaces when available:
+
+- `/product/adSkuSummary` for SKU-level 30-day spend, sales, orders, ACOS, CPC, and previous-period deltas.
+- `/advProduct/all` for SP product-ad state, active row count, spend, orders, and high-ACOS rows by SKU.
+- `/campaignSb/findAllNew` for SB campaign spend/state, with SKU inferred from campaign/ad-group names.
+
+The personal trend generator keeps the latest ad-interface rows but can fill blank product-card inventory/YoY fields from another same-day nonblank snapshot, so a zero-filled export does not wipe out the critical "同"口径.
 
 Codex then reads the snapshot and writes an external action schema JSON. Validate without executing:
 
@@ -145,6 +174,10 @@ If Codex cannot decide safely, the action schema must use `review`. Code must no
 - `extension/panel.js`: browser-side data capture, execution bridge, verification, and note bridge.
 - `scripts/execute/export_snapshot.js`: panel snapshot export.
 - `scripts/execute/run_actions.js`: action schema runner.
+- `scripts/execute/generate_closed_loop_report.js`: writes closed-loop HTML reports under `archive/reports/YYYY-MM-DD/`.
+- `scripts/execute/generate_personal_trend_report.js`: writes daily personal trend HTML under `黄成喆个人数据趋势/每日 近七天 数据趋势/`.
+- `scripts/diagnostics/watch_daily_sku_group.js`: daily report for the priority SKU group.
+- `memory.md`: long-term operating memory and durable decision口径.
 - `docs/CODEX_HANDOFF_RUNBOOK.md`: handoff and operating runbook.
 - `docs/Q2_AD_OPS_PLAYBOOK.md`: Q2 decision context for Codex.
 - `docs/CODEX_AI_BOUNDARY.md`: Codex-only architecture boundary.

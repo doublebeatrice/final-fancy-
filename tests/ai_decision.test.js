@@ -33,6 +33,21 @@ const cards = [
             stats30d: { spend: 7, orders: 1, clicks: 24 },
           },
         ],
+        productAds: [
+          {
+            id: 'ad-1',
+            state: 'paused',
+            stats7d: { spend: 1, orders: 0, clicks: 2 },
+            stats30d: { spend: 4, orders: 1, clicks: 12 },
+          },
+        ],
+        sbCampaign: {
+          id: 'sbc1',
+          state: 'paused',
+          budget: 5,
+          stats7d: { spend: 2, orders: 0, clicks: 3 },
+          stats30d: { spend: 6, orders: 1, clicks: 9 },
+        },
         sponsoredBrands: [
           {
             id: 'sbk-1',
@@ -53,6 +68,8 @@ const rowsByType = {
   keyword: [{ sku: 'SKU-1', keywordId: 'kw-1', campaignId: 'c1', adGroupId: 'g1', accountId: 1, siteId: 4 }],
   autoTarget: [{ sku: 'SKU-1', targetId: 'at-1', campaignId: 'c1', adGroupId: 'g1', accountId: 1, siteId: 4 }],
   manualTarget: [],
+  productAd: [{ sku: 'SKU-1', adId: 'ad-1', campaignId: 'c1', adGroupId: 'g1', accountId: 1, siteId: 4 }],
+  sbCampaign: [{ sku: 'SKU-1', campaignId: 'sbc1', accountId: 1, siteId: 4 }],
   sbKeyword: [{ sku: 'SKU-1', keywordId: 'sbk-1', campaignId: 'sbc1', adGroupId: 'sbg1', matchType: 'BROAD', accountId: 1, siteId: 4 }],
   sbTarget: [],
 };
@@ -122,7 +139,7 @@ const rowsByType = {
           entityType: 'keyword',
           id: 'kw-1',
           actionType: 'pause',
-          reason: 'strong pause',
+          reason: 'high volume but intentionally aggressive',
           evidence: ['high volume'],
           confidence: 0.9,
           riskLevel: 'high',
@@ -131,9 +148,113 @@ const rowsByType = {
       ],
     },
   ], context);
-  assert.strictEqual(validated.plan[0].actions.length, 0);
-  assert.strictEqual(validated.review.length, 1);
-  assert.strictEqual(validated.review[0].action.actionType, 'review');
+  assert.strictEqual(validated.plan[0].actions.length, 1);
+  assert.strictEqual(validated.review.length, 0);
+  assert.strictEqual(validated.plan[0].actions[0].actionType, 'pause');
+}
+
+{
+  const context = { products: buildProductContexts([
+    {
+      ...cards[0],
+      createContext: {
+        accountId: 1,
+        siteId: 4,
+        recommendedDailyBudget: 3,
+        recommendedDefaultBid: 0.25,
+      },
+    },
+  ], rowsByType, [], [], []).products };
+  const validated = validateAndNormalizePlan([
+    {
+      sku: 'SKU-1',
+      summary: 'create test',
+      actions: [
+        {
+          actionType: 'create',
+          mode: 'keywordTarget',
+          coreTerm: 'nurse gifts',
+          keywords: ['nurse gifts', 'nurse week gifts'],
+          dailyBudget: 3,
+          defaultBid: 0.25,
+          reason: 'seasonal launch',
+          evidence: ['inventory ready'],
+          confidence: 0.85,
+          riskLevel: 'low_budget_create',
+          actionSource: ['strategy'],
+        },
+      ],
+    },
+  ], context);
+  assert.strictEqual(validated.plan[0].actions.length, 1);
+  assert.strictEqual(validated.review.length, 0);
+  assert.strictEqual(validated.plan[0].actions[0].actionType, 'create');
+  assert.strictEqual(validated.plan[0].actions[0].createInput.accountId, 1);
+}
+
+{
+  const context = { products: buildProductContexts(cards, rowsByType, [], [], []).products };
+  const validated = validateAndNormalizePlan([
+    {
+      sku: 'SKU-1',
+      summary: 'entity state test',
+      actions: [
+        {
+          entityType: 'productAd',
+          id: 'ad-1',
+          actionType: 'enable',
+          reason: 'restore SP product ad',
+          evidence: ['paused product ad'],
+          confidence: 0.8,
+          riskLevel: 'low',
+          actionSource: ['strategy'],
+        },
+        {
+          entityType: 'sbCampaign',
+          id: 'sbc1',
+          actionType: 'enable',
+          reason: 'restore SB campaign',
+          evidence: ['paused campaign'],
+          confidence: 0.8,
+          riskLevel: 'low',
+          actionSource: ['strategy'],
+        },
+      ],
+    },
+  ], context);
+  assert.strictEqual(validated.errors.length, 0);
+  assert.strictEqual(validated.review.length, 0);
+  assert.strictEqual(validated.plan[0].actions.length, 2);
+  assert.deepStrictEqual(validated.plan[0].actions.map(action => action.entityType), ['productAd', 'sbCampaign']);
+}
+
+{
+  const context = { products: buildProductContexts(cards, rowsByType, [], [], []).products };
+  const validated = validateAndNormalizePlan([
+    {
+      sku: 'SKU-1',
+      summary: 'explicit traffic push override',
+      actions: [
+        {
+          entityType: 'keyword',
+          id: 'kw-1',
+          actionType: 'bid',
+          currentBid: 0.5,
+          suggestedBid: 0.75,
+          allowLargeBidChange: true,
+          reason: 'operator approved CPC push',
+          evidence: ['avg cpc target'],
+          confidence: 0.86,
+          riskLevel: 'traffic_push',
+          actionSource: ['strategy'],
+        },
+      ],
+    },
+  ], context);
+  assert.strictEqual(validated.errors.length, 0);
+  assert.strictEqual(validated.review.length, 0);
+  assert.strictEqual(validated.plan[0].actions.length, 1);
+  assert.strictEqual(validated.plan[0].actions[0].allowLargeBidChange, true);
 }
 
 {

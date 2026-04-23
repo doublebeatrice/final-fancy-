@@ -81,6 +81,20 @@ function classifyApiResult(result) {
   return 'failed';
 }
 
+function extractCreateResultMeta(result = {}) {
+  const raw = result.rawResponse || result;
+  const param = raw?.data?.param || result.param || {};
+  return {
+    siteId: param.siteId || result.siteId || '',
+    accountId: param.accountId || result.accountId || '',
+    campaignId: String(result.campaignId || param.campaignId || raw?.data?.campaignId || ''),
+    adGroupId: String(result.adGroupId || param.adGroupId || raw?.data?.adGroupId || ''),
+    campaignName: result.campaignName || param.campaignName || '',
+    groupName: result.groupName || param.groupName || '',
+    raw,
+  };
+}
+
 function toNum(value) {
   const n = Number(value);
   return Number.isFinite(n) ? n : null;
@@ -140,6 +154,10 @@ function dedupeKeyFor(action, meta = {}, sku = '') {
 
 function executionEntityKey(entityType, id) {
   return `${String(entityType || '')}::${String(id || '')}`;
+}
+
+function entityRowId(row = {}) {
+  return String(row.keywordId || row.targetId || row.target_id || row.adId || row.ad_id || row.campaignId || row.campaign_id || row.id || row.keyword_id || '').trim();
 }
 
 function isInvalidState(value) {
@@ -408,6 +426,30 @@ async function run(options = {}) {
     return { apiSuccess, apiFailed };
   }
 
+  async function executeCreateItems(items) {
+    let apiSuccess = 0;
+    let apiFailed = 0;
+    for (const item of items) {
+      const createInput = item.createInput || {};
+      if (String(createInput.advType || 'SP').toUpperCase() !== 'SP') {
+        apiFailed += 1;
+        recordExecutionEvent(item, 'skuCandidate', 'failed', { msg: 'SB create is not supported in this execution chain yet' });
+        continue;
+      }
+      const result = await execPanelJson(`createSpCampaign(${JSON.stringify(createInput)})`);
+      const meta = extractCreateResultMeta(result);
+      const status = (result?.ok || (classifyApiResult(meta.raw) === 'api_success' && meta.campaignId && meta.adGroupId))
+        ? 'api_success'
+        : classifyApiResult(meta.raw || result);
+      if (status === 'api_success') apiSuccess += 1;
+      else apiFailed += 1;
+      recordExecutionEvent(item, 'skuCandidate', status, result, meta);
+      log(`SP create ${item.sku || createInput.sku || '-'} ${createInput.mode || '-'}: ${status} campaignId=${meta.campaignId || '-'} adGroupId=${meta.adGroupId || '-'}`);
+      await wait(500);
+    }
+    return { apiSuccess, apiFailed };
+  }
+
   async function verifyLanding() {
     log('Refreshing changed rows for post-write verification...');
     const refreshText = await eval_(
@@ -450,13 +492,15 @@ async function run(options = {}) {
           if (event.action?.actionType === 'pause') return 'paused';
           return '';
         };
-        const rowId = row => String(row.keywordId || row.targetId || row.id || row.keyword_id || '').trim();
+        const rowId = row => String(row.keywordId || row.targetId || row.target_id || row.adId || row.ad_id || row.id || row.keyword_id || '').trim();
         const rowsFor = type => {
           if (type === 'keyword') return STATE.kwRows || [];
           if (type === 'manualTarget') return STATE.targetRows || [];
+          if (type === 'productAd') return STATE.productAdRows || [];
           if (type === 'sbKeyword') return (STATE.sbRows || []).filter(r => String(r.__adProperty || '') === '4');
           if (type === 'sbTarget') return (STATE.sbRows || []).filter(r => String(r.__adProperty || '') === '6');
-          if (type === 'sbCampaign') return STATE.sb7DayUntouchedRows || [];
+          if (type === 'sbCampaign') return STATE.sbCampaignRows || [];
+          if (type === 'sbCampaignCandidate') return STATE.sb7DayUntouchedRows || [];
           return STATE.autoRows || [];
         };
         return JSON.stringify(events.map(event => {
@@ -501,22 +545,69 @@ async function run(options = {}) {
             return out;
           }
           if (event.entityType === 'sbCampaign') {
-            const row = (STATE.sb7DayUntouchedRows || []).find(r => String(r.campaignId || r.campaign_id || '') === String(event.id));
-            const expected = bidNum(event.suggestedBudget ?? event.suggestedBid ?? event.bid);
-            const actual = row ? bidNum(row.budget) : null;
+            const row = (STATE.sbCampaignRows || []).find(r => String(r.campaignId || r.campaign_id || '') === String(event.id));
             out.rowFound = !!row;
+            if (event.action?.actionType === 'enable' || event.action?.actionType === 'pause') {
+              const expectedState = expectedStateFor(event);
+              const actualState = row ? normalizeState(row.state ?? row.status ?? row.activeStatus) : '';
+              out.expectedState = expectedState;
+              out.actualState = actualState;
+              if (row && actualState === expectedState) {
+                out.finalStatus = 'success';
+                out.success = true;
+                out.errorReason = '';
+              } else {
+                out.finalStatus = 'not_landed';
+                out.success = false;
+                out.errorReason = row ? 'sb campaign state action API success but state not landed' : 'sb campaign state action API success but row missing on verify';
+              }
+              return out;
+            }
+            const expected = bidNum(event.suggestedBudget ?? event.suggestedBid ?? event.bid);
+            const actual = row ? bidNum(row.budget ?? row.dailyBudget) : null;
             out.expectedBid = expected;
             out.actualBid = actual;
-            if (!row) {
+            if (row && actual != null && expected != null && Math.abs(actual - expected) < ${VERIFY_TOLERANCE}) {
               out.finalStatus = 'success';
               out.success = true;
               out.errorReason = '';
             } else {
               out.finalStatus = 'not_landed';
               out.success = false;
-              out.errorReason = actual != null && expected != null && Math.abs(actual - expected) < ${VERIFY_TOLERANCE}
-                ? 'sb campaign budget changed but still remains in seven day untouched pool'
-                : 'sb campaign budget verify did not land and still remains in seven day untouched pool';
+              out.errorReason = row
+                ? 'sb campaign budget verify did not land in campaign management table'
+                : 'sb campaign budget action API success but row missing in campaign management table';
+            }
+            return out;
+          }
+          if (event.action?.actionType === 'create') {
+            const campaignId = String(event.campaignId || event.action?.campaignId || '').trim();
+            const campaignName = String(event.campaignName || event.action?.campaignName || '').trim();
+            const allRows = [
+              ...(STATE.kwRows || []),
+              ...(STATE.autoRows || []),
+              ...(STATE.targetRows || []),
+              ...(STATE.sbRows || []),
+            ];
+            const row = allRows.find(r =>
+              (campaignId && String(r.campaignId || r.campaign_id || '') === campaignId) ||
+              (campaignName && String(r.campaignName || r.campaign_name || '') === campaignName)
+            );
+            out.rowFound = !!row;
+            out.createdCampaignId = campaignId;
+            out.createdCampaignName = campaignName;
+            if (row) {
+              out.finalStatus = 'success';
+              out.success = true;
+              out.errorReason = '';
+            } else if (campaignId) {
+              out.finalStatus = 'created_pending_visibility';
+              out.success = true;
+              out.errorReason = 'create API returned campaign/adGroup ids but list snapshot has not shown the new rows yet';
+            } else {
+              out.finalStatus = 'not_landed';
+              out.success = false;
+              out.errorReason = 'create API success but campaign id missing during verify';
             }
             return out;
           }
@@ -632,7 +723,10 @@ async function run(options = {}) {
         kwRows: (snapshot.kwRows || []).length,
         autoRows: (snapshot.autoRows || []).length,
         targetRows: (snapshot.targetRows || []).length,
+        productAdRows: (snapshot.productAdRows || []).length,
         sbRows: (snapshot.sbRows || []).length,
+        sbCampaignRows: (snapshot.sbCampaignRows || []).length,
+        sellerSalesRows: (snapshot.sellerSalesRows || []).length,
         invMap: Object.keys(snapshot.invMap || {}).length,
         sp7: (snapshot.sp7DayUntouchedRows || []).length,
         sb7: (snapshot.sb7DayUntouchedRows || []).length,
@@ -643,7 +737,11 @@ async function run(options = {}) {
       kwRows: snapshot.kwRows || [],
       autoTargetRows: snapshot.autoRows || [],
       manualTargetRows: snapshot.targetRows || [],
+      productAdRows: snapshot.productAdRows || [],
       sbRows: snapshot.sbRows || [],
+      sbCampaignRows: snapshot.sbCampaignRows || [],
+      sellerSalesRows: snapshot.sellerSalesRows || [],
+      sellerSalesMeta: snapshot.sellerSalesMeta || {},
       invMap: snapshot.invMap || {},
       sp7DayRows: snapshot.sp7DayUntouchedRows || [],
       sb7DayRows: snapshot.sb7DayUntouchedRows || [],
@@ -692,7 +790,9 @@ async function run(options = {}) {
   const kwRows = snapshotData ? snapshotData.kwRows : JSON.parse(await eval_('JSON.stringify(STATE.kwRows)') || '[]');
   const autoTargetRows = snapshotData ? snapshotData.autoTargetRows : JSON.parse(await eval_('JSON.stringify(STATE.autoRows)') || '[]');
   const manualTargetRows = snapshotData ? snapshotData.manualTargetRows : JSON.parse(await eval_('JSON.stringify(STATE.targetRows)') || '[]');
+  const productAdRows = snapshotData ? (snapshotData.productAdRows || []) : JSON.parse(await eval_('JSON.stringify(STATE.productAdRows || [])') || '[]');
   const sbRows = snapshotData ? snapshotData.sbRows : JSON.parse(await eval_('JSON.stringify(STATE.sbRows || [])') || '[]');
+  const sbCampaignRows = snapshotData ? (snapshotData.sbCampaignRows || []) : JSON.parse(await eval_('JSON.stringify(STATE.sbCampaignRows || [])') || '[]');
   const sbKwRows = sbRows.filter(r => String(r.__adProperty) === '4');
   const sbTargetRows = sbRows.filter(r => String(r.__adProperty) === '6');
   const sp7DayRows = snapshotData ? snapshotData.sp7DayRows : JSON.parse(await eval_('JSON.stringify(STATE.sp7DayUntouchedRows || [])') || '[]');
@@ -710,9 +810,11 @@ async function run(options = {}) {
     keyword: kwRows,
     autoTarget: autoTargetRows,
     manualTarget: manualTargetRows,
+    productAd: productAdRows,
     sbKeyword: sbKwRows,
     sbTarget: sbTargetRows,
-    sbCampaign: sb7DayRows,
+    sbCampaign: sbCampaignRows,
+    sbCampaignCandidate: sb7DayRows,
   };
   const aiDecision = loadExternalActionSchema({
     cards,
@@ -727,10 +829,11 @@ async function run(options = {}) {
   const plan = (aiDecision.plan || []).filter(item => (item.actions || []).length > 0);
   const aiReview = aiDecision.review || [];
   const aiSkipped = aiDecision.skipped || [];
+  const aiValidationErrors = aiDecision.errors || [];
   const totalActions = plan.reduce((sum, item) => sum + item.actions.length, 0);
   fs.writeFileSync(path.join(SNAPSHOTS_DIR, `plan_${today}.json`), JSON.stringify(plan, null, 2));
   fs.writeFileSync(path.join(SNAPSHOTS_DIR, `seven_day_untouched_${today}.json`), JSON.stringify({ meta: sevenDayMeta, spRows: sp7DayRows, sbRows: sb7DayRows, review: aiReview, skipped: aiSkipped }, null, 2));
-  log(`External action schema loaded: ${plan.length} SKUs, ${totalActions} actions; review=${aiReview.length}; skipped=${aiSkipped.length}; validationErrors=${(aiDecision.errors || []).length}`);
+  log(`External action schema loaded: ${plan.length} SKUs, ${totalActions} actions; review=${aiReview.length}; skipped=${aiSkipped.length}; validationErrors=${aiValidationErrors.length}`);
   if (DRY_RUN) {
     const allActions = plan.flatMap(p => (p.actions || []).map(a => ({ ...a, sku: p.sku })));
     const drySummary = allActions.reduce((acc, action) => {
@@ -745,7 +848,7 @@ async function run(options = {}) {
       plannedActions: totalActions,
       decisionSource: aiDecision.decisionSource,
       actionSchemaFile: aiDecision.actionSchemaFile,
-      aiValidationErrors: aiDecision.errors || [],
+      aiValidationErrors,
       sevenDayStats: {
         spCandidates: sp7DayRows.length,
         spExecutable: allActions.filter(a => normalizeSources(a.actionSource).includes('sp_7day_untouched') && a.canAutoExecute !== false).length,
@@ -764,12 +867,18 @@ async function run(options = {}) {
     return;
   }
 
+  if (aiValidationErrors.length) {
+    closeWs();
+    throw new Error(`Action schema validation failed; refusing real execution. errors=${aiValidationErrors.length}`);
+  }
+
   const kwItems = plan.flatMap(p => p.actions.filter(a => a.entityType === 'keyword' && (a.actionType || 'bid') === 'bid').map(a => ({ ...a, sku: p.sku })));
   const atItems = plan.flatMap(p => p.actions.filter(a => (a.entityType === 'autoTarget' || a.entityType === 'manualTarget') && (a.actionType || 'bid') === 'bid').map(a => ({ ...a, sku: p.sku })));
   const sbKwItems = plan.flatMap(p => p.actions.filter(a => a.entityType === 'sbKeyword' && (a.actionType || 'bid') === 'bid').map(a => ({ ...a, sku: p.sku })));
   const sbTargetItems = plan.flatMap(p => p.actions.filter(a => a.entityType === 'sbTarget' && (a.actionType || 'bid') === 'bid').map(a => ({ ...a, sku: p.sku })));
-  const sbCampaignItems = plan.flatMap(p => p.actions.filter(a => a.entityType === 'sbCampaign').map(a => ({ ...a, sku: p.sku })));
+  const sbCampaignItems = plan.flatMap(p => p.actions.filter(a => a.entityType === 'sbCampaign' && !['enable', 'pause'].includes(a.actionType)).map(a => ({ ...a, sku: p.sku })));
   const stateItems = plan.flatMap(p => p.actions.filter(a => ['enable', 'pause'].includes(a.actionType)).map(a => ({ ...a, sku: p.sku })));
+  const createItems = plan.flatMap(p => p.actions.filter(a => a.actionType === 'create').map(a => ({ ...a, sku: p.sku })));
 
   const kwMeta = Object.fromEntries(kwRows.map(row => [String(row.keywordId), row]));
   const sbKwMeta = Object.fromEntries(sbKwRows.map(row => [String(row.keywordId), row]));
@@ -786,7 +895,7 @@ async function run(options = {}) {
     let apiFailed = 0;
     for (const item of items) {
       const rows = rowsByEntityType[item.entityType] || [];
-      const meta = rows.find(row => String(row.keywordId || row.targetId || row.target_id || row.id || row.keyword_id || '') === String(item.id));
+      const meta = rows.find(row => entityRowId(row) === String(item.id));
       if (!meta) {
         apiFailed += 1;
         recordExecutionEvent(item, item.entityType, 'failed', { msg: 'missing state row metadata' });
@@ -806,6 +915,8 @@ async function run(options = {}) {
     keyword: kwRows,
     autoTarget: autoTargetRows,
     manualTarget: manualTargetRows,
+    productAd: productAdRows,
+    sbCampaign: sbCampaignRows,
     sbKeyword: sbKwRows,
     sbTarget: sbTargetRows,
   });
@@ -815,13 +926,14 @@ async function run(options = {}) {
   apiStats.manualTarget = await executeTargetItems(spManualItems, manualTargetRows, 'SP manual target', '/advTarget/batchUpdateManualTarget', 'manualTarget', 'manualTarget');
   apiStats.unknownTarget = { apiSuccess: 0, apiFailed: spUnknownItems.length };
   apiStats.sbTarget = await executeTargetItems(sbTargetItems, sbTargetRows, 'SB target', '/sbTarget/batchEditTargetSbColumn', '', 'sbTarget', 'SB');
-  apiStats.sbCampaign = await executeSbCampaignItems(sbCampaignItems, sb7DayRows, 'SB campaign');
+  apiStats.sbCampaign = await executeSbCampaignItems(sbCampaignItems, sbCampaignRows, 'SB campaign');
+  apiStats.create = await executeCreateItems(createItems);
 
   const verifiedEvents = await verifyLanding();
   const finalCounts = summarize(verifiedEvents);
   const eventsBySku = groupEventsBySku(verifiedEvents);
   for (const event of verifiedEvents) {
-    if (event.finalStatus === 'success') landedIds.add(executionEntityKey(event.entityType, event.id));
+    if (event.finalStatus === 'success' || event.finalStatus === 'created_pending_visibility') landedIds.add(executionEntityKey(event.entityType, event.id));
   }
 
   const nonExecutionEvents = [
@@ -1007,6 +1119,9 @@ async function run(options = {}) {
     if (events.some(event => event.finalStatus === 'success')) {
       status = 'adjusted';
       reason = 'verified_landed';
+    } else if (events.some(event => event.finalStatus === 'created_pending_visibility')) {
+      status = 'adjusted';
+      reason = 'create_api_success_pending_list_visibility';
     } else if (events.some(event => event.finalStatus === 'blocked_by_system_recent_adjust' || event.finalStatus === 'conflict')) {
       status = 'blocked';
       reason = 'blocked_by_system_recent_adjust';
@@ -1072,7 +1187,7 @@ async function run(options = {}) {
   fs.writeFileSync(path.join(SNAPSHOTS_DIR, `execution_summary_${today}.json`), JSON.stringify(report, null, 2));
   fs.writeFileSync(path.join(SNAPSHOTS_DIR, `execution_coverage_${today}.json`), JSON.stringify({ summary: coverageSummary, coverage }, null, 2));
 
-  log(`Final lookup: success=${finalCounts.success || 0}, not_landed=${finalCounts.not_landed || 0}, blocked=${finalCounts.blocked_by_system_recent_adjust || finalCounts.conflict || 0}, failed=${finalCounts.failed || 0}`);
+  log(`Final lookup: success=${finalCounts.success || 0}, created_pending_visibility=${finalCounts.created_pending_visibility || 0}, not_landed=${finalCounts.not_landed || 0}, blocked=${finalCounts.blocked_by_system_recent_adjust || finalCounts.conflict || 0}, failed=${finalCounts.failed || 0}`);
   log(`SKU coverage: adjusted=${coverageSummary.adjusted || 0}, blocked=${coverageSummary.blocked || 0}, manual_review=${coverageSummary.manual_review || 0}, no_action=${coverageSummary.no_action || 0}, failed=${coverageSummary.failed || 0}, unverified=${coverageSummary.unverified || 0}`);
   log(`Inventory notes: success=${report.noteSuccess}, failed=${report.noteFailure}`);
   log('=== Auto adjustment run finished ===');

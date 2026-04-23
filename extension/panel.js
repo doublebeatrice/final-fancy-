@@ -10,7 +10,14 @@ const STATE = {
   kwRows: [],
   autoRows: [],
   targetRows: [],
+  productAdRows: [],
   sbRows: [],
+  sbCampaignRows: [],
+  adSkuSummaryRows: [],
+  advProductManageRows: [],
+  sbCampaignManageRows: [],
+  sellerSalesRows: [],
+  sellerSalesMeta: {},
   sp7DayUntouchedRows: [],
   sb7DayUntouchedRows: [],
   sevenDayUntouchedMeta: {},
@@ -88,7 +95,14 @@ async function fetchAllData() {
   STATE.kwRows = [];
   STATE.autoRows = [];
   STATE.targetRows = [];
+  STATE.productAdRows = [];
   STATE.sbRows = [];
+  STATE.sbCampaignRows = [];
+  STATE.adSkuSummaryRows = [];
+  STATE.advProductManageRows = [];
+  STATE.sbCampaignManageRows = [];
+  STATE.sellerSalesRows = [];
+  STATE.sellerSalesMeta = {};
   STATE.sp7DayUntouchedRows = [];
   STATE.sb7DayUntouchedRows = [];
   STATE.productCards = [];
@@ -129,6 +143,18 @@ async function fetchAllData() {
     setProgress('fetchProgress', 30);
     log(`库存 ${invRows.length} 条，${Object.keys(STATE.invMap).length} 个 SKU，${asinCount} 个有 ASIN`, 'ok');
 
+    try {
+      log('拉取个人销售数据…');
+      const sellerSales = await fetchSellerSalesData({ days: 7, sellers: ['HJ17', 'HJ171', 'HJ172'] });
+      STATE.sellerSalesRows = sellerSales.rows || [];
+      STATE.sellerSalesMeta = sellerSales.meta || {};
+      log(`个人销售数据 ${STATE.sellerSalesRows.length} 条`, STATE.sellerSalesRows.length ? 'ok' : 'warn');
+    } catch (e) {
+      STATE.sellerSalesRows = [];
+      STATE.sellerSalesMeta = { error: e.message };
+      log(`个人销售数据拉取失败：${e.message}`, 'warn');
+    }
+
     // 2. 关键词（已有缓存则跳过，节省测试时间）
     if (STATE.kwRows.length > 0) {
       log(`关键词已缓存 ${STATE.kwRows.length} 条，跳过拉取`, 'warn');
@@ -153,11 +179,31 @@ async function fetchAllData() {
     setProgress('fetchProgress', 80);
     log(`定位组 ${STATE.targetRows.length} 条`, 'ok');
 
+    log('拉取SP product ad…');
+    STATE.productAdRows = await fetchAllProductAds();
+    log(`SP product ad ${STATE.productAdRows.length} 条`, STATE.productAdRows.length ? 'ok' : 'warn');
+
     // 4b. Sponsored Brands enter the same adjustment pool as SP entities.
     log('Pulling SB ads data...');
     STATE.sbRows = await fetchAllSponsoredBrands();
     setProgress('fetchProgress', 88);
     log(`SB ads ${STATE.sbRows.length} rows`, STATE.sbRows.length ? 'ok' : 'warn');
+
+    log('拉取SB campaign…');
+    STATE.sbCampaignRows = await fetchAllSbCampaigns();
+    log(`SB campaign ${STATE.sbCampaignRows.length} 条`, STATE.sbCampaignRows.length ? 'ok' : 'warn');
+
+    log('拉取广告 SKU 汇总…');
+    STATE.adSkuSummaryRows = await fetchAdSkuSummaryRows();
+    log(`广告 SKU 汇总 ${STATE.adSkuSummaryRows.length} 条`, STATE.adSkuSummaryRows.length ? 'ok' : 'warn');
+
+    log('拉取SP广告产品管理汇总…');
+    STATE.advProductManageRows = await fetchAdvProductManageRows();
+    log(`SP广告产品管理汇总 ${STATE.advProductManageRows.length} 条`, STATE.advProductManageRows.length ? 'ok' : 'warn');
+
+    log('拉取SB广告活动管理汇总…');
+    STATE.sbCampaignManageRows = await fetchSbCampaignManageRows();
+    log(`SB广告活动管理汇总 ${STATE.sbCampaignManageRows.length} 条`, STATE.sbCampaignManageRows.length ? 'ok' : 'warn');
 
     // 4c. 3/7 day ad metrics are not separate fields in the default table response.
     // Re-query the same entities with timeRange windows and merge those metrics back.
@@ -178,7 +224,7 @@ async function fetchAllData() {
     }
 
     // 5. 构建产品画像
-    STATE.productCards = buildProductCards(STATE.kwRows, STATE.autoRows, STATE.invMap, {}, STATE.targetRows, STATE.sbRows);
+    STATE.productCards = buildProductCards(STATE.kwRows, STATE.autoRows, STATE.invMap, {}, STATE.targetRows, STATE.sbRows, STATE.productAdRows, STATE.sbCampaignRows, buildSellerSalesMap(STATE.sellerSalesRows));
 
     setProgress('fetchProgress', 100);
     log(`全量数据就绪：${STATE.productCards.length} 个产品画像`, 'ok');
@@ -365,7 +411,7 @@ async function fetchAllInventory() {
   log(`库存分页：total=${total} rows=${rows.length} hasBody=${!!capture.body} hasUrl=${!!capture.url}`, 'warn');
   if (capture.body) log(`库存body样本：${String(capture.body).slice(0,200)}`, 'warn');
   if (capture.url)  log(`库存URL样本：${capture.url.slice(0,200)}`, 'warn');
-  if (capture.headers) log(`库存headers：${JSON.stringify(capture.headers)}`, 'warn');
+  if (capture.headers) log(`库存headers：${JSON.stringify(redactSensitiveHeaders(capture.headers))}`, 'warn');
   if (total > rows.length) {
     const pages = Math.min(Math.ceil(total / 50), 100);
 
@@ -627,6 +673,113 @@ async function fetchAllInventoryDirect(tabId) {
   log(`库存直接POST完成：rows=${result.rows.length} total=${result.total} first=${result.firstCount} tokens=${JSON.stringify(result.tokenState)}`, 'ok');
   log(`库存直接POST字段：${JSON.stringify(result.sampleKeys)} body=${result.bodySample}`, 'warn');
   return result.rows;
+}
+
+async function fetchSellerSalesData({ days = 7, sellers = ['HJ17', 'HJ171', 'HJ172'], limit = 50 } = {}) {
+  const tab = await findTab('*://sellerinventory.yswg.com.cn/*');
+  const result = await execInTab(tab.id, async (args) => {
+    const getList = d => (
+      Array.isArray(d?.data?.list)    ? d.data.list    :
+      Array.isArray(d?.data?.records) ? d.data.records :
+      Array.isArray(d?.data?.data)    ? d.data.data    :
+      Array.isArray(d?.data?.rows)    ? d.data.rows    :
+      Array.isArray(d?.data)          ? d.data         :
+      Array.isArray(d?.rows)          ? d.rows         :
+      Array.isArray(d?.list)          ? d.list         : []
+    );
+    const findStorageValue = (patterns, validator = v => !!v) => {
+      const stores = [localStorage, sessionStorage];
+      for (const store of stores) {
+        for (let i = 0; i < store.length; i++) {
+          const key = store.key(i);
+          const value = store.getItem(key);
+          if (patterns.some(p => p.test(key)) && validator(value)) return value;
+        }
+      }
+      for (const store of stores) {
+        for (let i = 0; i < store.length; i++) {
+          const value = store.getItem(store.key(i));
+          if (validator(value)) return value;
+        }
+      }
+      return '';
+    };
+    const csrf =
+      document.querySelector('meta[name="csrf-token"]')?.content ||
+      document.querySelector('input[name="_token"]')?.value ||
+      window.Laravel?.csrfToken ||
+      document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/)?.[1] ||
+      '';
+    const jwtToken = localStorage.getItem('jwt_token') ||
+      sessionStorage.getItem('jwt_token') ||
+      findStorageValue([/jwt/i, /token/i], v => /^eyJ/.test(String(v || '')));
+    const referrerFrame = [...document.querySelectorAll('iframe')]
+      .map(f => f.src || '')
+      .find(src => src.includes('/pm/sale/seller_index') || src.includes('Inventory-Token')) || location.href;
+
+    async function fetchPage(page) {
+      const body = new URLSearchParams();
+      body.set('time', String(args.days || 7));
+      for (const seller of args.sellers || []) body.append('seller[]', seller);
+      body.set('page', String(page));
+      body.set('limit', String(args.limit || 50));
+      body.set('field', 'order_sales');
+      body.set('order', 'desc');
+
+      const headers = {
+        accept: '*/*',
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'x-csrf-token': decodeURIComponent(csrf),
+        'x-requested-with': 'XMLHttpRequest',
+      };
+      if (jwtToken) headers['jwt-token'] = jwtToken;
+
+      const res = await fetch('/pm/sale/getBySeller', {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers,
+        referrer: referrerFrame,
+        body: body.toString(),
+      });
+      const text = await res.text();
+      if (!text.trim().startsWith('{')) throw new Error(text.slice(0, 160));
+      const json = JSON.parse(text);
+      return {
+        httpStatus: res.status,
+        json,
+        rows: getList(json),
+        tokenState: { csrf: !!csrf, jwtToken: !!jwtToken },
+      };
+    }
+
+    const first = await fetchPage(1);
+    const total = first.json?.count || first.json?.data?.total || first.json?.total || first.rows.length;
+    const pages = Math.min(Math.ceil(total / (args.limit || 50)), 100);
+    const rows = [...first.rows];
+    for (let page = 2; page <= pages; page++) {
+      const hit = await fetchPage(page);
+      rows.push(...hit.rows);
+      if (hit.rows.length < (args.limit || 50)) break;
+    }
+    return {
+      rows,
+      meta: {
+        endpoint: '/pm/sale/getBySeller',
+        days: args.days || 7,
+        sellers: args.sellers || [],
+        total,
+        firstCount: first.rows.length,
+        sampleKeys: Object.keys(first.rows[0] || {}),
+        tokenState: first.tokenState,
+      },
+    };
+  }, [{ days, sellers, limit }]);
+
+  if (!result || !Array.isArray(result.rows)) throw new Error('个人销售数据接口未返回 rows');
+  log(`个人销售接口完成：rows=${result.rows.length} total=${result.meta?.total || result.rows.length} tokens=${JSON.stringify(result.meta?.tokenState || {})}`, 'ok');
+  if (result.meta?.sampleKeys?.length) log(`个人销售字段：${JSON.stringify(result.meta.sampleKeys)}`, 'warn');
+  return result;
 }
 
 async function waitTabComplete(tabId, timeoutMs = 15000) {
@@ -935,8 +1088,9 @@ async function createSpCampaign(input = {}) {
 
     const json = result.data || {};
     const productAdsError = json?.data?.productAds?.error || {};
-    const campaignId = String(json?.data?.campaignId || '');
-    const adGroupId = String(json?.data?.adGroupId || '');
+    const createdParam = json?.data?.param || {};
+    const campaignId = String(json?.data?.campaignId || createdParam?.campaignId || '');
+    const adGroupId = String(json?.data?.adGroupId || createdParam?.adGroupId || '');
     const ok = Number(json?.code) === 200 && !!campaignId && !!adGroupId;
     return structuredCreateCampaignResult(built, {
       ok,
@@ -1026,6 +1180,7 @@ function structuredToggleResult(base = {}, extra = {}) {
     sku: extra.sku || base.sku || '',
     keywordId: extra.keywordId || base.keywordId || '',
     targetId: extra.targetId || base.targetId || '',
+    adId: extra.adId || base.adId || '',
     campaignId: extra.campaignId || base.campaignId || '',
     adGroupId: extra.adGroupId || base.adGroupId || '',
     requestUrl: extra.requestUrl || base.requestUrl || '',
@@ -1042,12 +1197,15 @@ function detectEntityType(row, hintedType = '') {
   if (normalized === 'keyword') return 'SP_KEYWORD';
   if (normalized === 'autoTarget') return 'SP_AUTO_TARGET';
   if (normalized === 'manualTarget') return 'SP_MANUAL_TARGET';
+  if (normalized === 'productAd') return 'SP_PRODUCT_AD';
+  if (normalized === 'sbCampaign') return 'SB_CAMPAIGN';
   if (normalized === 'sbKeyword') return 'SB_KEYWORD';
   if (normalized === 'sbTarget') return 'SB_TARGET';
 
   const prop = String(row?.__adProperty || '');
   if (row?.keywordId || row?.keyword_id) return prop === '4' ? 'SB_KEYWORD' : 'SP_KEYWORD';
   if (row?.targetId || row?.target_id) return prop === '6' ? 'SB_TARGET' : 'SP_AUTO_TARGET';
+  if (row?.adId || row?.ad_id) return 'SP_PRODUCT_AD';
   return 'UNKNOWN';
 }
 
@@ -1074,6 +1232,7 @@ function buildStateToggleRequest(row, action, hintedType = '') {
     sku: readToggleRowField(row, ['sku', 'SKU']),
     keywordId: String(readToggleRowField(row, ['keywordId', 'keyword_id', 'id']) || ''),
     targetId: String(readToggleRowField(row, ['targetId', 'target_id', 'id']) || ''),
+    adId: String(readToggleRowField(row, ['adId', 'ad_id']) || ''),
     campaignId: String(readToggleRowField(row, ['campaignId', 'campaign_id']) || ''),
     adGroupId: String(readToggleRowField(row, ['adGroupId', 'ad_group_id']) || ''),
   });
@@ -1089,6 +1248,7 @@ function buildStateToggleRequest(row, action, hintedType = '') {
   const adGroupId = String(readToggleRowField(row, ['adGroupId', 'ad_group_id']) || '');
   const keywordId = String(readToggleRowField(row, ['keywordId', 'keyword_id', 'id']) || '');
   const targetId = String(readToggleRowField(row, ['targetId', 'target_id', 'id']) || '');
+  const adId = String(readToggleRowField(row, ['adId', 'ad_id']) || '');
   const matchType = readToggleRowField(row, ['matchType', 'match_type']);
 
   let requestUrl = '';
@@ -1160,6 +1320,32 @@ function buildStateToggleRequest(row, action, hintedType = '') {
       campaignIdArray: [campaignId],
       targetNewArray: [{ targetId, state: stateValues.numericState, accountId, campaignId, adGroupId }],
     };
+  } else if (entityType === 'SB_CAMPAIGN') {
+    requestUrl = '/campaignSb/batchSbCampaign';
+    missingFields = [campaignId ? '' : 'campaignId'].filter(Boolean);
+    requestBody = {
+      siteId,
+      accountId,
+      campaignIdArray: [campaignId],
+      batchType: 'state',
+      batchValue: stateValues.textState.toUpperCase(),
+      campaignNewArray: [{ siteId, accountId, campaignId, state: stateValues.numericState }],
+    };
+  } else if (entityType === 'SP_PRODUCT_AD') {
+    requestUrl = '/advProduct/batchProduct';
+    missingFields = [adId ? '' : 'adId', campaignId ? '' : 'campaignId', adGroupId ? '' : 'adGroupId'].filter(Boolean);
+    requestBody = {
+      siteId,
+      accountId,
+      column: 'state',
+      value: stateValues.textState.toLowerCase(),
+      products: [adId],
+      property: 'product',
+      idArray: [adId],
+      operation: 'state',
+      campaignIdArray: [campaignId],
+      productNewArray: [{ siteId, accountId, campaignId, adGroupId, adId, state: stateValues.numericState }],
+    };
   } else {
     return structuredToggleResult(base, { reason: 'unsupported entity type' });
   }
@@ -1178,7 +1364,7 @@ function buildStateToggleRequest(row, action, hintedType = '') {
 
 async function executeStateToggle(row, action, hintedType = '') {
   const built = buildStateToggleRequest(row, action, hintedType);
-  const logMeta = `action=${built.action} entityType=${built.entityType} keywordId=${built.keywordId || '-'} targetId=${built.targetId || '-'} campaignId=${built.campaignId || '-'} adGroupId=${built.adGroupId || '-'}`;
+  const logMeta = `action=${built.action} entityType=${built.entityType} keywordId=${built.keywordId || '-'} targetId=${built.targetId || '-'} adId=${built.adId || '-'} campaignId=${built.campaignId || '-'} adGroupId=${built.adGroupId || '-'}`;
 
   if (!built.requestUrl || built.reason === 'missing fields' || built.reason === 'unsupported entity type') {
     log(`状态切换拦截 ${logMeta} url=${built.requestUrl || '-'} body=${JSON.stringify(built.requestBody)} reason=${built.reason}`, 'warn');
@@ -1225,6 +1411,7 @@ function getApiList(json) {
 function inferPoolEntityLevel(row, adType) {
   if (row?.keywordId || row?.keyword_id) return 'keyword';
   if (row?.targetId || row?.target_id) return 'target';
+  if (row?.adId || row?.ad_id) return 'productAd';
   if (row?.adGroupId || row?.ad_group_id) return 'adGroup';
   if (row?.campaignId || row?.campaign_id) return 'campaign';
   return adType === 'SP' ? 'skuCandidate' : 'campaign';
@@ -1278,7 +1465,7 @@ function makeSevenDaySpPayload() {
   return {
     siteId: 4,
     timeRange: makeAdTimeRange(30),
-    state: '1',
+    state: '4',
     userName: ['HJ17', 'HJ171', 'HJ172'],
     level: 'seller_num',
     lowCost: 2,
@@ -1289,10 +1476,23 @@ function makeSevenDaySpPayload() {
   };
 }
 
+function makeAllSpProductPayload() {
+  return {
+    siteId: 4,
+    timeRange: makeAdTimeRange(30),
+    state: '4',
+    userName: ['HJ17', 'HJ171', 'HJ172'],
+    level: 'seller_num',
+    page: 1,
+    limit: 500,
+    publicAdv: '2',
+  };
+}
+
 function makeSevenDaySbPayload() {
   return {
     siteId: 4,
-    activeStatus: 'ENABLED',
+    activeStatus: 'notArchived',
     searchType: '1',
     userName: ['HJ17', 'HJ171', 'HJ172'],
     level: 'seller_num',
@@ -1301,7 +1501,66 @@ function makeSevenDaySbPayload() {
     limit: 500,
     field: 'Spend',
     order: 'desc',
-    filterForm: { OutOfBudget: false, updateWeekday: '2' },
+    filterForm: { OutOfBudget: false },
+    source: 'new',
+  };
+}
+
+function makeAllSbCampaignPayload() {
+  return {
+    siteId: 4,
+    activeStatus: 'notArchived',
+    searchType: '1',
+    userName: ['HJ17', 'HJ171', 'HJ172'],
+    level: 'seller_num',
+    selectCampaignDate: makeSbDateRange(30),
+    page: 1,
+    limit: 500,
+    field: 'Spend',
+    order: 'desc',
+  };
+}
+
+function makeAdSkuSummaryPayload() {
+  return {
+    siteId: 4,
+    mode: 1,
+    day: 30,
+    userName: ['HJ17', 'HJ171', 'HJ172'],
+    level: 'seller_num',
+    field: 'cost',
+    order: 'desc',
+    page: 1,
+    limit: 500,
+  };
+}
+
+function makeAdvProductManagePayload() {
+  return {
+    siteId: 4,
+    timeRange: makeAdTimeRange(30),
+    state: '4',
+    userName: ['HJ17', 'HJ171', 'HJ172'],
+    level: 'seller_num',
+    lowCost: 2,
+    page: 1,
+    limit: 500,
+  };
+}
+
+function makeSbCampaignManagePayload() {
+  return {
+    siteId: 4,
+    activeStatus: 'notArchived',
+    searchType: '1',
+    userName: ['HJ17', 'HJ171', 'HJ172'],
+    level: 'seller_num',
+    selectCampaignDate: makeSbDateRange(30),
+    page: 1,
+    limit: 500,
+    field: 'Spend',
+    order: 'desc',
+    filterForm: { OutOfBudget: false },
     source: 'new',
   };
 }
@@ -1319,6 +1578,36 @@ async function fetchSevenDayUntouchedPools() {
   if (spRows[0]) log(`SP 7d untouched fields: ${JSON.stringify(Object.keys(spRows[0]))}`, 'warn');
   if (sbRows[0]) log(`SB 7d untouched fields: ${JSON.stringify(Object.keys(sbRows[0]))}`, 'warn');
   return { spRows, sbRows, meta };
+}
+
+async function fetchAllProductAds() {
+  const rows = await fetchPagedAdRows('/advProduct/all', makeAllSpProductPayload(), 500);
+  if (rows[0]) log(`SP product ad fields: ${JSON.stringify(Object.keys(rows[0]))}`, 'warn');
+  return rows;
+}
+
+async function fetchAllSbCampaigns() {
+  const rows = await fetchPagedAdRows('/campaignSb/findAllNew', makeAllSbCampaignPayload(), 500);
+  if (rows[0]) log(`SB campaign fields: ${JSON.stringify(Object.keys(rows[0]))}`, 'warn');
+  return rows;
+}
+
+async function fetchAdSkuSummaryRows() {
+  const rows = await fetchPagedAdRows('/product/adSkuSummary', makeAdSkuSummaryPayload(), 500);
+  if (rows[0]) log(`广告 SKU 汇总字段: ${JSON.stringify(Object.keys(rows[0]))}`, 'warn');
+  return rows;
+}
+
+async function fetchAdvProductManageRows() {
+  const rows = await fetchPagedAdRows('/advProduct/all', makeAdvProductManagePayload(), 500);
+  if (rows[0]) log(`SP广告产品管理字段: ${JSON.stringify(Object.keys(rows[0]))}`, 'warn');
+  return rows;
+}
+
+async function fetchSbCampaignManageRows() {
+  const rows = await fetchPagedAdRows('/campaignSb/findAllNew', makeSbCampaignManagePayload(), 500);
+  if (rows[0]) log(`SB广告活动管理字段: ${JSON.stringify(Object.keys(rows[0]))}`, 'warn');
+  return rows;
 }
 
 async function refreshRowsForExecutionEvents(events = []) {
@@ -1343,16 +1632,24 @@ async function refreshRowsForExecutionEvents(events = []) {
       STATE.targetRows = await fetchAllTargeting(STATE.kwCapture);
       refreshed.manualTarget = STATE.targetRows.length;
     }
+    if (types.has('productAd')) {
+      STATE.productAdRows = await fetchAllProductAds();
+      refreshed.productAd = STATE.productAdRows.length;
+    }
+    if (types.has('sbCampaign')) {
+      STATE.sbCampaignRows = await fetchAllSbCampaigns();
+      refreshed.sbCampaign = STATE.sbCampaignRows.length;
+    }
     if (types.has('sbKeyword') || types.has('sbTarget')) {
       STATE.sbRows = await fetchAllSponsoredBrands();
       refreshed.sbRows = STATE.sbRows.length;
     }
-    if (types.has('sbCampaign')) {
+    if (types.has('sbCampaignCandidate')) {
       const pools = await fetchSevenDayUntouchedPools();
       STATE.sp7DayUntouchedRows = pools.spRows;
       STATE.sb7DayUntouchedRows = pools.sbRows;
       STATE.sevenDayUntouchedMeta = pools.meta;
-      refreshed.sbCampaign = STATE.sb7DayUntouchedRows.length;
+      refreshed.sbCampaignCandidate = STATE.sb7DayUntouchedRows.length;
     }
   } catch (e) {
     errors.push(e.message);
@@ -1361,8 +1658,10 @@ async function refreshRowsForExecutionEvents(events = []) {
   if (types.has('keyword') && !STATE.kwRows.length) errors.push('keyword rows refresh returned empty');
   if (types.has('autoTarget') && !STATE.autoRows.length) errors.push('auto target rows refresh returned empty');
   if (types.has('manualTarget') && !STATE.targetRows.length) errors.push('manual target rows refresh returned empty');
+  if (types.has('productAd') && !STATE.productAdRows.length) errors.push('product ad rows refresh returned empty');
+  if (types.has('sbCampaign') && !STATE.sbCampaignRows.length) errors.push('SB campaign rows refresh returned empty');
   if ((types.has('sbKeyword') || types.has('sbTarget')) && !STATE.sbRows.length) errors.push('SB rows refresh returned empty');
-  if (types.has('sbCampaign') && !(STATE.sb7DayUntouchedRows || []).length) errors.push('SB campaign seven day rows refresh returned empty');
+  if (types.has('sbCampaignCandidate') && !(STATE.sb7DayUntouchedRows || []).length) errors.push('SB campaign seven day rows refresh returned empty');
 
   return {
     ok: errors.length === 0,
@@ -1372,7 +1671,9 @@ async function refreshRowsForExecutionEvents(events = []) {
       kwRows: STATE.kwRows.length,
       autoRows: STATE.autoRows.length,
       targetRows: STATE.targetRows.length,
+      productAdRows: STATE.productAdRows.length,
       sbRows: STATE.sbRows.length,
+      sbCampaignRows: STATE.sbCampaignRows.length,
       sp7: (STATE.sp7DayUntouchedRows || []).length,
       sb7: (STATE.sb7DayUntouchedRows || []).length,
     },
@@ -1601,6 +1902,9 @@ function buildOperationalNoteFields(entry) {
     }
     if (finalStatus === 'skipped_invalid_state') {
       return { stage, currentProblem: '对象状态不可执行', coreJudgement: reason || coreJudgement, actionText: '跳过', purpose: '避免误执行暂停或无效对象', observe, remark: `执行结果：跳过；${reason || resultReason || '对象状态不可执行'}`, sourceText };
+    }
+    if (finalStatus === 'created_pending_visibility') {
+      return { stage, currentProblem, coreJudgement, actionText, purpose, observe, remark: `执行结果：后台已返回新建广告ID，当前列表快照暂未回显；${resultReason || '等待广告系统同步后继续回查'}`, sourceText };
     }
     if (isConflict) remark = '执行结果：冲突/被系统拦截，后台提示近期系统已自动调整该广告，禁止手动调整';
     else if (finalStatus === 'not_landed') remark = `执行结果：接口成功但回查未生效；${resultReason || '未确认真实落地'}`;
@@ -2523,6 +2827,12 @@ function buildInvMap(rows) {
       fulFillable:    parseFloat(r.fulFillable || 0),
       reserved:       parseFloat(r.reserved || 0),
       adDependency:   parseFloat(r.AT || r.at || 0),
+      yoySales:       readNumField(r, ['year_over_year_sales', 'yearOverYearSales', 'sales_yoy', 'yoy_sales', '同比销量', '同比销售额'], 0),
+      yoySalesPct:    readNumField(r, ['year_over_year_sales_rate', 'yearOverYearSalesRate', 'sales_yoy_rate', 'yoy_sales_rate', 'year_over_year_rate', 'same_period_sales_rate', '同比销量增长率', '同比销售增长率', '同比增长率', '同比'], 0),
+      yoyUnitsPct:    readNumField(r, ['year_over_year_units_rate', 'yearOverYearUnitsRate', 'year_over_year_qty_rate', 'yearOverYearQtyRate', 'units_yoy_rate', 'qty_yoy_rate', 'yoy_units_rate', 'year_over_year_asin_rate', 'yearOverYearAsinRate', 'same_period_qty_rate', '同比单量增长率', '同比销量件数增长率'], 0),
+      yoyAsinPct:     readNumField(r, ['year_over_year_asin_rate', 'yearOverYearAsinRate'], 0),
+      yoySourceField: readNumFieldSource(r, ['year_over_year_units_rate', 'yearOverYearUnitsRate', 'year_over_year_qty_rate', 'yearOverYearQtyRate', 'units_yoy_rate', 'qty_yoy_rate', 'yoy_units_rate', 'year_over_year_asin_rate', 'yearOverYearAsinRate', 'year_over_year_sales_rate', 'yearOverYearSalesRate', 'sales_yoy_rate', 'yoy_sales_rate', 'year_over_year_rate', 'same_period_qty_rate', 'same_period_sales_rate', '同比单量增长率', '同比销量件数增长率', '同比销量增长率', '同比销售增长率', '同比增长率', '同比']),
+      yoyRank:        readNumField(r, ['year_over_year_rank', 'yearOverYearRank', 'rank_yoy', 'yoy_rank', '同比排名'], 0),
       note:           String(r.note || r.input_tag || '').trim(),
       solrTerm:       String(r.solr_term || '').trim(),
       isSeasonal:     (() => {
@@ -2537,7 +2847,40 @@ function buildInvMap(rows) {
   return map;
 }
 
-function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = [], sbRows = []) {
+function buildSellerSalesMap(rows = []) {
+  const map = {};
+  for (const row of rows || []) {
+    const sku = String(row.sku || row.SKU || row.Sku || row.product_sku || row.raw_sku || row.productSku || '').trim();
+    if (!sku) continue;
+    if (!map[sku]) {
+      map[sku] = {
+        sku,
+        sellers: new Set(),
+        rows: 0,
+        orderSales: 0,
+        orderQuantity: 0,
+        orderCount: 0,
+        refundQuantity: 0,
+        rawSamples: [],
+      };
+    }
+    const item = map[sku];
+    item.rows += 1;
+    const seller = row.seller || row.seller_id || row.sellerId || row.seller_name || row.sellerName || '';
+    if (seller) item.sellers.add(String(seller));
+    item.orderSales += readNumField(row, ['order_sales', 'orderSales', 'sales', 'Sales', 'amount', 'sale_amount', '销售额'], 0);
+    item.orderQuantity += readNumField(row, ['order_quantity', 'orderQuantity', 'order_qty', 'qty', 'quantity', 'order_num', '销量', '订单量'], 0);
+    item.orderCount += readNumField(row, ['order_count', 'orderCount', 'orders', 'Orders', 'order', '订单数'], 0);
+    item.refundQuantity += readNumField(row, ['refund_quantity', 'refundQuantity', 'refund_qty', 'refunds', '退货量'], 0);
+    if (item.rawSamples.length < 3) item.rawSamples.push(row);
+  }
+  for (const item of Object.values(map)) {
+    item.sellers = [...item.sellers];
+  }
+  return map;
+}
+
+function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = [], sbRows = [], productAdRows = [], sbCampaignRows = [], sellerSalesMap = {}) {
   const cooldownDays = parseInt($('cooldownDays').value) || 7;
   const cutoffDate = new Date(Date.now() - cooldownDays * 86400000);
 
@@ -2560,11 +2903,18 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
         unitsSold_7d:  inv.unitsSold_7d   || 0,
         unitsSold_3d:  inv.unitsSold_3d   || 0,
         adDependency:  inv.adDependency   || 0,
+        yoySales:      inv.yoySales       || 0,
+        yoySalesPct:   inv.yoySalesPct    || 0,
+        yoyUnitsPct:   inv.yoyUnitsPct    || 0,
+        yoyAsinPct:    inv.yoyAsinPct     || 0,
+        yoySourceField: inv.yoySourceField || '',
+        yoyRank:       inv.yoyRank        || 0,
         note:          inv.note           || '',
         solrTerm:      inv.solrTerm       || '',
         isSeasonal:    inv.isSeasonal     || false,
         fulFillable:   inv.fulFillable    || 0,
         reserved:      inv.reserved       || 0,
+        personalSales: sellerSalesMap[sku] || null,
         campaigns: {},
       };
     }
@@ -2581,6 +2931,8 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
         adGroupId: meta.adGroupId || '',
         keywords: [],
         autoTargets: [],
+        productAds: [],
+        sbCampaign: null,
         sponsoredBrands: [],
       };
     }
@@ -2778,6 +3130,59 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     });
   }
 
+  for (const r of productAdRows) {
+    const { sku, asin } = resolveIdentity(r);
+    const key = sku || asin || String(r.campaignId || r.campaign_id || '');
+    if (!key) continue;
+    const skuObj = getOrCreate(key, asin);
+    if (asin && !skuObj.asin) skuObj.asin = asin;
+    const campaignId = String(r.campaignId || r.campaign_id || '');
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', {
+      accountId: r.accountId,
+      siteId: r.siteId,
+      adGroupId: r.adGroupId || r.ad_group_id || '',
+    });
+    const updatedAt = r.updatedAt || r.updated_at || r.modifyTime || r.updateTime || '';
+    const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
+    camp.productAds.push({
+      id: String(r.adId || r.ad_id || r.id || ''),
+      entityType: 'productAd',
+      state: r.state || r.stateVal || r.status || '',
+      updatedAt,
+      onCooldown,
+      stats3d: readStats(r, 3),
+      stats7d: readStats(r, 7),
+      stats30d: readStats(r, 30),
+    });
+  }
+
+  for (const r of sbCampaignRows) {
+    const { sku, asin } = resolveIdentity(r);
+    const key = sku || asin || String(r.campaignId || r.campaign_id || '');
+    if (!key) continue;
+    const skuObj = getOrCreate(key, asin);
+    if (asin && !skuObj.asin) skuObj.asin = asin;
+    const campaignId = String(r.campaignId || r.campaign_id || '');
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', {
+      accountId: r.accountId,
+      siteId: r.siteId,
+      adGroupId: r.adGroupId || r.ad_group_id || '',
+    });
+    const updatedAt = r.updatedAt || r.updated_at || r.modifyTime || r.updateTime || '';
+    const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
+    camp.sbCampaign = {
+      id: campaignId,
+      entityType: 'sbCampaign',
+      state: r.state || r.stateVal || r.activeStatus || r.status || '',
+      budget: parseFloat(r.budget || r.dailyBudget || 0),
+      updatedAt,
+      onCooldown,
+      stats3d: readStats(r, 3),
+      stats7d: readStats(r, 7),
+      stats30d: readStats(r, 30),
+    };
+  }
+
   // 转换成数组，附加 listing + history
   return Object.values(skuMap).map(card => {
     const campaigns = Object.values(card.campaigns);
@@ -2793,6 +3198,12 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
       }
       for (const at of camp.autoTargets) {
         for (const [dim, s] of [['3d', at.stats3d], ['7d', at.stats7d], ['30d', at.stats30d]]) {
+          adStats[dim].spend += s.spend; adStats[dim].orders += s.orders;
+          adStats[dim].clicks += s.clicks; adStats[dim].impressions += s.impressions;
+        }
+      }
+      for (const ad of camp.productAds || []) {
+        for (const [dim, s] of [['3d', ad.stats3d], ['7d', ad.stats7d], ['30d', ad.stats30d]]) {
           adStats[dim].spend += s.spend; adStats[dim].orders += s.orders;
           adStats[dim].clicks += s.clicks; adStats[dim].impressions += s.impressions;
         }
@@ -2965,6 +3376,8 @@ function normalizeActionEntityType(type) {
   if (/^sbtarget$/i.test(t) || /^sponsoredBrandTarget$/i.test(t) || /^sbentity$/i.test(t)) return 'sbTarget';
   if (/^manualTarget$/i.test(t)) return 'manualTarget';
   if (/^autoTarget$/i.test(t)) return 'autoTarget';
+  if (/^productAd$/i.test(t) || /^spProductAd$/i.test(t)) return 'productAd';
+  if (/^sbCampaign$/i.test(t)) return 'sbCampaign';
   if (/^keyword$/i.test(t)) return 'keyword';
   return t || 'autoTarget';
 }
@@ -2974,6 +3387,8 @@ function entityTypeLabel(type, actionType = 'bid') {
     keyword: 'SP关键词',
     autoTarget: 'SP自动',
     manualTarget: 'SP定位',
+    productAd: 'SP商品广告',
+    sbCampaign: 'SB广告活动',
     spCampaign: 'SP建广告',
     sbKeyword: 'SB关键词',
     sbTarget: 'SB定位',
@@ -2991,6 +3406,8 @@ function checkCooldown(entityId, result) {
     if (kw) return kw.onCooldown;
     const at = camp.autoTargets.find(t => t.id === entityId);
     if (at) return at.onCooldown;
+    const ad = (camp.productAds || []).find(t => t.id === entityId);
+    if (ad) return ad.onCooldown;
     const sb = camp.sponsoredBrands.find(t => t.id === entityId);
     if (sb) return sb.onCooldown;
   }
@@ -3097,4 +3514,31 @@ function downloadJson(data, filename) {
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   chrome.downloads.download({ url, filename, saveAs: false }, () => URL.revokeObjectURL(url));
+}
+
+function redactSensitiveHeaders(headers = {}) {
+  const result = {};
+  for (const [key, value] of Object.entries(headers || {})) {
+    if (/token|authorization|cookie|csrf/i.test(key)) result[key] = value ? '[redacted]' : '';
+    else result[key] = value;
+  }
+  return result;
+}
+
+function readNumField(row, keys, fallback = 0) {
+  for (const key of keys) {
+    const value = row?.[key];
+    const n = Number(value);
+    if (Number.isFinite(n)) return n;
+  }
+  return fallback;
+}
+
+function readNumFieldSource(row, keys) {
+  for (const key of keys) {
+    const value = row?.[key];
+    const n = Number(value);
+    if (Number.isFinite(n)) return key;
+  }
+  return '';
 }

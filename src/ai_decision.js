@@ -16,6 +16,8 @@ function detectCardEntities(card) {
   const campaigns = Array.isArray(card?.campaigns) ? card.campaigns : [];
   const keywords = [];
   const autoTargets = [];
+  const productAds = [];
+  const sbCampaigns = [];
   const sponsoredBrands = [];
 
   for (const campaign of campaigns) {
@@ -46,6 +48,31 @@ function detectCardEntities(card) {
         stats30d: target.stats30d || {},
       });
     }
+    for (const ad of campaign.productAds || []) {
+      productAds.push({
+        id: String(ad.id || ''),
+        entityType: 'productAd',
+        currentBid: null,
+        state: ad.state || ad.status || '',
+        onCooldown: !!ad.onCooldown,
+        stats3d: ad.stats3d || {},
+        stats7d: ad.stats7d || {},
+        stats30d: ad.stats30d || {},
+      });
+    }
+    if (campaign.sbCampaign?.id) {
+      sbCampaigns.push({
+        id: String(campaign.sbCampaign.id || ''),
+        entityType: 'sbCampaign',
+        currentBid: null,
+        currentBudget: toNum(campaign.sbCampaign.budget),
+        state: campaign.sbCampaign.state || campaign.sbCampaign.status || '',
+        onCooldown: !!campaign.sbCampaign.onCooldown,
+        stats3d: campaign.sbCampaign.stats3d || {},
+        stats7d: campaign.sbCampaign.stats7d || {},
+        stats30d: campaign.sbCampaign.stats30d || {},
+      });
+    }
     for (const sb of campaign.sponsoredBrands || []) {
       const entityType = sb.entityType === 'sbTarget' ? 'sbTarget' : 'sbKeyword';
       sponsoredBrands.push({
@@ -64,7 +91,7 @@ function detectCardEntities(card) {
     }
   }
 
-  return [...keywords, ...autoTargets, ...sponsoredBrands].filter(entity => entity.id);
+  return [...keywords, ...autoTargets, ...productAds, ...sbCampaigns, ...sponsoredBrands].filter(entity => entity.id);
 }
 
 function buildRowIndexes(rowsByType = {}) {
@@ -73,7 +100,7 @@ function buildRowIndexes(rowsByType = {}) {
     const idMap = new Map();
     const skuMap = new Map();
     for (const row of rows || []) {
-      const id = String(row.keywordId || row.targetId || row.target_id || row.id || row.keyword_id || '').trim();
+      const id = String(row.keywordId || row.targetId || row.target_id || row.adId || row.ad_id || row.campaignId || row.campaign_id || row.id || row.keyword_id || '').trim();
       const sku = String(row.sku || '').trim();
       if (id) idMap.set(id, row);
       if (sku) {
@@ -172,7 +199,14 @@ function buildProductContexts(cards, rowsByType, sp7DayRows, sb7DayRows, history
     unitsSold_7d: toNum(card.unitsSold_7d),
     unitsSold_30d: toNum(card.unitsSold_30d),
     adDependency: toNum(card.adDependency),
+    yoySales: toNum(card.yoySales),
+    yoySalesPct: toNum(card.yoySalesPct),
+    yoyUnitsPct: toNum(card.yoyUnitsPct),
+    yoyAsinPct: toNum(card.yoyAsinPct),
+    yoySourceField: card.yoySourceField || null,
+    yoyRank: toNum(card.yoyRank),
     note: card.note || null,
+    personalSales: card.personalSales || null,
     adStats: card.adStats || {},
     sbStats: card.sbStats || {},
     listing: card.listing || null,
@@ -191,7 +225,7 @@ function buildProductContexts(cards, rowsByType, sp7DayRows, sb7DayRows, history
 
 function normalizeEntityType(value) {
   const text = String(value || '').trim();
-  if (['keyword', 'autoTarget', 'manualTarget', 'sbKeyword', 'sbTarget', 'skuCandidate', 'sbCampaignCandidate'].includes(text)) return text;
+  if (['keyword', 'autoTarget', 'manualTarget', 'productAd', 'sbKeyword', 'sbTarget', 'sbCampaign', 'skuCandidate', 'sbCampaignCandidate'].includes(text)) return text;
   return 'unknown';
 }
 
@@ -203,10 +237,15 @@ function normalizeActionType(value) {
 
 function findProductEntity(product, entityType, id) {
   if (!product) return null;
+  const adjustable = (product.adjustableAds || []).find(item => String(item.entityType) === entityType && String(item.id) === String(id)) || null;
+  if (adjustable) return adjustable;
   if (entityType === 'skuCandidate' || entityType === 'sbCampaignCandidate') {
-    return (product.unmappedCandidates || []).find(item => String(item.entityType) === entityType && String(item.id) === String(id)) || null;
+    return (product.unmappedCandidates || []).find(item =>
+      String(item.id) === String(id) &&
+      String(item.entityType) === entityType
+    ) || null;
   }
-  return (product.adjustableAds || []).find(item => String(item.entityType) === entityType && String(item.id) === String(id)) || null;
+  return null;
 }
 
 function isHighVolumeProduct(product) {
@@ -221,11 +260,35 @@ function gateRisk(product, entity, action) {
   const suggestedBid = toNum(gated.suggestedBid);
   const highVolume = isHighVolumeProduct(product);
 
-  if (gated.actionType === 'create' || gated.actionType === 'structure_fix') {
+  if (gated.actionType === 'structure_fix') {
     gated.actionType = 'review';
     gated.canAutoExecute = false;
     gated.riskLevel = 'manual_review';
-    gated.reason = `${gated.reason || ''} [risk_gate:create_or_structure_fix]`.trim();
+    gated.reason = `${gated.reason || ''} [risk_gate:structure_fix]`.trim();
+    return gated;
+  }
+
+  if (gated.actionType === 'create') {
+    const createInput = gated.createInput || {};
+    const mode = String(createInput.mode || '').trim();
+    const advType = String(createInput.advType || 'SP').toUpperCase();
+    const missing = [];
+    if (advType !== 'SP') missing.push('supported SP create only');
+    if (!['auto', 'productTarget', 'keywordTarget'].includes(mode)) missing.push('mode');
+    for (const field of ['sku', 'asin', 'accountId', 'siteId', 'dailyBudget', 'defaultBid', 'coreTerm']) {
+      if (createInput[field] === undefined || createInput[field] === null || createInput[field] === '') missing.push(field);
+    }
+    if (mode === 'keywordTarget' && !(Array.isArray(createInput.keywords) && createInput.keywords.length)) missing.push('keywords');
+    if (mode === 'productTarget' && !(Array.isArray(createInput.targetAsins) && createInput.targetAsins.length)) missing.push('targetAsins');
+    if (missing.length) {
+      gated.actionType = 'review';
+      gated.canAutoExecute = false;
+      gated.riskLevel = 'manual_review';
+      gated.reason = `${gated.reason || ''} [risk_gate:create_missing:${missing.join(',')}]`.trim();
+      return gated;
+    }
+    gated.canAutoExecute = true;
+    gated.riskLevel = gated.riskLevel || 'low_budget_create';
     return gated;
   }
 
@@ -244,28 +307,21 @@ function gateRisk(product, entity, action) {
 
   if (gated.actionType === 'bid' && Number.isFinite(currentBid) && currentBid > 0 && Number.isFinite(suggestedBid)) {
     const changePct = Math.abs(suggestedBid - currentBid) / currentBid;
-    if (changePct > 0.15) {
+    const explicitTrafficPushOverride = gated.allowLargeBidChange === true && gated.riskLevel === 'traffic_push';
+    if (changePct > 0.15 && !explicitTrafficPushOverride) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
       gated.riskLevel = 'manual_review';
       gated.reason = `${gated.reason || ''} [risk_gate:large_bid_change]`.trim();
       return gated;
     }
-    if (highVolume && changePct > 0.08) {
+    if (highVolume && changePct > 0.08 && !explicitTrafficPushOverride) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
       gated.riskLevel = 'manual_review';
       gated.reason = `${gated.reason || ''} [risk_gate:high_volume_strong_bid_change]`.trim();
       return gated;
     }
-  }
-
-  if (highVolume && (gated.actionType === 'pause' || gated.actionType === 'enable')) {
-    gated.actionType = 'review';
-    gated.canAutoExecute = false;
-    gated.riskLevel = 'manual_review';
-    gated.reason = `${gated.reason || ''} [risk_gate:high_volume_state_change]`.trim();
-    return gated;
   }
 
   gated.canAutoExecute = true;
@@ -290,10 +346,20 @@ function validateAndNormalizePlan(rawPlan, context) {
     const summary = String(productResult.summary || '').trim();
     const actions = [];
     for (const rawAction of productResult.actions || []) {
-      const entityType = normalizeEntityType(rawAction.entityType);
       const actionType = normalizeActionType(rawAction.actionType);
-      const id = String(rawAction.id || '').trim();
-      const entity = findProductEntity(product, entityType, id);
+      const rawCreateInput = rawAction.createInput || {};
+      const entityType = actionType === 'create'
+        ? 'skuCandidate'
+        : normalizeEntityType(rawAction.entityType);
+      const id = String(
+        rawAction.id ||
+        (actionType === 'create'
+          ? `create::${sku}::${rawCreateInput.mode || rawAction.mode || 'unknown'}::${rawCreateInput.coreTerm || rawAction.coreTerm || ''}`
+          : '')
+      ).trim();
+      const entity = actionType === 'create'
+        ? { id, entityType: 'skuCandidate', sourceSignals: ['strategy'], currentBid: null }
+        : findProductEntity(product, entityType, id);
       if (entityType === 'unknown') {
         errors.push({ sku, id, reason: 'unsupported entity type in action schema' });
         continue;
@@ -315,6 +381,7 @@ function validateAndNormalizePlan(rawPlan, context) {
         entityLevel: entityType,
         id,
         actionType,
+        allowLargeBidChange: rawAction.allowLargeBidChange === true,
         currentBid: toNum(rawAction.currentBid ?? entity.currentBid),
         suggestedBid: toNum(rawAction.suggestedBid),
         reason: String(rawAction.reason || '').trim(),
@@ -328,7 +395,28 @@ function validateAndNormalizePlan(rawPlan, context) {
         adGroupId: String(rawAction.adGroupId || entity.adGroupId || ''),
         keywordId: entityType === 'keyword' || entityType === 'sbKeyword' ? id : '',
         targetId: entityType === 'autoTarget' || entityType === 'manualTarget' || entityType === 'sbTarget' ? id : '',
+        adId: entityType === 'productAd' ? id : '',
       };
+
+      if (actionType === 'create') {
+        const createContext = product.createContext || {};
+        normalized.createInput = {
+          ...(rawCreateInput || {}),
+          mode: rawCreateInput.mode || rawAction.mode || '',
+          sku: rawCreateInput.sku || sku,
+          asin: rawCreateInput.asin || product.asin || '',
+          accountId: rawCreateInput.accountId ?? rawAction.accountId ?? createContext.accountId,
+          siteId: rawCreateInput.siteId ?? rawAction.siteId ?? createContext.siteId ?? 4,
+          dailyBudget: rawCreateInput.dailyBudget ?? rawAction.dailyBudget ?? createContext.recommendedDailyBudget,
+          defaultBid: rawCreateInput.defaultBid ?? rawAction.defaultBid ?? createContext.recommendedDefaultBid,
+          coreTerm: rawCreateInput.coreTerm || rawAction.coreTerm || '',
+          targetType: rawCreateInput.targetType || rawAction.targetType || '',
+          targetAsins: rawCreateInput.targetAsins || rawAction.targetAsins || [],
+          matchType: rawCreateInput.matchType || rawAction.matchType || '',
+          keywords: rawCreateInput.keywords || rawAction.keywords || [],
+          advType: rawCreateInput.advType || rawAction.advType || 'SP',
+        };
+      }
 
       if (!normalized.actionSource.length) normalized.actionSource = normalizeSourceList(entity.sourceSignals).filter(source => ['strategy', 'sp_7day_untouched', 'sb_7day_untouched'].includes(source));
       if (!normalized.actionSource.length) normalized.actionSource = ['strategy'];

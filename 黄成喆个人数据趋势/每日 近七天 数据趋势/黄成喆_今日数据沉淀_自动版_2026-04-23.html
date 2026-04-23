@@ -1,0 +1,1559 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>黄成喆 今日数据沉淀 自动版 2026-04-23</title>
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--text:#172033;--muted:#64748b;--line:#e2e8f0;--accent:#2563eb;--good:#166534;--warn:#9a3412;--bad:#991b1b;--soft:#eff6ff}
+*{box-sizing:border-box} body{margin:0;padding:24px;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.58}
+.wrap{max-width:1520px;margin:0 auto} h1{margin:0 0 8px;font-size:30px} h2{margin:0 0 14px;font-size:22px}.sub,.note,.footer{color:var(--muted)}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}.card,.section{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 4px 18px rgba(15,23,42,.04)}.card{padding:16px 18px}.section{margin-top:16px;padding:18px 20px}.kpi-title{font-size:13px;color:var(--muted);margin-bottom:6px}.kpi-value{font-size:28px;font-weight:750}.kpi-note{font-size:13px;color:var(--muted)}.good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}.callout{background:var(--soft);border:1px solid #dbeafe;border-radius:14px;padding:14px 16px}.bullets{margin:0;padding-left:20px}.bullets li{margin:9px 0}.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;margin-right:8px;margin-bottom:8px;background:#eef2ff;color:#3730a3}.data-table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;margin-top:10px}.data-table th{background:#f8fafc;text-align:left;padding:10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.data-table td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}.data-table tr:nth-child(even){background:#fcfdff}@media(max-width:1000px){.grid4,.grid3{grid-template-columns:1fr 1fr}}@media(max-width:720px){.grid4,.grid3{grid-template-columns:1fr}body{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>今日数据沉淀：个人趋势 + SKU 异常池</h1>
+  <div class="sub">沉淀日期：2026-04-23 ｜ 数据源：data\snapshots\latest_snapshot_with_ad_summary_interfaces.json ｜ 个人销售接口：/pm/sale/getBySeller ｜ seller：HJ17 / HJ171 / HJ172</div>
+
+  <div class="grid4">
+    <div class="card"><div class="kpi-title">总盘销售额</div><div class="kpi-value">539,127.74</div><div class="kpi-note">近 7 天，销量 3931</div></div>
+    <div class="card"><div class="kpi-title">总盘参考净利</div><div class="kpi-value good">21.05%</div><div class="kpi-note">毛利 32.67%，净利需结合退货看</div></div>
+    <div class="card"><div class="kpi-title">总盘退货率</div><div class="kpi-value bad">4.83%</div><div class="kpi-note">较 HJ1 +1.32pp，较 HJ大组 +1.27pp</div></div>
+    <div class="card"><div class="kpi-title">总盘 ACOS / ROAS</div><div class="kpi-value good">17.33%</div><div class="kpi-note">ROAS 5.77，CPC 2.13</div></div>
+  </div>
+
+  <div class="section">
+    <h2>先说结论</h2>
+    <div class="callout"><ul class="bullets"><li>总盘近 7 天销售额 <b>539,127.74</b>，销量 <b>3931</b>，参考净利 <b>21.05%</b>。</li><li>总盘退货率 <b>4.83%</b>，较 HJ1 小组 <b>+1.32pp</b>，较 HJ 大组 <b>+1.27pp</b>。</li><li>总盘 ACOS <b>17.33%</b>，ROAS <b>5.77</b>，CPC <b>2.13</b>，广告效率不是单独看 ACOS，要和退货、净利一起判断。</li><li>编号层主拖累：退货最高是 <b>HJ172-黄成喆（宋守东的合作编号）</b>，净利最低是 <b>HJ172-黄成喆（宋守东的合作编号）</b>，ACOS 最高是 <b>HJ172-黄成喆（宋守东的合作编号）</b>。</li><li>SKU 层今日识别：多问题池 <b>20</b> 个，重点 watchlist <b>9</b> 个，后续动作优先从“同下滑 + 库存压力 + 有广告承接”的 SKU 里挑。</li></ul></div>
+  </div>
+
+  <div class="section">
+    <h2>一、编号层拆分</h2>
+    <div><span class="badge">看谁拖总盘</span><span class="badge">退货 / 净利 / ACOS 同看</span><span class="badge">先定异常方向再下钻 SKU</span></div>
+    <table class="data-table"><thead><tr><th>编号</th><th>销售额</th><th>销量</th><th>参考净利</th><th>退货率</th><th>ACOS</th><th>广告占比SP</th><th>AT</th><th>1年以上销量同比</th><th>销售额占比</th></tr></thead><tbody><tr>
+    <td>HJ171-黄成喆（唐婷的合作编号）</td>
+    <td>316,123.94</td>
+    <td>2228</td>
+    <td>20.44%</td>
+    <td>6.37%</td>
+    <td>16.64%</td>
+    <td>27.79%</td>
+    <td>41.70%</td>
+    <td>-14.24%</td>
+    <td>58.64%</td>
+  </tr><tr>
+    <td>HJ17-黄成喆</td>
+    <td>221,300.01</td>
+    <td>1690</td>
+    <td>22.09%</td>
+    <td>2.60%</td>
+    <td>18.22%</td>
+    <td>23.91%</td>
+    <td>37.45%</td>
+    <td>33.40%</td>
+    <td>41.05%</td>
+  </tr><tr>
+    <td>HJ172-黄成喆（宋守东的合作编号）</td>
+    <td>1,703.79</td>
+    <td>13</td>
+    <td>0.26%</td>
+    <td>30.77%</td>
+    <td>56.74%</td>
+    <td>89.61%</td>
+    <td>47.01%</td>
+    <td>-87.00%</td>
+    <td>0.32%</td>
+  </tr></tbody></table>
+  </div>
+
+  <div class="section">
+    <h2>二、明细异常池</h2>
+    <div class="note">这里按销售额、退货率、净利、ACOS、广告占比、同比下滑打标签，用来每天一来先找异常编号/开发线。当前接口明细没有 SKU 字段，所以这一步负责定位异常来源，SKU 层还要结合广告和 inventory 快照。</div>
+    <table class="data-table"><thead><tr><th>编号</th><th>开发/明细</th><th>销售额</th><th>销量</th><th>参考净利</th><th>退货率</th><th>ACOS</th><th>SP</th><th>1年以上销量同比</th><th>标签</th></tr></thead><tbody><tr>
+    <td>HJ17</td>
+    <td>DB191-赵佳怡(孙涛的开发助理)</td>
+    <td>3,043.37</td>
+    <td>10</td>
+    <td>10.62%</td>
+    <td>10.00%</td>
+    <td>117.30%</td>
+    <td>43.85%</td>
+    <td>0.00%</td>
+    <td>高退货 / 低净利 / ACOS高 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DB904-陈玉平(徐燕基的合作开发)</td>
+    <td>4,543.20</td>
+    <td>45</td>
+    <td>9.11%</td>
+    <td>4.44%</td>
+    <td>35.45%</td>
+    <td>63.47%</td>
+    <td>-53.13%</td>
+    <td>低净利 / ACOS高 / 广告占比高 / 同比下滑</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DB136-王琴会(李肖玲的合作编号-大件)</td>
+    <td>14,723.97</td>
+    <td>60</td>
+    <td>14.13%</td>
+    <td>5.00%</td>
+    <td>10.46%</td>
+    <td>32.95%</td>
+    <td>-56.83%</td>
+    <td>净利偏低 / 同比下滑</td>
+  </tr><tr>
+    <td>HJ172</td>
+    <td>-</td>
+    <td>1,703.79</td>
+    <td>13</td>
+    <td>0.26%</td>
+    <td>30.77%</td>
+    <td>56.74%</td>
+    <td>89.61%</td>
+    <td>-87.00%</td>
+    <td>高退货 / ACOS高 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ172</td>
+    <td>-</td>
+    <td>1,703.79</td>
+    <td>13</td>
+    <td>0.26%</td>
+    <td>30.77%</td>
+    <td>56.74%</td>
+    <td>89.61%</td>
+    <td>-87.00%</td>
+    <td>高退货 / ACOS高 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ172</td>
+    <td>-</td>
+    <td>1,703.79</td>
+    <td>13</td>
+    <td>0.26%</td>
+    <td>30.77%</td>
+    <td>56.74%</td>
+    <td>89.61%</td>
+    <td>-87.00%</td>
+    <td>高退货 / ACOS高 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ172</td>
+    <td>-</td>
+    <td>1,703.79</td>
+    <td>13</td>
+    <td>0.26%</td>
+    <td>30.77%</td>
+    <td>56.74%</td>
+    <td>89.61%</td>
+    <td>-87.00%</td>
+    <td>高退货 / ACOS高 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DX603-葛金连(周婷婷-精品的合作编号2)</td>
+    <td>618.15</td>
+    <td>10</td>
+    <td>17.51%</td>
+    <td>10.00%</td>
+    <td>42.13%</td>
+    <td>48.43%</td>
+    <td>11.11%</td>
+    <td>高退货 / ACOS高 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DQ119-俞亚轩(张月的维护助理)</td>
+    <td>411.59</td>
+    <td>7</td>
+    <td>0.71%</td>
+    <td>28.57%</td>
+    <td>44.46%</td>
+    <td>85.76%</td>
+    <td>16.67%</td>
+    <td>高退货 / ACOS高 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DB1009-姜琳(刘小庆的合作开发-大件)</td>
+    <td>9,181.47</td>
+    <td>34</td>
+    <td>7.65%</td>
+    <td>0.00%</td>
+    <td>22.80%</td>
+    <td>50.53%</td>
+    <td>466.67%</td>
+    <td>低净利 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>SA201-冯榆滨(陈小玉的维护专员)</td>
+    <td>3,763.72</td>
+    <td>61</td>
+    <td>17.51%</td>
+    <td>13.11%</td>
+    <td>20.92%</td>
+    <td>21.39%</td>
+    <td>32.61%</td>
+    <td>高退货 / 净利偏低</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DB1303-蒋婷(王艺琳的合作开发-大件)</td>
+    <td>35,504.95</td>
+    <td>201</td>
+    <td>15.01%</td>
+    <td>0.50%</td>
+    <td>19.09%</td>
+    <td>46.55%</td>
+    <td>91.43%</td>
+    <td>净利偏低 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DK726-丁丹曼(黄倩&amp;李雪的合作开发)</td>
+    <td>23,294.41</td>
+    <td>133</td>
+    <td>15.48%</td>
+    <td>0.00%</td>
+    <td>12.28%</td>
+    <td>35.45%</td>
+    <td>0.76%</td>
+    <td>净利偏低 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>SA206-林澄(乔晓涵&amp;陈小玉的合作开发-大件)</td>
+    <td>14,014.12</td>
+    <td>96</td>
+    <td>12.59%</td>
+    <td>1.04%</td>
+    <td>16.70%</td>
+    <td>44.84%</td>
+    <td>121.43%</td>
+    <td>净利偏低 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DB905-陈玉平(徐燕基的合作开发-大件)</td>
+    <td>11,350.51</td>
+    <td>50</td>
+    <td>23.11%</td>
+    <td>6.00%</td>
+    <td>11.67%</td>
+    <td>18.38%</td>
+    <td>-35.06%</td>
+    <td>同比下滑</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DB216-尹妙娟</td>
+    <td>5,055.58</td>
+    <td>29</td>
+    <td>20.40%</td>
+    <td>0.00%</td>
+    <td>23.30%</td>
+    <td>39.17%</td>
+    <td>-53.97%</td>
+    <td>广告占比高 / 同比下滑</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>DB165-廖晨(李肖玲的合作开发-大件)</td>
+    <td>4,655.27</td>
+    <td>41</td>
+    <td>14.36%</td>
+    <td>0.00%</td>
+    <td>16.44%</td>
+    <td>53.12%</td>
+    <td>-27.78%</td>
+    <td>净利偏低 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>SA140-曾艺婷(陈佳贤&amp;杨丹妮的合作开发2)</td>
+    <td>3,622.89</td>
+    <td>26</td>
+    <td>17.34%</td>
+    <td>3.85%</td>
+    <td>21.75%</td>
+    <td>42.42%</td>
+    <td>23.81%</td>
+    <td>净利偏低 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DB1008-姜琳(刘小庆的合作开发)</td>
+    <td>2,735.33</td>
+    <td>11</td>
+    <td>17.66%</td>
+    <td>9.09%</td>
+    <td>16.31%</td>
+    <td>36.28%</td>
+    <td>-8.33%</td>
+    <td>高退货 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>DB908-彭菲(徐燕基的合作开发-大件)</td>
+    <td>2,163.25</td>
+    <td>6</td>
+    <td>19.98%</td>
+    <td>16.67%</td>
+    <td>25.21%</td>
+    <td>39.80%</td>
+    <td>0.00%</td>
+    <td>高退货 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DE303-田心雨(查玉露&amp;唐洁的合作编号)</td>
+    <td>1,907.83</td>
+    <td>25</td>
+    <td>15.24%</td>
+    <td>16.00%</td>
+    <td>69.27%</td>
+    <td>24.78%</td>
+    <td>-44.44%</td>
+    <td>高退货 / ACOS高</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>DB521-林星羽(熊杨的合作开发-大件)</td>
+    <td>1,730.19</td>
+    <td>3</td>
+    <td>6.10%</td>
+    <td>33.33%</td>
+    <td>0.00%</td>
+    <td>50.30%</td>
+    <td>0.00%</td>
+    <td>高退货 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>CA401-曹朗轩(李彬彬的维护专员)</td>
+    <td>987.98</td>
+    <td>7</td>
+    <td>5.35%</td>
+    <td>14.29%</td>
+    <td>0.00%</td>
+    <td>39.26%</td>
+    <td>-83.33%</td>
+    <td>高退货 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>SA131-许宝如(杨丹芸的合作开发)</td>
+    <td>720.75</td>
+    <td>6</td>
+    <td>26.20%</td>
+    <td>33.33%</td>
+    <td>49.18%</td>
+    <td>23.44%</td>
+    <td>0.00%</td>
+    <td>高退货 / ACOS高</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>SA122-黄佳虹(陈家宜的开发助理)</td>
+    <td>687.85</td>
+    <td>5</td>
+    <td>2.09%</td>
+    <td>20.00%</td>
+    <td>0.00%</td>
+    <td>83.85%</td>
+    <td>-37.50%</td>
+    <td>高退货 / 广告占比高</td>
+  </tr></tbody></table>
+  </div>
+
+  <div class="section">
+    <h2>三、销售额 Top 明细</h2>
+    <table class="data-table"><thead><tr><th>编号</th><th>开发/明细</th><th>销售额</th><th>销量</th><th>参考净利</th><th>退货率</th><th>ACOS</th><th>SP</th><th>1年以上销量同比</th><th>标签</th></tr></thead><tbody><tr>
+    <td>HJ171</td>
+    <td>-</td>
+    <td>316,123.94</td>
+    <td>2228</td>
+    <td>20.44%</td>
+    <td>6.37%</td>
+    <td>16.64%</td>
+    <td>27.79%</td>
+    <td>-14.24%</td>
+    <td>观察</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>-</td>
+    <td>316,123.94</td>
+    <td>2228</td>
+    <td>20.44%</td>
+    <td>6.37%</td>
+    <td>16.64%</td>
+    <td>27.79%</td>
+    <td>-14.24%</td>
+    <td>观察</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>-</td>
+    <td>316,123.94</td>
+    <td>2228</td>
+    <td>20.44%</td>
+    <td>6.37%</td>
+    <td>16.64%</td>
+    <td>27.79%</td>
+    <td>-14.24%</td>
+    <td>观察</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>-</td>
+    <td>316,123.94</td>
+    <td>2228</td>
+    <td>20.44%</td>
+    <td>6.37%</td>
+    <td>16.64%</td>
+    <td>27.79%</td>
+    <td>-14.24%</td>
+    <td>观察</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>-</td>
+    <td>221,300.01</td>
+    <td>1690</td>
+    <td>22.09%</td>
+    <td>2.60%</td>
+    <td>18.22%</td>
+    <td>23.91%</td>
+    <td>33.40%</td>
+    <td>观察</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>-</td>
+    <td>221,300.01</td>
+    <td>1690</td>
+    <td>22.09%</td>
+    <td>2.60%</td>
+    <td>18.22%</td>
+    <td>23.91%</td>
+    <td>33.40%</td>
+    <td>观察</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>-</td>
+    <td>221,300.01</td>
+    <td>1690</td>
+    <td>22.09%</td>
+    <td>2.60%</td>
+    <td>18.22%</td>
+    <td>23.91%</td>
+    <td>33.40%</td>
+    <td>观察</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>-</td>
+    <td>221,300.01</td>
+    <td>1690</td>
+    <td>22.09%</td>
+    <td>2.60%</td>
+    <td>18.22%</td>
+    <td>23.91%</td>
+    <td>33.40%</td>
+    <td>观察</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DB1303-蒋婷(王艺琳的合作开发-大件)</td>
+    <td>35,504.95</td>
+    <td>201</td>
+    <td>15.01%</td>
+    <td>0.50%</td>
+    <td>19.09%</td>
+    <td>46.55%</td>
+    <td>91.43%</td>
+    <td>净利偏低 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>DB319-陈帆(钟慧敏的合作开发)</td>
+    <td>35,496.98</td>
+    <td>343</td>
+    <td>39.00%</td>
+    <td>3.79%</td>
+    <td>6.80%</td>
+    <td>4.76%</td>
+    <td>260.98%</td>
+    <td>观察</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>SA108-吴舒敏(杨丹妮的维护专员-大件)</td>
+    <td>23,441.02</td>
+    <td>268</td>
+    <td>15.04%</td>
+    <td>0.75%</td>
+    <td>18.75%</td>
+    <td>33.85%</td>
+    <td>0.00%</td>
+    <td>净利偏低</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DK726-丁丹曼(黄倩&amp;李雪的合作开发)</td>
+    <td>23,294.41</td>
+    <td>133</td>
+    <td>15.48%</td>
+    <td>0.00%</td>
+    <td>12.28%</td>
+    <td>35.45%</td>
+    <td>0.76%</td>
+    <td>净利偏低 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DB147-张灵(李肖玲的合作编号-大件)</td>
+    <td>18,721.25</td>
+    <td>55</td>
+    <td>29.28%</td>
+    <td>1.82%</td>
+    <td>13.48%</td>
+    <td>15.29%</td>
+    <td>-40.22%</td>
+    <td>同比下滑</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>DB847-郑若鑫(肖洁的开发助理)</td>
+    <td>18,483.88</td>
+    <td>74</td>
+    <td>22.80%</td>
+    <td>0.00%</td>
+    <td>15.18%</td>
+    <td>16.79%</td>
+    <td>165.38%</td>
+    <td>观察</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>SA106-张春念(龙艳婷&amp;杨丹妮的合作编号-大件)</td>
+    <td>15,790.23</td>
+    <td>133</td>
+    <td>20.10%</td>
+    <td>1.50%</td>
+    <td>15.42%</td>
+    <td>24.76%</td>
+    <td>10.83%</td>
+    <td>观察</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>SA204-郭帆帆(陈小玉的维护专员-大件)</td>
+    <td>15,461.60</td>
+    <td>94</td>
+    <td>23.14%</td>
+    <td>1.06%</td>
+    <td>27.94%</td>
+    <td>15.64%</td>
+    <td>-16.13%</td>
+    <td>观察</td>
+  </tr><tr>
+    <td>HJ171</td>
+    <td>DB136-王琴会(李肖玲的合作编号-大件)</td>
+    <td>14,723.97</td>
+    <td>60</td>
+    <td>14.13%</td>
+    <td>5.00%</td>
+    <td>10.46%</td>
+    <td>32.95%</td>
+    <td>-56.83%</td>
+    <td>净利偏低 / 同比下滑</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>SA206-林澄(乔晓涵&amp;陈小玉的合作开发-大件)</td>
+    <td>14,014.12</td>
+    <td>96</td>
+    <td>12.59%</td>
+    <td>1.04%</td>
+    <td>16.70%</td>
+    <td>44.84%</td>
+    <td>121.43%</td>
+    <td>净利偏低 / 广告占比高</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>DB136-王琴会(李肖玲的合作编号-大件)</td>
+    <td>13,748.21</td>
+    <td>58</td>
+    <td>19.72%</td>
+    <td>3.45%</td>
+    <td>13.22%</td>
+    <td>20.69%</td>
+    <td>257.14%</td>
+    <td>观察</td>
+  </tr><tr>
+    <td>HJ17</td>
+    <td>DB216-尹妙娟</td>
+    <td>13,498.46</td>
+    <td>108</td>
+    <td>20.92%</td>
+    <td>1.85%</td>
+    <td>13.86%</td>
+    <td>22.82%</td>
+    <td>142.86%</td>
+    <td>观察</td>
+  </tr></tbody></table>
+  </div>
+
+  <div class="section">
+    <h2>四、SKU 止血池</h2>
+    <div class="note">SKU 口径来自 panel snapshot 的广告 + inventory 产品画像；标签用于找今天要复看的 SKU，不作为财务结算口径。</div>
+    <table class="data-table"><thead><tr><th>SKU</th><th>ASIN</th><th>3天</th><th>7天</th><th>30天</th><th>库存天数</th><th>同</th><th>利润率</th><th>30天广告花费</th><th>30天广告订单</th><th>30天ACOS</th><th>广告活动数</th><th>标签</th></tr></thead><tbody><tr>
+    <td>DN1655</td>
+    <td>B0C1S3XC8Q</td>
+    <td>6</td>
+    <td>14</td>
+    <td>44</td>
+    <td>219</td>
+    <td>-49.43%</td>
+    <td>-11.80%</td>
+    <td>183.11</td>
+    <td>12</td>
+    <td>29.73%</td>
+    <td>25</td>
+    <td>同下滑 / 利润为负 / ACOS高 / 销售下滑花费未降 / 广告花费高 / 库存压力 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>SSU3909</td>
+    <td>B0FBR1TC3P</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>206.35</td>
+    <td>9</td>
+    <td>35.58%</td>
+    <td>8</td>
+    <td>利润低 / ACOS高 / 花费上升订单未跟 / 销售下滑花费未降 / 广告花费高 / 库存承接紧 / SP有开启</td>
+  </tr><tr>
+    <td>DUN1150</td>
+    <td>B0CH8RJFTG</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>167.26</td>
+    <td>10</td>
+    <td>39.09%</td>
+    <td>26</td>
+    <td>利润低 / ACOS高 / 花费上升订单未跟 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>YCL1250</td>
+    <td>B0CJVK6L6M</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>136.30</td>
+    <td>14</td>
+    <td>34.61%</td>
+    <td>16</td>
+    <td>利润低 / ACOS高 / 花费上升订单未跟 / 销售下滑花费未降 / 广告花费高 / 库存承接紧 / SP有开启</td>
+  </tr><tr>
+    <td>YUH4890</td>
+    <td>B0GH7B281D</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>616.40</td>
+    <td>116</td>
+    <td>25.02%</td>
+    <td>13</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>YUH4846</td>
+    <td>B0GH795Y8Q</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>560.79</td>
+    <td>79</td>
+    <td>29.40%</td>
+    <td>12</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>SC3077</td>
+    <td>B0CGV57T53</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>350.71</td>
+    <td>54</td>
+    <td>27.96%</td>
+    <td>20</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>LEM8356</td>
+    <td>B0GDTG4MW9</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>333.90</td>
+    <td>29</td>
+    <td>44.30%</td>
+    <td>10</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>QA1157</td>
+    <td>B0BQ325P4G</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>197.47</td>
+    <td>26</td>
+    <td>26.13%</td>
+    <td>25</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>OLI2213</td>
+    <td>B0FW3RKW25</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>186.14</td>
+    <td>14</td>
+    <td>32.46%</td>
+    <td>17</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>TH2837</td>
+    <td>B0CDH7KXM1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>157.35</td>
+    <td>26</td>
+    <td>31.87%</td>
+    <td>20</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>BOY3171</td>
+    <td>B0DSFS5BVF</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>111.71</td>
+    <td>16</td>
+    <td>29.41%</td>
+    <td>16</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>HEL0319</td>
+    <td>B0C6TSBBDK</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>102.37</td>
+    <td>13</td>
+    <td>30.03%</td>
+    <td>25</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>UAN3257</td>
+    <td>B0D25ZY7LC</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>84.46</td>
+    <td>18</td>
+    <td>38.08%</td>
+    <td>19</td>
+    <td>利润低 / ACOS高 / 销售下滑花费未降 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>YAN2008</td>
+    <td>B0BXW1H1WC</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>62.52</td>
+    <td>16</td>
+    <td>26.67%</td>
+    <td>22</td>
+    <td>利润低 / ACOS高 / 销售下滑花费未降 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>SII0421</td>
+    <td>B0D2DHVJFZ</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>52.10</td>
+    <td>7</td>
+    <td>30.48%</td>
+    <td>13</td>
+    <td>利润低 / ACOS高 / 销售下滑花费未降 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>UAN3248</td>
+    <td>B0D261HWGC</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>45.82</td>
+    <td>6</td>
+    <td>33.22%</td>
+    <td>36</td>
+    <td>利润低 / ACOS高 / 花费上升订单未跟 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>DUI0086</td>
+    <td>B0CL4QKQJ2</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>41.13</td>
+    <td>1</td>
+    <td>100.34%</td>
+    <td>20</td>
+    <td>利润低 / ACOS高 / 花费上升订单未跟 / 销售下滑花费未降 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>MEL1299</td>
+    <td>B0DT7WJHRG</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>40.79</td>
+    <td>3</td>
+    <td>74.20%</td>
+    <td>9</td>
+    <td>利润低 / ACOS高 / 花费上升订单未跟 / 销售下滑花费未降 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>YUT3184</td>
+    <td>B0D3PQSZP2</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+    <td>24.96</td>
+    <td>1</td>
+    <td>62.42%</td>
+    <td>8</td>
+    <td>利润低 / ACOS高 / 花费上升订单未跟 / 销售下滑花费未降 / SP有开启 / SB有承接</td>
+  </tr></tbody></table>
+  </div>
+
+  <div class="section">
+    <h2>五、重点变体每日监看</h2>
+    <table class="data-table"><thead><tr><th>SKU</th><th>ASIN</th><th>3天</th><th>7天</th><th>30天</th><th>库存天数</th><th>同</th><th>利润率</th><th>30天广告花费</th><th>30天广告订单</th><th>30天ACOS</th><th>广告活动数</th><th>标签</th></tr></thead><tbody><tr>
+    <td>DN3482</td>
+    <td>B0FPQZPD7T</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>999</td>
+    <td>0.00%</td>
+    <td>-14.81%</td>
+    <td>5.25</td>
+    <td>0</td>
+    <td>无订单</td>
+    <td>11</td>
+    <td>利润为负 / 有花费无订单 / 库存压力 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>DN3049</td>
+    <td>B0D8B4Q956</td>
+    <td>6</td>
+    <td>8</td>
+    <td>28</td>
+    <td>134</td>
+    <td>-22.22%</td>
+    <td>-1.73%</td>
+    <td>151.93</td>
+    <td>16</td>
+    <td>13.45%</td>
+    <td>15</td>
+    <td>利润为负 / 广告花费高 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>DN2685</td>
+    <td>B0CLYHR4KZ</td>
+    <td>3</td>
+    <td>4</td>
+    <td>8</td>
+    <td>113</td>
+    <td>-33.33%</td>
+    <td>-21.88%</td>
+    <td>53.35</td>
+    <td>5</td>
+    <td>14.62%</td>
+    <td>12</td>
+    <td>同下滑 / 利润为负 / 销售下滑花费未降 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>DN2684</td>
+    <td>B0CLYHTPNL</td>
+    <td>4</td>
+    <td>7</td>
+    <td>29</td>
+    <td>127</td>
+    <td>-53.97%</td>
+    <td>-10.39%</td>
+    <td>86.11</td>
+    <td>10</td>
+    <td>14.70%</td>
+    <td>15</td>
+    <td>同下滑 / 利润为负 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>DN2683</td>
+    <td>B0CLYGDSMV</td>
+    <td>6</td>
+    <td>14</td>
+    <td>49</td>
+    <td>121</td>
+    <td>-41.67%</td>
+    <td>-16.51%</td>
+    <td>259.69</td>
+    <td>24</td>
+    <td>13.01%</td>
+    <td>15</td>
+    <td>同下滑 / 利润为负 / 广告花费高 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>DN2437</td>
+    <td>B0CCJF7KZS</td>
+    <td>0</td>
+    <td>0</td>
+    <td>5</td>
+    <td>36</td>
+    <td>150.00%</td>
+    <td>-15.35%</td>
+    <td>2.08</td>
+    <td>0</td>
+    <td>无订单</td>
+    <td>14</td>
+    <td>利润为负 / 有花费无订单 / 广告弱覆盖 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>DN1656</td>
+    <td>B0CBM3H9QS</td>
+    <td>3</td>
+    <td>3</td>
+    <td>4</td>
+    <td>2573</td>
+    <td>-95.56%</td>
+    <td>-5.61%</td>
+    <td>0.00</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>13</td>
+    <td>同下滑 / 利润为负 / 库存压力 / 广告弱覆盖 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>DN2108</td>
+    <td>B0C1Z5ZTPM</td>
+    <td>0</td>
+    <td>0</td>
+    <td>4</td>
+    <td>1118</td>
+    <td>-60.00%</td>
+    <td>-12.40%</td>
+    <td>0.00</td>
+    <td>0</td>
+    <td>0.00%</td>
+    <td>22</td>
+    <td>同下滑 / 利润为负 / 库存压力 / 广告弱覆盖 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>DN1655</td>
+    <td>B0C1S3XC8Q</td>
+    <td>6</td>
+    <td>14</td>
+    <td>44</td>
+    <td>219</td>
+    <td>-49.43%</td>
+    <td>-11.80%</td>
+    <td>183.11</td>
+    <td>12</td>
+    <td>29.73%</td>
+    <td>25</td>
+    <td>同下滑 / 利润为负 / ACOS高 / 销售下滑花费未降 / 广告花费高 / 库存压力 / SP有开启 / SB有承接</td>
+  </tr></tbody></table>
+  </div>
+
+  <div class="section">
+    <h2>六、可加投观察池</h2>
+    <div class="note">这里不是直接自动加价，而是找“有销量、有库存承接、有广告订单”的候选。最终动作仍要结合利润、退货、同比和当前广告状态。</div>
+    <table class="data-table"><thead><tr><th>SKU</th><th>ASIN</th><th>3天</th><th>7天</th><th>30天</th><th>库存天数</th><th>同</th><th>利润率</th><th>30天广告花费</th><th>30天广告订单</th><th>30天ACOS</th><th>广告活动数</th><th>标签</th></tr></thead><tbody><tr>
+    <td>DN2683</td>
+    <td>B0CLYGDSMV</td>
+    <td>6</td>
+    <td>14</td>
+    <td>49</td>
+    <td>121</td>
+    <td>-41.67%</td>
+    <td>-16.51%</td>
+    <td>259.69</td>
+    <td>24</td>
+    <td>13.01%</td>
+    <td>15</td>
+    <td>同下滑 / 利润为负 / 广告花费高 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>DN1655</td>
+    <td>B0C1S3XC8Q</td>
+    <td>6</td>
+    <td>14</td>
+    <td>44</td>
+    <td>219</td>
+    <td>-49.43%</td>
+    <td>-11.80%</td>
+    <td>183.11</td>
+    <td>12</td>
+    <td>29.73%</td>
+    <td>25</td>
+    <td>同下滑 / 利润为负 / ACOS高 / 销售下滑花费未降 / 广告花费高 / 库存压力 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>DN3049</td>
+    <td>B0D8B4Q956</td>
+    <td>6</td>
+    <td>8</td>
+    <td>28</td>
+    <td>134</td>
+    <td>-22.22%</td>
+    <td>-1.73%</td>
+    <td>151.93</td>
+    <td>16</td>
+    <td>13.45%</td>
+    <td>15</td>
+    <td>利润为负 / 广告花费高 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>DN2684</td>
+    <td>B0CLYHTPNL</td>
+    <td>4</td>
+    <td>7</td>
+    <td>29</td>
+    <td>127</td>
+    <td>-53.97%</td>
+    <td>-10.39%</td>
+    <td>86.11</td>
+    <td>10</td>
+    <td>14.70%</td>
+    <td>15</td>
+    <td>同下滑 / 利润为负 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>NO3390</td>
+    <td>B0CZDXJ81G</td>
+    <td>3</td>
+    <td>5</td>
+    <td>33</td>
+    <td>103</td>
+    <td>-20.00%</td>
+    <td>11.07%</td>
+    <td>25.22</td>
+    <td>10</td>
+    <td>11.68%</td>
+    <td>11</td>
+    <td>利润低 / SP有开启</td>
+  </tr><tr>
+    <td>DN2685</td>
+    <td>B0CLYHR4KZ</td>
+    <td>3</td>
+    <td>4</td>
+    <td>8</td>
+    <td>113</td>
+    <td>-33.33%</td>
+    <td>-21.88%</td>
+    <td>53.35</td>
+    <td>5</td>
+    <td>14.62%</td>
+    <td>12</td>
+    <td>同下滑 / 利润为负 / 销售下滑花费未降 / SP有开启 / SB有承接</td>
+  </tr></tbody></table>
+  </div>
+
+  <div class="section">
+    <h2>七、今天沉淀下来的判断框架</h2>
+    <div class="callout"><ul class="bullets">
+      <li>先看总盘：净利、退货、ACOS、广告占比、同比，判断今天主矛盾。</li>
+      <li>再看编号层：确认是 HJ171 这种大体量拖累，还是 HJ172 这种小体量异常。</li>
+      <li>再看明细异常池：按退货、净利、ACOS、SP、同比下滑确定复看优先级。</li>
+      <li>最后落到 SKU：用同、库存天数、广告花费/订单、利润率拆成止血、观察、可推三类。</li>
+      <li>重点 watchlist 必须每天保留，尤其 DN3049、DN1655 这类“同”已确认下滑口径的 SKU。</li>
+    </ul></div>
+  </div>
+
+  <div class="footer">说明：本报告由 Codex 工作流生成，适合运营判断和历史沉淀；个人销售接口明细当前无 SKU 字段，SKU 行动池来自广告/inventory 快照联动。</div>
+  
+  <div class="section">
+    <h2>广告 SKU 汇总异常池</h2>
+    <div class="note">新增 /product/adSkuSummary 真实 30 天口径：花费、销售、订单、ACOS、环比变化直接来自广告汇总接口，用来发现“花费上升订单未跟”“销售下滑花费未降”的 SKU。</div>
+    <table class="data-table"><thead><tr><th>SKU</th><th>ASIN</th><th>30天广告花费</th><th>30天广告销售</th><th>30天广告订单</th><th>30天ACOS</th><th>花费环比</th><th>销售环比</th><th>订单环比</th><th>标签</th></tr></thead><tbody><tr>
+    <td>YUH4890</td>
+    <td>B0GH7B281D</td>
+    <td>616.40</td>
+    <td>2,463.80</td>
+    <td>116</td>
+    <td>25.02%</td>
+    <td>278.86%</td>
+    <td>405.09%</td>
+    <td>452.38%</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>SHQ2216</td>
+    <td>B0DMT1DSNK</td>
+    <td>599.56</td>
+    <td>3,539.04</td>
+    <td>95</td>
+    <td>16.94%</td>
+    <td>12.23%</td>
+    <td>9.39%</td>
+    <td>6.74%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>YUH4846</td>
+    <td>B0GH795Y8Q</td>
+    <td>560.79</td>
+    <td>1,907.21</td>
+    <td>79</td>
+    <td>29.40%</td>
+    <td>194.59%</td>
+    <td>216.93%</td>
+    <td>295.00%</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>YUH4842</td>
+    <td>B0GH73QSR2</td>
+    <td>554.76</td>
+    <td>2,258.04</td>
+    <td>93</td>
+    <td>24.57%</td>
+    <td>160.10%</td>
+    <td>209.88%</td>
+    <td>244.44%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>XIX0903</td>
+    <td>B0DN6PMH1D</td>
+    <td>419.43</td>
+    <td>3,535.10</td>
+    <td>185</td>
+    <td>11.86%</td>
+    <td>-20.22%</td>
+    <td>0.59%</td>
+    <td>-0.54%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>TIN2259</td>
+    <td>B0CNR3VGJ2</td>
+    <td>415.39</td>
+    <td>1,878.30</td>
+    <td>67</td>
+    <td>22.12%</td>
+    <td>76.57%</td>
+    <td>24.52%</td>
+    <td>17.54%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>KV3640</td>
+    <td>B0DDSMZ9RC</td>
+    <td>405.61</td>
+    <td>3,233.35</td>
+    <td>165</td>
+    <td>12.54%</td>
+    <td>106.67%</td>
+    <td>117.27%</td>
+    <td>103.70%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>EY0793</td>
+    <td>B09P55WGV7</td>
+    <td>353.65</td>
+    <td>2,075.47</td>
+    <td>120</td>
+    <td>17.04%</td>
+    <td>91.42%</td>
+    <td>169.74%</td>
+    <td>144.90%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>YUT3183</td>
+    <td>B0D3PKTJWT</td>
+    <td>351.62</td>
+    <td>1,669.58</td>
+    <td>40</td>
+    <td>21.06%</td>
+    <td>107.46%</td>
+    <td>76.53%</td>
+    <td>90.48%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>SC3077</td>
+    <td>B0CGV57T53</td>
+    <td>350.71</td>
+    <td>1,254.44</td>
+    <td>54</td>
+    <td>27.96%</td>
+    <td>3.80%</td>
+    <td>-11.62%</td>
+    <td>-10.00%</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>GT3812</td>
+    <td>B0CYPVQ5BG</td>
+    <td>344.67</td>
+    <td>1,761.80</td>
+    <td>96</td>
+    <td>19.56%</td>
+    <td>420.41%</td>
+    <td>472.76%</td>
+    <td>500.00%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>LEM8356</td>
+    <td>B0GDTG4MW9</td>
+    <td>333.90</td>
+    <td>753.66</td>
+    <td>29</td>
+    <td>44.30%</td>
+    <td>197.97%</td>
+    <td>117.91%</td>
+    <td>163.64%</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>CL3650</td>
+    <td>B0B9Y2ZG9G</td>
+    <td>333.52</td>
+    <td>2,273.16</td>
+    <td>81</td>
+    <td>14.67%</td>
+    <td>163.51%</td>
+    <td>222.54%</td>
+    <td>237.50%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>HAY1900</td>
+    <td>B0CT32947T</td>
+    <td>321.74</td>
+    <td>2,324.27</td>
+    <td>53</td>
+    <td>13.84%</td>
+    <td>500.04%</td>
+    <td>891.03%</td>
+    <td>657.14%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>GT3814</td>
+    <td>B0CYPWR9J8</td>
+    <td>319.27</td>
+    <td>1,824.41</td>
+    <td>100</td>
+    <td>17.50%</td>
+    <td>128.95%</td>
+    <td>104.99%</td>
+    <td>92.31%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>HL4004</td>
+    <td>B0CG5T4XJQ</td>
+    <td>304.44</td>
+    <td>2,294.91</td>
+    <td>105</td>
+    <td>13.27%</td>
+    <td>161.14%</td>
+    <td>159.43%</td>
+    <td>169.23%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>UAN2599</td>
+    <td>B0CHRQT54V</td>
+    <td>295.25</td>
+    <td>1,616.71</td>
+    <td>79</td>
+    <td>18.26%</td>
+    <td>191.49%</td>
+    <td>137.52%</td>
+    <td>146.88%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>SAN0149</td>
+    <td>B0B8HH4JMS</td>
+    <td>286.49</td>
+    <td>1,975.50</td>
+    <td>38</td>
+    <td>14.50%</td>
+    <td>71.56%</td>
+    <td>79.96%</td>
+    <td>52.00%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启</td>
+  </tr><tr>
+    <td>HL2535</td>
+    <td>B099WHTS48</td>
+    <td>272.15</td>
+    <td>1,204.44</td>
+    <td>53</td>
+    <td>22.60%</td>
+    <td>36.72%</td>
+    <td>-1.07%</td>
+    <td>10.42%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>HAY0218</td>
+    <td>B0CGDV947H</td>
+    <td>261.56</td>
+    <td>2,010.17</td>
+    <td>78</td>
+    <td>13.01%</td>
+    <td>238.50%</td>
+    <td>130.30%</td>
+    <td>136.36%</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr></tbody></table>
+  </div>
+
+  <div class="section">
+    <h2>SP 产品广告高消耗池</h2>
+    <div class="note">新增 /advProduct/all 产品广告管理口径：确认 SKU 下 SP 商品广告是否实际开启、开启数量、消耗和高 ACOS 行数。</div>
+    <table class="data-table"><thead><tr><th>SKU</th><th>SP花费</th><th>SP订单</th><th>SP行数</th><th>SP开启行数</th><th>高ACOS行数</th><th>标签</th></tr></thead><tbody><tr>
+    <td>SHQ2216</td>
+    <td>541.03</td>
+    <td>79</td>
+    <td>6</td>
+    <td>5</td>
+    <td>0</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>TIN2259</td>
+    <td>404.53</td>
+    <td>66</td>
+    <td>17</td>
+    <td>12</td>
+    <td>1</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>YUH4842</td>
+    <td>396.34</td>
+    <td>71</td>
+    <td>13</td>
+    <td>2</td>
+    <td>4</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>EY0793</td>
+    <td>351.06</td>
+    <td>117</td>
+    <td>26</td>
+    <td>13</td>
+    <td>2</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>YUT3183</td>
+    <td>347.95</td>
+    <td>38</td>
+    <td>7</td>
+    <td>4</td>
+    <td>1</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>GT3812</td>
+    <td>336.79</td>
+    <td>93</td>
+    <td>8</td>
+    <td>3</td>
+    <td>0</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>KV3640</td>
+    <td>328.20</td>
+    <td>125</td>
+    <td>6</td>
+    <td>5</td>
+    <td>0</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>HAY1900</td>
+    <td>310.70</td>
+    <td>50</td>
+    <td>17</td>
+    <td>12</td>
+    <td>0</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>SC3077</td>
+    <td>305.17</td>
+    <td>48</td>
+    <td>13</td>
+    <td>8</td>
+    <td>3</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>LEM8356</td>
+    <td>300.27</td>
+    <td>28</td>
+    <td>9</td>
+    <td>2</td>
+    <td>5</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>GT3814</td>
+    <td>291.93</td>
+    <td>84</td>
+    <td>7</td>
+    <td>7</td>
+    <td>0</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>SAN0149</td>
+    <td>278.34</td>
+    <td>38</td>
+    <td>17</td>
+    <td>12</td>
+    <td>1</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启</td>
+  </tr><tr>
+    <td>UAN2599</td>
+    <td>274.55</td>
+    <td>70</td>
+    <td>27</td>
+    <td>6</td>
+    <td>0</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>CL3650</td>
+    <td>267.91</td>
+    <td>66</td>
+    <td>12</td>
+    <td>11</td>
+    <td>0</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>DN2683</td>
+    <td>235.76</td>
+    <td>23</td>
+    <td>11</td>
+    <td>6</td>
+    <td>4</td>
+    <td>同下滑 / 利润为负 / 广告花费高 / SP有开启 / SB有承接</td>
+  </tr></tbody></table>
+  </div>
+
+  <div class="section">
+    <h2>SB 活动承接池</h2>
+    <div class="note">新增 /campaignSb/findAllNew 活动管理口径：SB 没有直接 SKU 字段，当前按活动名和广告组名匹配 SKU，用于识别是否有品牌视频 / SB 承接。</div>
+    <table class="data-table"><thead><tr><th>SKU</th><th>SB花费</th><th>SB订单</th><th>SB活动数</th><th>SB开启活动数</th><th>标签</th></tr></thead><tbody><tr>
+    <td>YUH4890</td>
+    <td>293.99</td>
+    <td>68</td>
+    <td>1</td>
+    <td>0</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>XIX0903</td>
+    <td>267.58</td>
+    <td>109</td>
+    <td>2</td>
+    <td>2</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>YUH4846</td>
+    <td>222.74</td>
+    <td>36</td>
+    <td>1</td>
+    <td>0</td>
+    <td>利润低 / ACOS高 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>HL2535</td>
+    <td>166.49</td>
+    <td>35</td>
+    <td>8</td>
+    <td>3</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>HL4004</td>
+    <td>160.13</td>
+    <td>54</td>
+    <td>2</td>
+    <td>1</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>YUH4842</td>
+    <td>143.03</td>
+    <td>22</td>
+    <td>2</td>
+    <td>0</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>TIN2239</td>
+    <td>123.27</td>
+    <td>19</td>
+    <td>3</td>
+    <td>3</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>GM3207</td>
+    <td>115.45</td>
+    <td>33</td>
+    <td>3</td>
+    <td>1</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>TIN0401</td>
+    <td>84.66</td>
+    <td>16</td>
+    <td>1</td>
+    <td>1</td>
+    <td>利润低 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>JUU1053</td>
+    <td>71.72</td>
+    <td>15</td>
+    <td>1</td>
+    <td>1</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>QAA4200</td>
+    <td>71.24</td>
+    <td>16</td>
+    <td>1</td>
+    <td>1</td>
+    <td>利润低 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>KV3640</td>
+    <td>69.04</td>
+    <td>36</td>
+    <td>3</td>
+    <td>2</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>KV0324</td>
+    <td>60.71</td>
+    <td>41</td>
+    <td>2</td>
+    <td>2</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>SE5608</td>
+    <td>45.51</td>
+    <td>14</td>
+    <td>3</td>
+    <td>1</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr><tr>
+    <td>SSU1756</td>
+    <td>44.19</td>
+    <td>4</td>
+    <td>1</td>
+    <td>1</td>
+    <td>利润低 / 广告花费高 / 库存承接紧 / SP有开启 / SB有承接</td>
+  </tr></tbody></table>
+  </div>
+</div>
+</body>
+</html>

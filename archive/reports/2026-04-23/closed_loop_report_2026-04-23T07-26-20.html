@@ -1,0 +1,287 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>广告全量闭环测试报告 2026/4/23 15:26:20</title>
+  <style>
+    :root { --bg:#f6f7f9; --ink:#18202a; --muted:#667085; --line:#d9dee7; --green:#16794c; --red:#b42318; --amber:#b54708; --blue:#175cd3; --panel:#fff; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.55 "Segoe UI", Arial, sans-serif; }
+    .wrap { max-width:1180px; margin:0 auto; padding:28px 22px 48px; }
+    header { border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:22px; }
+    h1 { margin:0 0 6px; font-size:28px; letter-spacing:0; }
+    h2 { margin:28px 0 12px; font-size:20px; }
+    h3 { margin:0 0 8px; font-size:16px; }
+    .sub { color:var(--muted); }
+    .grid { display:grid; gap:12px; }
+    .kpis { grid-template-columns:repeat(4, minmax(0,1fr)); }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:16px; }
+    .kpi b { display:block; font-size:28px; margin-bottom:2px; }
+    .kpi span { color:var(--muted); }
+    .ok { color:var(--green); }
+    .bad { color:var(--red); }
+    .warn { color:var(--amber); }
+    .blue { color:var(--blue); }
+    .pill { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:2px 8px; background:#fff; margin:2px 4px 2px 0; color:#344054; }
+    table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+    th, td { padding:10px 9px; border-bottom:1px solid var(--line); vertical-align:top; text-align:left; }
+    th { background:#eef2f6; color:#344054; font-weight:600; }
+    tr:last-child td { border-bottom:0; }
+    .small { font-size:12px; color:var(--muted); }
+    .section-note { border-left:4px solid var(--blue); background:#eef4ff; padding:12px 14px; border-radius:6px; margin:10px 0 14px; }
+    .two { grid-template-columns:1.2fr .8fr; }
+    .bar { height:9px; background:#e5e7eb; border-radius:999px; overflow:hidden; margin-top:8px; }
+    .bar > i { display:block; height:100%; background:var(--blue); }
+    @media (max-width:900px) { .kpis, .two { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>广告全量闭环测试报告</h1>
+      <div class="sub">生成时间：2026/4/23 15:26:20　|　快照：closed_loop_all_sku_snapshot_2026-04-23.json</div>
+    </header>
+
+    <section class="grid kpis">
+      <div class="card kpi"><b>599</b><span>覆盖 SKU</span></div>
+      <div class="card kpi"><b>434</b><span>产品画像</span></div>
+      <div class="card kpi"><b>8</b><span>接口成功动作</span></div>
+      <div class="card kpi"><b class="warn">2</b><span>接口成功但回查未确认</span></div>
+    </section>
+
+    <section class="grid two" style="margin-top:12px">
+      <div class="card">
+        <h3>这次闭环做了什么</h3>
+        <p>本轮先抓取全量广告和库存快照，再由 Codex 评估所有 SKU。实际执行只选择我认为值得做且风险可控的动作：竞价上调、竞价下调、暂停低效自动投放、开启 Q2 相关 SP/SB 关键词。建广告只做评估，不自动创建。</p>
+        <p>执行后已做接口结果统计、回查、便签写入和覆盖报告落地。</p>
+      </div>
+      <div class="card">
+        <h3>数据完整性</h3>
+        <p>SP关键词 6852，SP自动 1609，SP手动定位 1860，SB行 3641，库存 579。</p>
+        <div class="bar"><i style="width:72%"></i></div>
+        <div class="small">产品画像覆盖 434 / 599</div>
+      </div>
+    </section>
+
+    <h2>执行结果</h2>
+    <div class="section-note">
+      接口层：成功 8，失败 0。回查层：确认落地 6，未确认 2。便签：成功 7，失败 0。
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>SKU</th><th>动作</th><th>对象</th><th>执行值</th><th>结果</th><th>原因</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>SE7586</b><div class="small">30天销量 39｜库存 54天｜利润 23.2%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP手动商品定位<div class="small">385307744260508</div></td>
+          <td>0.31 -> 0.33</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>?7???9.71?3??ACOS 19.83%???54?????23.22%????????????????</td>
+        </tr><tr>
+          <td><b>HAY0219</b><div class="small">30天销量 28｜库存 105天｜利润 17.4%</div></td>
+          <td>竞价上调<div class="small">bid</div></td>
+          <td>SP关键词<div class="small">341475965833628</div></td>
+          <td>0.45 -> 0.47</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>rubber ducks in bulk ?7?4??ACOS 3.85%???105??????????????</td>
+        </tr><tr>
+          <td><b>QA3975</b><div class="small">30天销量 16｜库存 83天｜利润 1.6%</div></td>
+          <td>竞价下调<div class="small">bid</div></td>
+          <td>SP自动投放<div class="small">284719682849566</div></td>
+          <td>0.33 -> 0.3</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>?7?18??????5.94?0??????1.63%?????????????</td>
+        </tr><tr>
+          <td><b>DN1655</b><div class="small">30天销量 44｜库存 219天｜利润 -11.8%</div></td>
+          <td>关闭广告<div class="small">pause</div></td>
+          <td>SP自动投放<div class="small">523765893341629</div></td>
+          <td>pause</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>?7?23??????6.83?0????????????????????</td>
+        </tr><tr>
+          <td><b>QAA3142</b><div class="small">30天销量 41｜库存 86天｜利润 33.4%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SP关键词<div class="small">293784045627964</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>teacher appreciation pins bulk ?4?????????????30?41????86?????33.41%???????????</td>
+        </tr><tr>
+          <td><b>QAA3142</b><div class="small">30天销量 41｜库存 86天｜利润 33.4%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">384624165156200</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>SB inspirational gifts for women ?Q2??/???????????????SB????????</td>
+        </tr><tr>
+          <td><b>HEL0319</b><div class="small">30天销量 17｜库存 126天｜利润 21.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">542149406583244</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>nurse appreciation gifts ??4????5??????????126?????21.47%?????SB???</td>
+        </tr><tr>
+          <td><b>HAY1931</b><div class="small">30天销量 60｜库存 95天｜利润 17.5%</div></td>
+          <td>开启广告<div class="small">enable</div></td>
+          <td>SB关键词<div class="small">414912940177487</div></td>
+          <td>enable</td>
+          <td><b class="bad">not_run</b><div class="small">-</div></td>
+          <td>rubber ducks summer themed ??????????30?60????95????SB??????????</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>需要你看的建广告评估</h2>
+    <div class="section-note">这里只做建议，不自动建广告。优先看 Q2 礼物、教师节、护士周、基督励志、毕业季、夏季方向，并结合库存和利润。</div>
+    <table>
+      <thead><tr><th>SKU</th><th>建议方向</th><th>为什么值得看</th><th>数据</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>KZ5816</b></td>
+          <td><span class="pill">毕业季</span><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 251｜库存 70天｜利润 19.4%｜SB花费 $24.24</td>
+        </tr><tr>
+          <td><b>XIX0903</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 332｜库存 85天｜利润 23.1%｜SB花费 $242.65</td>
+        </tr><tr>
+          <td><b>KV3640</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 237｜库存 72天｜利润 26.0%｜SB花费 $23.09</td>
+        </tr><tr>
+          <td><b>QQ2806</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 212｜库存 105天｜利润 28.5%｜SB花费 $4.14</td>
+        </tr><tr>
+          <td><b>SE5608</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 215｜库存 99天｜利润 34.9%｜SB花费 $47.13</td>
+        </tr><tr>
+          <td><b>SHQ3375</b></td>
+          <td><span class="pill">墨西哥节/派对</span><span class="pill">Baby Shower</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 200｜库存 101天｜利润 25.6%｜SB花费 $32.47</td>
+        </tr><tr>
+          <td><b>KV0324</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 210｜库存 107天｜利润 14.6%｜SB花费 $61.28</td>
+        </tr><tr>
+          <td><b>HL4004</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 232｜库存 87天｜利润 43.1%｜SB花费 $164.78</td>
+        </tr><tr>
+          <td><b>YAN2278</b></td>
+          <td><span class="pill">墨西哥节/派对</span><span class="pill">Baby Shower</span></td>
+          <td>销量和库存可承接，但SB覆盖偏弱，建议评估新建SB/SBV</td>
+          <td>30天销量 173｜库存 91天｜利润 13.0%｜SB花费 $0.00</td>
+        </tr><tr>
+          <td><b>WAR1276</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 165｜库存 102天｜利润 20.1%｜SB花费 $6.99</td>
+        </tr><tr>
+          <td><b>SE5942</b></td>
+          <td><span class="pill">教师节/谢师周</span><span class="pill">护士周</span><span class="pill">墨西哥节/派对</span></td>
+          <td>销量和库存可承接，但SB覆盖偏弱，建议评估新建SB/SBV</td>
+          <td>30天销量 144｜库存 74天｜利润 36.2%｜SB花费 $0.00</td>
+        </tr><tr>
+          <td><b>EY1448</b></td>
+          <td><span class="pill">墨西哥节/派对</span></td>
+          <td>已有SB基础，可评估补长尾或补结构</td>
+          <td>30天销量 159｜库存 41天｜利润 24.9%｜SB花费 $25.16</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>库存 / 利润 / 备货复核</h2>
+    <table>
+      <thead><tr><th>SKU</th><th>建议</th><th>原因</th><th>关键数据</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>XIX0903</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 332｜库存 85天｜利润 23.1%</td>
+        </tr><tr>
+          <td><b>KZ5816</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 251｜库存 70天｜利润 19.4%</td>
+        </tr><tr>
+          <td><b>KV3640</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 237｜库存 72天｜利润 26.0%</td>
+        </tr><tr>
+          <td><b>HL4004</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 232｜库存 87天｜利润 43.1%</td>
+        </tr><tr>
+          <td><b>EY1448</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 159｜库存 41天｜利润 24.9%</td>
+        </tr><tr>
+          <td><b>SE5942</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 144｜库存 74天｜利润 36.2%</td>
+        </tr><tr>
+          <td><b>HL2535</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 141｜库存 67天｜利润 0.2%</td>
+        </tr><tr>
+          <td><b>UAN0188</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 127｜库存 71天｜利润 6.1%</td>
+        </tr><tr>
+          <td><b>LRU1537</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 126｜库存 83天｜利润 -0.9%</td>
+        </tr><tr>
+          <td><b>NAY0239</b></td>
+          <td>备货复核</td>
+          <td>近30天销量较高且库存可卖天数处于需要提前沟通区间</td>
+          <td>30天销量 121｜库存 48天｜利润 21.8%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>本轮建议下一步</h2>
+    <div class="grid two">
+      <div class="card">
+        <h3>先确认</h3>
+        <p>QAA3142 的 SP关键词开启和 SB关键词开启接口返回成功，但回查没有找到对应行。建议你在后台按 keywordId 搜索确认状态；如果后台已开启，说明当前回查筛选口径没有覆盖开启后的行。</p>
+      </div>
+      <div class="card">
+        <h3>再推进</h3>
+        <p>优先复核上方建广告建议，特别是有销量、有库存、SB覆盖弱的 Q2 礼物/教师/护士/基督/夏季方向。确认后再进入建广告执行。</p>
+      </div>
+    </div>
+
+    <h2>沉淀文件</h2>
+    <div class="card small">
+      <div>快照：data\snapshots\closed_loop_all_sku_snapshot_2026-04-23.json</div>
+      <div>动作 schema：data\snapshots\closed_loop_all_sku_action_schema_2026-04-23.json</div>
+      <div>执行回查：data\snapshots\execution_verify_2026-04-23.json</div>
+      <div>执行 summary：data\snapshots\execution_summary_2026-04-23.json</div>
+      <div>覆盖明细：data\snapshots\execution_coverage_2026-04-23.json</div>
+    </div>
+  </div>
+</body>
+</html>

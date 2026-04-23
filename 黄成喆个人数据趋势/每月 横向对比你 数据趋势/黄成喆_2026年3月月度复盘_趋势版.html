@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>黄成喆｜2026年3月月度复盘与下月Flag</title>
+<style>
+:root{
+  --bg:#0b1020;
+  --panel:#121932;
+  --panel-2:#0f1630;
+  --soft:#1a2447;
+  --line:rgba(255,255,255,.08);
+  --text:#ecf2ff;
+  --muted:#a7b5d6;
+  --accent:#7c9cff;
+  --accent-2:#56d4c7;
+  --good:#4cd88e;
+  --warn:#ffb95e;
+  --bad:#ff7d7d;
+  --shadow:0 20px 50px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:
+    radial-gradient(1200px 800px at 120% -10%, rgba(124,156,255,.18), transparent 55%),
+    radial-gradient(900px 600px at -10% 20%, rgba(86,212,199,.12), transparent 50%),
+    linear-gradient(180deg,#09101f 0%,#0b1020 100%);
+  color:var(--text);
+}
+.container{max-width:1180px;margin:0 auto;padding:44px 24px 88px}
+.hero{
+  display:grid;grid-template-columns:1.35fr .85fr;gap:24px;align-items:stretch;
+}
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:var(--shadow);
+}
+.hero-main{padding:34px 34px 30px}
+.hero-side{padding:28px 28px 24px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:999px;background:rgba(124,156,255,.14);border:1px solid rgba(124,156,255,.24);color:#d8e3ff;font-size:13px}
+h1{font-size:40px;line-height:1.15;margin:18px 0 12px}
+h2{font-size:26px;line-height:1.2;margin:0 0 14px}
+h3{font-size:18px;line-height:1.3;margin:0 0 10px}
+p{margin:0;color:var(--muted);line-height:1.8}
+.lead{font-size:16px;margin-top:12px;max-width:780px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.stat{
+  padding:18px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line);
+}
+.stat .label{font-size:13px;color:var(--muted);margin-bottom:8px}
+.stat .value{font-size:28px;font-weight:800;letter-spacing:.2px}
+.stat .sub{font-size:13px;color:#cbd6f3;margin-top:8px}
+.section{margin-top:22px;padding:28px}
+.section-title{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:18px}
+.tag{font-size:12px;padding:6px 10px;border-radius:999px;background:rgba(86,212,199,.12);border:1px solid rgba(86,212,199,.2);color:#cbfff8}
+.badge-good,.badge-warn,.badge-bad{
+  display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;font-size:12px;font-weight:700
+}
+.badge-good{background:rgba(76,216,142,.12);color:#b7ffd3;border:1px solid rgba(76,216,142,.24)}
+.badge-warn{background:rgba(255,185,94,.12);color:#ffe0b3;border:1px solid rgba(255,185,94,.24)}
+.badge-bad{background:rgba(255,125,125,.12);color:#ffd0d0;border:1px solid rgba(255,125,125,.24)}
+.list{display:grid;gap:12px;margin-top:10px}
+.item{padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.025);border:1px solid var(--line)}
+.item strong{color:#fff}
+.kpi-line{display:flex;justify-content:space-between;gap:12px;margin-top:10px;color:#c8d4f3;font-size:14px}
+.progress{height:10px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:8px}
+.progress > span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.bar-list{display:grid;gap:14px;margin-top:8px}
+.bar-row{display:grid;grid-template-columns:160px 1fr 74px;gap:14px;align-items:center}
+.bar-label{color:#dce6ff;font-size:14px}
+.bar-track{height:12px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}
+.bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#90a8ff,#56d4c7)}
+.bar-val{text-align:right;color:#d7e2ff;font-size:13px}
+.quote{
+  margin-top:18px;padding:18px 20px;border-radius:18px;
+  background:linear-gradient(135deg,rgba(124,156,255,.14),rgba(86,212,199,.08));
+  border:1px solid rgba(124,156,255,.18);color:#e8f0ff;line-height:1.8
+}
+.small{font-size:13px;color:var(--muted)}
+.timeline{display:grid;gap:14px}
+.timeline .step{padding:16px 18px;border-left:3px solid rgba(124,156,255,.55);background:rgba(255,255,255,.025);border-radius:0 16px 16px 0}
+.footer-note{margin-top:20px;font-size:13px;color:#93a6cf}
+hr.sep{border:none;height:1px;background:var(--line);margin:22px 0}
+@media (max-width: 980px){
+  .hero,.grid-4,.grid-3,.grid-2{grid-template-columns:1fr}
+  h1{font-size:32px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero">
+    <div class="card hero-main">
+      <div class="eyebrow">月度沉淀版 · 本月复盘 + 下月Flag + 趋势观察</div>
+      <h1>黄成喆｜2026年3月表现复盘</h1>
+      <p class="lead">
+        这版不是一次性的“分析结果页”，而是从这个月开始作为<strong>月月能连起来看的经营档案</strong>来设计。
+        以后每个月固定保留四块：<strong>上月Flag回看、当月结论、趋势基线、下月Flag</strong>，这样后面才能真正看出你是在进步、卡住，还是只是偶然波动。
+      </p>
+      <div class="grid-4">
+        <div class="stat">
+          <div class="label">0–5个月新品参考净利</div>
+          <div class="value">$57,736</div>
+          <div class="sub">部门组员第 11/74</div>
+        </div>
+        <div class="stat">
+          <div class="label">30–60天新品成功率</div>
+          <div class="value">72.0%</div>
+          <div class="sub">部门组员第 9/74</div>
+        </div>
+        <div class="stat">
+          <div class="label">总产品SP</div>
+          <div class="value">25.7%</div>
+          <div class="sub">越低越好｜部门组员第 28/74</div>
+        </div>
+        <div class="stat">
+          <div class="label">总产品广告占比</div>
+          <div class="value">7.9%</div>
+          <div class="sub">越低越好｜部门组员第 31/74</div>
+        </div>
+      </div>
+      <div class="quote">
+        <strong>本月一句话判断：</strong>
+        你这个月不是靠猛冲销售额取胜，而是靠<strong>新品前段质量 + 整体利润效率</strong>把表现撑住了。
+        真正限制上限的，不是广告花费过猛，而是<strong>6–12个月产品段利润塌陷、常规老盘下滑面偏大、头部款不够强</strong>。
+      </div>
+    </div>
+
+    <div class="card hero-side">
+      <div class="section-title" style="margin-bottom:12px">
+        <h3 style="margin:0">这份HTML以后固定怎么用</h3>
+      </div>
+      <div class="timeline">
+        <div class="step"><strong>① 先回看上月Flag</strong><br><span class="small">不是重新讲故事，而是直接判断：做到了 / 没做到 / 为什么。</span></div>
+        <div class="step"><strong>② 再看本月结论</strong><br><span class="small">优势、短板、真正影响利润/KPI的结构性问题。</span></div>
+        <div class="step"><strong>③ 再看趋势</strong><br><span class="small">把关键指标月月沉淀，避免只看单月情绪。</span></div>
+        <div class="step"><strong>④ 最后立下月Flag</strong><br><span class="small">必须可量化、可复盘，不能只写“继续加油”。</span></div>
+      </div>
+      <hr class="sep">
+      <div class="list">
+        <div class="item"><strong>本月基线已建立：</strong> 2026年3月作为第一份趋势版月报，后面月份都沿这套结构往下接。</div>
+        <div class="item"><strong>以后最值钱的功能：</strong> 不只是“分析全面”，而是能看出 <em>你哪些动作真的把盘子拉起来了</em>。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card section">
+    <div class="section-title">
+      <h2>01｜上月Flag回看</h2>
+      <span class="tag">趋势档案起点</span>
+    </div>
+    <div class="item">
+      <strong>本月是第一版趋势沉淀页，暂时没有上月Flag可以回看。</strong><br>
+      从下个月开始，这里会固定显示：<strong>上月立的3个Flag、实际完成情况、偏差原因、是否继续追踪</strong>。
+    </div>
+  </section>
+
+  <section class="grid-2" style="margin-top:22px">
+    <div class="card section">
+      <div class="section-title">
+        <h2>02｜本月最强的地方</h2>
+        <span class="badge-good">优势明确</span>
+      </div>
+      <div class="list">
+        <div class="item">
+          <strong>0–5个月新品段很能打。</strong><br>
+          参考净利 $57,736，净利率 17.0%，
+          小组第 1/5，大组第 3/37，部门第 11/74。
+        </div>
+        <div class="item">
+          <strong>新品不是瞎铺，成活率也高。</strong><br>
+          30–60天开售新品 25 个，成功率 72.0%，高于部门中位数 47.5%。
+        </div>
+        <div class="item">
+          <strong>整体广告效率不错。</strong><br>
+          总产品 SP 25.7%、广告占比 7.9%，都优于部门中位数（SP 26.9% / 广告占比 8.4%）。
+        </div>
+      </div>
+    </div>
+
+    <div class="card section">
+      <div class="section-title">
+        <h2>03｜本月最拖后腿的地方</h2>
+        <span class="badge-bad">需要重点修</span>
+      </div>
+      <div class="list">
+        <div class="item">
+          <strong>6–12个月产品段利润明显掉档。</strong><br>
+          参考净利率只有 10.0%，低于部门中位 12.7%。<br>
+          品均参考净利从 0–5个月的 $791，掉到 6–12个月的 $289。
+        </div>
+        <div class="item">
+          <strong>老盘守住利润，但增长没接回来。</strong><br>
+          老品净利率 21.2% 不差，但老品同比销量增长率 -18.8%，常规产品同比下滑20%+的数量达到 123 个。
+        </div>
+        <div class="item">
+          <strong>中腰部有厚度，但头部锚点不够。</strong><br>
+          月销 200–500 只有 5 个，500+ 为 0 个。整体还缺能把利润规模往上硬拉的头部款。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card section">
+    <div class="section-title">
+      <h2>04｜结构拆开看，你的问题具体卡在哪</h2>
+      <span class="badge-warn">不是单点问题，是结构问题</span>
+    </div>
+    <div class="grid-3">
+      <div class="stat">
+        <div class="label">0–5个月新品</div>
+        <div class="value">17.0%</div>
+        <div class="sub">净利率｜参考净利 $57,736</div>
+      </div>
+      <div class="stat">
+        <div class="label">6–12个月新品</div>
+        <div class="value">10.0%</div>
+        <div class="sub">净利率｜若回到部门中位，理论可多赚约 $7,705</div>
+      </div>
+      <div class="stat">
+        <div class="label">老品盘</div>
+        <div class="value">21.2%</div>
+        <div class="sub">净利率不差，但同比 -18.8%</div>
+      </div>
+    </div>
+    <div class="quote">
+      <strong>所以真正的判断不是“你会不会做新品”，而是：</strong><br>
+      你前段新品能力是在线的，但产品走到 6–12 个月以后，利润承接和结构优化没有同步跟上；老品盘则是利润守住了，但下滑面偏大，导致你整体上限被卡住。
+    </div>
+  </section>
+
+  <section class="grid-2" style="margin-top:22px">
+    <div class="card section">
+      <div class="section-title">
+        <h2>05｜产品层级分布</h2>
+        <span class="tag">总产品 474 个</span>
+      </div>
+      <div class="bar-list">
+        <div class="bar-row"><div class="bar-label">月销 0–50</div><div class="bar-track"><div class="bar-fill" style="width:82.7%"></div></div><div class="bar-val">392</div></div>
+        <div class="bar-row"><div class="bar-label">月销 50–100</div><div class="bar-track"><div class="bar-fill" style="width:11.0%"></div></div><div class="bar-val">52</div></div>
+        <div class="bar-row"><div class="bar-label">月销 100–150</div><div class="bar-track"><div class="bar-fill" style="width:3.0%"></div></div><div class="bar-val">14</div></div>
+        <div class="bar-row"><div class="bar-label">月销 150–200</div><div class="bar-track"><div class="bar-fill" style="width:2.3%"></div></div><div class="bar-val">11</div></div>
+        <div class="bar-row"><div class="bar-label">月销 200–500</div><div class="bar-track"><div class="bar-fill" style="width:1.1%"></div></div><div class="bar-val">5</div></div>
+        <div class="bar-row"><div class="bar-label">月销 500+</div><div class="bar-track"><div class="bar-fill" style="width:0.0%"></div></div><div class="bar-val">0</div></div>
+      </div>
+      <div class="footer-note">
+        这说明你的底盘不是空的，中腰部也有一批，但真正能把整个月报“顶起来”的头部SKU还不够。
+      </div>
+    </div>
+
+    <div class="card section">
+      <div class="section-title">
+        <h2>06｜以后月月都要沉淀的趋势字段</h2>
+        <span class="tag">建议固定保留</span>
+      </div>
+      <div class="list">
+        <div class="item"><strong>利润效率：</strong> 0–5个月净利 / 净利率、6–12个月净利率、老品净利率、总产品SP、总广告占比。</div>
+        <div class="item"><strong>增长质量：</strong> 月新品开售量、30–60天新品成功率、老品同比销量增长率、常规同比下滑20%+数量。</div>
+        <div class="item"><strong>头部结构：</strong> 月销150–200数量、200–500数量、500+数量。</div>
+        <div class="item"><strong>动作复盘：</strong> 上月立的Flag完成了没有，偏差来自广告、库存、价格、节奏还是产品本身。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card section">
+    <div class="section-title">
+      <h2>07｜2026年4月Flag（下个月要盯的不是感觉，是结果）</h2>
+      <span class="badge-good">必须可回看</span>
+    </div>
+
+    <div class="grid-3">
+      <div class="stat">
+        <div class="label">Flag 1｜修复 6–12个月段利润</div>
+        <div class="value">10.0% → 12.0%</div>
+        <div class="sub">目标：净利率至少抬到 12%</div>
+        <div class="progress"><span style="width:83.5%"></span></div>
+      </div>
+      <div class="stat">
+        <div class="label">Flag 2｜压缩常规同比下滑面</div>
+        <div class="value">123 → ≤ 110</div>
+        <div class="sub">目标：把常规同比下滑20%+数量压到 110 以内</div>
+        <div class="progress"><span style="width:89.4%"></span></div>
+      </div>
+      <div class="stat">
+        <div class="label">Flag 3｜补头部SKU</div>
+        <div class="value">5 → ≥ 7</div>
+        <div class="sub">目标：200–500 档至少做到 7 个</div>
+        <div class="progress"><span style="width:71.4%"></span></div>
+      </div>
+    </div>
+
+    <div class="list" style="margin-top:18px">
+      <div class="item">
+        <strong>Flag 1 解释：</strong> 这块最值钱。你不是不会赚钱，而是 6–12个月段在吞你本来能拿到的利润。
+      </div>
+      <div class="item">
+        <strong>Flag 2 解释：</strong> 老盘如果只看“还在赚钱”，容易误判；真正要看的是下滑面有没有收窄。
+      </div>
+      <div class="item">
+        <strong>Flag 3 解释：</strong> 想明显往上冲，不是再省一点广告费，而是要把 1–2 个中腰部SKU往头部推。
+      </div>
+    </div>
+  </section>
+
+  <section class="grid-2" style="margin-top:22px">
+    <div class="card section">
+      <div class="section-title">
+        <h2>08｜下个月回看时，我会怎么判你是不是进步了</h2>
+      </div>
+      <div class="list">
+        <div class="item"><strong>先看 Flag 完成率：</strong> 不是先看净利绝对值，而是先看你立的三个目标有没有兑现。</div>
+        <div class="item"><strong>再看结构有没有变好：</strong> 6–12个月利润有没有回升、下滑面有没有收窄、头部SKU有没有增加。</div>
+        <div class="item"><strong>最后才看规模：</strong> 如果效率和结构都更好了，利润规模自然更容易抬起来。</div>
+      </div>
+    </div>
+
+    <div class="card section">
+      <div class="section-title">
+        <h2>09｜以后这套HTML会越来越值钱的原因</h2>
+      </div>
+      <div class="list">
+        <div class="item"><strong>单月分析</strong> 只能告诉你“这个月怎么样”。</div>
+        <div class="item"><strong>连续月报</strong> 才能告诉你“哪些动作真的有效、哪些只是碰巧”。</div>
+        <div class="item"><strong>等沉淀 3–6 个月以后</strong>，你就能明显看出自己的经营节奏、弱点类型和真正拉利润的杠杆。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card section">
+    <div class="section-title">
+      <h2>10｜本月最终结论</h2>
+      <span class="tag">给未来的自己留一句准话</span>
+    </div>
+    <div class="quote">
+      <strong>2026年3月不是差月，而是“效率不错、前段新品很能打，但中段产品和老盘结构把上限卡住了”的一个月。</strong><br><br>
+      以后回头看，如果 2026年4月 能把 6–12个月利润抬起来、把常规下滑面缩小、再补出一两个头部SKU，
+      那就说明你不是偶然表现好，而是真的在把盘子做厚、做稳、做强。
+    </div>
+    <div class="footer-note">
+      数据来源：/mnt/data/2026年3月半精品月度参考排行更新20260407.xlsx（个人展示）｜分析对象：Amazon销售二部 / SJ / SJ4 / 黄成喆（组员）
+    </div>
+  </section>
+</div>
+</body>
+</html>
