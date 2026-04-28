@@ -11,6 +11,17 @@ This file keeps durable operating memory for future Codex sessions. Prefer this 
 
 ## KPI And Decision Context
 
+- Daily advertising decisions must only consider the user's eligible SKU pool: sales status is `正常销售` or `保留页面`, the SKU is already on sale / launched (`已开售`), and the site is US or UK. Do not use all exported SKUs as the default decision universe.
+- Outside that eligible pool, do not create campaigns, increase bids, pause keywords, or run broad cleanup unless the user explicitly names that SKU/group.
+- "Full advertising adjustment" / `全量广告调整` is the default product-level advertising operations method for the whole eligible product pool, not only for manually named SKUs. Current named-SKU runs are experiments to calibrate and verify the same logic before wider rollout. For each SKU in scope, treat it as a complete advertising operations package, not a single bid edit or one ad-group test. The workflow must cover SKU-level sales/order/profit or margin context, inventory days, season window, `/product/chart` impressions/clicks trend, `/product/adSkuSummary`, `/product/adProductData`, SP auto, SP keyword, SP manual target, SB keyword, SB target, campaign/product-ad state, paused but potentially valuable entities, campaign budget, placement/top-of-search, weak traffic waste, and listing-session/conversion/listing readiness. Produce one complete action package with push, trim, state, budget/placement, and review items; dry-run executable actions, execute only validated actions, verify landing, and report API success separately from true landed success.
+- When the user asks about a concrete SKU, do not default to a full snapshot export. First use `node scripts\execute\fetch_sku_ad_product_data.js <SKU> [siteId] [days]` or `node scripts\execute\fetch_sku_ad_product_data.js <SKU> [siteId] <startYmd> <endYmd>`. It calls `/product/adProductData` in the logged-in ad backend tab and returns all ad-product rows for that SKU.
+- Pick the single-SKU date window from the business question: recent 7/30 days for current health, or an explicit historical window for comparison. Do not hard-code 30 days when the user is asking a narrower or older question.
+- Never store hard-coded `x-xsrf-token` values. Single-SKU ad fetches must execute inside the logged-in `adv.yswg.com.cn` debug tab and use the browser session/cookie.
+- Interface selection rule: named SKU overall health starts with `/product/adSkuSummary` via `node scripts\execute\fetch_ad_sku_summary.js <siteId> <days> <SKU>`; named SKU ad-row breakdown uses `/product/adProductData` via `fetch_sku_ad_product_data.js` and can include `dailyBudget`; specific SP/SB ad-group rows use `fetch_ad_group_rows.js` for `/keyword/findAllNew` with local `campaignId + adGroupId` filtering; campaign placement uses `fetch_campaign_placement.js` for `/placement/findAllPlacement`; specific SP ad-group internals use `fetch_sp_group_detail.js` for `/advTarget/findManualProductTarget` and `/customerSearch/targetFindAll`; full snapshot is for cross-SKU pool discovery/prioritization only.
+- `fetch_ad_group_rows.js` property mapping: `1` SP keyword, `2 product_target` SP auto, `3 product_manual_target` SP manual target, `4` SB keyword, `6` SB target. The endpoint returns property-level rows before local filtering, so never use the unfiltered response as the target group. `/customerSearch/targetFindAll` is useful for SP auto/manual groups; SB and some SP keyword groups may return only an empty aggregate placeholder.
+- Budget and placement are available dimensions and automatic-execution capable. SKU ad-product rows may expose campaign `dailyBudget`; campaign placement reads use `/placement/findAllPlacement`. SP budget action schema: `entityType=campaign`, `actionType=budget`, `suggestedBudget`; executor writes `PATCH /campaign/batchCampaign`. SP placement action schema: `entityType=campaign`, `actionType=placement`, `placementKey` (`placementProductPage`, `placementTop`, `placementRestOfSearch`), `suggestedPlacementPercent`; executor writes `PATCH /campaign/editCampaignColumn`.
+- Inventory listing performance is part of AI context: `session_7/14/21` are last week / two weeks ago / three weeks ago sessions, and `percentage_7/14/21` are the matching listing conversion rates. Product contexts expose these as `listingSessions` and `listingConversionRates`.
+
 - Q2 KPI context includes old-product net profit YoY growth, net profit rate, ad share control, stuck-stock control, and new-product ad share control.
 - SKU-level "同" is a critical field. Treat `year_over_year_asin_rate` as the primary same-period / YoY field for SKU watch decisions.
 - Do not substitute `year_over_year_rank` for "同".
@@ -22,6 +33,7 @@ This file keeps durable operating memory for future Codex sessions. Prefer this 
 - If a fresh export contains blank product-card inventory/YoY fields for a SKU, daily reporting may fill those fields from another same-day snapshot while keeping the latest advertising interface rows. This protects the critical "同"口径 from being overwritten by zero-filled rows.
 - The personal trend HTML folder is a long-term decision archive: `黄成喆个人数据趋势/每日 近七天 数据趋势/`.
 - Every daily run should update that folder with a fresh personal trend HTML after exporting the snapshot. Use it first to identify abnormal seller/developer lines, then use ad + inventory data to locate SKU-level action pools.
+- Daily learning rule: every operating day must read today's freshest snapshot/interface data before deciding, then persist the day's snapshot, plan, execution verification, and impact/learning records under `data/snapshots/` or `data/attribution/`. Do not reuse yesterday's data as the decision baseline unless today's fetch failed and the report clearly marks `baseline_quality=incomplete`.
 
 ## Daily Watchlist
 
@@ -53,6 +65,16 @@ Command after exporting a fresh snapshot:
 ```powershell
 node scripts\diagnostics\watch_daily_sku_group.js data\snapshots\latest_snapshot.json
 ```
+
+## Current Weekly Focus
+
+- Mother's Day `SJ` + `HJ` is the top weekly opportunity. Overall trend is breaking out, but decisions must split innovative products from homogeneous/me-too products. Balance profit and advertising expansion; do not blindly push spend if margin or differentiation is weak.
+- Mother's Day normally-sellable tags are now actionable: Christian, women's products, and floral products show good upward trends and should enter the closed loop first when inventory and margin allow.
+- Nurse Week and Teacher Appreciation Week have risen over the last three days, but ad share is materially higher. Before pushing, check sellable inventory, inventory days, ad share, and whether the product can actually move.
+- Nurse Week winners: notebook + pen sets and innovative new products are performing best; tote bags are secondary priority.
+- Graduation / end-of-year is urgent after Mother's Day, but high-inventory graduation SKUs must be prioritized even if overall urgency is second tier.
+- Small or past seasonal themes need separate screening. `volunteer` can still have orders; `lab week` is visibly declining and should not be treated as a broad push theme.
+- Pure seasonal tags and normally-sellable holiday-adjacent tags must both pass eligibility checks before action. When urgency conflicts, prioritize urgent SKUs with confirmed inventory, margin, and trend evidence.
 
 ## Recent Execution Memory
 

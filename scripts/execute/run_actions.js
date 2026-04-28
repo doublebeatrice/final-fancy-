@@ -3,6 +3,11 @@ const { run } = require('../../auto_adjust');
 
 async function main() {
   const args = process.argv.slice(2);
+  const hasDryRunFlag = args.includes('--dry-run');
+  const hasExecuteFlag = args.includes('--execute');
+  if (hasDryRunFlag && hasExecuteFlag) {
+    throw new Error('choose either --dry-run or --execute');
+  }
   const actionSchemaFile = args.find(arg => !arg.startsWith('--')) || process.env.ACTION_SCHEMA_FILE || '';
   if (!actionSchemaFile) {
     throw new Error('missing action schema file path: pass argv[2] or ACTION_SCHEMA_FILE');
@@ -15,6 +20,7 @@ async function main() {
   await run({
     actionSchemaFile: path.resolve(actionSchemaFile),
     snapshotFile: snapshotFile ? path.resolve(snapshotFile) : '',
+    dryRun: hasExecuteFlag ? false : (hasDryRunFlag ? true : undefined),
   });
 }
 

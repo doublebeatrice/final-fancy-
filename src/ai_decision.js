@@ -1,5 +1,19 @@
 const fs = require('fs');
 const path = require('path');
+const { scoreTermRelevance } = require('./product_profile');
+
+const EXECUTABLE_ACTION_SOURCES = new Set(['codex', 'strategy', 'sp_7day_untouched', 'sb_7day_untouched']);
+const ACCEPTED_ACTION_SOURCES = new Set([...EXECUTABLE_ACTION_SOURCES, 'generator_candidate', 'bugfix_cleanup']);
+const CRITICAL_REVIEW_RISKS = new Set([
+  'manual_review',
+  'image_review_required',
+  'traffic_push',
+  'non_codex_source',
+  'large_budget_change',
+  'large_placement_change',
+  'invalid_placement',
+  'high_volume_guard',
+]);
 
 function toNum(value) {
   const n = Number(value);
@@ -12,8 +26,288 @@ function normalizeSourceList(source) {
   return [String(source)];
 }
 
+function normalizeActionSources(source, fallback = ['codex']) {
+  const normalized = normalizeSourceList(source)
+    .map(item => item.trim())
+    .filter(item => ACCEPTED_ACTION_SOURCES.has(item));
+  if (normalized.length) return [...new Set(normalized)];
+  return normalizeSourceList(fallback).filter(item => ACCEPTED_ACTION_SOURCES.has(item));
+}
+
+function normalizeText(value) {
+  return String(value || '').replace(/\s+/g, ' ').trim();
+}
+
+function uniqStrings(list) {
+  return [...new Set((list || []).map(item => normalizeText(item)).filter(Boolean))];
+}
+
+function summarizeListing(listing) {
+  if (!listing || typeof listing !== 'object') return null;
+  const bullets = uniqStrings(Array.isArray(listing.bullets) ? listing.bullets : []).slice(0, 8);
+  const breadcrumbs = uniqStrings(Array.isArray(listing.breadcrumbs) ? listing.breadcrumbs : []).slice(0, 6);
+  const imageUrls = uniqStrings(Array.isArray(listing.imageUrls) ? listing.imageUrls : []);
+  return {
+    title: normalizeText(listing.title),
+    brand: normalizeText(listing.brand),
+    bullets,
+    bulletHighlights: bullets.slice(0, 4),
+    description: normalizeText(listing.description),
+    aPlusText: normalizeText(listing.aPlusText),
+    breadcrumbs,
+    categoryPath: breadcrumbs.join(' > '),
+    variationText: normalizeText(listing.variationText),
+    mainImageUrl: normalizeText(listing.mainImageUrl),
+    imageUrls,
+    imageCount: imageUrls.length,
+    hasImages: imageUrls.length > 0,
+    hasAPlus: !!normalizeText(listing.aPlusText),
+    isAvailable: listing.isAvailable === true,
+    price: toNum(listing.price),
+    reviewCount: toNum(listing.reviewCount),
+    reviewRating: toNum(listing.reviewRating),
+    hasPrime: listing.hasPrime === true,
+    bsr: Array.isArray(listing.bsr) ? listing.bsr.slice(0, 5) : [],
+    fetchedAt: listing.fetchedAt || null,
+  };
+}
+
+function summarizeProductProfile(profile) {
+  if (!profile || typeof profile !== 'object') return null;
+  return {
+    version: profile.version || null,
+    source: profile.source || '',
+    signature: profile.signature || '',
+    stale: profile.stale === true,
+    productType: normalizeText(profile.productType),
+    productTypes: uniqStrings(Array.isArray(profile.productTypes) ? profile.productTypes : []).slice(0, 8),
+    targetAudience: uniqStrings(Array.isArray(profile.targetAudience) ? profile.targetAudience : []).slice(0, 8),
+    occasion: uniqStrings(Array.isArray(profile.occasion) ? profile.occasion : []).slice(0, 8),
+    seasonality: uniqStrings(Array.isArray(profile.seasonality) ? profile.seasonality : []).slice(0, 4),
+    visualTheme: uniqStrings(Array.isArray(profile.visualTheme) ? profile.visualTheme : []).slice(0, 18),
+    positioning: normalizeText(profile.positioning),
+    categoryPath: normalizeText(profile.categoryPath),
+    hasImages: profile.hasImages === true,
+    imageCount: toNum(profile.imageCount),
+    mainImageUrl: normalizeText(profile.mainImageUrl),
+    confidence: toNum(profile.confidence),
+    needsImageUnderstanding: profile.needsImageUnderstanding === true,
+    imageUnderstandingAt: profile.imageUnderstandingAt || null,
+    generatedAt: profile.generatedAt || null,
+  };
+}
+
+function parsePlacementPercent(value) {
+  if (value === undefined || value === null || value === '') return null;
+  const text = String(value);
+  const afterColon = text.includes(':') ? text.split(':').pop() : text;
+  return toNum(afterColon);
+}
+
+function actionBaselineQuality(action) {
+  const warnings = [];
+  if (action.actionType === 'bid' && (!Number.isFinite(action.currentBid) || action.currentBid <= 0)) {
+    warnings.push('missing_current_bid');
+  }
+  if (action.actionType === 'budget' && (!Number.isFinite(action.currentBudget) || action.currentBudget <= 0)) {
+    warnings.push('missing_current_budget');
+  }
+  if (action.actionType === 'placement' && !Number.isFinite(action.currentPlacementPercent)) {
+    warnings.push('missing_current_placement');
+  }
+  if (!Array.isArray(action.evidence) || !action.evidence.length) warnings.push('missing_evidence');
+  return {
+    level: warnings.length ? 'incomplete' : 'complete',
+    warnings,
+  };
+}
+
+function inferExpectedEffect(action) {
+  if (action.expectedEffect && typeof action.expectedEffect === 'object') return action.expectedEffect;
+  const direction = action.direction || '';
+  if (action.actionType === 'budget') {
+    return direction === 'up'
+      ? { impressions: 'up', clicks: 'up', spend: 'up', orders: 'watch', acos: 'watch' }
+      : { impressions: 'down', clicks: 'down', spend: 'down', orders: 'watch', acos: 'watch' };
+  }
+  if (action.actionType === 'placement') {
+    return { impressions: 'up', clicks: 'up', spend: 'up', orders: 'watch', acos: 'watch' };
+  }
+  if (action.actionType === 'bid') {
+    return direction === 'up'
+      ? { impressions: 'up', clicks: 'up', spend: 'up', orders: 'watch', acos: 'watch' }
+      : { impressions: 'down', clicks: 'down', spend: 'down', orders: 'watch', acos: 'watch' };
+  }
+  if (action.actionType === 'enable' || action.actionType === 'create') {
+    return { impressions: 'up', clicks: 'up', spend: 'up', orders: 'watch', acos: 'watch' };
+  }
+  if (action.actionType === 'pause') {
+    return { impressions: 'down', clicks: 'down', spend: 'down', orders: 'watch', acos: 'watch' };
+  }
+  return { effect: 'review' };
+}
+
+function buildLearningContext(product, entity, action, rawAction = {}) {
+  const quality = actionBaselineQuality(action);
+  return {
+    enabled: true,
+    hypothesis: normalizeText(rawAction.hypothesis || action.hypothesis || action.reason),
+    expectedEffect: inferExpectedEffect({ ...action, expectedEffect: rawAction.expectedEffect }),
+    measurementWindowDays: Array.isArray(rawAction.measurementWindowDays)
+      ? rawAction.measurementWindowDays
+      : [1, 3, 7, 14, 30],
+    baselineQuality: quality.level,
+    dataQualityWarnings: quality.warnings,
+    baseline: {
+      sku: product?.sku || action.sku || '',
+      asin: product?.asin || '',
+      entityType: action.entityType,
+      entityId: action.id,
+      currentBid: Number.isFinite(action.currentBid) ? action.currentBid : null,
+      suggestedBid: Number.isFinite(action.suggestedBid) ? action.suggestedBid : null,
+      currentBudget: Number.isFinite(action.currentBudget) ? action.currentBudget : null,
+      suggestedBudget: Number.isFinite(action.suggestedBudget) ? action.suggestedBudget : null,
+      placementKey: action.placementKey || '',
+      currentPlacementPercent: Number.isFinite(action.currentPlacementPercent) ? action.currentPlacementPercent : null,
+      suggestedPlacementPercent: Number.isFinite(action.suggestedPlacementPercent) ? action.suggestedPlacementPercent : null,
+      profitRate: toNum(product?.profitRate),
+      invDays: toNum(product?.invDays),
+      unitsSold_7d: toNum(product?.unitsSold_7d),
+      unitsSold_30d: toNum(product?.unitsSold_30d),
+      adDependency: toNum(product?.adDependency),
+      listingSessions: product?.listingSessions || {},
+      listingConversionRates: product?.listingConversionRates || {},
+      productChart: product?.productChart || null,
+      adStats: product?.adStats || {},
+      sbStats: product?.sbStats || {},
+      listingFetch: product?.listing ? {
+        hasListing: true,
+        isAvailable: product.listing.isAvailable,
+        hasImages: product.listing.hasImages,
+        imageCount: product.listing.imageCount,
+        fetchedAt: product.listing.fetchedAt,
+      } : { hasListing: false },
+      entityStats7d: entity?.stats7d || {},
+      entityStats30d: entity?.stats30d || {},
+    },
+    confounders: uniqStrings([
+      ...(Array.isArray(rawAction.confounders) ? rawAction.confounders : []),
+      product?.listing ? '' : 'listing_missing',
+      quality.warnings.length ? `baseline_${quality.level}` : '',
+    ]),
+  };
+}
+
+function hasCriticalReviewRisk(action) {
+  const text = `${action.riskLevel || ''} ${action.reason || ''}`;
+  if (CRITICAL_REVIEW_RISKS.has(action.riskLevel)) return true;
+  return [...CRITICAL_REVIEW_RISKS].some(risk => text.includes(risk));
+}
+
+function buildVerificationSpec(action) {
+  const entityType = String(action?.entityType || '');
+  const actionType = String(action?.actionType || '');
+
+  if (actionType === 'review' || actionType === 'structure_fix') return null;
+
+  if (actionType === 'bid') {
+    const source = {
+      keyword: 'kwRows',
+      autoTarget: 'autoRows',
+      manualTarget: 'targetRows',
+      sbKeyword: 'sbRows',
+      sbTarget: 'sbRows',
+    }[entityType];
+    if (!source || !Number.isFinite(toNum(action?.suggestedBid))) return null;
+    return {
+      verifySource: source,
+      verifyField: 'bid',
+      expected: {
+        type: 'number',
+        sourceField: 'suggestedBid',
+        value: toNum(action.suggestedBid),
+      },
+    };
+  }
+
+  if (actionType === 'enable' || actionType === 'pause') {
+    const source = {
+      keyword: 'kwRows',
+      autoTarget: 'autoRows',
+      manualTarget: 'targetRows',
+      productAd: 'productAdRows',
+      sbKeyword: 'sbRows',
+      sbTarget: 'sbRows',
+      sbCampaign: 'sbCampaignRows',
+    }[entityType];
+    if (!source) return null;
+    return {
+      verifySource: source,
+      verifyField: 'state',
+      expected: {
+        type: 'enum',
+        sourceField: 'actionType',
+        value: actionType === 'enable' ? 'enabled' : 'paused',
+      },
+    };
+  }
+
+  if (actionType === 'budget') {
+    if (!Number.isFinite(toNum(action?.suggestedBudget))) return null;
+    return {
+      verifySource: entityType === 'sbCampaign' ? 'sbCampaignRows' : 'campaignRows',
+      verifyField: 'budget',
+      expected: {
+        type: 'number',
+        sourceField: 'suggestedBudget',
+        value: toNum(action.suggestedBudget),
+      },
+    };
+  }
+
+  if (actionType === 'placement') {
+    if (!action?.placementKey || !Number.isFinite(toNum(action?.suggestedPlacementPercent))) return null;
+    return {
+      verifySource: 'campaignRows',
+      verifyField: action.placementKey,
+      expected: {
+        type: 'number',
+        sourceField: 'suggestedPlacementPercent',
+        value: toNum(action.suggestedPlacementPercent),
+      },
+    };
+  }
+
+  if (actionType === 'create') {
+    return {
+      verifySource: 'campaignRows',
+      verifyField: 'campaignId',
+      expected: {
+        type: 'created_entity',
+        sourceField: 'apiResult.campaignId',
+        value: 'created_campaign_visible_or_pending_visibility',
+      },
+    };
+  }
+
+  return null;
+}
+
+function hasRequiredVerification(action) {
+  if (!action || action.actionType === 'review' || action.actionType === 'structure_fix') return true;
+  return !!(
+    action.verifySource &&
+    action.verifyField &&
+    action.expected &&
+    action.expected.value !== undefined &&
+    action.expected.value !== null &&
+    action.expected.value !== ''
+  );
+}
+
 function detectCardEntities(card) {
   const campaigns = Array.isArray(card?.campaigns) ? card.campaigns : [];
+  const spCampaigns = [];
   const keywords = [];
   const autoTargets = [];
   const productAds = [];
@@ -21,6 +315,22 @@ function detectCardEntities(card) {
   const sponsoredBrands = [];
 
   for (const campaign of campaigns) {
+    if (campaign.campaignId && ((campaign.keywords || []).length || (campaign.autoTargets || []).length || (campaign.productAds || []).length)) {
+      spCampaigns.push({
+        id: String(campaign.campaignId || ''),
+        entityType: 'campaign',
+        campaignId: String(campaign.campaignId || ''),
+        adGroupId: String(campaign.adGroupId || ''),
+        accountId: campaign.accountId || '',
+        siteId: campaign.siteId || 4,
+        currentBid: null,
+        currentBudget: toNum(campaign.budget),
+        placementTop: parsePlacementPercent(campaign.placementTop),
+        placementProductPage: parsePlacementPercent(campaign.placementProductPage ?? campaign.placementPage),
+        placementRestOfSearch: parsePlacementPercent(campaign.placementRestOfSearch),
+        state: campaign.state || campaign.status || '',
+      });
+    }
     for (const keyword of campaign.keywords || []) {
       keywords.push({
         id: String(keyword.id || ''),
@@ -91,7 +401,7 @@ function detectCardEntities(card) {
     }
   }
 
-  return [...keywords, ...autoTargets, ...productAds, ...sbCampaigns, ...sponsoredBrands].filter(entity => entity.id);
+  return [...spCampaigns, ...keywords, ...autoTargets, ...productAds, ...sbCampaigns, ...sponsoredBrands].filter(entity => entity.id);
 }
 
 function buildRowIndexes(rowsByType = {}) {
@@ -191,33 +501,40 @@ function buildProductContexts(cards, rowsByType, sp7DayRows, sb7DayRows, history
     recentHistoryBySku.get(sku).push(item);
   }
 
-  const products = (cards || []).map(card => ({
-    sku: card.sku,
-    asin: card.asin,
-    profitRate: toNum(card.profitRate),
-    invDays: toNum(card.invDays),
-    unitsSold_7d: toNum(card.unitsSold_7d),
-    unitsSold_30d: toNum(card.unitsSold_30d),
-    adDependency: toNum(card.adDependency),
-    yoySales: toNum(card.yoySales),
-    yoySalesPct: toNum(card.yoySalesPct),
-    yoyUnitsPct: toNum(card.yoyUnitsPct),
-    yoyAsinPct: toNum(card.yoyAsinPct),
-    yoySourceField: card.yoySourceField || null,
-    yoyRank: toNum(card.yoyRank),
-    note: card.note || null,
-    personalSales: card.personalSales || null,
-    adStats: card.adStats || {},
-    sbStats: card.sbStats || {},
-    listing: card.listing || null,
-    createContext: card.createContext || null,
-    history: (recentHistoryBySku.get(String(card.sku || '')) || []).slice(-10),
-    adjustableAds: detectCardEntities(card).map(entity => ({
-      ...entity,
-      sourceSignals: ['strategy'],
-    })),
-    unmappedCandidates: [],
-  }));
+  const products = (cards || []).map(card => {
+    const productProfile = summarizeProductProfile(card.productProfile);
+    return {
+      sku: card.sku,
+      asin: card.asin,
+      profitRate: toNum(card.profitRate),
+      invDays: toNum(card.invDays),
+      unitsSold_7d: toNum(card.unitsSold_7d),
+      unitsSold_30d: toNum(card.unitsSold_30d),
+      adDependency: toNum(card.adDependency),
+      yoySales: toNum(card.yoySales),
+      yoySalesPct: toNum(card.yoySalesPct),
+      yoyUnitsPct: toNum(card.yoyUnitsPct),
+      yoyAsinPct: toNum(card.yoyAsinPct),
+      yoySourceField: card.yoySourceField || null,
+      yoyRank: toNum(card.yoyRank),
+      note: card.note || null,
+      personalSales: card.personalSales || null,
+      listingSessions: card.listingSessions || {},
+      listingConversionRates: card.listingConversionRates || {},
+      adStats: card.adStats || {},
+      sbStats: card.sbStats || {},
+      listing: summarizeListing(card.listing),
+      productProfile,
+      createContext: card.createContext || null,
+      history: (recentHistoryBySku.get(String(card.sku || '')) || []).slice(-10),
+      adjustableAds: detectCardEntities(card).map(entity => ({
+        ...entity,
+        productMatch: scoreTermRelevance(entity.text || entity.targetType || '', productProfile || {}),
+        sourceSignals: ['codex'],
+      })),
+      unmappedCandidates: [],
+    };
+  });
 
   attachSevenDaySignals(products, rowIndexes, sp7DayRows, sb7DayRows);
   return { products, rowIndexes };
@@ -225,13 +542,13 @@ function buildProductContexts(cards, rowsByType, sp7DayRows, sb7DayRows, history
 
 function normalizeEntityType(value) {
   const text = String(value || '').trim();
-  if (['keyword', 'autoTarget', 'manualTarget', 'productAd', 'sbKeyword', 'sbTarget', 'sbCampaign', 'skuCandidate', 'sbCampaignCandidate'].includes(text)) return text;
+  if (['campaign', 'keyword', 'autoTarget', 'manualTarget', 'productAd', 'sbKeyword', 'sbTarget', 'sbCampaign', 'skuCandidate', 'sbCampaignCandidate'].includes(text)) return text;
   return 'unknown';
 }
 
 function normalizeActionType(value) {
   const text = String(value || '').trim().toLowerCase();
-  if (['bid', 'enable', 'pause', 'review', 'create', 'structure_fix'].includes(text)) return text;
+  if (['bid', 'budget', 'placement', 'enable', 'pause', 'review', 'create', 'structure_fix'].includes(text)) return text;
   return 'review';
 }
 
@@ -258,7 +575,23 @@ function gateRisk(product, entity, action) {
   const gated = { ...action };
   const currentBid = toNum(gated.currentBid);
   const suggestedBid = toNum(gated.suggestedBid);
+  const currentBudget = toNum(gated.currentBudget);
+  const suggestedBudget = toNum(gated.suggestedBudget);
   const highVolume = isHighVolumeProduct(product);
+  const sources = normalizeActionSources(gated.actionSource, []);
+
+  if (gated.actionType === 'review') {
+    gated.canAutoExecute = false;
+    return gated;
+  }
+
+  if (sources.some(source => !EXECUTABLE_ACTION_SOURCES.has(source))) {
+    gated.actionType = 'review';
+    gated.canAutoExecute = false;
+    gated.riskLevel = 'manual_review';
+    gated.reason = `${gated.reason || ''} [risk_gate:non_codex_source:${sources.join('+') || 'unknown'}]`.trim();
+    return gated;
+  }
 
   if (gated.actionType === 'structure_fix') {
     gated.actionType = 'review';
@@ -292,11 +625,6 @@ function gateRisk(product, entity, action) {
     return gated;
   }
 
-  if (gated.actionType === 'review') {
-    gated.canAutoExecute = false;
-    return gated;
-  }
-
   if (gated.entityType === 'skuCandidate' || gated.entityType === 'sbCampaignCandidate') {
     gated.actionType = 'review';
     gated.canAutoExecute = false;
@@ -324,6 +652,36 @@ function gateRisk(product, entity, action) {
     }
   }
 
+  if (gated.actionType === 'budget' && Number.isFinite(currentBudget) && currentBudget > 0 && Number.isFinite(suggestedBudget)) {
+    const changePct = Math.abs(suggestedBudget - currentBudget) / currentBudget;
+    const explicitTrafficPushOverride = gated.allowLargeBudgetChange === true && gated.riskLevel === 'traffic_push';
+    if (changePct > 0.5 && !explicitTrafficPushOverride) {
+      gated.actionType = 'review';
+      gated.canAutoExecute = false;
+      gated.riskLevel = 'manual_review';
+      gated.reason = `${gated.reason || ''} [risk_gate:large_budget_change]`.trim();
+      return gated;
+    }
+  }
+
+  if (gated.actionType === 'placement') {
+    const next = toNum(gated.suggestedPlacementPercent);
+    if (!['placementTop', 'placementProductPage', 'placementRestOfSearch'].includes(String(gated.placementKey || '')) || !Number.isFinite(next) || next < 0 || next > 900) {
+      gated.actionType = 'review';
+      gated.canAutoExecute = false;
+      gated.riskLevel = 'manual_review';
+      gated.reason = `${gated.reason || ''} [risk_gate:invalid_placement]`.trim();
+      return gated;
+    }
+    if (next > 100 && !(gated.allowLargePlacementChange === true && gated.riskLevel === 'traffic_push')) {
+      gated.actionType = 'review';
+      gated.canAutoExecute = false;
+      gated.riskLevel = 'manual_review';
+      gated.reason = `${gated.reason || ''} [risk_gate:large_placement_change]`.trim();
+      return gated;
+    }
+  }
+
   gated.canAutoExecute = true;
   return gated;
 }
@@ -331,10 +689,33 @@ function gateRisk(product, entity, action) {
 function validateAndNormalizePlan(rawPlan, context) {
   if (!Array.isArray(rawPlan)) throw new Error('action schema root must be an array');
   const productMap = new Map((context.products || []).map(product => [String(product.sku || ''), product]));
+  const productCount = productMap.size;
+  const reviewLimit = productCount > 0 ? Math.max(1, Math.floor(productCount * 0.01)) : 0;
   const plan = [];
   const review = [];
   const skipped = [];
   const errors = [];
+
+  function pushReviewOrSkip(sku, action) {
+    if (hasCriticalReviewRisk(action)) {
+      review.push({ sku, action });
+      return;
+    }
+    if (review.length < reviewLimit) {
+      review.push({ sku, action });
+      return;
+    }
+    skipped.push({
+      sku,
+      action: {
+        ...action,
+        actionType: 'skip',
+        canAutoExecute: false,
+        riskLevel: action.riskLevel || 'review_budget_exceeded',
+        reason: `${action.reason || ''} [review_budget_exceeded:limit=${reviewLimit},productCount=${productCount}]`.trim(),
+      },
+    });
+  }
 
   for (const productResult of rawPlan) {
     const sku = String(productResult?.sku || '').trim();
@@ -357,8 +738,8 @@ function validateAndNormalizePlan(rawPlan, context) {
           ? `create::${sku}::${rawCreateInput.mode || rawAction.mode || 'unknown'}::${rawCreateInput.coreTerm || rawAction.coreTerm || ''}`
           : '')
       ).trim();
-      const entity = actionType === 'create'
-        ? { id, entityType: 'skuCandidate', sourceSignals: ['strategy'], currentBid: null }
+      const entity = actionType === 'create' || (actionType === 'review' && entityType === 'skuCandidate')
+        ? { id, entityType: 'skuCandidate', sourceSignals: ['codex'], currentBid: null }
         : findProductEntity(product, entityType, id);
       if (entityType === 'unknown') {
         errors.push({ sku, id, reason: 'unsupported entity type in action schema' });
@@ -382,14 +763,21 @@ function validateAndNormalizePlan(rawPlan, context) {
         id,
         actionType,
         allowLargeBidChange: rawAction.allowLargeBidChange === true,
+        allowLargeBudgetChange: rawAction.allowLargeBudgetChange === true,
+        allowLargePlacementChange: rawAction.allowLargePlacementChange === true,
         currentBid: toNum(rawAction.currentBid ?? entity.currentBid),
         suggestedBid: toNum(rawAction.suggestedBid),
+        currentBudget: toNum(rawAction.currentBudget ?? entity.currentBudget),
+        suggestedBudget: toNum(rawAction.suggestedBudget),
+        placementKey: String(rawAction.placementKey || rawAction.key || '').trim(),
+        currentPlacementPercent: toNum(rawAction.currentPlacementPercent ?? (rawAction.placementKey ? entity[rawAction.placementKey] : null)),
+        suggestedPlacementPercent: toNum(rawAction.suggestedPlacementPercent ?? rawAction.column),
         reason: String(rawAction.reason || '').trim(),
         evidence,
         confidence: Math.max(0, Math.min(1, toNum(rawAction.confidence) ?? 0)),
         riskLevel: String(rawAction.riskLevel || '').trim() || 'low_confidence',
         source: 'codex',
-        actionSource: normalizeSourceList(rawAction.actionSource).filter(source => ['strategy', 'sp_7day_untouched', 'sb_7day_untouched'].includes(source)),
+        actionSource: normalizeActionSources(rawAction.actionSource, []),
         sku,
         campaignId: String(rawAction.campaignId || entity.campaignId || ''),
         adGroupId: String(rawAction.adGroupId || entity.adGroupId || ''),
@@ -418,8 +806,13 @@ function validateAndNormalizePlan(rawPlan, context) {
         };
       }
 
-      if (!normalized.actionSource.length) normalized.actionSource = normalizeSourceList(entity.sourceSignals).filter(source => ['strategy', 'sp_7day_untouched', 'sb_7day_untouched'].includes(source));
-      if (!normalized.actionSource.length) normalized.actionSource = ['strategy'];
+      const verification = buildVerificationSpec(normalized);
+      normalized.verifySource = verification?.verifySource || String(rawAction.verifySource || '').trim();
+      normalized.verifyField = verification?.verifyField || String(rawAction.verifyField || '').trim();
+      normalized.expected = verification?.expected || rawAction.expected || null;
+
+      if (!normalized.actionSource.length) normalized.actionSource = normalizeActionSources(entity.sourceSignals, []);
+      if (!normalized.actionSource.length) normalized.actionSource = ['codex'];
 
       if (normalized.actionType === 'bid') {
         if (!Number.isFinite(normalized.currentBid) || !Number.isFinite(normalized.suggestedBid)) {
@@ -429,8 +822,37 @@ function validateAndNormalizePlan(rawPlan, context) {
         normalized.direction = normalized.suggestedBid > normalized.currentBid ? 'up' : (normalized.suggestedBid < normalized.currentBid ? 'down' : 'same');
       }
 
+      if (normalized.actionType === 'budget') {
+        if (entityType !== 'campaign' || !Number.isFinite(normalized.suggestedBudget)) {
+          errors.push({ sku, id, entityType, reason: 'budget action requires campaign entity and suggestedBudget' });
+          continue;
+        }
+        normalized.direction = normalized.currentBudget != null && normalized.suggestedBudget > normalized.currentBudget ? 'up' : (normalized.currentBudget != null && normalized.suggestedBudget < normalized.currentBudget ? 'down' : 'same');
+      }
+
+      if (normalized.actionType === 'placement') {
+        if (entityType !== 'campaign' || !normalized.placementKey || !Number.isFinite(normalized.suggestedPlacementPercent)) {
+          errors.push({ sku, id, entityType, reason: 'placement action requires campaign entity, placementKey, suggestedPlacementPercent' });
+          continue;
+        }
+        if (Number.isFinite(normalized.currentPlacementPercent)) {
+          normalized.direction = normalized.suggestedPlacementPercent > normalized.currentPlacementPercent ? 'up' : (normalized.suggestedPlacementPercent < normalized.currentPlacementPercent ? 'down' : 'same');
+        } else {
+          normalized.direction = 'unknown';
+        }
+      }
+
+      normalized.learning = buildLearningContext(product, entity, normalized, rawAction);
+
+      if (!hasRequiredVerification(normalized)) {
+        normalized.actionType = 'review';
+        normalized.canAutoExecute = false;
+        normalized.riskLevel = 'manual_review';
+        normalized.reason = `${normalized.reason || ''} [risk_gate:missing_verify_spec]`.trim();
+      }
+
       const gated = gateRisk(product, entity, normalized);
-      if (gated.actionType === 'review' || gated.canAutoExecute === false) review.push({ sku, action: gated });
+      if (gated.actionType === 'review' || gated.canAutoExecute === false) pushReviewOrSkip(sku, gated);
       else if (gated.actionType === 'skip') skipped.push({ sku, action: gated });
       else actions.push(gated);
     }
@@ -512,6 +934,7 @@ function loadExternalActionSchema({
 
 module.exports = {
   buildProductContexts,
+  hasRequiredVerification,
   validateAndNormalizePlan,
   loadExternalActionSchema,
 };

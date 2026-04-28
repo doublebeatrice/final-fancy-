@@ -64,6 +64,40 @@ node scripts\execute\export_snapshot.js data\snapshots\latest_snapshot.json
 
 Expected output is a JSON snapshot containing panel cards, SP rows, SB rows, seven-day untouched pools, and inventory note context.
 
+## Read Path Selection
+
+Do not use full snapshot export as the default for a named SKU. Choose the smallest read path that answers the question:
+
+- Named SKU overall health: `node scripts\execute\fetch_ad_sku_summary.js <siteId> <days> <SKU>`; this calls `/product/adSkuSummary` and returns SKU-level spend, sales, orders, ACOS, CPC, clicks/impressions, previous-period deltas, and inventory snippet.
+- Named SKU traffic trend confirmation: call `POST /product/chart` inside the logged-in `adv` session when the business question is "should this SKU push harder now?" This is now a formal evidence source for `impressions` and `clicks` absolute-value trend, especially for seasonal or holiday SKUs where the right action depends on whether traffic is falling during the sell-through window.
+- Named SKU ad breakdown: `node scripts\execute\fetch_sku_ad_product_data.js <SKU> <siteId> <days>` or `node scripts\execute\fetch_sku_ad_product_data.js <SKU> <siteId> <startYmd> <endYmd>`; this calls `/product/adProductData` and returns campaign/adGroup/product-ad rows for the SKU, including campaign budget fields such as `dailyBudget` when present.
+- Specific ad group rows across SP/SB: `node scripts\execute\fetch_ad_group_rows.js <campaignId> <adGroupId> <accountId> <siteId> <property> <tableName|-> <days|startYmd> [endYmd]`; this calls `/keyword/findAllNew` and locally filters by `campaignId + adGroupId`. Use `property=1` for SP keyword, `2 product_target` for SP auto, `3 product_manual_target` for SP manual target, `4` for SB keyword, and `6` for SB target.
+- Specific campaign placement: `node scripts\execute\fetch_campaign_placement.js <campaignId> <accountId> <siteId> <days|startYmd> [endYmd]`; this calls `/placement/findAllPlacement` and returns placement percent plus spend/orders/sales/CPC/CVR/ACOS/ROAS by placement.
+- Specific SP ad group internals: `node scripts\execute\fetch_sp_group_detail.js <campaignId> <adGroupId> <accountId> <siteId> <days|startYmd> [endYmd]`; this calls `/advTarget/findManualProductTarget` for ASIN/manual product targets and `/customerSearch/targetFindAll` for customer search terms.
+- Customer search terms from `/customerSearch/targetFindAll` are useful for SP auto/manual groups. SB and some SP keyword groups may return only an empty aggregate placeholder.
+- Full abnormal pool, daily down pool, eligible SKU discovery, or cross-SKU prioritization: export a full snapshot.
+
+Pick the date range from the business question. Use recent 7/30 days for current health and explicit dates for historical comparison.
+
+Use `/product/chart` before deciding strong push vs strong cut in these cases:
+
+- Seasonal SKUs in an active sell season.
+- SKUs where the operator says "this should be pushed harder now".
+- Cases where ACOS alone suggests cut, but the real issue may be falling impressions/clicks.
+- Cases where sales are down and you must distinguish `traffic loss` from `conversion loss`.
+
+Minimum judgment rule:
+
+- If season is active, inventory is sufficient, and `/product/chart` shows impressions/clicks absolute values falling, treat `traffic recovery / push` as a live candidate.
+- Do not rely only on old note history such as previous `downbid` records to decide today's action.
+- Historical note actions are context only; current-season traffic trend has higher priority.
+
+Never save pasted `x-xsrf-token` values. These read scripts run inside the logged-in `adv.yswg.com.cn` debug tab and use the browser session.
+
+SP budget and SP placement writes are automatic-execution capable after schema validation. Budget uses action schema `entityType=campaign`, `actionType=budget`, `suggestedBudget` and writes through `PATCH /campaign/batchCampaign`. Placement uses `entityType=campaign`, `actionType=placement`, `placementKey`, `suggestedPlacementPercent` and writes through `PATCH /campaign/editCampaignColumn`.
+
+Inventory listing performance is part of the AI context: `session_7/14/21` are last-week / two-weeks-ago / three-weeks-ago sessions, and `percentage_7/14/21` are the matching listing conversion rates.
+
 ## Codex Decision Step
 
 Codex reads the snapshot and Q2 playbook, then writes an action schema JSON. The schema is the only decision artifact. The executor must not invent actions.

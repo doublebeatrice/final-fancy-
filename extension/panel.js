@@ -11,6 +11,7 @@ const STATE = {
   autoRows: [],
   targetRows: [],
   productAdRows: [],
+  placementRows: [],
   sbRows: [],
   sbCampaignRows: [],
   adSkuSummaryRows: [],
@@ -18,6 +19,10 @@ const STATE = {
   sbCampaignManageRows: [],
   sellerSalesRows: [],
   sellerSalesMeta: {},
+  inventoryScopeRows: [],
+  listingFetchMeta: {},
+  productChartMap: {},
+  fetchMetrics: {},
   sp7DayUntouchedRows: [],
   sb7DayUntouchedRows: [],
   sevenDayUntouchedMeta: {},
@@ -75,6 +80,77 @@ function setProgress(barId, pct) {
   if (el) el.style.width = Math.min(100, pct) + '%';
 }
 
+function nowIso() {
+  return new Date().toISOString();
+}
+
+function createStageRecorder(mode = 'full-snapshot') {
+  const metrics = {
+    mode,
+    startedAt: nowIso(),
+    stages: [],
+  };
+  return {
+    metrics,
+    start(stage, extra = {}) {
+      return {
+        stage,
+        startedAt: nowIso(),
+        startMs: Date.now(),
+        attempted: 0,
+        success: 0,
+        failed: 0,
+        skipped: 0,
+        ...extra,
+      };
+    },
+    end(token, extra = {}) {
+      const durationMs = Date.now() - token.startMs;
+      const attempted = Number(extra.attempted ?? token.attempted ?? 0) || 0;
+      const entry = {
+        ...token,
+        ...extra,
+        startedAt: token.startedAt,
+        endedAt: nowIso(),
+        durationMs,
+      };
+      delete entry.startMs;
+      entry.avgMs = attempted > 0 ? Math.round(durationMs / attempted) : durationMs;
+      entry.p95Ms = durationMs;
+      metrics.stages.push(entry);
+      return entry;
+    },
+    finish(extra = {}) {
+      metrics.endedAt = nowIso();
+      metrics.durationMs = Date.now() - new Date(metrics.startedAt).getTime();
+      Object.assign(metrics, extra || {});
+      return metrics;
+    },
+  };
+}
+
+function normalizeFetchOptions(rawOptions = {}) {
+  const mode = String(rawOptions.mode || 'full-snapshot');
+  const listingSkus = Array.isArray(rawOptions.listingSkus) ? [...new Set(rawOptions.listingSkus.map(item => String(item || '').trim()).filter(Boolean))] : [];
+  const chartSkus = Array.isArray(rawOptions.chartSkus) ? [...new Set(rawOptions.chartSkus.map(item => String(item || '').trim()).filter(Boolean))] : listingSkus;
+  return {
+    mode,
+    listingStrategy: rawOptions.listingStrategy || (mode === 'fast' ? 'schema' : 'all'),
+    listingSkus,
+    chartStrategy: rawOptions.chartStrategy || (mode === 'fast' ? 'schema' : 'none'),
+    chartSkus,
+    chartLookbackDays: Number(rawOptions.chartLookbackDays || 30),
+    chartUserNames: Array.isArray(rawOptions.chartUserNames) && rawOptions.chartUserNames.length ? rawOptions.chartUserNames : ['HJ17', 'HJ171', 'HJ172'],
+    listingConcurrency: Number(rawOptions.listingConcurrency || localStorage.getItem('AD_OPS_LISTING_FETCH_CONCURRENCY') || localStorage.getItem('AD_OPS_LISTING_CONCURRENCY') || 5),
+    listingLimit: Number(rawOptions.listingLimit || localStorage.getItem('AD_OPS_LISTING_FETCH_LIMIT') || 120),
+    listingTimeoutMs: Number(rawOptions.listingTimeoutMs || localStorage.getItem('AD_OPS_LISTING_FETCH_TIMEOUT_MS') || localStorage.getItem('AD_OPS_LISTING_PER_ASIN_TIMEOUT_MS') || 10000),
+    listingRetry: Number(rawOptions.listingRetry || localStorage.getItem('AD_OPS_LISTING_FETCH_RETRY') || 1),
+    listingStageTimeoutMs: Number(rawOptions.listingStageTimeoutMs || localStorage.getItem('AD_OPS_LISTING_FETCH_STAGE_TIMEOUT_MS') || 120000),
+    listingOptional: rawOptions.listingOptional !== false,
+    listingCacheTtlMs: Number(rawOptions.listingCacheTtlMs || 7 * 24 * 60 * 60 * 1000),
+  };
+}
+
 // ============================================================
 // 初始化
 // ============================================================
@@ -90,12 +166,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ============================================================
 // 阶段 1+2+3：全量拉取
 // ============================================================
-async function fetchAllData() {
+async function fetchAllData(rawOptions = null) {
+  const fetchOptions = normalizeFetchOptions(rawOptions || globalThis.__AD_OPS_FETCH_OPTIONS || {});
+  const stages = createStageRecorder(fetchOptions.mode);
   fetchBtn.disabled = true;
   STATE.kwRows = [];
   STATE.autoRows = [];
   STATE.targetRows = [];
   STATE.productAdRows = [];
+  STATE.placementRows = [];
   STATE.sbRows = [];
   STATE.sbCampaignRows = [];
   STATE.adSkuSummaryRows = [];
@@ -103,16 +182,24 @@ async function fetchAllData() {
   STATE.sbCampaignManageRows = [];
   STATE.sellerSalesRows = [];
   STATE.sellerSalesMeta = {};
+  STATE.inventoryScopeRows = [];
+  STATE.listingFetchMeta = { attempted: 0, success: 0, failed: 0, samples: [] };
+  STATE.productChartMap = {};
+  STATE.fetchMetrics = {};
   STATE.sp7DayUntouchedRows = [];
   STATE.sb7DayUntouchedRows = [];
+  STATE.listingMap = {};
   STATE.productCards = [];
+  if ($('statListing')) $('statListing').textContent = '0';
   setProgress('fetchProgress', 5);
   log('开始拉取全量数据…');
 
   try {
     // 1. 库存 + 活跃节气
     log('拉取库存数据…');
-    const invRows = await fetchAllInventory();
+    const inventoryStage = stages.start('inventory_direct_api');
+    const invTab = await findTab('*://sellerinventory.yswg.com.cn/*');
+    const invRows = await fetchAllInventoryDirect(invTab.id);
     // 拉取当前活跃节气，建立活跃 solrTerm ID 集合
     try {
       const tab = await findTab('*://sellerinventory.yswg.com.cn/*');
@@ -137,7 +224,14 @@ async function fetchAllData() {
         log(`活跃节气: ${activeNames.join('、')} → IDs: ${[...STATE.activeSeasonalIds].join(',')}`, 'warn');
       }
     } catch(e) { log('节气拉取失败: ' + e.message, 'warn'); }
+    STATE.inventoryScopeRows = (invRows || []).map(projectInventoryScopeRow);
     STATE.invMap = buildInvMap(invRows);
+    stages.end(inventoryStage, {
+      attempted: 1,
+      success: invRows.length,
+      failed: 0,
+      uniqueSkus: Object.keys(STATE.invMap || {}).length,
+    });
     const asinCount = Object.values(STATE.invMap).filter(v => v.asin).length;
     $('statInv').textContent = Object.keys(STATE.invMap).length;
     setProgress('fetchProgress', 30);
@@ -145,9 +239,15 @@ async function fetchAllData() {
 
     try {
       log('拉取个人销售数据…');
+      const sellerSalesStage = stages.start('seller_sales');
       const sellerSales = await fetchSellerSalesData({ days: 7, sellers: ['HJ17', 'HJ171', 'HJ172'] });
       STATE.sellerSalesRows = sellerSales.rows || [];
       STATE.sellerSalesMeta = sellerSales.meta || {};
+      stages.end(sellerSalesStage, {
+        attempted: 1,
+        success: STATE.sellerSalesRows.length,
+        failed: 0,
+      });
       log(`个人销售数据 ${STATE.sellerSalesRows.length} 条`, STATE.sellerSalesRows.length ? 'ok' : 'warn');
     } catch (e) {
       STATE.sellerSalesRows = [];
@@ -160,62 +260,92 @@ async function fetchAllData() {
       log(`关键词已缓存 ${STATE.kwRows.length} 条，跳过拉取`, 'warn');
     } else {
       log('拉取广告关键词…');
+      const keywordStage = stages.start('ads_keyword_rows');
       STATE.kwRows = await fetchAllKeywords();
+      stages.end(keywordStage, {
+        attempted: 1,
+        success: STATE.kwRows.length,
+        failed: 0,
+      });
       $('statKw').textContent = STATE.kwRows.length;
       log(`关键词 ${STATE.kwRows.length} 条`, 'ok');
     }
     setProgress('fetchProgress', 55);
 
-    // 3. 自动投放
-    log('拉取自动投放…');
-    STATE.autoRows = await fetchAllAutoTargets(STATE.kwCapture);
+    log('并发拉取广告实体、汇总与管理表…');
+    const adsStage = stages.start('ads_data_read');
+    const [
+      autoRows,
+      targetRows,
+      productAdRows,
+      sbRows,
+      sbCampaignRows,
+      adSkuSummaryRows,
+      advProductManageRows,
+      sbCampaignManageRows,
+    ] = await Promise.all([
+      fetchAllAutoTargets(STATE.kwCapture),
+      fetchAllTargeting(STATE.kwCapture),
+      fetchAllProductAds(),
+      fetchAllSponsoredBrands(),
+      fetchAllSbCampaigns(),
+      fetchAdSkuSummaryRows(),
+      fetchAdvProductManageRows(),
+      fetchSbCampaignManageRows(),
+    ]);
+    STATE.autoRows = autoRows || [];
+    STATE.targetRows = targetRows || [];
+    STATE.productAdRows = productAdRows || [];
+    STATE.sbRows = sbRows || [];
+    STATE.sbCampaignRows = sbCampaignRows || [];
+    STATE.adSkuSummaryRows = adSkuSummaryRows || [];
+    STATE.advProductManageRows = advProductManageRows || [];
+    STATE.sbCampaignManageRows = sbCampaignManageRows || [];
+    stages.end(adsStage, {
+      attempted: 8,
+      success: [
+        STATE.autoRows.length,
+        STATE.targetRows.length,
+        STATE.productAdRows.length,
+        STATE.sbRows.length,
+        STATE.sbCampaignRows.length,
+        STATE.adSkuSummaryRows.length,
+        STATE.advProductManageRows.length,
+        STATE.sbCampaignManageRows.length,
+      ].filter(n => Number.isFinite(n)).length,
+      failed: 0,
+      rowsRead: {
+        auto: STATE.autoRows.length,
+        target: STATE.targetRows.length,
+        productAd: STATE.productAdRows.length,
+        sb: STATE.sbRows.length,
+        sbCampaign: STATE.sbCampaignRows.length,
+      },
+    });
     $('statAuto').textContent = STATE.autoRows.length;
-    setProgress('fetchProgress', 65);
-    log(`自动投放 ${STATE.autoRows.length} 条`, 'ok');
-
-    // 4. 定位组（SP定位，property=3）
-    log('拉取定位组…');
-    STATE.targetRows = await fetchAllTargeting(STATE.kwCapture);
-    setProgress('fetchProgress', 80);
-    log(`定位组 ${STATE.targetRows.length} 条`, 'ok');
-
-    log('拉取SP product ad…');
-    STATE.productAdRows = await fetchAllProductAds();
-    log(`SP product ad ${STATE.productAdRows.length} 条`, STATE.productAdRows.length ? 'ok' : 'warn');
-
-    // 4b. Sponsored Brands enter the same adjustment pool as SP entities.
-    log('Pulling SB ads data...');
-    STATE.sbRows = await fetchAllSponsoredBrands();
     setProgress('fetchProgress', 88);
-    log(`SB ads ${STATE.sbRows.length} rows`, STATE.sbRows.length ? 'ok' : 'warn');
-
-    log('拉取SB campaign…');
-    STATE.sbCampaignRows = await fetchAllSbCampaigns();
-    log(`SB campaign ${STATE.sbCampaignRows.length} 条`, STATE.sbCampaignRows.length ? 'ok' : 'warn');
-
-    log('拉取广告 SKU 汇总…');
-    STATE.adSkuSummaryRows = await fetchAdSkuSummaryRows();
-    log(`广告 SKU 汇总 ${STATE.adSkuSummaryRows.length} 条`, STATE.adSkuSummaryRows.length ? 'ok' : 'warn');
-
-    log('拉取SP广告产品管理汇总…');
-    STATE.advProductManageRows = await fetchAdvProductManageRows();
-    log(`SP广告产品管理汇总 ${STATE.advProductManageRows.length} 条`, STATE.advProductManageRows.length ? 'ok' : 'warn');
-
-    log('拉取SB广告活动管理汇总…');
-    STATE.sbCampaignManageRows = await fetchSbCampaignManageRows();
-    log(`SB广告活动管理汇总 ${STATE.sbCampaignManageRows.length} 条`, STATE.sbCampaignManageRows.length ? 'ok' : 'warn');
+    log(`自动投放 ${STATE.autoRows.length} 条；定位组 ${STATE.targetRows.length} 条；SP product ad ${STATE.productAdRows.length} 条`, 'ok');
+    log(`SB ads ${STATE.sbRows.length} rows；SB campaign ${STATE.sbCampaignRows.length} 条；广告 SKU 汇总 ${STATE.adSkuSummaryRows.length} 条`, 'ok');
 
     // 4c. 3/7 day ad metrics are not separate fields in the default table response.
     // Re-query the same entities with timeRange windows and merge those metrics back.
     log('拉取广告 3天 / 7天 指标窗口…');
+    const adWindowStage = stages.start('ads_metric_windows');
     await enrichAdMetricWindows(STATE.kwCapture);
+    stages.end(adWindowStage, { attempted: 1, success: 1, failed: 0 });
     setProgress('fetchProgress', 94);
 
     try {
+      const untouchedStage = stages.start('seven_day_untouched');
       const untouched = await fetchSevenDayUntouchedPools();
       STATE.sp7DayUntouchedRows = untouched.spRows || [];
       STATE.sb7DayUntouchedRows = untouched.sbRows || [];
       STATE.sevenDayUntouchedMeta = untouched.meta || {};
+      stages.end(untouchedStage, {
+        attempted: 2,
+        success: STATE.sp7DayUntouchedRows.length + STATE.sb7DayUntouchedRows.length,
+        failed: 0,
+      });
       if ($('statSp7d')) $('statSp7d').textContent = STATE.sp7DayUntouchedRows.length;
       if ($('statSb7d')) $('statSb7d').textContent = STATE.sb7DayUntouchedRows.length;
       log(`7d untouched pools: SP ${STATE.sp7DayUntouchedRows.length}, SB ${STATE.sb7DayUntouchedRows.length}`, 'ok');
@@ -223,15 +353,117 @@ async function fetchAllData() {
       log(`7d untouched pool fetch failed: ${e.message}`, 'warn');
     }
 
+    const sellerSalesMap = buildSellerSalesMap(STATE.sellerSalesRows);
+    const preCardsStage = stages.start('productcards_build_pre_listing');
+    const cardsWithoutListing = buildProductCards(
+      STATE.kwRows,
+      STATE.autoRows,
+      STATE.invMap,
+      {},
+      STATE.targetRows,
+      STATE.sbRows,
+      STATE.productAdRows,
+      STATE.sbCampaignRows,
+      sellerSalesMap
+    );
+    stages.end(preCardsStage, {
+      attempted: 1,
+      success: cardsWithoutListing.length,
+      failed: 0,
+    });
+
+    const scopeStage = stages.start('operation_scope_filter');
+    const listingTasks = selectListingFetchTasks(cardsWithoutListing, fetchOptions);
+    stages.end(scopeStage, {
+      attempted: cardsWithoutListing.length,
+      success: listingTasks.length,
+      failed: 0,
+      skipped: Math.max(0, cardsWithoutListing.length - listingTasks.length),
+    });
+
+    const chartTasks = selectProductChartTasks(cardsWithoutListing, fetchOptions);
+    if (chartTasks.length) {
+      log(`抓取广告展示/点击趋势… ${chartTasks.length} 个 SKU`, 'warn');
+      const chartStage = stages.start('product_chart', { attempted: chartTasks.length });
+      STATE.productChartMap = await fetchProductCharts(chartTasks, fetchOptions);
+      stages.end(chartStage, {
+        attempted: chartTasks.length,
+        success: Object.keys(STATE.productChartMap || {}).length,
+        failed: Math.max(0, chartTasks.length - Object.keys(STATE.productChartMap || {}).length),
+      });
+    } else {
+      STATE.productChartMap = {};
+    }
+
+    if (listingTasks.length) {
+      log(`抓取 Listing 页面信息… ${listingTasks.length} 个 ASIN`, 'warn');
+      const listingStage = stages.start('listing_fetch', { attempted: listingTasks.length });
+      await fetchListingsConcurrent(listingTasks, done => {
+        if ($('statListing')) $('statListing').textContent = String(done);
+      }, fetchOptions);
+      stages.end(listingStage, {
+        attempted: STATE.listingFetchMeta.attempted || listingTasks.length,
+        success: STATE.listingFetchMeta.success || 0,
+        failed: STATE.listingFetchMeta.failed || 0,
+        skipped: STATE.listingFetchMeta.skipped || 0,
+        cacheHit: STATE.listingFetchMeta.cacheHit || 0,
+        cacheMiss: STATE.listingFetchMeta.cacheMiss || 0,
+        cacheExpired: STATE.listingFetchMeta.cacheExpired || 0,
+        fetched: STATE.listingFetchMeta.fetched || 0,
+        retry: STATE.listingFetchMeta.retry || 0,
+      });
+      log(`Listing 抓取完成：成功 ${Object.keys(STATE.listingMap || {}).length} / ${listingTasks.length}`, Object.keys(STATE.listingMap || {}).length ? 'ok' : 'warn');
+      if (STATE.listingFetchMeta?.failed) {
+        log(`Listing 抓取失败样本 ${Math.min((STATE.listingFetchMeta.samples || []).length, 3)} 条：${JSON.stringify((STATE.listingFetchMeta.samples || []).slice(0, 3))}`, 'warn');
+      }
+    } else {
+      log('无可抓取 Listing 的 ASIN，跳过 Listing 抓取', 'warn');
+    }
+
     // 5. 构建产品画像
-    STATE.productCards = buildProductCards(STATE.kwRows, STATE.autoRows, STATE.invMap, {}, STATE.targetRows, STATE.sbRows, STATE.productAdRows, STATE.sbCampaignRows, buildSellerSalesMap(STATE.sellerSalesRows));
+    const finalCardsStage = stages.start('productcards_build_final');
+    STATE.productCards = buildProductCards(
+      STATE.kwRows,
+      STATE.autoRows,
+      STATE.invMap,
+      STATE.listingMap,
+      STATE.targetRows,
+      STATE.sbRows,
+      STATE.productAdRows,
+      STATE.sbCampaignRows,
+      sellerSalesMap
+    );
+    STATE.productCards = attachProductChartData(STATE.productCards, STATE.productChartMap);
+    stages.end(finalCardsStage, {
+      attempted: 1,
+      success: STATE.productCards.length,
+      failed: 0,
+    });
 
     setProgress('fetchProgress', 100);
     log(`全量数据就绪：${STATE.productCards.length} 个产品画像`, 'ok');
+    STATE.fetchMetrics = stages.finish({
+      listingFetchMeta: STATE.listingFetchMeta,
+      totalProductCards: STATE.productCards.length,
+      totalInventoryScopeRows: STATE.inventoryScopeRows.length,
+      totalUniqueInventorySkus: Object.keys(STATE.invMap || {}).length,
+      fetchOptions: {
+        mode: fetchOptions.mode,
+        listingStrategy: fetchOptions.listingStrategy,
+        chartStrategy: fetchOptions.chartStrategy,
+        listingLimit: fetchOptions.listingLimit,
+        listingConcurrency: fetchOptions.listingConcurrency,
+      },
+    });
 
     exportBtn.disabled = false;
   } catch (err) {
     log('拉取失败：' + err.message, 'error');
+    STATE.fetchMetrics = stages.finish({
+      failed: true,
+      error: err.message,
+      listingFetchMeta: STATE.listingFetchMeta,
+    });
   } finally {
     fetchBtn.disabled = false;
   }
@@ -792,6 +1024,358 @@ async function waitTabComplete(tabId, timeoutMs = 15000) {
   return false;
 }
 
+function createTab(url, active = false) {
+  return new Promise((resolve, reject) => {
+    chrome.tabs.create({ url, active }, tab => {
+      if (chrome.runtime.lastError) return reject(new Error(chrome.runtime.lastError.message));
+      resolve(tab);
+    });
+  });
+}
+
+function updateTab(tabId, url) {
+  return new Promise((resolve, reject) => {
+    chrome.tabs.update(tabId, { url }, tab => {
+      if (chrome.runtime.lastError) return reject(new Error(chrome.runtime.lastError.message));
+      resolve(tab);
+    });
+  });
+}
+
+function removeTab(tabId) {
+  return new Promise(resolve => {
+    chrome.tabs.remove(tabId, () => resolve());
+  });
+}
+
+async function acquireAmazonListingTab(workerIndex = 0) {
+  const existing = await new Promise(resolve => {
+    chrome.tabs.query({ url: 'https://www.amazon.com/*' }, tabs => resolve(tabs || []));
+  });
+  if (existing[workerIndex]) return { tabId: existing[workerIndex].id, created: false };
+  const tab = await createTab('https://www.amazon.com/', false);
+  await waitTabComplete(tab.id, 20000);
+  return { tabId: tab.id, created: true };
+}
+
+async function navigateAmazonListingTab(tabId, asin) {
+  const url = `https://www.amazon.com/dp/${asin}`;
+  await updateTab(tabId, url);
+  await waitTabComplete(tabId, 25000);
+  await sleep(1200);
+  return url;
+}
+
+function listingDomainForSalesChannel(salesChannel = '') {
+  const text = String(salesChannel || '').trim();
+  if (text === 'Amazon.com' || !text) return 'amazon.com';
+  if (text === 'Amazon.co.uk') return 'amazon.co.uk';
+  return '';
+}
+
+function listingMapKey(domain, asin) {
+  const cleanDomain = String(domain || 'amazon.com').toLowerCase();
+  const cleanAsin = String(asin || '').trim().toUpperCase();
+  return `${cleanDomain}|${cleanAsin}`;
+}
+
+function getListingCacheStore() {
+  if (!globalThis.__AD_OPS_LISTING_CACHE || typeof globalThis.__AD_OPS_LISTING_CACHE !== 'object') {
+    globalThis.__AD_OPS_LISTING_CACHE = { entries: {} };
+  }
+  if (!globalThis.__AD_OPS_LISTING_CACHE.entries || typeof globalThis.__AD_OPS_LISTING_CACHE.entries !== 'object') {
+    globalThis.__AD_OPS_LISTING_CACHE.entries = {};
+  }
+  return globalThis.__AD_OPS_LISTING_CACHE;
+}
+
+function selectListingFetchTasks(cards = [], options = {}) {
+  const listingSkus = new Set((options.listingSkus || []).map(item => String(item || '').trim().toUpperCase()).filter(Boolean));
+  const fastSchemaOnly = options.listingStrategy === 'schema' && listingSkus.size > 0;
+  const maxListings = Number(options.listingLimit || localStorage.getItem('AD_OPS_LISTING_FETCH_LIMIT') || 120);
+  const seen = new Set();
+  const tasks = [];
+  for (const card of cards || []) {
+    const sku = String(card.sku || '').trim().toUpperCase();
+    if (fastSchemaOnly && !listingSkus.has(sku)) continue;
+    const asin = String(card.asin || '').trim().toUpperCase();
+    if (!asin) continue;
+    const domain = listingDomainForSalesChannel(card.salesChannel);
+    if (domain !== 'amazon.com') continue;
+    const key = listingMapKey(domain, asin);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    tasks.push({ asin, domain, key });
+    if (tasks.length >= maxListings) break;
+  }
+  STATE.listingFetchMeta = {
+    ...(STATE.listingFetchMeta || {}),
+    maxListings,
+    listingStrategy: options.listingStrategy || 'all',
+    skippedByLimitOrMarket: Math.max(0, (cards || []).filter(card => card.asin).length - tasks.length),
+  };
+  return tasks;
+}
+
+function inferSiteIdFromCard(card = {}) {
+  const firstCampaign = Array.isArray(card.campaigns) ? card.campaigns.find(item => Number(item?.siteId)) : null;
+  if (firstCampaign?.siteId) return Number(firstCampaign.siteId) || 4;
+  const salesChannel = String(card.salesChannel || '').trim();
+  if (salesChannel === 'Amazon.co.uk') return 3;
+  return 4;
+}
+
+function buildChartDateRange(days = 30) {
+  const end = new Date();
+  const start = new Date(end.getTime() - Math.max(1, Number(days || 30) - 1) * 86400000);
+  const fmt = value => {
+    const y = value.getFullYear();
+    const m = String(value.getMonth() + 1).padStart(2, '0');
+    const d = String(value.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  };
+  return [fmt(start), fmt(end)];
+}
+
+function selectProductChartTasks(cards = [], options = {}) {
+  const strategy = String(options.chartStrategy || 'none');
+  if (strategy === 'none') return [];
+  const chartSkus = new Set((options.chartSkus || []).map(item => String(item || '').trim().toUpperCase()).filter(Boolean));
+  const tasks = [];
+  for (const card of cards || []) {
+    const sku = String(card.sku || '').trim().toUpperCase();
+    if (!sku) continue;
+    if (strategy === 'schema' && chartSkus.size && !chartSkus.has(sku)) continue;
+    tasks.push({
+      sku,
+      siteId: inferSiteIdFromCard(card),
+      salesChannel: card.salesChannel || '',
+    });
+  }
+  return tasks;
+}
+
+function summarizeProductChartSeries(points = []) {
+  const clean = (points || []).map(item => ({
+    date: String(item.startDate || ''),
+    impressions: Number(item.Impressions || 0) || 0,
+    clicks: Number(item.Clicks || 0) || 0,
+    spend: Number(item.Spend || 0) || 0,
+    orders: Number(item.Orders || 0) || 0,
+    sales: Number(item.Sales || 0) || 0,
+  }));
+  const last7 = clean.slice(-7);
+  const prev7 = clean.slice(-14, -7);
+  const sum = list => list.reduce((acc, item) => {
+    acc.impressions += item.impressions;
+    acc.clicks += item.clicks;
+    acc.spend += item.spend;
+    acc.orders += item.orders;
+    acc.sales += item.sales;
+    return acc;
+  }, { impressions: 0, clicks: 0, spend: 0, orders: 0, sales: 0 });
+  const tail = sum(last7);
+  const prev = sum(prev7);
+  const deltaPct = (a, b) => b > 0 ? (a - b) / b : null;
+  return {
+    points: clean,
+    totals: {
+      impressions: sum(clean).impressions,
+      clicks: sum(clean).clicks,
+      spend: sum(clean).spend,
+      orders: sum(clean).orders,
+      sales: sum(clean).sales,
+    },
+    last7: tail,
+    prev7: prev,
+    deltaPct: {
+      impressions: deltaPct(tail.impressions, prev.impressions),
+      clicks: deltaPct(tail.clicks, prev.clicks),
+      spend: deltaPct(tail.spend, prev.spend),
+      orders: deltaPct(tail.orders, prev.orders),
+      sales: deltaPct(tail.sales, prev.sales),
+    },
+    trafficDown: tail.impressions < prev.impressions && tail.clicks < prev.clicks,
+  };
+}
+
+async function fetchProductChart(tabId, task, options = {}) {
+  const selectDate = buildChartDateRange(options.chartLookbackDays || 30);
+  const payload = {
+    selectDate,
+    mode: 1,
+    state: 4,
+    siteId: task.siteId || 4,
+    sku: task.sku,
+    userName: options.chartUserNames || ['HJ17', 'HJ171', 'HJ172'],
+    level: 'seller_num',
+  };
+  const result = await execAdApi(tabId, '/product/chart', payload, 'POST');
+  if (result?.error) throw new Error(result.error);
+  const data = result?.data;
+  if (!data || data.code !== 200 || !Array.isArray(data.data)) {
+    throw new Error(`product/chart invalid response for ${task.sku}`);
+  }
+  return {
+    sku: task.sku,
+    siteId: task.siteId || 4,
+    salesChannel: task.salesChannel || '',
+    selectDate,
+    summary: summarizeProductChartSeries(data.data),
+    raw: data.data,
+  };
+}
+
+async function fetchProductCharts(tasks = [], options = {}) {
+  const tab = await findTab('*://adv.yswg.com.cn/*');
+  const map = {};
+  for (const task of tasks || []) {
+    try {
+      const chart = await fetchProductChart(tab.id, task, options);
+      map[task.sku] = chart;
+    } catch (error) {
+      log(`product/chart ${task.sku} 抓取失败：${error.message}`, 'warn');
+    }
+  }
+  return map;
+}
+
+function attachProductChartData(cards = [], productChartMap = {}) {
+  return (cards || []).map(card => {
+    const sku = String(card.sku || '').trim().toUpperCase();
+    return {
+      ...card,
+      productChart: productChartMap[sku] || null,
+    };
+  });
+}
+
+async function scrapeAmazonListingInTab(tabId, asin) {
+  return execInTab(tabId, targetAsin => {
+    const normalize = value => String(value || '').replace(/\s+/g, ' ').trim();
+    const uniq = list => [...new Set((list || []).map(item => normalize(item)).filter(Boolean))];
+    const text = node => normalize(node?.textContent || '');
+    const query = selector => document.querySelector(selector);
+    const queryAll = selector => [...document.querySelectorAll(selector)];
+    const bodyText = normalize(document.body?.innerText || '');
+    const titleText = normalize(document.title || '');
+    const detectKind = () => {
+      if (query('#productTitle') || query('#dp') || query('#feature-bullets')) return 'product_page';
+      if (/api-services-support@amazon\.com|automated access|enter the characters you see below|captcha/i.test(bodyText)) return 'blocked_or_captcha';
+      if (/sign in|ap_signin|authportal/i.test(bodyText) || /signin/i.test(location.href)) return 'signin_gate';
+      if (/Sorry! We couldn't find that page|Page Not Found|dogs of amazon/i.test(bodyText + ' ' + titleText)) return 'not_found';
+      return 'unknown_dom';
+    };
+
+    const result = {
+      asin: targetAsin,
+      url: location.href,
+      pageTitle: titleText,
+      kind: detectKind(),
+      isAvailable: !!(query('#add-to-cart-button') || query('#buy-now-button')),
+      reviewCount: null,
+      reviewRating: null,
+      price: null,
+      hasPrime: !!query('#isPrimeBadge, .a-icon-prime, [aria-label*="Prime"]'),
+      bsr: [],
+      title: text(query('#productTitle')) || normalize(query('meta[property="og:title"]')?.getAttribute('content') || ''),
+      brand: text(query('#bylineInfo')) || normalize(query('#brand')?.getAttribute('value') || ''),
+      bullets: uniq(queryAll('#feature-bullets li span.a-list-item, #feature-bullets li').map(node => text(node)).filter(item => item && item !== 'Make sure this fits by entering your model number.')),
+      description: text(query('#productDescription')) || normalize(query('meta[name="description"]')?.getAttribute('content') || ''),
+      aPlusText: uniq(queryAll('#aplus_feature_div img[alt], #aplus_feature_div p, #aplus_feature_div li, #aplus_feature_div h1, #aplus_feature_div h2, #aplus_feature_div h3, #aplus_feature_div h4, #aplus_feature_div span').map(node => normalize(node.getAttribute?.('alt') || text(node)))).join(' | '),
+      breadcrumbs: uniq(queryAll('#wayfinding-breadcrumbs_feature_div a, #wayfinding-breadcrumbs_container a').map(node => text(node))),
+      mainImageUrl: '',
+      imageUrls: [],
+      variationText: uniq(queryAll('#variation_color_name .selection, #variation_size_name .selection, #variation_style_name .selection, #twister_feature_div .selection').map(node => text(node))).join(' | '),
+      fetchedAt: new Date().toISOString(),
+      bodyPreview: bodyText.slice(0, 220),
+    };
+
+    const reviewCountMatch = text(query('#acrCustomerReviewText')).match(/[\d,]+/);
+    if (reviewCountMatch) result.reviewCount = parseInt(reviewCountMatch[0].replace(/,/g, ''), 10);
+    const ratingText = query('#acrPopover')?.getAttribute('title') || text(query('.reviewCountTextLinkedHistogram')) || text(query('[data-hook="rating-out-of-text"]'));
+    const ratingMatch = String(ratingText || '').match(/(\d+\.?\d*)/);
+    if (ratingMatch) result.reviewRating = parseFloat(ratingMatch[1]);
+    const priceText = text(query('.a-price .a-offscreen')) || text(query('#priceblock_ourprice')) || text(query('#priceblock_dealprice'));
+    const priceMatch = String(priceText || '').match(/[\d,.]+/);
+    if (priceMatch) result.price = parseFloat(priceMatch[0].replace(/,/g, ''));
+
+    const imageCandidates = [];
+    for (const img of queryAll('#landingImage, #imgTagWrapperId img, #main-image-container img')) {
+      try {
+        const dynamic = JSON.parse(img.getAttribute('data-a-dynamic-image') || '{}');
+        if (dynamic && typeof dynamic === 'object') imageCandidates.push(...Object.keys(dynamic));
+      } catch (_) {}
+      imageCandidates.push(img.getAttribute('data-old-hires'), img.getAttribute('src'), img.getAttribute('data-src'));
+    }
+    const metaImage = query('meta[property="og:image"]')?.getAttribute('content');
+    if (metaImage) imageCandidates.push(metaImage);
+    result.imageUrls = uniq(imageCandidates);
+    result.mainImageUrl = result.imageUrls[0] || '';
+
+    const bsrText = text(query('#detailBulletsWrapper_feature_div')) || text(query('#productDetails_detailBullets_sections1')) || text(query('#SalesRank'));
+    const bsrRe = /#([\d,]+)\s+in\s+([^#\n(]+?)(?:\(|$|See Top)/g;
+    let match;
+    while ((match = bsrRe.exec(bsrText)) !== null) {
+      result.bsr.push({ rank: parseInt(match[1].replace(/,/g, ''), 10), category: normalize(match[2]) });
+    }
+
+    return result;
+  }, [asin]);
+}
+
+async function handleAmazonInterstitial(tabId, attempts = 2) {
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    const state = await execInTab(tabId, () => {
+      const normalize = value => String(value || '').replace(/\s+/g, ' ').trim();
+      const bodyText = normalize(document.body?.innerText || '');
+      const hasProduct = !!(document.querySelector('#productTitle') || document.querySelector('#dp') || document.querySelector('#feature-bullets'));
+      if (hasProduct) return { kind: 'product_page', acted: false, href: location.href };
+
+      const candidates = [...document.querySelectorAll('button, a, input[type="submit"]')];
+      const continueEl = candidates.find(node => {
+        const text = normalize(node.innerText || node.textContent || node.value || '');
+        return /continue shopping/i.test(text);
+      });
+
+      if (continueEl) {
+        continueEl.click();
+        return {
+          kind: 'continue_shopping',
+          acted: true,
+          href: location.href,
+          buttonText: normalize(continueEl.innerText || continueEl.textContent || continueEl.value || ''),
+          bodyPreview: bodyText.slice(0, 180),
+        };
+      }
+
+      if (/api-services-support@amazon\.com|automated access|enter the characters you see below|captcha/i.test(bodyText)) {
+        return { kind: 'blocked_or_captcha', acted: false, href: location.href, bodyPreview: bodyText.slice(0, 180) };
+      }
+      if (/sign in|ap_signin|authportal/i.test(bodyText) || /signin/i.test(location.href)) {
+        return { kind: 'signin_gate', acted: false, href: location.href, bodyPreview: bodyText.slice(0, 180) };
+      }
+      return { kind: 'unknown_dom', acted: false, href: location.href, bodyPreview: bodyText.slice(0, 180) };
+    });
+
+    if (!state?.acted) return state;
+    await waitTabComplete(tabId, 20000);
+    await sleep(1800);
+  }
+
+  return execInTab(tabId, () => {
+    const normalize = value => String(value || '').replace(/\s+/g, ' ').trim();
+    const bodyText = normalize(document.body?.innerText || '');
+    const hasProduct = !!(document.querySelector('#productTitle') || document.querySelector('#dp') || document.querySelector('#feature-bullets'));
+    return {
+      kind: hasProduct ? 'product_page' : 'unknown_dom',
+      acted: false,
+      href: location.href,
+      bodyPreview: bodyText.slice(0, 180),
+    };
+  });
+}
+
 async function ensureAdKeywordPage(tabId) {
   const isReady = async () => execInTab(tabId, () => {
     const href = location.href;
@@ -949,6 +1533,12 @@ function buildSpCampaignNames(mode, coreTerm, sku) {
   return { campaignName, groupName: campaignName };
 }
 
+const BACKEND_CREATE_STRATEGY = {
+  auto: 'LEGACY_FOR_SALES',
+  productTarget: 'LEGACY_FOR_SALES',
+  keywordTarget: 'MANUAL',
+};
+
 function buildCreateActionId(action = {}, fallbackSku = '') {
   const mode = normalizeCreateMode(action?.createInput?.mode || action?.mode || action?.positionType || '');
   const sku = String(action?.sku || fallbackSku || '').trim();
@@ -1013,7 +1603,7 @@ function buildSpCreatePayload(input = {}) {
   if (mode === 'auto') {
     payload.targetingType = 'AUTO';
     payload.positionType = 'auto';
-    payload.strategy = 'LEGACY_FOR_SALES';
+    payload.strategy = BACKEND_CREATE_STRATEGY.auto;
     payload.autoTargetUpdate = {
       QUERY_HIGH_REL_MATCHES: { bid: defaultBid, state: 'enabled' },
       QUERY_BROAD_REL_MATCHES: { bid: defaultBid, state: 'enabled' },
@@ -1031,7 +1621,7 @@ function buildSpCreatePayload(input = {}) {
 
     payload.targetingType = 'MANUAL';
     payload.positionType = 'productTarget';
-    payload.strategy = 'LEGACY_FOR_SALES';
+    payload.strategy = BACKEND_CREATE_STRATEGY.productTarget;
     payload.productTargetArray = targetAsins.map(value => ({
       bid: defaultBid,
       targetMark: '',
@@ -1048,7 +1638,7 @@ function buildSpCreatePayload(input = {}) {
 
     payload.targetingType = 'MANUAL';
     payload.positionType = 'keywordTarget';
-    payload.strategy = 'MANUAL';
+    payload.strategy = BACKEND_CREATE_STRATEGY.keywordTarget;
     payload.keywordArray = keywords.map(keywordText => ({
       keywordText,
       matchType,
@@ -1610,17 +2200,79 @@ async function fetchSbCampaignManageRows() {
   return rows;
 }
 
+function defaultPlacementDateRange(daysBack = 7) {
+  const pad = value => String(value).padStart(2, '0');
+  const fmt = date => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+  const end = new Date();
+  end.setDate(end.getDate() - 1);
+  const start = new Date(end);
+  start.setDate(start.getDate() - Math.max(1, Number(daysBack || 7)) + 1);
+  return [fmt(start), fmt(end)];
+}
+
+function normalizePlacementRows(rows = [], meta = {}) {
+  return (rows || []).map(row => ({
+    ...row,
+    campaignId: row.campaignId || row.campaign_id || meta.campaignId || '',
+    accountId: row.accountId || row.account_id || meta.accountId || '',
+    siteId: row.siteId || row.site_id || meta.siteId || '',
+  }));
+}
+
+async function fetchCampaignPlacementRows({ campaignId, accountId, siteId = 4, days = 7 } = {}) {
+  if (!campaignId || !accountId) return [];
+  const tab = await findTab('*://adv.yswg.com.cn/*');
+  const selectDate = defaultPlacementDateRange(days);
+  const result = await execInTab(tab.id, async (payload) => {
+    const xsrf = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/)?.[1] || '';
+    const url = new URL('/placement/findAllPlacement', location.origin);
+    url.searchParams.set('campaignId', payload.campaignId);
+    url.searchParams.set('accountId', payload.accountId);
+    url.searchParams.set('siteId', payload.siteId);
+    for (const item of payload.selectDate) url.searchParams.append('selectDate[]', item);
+    const res = await fetch(url.toString(), {
+      method: 'GET',
+      credentials: 'include',
+      headers: { 'x-xsrf-token': decodeURIComponent(xsrf) },
+    });
+    const text = await res.text();
+    if (text.trimStart().startsWith('<')) return { ok: false, error: '广告系统未登录，请刷新 adv.yswg.com.cn 后重试', status: res.status };
+    let json = null;
+    try { json = JSON.parse(text); } catch (error) { return { ok: false, error: error.message, status: res.status, text: text.slice(0, 500) }; }
+    const candidates = [
+      json?.data?.records,
+      json?.data?.data,
+      json?.data?.list,
+      json?.data?.rows,
+      json?.records,
+      json?.list,
+      json?.rows,
+      json?.data,
+    ];
+    const rows = candidates.find(Array.isArray) || [];
+    return { ok: res.ok, status: res.status, rows };
+  }, [{
+    campaignId: String(campaignId),
+    accountId: String(accountId),
+    siteId: String(siteId || 4),
+    selectDate,
+  }]);
+  if (!result?.ok) throw new Error(result?.error || `placement rows refresh failed for campaign ${campaignId}`);
+  return normalizePlacementRows(result.rows || [], { campaignId, accountId, siteId });
+}
+
 async function refreshRowsForExecutionEvents(events = []) {
   const types = new Set((events || []).map(event => String(event.entityType || '')).filter(Boolean));
+  const needsPlacementCapture = (events || []).some(event => event.entityType === 'campaign' && event.action?.actionType === 'placement');
   const refreshed = {};
   const errors = [];
 
   try {
-    const needsKeywordCapture = types.has('keyword') || types.has('autoTarget') || types.has('manualTarget');
+    const needsKeywordCapture = types.has('keyword') || types.has('autoTarget') || types.has('manualTarget') || types.has('campaign');
     if (needsKeywordCapture && !STATE.kwCapture?.body) {
       STATE.kwRows = await fetchAllKeywords();
       refreshed.keyword = STATE.kwRows.length;
-    } else if (types.has('keyword')) {
+    } else if (types.has('keyword') || types.has('campaign')) {
       STATE.kwRows = await fetchAllKeywords();
       refreshed.keyword = STATE.kwRows.length;
     }
@@ -1635,6 +2287,30 @@ async function refreshRowsForExecutionEvents(events = []) {
     if (types.has('productAd')) {
       STATE.productAdRows = await fetchAllProductAds();
       refreshed.productAd = STATE.productAdRows.length;
+    }
+    if (types.has('campaign')) {
+      if (!STATE.autoRows.length) STATE.autoRows = await fetchAllAutoTargets(STATE.kwCapture);
+      if (!STATE.targetRows.length) STATE.targetRows = await fetchAllTargeting(STATE.kwCapture);
+      refreshed.campaign = (STATE.kwRows || []).length + (STATE.autoRows || []).length + (STATE.targetRows || []).length + (STATE.productAdRows || []).length;
+      if (needsPlacementCapture) {
+        const byCampaign = new Map();
+        for (const event of events || []) {
+          if (event.entityType !== 'campaign' || event.action?.actionType !== 'placement') continue;
+          const campaignId = String(event.id || event.campaignId || event.action?.campaignId || '').trim();
+          if (!campaignId || byCampaign.has(campaignId)) continue;
+          const meta = [...(STATE.kwRows || []), ...(STATE.autoRows || []), ...(STATE.targetRows || []), ...(STATE.productAdRows || [])]
+            .find(row => String(row.campaignId || row.campaign_id || '') === campaignId) || {};
+          const accountId = event.accountId || event.action?.accountId || meta.accountId || '';
+          const siteId = event.siteId || event.action?.siteId || meta.siteId || 4;
+          byCampaign.set(campaignId, { campaignId, accountId, siteId });
+        }
+        const placementRows = [];
+        for (const meta of byCampaign.values()) {
+          placementRows.push(...await fetchCampaignPlacementRows(meta));
+        }
+        STATE.placementRows = placementRows;
+        refreshed.placementRows = placementRows.length;
+      }
     }
     if (types.has('sbCampaign')) {
       STATE.sbCampaignRows = await fetchAllSbCampaigns();
@@ -1656,6 +2332,8 @@ async function refreshRowsForExecutionEvents(events = []) {
   }
 
   if (types.has('keyword') && !STATE.kwRows.length) errors.push('keyword rows refresh returned empty');
+  if (types.has('campaign') && !((STATE.kwRows || []).length || (STATE.autoRows || []).length || (STATE.targetRows || []).length || (STATE.productAdRows || []).length)) errors.push('campaign source rows refresh returned empty');
+  if (needsPlacementCapture && !(STATE.placementRows || []).length) errors.push('campaign placement rows refresh returned empty');
   if (types.has('autoTarget') && !STATE.autoRows.length) errors.push('auto target rows refresh returned empty');
   if (types.has('manualTarget') && !STATE.targetRows.length) errors.push('manual target rows refresh returned empty');
   if (types.has('productAd') && !STATE.productAdRows.length) errors.push('product ad rows refresh returned empty');
@@ -1672,6 +2350,7 @@ async function refreshRowsForExecutionEvents(events = []) {
       autoRows: STATE.autoRows.length,
       targetRows: STATE.targetRows.length,
       productAdRows: STATE.productAdRows.length,
+      placementRows: (STATE.placementRows || []).length,
       sbRows: STATE.sbRows.length,
       sbCampaignRows: STATE.sbCampaignRows.length,
       sp7: (STATE.sp7DayUntouchedRows || []).length,
@@ -1862,7 +2541,7 @@ function buildOperationalNoteFields(entry) {
   const resultReason = entry.errorReason || entry.resultMessage || '';
   const sources = Array.isArray(action.actionSource || entry.actionSource)
     ? (action.actionSource || entry.actionSource)
-    : [action.actionSource || entry.actionSource || action.source || entry.source || 'strategy'];
+    : [action.actionSource || entry.actionSource || action.source || entry.source || 'codex'];
   const sourceText = [...new Set(sources.filter(Boolean))].join('+');
   const isSevenDay = sourceText.includes('7day');
   const isConflict = finalStatus === 'conflict' || /系统已自动调整|禁止手动调整/.test(resultReason);
@@ -1923,7 +2602,7 @@ function buildInventoryOperationNote(entry) {
   return [
     `【${formatInventoryNoteMinute()}】`,
     '',
-    `来源：${fields.sourceText || 'strategy'}`,
+    `来源：${fields.sourceText || 'codex'}`,
     `阶段判断：${fields.stage}`,
     `当前问题：${fields.currentProblem}`,
     `核心判断：${fields.coreJudgement}`,
@@ -2637,12 +3316,20 @@ async function enrichAdMetricWindows(kwCapture) {
     { label: 'SB定位', rows: STATE.sbRows.filter(r => String(r.__adProperty || '') === '6'), property: '6' },
   ].filter(cfg => cfg.rows.length > 0);
 
+  const tasks = [];
   for (const cfg of configs) {
     for (const days of [7, 3]) {
+      tasks.push({ cfg, days });
+    }
+  }
+  const concurrency = Number(localStorage.getItem('AD_OPS_METRIC_WINDOW_CONCURRENCY') || 2);
+  for (let i = 0; i < tasks.length; i += concurrency) {
+    const batch = tasks.slice(i, i + concurrency);
+    await Promise.all(batch.map(async ({ cfg, days }) => {
       const windowRows = await fetchAdMetricWindow(kwCapture, cfg, days);
       const matched = mergeAdMetricWindow(cfg.rows, windowRows, days);
       log(`${cfg.label} ${days}天指标：返回 ${windowRows.length} 条，匹配 ${matched} 条`, matched ? 'ok' : 'warn');
-    }
+    }));
   }
 }
 
@@ -2738,61 +3425,179 @@ function makeAdTimeRange(days) {
 }
 
 // ---- Listing 并发抓取（panel 页面直接 fetch 公开页面 + DOMParser）----
-async function fetchListingsConcurrent(asins, onProgress) {
+async function fetchListingsConcurrent(listingInputs, onProgress, options = {}) {
   let done = 0;
-  const CONCURRENCY = 3;
-  const DELAY_MS = 900;
+  const CONCURRENCY = Number(options.listingConcurrency || localStorage.getItem('AD_OPS_LISTING_FETCH_CONCURRENCY') || localStorage.getItem('AD_OPS_LISTING_CONCURRENCY') || 5);
+  const DELAY_MS = Number(localStorage.getItem('AD_OPS_LISTING_BATCH_DELAY_MS') || 450);
+  const PER_ASIN_TIMEOUT_MS = Number(options.listingTimeoutMs || localStorage.getItem('AD_OPS_LISTING_FETCH_TIMEOUT_MS') || localStorage.getItem('AD_OPS_LISTING_PER_ASIN_TIMEOUT_MS') || 10000);
+  const RETRY = Number(options.listingRetry || localStorage.getItem('AD_OPS_LISTING_FETCH_RETRY') || 1);
+  const STAGE_TIMEOUT_MS = Number(options.listingStageTimeoutMs || localStorage.getItem('AD_OPS_LISTING_FETCH_STAGE_TIMEOUT_MS') || 120000);
+  const TTL_MS = Number(options.listingCacheTtlMs || 7 * 24 * 60 * 60 * 1000);
+  const deadline = Date.now() + STAGE_TIMEOUT_MS;
+  const cache = getListingCacheStore();
+  const tasks = (listingInputs || []).map(item => {
+    if (typeof item === 'string') {
+      const asin = String(item || '').trim().toUpperCase();
+      return { asin, domain: 'amazon.com', key: listingMapKey('amazon.com', asin) };
+    }
+    const asin = String(item?.asin || '').trim().toUpperCase();
+    const domain = item?.domain || 'amazon.com';
+    return { asin, domain, key: item?.key || listingMapKey(domain, asin) };
+  }).filter(item => item.asin && item.domain === 'amazon.com');
+  STATE.listingFetchMeta = {
+    ...(STATE.listingFetchMeta || {}),
+    attempted: tasks.length,
+    success: 0,
+    failed: 0,
+    skipped: 0,
+    samples: [],
+    concurrency: CONCURRENCY,
+    batchDelayMs: DELAY_MS,
+    perAsinTimeoutMs: PER_ASIN_TIMEOUT_MS,
+    stageTimeoutMs: STAGE_TIMEOUT_MS,
+    retry: 0,
+    cacheHit: 0,
+    cacheMiss: 0,
+    cacheExpired: 0,
+    fetched: 0,
+  };
 
-  async function fetchOne(asin) {
-    await sleep(Math.random() * 400);
+  function pushListingSample(sample) {
+    if (!sample) return;
+    if (!Array.isArray(STATE.listingFetchMeta.samples)) STATE.listingFetchMeta.samples = [];
+    if (STATE.listingFetchMeta.samples.length < 20) STATE.listingFetchMeta.samples.push(sample);
+  }
+
+  function readCache(task) {
+    const entry = cache.entries?.[task.key];
+    if (!entry) {
+      STATE.listingFetchMeta.cacheMiss += 1;
+      return null;
+    }
+    const fetchedAt = new Date(entry.fetchedAt || 0).getTime();
+    if (!fetchedAt || (Date.now() - fetchedAt) > TTL_MS) {
+      STATE.listingFetchMeta.cacheExpired += 1;
+      return null;
+    }
+    STATE.listingFetchMeta.cacheHit += 1;
+    return entry.payload || null;
+  }
+
+  function writeCache(task, payload) {
+    cache.entries[task.key] = {
+      asin: task.asin,
+      site: task.domain,
+      salesChannel: task.domain === 'amazon.co.uk' ? 'Amazon.co.uk' : 'Amazon.com',
+      fetchedAt: nowIso(),
+      source: 'panel_listing_fetch',
+      ttlMs: TTL_MS,
+      payload,
+    };
+  }
+
+  async function fetchOne(task, worker) {
+    const asin = task.asin;
+    await sleep(Math.random() * 250);
+    const cached = readCache(task);
+    if (cached) {
+      STATE.listingMap[task.key] = { ...cached, listingDomain: task.domain };
+      if (task.domain === 'amazon.com') STATE.listingMap[asin] = { ...cached, listingDomain: task.domain };
+      STATE.listingFetchMeta.success += 1;
+      done++;
+      onProgress(done);
+      return;
+    }
+    let attemptsLeft = RETRY + 1;
     try {
-      const res = await fetch(`https://www.amazon.com/dp/${asin}`, {
-        credentials: 'omit',
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-          'Accept-Language': 'en-US,en;q=0.9',
-        },
-      });
-      if (res.ok) {
-        const html = await res.text();
-        STATE.listingMap[asin] = parseListing(html, asin);
+      while (attemptsLeft > 0) {
+        attemptsLeft -= 1;
+        const listingFlow = async () => {
+          const finalUrl = await navigateAmazonListingTab(worker.tabId, asin);
+          const gate = await handleAmazonInterstitial(worker.tabId, 2);
+          const parsed = await scrapeAmazonListingInTab(worker.tabId, asin);
+          return { finalUrl, gate, parsed };
+        };
+        const timeoutFlow = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error(`listing fetch timeout after ${PER_ASIN_TIMEOUT_MS}ms`)), PER_ASIN_TIMEOUT_MS);
+        });
+        try {
+          const { finalUrl, gate, parsed } = await Promise.race([listingFlow(), timeoutFlow]);
+          const kind = parsed?.kind || gate?.kind || 'unknown_dom';
+          const hasStructuredListing = !!(parsed && (parsed.title || parsed.mainImageUrl || (parsed.imageUrls || []).length || (parsed.bullets || []).length));
+          if (kind === 'product_page' && hasStructuredListing) {
+            STATE.listingMap[task.key] = { ...parsed, listingDomain: task.domain };
+            if (task.domain === 'amazon.com') STATE.listingMap[asin] = { ...parsed, listingDomain: task.domain };
+            writeCache(task, parsed);
+            STATE.listingFetchMeta.success += 1;
+            STATE.listingFetchMeta.fetched += 1;
+            done++;
+            onProgress(done);
+            return;
+          }
+          if (attemptsLeft <= 0) {
+            STATE.listingFetchMeta.failed += 1;
+            pushListingSample({
+              asin,
+              status: 200,
+              finalUrl,
+              kind,
+              gateKind: gate?.kind || '',
+              pageTitle: parsed?.pageTitle || '',
+              parsedTitle: parsed?.title || '',
+              parsedImageCount: Array.isArray(parsed?.imageUrls) ? parsed.imageUrls.length : 0,
+              bodyPreview: parsed?.bodyPreview || gate?.bodyPreview || '',
+            });
+          } else {
+            STATE.listingFetchMeta.retry += 1;
+          }
+        } catch (error) {
+          if (attemptsLeft <= 0) {
+            throw error;
+          }
+          STATE.listingFetchMeta.retry += 1;
+        }
       }
-    } catch (_) { /* 失败不阻断 */ }
+    } catch (error) {
+      STATE.listingFetchMeta.failed += 1;
+      pushListingSample({
+        asin,
+        status: 0,
+        finalUrl: `https://www.amazon.com/dp/${asin}`,
+        kind: 'fetch_error',
+        error: error.message,
+      });
+    }
     done++;
     onProgress(done);
   }
 
-  for (let i = 0; i < asins.length; i += CONCURRENCY) {
-    await Promise.all(asins.slice(i, i + CONCURRENCY).map(fetchOne));
-    if (i + CONCURRENCY < asins.length) await sleep(DELAY_MS);
+  const workers = [];
+  for (let i = 0; i < Math.min(CONCURRENCY, tasks.length); i++) {
+    workers.push(await acquireAmazonListingTab(i));
+  }
+
+  try {
+    for (let i = 0; i < tasks.length; i += workers.length) {
+      if (Date.now() > deadline) {
+        const remaining = tasks.length - i;
+        STATE.listingFetchMeta.skipped += remaining;
+        break;
+      }
+      const batch = tasks.slice(i, i + workers.length);
+      await Promise.all(batch.map((task, index) => fetchOne(task, workers[index])));
+      if (i + workers.length < tasks.length) await sleep(DELAY_MS);
+    }
+  } finally {
+    for (const worker of workers) {
+      if (worker?.created && worker.tabId) await removeTab(worker.tabId);
+    }
   }
 }
 
 // ---- Listing HTML 解析（panel 页面有 DOMParser）----
 function parseListing(html, asin) {
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  const result = { asin, isAvailable: false, reviewCount: null, reviewRating: null, price: null, hasPrime: false, bsr: [], fetchedAt: new Date().toISOString() };
-
-  result.isAvailable = !!(doc.getElementById('add-to-cart-button') || doc.getElementById('buy-now-button'));
-
-  const rcEl = doc.getElementById('acrCustomerReviewText');
-  if (rcEl) { const m = rcEl.textContent.match(/[\d,]+/); if (m) result.reviewCount = parseInt(m[0].replace(/,/g, ''), 10); }
-
-  const ratingEl = doc.querySelector('#acrPopover, .reviewCountTextLinkedHistogram');
-  if (ratingEl) { const t = ratingEl.getAttribute('title') || ratingEl.textContent; const m = t.match(/(\d+\.?\d*)/); if (m) result.reviewRating = parseFloat(m[1]); }
-
-  const priceEl = doc.querySelector('.a-price .a-offscreen, #priceblock_ourprice, #priceblock_dealprice');
-  if (priceEl) { const m = priceEl.textContent.match(/[\d.]+/); if (m) result.price = parseFloat(m[0]); }
-
-  result.hasPrime = !!(doc.querySelector('#isPrimeBadge, .a-icon-prime, [aria-label*="Prime"]'));
-
-  const bsrText = (doc.getElementById('detailBulletsWrapper_feature_div') || doc.getElementById('productDetails_db_sections') || doc.getElementById('SalesRank') || { textContent: '' }).textContent;
-  const bsrRe = /#([\d,]+)\s+in\s+([\w &']+?)(?:\s*\(|See Top)/g;
-  let m;
-  while ((m = bsrRe.exec(bsrText)) !== null) {
-    result.bsr.push({ rank: parseInt(m[1].replace(/,/g, ''), 10), category: m[2].trim() });
-  }
-  return result;
+  if (globalThis.ListingParser?.parseListing) return globalThis.ListingParser.parseListing(html, asin);
+  return { asin, fetchedAt: new Date().toISOString() };
 }
 
 // ============================================================
@@ -2807,14 +3612,19 @@ function buildInvMap(rows) {
     log(`库存站点字段：${JSON.stringify(siteFields.map(k => k+'='+rows[0][k]))}`, 'warn');
   }
   for (const r of rows) {
-    // 只保留美国站数据（salesChannel=Amazon.com），避免多站点重复
-    if (r.salesChannel && r.salesChannel !== 'Amazon.com') continue;
+    // 只保留美国/英国站数据，避免其他站点重复
+    if (r.salesChannel && !['Amazon.com', 'Amazon.co.uk'].includes(r.salesChannel)) continue;
     const sku = r.sku || r.SKU || r.Sku || r.raw_sku || r.product_sku || r.rawSku || '';
     if (!sku) continue;
     map[sku] = {
       aid:            r.aid || r.id || r.AID || r.product_id || '',
       sku,
       asin:           r.asin || r.ASIN || null,
+      salesChannel:   r.salesChannel || r.sales_channel || '',
+      saleStatus:     r.sale_status || r.saleStatus || '',
+      fuldate:        r.fuldate || '',
+      opendate:       r.opendate || '',
+      listingDomain:  listingDomainForSalesChannel(r.salesChannel || r.sales_channel || ''),
       price:          parseFloat(r.lowestprice || 0),
       profitRate:     parseFloat(r.profitRate || 0),          // 空运利润率
       seaProfitRate:  parseFloat(r.seaProfitRate || 0),       // 海运利润率
@@ -2826,6 +3636,12 @@ function buildInvMap(rows) {
       unitsSold_3d:   parseFloat(r.qty_3  || 0),
       fulFillable:    parseFloat(r.fulFillable || 0),
       reserved:       parseFloat(r.reserved || 0),
+      session_7:      readNumField(r, ['session_7', 'session7'], 0),
+      session_14:     readNumField(r, ['session_14', 'session14'], 0),
+      session_21:     readNumField(r, ['session_21', 'session21'], 0),
+      percentage_7:   readNumField(r, ['percentage_7', 'percentage7'], 0),
+      percentage_14:  readNumField(r, ['percentage_14', 'percentage14'], 0),
+      percentage_21:  readNumField(r, ['percentage_21', 'percentage21'], 0),
       adDependency:   parseFloat(r.AT || r.at || 0),
       yoySales:       readNumField(r, ['year_over_year_sales', 'yearOverYearSales', 'sales_yoy', 'yoy_sales', '同比销量', '同比销售额'], 0),
       yoySalesPct:    readNumField(r, ['year_over_year_sales_rate', 'yearOverYearSalesRate', 'sales_yoy_rate', 'yoy_sales_rate', 'year_over_year_rate', 'same_period_sales_rate', '同比销量增长率', '同比销售增长率', '同比增长率', '同比'], 0),
@@ -2845,6 +3661,18 @@ function buildInvMap(rows) {
     };
   }
   return map;
+}
+
+function projectInventoryScopeRow(row = {}) {
+  return {
+    sku: row.sku || row.SKU || row.Sku || row.raw_sku || row.product_sku || row.rawSku || '',
+    asin: row.asin || row.ASIN || '',
+    aid: row.aid || row.id || row.AID || row.product_id || '',
+    salesChannel: row.salesChannel || row.sales_channel || '',
+    saleStatus: row.sale_status || row.saleStatus || '',
+    fuldate: row.fuldate || '',
+    opendate: row.opendate || '',
+  };
 }
 
 function buildSellerSalesMap(rows = []) {
@@ -2893,6 +3721,11 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
       skuMap[sku] = {
         sku,
         asin: asin || inv.asin || null,
+        salesChannel: inv.salesChannel || '',
+        saleStatus: inv.saleStatus || '',
+        fuldate: inv.fuldate || '',
+        opendate: inv.opendate || '',
+        listingDomain: inv.listingDomain || listingDomainForSalesChannel(inv.salesChannel || ''),
         price:         inv.price         || 0,
         profitRate:    inv.profitRate     || 0,
         seaProfitRate: inv.seaProfitRate  || 0,
@@ -2914,6 +3747,16 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
         isSeasonal:    inv.isSeasonal     || false,
         fulFillable:   inv.fulFillable    || 0,
         reserved:      inv.reserved       || 0,
+        listingSessions: {
+          lastWeek: inv.session_7 || 0,
+          twoWeeksAgo: inv.session_14 || 0,
+          threeWeeksAgo: inv.session_21 || 0,
+        },
+        listingConversionRates: {
+          lastWeek: inv.percentage_7 || 0,
+          twoWeeksAgo: inv.percentage_14 || 0,
+          threeWeeksAgo: inv.percentage_21 || 0,
+        },
         personalSales: sellerSalesMap[sku] || null,
         campaigns: {},
       };
@@ -2929,6 +3772,11 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
         accountId: meta.accountId || '',
         siteId: meta.siteId || 4,
         adGroupId: meta.adGroupId || '',
+        budget: parseFloat(meta.budget || meta.dailyBudget || 0) || 0,
+        placementTop: meta.placementTop || '',
+        placementPage: meta.placementPage || '',
+        placementProductPage: meta.placementProductPage || '',
+        placementRestOfSearch: meta.placementRestOfSearch || '',
         keywords: [],
         autoTargets: [],
         productAds: [],
@@ -2939,6 +3787,11 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     if (!skuObj.campaigns[campaignId].accountId && meta.accountId) skuObj.campaigns[campaignId].accountId = meta.accountId;
     if (!skuObj.campaigns[campaignId].siteId && meta.siteId) skuObj.campaigns[campaignId].siteId = meta.siteId;
     if (!skuObj.campaigns[campaignId].adGroupId && meta.adGroupId) skuObj.campaigns[campaignId].adGroupId = meta.adGroupId;
+    const budget = parseFloat(meta.budget || meta.dailyBudget || 0);
+    if (!skuObj.campaigns[campaignId].budget && Number.isFinite(budget) && budget > 0) skuObj.campaigns[campaignId].budget = budget;
+    for (const key of ['placementTop', 'placementPage', 'placementProductPage', 'placementRestOfSearch']) {
+      if (!skuObj.campaigns[campaignId][key] && meta[key]) skuObj.campaigns[campaignId][key] = meta[key];
+    }
     return skuObj.campaigns[campaignId];
   }
 
@@ -2972,6 +3825,10 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
   // 预建 SKU 大写列表，用于 campaignName 模糊匹配
   const invSkus = Object.keys(invMap).map(s => ({ raw: s, up: s.toUpperCase() }));
   const invSkuByUpper = new Map(invSkus.map(s => [s.up, s.raw]));
+  for (const sku of Object.keys(invMap || {})) {
+    const inv = invMap[sku] || {};
+    getOrCreate(sku, inv.asin || '');
+  }
   const readStats = (r, days) => ({
     spend: parseFloat(r[`spend${days}`] || r[`cost${days}`] || r[`${days}天花费`] || (days === 30 ? r.spend || r.cost || r.Spend || r.Cost || r['花费'] : 0) || 0),
     orders: parseFloat(r[`orders${days}`] || r[`order${days}`] || r[`${days}天订单`] || (days === 30 ? r.orders || r.order || r.Orders || r['广告订单量'] : 0) || 0),
@@ -3014,6 +3871,20 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     return 'sbEntity';
   }
 
+  function campaignMetaFromRow(r = {}) {
+    return {
+      accountId: r.accountId,
+      siteId: r.siteId,
+      adGroupId: r.adGroupId || r.ad_group_id || '',
+      budget: r.budget || r.dailyBudget || r.daily_budget || '',
+      dailyBudget: r.dailyBudget || r.daily_budget || r.budget || '',
+      placementTop: r.placementTop || '',
+      placementPage: r.placementPage || '',
+      placementProductPage: r.placementProductPage || '',
+      placementRestOfSearch: r.placementRestOfSearch || '',
+    };
+  }
+
   // 处理关键词
   for (const r of kwRows) {
     const { sku, asin } = resolveIdentity(r);
@@ -3022,11 +3893,7 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     const skuObj = getOrCreate(key, asin);
     if (asin && !skuObj.asin) skuObj.asin = asin;
     const campaignId = String(r.campaignId || r.campaign_id || '');
-    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', {
-      accountId: r.accountId,
-      siteId: r.siteId,
-      adGroupId: r.adGroupId || r.ad_group_id || '',
-    });
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', campaignMetaFromRow(r));
     const updatedAt = r.updatedAt || r.updated_at || r['更新时间'] || '';
     const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
     camp.keywords.push({
@@ -3051,11 +3918,7 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     const skuObj = getOrCreate(key, asin);
     if (asin && !skuObj.asin) skuObj.asin = asin;
     const campaignId = String(r.campaignId || r.campaign_id || '');
-    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', {
-      accountId: r.accountId,
-      siteId: r.siteId,
-      adGroupId: r.adGroupId || r.ad_group_id || '',
-    });
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', campaignMetaFromRow(r));
     const updatedAt = r.updatedAt || r.updated_at || r['更新时间'] || '';
     const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
     camp.autoTargets.push({
@@ -3079,11 +3942,7 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     const skuObj = getOrCreate(key, asin);
     if (asin && !skuObj.asin) skuObj.asin = asin;
     const campaignId = String(r.campaignId || r.campaign_id || '');
-    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', {
-      accountId: r.accountId,
-      siteId: r.siteId,
-      adGroupId: r.adGroupId || r.ad_group_id || '',
-    });
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', campaignMetaFromRow(r));
     const updatedAt = r.updatedAt || r.updated_at || '';
     const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
     camp.autoTargets.push({
@@ -3106,11 +3965,7 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     const skuObj = getOrCreate(key, asin);
     if (asin && !skuObj.asin) skuObj.asin = asin;
     const campaignId = String(r.campaignId || r.campaign_id || r.campaign_id_str || '');
-    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', {
-      accountId: r.accountId,
-      siteId: r.siteId,
-      adGroupId: r.adGroupId || r.ad_group_id || '',
-    });
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', campaignMetaFromRow(r));
     const updatedAt = r.updatedAt || r.updated_at || r.modifyTime || r.updateTime || '';
     const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
     camp.sponsoredBrands.push({
@@ -3137,11 +3992,7 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     const skuObj = getOrCreate(key, asin);
     if (asin && !skuObj.asin) skuObj.asin = asin;
     const campaignId = String(r.campaignId || r.campaign_id || '');
-    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', {
-      accountId: r.accountId,
-      siteId: r.siteId,
-      adGroupId: r.adGroupId || r.ad_group_id || '',
-    });
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', campaignMetaFromRow(r));
     const updatedAt = r.updatedAt || r.updated_at || r.modifyTime || r.updateTime || '';
     const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
     camp.productAds.push({
@@ -3163,11 +4014,7 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     const skuObj = getOrCreate(key, asin);
     if (asin && !skuObj.asin) skuObj.asin = asin;
     const campaignId = String(r.campaignId || r.campaign_id || '');
-    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', {
-      accountId: r.accountId,
-      siteId: r.siteId,
-      adGroupId: r.adGroupId || r.ad_group_id || '',
-    });
+    const camp = getOrCreateCampaign(skuObj, campaignId, r.campaignName || r.campaign_name || '', campaignMetaFromRow(r));
     const updatedAt = r.updatedAt || r.updated_at || r.modifyTime || r.updateTime || '';
     const onCooldown = updatedAt ? new Date(updatedAt) > cutoffDate : false;
     camp.sbCampaign = {
@@ -3229,7 +4076,7 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
       createContext: buildCreateContext(card, campaigns),
       adStats,
       sbStats,
-      listing: card.asin ? (listingMap[card.asin] || null) : null,
+      listing: card.asin ? (listingMap[listingMapKey(card.listingDomain || listingDomainForSalesChannel(card.salesChannel), card.asin)] || ((card.listingDomain || listingDomainForSalesChannel(card.salesChannel)) === 'amazon.com' ? listingMap[String(card.asin).trim().toUpperCase()] : null) || null) : null,
       history,
       snapshot: new Date().toISOString().slice(0, 10),
     };
@@ -3333,7 +4180,7 @@ function renderActionsTable(actions, result) {
     const cls    = isUp ? 'bid-up' : isDown ? 'bid-down' : 'bid-same';
     const arrow  = isUp ? '↑' : isDown ? '↓' : '—';
     const onCooldown = checkCooldown(a.id, result);
-    const sourceText = Array.isArray(a.actionSource) ? a.actionSource.join('+') : (a.actionSource || a.source || 'strategy');
+    const sourceText = Array.isArray(a.actionSource) ? a.actionSource.join('+') : (a.actionSource || a.source || 'codex');
     const riskText = a.riskLevel || 'normal';
     const defaultChecked = (isBidAction || isStateAction || isCreateAction) && !onCooldown && result.health !== 'Listing异常';
     const cooldownBadge = onCooldown ? '<span class="cooldown-badge">冷却中</span>' : '';

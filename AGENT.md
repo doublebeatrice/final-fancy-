@@ -36,6 +36,7 @@ Do not add an OpenAI-compatible provider or AI runtime inside the panel. Do not 
 - Code must not secretly decide strategy through old rule trees.
 - If Codex cannot decide, emit `review`.
 - Do not use fallback logic to pretend AI made a decision.
+- Helper generators may emit `actionSource: ["generator_candidate"]` only. The validator must keep those actions review-only unless Codex rewrites them as an explicit Codex action schema.
 - All failures must be structured.
 - High-risk actions remain review-only unless explicitly released.
 
@@ -82,6 +83,29 @@ Advertising anomaly context must include the fresh ad summary interfaces when av
 - `/product/adSkuSummary`: SKU-level 30-day ad spend, sales, orders, ACOS, CPC, and previous-period deltas.
 - `/advProduct/all`: SP product-ad rows, active state, spend, orders, and high-ACOS rows by SKU.
 - `/campaignSb/findAllNew`: SB campaign spend and state; infer SKU from campaign/ad-group names because the endpoint does not expose a direct SKU field.
+
+## Interface Selection Discipline
+
+Do not default to full snapshot export for every question. Pick the smallest interface that answers the user's question:
+
+- Named SKU, overall health: `node scripts\execute\fetch_ad_sku_summary.js <siteId> <days> <SKU>` using `/product/adSkuSummary`.
+- Named SKU, campaign/ad-row breakdown: `node scripts\execute\fetch_sku_ad_product_data.js <SKU> <siteId> <days>` or `node scripts\execute\fetch_sku_ad_product_data.js <SKU> <siteId> <startYmd> <endYmd>` using `/product/adProductData`; this can include campaign budget fields such as `dailyBudget`.
+- Specific ad group rows across SP/SB: `node scripts\execute\fetch_ad_group_rows.js <campaignId> <adGroupId> <accountId> <siteId> <property> <tableName|-> <days|startYmd> [endYmd]` using `/keyword/findAllNew` plus local `campaignId + adGroupId` filtering. Properties: `1` SP keyword, `2 product_target` SP auto, `3 product_manual_target` SP manual target, `4` SB keyword, `6` SB target.
+- Specific campaign placement: `node scripts\execute\fetch_campaign_placement.js <campaignId> <accountId> <siteId> <days|startYmd> [endYmd]` using `/placement/findAllPlacement`.
+- Specific SP ad group internals: `node scripts\execute\fetch_sp_group_detail.js <campaignId> <adGroupId> <accountId> <siteId> <days|startYmd> [endYmd]` using `/advTarget/findManualProductTarget` and `/customerSearch/targetFindAll`.
+- Customer search terms from `/customerSearch/targetFindAll` are useful for SP auto/manual groups. SB and some SP keyword groups may return only an empty aggregate placeholder, so do not use a placeholder row as evidence of search-term traffic.
+- Full abnormal pool, daily down pool, eligible SKU discovery, or cross-SKU prioritization: export a full snapshot.
+- Daily learning discipline: before operational decisions, read today's freshest interface/snapshot data and persist the day's snapshot, action plan, execution verification, and learning/impact records. If today's data cannot be fetched, mark the baseline as incomplete instead of silently reusing old data.
+- Execution: generate schema only after the read path above, dry-run first, then execute.
+
+Choose the date window from the business question. Use recent 7/30 days for current health, explicit historical dates for comparison, and do not hard-code 30 days when a narrower or older window is needed.
+
+Never store pasted `x-xsrf-token` values. All ad reads and writes must use the active browser session in the logged-in `adv.yswg.com.cn` debug tab.
+
+Budget and placement are available dimensions and are wired into automatic execution. SKU ad-product rows can expose `dailyBudget`; campaign placement reads use `/placement/findAllPlacement`. SP budget writes use action schema `entityType=campaign`, `actionType=budget`, `suggestedBudget`, and execute through `PATCH /campaign/batchCampaign`. SP placement writes use `entityType=campaign`, `actionType=placement`, `placementKey`, `suggestedPlacementPercent`, and execute through `PATCH /campaign/editCampaignColumn`.
+Budget and placement actions are allowed as controlled learning experiments. Each executable action should carry a hypothesis, expected effect, measurement windows, and baseline-quality fields so later attribution can learn what improved or worsened the data.
+
+Inventory listing performance is also an AI dimension. `session_7/14/21` mean last week / two weeks ago / three weeks ago sessions, and `percentage_7/14/21` are listing conversion rates for those same weeks. Product contexts expose them as `listingSessions` and `listingConversionRates`.
 
 If the latest export has zero-filled product-card sales/inventory/YoY fields, use same-day nonblank product-card data as a fallback while keeping the latest ad-interface rows. The "同" field remains `year_over_year_asin_rate`.
 

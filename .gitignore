@@ -1,6 +1,13 @@
-﻿node_modules/
+node_modules/
 data/snapshots/
+data/attribution/
+data/adjustment_history.json
+data/listing_cache.json
+data/product_profiles.json
+data/reports/
+archive/reports/
 snapshots/
+黄成喆个人数据趋势/
 *.log
 *.tmp
 *.bak

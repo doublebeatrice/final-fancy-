@@ -1,3 +1,4 @@
+$profileDir = "C:\chrome-debug-profile"
 $debugUrl = "http://127.0.0.1:9222"
 $requiredUrls = @(
   "https://adv.yswg.com.cn/",
@@ -62,9 +63,34 @@ if ($existingTabs) {
   exit 0
 }
 
+if (-not (Test-Path $profileDir)) {
+  New-Item -ItemType Directory -Path $profileDir -Force | Out-Null
+}
+
+$candidatePaths = @(
+  "C:\Program Files\Google\Chrome\Application\chrome.exe",
+  "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+  "$env:LOCALAPPDATA\Google\Chrome\Application\chrome.exe"
+)
+
+$chromePath = $candidatePaths | Where-Object { Test-Path $_ } | Select-Object -First 1
+
+if (-not $chromePath) {
+  try {
+    $registryPath = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe" -ErrorAction Stop).'(default)'
+    if ($registryPath -and (Test-Path $registryPath)) {
+      $chromePath = $registryPath
+    }
+  } catch {}
+}
+
+if (-not $chromePath) {
+  throw "Chrome executable not found. Checked common install paths and App Paths registry."
+}
+
 $chromeArgs = @(
   "--remote-debugging-port=9222",
-  "--user-data-dir=C:\Users\Administrator\AppData\Local\Google\Chrome\User Data",
+  "--user-data-dir=$profileDir",
   "--variations-override-country=us",
   "--lang=en-US"
 )
@@ -73,7 +99,9 @@ foreach ($url in $requiredUrls) {
   $chromeArgs += $url
 }
 
-Start-Process -FilePath "chrome.exe" -ArgumentList $chromeArgs
+Start-Process -FilePath $chromePath -ArgumentList $chromeArgs
 
 Write-Host "Started Chrome with remote debugging on $debugUrl"
+Write-Host "Chrome binary: $chromePath"
+Write-Host "User data dir: $profileDir"
 Write-Host "This does not log in automatically. Use the opened tabs to manually confirm login."

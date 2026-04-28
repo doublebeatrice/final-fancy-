@@ -3,11 +3,11 @@ const fs = require('fs');
 const path = require('path');
 const http = require('http');
 const { log, loadHistory, saveHistory, hasRecentOutcome, SNAPSHOTS_DIR, today } = require('./src/adjust_lib');
-const { loadExternalActionSchema } = require('./src/ai_decision');
+const { hasRequiredVerification, loadExternalActionSchema } = require('./src/ai_decision');
+const { analyzeAllowedOperationScope, applyAllowedOperationScope } = require('./src/operation_scope');
 
 const BATCH = 50;
 const VERIFY_TOLERANCE = 0.0001;
-const DRY_RUN = process.env.DRY_RUN === '1';
 
 function groupByAccountSite(items, getMeta, typeLabel, bucketKeys = []) {
   const groups = new Map();
@@ -123,7 +123,7 @@ function groupEventsBySku(events) {
 
 function normalizeSources(source) {
   if (Array.isArray(source)) return [...new Set(source.filter(Boolean))];
-  if (!source) return ['strategy'];
+  if (!source) return ['codex'];
   return [source];
 }
 
@@ -158,6 +158,10 @@ function executionEntityKey(entityType, id) {
 
 function entityRowId(row = {}) {
   return String(row.keywordId || row.targetId || row.target_id || row.adId || row.ad_id || row.campaignId || row.campaign_id || row.id || row.keyword_id || '').trim();
+}
+
+function campaignRowId(row = {}) {
+  return String(row.campaignId || row.campaign_id || row.id || '').trim();
 }
 
 function isInvalidState(value) {
@@ -196,6 +200,7 @@ function ensureTouchedBidChange(bid, factor, direction, minBid = 0.05) {
 }
 
 async function run(options = {}) {
+  const dryRun = options.dryRun === true || (options.dryRun !== false && process.env.DRY_RUN === '1');
   const panelId = await findPanelId();
   log(`Panel ID: ${panelId}`);
   const ws = new WebSocket(`ws://127.0.0.1:9222/devtools/page/${panelId}`);
@@ -241,6 +246,41 @@ async function run(options = {}) {
     const action = (planItem?.actions || []).find(a => String(a.id) === String(item.id) && a.entityType === entityType) ||
       (planItem?.actions || []).find(a => String(a.id) === String(item.id)) ||
       item;
+    const productCard = (cards || []).find(card => String(card.sku || '') === String(item.sku || planItem?.sku || '')) || {};
+    const learning = action.learning || item.learning || {};
+    const executionLearning = {
+      ...learning,
+      executedAt: new Date().toISOString(),
+      apiStatus,
+      measurementStatus: apiStatus === 'api_success' ? 'pending_observation' : 'not_started',
+      resultLabel: apiStatus === 'api_success' ? 'pending' : 'not_executable',
+      attributionWeight: learning.baselineQuality === 'complete' ? 1 : 0.35,
+      executionBaseline: {
+        ...(learning.baseline || {}),
+        sku: item.sku || planItem?.sku || productCard.sku || '',
+        asin: productCard.asin || learning.baseline?.asin || '',
+        siteId: meta.siteId || action.siteId || '',
+        accountId: meta.accountId || action.accountId || '',
+        campaignId: meta.campaignId || action.campaignId || '',
+        adGroupId: meta.adGroupId || action.adGroupId || '',
+        currentBid: item.currentBid ?? action.currentBid ?? meta.bid ?? null,
+        suggestedBid: item.suggestedBid ?? action.suggestedBid ?? null,
+        currentBudget: item.currentBudget ?? action.currentBudget ?? meta.budget ?? meta.dailyBudget ?? null,
+        suggestedBudget: item.suggestedBudget ?? action.suggestedBudget ?? null,
+        placementKey: item.placementKey ?? action.placementKey ?? '',
+        currentPlacementPercent: item.currentPlacementPercent ?? action.currentPlacementPercent ?? null,
+        suggestedPlacementPercent: item.suggestedPlacementPercent ?? action.suggestedPlacementPercent ?? null,
+        product: {
+          profitRate: productCard.profitRate ?? null,
+          invDays: productCard.invDays ?? null,
+          unitsSold_7d: productCard.unitsSold_7d ?? null,
+          unitsSold_30d: productCard.unitsSold_30d ?? null,
+          adDependency: productCard.adDependency ?? null,
+          listingSessions: productCard.listingSessions || {},
+          listingConversionRates: productCard.listingConversionRates || {},
+        },
+      },
+    };
     const enrichedAction = {
       ...action,
       campaignId: action.campaignId || meta.campaignId || '',
@@ -250,6 +290,7 @@ async function run(options = {}) {
       campaignName: action.campaignName || meta.campaignName || '',
       groupName: action.groupName || meta.groupName || '',
       matchType: action.matchType || meta.matchType || '',
+      learning: executionLearning,
     };
     executionEvents.push({
       sku: item.sku || planItem?.sku,
@@ -267,14 +308,23 @@ async function run(options = {}) {
       currentBid: item.currentBid,
       suggestedBudget: item.suggestedBudget,
       currentBudget: item.currentBudget,
+      placementKey: item.placementKey,
+      suggestedPlacementPercent: item.suggestedPlacementPercent,
+      currentPlacementPercent: item.currentPlacementPercent,
       entityType,
       apiStatus,
       success: false,
       plan: planItem || { sku: item.sku },
       action: enrichedAction,
-      source: enrichedAction.source || item.source || 'strategy',
+      source: enrichedAction.source || item.source || 'codex',
       actionSource: normalizeSources(enrichedAction.actionSource || item.actionSource || enrichedAction.source || item.source),
       riskLevel: enrichedAction.riskLevel || item.riskLevel || '',
+      learning: executionLearning,
+      hypothesis: executionLearning.hypothesis || '',
+      expectedEffect: executionLearning.expectedEffect || {},
+      measurementWindowDays: executionLearning.measurementWindowDays || [1, 3, 7, 14, 30],
+      baselineQuality: executionLearning.baselineQuality || 'unknown',
+      dataQualityWarnings: executionLearning.dataQualityWarnings || [],
       canAutoExecute: enrichedAction.canAutoExecute !== false,
       dedupeKey: enrichedAction.dedupeKey || item.dedupeKey || '',
       executionKey: executionEntityKey(entityType, item.id),
@@ -426,6 +476,84 @@ async function run(options = {}) {
     return { apiSuccess, apiFailed };
   }
 
+  async function executeSpCampaignBudgetItems(items, rows, typeLabel) {
+    let apiSuccess = 0;
+    let apiFailed = 0;
+    const { groups, skipped } = groupByAccountSite(
+      items,
+      item => rows.find(r => campaignRowId(r) === String(item.id)),
+      typeLabel
+    );
+    apiFailed += skipped.length;
+    skipped.forEach(item => recordExecutionEvent(item, 'campaign', 'failed', { msg: 'missing sp campaign metadata' }));
+
+    for (const [accountKey, group] of groups.entries()) {
+      for (let i = 0; i < group.items.length; i += BATCH) {
+        const batch = group.items.slice(i, i + BATCH);
+        const payload = {
+          siteId: group.siteId,
+          accountId: group.accountId,
+          campaignNewArray: batch.map(({ item, meta }) => ({
+            siteId: meta.siteId || group.siteId || 4,
+            accountId: meta.accountId || group.accountId,
+            campaignId: String(item.id),
+            budget: Number(item.suggestedBudget).toFixed(2),
+          })),
+          batchType: 'add-budget-value',
+          batch_campaigns: batch.map(({ item }) => String(item.id)),
+          columnVal: batch.map(({ item }) => Number(item.suggestedBudget).toFixed(2)),
+          campaignIdArray: batch.map(({ item }) => String(item.id)),
+          column: 'budget',
+          property: 'campaign',
+          operation: 'dailyBudget',
+        };
+        const result = await execPanelJson(`execAdWrite(${JSON.stringify('/campaign/batchCampaign')}, ${JSON.stringify(payload)}, ${JSON.stringify('PATCH')})`);
+        const status = classifyApiResult(result);
+        if (status === 'api_success') apiSuccess += batch.length;
+        else apiFailed += batch.length;
+        batch.forEach(({ item, meta }) => recordExecutionEvent(item, 'campaign', status, result, meta));
+        log(`${typeLabel} ${accountKey}: API ${status} ${batch.length}`);
+        await wait(500);
+      }
+    }
+    return { apiSuccess, apiFailed };
+  }
+
+  async function executeSpCampaignPlacementItems(items, rows, typeLabel) {
+    let apiSuccess = 0;
+    let apiFailed = 0;
+    const { groups, skipped } = groupByAccountSite(
+      items,
+      item => rows.find(r => campaignRowId(r) === String(item.id)),
+      typeLabel
+    );
+    apiFailed += skipped.length;
+    skipped.forEach(item => recordExecutionEvent(item, 'campaign', 'failed', { msg: 'missing sp campaign metadata' }));
+
+    for (const [accountKey, group] of groups.entries()) {
+      for (const { item, meta } of group.items) {
+        const payload = {
+          siteId: meta.siteId || group.siteId || 4,
+          accountId: meta.accountId || group.accountId,
+          campaignId: Number(item.id),
+          key: item.placementKey,
+          column: Number(item.suggestedPlacementPercent),
+          property: 'campaign',
+          campaignIdArray: [Number(item.id)],
+          operation: 'placement',
+        };
+        const result = await execPanelJson(`execAdWrite(${JSON.stringify('/campaign/editCampaignColumn')}, ${JSON.stringify(payload)}, ${JSON.stringify('PATCH')})`);
+        const status = classifyApiResult(result);
+        if (status === 'api_success') apiSuccess += 1;
+        else apiFailed += 1;
+        recordExecutionEvent(item, 'campaign', status, result, meta);
+        log(`${typeLabel} ${accountKey} ${item.placementKey}: API ${status}`);
+        await wait(500);
+      }
+    }
+    return { apiSuccess, apiFailed };
+  }
+
   async function executeCreateItems(items) {
     let apiSuccess = 0;
     let apiFailed = 0;
@@ -492,9 +620,46 @@ async function run(options = {}) {
           if (event.action?.actionType === 'pause') return 'paused';
           return '';
         };
+        const placementAliases = {
+          placementTop: ['placementTop', 'topOfSearch', 'top_of_search', 'topSearch', 'topSearchPercent'],
+          placementProductPage: ['placementProductPage', 'placementPage', 'productPage', 'product_page', 'detailPage', 'detailPagePercent'],
+          placementRestOfSearch: ['placementRestOfSearch', 'restOfSearch', 'rest_of_search', 'otherPlacement', 'restSearchPercent'],
+        };
+        const placementNameMatches = (row, key) => {
+          const text = String(row.placement || row.placementName || row.placement_name || row.position || row.positionName || row.targetingPlacement || '').toLowerCase();
+          if (!text) return false;
+          if (key === 'placementTop') return /top|search top|搜索顶部|首页/.test(text);
+          if (key === 'placementProductPage') return /product|detail|商品|详情/.test(text);
+          if (key === 'placementRestOfSearch') return /rest|other|其余|其他/.test(text);
+          return false;
+        };
+        const parsePlacement = value => {
+          if (value === undefined || value === null || value === '') return null;
+          const text = String(value);
+          const raw = text.includes(':') ? text.split(':').pop() : text;
+          const n = Number(String(raw).replace('%', '').trim());
+          return Number.isFinite(n) ? n : null;
+        };
+        const placementValueFromRows = (campaignId, key) => {
+          const rows = (STATE.placementRows || []).filter(r => String(r.campaignId || r.campaign_id || '') === String(campaignId));
+          for (const row of rows) {
+            for (const field of placementAliases[key] || [key]) {
+              const value = parsePlacement(row[field]);
+              if (value != null) return value;
+            }
+            if (placementNameMatches(row, key)) {
+              for (const field of ['percentage', 'percent', 'placementPercent', 'bidPlus', 'biddingAdjustment', 'adjustment', 'column', 'value']) {
+                const value = parsePlacement(row[field]);
+                if (value != null) return value;
+              }
+            }
+          }
+          return null;
+        };
         const rowId = row => String(row.keywordId || row.targetId || row.target_id || row.adId || row.ad_id || row.id || row.keyword_id || '').trim();
         const rowsFor = type => {
           if (type === 'keyword') return STATE.kwRows || [];
+          if (type === 'campaign') return [...(STATE.kwRows || []), ...(STATE.autoRows || []), ...(STATE.targetRows || []), ...(STATE.productAdRows || [])];
           if (type === 'manualTarget') return STATE.targetRows || [];
           if (type === 'productAd') return STATE.productAdRows || [];
           if (type === 'sbKeyword') return (STATE.sbRows || []).filter(r => String(r.__adProperty || '') === '4');
@@ -579,6 +744,45 @@ async function run(options = {}) {
                 : 'sb campaign budget action API success but row missing in campaign management table';
             }
             return out;
+          }
+          if (event.entityType === 'campaign') {
+            const row = rowsFor(event.entityType).find(r => String(r.campaignId || r.campaign_id || '') === String(event.id));
+            out.rowFound = !!row;
+            if (event.action?.actionType === 'budget') {
+              const expected = bidNum(event.suggestedBudget);
+              const actual = row ? bidNum(row.budget ?? row.dailyBudget ?? row.daily_budget) : null;
+              out.expectedBudget = expected;
+              out.actualBudget = actual;
+              if (row && actual != null && expected != null && Math.abs(actual - expected) < ${VERIFY_TOLERANCE}) {
+                out.finalStatus = 'success';
+                out.success = true;
+                out.errorReason = '';
+              } else {
+                out.finalStatus = 'not_landed';
+                out.success = false;
+                out.errorReason = row ? 'sp campaign budget verify did not land' : 'sp campaign budget action API success but row missing';
+              }
+              return out;
+            }
+            if (event.action?.actionType === 'placement') {
+              const key = event.placementKey || event.action?.placementKey || '';
+              const expected = bidNum(event.suggestedPlacementPercent);
+              const placementActual = placementValueFromRows(event.id, key);
+              const actual = placementActual != null ? placementActual : (row ? parsePlacement(row[key] ?? row.placementPage) : null);
+              out.expectedPlacementPercent = expected;
+              out.actualPlacementPercent = actual;
+              out.placementRowFound = placementActual != null;
+              if ((row || placementActual != null) && actual != null && expected != null && Math.abs(actual - expected) < ${VERIFY_TOLERANCE}) {
+                out.finalStatus = 'success';
+                out.success = true;
+                out.errorReason = '';
+              } else {
+                out.finalStatus = 'not_landed';
+                out.success = false;
+                out.errorReason = row || placementActual != null ? 'sp campaign placement verify did not land' : 'sp campaign placement action API success but row missing';
+              }
+              return out;
+            }
           }
           if (event.action?.actionType === 'create') {
             const campaignId = String(event.campaignId || event.action?.campaignId || '').trim();
@@ -727,6 +931,7 @@ async function run(options = {}) {
         sbRows: (snapshot.sbRows || []).length,
         sbCampaignRows: (snapshot.sbCampaignRows || []).length,
         sellerSalesRows: (snapshot.sellerSalesRows || []).length,
+        inventoryScopeRows: (snapshot.inventoryScopeRows || []).length,
         invMap: Object.keys(snapshot.invMap || {}).length,
         sp7: (snapshot.sp7DayUntouchedRows || []).length,
         sb7: (snapshot.sb7DayUntouchedRows || []).length,
@@ -742,10 +947,12 @@ async function run(options = {}) {
       sbCampaignRows: snapshot.sbCampaignRows || [],
       sellerSalesRows: snapshot.sellerSalesRows || [],
       sellerSalesMeta: snapshot.sellerSalesMeta || {},
+      inventoryScopeRows: snapshot.inventoryScopeRows || [],
       invMap: snapshot.invMap || {},
       sp7DayRows: snapshot.sp7DayUntouchedRows || [],
       sb7DayRows: snapshot.sb7DayUntouchedRows || [],
       sevenDayMeta: snapshot.sevenDayUntouchedMeta || {},
+      fetchMetrics: snapshot.fetchMetrics || {},
     };
   }
 
@@ -798,8 +1005,16 @@ async function run(options = {}) {
   const sp7DayRows = snapshotData ? snapshotData.sp7DayRows : JSON.parse(await eval_('JSON.stringify(STATE.sp7DayUntouchedRows || [])') || '[]');
   const sb7DayRows = snapshotData ? snapshotData.sb7DayRows : JSON.parse(await eval_('JSON.stringify(STATE.sb7DayUntouchedRows || [])') || '[]');
   const sevenDayMeta = snapshotData ? snapshotData.sevenDayMeta : JSON.parse(await eval_('JSON.stringify(STATE.sevenDayUntouchedMeta || {})') || '{}');
+  const inventoryScopeRows = snapshotData ? snapshotData.inventoryScopeRows : JSON.parse(await eval_('JSON.stringify(STATE.inventoryScopeRows || [])') || '[]');
+  const invMap = snapshotData ? snapshotData.invMap : JSON.parse(await eval_('JSON.stringify(STATE.invMap || {})') || '{}');
+  const scopeAnalysis = analyzeAllowedOperationScope({
+    productCards: cards,
+    inventoryScopeRows,
+    invMap,
+  });
   log(`Product cards: ${cards.length}; SP keywords: ${kwRows.length}; SP auto: ${autoTargetRows.length}; SP manual targets: ${manualTargetRows.length}; SB keywords: ${sbKwRows.length}; SB targets: ${sbTargetRows.length}`);
   log(`7d untouched: SP candidates=${sp7DayRows.length}; SB candidates=${sb7DayRows.length}; SP granularity=${sevenDayMeta.sp?.entityLevel || 'unknown'}; SB granularity=${sevenDayMeta.sb?.entityLevel || 'unknown'}`);
+  log(`Allowed operation scope: rows=${scopeAnalysis.summary.allowedScopeRowCount}; uniqueSkus=${scopeAnalysis.summary.allowedScopeSkuCount}; duplicates=${scopeAnalysis.summary.duplicateScopeSkuCount}`);
   if (!cards.length) {
     closeWs();
     throw new Error(`No product cards after full fetch. Last fetch meta: ${JSON.stringify(fetchMeta || {})}`);
@@ -815,8 +1030,9 @@ async function run(options = {}) {
     sbTarget: sbTargetRows,
     sbCampaign: sbCampaignRows,
     sbCampaignCandidate: sb7DayRows,
+    campaign: [...kwRows, ...autoTargetRows, ...manualTargetRows, ...productAdRows],
   };
-  const aiDecision = loadExternalActionSchema({
+  const aiDecisionRaw = loadExternalActionSchema({
     cards,
     rowsByType,
     sp7DayRows,
@@ -826,15 +1042,37 @@ async function run(options = {}) {
     snapshotDir: SNAPSHOTS_DIR,
     actionSchemaFile: options.actionSchemaFile || process.env.ACTION_SCHEMA_FILE,
   });
-  const plan = (aiDecision.plan || []).filter(item => (item.actions || []).length > 0);
-  const aiReview = aiDecision.review || [];
+  const aiDecision = applyAllowedOperationScope(aiDecisionRaw, scopeAnalysis);
+  const verificationBlocked = [];
+  const plan = (aiDecision.plan || []).map(item => {
+    const actions = [];
+    for (const action of item.actions || []) {
+      if (hasRequiredVerification(action)) {
+        actions.push(action);
+        continue;
+      }
+      verificationBlocked.push({
+        sku: item.sku,
+        action: {
+          ...action,
+          actionType: 'review',
+          canAutoExecute: false,
+          riskLevel: action.riskLevel || 'manual_review',
+          reason: `${action.reason || ''} [execution_gate:missing_verify_spec]`.trim(),
+        },
+      });
+    }
+    return { ...item, actions };
+  }).filter(item => (item.actions || []).length > 0);
+  const aiReview = [...(aiDecision.review || []), ...verificationBlocked];
   const aiSkipped = aiDecision.skipped || [];
   const aiValidationErrors = aiDecision.errors || [];
+  const scopeSummary = aiDecision.scope || scopeAnalysis.summary || {};
   const totalActions = plan.reduce((sum, item) => sum + item.actions.length, 0);
   fs.writeFileSync(path.join(SNAPSHOTS_DIR, `plan_${today}.json`), JSON.stringify(plan, null, 2));
   fs.writeFileSync(path.join(SNAPSHOTS_DIR, `seven_day_untouched_${today}.json`), JSON.stringify({ meta: sevenDayMeta, spRows: sp7DayRows, sbRows: sb7DayRows, review: aiReview, skipped: aiSkipped }, null, 2));
   log(`External action schema loaded: ${plan.length} SKUs, ${totalActions} actions; review=${aiReview.length}; skipped=${aiSkipped.length}; validationErrors=${aiValidationErrors.length}`);
-  if (DRY_RUN) {
+  if (dryRun) {
     const allActions = plan.flatMap(p => (p.actions || []).map(a => ({ ...a, sku: p.sku })));
     const drySummary = allActions.reduce((acc, action) => {
       for (const source of normalizeSources(action.actionSource)) acc[`source:${source}`] = (acc[`source:${source}`] || 0) + 1;
@@ -849,6 +1087,28 @@ async function run(options = {}) {
       decisionSource: aiDecision.decisionSource,
       actionSchemaFile: aiDecision.actionSchemaFile,
       aiValidationErrors,
+      totalProductCards: scopeSummary.totalProductCards || cards.length,
+      allowedScopeSkuCount: scopeSummary.allowedScopeSkuCount || 0,
+      schemaSkuCount: scopeSummary.schemaSkuCount || 0,
+      outOfScopeSkus: scopeSummary.outOfScopeSkus || 0,
+      reviewSkus: scopeSummary.reviewSkus || 0,
+      executableSkus: scopeSummary.executableSkus || 0,
+      outOfScopeSkuList: scopeSummary.outOfScopeSkuList || [],
+      fetchMetrics: snapshotData?.fetchMetrics || {},
+      stageTimingTop10: (snapshotData?.fetchMetrics?.stages || [])
+        .slice()
+        .sort((a, b) => (b.durationMs || 0) - (a.durationMs || 0))
+        .slice(0, 10)
+        .map(stage => ({
+          stage: stage.stage,
+          durationMs: stage.durationMs,
+          attempted: stage.attempted || 0,
+          success: stage.success || 0,
+          failed: stage.failed || 0,
+          skipped: stage.skipped || 0,
+          avgMs: stage.avgMs || stage.durationMs || 0,
+          p95Ms: stage.p95Ms || stage.durationMs || 0,
+        })),
       sevenDayStats: {
         spCandidates: sp7DayRows.length,
         spExecutable: allActions.filter(a => normalizeSources(a.actionSource).includes('sp_7day_untouched') && a.canAutoExecute !== false).length,
@@ -861,10 +1121,21 @@ async function run(options = {}) {
       },
       drySummary,
     };
-    fs.writeFileSync(path.join(SNAPSHOTS_DIR, `execution_dry_run_${today}.json`), JSON.stringify(dryReport, null, 2));
+    const dryRunFile = path.join(SNAPSHOTS_DIR, `execution_dry_run_${today}.json`);
+    fs.writeFileSync(dryRunFile, JSON.stringify(dryReport, null, 2));
     log(`DRY_RUN complete: ${JSON.stringify(dryReport.sevenDayStats)}`);
     closeWs();
-    return;
+    return {
+      mode: 'dry-run',
+      dryReport,
+      verificationBlocked,
+      files: {
+        dryRunFile,
+        planFile: path.join(SNAPSHOTS_DIR, `plan_${today}.json`),
+        contextFile: path.join(SNAPSHOTS_DIR, 'ai_decision_context.json'),
+        validatedPlanFile: path.join(SNAPSHOTS_DIR, 'ai_decision_validated_plan.json'),
+      },
+    };
   }
 
   if (aiValidationErrors.length) {
@@ -877,11 +1148,14 @@ async function run(options = {}) {
   const sbKwItems = plan.flatMap(p => p.actions.filter(a => a.entityType === 'sbKeyword' && (a.actionType || 'bid') === 'bid').map(a => ({ ...a, sku: p.sku })));
   const sbTargetItems = plan.flatMap(p => p.actions.filter(a => a.entityType === 'sbTarget' && (a.actionType || 'bid') === 'bid').map(a => ({ ...a, sku: p.sku })));
   const sbCampaignItems = plan.flatMap(p => p.actions.filter(a => a.entityType === 'sbCampaign' && !['enable', 'pause'].includes(a.actionType)).map(a => ({ ...a, sku: p.sku })));
+  const spCampaignBudgetItems = plan.flatMap(p => p.actions.filter(a => a.entityType === 'campaign' && a.actionType === 'budget').map(a => ({ ...a, sku: p.sku })));
+  const spCampaignPlacementItems = plan.flatMap(p => p.actions.filter(a => a.entityType === 'campaign' && a.actionType === 'placement').map(a => ({ ...a, sku: p.sku })));
   const stateItems = plan.flatMap(p => p.actions.filter(a => ['enable', 'pause'].includes(a.actionType)).map(a => ({ ...a, sku: p.sku })));
   const createItems = plan.flatMap(p => p.actions.filter(a => a.actionType === 'create').map(a => ({ ...a, sku: p.sku })));
 
   const kwMeta = Object.fromEntries(kwRows.map(row => [String(row.keywordId), row]));
   const sbKwMeta = Object.fromEntries(sbKwRows.map(row => [String(row.keywordId), row]));
+  const spCampaignRows = [...kwRows, ...autoTargetRows, ...manualTargetRows, ...productAdRows].filter(row => campaignRowId(row));
   const autoTargetIds = new Set(autoTargetRows.map(row => String(row.targetId || row.target_id || row.id || '')));
   const manualTargetIds = new Set(manualTargetRows.map(row => String(row.targetId || row.target_id || row.id || '')));
   const spAutoItems = atItems.filter(item => autoTargetIds.has(String(item.id)));
@@ -916,6 +1190,7 @@ async function run(options = {}) {
     autoTarget: autoTargetRows,
     manualTarget: manualTargetRows,
     productAd: productAdRows,
+    campaign: spCampaignRows,
     sbCampaign: sbCampaignRows,
     sbKeyword: sbKwRows,
     sbTarget: sbTargetRows,
@@ -927,6 +1202,8 @@ async function run(options = {}) {
   apiStats.unknownTarget = { apiSuccess: 0, apiFailed: spUnknownItems.length };
   apiStats.sbTarget = await executeTargetItems(sbTargetItems, sbTargetRows, 'SB target', '/sbTarget/batchEditTargetSbColumn', '', 'sbTarget', 'SB');
   apiStats.sbCampaign = await executeSbCampaignItems(sbCampaignItems, sbCampaignRows, 'SB campaign');
+  apiStats.spCampaignBudget = await executeSpCampaignBudgetItems(spCampaignBudgetItems, spCampaignRows, 'SP campaign budget');
+  apiStats.spCampaignPlacement = await executeSpCampaignPlacementItems(spCampaignPlacementItems, spCampaignRows, 'SP campaign placement');
   apiStats.create = await executeCreateItems(createItems);
 
   const verifiedEvents = await verifyLanding();
@@ -1039,8 +1316,15 @@ async function run(options = {}) {
         date: today,
         fromBid: a.currentBid,
         toBid: a.suggestedBid,
+        fromBudget: a.currentBudget,
+        toBudget: a.suggestedBudget,
+        placementKey: a.placementKey,
+        fromPlacementPercent: a.currentPlacementPercent,
+        toPlacementPercent: a.suggestedPlacementPercent,
         direction: a.direction,
         reason: a.reason,
+        learning: a.learning || null,
+        baselineQuality: a.learning?.baselineQuality || '',
       });
     }
   }
@@ -1184,8 +1468,11 @@ async function run(options = {}) {
     noteFailure: noteFailures.length,
     missingAidSkus: noteFailures.map(r => ({ sku: r.sku, error: r.error })),
   };
-  fs.writeFileSync(path.join(SNAPSHOTS_DIR, `execution_summary_${today}.json`), JSON.stringify(report, null, 2));
-  fs.writeFileSync(path.join(SNAPSHOTS_DIR, `execution_coverage_${today}.json`), JSON.stringify({ summary: coverageSummary, coverage }, null, 2));
+  const verifyFile = path.join(SNAPSHOTS_DIR, `execution_verify_${today}.json`);
+  const summaryFile = path.join(SNAPSHOTS_DIR, `execution_summary_${today}.json`);
+  const coverageFile = path.join(SNAPSHOTS_DIR, `execution_coverage_${today}.json`);
+  fs.writeFileSync(summaryFile, JSON.stringify(report, null, 2));
+  fs.writeFileSync(coverageFile, JSON.stringify({ summary: coverageSummary, coverage }, null, 2));
 
   log(`Final lookup: success=${finalCounts.success || 0}, created_pending_visibility=${finalCounts.created_pending_visibility || 0}, not_landed=${finalCounts.not_landed || 0}, blocked=${finalCounts.blocked_by_system_recent_adjust || finalCounts.conflict || 0}, failed=${finalCounts.failed || 0}`);
   log(`SKU coverage: adjusted=${coverageSummary.adjusted || 0}, blocked=${coverageSummary.blocked || 0}, manual_review=${coverageSummary.manual_review || 0}, no_action=${coverageSummary.no_action || 0}, failed=${coverageSummary.failed || 0}, unverified=${coverageSummary.unverified || 0}`);
@@ -1193,6 +1480,19 @@ async function run(options = {}) {
   log('=== Auto adjustment run finished ===');
 
   closeWs();
+  return {
+    mode: 'execute',
+    report,
+    verificationBlocked,
+    files: {
+      verifyFile,
+      summaryFile,
+      coverageFile,
+      planFile: path.join(SNAPSHOTS_DIR, `plan_${today}.json`),
+      contextFile: path.join(SNAPSHOTS_DIR, 'ai_decision_context.json'),
+      validatedPlanFile: path.join(SNAPSHOTS_DIR, 'ai_decision_validated_plan.json'),
+    },
+  };
 }
 
 module.exports = {

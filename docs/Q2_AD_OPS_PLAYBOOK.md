@@ -21,6 +21,7 @@ This changes the default operating stance:
 - Do not equate low sales with bad product quality. Low sales may mean weak ad coverage.
 - For in-stock and profitable SKUs, Codex should inspect whether traffic coverage can profitably be expanded.
 - For Q2-relevant products with inventory and margin, prefer active coverage repair over passive review.
+- For Q2 or holiday-relevant products, if current `adv /product/chart` shows impressions and clicks absolute values trending down inside the active selling window, prefer traffic recovery / push analysis before mechanical ACOS compression.
 - Keep ACOS and ad share under control, but do not cut traffic mechanically when the SKU needs display volume to protect old-product profit recovery.
 - Build missing ad structure when it is the practical way to create profitable reach. Creation must be traceable, low-budget first, and verified after launch.
 - The operator has released SP ad creation from review-only mode. When evidence supports it, Codex should build rather than only recommend.
@@ -91,6 +92,27 @@ Ads:
 - Try to keep cooling-period year-over-year decline within 20%.
 - Early period preference: low bid and high coverage.
 - Do not blindly reduce bids on old products whose display volume drives total old-product sales recovery.
+- For seasonal products, `traffic trend` is now a first-class judgment input: if season is active, inventory is healthy, and `/product/chart` confirms impression/click decline, traffic recovery can outweigh old downbid history.
+
+## Traffic Trend Evidence
+
+`POST /product/chart` is now an official decision input, not an optional reference.
+
+Use it to answer:
+
+- Is the SKU losing traffic or losing conversion?
+- Is a seasonal SKU in-window but under-exposed?
+- Should this SKU get stronger push instead of another cut?
+
+Priority rule:
+
+1. Current seasonal window.
+2. Inventory capacity.
+3. `/product/chart` impression / click trend.
+4. Listing readiness.
+5. Cost efficiency metrics such as ACOS / ad share.
+
+This means a seasonal SKU with sufficient inventory and falling impressions/clicks may deserve a stronger push even if historical notes contain earlier downbid actions.
 
 Inventory:
 

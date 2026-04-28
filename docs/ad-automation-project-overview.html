@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>广告自动化运营平台项目总览</title>
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --panel:#ffffff;
+      --ink:#182230;
+      --muted:#5f6b7a;
+      --line:#d8e0ea;
+      --ok:#16794c;
+      --ok-bg:#e8f7ef;
+      --half:#b26a00;
+      --half-bg:#fff4e5;
+      --risk:#b42318;
+      --risk-bg:#fdeceb;
+      --todo:#175cd3;
+      --todo-bg:#eaf2ff;
+      --dark:#0f1728;
+      --shadow:0 8px 24px rgba(16,24,40,.06);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font:14px/1.6 "Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    }
+    .wrap{max-width:1380px;margin:0 auto;padding:28px 22px 48px}
+    h1,h2,h3{margin:0}
+    h1{font-size:30px;line-height:1.2}
+    h2{font-size:22px;margin-bottom:14px}
+    h3{font-size:16px;margin-bottom:10px}
+    p{margin:0}
+    .sub{color:var(--muted)}
+    .hero{
+      background:linear-gradient(135deg,#12233f 0%,#1e3a6d 100%);
+      color:#fff;
+      border-radius:18px;
+      padding:28px;
+      box-shadow:var(--shadow);
+      margin-bottom:20px;
+    }
+    .hero-grid,.grid-4,.grid-3,.grid-2{display:grid;gap:14px}
+    .hero-grid{grid-template-columns:1.3fr .7fr;margin-top:18px}
+    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .hero .card{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);box-shadow:none}
+    .metric{
+      font-size:30px;
+      font-weight:700;
+      line-height:1.1;
+      margin-bottom:6px;
+    }
+    .label{font-size:12px;color:var(--muted)}
+    .hero .label,.hero .sub{color:rgba(255,255,255,.8)}
+    .section{margin-top:18px}
+    .pill{
+      display:inline-block;
+      padding:3px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      margin:4px 6px 0 0;
+      border:1px solid transparent;
+      white-space:nowrap;
+    }
+    .ok{color:var(--ok);background:var(--ok-bg);border-color:#b9e7cb}
+    .half{color:var(--half);background:var(--half-bg);border-color:#f2d3a2}
+    .risk{color:var(--risk);background:var(--risk-bg);border-color:#f4c7c3}
+    .todo{color:var(--todo);background:var(--todo-bg);border-color:#bfd3ff}
+    .note{
+      border-left:4px solid var(--todo);
+      background:#eef4ff;
+      border-radius:10px;
+      padding:12px 14px;
+      color:#234;
+    }
+    .kpi-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .mini{
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:14px;
+      background:#fff;
+    }
+    .mini b{display:block;font-size:24px;line-height:1.2}
+    .list{padding-left:18px;margin:0}
+    .list li{margin:6px 0}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+    th,td{
+      padding:11px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      text-align:left;
+    }
+    th{background:#eff3f8;font-size:13px}
+    tr:last-child td{border-bottom:0}
+    .flow{
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:10px;
+      align-items:stretch;
+    }
+    .flow .node{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+      background:#fff;
+      box-shadow:var(--shadow);
+      min-height:144px;
+    }
+    .flow .node:not(:last-child)::after{
+      content:"→";
+      position:absolute;
+      right:-10px;
+      top:50%;
+      transform:translateY(-50%);
+      color:#7a8798;
+      font-size:22px;
+      font-weight:700;
+    }
+    .stack{
+      display:grid;
+      gap:10px;
+    }
+    .stage{
+      border:1px dashed var(--line);
+      border-radius:12px;
+      padding:12px;
+      background:#fbfcfe;
+    }
+    .muted{color:var(--muted)}
+    .small{font-size:12px}
+    .danger{color:var(--risk)}
+    .good{color:var(--ok)}
+    .warn{color:var(--half)}
+    .footer{
+      margin-top:20px;
+      color:var(--muted);
+      font-size:12px;
+      text-align:right;
+    }
+    @media (max-width:1100px){
+      .hero-grid,.grid-4,.grid-3,.grid-2,.flow,.kpi-row{grid-template-columns:1fr}
+      .flow .node:not(:last-child)::after{display:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div>
+        <div class="pill half">只读分析</div>
+        <div class="pill ok">单文件 HTML</div>
+        <div class="pill risk">非无人值守</div>
+        <h1 style="margin-top:10px">广告自动化运营平台项目总览</h1>
+        <p class="sub" style="margin-top:8px">面向 Codex 的广告运营执行底座：负责抓数、生成快照、执行 API、回查、写便签、产出报告；策略决策已被外置到 Codex / 外部 action schema。</p>
+      </div>
+      <div class="hero-grid">
+        <div class="card">
+          <h3>一句话结论</h3>
+          <p>项目已经接近“工程闭环可执行”，但还没有达到“自然语言一句执行今日全量广告运营”的无人值守阶段；当前更准确的状态是 <b>外部 AI 决策 + 本地确定性执行引擎</b>。</p>
+          <div style="margin-top:10px">
+            <span class="pill ok">已具备：抓数→执行→回查→便签→总结</span>
+            <span class="pill half">仍依赖：浏览器登录、面板桥、外部 schema</span>
+            <span class="pill risk">受限于：部分动作范围、创建可见性、口径一致性</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>当前阶段</h3>
+          <div class="metric">2.5 / 4</div>
+          <div class="label">更像“半自动运营执行平台”，不是端到端 AI 自主运营体</div>
+          <div style="margin-top:10px">
+            <div><span class="pill ok">稳定：低风险读写闭环</span></div>
+            <div><span class="pill half">半完成：SP create / campaign budget / placement / 7d untouched</span></div>
+            <div><span class="pill risk">未达成：一句自然语言全量运营</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="kpi-row">
+        <div class="mini"><b>Codex</b><span class="label">唯一 AI 决策入口</span></div>
+        <div class="mini"><b>Chrome 扩展面板</b><span class="label">抓数 / 可视化 / 执行桥 / 人工入口</span></div>
+        <div class="mini"><b>Node 执行链</b><span class="label">校验 / 执行 / 回查 / 便签 / 总结</span></div>
+        <div class="mini"><b>本地快照与历史</b><span class="label">用于冷却、回溯、归因分析</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>1. 顶部总览</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>项目定位</h3>
+          <ul class="list">
+            <li>不是内嵌 AI 面板，而是广告运营执行底座。</li>
+            <li>面板负责采集、展示、桥接；Codex 负责理解业务、输出 action schema。</li>
+            <li>执行层强调确定性：只执行 schema，不在执行器里偷偷做策略。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>是否接近「一句执行」</h3>
+          <p><span class="pill half">部分接近</span></p>
+          <ul class="list">
+            <li>接近的是：底层执行链路已经成形。</li>
+            <li>不接近的是：自然语言→全量策略→自动落地 仍需外部 Codex 人工触发与审核边界。</li>
+            <li>阻塞点主要不是“不会调 API”，而是“口径统一、动作范围、回查可靠性、人工前置条件”。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note" style="margin-top:14px">
+        判断：项目已经不是 demo，也不是单点脚本；它已经是一个可跑的广告运营执行平台雏形，但离“今天一句话让 AI 做完全部广告运营”还差最后一层调度自治与风险收口。
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>2. 核心架构图</h2>
+      <div class="flow">
+        <div class="node">
+          <h3>数据层</h3>
+          <div class="pill ok">已成型</div>
+          <ul class="list small">
+            <li>广告后台多接口采集</li>
+            <li>sellerinventory 库存 / 便签 / 个人销售</li>
+            <li>Listing / 商品画像缓存</li>
+            <li>本地 snapshot / history / attribution</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h3>判断层</h3>
+          <div class="pill half">外置</div>
+          <ul class="list small">
+            <li>Codex 读取快照与文档</li>
+            <li>`src/ai_decision.js` 只做上下文、校验、风控门</li>
+            <li>非 Codex 来源动作默认进 review / skip</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h3>动作层</h3>
+          <div class="pill ok">可执行</div>
+          <ul class="list small">
+            <li>bid / state toggle</li>
+            <li>SP budget / placement</li>
+            <li>SP createOneTime</li>
+            <li>SB 单独 endpoint</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h3>回查层</h3>
+          <div class="pill ok">关键闭环</div>
+          <ul class="list small">
+            <li>增量刷新变更行</li>
+            <li>失败时全量重抓</li>
+            <li>`success / not_landed / conflict / failed` 分离</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h3>可视化层</h3>
+          <div class="pill half">多入口</div>
+          <ul class="list small">
+            <li>扩展面板</li>
+            <li>personal trend HTML</li>
+            <li>closed loop HTML</li>
+            <li>本报告</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>3. 数据源地图</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>adv 系统接口</h3>
+          <div class="pill ok">主数据源</div>
+          <ul class="list">
+            <li>`/keyword/findAllNew`：SP keyword / SP auto / SP manual / SB keyword / SB target。</li>
+            <li>`/product/adSkuSummary`：SKU 30 天广告汇总与 delta。</li>
+            <li><b>`/product/chart`</b>：SKU 展示 / 点击时间趋势；已纳入节气品、季节品、老品补量判断依据。</li>
+            <li>`/product/adProductData`：单 SKU campaign / adGroup / product ad 明细。</li>
+            <li>`/placement/findAllPlacement`：placement 维度效果。</li>
+            <li>`/advTarget/findManualProductTarget`、`/customerSearch/targetFindAll`：SP ad group 内部详情。</li>
+            <li>`/advProduct/all`、`/campaignSb/findAllNew`：SP product ad / SB campaign 管理视角。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>sellerinventory 系统接口</h3>
+          <div class="pill ok">第二主链路</div>
+          <ul class="list">
+            <li>`/pm/formal/list`：inventory 总盘。</li>
+            <li>`/pm/formal/update`：便签写入。</li>
+            <li>`/pm/sale/getBySeller`：个人销售数据。</li>
+            <li>节气接口：活跃季节 / 标签上下文。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>本地配置 / 缓存 / 导出</h3>
+          <div class="pill ok">支撑层</div>
+          <ul class="list">
+            <li>`data/snapshots/*.json`：快照、回查、summary、coverage。</li>
+            <li>`data/adjustment_history.json`：冷却与历史。</li>
+            <li>`data/product_profiles.json`：商品画像缓存。</li>
+            <li>`data/attribution/*`：执行影响归因。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note" style="margin-top:14px">
+        新增规则：`/product/chart` 现在是正式判断依据之一。对节气品、季节品、老品补量场景，如果当前处于热卖窗口且库存可承接，同时 chart 显示展示 / 点击绝对值在下滑，则系统判断应优先考虑“补流量 / 加投”，而不是仅按历史 `降投` 备注继续压量。
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>4. 功能模块地图</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>模块</th>
+            <th>状态</th>
+            <th>结论</th>
+            <th>说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>全量快照导出</td>
+            <td><span class="pill ok">已完成</span></td>
+            <td>稳定</td>
+            <td>面板 `fetchAllData()` + `export_snapshot.js` 已能导出广告、库存、7d untouched、seller sales、listing、画像。</td>
+          </tr>
+          <tr>
+            <td>单 SKU 读链路</td>
+            <td><span class="pill ok">已完成</span></td>
+            <td>稳定</td>
+            <td>已提供最小接口读取脚本，避免默认全量导出。</td>
+          </tr>
+          <tr>
+            <td>低风险 bid 调整</td>
+            <td><span class="pill ok">已完成</span></td>
+            <td>稳定</td>
+            <td>SP keyword / auto / manual target，SB keyword 已明确验证；SB target 也有真实链路证据。</td>
+          </tr>
+          <tr>
+            <td>广告开关</td>
+            <td><span class="pill half">半完成</span></td>
+            <td>部分稳定</td>
+            <td>SP keyword / auto / manual，SB keyword / target，productAd，sbCampaign 可走；SP campaign/adGroup、SB adGroup 仍不安全。</td>
+          </tr>
+          <tr>
+            <td>SP 创建广告</td>
+            <td><span class="pill half">半完成</span></td>
+            <td>可执行但未完全稳定</td>
+            <td>支持 `auto / productTarget / keywordTarget` 的 `createOneTime`；SB create 仍 review-only；创建后可见性可能延迟。</td>
+          </tr>
+          <tr>
+            <td>加词 / 加 ASIN</td>
+            <td><span class="pill half">半完成</span></td>
+            <td>依附在 create 中</td>
+            <td>不是独立“向现有组追加”能力，更多通过 SP create 输入 `keywords` / `targetAsins` 达成。</td>
+          </tr>
+          <tr>
+            <td>便签写入</td>
+            <td><span class="pill ok">已完成</span></td>
+            <td>稳定但依赖 aid 覆盖</td>
+            <td>支持结构化追加、失败重试、按 SKU 聚合写入。</td>
+          </tr>
+          <tr>
+            <td>campaign budget / placement</td>
+            <td><span class="pill half">半完成</span></td>
+            <td>有执行链但样本少</td>
+            <td>SP budget 与 placement 已接线，风控门存在，适合作为受控实验。</td>
+          </tr>
+          <tr>
+            <td>超预算检查</td>
+            <td><span class="pill half">半完成</span></td>
+            <td>有基础，无成型治理</td>
+            <td>预算字段与改预算能力已接入，但“超预算治理”还不是独立稳定模块。</td>
+          </tr>
+          <tr>
+            <td>七天未调整广告组</td>
+            <td><span class="pill half">半完成</span></td>
+            <td>数据已进来，解析仍混合</td>
+            <td>已形成 SP/SB pool 和 sourceSignals，但有一部分还是 candidate，需映射到真实可写实体。</td>
+          </tr>
+          <tr>
+            <td>价格提升 / 经营动作</td>
+            <td><span class="pill todo">未接入自动执行</span></td>
+            <td>仅 review</td>
+            <td>提价、listing 修改、补货等仍属于建议层，不在执行闭环内。</td>
+          </tr>
+          <tr>
+            <td>无人值守自然语言调度</td>
+            <td><span class="pill risk">未完成</span></td>
+            <td>当前最大缺口</td>
+            <td>仍要人工准备浏览器登录、导出快照、让 Codex 生成 schema，再跑执行器。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>5. 广告动作执行链路</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>标准闭环</h3>
+          <div class="stack">
+            <div class="stage"><b>发现问题</b><div class="small muted">snapshot / 单 SKU 接口 / 7d untouched / seller sales / inventory / listing / Q2 context</div></div>
+            <div class="stage"><b>生成策略</b><div class="small muted">外部 Codex 输出 action schema；`src/ai_decision.js` 做实体匹配、字段补全、风控门、review 控流</div></div>
+            <div class="stage"><b>执行动作</b><div class="small muted">`auto_adjust.js` 分账号 / 站点 / campaign / adGroup 分桶，分别调用 SP、SB、campaign、create endpoint</div></div>
+            <div class="stage"><b>回查落地</b><div class="small muted">优先刷新变更行，失败再 `fetchAllData()`；按真实值回判 `success / not_landed / conflict / failed`</div></div>
+            <div class="stage"><b>写入便签</b><div class="small muted">聚合 SKU 操作事件，结构化追加 inventory note，失败重试仅重试失败项</div></div>
+            <div class="stage"><b>输出报告</b><div class="small muted">`execution_verify`、`execution_summary`、`execution_coverage`、trend/closed-loop HTML、attribution 报告</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>动作覆盖判断</h3>
+          <ul class="list">
+            <li><span class="pill ok">降 bid / 加 bid</span> 已是主稳定能力。</li>
+            <li><span class="pill half">开关广告</span> 实体覆盖不完整，仍需区分 campaign / adGroup / productAd / SB 类型。</li>
+            <li><span class="pill half">创建广告</span> 仅 SP，且创建成功后可能出现 `created_pending_visibility`。</li>
+            <li><span class="pill half">加词 / 加 ASIN</span> 依托 SP create，不是独立老广告扩充器。</li>
+            <li><span class="pill ok">便签写入</span> 已进闭环，且不是“成功后不记账”。</li>
+            <li><span class="pill half">预算 / placement</span> 已接执行器，风险门在位，但仍属受控实验面。</li>
+            <li><span class="pill todo">提价</span> 仅 review，不自动执行。</li>
+            <li><span class="pill half">七天未调整</span> 已接入数据与信号，但 candidate 到可执行实体的解析仍是弱点。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>6. 执行日志、回查、冷却机制、失败结构化返回</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>执行日志</h3>
+          <ul class="list">
+            <li>`data/snapshots/auto_run_YYYY-MM-DD.log`</li>
+            <li>`execution_verify_*.json`：事件级验证</li>
+            <li>`execution_summary_*.json`：SKU 级汇总</li>
+            <li>`execution_coverage_*.json`：覆盖面状态</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>冷却与回查</h3>
+          <ul class="list">
+            <li>`data/adjustment_history.json` 记录成功历史。</li>
+            <li>7 天窗口阻止重复触碰或系统近期已调对象。</li>
+            <li>先增量刷新，失败后全量重抓，避免 stale cache 假成功。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>结构化失败</h3>
+          <ul class="list">
+            <li>create / toggle 都有 structured result。</li>
+            <li>执行后区分 `manual_review / blocked / not_landed / failed`。</li>
+            <li>便签写入失败按 SKU 返回，不会吞错误。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>7. 当前最大风险</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>风险</th>
+            <th>等级</th>
+            <th>现状</th>
+            <th>为什么重要</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>接口成功但未落地</td>
+            <td><span class="pill risk">高</span></td>
+            <td>历史上真实出现过；当前已通过 verify 将其显式归类为 `not_landed`。</td>
+            <td>这是广告自动化里最危险的“假成功”；虽然现在已不再静默，但仍是首要可信度风险。</td>
+          </tr>
+          <tr>
+            <td>token / csrf / 登录态失效</td>
+            <td><span class="pill risk">高</span></td>
+            <td>整个系统强依赖 debug Chrome、登录态、面板桥。</td>
+            <td>一旦浏览器未登录或 token 失效，抓数和写入都可能退化成 HTML 页面或空数据。</td>
+          </tr>
+          <tr>
+            <td>数据口径不一致</td>
+            <td><span class="pill risk">高</span></td>
+            <td>inventory、adSkuSummary、adProductData、panel 聚合、同日 fallback 口径并存。</td>
+            <td>会直接影响“该不该调”“调大还是调小”的判断可信度。</td>
+          </tr>
+          <tr>
+            <td>fallback 假成功</td>
+            <td><span class="pill half">中高</span></td>
+            <td>现已明显改善，但创建广告仍可能落在 `created_pending_visibility`。</td>
+            <td>如果可见性慢或刷新范围不对，会误把“延迟落地”与“没落地”混在一起。</td>
+          </tr>
+          <tr>
+            <td>模块命名空间串用</td>
+            <td><span class="pill half">中高</span></td>
+            <td>SB 与 SP 端点、placement 字段、candidate 与 executable entity 曾出现串路由问题。</td>
+            <td>这是最典型的“代码看着通了，业务实际改错对象”的工程型风险。</td>
+          </tr>
+          <tr>
+            <td>inventory aid 缺失</td>
+            <td><span class="pill half">中</span></td>
+            <td>便签写入仍可能因 inventory 记录缺失而失败。</td>
+            <td>不影响广告改价本身，但会破坏运营闭环留痕和追责链。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>8. 前端面板和可视化入口</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>扩展面板</h3>
+          <div class="pill ok">主桥</div>
+          <ul class="list">
+            <li>入口：`extension/panel.html`</li>
+            <li>职责：抓数、展示、执行桥、手工创建广告入口</li>
+            <li>已明确禁用“面板内 AI 决策”按钮</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>趋势报告</h3>
+          <div class="pill ok">辅助决策</div>
+          <ul class="list">
+            <li>`scripts/execute/generate_personal_trend_report.js`</li>
+            <li>用于 seller / watch SKU 趋势可视化</li>
+            <li>更偏“看盘”和异常池</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>闭环报告</h3>
+          <div class="pill half">已有模板</div>
+          <ul class="list">
+            <li>`generate_closed_loop_report.js` 已能按 snapshot/schema/verify/summary 出 HTML</li>
+            <li>说明项目已经有“运营汇报层”意识</li>
+            <li>本报告属于面向项目接手者的架构视图</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>9. 哪些能力稳定，哪些只是接入一半</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>已经稳定</h3>
+          <ul class="list">
+            <li>全量 snapshot 导出。</li>
+            <li>单 SKU 精准读取。</li>
+            <li>SP/SB 低风险 bid 执行。</li>
+            <li>执行后 verify 分级。</li>
+            <li>inventory note 追加与失败重试。</li>
+            <li>历史、冷却、归因文件沉淀。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>接入一半</h3>
+          <ul class="list">
+            <li>SP create：已能走通，但成功定义仍含“可见性延迟”。</li>
+            <li>开关广告：实体覆盖不完整。</li>
+            <li>7d untouched：pool 与 source signal 已接入，但 candidate 映射仍半自动。</li>
+            <li>budget / placement：工程已接通，运营方法论还没完全沉淀。</li>
+            <li>SB create、价格、补货、listing：仍停留 review 层。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>10. 下一步路线图</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>优先级</th>
+            <th>事项</th>
+            <th>业务价值</th>
+            <th>风险</th>
+            <th>验证方式</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>P1</td>
+            <td>把“今日全量运营”收束为单入口命令</td>
+            <td>从多脚本拼装变成标准操作，降低认知成本。</td>
+            <td>容易把前置条件藏起来。</td>
+            <td>要求一条命令串起：快照→schema 校验→dry-run→execute→report，并对未登录直接报错。</td>
+          </tr>
+          <tr>
+            <td>P1</td>
+            <td>补齐可执行实体矩阵</td>
+            <td>把“开关广告 / 七天未调 / create”从半完成变成稳定面。</td>
+            <td>错误路由会造成误改。</td>
+            <td>对 `campaign / adGroup / productAd / sbCampaign / candidate` 建一个显式覆盖表并做小样本真机回归。</td>
+          </tr>
+          <tr>
+            <td>P1</td>
+            <td>建立统一落地验证协议</td>
+            <td>继续压缩“接口成功但未落地”的灰区。</td>
+            <td>不同 endpoint 的回查口径不同。</td>
+            <td>每种 action 定义 `expected_state/value` 与 `verify source`，禁止无回查成功入 history。</td>
+          </tr>
+          <tr>
+            <td>P2</td>
+            <td>把 budget / placement 变成正式运营模块</td>
+            <td>开始从“调 bid”升级到“调 campaign 结构变量”。</td>
+            <td>预算和 placement 对流量影响更大。</td>
+            <td>先做受控名单、固定 measurement window、归因复盘。</td>
+          </tr>
+          <tr>
+            <td>P2</td>
+            <td>收敛数据口径与质量标记</td>
+            <td>避免 AI 在混合口径上做出错误策略。</td>
+            <td>需要改 snapshot 元信息结构。</td>
+            <td>每个字段标注来源接口、时间窗、是否 fallback、是否 same-day borrow。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>11. 给后续 AI 的项目接手说明</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>先读哪些文件</h3>
+          <ul class="list">
+            <li>`README.md`</li>
+            <li>`AGENT.md`</li>
+            <li>`memory.md`</li>
+            <li>`docs/CODEX_HANDOFF_RUNBOOK.md`</li>
+            <li>`docs/CODEX_AI_BOUNDARY.md`</li>
+            <li>`docs/Q2_AD_OPS_PLAYBOOK.md`</li>
+            <li>`docs/CODEX_MINIMAL_CLOSED_LOOP.md`</li>
+            <li>`auto_adjust.js`、`src/ai_decision.js`、`extension/panel.js`</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>不要碰哪些地方</h3>
+          <ul class="list">
+            <li>不要把 AI provider 再塞回 panel。</li>
+            <li>不要让执行器自己做策略 fallback。</li>
+            <li>不要硬编码 JWT / XSRF / Inventory-Token。</li>
+            <li>不要把 review-only 动作偷偷放进 auto-execute。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>修改后必须回归</h3>
+          <ul class="list">
+            <li>snapshot 导出是否完整。</li>
+            <li>SP / SB bid 执行与 verify 是否一致。</li>
+            <li>note 写入是否只重试失败项。</li>
+            <li>`not_landed / conflict / failed` 是否仍然分开。</li>
+            <li>named SKU 最小接口路径是否仍可用。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note" style="margin-top:14px">
+        交接判断：这个仓库最有价值的不是某个规则函数，而是它已经把“广告运营动作”拆成了可验证的工程链。接手时应优先维护链路可信度，而不是先继续堆策略。
+      </div>
+    </section>
+
+    <div class="footer">生成时间：2026-04-28 · 基于仓库只读分析</div>
+  </div>
+</body>
+</html>
