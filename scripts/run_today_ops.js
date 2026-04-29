@@ -97,6 +97,10 @@ function buildFetchOptions(options) {
     listingSkus: options.mode === 'full-snapshot' ? [] : schemaSkus,
     chartStrategy: options.mode === 'full-snapshot' ? 'none' : 'schema',
     chartSkus: options.mode === 'full-snapshot' ? [] : schemaSkus,
+    salesHistoryStrategy: options.mode === 'full-snapshot' ? (process.env.AD_OPS_SALES_HISTORY_STRATEGY || 'none') : (process.env.AD_OPS_SALES_HISTORY_STRATEGY || 'schema'),
+    salesHistorySkus: options.mode === 'full-snapshot' ? [] : schemaSkus,
+    salesHistoryLimit: Number(process.env.AD_OPS_SALES_HISTORY_LIMIT || (options.mode === 'full-snapshot' ? 0 : Math.max(10, schemaSkus.length || 0))),
+    salesHistoryConcurrency: Number(process.env.AD_OPS_SALES_HISTORY_CONCURRENCY || 3),
     chartLookbackDays: Number(process.env.AD_OPS_PRODUCT_CHART_LOOKBACK_DAYS || 30),
     listingConcurrency: Number(process.env.AD_OPS_LISTING_FETCH_CONCURRENCY || 5),
     listingLimit: Number(process.env.AD_OPS_LISTING_FETCH_LIMIT || (options.mode === 'full-snapshot' ? 120 : Math.max(10, schemaSkus.length || 0))),
@@ -471,6 +475,48 @@ function buildRunSummary(manifest) {
       .slice(0, 10)
       .map(stage => ({ stage: stage.stage, durationMs: stage.durationMs, attempted: stage.attempted || 0, success: stage.success || 0, failed: stage.failed || 0, skipped: stage.skipped || 0 })),
     outputFiles: manifest.outputFiles || {},
+    overBudgetCapture: manifest.overBudgetCapture || {},
+  };
+}
+
+function chinaClockParts(date = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }).formatToParts(date).reduce((acc, part) => {
+    if (part.type !== 'literal') acc[part.type] = part.value;
+    return acc;
+  }, {});
+  return {
+    date: `${parts.year}-${parts.month}-${parts.day}`,
+    hour: Number(parts.hour),
+    minute: Number(parts.minute),
+    second: Number(parts.second),
+  };
+}
+
+function buildOverBudgetCaptureMeta(date = new Date()) {
+  const parts = chinaClockParts(date);
+  const minutes = parts.hour * 60 + parts.minute;
+  const cutoffMinutes = 16 * 60;
+  return {
+    source: 'adv_over_budget_board',
+    localDate: parts.date,
+    localTime: `${String(parts.hour).padStart(2, '0')}:${String(parts.minute).padStart(2, '0')}:${String(parts.second).padStart(2, '0')}`,
+    timezone: 'Asia/Shanghai',
+    dailyCutoffLocalTime: '16:00:00',
+    captureRequiredBeforeCutoff: true,
+    availableAtRunStart: minutes < cutoffMinutes,
+    status: minutes < cutoffMinutes ? 'capture_window_open' : 'capture_window_missed',
+    warning: minutes < cutoffMinutes
+      ? ''
+      : '超预算板块 16:00 后不可见，本次运行不能作为当日超预算完整样本；需使用 16:00 前快照或标记为数据缺口。',
   };
 }
 
@@ -496,6 +542,7 @@ async function main() {
       manifestFile,
       summaryFile,
     },
+    overBudgetCapture: buildOverBudgetCaptureMeta(),
   };
 
   function persist() {
@@ -563,6 +610,35 @@ async function main() {
     const scopeAnalysis = analyzeAllowedOperationScope(snapshot);
     manifest.allowedOperationScope = scopeAnalysis.summary;
     const rowsByType = buildRowsByType(snapshot);
+
+    await runStep('sku_ad_form_summary', async () => {
+      const summaryScript = path.join(ROOT, 'scripts', 'reports', 'generate_sku_ad_form_summary.js');
+      const schemaSkus = extractSchemaSkuList(options.actionSchemaFile);
+      const outFile = path.join(SNAPSHOT_DATA_DIR, `sku_ad_form_summary_${today}.json`);
+      const args = [
+        summaryScript,
+        '--snapshot',
+        snapshotFile,
+        '--out',
+        outFile,
+      ];
+      if (schemaSkus.length) {
+        args.push('--skus', schemaSkus.join(','));
+      } else if (process.env.SKU_AD_FORM_SUMMARY_LIMIT) {
+        args.push('--limit', String(Number(process.env.SKU_AD_FORM_SUMMARY_LIMIT || 0)));
+      }
+      const stdout = execFileSync(process.execPath, args, { encoding: 'utf8' });
+      const parsed = readJson(outFile, {});
+      manifest.outputFiles.skuAdFormSummaryFile = outFile;
+      return {
+        outputs: { skuAdFormSummaryFile: outFile },
+        details: {
+          requestedSkus: schemaSkus,
+          skuCount: parsed.skuCount || 0,
+          stdout: stdout.trim(),
+        },
+      };
+    });
 
     const validation = await runStep('schema_validate', async () => {
       const actionSchemaFile = path.resolve(options.actionSchemaFile);

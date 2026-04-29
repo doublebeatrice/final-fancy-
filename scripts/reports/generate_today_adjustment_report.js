@@ -1,5 +1,12 @@
 const fs = require('fs');
 const path = require('path');
+const {
+  assessAdOperatingContext,
+  assessInventoryResponsibility,
+  formatCurrentAdReadiness,
+  formatInventoryJudgement,
+  formatSalesHistoryJudgement,
+} = require('../../src/inventory_economics');
 
 const ROOT = path.join(__dirname, '..', '..');
 const RUN_ID = process.argv[2] || 'today_ops_2026-04-28T07-31-42-696Z';
@@ -102,6 +109,15 @@ function classifyAction(action, card) {
   return '放量';
 }
 
+function classifyActionWithInventory(action, card) {
+  const inventory = assessInventoryResponsibility(card);
+  if (action.actionType === 'review') return classifyAction(action, card);
+  if (inventory.adWorseThanClearance) return '清货/降投';
+  if (inventory.allowHighAcosSellThrough) return '库存消化';
+  if (inventory.restrictScaleUp) return '控库存';
+  return classifyAction(action, card);
+}
+
 function riskText(action, card) {
   const invDays = num(card?.invDays);
   const profitRate = num(card?.profitRate);
@@ -197,7 +213,7 @@ function actionRows(actions, cardMap) {
   return actions.map(item => {
     const action = item.actions[0] || {};
     const card = cardMap.get(String(item.sku || '').toUpperCase()) || {};
-    const category = classifyAction(action, card);
+    const category = classifyActionWithInventory(action, card);
     return {
       sku: item.sku,
       site: card.salesChannel || '-',
@@ -209,6 +225,9 @@ function actionRows(actions, cardMap) {
       reason: action.reason || item.summary || '',
       expected: expectedEffect(action, card),
       risk: riskText(action, card),
+      inventoryJudgement: action.listingSeasonJudgement || action.inventoryJudgement || assessAdOperatingContext(card).judgement || formatInventoryJudgement(assessInventoryResponsibility(card)),
+      salesHistoryJudgement: action.salesHistoryJudgement || formatSalesHistoryJudgement(assessAdOperatingContext(card).history),
+      currentAdReadinessJudgement: action.currentAdReadinessJudgement || formatCurrentAdReadiness(assessAdOperatingContext(card).readiness),
       recommendation: recommendation(action, card),
       invDays: num(card.invDays),
       profitRate: num(card.profitRate),
@@ -398,7 +417,10 @@ function makeHtml(data) {
       <table>
         <thead>
           <tr>
-            <th>SKU</th><th>站点</th><th>广告类型</th><th>建议动作</th><th>运营目的</th><th>原因</th><th>预期效果</th><th>风险</th><th>今天建议</th>
+            <th colspan="12">行动池含 FBA库存责任/清货对比 + Listing/历史销量 + 是否适合当前建广告：先拦截过季保留页面，再决定是否轻测、正常推、等待下个节点或清货对比。</th>
+          </tr>
+          <tr>
+            <th>SKU</th><th>站点</th><th>广告类型</th><th>建议动作</th><th>运营目的</th><th>FBA库存责任/清货对比</th><th>历史销量依据</th><th>是否适合当前建广告</th><th>原因</th><th>预期效果</th><th>风险</th><th>今天建议</th>
           </tr>
         </thead>
         <tbody>${tableRows(executableRows, row => `<tr>
@@ -407,6 +429,9 @@ function makeHtml(data) {
           <td>${esc(row.entityType)}</td>
           <td>${esc(row.action)}</td>
           <td>${esc(row.category)}</td>
+          <td>${esc(row.inventoryJudgement)}</td>
+          <td>${esc(row.salesHistoryJudgement)}</td>
+          <td>${esc(row.currentAdReadinessJudgement)}</td>
           <td>${esc(row.reason)}</td>
           <td>${esc(row.expected)}</td>
           <td>${esc(row.risk)}</td>
@@ -423,7 +448,7 @@ function makeHtml(data) {
           <tbody>${tableRows(reviewRows, row => `<tr>
             <td>${esc(row.sku)}</td>
             <td>${esc(row.entityType)}</td>
-            <td>${esc(row.reason)}</td>
+            <td>${esc(row.reason)}<br><b>FBA库存责任/清货对比：</b>${esc(row.inventoryJudgement)}<br><b>历史销量依据：</b>${esc(row.salesHistoryJudgement)}<br><b>是否适合当前建广告：</b>${esc(row.currentAdReadinessJudgement)}</td>
             <td>${row.sku === 'SC3077' ? '涉及老品保曝光与控浪费的取舍，错误自动降 bid 可能误伤销量' : '涉及结构扩张，不是简单调价，自动化边界不够稳'}</td>
             <td>${row.sku === 'SC3077' ? '今天人工看 SP / SB 投放结构，再决定是否挪量' : '今天先不自动执行，若要做请人工确认 SB 结构新增'}</td>
           </tr>`)}</tbody>

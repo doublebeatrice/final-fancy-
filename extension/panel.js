@@ -19,6 +19,7 @@ const STATE = {
   sbCampaignManageRows: [],
   sellerSalesRows: [],
   sellerSalesMeta: {},
+  salesHistoryMap: {},
   inventoryScopeRows: [],
   listingFetchMeta: {},
   productChartMap: {},
@@ -133,12 +134,17 @@ function normalizeFetchOptions(rawOptions = {}) {
   const mode = String(rawOptions.mode || 'full-snapshot');
   const listingSkus = Array.isArray(rawOptions.listingSkus) ? [...new Set(rawOptions.listingSkus.map(item => String(item || '').trim()).filter(Boolean))] : [];
   const chartSkus = Array.isArray(rawOptions.chartSkus) ? [...new Set(rawOptions.chartSkus.map(item => String(item || '').trim()).filter(Boolean))] : listingSkus;
+  const salesHistorySkus = Array.isArray(rawOptions.salesHistorySkus) ? [...new Set(rawOptions.salesHistorySkus.map(item => String(item || '').trim()).filter(Boolean))] : listingSkus;
   return {
     mode,
     listingStrategy: rawOptions.listingStrategy || (mode === 'fast' ? 'schema' : 'all'),
     listingSkus,
     chartStrategy: rawOptions.chartStrategy || (mode === 'fast' ? 'schema' : 'none'),
     chartSkus,
+    salesHistoryStrategy: rawOptions.salesHistoryStrategy || (mode === 'fast' ? 'schema' : 'none'),
+    salesHistorySkus,
+    salesHistoryLimit: Number(rawOptions.salesHistoryLimit || localStorage.getItem('AD_OPS_SALES_HISTORY_LIMIT') || (mode === 'fast' ? Math.max(10, salesHistorySkus.length || 0) : 0)),
+    salesHistoryConcurrency: Number(rawOptions.salesHistoryConcurrency || localStorage.getItem('AD_OPS_SALES_HISTORY_CONCURRENCY') || 3),
     chartLookbackDays: Number(rawOptions.chartLookbackDays || 30),
     chartUserNames: Array.isArray(rawOptions.chartUserNames) && rawOptions.chartUserNames.length ? rawOptions.chartUserNames : ['HJ17', 'HJ171', 'HJ172'],
     listingConcurrency: Number(rawOptions.listingConcurrency || localStorage.getItem('AD_OPS_LISTING_FETCH_CONCURRENCY') || localStorage.getItem('AD_OPS_LISTING_CONCURRENCY') || 5),
@@ -182,6 +188,7 @@ async function fetchAllData(rawOptions = null) {
   STATE.sbCampaignManageRows = [];
   STATE.sellerSalesRows = [];
   STATE.sellerSalesMeta = {};
+  STATE.salesHistoryMap = {};
   STATE.inventoryScopeRows = [];
   STATE.listingFetchMeta = { attempted: 0, success: 0, failed: 0, samples: [] };
   STATE.productChartMap = {};
@@ -253,6 +260,19 @@ async function fetchAllData(rawOptions = null) {
       STATE.sellerSalesRows = [];
       STATE.sellerSalesMeta = { error: e.message };
       log(`个人销售数据拉取失败：${e.message}`, 'warn');
+    }
+
+    const salesHistoryTasks = selectSalesHistoryTasks(STATE.invMap, fetchOptions);
+    if (salesHistoryTasks.length) {
+      log(`拉取 SKU 历史销量… ${salesHistoryTasks.length} 个`, 'warn');
+      const historyStage = stages.start('sku_sales_history', { attempted: salesHistoryTasks.length });
+      await fetchSalesHistoriesConcurrent(salesHistoryTasks, fetchOptions);
+      stages.end(historyStage, {
+        attempted: salesHistoryTasks.length,
+        success: Object.keys(STATE.salesHistoryMap || {}).length,
+        failed: Math.max(0, salesHistoryTasks.length - Object.keys(STATE.salesHistoryMap || {}).length),
+      });
+      log(`SKU 历史销量完成：${Object.keys(STATE.salesHistoryMap || {}).length} 个`, Object.keys(STATE.salesHistoryMap || {}).length ? 'ok' : 'warn');
     }
 
     // 2. 关键词（已有缓存则跳过，节省测试时间）
@@ -434,6 +454,7 @@ async function fetchAllData(rawOptions = null) {
       sellerSalesMap
     );
     STATE.productCards = attachProductChartData(STATE.productCards, STATE.productChartMap);
+    STATE.productCards = attachSalesHistoryData(STATE.productCards, STATE.salesHistoryMap);
     stages.end(finalCardsStage, {
       attempted: 1,
       success: STATE.productCards.length,
@@ -451,6 +472,9 @@ async function fetchAllData(rawOptions = null) {
         mode: fetchOptions.mode,
         listingStrategy: fetchOptions.listingStrategy,
         chartStrategy: fetchOptions.chartStrategy,
+        salesHistoryStrategy: fetchOptions.salesHistoryStrategy,
+        salesHistoryLimit: fetchOptions.salesHistoryLimit,
+        salesHistoryConcurrency: fetchOptions.salesHistoryConcurrency,
         listingLimit: fetchOptions.listingLimit,
         listingConcurrency: fetchOptions.listingConcurrency,
       },
@@ -2532,6 +2556,115 @@ function actionDirectionText(action, entry) {
   return { direction: '调整', actionText: '调整竞价' };
 }
 
+function normalizeNoteText(value) {
+  return String(value || '').replace(/\s+/g, ' ').trim();
+}
+
+function noteEntityText(action = {}, entry = {}) {
+  const entityType = normalizeActionEntityType(action.entityType || entry.entityType || '');
+  const label = normalizeNoteText(action.text || action.label || action.keywordText || action.targetText || entry.text || entry.label || '');
+  const campaignName = normalizeNoteText(action.campaignName || entry.campaignName || action.createInput?.campaignName || '');
+  const groupName = normalizeNoteText(action.groupName || action.adGroupName || entry.groupName || entry.adGroupName || action.createInput?.groupName || '');
+  const typeText = {
+    keyword: 'SP关键词',
+    autoTarget: 'SP自动投放',
+    manualTarget: 'SP手动投放',
+    productAd: 'SP商品广告',
+    sbKeyword: 'SB关键词',
+    sbTarget: 'SB投放',
+    sbCampaign: 'SB活动',
+    spCampaignBudget: 'SP活动预算',
+    spCampaignPlacement: 'SP广告位',
+    skuCandidate: 'SKU',
+  }[entityType] || entityType || '广告对象';
+  const scopeParts = [];
+  if (campaignName) scopeParts.push(`活动：${campaignName}`);
+  if (groupName && groupName !== campaignName) scopeParts.push(`广告组：${groupName}`);
+  const scope = scopeParts.length ? `（${scopeParts.join(' / ')}）` : '';
+  if (label && label !== campaignName && label !== groupName) return `${typeText}「${label}」${scope}`;
+  if (campaignName || groupName) return `${typeText}${scope}`;
+  return `未取到名称的${typeText}`;
+}
+
+function noteActionSentence(action = {}, entry = {}) {
+  const actionType = action.actionType || entry.actionType || '';
+  const entity = noteEntityText(action, entry);
+  if (actionType === 'create') return `这次补的是${entity}，先把它作为小预算测试入口，不把预算一次性压上去。`;
+  if (actionType === 'pause') return `这次先停掉${entity}，它当前已经不像是在帮 SKU 找有效买家。`;
+  if (actionType === 'enable') return `这次重新打开${entity}，因为这个入口还有验证价值。`;
+  const fromBid = Number(action.currentBid ?? entry.currentBid);
+  const toBid = Number(action.suggestedBid ?? entry.suggestedBid ?? entry.bid);
+  if (Number.isFinite(fromBid) && Number.isFinite(toBid)) {
+    const verb = toBid > fromBid ? '往上提' : (toBid < fromBid ? '往下压' : '保持');
+    return `这次只动${entity}，竞价从 ${fromBid.toFixed(2)} ${verb}到 ${toBid.toFixed(2)}。`;
+  }
+  const fromBudget = Number(action.currentBudget ?? entry.currentBudget);
+  const toBudget = Number(action.suggestedBudget ?? entry.suggestedBudget);
+  if (Number.isFinite(fromBudget) && Number.isFinite(toBudget)) {
+    return `这次动的是${entity}预算，从 ${fromBudget.toFixed(2)} 调到 ${toBudget.toFixed(2)}。`;
+  }
+  return `这次处理的是${entity}。`;
+}
+
+function noteResultSentence(entry = {}) {
+  const finalStatus = entry.finalStatus || (entry.success ? 'success' : entry.apiStatus || 'failed');
+  const resultReason = normalizeNoteText(entry.errorReason || entry.resultMessage || '');
+  if (finalStatus === 'success') return '接口返回成功，回查也确认已经落地。';
+  if (finalStatus === 'created_pending_visibility') return '后台已经返回创建结果，但列表还需要等系统同步后再回查。';
+  if (finalStatus === 'manual_review') return `这条我没有直接执行，先放人工复核；${resultReason || '原因是当前证据还不足以支持自动调整'}`;
+  if (finalStatus === 'blocked_by_system_recent_adjust') return '这条被系统近期调整保护挡住了，我没有反复重试，避免和系统调价打架。';
+  if (finalStatus === 'skipped_invalid_state') return `这条没有执行；${resultReason || '对象状态不适合直接动'}`;
+  if (finalStatus === 'not_landed') return `接口有返回，但回查没有确认落地；${resultReason || '需要后续再看一次后台状态'}`;
+  return `执行没有成功；${resultReason || '后台没有给出明确原因'}`;
+}
+
+function noteBaselineSentence(action = {}, entry = {}) {
+  const baseline = action.learning?.baseline || {};
+  const entity7 = baseline.entityStats7d || {};
+  const entity30 = baseline.entityStats30d || {};
+  const sku30 = baseline.adStats?.['30d'] || {};
+  const sku7 = baseline.adStats?.['7d'] || {};
+  const pieces = [];
+  if (Number.isFinite(Number(baseline.sellableDays_30d ?? baseline.invDays)) || Number.isFinite(Number(baseline.unitsSold_30d))) {
+    pieces.push(`SKU 3/7/30天可卖约 ${Number(baseline.sellableDays_3d || 0).toFixed(0)}/${Number(baseline.sellableDays_7d || 0).toFixed(0)}/${Number((baseline.sellableDays_30d ?? baseline.invDays) || 0).toFixed(0)} 天，近3/7/30天出了 ${Number(baseline.unitsSold_3d || 0).toFixed(0)}/${Number(baseline.unitsSold_7d || 0).toFixed(0)}/${Number(baseline.unitsSold_30d || 0).toFixed(0)} 件`);
+  }
+  if (Number.isFinite(Number(entity30.spend)) && (Number(entity30.spend) || Number(entity30.clicks) || Number(entity30.orders))) {
+    pieces.push(`这个对象30天花费 ${Number(entity30.spend || 0).toFixed(2)}、点击 ${Number(entity30.clicks || 0).toFixed(0)}、订单 ${Number(entity30.orders || 0).toFixed(0)}`);
+  } else if (Number.isFinite(Number(entity7.spend)) && (Number(entity7.spend) || Number(entity7.clicks) || Number(entity7.orders))) {
+    pieces.push(`这个对象7天花费 ${Number(entity7.spend || 0).toFixed(2)}、点击 ${Number(entity7.clicks || 0).toFixed(0)}、订单 ${Number(entity7.orders || 0).toFixed(0)}`);
+  }
+  if (Number.isFinite(Number(sku30.spend)) && (Number(sku30.spend) || Number(sku30.orders))) {
+    pieces.push(`SKU整体30天广告花费 ${Number(sku30.spend || 0).toFixed(2)}、广告订单 ${Number(sku30.orders || 0).toFixed(0)}`);
+  } else if (Number.isFinite(Number(sku7.spend)) && (Number(sku7.spend) || Number(sku7.orders))) {
+    pieces.push(`SKU整体7天广告花费 ${Number(sku7.spend || 0).toFixed(2)}、广告订单 ${Number(sku7.orders || 0).toFixed(0)}`);
+  }
+  return pieces.length ? pieces.join('；') + '。' : '';
+}
+
+function noteReasonParagraph(action = {}, entry = {}, direction = '') {
+  const reason = normalizeNoteText(action.reason || entry.reason || entry.plan?.summary || '');
+  const evidence = Array.isArray(action.evidence) ? action.evidence.map(normalizeNoteText).filter(Boolean).slice(0, 2) : [];
+  const baseline = noteBaselineSentence(action, entry);
+  const lead = direction === '加投'
+    ? '我不是给整个 SKU 盲目放量，而是只把钱往已经证明能成交、但当前拿量偏少的入口挪一点。'
+    : direction === '降投'
+      ? '我不是否定这个 SKU，而是先把明显吃点击但不出单的入口压下来，避免它继续挤占预算。'
+      : direction === '建广告'
+        ? '我先补基础入口，是因为现在的问题更像广告覆盖不完整，直接等自然流量不够。'
+        : '这条先按当前证据处理，重点是把判断和落地结果留清楚。';
+  const details = [baseline, reason, evidence.length ? `我参考的明细是：${evidence.join('；')}。` : ''].filter(Boolean).join('');
+  return `${lead}${details ? ` ${details}` : ''}`;
+}
+
+function noteObserveSentence(action = {}, entry = {}, direction = '') {
+  const actionType = action.actionType || entry.actionType || '';
+  if (entry.finalStatus === 'manual_review') return '后面要人工看一下这个广告形式和 SKU 的关系是否足够确定，再决定是压价、暂停，还是保留观察。';
+  if (direction === '加投') return '后面重点看这个入口有没有多拿到有效曝光和点击，订单是否跟上；如果只是花费变快但订单不动，就要及时撤回来。';
+  if (direction === '降投' || actionType === 'pause') return '后面重点看这块花费是否降下来，同时确认 SKU 订单没有被一起打掉；如果自然单或其他广告能承接，就说明这次收缩是对的。';
+  if (direction === '建广告' || actionType === 'create') return '后面先看它能不能开始拿曝光和点击，再决定要不要扩词或提高预算。';
+  return '后面继续看点击、花费和订单是否按这个判断走，不合适就回滚或换入口。';
+}
+
 function buildOperationalNoteFields(entry) {
   const plan = entry.plan || {};
   const action = entry.action || {};
@@ -2598,19 +2731,27 @@ function buildOperationalNoteFields(entry) {
 }
 
 function buildInventoryOperationNote(entry) {
-  const fields = buildOperationalNoteFields(entry || {});
+  const action = entry?.action || {};
+  const { direction } = actionDirectionText(action, entry || {});
+  const result = noteResultSentence(entry || {});
+  const actionText = noteActionSentence(action, entry || {});
+  const reason = noteReasonParagraph(action, entry || {}, direction);
+  const observe = noteObserveSentence(action, entry || {}, direction);
+  if (entry?.finalStatus === 'manual_review') {
+    return [
+      `【${formatInventoryNoteMinute()}】`,
+      `${actionText}`,
+      `${reason}`,
+      `${result}`,
+      `${observe}`,
+    ].filter(Boolean).join('\n');
+  }
   return [
     `【${formatInventoryNoteMinute()}】`,
-    '',
-    `来源：${fields.sourceText || 'codex'}`,
-    `阶段判断：${fields.stage}`,
-    `当前问题：${fields.currentProblem}`,
-    `核心判断：${fields.coreJudgement}`,
-    `执行动作：${fields.actionText}`,
-    `动作目的：${fields.purpose}`,
-    `后续观察点：${fields.observe}`,
-    `备注：${fields.remark}`,
-  ].join('\n');
+    `${actionText}${result ? ` ${result}` : ''}`,
+    reason,
+    observe,
+  ].filter(Boolean).join('\n');
 }
 
 // 广告系统通用拦截器注入（捕获指定路径的第一个请求）
@@ -3610,12 +3751,39 @@ function buildInvMap(rows) {
     // 找出所有站点相关字段
     const siteFields = Object.keys(rows[0]).filter(k => /site|channel|market|amazon_account|salesChannel/i.test(k));
     log(`库存站点字段：${JSON.stringify(siteFields.map(k => k+'='+rows[0][k]))}`, 'warn');
+    const sellableFields = Object.keys(rows[0]).filter(k => /saleday|sale_day|sales_day|sellable|available_day|可卖/i.test(k));
+    log(`库存可卖天数字段：${JSON.stringify(sellableFields.map(k => k+'='+rows[0][k]))}`, 'warn');
   }
   for (const r of rows) {
     // 只保留美国/英国站数据，避免其他站点重复
     if (r.salesChannel && !['Amazon.com', 'Amazon.co.uk'].includes(r.salesChannel)) continue;
     const sku = r.sku || r.SKU || r.Sku || r.raw_sku || r.product_sku || r.rawSku || '';
     if (!sku) continue;
+    const stockFul = parseFloat(r.fulFillable || 0) || 0;
+    const stockRes = parseFloat(r.reserved || 0) || 0;
+    const stockInbAir = readNumField(r, ['inbound_cal', 'inbound_cal_no_reserve', 'inb_air', 'inbound_air', 'air_inbound', 'unstock_in_amount'], 0);
+    const stockInb = readNumField(r, ['inbound', 'inbound_reserve'], 0);
+    const stockPlan = readNumField(r, ['fba_plan_total', 'fbaPlan', 'purchasePlan', 'fba_plan_urgent'], 0);
+    const sellableAirFulRes = {
+      '3d': readSellableDaysByScope(r, 3, 'first', stockInbAir + stockFul + stockRes),
+      '7d': readSellableDaysByScope(r, 7, 'first', stockInbAir + stockFul + stockRes),
+      '30d': readSellableDaysByScope(r, 30, 'first', stockInbAir + stockFul + stockRes),
+    };
+    const sellableInbFulRes = {
+      '3d': readSellableDaysByScope(r, 3, 'second', stockInb + stockFul + stockRes),
+      '7d': readSellableDaysByScope(r, 7, 'second', stockInb + stockFul + stockRes),
+      '30d': readSellableDaysByScope(r, 30, 'second', stockInb + stockFul + stockRes),
+    };
+    const sellableInbFulResPlan = {
+      '3d': readComputedSellableDays(stockInb + stockFul + stockRes + stockPlan, r.qty_3, 3),
+      '7d': readComputedSellableDays(stockInb + stockFul + stockRes + stockPlan, r.qty_7, 7),
+      '30d': readComputedSellableDays(stockInb + stockFul + stockRes + stockPlan, r.qty_30, 30),
+    };
+    const sellableFulRes = {
+      '3d': readSellableDaysByScope(r, 3, 'third', stockFul + stockRes),
+      '7d': readSellableDaysByScope(r, 7, 'third', stockFul + stockRes),
+      '30d': readSellableDaysByScope(r, 30, 'third', stockFul + stockRes),
+    };
     map[sku] = {
       aid:            r.aid || r.id || r.AID || r.product_id || '',
       sku,
@@ -3630,12 +3798,36 @@ function buildInvMap(rows) {
       seaProfitRate:  parseFloat(r.seaProfitRate || 0),       // 海运利润率
       netProfit:      parseFloat(r.net_profit || 0),          // Q1-Q3 参考净利润率
       busyNetProfit:  parseFloat(r.busy_net_profit || 0),     // Q4 参考净利润率（含旺季仓储费）
-      invDays:        (v => v === '+' || v === '999+' ? 999 : parseFloat(v) || 0)(r.dynamic_saleday30 || r.sales_day_30 || '0'),
+      invDays:        sellableFulRes['30d'],
+      sellableDays_3d: sellableFulRes['3d'],
+      sellableDays_7d: sellableFulRes['7d'],
+      sellableDays_30d: sellableFulRes['30d'],
+      sellableDaysFulRes_3d: sellableFulRes['3d'],
+      sellableDaysFulRes_7d: sellableFulRes['7d'],
+      sellableDaysFulRes_30d: sellableFulRes['30d'],
+      sellableDaysAirFulRes_3d: sellableAirFulRes['3d'],
+      sellableDaysAirFulRes_7d: sellableAirFulRes['7d'],
+      sellableDaysAirFulRes_30d: sellableAirFulRes['30d'],
+      sellableDaysInbFulRes_3d: sellableInbFulRes['3d'],
+      sellableDaysInbFulRes_7d: sellableInbFulRes['7d'],
+      sellableDaysInbFulRes_30d: sellableInbFulRes['30d'],
+      sellableDaysInbFulResPlan_3d: sellableInbFulResPlan['3d'],
+      sellableDaysInbFulResPlan_7d: sellableInbFulResPlan['7d'],
+      sellableDaysInbFulResPlan_30d: sellableInbFulResPlan['30d'],
+      sellableDaysSource_3d: readSellableDaysSourceByScope(r, 3, 'third') || 'computed_ful_res',
+      sellableDaysSource_7d: readSellableDaysSourceByScope(r, 7, 'third') || 'computed_ful_res',
+      sellableDaysSource_30d: readSellableDaysSourceByScope(r, 30, 'third') || 'computed_ful_res',
+      stockInbAir,
+      stockInb,
+      stockFul,
+      stockRes,
+      stockPlan,
       unitsSold_30d:  parseFloat(r.qty_30 || 0),
       unitsSold_7d:   parseFloat(r.qty_7  || 0),
       unitsSold_3d:   parseFloat(r.qty_3  || 0),
-      fulFillable:    parseFloat(r.fulFillable || 0),
-      reserved:       parseFloat(r.reserved || 0),
+      fulFillable:    stockFul,
+      reserved:       stockRes,
+      fbaRemoteFlag:  r.fba_remote_flag || r.fbaRemoteFlag || r.fba_remote || '否',
       session_7:      readNumField(r, ['session_7', 'session7'], 0),
       session_14:     readNumField(r, ['session_14', 'session14'], 0),
       session_21:     readNumField(r, ['session_21', 'session21'], 0),
@@ -3673,6 +3865,101 @@ function projectInventoryScopeRow(row = {}) {
     fuldate: row.fuldate || '',
     opendate: row.opendate || '',
   };
+}
+
+function selectSalesHistoryTasks(invMap = {}, options = {}) {
+  const strategy = String(options.salesHistoryStrategy || 'none');
+  if (strategy === 'none') return [];
+  const skuSet = new Set((options.salesHistorySkus || []).map(item => String(item || '').trim().toUpperCase()).filter(Boolean));
+  const limit = Number(options.salesHistoryLimit || 0);
+  const tasks = [];
+  for (const [sku, inv] of Object.entries(invMap || {})) {
+    if (!sku || !inv?.asin || !inv?.salesChannel) continue;
+    if (strategy === 'schema' && skuSet.size && !skuSet.has(String(sku).toUpperCase())) continue;
+    tasks.push({
+      sku,
+      asin: inv.asin,
+      site: inv.salesChannel,
+      fbaRemoteFlag: inv.fbaRemoteFlag || '否',
+    });
+    if (limit > 0 && tasks.length >= limit) break;
+  }
+  return tasks;
+}
+
+async function fetchSkuSalesHistory({ asin, site, sku, fbaRemoteFlag = '否' } = {}) {
+  if (!asin || !site || !sku) {
+    return {
+      sku: sku || '',
+      asin: asin || '',
+      site: site || '',
+      rows: [],
+      summary: {},
+      parseWarning: 'missing asin/site/sku for sales history fetch',
+      rawHtmlSnippet: '',
+    };
+  }
+  const tab = await findTab('*://sellerinventory.yswg.com.cn/*');
+  const result = await execInAnyFrame(tab.id, async (payload) => {
+    const url = new URL('/pm/formal/getSalesHistoryList', location.origin);
+    url.searchParams.set('asin', payload.asin);
+    url.searchParams.set('site', payload.site);
+    url.searchParams.set('sku', payload.sku);
+    url.searchParams.set('fba_remote_flag', payload.fbaRemoteFlag || '否');
+    const res = await fetch(url.toString(), {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+      headers: {
+        accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      },
+    });
+    const text = await res.text();
+    return { ok: res.ok, status: res.status, html: text, url: url.toString() };
+  }, [{ asin, site, sku, fbaRemoteFlag }]);
+  if (!result) {
+    return { sku, asin, site, rows: [], summary: {}, parseWarning: 'sales history fetch returned no frame result', rawHtmlSnippet: '' };
+  }
+  const parsed = globalThis.SalesHistoryParser?.parseSkuSalesHistoryHtml
+    ? globalThis.SalesHistoryParser.parseSkuSalesHistoryHtml(result.html || '', { sku, asin, site })
+    : { sku, asin, site, rows: [], summary: {}, parseWarning: 'SalesHistoryParser unavailable', rawHtmlSnippet: String(result.html || '').slice(0, 1200) };
+  return {
+    ...parsed,
+    httpStatus: result.status,
+    ok: !!result.ok,
+    requestUrl: result.url,
+  };
+}
+
+async function fetchSalesHistoriesConcurrent(tasks = [], options = {}) {
+  const concurrency = Math.max(1, Number(options.salesHistoryConcurrency || 3));
+  let index = 0;
+  async function worker() {
+    while (index < tasks.length) {
+      const task = tasks[index++];
+      try {
+        const history = await fetchSkuSalesHistory(task);
+        STATE.salesHistoryMap[String(task.sku || '').toUpperCase()] = history;
+      } catch (error) {
+        STATE.salesHistoryMap[String(task.sku || '').toUpperCase()] = {
+          ...task,
+          rows: [],
+          summary: {},
+          parseWarning: error.message,
+          rawHtmlSnippet: '',
+        };
+      }
+      await sleep(120);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(concurrency, tasks.length) }, worker));
+}
+
+function attachSalesHistoryData(cards = [], salesHistoryMap = {}) {
+  return (cards || []).map(card => ({
+    ...card,
+    salesHistory: salesHistoryMap[String(card.sku || '').toUpperCase()] || null,
+  }));
 }
 
 function buildSellerSalesMap(rows = []) {
@@ -3732,6 +4019,24 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
         netProfit:     inv.netProfit      || 0,
         busyNetProfit: inv.busyNetProfit  || 0,
         invDays:       inv.invDays        || 0,
+        sellableDays_3d: inv.sellableDays_3d || 0,
+        sellableDays_7d: inv.sellableDays_7d || 0,
+        sellableDays_30d: inv.sellableDays_30d || inv.invDays || 0,
+        sellableDaysFulRes_3d: inv.sellableDaysFulRes_3d || inv.sellableDays_3d || 0,
+        sellableDaysFulRes_7d: inv.sellableDaysFulRes_7d || inv.sellableDays_7d || 0,
+        sellableDaysFulRes_30d: inv.sellableDaysFulRes_30d || inv.sellableDays_30d || inv.invDays || 0,
+        sellableDaysAirFulRes_3d: inv.sellableDaysAirFulRes_3d || 0,
+        sellableDaysAirFulRes_7d: inv.sellableDaysAirFulRes_7d || 0,
+        sellableDaysAirFulRes_30d: inv.sellableDaysAirFulRes_30d || 0,
+        sellableDaysInbFulRes_3d: inv.sellableDaysInbFulRes_3d || 0,
+        sellableDaysInbFulRes_7d: inv.sellableDaysInbFulRes_7d || 0,
+        sellableDaysInbFulRes_30d: inv.sellableDaysInbFulRes_30d || 0,
+        sellableDaysInbFulResPlan_3d: inv.sellableDaysInbFulResPlan_3d || 0,
+        sellableDaysInbFulResPlan_7d: inv.sellableDaysInbFulResPlan_7d || 0,
+        sellableDaysInbFulResPlan_30d: inv.sellableDaysInbFulResPlan_30d || 0,
+        sellableDaysSource_3d: inv.sellableDaysSource_3d || '',
+        sellableDaysSource_7d: inv.sellableDaysSource_7d || '',
+        sellableDaysSource_30d: inv.sellableDaysSource_30d || '',
         unitsSold_30d: inv.unitsSold_30d  || 0,
         unitsSold_7d:  inv.unitsSold_7d   || 0,
         unitsSold_3d:  inv.unitsSold_3d   || 0,
@@ -3747,6 +4052,12 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
         isSeasonal:    inv.isSeasonal     || false,
         fulFillable:   inv.fulFillable    || 0,
         reserved:      inv.reserved       || 0,
+        stockInbAir:   inv.stockInbAir    || 0,
+        stockInb:      inv.stockInb       || 0,
+        stockFul:      inv.stockFul       || inv.fulFillable || 0,
+        stockRes:      inv.stockRes       || inv.reserved || 0,
+        stockPlan:     inv.stockPlan      || 0,
+        fbaRemoteFlag: inv.fbaRemoteFlag  || '否',
         listingSessions: {
           lastWeek: inv.session_7 || 0,
           twoWeeksAgo: inv.session_14 || 0,
@@ -3772,6 +4083,9 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
         accountId: meta.accountId || '',
         siteId: meta.siteId || 4,
         adGroupId: meta.adGroupId || '',
+        state: meta.state || '',
+        campaignState: meta.campaignState || meta.state || '',
+        groupState: meta.groupState || '',
         budget: parseFloat(meta.budget || meta.dailyBudget || 0) || 0,
         placementTop: meta.placementTop || '',
         placementPage: meta.placementPage || '',
@@ -3787,6 +4101,9 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
     if (!skuObj.campaigns[campaignId].accountId && meta.accountId) skuObj.campaigns[campaignId].accountId = meta.accountId;
     if (!skuObj.campaigns[campaignId].siteId && meta.siteId) skuObj.campaigns[campaignId].siteId = meta.siteId;
     if (!skuObj.campaigns[campaignId].adGroupId && meta.adGroupId) skuObj.campaigns[campaignId].adGroupId = meta.adGroupId;
+    if (!skuObj.campaigns[campaignId].state && meta.state) skuObj.campaigns[campaignId].state = meta.state;
+    if (!skuObj.campaigns[campaignId].campaignState && meta.campaignState) skuObj.campaigns[campaignId].campaignState = meta.campaignState;
+    if (!skuObj.campaigns[campaignId].groupState && meta.groupState) skuObj.campaigns[campaignId].groupState = meta.groupState;
     const budget = parseFloat(meta.budget || meta.dailyBudget || 0);
     if (!skuObj.campaigns[campaignId].budget && Number.isFinite(budget) && budget > 0) skuObj.campaigns[campaignId].budget = budget;
     for (const key of ['placementTop', 'placementPage', 'placementProductPage', 'placementRestOfSearch']) {
@@ -3876,6 +4193,9 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
       accountId: r.accountId,
       siteId: r.siteId,
       adGroupId: r.adGroupId || r.ad_group_id || '',
+      state: r.campaignState || r.campaign_state || r.campaignStatus || r.campaign_status || '',
+      campaignState: r.campaignState || r.campaign_state || r.campaignStatus || r.campaign_status || '',
+      groupState: r.groupState || r.group_state || r.adGroupState || r.ad_group_state || '',
       budget: r.budget || r.dailyBudget || r.daily_budget || '',
       dailyBudget: r.dailyBudget || r.daily_budget || r.budget || '',
       placementTop: r.placementTop || '',
@@ -3902,6 +4222,8 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
       matchType: r.matchType || r.matchTypeName || r.keywordMatchType || '',
       bid: parseFloat(r.bid || r['竞价'] || 0),
       state: r.state || r.stateVal || '',
+      campaignState: r.campaignState || r.campaign_state || camp.campaignState || camp.state || '',
+      groupState: r.groupState || r.group_state || r.adGroupState || r.ad_group_state || camp.groupState || '',
       updatedAt,
       onCooldown,
       stats3d: readStats(r, 3),
@@ -3926,6 +4248,8 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
       targetType: r.targetType || r.positionType || 'auto',
       bid: parseFloat(r.bid || r['竞价'] || 0),
       state: r.state || r.stateVal || '',
+      campaignState: r.campaignState || r.campaign_state || camp.campaignState || camp.state || '',
+      groupState: r.groupState || r.group_state || r.adGroupState || r.ad_group_state || camp.groupState || '',
       updatedAt,
       onCooldown,
       stats3d: readStats(r, 3),
@@ -3950,6 +4274,8 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
       targetType: 'manual',
       bid: parseFloat(r.bid || 0),
       state: r.state || '',
+      campaignState: r.campaignState || r.campaign_state || camp.campaignState || camp.state || '',
+      groupState: r.groupState || r.group_state || r.adGroupState || r.ad_group_state || camp.groupState || '',
       updatedAt, onCooldown,
       stats3d: readStats(r, 3),
       stats7d: readStats(r, 7),
@@ -3977,6 +4303,8 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
       matchType: r.matchType || r.matchTypeName || '',
       bid: parseFloat(r.bid || r.defaultBid || r.cpcBid || 0),
       state: r.state || r.stateVal || r.status || '',
+      campaignState: r.campaignState || r.campaign_state || camp.campaignState || camp.state || '',
+      groupState: r.groupState || r.group_state || r.adGroupState || r.ad_group_state || camp.groupState || '',
       updatedAt,
       onCooldown,
       stats3d: readStats(r, 3),
@@ -3999,6 +4327,8 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
       id: String(r.adId || r.ad_id || r.id || ''),
       entityType: 'productAd',
       state: r.state || r.stateVal || r.status || '',
+      campaignState: r.campaignState || r.campaign_state || camp.campaignState || camp.state || '',
+      groupState: r.groupState || r.group_state || r.adGroupState || r.ad_group_state || camp.groupState || '',
       updatedAt,
       onCooldown,
       stats3d: readStats(r, 3),
@@ -4091,6 +4421,9 @@ function buildHistory(sku, asin) {
     return {
       date: snap.date,
       invDays: card.invDays,
+      sellableDays_3d: card.sellableDays_3d,
+      sellableDays_7d: card.sellableDays_7d,
+      sellableDays_30d: card.sellableDays_30d,
       unitsSold_7d: card.unitsSold_7d,
       adStats: { '7d': card.adStats?.['7d'] },
       listing: card.listing ? { bsr: card.listing.bsr, reviewCount: card.listing.reviewCount } : null,
@@ -4388,4 +4721,72 @@ function readNumFieldSource(row, keys) {
     if (Number.isFinite(n)) return key;
   }
   return '';
+}
+
+function sellableDayKeys(days, scope = '') {
+  const d = String(days);
+  if (scope === 'first') return [`can_sales_${d}_first`];
+  if (scope === 'second') return [`can_sales_${d}_second`, `dynamic_saleday${d}`, `dynamic_saleday_${d}`];
+  if (scope === 'third') return [`can_sales_${d}_third`];
+  const cn = days === 3 ? ['3天可卖', '3天可卖天数', '三天可卖', '三天可卖天数']
+    : days === 7 ? ['7天可卖', '7天可卖天数', '七天可卖', '七天可卖天数']
+      : ['30天可卖', '30天可卖天数', '三十天可卖', '三十天可卖天数'];
+  return [
+    `dynamic_saleday${d}`,
+    `dynamic_saleday_${d}`,
+    `sales_day_${d}`,
+    `sale_day_${d}`,
+    `saleday_${d}`,
+    `sale_days_${d}`,
+    `sellable_days_${d}`,
+    `sellableDay${d}`,
+    `sellable_days${d}`,
+    `can_sale_day_${d}`,
+    `available_day_${d}`,
+    `days_available_${d}`,
+    ...cn,
+  ];
+}
+
+function parseSellableDaysValue(value) {
+  const text = String(value ?? '').trim();
+  if (!text) return 0;
+  if (text === '+' || text === '999+') return 999;
+  const n = Number(text.replace(/[^\d.+-]/g, ''));
+  return Number.isFinite(n) ? n : 0;
+}
+
+function readSellableDays(row, days) {
+  const key = readSellableDaysSource(row, days);
+  return key ? parseSellableDaysValue(row[key]) : 0;
+}
+
+function readSellableDaysSource(row, days) {
+  for (const key of sellableDayKeys(days)) {
+    const value = row?.[key];
+    if (value !== undefined && value !== null && String(value).trim() !== '') return key;
+  }
+  return '';
+}
+
+function readSellableDaysByScope(row, days, scope, fallbackStock = 0) {
+  const key = readSellableDaysSourceByScope(row, days, scope);
+  if (key) return parseSellableDaysValue(row[key]);
+  const qtyKey = days === 3 ? 'qty_3' : days === 7 ? 'qty_7' : 'qty_30';
+  return readComputedSellableDays(fallbackStock, row?.[qtyKey], days);
+}
+
+function readSellableDaysSourceByScope(row, days, scope) {
+  for (const key of sellableDayKeys(days, scope)) {
+    const value = row?.[key];
+    if (value !== undefined && value !== null && String(value).trim() !== '') return key;
+  }
+  return '';
+}
+
+function readComputedSellableDays(stock, sold, days) {
+  const stockNum = Number(stock) || 0;
+  const soldNum = Number(sold) || 0;
+  if (soldNum <= 0) return stockNum > 0 ? 999 : 0;
+  return Math.round(stockNum / (soldNum / days));
 }

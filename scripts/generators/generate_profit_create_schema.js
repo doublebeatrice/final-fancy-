@@ -1,6 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 const { scoreTermRelevance } = require('../../src/product_profile');
+const {
+  assessAdOperatingContext,
+  currentAdReadinessEvidence,
+  assessInventoryResponsibility,
+  formatInventoryJudgement,
+  formatCurrentAdReadiness,
+  formatSalesHistoryJudgement,
+  inventoryEvidence,
+  listingSeasonEvidence,
+  salesHistoryEvidence,
+} = require('../../src/inventory_economics');
 
 function num(value) {
   const n = Number(value);
@@ -351,6 +362,10 @@ function createAction(card, mode, coreTerm, matchType, bid, keywords, reason, ev
     confidence: options.confidence || 0.82,
     riskLevel: options.riskLevel || 'low_budget_create',
     actionSource: ['generator_candidate'],
+    inventoryJudgement: options.inventoryJudgement || '',
+    listingSeasonJudgement: options.listingSeasonJudgement || '',
+    salesHistoryJudgement: options.salesHistoryJudgement || '',
+    currentAdReadinessJudgement: options.currentAdReadinessJudgement || '',
   };
 }
 
@@ -364,6 +379,10 @@ function makeReviewAction(card, reason, evidence, riskLevel = 'manual_review') {
     confidence: 0.72,
     riskLevel,
     actionSource: ['generator_candidate'],
+    inventoryJudgement: card.inventoryJudgement || '',
+    listingSeasonJudgement: card.listingSeasonJudgement || '',
+    salesHistoryJudgement: card.salesHistoryJudgement || '',
+    currentAdReadinessJudgement: card.currentAdReadinessJudgement || '',
   };
 }
 
@@ -420,10 +439,39 @@ function generatePlans(snapshot = {}, options = {}) {
       !themeInfo.visual.visualReady &&
       themeInfo.primaryThemes.length === 0 &&
       themeInfo.secondaryThemes.length > 0;
-    const inventoryOk = invDays >= 30;
+    const operating = assessAdOperatingContext(card, { currentDate });
+    const inventory = operating.inventory;
+    card.inventoryJudgement = operating.judgement;
+    card.listingSeasonJudgement = operating.judgement;
+    card.salesHistoryJudgement = formatSalesHistoryJudgement(operating.history);
+    card.currentAdReadinessJudgement = formatCurrentAdReadiness(operating.readiness);
+    const inventoryOk = invDays >= 30 && !inventory.restrictScaleUp;
     const marginOk = profit >= 0.12;
-    const stagnantOpportunity = profit < 0.12 && invDays >= 60 && (q2Relevant || stuckRisk);
+    const stagnantOpportunity = profit < 0.12 && invDays >= 60 && (q2Relevant || stuckRisk || inventory.highInventoryPressure);
 
+    if (['do_not_push', 'listing_update_required'].includes(operating.listing.pushLevel) ||
+        ['do_not_push', 'hold_wait_season', 'clearance_or_rework'].includes(operating.history.pushLevel) ||
+        operating.readiness.disallowNewAds) {
+      candidates.push({
+        card,
+        themeInfo,
+        terms: [],
+        score: inventory.highInventoryPressure ? 60 : 20,
+        lowCoverage: false,
+        stuckRisk,
+        clicks30,
+        impressions30,
+        adSpend30,
+        profit,
+        invDays,
+        sold30,
+        stagnantOpportunity: false,
+        reviewOnly: true,
+        listingBlocked: true,
+        readinessBlocked: operating.readiness.disallowNewAds,
+      });
+      continue;
+    }
     if (!inventoryOk || (!marginOk && !stagnantOpportunity)) continue;
     if (seasonalPushNeedsImageReview && imageReviewUsed < imageReviewBudget) {
       imageReviewUsed += 1;
@@ -470,7 +518,7 @@ function generatePlans(snapshot = {}, options = {}) {
   let actionCount = 0;
   for (const item of candidates) {
     if (actionCount >= limit) break;
-    const { card, themeInfo, terms, lowCoverage, stuckRisk, clicks30, impressions30, adSpend30, profit, invDays, sold30, stagnantOpportunity, reviewOnly } = item;
+    const { card, themeInfo, terms, lowCoverage, stuckRisk, clicks30, impressions30, adSpend30, profit, invDays, sold30, stagnantOpportunity, reviewOnly, listingBlocked } = item;
     const names = existingCampaignNames(card);
     const summary = `利润导向建广告：利润率 ${(profit * 100).toFixed(1)}%，库存 ${invDays} 天，30 天销量 ${sold30}，listing 图片 ${themeInfo.visual.hasImages ? `已抓取(${themeInfo.visual.imageCount})` : '缺失'}。`;
     const evidence = [
@@ -486,6 +534,13 @@ function generatePlans(snapshot = {}, options = {}) {
       `themes=${themeInfo.primaryThemes.join(',') || 'coverage_or_stuck_stock'}`,
       `secondaryThemes=${themeInfo.secondaryThemes.join(',') || 'none'}`,
       `stagnantOpportunity=${!!stagnantOpportunity}`,
+      ...inventoryEvidence(assessAdOperatingContext(card, { currentDate }).inventory),
+      ...listingSeasonEvidence(assessAdOperatingContext(card, { currentDate }).listing),
+      ...salesHistoryEvidence(assessAdOperatingContext(card, { currentDate }).history),
+      ...currentAdReadinessEvidence(assessAdOperatingContext(card, { currentDate }).readiness),
+      `salesHistoryJudgement=${formatSalesHistoryJudgement(assessAdOperatingContext(card, { currentDate }).history)}`,
+      `currentAdReadinessJudgement=${formatCurrentAdReadiness(assessAdOperatingContext(card, { currentDate }).readiness)}`,
+      `operatingJudgement=${assessAdOperatingContext(card, { currentDate }).judgement}`,
     ];
     if (reviewOnly) {
       plans.push({
@@ -497,7 +552,7 @@ function generatePlans(snapshot = {}, options = {}) {
             card,
             '当前更看重图片而不是旧文案；该 SKU 具备主题推动线索，但 listing 图片未抓到，先人工确认主图/副图是否仍匹配当前卖点，再决定是否新建广告。',
             evidence,
-            'image_review_required'
+            item.readinessBlocked ? 'overseason_page_hold' : (listingBlocked ? 'listing_update_required' : 'image_review_required')
           ),
         ],
       });
@@ -510,8 +565,8 @@ function generatePlans(snapshot = {}, options = {}) {
       ? `SKU 有利润和库存承接，当前覆盖偏弱或存在库存压力；已读取产品画像和 listing 图片信号，先用低预算 SP 结构补覆盖。`
       : `SKU 有利润和库存承接，当前覆盖偏弱或存在库存压力；图片信号不足，先用低预算 SP 结构补覆盖，避免激进放量。`;
     const createOptions = stagnantOpportunity
-      ? { dailyBudget: 1, confidence: 0.76, riskLevel: 'stagnant_opportunity_create' }
-      : {};
+      ? { dailyBudget: 1, confidence: 0.76, riskLevel: 'stagnant_opportunity_create', inventoryJudgement: assessAdOperatingContext(card, { currentDate }).judgement, listingSeasonJudgement: assessAdOperatingContext(card, { currentDate }).judgement, salesHistoryJudgement: formatSalesHistoryJudgement(assessAdOperatingContext(card, { currentDate }).history), currentAdReadinessJudgement: formatCurrentAdReadiness(assessAdOperatingContext(card, { currentDate }).readiness) }
+      : { inventoryJudgement: assessAdOperatingContext(card, { currentDate }).judgement, listingSeasonJudgement: assessAdOperatingContext(card, { currentDate }).judgement, salesHistoryJudgement: formatSalesHistoryJudgement(assessAdOperatingContext(card, { currentDate }).history), currentAdReadinessJudgement: formatCurrentAdReadiness(assessAdOperatingContext(card, { currentDate }).readiness) };
     const phraseBid = estimateInitialBid(card, themeInfo, 'PHRASE', stagnantOpportunity);
     const broadBid = estimateInitialBid(card, themeInfo, 'BROAD', stagnantOpportunity);
     const autoBid = estimateInitialBid(card, themeInfo, 'AUTO', stagnantOpportunity);

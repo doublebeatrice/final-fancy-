@@ -54,21 +54,37 @@ function readMetric(card = {}) {
   const ad30 = card.adStats?.['30d'] || {};
   const ad7 = card.adStats?.['7d'] || {};
   const sb30 = card.sbStats?.['30d'] || {};
+  const sb7 = card.sbStats?.['7d'] || {};
+  const price = num(card.price || card.listing?.price);
+  const profitRate = num(card.profitRate);
+  const sales7 = num(card.unitsSold_7d) * price;
+  const sales30 = num(card.unitsSold_30d) * price;
+  const adSpend7 = num(ad7.spend) + num(sb7.spend);
+  const adSpend30 = num(ad30.spend) + num(sb30.spend);
+  const grossProfit7 = sales7 * profitRate;
+  const grossProfit30 = sales30 * profitRate;
   return {
     units3: num(card.unitsSold_3d),
     units7: num(card.unitsSold_7d),
     units30: num(card.unitsSold_30d),
     invDays: num(card.invDays),
-    profitRate: num(card.profitRate),
-    adSpend7: num(ad7.spend),
-    adOrders7: num(ad7.orders),
-    adClicks7: num(ad7.clicks),
-    adImpressions7: num(ad7.impressions),
+    price,
+    sales7,
+    sales30,
+    profitRate,
+    grossProfit7,
+    grossProfit30,
+    contributionProfit7: grossProfit7 - adSpend7,
+    contributionProfit30: grossProfit30 - adSpend30,
+    adSpend7,
+    adOrders7: num(ad7.orders) + num(sb7.orders),
+    adClicks7: num(ad7.clicks) + num(sb7.clicks),
+    adImpressions7: num(ad7.impressions) + num(sb7.impressions),
     adAcos7: num(ad7.acos),
-    adSpend30: num(ad30.spend),
-    adOrders30: num(ad30.orders),
-    adClicks30: num(ad30.clicks),
-    adImpressions30: num(ad30.impressions),
+    adSpend30,
+    adOrders30: num(ad30.orders) + num(sb30.orders),
+    adClicks30: num(ad30.clicks) + num(sb30.clicks),
+    adImpressions30: num(ad30.impressions) + num(sb30.impressions),
     adAcos30: num(ad30.acos),
     sbSpend30: num(sb30.spend),
     sbOrders30: num(sb30.orders),
@@ -186,19 +202,36 @@ function nearestAfter(snapshots, event, horizonDays) {
 
 function compareMetrics(before, after) {
   if (!before || !after) return null;
+  const incrementalSales30 = after.sales30 - before.sales30;
+  const incrementalSpend30 = after.adSpend30 - before.adSpend30;
+  const incrementalGrossProfit30 = after.grossProfit30 - before.grossProfit30;
+  const incrementalContributionProfit30 = after.contributionProfit30 - before.contributionProfit30;
+  const spendToSalesDeltaRatio = incrementalSales30 > 0 && incrementalSpend30 > 0
+    ? incrementalSpend30 / incrementalSales30
+    : (incrementalSpend30 > 0 ? 99 : 0);
+  const conversionLiftVsSpendLift = pctDelta(before.adOrders30, after.adOrders30) - pctDelta(before.adSpend30, after.adSpend30);
   return {
     units7Delta: after.units7 - before.units7,
     units30Delta: after.units30 - before.units30,
     invDaysDelta: after.invDays - before.invDays,
+    sales7Delta: after.sales7 - before.sales7,
+    sales30Delta: incrementalSales30,
+    grossProfit30Delta: incrementalGrossProfit30,
+    contributionProfit30Delta: incrementalContributionProfit30,
     adSpend30Delta: after.adSpend30 - before.adSpend30,
     adOrders30Delta: after.adOrders30 - before.adOrders30,
     adAcos30Delta: after.adAcos30 - before.adAcos30,
     adClicks30Delta: after.adClicks30 - before.adClicks30,
     adImpressions30Delta: after.adImpressions30 - before.adImpressions30,
+    sales30PctDelta: pctDelta(before.sales30, after.sales30),
+    grossProfit30PctDelta: pctDelta(before.grossProfit30, after.grossProfit30),
+    contributionProfit30PctDelta: pctDelta(before.contributionProfit30, after.contributionProfit30),
     units30PctDelta: pctDelta(before.units30, after.units30),
     adSpend30PctDelta: pctDelta(before.adSpend30, after.adSpend30),
     adOrders30PctDelta: pctDelta(before.adOrders30, after.adOrders30),
     adAcos30PctDelta: pctDelta(before.adAcos30, after.adAcos30),
+    spendToSalesDeltaRatio,
+    conversionLiftVsSpendLift,
   };
 }
 
@@ -221,8 +254,10 @@ function classifyImpact(event, delta) {
     if (delta.units30PctDelta < -0.25) return 'sales_drop_after_cut';
   }
   if (event.direction === 'up' || event.actionType === 'create' || event.actionType === 'enable') {
+    if (delta.adSpend30Delta > 0 && delta.contributionProfit30Delta < 0) return 'spend_up_profit_down';
     if (delta.units30PctDelta > 0.15 && delta.adAcos30PctDelta <= 0.15) return 'growth_with_controlled_acos';
     if (delta.adSpend30PctDelta > 0.30 && delta.adOrders30PctDelta <= 0) return 'spend_up_without_orders';
+    if (delta.adSpend30PctDelta > 0.20 && delta.conversionLiftVsSpendLift < -0.15) return 'spend_growth_outpacing_conversion';
   }
   if (score >= 0.15) return 'positive';
   if (score <= -0.15) return 'negative';
@@ -292,6 +327,9 @@ function summarize(records) {
         avgAdSpend30PctDelta: 0,
         avgAdOrders30PctDelta: 0,
         avgAdAcos30PctDelta: 0,
+        avgSales30PctDelta: 0,
+        avgContributionProfit30Delta: 0,
+        avgSpendToSalesDeltaRatio: 0,
       };
     }
     const bucket = summary[key];
@@ -302,6 +340,9 @@ function summarize(records) {
       bucket.avgAdSpend30PctDelta += record.delta.adSpend30PctDelta;
       bucket.avgAdOrders30PctDelta += record.delta.adOrders30PctDelta;
       bucket.avgAdAcos30PctDelta += record.delta.adAcos30PctDelta;
+      bucket.avgSales30PctDelta += record.delta.sales30PctDelta;
+      bucket.avgContributionProfit30Delta += record.delta.contributionProfit30Delta;
+      bucket.avgSpendToSalesDeltaRatio += record.delta.spendToSalesDeltaRatio;
     }
   }
   return Object.values(summary)
@@ -312,6 +353,9 @@ function summarize(records) {
       avgAdSpend30PctDelta: Number((bucket.avgAdSpend30PctDelta / bucket.count).toFixed(4)),
       avgAdOrders30PctDelta: Number((bucket.avgAdOrders30PctDelta / bucket.count).toFixed(4)),
       avgAdAcos30PctDelta: Number((bucket.avgAdAcos30PctDelta / bucket.count).toFixed(4)),
+      avgSales30PctDelta: Number((bucket.avgSales30PctDelta / bucket.count).toFixed(4)),
+      avgContributionProfit30Delta: Number((bucket.avgContributionProfit30Delta / bucket.count).toFixed(2)),
+      avgSpendToSalesDeltaRatio: Number((bucket.avgSpendToSalesDeltaRatio / bucket.count).toFixed(4)),
     }))
     .sort((a, b) => b.count - a.count || b.avgImpactScore - a.avgImpactScore);
 }
@@ -334,8 +378,8 @@ function writeMarkdown(report, file) {
     '',
     '## Top Buckets',
     '',
-    '| Horizon | Entity | Action | Direction | Risk | Baseline | Impact | Count | Score | Units30 | Spend30 | Orders30 | ACOS30 |',
-    '|---:|---|---|---|---|---|---|---:|---:|---:|---:|---:|---:|',
+    '| Horizon | Entity | Action | Direction | Risk | Baseline | Impact | Count | Score | Sales30 | Spend30 | Orders30 | ACOS30 | Profit$ | Spend/Sales Delta |',
+    '|---:|---|---|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|',
   ];
   for (const row of report.summary.slice(0, 30)) {
     lines.push([
@@ -348,15 +392,17 @@ function writeMarkdown(report, file) {
       row.impact,
       row.count,
       row.avgImpactScore,
-      pct(row.avgUnits30PctDelta),
+      pct(row.avgSales30PctDelta),
       pct(row.avgAdSpend30PctDelta),
       pct(row.avgAdOrders30PctDelta),
       pct(row.avgAdAcos30PctDelta),
+      row.avgContributionProfit30Delta,
+      row.avgSpendToSalesDeltaRatio,
     ].join('|').replace(/^/, '|').replace(/$/, '|'));
   }
   lines.push('', '## Recent Comparable Examples', '');
   for (const record of ready.slice(-30).reverse()) {
-    lines.push(`- ${record.date} ${record.sku} ${record.entityType}/${record.actionType}/${record.direction} ${record.horizonDays}d -> ${record.impact}, baseline=${record.baselineQuality || 'unknown'}, weight=${record.attributionWeight || 0}, score=${record.impactScore}, units30=${pct(record.delta.units30PctDelta)}, spend30=${pct(record.delta.adSpend30PctDelta)}, orders30=${pct(record.delta.adOrders30PctDelta)}, acos30=${pct(record.delta.adAcos30PctDelta)}`);
+    lines.push(`- ${record.date} ${record.sku} ${record.entityType}/${record.actionType}/${record.direction} ${record.horizonDays}d -> ${record.impact}, baseline=${record.baselineQuality || 'unknown'}, weight=${record.attributionWeight || 0}, score=${record.impactScore}, sales30=${pct(record.delta.sales30PctDelta)}, spend30=${pct(record.delta.adSpend30PctDelta)}, orders30=${pct(record.delta.adOrders30PctDelta)}, acos30=${pct(record.delta.adAcos30PctDelta)}, contributionProfit30Delta=${record.delta.contributionProfit30Delta.toFixed(2)}, spendToSalesDeltaRatio=${record.delta.spendToSalesDeltaRatio.toFixed(4)}`);
   }
   fs.writeFileSync(file, `${lines.join('\n')}\n`, 'utf8');
 }

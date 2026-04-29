@@ -169,6 +169,11 @@ function isInvalidState(value) {
   return /PAUSED|ARCHIVED|DISABLED|ENDED|INCOMPLETE|CAMPAIGN_INCOMPLETE/.test(text) || text === '0' || text === '2';
 }
 
+function hasInactiveParentAdObject(row = {}) {
+  return isInvalidState(row.campaignState ?? row.campaign_state ?? row.campaignStatus ?? row.campaign_status) ||
+    isInvalidState(row.groupState ?? row.group_state ?? row.adGroupState ?? row.ad_group_state);
+}
+
 function sbRowIsVideo(meta = {}) {
   const adFormat = String(meta.adFormat || '').toLowerCase();
   const campaignName = String(meta.campaignName || '').toLowerCase();
@@ -336,8 +341,20 @@ async function run(options = {}) {
   async function executeKeywordItems(items, metaById, typeLabel, endpoint, property, entityType, advType = 'SP') {
     let apiSuccess = 0;
     let apiFailed = 0;
+    let apiSkipped = 0;
+    const invalidParent = [];
+    const validItems = [];
+    for (const item of items) {
+      const meta = metaById[String(item.id)];
+      if (meta && hasInactiveParentAdObject(meta)) invalidParent.push({ item, meta });
+      else validItems.push(item);
+    }
+    apiSkipped += invalidParent.length;
+    invalidParent.forEach(({ item, meta }) => recordExecutionEvent(item, entityType, 'skipped_invalid_state', {
+      msg: `parent campaign/ad group inactive; campaignState=${meta.campaignState ?? meta.campaign_state ?? ''}, groupState=${meta.groupState ?? meta.group_state ?? ''}`,
+    }, meta));
     const { groups, skipped } = groupByAccountSite(
-      items,
+      validItems,
       item => metaById[String(item.id)],
       typeLabel,
       ['campaignId', 'adGroupId']
@@ -383,15 +400,28 @@ async function run(options = {}) {
         await wait(500);
       }
     }
-    return { apiSuccess, apiFailed };
+    return { apiSuccess, apiFailed, apiSkipped };
   }
 
   async function executeTargetItems(items, rows, typeLabel, endpoint, property, entityType, advType = 'SP') {
     let apiSuccess = 0;
     let apiFailed = 0;
+    let apiSkipped = 0;
+    const findMeta = item => rows.find(r => String(r.targetId || r.target_id || r.id || '') === String(item.id));
+    const invalidParent = [];
+    const validItems = [];
+    for (const item of items) {
+      const meta = findMeta(item);
+      if (meta && hasInactiveParentAdObject(meta)) invalidParent.push({ item, meta });
+      else validItems.push(item);
+    }
+    apiSkipped += invalidParent.length;
+    invalidParent.forEach(({ item, meta }) => recordExecutionEvent(item, entityType, 'skipped_invalid_state', {
+      msg: `parent campaign/ad group inactive; campaignState=${meta.campaignState ?? meta.campaign_state ?? ''}, groupState=${meta.groupState ?? meta.group_state ?? ''}`,
+    }, meta));
     const { groups, skipped } = groupByAccountSite(
-      items,
-      item => rows.find(r => String(r.targetId || r.target_id || r.id || '') === String(item.id)),
+      validItems,
+      findMeta,
       typeLabel,
       ['campaignId', 'adGroupId']
     );
@@ -479,6 +509,7 @@ async function run(options = {}) {
   async function executeSpCampaignBudgetItems(items, rows, typeLabel) {
     let apiSuccess = 0;
     let apiFailed = 0;
+    let apiSkipped = 0;
     const { groups, skipped } = groupByAccountSite(
       items,
       item => rows.find(r => campaignRowId(r) === String(item.id)),
@@ -516,7 +547,7 @@ async function run(options = {}) {
         await wait(500);
       }
     }
-    return { apiSuccess, apiFailed };
+    return { apiSuccess, apiFailed, apiSkipped };
   }
 
   async function executeSpCampaignPlacementItems(items, rows, typeLabel) {
@@ -670,6 +701,12 @@ async function run(options = {}) {
         };
         return JSON.stringify(events.map(event => {
           const out = { ...event };
+          if (event.apiStatus === 'skipped_invalid_state') {
+            out.finalStatus = 'skipped_invalid_state';
+            out.success = false;
+            out.errorReason = event.errorReason || event.resultMessage || 'skipped_invalid_state';
+            return out;
+          }
           if (event.apiStatus !== 'api_success') {
             out.finalStatus = event.apiStatus === 'blocked_by_system_recent_adjust' || event.apiStatus === 'conflict' ? 'blocked_by_system_recent_adjust' : 'failed';
             out.success = false;

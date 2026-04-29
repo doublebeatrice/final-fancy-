@@ -1,6 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const { scoreTermRelevance } = require('./product_profile');
+const {
+  assessAdOperatingContext,
+  currentAdReadinessEvidence,
+  formatCurrentAdReadiness,
+  lifecycleSeasonEvidence,
+} = require('./inventory_economics');
 
 const EXECUTABLE_ACTION_SOURCES = new Set(['codex', 'strategy', 'sp_7day_untouched', 'sb_7day_untouched']);
 const ACCEPTED_ACTION_SOURCES = new Set([...EXECUTABLE_ACTION_SOURCES, 'generator_candidate', 'bugfix_cleanup']);
@@ -10,10 +16,15 @@ const CRITICAL_REVIEW_RISKS = new Set([
   'traffic_push',
   'non_codex_source',
   'large_budget_change',
+  'overseason_page_hold',
   'large_placement_change',
   'invalid_placement',
   'high_volume_guard',
+  'marginal_profit_review',
 ]);
+
+const HIGH_VOLUME_BID_CHANGE_REVIEW_THRESHOLD = 0.15;
+const NORMAL_BID_CHANGE_REVIEW_THRESHOLD = 0.25;
 
 function toNum(value) {
   const n = Number(value);
@@ -172,8 +183,13 @@ function buildLearningContext(product, entity, action, rawAction = {}) {
       suggestedPlacementPercent: Number.isFinite(action.suggestedPlacementPercent) ? action.suggestedPlacementPercent : null,
       profitRate: toNum(product?.profitRate),
       invDays: toNum(product?.invDays),
+      opendate: product?.opendate || '',
+      fuldate: product?.fuldate || '',
+      price: toNum(product?.price),
       unitsSold_7d: toNum(product?.unitsSold_7d),
       unitsSold_30d: toNum(product?.unitsSold_30d),
+      lifecycleSeason: product?.lifecycleSeason || null,
+      lifecycleSeasonEvidence: lifecycleSeasonEvidence(product?.lifecycleSeason || {}),
       adDependency: toNum(product?.adDependency),
       listingSessions: product?.listingSessions || {},
       listingConversionRates: product?.listingConversionRates || {},
@@ -193,6 +209,8 @@ function buildLearningContext(product, entity, action, rawAction = {}) {
     confounders: uniqStrings([
       ...(Array.isArray(rawAction.confounders) ? rawAction.confounders : []),
       product?.listing ? '' : 'listing_missing',
+      product?.lifecycleSeason?.seasonPhase === 'offseason_or_wait' ? 'season_window_not_current' : '',
+      product?.lifecycleSeason?.spendWithoutLearning ? 'recent_spend_without_learning' : '',
       quality.warnings.length ? `baseline_${quality.level}` : '',
     ]),
   };
@@ -232,6 +250,7 @@ function buildVerificationSpec(action) {
 
   if (actionType === 'enable' || actionType === 'pause') {
     const source = {
+      campaign: 'campaignRows',
       keyword: 'kwRows',
       autoTarget: 'autoRows',
       manualTarget: 'targetRows',
@@ -323,12 +342,16 @@ function detectCardEntities(card) {
         adGroupId: String(campaign.adGroupId || ''),
         accountId: campaign.accountId || '',
         siteId: campaign.siteId || 4,
+        campaignName: campaign.name || campaign.campaignName || '',
+        groupName: campaign.groupName || campaign.adGroupName || '',
         currentBid: null,
         currentBudget: toNum(campaign.budget),
         placementTop: parsePlacementPercent(campaign.placementTop),
         placementProductPage: parsePlacementPercent(campaign.placementProductPage ?? campaign.placementPage),
         placementRestOfSearch: parsePlacementPercent(campaign.placementRestOfSearch),
         state: campaign.state || campaign.status || '',
+        campaignState: campaign.campaignState || campaign.state || campaign.status || '',
+        groupState: campaign.groupState || '',
       });
     }
     for (const keyword of campaign.keywords || []) {
@@ -336,9 +359,14 @@ function detectCardEntities(card) {
         id: String(keyword.id || ''),
         entityType: 'keyword',
         text: keyword.text || '',
+        label: keyword.text || '',
+        campaignName: campaign.name || campaign.campaignName || '',
+        groupName: campaign.groupName || campaign.adGroupName || '',
         matchType: keyword.matchType || '',
         currentBid: toNum(keyword.bid),
         state: keyword.state || keyword.status || '',
+        campaignState: keyword.campaignState || campaign.campaignState || campaign.state || '',
+        groupState: keyword.groupState || campaign.groupState || '',
         onCooldown: !!keyword.onCooldown,
         stats3d: keyword.stats3d || {},
         stats7d: keyword.stats7d || {},
@@ -350,8 +378,14 @@ function detectCardEntities(card) {
         id: String(target.id || ''),
         entityType: target.targetType === 'manual' ? 'manualTarget' : 'autoTarget',
         targetType: target.targetType || '',
+        text: target.text || target.targetText || target.targetingExpression || target.targetType || '',
+        label: target.text || target.targetText || target.targetingExpression || target.targetType || '',
+        campaignName: campaign.name || campaign.campaignName || '',
+        groupName: campaign.groupName || campaign.adGroupName || '',
         currentBid: toNum(target.bid),
         state: target.state || target.status || '',
+        campaignState: target.campaignState || campaign.campaignState || campaign.state || '',
+        groupState: target.groupState || campaign.groupState || '',
         onCooldown: !!target.onCooldown,
         stats3d: target.stats3d || {},
         stats7d: target.stats7d || {},
@@ -362,8 +396,14 @@ function detectCardEntities(card) {
       productAds.push({
         id: String(ad.id || ''),
         entityType: 'productAd',
+        text: ad.asin || ad.sku || '',
+        label: ad.asin || ad.sku || '',
+        campaignName: campaign.name || campaign.campaignName || '',
+        groupName: campaign.groupName || campaign.adGroupName || '',
         currentBid: null,
         state: ad.state || ad.status || '',
+        campaignState: ad.campaignState || campaign.campaignState || campaign.state || '',
+        groupState: ad.groupState || campaign.groupState || '',
         onCooldown: !!ad.onCooldown,
         stats3d: ad.stats3d || {},
         stats7d: ad.stats7d || {},
@@ -374,6 +414,10 @@ function detectCardEntities(card) {
       sbCampaigns.push({
         id: String(campaign.sbCampaign.id || ''),
         entityType: 'sbCampaign',
+        text: campaign.sbCampaign.name || campaign.name || '',
+        label: campaign.sbCampaign.name || campaign.name || '',
+        campaignName: campaign.sbCampaign.name || campaign.name || campaign.campaignName || '',
+        groupName: campaign.groupName || campaign.adGroupName || '',
         currentBid: null,
         currentBudget: toNum(campaign.sbCampaign.budget),
         state: campaign.sbCampaign.state || campaign.sbCampaign.status || '',
@@ -389,9 +433,14 @@ function detectCardEntities(card) {
         id: String(sb.id || ''),
         entityType,
         text: sb.text || '',
+        label: sb.text || '',
+        campaignName: campaign.name || campaign.campaignName || '',
+        groupName: campaign.groupName || campaign.adGroupName || '',
         matchType: sb.matchType || '',
         currentBid: toNum(sb.bid),
         state: sb.state || sb.status || '',
+        campaignState: sb.campaignState || campaign.campaignState || campaign.state || '',
+        groupState: sb.groupState || campaign.groupState || '',
         onCooldown: !!sb.onCooldown,
         rawProperty: sb.rawProperty || '',
         stats3d: sb.stats3d || {},
@@ -503,9 +552,13 @@ function buildProductContexts(cards, rowsByType, sp7DayRows, sb7DayRows, history
 
   const products = (cards || []).map(card => {
     const productProfile = summarizeProductProfile(card.productProfile);
+    const operatingContext = assessAdOperatingContext(card);
     return {
       sku: card.sku,
       asin: card.asin,
+      opendate: card.opendate || '',
+      fuldate: card.fuldate || '',
+      price: toNum(card.price || card.listing?.price),
       profitRate: toNum(card.profitRate),
       invDays: toNum(card.invDays),
       unitsSold_7d: toNum(card.unitsSold_7d),
@@ -525,6 +578,8 @@ function buildProductContexts(cards, rowsByType, sp7DayRows, sb7DayRows, history
       sbStats: card.sbStats || {},
       listing: summarizeListing(card.listing),
       productProfile,
+      operatingContext,
+      lifecycleSeason: operatingContext.lifecycleSeason || null,
       createContext: card.createContext || null,
       history: (recentHistoryBySku.get(String(card.sku || '')) || []).slice(-10),
       adjustableAds: detectCardEntities(card).map(entity => ({
@@ -571,6 +626,101 @@ function isHighVolumeProduct(product) {
     (toNum(product?.sbStats?.['30d']?.orders) || 0) >= 12;
 }
 
+function isEnabledState(value) {
+  const text = String(value ?? '').trim().toLowerCase();
+  return text === '1' || text === 'enabled' || text === 'enable' || text === 'active';
+}
+
+function hasInactiveParentAdObject(entity = {}) {
+  for (const key of ['campaignState', 'groupState']) {
+    const value = entity[key];
+    if (value !== undefined && value !== null && String(value).trim() !== '' && !isEnabledState(value)) return true;
+  }
+  return false;
+}
+
+function isScaleOrBuildAction(action = {}) {
+  const currentBid = toNum(action.currentBid);
+  const suggestedBid = toNum(action.suggestedBid);
+  const currentBudget = toNum(action.currentBudget);
+  const suggestedBudget = toNum(action.suggestedBudget);
+  if (action.actionType === 'create') return true;
+  if (action.actionType === 'enable') return true;
+  if (action.actionType === 'bid' && Number.isFinite(currentBid) && Number.isFinite(suggestedBid)) return suggestedBid > currentBid;
+  if (action.actionType === 'budget' && Number.isFinite(currentBudget) && Number.isFinite(suggestedBudget)) return suggestedBudget > currentBudget;
+  return false;
+}
+
+function statsFor(product = {}, key = '7d') {
+  const sp = product.adStats?.[key] || {};
+  const sb = product.sbStats?.[key] || {};
+  return {
+    spend: (toNum(sp.spend) || 0) + (toNum(sb.spend) || 0),
+    orders: (toNum(sp.orders) || 0) + (toNum(sb.orders) || 0),
+    clicks: (toNum(sp.clicks) || 0) + (toNum(sb.clicks) || 0),
+    sales: (toNum(sp.sales) || 0) + (toNum(sb.sales) || 0),
+  };
+}
+
+function impliedProductSales(product = {}, unitsKey = 'unitsSold_7d') {
+  const units = toNum(product?.[unitsKey]) || 0;
+  const price = toNum(product?.listing?.price ?? product?.price) || 0;
+  return units * price;
+}
+
+function assessMarginalScaleEconomics(product = {}, action = {}, entity = {}) {
+  const actionType = String(action.actionType || '');
+  const isBudgetUp = actionType === 'budget' &&
+    Number.isFinite(toNum(action.currentBudget)) &&
+    Number.isFinite(toNum(action.suggestedBudget)) &&
+    toNum(action.suggestedBudget) > toNum(action.currentBudget);
+  const isBidUp = actionType === 'bid' &&
+    Number.isFinite(toNum(action.currentBid)) &&
+    Number.isFinite(toNum(action.suggestedBid)) &&
+    toNum(action.suggestedBid) > toNum(action.currentBid);
+  const isNewTraffic = ['create', 'enable'].includes(actionType);
+  if (!isBudgetUp && !isBidUp && !isNewTraffic) return { ok: true, reason: 'not_scale' };
+
+  const profitRate = toNum(product?.profitRate) || 0;
+  const ad7 = statsFor(product, '7d');
+  const ad30 = statsFor(product, '30d');
+  const sales7 = ad7.sales || impliedProductSales(product, 'unitsSold_7d');
+  const grossProfit7 = sales7 * Math.max(profitRate, 0);
+  const entity7 = entity?.stats7d || {};
+  const entity30 = entity?.stats30d || {};
+  const entityOrders7 = toNum(entity7.orders) || 0;
+  const entityOrders30 = toNum(entity30.orders) || 0;
+  const entitySpend7 = toNum(entity7.spend) || 0;
+  const expectedWeeklyOrders = (ad30.orders || entityOrders30 || 0) / 30 * 7;
+  const weakRecentConversion = ad7.spend >= 8 && ad7.orders <= Math.max(0, expectedWeeklyOrders * 0.5);
+  const entityWeakRecentConversion = entitySpend7 >= 4 && entityOrders7 === 0;
+  const adSpendEatingProfit = profitRate > 0 && grossProfit7 > 0 && ad7.spend > grossProfit7 * 0.8;
+  const noSalesAgainstSpend = ad7.spend >= 8 && sales7 <= 0;
+
+  const evidence = [
+    `skuAdSpend7=${ad7.spend.toFixed(2)}`,
+    `skuAdOrders7=${ad7.orders.toFixed(0)}`,
+    `skuAdOrders30=${ad30.orders.toFixed(0)}`,
+    `skuSales7=${sales7.toFixed(2)}`,
+    `profitRate=${profitRate.toFixed(4)}`,
+    `grossProfit7=${grossProfit7.toFixed(2)}`,
+    `entitySpend7=${entitySpend7.toFixed(2)}`,
+    `entityOrders7=${entityOrders7.toFixed(0)}`,
+    `entityOrders30=${entityOrders30.toFixed(0)}`,
+  ];
+
+  if (noSalesAgainstSpend) {
+    return { ok: false, reason: 'spend_without_sku_sales', evidence };
+  }
+  if ((isBudgetUp || isBidUp || isNewTraffic) && (weakRecentConversion || entityWeakRecentConversion) && adSpendEatingProfit) {
+    return { ok: false, reason: 'spend_up_conversion_not_covering_profit', evidence };
+  }
+  if ((isBudgetUp || isBidUp) && entityWeakRecentConversion && entityOrders30 <= 1) {
+    return { ok: false, reason: 'entity_recent_spend_without_orders', evidence };
+  }
+  return { ok: true, reason: 'marginal_economics_ok', evidence };
+}
+
 function gateRisk(product, entity, action) {
   const gated = { ...action };
   const currentBid = toNum(gated.currentBid);
@@ -579,6 +729,14 @@ function gateRisk(product, entity, action) {
   const suggestedBudget = toNum(gated.suggestedBudget);
   const highVolume = isHighVolumeProduct(product);
   const sources = normalizeActionSources(gated.actionSource, []);
+
+  if (['keyword', 'autoTarget', 'manualTarget', 'productAd'].includes(gated.entityType) && hasInactiveParentAdObject(entity)) {
+    gated.actionType = 'skip';
+    gated.canAutoExecute = false;
+    gated.riskLevel = 'parent_ad_object_inactive';
+    gated.reason = `${gated.reason || ''} [risk_gate:parent_ad_object_inactive:campaignState=${entity.campaignState || ''},groupState=${entity.groupState || ''}] Child row is not safe to adjust while the parent campaign/ad group is paused or closed; reactivate the parent first or choose another active ad form.`.trim();
+    return gated;
+  }
 
   if (gated.actionType === 'review') {
     gated.canAutoExecute = false;
@@ -601,6 +759,32 @@ function gateRisk(product, entity, action) {
     return gated;
   }
 
+  if (isScaleOrBuildAction(gated)) {
+    const operating = assessAdOperatingContext(product || {});
+    const readiness = operating.readiness || {};
+    if (readiness.disallowNewAds || readiness.disallowScaleActions) {
+      const evidence = [
+        ...currentAdReadinessEvidence(readiness),
+        `readinessReason=${readiness.reason || 'unknown'}`,
+      ].join('; ');
+      gated.actionType = 'review';
+      gated.canAutoExecute = false;
+      gated.riskLevel = 'overseason_page_hold';
+      gated.currentAdReadinessJudgement = gated.currentAdReadinessJudgement || formatCurrentAdReadiness(readiness);
+      gated.reason = `${gated.reason || ''} [risk_gate:overseason_or_page_hold:${readiness.recommendation || 'unknown'}] ${gated.currentAdReadinessJudgement}; evidence: ${evidence}`.trim();
+      return gated;
+    }
+
+    const economics = assessMarginalScaleEconomics(product || {}, gated, entity || {});
+    if (!economics.ok) {
+      gated.actionType = 'review';
+      gated.canAutoExecute = false;
+      gated.riskLevel = 'marginal_profit_review';
+      gated.reason = `${gated.reason || ''} [risk_gate:marginal_profit:${economics.reason}] Scale/build action needs manual review because recent ad spend is not producing enough sales/orders to cover gross profit. evidence: ${(economics.evidence || []).join('; ')}`.trim();
+      return gated;
+    }
+  }
+
   if (gated.actionType === 'create') {
     const createInput = gated.createInput || {};
     const mode = String(createInput.mode || '').trim();
@@ -617,7 +801,7 @@ function gateRisk(product, entity, action) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
       gated.riskLevel = 'manual_review';
-      gated.reason = `${gated.reason || ''} [risk_gate:create_missing:${missing.join(',')}]`.trim();
+      gated.reason = `${gated.reason || ''} [risk_gate:create_missing:${missing.join(',')}] Need these create fields before automation can execute: ${missing.join(', ')}.`.trim();
       return gated;
     }
     gated.canAutoExecute = true;
@@ -629,25 +813,25 @@ function gateRisk(product, entity, action) {
     gated.actionType = 'review';
     gated.canAutoExecute = false;
     gated.riskLevel = 'manual_review';
-    gated.reason = `${gated.reason || ''} [risk_gate:non_executable_candidate]`.trim();
+    gated.reason = `${gated.reason || ''} [risk_gate:non_executable_candidate] Candidate rows are analysis objects, not writable ad entities. The generator must output actionType=create with createInput, or a concrete campaign/keyword/target/productAd id.`.trim();
     return gated;
   }
 
   if (gated.actionType === 'bid' && Number.isFinite(currentBid) && currentBid > 0 && Number.isFinite(suggestedBid)) {
     const changePct = Math.abs(suggestedBid - currentBid) / currentBid;
     const explicitTrafficPushOverride = gated.allowLargeBidChange === true && gated.riskLevel === 'traffic_push';
-    if (changePct > 0.15 && !explicitTrafficPushOverride) {
+    if (highVolume && changePct > HIGH_VOLUME_BID_CHANGE_REVIEW_THRESHOLD && !explicitTrafficPushOverride) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
       gated.riskLevel = 'manual_review';
-      gated.reason = `${gated.reason || ''} [risk_gate:large_bid_change]`.trim();
+      gated.reason = `${gated.reason || ''} [risk_gate:high_volume_strong_bid_change:changePct=${changePct.toFixed(4)},threshold=${HIGH_VOLUME_BID_CHANGE_REVIEW_THRESHOLD}]`.trim();
       return gated;
     }
-    if (highVolume && changePct > 0.08 && !explicitTrafficPushOverride) {
+    if (!highVolume && changePct > NORMAL_BID_CHANGE_REVIEW_THRESHOLD && !explicitTrafficPushOverride) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
       gated.riskLevel = 'manual_review';
-      gated.reason = `${gated.reason || ''} [risk_gate:high_volume_strong_bid_change]`.trim();
+      gated.reason = `${gated.reason || ''} [risk_gate:large_bid_change:changePct=${changePct.toFixed(4)},threshold=${NORMAL_BID_CHANGE_REVIEW_THRESHOLD}]`.trim();
       return gated;
     }
   }
@@ -738,6 +922,17 @@ function validateAndNormalizePlan(rawPlan, context) {
           ? `create::${sku}::${rawCreateInput.mode || rawAction.mode || 'unknown'}::${rawCreateInput.coreTerm || rawAction.coreTerm || ''}`
           : '')
       ).trim();
+
+      if ((entityType === 'skuCandidate' || entityType === 'sbCampaignCandidate') && actionType !== 'create' && actionType !== 'review') {
+        errors.push({
+          sku,
+          id,
+          entityType,
+          reason: `candidate action is not directly executable: actionType=${actionType}. Emit actionType=create with createInput, or emit a concrete keyword/target/productAd/campaign id.`,
+        });
+        continue;
+      }
+
       const entity = actionType === 'create' || (actionType === 'review' && entityType === 'skuCandidate')
         ? { id, entityType: 'skuCandidate', sourceSignals: ['codex'], currentBid: null }
         : findProductEntity(product, entityType, id);
@@ -773,14 +968,19 @@ function validateAndNormalizePlan(rawPlan, context) {
         currentPlacementPercent: toNum(rawAction.currentPlacementPercent ?? (rawAction.placementKey ? entity[rawAction.placementKey] : null)),
         suggestedPlacementPercent: toNum(rawAction.suggestedPlacementPercent ?? rawAction.column),
         reason: String(rawAction.reason || '').trim(),
+        text: String(rawAction.text || rawAction.keywordText || rawAction.targetText || entity.text || '').trim(),
+        label: String(rawAction.label || rawAction.text || entity.label || entity.text || '').trim(),
         evidence,
         confidence: Math.max(0, Math.min(1, toNum(rawAction.confidence) ?? 0)),
         riskLevel: String(rawAction.riskLevel || '').trim() || 'low_confidence',
+        currentAdReadinessJudgement: String(rawAction.currentAdReadinessJudgement || '').trim(),
         source: 'codex',
         actionSource: normalizeActionSources(rawAction.actionSource, []),
         sku,
         campaignId: String(rawAction.campaignId || entity.campaignId || ''),
         adGroupId: String(rawAction.adGroupId || entity.adGroupId || ''),
+        campaignName: String(rawAction.campaignName || entity.campaignName || '').trim(),
+        groupName: String(rawAction.groupName || rawAction.adGroupName || entity.groupName || entity.adGroupName || '').trim(),
         keywordId: entityType === 'keyword' || entityType === 'sbKeyword' ? id : '',
         targetId: entityType === 'autoTarget' || entityType === 'manualTarget' || entityType === 'sbTarget' ? id : '',
         adId: entityType === 'productAd' ? id : '',
@@ -848,7 +1048,7 @@ function validateAndNormalizePlan(rawPlan, context) {
         normalized.actionType = 'review';
         normalized.canAutoExecute = false;
         normalized.riskLevel = 'manual_review';
-        normalized.reason = `${normalized.reason || ''} [risk_gate:missing_verify_spec]`.trim();
+        normalized.reason = `${normalized.reason || ''} [risk_gate:missing_verify_spec] No post-write verification mapping for entityType=${normalized.entityType}, actionType=${normalized.actionType}. Add verifySource/verifyField support or emit a concrete executable entity/action pair.`.trim();
       }
 
       const gated = gateRisk(product, entity, normalized);

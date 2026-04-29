@@ -30,6 +30,46 @@ function writeJsonFile(file, value) {
   fs.writeFileSync(file, JSON.stringify(value, null, 2));
 }
 
+function chinaClockParts(date = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }).formatToParts(date).reduce((acc, part) => {
+    if (part.type !== 'literal') acc[part.type] = part.value;
+    return acc;
+  }, {});
+  return {
+    date: `${parts.year}-${parts.month}-${parts.day}`,
+    hour: Number(parts.hour),
+    minute: Number(parts.minute),
+    second: Number(parts.second),
+  };
+}
+
+function overBudgetDataAvailability(date = new Date()) {
+  const parts = chinaClockParts(date);
+  const minutes = parts.hour * 60 + parts.minute;
+  const cutoffMinutes = 16 * 60;
+  return {
+    source: 'adv_over_budget_board',
+    localDate: parts.date,
+    localTime: `${String(parts.hour).padStart(2, '0')}:${String(parts.minute).padStart(2, '0')}:${String(parts.second).padStart(2, '0')}`,
+    timezone: 'Asia/Shanghai',
+    dailyCutoffLocalTime: '16:00:00',
+    availableAtExport: minutes < cutoffMinutes,
+    status: minutes < cutoffMinutes ? 'capture_window_open' : 'capture_window_missed',
+    warning: minutes < cutoffMinutes
+      ? ''
+      : '超预算板块 16:00 后不可见，当日超预算明细必须使用 16:00 前快照。',
+  };
+}
+
 function normalizeExportOptions(input) {
   if (typeof input === 'string') return { outputFile: input };
   return input || {};
@@ -72,6 +112,9 @@ async function exportSnapshot(input = '') {
 
   const snapshot = {
     exportedAt: new Date().toISOString(),
+    dataAvailability: {
+      overBudget: overBudgetDataAvailability(),
+    },
     productCards: parseJson(await evalInPanel('JSON.stringify(STATE.productCards)'), []),
     kwRows: parseJson(await evalInPanel('JSON.stringify(STATE.kwRows)'), []),
     autoRows: parseJson(await evalInPanel('JSON.stringify(STATE.autoRows)'), []),
@@ -84,6 +127,7 @@ async function exportSnapshot(input = '') {
     sbCampaignManageRows: parseJson(await evalInPanel('JSON.stringify(STATE.sbCampaignManageRows || [])'), []),
     sellerSalesRows: parseJson(await evalInPanel('JSON.stringify(STATE.sellerSalesRows || [])'), []),
     sellerSalesMeta: parseJson(await evalInPanel('JSON.stringify(STATE.sellerSalesMeta || {})'), {}),
+    salesHistoryMap: parseJson(await evalInPanel('JSON.stringify(STATE.salesHistoryMap || {})'), {}),
     inventoryScopeRows: parseJson(await evalInPanel('JSON.stringify(STATE.inventoryScopeRows || [])'), []),
     productChartMap: parseJson(await evalInPanel('JSON.stringify(STATE.productChartMap || {})'), {}),
     listingFetchMeta: parseJson(await evalInPanel('JSON.stringify(STATE.listingFetchMeta || {})'), {}),

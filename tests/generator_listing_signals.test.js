@@ -294,3 +294,159 @@ console.log('generator listing signal tests passed');
   assert.strictEqual(seasonalTermStatus('teacher christmas gifts', new Date('2026-04-24')).allowed, false);
   assert.strictEqual(seasonalTermStatus('valentines day gifts for teachers', new Date('2026-04-24')).allowed, false);
 }
+
+{
+  const highInventoryHighAcosCard = {
+    ...card,
+    sku: 'FBAHIGH001',
+    asin: 'B0FBAHIGH1',
+    profitRate: 0.12,
+    invDays: 140,
+    fulFillable: 90,
+    reserved: 10,
+    unitsSold_30d: 22,
+    unitsSold_7d: 5,
+    price: 20,
+    productProfile: {
+      productType: 'gift basket',
+      productTypes: ['gift basket'],
+      targetAudience: ['nurse'],
+      occasion: ['nurse week'],
+      seasonality: ['Q2'],
+      visualTheme: ['nurse', 'gift'],
+      hasImages: true,
+      imageCount: 2,
+      confidence: 0.9,
+    },
+    adStats: {
+      '7d': { spend: 32, orders: 5, sales: 100 },
+      '30d': { spend: 120, orders: 18, sales: 360 },
+    },
+    campaigns: [
+      {
+        name: 'kw nurse week fbahigh001',
+        keywords: [{
+          id: 'kw-high-acos',
+          text: 'nurse week gifts',
+          bid: 0.5,
+          state: 'enabled',
+          stats7d: { spend: 32, orders: 5, sales: 100, acos: 0.32, clicks: 60 },
+          stats30d: { spend: 120, orders: 18, sales: 360, acos: 0.333, clicks: 180, impressions: 8000 },
+        }],
+        autoTargets: [],
+        productAds: [],
+        sponsoredBrands: [],
+      },
+    ],
+  };
+  const adjustPlans = generateAdjustPlans({ productCards: [highInventoryHighAcosCard] }, { limit: 10, imageReviewBudget: 0 });
+  const actions = adjustPlans.flatMap(plan => plan.actions || []);
+  assert.strictEqual(actions.some(action => action.actionType === 'bid' && action.suggestedBid < action.currentBid), false);
+  assert.ok(actions.every(action => String(action.inventoryJudgement || '').includes('不是简单看ACOS')));
+}
+
+{
+  const lowInventoryGoodAdCard = {
+    ...card,
+    sku: 'LOWINV001',
+    asin: 'B0LOWINV001',
+    profitRate: 0.25,
+    invDays: 12,
+    fulFillable: 4,
+    unitsSold_30d: 20,
+    price: 25,
+    productProfile: {
+      productType: 'gift basket',
+      productTypes: ['gift basket'],
+      targetAudience: ['nurse'],
+      occasion: ['nurse week'],
+      seasonality: ['Q2'],
+      visualTheme: ['nurse', 'gift'],
+      hasImages: true,
+      imageCount: 2,
+      confidence: 0.9,
+    },
+    campaigns: [
+      {
+        name: 'kw nurse week lowinv001',
+        keywords: [{
+          id: 'kw-low-inv',
+          text: 'nurse week gifts',
+          bid: 0.5,
+          state: 'enabled',
+          stats7d: { spend: 10, orders: 4, sales: 100, acos: 0.1, clicks: 30 },
+          stats30d: { spend: 20, orders: 8, sales: 200, acos: 0.1, clicks: 80, impressions: 6000 },
+        }],
+        autoTargets: [],
+        productAds: [],
+        sponsoredBrands: [],
+      },
+    ],
+  };
+  const adjustPlans = generateAdjustPlans({ productCards: [lowInventoryGoodAdCard] }, { limit: 10, imageReviewBudget: 0 });
+  const actions = adjustPlans.flatMap(plan => plan.actions || []);
+  assert.strictEqual(actions.some(action => action.actionType === 'bid' && action.suggestedBid > action.currentBid), false);
+}
+
+{
+  const christmasInMayCard = {
+    ...card,
+    sku: 'XMASMAY001',
+    asin: 'B0XMASMAY1',
+    profitRate: 0.2,
+    invDays: 150,
+    fulFillable: 80,
+    unitsSold_30d: 8,
+    price: 24.99,
+    createContext: {
+      ...card.createContext,
+      keywordSeeds: ['christmas teacher gifts', 'christmas gift basket'],
+      coverage: { hasSpKeyword: false, hasSpAuto: false, hasSpManual: false },
+    },
+    listing: {
+      isAvailable: true,
+      title: 'Christmas Teacher Gift Basket',
+      bullets: ['Merry Christmas stocking stuffer for teachers'],
+      imageUrls: ['https://cdn.example.com/christmas-tree-teacher-gift.jpg'],
+      mainImageUrl: 'https://cdn.example.com/christmas-tree-teacher-gift.jpg',
+    },
+    productProfile: {
+      productType: 'gift basket',
+      productTypes: ['gift basket'],
+      targetAudience: ['teacher'],
+      occasion: ['christmas'],
+      seasonality: ['Q4'],
+      visualTheme: ['christmas', 'tree', 'santa'],
+      hasImages: true,
+      imageCount: 1,
+      confidence: 0.9,
+    },
+    adStats: { '30d': { spend: 20, orders: 4, sales: 100 } },
+    campaigns: [
+      {
+        name: 'kw christmas xmasmay001',
+        keywords: [{
+          id: 'kw-xmas',
+          text: 'christmas teacher gifts',
+          bid: 0.4,
+          state: 'enabled',
+          stats7d: { spend: 4, orders: 1, sales: 25, acos: 0.16, clicks: 10 },
+          stats30d: { spend: 20, orders: 4, sales: 100, acos: 0.2, clicks: 40, impressions: 3000 },
+        }],
+        autoTargets: [],
+        productAds: [],
+        sponsoredBrands: [],
+      },
+    ],
+  };
+  const adjustPlans = generateAdjustPlans({ productCards: [christmasInMayCard] }, { limit: 10, imageReviewBudget: 0 });
+  assert.strictEqual(adjustPlans[0].actions[0].actionType, 'review');
+  assert.strictEqual(adjustPlans[0].actions[0].riskLevel, 'overseason_page_hold');
+
+  const createPlans = generateCreatePlans(
+    { productCards: [christmasInMayCard] },
+    { limit: 10, skipCreatedSkus: new Set(), imageReviewBudget: 0, currentDate: '2026-05-10' }
+  );
+  assert.strictEqual(createPlans[0].actions[0].actionType, 'review');
+  assert.strictEqual(createPlans[0].actions[0].riskLevel, 'overseason_page_hold');
+}

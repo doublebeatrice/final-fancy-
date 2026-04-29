@@ -7,6 +7,7 @@ const cards = [
   {
     sku: 'SKU-1',
     asin: 'ASIN-1',
+    opendate: '2026-03-20',
     invDays: 20,
     unitsSold_30d: 20,
     unitsSold_7d: 5,
@@ -152,6 +153,8 @@ const rowsByType = {
   assert.strictEqual(product.productProfile.productType, 'gift basket');
   assert.strictEqual(product.listingSessions.lastWeek, 44);
   assert.strictEqual(product.listingConversionRates.lastWeek, 20.45);
+  assert.strictEqual(product.lifecycleSeason.lifecycleStage, 'new_0_5m');
+  assert.ok(product.lifecycleSeason.aiDecisionFrame.startsWith('new_'));
   const campaign = product.adjustableAds.find(item => item.entityType === 'campaign' && item.id === 'c1');
   assert.strictEqual(campaign.currentBudget, 5);
   assert.strictEqual(campaign.placementProductPage, 20);
@@ -234,6 +237,63 @@ const rowsByType = {
   assert.strictEqual(validated.plan[0].actions[0].learning.baselineQuality, 'complete');
   assert.deepStrictEqual(validated.plan[0].actions[0].learning.measurementWindowDays, [1, 3, 7, 14, 30]);
   assert.strictEqual(validated.plan[0].actions[0].learning.expectedEffect.spend, 'up');
+  assert.strictEqual(validated.plan[0].actions[0].learning.baseline.lifecycleSeason.lifecycleStage, 'new_0_5m');
+  assert.ok(validated.plan[0].actions[0].learning.baseline.lifecycleSeasonEvidence.some(item => item.startsWith('seasonPhase=')));
+}
+
+{
+  const weakScaleCards = [{
+    ...cards[0],
+    unitsSold_7d: 1,
+    unitsSold_30d: 10,
+    profitRate: 0.2,
+    adStats: {
+      '7d': { spend: 25, orders: 0, clicks: 80, sales: 0 },
+      '30d': { spend: 60, orders: 1, clicks: 180, sales: 20 },
+    },
+    sbStats: {},
+    campaigns: [{
+      campaignId: 'c1',
+      accountId: 1,
+      siteId: 4,
+      budget: 5,
+      keywords: [{
+        id: 'kw-1',
+        text: 'test keyword',
+        bid: 0.5,
+        stats7d: { spend: 8, orders: 0, clicks: 30 },
+        stats30d: { spend: 20, orders: 1, clicks: 70 },
+      }],
+      autoTargets: [],
+      productAds: [],
+      sponsoredBrands: [],
+    }],
+  }];
+  const context = { products: buildProductContexts(weakScaleCards, rowsByType, [], [], []).products };
+  const validated = validateAndNormalizePlan([
+    {
+      sku: 'SKU-1',
+      summary: 'budget push without conversion',
+      actions: [
+        {
+          entityType: 'campaign',
+          id: 'c1',
+          actionType: 'budget',
+          currentBudget: 5,
+          suggestedBudget: 6,
+          reason: 'try more budget',
+          evidence: ['budget capped'],
+          confidence: 0.8,
+          riskLevel: 'low',
+          actionSource: ['strategy'],
+        },
+      ],
+    },
+  ], context);
+  assert.strictEqual(validated.errors.length, 0);
+  assert.strictEqual(validated.review.length, 1);
+  assert.strictEqual(validated.review[0].action.riskLevel, 'marginal_profit_review');
+  assert.ok(validated.review[0].action.reason.includes('risk_gate:marginal_profit'));
 }
 
 {
@@ -566,13 +626,13 @@ const rowsByType = {
   const validated = validateAndNormalizePlan([
     {
       sku: 'SKU-1',
-      summary: 'unsupported action cannot execute',
+      summary: 'campaign state verify mapping',
       actions: [
         {
           entityType: 'campaign',
           id: 'c1',
           actionType: 'enable',
-          reason: 'campaign state without verify mapping',
+          reason: 'resume campaign',
           evidence: ['test'],
           confidence: 0.8,
           riskLevel: 'low',
@@ -581,9 +641,35 @@ const rowsByType = {
       ],
     },
   ], context);
-  assert.strictEqual(validated.plan[0].actions.length, 0);
-  assert.strictEqual(validated.review.length, 1);
-  assert.ok(validated.review[0].action.reason.includes('missing_verify_spec'));
+  assert.strictEqual(validated.plan[0].actions.length, 1);
+  assert.strictEqual(validated.review.length, 0);
+  assert.strictEqual(validated.plan[0].actions[0].verifySource, 'campaignRows');
+  assert.strictEqual(validated.plan[0].actions[0].verifyField, 'state');
+}
+
+{
+  const context = { products: buildProductContexts(cards, rowsByType, [], [], []).products };
+  const validated = validateAndNormalizePlan([
+    {
+      sku: 'SKU-1',
+      summary: 'candidate must be converted before execution',
+      actions: [
+        {
+          entityType: 'skuCandidate',
+          id: 'candidate-1',
+          actionType: 'bid',
+          reason: 'invalid candidate action',
+          evidence: ['test'],
+          confidence: 0.8,
+          riskLevel: 'low',
+          actionSource: ['strategy'],
+        },
+      ],
+    },
+  ], context);
+  assert.strictEqual(validated.errors.length, 1);
+  assert.ok(validated.errors[0].reason.includes('candidate action is not directly executable'));
+  assert.strictEqual(validated.review.length, 0);
 }
 
 console.log('ai_decision tests passed');

@@ -1,6 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 const { scoreTermRelevance } = require('../../src/product_profile');
+const {
+  assessAdOperatingContext,
+  currentAdReadinessEvidence,
+  assessInventoryResponsibility,
+  formatInventoryJudgement,
+  formatCurrentAdReadiness,
+  formatSalesHistoryJudgement,
+  inventoryEvidence,
+  listingSeasonEvidence,
+  salesHistoryEvidence,
+} = require('../../src/inventory_economics');
 
 function num(value) {
   const n = Number(value);
@@ -165,6 +176,10 @@ function makeBidAction(row, suggestedBid, reason, evidence, riskLevel = 'low') {
     confidence: 0.78,
     riskLevel,
     actionSource: ['generator_candidate'],
+    inventoryJudgement: row.inventoryJudgement || '',
+    listingSeasonJudgement: row.listingSeasonJudgement || '',
+    salesHistoryJudgement: row.salesHistoryJudgement || '',
+    currentAdReadinessJudgement: row.currentAdReadinessJudgement || '',
   };
 }
 
@@ -178,6 +193,10 @@ function makeStateAction(row, actionType, reason, evidence, riskLevel = 'low') {
     confidence: 0.74,
     riskLevel,
     actionSource: ['generator_candidate'],
+    inventoryJudgement: row.inventoryJudgement || '',
+    listingSeasonJudgement: row.listingSeasonJudgement || '',
+    salesHistoryJudgement: row.salesHistoryJudgement || '',
+    currentAdReadinessJudgement: row.currentAdReadinessJudgement || '',
   };
 }
 
@@ -191,6 +210,10 @@ function makeReviewAction(card, reason, evidence, riskLevel = 'manual_review') {
     confidence: 0.7,
     riskLevel,
     actionSource: ['generator_candidate'],
+    inventoryJudgement: card.inventoryJudgement || '',
+    listingSeasonJudgement: card.listingSeasonJudgement || '',
+    salesHistoryJudgement: card.salesHistoryJudgement || '',
+    currentAdReadinessJudgement: card.currentAdReadinessJudgement || '',
   };
 }
 
@@ -223,6 +246,12 @@ function generatePlans(snapshot = {}, options = {}) {
     const yoyDownModerate = yoyDecline <= -0.20;
     const oldProductRecovery = yoyDownModerate && profit >= 0.1 && invDays >= 30;
     const stagnantOpportunity = profit < 0.1 && invDays >= 60 && (q2 || stuckRisk || yoyDownHard);
+    const operating = assessAdOperatingContext(card);
+    const inventory = operating.inventory;
+    card.inventoryJudgement = operating.judgement;
+    card.listingSeasonJudgement = operating.judgement;
+    card.salesHistoryJudgement = formatSalesHistoryJudgement(operating.history);
+    card.currentAdReadinessJudgement = formatCurrentAdReadiness(operating.readiness);
     if (profit >= 0.1) {
       if (invDays < 20) continue;
     } else if (!stagnantOpportunity) {
@@ -248,7 +277,34 @@ function generatePlans(snapshot = {}, options = {}) {
       `yoyUnitsPct=${yoyUnitsPct}`,
       `oldProductRecovery=${oldProductRecovery}`,
       `stagnantOpportunity=${stagnantOpportunity}`,
+      ...inventoryEvidence(inventory),
+      ...listingSeasonEvidence(operating.listing),
+      ...salesHistoryEvidence(operating.history),
+      ...currentAdReadinessEvidence(operating.readiness),
+      `inventoryJudgement=${formatInventoryJudgement(inventory)}`,
+      `salesHistoryJudgement=${formatSalesHistoryJudgement(operating.history)}`,
+      `currentAdReadinessJudgement=${formatCurrentAdReadiness(operating.readiness)}`,
+      `operatingJudgement=${operating.judgement}`,
     ];
+
+    if (['do_not_push', 'listing_update_required'].includes(operating.listing.pushLevel) ||
+        ['do_not_push', 'hold_wait_season', 'clearance_or_rework'].includes(operating.history.pushLevel) ||
+        operating.readiness.disallowScaleActions) {
+      plans.push({
+        sku: card.sku,
+        asin: card.asin,
+        summary: `Listing/季节适配不通过：${operating.judgement}`,
+        actions: [
+          makeReviewAction(
+            card,
+            `广告动作前置拦截：${operating.judgement}。先改 Listing / 暂不投放，不因 FBA 有库存机械开广告。`,
+            evidenceBase,
+            operating.readiness.pageHold ? 'overseason_page_hold' : 'listing_update_required'
+          ),
+        ],
+      });
+      continue;
+    }
 
     if (seasonalPushNeedsImageReview && imageReviewUsed < imageReviewBudget) {
       imageReviewUsed += 1;
@@ -284,7 +340,7 @@ function generatePlans(snapshot = {}, options = {}) {
           (yoyDownHard ? 12 : 0) +
           (q2Signals.visual.visualReady ? 4 : 0) +
           (num(s7.spend) > 4 && num(s7.orders) === 0 ? -8 : 0) +
-          (num(s7.acos) > 0.35 && !oldProductRecovery && !stagnantOpportunity ? -7 : 0);
+          (num(s7.acos) > 0.35 && !oldProductRecovery && !stagnantOpportunity && !inventory.allowHighAcosSellThrough ? -7 : 0);
         return { row, score };
       })
       .sort((a, b) => b.score - a.score)
@@ -307,6 +363,10 @@ function generatePlans(snapshot = {}, options = {}) {
       const clicks30 = num(s30.clicks);
       const impressions30 = num(s30.impressions);
       const min = minBid(row.entityType, row);
+      row.inventoryJudgement = formatInventoryJudgement(inventory);
+      row.listingSeasonJudgement = operating.judgement;
+      row.salesHistoryJudgement = formatSalesHistoryJudgement(operating.history);
+      row.currentAdReadinessJudgement = formatCurrentAdReadiness(operating.readiness);
       const coverageWeak = clicks30 < 25 || impressions30 < 2500;
       const productMatch = scoreTermRelevance(row.label || row.campaignName || '', card.productProfile || {});
       const productMatchWeak = productMatch.level === 'conflict' || (productMatch.score != null && productMatch.score < 0.35);
@@ -327,7 +387,9 @@ function generatePlans(snapshot = {}, options = {}) {
         `productMatchConflicts=${(productMatch.conflicts || []).join(',') || 'none'}`,
       ];
 
-      if (isPaused(row.state) && !productMatchWeak && (q2 || stuckRisk || adShareLow || oldProductRecovery || stagnantOpportunity)) {
+      if (!['do_not_push', 'hold_wait_season', 'clearance_or_rework'].includes(operating.history.pushLevel) &&
+          !operating.readiness.disallowScaleActions &&
+          operating.listing.pushLevel !== 'do_not_push' && isPaused(row.state) && !productMatchWeak && (q2 || stuckRisk || adShareLow || oldProductRecovery || stagnantOpportunity)) {
         const reason = stagnantOpportunity
           ? '滞销库存有节点或恢复机会，先恢复低风险历史流量，观察展示、点击和订单再决定是否放量。'
           : oldProductRecovery
@@ -341,7 +403,10 @@ function generatePlans(snapshot = {}, options = {}) {
       if (row.entityType === 'productAd' || row.entityType === 'sbCampaign') continue;
       if (!isEnabled(row.state) || bid <= 0) continue;
 
-      if ((orders7 >= 1 || orders30 >= 2 || (oldProductRecovery && coverageWeak) || (stagnantOpportunity && orders30 >= 1 && coverageWeak)) &&
+      if (!inventory.restrictScaleUp &&
+          !['do_not_push', 'hold_wait_season', 'clearance_or_rework'].includes(operating.history.pushLevel) &&
+          !operating.readiness.disallowScaleActions &&
+          (orders7 >= 1 || orders30 >= 2 || (oldProductRecovery && coverageWeak) || (stagnantOpportunity && orders30 >= 1 && coverageWeak)) &&
           (acos7 === 0 || acos7 <= 0.28 || acos30 <= 0.28 || oldProductRecovery || stagnantOpportunity) &&
           !productMatchWeak &&
           (q2 || adShareLow || stuckRisk || sold30 >= 30 || oldProductRecovery || stagnantOpportunity)) {
@@ -361,7 +426,10 @@ function generatePlans(snapshot = {}, options = {}) {
         }
       }
 
-      if (!oldProductRecovery && !stagnantOpportunity && ((spend7 >= 4 && orders7 === 0) || (acos7 > 0.35 && spend7 >= 3))) {
+      if (!oldProductRecovery &&
+          !stagnantOpportunity &&
+          !inventory.allowHighAcosSellThrough &&
+          ((spend7 >= 4 && orders7 === 0) || (acos7 > 0.35 && spend7 >= 3) || inventory.adWorseThanClearance)) {
         const next = roundBid(bid * 0.9, min);
         if (next < bid) {
           actions.push(makeBidAction(row, next, '近 7 天消耗偏低效，先小幅降价，把预算让给更有把握的对象。', evidence, 'efficiency_control'));
@@ -379,7 +447,7 @@ function generatePlans(snapshot = {}, options = {}) {
         }
       }
 
-      if (!oldProductRecovery && !stagnantOpportunity && !q2 && !stuckRisk && spend7 >= 8 && orders7 === 0 && sold30 < 10) {
+      if (!oldProductRecovery && !stagnantOpportunity && !inventory.allowHighAcosSellThrough && !q2 && !stuckRisk && spend7 >= 8 && orders7 === 0 && sold30 < 10) {
         actions.push(makeStateAction(row, 'pause', '非当前重点窗口，且近 7 天明显消耗无订单，先暂停止损。', evidence, 'waste_pause'));
         seen.add(key);
       }
