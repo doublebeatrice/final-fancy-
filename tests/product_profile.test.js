@@ -7,6 +7,7 @@ const {
   mergeVisionResults,
   scoreTermRelevance,
 } = require('../src/product_profile');
+const { getSeasonWindows, matchProductSeason } = require('../src/season_calendar');
 
 const card = {
   sku: 'DN1655',
@@ -107,6 +108,31 @@ const card = {
   assert.strictEqual(mergedProfile.imageListingMatch, 'strong');
   assert.ok(mergedProfile.visibleText.includes('thank you nurse'));
   assert.strictEqual(buildVisionQueue(merged.snapshot).length, 0);
+}
+
+{
+  const godmotherCard = {
+    sku: 'AE1079',
+    asin: 'B0BD3NQ9QN',
+    listing: null,
+    createContext: {
+      keywordSeeds: [
+        "mother's day gifts for godmother",
+        'godmother gift box',
+        'godmother gifts',
+        'godmother coffee cup',
+        'gift box for godmother',
+      ],
+    },
+  };
+  const profile = buildProductProfile(godmotherCard);
+  assert.ok(profile.targetAudience.includes('godmother'));
+  assert.ok(profile.occasion.includes('mothers day'));
+  assert.ok(profile.seasonality.includes('Q2'));
+  const matched = matchProductSeason(profile, getSeasonWindows('2026-05-05'));
+  assert.ok(matched.some(window => window.key === 'mothers_day' && window.phase === 'peak'));
+  const relevant = scoreTermRelevance('godmother proposal', profile);
+  assert.notStrictEqual(relevant.level, 'conflict');
 }
 
 console.log('product_profile tests passed');

@@ -17,6 +17,8 @@ const STATE = {
   adSkuSummaryRows: [],
   advProductManageRows: [],
   sbCampaignManageRows: [],
+  overBudgetRows: [],
+  overBudgetMeta: {},
   sellerSalesRows: [],
   sellerSalesMeta: {},
   salesHistoryMap: {},
@@ -186,6 +188,8 @@ async function fetchAllData(rawOptions = null) {
   STATE.adSkuSummaryRows = [];
   STATE.advProductManageRows = [];
   STATE.sbCampaignManageRows = [];
+  STATE.overBudgetRows = [];
+  STATE.overBudgetMeta = {};
   STATE.sellerSalesRows = [];
   STATE.sellerSalesMeta = {};
   STATE.salesHistoryMap = {};
@@ -346,6 +350,34 @@ async function fetchAllData(rawOptions = null) {
     setProgress('fetchProgress', 88);
     log(`自动投放 ${STATE.autoRows.length} 条；定位组 ${STATE.targetRows.length} 条；SP product ad ${STATE.productAdRows.length} 条`, 'ok');
     log(`SB ads ${STATE.sbRows.length} rows；SB campaign ${STATE.sbCampaignRows.length} 条；广告 SKU 汇总 ${STATE.adSkuSummaryRows.length} 条`, 'ok');
+
+    try {
+      log('拉取超预算模块明细…');
+      const overBudgetStage = stages.start('over_budget_rows');
+      const overBudget = await fetchOverBudgetRows();
+      STATE.overBudgetRows = overBudget.rows || [];
+      STATE.overBudgetMeta = overBudget.meta || {};
+      stages.end(overBudgetStage, {
+        attempted: STATE.overBudgetMeta.attempted || 0,
+        success: STATE.overBudgetRows.length,
+        failed: STATE.overBudgetMeta.failed || 0,
+        status: STATE.overBudgetMeta.status || '',
+      });
+      log(
+        `超预算模块 ${STATE.overBudgetMeta.status || 'unknown'}：rows=${STATE.overBudgetRows.length} sp=${STATE.overBudgetMeta.sp?.count || 0} sb=${STATE.overBudgetMeta.sb?.count || 0}`,
+        STATE.overBudgetRows.length ? 'ok' : 'warn'
+      );
+    } catch (e) {
+      STATE.overBudgetRows = [];
+      STATE.overBudgetMeta = {
+        status: 'partial',
+        reason: 'fetch_failed',
+        error: e.message,
+        attempted: 2,
+        failed: 2,
+      };
+      log(`超预算模块拉取失败：${e.message}`, 'warn');
+    }
 
     // 4c. 3/7 day ad metrics are not separate fields in the default table response.
     // Re-query the same entities with timeRange windows and merge those metrics back.
@@ -2177,6 +2209,126 @@ function makeSbCampaignManagePayload() {
     filterForm: { OutOfBudget: false },
     source: 'new',
   };
+}
+
+function makeSpOverBudgetPayload() {
+  return {
+    ...makeAdvProductManagePayload(),
+    filterForm: { OutOfBudget: true },
+    field: 'cost',
+    order: 'desc',
+    overBudgetCapture: true,
+  };
+}
+
+function makeSbOverBudgetPayload() {
+  return {
+    ...makeSbCampaignManagePayload(),
+    filterForm: { OutOfBudget: true },
+    field: 'Spend',
+    order: 'desc',
+    overBudgetCapture: true,
+  };
+}
+
+function summarizeOverBudgetRows(rows, source) {
+  const sample = rows?.[0] || {};
+  const keys = Object.keys(sample);
+  return {
+    source,
+    count: rows?.length || 0,
+    sampleKeys: keys,
+    sample: keys.length ? Object.fromEntries(keys.slice(0, 40).map(key => [key, sample[key]])) : null,
+  };
+}
+
+async function fetchOverBudgetRows() {
+  const startedAt = new Date().toISOString();
+  const results = await Promise.allSettled([
+    fetchFirstWorkingOverBudgetRows('/advProduct/all', overBudgetPayloadVariants(makeAdvProductManagePayload()), 500),
+    fetchFirstWorkingOverBudgetRows('/campaignSb/findAllNew', overBudgetPayloadVariants(makeSbCampaignManagePayload()), 500),
+  ]);
+
+  const spHit = results[0].status === 'fulfilled' ? results[0].value : null;
+  const sbHit = results[1].status === 'fulfilled' ? results[1].value : null;
+  const spRows = spHit?.rows || [];
+  const sbRows = sbHit?.rows || [];
+  const errors = results
+    .map((result, index) => result.status === 'rejected' ? {
+      source: index === 0 ? 'sp_over_budget' : 'sb_over_budget',
+      error: result.reason?.message || String(result.reason || ''),
+      attemptedVariants: result.reason?.attemptedVariants || [],
+    } : null)
+    .filter(Boolean);
+  const rows = [
+    ...spRows.map(row => ({ ...row, __overBudgetSource: 'SP' })),
+    ...sbRows.map(row => ({ ...row, __overBudgetSource: 'SB' })),
+  ];
+  const attempted = 2;
+  const failed = errors.length;
+  const status = failed
+    ? 'partial'
+    : (rows.length ? 'complete' : 'complete_empty');
+
+  if (spRows[0]) log(`SP超预算字段: ${JSON.stringify(Object.keys(spRows[0]))}`, 'warn');
+  if (sbRows[0]) log(`SB超预算字段: ${JSON.stringify(Object.keys(sbRows[0]))}`, 'warn');
+
+  return {
+    rows,
+    meta: {
+      endpoint: {
+        sp: '/advProduct/all',
+        sb: '/campaignSb/findAllNew',
+      },
+      filters: {
+        sp: spHit?.variant || null,
+        sb: sbHit?.variant || null,
+      },
+      status,
+      attempted,
+      failed,
+      errors,
+      startedAt,
+      endedAt: new Date().toISOString(),
+      sp: {
+        ...summarizeOverBudgetRows(spRows, 'SP'),
+        variant: spHit?.variant || null,
+        attemptedVariants: spHit?.attemptedVariants || [],
+      },
+      sb: {
+        ...summarizeOverBudgetRows(sbRows, 'SB'),
+        variant: sbHit?.variant || null,
+        attemptedVariants: sbHit?.attemptedVariants || [],
+      },
+    },
+  };
+}
+
+function overBudgetPayloadVariants(basePayload) {
+  return [
+    { name: 'filterForm.OutOfBudget=true', payload: { ...basePayload, filterForm: { ...(basePayload.filterForm || {}), OutOfBudget: true } } },
+    { name: 'topLevel.OutOfBudget=true', payload: { ...basePayload, OutOfBudget: true } },
+    { name: 'topLevel.outOfBudget=true', payload: { ...basePayload, outOfBudget: true } },
+    { name: 'topLevel.overBudget=true', payload: { ...basePayload, overBudget: true } },
+  ];
+}
+
+async function fetchFirstWorkingOverBudgetRows(path, variants, limit = 500) {
+  const attemptedVariants = [];
+  let lastError = null;
+  for (const variant of variants) {
+    try {
+      const rows = await fetchPagedAdRows(path, variant.payload, limit);
+      attemptedVariants.push({ name: variant.name, ok: true, count: rows.length });
+      return { rows, variant: { name: variant.name }, attemptedVariants };
+    } catch (error) {
+      lastError = error;
+      attemptedVariants.push({ name: variant.name, ok: false, error: error.message });
+    }
+  }
+  const error = new Error(lastError?.message || `all over-budget payload variants failed for ${path}`);
+  error.attemptedVariants = attemptedVariants;
+  throw error;
 }
 
 async function fetchSevenDayUntouchedPools() {

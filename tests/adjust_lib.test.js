@@ -4,7 +4,9 @@ const {
   loadHistory,
   saveHistory,
   hasRecentOutcome,
+  findAdPageId,
   findPanelId,
+  createAdPageWs,
   createPanelWs,
   SNAPSHOTS_DIR,
   today,
@@ -15,7 +17,9 @@ assert.strictEqual(typeof log, 'function');
 assert.strictEqual(typeof loadHistory, 'function');
 assert.strictEqual(typeof saveHistory, 'function');
 assert.strictEqual(typeof hasRecentOutcome, 'function');
+assert.strictEqual(typeof findAdPageId, 'function');
 assert.strictEqual(typeof findPanelId, 'function');
+assert.strictEqual(typeof createAdPageWs, 'function');
 assert.strictEqual(typeof createPanelWs, 'function');
 assert.strictEqual(typeof groupByAccountSite, 'function');
 assert.strictEqual(typeof hasRecentCandidateBlock, 'function');

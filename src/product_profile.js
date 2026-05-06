@@ -56,6 +56,7 @@ function listingText(card = {}) {
     listing.categoryPath,
     ...(listing.breadcrumbs || []),
     listing.variationText,
+    ...(card.createContext?.keywordSeeds || []),
   ].filter(Boolean).join(' ');
 }
 
@@ -90,6 +91,7 @@ const PRODUCT_TYPE_RULES = [
 const AUDIENCE_RULES = [
   ['nurse', /nurse|rn|healthcare|medical assistant|doctor|lab tech|caregiver/],
   ['teacher', /teacher|school staff|principal|educator/],
+  ['godmother', /godmother|god mother|godparent|god mom|madrina/],
   ['mom', /mother|mom|mama|mommy/],
   ['dad', /father|dad|daddy/],
   ['graduate', /graduate|graduation|class of|senior/],

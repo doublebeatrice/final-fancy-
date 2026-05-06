@@ -127,6 +127,14 @@ function makeEvidence(card, line) {
   ];
 }
 
+const GENERATED_ACTION_META = {
+  decisionStage: 'candidate',
+  candidateSource: 'rule_generator',
+  requiresAiDecision: true,
+  approvedBy: null,
+  actionSource: ['generator_candidate', 'rule_generator'],
+};
+
 function makeBidAction(card, campaign, row, entityType, suggestedBid, riskLevel, why) {
   return {
     id: String(row.id),
@@ -144,7 +152,7 @@ function makeBidAction(card, campaign, row, entityType, suggestedBid, riskLevel,
     evidence: makeEvidence(card, `${entityType} "${entityLabel(row)}" in campaign "${campaign.name || campaign.campaignName || ''}" has 30d ${stats(row, '30d').clicks.toFixed(0)} clicks / ${stats(row, '30d').orders.toFixed(0)} orders / spend ${stats(row, '30d').spend.toFixed(2)}.`),
     confidence: 0.82,
     riskLevel,
-    actionSource: ['codex_weekly_focus'],
+    ...GENERATED_ACTION_META,
   };
 }
 
@@ -164,7 +172,7 @@ function makeBudgetAction(card, campaign, suggestedBudget, why) {
     evidence: makeEvidence(card, `Campaign "${campaign.name || campaign.campaignName || ''}" 30d spend ${c30.spend.toFixed(2)} / clicks ${c30.clicks.toFixed(0)} / orders ${c30.orders.toFixed(0)} / ACOS ${c30.acos.toFixed(4)}; budget ${num(campaign.budget).toFixed(2)} -> ${suggestedBudget.toFixed(2)}.`),
     confidence: 0.8,
     riskLevel: 'weekly_focus_budget_scale',
-    actionSource: ['codex_weekly_focus'],
+    ...GENERATED_ACTION_META,
   };
 }
 

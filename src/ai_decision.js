@@ -8,8 +8,18 @@ const {
   lifecycleSeasonEvidence,
 } = require('./inventory_economics');
 
-const EXECUTABLE_ACTION_SOURCES = new Set(['codex', 'strategy', 'sp_7day_untouched', 'sb_7day_untouched']);
-const ACCEPTED_ACTION_SOURCES = new Set([...EXECUTABLE_ACTION_SOURCES, 'generator_candidate', 'bugfix_cleanup']);
+const EXECUTABLE_ACTION_SOURCES = new Set(['codex', 'manual']);
+const ACCEPTED_ACTION_SOURCES = new Set([
+  ...EXECUTABLE_ACTION_SOURCES,
+  'ai_approved',
+  'manual_approved',
+  'strategy',
+  'sp_7day_untouched',
+  'sb_7day_untouched',
+  'generator_candidate',
+  'rule_generator',
+  'bugfix_cleanup',
+]);
 const CRITICAL_REVIEW_RISKS = new Set([
   'manual_review',
   'image_review_required',
@@ -43,6 +53,37 @@ function normalizeActionSources(source, fallback = ['codex']) {
     .filter(item => ACCEPTED_ACTION_SOURCES.has(item));
   if (normalized.length) return [...new Set(normalized)];
   return normalizeSourceList(fallback).filter(item => ACCEPTED_ACTION_SOURCES.has(item));
+}
+
+function isCandidateDecision(action = {}) {
+  const stage = normalizeText(action.decisionStage).toLowerCase();
+  const approvedBy = normalizeText(action.approvedBy).toLowerCase();
+  const approved = ['ai_approved', 'manual_approved'].includes(stage) &&
+    ['codex', 'manual'].includes(approvedBy);
+  return !approved && (
+    stage === 'candidate' ||
+    action.requiresAiDecision === true ||
+    !!action.candidateActionType
+  );
+}
+
+function executionApprovalFailures(action = {}) {
+  if (!action || action.actionType === 'review' || action.actionType === 'structure_fix') return [];
+  const failures = [];
+  const stage = normalizeText(action.decisionStage).toLowerCase();
+  const approvedBy = normalizeText(action.approvedBy).toLowerCase();
+  const sources = normalizeActionSources(action.actionSource, []).map(source => source.toLowerCase());
+  const candidateSource = normalizeText(action.candidateSource).toLowerCase();
+  const source = normalizeText(action.source).toLowerCase();
+
+  if (!['ai_approved', 'manual_approved'].includes(stage)) failures.push('decisionStage_not_approved');
+  if (!['codex', 'manual'].includes(approvedBy)) failures.push('approvedBy_not_codex_or_manual');
+  if (!sources.some(item => item === 'codex' || item === 'manual')) failures.push('actionSource_missing_codex_or_manual');
+  if (action.requiresAiDecision === true) failures.push('requiresAiDecision_true');
+  if (candidateSource === 'rule_generator') failures.push('candidateSource_rule_generator');
+  if (source === 'provisional_local_policy' || source === 'provisional_local_ai_policy') failures.push('source_provisional_local_policy');
+
+  return failures;
 }
 
 function normalizeText(value) {
@@ -730,6 +771,25 @@ function gateRisk(product, entity, action) {
   const highVolume = isHighVolumeProduct(product);
   const sources = normalizeActionSources(gated.actionSource, []);
 
+  const approvalFailures = executionApprovalFailures(gated);
+  if (approvalFailures.length) {
+    gated.actionType = 'review';
+    gated.canAutoExecute = false;
+    gated.riskLevel = 'manual_review';
+    gated.reason = `${gated.reason || ''} [risk_gate:missing_codex_execution_approval:${approvalFailures.join(',')}] Final executable actions must have decisionStage=ai_approved/manual_approved, approvedBy=codex/manual, actionSource including codex/manual, requiresAiDecision=false, and no rule-generator/provisional source.`.trim();
+    return gated;
+  }
+
+  if (isCandidateDecision(gated)) {
+    gated.actionType = 'review';
+    gated.canAutoExecute = false;
+    gated.riskLevel = 'manual_review';
+    gated.decisionStage = gated.decisionStage || 'candidate';
+    gated.requiresAiDecision = true;
+    gated.reason = `${gated.reason || ''} [risk_gate:candidate_requires_ai_decision] Rule-generator candidates are evidence, not final Codex decisions. Approve with decisionStage=ai_approved/manual_approved, approvedBy, and executable actionSource before execution.`.trim();
+    return gated;
+  }
+
   if (['keyword', 'autoTarget', 'manualTarget', 'productAd'].includes(gated.entityType) && hasInactiveParentAdObject(entity)) {
     gated.actionType = 'skip';
     gated.canAutoExecute = false;
@@ -974,8 +1034,14 @@ function validateAndNormalizePlan(rawPlan, context) {
         confidence: Math.max(0, Math.min(1, toNum(rawAction.confidence) ?? 0)),
         riskLevel: String(rawAction.riskLevel || '').trim() || 'low_confidence',
         currentAdReadinessJudgement: String(rawAction.currentAdReadinessJudgement || '').trim(),
-        source: 'codex',
+        source: normalizeText(rawAction.source || rawAction.candidateSource || 'external_action_schema'),
         actionSource: normalizeActionSources(rawAction.actionSource, []),
+        decisionStage: normalizeText(rawAction.decisionStage),
+        candidateSource: normalizeText(rawAction.candidateSource),
+        candidateActionType: normalizeText(rawAction.candidateActionType),
+        candidateReason: normalizeText(rawAction.candidateReason),
+        requiresAiDecision: rawAction.requiresAiDecision === true,
+        approvedBy: rawAction.approvedBy === null || rawAction.approvedBy === undefined ? null : normalizeText(rawAction.approvedBy),
         sku,
         campaignId: String(rawAction.campaignId || entity.campaignId || ''),
         adGroupId: String(rawAction.adGroupId || entity.adGroupId || ''),
@@ -1011,8 +1077,7 @@ function validateAndNormalizePlan(rawPlan, context) {
       normalized.verifyField = verification?.verifyField || String(rawAction.verifyField || '').trim();
       normalized.expected = verification?.expected || rawAction.expected || null;
 
-      if (!normalized.actionSource.length) normalized.actionSource = normalizeActionSources(entity.sourceSignals, []);
-      if (!normalized.actionSource.length) normalized.actionSource = ['codex'];
+      if (!normalized.actionSource.length) normalized.actionSource = ['generator_candidate'];
 
       if (normalized.actionType === 'bid') {
         if (!Number.isFinite(normalized.currentBid) || !Number.isFinite(normalized.suggestedBid)) {

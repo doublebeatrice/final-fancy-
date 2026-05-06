@@ -146,6 +146,14 @@ function actionEvidence(card, row, stats, extra = []) {
   ];
 }
 
+const GENERATED_ACTION_META = {
+  decisionStage: 'candidate',
+  candidateSource: 'rule_generator',
+  requiresAiDecision: true,
+  approvedBy: null,
+  actionSource: ['generator_candidate', 'rule_generator'],
+};
+
 function makeBidAction(card, row, nextBid, reason, riskLevel, confidence = 0.78) {
   return {
     id: String(row.id),
@@ -159,7 +167,7 @@ function makeBidAction(card, row, nextBid, reason, riskLevel, confidence = 0.78)
     confidence,
     riskLevel: 'traffic_push',
     originalRiskLevel: riskLevel,
-    actionSource: ['strategy'],
+    ...GENERATED_ACTION_META,
   };
 }
 
@@ -173,7 +181,7 @@ function makeStateAction(card, row, actionType, reason, riskLevel) {
     confidence: 0.72,
     riskLevel: 'traffic_push',
     originalRiskLevel: riskLevel,
-    actionSource: ['strategy'],
+    ...GENERATED_ACTION_META,
   };
 }
 
@@ -232,7 +240,7 @@ function makeCreateAction(card, reason) {
     riskLevel: 'traffic_push',
     allowLargeBudgetChange: true,
     originalRiskLevel: 'full_loop_create',
-    actionSource: ['strategy'],
+    ...GENERATED_ACTION_META,
   };
 }
 

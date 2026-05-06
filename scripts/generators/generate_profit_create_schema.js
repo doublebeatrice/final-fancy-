@@ -30,6 +30,18 @@ function uniq(items) {
   return [...new Set((items || []).map(cleanTerm).filter(Boolean))];
 }
 
+function candidateMeta(actionType, reasonSignals = []) {
+  return {
+    decisionStage: 'candidate',
+    candidateSource: 'rule_generator',
+    candidateActionType: actionType,
+    requiresAiDecision: true,
+    approvedBy: null,
+    candidateReason: reasonSignals.join(', '),
+    actionSource: ['generator_candidate', 'rule_generator'],
+  };
+}
+
 function normalizeText(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();
 }
@@ -75,13 +87,11 @@ function textFor(card) {
     ...(profile.seasonality || []),
   ];
   for (const seed of card.createContext?.keywordSeeds || []) parts.push(seed);
-  for (const campaign of card.campaigns || []) {
-    parts.push(campaign.name);
-    for (const row of campaign.keywords || []) parts.push(row.text);
-    for (const row of campaign.autoTargets || []) parts.push(row.text || row.targetType);
-    for (const row of campaign.sponsoredBrands || []) parts.push(row.text);
-  }
   return parts.filter(Boolean).join(' ').toLowerCase();
+}
+
+function seedTextFor(card = {}) {
+  return uniq(card.createContext?.keywordSeeds || []).join(' ');
 }
 
 function q2Themes(text) {
@@ -159,6 +169,7 @@ function resolveThemes(card = {}) {
   const visual = listingVisualSignals(card);
   const profile = card.productProfile || {};
   const internalThemes = q2Themes(textFor(card));
+  const seedThemes = q2Themes(seedTextFor(card));
   const imageUrlThemes = q2Themes(visual.urlTokens.join(' '));
   const listingTextThemes = q2Themes([
     profile.positioning,
@@ -174,8 +185,9 @@ function resolveThemes(card = {}) {
   ].filter(Boolean).join(' '));
   return {
     visual,
-    primaryThemes: uniq([...internalThemes, ...imageUrlThemes]),
+    primaryThemes: uniq([...seedThemes, ...internalThemes, ...imageUrlThemes]),
     secondaryThemes: uniq(listingTextThemes),
+    seedThemes,
     profileConfidence: num(profile.confidence),
     profileSource: profile.source || '',
   };
@@ -227,6 +239,26 @@ function listingAnchorTerms(card = {}) {
   return terms;
 }
 
+function nakedSeasonalGeneric(term) {
+  const text = cleanTerm(term);
+  return /^(teacher appreciation gifts|teacher appreciation week gifts|thank you teacher gifts|nurse week gifts|nurse appreciation gifts|healthcare worker gifts|graduation gifts|class of 2026 gifts|senior graduation gifts|mothers day gifts|fathers day gifts|dad gifts|mom gifts|bridal shower favors|wedding party favors|baby shower favors|memorial gifts|christian gifts for women|inspirational gifts|faith based gifts|summer party supplies|pool party supplies|beach party favors|fiesta party supplies|mexican party favors|cinco de mayo decorations)$/.test(text);
+}
+
+function normalizedSeedSet(card = {}) {
+  return new Set(uniq(card.createContext?.keywordSeeds || []));
+}
+
+function hasExactSeedSupport(term, card = {}) {
+  return normalizedSeedSet(card).has(cleanTerm(term));
+}
+
+function hasSpecificSeedSupport(term, card = {}) {
+  const text = cleanTerm(term);
+  if (hasExactSeedSupport(text, card)) return true;
+  if (nakedSeasonalGeneric(text)) return false;
+  return [...normalizedSeedSet(card)].some(seed => seed === text || text.includes(seed));
+}
+
 function hasMixedAudience(term) {
   const text = cleanTerm(term);
   const groups = [
@@ -243,13 +275,18 @@ function hasMixedAudience(term) {
 function productAnchorTerms(card = {}) {
   const profile = card.productProfile || {};
   const seedTerms = card.createContext?.keywordSeeds || [];
-  const profilePositioning = hasMixedAudience(profile.positioning) ? '' : profile.positioning;
+  const seedBackedProfile =
+    !seedTerms.length ||
+    num(profile.confidence) >= 0.75 ||
+    profile.hasImages === true ||
+    !!profile.listingTitle;
+  const profilePositioning = !seedBackedProfile || hasMixedAudience(profile.positioning) ? '' : profile.positioning;
   const raw = [
     ...seedTerms,
     ...listingAnchorTerms(card),
     profilePositioning,
-    profile.productType === 'gift basket' ? '' : profile.productType,
-    ...(profile.productTypes || []),
+    seedBackedProfile && profile.productType !== 'gift basket' ? profile.productType : '',
+    ...(seedBackedProfile ? (profile.productTypes || []) : []),
   ];
   return uniq(raw)
     .filter(term => term && term !== 'unknown')
@@ -263,8 +300,6 @@ function isTermSafeForProduct(term, profile = {}, currentDate = parseCurrentDate
   if (!text) return false;
   if (!seasonalTermStatus(text, currentDate).allowed) return false;
   if (hasMixedAudience(text)) return false;
-  const relevance = scoreTermRelevance(text, profile);
-  if (relevance.level === 'conflict') return false;
   const listingText = card ? cleanTerm([
     card.listing?.title,
     ...(card.listing?.bullets || []).slice(0, 5),
@@ -272,9 +307,18 @@ function isTermSafeForProduct(term, profile = {}, currentDate = parseCurrentDate
     card.listing?.categoryPath,
     ...(card.listing?.breadcrumbs || []),
   ].filter(Boolean).join(' ')) : '';
-  if ((relevance.conflicts || []).length && listingText && !text.split(/\s+/).some(token => token.length >= 4 && listingText.includes(token))) {
+  const supportedByListing = !!listingText && text
+    .split(/\s+/)
+    .filter(token => token.length >= 4 && !['gift', 'gifts', 'bulk', 'pack', 'with', 'for'].includes(token))
+    .some(token => listingText.includes(token));
+  const supportedBySeed = card ? hasSpecificSeedSupport(text, card) : false;
+  if (nakedSeasonalGeneric(text) && !supportedByListing && !hasExactSeedSupport(text, card || {})) return false;
+  const relevance = scoreTermRelevance(text, profile);
+  if (relevance.level === 'conflict' && !supportedByListing && !supportedBySeed) return false;
+  if ((relevance.conflicts || []).length && !supportedByListing && !supportedBySeed) {
     return false;
   }
+  if (supportedBySeed && relevance.score != null && relevance.score < 0.35) return true;
   if (relevance.score == null) return true;
   return relevance.score >= 0.35 || (relevance.matched || []).length >= 2;
 }
@@ -341,6 +385,7 @@ function estimateInitialBid(card, themeInfo, mode, stagnantOpportunity = false) 
 function createAction(card, mode, coreTerm, matchType, bid, keywords, reason, evidence, options = {}) {
   const ctx = card.createContext || {};
   return {
+    ...candidateMeta('create', ['profit_create_candidate', mode, matchType || 'auto'].filter(Boolean)),
     id: `create::${card.sku}::${mode}::${matchType || 'auto'}::${coreTerm}`,
     entityType: 'skuCandidate',
     actionType: 'create',
@@ -361,7 +406,6 @@ function createAction(card, mode, coreTerm, matchType, bid, keywords, reason, ev
     evidence,
     confidence: options.confidence || 0.82,
     riskLevel: options.riskLevel || 'low_budget_create',
-    actionSource: ['generator_candidate'],
     inventoryJudgement: options.inventoryJudgement || '',
     listingSeasonJudgement: options.listingSeasonJudgement || '',
     salesHistoryJudgement: options.salesHistoryJudgement || '',
@@ -371,6 +415,7 @@ function createAction(card, mode, coreTerm, matchType, bid, keywords, reason, ev
 
 function makeReviewAction(card, reason, evidence, riskLevel = 'manual_review') {
   return {
+    ...candidateMeta('review', ['profit_create_review', riskLevel]),
     id: `review::${card.sku}::listing_image_gate`,
     entityType: 'skuCandidate',
     actionType: 'review',
@@ -378,7 +423,6 @@ function makeReviewAction(card, reason, evidence, riskLevel = 'manual_review') {
     evidence,
     confidence: 0.72,
     riskLevel,
-    actionSource: ['generator_candidate'],
     inventoryJudgement: card.inventoryJudgement || '',
     listingSeasonJudgement: card.listingSeasonJudgement || '',
     salesHistoryJudgement: card.salesHistoryJudgement || '',

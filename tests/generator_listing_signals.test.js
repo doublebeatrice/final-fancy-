@@ -450,3 +450,60 @@ console.log('generator listing signal tests passed');
   assert.strictEqual(createPlans[0].actions[0].actionType, 'review');
   assert.strictEqual(createPlans[0].actions[0].riskLevel, 'overseason_page_hold');
 }
+
+{
+  const ae3311RegressionCard = {
+    sku: 'AE3311',
+    asin: 'B0CJM5MSJZ',
+    profitRate: 0.22,
+    invDays: 90,
+    unitsSold_30d: 10,
+    price: 16.99,
+    adStats: { '30d': { clicks: 4, impressions: 400, spend: 2 } },
+    createContext: {
+      keywordSeeds: [
+        'godmother gift',
+        "mother's day gifts for godmother",
+        'godmother mothers day gifts',
+        'gifts for godmother',
+        'god mother gifts for women',
+      ],
+      coverage: { hasSpKeyword: false, hasSpAuto: false, hasSpManual: false },
+      accountId: 120,
+      siteId: 4,
+    },
+    listing: null,
+    productProfile: {
+      productType: 'unknown',
+      productTypes: [],
+      targetAudience: ['nurse'],
+      occasion: ['fiesta'],
+      seasonality: ['Q2'],
+      visualTheme: ['nurse', 'fiesta'],
+      positioning: 'nurse fiesta',
+      listingTitle: '',
+      categoryPath: '',
+      hasImages: false,
+      imageCount: 0,
+      confidence: 0.65,
+    },
+    campaigns: [
+      {
+        name: 'kw_q2 profit ae3311 broad_ae3311',
+        keywords: [
+          { id: 'bad-1', text: 'dad gifts', state: 'enabled' },
+          { id: 'bad-2', text: 'fiesta party supplies', state: 'enabled' },
+          { id: 'bad-3', text: 'cinco de mayo decorations', state: 'enabled' },
+        ],
+        autoTargets: [],
+        productAds: [],
+        sponsoredBrands: [],
+      },
+    ],
+  };
+  const themes = resolveThemes(ae3311RegressionCard);
+  const terms = buildTerms(ae3311RegressionCard, themes, { currentDate: '2026-05-05' });
+  assert.ok(terms.includes('godmother gift'));
+  assert.ok(terms.includes("mother's day gifts for godmother"));
+  assert.strictEqual(terms.some(term => /dad|father|fiesta|mexican|cinco|nurse/.test(term)), false);
+}

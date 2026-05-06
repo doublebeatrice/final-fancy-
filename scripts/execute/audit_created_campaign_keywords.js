@@ -29,6 +29,18 @@ function num(value) {
   return Number.isFinite(n) ? n : 0;
 }
 
+function candidateMeta(actionType, reasonSignals = []) {
+  return {
+    decisionStage: 'candidate',
+    candidateSource: 'rule_generator',
+    candidateActionType: actionType,
+    requiresAiDecision: true,
+    approvedBy: null,
+    candidateReason: reasonSignals.filter(Boolean).join(', '),
+    actionSource: ['generator_candidate', 'rule_generator'],
+  };
+}
+
 function isEnabled(state) {
   const text = String(state ?? '').toLowerCase();
   return text === '1' || text === 'enabled' || text === 'enable' || text === 'active';
@@ -59,6 +71,7 @@ function listingText(card = {}) {
     card.listing?.description,
     card.listing?.categoryPath,
     ...(card.listing?.breadcrumbs || []),
+    ...(card.createContext?.keywordSeeds || []),
   ].filter(Boolean).join(' '));
 }
 
@@ -78,6 +91,25 @@ function hasSeedSupport(term, card = {}) {
   return seeds.some(seed => seed === text || seed.includes(text) || text.includes(seed));
 }
 
+const DISTINCTIVE_SUPPORT_TOKENS = new Set([
+  'godmother',
+  'godparent',
+  'madrina',
+  'godchild',
+  'godchildren',
+  'nurse',
+  'teacher',
+  'graduate',
+  'bride',
+  'bridesmaid',
+]);
+
+function hasDistinctiveSeedSupport(term, card = {}) {
+  const termTokens = clean(term).split(/\s+/).filter(Boolean);
+  const seedText = (card.createContext?.keywordSeeds || []).map(clean).join(' ');
+  return termTokens.some(token => DISTINCTIVE_SUPPORT_TOKENS.has(token) && seedText.includes(token));
+}
+
 function nakedSeasonalGeneric(term) {
   const text = clean(term);
   return /^(teacher appreciation gifts|teacher appreciation week gifts|thank you teacher gifts|nurse week gifts|nurse appreciation gifts|healthcare worker gifts|graduation gifts|class of 2026 gifts|senior graduation gifts|mothers day gifts|fathers day gifts|bridal shower favors|wedding party favors|baby shower favors|memorial gifts|christian gifts for women|inspirational gifts|faith based gifts|summer party supplies|pool party supplies|beach party favors|fiesta party supplies|mexican party favors|cinco de mayo decorations)$/.test(text);
@@ -93,7 +125,7 @@ function diagnoseKeyword(term, card = {}) {
 
   const relevance = scoreTermRelevance(term, card.productProfile || {});
   const supportedByListing = hasListingSupport(term, card);
-  const supportedBySeed = hasSeedSupport(term, card);
+  const supportedBySeed = hasSeedSupport(term, card) || hasDistinctiveSeedSupport(term, card);
   if ((relevance.level === 'conflict' || (relevance.conflicts || []).length) && !supportedByListing && !supportedBySeed) {
     reasons.push(`product_conflict:${(relevance.conflicts || []).join('+') || relevance.level}`);
   }
@@ -111,6 +143,7 @@ function diagnoseKeyword(term, card = {}) {
 
 function makePauseAction(row, finding) {
   return {
+    ...candidateMeta('pause', ['created_keyword_audit_cleanup', ...(finding.reasons || [])]),
     id: String(row.id),
     entityType: 'keyword',
     actionType: 'pause',
@@ -131,7 +164,6 @@ function makePauseAction(row, finding) {
     ],
     confidence: 0.92,
     riskLevel: 'created_keyword_audit_cleanup',
-    actionSource: ['bugfix_cleanup'],
   };
 }
 

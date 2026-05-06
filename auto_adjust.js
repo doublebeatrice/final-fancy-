@@ -1,10 +1,10 @@
 const WebSocket = require('ws');
 const fs = require('fs');
 const path = require('path');
-const http = require('http');
-const { log, loadHistory, saveHistory, hasRecentOutcome, SNAPSHOTS_DIR, today } = require('./src/adjust_lib');
+const { log, loadHistory, saveHistory, hasRecentOutcome, SNAPSHOTS_DIR, today, findAdPageId } = require('./src/adjust_lib');
 const { hasRequiredVerification, loadExternalActionSchema } = require('./src/ai_decision');
 const { analyzeAllowedOperationScope, applyAllowedOperationScope } = require('./src/operation_scope');
+const { attachTimeToPlan, buildOpsTimeContext } = require('./src/ops_time');
 
 const BATCH = 50;
 const VERIFY_TOLERANCE = 0.0001;
@@ -45,25 +45,6 @@ function hasRecentCandidateBlock(history, candidateKey, days = 7) {
     'blocked_by_system_recent_adjust',
     days
   );
-}
-
-function findPanelId() {
-  return new Promise((resolve, reject) => {
-    http.get('http://127.0.0.1:9222/json/list', res => {
-      let data = '';
-      res.on('data', d => { data += d; });
-      res.on('end', () => {
-        try {
-          const tabs = JSON.parse(data);
-          const panel = tabs.find(t => t.url && t.url.includes('panel.html') && t.url.includes('chrome-extension'));
-          if (panel) resolve(panel.id);
-          else reject(new Error('Cannot find extension panel page. Open the extension panel first.'));
-        } catch (e) {
-          reject(e);
-        }
-      });
-    }).on('error', reject);
-  });
 }
 
 function apiOk(result) {
@@ -206,9 +187,13 @@ function ensureTouchedBidChange(bid, factor, direction, minBid = 0.05) {
 
 async function run(options = {}) {
   const dryRun = options.dryRun === true || (options.dryRun !== false && process.env.DRY_RUN === '1');
-  const panelId = await findPanelId();
-  log(`Panel ID: ${panelId}`);
-  const ws = new WebSocket(`ws://127.0.0.1:9222/devtools/page/${panelId}`);
+  const timeContext = options.timeContext || buildOpsTimeContext({
+    site: options.site || 'Amazon.com',
+    sourceRunId: options.sourceRunId,
+  });
+  const adPageId = await findAdPageId();
+  log(`Ad backend page ID: ${adPageId}`);
+  const ws = new WebSocket(`ws://127.0.0.1:9222/devtools/page/${adPageId}`);
   const send = msg => ws.send(JSON.stringify(msg));
   const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
   await new Promise(resolve => ws.on('open', resolve));
@@ -233,13 +218,49 @@ async function run(options = {}) {
     });
   });
 
-  async function execPanelJson(expression, awaitPromise = true) {
-    const text = await eval_(`${expression}.then(d => JSON.stringify(d)).catch(e => JSON.stringify({code:0,msg:e.message,error:e.message}))`, awaitPromise);
+  async function execAdApi(pathname, payload, method = 'PATCH') {
+    const expression = `(async () => {
+      const xsrf = document.cookie.match(/(?:^|;\\s*)XSRF-TOKEN=([^;]+)/)?.[1] || '';
+      const res = await fetch(${JSON.stringify(pathname)}, {
+        method: ${JSON.stringify(method)},
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json', 'x-xsrf-token': decodeURIComponent(xsrf) },
+        body: ${JSON.stringify(JSON.stringify(payload))}
+      });
+      const text = await res.text();
+      let json = null;
+      try { json = JSON.parse(text); } catch (error) {}
+      return JSON.stringify(json || { code: 0, msg: text.slice(0, 500), httpStatus: res.status });
+    })()`;
+    const text = await eval_(expression, true);
     try {
       return JSON.parse(text || '{}');
     } catch (e) {
       return { code: 0, msg: e.message, raw: text };
     }
+  }
+
+  async function execCreateSpCampaign(createInput) {
+    const built = buildSpCreatePayload(createInput);
+    if (!built.ok) return built;
+    const json = await execAdApi(built.requestUrl, built.requestBody, 'POST');
+    const productAdsError = json?.data?.productAds?.error || {};
+    const createdParam = json?.data?.param || {};
+    const campaignId = String(json?.data?.campaignId || createdParam?.campaignId || '');
+    const adGroupId = String(json?.data?.adGroupId || createdParam?.adGroupId || '');
+    const ok = Number(json?.code) === 200 && !!campaignId && !!adGroupId;
+    return {
+      ...built,
+      ok,
+      responseCode: json?.code ?? null,
+      responseMsg: json?.msg || '',
+      campaignId,
+      adGroupId,
+      errorType: productAdsError?.errorType || '',
+      reason: productAdsError?.reason || '',
+      rawResponse: json,
+      errors: ok ? [] : [json?.msg || 'createOneTime failed', productAdsError?.errorType || '', productAdsError?.reason || ''].filter(Boolean),
+    };
   }
 
   const executionEvents = [];
@@ -391,7 +412,7 @@ async function run(options = {}) {
           targetArray: rows,
           targetNewArray: rows,
         };
-        const result = await execPanelJson(`execAdWrite(${JSON.stringify(endpoint)}, ${JSON.stringify(payload)})`);
+        const result = await execAdApi(endpoint, payload, 'PATCH');
         const status = classifyApiResult(result);
         if (status === 'api_success') apiSuccess += batch.length;
         else apiFailed += batch.length;
@@ -455,7 +476,7 @@ async function run(options = {}) {
           targetArray,
           targetNewArray: targetArray,
         };
-        const result = await execPanelJson(`execAdWrite(${JSON.stringify(endpoint)}, ${JSON.stringify(payload)})`);
+        const result = await execAdApi(endpoint, payload, 'PATCH');
         const status = classifyApiResult(result);
         if (status === 'api_success') apiSuccess += batch.length;
         else apiFailed += batch.length;
@@ -494,7 +515,7 @@ async function run(options = {}) {
             budget: item.suggestedBudget,
           })),
         };
-        const result = await execPanelJson(`execAdWrite(${JSON.stringify('/campaignSb/batchSbCampaign')}, ${JSON.stringify(payload)})`);
+        const result = await execAdApi('/campaignSb/batchSbCampaign', payload, 'PATCH');
         const status = classifyApiResult(result);
         if (status === 'api_success') apiSuccess += batch.length;
         else apiFailed += batch.length;
@@ -538,7 +559,7 @@ async function run(options = {}) {
           property: 'campaign',
           operation: 'dailyBudget',
         };
-        const result = await execPanelJson(`execAdWrite(${JSON.stringify('/campaign/batchCampaign')}, ${JSON.stringify(payload)}, ${JSON.stringify('PATCH')})`);
+        const result = await execAdApi('/campaign/batchCampaign', payload, 'PATCH');
         const status = classifyApiResult(result);
         if (status === 'api_success') apiSuccess += batch.length;
         else apiFailed += batch.length;
@@ -573,7 +594,7 @@ async function run(options = {}) {
           campaignIdArray: [Number(item.id)],
           operation: 'placement',
         };
-        const result = await execPanelJson(`execAdWrite(${JSON.stringify('/campaign/editCampaignColumn')}, ${JSON.stringify(payload)}, ${JSON.stringify('PATCH')})`);
+        const result = await execAdApi('/campaign/editCampaignColumn', payload, 'PATCH');
         const status = classifyApiResult(result);
         if (status === 'api_success') apiSuccess += 1;
         else apiFailed += 1;
@@ -595,7 +616,7 @@ async function run(options = {}) {
         recordExecutionEvent(item, 'skuCandidate', 'failed', { msg: 'SB create is not supported in this execution chain yet' });
         continue;
       }
-      const result = await execPanelJson(`createSpCampaign(${JSON.stringify(createInput)})`);
+      const result = await execCreateSpCampaign(createInput);
       const meta = extractCreateResultMeta(result);
       const status = (result?.ok || (classifyApiResult(meta.raw) === 'api_success' && meta.campaignId && meta.adGroupId))
         ? 'api_success'
@@ -924,40 +945,15 @@ async function run(options = {}) {
     }));
   }
 
-  async function fetchPanelDataDirect() {
-    let meta = null;
-    for (let attempt = 1; attempt <= 2; attempt++) {
-      const text = await eval_(`(async () => {
-        document.getElementById("log").innerHTML = "";
-        await fetchAllData();
-        return JSON.stringify({
-          cards: (STATE.productCards || []).length,
-          kwRows: (STATE.kwRows || []).length,
-          autoRows: (STATE.autoRows || []).length,
-          targetRows: (STATE.targetRows || []).length,
-          sbRows: (STATE.sbRows || []).length,
-          sp7: (STATE.sp7DayUntouchedRows || []).length,
-          sb7: (STATE.sb7DayUntouchedRows || []).length,
-          logText: document.getElementById("log").innerText || ""
-        });
-      })()`, true);
-      meta = JSON.parse(text || '{}');
-      if (meta.cards > 0 || meta.kwRows > 0 || meta.autoRows > 0 || meta.targetRows > 0 || meta.sbRows > 0) {
-        log(`Data ready on attempt ${attempt}: cards=${meta.cards}, kw=${meta.kwRows}, auto=${meta.autoRows}, target=${meta.targetRows}, sb=${meta.sbRows}`);
-        return meta;
-      }
-      const last = String(meta.logText || '').split('\n').filter(Boolean).slice(-1)[0] || 'no panel log';
-      log(`Fetch attempt ${attempt} returned empty state, retrying: ${last}`);
-      await wait(3000);
-    }
-    return meta;
+  async function fetchSnapshotlessDataDirect() {
+    throw new Error('Direct-page execution requires a snapshot file. Export/fetch scripts must provide --snapshot; extension panel fetch is no longer part of execution.');
   }
 
   function loadSnapshotFile(snapshotFile) {
     if (!snapshotFile) return null;
     const resolved = path.resolve(snapshotFile);
     const snapshot = JSON.parse(fs.readFileSync(resolved, 'utf8'));
-    log(`Using panel snapshot file: ${resolved}`);
+    log(`Using execution snapshot file: ${resolved}`);
     return {
       meta: {
         cards: (snapshot.productCards || []).length,
@@ -998,8 +994,77 @@ async function run(options = {}) {
   const snapshotData = loadSnapshotFile(snapshotFile);
   log(snapshotData ? 'Loading execution context from snapshot...' : 'Fetching full data...');
   let fetchMeta = null;
-  fetchMeta = snapshotData ? snapshotData.meta : await fetchPanelDataDirect();
+  fetchMeta = snapshotData ? snapshotData.meta : await fetchSnapshotlessDataDirect();
   if (snapshotData) {
+    const directState = {
+      productCards: [],
+      kwRows: snapshotData.kwRows || [],
+      autoRows: snapshotData.autoTargetRows || [],
+      targetRows: snapshotData.manualTargetRows || [],
+      productAdRows: snapshotData.productAdRows || [],
+      sbRows: snapshotData.sbRows || [],
+      sbCampaignRows: snapshotData.sbCampaignRows || [],
+      sp7DayUntouchedRows: snapshotData.sp7DayRows || [],
+      sb7DayUntouchedRows: snapshotData.sb7DayRows || [],
+      placementRows: snapshotData.placementRows || [],
+      invMap: snapshotData.invMap || {},
+    };
+    await eval_(`(() => {
+      window.STATE = ${JSON.stringify(directState)};
+      window.execAdWrite = async (pathname, payload, method = 'PATCH') => {
+        const xsrf = document.cookie.match(/(?:^|;\\s*)XSRF-TOKEN=([^;]+)/)?.[1] || '';
+        const res = await fetch(pathname, {
+          method,
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json', 'x-xsrf-token': decodeURIComponent(xsrf) },
+          body: JSON.stringify(payload)
+        });
+        const text = await res.text();
+        try { return JSON.parse(text); } catch (error) { return { code: 0, msg: text.slice(0, 500), httpStatus: res.status }; }
+      };
+      window.refreshRowsForExecutionEvents = async events => {
+        const rowId = row => String(row.keywordId || row.targetId || row.target_id || row.adId || row.ad_id || row.id || row.keyword_id || '').trim();
+        const campaignRowId = row => String(row.campaignId || row.campaign_id || row.id || '').trim();
+        const updateRows = (rows, event) => {
+          for (const row of rows || []) {
+            if (rowId(row) === String(event.id)) {
+              if (event.suggestedBid !== undefined) row.bid = event.suggestedBid;
+              if (event.action?.actionType === 'enable') row.state = '1';
+              if (event.action?.actionType === 'pause') row.state = '2';
+            }
+            if (campaignRowId(row) === String(event.id) && event.suggestedBudget !== undefined) {
+              row.budget = event.suggestedBudget;
+              row.dailyBudget = event.suggestedBudget;
+            }
+          }
+        };
+        for (const event of events || []) {
+          if (event.apiStatus !== 'api_success') continue;
+          for (const rows of [STATE.kwRows, STATE.autoRows, STATE.targetRows, STATE.productAdRows, STATE.sbRows, STATE.sbCampaignRows]) updateRows(rows, event);
+          if (event.action?.actionType === 'create' && event.campaignId) {
+            STATE.autoRows = STATE.autoRows || [];
+            STATE.autoRows.push({
+              campaignId: event.campaignId,
+              adGroupId: event.adGroupId,
+              campaignName: event.campaignName,
+              campaign_name: event.campaignName,
+              bid: event.suggestedBid || event.action?.createInput?.defaultBid || '',
+              budget: event.action?.createInput?.dailyBudget || '',
+              state: '1'
+            });
+          }
+        }
+        return { ok: true, refreshed: { directPageState: true } };
+      };
+      window.hydrateInventorySnapshot = invMap => {
+        window.STATE = window.STATE || {};
+        window.STATE.invMap = invMap || {};
+        return { ok: true, added: Object.keys(invMap || {}).length, total: Object.keys(invMap || {}).length };
+      };
+      window.ensureInventoryRecordsForSkus = async skus => ({ ok: true, requested: (skus || []).length, missingAfter: [] });
+      window.appendInventoryOperationNotes = async events => (events || []).map(event => ({ sku: event.sku, ok: true, directPageStatusOnly: true }));
+      return true;
+    })()`, true);
     const hydrateResultText = await eval_(
       'window.hydrateInventorySnapshot ? ' +
       'JSON.stringify(window.hydrateInventorySnapshot(' + JSON.stringify(snapshotData.invMap || {}) + ')) : ' +
@@ -1081,7 +1146,7 @@ async function run(options = {}) {
   });
   const aiDecision = applyAllowedOperationScope(aiDecisionRaw, scopeAnalysis);
   const verificationBlocked = [];
-  const plan = (aiDecision.plan || []).map(item => {
+  let plan = (aiDecision.plan || []).map(item => {
     const actions = [];
     for (const action of item.actions || []) {
       if (hasRequiredVerification(action)) {
@@ -1101,6 +1166,7 @@ async function run(options = {}) {
     }
     return { ...item, actions };
   }).filter(item => (item.actions || []).length > 0);
+  plan = attachTimeToPlan(plan, timeContext);
   const aiReview = [...(aiDecision.review || []), ...verificationBlocked];
   const aiSkipped = aiDecision.skipped || [];
   const aiValidationErrors = aiDecision.errors || [];
@@ -1119,6 +1185,12 @@ async function run(options = {}) {
     }, {});
     const dryReport = {
       dryRun: true,
+      time: timeContext,
+      runAt: timeContext.runAt,
+      businessDate: timeContext.businessDate,
+      dataDate: timeContext.dataDate,
+      siteTimezone: timeContext.siteTimezone,
+      sourceRunId: timeContext.sourceRunId,
       plannedSkus: plan.length,
       plannedActions: totalActions,
       decisionSource: aiDecision.decisionSource,
@@ -1212,8 +1284,13 @@ async function run(options = {}) {
         recordExecutionEvent(item, item.entityType, 'failed', { msg: 'missing state row metadata' });
         continue;
       }
-      const result = await execPanelJson(`toggleAdState(${JSON.stringify(meta)}, ${JSON.stringify(item.actionType)}, ${JSON.stringify(item.entityType)})`);
-      const status = result?.ok ? 'api_success' : classifyApiResult(result?.rawResponse || { code: result?.responseCode, msg: result?.responseMsg, reason: result?.reason });
+      const built = buildStateToggleRequest(meta, item.actionType, item.entityType);
+      const result = built.ok
+        ? await execAdApi(built.requestUrl, built.requestBody, 'PATCH')
+        : built;
+      const status = built.ok
+        ? classifyApiResult(result)
+        : 'failed';
       if (status === 'api_success') apiSuccess += 1;
       else apiFailed += 1;
       recordExecutionEvent(item, item.entityType, status, result, meta);
@@ -1481,6 +1558,12 @@ async function run(options = {}) {
   }, {});
 
   const report = {
+    time: timeContext,
+    runAt: timeContext.runAt,
+    businessDate: timeContext.businessDate,
+    dataDate: timeContext.dataDate,
+    siteTimezone: timeContext.siteTimezone,
+    sourceRunId: timeContext.sourceRunId,
     plannedSkus: plan.length,
     plannedActions: totalActions,
     decisionSource: aiDecision.decisionSource,
@@ -1530,6 +1613,187 @@ async function run(options = {}) {
       validatedPlanFile: path.join(SNAPSHOTS_DIR, 'ai_decision_validated_plan.json'),
     },
   };
+}
+
+function formatYmd(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function normalizeCreateMode(value) {
+  const text = String(value || '').trim();
+  if (/^(auto|自动组)$/i.test(text)) return 'auto';
+  if (/^(productTarget|定位组)$/i.test(text)) return 'productTarget';
+  if (/^(keywordTarget|关键词组)$/i.test(text)) return 'keywordTarget';
+  return text;
+}
+
+function buildSpCreatePayload(input = {}) {
+  const mode = normalizeCreateMode(input.mode || input.positionType);
+  const sku = String(input.sku || '').trim();
+  const asin = String(input.asin || '').trim().toUpperCase();
+  const coreTerm = String(input.coreTerm || '').trim();
+  const accountId = Number(input.accountId);
+  const siteId = Number(input.siteId || 4);
+  const dailyBudget = Number(input.dailyBudget);
+  const defaultBid = Number(input.defaultBid);
+  const errors = [];
+  if (!['auto', 'productTarget', 'keywordTarget'].includes(mode)) errors.push('mode must be auto, productTarget, or keywordTarget');
+  if (!coreTerm) errors.push('coreTerm is required');
+  if (!sku) errors.push('sku is required');
+  if (!asin) errors.push('asin is required');
+  if (!Number.isFinite(accountId) || accountId <= 0) errors.push('accountId must be positive');
+  if (!Number.isFinite(siteId) || siteId <= 0) errors.push('siteId must be positive');
+  if (!Number.isFinite(dailyBudget) || dailyBudget <= 0) errors.push('dailyBudget must be positive');
+  if (!Number.isFinite(defaultBid) || defaultBid <= 0) errors.push('defaultBid must be positive');
+
+  const prefix = mode === 'auto' ? 'auto' : mode === 'productTarget' ? 'asin' : 'kw';
+  const campaignName = `${prefix}_${coreTerm}_${sku.toLowerCase()}`;
+  const requestUrl = '/campaign/createOneTime';
+  if (errors.length) return { ok: false, errors, mode, requestUrl, campaignName, groupName: campaignName };
+
+  const payload = {
+    createType: 'campaign',
+    advType: 'SP',
+    name: 'create SP campaign',
+    campaignName,
+    startDate: formatYmd(),
+    accountId,
+    siteId,
+    dailyBudget,
+    offAmazonBudgetControlStrategy: 'MINIMIZE_SPEND',
+    placementTop: 0,
+    placementProductPage: 0,
+    placementRestOfSearch: 0,
+    siteAmazonBusiness: 0,
+    groupName: campaignName,
+    haulFlag: false,
+    asinArray: [asin],
+    skuArray: [sku],
+    defaultBid,
+  };
+  if (mode === 'auto') {
+    payload.targetingType = 'AUTO';
+    payload.positionType = 'auto';
+    payload.strategy = 'LEGACY_FOR_SALES';
+    payload.autoTargetUpdate = {
+      QUERY_HIGH_REL_MATCHES: { bid: defaultBid, state: 'enabled' },
+      QUERY_BROAD_REL_MATCHES: { bid: defaultBid, state: 'enabled' },
+      ASIN_ACCESSORY_RELATED: { bid: defaultBid, state: 'enabled' },
+      ASIN_SUBSTITUTE_RELATED: { bid: defaultBid, state: 'enabled' },
+    };
+    payload.negativeKeywordArray = [];
+    payload.negativeProductTargetArray = [];
+  } else if (mode === 'productTarget') {
+    const targetType = String(input.targetType || '').trim();
+    const targetAsins = [...new Set((input.targetAsins || []).map(value => String(value || '').trim().toUpperCase()).filter(Boolean))];
+    if (!targetType) errors.push('targetType is required for productTarget');
+    if (!targetAsins.length) errors.push('targetAsins is required for productTarget');
+    if (errors.length) return { ok: false, errors, mode, requestUrl, campaignName, groupName: campaignName };
+    payload.targetingType = 'MANUAL';
+    payload.positionType = 'productTarget';
+    payload.strategy = 'LEGACY_FOR_SALES';
+    payload.productTargetArray = targetAsins.map(value => ({
+      bid: defaultBid,
+      targetMark: '',
+      resolvedExpression: [{ type: targetType, value }],
+      expression: [{ type: targetType, value }],
+    }));
+    payload.negativeProductTargetArray = [];
+  } else if (mode === 'keywordTarget') {
+    const matchType = String(input.matchType || '').trim().toUpperCase();
+    const keywords = [...new Set((input.keywords || []).map(value => String(value || '').trim()).filter(Boolean))];
+    if (!matchType) errors.push('matchType is required for keywordTarget');
+    if (!keywords.length) errors.push('keywords is required for keywordTarget');
+    if (errors.length) return { ok: false, errors, mode, requestUrl, campaignName, groupName: campaignName };
+    payload.targetingType = 'MANUAL';
+    payload.positionType = 'keywordTarget';
+    payload.strategy = 'MANUAL';
+    payload.keywordArray = keywords.map(keywordText => ({ keywordText, matchType, bid: defaultBid, coreMark: '' }));
+    payload.keywordGroups = [];
+    payload.negativeKeywordArray = [];
+  }
+  return { ok: true, mode, requestUrl, requestBody: payload, campaignName, groupName: campaignName, errors: [] };
+}
+
+function normalizeActionEntityType(value) {
+  const text = String(value || '').trim();
+  if (text === 'keyword') return 'SP_KEYWORD';
+  if (text === 'autoTarget') return 'SP_AUTO_TARGET';
+  if (text === 'manualTarget') return 'SP_MANUAL_TARGET';
+  if (text === 'productAd') return 'SP_PRODUCT_AD';
+  if (text === 'sbKeyword') return 'SB_KEYWORD';
+  if (text === 'sbTarget') return 'SB_TARGET';
+  if (text === 'sbCampaign') return 'SB_CAMPAIGN';
+  if (text === 'campaign') return 'SP_CAMPAIGN';
+  return text.toUpperCase();
+}
+
+function readRowField(row, names) {
+  for (const name of names) {
+    if (row?.[name] !== undefined && row?.[name] !== null && row?.[name] !== '') return row[name];
+  }
+  return '';
+}
+
+function stateValues(action) {
+  return action === 'enable'
+    ? { textState: 'enabled', numericState: 1 }
+    : { textState: 'paused', numericState: 2 };
+}
+
+function buildStateToggleRequest(row = {}, action = '', hintedType = '') {
+  const entityType = normalizeActionEntityType(hintedType);
+  const siteId = Number(readRowField(row, ['siteId', 'site_id']) || 4);
+  const accountId = Number(readRowField(row, ['accountId', 'account_id']));
+  const campaignId = String(readRowField(row, ['campaignId', 'campaign_id', 'id']));
+  const adGroupId = String(readRowField(row, ['adGroupId', 'ad_group_id']));
+  const keywordId = String(readRowField(row, ['keywordId', 'keyword_id', 'id']));
+  const targetId = String(readRowField(row, ['targetId', 'target_id', 'id']));
+  const adId = String(readRowField(row, ['adId', 'ad_id', 'id']));
+  const matchType = String(readRowField(row, ['matchType', 'match_type']));
+  const values = stateValues(action);
+  let requestUrl = '';
+  let requestBody = null;
+  let missingFields = [];
+
+  if (entityType === 'SP_KEYWORD') {
+    requestUrl = '/keyword/batchKeyword';
+    missingFields = [keywordId ? '' : 'keywordId', campaignId ? '' : 'campaignId', adGroupId ? '' : 'adGroupId'].filter(Boolean);
+    requestBody = { siteId, accountId, column: 'state', targetArray: [{ keywordId, state: values.textState }], targetNewArray: [{ keywordId, state: values.numericState, accountId, campaignId, adGroupId }], property: 'keyword', idArray: [keywordId], campaignIdArray: [campaignId], operation: 'state' };
+  } else if (entityType === 'SP_AUTO_TARGET') {
+    requestUrl = '/advTarget/batchEditAutoTarget';
+    missingFields = [targetId ? '' : 'targetId', campaignId ? '' : 'campaignId', adGroupId ? '' : 'adGroupId'].filter(Boolean);
+    requestBody = { siteId, accountId, column: 'state', targetArray: [{ targetId, state: values.textState }], targetNewArray: [{ targetId, state: values.numericState, accountId, campaignId, adGroupId }], property: 'autoTarget', campaignIdArray: [campaignId], idArray: [targetId], operation: 'state' };
+  } else if (entityType === 'SP_MANUAL_TARGET') {
+    requestUrl = '/advTarget/batchUpdateManualTarget';
+    missingFields = [targetId ? '' : 'targetId', campaignId ? '' : 'campaignId', adGroupId ? '' : 'adGroupId'].filter(Boolean);
+    requestBody = { siteId, accountId, column: 'state', targetArray: [{ targetId, state: values.textState }], targetNewArray: [{ targetId, state: values.numericState, accountId, campaignId, adGroupId }], property: 'manualTarget', campaignIdArray: [campaignId], idArray: [targetId], operation: 'state' };
+  } else if (entityType === 'SB_KEYWORD') {
+    requestUrl = '/keywordSb/batchEditKeywordSbColumn';
+    missingFields = [keywordId ? '' : 'keywordId', campaignId ? '' : 'campaignId', adGroupId ? '' : 'adGroupId', matchType ? '' : 'matchType'].filter(Boolean);
+    requestBody = { siteId, accountId, column: 'state', targetArray: [{ campaignId, adGroupId, matchType, keywordId, state: values.textState }], targetNewArray: [{ campaignId, adGroupId, matchType, keywordId, state: values.numericState, accountId }] };
+  } else if (entityType === 'SB_TARGET') {
+    requestUrl = '/sbTarget/batchEditTargetSbColumn';
+    missingFields = [targetId ? '' : 'targetId', campaignId ? '' : 'campaignId', adGroupId ? '' : 'adGroupId'].filter(Boolean);
+    requestBody = { column: 'state', targetArray: [{ campaignId, adGroupId, targetId, state: values.textState }], idArray: [targetId], operation: 'state', siteId, accountId, campaignIdArray: [campaignId], targetNewArray: [{ targetId, state: values.numericState, accountId, campaignId, adGroupId }] };
+  } else if (entityType === 'SB_CAMPAIGN') {
+    requestUrl = '/campaignSb/batchSbCampaign';
+    missingFields = [campaignId ? '' : 'campaignId'].filter(Boolean);
+    requestBody = { siteId, accountId, campaignIdArray: [campaignId], batchType: 'state', batchValue: values.textState.toUpperCase(), campaignNewArray: [{ siteId, accountId, campaignId, state: values.numericState }] };
+  } else if (entityType === 'SP_PRODUCT_AD') {
+    requestUrl = '/advProduct/batchProduct';
+    missingFields = [adId ? '' : 'adId', campaignId ? '' : 'campaignId', adGroupId ? '' : 'adGroupId'].filter(Boolean);
+    requestBody = { siteId, accountId, column: 'state', value: values.textState.toLowerCase(), products: [adId], property: 'product', idArray: [adId], operation: 'state', campaignIdArray: [campaignId], productNewArray: [{ siteId, accountId, campaignId, adGroupId, adId, state: values.numericState }] };
+  } else {
+    return { ok: false, requestUrl, requestBody, reason: 'unsupported entity type' };
+  }
+
+  const missing = [...(!accountId ? ['accountId'] : []), ...missingFields];
+  if (missing.length) return { ok: false, requestUrl, requestBody, reason: 'missing fields', rawResponse: { missingFields: missing } };
+  return { ok: true, requestUrl, requestBody, reason: '' };
 }
 
 module.exports = {

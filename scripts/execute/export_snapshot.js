@@ -62,11 +62,38 @@ function overBudgetDataAvailability(date = new Date()) {
     localTime: `${String(parts.hour).padStart(2, '0')}:${String(parts.minute).padStart(2, '0')}:${String(parts.second).padStart(2, '0')}`,
     timezone: 'Asia/Shanghai',
     dailyCutoffLocalTime: '16:00:00',
-    availableAtExport: minutes < cutoffMinutes,
-    status: minutes < cutoffMinutes ? 'capture_window_open' : 'capture_window_missed',
+    freshAtExport: minutes < cutoffMinutes,
+    status: minutes < cutoffMinutes ? 'fresh_window' : 'late_window',
     warning: minutes < cutoffMinutes
       ? ''
-      : '超预算板块 16:00 后不可见，当日超预算明细必须使用 16:00 前快照。',
+      : '超预算抓取已过 16:00 新鲜窗口；若接口仍返回明细则继续使用，若无明细则标记 partial/missing_rows。',
+  };
+}
+
+function buildOverBudgetAvailability(overBudgetRows = [], overBudgetMeta = {}, date = new Date()) {
+  const base = overBudgetDataAvailability(date);
+  const rowCount = Array.isArray(overBudgetRows) ? overBudgetRows.length : 0;
+  const fetchStatus = overBudgetMeta?.status || '';
+  let moduleStatus = 'partial';
+  let reason = 'missing_rows';
+
+  if (fetchStatus === 'complete' || fetchStatus === 'complete_empty') {
+    moduleStatus = fetchStatus === 'complete_empty' ? 'complete_empty' : 'complete';
+    reason = rowCount ? '' : 'no_over_budget_rows_returned';
+  } else if (fetchStatus === 'partial') {
+    reason = overBudgetMeta.reason || 'fetch_partial';
+  } else if (base.status === 'late_window') {
+    reason = 'late_window_missing_rows';
+  }
+
+  return {
+    ...base,
+    moduleStatus,
+    status: moduleStatus === 'complete' || moduleStatus === 'complete_empty' ? moduleStatus : base.status,
+    rowCount,
+    reason,
+    fetchStatus,
+    meta: overBudgetMeta || {},
   };
 }
 
@@ -110,10 +137,13 @@ async function exportSnapshot(input = '') {
   await evalInPanel(`globalThis.__AD_OPS_LISTING_CACHE = ${JSON.stringify(listingCache)}; true`, false);
   await evalInPanel('fetchAllData(globalThis.__AD_OPS_FETCH_OPTIONS).then(()=>true)', true);
 
+  const overBudgetRows = parseJson(await evalInPanel('JSON.stringify(STATE.overBudgetRows || [])'), []);
+  const overBudgetMeta = parseJson(await evalInPanel('JSON.stringify(STATE.overBudgetMeta || {})'), {});
+
   const snapshot = {
     exportedAt: new Date().toISOString(),
     dataAvailability: {
-      overBudget: overBudgetDataAvailability(),
+      overBudget: buildOverBudgetAvailability(overBudgetRows, overBudgetMeta),
     },
     productCards: parseJson(await evalInPanel('JSON.stringify(STATE.productCards)'), []),
     kwRows: parseJson(await evalInPanel('JSON.stringify(STATE.kwRows)'), []),
@@ -125,6 +155,8 @@ async function exportSnapshot(input = '') {
     adSkuSummaryRows: parseJson(await evalInPanel('JSON.stringify(STATE.adSkuSummaryRows || [])'), []),
     advProductManageRows: parseJson(await evalInPanel('JSON.stringify(STATE.advProductManageRows || [])'), []),
     sbCampaignManageRows: parseJson(await evalInPanel('JSON.stringify(STATE.sbCampaignManageRows || [])'), []),
+    overBudgetRows,
+    overBudgetMeta,
     sellerSalesRows: parseJson(await evalInPanel('JSON.stringify(STATE.sellerSalesRows || [])'), []),
     sellerSalesMeta: parseJson(await evalInPanel('JSON.stringify(STATE.sellerSalesMeta || {})'), {}),
     salesHistoryMap: parseJson(await evalInPanel('JSON.stringify(STATE.salesHistoryMap || {})'), {}),

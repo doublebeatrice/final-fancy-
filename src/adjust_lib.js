@@ -3,7 +3,7 @@ const path = require('path');
 const http = require('http');
 const WebSocket = require('ws');
 
-const PANEL_ID = '4091B6ED260DB71319767EFD24A46F55'; // legacy, auto_adjust.js now finds panel dynamically
+const PANEL_ID = '4091B6ED260DB71319767EFD24A46F55'; // legacy compatibility only
 const PROJECT_ROOT = path.join(__dirname, '..');
 const DATA_DIR = path.join(PROJECT_ROOT, 'data');
 const HISTORY_FILE = path.join(DATA_DIR, 'adjustment_history.json');
@@ -15,7 +15,7 @@ if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 if (!fs.existsSync(SNAPSHOTS_DIR)) fs.mkdirSync(SNAPSHOTS_DIR, { recursive: true });
 
 
-function findPanelId() {
+function findBrowserPageId(predicate, errorMessage) {
   return new Promise((resolve, reject) => {
     http.get('http://127.0.0.1:9222/json/list', res => {
       let data = '';
@@ -23,12 +23,12 @@ function findPanelId() {
       res.on('end', () => {
         try {
           const tabs = JSON.parse(data);
-          const panel = tabs.find(tab => tab.url && tab.url.includes('panel.html') && tab.url.includes('chrome-extension'));
-          if (!panel?.id) {
-            reject(new Error('Cannot find extension panel page. Open the extension panel first.'));
+          const page = tabs.find(predicate);
+          if (!page?.id) {
+            reject(new Error(errorMessage));
             return;
           }
-          resolve(panel.id);
+          resolve(page.id);
         } catch (error) {
           reject(error);
         }
@@ -37,9 +37,28 @@ function findPanelId() {
   });
 }
 
+function findAdPageId() {
+  return findBrowserPageId(
+    tab => tab.url && tab.url.startsWith('https://adv.yswg.com.cn/'),
+    'Cannot find adv.yswg.com.cn page on Chrome debug port 9222. Open the ad backend first.'
+  );
+}
+
+function findPanelId() {
+  return findBrowserPageId(
+    tab => tab.url && tab.url.includes('panel.html') && tab.url.includes('chrome-extension'),
+    'Cannot find extension panel page. This path is deprecated; use the ad backend page bridge.'
+  );
+}
+
 async function createPanelWs() {
   const panelId = await findPanelId();
   return new WebSocket(`ws://127.0.0.1:9222/devtools/page/${panelId}`);
+}
+
+async function createAdPageWs() {
+  const pageId = await findAdPageId();
+  return new WebSocket(`ws://127.0.0.1:9222/devtools/page/${pageId}`);
 }
 
 function log(msg) {
@@ -72,7 +91,9 @@ module.exports = {
   LOG_FILE,
   SNAPSHOTS_DIR,
   today,
+  findAdPageId,
   findPanelId,
+  createAdPageWs,
   createPanelWs,
 };
 

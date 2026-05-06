@@ -22,6 +22,18 @@ function isPaused(state) {
   return text === '2' || text === 'paused' || text === 'disabled' || text === 'ended';
 }
 
+function candidateMeta(actionType, reasonSignals = []) {
+  return {
+    decisionStage: 'candidate',
+    candidateSource: 'rule_generator',
+    candidateActionType: actionType,
+    requiresAiDecision: true,
+    approvedBy: null,
+    candidateReason: reasonSignals.join(', '),
+    actionSource: ['generator_candidate', 'rule_generator'],
+  };
+}
+
 function isEffectivelyEnabled(row) {
   if (!isEnabled(row.state)) return false;
   if (row.campaignState !== undefined && row.campaignState !== '' && !isEnabled(row.campaignState)) return false;
@@ -114,6 +126,7 @@ function minBid(row) {
 
 function makeBidAction(card, row, suggestedBid, reason, evidence, riskLevel) {
   return {
+    ...candidateMeta('bid', ['all_sku_ops', riskLevel]),
     id: String(row.id),
     entityType: row.entityType,
     actionType: 'bid',
@@ -129,12 +142,12 @@ function makeBidAction(card, row, suggestedBid, reason, evidence, riskLevel) {
     evidence,
     confidence: 0.82,
     riskLevel,
-    actionSource: ['codex'],
   };
 }
 
 function makePauseAction(card, row, reason, evidence) {
   return {
+    ...candidateMeta('pause', ['all_sku_ops', 'waste_pause']),
     id: String(row.id),
     entityType: row.entityType,
     actionType: 'pause',
@@ -148,12 +161,12 @@ function makePauseAction(card, row, reason, evidence) {
     evidence,
     confidence: 0.78,
     riskLevel: 'waste_pause',
-    actionSource: ['codex'],
   };
 }
 
 function makeEnableAction(card, row, reason, evidence, riskLevel) {
   return {
+    ...candidateMeta('enable', ['all_sku_ops', riskLevel]),
     id: String(row.id),
     entityType: row.entityType,
     actionType: 'enable',
@@ -167,12 +180,12 @@ function makeEnableAction(card, row, reason, evidence, riskLevel) {
     evidence,
     confidence: 0.76,
     riskLevel,
-    actionSource: ['codex'],
   };
 }
 
 function makeBudgetAction(card, row, suggestedBudget, reason, evidence, riskLevel) {
   return {
+    ...candidateMeta('budget', ['all_sku_ops', riskLevel]),
     id: String(row.id),
     entityType: 'campaign',
     actionType: 'budget',
@@ -186,13 +199,13 @@ function makeBudgetAction(card, row, suggestedBudget, reason, evidence, riskLeve
     evidence,
     confidence: 0.8,
     riskLevel,
-    actionSource: ['codex'],
   };
 }
 
 function makeCreateAction(card, mode, coreTerm, matchType, bid, keywords, dailyBudget, reason, evidence, riskLevel) {
   const ctx = card.createContext || {};
   return {
+    ...candidateMeta('create', ['all_sku_ops', riskLevel, mode].filter(Boolean)),
     id: `create::${card.sku}::${mode}::${matchType || 'auto'}::${coreTerm}`,
     entityType: 'skuCandidate',
     actionType: 'create',
@@ -214,7 +227,6 @@ function makeCreateAction(card, mode, coreTerm, matchType, bid, keywords, dailyB
     evidence,
     confidence: 0.78,
     riskLevel,
-    actionSource: ['codex'],
   };
 }
 

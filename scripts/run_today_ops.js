@@ -4,6 +4,10 @@ const { execFileSync } = require('child_process');
 const { createPanelWs, SNAPSHOTS_DIR, today } = require('../src/adjust_lib');
 const { loadExternalActionSchema } = require('../src/ai_decision');
 const { analyzeAllowedOperationScope, applyAllowedOperationScope } = require('../src/operation_scope');
+const { appendAdjustmentRecords, recordsFromExecutionEvents, recordsFromPlan } = require('../src/adjustment_log');
+const { buildOpsTimeContext } = require('../src/ops_time');
+const { buildDailyTaskPool } = require('../src/task_scheduler');
+const { persistDailyLearning } = require('../src/daily_learning');
 const { exportSnapshot } = require('./execute/export_snapshot');
 const { run } = require('../auto_adjust');
 
@@ -80,6 +84,70 @@ function readJson(file, fallback = null) {
 function writeJson(file, value) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, JSON.stringify(value, null, 2));
+}
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function renderTaskPoolHtml(pool) {
+  const rows = (pool.tasks || []).map(task => `
+    <tr>
+      <td>${task.priority}</td>
+      <td>${escapeHtml(task.category)}</td>
+      <td>${escapeHtml(task.status)}</td>
+      <td>${escapeHtml(task.sku)}</td>
+      <td>${escapeHtml(task.asin)}</td>
+      <td>${task.boardExecutableHint ? 'yes' : 'no'}</td>
+      <td>${escapeHtml(task.reason)}</td>
+      <td>${escapeHtml(task.suggestedAction)}</td>
+      <td>${escapeHtml((task.missingData || []).join(', '))}</td>
+      <td>${escapeHtml(task.lastAdjustedAt || '')}</td>
+    </tr>`).join('');
+  return `<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>Daily Ad Ops Task Pool ${escapeHtml(pool.time.businessDate)}</title>
+  <style>
+    body { font-family: Arial, "Microsoft YaHei", sans-serif; margin: 24px; color: #1f2933; background: #f7f8fa; }
+    h1 { font-size: 24px; margin: 0 0 8px; }
+    .meta { color: #52616b; margin-bottom: 18px; line-height: 1.6; }
+    .summary { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .pill { background: #fff; border: 1px solid #d7dde3; border-radius: 6px; padding: 8px 10px; }
+    table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; }
+    th, td { border-bottom: 1px solid #e3e8ee; padding: 8px; text-align: left; vertical-align: top; }
+    th { position: sticky; top: 0; background: #edf2f7; z-index: 1; }
+    tr:nth-child(even) td { background: #fbfcfd; }
+  </style>
+</head>
+<body>
+  <h1>每日广告运营任务池</h1>
+  <div class="meta">
+    runAt: ${escapeHtml(pool.time.runAt)} |
+    businessDate: ${escapeHtml(pool.time.businessDate)} |
+    dataDate: ${escapeHtml(pool.time.dataDate)} |
+    siteTimezone: ${escapeHtml(pool.time.siteTimezone)} |
+    sourceRunId: ${escapeHtml(pool.time.sourceRunId)}
+  </div>
+  <div class="summary">
+    <div class="pill">total: ${pool.summary.total}</div>
+    <div class="pill">executable: ${pool.summary.executable}</div>
+    <div class="pill">reviewRequired: ${pool.summary.reviewRequired}</div>
+    <div class="pill">dataMissing: ${pool.summary.dataMissing}</div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Priority</th><th>Category</th><th>Status</th><th>SKU</th><th>ASIN</th><th>Executable</th><th>Reason</th><th>Suggested Action</th><th>Missing</th><th>Last Adjusted</th></tr>
+    </thead>
+    <tbody>${rows}</tbody>
+  </table>
+</body>
+</html>`;
 }
 
 function extractSchemaSkuList(schemaFile) {
@@ -457,6 +525,11 @@ function buildRunSummary(manifest) {
   return {
     mode: manifest.mode,
     runId: manifest.runId,
+    time: manifest.time || null,
+    runAt: manifest.runAt || manifest.time?.runAt || manifest.startedAt,
+    businessDate: manifest.businessDate || manifest.time?.businessDate || '',
+    dataDate: manifest.dataDate || manifest.time?.dataDate || '',
+    siteTimezone: manifest.siteTimezone || manifest.time?.siteTimezone || '',
     startedAt: manifest.startedAt,
     finishedAt: manifest.finishedAt || null,
     steps,
@@ -476,6 +549,7 @@ function buildRunSummary(manifest) {
       .map(stage => ({ stage: stage.stage, durationMs: stage.durationMs, attempted: stage.attempted || 0, success: stage.success || 0, failed: stage.failed || 0, skipped: stage.skipped || 0 })),
     outputFiles: manifest.outputFiles || {},
     overBudgetCapture: manifest.overBudgetCapture || {},
+    dailyLearning: manifest.dailyLearning || null,
   };
 }
 
@@ -511,18 +585,22 @@ function buildOverBudgetCaptureMeta(date = new Date()) {
     localTime: `${String(parts.hour).padStart(2, '0')}:${String(parts.minute).padStart(2, '0')}:${String(parts.second).padStart(2, '0')}`,
     timezone: 'Asia/Shanghai',
     dailyCutoffLocalTime: '16:00:00',
-    captureRequiredBeforeCutoff: true,
-    availableAtRunStart: minutes < cutoffMinutes,
-    status: minutes < cutoffMinutes ? 'capture_window_open' : 'capture_window_missed',
+    captureRequiredBeforeCutoff: false,
+    freshAtRunStart: minutes < cutoffMinutes,
+    status: minutes < cutoffMinutes ? 'fresh_window' : 'late_window',
     warning: minutes < cutoffMinutes
       ? ''
-      : '超预算板块 16:00 后不可见，本次运行不能作为当日超预算完整样本；需使用 16:00 前快照或标记为数据缺口。',
+      : '超预算抓取已过 16:00 新鲜窗口；若接口仍返回明细则继续使用，若无明细则标记 partial/missing_rows，不阻断其他模块。',
   };
 }
 
 async function main() {
   const options = parseArgs(process.argv);
   const runId = `today_ops_${nowStamp()}`;
+  const timeContext = buildOpsTimeContext({
+    site: process.env.AD_OPS_SITE || 'Amazon.com',
+    sourceRunId: runId,
+  });
   const runDir = path.join(SNAPSHOTS_DIR, 'runs', runId);
   const manifestFile = path.join(runDir, 'manifest.json');
   const summaryFile = path.join(runDir, 'summary.json');
@@ -532,8 +610,13 @@ async function main() {
 
   const manifest = {
     runId,
+    time: timeContext,
+    runAt: timeContext.runAt,
+    businessDate: timeContext.businessDate,
+    dataDate: timeContext.dataDate,
+    siteTimezone: timeContext.siteTimezone,
     mode: options.mode,
-    startedAt: new Date().toISOString(),
+    startedAt: timeContext.runAt,
     actionSchemaFile: path.resolve(options.actionSchemaFile),
     snapshotFile,
     manifestFile,
@@ -593,6 +676,10 @@ async function main() {
       if (!snapshotCheck.ok) throw new Error(snapshotCheck.reason);
       manifest.outputFiles.snapshotFile = result.outputFile;
       manifest.panelFetchMetrics = result.snapshot?.fetchMetrics || {};
+      manifest.overBudgetCapture = {
+        ...manifest.overBudgetCapture,
+        ...(result.snapshot?.dataAvailability?.overBudget || {}),
+      };
       return {
         outputs: { snapshotFile: result.outputFile },
         details: {
@@ -610,6 +697,29 @@ async function main() {
     const scopeAnalysis = analyzeAllowedOperationScope(snapshot);
     manifest.allowedOperationScope = scopeAnalysis.summary;
     const rowsByType = buildRowsByType(snapshot);
+
+    let dailyTaskPool = null;
+    await runStep('daily_task_pool', async () => {
+      const adjustments = [
+        ...readJson(path.join(ROOT, 'data', 'adjustments', `adjustments_${timeContext.businessDate}.json`), []),
+        ...readJson(path.join(ROOT, 'data', 'adjustment_history.json'), []),
+      ];
+      const pool = buildDailyTaskPool({ snapshot, timeContext, adjustments });
+      dailyTaskPool = pool;
+      pool.snapshotFile = snapshotFile;
+      const taskDir = path.join(ROOT, 'data', 'tasks');
+      const jsonFile = path.join(taskDir, `daily_tasks_${timeContext.businessDate}.json`);
+      const htmlFile = path.join(taskDir, `daily_tasks_${timeContext.businessDate}.html`);
+      writeJson(jsonFile, pool);
+      fs.writeFileSync(htmlFile, renderTaskPoolHtml(pool), 'utf8');
+      manifest.outputFiles.dailyTaskPoolJson = jsonFile;
+      manifest.outputFiles.dailyTaskPoolHtml = htmlFile;
+      manifest.dailyTaskPool = pool.summary;
+      return {
+        outputs: { dailyTaskPoolJson: jsonFile, dailyTaskPoolHtml: htmlFile },
+        details: pool.summary,
+      };
+    });
 
     await runStep('sku_ad_form_summary', async () => {
       const summaryScript = path.join(ROOT, 'scripts', 'reports', 'generate_sku_ad_form_summary.js');
@@ -676,11 +786,16 @@ async function main() {
         actionSchemaFile: path.resolve(options.actionSchemaFile),
         snapshotFile,
         dryRun: true,
+        timeContext,
+        sourceRunId: runId,
       });
       manifest.outputFiles.dryRunFile = result?.files?.dryRunFile || path.join(SNAPSHOTS_DIR, `execution_dry_run_${today}.json`);
+      const planForLog = readJson(result?.files?.planFile || path.join(SNAPSHOTS_DIR, `plan_${today}.json`), []);
+      const logResult = appendAdjustmentRecords(recordsFromPlan(planForLog, timeContext, { dryRun: true }), { timeContext });
+      manifest.outputFiles.dryRunAdjustmentLogFile = logResult.file;
       return {
-        outputs: result?.files || {},
-        details: result?.dryReport || {},
+        outputs: { ...(result?.files || {}), dryRunAdjustmentLogFile: logResult.file },
+        details: { ...(result?.dryReport || {}), adjustmentLogCount: logResult.count },
       };
     });
 
@@ -691,13 +806,22 @@ async function main() {
           actionSchemaFile: path.resolve(options.actionSchemaFile),
           snapshotFile,
           dryRun: false,
+          timeContext,
+          sourceRunId: runId,
         });
         Object.assign(manifest.outputFiles, result?.files || {});
+        const verify = readJson(result?.files?.verifyFile || '', {});
+        const executionLogResult = appendAdjustmentRecords(
+          recordsFromExecutionEvents([...(verify.events || []), ...(verify.nonExecutionEvents || [])], timeContext),
+          { timeContext }
+        );
+        manifest.outputFiles.executeAdjustmentLogFile = executionLogResult.file;
         return {
-          outputs: result?.files || {},
+          outputs: { ...(result?.files || {}), executeAdjustmentLogFile: executionLogResult.file },
           details: {
             report: result?.report || {},
             verificationBlocked: (result?.verificationBlocked || []).map(item => summarizeAction(item.action, item.sku)),
+            adjustmentLogCount: executionLogResult.count,
           },
         };
       });
@@ -708,6 +832,32 @@ async function main() {
         details: { reason: 'dry-run mode; execute step skipped' },
       }));
     }
+
+    await runStep('daily_learning', async () => {
+      const adjustmentLogFile = manifest.outputFiles.executeAdjustmentLogFile || manifest.outputFiles.dryRunAdjustmentLogFile || '';
+      const adjustmentRecords = readJson(adjustmentLogFile, []);
+      const result = persistDailyLearning({
+        timeContext,
+        snapshot,
+        snapshotFile,
+        taskPool: dailyTaskPool,
+        manifest,
+        adjustmentRecords,
+      });
+      manifest.outputFiles.dailyLearningJson = result.jsonFile;
+      manifest.outputFiles.dailyLearningMarkdown = result.mdFile;
+      manifest.dailyLearning = {
+        file: result.jsonFile,
+        baselineQuality: result.record.dataQuality.baselineQuality,
+        productCards: result.record.dataQuality.productCards,
+        plannedActions: result.record.decisions.plannedActions,
+        warnings: result.record.dataQuality.warnings,
+      };
+      return {
+        outputs: { dailyLearningJson: result.jsonFile, dailyLearningMarkdown: result.mdFile },
+        details: manifest.dailyLearning,
+      };
+    });
 
     await runStep('report', async () => {
       if (!options.execute) {
