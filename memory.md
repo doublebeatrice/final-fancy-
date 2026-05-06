@@ -33,7 +33,13 @@ This file keeps durable operating memory for future Codex sessions. Prefer this 
 - If a fresh export contains blank product-card inventory/YoY fields for a SKU, daily reporting may fill those fields from another same-day snapshot while keeping the latest advertising interface rows. This protects the critical "同"口径 from being overwritten by zero-filled rows.
 - The personal trend HTML folder is a long-term decision archive: `黄成喆个人数据趋势/每日 近七天 数据趋势/`.
 - Every daily run should update that folder with a fresh personal trend HTML after exporting the snapshot. Use it first to identify abnormal seller/developer lines, then use ad + inventory data to locate SKU-level action pools.
-- Daily learning rule: every operating day must read today's freshest snapshot/interface data before deciding, then persist the day's snapshot, plan, execution verification, and impact/learning records under `data/snapshots/` or `data/attribution/`. Do not reuse yesterday's data as the decision baseline unless today's fetch failed and the report clearly marks `baseline_quality=incomplete`.
+- Daily learning rule: every operating day must read today's freshest snapshot/interface data before deciding, then persist the day's snapshot, plan, execution verification, and impact/learning records under `data/snapshots/`, `data/attribution/`, and `data/learning/`. Do not reuse yesterday's data as the decision baseline unless today's fetch failed and the report clearly marks `baseline_quality=incomplete`.
+- Daily learning must be explicit and reusable. For every operating day, produce `data/learning/daily_learning_<businessDate>.json` and `.md` with: data freshness/baseline quality, source snapshot/manifest/schema/verify files, task pressure by signal, action mix by entity/action/direction, landing status, 1/3/7/14/30 day measurement windows, and carry-forward questions. Tomorrow's decision pass must read the latest learning file before generating actions.
+- Daily learning is for improving the operating system, not just reporting results. Use it to answer: which action types helped or hurt sales/profit/ACOS, which SKU groups need cooldown or repeat action, which signals created false positives, which data gaps blocked good decisions, whether seasonal preheat or budget lifts actually bought profitable orders, and whether spend cuts reduced waste without losing same-SKU sales.
+- Keyword/season profile lesson from 2026-05-06: if listing fields are missing, `createContext.keywordSeeds` are evidence for product profile and season matching. Godmother/godparent/Madrina terms are Mother's Day recipient signals. Do not let a stale cached profile such as nurse/fiesta override concrete godmother seeds.
+- Daily season gap guardrail: after the main task board, run `node scripts\generate_season_gap_audit.js data\snapshots\latest_snapshot.json <YYYY-MM-DD>`. Review `critical_stale_season` and `season_structure_stale_risk` even if they were suppressed by the capped daily board, so active preheat/peak inventory does not become stale.
+- Stagnant inventory economic rule: use `docs/STAGNANT_INVENTORY_RULES.md` before clearance or ad decisions on high-inventory seasonal SKUs. Compare short-term liquidation/removal/disposal outcome with long-term hold-to-next-season outcome after storage cost. High inventory days alone are not enough; use shipment mode, effective stagnant quantity after exemptions, next season window, storage cost, normal sale recovery, liquidation recovery, and replenishment/removal cost.
+- Seller-level stagnant inventory data is available from `/pm/formal/unsellable_new_seller/query` and `/pm/formal/unsellable_new_seller/change_chart_query`. Use `node scripts\execute\fetch_unsellable_seller.js HJ17,HJ171,HJ172` from the active sellerinventory browser session. The script defaults to the latest 90-day trend window (`start_date=today-90d`, blank `end_date`); pass explicit dates only for specific business periods. The script may persist returned summary/trend JSON, but never persist JWT, CSRF, Inventory-Token, or pasted fetch headers.
 
 ## Daily Watchlist
 
@@ -82,6 +88,8 @@ node scripts\diagnostics\watch_daily_sku_group.js data\snapshots\latest_snapshot
 - 2026-04-23 May window aggressive push: 60 actions, 57 landed, 3 DN2685 verification misses.
 - 2026-04-23 historical-order CPC+20 push for watchlist: 16 bid actions, 16 API successes, 16 landed, 5 inventory notes succeeded.
 - That CPC+20 run only changed bids. It did not open campaigns or ad groups because the realtime historical-order objects found were already enabled, and SP campaign/adGroup open actions are not yet safely wired end to end.
+- 2026-05-06 AE3311/AE1079 incident: wrong Q2-created keywords came from stale profile/existing-ad contamination. Creation now ignores existing ads for theme evidence, audit protects distinctive seed-supported terms, and three AE1079 godmother keywords were restored after a false-positive cleanup. Today's season gap audit found 56 active-season inventory risks, including 20 suppressed by the main task cap.
+- 2026-05-06 stagnant seller fetch verified: HJ17/HJ171/HJ172 summary returned 3 rows and trend returned 90 daily points from 2026-02-06 to 2026-05-06. Latest exposed total was 159,296.50 RMB after exemptions, down 71,582.93 from the 2026-04-28 peak.
 
 ## Current Capability Notes
 
@@ -104,5 +112,8 @@ node scripts\execute\generate_personal_trend_report.js data\snapshots\latest_sna
 ```
 
 6. Review sales, inventory, YoY, spend, orders, ACOS, and the personal trend abnormal pools before deciding.
-7. Dry-run any action schema before execution.
-8. After execution, verify landing and write inventory notes.
+7. Run the season gap audit and review high-inventory active-season SKUs before closing the day.
+8. Fetch seller-level stagnant inventory summary/trend and compare exposed stagnant amount against recent peaks.
+9. Apply `docs/STAGNANT_INVENTORY_RULES.md` to high-inventory seasonal SKUs before deciding clear, hold, partial hold, discount, or ad spend.
+10. Dry-run any action schema before execution.
+11. After execution, verify landing and write inventory notes.

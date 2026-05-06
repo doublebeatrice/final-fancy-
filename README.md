@@ -40,6 +40,49 @@ Daily ad decisions must start from the user's eligible SKU pool, not from all ex
 - Site must be US or UK only.
 - Do not create campaigns, increase bids, pause keywords, or run broad cleanup outside this pool unless the user explicitly names that SKU/group.
 
+## Keyword Creation Safety
+
+New SP keyword campaign creation must isolate product theme before any execution:
+
+- Use `createContext.keywordSeeds`, listing title/bullets, and verified product profile as the source of keyword truth.
+- Do not use existing campaign names, ad-group names, or existing keyword text as creation-theme evidence. Existing ads may already contain bad terms and can contaminate new campaigns.
+- If keyword seeds/listing text conflict with a low-confidence or stale product profile, prefer seeds/listing or emit review. Do not let stale profile tags override concrete product terms.
+- Block naked seasonal generics unless directly supported by exact seed or listing text. Examples: `dad gifts`, `fathers day gifts`, `fiesta party supplies`, `mexican party favors`, `cinco de mayo decorations`.
+- After create workflows, run the audit before declaring completion:
+
+```powershell
+node scripts\execute\audit_created_campaign_keywords.js data\snapshots\latest_snapshot.json data\snapshots\created_keyword_cleanup_schema.json data\snapshots\created_keyword_audit_report.json <YYYY-MM-DD>
+```
+
+For the 2026-05-06 AE3311 incident, `createContext.keywordSeeds` correctly described a godmother/Mother's Day product, while a stale profile and previously created ad keywords exposed nurse/fiesta/father themes. The fix is covered by `tests\generator_listing_signals.test.js` and `scripts\generators\generate_profit_create_schema.js`.
+
+For the 2026-05-06 AE1079 miss, the stale cached profile said nurse/fiesta while `createContext.keywordSeeds` said godmother/Mother's Day. Product profiling, season matching, created-keyword audit, and task prioritization now use seed evidence when listing evidence is missing. `godmother`, `god mother`, `godparent`, and `madrina` are treated as Mother's Day recipient signals.
+
+## Season Gap Audit
+
+The daily task board is capped, so active seasonal SKUs can be hidden behind higher-priority work. After a fresh snapshot, run the independent season gap audit to catch preheat/peak SKUs with stale-inventory or structure risk:
+
+```powershell
+node scripts\generate_season_gap_audit.js data\snapshots\latest_snapshot.json <YYYY-MM-DD>
+```
+
+Outputs:
+
+- `data\tasks\season_gap_audit_<YYYY-MM-DD>.json`
+- `data\tasks\season_gap_audit_<YYYY-MM-DD>.md`
+
+Review `critical_stale_season` and `season_structure_stale_risk` before closing the day's operations. These rows are not automatically executable; they are a guardrail against missing seasonal sell-through opportunities and letting inventory become stale.
+
+The stagnant-inventory economic rules are internalized in `docs\STAGNANT_INVENTORY_RULES.md`. Use that document before deciding whether to keep, partially keep, clear, discount, remove, or continue advertising a high-inventory seasonal SKU. The key comparison is short-term liquidation/removal profit versus long-term hold-to-next-season profit after storage cost.
+
+Fetch seller stagnant-inventory summary and trend from the logged-in inventory browser session:
+
+```powershell
+node scripts\execute\fetch_unsellable_seller.js HJ17,HJ171,HJ172
+```
+
+This calls `/pm/formal/unsellable_new_seller/query` for the current seller summary and `/pm/formal/unsellable_new_seller/change_chart_query` for the trend chart. By default it automatically uses the latest 90-day window (`start_date = today - 90 days`, `end_date` blank). Pass an explicit start date only when the business question needs a specific period. It must read session credentials dynamically from the active browser page and must not persist JWT, CSRF, or Inventory-Token values.
+
 ## Quick Start For A New Codex Session
 
 Prerequisites:

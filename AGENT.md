@@ -12,6 +12,7 @@ Before running or changing the workflow, read:
 4. `docs/CODEX_AI_BOUNDARY.md`
 5. `docs/Q2_AD_OPS_PLAYBOOK.md`
 6. `docs/CODEX_MINIMAL_CLOSED_LOOP.md`
+7. `docs/STAGNANT_INVENTORY_RULES.md`
 
 ## Architecture Boundary
 
@@ -39,6 +40,26 @@ Do not add an OpenAI-compatible provider or AI runtime inside the panel. Do not 
 - Helper generators may emit `actionSource: ["generator_candidate"]` only. The validator must keep those actions review-only unless Codex rewrites them as an explicit Codex action schema.
 - All failures must be structured.
 - High-risk actions remain review-only unless explicitly released.
+- New campaign keyword creation must pass product-theme isolation before dry-run. Do not use existing campaign/ad-group/keyword text as theme evidence for creating new keywords, because old or wrong ads can contaminate the next creation pass.
+- When `createContext.keywordSeeds` or listing text conflicts with a low-confidence/stale `productProfile`, prefer seed/listing evidence and send the SKU to review if the conflict cannot be resolved. Never let a stale profile such as `nurse/fiesta` override seed terms for a `godmother` product.
+- Do not create naked seasonal generic keywords unless the product itself explicitly supports that exact theme through listing text or exact keyword seed. Examples that must be blocked without direct support: `dad gifts`, `fathers day gifts`, `fiesta party supplies`, `mexican party favors`, `cinco de mayo decorations`, `teacher appreciation gifts`, and similar broad occasion terms.
+- Godmother/godparent/Madrina terms are Mother's Day recipient signals. If listing data is missing but `createContext.keywordSeeds` contains those terms, use the seeds to repair the product profile and season match before task prioritization.
+- Active season windows must not rely only on the capped daily main board. After a fresh snapshot, run the season gap audit to catch high-inventory or low-sales SKUs that are in preheat/peak but could be suppressed by the main-task limit:
+
+```powershell
+node scripts\generate_season_gap_audit.js data\snapshots\latest_snapshot.json <YYYY-MM-DD>
+```
+
+Review `critical_stale_season` and `season_structure_stale_risk` first; these are the SKUs most likely to become stale inventory if the seasonal window passes without a sell-through or low-budget structure plan.
+- Stagnant-inventory decisions must use `docs/STAGNANT_INVENTORY_RULES.md`: compare short-term liquidation/removal economics with long-term hold-to-next-season economics before deciding ad spend, discounting, or clearance.
+- Seller-level stagnant-inventory summary/trend can be fetched through the active inventory browser session with `node scripts\execute\fetch_unsellable_seller.js HJ17,HJ171,HJ172`. The script defaults to the latest 90-day trend window; only pass a date when the user asks for a specific period. Never store JWT, CSRF, Inventory-Token, or pasted fetch headers.
+- After any create workflow, run created-keyword audit before considering the work done:
+
+```powershell
+node scripts\execute\audit_created_campaign_keywords.js data\snapshots\latest_snapshot.json data\snapshots\created_keyword_cleanup_schema.json data\snapshots\created_keyword_audit_report.json <YYYY-MM-DD>
+```
+
+If the audit finds wrong enabled terms, rewrite the cleanup schema as explicit Codex bugfix cleanup, dry-run, execute, verify landing, and record the learning.
 
 ## Current Auto-Executable Scope
 

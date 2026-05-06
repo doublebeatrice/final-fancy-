@@ -1,0 +1,117 @@
+{
+  "businessDate": "2026-05-05",
+  "dataDate": "2026-05-04",
+  "siteTimezone": "America/Los_Angeles",
+  "generatedAt": "2026-05-05T08:59:00Z",
+  "purpose": "Daily persisted basis for tomorrow's sales, product, advertising, inventory, task, and execution comparison.",
+  "coreSales": {
+    "status": "persisted",
+    "source": "/pm/sale/getBySeller",
+    "file": "data/core_sales/core_sales_2026-05-05.json",
+    "rowCount": 181,
+    "headlineMetrics": {
+      "orderSales": 632298.82,
+      "saleNum": 4389,
+      "netProfit": 0.1773,
+      "grossProfit": 0.3307,
+      "acos": 0.1853,
+      "adCostShare": 0.1052,
+      "adSpend": 66506.8607734694,
+      "roas": 5.3959,
+      "sp": 0.3181,
+      "at": 0.4523,
+      "refundPercent": 0.0324,
+      "qtyYoyOver1Year": -0.2168
+    }
+  },
+  "productAndAdSnapshots": {
+    "primarySnapshot": {
+      "file": "data/snapshots/over_budget_module_test_variant_2026-05-05.json",
+      "productCards": 1256,
+      "overBudgetRows": 7882,
+      "sellerSalesRows": 181,
+      "overBudgetStatus": "complete"
+    },
+    "todayOpsSnapshot": {
+      "file": "data/snapshots/runs/today_ops_2026-05-05T07-54-07-910Z/snapshot_2026-05-05.json",
+      "productCards": 1248,
+      "allowedOperatingSkus": 584,
+      "sellerSalesRows": 181
+    },
+    "skuSummary": {
+      "file": "data/snapshots/sku_ad_form_summary_2026-05-05.json"
+    }
+  },
+  "taskOutputs": {
+    "fullTasksJson": "data/tasks/daily_tasks_2026-05-05.json",
+    "fullTasksHtml": "data/tasks/daily_tasks_2026-05-05.html",
+    "taskBoardJson": "data/tasks/daily_task_board_2026-05-05.json",
+    "taskBoardHtml": "data/tasks/daily_task_board_2026-05-05.html",
+    "taskBoardItems": 1248
+  },
+  "executedActionSchemas": [
+    {
+      "name": "profit_protection",
+      "file": "data/snapshots/today_profit_protection_only_schema_2026-05-05.json",
+      "plans": 62,
+      "skus": 62,
+      "actions": 74,
+      "actionBreakdown": {
+        "bid:autoTarget": 20,
+        "bid:keyword": 32,
+        "pause:productAd": 9,
+        "bid:manualTarget": 8,
+        "bid:sbKeyword": 5
+      }
+    },
+    {
+      "name": "over_budget_controlled_scale",
+      "file": "data/snapshots/today_over_budget_controlled_clean_schema_2026-05-05.json",
+      "plans": 56,
+      "skus": 40,
+      "actions": 56,
+      "actionBreakdown": {
+        "budget:campaign": 56
+      }
+    },
+    {
+      "name": "over_budget_bad_conversion_control",
+      "file": "data/snapshots/today_over_budget_bad_conversion_schema_2026-05-05.json",
+      "plans": 90,
+      "skus": 74,
+      "actions": 90,
+      "actionBreakdown": {
+        "pause:productAd": 31,
+        "budget:campaign": 59
+      },
+      "profitTradeoffBreakdown": {
+        "no_conversion_waste": 22,
+        "long_term_clearance_candidate": 9,
+        "short_term_loss_control": 38,
+        "controlled_efficiency_trim": 8,
+        "trial_traffic_reduce": 13
+      },
+      "longTermSellThroughHoldRows": 168
+    }
+  ],
+  "executionArtifacts": {
+    "latestExecutionSummary": "data/snapshots/execution_summary_2026-05-05.json",
+    "latestExecutionVerify": "data/snapshots/execution_verify_2026-05-05.json",
+    "latestExecutionCoverage": "data/snapshots/execution_coverage_2026-05-05.json",
+    "autoRunLog": "data/snapshots/auto_run_2026-05-05.log",
+    "adjustmentHistory": "data/adjustment_history.json",
+    "todayAdjustmentLogRows": 220,
+    "latestClosedLoopReport": "archive/reports/2026-05-05/closed_loop_report_latest.html"
+  },
+  "tomorrowComparisonUse": {
+    "salesCoreBaseline": "Compare tomorrow's /pm/sale/getBySeller metrics against coreSales.headlineMetrics.",
+    "productAdBaseline": "Use primarySnapshot for productCards, ad entities, inventory fields, overBudgetRows, and sellerSalesRows.",
+    "executionBaseline": "Use executedActionSchemas plus adjustmentHistory to attribute tomorrow/3-day/7-day changes by action type and profitTradeoff category.",
+    "taskBaseline": "Use taskBoardJson and fullTasksJson to compare candidate pressure and board compression changes."
+  },
+  "knownLimitations": [
+    "latestExecutionSummary is overwritten by the most recent execution batch; use executedActionSchemas and adjustmentHistory for full-day action coverage.",
+    "Today executed future-season preheat workflow was not completed; future season opportunities need a separate dry-run and execute cycle.",
+    "Sales impact cannot be judged until a later dataDate includes post-adjustment performance."
+  ]
+}
