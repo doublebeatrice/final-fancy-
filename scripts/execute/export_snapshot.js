@@ -131,10 +131,41 @@ async function exportSnapshot(input = '') {
 
   const listingCacheFile = options.listingCacheFile || process.env.LISTING_CACHE_FILE || DEFAULT_LISTING_CACHE_FILE;
   const listingCache = readJsonFile(listingCacheFile, { entries: {} });
-  const fetchOptions = options.fetchOptions || {};
+  const fetchOptions = { ...(options.fetchOptions || {}) };
+  if (fetchOptions.skipListing) {
+    fetchOptions.listingStrategy = 'none';
+    fetchOptions.listingLimit = 0;
+    fetchOptions.listingSkus = [];
+  }
 
   await evalInPanel(`globalThis.__AD_OPS_FETCH_OPTIONS = ${JSON.stringify(fetchOptions)}; true`, false);
   await evalInPanel(`globalThis.__AD_OPS_LISTING_CACHE = ${JSON.stringify(listingCache)}; true`, false);
+  if (fetchOptions.skipListing) {
+    await evalInPanel(`
+      try {
+        selectListingFetchTasks = function(cards) {
+          STATE.listingFetchMeta = {
+            attempted: 0,
+            success: 0,
+            failed: 0,
+            skipped: 0,
+            cacheHit: 0,
+            cacheMiss: 0,
+            cacheExpired: 0,
+            fetched: 0,
+            maxListings: 0,
+            listingStrategy: 'none',
+            skippedByLimitOrMarket: (cards || []).filter(card => card.asin).length,
+            reason: 'skipListing'
+          };
+          return [];
+        };
+        true;
+      } catch (error) {
+        String(error && error.message || error);
+      }
+    `, false);
+  }
   await evalInPanel('fetchAllData(globalThis.__AD_OPS_FETCH_OPTIONS).then(()=>true)', true);
 
   const overBudgetRows = parseJson(await evalInPanel('JSON.stringify(STATE.overBudgetRows || [])'), []);

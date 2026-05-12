@@ -49,22 +49,22 @@ const executeBtn = $('executeBtn');
 function enableCodexOnlyBoundary() {
   if (exportBtn) {
     exportBtn.disabled = true;
-    exportBtn.title = 'AI 决策主流程已迁移到 Codex';
-    exportBtn.textContent = '已迁移到 Codex';
+    exportBtn.title = 'AI 决策主流程已迁移到 CLI（Codex/Claude）';
+    exportBtn.textContent = '已迁移到 CLI';
   }
   if (importBtn) {
     importBtn.disabled = true;
-    importBtn.title = 'AI 决策主流程已迁移到 Codex';
-    importBtn.textContent = '已迁移到 Codex';
+    importBtn.title = 'AI 决策主流程已迁移到 CLI（Codex/Claude）';
+    importBtn.textContent = '已迁移到 CLI';
   }
   if (executeBtn) {
     executeBtn.disabled = true;
-    executeBtn.title = '自动执行主流程已迁移到 Codex';
-    executeBtn.textContent = '由 Codex 执行';
+    executeBtn.title = '自动执行主流程已迁移到 CLI（Codex/Claude）';
+    executeBtn.textContent = '由 CLI 执行';
   }
   const hint = document.querySelector('.import-hint');
   if (hint) {
-    hint.innerHTML = 'AI 决策主流程已迁移到 <b>Codex</b>。<br>当前面板只负责抓数、展示、执行桥接和必要的人工确认入口。';
+    hint.innerHTML = 'AI 决策主流程已迁移到 <b>Codex 或 Claude CLI</b>。<br>当前面板只负责抓数、展示、执行桥接和必要的人工确认入口。';
   }
 }
 
@@ -134,12 +134,14 @@ function createStageRecorder(mode = 'full-snapshot') {
 
 function normalizeFetchOptions(rawOptions = {}) {
   const mode = String(rawOptions.mode || 'full-snapshot');
+  const skipListing = rawOptions.skipListing === true || rawOptions.listingStrategy === 'none';
   const listingSkus = Array.isArray(rawOptions.listingSkus) ? [...new Set(rawOptions.listingSkus.map(item => String(item || '').trim()).filter(Boolean))] : [];
   const chartSkus = Array.isArray(rawOptions.chartSkus) ? [...new Set(rawOptions.chartSkus.map(item => String(item || '').trim()).filter(Boolean))] : listingSkus;
   const salesHistorySkus = Array.isArray(rawOptions.salesHistorySkus) ? [...new Set(rawOptions.salesHistorySkus.map(item => String(item || '').trim()).filter(Boolean))] : listingSkus;
   return {
     mode,
-    listingStrategy: rawOptions.listingStrategy || (mode === 'fast' ? 'schema' : 'all'),
+    skipListing,
+    listingStrategy: skipListing ? 'none' : (rawOptions.listingStrategy || (mode === 'fast' ? 'schema' : 'all')),
     listingSkus,
     chartStrategy: rawOptions.chartStrategy || (mode === 'fast' ? 'schema' : 'none'),
     chartSkus,
@@ -1146,6 +1148,24 @@ function getListingCacheStore() {
 }
 
 function selectListingFetchTasks(cards = [], options = {}) {
+  if (options.skipListing || options.listingStrategy === 'none') {
+    STATE.listingFetchMeta = {
+      ...(STATE.listingFetchMeta || {}),
+      attempted: 0,
+      success: 0,
+      failed: 0,
+      skipped: 0,
+      cacheHit: 0,
+      cacheMiss: 0,
+      cacheExpired: 0,
+      fetched: 0,
+      maxListings: 0,
+      listingStrategy: 'none',
+      skippedByLimitOrMarket: (cards || []).filter(card => card.asin).length,
+      reason: 'skipListing',
+    };
+    return [];
+  }
   const listingSkus = new Set((options.listingSkus || []).map(item => String(item || '').trim().toUpperCase()).filter(Boolean));
   const fastSchemaOnly = options.listingStrategy === 'schema' && listingSkus.size > 0;
   const maxListings = Number(options.listingLimit || localStorage.getItem('AD_OPS_LISTING_FETCH_LIMIT') || 120);
@@ -2830,6 +2850,13 @@ function buildOperationalNoteFields(entry) {
   const sourceText = [...new Set(sources.filter(Boolean))].join('+');
   const isSevenDay = sourceText.includes('7day');
   const isConflict = finalStatus === 'conflict' || /系统已自动调整|禁止手动调整/.test(resultReason);
+  const approvedByRaw = String(action.approvedBy || entry.approvedBy || '').toLowerCase().trim();
+  const approverFromSource = sources.map(s => String(s || '').toLowerCase()).find(s => s === 'codex' || s === 'claude' || s === 'manual') || '';
+  const approver = approvedByRaw || approverFromSource;
+  const approverLabel = approver === 'claude' ? '[由 Claude 决策]'
+    : approver === 'codex' ? '[由 Codex 决策]'
+    : approver === 'manual' ? '[人工决策]'
+    : '';
 
   let stage = plan.stage || plan.health || '平时期';
   if (!stage || stage === 'unknown') stage = '平时期';
@@ -2859,16 +2886,16 @@ function buildOperationalNoteFields(entry) {
   let remark = '执行结果：成功，已回查确认竞价落地';
   if (finalStatus !== 'success') {
     if (finalStatus === 'blocked_by_system_recent_adjust') {
-      return { stage, currentProblem, coreJudgement, actionText, purpose, observe, remark: '执行结果：系统近期已自动调整，本轮标记阻塞并移出待执行池，未反复重试', sourceText };
+      return { stage, currentProblem, coreJudgement, actionText, purpose, observe, remark: '执行结果：系统近期已自动调整，本轮标记阻塞并移出待执行池，未反复重试', sourceText, approverLabel };
     }
     if (finalStatus === 'manual_review') {
-      return { stage, currentProblem: '7天未调整对象需要人工复核', coreJudgement: reason || coreJudgement, actionText: '人工复核', purpose: '避免高风险自动大调', observe, remark: `执行结果：进入人工复核；${reason || resultReason || '7天未调整但风险较高'}`, sourceText };
+      return { stage, currentProblem: '7天未调整对象需要人工复核', coreJudgement: reason || coreJudgement, actionText: '人工复核', purpose: '避免高风险自动大调', observe, remark: `执行结果：进入人工复核；${reason || resultReason || '7天未调整但风险较高'}`, sourceText, approverLabel };
     }
     if (finalStatus === 'skipped_invalid_state') {
-      return { stage, currentProblem: '对象状态不可执行', coreJudgement: reason || coreJudgement, actionText: '跳过', purpose: '避免误执行暂停或无效对象', observe, remark: `执行结果：跳过；${reason || resultReason || '对象状态不可执行'}`, sourceText };
+      return { stage, currentProblem: '对象状态不可执行', coreJudgement: reason || coreJudgement, actionText: '跳过', purpose: '避免误执行暂停或无效对象', observe, remark: `执行结果：跳过；${reason || resultReason || '对象状态不可执行'}`, sourceText, approverLabel };
     }
     if (finalStatus === 'created_pending_visibility') {
-      return { stage, currentProblem, coreJudgement, actionText, purpose, observe, remark: `执行结果：后台已返回新建广告ID，当前列表快照暂未回显；${resultReason || '等待广告系统同步后继续回查'}`, sourceText };
+      return { stage, currentProblem, coreJudgement, actionText, purpose, observe, remark: `执行结果：后台已返回新建广告ID，当前列表快照暂未回显；${resultReason || '等待广告系统同步后继续回查'}`, sourceText, approverLabel };
     }
     if (isConflict) remark = '执行结果：冲突/被系统拦截，后台提示近期系统已自动调整该广告，禁止手动调整';
     else if (finalStatus === 'not_landed') remark = `执行结果：接口成功但回查未生效；${resultReason || '未确认真实落地'}`;
@@ -2879,19 +2906,22 @@ function buildOperationalNoteFields(entry) {
     currentProblem = currentProblem || '7天未调整对象需要触达清理';
     coreJudgement = `7天未调整命中，${reason || coreJudgement}`;
   }
-  return { stage, currentProblem, coreJudgement, actionText, purpose, observe, remark, sourceText };
+  return { stage, currentProblem, coreJudgement, actionText, purpose, observe, remark, sourceText, approverLabel };
 }
 
 function buildInventoryOperationNote(entry) {
   const action = entry?.action || {};
+  const fields = buildOperationalNoteFields(entry || {});
+  const approverLabel = fields.approverLabel || '';
   const { direction } = actionDirectionText(action, entry || {});
   const result = noteResultSentence(entry || {});
   const actionText = noteActionSentence(action, entry || {});
   const reason = noteReasonParagraph(action, entry || {}, direction);
   const observe = noteObserveSentence(action, entry || {}, direction);
+  const timeHeader = `【${formatInventoryNoteMinute()}】${approverLabel ? ' ' + approverLabel : ''}`;
   if (entry?.finalStatus === 'manual_review') {
     return [
-      `【${formatInventoryNoteMinute()}】`,
+      timeHeader,
       `${actionText}`,
       `${reason}`,
       `${result}`,
@@ -2899,7 +2929,7 @@ function buildInventoryOperationNote(entry) {
     ].filter(Boolean).join('\n');
   }
   return [
-    `【${formatInventoryNoteMinute()}】`,
+    timeHeader,
     `${actionText}${result ? ` ${result}` : ''}`,
     reason,
     observe,
@@ -4002,6 +4032,54 @@ function buildInvMap(rows) {
         if (STATE.activeSeasonalIds.size > 0) return STATE.activeSeasonalIds.has(st);
         return true;
       })(),
+      productLabels: {
+        // 变体身份（已用 TUR 三兄弟实测确认 is_variation=1 对应页面绿色"变"标签）
+        is_variation:             r.is_variation ?? null,
+        is_comb_variant:          r.is_comb_variant ?? null,
+        is_variation_check:       r.is_variation_check ?? null,
+        is_illegal_variant:       r.is_illegal_variant ?? null,
+        parent_asin:              r.parent_asin ?? null,
+        // 承接款（"原 SKU 信息"按钮对应字段，空串=非承接款）
+        low_cost_origin_sku:      r.low_cost_origin_sku ?? null,
+        low_cost_id:              r.low_cost_id ?? null,
+        new_raw_sku:              r.new_raw_sku ?? null,
+        change_way:               r.change_way ?? null,
+        // 跟卖
+        is_follow_flag:           r.is_follow_flag ?? null,
+        is_selling_hijack:        r.is_selling_hijack ?? null,
+        // 老品 / 新品分析
+        is_old_product_analysis:  r.is_old_product_analysis ?? null,
+        is_year_product:          r.is_year_product ?? null,
+        // 产品分类
+        product_type:             r.product_type ?? null,
+        product_label:            r.product_label ?? null,
+        // 节日 / 时段
+        holiday_info:             r.holiday_info ?? null,
+        // 自定义 / 组合
+        is_custom_product:        r.is_custom_product ?? null,
+        is_join_package:          r.is_join_package ?? null,
+        is_package_level_product: r.is_package_level_product ?? null,
+        // 其他状态标签
+        is_oversea_flag:          r.is_oversea_flag ?? null,
+        is_brand_logo:            r.is_brand_logo ?? null,
+        is_compliant:             r.is_compliant ?? null,
+        is_evidence:              r.is_evidence ?? null,
+        is_expired:               r.is_expired ?? null,
+        is_fba_no_sale:           r.is_fba_no_sale ?? null,
+        is_high_return_rate:      r.is_high_return_rate ?? null,
+        is_inbound_no_sale:       r.is_inbound_no_sale ?? null,
+        is_large_product:         r.is_large_product ?? null,
+        is_presell:               r.is_presell ?? null,
+        is_sensitive:             r.is_sensitive ?? null,
+        // 历史日期与排名
+        origin_fuldate:           r.origin_fuldate ?? null,
+        current_rank:             r.current_rank ?? null,
+        month_over_month_asin_rate: r.month_over_month_asin_rate ?? null,
+        // 店铺归属（不是产品身份，但 AI 跨店铺判断时有用）
+        account_num:              r.account_num ?? null,
+        amazon_account:           r.amazon_account ?? null,
+      },
+      productLabelsRawKeys: Object.keys(r).filter(k => /^is_|^has_|label|tag|parent|child|main|variation|variant|grafting|follow|change|year_product|new_product|origin|holiday/i.test(k)),
     };
   }
   return map;
@@ -4221,6 +4299,8 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
           threeWeeksAgo: inv.percentage_21 || 0,
         },
         personalSales: sellerSalesMap[sku] || null,
+        productLabels: inv.productLabels || null,
+        productLabelsRawKeys: inv.productLabelsRawKeys || [],
         campaigns: {},
       };
     }

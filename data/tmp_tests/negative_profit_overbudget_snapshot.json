@@ -1,0 +1,63 @@
+{
+  "overBudgetRows": [
+    {
+      "__overBudgetSource": "SP",
+      "sku": "SIJ2012",
+      "asin": "B0CHDSG76N",
+      "campaignId": "510905342436109",
+      "adGroupId": "436163515542228",
+      "campaignName": "kw_food storage box_sij2012",
+      "groupName": "kw_food storage box_sij2012",
+      "state": 1,
+      "campaignState": 1,
+      "groupState": 1,
+      "dailyBudget": "2.00",
+      "Spend": "21.52",
+      "Sales": "109.98",
+      "Orders": "2",
+      "Clicks": "34"
+    }
+  ],
+  "productCards": [
+    {
+      "sku": "SIJ2012",
+      "asin": "B0CHDSG76N",
+      "price": 54.99,
+      "profitRate": -0.2979,
+      "netProfit": 0.1548,
+      "busyNetProfit": 0.1142,
+      "sellableDays_30d": 47,
+      "unitsSold_7d": 8,
+      "unitsSold_30d": 22,
+      "campaigns": [
+        {
+          "campaignId": "510905342436109",
+          "adGroupId": "436163515542228",
+          "campaignState": 1,
+          "groupState": 1,
+          "keywords": [
+            {
+              "id": "423520514605853",
+              "text": "fish tubs",
+              "bid": 0.7,
+              "state": 1,
+              "stats7d": {
+                "spend": 12.55,
+                "orders": 2,
+                "clicks": 17,
+                "impressions": 2812
+              },
+              "stats30d": {
+                "spend": 19.47,
+                "orders": 2,
+                "clicks": 29,
+                "impressions": 5750
+              }
+            }
+          ],
+          "autoTargets": []
+        }
+      ]
+    }
+  ]
+}

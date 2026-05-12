@@ -42,9 +42,27 @@ function inferBeforeAfter(action = {}) {
   return [action.beforeValue, action.afterValue];
 }
 
+function normalizeExpectation(action = {}, input = {}) {
+  const hypothesis = input.hypothesis || action.hypothesis || action.learning?.hypothesis || '';
+  const expectedEffect = input.expectedEffect || action.expectedEffect || action.learning?.expectedEffect || null;
+  const reviewPlan = input.reviewPlan || action.reviewPlan || action.learning?.reviewPlan || null;
+  if (!hypothesis && !expectedEffect && !reviewPlan) return null;
+  return {
+    hypothesis: String(hypothesis || '').trim(),
+    expectedEffect: expectedEffect && typeof expectedEffect === 'object' ? expectedEffect : {},
+    reviewPlan: reviewPlan && typeof reviewPlan === 'object' ? reviewPlan : {},
+  };
+}
+
 function normalizeAdjustmentRecord(input = {}, timeContext = {}) {
   const action = input.action || input;
   const [beforeValue, afterValue] = inferBeforeAfter(action);
+  const meta = input.meta || {};
+  const expectation = normalizeExpectation(action, input);
+  const rawActionSource = input.actionSource !== undefined ? input.actionSource : action.actionSource;
+  const actionSource = Array.isArray(rawActionSource)
+    ? rawActionSource.map(item => String(item || '').trim()).filter(Boolean)
+    : (rawActionSource ? [String(rawActionSource).trim()].filter(Boolean) : []);
   return {
     sku: String(input.sku || action.sku || '').trim(),
     asin: String(input.asin || action.asin || action.createInput?.asin || '').trim(),
@@ -65,7 +83,9 @@ function normalizeAdjustmentRecord(input = {}, timeContext = {}) {
     direction: input.direction || action.direction || '',
     outcome: input.outcome || input.finalStatus || input.apiStatus || action.outcome || '',
     dryRun: input.dryRun === true,
-    meta: input.meta || {},
+    approvedBy: String(input.approvedBy || action.approvedBy || '').trim(),
+    actionSource,
+    meta: expectation ? { ...meta, expectation } : meta,
   };
 }
 

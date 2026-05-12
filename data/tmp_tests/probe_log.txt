@@ -1,0 +1,49 @@
+[1/4] 注入 buildInvMap 热补丁...
+   patched
+[2/4] 调 fetchAllInventory()，可能会耗时 30-90 秒...
+   {"ok":true,"rowCount":4,"invCount":3}
+[3/4] 读取目标 SKU 的 productLabels + 完整 raw row...
+
+========== productLabels 已识别字段 ==========
+--- TUR5292 ---
+  asin=B0GFV4TN5L  opendate=2026-01-08
+    is_illegal_variant = 0
+    tiktok_tag = 0
+    special_type = 0
+    is_year_product = 2
+    product_type = "组合产品"
+    parent_asin = "B0GVTBZNPB"
+--- TUR8821 ---
+  asin=B0GVT9WTG2  opendate=2026-04-02
+    is_illegal_variant = 0
+    tiktok_tag = 0
+    special_type = 0
+    is_year_product = 2
+    product_type = "组合产品"
+    parent_asin = "B0GVTBZNPB"
+--- TUR9541 ---
+  asin=B0GYRW7MG5  opendate=2026-04-28
+    is_illegal_variant = 0
+    tiktok_tag = 0
+    special_type = 0
+    is_year_product = 2
+    product_type = "组合产品"
+    parent_asin = "B0GVTBZNPB"
+--- STY2760 ---
+  not in invMap
+--- STY2115 ---
+  not in invMap
+--- STY6101 ---
+  not in invMap
+--- KZ6722 ---
+  not in invMap
+--- QUN5204 ---
+  not in invMap
+--- SHQ3950 ---
+  not in invMap
+
+========== productLabelsRawKeys (从 raw row 自动提取的疑似标签字段) ==========
+  TUR5292: ["backstage_status","change_way","has_joined_plan","idTag","input_tag","is_apply_join_sipp","is_brand_logo","is_comb_variant","is_compliant","is_coupon","is_discount","is_evidence","is_expired","is_fba_access","is_fba_no_sale","is_follow_flag","is_high_return_rate","is_illegal_variant","is_inbound_no_sale","is_investigate","is_join_package","is_joined_plan","is_large_product","is_old_product_analysis","is_oversea_flag","is_overtime","is_presell","is_price_apply","is_registered_sipp","is_risk_troubleshooting","is_satisfy_transparency","is_selling_hijack","is_sensitive","is_upload_img","is_variation","is_variation_check","is_year_product","maintain_level","parent_asin","percentage_14","percentage_21","percentage_7","product_label","purchase_change_amount_moq","purchase_change_amount_multiple","purchase_change_amount_step_price","tiktok_tag"]
+  TUR8821: ["backstage_status","change_way","has_joined_plan","idTag","input_tag","is_apply_join_sipp","is_brand_logo","is_comb_variant","is_compliant","is_coupon","is_discount","is_evidence","is_expired","is_fba_access","is_fba_no_sale","is_follow_flag","is_high_return_rate","is_illegal_variant","is_inbound_no_sale","is_investigate","is_join_package","is_joined_plan","is_large_product","is_old_product_analysis","is_oversea_flag","is_overtime","is_presell","is_price_apply","is_registered_sipp","is_risk_troubleshooting","is_satisfy_transparency","is_selling_hijack","is_sensitive","is_upload_img","is_variation","is_variation_check","is_year_product","maintain_level","parent_asin","percentage_14","percentage_21","percentage_7","product_label","purchase_change_amount_moq","purchase_change_amount_multiple","purchase_change_amount_step_price","tiktok_tag"]
+  TUR9541: ["backstage_status","change_way","has_joined_plan","idTag","input_tag","is_apply_join_sipp","is_brand_logo","is_comb_variant","is_compliant","is_coupon","is_discount","is_evidence","is_expired","is_fba_access","is_fba_no_sale","is_follow_flag","is_high_return_rate","is_illegal_variant","is_inbound_no_sale","is_investigate","is_join_package","is_joined_plan","is_large_product","is_old_product_analysis","is_oversea_flag","is_overtime","is_presell","is_price_apply","is_registered_sipp","is_risk_troubleshooting","is_satisfy_transparency","is_selling_hijack","is_sensitive","is_upload_img","is_variation","is_variation_check","is_year_product","maintain_level","parent_asin","percentage_14","percentage_21","percentage_7","product_label","purchase_change_amount_moq","purchase_change_amount_multiple","purchase_change_amount_step_price","tiktok_tag"]
+[4/4] 完整 raw row 写入 data/tmp_tests/probe_result.json

@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-08T02:34:18.295Z",
+  "time": {
+    "runAt": "2026-05-08T02:28:51.244Z",
+    "businessDate": "2026-05-07",
+    "dataDate": "2026-05-06",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "today_ops_2026-05-08T02-28-51-244Z"
+  },
+  "sources": {
+    "snapshotFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-05-08T02-28-51-244Z\\snapshot_2026-05-08.json",
+    "taskPoolFile": "D:\\ad-ops-workbench\\data\\tasks\\daily_tasks_2026-05-07.json",
+    "actionSchemaFile": "D:\\ad-ops-workbench\\data\\snapshots\\q2_full_test_action_schema.json",
+    "dryRunFile": "D:\\ad-ops-workbench\\data\\snapshots\\execution_dry_run_2026-05-08.json",
+    "verifyFile": "",
+    "adjustmentLogFile": "",
+    "manifestFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-05-08T02-28-51-244Z\\manifest.json"
+  },
+  "dataQuality": {
+    "baselineQuality": "complete",
+    "productCards": 1263,
+    "allowedScopeSkuCount": 587,
+    "dataMissing": 0,
+    "overBudgetStatus": "complete",
+    "warnings": [
+      "execution_skipped"
+    ]
+  },
+  "observedPressure": {
+    "snapshotMetrics": {
+      "productCards": 1263,
+      "units7d": 4401,
+      "units30d": 17470,
+      "adSpend7d": 6783.150000000002,
+      "adSales7d": 0,
+      "adSales7dAvailable": false,
+      "adOrders7d": 1395,
+      "inventoryTight": 62,
+      "staleInventory": 116,
+      "lowProfit": 127,
+      "adAcos7d": null
+    },
+    "topSignals": [
+      {
+        "signal": "seven_day_unadjusted",
+        "count": 655
+      },
+      {
+        "signal": "ad_structure_missing",
+        "count": 499
+      },
+      {
+        "signal": "season_peak",
+        "count": 199
+      },
+      {
+        "signal": "stale_inventory_risk",
+        "count": 131
+      },
+      {
+        "signal": "inventory_tight",
+        "count": 60
+      },
+      {
+        "signal": "season_preheat",
+        "count": 48
+      },
+      {
+        "signal": "profit_bleeding",
+        "count": 23
+      }
+    ],
+    "taskSummary": {
+      "total": 655,
+      "bySignal": {
+        "stale_inventory_risk": 131,
+        "ad_structure_missing": 499,
+        "seven_day_unadjusted": 655,
+        "inventory_tight": 60,
+        "season_peak": 199,
+        "season_preheat": 48,
+        "profit_bleeding": 23
+      },
+      "withDataMissing": 0,
+      "dataMissing": 0,
+      "reservedPageBlocked": 0,
+      "skippedAdEntityCards": 608
+    }
+  },
+  "decisions": {
+    "schemaSkuCount": 10,
+    "plannedSkus": 0,
+    "executableSkus": 0,
+    "reviewSkus": 10,
+    "plannedActions": 0,
+    "actionBreakdown": {
+      "byAction": {},
+      "byDirection": {},
+      "landed": {
+        "success": 0,
+        "failed": 0,
+        "planned": 0,
+        "unknown": 0
+      }
+    },
+    "todayExecution": {
+      "executedAt": "2026-05-08T11:37:05+08:00",
+      "summaryFile": "data/snapshots/today_execution_summary_2026-05-08.json",
+      "schemaFiles": [
+        "data/snapshots/today_ai_ops_action_schema_2026-05-08.json",
+        "data/snapshots/today_ai_ops_action_schema_2026-05-08_second_pass.json",
+        "data/snapshots/today_ai_ops_action_schema_2026-05-08_third_pass.json"
+      ],
+      "candidateScan": "data/snapshots/today_third_pass_candidate_scan_2026-05-08.json",
+      "snapshotFile": "data/snapshots/latest_snapshot.json",
+      "mode": "full_scan_compressed_to_actions",
+      "skuCount": 73,
+      "actionCount": 109,
+      "historyRecords": 110,
+      "manualReviewCount": 1,
+      "finalCounts": {
+        "success": 109,
+        "failed": 0,
+        "blocked": 0,
+        "notLanded": 0,
+        "manualReview": 1
+      },
+      "breakdown": {
+        "byDirection": {
+          "up": 53,
+          "down": 56
+        },
+        "byEntityType": {
+          "autoTarget": 50,
+          "manualTarget": 8,
+          "keyword": 40,
+          "sbKeyword": 11
+        }
+      },
+      "principles": [
+        "Do not use tiny high-confidence batches as the final daily adjustment pass.",
+        "After first pass, scan the full task/product universe and compress every candidate into action, diagnosis, or explicit no-action.",
+        "Keep all third-pass actions small bid changes; use dry-run risk gates to reject marginal-profit scale."
+      ],
+      "watchWindows": [
+        1,
+        3,
+        7
+      ],
+      "watchMetrics": [
+        "impressions",
+        "clicks",
+        "spend",
+        "orders",
+        "ACOS",
+        "inventory days"
+      ]
+    }
+  },
+  "carryForward": {
+    "mustReadBeforeTomorrowDecision": true,
+    "measurementWindows": [
+      1,
+      3,
+      7,
+      14,
+      30
+    ],
+    "compareTomorrowAgainst": {
+      "snapshotMetrics": true,
+      "taskPressure": true,
+      "actionLanding": true,
+      "skuLevelMovement": true
+    },
+    "openQuestions": [
+      "Did spend reductions reduce waste without cutting orders?",
+      "Did budget increases recover profitable orders?",
+      "Did paused or lowered entities stay quiet without same-SKU sales loss?",
+      "Which seasonal preheat candidates gained impressions, clicks, and orders?"
+    ],
+    "todayExecutionLessons": [
+      "2026-05-08 final execution landed 109 bid changes across 73 SKUs, with 1 manual-review hold. Tomorrow compare entity-level impressions/clicks/orders/ACOS against this baseline before adding more push.",
+      "User correction: do not leave hundreds of SKUs in vague observation after a tiny action batch. Daily ops must run full-scan candidate compression after high-confidence first pass."
+    ]
+  }
+}

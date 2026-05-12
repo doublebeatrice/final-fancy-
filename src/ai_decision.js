@@ -8,7 +8,7 @@ const {
   lifecycleSeasonEvidence,
 } = require('./inventory_economics');
 
-const EXECUTABLE_ACTION_SOURCES = new Set(['codex', 'manual']);
+const EXECUTABLE_ACTION_SOURCES = new Set(['codex', 'claude', 'manual']);
 const ACCEPTED_ACTION_SOURCES = new Set([
   ...EXECUTABLE_ACTION_SOURCES,
   'ai_approved',
@@ -59,7 +59,7 @@ function isCandidateDecision(action = {}) {
   const stage = normalizeText(action.decisionStage).toLowerCase();
   const approvedBy = normalizeText(action.approvedBy).toLowerCase();
   const approved = ['ai_approved', 'manual_approved'].includes(stage) &&
-    ['codex', 'manual'].includes(approvedBy);
+    ['codex', 'claude', 'manual'].includes(approvedBy);
   return !approved && (
     stage === 'candidate' ||
     action.requiresAiDecision === true ||
@@ -77,8 +77,8 @@ function executionApprovalFailures(action = {}) {
   const source = normalizeText(action.source).toLowerCase();
 
   if (!['ai_approved', 'manual_approved'].includes(stage)) failures.push('decisionStage_not_approved');
-  if (!['codex', 'manual'].includes(approvedBy)) failures.push('approvedBy_not_codex_or_manual');
-  if (!sources.some(item => item === 'codex' || item === 'manual')) failures.push('actionSource_missing_codex_or_manual');
+  if (!['codex', 'claude', 'manual'].includes(approvedBy)) failures.push('approvedBy_not_codex_or_claude_or_manual');
+  if (!sources.some(item => item === 'codex' || item === 'claude' || item === 'manual')) failures.push('actionSource_missing_codex_or_claude_or_manual');
   if (action.requiresAiDecision === true) failures.push('requiresAiDecision_true');
   if (candidateSource === 'rule_generator') failures.push('candidateSource_rule_generator');
   if (source === 'provisional_local_policy' || source === 'provisional_local_ai_policy') failures.push('source_provisional_local_policy');
@@ -776,7 +776,7 @@ function gateRisk(product, entity, action) {
     gated.actionType = 'review';
     gated.canAutoExecute = false;
     gated.riskLevel = 'manual_review';
-    gated.reason = `${gated.reason || ''} [risk_gate:missing_codex_execution_approval:${approvalFailures.join(',')}] Final executable actions must have decisionStage=ai_approved/manual_approved, approvedBy=codex/manual, actionSource including codex/manual, requiresAiDecision=false, and no rule-generator/provisional source.`.trim();
+    gated.reason = `${gated.reason || ''} [risk_gate:missing_ai_execution_approval:${approvalFailures.join(',')}] Final executable actions must have decisionStage=ai_approved/manual_approved, approvedBy=codex/claude/manual, actionSource including codex/claude/manual, requiresAiDecision=false, and no rule-generator/provisional source.`.trim();
     return gated;
   }
 
@@ -898,8 +898,9 @@ function gateRisk(product, entity, action) {
 
   if (gated.actionType === 'budget' && Number.isFinite(currentBudget) && currentBudget > 0 && Number.isFinite(suggestedBudget)) {
     const changePct = Math.abs(suggestedBudget - currentBudget) / currentBudget;
-    const explicitTrafficPushOverride = gated.allowLargeBudgetChange === true && gated.riskLevel === 'traffic_push';
-    if (changePct > 0.5 && !explicitTrafficPushOverride) {
+    const explicitBudgetOverride = gated.allowLargeBudgetChange === true &&
+      (gated.riskLevel === 'traffic_push' || gated.riskLevel === 'over_budget_min_budget_repair');
+    if (changePct > 0.5 && !explicitBudgetOverride) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
       gated.riskLevel = 'manual_review';
@@ -1028,6 +1029,9 @@ function validateAndNormalizePlan(rawPlan, context) {
         currentPlacementPercent: toNum(rawAction.currentPlacementPercent ?? (rawAction.placementKey ? entity[rawAction.placementKey] : null)),
         suggestedPlacementPercent: toNum(rawAction.suggestedPlacementPercent ?? rawAction.column),
         reason: String(rawAction.reason || '').trim(),
+        hypothesis: normalizeText(rawAction.hypothesis),
+        expectedEffect: rawAction.expectedEffect && typeof rawAction.expectedEffect === 'object' ? rawAction.expectedEffect : null,
+        reviewPlan: rawAction.reviewPlan && typeof rawAction.reviewPlan === 'object' ? rawAction.reviewPlan : null,
         text: String(rawAction.text || rawAction.keywordText || rawAction.targetText || entity.text || '').trim(),
         label: String(rawAction.label || rawAction.text || entity.label || entity.text || '').trim(),
         evidence,

@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "sku": "XIX0903",
+  "asin": "B0DN6PMH1D",
+  "businessDate": "2026-05-09",
+  "dataDate": "2026-05-08",
+  "classification": "high_inventory_growth_repair",
+  "baseline": {
+    "product": "letter and number stencil set",
+    "profileWarning": "cached gift-basket/fiesta profile is stale",
+    "ful": 623,
+    "sellableDays": 63,
+    "units3d": 34,
+    "units7d": 72,
+    "units30d": 319,
+    "yoyStatus": "positive_not_declining",
+    "yearOverYearAsinRateApprox": 2.9,
+    "monthOverMonthAsinRateApprox": -0.198,
+    "ad90d": {
+      "impressions": 435005,
+      "clicks": 3959,
+      "orders": 495,
+      "sales": 9487.22,
+      "spend": 1276.99,
+      "acos": 0.1346
+    }
+  },
+  "executedActions": [
+    {
+      "entityType": "manualTarget",
+      "id": "452903620147343",
+      "label": "asinExpandedFrom=B097CW2WKC",
+      "beforeBid": 0.07,
+      "afterBid": 0.08,
+      "hypothesis": "This converting expanded ASIN target can recover traffic with a one-cent bid lift.",
+      "expectedEffect": {
+        "impressions": "up",
+        "clicks": "up",
+        "spend": "up",
+        "orders": "watch",
+        "acos": "watch"
+      },
+      "reviewPlan": {
+        "checkAfterDays": [3, 7],
+        "rollbackIf": "7d spend rises faster than orders"
+      }
+    },
+    {
+      "entityType": "manualTarget",
+      "id": "560262236321918",
+      "label": "asin=B0DN6PMH1D",
+      "beforeBid": 0.08,
+      "afterBid": 0.09,
+      "hypothesis": "Self-ASIN targeting has strong conversion and can take a small bid lift for defensive/related-page traffic.",
+      "expectedEffect": {
+        "impressions": "up",
+        "clicks": "up",
+        "spend": "up",
+        "orders": "watch",
+        "acos": "watch"
+      },
+      "reviewPlan": {
+        "checkAfterDays": [3, 7],
+        "rollbackIf": "traffic does not grow or ACOS exceeds target"
+      }
+    },
+    {
+      "entityType": "keyword",
+      "id": "535874784688944",
+      "label": "reusable letter stencils",
+      "beforeBid": 0.3,
+      "afterBid": 0.32,
+      "hypothesis": "This keyword converted at low ACOS and can be nudged to regain impressions.",
+      "expectedEffect": {
+        "impressions": "up",
+        "clicks": "up",
+        "spend": "up",
+        "orders": "watch",
+        "acos": "watch"
+      },
+      "reviewPlan": {
+        "checkAfterDays": [3, 7],
+        "rollbackIf": "clicks grow but orders do not follow"
+      }
+    },
+    {
+      "entityType": "keyword",
+      "id": "263129838960347",
+      "label": "letter stencils",
+      "beforeBid": 0.43,
+      "afterBid": 0.45,
+      "hypothesis": "Business keyword traffic is small but converted, so a limited lift can test B2B fit.",
+      "expectedEffect": {
+        "impressions": "up",
+        "clicks": "up",
+        "spend": "slightly_up",
+        "orders": "watch",
+        "acos": "watch"
+      },
+      "reviewPlan": {
+        "checkAfterDays": [3, 7],
+        "rollbackIf": "spend rises without orders"
+      }
+    },
+    {
+      "entityType": "keyword",
+      "id": "414722539438294",
+      "label": "number stencil bulk",
+      "beforeBid": 0.22,
+      "afterBid": 0.2,
+      "hypothesis": "This keyword has weaker efficiency, so a small trim should reduce marginal spend without closing the traffic path.",
+      "expectedEffect": {
+        "impressions": "slightly_down",
+        "clicks": "slightly_down",
+        "spend": "down",
+        "orders": "protect",
+        "acos": "down"
+      },
+      "reviewPlan": {
+        "checkAfterDays": [3, 7],
+        "rollbackIf": "orders drop materially while spend savings are small"
+      }
+    }
+  ],
+  "reviewOnlyActions": [
+    {
+      "entityType": "manualTarget",
+      "id": "460479464100648",
+      "label": "asin=B08KDM9R36",
+      "beforeBid": 0.06,
+      "proposedBid": 0.07,
+      "reason": "blocked by high_volume_strong_bid_change safety gate",
+      "hypothesis": "A one-cent lift on a proven ASIN target should repair product-page traffic after recent volume loss.",
+      "reviewPlan": {
+        "checkAfterDays": [3, 7],
+        "rollbackIf": "clicks do not recover or 7d ACOS rises above the SKU profit room"
+      }
+    }
+  ],
+  "notExecuted": [
+    {
+      "area": "mixed-SKU SB keyword campaign",
+      "reason": "conversion exists, but the campaign also covers XIX1523 and XIX2011, so changes are not cleanly attributable to XIX0903"
+    }
+  ],
+  "sourceFiles": {
+    "schema": "D:\\ad-ops-workbench\\data\\snapshots\\xix0903_growth_push_executable_2026-05-09.json",
+    "plan": "D:\\ad-ops-workbench\\data\\snapshots\\plan_2026-05-09.json",
+    "verify": "D:\\ad-ops-workbench\\data\\snapshots\\execution_verify_2026-05-09.json",
+    "summary": "D:\\ad-ops-workbench\\data\\snapshots\\execution_summary_2026-05-09.json",
+    "localAdjustmentLog": "D:\\ad-ops-workbench\\data\\adjustments\\adjustments_2026-05-09.json"
+  }
+}

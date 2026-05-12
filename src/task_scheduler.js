@@ -25,6 +25,37 @@ function text(value) {
   return String(value || '').trim();
 }
 
+function looksLikeAdEntityId(value) {
+  return /^\d{10,}$/.test(text(value));
+}
+
+function hasInventoryIdentity(card = {}) {
+  return Boolean(
+    text(card.saleStatus) ||
+    text(card.opendate) ||
+    text(card.openDate) ||
+    text(card.fuldate) ||
+    text(card.fulfillmentDate) ||
+    num(card.price) > 0 ||
+    num(card.invDays) > 0 ||
+    num(card.inventoryQuantity) > 0 ||
+    num(card.availableQuantity) > 0 ||
+    num(card.unitsSold_3d) > 0 ||
+    num(card.unitsSold_7d) > 0 ||
+    num(card.unitsSold_15d) > 0 ||
+    num(card.unitsSold_30d) > 0
+  );
+}
+
+function hasProductIdentity(card = {}) {
+  const sku = text(card.sku);
+  const asin = text(card.asin);
+  if (asin) return true;
+  if (!sku) return false;
+  if (looksLikeAdEntityId(sku)) return false;
+  return hasInventoryIdentity(card);
+}
+
 function salesSignals(card = {}) {
   return {
     units3d: num(card.unitsSold_3d),
@@ -160,7 +191,14 @@ function buildCandidateTaskContexts(input = {}) {
   const candidateContexts = [];
   const dataMissing = [];
 
+  let skippedAdEntityCards = 0;
+
   for (const card of snapshot.productCards || []) {
+    if (!hasProductIdentity(card)) {
+      skippedAdEntityCards += 1;
+      continue;
+    }
+
     const missing = missingDataFor(card);
     const sales = salesSignals(card);
     const ads = adSignals(card);
@@ -289,6 +327,7 @@ function buildCandidateTaskContexts(input = {}) {
     }
     return acc;
   }, { total: 0, bySignal: {}, withDataMissing: 0, dataMissing: dataMissing.length, reservedPageBlocked: 0 });
+  summary.skippedAdEntityCards = skippedAdEntityCards;
 
   return {
     generatedAt: time.runAt,

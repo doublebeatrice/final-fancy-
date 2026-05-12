@@ -1,15 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-
-function num(value) {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : 0;
-}
-
-function isEnabled(value) {
-  const text = String(value ?? '').toLowerCase();
-  return text === '1' || text === 'enabled' || text === 'enable' || text === 'active';
-}
+const { buildSkuStateMap, effectiveProfitRate, getSkuState, isEnabledState, num } = require('../../src/over_budget_policy');
 
 function roundMoney(value) {
   return Number(value.toFixed(2));
@@ -86,20 +77,12 @@ function recentEntityIds(history, date) {
   return ids;
 }
 
-function main() {
-  const snapshotFile = process.argv[2];
-  const outputFile = process.argv[3] || path.join('data', 'snapshots', `today_over_budget_bad_conversion_schema_${new Date().toISOString().slice(0, 10)}.json`);
-  const limit = Number(process.argv[4] || process.env.OVER_BUDGET_BAD_ACTION_LIMIT || 80);
-  const businessDate = process.argv[5] || new Date().toISOString().slice(0, 10);
-  if (!snapshotFile) {
-    throw new Error('Usage: node scripts/generators/generate_over_budget_bad_conversion_schema.js <snapshot.json> [output.json] [limit] [businessDate]');
-  }
-
-  const snapshot = JSON.parse(fs.readFileSync(snapshotFile, 'utf8'));
+function buildOverBudgetBadConversionResult(snapshot, options = {}) {
+  const limit = Number(options.limit || 80);
+  const businessDate = options.businessDate || new Date().toISOString().slice(0, 10);
   const rows = snapshot.overBudgetRows || [];
-  const cards = snapshot.productCards || [];
-  const cardBySku = new Map(cards.map(card => [String(card.sku || ''), card]));
-  const alreadyAdjusted = recentEntityIds(readJson(path.join('data', 'adjustment_history.json'), []), businessDate);
+  const skuStateMap = buildSkuStateMap(snapshot);
+  const alreadyAdjusted = options.alreadyAdjusted || recentEntityIds(readJson(path.join('data', 'adjustment_history.json'), []), businessDate);
   const filtered = {
     rows: rows.length,
     notSp: 0,
@@ -120,11 +103,11 @@ function main() {
       filtered.notSp += 1;
       continue;
     }
-    if (!isEnabled(row.state) || !isEnabled(row.campaignState) || !isEnabled(row.groupState)) {
+    if (!isEnabledState(row.state) || !isEnabledState(row.campaignState) || !isEnabledState(row.groupState)) {
       filtered.notEnabled += 1;
       continue;
     }
-    const card = cardBySku.get(String(row.sku || ''));
+    const card = getSkuState(skuStateMap, row.sku);
     if (!card) {
       filtered.notAllowedSku += 1;
       continue;
@@ -137,7 +120,7 @@ function main() {
       continue;
     }
 
-    const profitRate = num(card.profitRate);
+    const profitRate = effectiveProfitRate(card);
     const invDays = num(card.invDays);
     const spend = num(row.Spend);
     const sales = num(row.Sales);
@@ -307,7 +290,7 @@ function main() {
     });
 
   const sortedPausePlans = pausePlans.sort((a, b) => b.score - a.score);
-  const sortedBudgetPlans = budgetPlans.sort((a, b) => b.score - a.score);
+  const sortedBudgetPlans = [];
   const pauseLimit = Math.min(sortedPausePlans.length, Math.max(12, Math.floor(limit * 0.35)));
   const selectedPlans = [
     ...sortedPausePlans.slice(0, pauseLimit),
@@ -315,12 +298,43 @@ function main() {
   ];
   const plans = selectedPlans.map(({ score, ...plan }) => plan);
 
+  return {
+    plans,
+    filtered,
+    campaignCandidates: campaignMap.size,
+    campaignBudgetDownDisabled: true,
+    disabledCampaignBudgetDownCandidates: budgetPlans.length,
+  };
+}
+
+function buildOverBudgetBadConversionPlans(snapshot, options = {}) {
+  return buildOverBudgetBadConversionResult(snapshot, options).plans;
+}
+
+function main() {
+  const snapshotFile = process.argv[2];
+  const outputFile = process.argv[3] || path.join('data', 'snapshots', `today_over_budget_bad_conversion_schema_${new Date().toISOString().slice(0, 10)}.json`);
+  const limit = Number(process.argv[4] || process.env.OVER_BUDGET_BAD_ACTION_LIMIT || 80);
+  const businessDate = process.argv[5] || new Date().toISOString().slice(0, 10);
+  if (!snapshotFile) {
+    throw new Error('Usage: node scripts/generators/generate_over_budget_bad_conversion_schema.js <snapshot.json> [output.json] [limit] [businessDate]');
+  }
+
+  const snapshot = JSON.parse(fs.readFileSync(snapshotFile, 'utf8'));
+  const {
+    plans,
+    filtered,
+    campaignCandidates,
+    campaignBudgetDownDisabled,
+    disabledCampaignBudgetDownCandidates,
+  } = buildOverBudgetBadConversionResult(snapshot, { limit, businessDate });
+
   fs.mkdirSync(path.dirname(outputFile), { recursive: true });
   fs.writeFileSync(outputFile, JSON.stringify(plans, null, 2), 'utf8');
   console.log(JSON.stringify({
     outputFile,
     filtered,
-    campaignCandidates: campaignMap.size,
+    campaignCandidates,
     plannedSkus: new Set(plans.map(plan => plan.sku)).size,
     plannedActions: plans.reduce((sum, plan) => sum + plan.actions.length, 0),
     counts: plans.reduce((acc, plan) => {
@@ -330,6 +344,8 @@ function main() {
       }
       return acc;
     }, {}),
+    campaignBudgetDownDisabled,
+    disabledCampaignBudgetDownCandidates,
     top: plans.slice(0, 20).map(plan => ({
       sku: plan.sku,
       type: `${plan.actions[0].actionType}:${plan.actions[0].entityType}`,
@@ -344,3 +360,8 @@ function main() {
 if (require.main === module) {
   main();
 }
+
+module.exports = {
+  buildOverBudgetBadConversionPlans,
+  buildOverBudgetBadConversionResult,
+};

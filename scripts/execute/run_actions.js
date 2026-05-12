@@ -1,5 +1,40 @@
 const path = require('path');
+const { readFileSync } = require('fs');
 const { run } = require('../../auto_adjust');
+const {
+  appendAdjustmentRecords,
+  recordsFromExecutionEvents,
+  recordsFromPlan,
+} = require('../../src/adjustment_log');
+
+function readJson(file, fallback) {
+  if (!file) return fallback;
+  try {
+    return JSON.parse(readFileSync(file, 'utf8').replace(/^\uFEFF/, ''));
+  } catch (_) {
+    return fallback;
+  }
+}
+
+function persistAdjustmentLog(result) {
+  const timeContext = result?.report?.time || result?.dryReport?.time || {};
+  if (!timeContext.businessDate || !timeContext.sourceRunId) return null;
+
+  if (result.mode === 'dry-run') {
+    const plan = readJson(result.files?.planFile, []);
+    return appendAdjustmentRecords(recordsFromPlan(plan, timeContext, { dryRun: true }), { timeContext });
+  }
+
+  if (result.mode === 'execute') {
+    const verify = readJson(result.files?.verifyFile, {});
+    return appendAdjustmentRecords(
+      recordsFromExecutionEvents([...(verify.events || []), ...(verify.nonExecutionEvents || [])], timeContext),
+      { timeContext }
+    );
+  }
+
+  return null;
+}
 
 async function main() {
   const args = process.argv.slice(2);
@@ -17,11 +52,15 @@ async function main() {
     ? args[snapshotArgIndex + 1]
     : (args.find(arg => arg.startsWith('--snapshot=')) || '').slice('--snapshot='.length) || process.env.PANEL_SNAPSHOT_FILE || '';
 
-  await run({
+  const result = await run({
     actionSchemaFile: path.resolve(actionSchemaFile),
     snapshotFile: snapshotFile ? path.resolve(snapshotFile) : '',
     dryRun: hasExecuteFlag ? false : (hasDryRunFlag ? true : undefined),
   });
+  const logResult = persistAdjustmentLog(result);
+  if (logResult?.count) {
+    console.log(`[adjustment-log] appended ${logResult.count} records to ${logResult.file}`);
+  }
 }
 
 main().catch(error => {

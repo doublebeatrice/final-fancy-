@@ -186,6 +186,9 @@ const codexApproval = {
           currentBid: 0.5,
           suggestedBid: 0.55,
           reason: 'low risk raise',
+          hypothesis: 'small lift should recover proven traffic',
+          expectedEffect: { impressions: 'up', clicks: 'up', orders: 'watch', acos: 'watch' },
+          reviewPlan: { checkAfterDays: [3, 7], rollbackIf: 'spend rises without orders' },
           evidence: ['7d orders=1'],
           confidence: 0.8,
           riskLevel: 'low',
@@ -198,6 +201,9 @@ const codexApproval = {
   assert.strictEqual(validated.plan[0].actions.length, 1);
   assert.strictEqual(validated.review.length, 0);
   assert.strictEqual(validated.errors.length, 0);
+  assert.strictEqual(validated.plan[0].actions[0].hypothesis, 'small lift should recover proven traffic');
+  assert.deepStrictEqual(validated.plan[0].actions[0].expectedEffect, { impressions: 'up', clicks: 'up', orders: 'watch', acos: 'watch' });
+  assert.deepStrictEqual(validated.plan[0].actions[0].reviewPlan, { checkAfterDays: [3, 7], rollbackIf: 'spend rises without orders' });
 }
 
 {
@@ -433,7 +439,7 @@ const codexApproval = {
   assert.strictEqual(validated.review[0].action.candidateSource, 'rule_generator');
   assert.strictEqual(validated.review[0].action.candidateActionType, 'bid');
   assert.strictEqual(validated.review[0].action.canAutoExecute, false);
-  assert.ok(validated.review[0].action.reason.includes('missing_codex_execution_approval'));
+  assert.ok(validated.review[0].action.reason.includes('missing_ai_execution_approval'));
   assert.ok(validated.review[0].action.reason.includes('requiresAiDecision_true'));
   assert.ok(validated.review[0].action.reason.includes('candidateSource_rule_generator'));
 }
@@ -469,7 +475,7 @@ const codexApproval = {
   assert.strictEqual(validated.errors.length, 0);
   assert.strictEqual(validated.review.length, 1);
   assert.strictEqual(validated.plan[0].actions.length, 0);
-  assert.ok(validated.review[0].action.reason.includes('missing_codex_execution_approval'));
+  assert.ok(validated.review[0].action.reason.includes('missing_ai_execution_approval'));
   assert.ok(validated.review[0].action.reason.includes('requiresAiDecision_true'));
   assert.ok(validated.review[0].action.reason.includes('candidateSource_rule_generator'));
 }
@@ -499,10 +505,10 @@ const codexApproval = {
   assert.strictEqual(validated.review.length, 1);
   assert.strictEqual(validated.plan[0].actions.length, 0);
   assert.deepStrictEqual(validated.review[0].action.actionSource, ['generator_candidate']);
-  assert.ok(validated.review[0].action.reason.includes('missing_codex_execution_approval'));
+  assert.ok(validated.review[0].action.reason.includes('missing_ai_execution_approval'));
   assert.ok(validated.review[0].action.reason.includes('decisionStage_not_approved'));
-  assert.ok(validated.review[0].action.reason.includes('approvedBy_not_codex_or_manual'));
-  assert.ok(validated.review[0].action.reason.includes('actionSource_missing_codex_or_manual'));
+  assert.ok(validated.review[0].action.reason.includes('approvedBy_not_codex_or_claude_or_manual'));
+  assert.ok(validated.review[0].action.reason.includes('actionSource_missing_codex_or_claude_or_manual'));
 }
 
 {
@@ -530,8 +536,8 @@ const codexApproval = {
   assert.strictEqual(validated.errors.length, 0);
   assert.strictEqual(validated.review.length, 1);
   assert.strictEqual(validated.plan[0].actions.length, 0);
-  assert.ok(validated.review[0].action.reason.includes('missing_codex_execution_approval'));
-  assert.ok(validated.review[0].action.reason.includes('actionSource_missing_codex_or_manual'));
+  assert.ok(validated.review[0].action.reason.includes('missing_ai_execution_approval'));
+  assert.ok(validated.review[0].action.reason.includes('actionSource_missing_codex_or_claude_or_manual'));
 }
 
 {
@@ -557,7 +563,7 @@ const codexApproval = {
   const missingApprovedBy = runOne(withoutApprovedBy);
   assert.strictEqual(missingApprovedBy.review.length, 1);
   assert.strictEqual(missingApprovedBy.plan[0].actions.length, 0);
-  assert.ok(missingApprovedBy.review[0].action.reason.includes('approvedBy_not_codex_or_manual'));
+  assert.ok(missingApprovedBy.review[0].action.reason.includes('approvedBy_not_codex_or_claude_or_manual'));
 
   const withoutDecisionStage = { ...baseApprovedAction };
   delete withoutDecisionStage.decisionStage;
@@ -572,7 +578,7 @@ const codexApproval = {
   });
   assert.strictEqual(generatorSource.review.length, 1);
   assert.strictEqual(generatorSource.plan[0].actions.length, 0);
-  assert.ok(generatorSource.review[0].action.reason.includes('actionSource_missing_codex_or_manual'));
+  assert.ok(generatorSource.review[0].action.reason.includes('actionSource_missing_codex_or_claude_or_manual'));
 
   const codexSourceButCandidateStage = runOne({
     ...baseApprovedAction,
@@ -597,6 +603,18 @@ const codexApproval = {
   assert.strictEqual(approvedCodex.plan[0].actions.length, 1);
   assert.strictEqual(approvedCodex.plan[0].actions[0].canAutoExecute, true);
   assert.deepStrictEqual(approvedCodex.plan[0].actions[0].actionSource, ['codex']);
+
+  const approvedClaude = runOne({
+    ...baseApprovedAction,
+    approvedBy: 'claude',
+    actionSource: ['claude'],
+  });
+  assert.strictEqual(approvedClaude.errors.length, 0);
+  assert.strictEqual(approvedClaude.review.length, 0);
+  assert.strictEqual(approvedClaude.plan[0].actions.length, 1);
+  assert.strictEqual(approvedClaude.plan[0].actions[0].canAutoExecute, true);
+  assert.strictEqual(approvedClaude.plan[0].actions[0].approvedBy, 'claude');
+  assert.deepStrictEqual(approvedClaude.plan[0].actions[0].actionSource, ['claude']);
 }
 
 {
@@ -711,6 +729,35 @@ const codexApproval = {
   assert.strictEqual(validated.review.length, 0);
   assert.strictEqual(validated.plan[0].actions.length, 1);
   assert.strictEqual(validated.plan[0].actions[0].allowLargeBidChange, true);
+}
+
+{
+  const context = { products: buildProductContexts(cards, rowsByType, [], [], []).products };
+  const validated = validateAndNormalizePlan([
+    {
+      sku: 'SKU-1',
+      summary: 'over-budget minimum budget repair',
+      actions: [
+        {
+          entityType: 'campaign',
+          id: 'c1',
+          campaignId: 'c1',
+          actionType: 'budget',
+          currentBudget: 1,
+          suggestedBudget: 3,
+          allowLargeBudgetChange: true,
+          reason: 'repair over-budget campaign from minimum budget to workable floor',
+          evidence: ['over budget at dailyBudget=1', 'orders>0 and ACOS below profit room'],
+          confidence: 0.82,
+          riskLevel: 'over_budget_min_budget_repair',
+          ...codexApproval,
+        },
+      ],
+    },
+  ], context);
+  assert.strictEqual(validated.errors.length, 0);
+  assert.strictEqual(validated.review.length, 0);
+  assert.strictEqual(validated.plan[0].actions.length, 1);
 }
 
 {

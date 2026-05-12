@@ -1,0 +1,37 @@
+{
+  "productCards": [
+    {
+      "sku": "FLOOR1",
+      "asin": "B0FLOOR1",
+      "netProfit": 0.2,
+      "busyNetProfit": 0.18,
+      "profitRate": 0.11,
+      "invDays": 60,
+      "unitsSold_7d": 6,
+      "unitsSold_30d": 20,
+      "fulFillable": 50
+    }
+  ],
+  "invMap": {},
+  "overBudgetRows": [
+    {
+      "__overBudgetSource": "SP",
+      "state": "enabled",
+      "campaignState": "enabled",
+      "groupState": "enabled",
+      "sku": "FLOOR1",
+      "asin": "B0FLOOR1",
+      "campaignId": 111,
+      "adGroupId": 222,
+      "campaignName": "auto_floor_profit",
+      "groupName": "auto_floor_profit",
+      "dailyBudget": "1.00",
+      "Spend": "2.00",
+      "Sales": "20.00",
+      "Orders": "1",
+      "Clicks": "8",
+      "ACOS": "0.1",
+      "positionType": "auto"
+    }
+  ]
+}

@@ -1,15 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-
-function num(value) {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : 0;
-}
-
-function isEnabled(value) {
-  const text = String(value ?? '').toLowerCase();
-  return text === '1' || text === 'enabled' || text === 'enable' || text === 'active';
-}
+const { buildSkuStateMap, effectiveProfitRate, getSkuState, isEnabledState, num } = require('../../src/over_budget_policy');
 
 function roundMoney(value) {
   return Number(value.toFixed(2));
@@ -27,18 +18,18 @@ function candidateMeta(actionType, reasonSignals = []) {
   };
 }
 
-function main() {
-  const snapshotFile = process.argv[2];
-  const outputFile = process.argv[3] || path.join('data', 'snapshots', `today_over_budget_controlled_schema_${new Date().toISOString().slice(0, 10)}.json`);
-  const limit = Number(process.argv[4] || process.env.OVER_BUDGET_ACTION_LIMIT || 60);
-  if (!snapshotFile) {
-    throw new Error('Usage: node scripts/generators/generate_over_budget_schema.js <snapshot.json> [output.json] [limit]');
-  }
+function computeControlledBudgetLift(currentBudget) {
+  const current = num(currentBudget);
+  if (current <= 0) return 0;
+  if (current <= 1) return 3;
+  if (current <= 5) return roundMoney(Math.max(3, Math.min(current + 2, current * 1.35)));
+  return roundMoney(Math.min(current * 1.2, current + 8));
+}
 
-  const snapshot = JSON.parse(fs.readFileSync(snapshotFile, 'utf8'));
+function buildOverBudgetControlledResult(snapshot, options = {}) {
+  const limit = Number(options.limit || 60);
   const rows = snapshot.overBudgetRows || [];
-  const cards = snapshot.productCards || [];
-  const cardBySku = new Map(cards.map(card => [String(card.sku || ''), card]));
+  const skuStateMap = buildSkuStateMap(snapshot);
   const filtered = {
     rows: rows.length,
     notSp: 0,
@@ -58,7 +49,7 @@ function main() {
       filtered.notSp += 1;
       continue;
     }
-    if (!isEnabled(row.state) || !isEnabled(row.campaignState) || !isEnabled(row.groupState)) {
+    if (!isEnabledState(row.state) || !isEnabledState(row.campaignState) || !isEnabledState(row.groupState)) {
       filtered.notEnabled += 1;
       continue;
     }
@@ -66,13 +57,13 @@ function main() {
       filtered.noCampaign += 1;
       continue;
     }
-    const card = cardBySku.get(String(row.sku || ''));
+    const card = getSkuState(skuStateMap, row.sku);
     if (!card) {
       filtered.notAllowedSku += 1;
       continue;
     }
 
-    const profitRate = num(card.profitRate);
+    const profitRate = effectiveProfitRate(card);
     const invDays = num(card.invDays);
     const orders = num(row.Orders);
     const sales = num(row.Sales);
@@ -136,10 +127,7 @@ function main() {
     .map(campaign => {
       campaign.acos = campaign.sales > 0 ? campaign.spend / campaign.sales : 99;
       campaign.score = campaign.spend * (0.24 - campaign.acos) + campaign.orders * 2 + campaign.profitRate * 20;
-      campaign.suggestedBudget = roundMoney(Math.min(campaign.currentBudget * 1.2, campaign.currentBudget + 8));
-      if (campaign.currentBudget <= 5) {
-        campaign.suggestedBudget = roundMoney(Math.min(campaign.currentBudget + 2, campaign.currentBudget * 1.35));
-      }
+      campaign.suggestedBudget = computeControlledBudgetLift(campaign.currentBudget);
       return campaign;
     })
     .filter(campaign => campaign.suggestedBudget > campaign.currentBudget)
@@ -169,11 +157,13 @@ function main() {
         ...campaign.evidence,
       ],
       confidence: 0.78,
-      riskLevel: 'over_budget_controlled_budget_up',
-      allowLargeBudgetChange: false,
+      riskLevel: campaign.currentBudget <= 1 ? 'over_budget_min_budget_repair' : 'over_budget_controlled_budget_up',
+      allowLargeBudgetChange: campaign.currentBudget <= 1,
       learning: {
         enabled: true,
-        hypothesis: 'Campaign was over budget and still converting efficiently; a capped budget lift should recover profitable sales without broad expansion.',
+        hypothesis: campaign.currentBudget <= 1
+          ? 'Campaign was still over budget at the minimum daily budget while converting efficiently; repair to a workable minimum budget and monitor profit.'
+          : 'Campaign was over budget and still converting efficiently; a capped budget lift should recover profitable sales without broad expansion.',
         expectedEffect: { impressions: 'up', clicks: 'up', spend: 'up', orders: 'up', acos: 'watch' },
         measurementWindowDays: [1, 3, 7],
         baselineQuality: 'complete',
@@ -196,12 +186,34 @@ function main() {
     }],
   }));
 
+  return {
+    plans,
+    filtered,
+    campaignCandidates: byCampaign.size,
+  };
+}
+
+function buildOverBudgetControlledPlans(snapshot, options = {}) {
+  return buildOverBudgetControlledResult(snapshot, options).plans;
+}
+
+function main() {
+  const snapshotFile = process.argv[2];
+  const outputFile = process.argv[3] || path.join('data', 'snapshots', `today_over_budget_controlled_schema_${new Date().toISOString().slice(0, 10)}.json`);
+  const limit = Number(process.argv[4] || process.env.OVER_BUDGET_ACTION_LIMIT || 60);
+  if (!snapshotFile) {
+    throw new Error('Usage: node scripts/generators/generate_over_budget_schema.js <snapshot.json> [output.json] [limit]');
+  }
+
+  const snapshot = JSON.parse(fs.readFileSync(snapshotFile, 'utf8'));
+  const { plans, filtered, campaignCandidates } = buildOverBudgetControlledResult(snapshot, { limit });
+
   fs.mkdirSync(path.dirname(outputFile), { recursive: true });
   fs.writeFileSync(outputFile, JSON.stringify(plans, null, 2), 'utf8');
   console.log(JSON.stringify({
     outputFile,
     filtered,
-    campaignCandidates: byCampaign.size,
+    campaignCandidates,
     plannedSkus: new Set(plans.map(plan => plan.sku)).size,
     plannedActions: plans.reduce((sum, plan) => sum + plan.actions.length, 0),
     top: plans.slice(0, 20).map(plan => ({
@@ -217,3 +229,9 @@ function main() {
 if (require.main === module) {
   main();
 }
+
+module.exports = {
+  buildOverBudgetControlledPlans,
+  buildOverBudgetControlledResult,
+  computeControlledBudgetLift,
+};

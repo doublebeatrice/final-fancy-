@@ -1,0 +1,4992 @@
+{
+  "bidUp_healthy": [
+    {
+      "sku": "TH3351",
+      "asin": "B0GQ33FY4Y",
+      "profitRate": 0.2367,
+      "invDays": 130,
+      "units7": 0,
+      "units30": 0,
+      "a7": {
+        "spend": 3.91,
+        "orders": 3,
+        "clicks": 8,
+        "impressions": 983,
+        "acos": 0.10870169585765917
+      },
+      "kw": {
+        "id": "315761910791318",
+        "text": "auto",
+        "currentBid": 0.67,
+        "stats7d": {
+          "spend": 0.67,
+          "orders": 1,
+          "acos": 0.055879,
+          "clicks": 1,
+          "impressions": 188
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "GM4172",
+      "asin": "B0GN6L39XH",
+      "profitRate": 0.2469,
+      "invDays": 65,
+      "units7": 0,
+      "units30": 0,
+      "a7": {
+        "spend": 16.460000000000004,
+        "orders": 6,
+        "clicks": 50,
+        "impressions": 6276,
+        "acos": 0.16146752991956057
+      },
+      "kw": {
+        "id": "229461564998984",
+        "text": "christian mothers day gifts",
+        "currentBid": 0.37,
+        "stats7d": {
+          "spend": 3.31,
+          "orders": 1,
+          "acos": 0.150522,
+          "clicks": 9,
+          "impressions": 1646
+        },
+        "matchType": 3,
+        "entityType": "keyword"
+      }
+    },
+    {
+      "sku": "DH2685",
+      "asin": "B0FDQTG22G",
+      "profitRate": 0.1501,
+      "invDays": 113,
+      "units7": 0,
+      "units30": 0,
+      "a7": {
+        "spend": 13.350000000000001,
+        "orders": 4,
+        "clicks": 49,
+        "impressions": 3300,
+        "acos": 0.22264843228819214
+      },
+      "kw": {
+        "id": "300419654622734",
+        "text": "auto",
+        "currentBid": 0.33,
+        "stats7d": {
+          "spend": 9.65,
+          "orders": 3,
+          "acos": 0.130475,
+          "clicks": 31,
+          "impressions": 2185
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "QAA3143",
+      "asin": "B0F4R4S12D",
+      "profitRate": 0.3752,
+      "invDays": 16,
+      "units7": 0,
+      "units30": 0,
+      "a7": {
+        "spend": 10.89,
+        "orders": 4,
+        "clicks": 56,
+        "impressions": 13019,
+        "acos": 0.1089435774309724
+      },
+      "kw": {
+        "id": "469025257316669",
+        "text": "auto",
+        "currentBid": 0.2,
+        "stats7d": {
+          "spend": 9.38,
+          "orders": 3,
+          "acos": 0.134057,
+          "clicks": 47,
+          "impressions": 11544
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "QUN1025",
+      "asin": "B0F28RL2HQ",
+      "profitRate": 0.3696,
+      "invDays": 12,
+      "units7": 0,
+      "units30": 0,
+      "a7": {
+        "spend": 9.790000000000001,
+        "orders": 6,
+        "clicks": 101,
+        "impressions": 10313,
+        "acos": 0.10885034467422727
+      },
+      "kw": {
+        "id": "544814367837225",
+        "text": "auto",
+        "currentBid": 0.12,
+        "stats7d": {
+          "spend": 4.45,
+          "orders": 3,
+          "acos": 0.092766,
+          "clicks": 45,
+          "impressions": 3216
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "SHQ3375",
+      "asin": "B0DX1PXGZX",
+      "profitRate": 0.2551,
+      "invDays": 40,
+      "units7": 0,
+      "units30": 0,
+      "a7": {
+        "spend": 25.130000000000003,
+        "orders": 5,
+        "clicks": 124,
+        "impressions": 12278,
+        "acos": 0.13587456069207896
+      },
+      "kw": {
+        "id": "403617594646759",
+        "text": "manual",
+        "currentBid": 0.29,
+        "stats7d": {
+          "spend": 1.45,
+          "orders": 0,
+          "acos": 0,
+          "clicks": 5,
+          "impressions": 541
+        },
+        "entityType": "manualTarget"
+      }
+    },
+    {
+      "sku": "KZ6074",
+      "asin": "B0D479Z4QQ",
+      "profitRate": 0.1986,
+      "invDays": 43,
+      "units7": 0,
+      "units30": 0,
+      "a7": {
+        "spend": 2.9899999999999998,
+        "orders": 2,
+        "clicks": 13,
+        "impressions": 1948,
+        "acos": 0.18710888610763451
+      },
+      "kw": {
+        "id": "477434230935075",
+        "text": "auto",
+        "currentBid": 0.27,
+        "stats7d": {
+          "spend": 1.53,
+          "orders": 2,
+          "acos": 0.090106,
+          "clicks": 6,
+          "impressions": 1289
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "YCL1250",
+      "asin": "B0CJVK6L6M",
+      "profitRate": 0.228,
+      "invDays": 72,
+      "units7": 0,
+      "units30": 0,
+      "a7": {
+        "spend": 7.68,
+        "orders": 3,
+        "clicks": 66,
+        "impressions": 3270,
+        "acos": 0.09146123615576991
+      },
+      "kw": {
+        "id": "384064236234855",
+        "text": "auto",
+        "currentBid": 0.11,
+        "stats7d": {
+          "spend": 1.44,
+          "orders": 1,
+          "acos": 0.051446,
+          "clicks": 15,
+          "impressions": 654
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "YCL1247",
+      "asin": "B0CJVGLND3",
+      "profitRate": 0.276,
+      "invDays": 46,
+      "units7": 0,
+      "units30": 0,
+      "a7": {
+        "spend": 27.62,
+        "orders": 5,
+        "clicks": 133,
+        "impressions": 8044,
+        "acos": 0.1841947315771924
+      },
+      "kw": {
+        "id": "439950409689417",
+        "text": "auto",
+        "currentBid": 0.11,
+        "stats7d": {
+          "spend": 1.03,
+          "orders": 0,
+          "acos": 0,
+          "clicks": 11,
+          "impressions": 318
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "UAN2600",
+      "asin": "B0CHRT58V7",
+      "profitRate": 0.2315,
+      "invDays": 62,
+      "units7": 0,
+      "units30": 0,
+      "a7": {
+        "spend": 7.95,
+        "orders": 4,
+        "clicks": 42,
+        "impressions": 3621,
+        "acos": 0.16576313594662218
+      },
+      "kw": {
+        "id": "457712692672203",
+        "text": "auto",
+        "currentBid": 0.13,
+        "stats7d": {
+          "spend": 0.29,
+          "orders": 0,
+          "acos": 0,
+          "clicks": 3,
+          "impressions": 557
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "PR2460",
+      "asin": "B0BYHS1CYH",
+      "profitRate": 0.1906,
+      "invDays": 39,
+      "units7": 0,
+      "units30": 0,
+      "a7": {
+        "spend": 13.36,
+        "orders": 4,
+        "clicks": 38,
+        "impressions": 3907,
+        "acos": 0.11932833154698107
+      },
+      "kw": {
+        "id": "491654281598908",
+        "text": "auto",
+        "currentBid": 0.31,
+        "stats7d": {
+          "spend": 3.39,
+          "orders": 2,
+          "acos": 0.065217,
+          "clicks": 11,
+          "impressions": 1101
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "SE5942",
+      "asin": "B09YRQ8PHL",
+      "profitRate": 0.3535,
+      "invDays": 38,
+      "units7": 0,
+      "units30": 0,
+      "a7": {
+        "spend": 9.35,
+        "orders": 4,
+        "clicks": 77,
+        "impressions": 5435,
+        "acos": 0.15593729152768512
+      },
+      "kw": {
+        "id": "404086132687273",
+        "text": "auto",
+        "currentBid": 0.15,
+        "stats7d": {
+          "spend": 5.52,
+          "orders": 0,
+          "acos": 0,
+          "clicks": 38,
+          "impressions": 2545
+        },
+        "entityType": "autoTarget"
+      }
+    }
+  ],
+  "bidDown_badAcos": [
+    {
+      "sku": "GM2851",
+      "asin": "B0GCN6GKYR",
+      "profitRate": 0.1331,
+      "invDays": 102,
+      "units7": 0,
+      "a7": {
+        "spend": 14.53,
+        "orders": 1,
+        "clicks": 42,
+        "impressions": 3173,
+        "acos": 0.9086929330831769
+      },
+      "kw": {
+        "id": "448803720940707",
+        "text": "auto",
+        "currentBid": 0.35,
+        "stats7d": {
+          "spend": 8.68,
+          "orders": 0,
+          "acos": 0,
+          "clicks": 25,
+          "impressions": 1894
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "TH2837",
+      "asin": "B0CDH7KXM1",
+      "profitRate": 0.3404,
+      "invDays": 42,
+      "units7": 0,
+      "a7": {
+        "spend": 8.559999999999999,
+        "orders": 0,
+        "clicks": 20,
+        "impressions": 1489,
+        "acos": 99
+      },
+      "kw": {
+        "id": "403646829343638",
+        "text": "auto",
+        "currentBid": 0.43,
+        "stats7d": {
+          "spend": 7.64,
+          "orders": 0,
+          "acos": 0,
+          "clicks": 18,
+          "impressions": 1178
+        },
+        "entityType": "autoTarget"
+      }
+    }
+  ],
+  "bidDown_staleInv": [
+    {
+      "sku": "TAN2986",
+      "asin": "B0FYDRZ1ZC",
+      "profitRate": 0.2444,
+      "invDays": 1710,
+      "units7": 0,
+      "a7": {
+        "spend": 5.14,
+        "orders": 5,
+        "clicks": 15,
+        "impressions": 938,
+        "acos": 0.08573811509591325
+      },
+      "kw": {
+        "id": "351496661251946",
+        "text": "auto",
+        "currentBid": 0.34,
+        "stats7d": {
+          "spend": 1.7,
+          "orders": 0,
+          "acos": 0,
+          "clicks": 5,
+          "impressions": 368
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "SAN1317",
+      "asin": "B0FX4P6RY9",
+      "profitRate": 0.2834,
+      "invDays": 375,
+      "units7": 0,
+      "a7": {
+        "spend": 6.52,
+        "orders": 1,
+        "clicks": 24,
+        "impressions": 10167,
+        "acos": 0.4349566377585056
+      },
+      "kw": {
+        "id": "341138617383719",
+        "text": "auto",
+        "currentBid": 0.28,
+        "stats7d": {
+          "spend": 4.97,
+          "orders": 1,
+          "acos": 0.331554,
+          "clicks": 18,
+          "impressions": 8353
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "GRA5177",
+      "asin": "B0F2MZ74S2",
+      "profitRate": 0.2175,
+      "invDays": 364,
+      "units7": 0,
+      "a7": {
+        "spend": 3.4499999999999997,
+        "orders": 0,
+        "clicks": 14,
+        "impressions": 720,
+        "acos": 99
+      },
+      "kw": {
+        "id": "416212114511587",
+        "text": "auto",
+        "currentBid": 0.22,
+        "stats7d": {
+          "spend": 1.53,
+          "orders": 0,
+          "acos": 0,
+          "clicks": 8,
+          "impressions": 412
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "YUN2187",
+      "asin": "B0DV47QV16",
+      "profitRate": 0.0075,
+      "invDays": 327,
+      "units7": 0,
+      "a7": {
+        "spend": 29.430000000000003,
+        "orders": 8,
+        "clicks": 83,
+        "impressions": 5133,
+        "acos": 0.20448860478043362
+      },
+      "kw": {
+        "id": "500140629307992",
+        "text": "auto",
+        "currentBid": 0.35,
+        "stats7d": {
+          "spend": 4.8,
+          "orders": 0,
+          "acos": 0,
+          "clicks": 14,
+          "impressions": 791
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "SHN1038",
+      "asin": "B0D6341LXR",
+      "profitRate": 0.2417,
+      "invDays": 840,
+      "units7": 0,
+      "a7": {
+        "spend": 3.01,
+        "orders": 0,
+        "clicks": 15,
+        "impressions": 2920,
+        "acos": 99
+      },
+      "kw": {
+        "id": "331503287613542",
+        "text": "auto",
+        "currentBid": 0.21,
+        "stats7d": {
+          "spend": 2.3,
+          "orders": 0,
+          "acos": 0,
+          "clicks": 11,
+          "impressions": 2550
+        },
+        "entityType": "autoTarget"
+      }
+    },
+    {
+      "sku": "KY1342",
+      "asin": "B09NVWTNFS",
+      "profitRate": 0.0636,
+      "invDays": 306,
+      "units7": 0,
+      "a7": {
+        "spend": 31.350000000000005,
+        "orders": 2,
+        "clicks": 99,
+        "impressions": 4376,
+        "acos": 1.5690690690690692
+      },
+      "kw": {
+        "id": "234817652432220",
+        "text": "red bathroom accessories",
+        "currentBid": 0.25,
+        "stats7d": {
+          "spend": 1,
+          "orders": 0,
+          "acos": 0,
+          "clicks": 4,
+          "impressions": 196
+        },
+        "matchType": 3,
+        "entityType": "keyword"
+      }
+    }
+  ],
+  "review_tight_inv": [
+    {
+      "sku": "HAY1932",
+      "invDays": 8,
+      "profitRate": 0.211,
+      "units7": 0,
+      "a7": {
+        "spend": 29.48,
+        "orders": 4,
+        "clicks": 90,
+        "impressions": 9719,
+        "acos": 0.22340103061533798
+      }
+    },
+    {
+      "sku": "GT2432",
+      "invDays": 5,
+      "profitRate": -0.3076,
+      "units7": 0,
+      "a7": {
+        "spend": 4.9799999999999995,
+        "orders": 1,
+        "clicks": 10,
+        "impressions": 4077,
+        "acos": 0.1346309813463098
+      }
+    },
+    {
+      "sku": "AE1079",
+      "invDays": 1,
+      "profitRate": 0.1115,
+      "units7": 0,
+      "a7": {
+        "spend": 223.13000000000002,
+        "orders": 61,
+        "clicks": 430,
+        "impressions": 38549,
+        "acos": 0.2440206038998677
+      }
+    }
+  ],
+  "review_negative_profit": [
+    {
+      "sku": "OB3296",
+      "profitRate": -0.1078,
+      "invDays": 13,
+      "units7": 0,
+      "a7": {
+        "spend": 11.94,
+        "orders": 2,
+        "clicks": 36,
+        "impressions": 4214,
+        "acos": 0.19906635545181728
+      }
+    },
+    {
+      "sku": "XUE2224",
+      "profitRate": -0.2501,
+      "invDays": 32,
+      "units7": 0,
+      "a7": {
+        "spend": 9.5,
+        "orders": 0,
+        "clicks": 20,
+        "impressions": 1175,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "LO3821",
+      "profitRate": -0.0171,
+      "invDays": 90,
+      "units7": 0,
+      "a7": {
+        "spend": 71.51999999999998,
+        "orders": 9,
+        "clicks": 171,
+        "impressions": 15768,
+        "acos": 0.3312491315826038
+      }
+    },
+    {
+      "sku": "KEJ1748",
+      "profitRate": -0.4359,
+      "invDays": 108,
+      "units7": 0,
+      "a7": {
+        "spend": 18.86,
+        "orders": 0,
+        "clicks": 40,
+        "impressions": 3408,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "LEM6581",
+      "profitRate": -0.0748,
+      "invDays": 42,
+      "units7": 0,
+      "a7": {
+        "spend": 45.07,
+        "orders": 2,
+        "clicks": 113,
+        "impressions": 5435,
+        "acos": 0.5931824164253751
+      }
+    },
+    {
+      "sku": "YUT2590",
+      "profitRate": -0.1799,
+      "invDays": 24,
+      "units7": 0,
+      "a7": {
+        "spend": 10.65,
+        "orders": 5,
+        "clicks": 33,
+        "impressions": 3884,
+        "acos": 0.03043291898842692
+      }
+    },
+    {
+      "sku": "XIH2672",
+      "profitRate": -0.1324,
+      "invDays": 65,
+      "units7": 0,
+      "a7": {
+        "spend": 8.759999999999998,
+        "orders": 4,
+        "clicks": 31,
+        "impressions": 1553,
+        "acos": 0.054763690922730666
+      }
+    },
+    {
+      "sku": "XIH2562",
+      "profitRate": -0.1454,
+      "invDays": 1410,
+      "units7": 0,
+      "a7": {
+        "spend": 3.8999999999999995,
+        "orders": 0,
+        "clicks": 21,
+        "impressions": 1611,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "LUO1012",
+      "profitRate": -0.1112,
+      "invDays": 221,
+      "units7": 0,
+      "a7": {
+        "spend": 4.2,
+        "orders": 1,
+        "clicks": 14,
+        "impressions": 2260,
+        "acos": 0.18268812527185735
+      }
+    },
+    {
+      "sku": "LUO1006",
+      "profitRate": -0.1112,
+      "invDays": 97,
+      "units7": 0,
+      "a7": {
+        "spend": 6.6899999999999995,
+        "orders": 1,
+        "clicks": 14,
+        "impressions": 1136,
+        "acos": 0.29099608525445847
+      }
+    },
+    {
+      "sku": "SAN1213",
+      "profitRate": -0.1865,
+      "invDays": 80,
+      "units7": 0,
+      "a7": {
+        "spend": 4.46,
+        "orders": 1,
+        "clicks": 13,
+        "impressions": 4286,
+        "acos": 0.12057312787239793
+      }
+    },
+    {
+      "sku": "SSU3909",
+      "profitRate": -0.2974,
+      "invDays": 102,
+      "units7": 0,
+      "a7": {
+        "spend": 14.559999999999999,
+        "orders": 2,
+        "clicks": 14,
+        "impressions": 3408,
+        "acos": 0.08667698535539944
+      }
+    },
+    {
+      "sku": "YY4568",
+      "profitRate": -0.3391,
+      "invDays": 120,
+      "units7": 0,
+      "a7": {
+        "spend": 23.869999999999994,
+        "orders": 0,
+        "clicks": 39,
+        "impressions": 3871,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "PIR4617",
+      "profitRate": -0.0197,
+      "invDays": 33,
+      "units7": 0,
+      "a7": {
+        "spend": 13.34,
+        "orders": 1,
+        "clicks": 15,
+        "impressions": 2208,
+        "acos": 0.4942571322712116
+      }
+    },
+    {
+      "sku": "DUI3806",
+      "profitRate": -0.1894,
+      "invDays": 185,
+      "units7": 0,
+      "a7": {
+        "spend": 3.61,
+        "orders": 1,
+        "clicks": 21,
+        "impressions": 648,
+        "acos": 0.09759394430927276
+      }
+    },
+    {
+      "sku": "SAN1050",
+      "profitRate": -0.1364,
+      "invDays": 34,
+      "units7": 0,
+      "a7": {
+        "spend": 4.35,
+        "orders": 1,
+        "clicks": 16,
+        "impressions": 3337,
+        "acos": 0.11156706847909718
+      }
+    },
+    {
+      "sku": "ZO0892",
+      "profitRate": -0.2999,
+      "invDays": 88,
+      "units7": 0,
+      "a7": {
+        "spend": 29.53,
+        "orders": 6,
+        "clicks": 84,
+        "impressions": 5578,
+        "acos": 0.11188148821701903
+      }
+    },
+    {
+      "sku": "ZO0891",
+      "profitRate": -0.1545,
+      "invDays": 79,
+      "units7": 0,
+      "a7": {
+        "spend": 53.849999999999994,
+        "orders": 9,
+        "clicks": 157,
+        "impressions": 7639,
+        "acos": 0.22168704458441396
+      }
+    },
+    {
+      "sku": "YUN2188",
+      "profitRate": -0.0675,
+      "invDays": 23,
+      "units7": 0,
+      "a7": {
+        "spend": 42.27,
+        "orders": 9,
+        "clicks": 111,
+        "impressions": 6161,
+        "acos": 0.2135819311808398
+      }
+    },
+    {
+      "sku": "FLO2960",
+      "profitRate": -0.4268,
+      "invDays": 188,
+      "units7": 0,
+      "a7": {
+        "spend": 3.3400000000000003,
+        "orders": 0,
+        "clicks": 10,
+        "impressions": 733,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "KEJ0562",
+      "profitRate": -0.106,
+      "invDays": 23,
+      "units7": 0,
+      "a7": {
+        "spend": 3.93,
+        "orders": 0,
+        "clicks": 11,
+        "impressions": 647,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "KAO0575",
+      "profitRate": -0.0506,
+      "invDays": 24,
+      "units7": 0,
+      "a7": {
+        "spend": 6.210000000000001,
+        "orders": 0,
+        "clicks": 23,
+        "impressions": 2849,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "UAN3248",
+      "profitRate": -0.0001,
+      "invDays": 20,
+      "units7": 0,
+      "a7": {
+        "spend": 12.659999999999998,
+        "orders": 5,
+        "clicks": 44,
+        "impressions": 3713,
+        "acos": 0.10132052821128451
+      }
+    },
+    {
+      "sku": "QA3278",
+      "profitRate": -0.0339,
+      "invDays": 260,
+      "units7": 0,
+      "a7": {
+        "spend": 16.59,
+        "orders": 4,
+        "clicks": 100,
+        "impressions": 5061,
+        "acos": 0.13383349467570185
+      }
+    },
+    {
+      "sku": "GOO1089",
+      "profitRate": -0.3003,
+      "invDays": 77,
+      "units7": 0,
+      "a7": {
+        "spend": 21.7,
+        "orders": 0,
+        "clicks": 82,
+        "impressions": 3395,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "DN2683",
+      "profitRate": -0.1746,
+      "invDays": 24,
+      "units7": 0,
+      "a7": {
+        "spend": 116.91,
+        "orders": 18,
+        "clicks": 379,
+        "impressions": 36792,
+        "acos": 0.11600285765315234
+      }
+    },
+    {
+      "sku": "CLO0343",
+      "profitRate": -0.0634,
+      "invDays": 33,
+      "units7": 0,
+      "a7": {
+        "spend": 3.2799999999999994,
+        "orders": 0,
+        "clicks": 8,
+        "impressions": 588,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "GGN2452",
+      "profitRate": -0.3205,
+      "invDays": 138,
+      "units7": 0,
+      "a7": {
+        "spend": 6.9399999999999995,
+        "orders": 1,
+        "clicks": 11,
+        "impressions": 1894,
+        "acos": 0.11195354089369251
+      }
+    },
+    {
+      "sku": "DUN1394",
+      "profitRate": -0.3712,
+      "invDays": 51,
+      "units7": 0,
+      "a7": {
+        "spend": 10.91,
+        "orders": 1,
+        "clicks": 25,
+        "impressions": 2028,
+        "acos": 0.14357152256875905
+      }
+    },
+    {
+      "sku": "DUN1392",
+      "profitRate": -0.0587,
+      "invDays": 75,
+      "units7": 0,
+      "a7": {
+        "spend": 65.55,
+        "orders": 2,
+        "clicks": 115,
+        "impressions": 8421,
+        "acos": 0.5203206858231465
+      }
+    },
+    {
+      "sku": "SIJ2012",
+      "profitRate": -0.2992,
+      "invDays": 53,
+      "units7": 0,
+      "a7": {
+        "spend": 38.550000000000004,
+        "orders": 7,
+        "clicks": 122,
+        "impressions": 8777,
+        "acos": 0.10014807887148314
+      }
+    },
+    {
+      "sku": "DUN1127",
+      "profitRate": -0.1813,
+      "invDays": 173,
+      "units7": 0,
+      "a7": {
+        "spend": 79.47999999999999,
+        "orders": 3,
+        "clicks": 170,
+        "impressions": 13705,
+        "acos": 0.6624989580728514
+      }
+    },
+    {
+      "sku": "BIO0027",
+      "profitRate": -0.2438,
+      "invDays": 20,
+      "units7": 0,
+      "a7": {
+        "spend": 7.06,
+        "orders": 1,
+        "clicks": 23,
+        "impressions": 1219,
+        "acos": 0.12388138269871907
+      }
+    },
+    {
+      "sku": "BIO0026",
+      "profitRate": -0.104,
+      "invDays": 55,
+      "units7": 0,
+      "a7": {
+        "spend": 4.67,
+        "orders": 1,
+        "clicks": 30,
+        "impressions": 1980,
+        "acos": 0.11677919479869966
+      }
+    },
+    {
+      "sku": "SAN0384",
+      "profitRate": -0.1511,
+      "invDays": 90,
+      "units7": 0,
+      "a7": {
+        "spend": 4.98,
+        "orders": 1,
+        "clicks": 11,
+        "impressions": 4732,
+        "acos": 0.1245311327831958
+      }
+    },
+    {
+      "sku": "SAN0383",
+      "profitRate": -0.1479,
+      "invDays": 98,
+      "units7": 0,
+      "a7": {
+        "spend": 187.96999999999997,
+        "orders": 21,
+        "clicks": 277,
+        "impressions": 82035,
+        "acos": 0.23561338196768566
+      }
+    },
+    {
+      "sku": "LRU1537",
+      "profitRate": -0.0194,
+      "invDays": 85,
+      "units7": 0,
+      "a7": {
+        "spend": 13.24,
+        "orders": 1,
+        "clicks": 48,
+        "impressions": 5060,
+        "acos": 0.6020918599363347
+      }
+    },
+    {
+      "sku": "SAN0149",
+      "profitRate": -0.1167,
+      "invDays": 25,
+      "units7": 0,
+      "a7": {
+        "spend": 11.68,
+        "orders": 1,
+        "clicks": 51,
+        "impressions": 6331,
+        "acos": 0.2920730182545636
+      }
+    },
+    {
+      "sku": "YH3708",
+      "profitRate": -0.0479,
+      "invDays": 30,
+      "units7": 0,
+      "a7": {
+        "spend": 12.33,
+        "orders": 1,
+        "clicks": 60,
+        "impressions": 3150,
+        "acos": 0.8813438170121515
+      }
+    },
+    {
+      "sku": "YH3707",
+      "profitRate": -0.0457,
+      "invDays": 90,
+      "units7": 0,
+      "a7": {
+        "spend": 5.89,
+        "orders": 0,
+        "clicks": 24,
+        "impressions": 644,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "SSU1756",
+      "profitRate": -0.1177,
+      "invDays": 53,
+      "units7": 0,
+      "a7": {
+        "spend": 6.090000000000001,
+        "orders": 0,
+        "clicks": 8,
+        "impressions": 1254,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "AE2139",
+      "profitRate": -0.0104,
+      "invDays": 32,
+      "units7": 0,
+      "a7": {
+        "spend": 10.370000000000001,
+        "orders": 3,
+        "clicks": 25,
+        "impressions": 2193,
+        "acos": 0.0934486798233757
+      }
+    }
+  ],
+  "review_marginal": [
+    {
+      "sku": "TUR8821",
+      "profitRate": 0.2676,
+      "invDays": 240,
+      "units7": 0,
+      "a7": {
+        "spend": 2.7199999999999993,
+        "orders": 0,
+        "clicks": 9,
+        "impressions": 331,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "QUN5204",
+      "profitRate": 0.3443,
+      "invDays": 999,
+      "units7": 0,
+      "a7": {
+        "spend": 3.94,
+        "orders": 0,
+        "clicks": 14,
+        "impressions": 641,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "GM3940",
+      "profitRate": 0.2653,
+      "invDays": 26,
+      "units7": 0,
+      "a7": {
+        "spend": 1.82,
+        "orders": 0,
+        "clicks": 5,
+        "impressions": 851,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "YAN4898",
+      "profitRate": 0.3924,
+      "invDays": 39,
+      "units7": 0,
+      "a7": {
+        "spend": 1.68,
+        "orders": 0,
+        "clicks": 9,
+        "impressions": 935,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "GM3201",
+      "profitRate": 0.046,
+      "invDays": 25,
+      "units7": 0,
+      "a7": {
+        "spend": 3.3899999999999997,
+        "orders": 0,
+        "clicks": 14,
+        "impressions": 1168,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "GM2821",
+      "profitRate": 0.2526,
+      "invDays": 29,
+      "units7": 0,
+      "a7": {
+        "spend": 3.01,
+        "orders": 0,
+        "clicks": 11,
+        "impressions": 1506,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "TM2897",
+      "profitRate": 0.1555,
+      "invDays": 442,
+      "units7": 0,
+      "a7": {
+        "spend": 1.1400000000000001,
+        "orders": 0,
+        "clicks": 6,
+        "impressions": 451,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "RU2391",
+      "profitRate": 0.0564,
+      "invDays": 186,
+      "units7": 0,
+      "a7": {
+        "spend": 1.61,
+        "orders": 0,
+        "clicks": 6,
+        "impressions": 653,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "YUT4460",
+      "profitRate": 0.146,
+      "invDays": 202,
+      "units7": 0,
+      "a7": {
+        "spend": 2.4,
+        "orders": 0,
+        "clicks": 11,
+        "impressions": 421,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "STY2760",
+      "profitRate": -0.0903,
+      "invDays": 309,
+      "units7": 0,
+      "a7": {
+        "spend": 1.4,
+        "orders": 0,
+        "clicks": 14,
+        "impressions": 606,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "GT4431",
+      "profitRate": 0.285,
+      "invDays": 56,
+      "units7": 0,
+      "a7": {
+        "spend": 3.1599999999999997,
+        "orders": 0,
+        "clicks": 13,
+        "impressions": 862,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "YUT3185",
+      "profitRate": 0.0248,
+      "invDays": 21,
+      "units7": 0,
+      "a7": {
+        "spend": 1.56,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 401,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "YUT2946",
+      "profitRate": 0.1679,
+      "invDays": 618,
+      "units7": 0,
+      "a7": {
+        "spend": 2.56,
+        "orders": 0,
+        "clicks": 9,
+        "impressions": 1029,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "SE7586",
+      "profitRate": 0.2234,
+      "invDays": 34,
+      "units7": 0,
+      "a7": {
+        "spend": 2.0500000000000003,
+        "orders": 0,
+        "clicks": 9,
+        "impressions": 1504,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "STA2604",
+      "profitRate": -0.0001,
+      "invDays": 999,
+      "units7": 0,
+      "a7": {
+        "spend": 1.0899999999999999,
+        "orders": 0,
+        "clicks": 3,
+        "impressions": 236,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "XIX2011",
+      "profitRate": 0.2296,
+      "invDays": 62,
+      "units7": 0,
+      "a7": {
+        "spend": 3.2,
+        "orders": 0,
+        "clicks": 8,
+        "impressions": 4116,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "XIH2677",
+      "profitRate": -0.0609,
+      "invDays": 492,
+      "units7": 0,
+      "a7": {
+        "spend": 1.81,
+        "orders": 0,
+        "clicks": 6,
+        "impressions": 216,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "QA4103",
+      "profitRate": 0.263,
+      "invDays": 64,
+      "units7": 0,
+      "a7": {
+        "spend": 1.02,
+        "orders": 0,
+        "clicks": 4,
+        "impressions": 423,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "SIJ3881",
+      "profitRate": -0.2038,
+      "invDays": 24,
+      "units7": 0,
+      "a7": {
+        "spend": 2.26,
+        "orders": 0,
+        "clicks": 3,
+        "impressions": 1403,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "COT2347",
+      "profitRate": 0.158,
+      "invDays": 999,
+      "units7": 0,
+      "a7": {
+        "spend": 1.25,
+        "orders": 0,
+        "clicks": 4,
+        "impressions": 306,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "LIC1392",
+      "profitRate": 0.4939,
+      "invDays": 82,
+      "units7": 0,
+      "a7": {
+        "spend": 1.54,
+        "orders": 0,
+        "clicks": 15,
+        "impressions": 941,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "BOY3356",
+      "profitRate": 0.1689,
+      "invDays": 194,
+      "units7": 0,
+      "a7": {
+        "spend": 3.77,
+        "orders": 0,
+        "clicks": 30,
+        "impressions": 457,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "JIN3992",
+      "profitRate": 0.0835,
+      "invDays": 720,
+      "units7": 0,
+      "a7": {
+        "spend": 1.8,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 1763,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "YUN2686",
+      "profitRate": 0.0511,
+      "invDays": 18,
+      "units7": 0,
+      "a7": {
+        "spend": 1.65,
+        "orders": 0,
+        "clicks": 8,
+        "impressions": 405,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "SE6621",
+      "profitRate": 0.3194,
+      "invDays": 12,
+      "units7": 0,
+      "a7": {
+        "spend": 2.02,
+        "orders": 0,
+        "clicks": 15,
+        "impressions": 924,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "HEL2084",
+      "profitRate": 0.2586,
+      "invDays": 198,
+      "units7": 0,
+      "a7": {
+        "spend": 1.0699999999999998,
+        "orders": 0,
+        "clicks": 4,
+        "impressions": 867,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "NAY0963",
+      "profitRate": 0.1653,
+      "invDays": 39,
+      "units7": 0,
+      "a7": {
+        "spend": 1.46,
+        "orders": 0,
+        "clicks": 9,
+        "impressions": 222,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "OYH0784",
+      "profitRate": 0.1481,
+      "invDays": 116,
+      "units7": 0,
+      "a7": {
+        "spend": 1.5699999999999998,
+        "orders": 0,
+        "clicks": 8,
+        "impressions": 973,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "UAN3645",
+      "profitRate": 0.0741,
+      "invDays": 66,
+      "units7": 0,
+      "a7": {
+        "spend": 1.25,
+        "orders": 0,
+        "clicks": 5,
+        "impressions": 460,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "UAN3644",
+      "profitRate": 0.0239,
+      "invDays": 52,
+      "units7": 0,
+      "a7": {
+        "spend": 4.9799999999999995,
+        "orders": 0,
+        "clicks": 13,
+        "impressions": 657,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "JAF0900",
+      "profitRate": 0.1715,
+      "invDays": 110,
+      "units7": 0,
+      "a7": {
+        "spend": 2.85,
+        "orders": 0,
+        "clicks": 11,
+        "impressions": 2126,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "UAN3256",
+      "profitRate": 0.1451,
+      "invDays": 55,
+      "units7": 0,
+      "a7": {
+        "spend": 4.86,
+        "orders": 0,
+        "clicks": 23,
+        "impressions": 1067,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "AE3519",
+      "profitRate": -0.3908,
+      "invDays": 173,
+      "units7": 0,
+      "a7": {
+        "spend": 1,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 227,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "NO3390",
+      "profitRate": 0.0996,
+      "invDays": 94,
+      "units7": 0,
+      "a7": {
+        "spend": 3.37,
+        "orders": 0,
+        "clicks": 16,
+        "impressions": 695,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "IF1738",
+      "profitRate": 0.1432,
+      "invDays": 55,
+      "units7": 0,
+      "a7": {
+        "spend": 2.9699999999999998,
+        "orders": 0,
+        "clicks": 15,
+        "impressions": 825,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "QA3275",
+      "profitRate": -0.0281,
+      "invDays": 390,
+      "units7": 0,
+      "a7": {
+        "spend": 1.3499999999999999,
+        "orders": 0,
+        "clicks": 7,
+        "impressions": 314,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "DUI0086",
+      "profitRate": -0.1371,
+      "invDays": 58,
+      "units7": 0,
+      "a7": {
+        "spend": 1.53,
+        "orders": 0,
+        "clicks": 7,
+        "impressions": 452,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "JIN1883",
+      "profitRate": 0.1186,
+      "invDays": 52,
+      "units7": 0,
+      "a7": {
+        "spend": 1.92,
+        "orders": 0,
+        "clicks": 4,
+        "impressions": 634,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "DUN1391",
+      "profitRate": -0.2681,
+      "invDays": 200,
+      "units7": 0,
+      "a7": {
+        "spend": 2.54,
+        "orders": 0,
+        "clicks": 10,
+        "impressions": 780,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "UAN2599",
+      "profitRate": 0.1114,
+      "invDays": 45,
+      "units7": 0,
+      "a7": {
+        "spend": 4.989999999999999,
+        "orders": 0,
+        "clicks": 24,
+        "impressions": 1076,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "WOO0173",
+      "profitRate": -0.0239,
+      "invDays": 15,
+      "units7": 0,
+      "a7": {
+        "spend": 1.6,
+        "orders": 0,
+        "clicks": 11,
+        "impressions": 723,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "UAN1810",
+      "profitRate": -0.0833,
+      "invDays": 17,
+      "units7": 0,
+      "a7": {
+        "spend": 1.55,
+        "orders": 0,
+        "clicks": 5,
+        "impressions": 477,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "KOU1439",
+      "profitRate": 0.0676,
+      "invDays": 156,
+      "units7": 0,
+      "a7": {
+        "spend": 1.42,
+        "orders": 0,
+        "clicks": 6,
+        "impressions": 487,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "HEL0606",
+      "profitRate": 0.1504,
+      "invDays": 96,
+      "units7": 0,
+      "a7": {
+        "spend": 1.6400000000000001,
+        "orders": 0,
+        "clicks": 9,
+        "impressions": 852,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "TH2824",
+      "profitRate": 0.3355,
+      "invDays": 9,
+      "units7": 0,
+      "a7": {
+        "spend": 1,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 133,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "YAN2293",
+      "profitRate": 0.0536,
+      "invDays": 153,
+      "units7": 0,
+      "a7": {
+        "spend": 2.02,
+        "orders": 0,
+        "clicks": 14,
+        "impressions": 403,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "IF1232",
+      "profitRate": 0.1812,
+      "invDays": 101,
+      "units7": 0,
+      "a7": {
+        "spend": 3.02,
+        "orders": 0,
+        "clicks": 9,
+        "impressions": 793,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "KUR0501",
+      "profitRate": 0.2639,
+      "invDays": 67,
+      "units7": 0,
+      "a7": {
+        "spend": 1.22,
+        "orders": 0,
+        "clicks": 9,
+        "impressions": 1257,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "QA2074",
+      "profitRate": -0.0328,
+      "invDays": 206,
+      "units7": 0,
+      "a7": {
+        "spend": 2.32,
+        "orders": 0,
+        "clicks": 16,
+        "impressions": 953,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "QA1951",
+      "profitRate": 0.2113,
+      "invDays": 11,
+      "units7": 0,
+      "a7": {
+        "spend": 1.06,
+        "orders": 0,
+        "clicks": 3,
+        "impressions": 574,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "AE1101",
+      "profitRate": 0.1694,
+      "invDays": 345,
+      "units7": 0,
+      "a7": {
+        "spend": 1.19,
+        "orders": 0,
+        "clicks": 3,
+        "impressions": 194,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "AE1181",
+      "profitRate": -0.4471,
+      "invDays": 186,
+      "units7": 0,
+      "a7": {
+        "spend": 1.0899999999999999,
+        "orders": 0,
+        "clicks": 9,
+        "impressions": 184,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "KY2096",
+      "profitRate": 0.1691,
+      "invDays": 219,
+      "units7": 0,
+      "a7": {
+        "spend": 3.08,
+        "orders": 0,
+        "clicks": 18,
+        "impressions": 889,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    },
+    {
+      "sku": "BOY1281",
+      "profitRate": 0.1715,
+      "invDays": 240,
+      "units7": 0,
+      "a7": {
+        "spend": 1.18,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 2640,
+        "acos": 99
+      },
+      "reason": "small_spend_no_order"
+    }
+  ],
+  "no_action_stable": [
+    {
+      "sku": "KZ6722",
+      "profitRate": 0.2637,
+      "invDays": 225,
+      "units7": 0,
+      "a7": {
+        "spend": 1.36,
+        "orders": 1,
+        "clicks": 4,
+        "impressions": 307,
+        "acos": 0.1134278565471226
+      }
+    },
+    {
+      "sku": "SHQ3949",
+      "profitRate": 0.2039,
+      "invDays": 204,
+      "units7": 0,
+      "a7": {
+        "spend": 8.03,
+        "orders": 0,
+        "clicks": 25,
+        "impressions": 3317,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "QUN1382",
+      "profitRate": 0.4661,
+      "invDays": 15,
+      "units7": 0,
+      "a7": {
+        "spend": 43.919999999999995,
+        "orders": 7,
+        "clicks": 151,
+        "impressions": 11278,
+        "acos": 0.3923880997051728
+      }
+    },
+    {
+      "sku": "MF6280",
+      "profitRate": 0.1603,
+      "invDays": 69,
+      "units7": 0,
+      "a7": {
+        "spend": 0.65,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 372,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "MF6294",
+      "profitRate": 0.1558,
+      "invDays": 107,
+      "units7": 0,
+      "a7": {
+        "spend": 9.63,
+        "orders": 1,
+        "clicks": 25,
+        "impressions": 1122,
+        "acos": 0.2534877599368255
+      }
+    },
+    {
+      "sku": "YAN4858",
+      "profitRate": 0.1679,
+      "invDays": 232,
+      "units7": 0,
+      "a7": {
+        "spend": 13.629999999999999,
+        "orders": 0,
+        "clicks": 53,
+        "impressions": 2585,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "RHO1540",
+      "profitRate": 0.2775,
+      "invDays": 8,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 52,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "OB4139",
+      "profitRate": -0.2218,
+      "invDays": 11,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "YEO1463",
+      "profitRate": 0.0645,
+      "invDays": 330,
+      "units7": 0,
+      "a7": {
+        "spend": 0.7,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 143,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "YEO1452",
+      "profitRate": 0.0102,
+      "invDays": 705,
+      "units7": 0,
+      "a7": {
+        "spend": 3.76,
+        "orders": 1,
+        "clicks": 12,
+        "impressions": 781,
+        "acos": 0.1567319716548562
+      }
+    },
+    {
+      "sku": "YEO1451",
+      "profitRate": 0.0102,
+      "invDays": 126,
+      "units7": 0,
+      "a7": {
+        "spend": 6.81,
+        "orders": 1,
+        "clicks": 21,
+        "impressions": 1327,
+        "acos": 0.2838682784493539
+      }
+    },
+    {
+      "sku": "YUH4842",
+      "profitRate": -0.0212,
+      "invDays": 1410,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "LE8173",
+      "profitRate": 0.0826,
+      "invDays": 60,
+      "units7": 0,
+      "a7": {
+        "spend": 13,
+        "orders": 5,
+        "clicks": 34,
+        "impressions": 1635,
+        "acos": 0.13006503251625814
+      }
+    },
+    {
+      "sku": "LE8168",
+      "profitRate": 0.07,
+      "invDays": 62,
+      "units7": 0,
+      "a7": {
+        "spend": 4.800000000000001,
+        "orders": 1,
+        "clicks": 13,
+        "impressions": 516,
+        "acos": 0.24012006003001507
+      }
+    },
+    {
+      "sku": "LE8156",
+      "profitRate": 0.101,
+      "invDays": 193,
+      "units7": 0,
+      "a7": {
+        "spend": 0.61,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 276,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "LE5294",
+      "profitRate": 0.0646,
+      "invDays": 190,
+      "units7": 0,
+      "a7": {
+        "spend": 5.330000000000001,
+        "orders": 1,
+        "clicks": 15,
+        "impressions": 437,
+        "acos": 0.26663331665832923
+      }
+    },
+    {
+      "sku": "GM3213",
+      "profitRate": 0.1244,
+      "invDays": 5,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "GM3210",
+      "profitRate": 0.1849,
+      "invDays": 1,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "GM3207",
+      "profitRate": 0.1244,
+      "invDays": 50,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "GM3061",
+      "profitRate": 0.2966,
+      "invDays": 1,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "TUR5292",
+      "profitRate": 0.3135,
+      "invDays": 36,
+      "units7": 0,
+      "a7": {
+        "spend": 11.210000000000003,
+        "orders": 0,
+        "clicks": 41,
+        "impressions": 1762,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "RU2411",
+      "profitRate": 0.0088,
+      "invDays": 138,
+      "units7": 0,
+      "a7": {
+        "spend": 0.28,
+        "orders": 0,
+        "clicks": 1,
+        "impressions": 35,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "RU2438",
+      "profitRate": 0.2096,
+      "invDays": 1410,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "YUT4466",
+      "profitRate": 0.2783,
+      "invDays": 170,
+      "units7": 0,
+      "a7": {
+        "spend": 0.8600000000000001,
+        "orders": 0,
+        "clicks": 3,
+        "impressions": 364,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "YUT4462",
+      "profitRate": 0.0719,
+      "invDays": 158,
+      "units7": 0,
+      "a7": {
+        "spend": 7.180000000000001,
+        "orders": 1,
+        "clicks": 20,
+        "impressions": 1009,
+        "acos": 0.3591795897948975
+      }
+    },
+    {
+      "sku": "STY2115",
+      "profitRate": -0.1096,
+      "invDays": 202,
+      "units7": 0,
+      "a7": {
+        "spend": 0.35000000000000003,
+        "orders": 0,
+        "clicks": 3,
+        "impressions": 283,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "LE5044",
+      "profitRate": 0.0198,
+      "invDays": 228,
+      "units7": 0,
+      "a7": {
+        "spend": 8.48,
+        "orders": 0,
+        "clicks": 15,
+        "impressions": 2042,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "GM3068",
+      "profitRate": 0.2486,
+      "invDays": 51,
+      "units7": 0,
+      "a7": {
+        "spend": 2.63,
+        "orders": 2,
+        "clicks": 13,
+        "impressions": 2139,
+        "acos": 0.10967472894078398
+      }
+    },
+    {
+      "sku": "CAS4030",
+      "profitRate": 0.329,
+      "invDays": 4560,
+      "units7": 0,
+      "a7": {
+        "spend": 0.78,
+        "orders": 0,
+        "clicks": 3,
+        "impressions": 1085,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "GM3065",
+      "profitRate": 0.2922,
+      "invDays": 53,
+      "units7": 0,
+      "a7": {
+        "spend": 9.690000000000001,
+        "orders": 1,
+        "clicks": 32,
+        "impressions": 1854,
+        "acos": 0.7459584295612011
+      }
+    },
+    {
+      "sku": "LEM6585",
+      "profitRate": -0.0655,
+      "invDays": 999,
+      "units7": 0,
+      "a7": {
+        "spend": 0.23,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 572,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "SY4371",
+      "profitRate": 0.2605,
+      "invDays": 14,
+      "units7": 0,
+      "a7": {
+        "spend": 0.25,
+        "orders": 1,
+        "clicks": 1,
+        "impressions": 12,
+        "acos": 0.013164823591363877
+      }
+    },
+    {
+      "sku": "OLI2213",
+      "profitRate": 0.0633,
+      "invDays": 2100,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 5,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "KEI1148",
+      "profitRate": -0.1557,
+      "invDays": 139,
+      "units7": 0,
+      "a7": {
+        "spend": 0.65,
+        "orders": 1,
+        "clicks": 1,
+        "impressions": 218,
+        "acos": 0.015857526225908757
+      }
+    },
+    {
+      "sku": "YUT3587",
+      "profitRate": 0.1944,
+      "invDays": 162,
+      "units7": 0,
+      "a7": {
+        "spend": 9.05,
+        "orders": 1,
+        "clicks": 33,
+        "impressions": 3433,
+        "acos": 0.41155070486584816
+      }
+    },
+    {
+      "sku": "YUT3184",
+      "profitRate": 0.0717,
+      "invDays": 20,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "YUT3183",
+      "profitRate": 0.1689,
+      "invDays": 13,
+      "units7": 0,
+      "a7": {
+        "spend": 44.07,
+        "orders": 8,
+        "clicks": 70,
+        "impressions": 10699,
+        "acos": 0.13775318829707425
+      }
+    },
+    {
+      "sku": "YUT2927",
+      "profitRate": 0.2207,
+      "invDays": 169,
+      "units7": 0,
+      "a7": {
+        "spend": 3.3200000000000003,
+        "orders": 1,
+        "clicks": 11,
+        "impressions": 746,
+        "acos": 0.14441061331013486
+      }
+    },
+    {
+      "sku": "YUT2847",
+      "profitRate": 0.0728,
+      "invDays": 36,
+      "units7": 0,
+      "a7": {
+        "spend": 14.489999999999998,
+        "orders": 1,
+        "clicks": 22,
+        "impressions": 1345,
+        "acos": 0.4141183195198628
+      }
+    },
+    {
+      "sku": "YUT2844",
+      "profitRate": 0.0588,
+      "invDays": 18,
+      "units7": 0,
+      "a7": {
+        "spend": 4.5,
+        "orders": 1,
+        "clicks": 4,
+        "impressions": 1026,
+        "acos": 0.0937695353198583
+      }
+    },
+    {
+      "sku": "YUT2840",
+      "profitRate": 0.1033,
+      "invDays": 12,
+      "units7": 0,
+      "a7": {
+        "spend": 9.29,
+        "orders": 1,
+        "clicks": 11,
+        "impressions": 2375,
+        "acos": 0.21609676668992786
+      }
+    },
+    {
+      "sku": "GM2628",
+      "profitRate": 0.1548,
+      "invDays": 65,
+      "units7": 0,
+      "a7": {
+        "spend": 20.209999999999994,
+        "orders": 6,
+        "clicks": 78,
+        "impressions": 3114,
+        "acos": 0.3371705038371704
+      }
+    },
+    {
+      "sku": "GM2627",
+      "profitRate": 0.249,
+      "invDays": 28,
+      "units7": 0,
+      "a7": {
+        "spend": 22.79,
+        "orders": 3,
+        "clicks": 55,
+        "impressions": 3936,
+        "acos": 0.760427093760427
+      }
+    },
+    {
+      "sku": "GM2616",
+      "profitRate": 0.2474,
+      "invDays": 97,
+      "units7": 0,
+      "a7": {
+        "spend": 4.22,
+        "orders": 2,
+        "clicks": 13,
+        "impressions": 681,
+        "acos": 0.11728738187882157
+      }
+    },
+    {
+      "sku": "KV4232",
+      "profitRate": 0.1424,
+      "invDays": 37,
+      "units7": 0,
+      "a7": {
+        "spend": 1.62,
+        "orders": 2,
+        "clicks": 4,
+        "impressions": 1220,
+        "acos": 0.04767510300176575
+      }
+    },
+    {
+      "sku": "KV4231",
+      "profitRate": 0.1424,
+      "invDays": 72,
+      "units7": 0,
+      "a7": {
+        "spend": 10.07,
+        "orders": 4,
+        "clicks": 29,
+        "impressions": 2550,
+        "acos": 0.14817539729252505
+      }
+    },
+    {
+      "sku": "DN3482",
+      "profitRate": -0.1554,
+      "invDays": 645,
+      "units7": 0,
+      "a7": {
+        "spend": 0.6,
+        "orders": 0,
+        "clicks": 1,
+        "impressions": 103,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "HAI4870",
+      "profitRate": 0.2222,
+      "invDays": 60,
+      "units7": 0,
+      "a7": {
+        "spend": 2.9800000000000004,
+        "orders": 1,
+        "clicks": 15,
+        "impressions": 853,
+        "acos": 0.22940723633564283
+      }
+    },
+    {
+      "sku": "STA2610",
+      "profitRate": -0.2597,
+      "invDays": 2745,
+      "units7": 0,
+      "a7": {
+        "spend": 0.3,
+        "orders": 0,
+        "clicks": 1,
+        "impressions": 106,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "STA2607",
+      "profitRate": -0.0713,
+      "invDays": 999,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 27,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "YYW2630",
+      "profitRate": 0.1287,
+      "invDays": 40,
+      "units7": 0,
+      "a7": {
+        "spend": 3.08,
+        "orders": 1,
+        "clicks": 22,
+        "impressions": 1013,
+        "acos": 0.06040400078446754
+      }
+    },
+    {
+      "sku": "QAA4200",
+      "profitRate": 0.4324,
+      "invDays": 19,
+      "units7": 0,
+      "a7": {
+        "spend": 7.96,
+        "orders": 1,
+        "clicks": 38,
+        "impressions": 5810,
+        "acos": 0.22749356959131178
+      }
+    },
+    {
+      "sku": "DAY2987",
+      "profitRate": 0.2424,
+      "invDays": 69,
+      "units7": 0,
+      "a7": {
+        "spend": 10.510000000000002,
+        "orders": 0,
+        "clicks": 31,
+        "impressions": 4112,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "DAY2984",
+      "profitRate": 0.481,
+      "invDays": 25,
+      "units7": 0,
+      "a7": {
+        "spend": 10.37,
+        "orders": 0,
+        "clicks": 30,
+        "impressions": 2224,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "LUO1051",
+      "profitRate": -0.1038,
+      "invDays": 570,
+      "units7": 0,
+      "a7": {
+        "spend": 2.25,
+        "orders": 1,
+        "clicks": 6,
+        "impressions": 741,
+        "acos": 0.097868638538495
+      }
+    },
+    {
+      "sku": "XIH2559",
+      "profitRate": 0.0469,
+      "invDays": 440,
+      "units7": 0,
+      "a7": {
+        "spend": 9.159999999999998,
+        "orders": 1,
+        "clicks": 25,
+        "impressions": 2642,
+        "acos": 0.3054351450483494
+      }
+    },
+    {
+      "sku": "QAA1787",
+      "profitRate": 0.1918,
+      "invDays": 0,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "QAA1779",
+      "profitRate": 0.278,
+      "invDays": 27,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "XIA3242",
+      "profitRate": 0.2303,
+      "invDays": 6,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "OCE1413",
+      "profitRate": 0.1637,
+      "invDays": 17,
+      "units7": 0,
+      "a7": {
+        "spend": 15.329999999999998,
+        "orders": 7,
+        "clicks": 86,
+        "impressions": 4640,
+        "acos": 0.15654038598999281
+      }
+    },
+    {
+      "sku": "HEL2829",
+      "profitRate": 0.0845,
+      "invDays": 910,
+      "units7": 0,
+      "a7": {
+        "spend": 23.09,
+        "orders": 2,
+        "clicks": 80,
+        "impressions": 6670,
+        "acos": 0.4812421842434348
+      }
+    },
+    {
+      "sku": "SAN1219",
+      "profitRate": -0.2727,
+      "invDays": 143,
+      "units7": 0,
+      "a7": {
+        "spend": 0.42,
+        "orders": 0,
+        "clicks": 1,
+        "impressions": 732,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "SAN1203",
+      "profitRate": -0.2324,
+      "invDays": 1380,
+      "units7": 0,
+      "a7": {
+        "spend": 0.98,
+        "orders": 0,
+        "clicks": 4,
+        "impressions": 621,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "SAN1103",
+      "profitRate": -0.2967,
+      "invDays": 460,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 533,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "DH2686",
+      "profitRate": 0.0321,
+      "invDays": 116,
+      "units7": 0,
+      "a7": {
+        "spend": 0.54,
+        "orders": 0,
+        "clicks": 4,
+        "impressions": 169,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "LED6372",
+      "profitRate": 0.1344,
+      "invDays": 167,
+      "units7": 0,
+      "a7": {
+        "spend": 0.3,
+        "orders": 0,
+        "clicks": 3,
+        "impressions": 84,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "HOS1152",
+      "profitRate": 0.0944,
+      "invDays": 203,
+      "units7": 0,
+      "a7": {
+        "spend": 0.84,
+        "orders": 0,
+        "clicks": 7,
+        "impressions": 360,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "ISI1140",
+      "profitRate": 0.1184,
+      "invDays": 999,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 78,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "ISI1137",
+      "profitRate": 0.076,
+      "invDays": 260,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "LUO0914",
+      "profitRate": -0.1122,
+      "invDays": 145,
+      "units7": 0,
+      "a7": {
+        "spend": 0.31,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 506,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "ISI1111",
+      "profitRate": 0.2256,
+      "invDays": 50,
+      "units7": 0,
+      "a7": {
+        "spend": 0.9,
+        "orders": 0,
+        "clicks": 1,
+        "impressions": 76,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "BOY3381",
+      "profitRate": 0.0857,
+      "invDays": 45,
+      "units7": 0,
+      "a7": {
+        "spend": 0.76,
+        "orders": 0,
+        "clicks": 10,
+        "impressions": 230,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "HI3876",
+      "profitRate": 0.0412,
+      "invDays": 435,
+      "units7": 0,
+      "a7": {
+        "spend": 5.8100000000000005,
+        "orders": 0,
+        "clicks": 14,
+        "impressions": 1546,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "KS0788",
+      "profitRate": 0.1728,
+      "invDays": 245,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "BOY3355",
+      "profitRate": 0.0119,
+      "invDays": 156,
+      "units7": 0,
+      "a7": {
+        "spend": 0.15,
+        "orders": 0,
+        "clicks": 3,
+        "impressions": 29,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "SE6685",
+      "profitRate": 0.3171,
+      "invDays": 71,
+      "units7": 0,
+      "a7": {
+        "spend": 5.4,
+        "orders": 4,
+        "clicks": 35,
+        "impressions": 3841,
+        "acos": 0.08442776735459663
+      }
+    },
+    {
+      "sku": "QA4115",
+      "profitRate": -0.0211,
+      "invDays": 217,
+      "units7": 0,
+      "a7": {
+        "spend": 2.34,
+        "orders": 2,
+        "clicks": 14,
+        "impressions": 1149,
+        "acos": 0.0377541142303969
+      }
+    },
+    {
+      "sku": "QA3896",
+      "profitRate": 0.2081,
+      "invDays": 93,
+      "units7": 0,
+      "a7": {
+        "spend": 0.7,
+        "orders": 0,
+        "clicks": 4,
+        "impressions": 248,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "YAN3832",
+      "profitRate": 0.135,
+      "invDays": 54,
+      "units7": 0,
+      "a7": {
+        "spend": 0.5,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 80,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "RO2165",
+      "profitRate": -0.0403,
+      "invDays": 8,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "COO5293",
+      "profitRate": 0.0961,
+      "invDays": 123,
+      "units7": 0,
+      "a7": {
+        "spend": 0.75,
+        "orders": 1,
+        "clicks": 3,
+        "impressions": 738,
+        "acos": 0.022065313327449248
+      }
+    },
+    {
+      "sku": "NO5155",
+      "profitRate": 0.1285,
+      "invDays": 251,
+      "units7": 0,
+      "a7": {
+        "spend": 8.78,
+        "orders": 4,
+        "clicks": 47,
+        "impressions": 2761,
+        "acos": 0.11558715113217483
+      }
+    },
+    {
+      "sku": "YMF1073",
+      "profitRate": 0.3147,
+      "invDays": 41,
+      "units7": 0,
+      "a7": {
+        "spend": 11.71,
+        "orders": 2,
+        "clicks": 63,
+        "impressions": 3172,
+        "acos": 0.6512791991101224
+      }
+    },
+    {
+      "sku": "GM2389",
+      "profitRate": 0.2455,
+      "invDays": 50,
+      "units7": 0,
+      "a7": {
+        "spend": 22.21,
+        "orders": 3,
+        "clicks": 80,
+        "impressions": 6246,
+        "acos": 0.7410744077410745
+      }
+    },
+    {
+      "sku": "SAN1041",
+      "profitRate": -0.1573,
+      "invDays": 1,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "SAW1720",
+      "profitRate": 0.1022,
+      "invDays": 135,
+      "units7": 0,
+      "a7": {
+        "spend": 7.01,
+        "orders": 1,
+        "clicks": 21,
+        "impressions": 1400,
+        "acos": 0.501072194424589
+      }
+    },
+    {
+      "sku": "HOS0946",
+      "profitRate": 0.1529,
+      "invDays": 102,
+      "units7": 0,
+      "a7": {
+        "spend": 2.4,
+        "orders": 1,
+        "clicks": 11,
+        "impressions": 825,
+        "acos": 0.1601067378252168
+      }
+    },
+    {
+      "sku": "HIJ1833",
+      "profitRate": 0.2654,
+      "invDays": 9,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "QAA2627",
+      "profitRate": 0.2457,
+      "invDays": 28,
+      "units7": 0,
+      "a7": {
+        "spend": 20.470000000000002,
+        "orders": 3,
+        "clicks": 70,
+        "impressions": 7970,
+        "acos": 0.6830163496830165
+      }
+    },
+    {
+      "sku": "LIC0168",
+      "profitRate": 0.2045,
+      "invDays": 462,
+      "units7": 0,
+      "a7": {
+        "spend": 0.25,
+        "orders": 0,
+        "clicks": 1,
+        "impressions": 136,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "LAY2384",
+      "profitRate": 0.1906,
+      "invDays": 44,
+      "units7": 0,
+      "a7": {
+        "spend": 0.97,
+        "orders": 0,
+        "clicks": 7,
+        "impressions": 116,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "QA3975",
+      "profitRate": 0.0156,
+      "invDays": 37,
+      "units7": 0,
+      "a7": {
+        "spend": 0.72,
+        "orders": 1,
+        "clicks": 3,
+        "impressions": 120,
+        "acos": 0.03601800900450225
+      }
+    },
+    {
+      "sku": "WAR1276",
+      "profitRate": 0.1843,
+      "invDays": 34,
+      "units7": 0,
+      "a7": {
+        "spend": 14.58,
+        "orders": 2,
+        "clicks": 62,
+        "impressions": 3732,
+        "acos": 0.36468234117058534
+      }
+    },
+    {
+      "sku": "LED3945",
+      "profitRate": 0.064,
+      "invDays": 47,
+      "units7": 0,
+      "a7": {
+        "spend": 30.12,
+        "orders": 3,
+        "clicks": 97,
+        "impressions": 7792,
+        "acos": 0.4565711687130514
+      }
+    },
+    {
+      "sku": "LED3343",
+      "profitRate": 0.1555,
+      "invDays": 147,
+      "units7": 0,
+      "a7": {
+        "spend": 2.8399999999999994,
+        "orders": 1,
+        "clicks": 11,
+        "impressions": 1802,
+        "acos": 0.14207103551775885
+      }
+    },
+    {
+      "sku": "LED3339",
+      "profitRate": 0.1812,
+      "invDays": 150,
+      "units7": 0,
+      "a7": {
+        "spend": 0.52,
+        "orders": 0,
+        "clicks": 7,
+        "impressions": 1172,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "BOY3171",
+      "profitRate": 0.1351,
+      "invDays": 68,
+      "units7": 0,
+      "a7": {
+        "spend": 2.7400000000000007,
+        "orders": 2,
+        "clicks": 12,
+        "impressions": 794,
+        "acos": 0.07214323328067407
+      }
+    },
+    {
+      "sku": "HAY2767",
+      "profitRate": 0.3373,
+      "invDays": 3,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "RO2084",
+      "profitRate": 0.0287,
+      "invDays": 162,
+      "units7": 0,
+      "a7": {
+        "spend": 5.07,
+        "orders": 0,
+        "clicks": 20,
+        "impressions": 2896,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "NAY1449",
+      "profitRate": 0.2139,
+      "invDays": 41,
+      "units7": 0,
+      "a7": {
+        "spend": 8.93,
+        "orders": 0,
+        "clicks": 35,
+        "impressions": 2758,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "KEN1043",
+      "profitRate": 0.0885,
+      "invDays": 146,
+      "units7": 0,
+      "a7": {
+        "spend": 0.54,
+        "orders": 0,
+        "clicks": 3,
+        "impressions": 238,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "CL4199",
+      "profitRate": -0.1681,
+      "invDays": 0,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "CL4170",
+      "profitRate": -0.0963,
+      "invDays": 1,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "CEE0304",
+      "profitRate": -0.1087,
+      "invDays": 22,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "CL3650",
+      "profitRate": 0.0277,
+      "invDays": 10,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "CL3563",
+      "profitRate": -0.0711,
+      "invDays": 10,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "IF1831",
+      "profitRate": 0.244,
+      "invDays": 30,
+      "units7": 0,
+      "a7": {
+        "spend": 6.04,
+        "orders": 0,
+        "clicks": 19,
+        "impressions": 1017,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "SE6599",
+      "profitRate": 0.3539,
+      "invDays": 132,
+      "units7": 0,
+      "a7": {
+        "spend": 29.599999999999998,
+        "orders": 7,
+        "clicks": 81,
+        "impressions": 8100,
+        "acos": 0.24888589926847726
+      }
+    },
+    {
+      "sku": "WAR1180",
+      "profitRate": -0.0369,
+      "invDays": 0,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "UAN3646",
+      "profitRate": 0.1184,
+      "invDays": 52,
+      "units7": 0,
+      "a7": {
+        "spend": 0.51,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 287,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "IF1806",
+      "profitRate": 0.1785,
+      "invDays": 52,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "KV3640",
+      "profitRate": 0.2594,
+      "invDays": 1,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "WC2648",
+      "profitRate": 0.3066,
+      "invDays": 94,
+      "units7": 0,
+      "a7": {
+        "spend": 7.22,
+        "orders": 1,
+        "clicks": 12,
+        "impressions": 2449,
+        "acos": 0.19518788861854552
+      }
+    },
+    {
+      "sku": "SC3420",
+      "profitRate": 0.3848,
+      "invDays": 26,
+      "units7": 0,
+      "a7": {
+        "spend": 35.309999999999995,
+        "orders": 4,
+        "clicks": 80,
+        "impressions": 6257,
+        "acos": 0.49068927181767646
+      }
+    },
+    {
+      "sku": "SC3077",
+      "profitRate": 0.0244,
+      "invDays": 48,
+      "units7": 0,
+      "a7": {
+        "spend": 44.67,
+        "orders": 7,
+        "clicks": 119,
+        "impressions": 8457,
+        "acos": 0.2901968427207173
+      }
+    },
+    {
+      "sku": "KEJ0561",
+      "profitRate": 0.066,
+      "invDays": 158,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "DN3049",
+      "profitRate": 0.0177,
+      "invDays": 23,
+      "units7": 0,
+      "a7": {
+        "spend": 6.72,
+        "orders": 0,
+        "clicks": 10,
+        "impressions": 2889,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "JUU1053",
+      "profitRate": 0.2713,
+      "invDays": 16,
+      "units7": 0,
+      "a7": {
+        "spend": 1.4000000000000001,
+        "orders": 2,
+        "clicks": 8,
+        "impressions": 463,
+        "acos": 0.03891050583657588
+      }
+    },
+    {
+      "sku": "UY3670",
+      "profitRate": 0.2524,
+      "invDays": 126,
+      "units7": 0,
+      "a7": {
+        "spend": 57.830000000000005,
+        "orders": 2,
+        "clicks": 79,
+        "impressions": 31807,
+        "acos": 0.4252831298720401
+      }
+    },
+    {
+      "sku": "YAN3229",
+      "profitRate": 0.2276,
+      "invDays": 52,
+      "units7": 0,
+      "a7": {
+        "spend": 13.969999999999999,
+        "orders": 4,
+        "clicks": 39,
+        "impressions": 1835,
+        "acos": 0.268860662047729
+      }
+    },
+    {
+      "sku": "YMF0656",
+      "profitRate": 0.0762,
+      "invDays": 855,
+      "units7": 0,
+      "a7": {
+        "spend": 0.99,
+        "orders": 0,
+        "clicks": 5,
+        "impressions": 693,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "TH2870",
+      "profitRate": 0.3168,
+      "invDays": 3,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "TH2869",
+      "profitRate": 0.2457,
+      "invDays": 68,
+      "units7": 0,
+      "a7": {
+        "spend": 52.650000000000006,
+        "orders": 18,
+        "clicks": 79,
+        "impressions": 11355,
+        "acos": 0.22517321016166286
+      }
+    },
+    {
+      "sku": "YAN3187",
+      "profitRate": -0.1875,
+      "invDays": 120,
+      "units7": 0,
+      "a7": {
+        "spend": 0.36,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 126,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "KEJ0518",
+      "profitRate": 0.127,
+      "invDays": 65,
+      "units7": 0,
+      "a7": {
+        "spend": 0.93,
+        "orders": 0,
+        "clicks": 12,
+        "impressions": 771,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "XIA2327",
+      "profitRate": 0.3488,
+      "invDays": 24,
+      "units7": 0,
+      "a7": {
+        "spend": 0.6000000000000001,
+        "orders": 1,
+        "clicks": 6,
+        "impressions": 372,
+        "acos": 0.04618937644341802
+      }
+    },
+    {
+      "sku": "CLO0344",
+      "profitRate": 0.0039,
+      "invDays": 30,
+      "units7": 0,
+      "a7": {
+        "spend": 16.900000000000002,
+        "orders": 1,
+        "clicks": 37,
+        "impressions": 3437,
+        "acos": 0.6762705082032815
+      }
+    },
+    {
+      "sku": "SHU2552",
+      "profitRate": 0.0742,
+      "invDays": 80,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 571,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "SII0421",
+      "profitRate": 0.2959,
+      "invDays": 60,
+      "units7": 0,
+      "a7": {
+        "spend": 0.8500000000000001,
+        "orders": 1,
+        "clicks": 10,
+        "impressions": 1476,
+        "acos": 0.03456689711264742
+      }
+    },
+    {
+      "sku": "UAN3257",
+      "profitRate": 0.1028,
+      "invDays": 34,
+      "units7": 0,
+      "a7": {
+        "spend": 0.5700000000000001,
+        "orders": 0,
+        "clicks": 3,
+        "impressions": 421,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "GRA4861",
+      "profitRate": 0.106,
+      "invDays": 97,
+      "units7": 0,
+      "a7": {
+        "spend": 4.91,
+        "orders": 2,
+        "clicks": 15,
+        "impressions": 1045,
+        "acos": 0.18899153194765203
+      }
+    },
+    {
+      "sku": "OYH0257",
+      "profitRate": 0.1679,
+      "invDays": 86,
+      "units7": 0,
+      "a7": {
+        "spend": 6.470000000000001,
+        "orders": 1,
+        "clicks": 31,
+        "impressions": 3143,
+        "acos": 0.35964424680377993
+      }
+    },
+    {
+      "sku": "HUQ0699",
+      "profitRate": 0.1864,
+      "invDays": 30,
+      "units7": 0,
+      "a7": {
+        "spend": 21.26,
+        "orders": 1,
+        "clicks": 147,
+        "impressions": 5781,
+        "acos": 0.7876991478325307
+      }
+    },
+    {
+      "sku": "DEA2064",
+      "profitRate": 0.0598,
+      "invDays": 75,
+      "units7": 0,
+      "a7": {
+        "spend": 0.75,
+        "orders": 0,
+        "clicks": 7,
+        "impressions": 435,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "GT3815",
+      "profitRate": 0.2701,
+      "invDays": 100,
+      "units7": 0,
+      "a7": {
+        "spend": 8.06,
+        "orders": 0,
+        "clicks": 17,
+        "impressions": 2664,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "GT3814",
+      "profitRate": 0.3087,
+      "invDays": 36,
+      "units7": 0,
+      "a7": {
+        "spend": 9.92,
+        "orders": 5,
+        "clicks": 36,
+        "impressions": 3067,
+        "acos": 0.12407754846779237
+      }
+    },
+    {
+      "sku": "GT3812",
+      "profitRate": 0.3264,
+      "invDays": 26,
+      "units7": 0,
+      "a7": {
+        "spend": 59.9,
+        "orders": 8,
+        "clicks": 160,
+        "impressions": 12995,
+        "acos": 0.3942864665613481
+      }
+    },
+    {
+      "sku": "GT3811",
+      "profitRate": 0.3087,
+      "invDays": 36,
+      "units7": 0,
+      "a7": {
+        "spend": 1.74,
+        "orders": 1,
+        "clicks": 7,
+        "impressions": 1347,
+        "acos": 0.10881801125703565
+      }
+    },
+    {
+      "sku": "GT3801",
+      "profitRate": 0.3217,
+      "invDays": 57,
+      "units7": 0,
+      "a7": {
+        "spend": 133.07000000000002,
+        "orders": 30,
+        "clicks": 292,
+        "impressions": 27975,
+        "acos": 0.29590838336668895
+      }
+    },
+    {
+      "sku": "XUE0890",
+      "profitRate": -0.2232,
+      "invDays": 0,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "HL4017",
+      "profitRate": 0.3331,
+      "invDays": 24,
+      "units7": 0,
+      "a7": {
+        "spend": 8.75,
+        "orders": 3,
+        "clicks": 38,
+        "impressions": 1915,
+        "acos": 0.17166960957425936
+      }
+    },
+    {
+      "sku": "HAY1931",
+      "profitRate": 0.2323,
+      "invDays": 8,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 170,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "HAY1900",
+      "profitRate": 0.1142,
+      "invDays": 13,
+      "units7": 0,
+      "a7": {
+        "spend": 15.759999999999998,
+        "orders": 4,
+        "clicks": 46,
+        "impressions": 2260,
+        "acos": 0.08042457644417227
+      }
+    },
+    {
+      "sku": "WEN1029",
+      "profitRate": 0.1302,
+      "invDays": 40,
+      "units7": 0,
+      "a7": {
+        "spend": 115.52999999999999,
+        "orders": 20,
+        "clicks": 310,
+        "impressions": 11565,
+        "acos": 0.4129020729092208
+      }
+    },
+    {
+      "sku": "JOY0431",
+      "profitRate": 0.1718,
+      "invDays": 47,
+      "units7": 0,
+      "a7": {
+        "spend": 8.350000000000001,
+        "orders": 1,
+        "clicks": 46,
+        "impressions": 3194,
+        "acos": 0.49146556798116553
+      }
+    },
+    {
+      "sku": "QA3173",
+      "profitRate": 0.3181,
+      "invDays": 20,
+      "units7": 0,
+      "a7": {
+        "spend": 13.78,
+        "orders": 2,
+        "clicks": 51,
+        "impressions": 4452,
+        "acos": 0.38299055030572543
+      }
+    },
+    {
+      "sku": "QA3169",
+      "profitRate": 0.2768,
+      "invDays": 53,
+      "units7": 0,
+      "a7": {
+        "spend": 17.43,
+        "orders": 2,
+        "clicks": 86,
+        "impressions": 5430,
+        "acos": 0.45892575039494476
+      }
+    },
+    {
+      "sku": "EU0867",
+      "profitRate": 0.2394,
+      "invDays": 58,
+      "units7": 0,
+      "a7": {
+        "spend": 3.03,
+        "orders": 1,
+        "clicks": 15,
+        "impressions": 1482,
+        "acos": 0.10103367789263087
+      }
+    },
+    {
+      "sku": "TIN2263",
+      "profitRate": 0.1708,
+      "invDays": 31,
+      "units7": 0,
+      "a7": {
+        "spend": 0.19,
+        "orders": 0,
+        "clicks": 1,
+        "impressions": 130,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "TIN2259",
+      "profitRate": 0.1971,
+      "invDays": 9,
+      "units7": 0,
+      "a7": {
+        "spend": 0.25,
+        "orders": 0,
+        "clicks": 1,
+        "impressions": 170,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "TIN2239",
+      "profitRate": 0.1514,
+      "invDays": 97,
+      "units7": 0,
+      "a7": {
+        "spend": 20.03,
+        "orders": 2,
+        "clicks": 55,
+        "impressions": 4525,
+        "acos": 0.3578063594140765
+      }
+    },
+    {
+      "sku": "CLO0341",
+      "profitRate": 0.0558,
+      "invDays": 98,
+      "units7": 0,
+      "a7": {
+        "spend": 15.54,
+        "orders": 5,
+        "clicks": 36,
+        "impressions": 3018,
+        "acos": 0.12436974789915967
+      }
+    },
+    {
+      "sku": "DN2685",
+      "profitRate": -0.1312,
+      "invDays": 14,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "NEW1818",
+      "profitRate": 0.2628,
+      "invDays": 10,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "DUC0055",
+      "profitRate": 0.065,
+      "invDays": 109,
+      "units7": 0,
+      "a7": {
+        "spend": 16.970000000000002,
+        "orders": 3,
+        "clicks": 55,
+        "impressions": 4719,
+        "acos": 0.1616652376869582
+      }
+    },
+    {
+      "sku": "YCL1246",
+      "profitRate": 0.2153,
+      "invDays": 40,
+      "units7": 0,
+      "a7": {
+        "spend": 6.07,
+        "orders": 1,
+        "clicks": 42,
+        "impressions": 2253,
+        "acos": 0.22489811041126345
+      }
+    },
+    {
+      "sku": "AE3311",
+      "profitRate": 0.0822,
+      "invDays": 23,
+      "units7": 0,
+      "a7": {
+        "spend": 226.66,
+        "orders": 45,
+        "clicks": 429,
+        "impressions": 36075,
+        "acos": 0.3360166036617004
+      }
+    },
+    {
+      "sku": "DUN1393",
+      "profitRate": 0.0148,
+      "invDays": 999,
+      "units7": 0,
+      "a7": {
+        "spend": 0.32,
+        "orders": 0,
+        "clicks": 1,
+        "impressions": 42,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "WAR0228",
+      "profitRate": -0.1082,
+      "invDays": 10,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "SIJ2011",
+      "profitRate": -0.419,
+      "invDays": 32,
+      "units7": 0,
+      "a7": {
+        "spend": 0.43,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 262,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "HAY1706",
+      "profitRate": 0.0272,
+      "invDays": 41,
+      "units7": 0,
+      "a7": {
+        "spend": 5.49,
+        "orders": 1,
+        "clicks": 17,
+        "impressions": 983,
+        "acos": 0.1615180935569285
+      }
+    },
+    {
+      "sku": "DUN1150",
+      "profitRate": -0.2714,
+      "invDays": 75,
+      "units7": 0,
+      "a7": {
+        "spend": 0.91,
+        "orders": 1,
+        "clicks": 3,
+        "impressions": 210,
+        "acos": 0.021671826625386997
+      }
+    },
+    {
+      "sku": "DUN1128",
+      "profitRate": -0.2062,
+      "invDays": 320,
+      "units7": 0,
+      "a7": {
+        "spend": 0.37,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 376,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "HL2535",
+      "profitRate": 0.0693,
+      "invDays": 32,
+      "units7": 0,
+      "a7": {
+        "spend": 13.920000000000002,
+        "orders": 2,
+        "clicks": 33,
+        "impressions": 2352,
+        "acos": 0.2901208837015424
+      }
+    },
+    {
+      "sku": "MH2709",
+      "profitRate": 0.0747,
+      "invDays": 246,
+      "units7": 0,
+      "a7": {
+        "spend": 0.88,
+        "orders": 1,
+        "clicks": 3,
+        "impressions": 408,
+        "acos": 0.04402201100550276
+      }
+    },
+    {
+      "sku": "HAY0221",
+      "profitRate": 0.1832,
+      "invDays": 23,
+      "units7": 0,
+      "a7": {
+        "spend": 5.790000000000001,
+        "orders": 1,
+        "clicks": 22,
+        "impressions": 2013,
+        "acos": 0.23169267707082838
+      }
+    },
+    {
+      "sku": "HAY0219",
+      "profitRate": 0.1731,
+      "invDays": 35,
+      "units7": 0,
+      "a7": {
+        "spend": 7.94,
+        "orders": 0,
+        "clicks": 23,
+        "impressions": 2752,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "MED1033",
+      "profitRate": 0.0043,
+      "invDays": 101,
+      "units7": 0,
+      "a7": {
+        "spend": 11.73,
+        "orders": 4,
+        "clicks": 37,
+        "impressions": 2456,
+        "acos": 0.05866173234646929
+      }
+    },
+    {
+      "sku": "MED1032",
+      "profitRate": 0.145,
+      "invDays": 57,
+      "units7": 0,
+      "a7": {
+        "spend": 2.9699999999999998,
+        "orders": 3,
+        "clicks": 11,
+        "impressions": 666,
+        "acos": 0.02302861130495464
+      }
+    },
+    {
+      "sku": "HL4004",
+      "profitRate": 0.4039,
+      "invDays": 42,
+      "units7": 0,
+      "a7": {
+        "spend": 15.219999999999999,
+        "orders": 3,
+        "clicks": 51,
+        "impressions": 4840,
+        "acos": 0.2537935634483908
+      }
+    },
+    {
+      "sku": "ZHW0104",
+      "profitRate": 0.2311,
+      "invDays": 213,
+      "units7": 0,
+      "a7": {
+        "spend": 5.88,
+        "orders": 1,
+        "clicks": 22,
+        "impressions": 1661,
+        "acos": 0.5885885885885885
+      }
+    },
+    {
+      "sku": "YAN2712",
+      "profitRate": -0.2199,
+      "invDays": 615,
+      "units7": 0,
+      "a7": {
+        "spend": 0.56,
+        "orders": 0,
+        "clicks": 5,
+        "impressions": 412,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "WOO0174",
+      "profitRate": 0.2033,
+      "invDays": 9,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "WOO0172",
+      "profitRate": 0.0054,
+      "invDays": 35,
+      "units7": 0,
+      "a7": {
+        "spend": 7.2,
+        "orders": 0,
+        "clicks": 33,
+        "impressions": 868,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "DN2437",
+      "profitRate": -0.1279,
+      "invDays": 6,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "UAN1375",
+      "profitRate": 0.1472,
+      "invDays": 38,
+      "units7": 0,
+      "a7": {
+        "spend": 6.05,
+        "orders": 0,
+        "clicks": 29,
+        "impressions": 998,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "IF1427",
+      "profitRate": 0.1871,
+      "invDays": 128,
+      "units7": 0,
+      "a7": {
+        "spend": 5.7,
+        "orders": 1,
+        "clicks": 21,
+        "impressions": 1620,
+        "acos": 0.19006335445148384
+      }
+    },
+    {
+      "sku": "WD3925",
+      "profitRate": -0.0893,
+      "invDays": 420,
+      "units7": 0,
+      "a7": {
+        "spend": 0.98,
+        "orders": 1,
+        "clicks": 1,
+        "impressions": 390,
+        "acos": 0.02000408246580935
+      }
+    },
+    {
+      "sku": "QQ2235",
+      "profitRate": 0.0788,
+      "invDays": 187,
+      "units7": 0,
+      "a7": {
+        "spend": 2,
+        "orders": 1,
+        "clicks": 5,
+        "impressions": 456,
+        "acos": 0.12507817385866166
+      }
+    },
+    {
+      "sku": "SES0574",
+      "profitRate": 0.141,
+      "invDays": 27,
+      "units7": 0,
+      "a7": {
+        "spend": 7.28,
+        "orders": 1,
+        "clicks": 12,
+        "impressions": 1222,
+        "acos": 0.2275711159737418
+      }
+    },
+    {
+      "sku": "SAN0148",
+      "profitRate": 0.2972,
+      "invDays": 93,
+      "units7": 0,
+      "a7": {
+        "spend": 13.77,
+        "orders": 1,
+        "clicks": 61,
+        "impressions": 7362,
+        "acos": 0.9186124082721814
+      }
+    },
+    {
+      "sku": "SAN0113",
+      "profitRate": -0.2001,
+      "invDays": 0,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "UAN0188",
+      "profitRate": 0.0637,
+      "invDays": 62,
+      "units7": 0,
+      "a7": {
+        "spend": 3.88,
+        "orders": 2,
+        "clicks": 16,
+        "impressions": 1670,
+        "acos": 0.07763105242096839
+      }
+    },
+    {
+      "sku": "DEA0023",
+      "profitRate": 0.0518,
+      "invDays": 70,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "AE2891",
+      "profitRate": -0.1132,
+      "invDays": 158,
+      "units7": 0,
+      "a7": {
+        "spend": 0.39,
+        "orders": 0,
+        "clicks": 1,
+        "impressions": 415,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "YAN2278",
+      "profitRate": 0.1314,
+      "invDays": 57,
+      "units7": 0,
+      "a7": {
+        "spend": 18.670000000000005,
+        "orders": 6,
+        "clicks": 100,
+        "impressions": 4781,
+        "acos": 0.31147814481147823
+      }
+    },
+    {
+      "sku": "YAN2290",
+      "profitRate": 0.1249,
+      "invDays": 66,
+      "units7": 0,
+      "a7": {
+        "spend": 11.860000000000001,
+        "orders": 5,
+        "clicks": 75,
+        "impressions": 2451,
+        "acos": 0.23743743743743745
+      }
+    },
+    {
+      "sku": "YAN2287",
+      "profitRate": 0.0551,
+      "invDays": 60,
+      "units7": 0,
+      "a7": {
+        "spend": 0.78,
+        "orders": 0,
+        "clicks": 3,
+        "impressions": 231,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "YAN2284",
+      "profitRate": 0.135,
+      "invDays": 81,
+      "units7": 0,
+      "a7": {
+        "spend": 1.32,
+        "orders": 1,
+        "clicks": 11,
+        "impressions": 491,
+        "acos": 0.13213213213213212
+      }
+    },
+    {
+      "sku": "BEU0541",
+      "profitRate": 0.2433,
+      "invDays": 87,
+      "units7": 0,
+      "a7": {
+        "spend": 29.1,
+        "orders": 7,
+        "clicks": 74,
+        "impressions": 6308,
+        "acos": 0.3467175026808054
+      }
+    },
+    {
+      "sku": "QQ1764",
+      "profitRate": 0.1281,
+      "invDays": 250,
+      "units7": 0,
+      "a7": {
+        "spend": 5.430000000000001,
+        "orders": 3,
+        "clicks": 12,
+        "impressions": 2445,
+        "acos": 0.2013348164627364
+      }
+    },
+    {
+      "sku": "GT3308",
+      "profitRate": 0.2764,
+      "invDays": 22,
+      "units7": 0,
+      "a7": {
+        "spend": 39.46999999999999,
+        "orders": 11,
+        "clicks": 113,
+        "impressions": 9881,
+        "acos": 0.25648190265774246
+      }
+    },
+    {
+      "sku": "HAN0044",
+      "profitRate": 0.3544,
+      "invDays": 96,
+      "units7": 0,
+      "a7": {
+        "spend": 6.42,
+        "orders": 1,
+        "clicks": 29,
+        "impressions": 3724,
+        "acos": 0.6426426426426426
+      }
+    },
+    {
+      "sku": "PR2214",
+      "profitRate": 0.1491,
+      "invDays": 110,
+      "units7": 0,
+      "a7": {
+        "spend": 16.67,
+        "orders": 3,
+        "clicks": 52,
+        "impressions": 6073,
+        "acos": 0.2316242878977352
+      }
+    },
+    {
+      "sku": "YAN2061",
+      "profitRate": 0.1504,
+      "invDays": 63,
+      "units7": 0,
+      "a7": {
+        "spend": 2.47,
+        "orders": 2,
+        "clicks": 18,
+        "impressions": 878,
+        "acos": 0.09507313317936875
+      }
+    },
+    {
+      "sku": "YAN2008",
+      "profitRate": 0.3819,
+      "invDays": 26,
+      "units7": 0,
+      "a7": {
+        "spend": 1.87,
+        "orders": 1,
+        "clicks": 12,
+        "impressions": 341,
+        "acos": 0.13366690493209435
+      }
+    },
+    {
+      "sku": "YH2554",
+      "profitRate": 0.0594,
+      "invDays": 77,
+      "units7": 0,
+      "a7": {
+        "spend": 13.430000000000001,
+        "orders": 3,
+        "clicks": 51,
+        "impressions": 3501,
+        "acos": 0.2799666458203044
+      }
+    },
+    {
+      "sku": "HOD0826",
+      "profitRate": 0.1691,
+      "invDays": 97,
+      "units7": 0,
+      "a7": {
+        "spend": 4.92,
+        "orders": 1,
+        "clicks": 25,
+        "impressions": 1448,
+        "acos": 0.4924924924924925
+      }
+    },
+    {
+      "sku": "EY2727",
+      "profitRate": 0.0078,
+      "invDays": 64,
+      "units7": 0,
+      "a7": {
+        "spend": 48.470000000000006,
+        "orders": 6,
+        "clicks": 185,
+        "impressions": 27779,
+        "acos": 0.2020088355422189
+      }
+    },
+    {
+      "sku": "SEV0979",
+      "profitRate": 0.2208,
+      "invDays": 107,
+      "units7": 0,
+      "a7": {
+        "spend": 0.6,
+        "orders": 3,
+        "clicks": 12,
+        "impressions": 542,
+        "acos": 0.009528346831824679
+      }
+    },
+    {
+      "sku": "IFS0482",
+      "profitRate": 0.3114,
+      "invDays": 36,
+      "units7": 0,
+      "a7": {
+        "spend": 0.56,
+        "orders": 1,
+        "clicks": 3,
+        "impressions": 670,
+        "acos": 0.05605605605605606
+      }
+    },
+    {
+      "sku": "TH2796",
+      "profitRate": 0.2361,
+      "invDays": 49,
+      "units7": 0,
+      "a7": {
+        "spend": 0.34,
+        "orders": 0,
+        "clicks": 1,
+        "impressions": 105,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "IF0653",
+      "profitRate": 0.1627,
+      "invDays": 33,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "QA1157",
+      "profitRate": 0.0212,
+      "invDays": 48,
+      "units7": 0,
+      "a7": {
+        "spend": 13.53,
+        "orders": 1,
+        "clicks": 72,
+        "impressions": 3510,
+        "acos": 0.42294467020944043
+      }
+    },
+    {
+      "sku": "YAN1353",
+      "profitRate": 0.0906,
+      "invDays": 97,
+      "units7": 0,
+      "a7": {
+        "spend": 10.180000000000001,
+        "orders": 5,
+        "clicks": 68,
+        "impressions": 2730,
+        "acos": 0.22647385984427143
+      }
+    },
+    {
+      "sku": "GT2491",
+      "profitRate": 0.1755,
+      "invDays": 38,
+      "units7": 0,
+      "a7": {
+        "spend": 2.67,
+        "orders": 1,
+        "clicks": 14,
+        "impressions": 540,
+        "acos": 0.1781187458305537
+      }
+    },
+    {
+      "sku": "QA2082",
+      "profitRate": 0.1617,
+      "invDays": 14,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "QA1950",
+      "profitRate": 0.2532,
+      "invDays": 22,
+      "units7": 0,
+      "a7": {
+        "spend": 136.56999999999996,
+        "orders": 16,
+        "clicks": 237,
+        "impressions": 26873,
+        "acos": 0.50239111241907
+      }
+    },
+    {
+      "sku": "KZ5816",
+      "profitRate": 0.3206,
+      "invDays": 38,
+      "units7": 0,
+      "a7": {
+        "spend": 7.359999999999999,
+        "orders": 3,
+        "clicks": 27,
+        "impressions": 6222,
+        "acos": 0.2728958101594364
+      }
+    },
+    {
+      "sku": "NEW0006",
+      "profitRate": 0.3706,
+      "invDays": 540,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "NEW0005",
+      "profitRate": 0.2182,
+      "invDays": 27,
+      "units7": 0,
+      "a7": {
+        "spend": 1.42,
+        "orders": 1,
+        "clicks": 14,
+        "impressions": 614,
+        "acos": 0.15795328142380421
+      }
+    },
+    {
+      "sku": "TH2781",
+      "profitRate": 0.2438,
+      "invDays": 112,
+      "units7": 0,
+      "a7": {
+        "spend": 0.79,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 358,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "AE2140",
+      "profitRate": -0.1432,
+      "invDays": 60,
+      "units7": 0,
+      "a7": {
+        "spend": 0.61,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 313,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "UY0879",
+      "profitRate": 0.2276,
+      "invDays": 57,
+      "units7": 0,
+      "a7": {
+        "spend": 5.779999999999999,
+        "orders": 1,
+        "clicks": 34,
+        "impressions": 1740,
+        "acos": 0.4131522516082916
+      }
+    },
+    {
+      "sku": "YAN0087",
+      "profitRate": 0.1483,
+      "invDays": 46,
+      "units7": 0,
+      "a7": {
+        "spend": 4.56,
+        "orders": 6,
+        "clicks": 23,
+        "impressions": 1645,
+        "acos": 0.07607607607607607
+      }
+    },
+    {
+      "sku": "YAN0656",
+      "profitRate": 0.314,
+      "invDays": 90,
+      "units7": 0,
+      "a7": {
+        "spend": 4.79,
+        "orders": 6,
+        "clicks": 20,
+        "impressions": 878,
+        "acos": 0.07991324657991325
+      }
+    },
+    {
+      "sku": "QA0828",
+      "profitRate": 0.3079,
+      "invDays": 77,
+      "units7": 0,
+      "a7": {
+        "spend": 25.619999999999997,
+        "orders": 6,
+        "clicks": 48,
+        "impressions": 3916,
+        "acos": 0.4499473129610116
+      }
+    },
+    {
+      "sku": "TH2619",
+      "profitRate": 0.265,
+      "invDays": 74,
+      "units7": 0,
+      "a7": {
+        "spend": 21.180000000000003,
+        "orders": 4,
+        "clicks": 33,
+        "impressions": 5458,
+        "acos": 0.40762124711316405
+      }
+    },
+    {
+      "sku": "TH2618",
+      "profitRate": 0.2808,
+      "invDays": 153,
+      "units7": 0,
+      "a7": {
+        "spend": 3.7899999999999996,
+        "orders": 1,
+        "clicks": 8,
+        "impressions": 1024,
+        "acos": 0.2917628945342571
+      }
+    },
+    {
+      "sku": "TH2599",
+      "profitRate": 0.2825,
+      "invDays": 22,
+      "units7": 0,
+      "a7": {
+        "spend": 36.6,
+        "orders": 5,
+        "clicks": 52,
+        "impressions": 6335,
+        "acos": 0.5635103926096998
+      }
+    },
+    {
+      "sku": "KV0324",
+      "profitRate": 0.1741,
+      "invDays": 20,
+      "units7": 0,
+      "a7": {
+        "spend": 5.48,
+        "orders": 3,
+        "clicks": 23,
+        "impressions": 2889,
+        "acos": 0.10751422405336473
+      }
+    },
+    {
+      "sku": "EY1448",
+      "profitRate": 0.4272,
+      "invDays": 0,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "OC1858",
+      "profitRate": 0.1397,
+      "invDays": 67,
+      "units7": 0,
+      "a7": {
+        "spend": 11.669999999999996,
+        "orders": 2,
+        "clicks": 42,
+        "impressions": 8627,
+        "acos": 0.44919168591224
+      }
+    },
+    {
+      "sku": "EY0793",
+      "profitRate": 0.387,
+      "invDays": 13,
+      "units7": 0,
+      "a7": {
+        "spend": 144.93,
+        "orders": 15,
+        "clicks": 370,
+        "impressions": 63360,
+        "acos": 0.4393815370623011
+      }
+    },
+    {
+      "sku": "DO0446",
+      "profitRate": 0.2462,
+      "invDays": 1,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "HU3765",
+      "profitRate": 0.2462,
+      "invDays": 104,
+      "units7": 0,
+      "a7": {
+        "spend": 0.64,
+        "orders": 0,
+        "clicks": 18,
+        "impressions": 871,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "KL2977",
+      "profitRate": 0.1901,
+      "invDays": 34,
+      "units7": 0,
+      "a7": {
+        "spend": 2.3000000000000003,
+        "orders": 1,
+        "clicks": 22,
+        "impressions": 964,
+        "acos": 0.23023023023023026
+      }
+    },
+    {
+      "sku": "KA1744",
+      "profitRate": -0.0779,
+      "invDays": 330,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "CL1976",
+      "profitRate": 0.2662,
+      "invDays": 110,
+      "units7": 0,
+      "a7": {
+        "spend": 8.04,
+        "orders": 4,
+        "clicks": 24,
+        "impressions": 2345,
+        "acos": 0.37291280148423006
+      }
+    },
+    {
+      "sku": "TH1516",
+      "profitRate": 0.2722,
+      "invDays": 67,
+      "units7": 0,
+      "a7": {
+        "spend": 21.49,
+        "orders": 4,
+        "clicks": 45,
+        "impressions": 11182,
+        "acos": 0.29863813229571984
+      }
+    },
+    {
+      "sku": "KA1589",
+      "profitRate": -0.0337,
+      "invDays": 48,
+      "units7": 0,
+      "a7": {
+        "spend": 2.72,
+        "orders": 1,
+        "clicks": 12,
+        "impressions": 963,
+        "acos": 0.11831230969986953
+      }
+    },
+    {
+      "sku": "KA1544",
+      "profitRate": 0.1837,
+      "invDays": 78,
+      "units7": 0,
+      "a7": {
+        "spend": 6.010000000000001,
+        "orders": 6,
+        "clicks": 23,
+        "impressions": 2096,
+        "acos": 0.05010838752709689
+      }
+    },
+    {
+      "sku": "WD0559",
+      "profitRate": 0.1644,
+      "invDays": 84,
+      "units7": 0,
+      "a7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 387,
+        "acos": 0
+      }
+    },
+    {
+      "sku": "SH0424",
+      "profitRate": 0.0725,
+      "invDays": 106,
+      "units7": 0,
+      "a7": {
+        "spend": 16.17,
+        "orders": 4,
+        "clicks": 40,
+        "impressions": 7905,
+        "acos": 0.3371559633027523
+      }
+    },
+    {
+      "sku": "SH0423",
+      "profitRate": 0.0194,
+      "invDays": 96,
+      "units7": 0,
+      "a7": {
+        "spend": 48.89000000000001,
+        "orders": 12,
+        "clicks": 144,
+        "impressions": 19000,
+        "acos": 0.3707158022444647
+      }
+    },
+    {
+      "sku": "SH0422",
+      "profitRate": 0.0544,
+      "invDays": 133,
+      "units7": 0,
+      "a7": {
+        "spend": 11.280000000000003,
+        "orders": 1,
+        "clicks": 36,
+        "impressions": 5371,
+        "acos": 0.9407839866555465
+      }
+    },
+    {
+      "sku": "MK0522",
+      "profitRate": 0.2073,
+      "invDays": 20,
+      "units7": 0,
+      "a7": {
+        "spend": 2.15,
+        "orders": 1,
+        "clicks": 10,
+        "impressions": 7114,
+        "acos": 0.1793160967472894
+      }
+    }
+  ]
+}

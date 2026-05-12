@@ -32,6 +32,35 @@ assert.strictEqual(records[0].beforeValue, 0.5);
 assert.strictEqual(records[0].afterValue, 0.4);
 assert.strictEqual(records[0].outcome, 'dry_run_planned');
 
+const expectedRecords = recordsFromPlan(attachTimeToPlan([
+  {
+    sku: 'SKU_EXPECT',
+    asin: 'ASIN_EXPECT',
+    actions: [{
+      actionType: 'bid',
+      entityType: 'keyword',
+      id: 'kw-expect',
+      currentBid: 0.3,
+      suggestedBid: 0.33,
+      reason: 'repair proven traffic',
+      hypothesis: 'small bid lift should recover impressions without breaking ACOS',
+      expectedEffect: { impressions: 'up', clicks: 'up', orders: 'up', acos: 'watch' },
+      reviewPlan: {
+        checkAfterDays: [3, 7],
+        rollbackIf: 'spend rises without orders by day 7',
+      },
+    }],
+  },
+], time), time, { dryRun: true });
+assert.deepStrictEqual(expectedRecords[0].meta.expectation, {
+  hypothesis: 'small bid lift should recover impressions without breaking ACOS',
+  expectedEffect: { impressions: 'up', clicks: 'up', orders: 'up', acos: 'watch' },
+  reviewPlan: {
+    checkAfterDays: [3, 7],
+    rollbackIf: 'spend rises without orders by day 7',
+  },
+});
+
 const normalized = normalizeAdjustmentRecord({
   sku: 'SKU2',
   action: { actionType: 'pause', entityType: 'campaign', id: 'c1', reason: 'stop waste' },
@@ -89,6 +118,53 @@ const unsafe = unsafeAiBoard.tasks.find(task => task.sku === 'RES1');
 assert.strictEqual(unsafe.boardExecutableHint, false);
 assert.strictEqual(unsafe.reviewRequired, true);
 assert(unsafe.guardrailBlocks.includes('reserved_overseason_page_cannot_create_or_scale_ads'));
+
+const entityPollutionPool = buildDailyTaskPool({
+  snapshot: {
+    productCards: [
+      {
+        sku: '430234151739525',
+        asin: '',
+        salesChannel: 'Amazon.com',
+        profitRate: 0,
+        invDays: 0,
+        unitsSold_7d: 0,
+        unitsSold_30d: 0,
+        adStats: { '7d': { spend: 0, orders: 0 }, '30d': { spend: 0, orders: 0 } },
+        productProfile: { productType: 'unknown' },
+      },
+      {
+        sku: 'SHU0362',
+        asin: '',
+        salesChannel: 'Amazon.com',
+        profitRate: 0,
+        invDays: 0,
+        unitsSold_7d: 0,
+        unitsSold_30d: 0,
+        adStats: { '7d': { spend: 4.52, orders: 0 }, '30d': { spend: 6.04, orders: 0 } },
+        productProfile: { productType: 'decor' },
+      },
+      {
+        sku: 'REAL-MISSING-ASIN',
+        asin: '',
+        salesChannel: 'Amazon.com',
+        saleStatus: 'normal',
+        profitRate: 0.2,
+        invDays: 45,
+        unitsSold_7d: 1,
+        unitsSold_30d: 3,
+        adStats: { '7d': { spend: 1, orders: 0 }, '30d': { spend: 2, orders: 0 } },
+        productProfile: { productType: 'decor' },
+      },
+    ],
+  },
+  timeContext: time,
+  adjustments: [],
+});
+assert.strictEqual(entityPollutionPool.summary.skippedAdEntityCards, 2);
+assert(!entityPollutionPool.candidateContexts.some(item => item.sku === '430234151739525'));
+assert(!entityPollutionPool.candidateContexts.some(item => item.sku === 'SHU0362'));
+assert(entityPollutionPool.candidateContexts.some(item => item.sku === 'REAL-MISSING-ASIN' && item.dataMissing.includes('asin')));
 
 const cooled = buildDailyTaskPool({
   snapshot: {

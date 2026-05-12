@@ -1,0 +1,53 @@
+# Today Review Handoff 2026-05-09
+
+- P0/P1 main tasks: 80
+- touched today: 35
+- review/deferred: 45
+- buckets: needs_lower_layer_entity_fetch_before_write=9, review_only_business_or_structure_decision=36
+
+## Top Items
+- P0 GM3149 profit_bleeding: needs_lower_layer_entity_fetch_before_write; recent ad spend has no orders while margin is weak
+- P0 RU2391 profit_bleeding: needs_lower_layer_entity_fetch_before_write; recent ad spend has no orders while margin is weak
+- P0 YEO0766 profit_bleeding: needs_lower_layer_entity_fetch_before_write; recent ad spend has no orders while margin is weak
+- P0 LUO1012 profit_bleeding: needs_lower_layer_entity_fetch_before_write; recent ad spend has no orders while margin is weak
+- P0 NO5155 profit_bleeding: needs_lower_layer_entity_fetch_before_write; recent ad spend has no orders while margin is weak
+- P0 YUN2686 profit_bleeding: needs_lower_layer_entity_fetch_before_write; recent ad spend has no orders while margin is weak
+- P0 FLO2960 profit_bleeding: needs_lower_layer_entity_fetch_before_write; recent ad spend has no orders while margin is weak
+- P0 NO3390 profit_bleeding: needs_lower_layer_entity_fetch_before_write; recent ad spend has no orders while margin is weak
+- P0 SES0574 profit_bleeding: needs_lower_layer_entity_fetch_before_write; recent ad spend has no orders while margin is weak
+- P0 TUR8821 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 QUN5204 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 SHQ3950 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 SHQ3955 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 SSU4939 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 YUH4890 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 YUH4842 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 HUA6645 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 LEM8356 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 COT3013 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 DUC4780 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 LEM7532 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 RU2438 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 RHO0477 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 RHO0473 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 CAS4030 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 SAN1320 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 RUX1630 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 RUX1599 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P0 HEL3107 stale_inventory_risk: review_only_business_or_structure_decision; severe inventory pressure with almost no recent sales
+- P1 MF6280 season_peak: review_only_business_or_structure_decision; current season window plus ad structure gap has sales/inventory evidence
+- P1 HAI4870 season_peak: review_only_business_or_structure_decision; current season window plus ad structure gap has sales/inventory evidence
+- P1 YYW2629 season_peak: review_only_business_or_structure_decision; current season window plus ad structure gap has sales/inventory evidence
+- P1 MF3043 season_peak: review_only_business_or_structure_decision; current season window plus ad structure gap has sales/inventory evidence
+- P1 LNY3024 season_peak: review_only_business_or_structure_decision; current season window plus ad structure gap has sales/inventory evidence
+- P1 YAN3229 season_peak: review_only_business_or_structure_decision; current season window plus ad structure gap has sales/inventory evidence
+- P1 JOY0431 season_peak: review_only_business_or_structure_decision; current season window plus ad structure gap has sales/inventory evidence
+- P1 ZHW0104 season_peak: review_only_business_or_structure_decision; current season window plus ad structure gap has sales/inventory evidence
+- P1 UAN1375 season_peak: review_only_business_or_structure_decision; current season window plus ad structure gap has sales/inventory evidence
+- P1 YAN2284 season_peak: review_only_business_or_structure_decision; current season window plus ad structure gap has sales/inventory evidence
+- P1 HAN0044 season_peak: review_only_business_or_structure_decision; current season window plus ad structure gap has sales/inventory evidence
+- P1 WC2648 season_preheat: review_only_business_or_structure_decision; current season window plus ad structure gap has sales/inventory evidence
+- P1 GT2491 season_preheat: review_only_business_or_structure_decision; current season window plus ad structure gap has sales/inventory evidence
+- P1 RHO1540 inventory_tight: review_only_business_or_structure_decision; active demand with tight sellable days
+- P1 OB4139 inventory_tight: review_only_business_or_structure_decision; active demand with tight sellable days
+- P1 OB3296 inventory_tight: review_only_business_or_structure_decision; active demand with tight sellable days

@@ -90,6 +90,29 @@ function actionBreakdown(records = []) {
   return { byAction, byDirection, landed };
 }
 
+function classifyOutcome(record) {
+  if (record.dryRun || String(record.outcome || '').toLowerCase().includes('dry_run')) return 'planned';
+  const outcome = String(record.outcome || '').toLowerCase();
+  if (outcome.includes('success') || outcome.includes('landed')) return 'success';
+  if (outcome.includes('fail') || outcome.includes('miss') || outcome.includes('blocked')) return 'failed';
+  return 'unknown';
+}
+
+function decisionAttribution(records = []) {
+  const groups = {};
+  for (const record of records || []) {
+    const key = (record.approvedBy || '').toLowerCase() || 'unattributed';
+    if (!groups[key]) groups[key] = { plannedActions: 0, landedSuccess: 0, landedFailed: 0, dryRunPlanned: 0, unknown: 0 };
+    groups[key].plannedActions += 1;
+    const bucket = classifyOutcome(record);
+    if (bucket === 'success') groups[key].landedSuccess += 1;
+    else if (bucket === 'failed') groups[key].landedFailed += 1;
+    else if (bucket === 'planned') groups[key].dryRunPlanned += 1;
+    else groups[key].unknown += 1;
+  }
+  return groups;
+}
+
 function buildLearningRecord(input = {}) {
   const time = input.timeContext || {};
   const snapshot = input.snapshot || {};
@@ -148,6 +171,7 @@ function buildLearningRecord(input = {}) {
       reviewSkus: schema.reviewSkus || 0,
       plannedActions: schema.planActionCount || 0,
       actionBreakdown: actionBreakdown(adjustmentRecords),
+      decisionAttribution: decisionAttribution(adjustmentRecords),
     },
     carryForward: {
       mustReadBeforeTomorrowDecision: true,
@@ -174,6 +198,13 @@ function renderLearningMarkdown(record = {}) {
   const signals = (record.observedPressure?.topSignals || [])
     .map(item => `- ${item.signal}: ${item.count}`)
     .join('\n') || '- none';
+  const attribution = record.decisions?.decisionAttribution || {};
+  const attributionLines = Object.keys(attribution).length
+    ? Object.entries(attribution)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([who, stats]) => `- ${who}: planned ${stats.plannedActions || 0}, landed ${stats.landedSuccess || 0}, failed ${stats.landedFailed || 0}, dry-run ${stats.dryRunPlanned || 0}`)
+        .join('\n')
+    : '- none';
   return `# Daily Learning ${record.time?.businessDate || ''}
 
 - dataDate: ${record.time?.dataDate || ''}
@@ -200,6 +231,9 @@ ${signals}
 - landed failed: ${landed.failed || 0}
 - dry-run planned: ${landed.planned || 0}
 
+## Decision Attribution
+${attributionLines}
+
 ## Carry Forward
 - Must read this file before tomorrow's decisions.
 - Compare 1d, 3d, 7d, 14d, and 30d movement against the sources listed in the JSON record.
@@ -218,7 +252,9 @@ function persistDailyLearning(input = {}) {
 
 module.exports = {
   LEARNING_DIR,
+  actionBreakdown,
   buildLearningRecord,
+  decisionAttribution,
   persistDailyLearning,
   renderLearningMarkdown,
 };

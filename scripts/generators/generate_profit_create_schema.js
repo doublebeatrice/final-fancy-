@@ -26,6 +26,24 @@ function cleanTerm(value) {
     .toLowerCase();
 }
 
+function adNamePart(value, fallback = 'ad') {
+  const slug = String(value || '')
+    .normalize('NFKD')
+    .replace(/[^\x00-\x7F]/g, ' ')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .replace(/_+/g, '_');
+  return slug || fallback;
+}
+
+function aiCreateName(mode, coreTerm, sku) {
+  const prefix = mode === 'auto' ? 'auto' : mode === 'productTarget' ? 'asin' : 'kw';
+  return `ai_${prefix}_${adNamePart(coreTerm, 'target')}_${adNamePart(sku, 'sku')}`
+    .slice(0, 90)
+    .replace(/_+$/g, '');
+}
+
 function uniq(items) {
   return [...new Set((items || []).map(cleanTerm).filter(Boolean))];
 }
@@ -272,6 +290,26 @@ function hasMixedAudience(term) {
   return groups.filter(([, re]) => re.test(text)).length >= 2;
 }
 
+function isLowConfidenceUnknownProfile(profile = {}) {
+  return (!profile.productType || profile.productType === 'unknown') &&
+    !(profile.productTypes || []).length &&
+    num(profile.confidence) < 0.5;
+}
+
+function weakUnknownCreateTerm(term, profile = {}) {
+  if (!isLowConfidenceUnknownProfile(profile)) return false;
+  const text = cleanTerm(term);
+  if (!text) return true;
+  if (/^(adults|women and men|men and women|for adults|for teens|teens|women|men)$/.test(text)) return true;
+  if (/\b(fun|style)\b/.test(text) && !/\b(float|floats|inflatable|pool float|number|hat|keychain|basket|pin|sign|decor|decoration)\b/.test(text)) return true;
+  if (/\bphoto prop\b/.test(text) && /\b(teens|adults|women|men)\b/.test(text)) return true;
+  if (/\bphoto prop\b/.test(text) && !/\b(number|inflatable|pool|float|birthday)\b/.test(text)) return true;
+  const meaningfulTokens = text
+    .split(/\s+/)
+    .filter(token => token.length >= 4 && !['with', 'gift', 'gifts', 'bulk', 'pack', 'style', 'party', 'women', 'men', 'teens', 'adults', 'large', 'giant'].includes(token));
+  return meaningfulTokens.length < 2;
+}
+
 function productAnchorTerms(card = {}) {
   const profile = card.productProfile || {};
   const seedTerms = card.createContext?.keywordSeeds || [];
@@ -298,6 +336,7 @@ function productAnchorTerms(card = {}) {
 function isTermSafeForProduct(term, profile = {}, currentDate = parseCurrentDate(), card = null) {
   const text = cleanTerm(term);
   if (!text) return false;
+  if (weakUnknownCreateTerm(text, profile)) return false;
   if (!seasonalTermStatus(text, currentDate).allowed) return false;
   if (hasMixedAudience(text)) return false;
   const listingText = card ? cleanTerm([
@@ -384,6 +423,7 @@ function estimateInitialBid(card, themeInfo, mode, stagnantOpportunity = false) 
 
 function createAction(card, mode, coreTerm, matchType, bid, keywords, reason, evidence, options = {}) {
   const ctx = card.createContext || {};
+  const campaignName = aiCreateName(mode, coreTerm, card.sku);
   return {
     ...candidateMeta('create', ['profit_create_candidate', mode, matchType || 'auto'].filter(Boolean)),
     id: `create::${card.sku}::${mode}::${matchType || 'auto'}::${coreTerm}`,
@@ -401,7 +441,11 @@ function createAction(card, mode, coreTerm, matchType, bid, keywords, reason, ev
       coreTerm,
       matchType,
       keywords,
+      campaignName,
+      groupName: campaignName,
     },
+    campaignName,
+    groupName: campaignName,
     reason,
     evidence,
     confidence: options.confidence || 0.82,

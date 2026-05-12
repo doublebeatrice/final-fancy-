@@ -507,3 +507,49 @@ console.log('generator listing signal tests passed');
   assert.ok(terms.includes("mother's day gifts for godmother"));
   assert.strictEqual(terms.some(term => /dad|father|fiesta|mexican|cinco|nurse/.test(term)), false);
 }
+
+{
+  const mf6292RegressionCard = {
+    sku: 'MF6292',
+    asin: 'B0GMNCFTF2',
+    profitRate: 0.1663,
+    invDays: 1455,
+    unitsSold_30d: 2,
+    adStats: { '30d': { clicks: 10, impressions: 1056, spend: 3.14 } },
+    createContext: {
+      keywordSeeds: [
+        'inflatable number pool float',
+        'adults',
+        'giant balloon style birthday pool party',
+        'women and men',
+        'summer outdoor floating fun',
+        'large inflatable photo prop for teens',
+      ],
+      coverage: { hasSpKeyword: false, hasSpAuto: true, hasSpManual: false },
+      accountId: 120,
+      siteId: 4,
+    },
+    listing: null,
+    productProfile: {
+      productType: 'unknown',
+      productTypes: [],
+      targetAudience: [],
+      occasion: [],
+      seasonality: [],
+      visualTheme: [],
+      positioning: '',
+      listingTitle: '',
+      categoryPath: '',
+      hasImages: false,
+      imageCount: 0,
+      confidence: 0.35,
+    },
+    campaigns: [],
+  };
+  const terms = buildTerms(mf6292RegressionCard, resolveThemes(mf6292RegressionCard), { currentDate: '2026-05-06' });
+  assert.ok(terms.includes('inflatable number pool float'));
+  assert.strictEqual(terms.includes('adults'), false);
+  assert.strictEqual(terms.includes('women and men'), false);
+  assert.strictEqual(terms.includes('summer outdoor floating fun'), false);
+  assert.strictEqual(terms.includes('large inflatable photo prop for teens'), false);
+}

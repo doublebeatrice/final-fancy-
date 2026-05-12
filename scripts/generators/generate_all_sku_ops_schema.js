@@ -12,6 +12,24 @@ function roundBid(value, min = 0.05) {
   return Number(Math.max(min, value).toFixed(2));
 }
 
+function adNamePart(value, fallback = 'ad') {
+  const slug = String(value || '')
+    .normalize('NFKD')
+    .replace(/[^\x00-\x7F]/g, ' ')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .replace(/_+/g, '_');
+  return slug || fallback;
+}
+
+function aiCreateName(mode, coreTerm, sku) {
+  const prefix = mode === 'auto' ? 'auto' : mode === 'productTarget' ? 'asin' : 'kw';
+  return `ai_${prefix}_${adNamePart(coreTerm, 'target')}_${adNamePart(sku, 'sku')}`
+    .slice(0, 90)
+    .replace(/_+$/g, '');
+}
+
 function isEnabled(state) {
   const text = String(state ?? '').toLowerCase();
   return text === '1' || text === 'enabled' || text === 'enable' || text === 'active';
@@ -204,6 +222,7 @@ function makeBudgetAction(card, row, suggestedBudget, reason, evidence, riskLeve
 
 function makeCreateAction(card, mode, coreTerm, matchType, bid, keywords, dailyBudget, reason, evidence, riskLevel) {
   const ctx = card.createContext || {};
+  const campaignName = aiCreateName(mode, coreTerm, card.sku);
   return {
     ...candidateMeta('create', ['all_sku_ops', riskLevel, mode].filter(Boolean)),
     id: `create::${card.sku}::${mode}::${matchType || 'auto'}::${coreTerm}`,
@@ -221,8 +240,11 @@ function makeCreateAction(card, mode, coreTerm, matchType, bid, keywords, dailyB
       coreTerm,
       matchType,
       keywords,
+      campaignName,
+      groupName: campaignName,
     },
-    campaignName: `sp_${mode}_${coreTerm}_${String(card.sku || '').toLowerCase()}`,
+    campaignName,
+    groupName: campaignName,
     reason,
     evidence,
     confidence: 0.78,

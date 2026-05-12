@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-12T01:44:33.032Z",
+  "time": {
+    "runAt": "2026-05-12T01:43:51Z",
+    "businessDate": "2026-05-12",
+    "dataDate": "2026-05-11",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "claude-2026-05-12"
+  },
+  "sources": {
+    "snapshotFile": "data/snapshots/latest_snapshot.json",
+    "taskPoolFile": "",
+    "actionSchemaFile": "data/snapshots/action_schema_2026-05-12_claude.json",
+    "dryRunFile": "",
+    "verifyFile": "",
+    "adjustmentLogFile": "data/adjustments/adjustments_2026-05-11.json",
+    "manifestFile": ""
+  },
+  "dataQuality": {
+    "baselineQuality": "complete",
+    "productCards": 1264,
+    "allowedScopeSkuCount": 0,
+    "dataMissing": 0,
+    "overBudgetStatus": "",
+    "warnings": []
+  },
+  "observedPressure": {
+    "snapshotMetrics": {
+      "productCards": 1264,
+      "units7d": 3897,
+      "units30d": 17210,
+      "adSpend7d": 6751.860000000004,
+      "adSales7d": 0,
+      "adSales7dAvailable": false,
+      "adOrders7d": 1228,
+      "inventoryTight": 59,
+      "staleInventory": 109,
+      "lowProfit": 127,
+      "adAcos7d": null
+    },
+    "topSignals": [],
+    "taskSummary": {}
+  },
+  "decisions": {
+    "schemaSkuCount": 122,
+    "plannedSkus": 22,
+    "executableSkus": 22,
+    "reviewSkus": 100,
+    "plannedActions": 122,
+    "actionBreakdown": {
+      "byAction": {
+        "keyword:bid": 8,
+        "autoTarget:bid": 34,
+        "manualTarget:bid": 2,
+        "keyword:review": 1,
+        "skuCandidate:review": 99
+      },
+      "byDirection": {
+        "down": 22,
+        "up": 23,
+        "unknown": 99
+      },
+      "landed": {
+        "success": 22,
+        "failed": 0,
+        "planned": 22,
+        "unknown": 100
+      }
+    },
+    "decisionAttribution": {
+      "claude": {
+        "plannedActions": 144,
+        "landedSuccess": 22,
+        "landedFailed": 0,
+        "dryRunPlanned": 22,
+        "unknown": 100
+      }
+    }
+  },
+  "carryForward": {
+    "mustReadBeforeTomorrowDecision": true,
+    "measurementWindows": [
+      1,
+      3,
+      7,
+      14,
+      30
+    ],
+    "compareTomorrowAgainst": {
+      "snapshotMetrics": true,
+      "taskPressure": true,
+      "actionLanding": true,
+      "skuLevelMovement": true
+    },
+    "openQuestions": [
+      "Did spend reductions reduce waste without cutting orders?",
+      "Did budget increases recover profitable orders?",
+      "Did paused or lowered entities stay quiet without same-SKU sales loss?",
+      "Which seasonal preheat candidates gained impressions, clicks, and orders?"
+    ]
+  }
+}

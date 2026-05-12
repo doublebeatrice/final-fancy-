@@ -1,0 +1,691 @@
+[
+  {
+    "sku": "QAA3142",
+    "entityId": "293784045627964",
+    "text": "teacher appreciation pins bulk",
+    "bid_yesterday_after": 0.31,
+    "bid_today": 0.31,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 17.53,
+      "orders": 5,
+      "acos": 0.190647,
+      "clicks": 59,
+      "impressions": 10168
+    },
+    "s3": {
+      "spend": 1.13,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 4,
+      "impressions": 780
+    },
+    "sku_a7": {
+      "spend": 23.84,
+      "orders": 5,
+      "clicks": 95,
+      "impressions": 13058,
+      "acos": 0.25107951553449187
+    },
+    "sku_a3": {
+      "spend": 2.92,
+      "orders": 0,
+      "clicks": 12,
+      "impressions": 1115,
+      "acos": 99
+    },
+    "invDays": 14
+  },
+  {
+    "sku": "SC3527",
+    "entityId": "251922193409656",
+    "text": "memorial gifts",
+    "bid_yesterday_after": 0.28,
+    "bid_today": 0.28,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 3.52,
+      "orders": 1,
+      "acos": 0.130418,
+      "clicks": 13,
+      "impressions": 1045
+    },
+    "s3": {
+      "spend": 0.82,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 3,
+      "impressions": 173
+    },
+    "sku_a7": {
+      "spend": 11.11,
+      "orders": 2,
+      "clicks": 46,
+      "impressions": 3654,
+      "acos": 0.20581696924786957
+    },
+    "sku_a3": {
+      "spend": 3.16,
+      "orders": 0,
+      "clicks": 14,
+      "impressions": 804,
+      "acos": 99
+    },
+    "invDays": 21
+  },
+  {
+    "sku": "GM2824",
+    "entityId": "524870383422881",
+    "text": "social worker pin",
+    "bid_yesterday_after": 0.32,
+    "bid_today": 0.32,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 2.17,
+      "orders": 1,
+      "acos": 0.167051,
+      "clicks": 7,
+      "impressions": 133
+    },
+    "s3": {
+      "spend": 0.31,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 1,
+      "impressions": 29
+    },
+    "sku_a7": {
+      "spend": 3.42,
+      "orders": 1,
+      "clicks": 11,
+      "impressions": 834,
+      "acos": 0.2632794457274827
+    },
+    "sku_a3": {
+      "spend": 0.6699999999999999,
+      "orders": 0,
+      "clicks": 2,
+      "impressions": 161,
+      "acos": 99
+    },
+    "invDays": 27
+  },
+  {
+    "sku": "GM2620",
+    "entityId": "69981372607707",
+    "text": "christian mothers day gifts",
+    "bid_yesterday_after": 0.45,
+    "bid_today": 0.45,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 3.08,
+      "orders": 1,
+      "acos": 0.154077,
+      "clicks": 7,
+      "impressions": 272
+    },
+    "s3": {
+      "spend": 0.44,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 1,
+      "impressions": 32
+    },
+    "sku_a7": {
+      "spend": 12.88,
+      "orders": 4,
+      "clicks": 38,
+      "impressions": 1949,
+      "acos": 0.1610805402701351
+    },
+    "sku_a3": {
+      "spend": 0.59,
+      "orders": 0,
+      "clicks": 2,
+      "impressions": 386,
+      "acos": 99
+    },
+    "invDays": 78
+  },
+  {
+    "sku": "NAY0239",
+    "entityId": "555897492011617",
+    "text": "wedding pens",
+    "bid_yesterday_after": 0.21,
+    "bid_today": 0.21,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 1.2,
+      "orders": 1,
+      "acos": 0.033342,
+      "clicks": 6,
+      "impressions": 211
+    },
+    "s3": {
+      "spend": 0,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 0,
+      "impressions": 55
+    },
+    "sku_a7": {
+      "spend": 3.91,
+      "orders": 1,
+      "clicks": 25,
+      "impressions": 2347,
+      "acos": 0.10864128924701305
+    },
+    "sku_a3": {
+      "spend": 0.8400000000000001,
+      "orders": 0,
+      "clicks": 6,
+      "impressions": 582,
+      "acos": 99
+    },
+    "invDays": 26
+  },
+  {
+    "sku": "TH2843",
+    "entityId": "144717423020611",
+    "text": "silicone cord ties",
+    "bid_yesterday_after": 0.31,
+    "bid_today": 0.31,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 0.3,
+      "orders": 2,
+      "acos": 0.010006,
+      "clicks": 1,
+      "impressions": 5
+    },
+    "s3": {
+      "spend": 0,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 0,
+      "impressions": 0
+    },
+    "sku_a7": {
+      "spend": 0.8300000000000001,
+      "orders": 2,
+      "clicks": 2,
+      "impressions": 88,
+      "acos": 0.02306837131739856
+    },
+    "sku_a3": {
+      "spend": 0,
+      "orders": 0,
+      "clicks": 0,
+      "impressions": 23,
+      "acos": 0
+    },
+    "invDays": 46
+  },
+  {
+    "sku": "HAY0218",
+    "entityId": "213802516579147",
+    "text": "cruise ducks",
+    "bid_yesterday_after": 0.32,
+    "bid_today": 0.32,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 18.63,
+      "orders": 4,
+      "acos": 0.209419,
+      "clicks": 62,
+      "impressions": 6175
+    },
+    "s3": {
+      "spend": 4.99,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 17,
+      "impressions": 1899
+    },
+    "sku_a7": {
+      "spend": 50.419999999999995,
+      "orders": 11,
+      "clicks": 179,
+      "impressions": 22675,
+      "acos": 0.21837238511845466
+    },
+    "sku_a3": {
+      "spend": 12.960000000000003,
+      "orders": 1,
+      "clicks": 46,
+      "impressions": 5962,
+      "acos": 0.6174368747022393
+    },
+    "invDays": 55
+  },
+  {
+    "sku": "XIA1681",
+    "entityId": "320675560186228",
+    "text": "good luck gifts bulk",
+    "bid_yesterday_after": 0.16,
+    "bid_today": 0.16,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 1.02,
+      "orders": 1,
+      "acos": 0.078521,
+      "clicks": 7,
+      "impressions": 276
+    },
+    "s3": {
+      "spend": 0.27,
+      "orders": 1,
+      "acos": 0.020785,
+      "clicks": 2,
+      "impressions": 71
+    },
+    "sku_a7": {
+      "spend": 5.79,
+      "orders": 3,
+      "clicks": 38,
+      "impressions": 3062,
+      "acos": 0.13795568263045033
+    },
+    "sku_a3": {
+      "spend": 0.8300000000000001,
+      "orders": 1,
+      "clicks": 5,
+      "impressions": 796,
+      "acos": 0.059328091493924234
+    },
+    "invDays": 40
+  },
+  {
+    "sku": "HEL0319",
+    "entityId": "189452901487796",
+    "text": "inspirational keychains bulk",
+    "bid_yesterday_after": 0.28,
+    "bid_today": 0.28,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 4.03,
+      "orders": 3,
+      "acos": 0.057596,
+      "clicks": 15,
+      "impressions": 3941
+    },
+    "s3": {
+      "spend": 0.28,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 1,
+      "impressions": 439
+    },
+    "sku_a7": {
+      "spend": 10.06,
+      "orders": 5,
+      "clicks": 42,
+      "impressions": 6857,
+      "acos": 0.08751631143975643
+    },
+    "sku_a3": {
+      "spend": 1.53,
+      "orders": 0,
+      "clicks": 7,
+      "impressions": 752,
+      "acos": 99
+    },
+    "invDays": 80
+  },
+  {
+    "sku": "ST2078",
+    "entityId": "240893374181318",
+    "text": "berry sweet baby shower thank you gifts",
+    "bid_yesterday_after": 0.21,
+    "bid_today": 0.21,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 0.4,
+      "orders": 2,
+      "acos": 0.02002,
+      "clicks": 2,
+      "impressions": 89
+    },
+    "s3": {
+      "spend": 0,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 0,
+      "impressions": 25
+    },
+    "sku_a7": {
+      "spend": 5.140000000000001,
+      "orders": 4,
+      "clicks": 31,
+      "impressions": 3709,
+      "acos": 0.08036272670419013
+    },
+    "sku_a3": {
+      "spend": 1.2,
+      "orders": 0,
+      "clicks": 7,
+      "impressions": 913,
+      "acos": 99
+    },
+    "invDays": 27
+  },
+  {
+    "sku": "YB0698",
+    "entityId": "293013484778530",
+    "text": "get well soon bear",
+    "bid_yesterday_after": 0.39,
+    "bid_today": 0.39,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 3.42,
+      "orders": 1,
+      "acos": 0.162934,
+      "clicks": 9,
+      "impressions": 1343
+    },
+    "s3": {
+      "spend": 0,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 0,
+      "impressions": 262
+    },
+    "sku_a7": {
+      "spend": 5.220000000000001,
+      "orders": 2,
+      "clicks": 16,
+      "impressions": 2573,
+      "acos": 0.12434492615531208
+    },
+    "sku_a3": {
+      "spend": 0.31,
+      "orders": 0,
+      "clicks": 1,
+      "impressions": 617,
+      "acos": 99
+    },
+    "invDays": 104
+  },
+  {
+    "sku": "SE5608",
+    "entityId": "483326917460297",
+    "text": "teddy bear shirt pack",
+    "bid_yesterday_after": 0.39,
+    "bid_today": 0.39,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 14.27,
+      "orders": 3,
+      "acos": 0.297477,
+      "clicks": 33,
+      "impressions": 1290
+    },
+    "s3": {
+      "spend": 3.54,
+      "orders": 1,
+      "acos": 0.221388,
+      "clicks": 8,
+      "impressions": 318
+    },
+    "sku_a7": {
+      "spend": 39.00000000000001,
+      "orders": 12,
+      "clicks": 106,
+      "impressions": 12135,
+      "acos": 0.20325203252032525
+    },
+    "sku_a3": {
+      "spend": 9.79,
+      "orders": 1,
+      "clicks": 27,
+      "impressions": 3303,
+      "acos": 0.6122576610381488
+    },
+    "invDays": 28
+  },
+  {
+    "sku": "MF6328",
+    "entityId": "12975316656082",
+    "text": "pool floats",
+    "bid_yesterday_after": 0.33,
+    "bid_today": 0.33,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 3.74,
+      "orders": 1,
+      "acos": 0.098446,
+      "clicks": 11,
+      "impressions": 569
+    },
+    "s3": {
+      "spend": 0.68,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 2,
+      "impressions": 123
+    },
+    "sku_a7": {
+      "spend": 7.869999999999999,
+      "orders": 3,
+      "clicks": 23,
+      "impressions": 1190,
+      "acos": 0.10935111852160621
+    },
+    "sku_a3": {
+      "spend": 0.68,
+      "orders": 0,
+      "clicks": 2,
+      "impressions": 186,
+      "acos": 99
+    },
+    "invDays": 470
+  },
+  {
+    "sku": "LEM5778",
+    "entityId": "41299944817430",
+    "text": "stationery party favors",
+    "bid_yesterday_after": 0.29,
+    "bid_today": 0.29,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 2.57,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 9,
+      "impressions": 296
+    },
+    "s3": {
+      "spend": 0.3,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 1,
+      "impressions": 39
+    },
+    "sku_a7": {
+      "spend": 12.750000000000002,
+      "orders": 0,
+      "clicks": 51,
+      "impressions": 1807,
+      "acos": 99
+    },
+    "sku_a3": {
+      "spend": 2.25,
+      "orders": 0,
+      "clicks": 9,
+      "impressions": 235,
+      "acos": 99
+    },
+    "invDays": 564
+  },
+  {
+    "sku": "YUT4458",
+    "entityId": "227247503499432",
+    "text": "birthday pool party decoration",
+    "bid_yesterday_after": 0.29,
+    "bid_today": 0.29,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 1.19,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 4,
+      "impressions": 375
+    },
+    "s3": {
+      "spend": 0,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 0,
+      "impressions": 43
+    },
+    "sku_a7": {
+      "spend": 8.479999999999999,
+      "orders": 2,
+      "clicks": 28,
+      "impressions": 1477,
+      "acos": 0.18442801217920834
+    },
+    "sku_a3": {
+      "spend": 3.4,
+      "orders": 1,
+      "clicks": 11,
+      "impressions": 392,
+      "acos": 0.1478903871248369
+    },
+    "invDays": 999
+  },
+  {
+    "sku": "YEO0766",
+    "entityId": "237767395551092",
+    "text": "fisherman hat",
+    "bid_yesterday_after": 0.31,
+    "bid_today": 0.31,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 0.94,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 3,
+      "impressions": 407
+    },
+    "s3": {
+      "spend": 0,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 0,
+      "impressions": 94
+    },
+    "sku_a7": {
+      "spend": 4.16,
+      "orders": 1,
+      "clicks": 14,
+      "impressions": 1749,
+      "acos": 0.17340558566069197
+    },
+    "sku_a3": {
+      "spend": 1.19,
+      "orders": 1,
+      "clicks": 4,
+      "impressions": 460,
+      "acos": 0.049604001667361404
+    },
+    "invDays": 306
+  },
+  {
+    "sku": "CII1754",
+    "entityId": "89984983776939",
+    "text": "new york souvenirs",
+    "bid_yesterday_after": 0.17,
+    "bid_today": 0.17,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 0.89,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 5,
+      "impressions": 154
+    },
+    "s3": {
+      "spend": 0.17,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 1,
+      "impressions": 27
+    },
+    "sku_a7": {
+      "spend": 4.09,
+      "orders": 0,
+      "clicks": 27,
+      "impressions": 1374,
+      "acos": 99
+    },
+    "sku_a3": {
+      "spend": 0.8300000000000001,
+      "orders": 0,
+      "clicks": 6,
+      "impressions": 286,
+      "acos": 99
+    },
+    "invDays": 296
+  },
+  {
+    "sku": "WNE0355",
+    "entityId": "550339189421838",
+    "status": "entity_missing_today"
+  },
+  {
+    "sku": "WAR0227",
+    "entityId": "555387092248738",
+    "text": "xl clear stackable plastic duffle bag",
+    "bid_yesterday_after": 0.88,
+    "bid_today": 0.88,
+    "bidStable": true,
+    "state": 1,
+    "s7": {
+      "spend": 1.77,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 2,
+      "impressions": 41
+    },
+    "s3": {
+      "spend": 0.9,
+      "orders": 0,
+      "acos": 0,
+      "clicks": 1,
+      "impressions": 13
+    },
+    "sku_a7": {
+      "spend": 6.109999999999999,
+      "orders": 0,
+      "clicks": 7,
+      "impressions": 262,
+      "acos": 99
+    },
+    "sku_a3": {
+      "spend": 1.69,
+      "orders": 0,
+      "clicks": 2,
+      "impressions": 57,
+      "acos": 99
+    },
+    "invDays": 999
+  }
+]

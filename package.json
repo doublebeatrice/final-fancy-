@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node tests/adjust_lib.test.js && node tests/product_profile.test.js && node tests/ai_decision.test.js && node tests/listing_parser.test.js && node tests/generator_listing_signals.test.js && node tests/operation_scope.test.js && node tests/inventory_economics.test.js && node tests/sales_history_parser.test.js && node tests/ops_time_adjustment_task_scheduler.test.js",
+    "test": "node tests/adjust_lib.test.js && node tests/product_profile.test.js && node tests/ai_decision.test.js && node tests/listing_parser.test.js && node tests/generator_listing_signals.test.js && node tests/operation_scope.test.js && node tests/inventory_economics.test.js && node tests/sales_history_parser.test.js && node tests/ops_time_adjustment_task_scheduler.test.js && node tests/over_budget_policy.test.js && node tests/over_budget_seasonal_generator.test.js && node tests/overbudget_lower_bid_negative_profit.test.js && node tests/over_budget_budget_floor.test.js && node tests/decision_attribution.test.js",
     "chrome:debug": "powershell -ExecutionPolicy Bypass -File scripts\\execute\\open_debug_browser_fixed_profile.ps1",
     "ops:today": "node scripts/run_today_ops.js",
     "ops:tasks": "node scripts/run_today_tasks.js",

@@ -344,6 +344,7 @@ async function run(options = {}) {
       action: enrichedAction,
       source: enrichedAction.source || item.source || 'codex',
       actionSource: normalizeSources(enrichedAction.actionSource || item.actionSource || enrichedAction.source || item.source),
+      approvedBy: String(enrichedAction.approvedBy || item.approvedBy || '').trim(),
       riskLevel: enrichedAction.riskLevel || item.riskLevel || '',
       learning: executionLearning,
       hypothesis: executionLearning.hypothesis || '',
@@ -1630,6 +1631,24 @@ function normalizeCreateMode(value) {
   return text;
 }
 
+function slugAdNamePart(value, fallback = 'ad') {
+  const slug = String(value || '')
+    .normalize('NFKD')
+    .replace(/[^\x00-\x7F]/g, ' ')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .replace(/_+/g, '_');
+  return slug || fallback;
+}
+
+function buildAiCampaignName(mode, coreTerm, sku) {
+  const prefix = mode === 'auto' ? 'auto' : mode === 'productTarget' ? 'asin' : 'kw';
+  const term = slugAdNamePart(coreTerm, 'target');
+  const skuPart = slugAdNamePart(sku, 'sku');
+  return `ai_${prefix}_${term}_${skuPart}`.slice(0, 90).replace(/_+$/g, '');
+}
+
 function buildSpCreatePayload(input = {}) {
   const mode = normalizeCreateMode(input.mode || input.positionType);
   const sku = String(input.sku || '').trim();
@@ -1649,8 +1668,10 @@ function buildSpCreatePayload(input = {}) {
   if (!Number.isFinite(dailyBudget) || dailyBudget <= 0) errors.push('dailyBudget must be positive');
   if (!Number.isFinite(defaultBid) || defaultBid <= 0) errors.push('defaultBid must be positive');
 
-  const prefix = mode === 'auto' ? 'auto' : mode === 'productTarget' ? 'asin' : 'kw';
-  const campaignName = `${prefix}_${coreTerm}_${sku.toLowerCase()}`;
+  const requestedName = slugAdNamePart(input.campaignName || input.groupName || '');
+  const campaignName = requestedName && requestedName !== 'ad'
+    ? requestedName.slice(0, 90).replace(/_+$/g, '')
+    : buildAiCampaignName(mode, coreTerm, sku);
   const requestUrl = '/campaign/createOneTime';
   if (errors.length) return { ok: false, errors, mode, requestUrl, campaignName, groupName: campaignName };
 

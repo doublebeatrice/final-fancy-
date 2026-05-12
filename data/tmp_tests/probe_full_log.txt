@@ -1,0 +1,155 @@
+[1/3] 注入热补丁...
+[2/3] 调 fetchAllInventory()，预期 30-90 秒...
+  {"ok":true,"rowCount":735,"invCount":715}  耗时 39.8s
+[3/3] 在全量 invMap 上做字段统计与样本筛选...
+
+全部 invMap SKU 数: 715
+
+========== 各身份字段分布 ==========
+is_variation:
+  0 = 176
+  1 = 539
+is_comb_variant:
+  0 = 536
+  1 = 178
+  (null) = 1
+is_old_product_analysis:
+  0 = 702
+  1 = 13
+is_year_product:
+  0 = 7
+  2 = 708
+is_follow_flag:
+  0 = 584
+  1 = 131
+low_cost_origin_sku:
+  (empty) = 715
+change_way:
+  (empty) = 710
+  "固定不变更" = 4
+  "随系统每季度调整一次" = 1
+is_illegal_variant:
+  0 = 701
+  2 = 3
+  3 = 11
+is_variation_check:
+  true = 714
+  false = 1
+product_type:
+  "组合产品" = 332
+  "变体" = 208
+  "普通产品" = 173
+  "跟卖" = 1
+  (null) = 1
+product_label:
+  (empty) = 180
+  "非儿童产品" = 255
+  "非儿童产品&非化妆品" = 52
+  "儿童玩具" = 121
+  "儿童玩具&非化妆品" = 7
+  "其他食品接触类" = 30
+  "非儿童产品&其他食品接触类" = 39
+  "其他儿童产品" = 13
+  "非化妆品" = 1
+  "其他食品接触类&成人服装" = 2
+  "非药妆-不含禁售成分" = 1
+  "儿童常规服装" = 1
+  "儿童玩具&其他食品接触类" = 1
+  "非儿童产品&非化妆品&其他食品接触类" = 4
+  "儿童玩具&非药妆-不含禁售成分" = 1
+  "非灯串类" = 1
+  "儿童玩具&非药妆-不含禁售成分&其他食品接触类" = 1
+  "非儿童产品&其他食品接触类&成人服装" = 2
+  "非儿童产品&成人服装" = 2
+  "儿童饰品类" = 1
+holiday_info:
+  (empty) = 375
+  "2026-2-15,2026-2-22" = 2
+  "2026-2-3,(空)" = 7
+  "2026-2-3,2026-3-1" = 3
+  "2026-2-7,2026-3-1" = 32
+  "2026-2-6,2026-2-24" = 17
+  "2026-02-11,(空)" = 24
+  "2026-2-1,2026-2-28" = 7
+  "2026-2-10,(空)" = 9
+  "2026-2-7,2026-2-24" = 9
+  "2026-2-8,2026-2-28" = 12
+  "2026-02-12,(空)" = 10
+  "2026-2-5,2026-3-1" = 2
+  "2026-2-10,2026-2-25" = 8
+  "2026-2-13,2026-2-23" = 5
+  "2026-2-5,2026-2-28" = 10
+  "2026-1-31,2026-2-28" = 2
+  "2026-2-10,2026-2-24" = 6
+  "2026-2-1,2026-3-4" = 2
+  "2026-2-8,2026-2-24" = 7
+  "2026-2-4,2026-2-24" = 4
+  "2026-2-2,2026-2-26" = 6
+  "2026-2-11,2026-2-24" = 23
+  "2026-2-10,2026-2-27" = 14
+  "(空),(空)" = 2
+  "2026-2-7,2026-2-23" = 7
+  "2026-2-6,2026-3-8" = 3
+  "2026-2-12,2026-2-24" = 2
+  "2026-2-6,(空)" = 13
+  "2026-2-5,2026-2-25" = 2
+  "2026-2-10,2026-2-26" = 1
+  "2026-2-9,2026-2-26" = 3
+  "2026-1-31,2026-3-4" = 1
+  "2026-2-10,2026-2-28" = 3
+  "2026-2-6,2026-2-28" = 6
+  "2026-2-7,2026-2-27" = 1
+  "2026-2-7,2026-2-26" = 8
+  "2026-2-7,2026-3-2" = 1
+  "2026-02-13,(空)" = 5
+  "2026-2-14,2026-2-23" = 2
+  "2026-2-5,(空)" = 3
+  "2026-2-5,2026-3-3" = 6
+  "2026-2-9,2026-3-2" = 2
+  "2026-1-27,(空)" = 1
+  "2026-1-12,(空)" = 5
+  "2026-2-7,2026-2-28" = 3
+  "2026-2-13,2026-2-22" = 2
+  "2026-2-9,2026-3-1" = 5
+  "2026-2-4,(空)" = 1
+  "2026-2-9,(空)" = 4
+  "2026-2-10,2026-3-8" = 11
+  "2026-2-11,2026-2-22" = 1
+  "2026-1-31,2026-2-24" = 4
+  "2026-1-12,2026-2-25" = 1
+  "2026-2-5,2026-2-26" = 2
+  "2026-2-9,2026-3-3" = 1
+  "2026-1-29,(空)" = 1
+  "2026-2-6,2026-2-23" = 5
+  "2026-2-7,2026-3-4" = 1
+
+========== is_variation=1 的样本 SKU (前 10) ==========
+TUR8821, KZ6722, QUN5204, SHQ3950, SHQ3955, SHQ3949, SSU4939, STY6101, TH3353, TH3351
+
+========== is_variation=0 的样本 SKU (前 10) ==========
+QUN1382, OCE2575, MF6294, HUA6645, COT3013, GM2821, LEM5778, GM3042, DUC4780, LE5044
+
+========== 承接款样本 (low_cost_origin_sku 非空) ==========
+
+========== 变体组样本（按 parent_asin 聚合，至少 2 个 SKU）==========
+parent_asin = B0GVTBZNPB (2 个 SKU):
+  TUR8821 asin=B0GVT9WTG2 opendate=2026-04-02 is_variation=1 is_comb_variant=1
+  TUR5292 asin=B0GFV4TN5L opendate=2026-01-08 is_variation=1 is_comb_variant=0
+parent_asin = B0D6BB555K (3 个 SKU):
+  KZ6722 asin=B0GV48BQ52 opendate=2026-03-27 is_variation=1 is_comb_variant=0
+  KZ6074 asin=B0D479Z4QQ opendate=2024-05-15 is_variation=1 is_comb_variant=0
+  KZ5816 asin=B0BNHHNB2Q opendate=2022-11-28 is_variation=1 is_comb_variant=0
+parent_asin = B0GTTNPT2T (2 个 SKU):
+  QUN5204 asin=B0GTTQX894 opendate=2026-03-25 is_variation=1 is_comb_variant=1
+  QUN1025 asin=B0F28RL2HQ opendate=2025-03-23 is_variation=1 is_comb_variant=0
+parent_asin = B0DX1LZKSS (6 个 SKU):
+  SHQ3950 asin=B0GT3G8TG6 opendate=2026-03-19 is_variation=1 is_comb_variant=1
+  SHQ3955 asin=B0GT33N8Y4 opendate=2026-03-19 is_variation=1 is_comb_variant=1
+  SHQ3949 asin=B0GT3G8ZL7 opendate=2026-03-19 is_variation=1 is_comb_variant=1
+  SHQ3834 asin=B0GGRH32FD opendate=2026-01-14 is_variation=1 is_comb_variant=1
+  SHQ3375 asin=B0DX1PXGZX opendate=2025-02-12 is_variation=1 is_comb_variant=1
+  SHQ2216 asin=B0DMT1DSNK opendate=2024-11-12 is_variation=1 is_comb_variant=0
+parent_asin = B0FBQZ2T7Y (3 个 SKU):
+  SSU4939 asin=B0GRGV8DWL opendate=2026-03-05 is_variation=1 is_comb_variant=0
+  SSU3909 asin=B0FBR1TC3P opendate=2025-06-02 is_variation=1 is_comb_variant=0
+  SSU1756 asin=B0BWDDS55F opendate=2023-02-20 is_variation=1 is_comb_variant=0

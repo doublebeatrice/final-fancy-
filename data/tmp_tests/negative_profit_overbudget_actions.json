@@ -1,0 +1,96 @@
+[
+  {
+    "sku": "SIJ2012",
+    "asin": "B0CHDSG76N",
+    "summary": "Over-budget ad-group lower-layer adjustments for SIJ2012: only keyword/target bid changes inside overBudgetRows ad groups; no campaign budget and no SKU-wide close.",
+    "actions": [
+      {
+        "id": "423520514605853",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.7,
+        "suggestedBid": 0.64,
+        "text": "fish tubs",
+        "label": "fish tubs",
+        "campaignId": "510905342436109",
+        "adGroupId": "436163515542228",
+        "campaignName": "kw_food storage box_sij2012",
+        "groupName": "kw_food storage box_sij2012",
+        "reason": "Over-budget ad group lower-layer control: negative_profit. Campaign=\"kw_food storage box_sij2012\", adGroup=\"kw_food storage box_sij2012\". Group spend=21.52, orders=2, ACOS=19.6%. Lower keyword bid 0.7 -> 0.64; campaign budget is unchanged.",
+        "evidence": [
+          "source=overBudgetRows; scope=adGroup; campaignId=510905342436109; adGroupId=436163515542228",
+          "overBudgetGroup spend=21.52 sales=109.98 orders=2 clicks=34 ACOS=19.6% dailyBudget=2",
+          "SKU SIJ2012: referenceNetProfit=-5.0% rawProfitRate=-29.8% invDays=47 units7=8 units30=22",
+          "keyword 7d spend=12.55 clicks=17 orders=2 ACOS=11.4%",
+          "keyword 30d spend=19.47 clicks=29 orders=2 ACOS=17.7%"
+        ],
+        "confidence": 0.86,
+        "riskLevel": "overbudget_adgroup_negative_profit_bid_down",
+        "source": "codex_overbudget_adgroup_lower_bid_2026-05-09",
+        "actionSource": [
+          "codex"
+        ],
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "requiresAiDecision": false,
+        "allowLargeBidChange": false,
+        "learning": {
+          "enabled": true,
+          "hypothesis": "Trim weak lower-layer object inside an over-budget ad group without changing campaign budget.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders": "watch",
+            "acos": "watch"
+          },
+          "measurementWindowDays": [
+            1,
+            3,
+            7
+          ],
+          "baselineQuality": "complete",
+          "baseline": {
+            "sku": "SIJ2012",
+            "asin": "B0CHDSG76N",
+            "entityType": "keyword",
+            "entityId": "423520514605853",
+            "currentBid": 0.7,
+            "suggestedBid": 0.64,
+            "profitRate": -0.05,
+            "invDays": 47,
+            "overBudgetGroup": {
+              "sku": "SIJ2012",
+              "asin": "B0CHDSG76N",
+              "campaignId": "510905342436109",
+              "adGroupId": "436163515542228",
+              "campaignName": "kw_food storage box_sij2012",
+              "groupName": "kw_food storage box_sij2012",
+              "spend": 21.52,
+              "sales": 109.98,
+              "orders": 2,
+              "clicks": 34,
+              "rows": 1,
+              "dailyBudget": 2,
+              "acos": 0.1956719403527914
+            },
+            "entityStats7d": {
+              "spend": 12.55,
+              "orders": 2,
+              "clicks": 17,
+              "impressions": 2812,
+              "acos": 0
+            },
+            "entityStats30d": {
+              "spend": 19.47,
+              "orders": 2,
+              "clicks": 29,
+              "impressions": 5750,
+              "acos": 0
+            }
+          }
+        }
+      }
+    ]
+  }
+]

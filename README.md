@@ -1,308 +1,157 @@
-# Ad Ops Workbench
+# 广告运营工作台
 
-This repo supports an Amazon advertising operations workflow where Codex is the only AI decision entry point.
+这是一个亚马逊广告 + 库存的日常运营工具集。流程分两层：**数据/执行**留给代码和浏览器扩展做（稳定、可重放），**策略决定**留给 AI 会话做（Codex CLI 或 Claude Code CLI，两者对等）。扩展面板和脚本里没有 AI，也不调任何模型 API。
 
-The browser extension and scripts do not decide strategy. They collect data, export snapshots, validate action schemas, execute API calls, verify results, write inventory notes, and generate summaries. Codex reads the exported context, makes the decision, writes the action schema, and calls the execution scripts.
+## 为什么这样分
 
-## Current Boundary
+广告运营天天面对上千个 SKU，人工逐个判断不现实；但完全让规则自动化又会做出错得离谱的决定（降 bid 把新品掐死、误把铅笔识别成礼品篮投错词）。我们的做法：
 
-Codex owns:
+- 抓数据、导快照、校验 schema、调接口、写备注 → 代码做
+- 看快照、理解业务、决定怎么调 → 由一个 AI 会话（Codex 或 Claude）负责，产出一份 action schema JSON
+- action schema 经过 dry-run 校验 → 代码执行 → 回查落地 → 写入 `adjustment_log` + `daily_learning` + 库存备注
 
-- Reading advertising, inventory, historical actions, product stage, Q2 priorities, and risk context.
-- Producing the unified action schema.
-- Deciding whether an item should be executed or sent to review.
-- Orchestrating export, dry-run, execution, verification, note writing, and summary.
+简单说：AI 是坐在操作员电脑前的"大脑"，代码是它的"手脚"。
 
-Code owns:
+## 目录速查
 
-- Page data capture through the extension panel.
-- Structured snapshot export.
-- Action schema validation.
-- Deterministic execution of supported APIs.
-- Result verification.
-- Inventory note append.
-- Execution summary output.
-
-The panel must not contain an AI provider, AI runtime, or second strategy layer.
-
-Generated schemas from helper scripts are candidates only. Actions with `actionSource: ["generator_candidate"]` are forced into review by the validator unless Codex rewrites them into a deliberate Codex action schema.
-
-## Persistent Memory
-
-Read `memory.md` before making operational decisions. It contains durable context that should survive dated handoff files, including KPI口径, the daily priority SKU group, the critical "�? field mapping, and recent execution memory.
-
-## Daily Decision SKU Scope
-
-Daily ad decisions must start from the user's eligible SKU pool, not from all exported SKUs:
-
-- Sales status must be `正常销售` or `保留页面`.
-- The SKU must already be on sale / launched (`已开售`).
-- Site must be US or UK only.
-- Do not create campaigns, increase bids, pause keywords, or run broad cleanup outside this pool unless the user explicitly names that SKU/group.
-
-## Keyword Creation Safety
-
-New SP keyword campaign creation must isolate product theme before any execution:
-
-- Use `createContext.keywordSeeds`, listing title/bullets, and verified product profile as the source of keyword truth.
-- Do not use existing campaign names, ad-group names, or existing keyword text as creation-theme evidence. Existing ads may already contain bad terms and can contaminate new campaigns.
-- If keyword seeds/listing text conflict with a low-confidence or stale product profile, prefer seeds/listing or emit review. Do not let stale profile tags override concrete product terms.
-- Block naked seasonal generics unless directly supported by exact seed or listing text. Examples: `dad gifts`, `fathers day gifts`, `fiesta party supplies`, `mexican party favors`, `cinco de mayo decorations`.
-- After create workflows, run the audit before declaring completion:
-
-```powershell
-node scripts\execute\audit_created_campaign_keywords.js data\snapshots\latest_snapshot.json data\snapshots\created_keyword_cleanup_schema.json data\snapshots\created_keyword_audit_report.json <YYYY-MM-DD>
+```
+extension/                 浏览器扩展（面板、抓数据的桥）
+scripts/execute/           数据导出、执行接口、快速抓单 SKU 的脚本
+scripts/generators/        候选 schema 生成器（输出都是 candidate，必须 AI 重写才可执行）
+scripts/diagnostics/       诊断类只读脚本（watch、scope scan、cross-AI review）
+scripts/analytics/         历史效果归因
+src/ai_decision.js         action schema 校验器（代码核心 gate）
+src/adjustment_log.js      每次调整落地记录
+src/daily_learning.js      每日学习汇总
+docs/                      架构边界、运营 playbook、规则文件
+memory.md                  长期运营记忆（比 docs 更细的决策口径）
 ```
 
-For the 2026-05-06 AE3311 incident, `createContext.keywordSeeds` correctly described a godmother/Mother's Day product, while a stale profile and previously created ad keywords exposed nurse/fiesta/father themes. The fix is covered by `tests\generator_listing_signals.test.js` and `scripts\generators\generate_profit_create_schema.js`.
+## 每日闭环（一次完整运行）
 
-For the 2026-05-06 AE1079 miss, the stale cached profile said nurse/fiesta while `createContext.keywordSeeds` said godmother/Mother's Day. Product profiling, season matching, created-keyword audit, and task prioritization now use seed evidence when listing evidence is missing. `godmother`, `god mother`, `godparent`, and `madrina` are treated as Mother's Day recipient signals.
+### 0. 准备
+- Chrome 跑在 debug 模式（端口 9222），由 `scripts/execute/open_debug_browser_fixed_profile.ps1` 启动
+- 两个后台都要登录：`https://adv.yswg.com.cn/`、`https://sellerinventory.yswg.com.cn/`
+- 打开扩展面板 `chrome-extension://.../panel.html`
 
-## Season Gap Audit
+> 隔夜后 session 会过期；adv 后台的 KeywordManage 页带了 filter 参数会让快照只抓到子集。两个坑都记在 `memory.md`。
 
-The daily task board is capped, so active seasonal SKUs can be hidden behind higher-priority work. After a fresh snapshot, run the independent season gap audit to catch preheat/peak SKUs with stale-inventory or structure risk:
-
-```powershell
-node scripts\generate_season_gap_audit.js data\snapshots\latest_snapshot.json <YYYY-MM-DD>
-```
-
-Outputs:
-
-- `data\tasks\season_gap_audit_<YYYY-MM-DD>.json`
-- `data\tasks\season_gap_audit_<YYYY-MM-DD>.md`
-
-Review `critical_stale_season` and `season_structure_stale_risk` before closing the day's operations. These rows are not automatically executable; they are a guardrail against missing seasonal sell-through opportunities and letting inventory become stale.
-
-The stagnant-inventory economic rules are internalized in `docs\STAGNANT_INVENTORY_RULES.md`. Use that document before deciding whether to keep, partially keep, clear, discount, remove, or continue advertising a high-inventory seasonal SKU. The key comparison is short-term liquidation/removal profit versus long-term hold-to-next-season profit after storage cost.
-
-Fetch seller stagnant-inventory summary and trend from the logged-in inventory browser session:
-
-```powershell
-node scripts\execute\fetch_unsellable_seller.js HJ17,HJ171,HJ172
-```
-
-This calls `/pm/formal/unsellable_new_seller/query` for the current seller summary and `/pm/formal/unsellable_new_seller/change_chart_query` for the trend chart. By default it automatically uses the latest 90-day window (`start_date = today - 90 days`, `end_date` blank). Pass an explicit start date only when the business question needs a specific period. It must read session credentials dynamically from the active browser page and must not persist JWT, CSRF, or Inventory-Token values.
-
-## Quick Start For A New Codex Session
-
-Prerequisites:
-
-- Work from this repo: `D:\ad-ops-workbench`.
-- Chrome is logged in to `adv.yswg.com.cn` and `sellerinventory.yswg.com.cn`.
-- After opening both systems, the operator must manually confirm the login state in the browser. Do not assume the session is usable until the pages are visibly logged in.
-- The extension panel can be opened.
-- Debug Chrome is available on port `9222`.
-
-Open the debug browser:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\execute\open_debug_browser.ps1
-```
-
-Open the ad system and inventory system in that browser, then open the extension panel:
-
-```text
-https://adv.yswg.com.cn/
-https://sellerinventory.yswg.com.cn/
-chrome-extension://ipidenfkcdlhadnieamoocalimlnhagj/panel.html
-```
-
-Important: wait for the operator to confirm both backend pages are logged in before exporting a snapshot. If this step is skipped, snapshot export can produce inventory-only or empty ad data.
-
-Export a full snapshot:
-
+### 1. 导出快照
 ```powershell
 node scripts\execute\export_snapshot.js data\snapshots\latest_snapshot.json
 ```
+产出 1200+ 产品卡，8000+ 关键词，2400+ 自动广告目标等。
 
-Attach cached product profiles before generating action schemas:
-
+### 2. 给 SKU 附加产品画像（profile）
 ```powershell
 npm run profiles -- data\snapshots\latest_snapshot.json data\snapshots\latest_snapshot_profiled.json
 ```
 
-This writes compact `productProfile` fields into the profiled snapshot and updates `data\product_profiles.json`. Reuse `latest_snapshot_profiled.json` for create/adjust decisions so unchanged listings do not need to be re-understood every day.
-
-Optional: build a small image-understanding queue only for high-value changed/unanalyzed SKUs:
-
-```powershell
-npm run vision:queue -- data\snapshots\latest_snapshot_profiled.json data\snapshots\product_vision_queue.json 30
-```
-
-After an image model or manual reviewer writes `product_vision_results.json`, merge it back:
-
-```powershell
-npm run vision:merge -- data\snapshots\latest_snapshot_profiled.json data\snapshots\product_vision_results.json data\snapshots\latest_snapshot_profiled.json
-```
-
-Run the daily priority SKU watch report:
-
+### 3. 跑日常诊断
 ```powershell
 node scripts\diagnostics\watch_daily_sku_group.js data\snapshots\latest_snapshot.json
-```
-
-Generate the daily personal trend HTML:
-
-```powershell
+node scripts\generate_season_gap_audit.js data\snapshots\latest_snapshot.json <YYYY-MM-DD>
 node scripts\execute\generate_personal_trend_report.js data\snapshots\latest_snapshot.json
+node scripts\execute\fetch_unsellable_seller.js HJ17,HJ171,HJ172
 ```
 
-Analyze post-execution impact against later SKU snapshots:
+### 4. AI 全量扫描、写 schema
+AI 会话读快照 + 看 memory + 跑 `claude_scope_scan.js` / `cross-AI review` 等诊断，把**每一个符合 eligible 条件的 SKU** 分到三类：
+- **action** — 可执行的 bid 微调 / 暂停 / 启用
+- **review** — 明确原因等待人工或下轮数据（紧库存、负利润、marginal、季节缺口、数据不全）
+- **no-action** — 稳态，明确理由不动
 
-```powershell
-npm run impact
-```
+产出 `data/snapshots/action_schema_<YYYY-MM-DD>_<codex|claude>.json`。每条 action 必须带 `approvedBy`（codex/claude/manual）、`decisionStage=ai_approved`、`hypothesis`、`expectedEffect`、`reviewPlan`。
 
-This reads local execution history and snapshots, then writes `data\attribution\execution_impact_report.json` and `.md`. The report is a local learning artifact, not an auto-decision layer.
-
-Fast path for a user-named SKU:
-
-```powershell
-node scripts\execute\fetch_ad_sku_summary.js 4 30 DN1656
-node scripts\execute\fetch_sku_ad_product_data.js DN1656 4 30
-node scripts\execute\fetch_sku_ad_product_data.js DN1656 4 2026-04-17 2026-04-23
-node scripts\execute\fetch_ad_group_rows.js 81465235586434 426889420957316 388 4 2 product_target 2026-03-25 2026-04-23
-node scripts\execute\fetch_campaign_placement.js 216215479261432 113 4 2026-04-17 2026-04-23
-node scripts\execute\fetch_sp_group_detail.js 225787179894969 87467799588303 113 4 2026-03-25 2026-04-23
-```
-
-Use these before exporting a full snapshot when the user asks about one concrete SKU. They run inside the logged-in `adv.yswg.com.cn` debug tab, use the browser session for cookies/XSRF, and write JSON under `data\snapshots\`.
-
-## Interface Selection Guide
-
-- Concrete SKU overall health: call `/product/adSkuSummary` through `node scripts\execute\fetch_ad_sku_summary.js <siteId> <days> <SKU>` first. This gives SKU-level spend, sales, orders, ACOS, CPC, impressions/clicks, previous-period deltas, and inventory snippet.
-- Concrete SKU ad breakdown: call `/product/adProductData` through `node scripts\execute\fetch_sku_ad_product_data.js <SKU> <siteId> <days>` or explicit `<startYmd> <endYmd>`. This gives the SKU's campaign/adGroup/product-ad rows, row-level state/performance, and campaign budget fields such as `dailyBudget` when returned by the backend.
-- Specific ad group rows across SP/SB: call `node scripts\execute\fetch_ad_group_rows.js <campaignId> <adGroupId> <accountId> <siteId> <property> <tableName|-> <days|startYmd> [endYmd]`. Use `property=1` for SP keyword, `2 product_target` for SP auto, `3 product_manual_target` for SP manual targeting, `4` for SB keyword, and `6` for SB targeting. `/keyword/findAllNew` returns a property-level table, so the script filters by `campaignId + adGroupId` locally; do not treat unfiltered response rows as the target group.
-- Specific campaign placement: call `node scripts\execute\fetch_campaign_placement.js <campaignId> <accountId> <siteId> <days|startYmd> [endYmd]`. This calls `/placement/findAllPlacement` and returns Top of Search, Product Page, Rest of Search, off-Amazon, current placement percent, spend, orders, sales, CPC, CVR, ACOS, and ROAS.
-- Specific SP ad group internals: call `node scripts\execute\fetch_sp_group_detail.js <campaignId> <adGroupId> <accountId> <siteId> <days|startYmd> [endYmd]`. This calls `/advTarget/findManualProductTarget` for ASIN/manual product targets and `/customerSearch/targetFindAll` for customer search terms.
-- Customer search terms: `fetch_ad_group_rows.js` also calls `/customerSearch/targetFindAll`. It is useful for SP auto/manual groups; SB and some SP keyword groups may return only an empty aggregate placeholder.
-- Full-market abnormal pool, daily decline pool, or eligible SKU discovery: export a full snapshot. Do not use full export as the default response to a named SKU.
-- Inventory/sales eligibility gate: apply `正常销售` or `保留页面` + `已开售` + US/UK before planning actions.
-- Write actions: only after the read path above, generate an action schema, dry-run it, then execute.
-
-Choose the date window based on the question: recent 7/30 days for current health, explicit `YYYY-MM-DD YYYY-MM-DD` for historical comparison.
-
-For the current priority group, "�? must come from `year_over_year_asin_rate`; do not use `year_over_year_rank` as a substitute. Fresh snapshots also include personal seller sales from `/pm/sale/getBySeller` when the inventory session is logged in; credentials are read from the active browser session and must not be stored in the repo.
-
-Daily abnormal-SKU reporting also consumes ad interfaces when available:
-
-- `/product/adSkuSummary` for SKU-level 30-day spend, sales, orders, ACOS, CPC, and previous-period deltas.
-- `/product/adProductData` for SKU campaign rows, including campaign/adGroup identifiers and backend-returned budget fields such as `dailyBudget`.
-- `/placement/findAllPlacement` for campaign placement performance and current placement adjustment percent.
-- `/advProduct/all` for SP product-ad state, active row count, spend, orders, and high-ACOS rows by SKU.
-- `/campaignSb/findAllNew` for SB campaign spend/state, with SKU inferred from campaign/ad-group names.
-
-Campaign-level automatic execution is supported:
-
-- SP campaign daily budget update: action schema uses `entityType: "campaign"`, `actionType: "budget"`, `id: "<campaignId>"`, and `suggestedBudget`. Executor calls `PATCH /campaign/batchCampaign` with `operation=dailyBudget`.
-- SP placement adjustment: action schema uses `entityType: "campaign"`, `actionType: "placement"`, `id: "<campaignId>"`, `placementKey` (`placementProductPage`, `placementTop`, or `placementRestOfSearch`), and `suggestedPlacementPercent`. Executor calls `PATCH /campaign/editCampaignColumn` with `operation=placement`.
-- Listing sessions and CVR from inventory are AI decision fields: `listingSessions.lastWeek/twoWeeksAgo/threeWeeksAgo` come from `session_7/14/21`; `listingConversionRates.lastWeek/twoWeeksAgo/threeWeeksAgo` come from `percentage_7/14/21`.
-
-The personal trend generator keeps the latest ad-interface rows but can fill blank product-card inventory/YoY fields from another same-day nonblank snapshot, so a zero-filled export does not wipe out the critical "�?口径.
-
-Codex then reads the snapshot and writes an external action schema JSON. Validate without executing:
-
+### 5. dry-run + 执行
 ```powershell
 $env:DRY_RUN='1'
-node scripts\execute\run_actions.js data\snapshots\action_schema.json --snapshot data\snapshots\latest_snapshot.json
+node scripts\execute\run_actions.js data\snapshots\action_schema_<date>_<actor>.json --snapshot data\snapshots\latest_snapshot.json
+
+Remove-Item Env:\DRY_RUN
+node scripts\execute\run_actions.js data\snapshots\action_schema_<date>_<actor>.json --snapshot data\snapshots\latest_snapshot.json
+```
+dry-run 通不过的就地拦截。执行后自动回查落地 + 写库存备注（开头带 `[由 Claude 决策]` / `[由 Codex 决策]` / `[人工决策]` 前缀）。
+
+### 6. 每日学习
+```powershell
+# run_today_ops 会自动调用，也可手动
+node -e "require('./src/daily_learning').persistDailyLearning({...})"
+```
+产出 `data/learning/daily_learning_<date>.{json,md}`，含按决策方（codex/claude/manual）分组的 `decisionAttribution`。**第二天 AI 决策前必须读前一天的 learning 文件**。
+
+### 7. 跨 AI review（任何一方都能看对方做了什么）
+```powershell
+node scripts\diagnostics\review_recent_decisions.js --by claude --days 3
+node scripts\diagnostics\review_recent_decisions.js --by codex --days 7
 ```
 
-Execute after review:
+## 决策归因（谁做的这个决定）
+
+每条 action 都带 `approvedBy`，从 schema 一路传到：
+- `data/adjustments/adjustments_<date>.json`（每次调整一行）
+- `data/learning/daily_learning_<date>.json`（当日汇总）
+- 库存备注（运营在 sellerinventory 能直接看到是谁做的）
+
+所以"Codex 昨天为什么 pause 了 DN1655"、"Claude 这周平均 ACOS 比 Codex 更好"这种问题，有数据可答。
+
+## 三条红线
+
+1. **扩展面板里不能有 AI runtime**（不调 Anthropic / OpenAI API）。AI 决策在操作员的 CLI 会话里跑，不在仓库代码里跑。
+2. **规则生成器的输出都是 candidate**，`actionSource: ["generator_candidate"]`，被校验器强制进 review。想执行，必须 AI 重写为 `approvedBy: codex/claude/manual`。
+3. **Codex 无法安全决策时必须 emit `review`**，不允许静默回退到老规则。
+
+## 保留为 review 的高风险动作
+
+这些 AI 能**建议**但不能**自动执行**，除非操作员显式放行：
+- 创建新广告（SP/SB/B2B）
+- 结构修复 / 重建 campaign
+- 大幅度 bid 变动
+- 高销量/高风险 SKU 的强力操作
+- Listing 文案编辑（`copy_edit`，已经能通过 sellerinventory 后台提交编辑申请，但执行前强制 dry-run + 显式 approval）
+- 价格变动
+- 海运补货决策
+
+## 运营范围（哪些 SKU 可以操作）
+
+每日广告决策只从"可操作池"出发：
+- 销售状态 = `正常销售` 或 `保留页面`
+- 已开售 / 已 launched
+- 站点 = US 或 UK
+- 池外 SKU 不允许主动创建/加投/暂停/清理，除非操作员指名
+
+## 必读文档
+
+- `memory.md` — 长期运营记忆（KPI 口径、"同"字段、watchlist、历次事故教训）。决策前先读。
+- `docs/AI_DECISION_BOUNDARY.md` — 架构边界（panel/orchestration/script 三层分工）
+- `docs/AI_DECISION_ENTRY_POINTS.md` — Codex vs Claude 调用方式
+- `docs/CODEX_HANDOFF_RUNBOOK.md` — 运营交接手册
+- `docs/Q2_AD_OPS_PLAYBOOK.md` — Q2 决策上下文
+- `docs/STAGNANT_INVENTORY_RULES.md` — 滞销库存决策规则（清 / 留 / 减仓 / 继续推广告）
+
+## 几个最容易翻车的点
+
+- **广告差 ≠ 产品烂**：判产品质量必须看 listing CR、评分、退货、历史峰值、自然单，**不能**从广告 30d 订单少推断
+- **新品保护**：上架 ≤ 6 个月 + 销量加速 + sessions 刚来 + CR 健康 → 不准降 bid，应保护流量
+- **productProfile 可能误识别**：铅笔被识别为 gift basket、母亲节被识别为护士周，会污染 keyword seeds。先验证 profile 和 listing.title/breadcrumbs 一致再用
+- **不看全量 = 放弃决策**：每日闭环必须把 1200+ SKU 全部归到 action / review / no-action，单日只做 3 条 = 甩锅
+
+## 常用命令速查
 
 ```powershell
-Remove-Item Env:\DRY_RUN -ErrorAction SilentlyContinue
-node scripts\execute\run_actions.js data\snapshots\action_schema.json --snapshot data\snapshots\latest_snapshot.json
-```
+# 启动 debug Chrome（用户只负责登录后台）
+powershell -ExecutionPolicy Bypass -File scripts\execute\open_debug_browser_fixed_profile.ps1
 
-## Verified Capabilities
+# 单 SKU 快诊（不用导全量快照）
+node scripts\execute\fetch_ad_sku_summary.js <siteId> <days> <SKU>
+node scripts\execute\fetch_sku_ad_product_data.js <SKU> <siteId> <days>
+node scripts\execute\fetch_ad_group_rows.js <campaignId> <adGroupId> <accountId> <siteId> <property> <tableName|-> <days|startYmd> [endYmd]
+node scripts\execute\fetch_campaign_placement.js <campaignId> <accountId> <siteId> <days>
+node scripts\execute\fetch_sp_group_detail.js <campaignId> <adGroupId> <accountId> <siteId> <days>
 
-Verified on 2026-04-23:
-
-- Full panel snapshot export works.
-- Snapshot-based dry-run works.
-- Snapshot-based real execution works.
-- Incremental post-write verification works.
-- Inventory note writing works in snapshot mode.
-- Failed note writes are retried instead of rerunning all notes.
-- SP bid execution works for keyword, auto target, and manual target rows already supported by the executor.
-- SB keyword bid execution works.
-- State toggle support exists for SP keyword, SP auto target, SP manual target, SB keyword, and SB target, using their separate request bodies and SP/SB state casing.
-
-Validated commands:
-
-```powershell
-node --check auto_adjust.js
-node --check extension\panel.js
-node --check scripts\execute\run_actions.js
-node --check scripts\execute\export_snapshot.js
+# 测试套件
 npm test
+
+# 语法校验（单文件）
+node --check auto_adjust.js
 ```
-
-## Q2 Full Test Result
-
-Full test snapshot on 2026-04-23:
-
-- Product cards: 434
-- SP keyword rows: 7076
-- SP auto rows: 1595
-- SP manual target rows: 1843
-- SB keyword rows: 3610
-- SB target rows: 31
-- Inventory snapshot rows: 722
-- SP seven-day untouched rows: 3
-- SB seven-day untouched rows: 8
-
-Execution result:
-
-- 7 low-risk actions executed.
-- 7 API calls succeeded.
-- 7 results verified as landed.
-- 7 inventory notes succeeded.
-- 3 review-only actions wrote review notes.
-- 0 API 403 blocks.
-- 0 verification misses.
-
-Key output files:
-
-- `data/snapshots/q2_full_test_snapshot.json`
-- `data/snapshots/q2_full_test_action_schema.json`
-- `data/snapshots/execution_verify_2026-04-23.json`
-- `data/snapshots/execution_summary_2026-04-23.json`
-
-## Review-Only Boundaries
-
-These actions may be recommended by Codex, but remain review-only until explicitly released:
-
-- New ad creation.
-- Structure repair or campaign rebuild.
-- Large bid changes.
-- Strong actions on high-sales or high-risk products.
-- Listing edits.
-- Price changes.
-- Sea-shipping replenishment decisions.
-
-If Codex cannot decide safely, the action schema must use `review`. Code must not fall back to an old rule decision.
-
-## Main Files
-
-- `auto_adjust.js`: deterministic execution orchestration.
-- `src/ai_decision.js`: context building and external action schema validation/loading. No provider runtime.
-- `src/adjust_lib.js`: supported action execution helpers.
-- `extension/panel.js`: browser-side data capture, execution bridge, verification, and note bridge.
-- `scripts/execute/export_snapshot.js`: panel snapshot export.
-- `scripts/execute/fetch_ad_sku_summary.js`: fast SKU-level ad summary fetch through `/product/adSkuSummary`.
-- `scripts/execute/fetch_sku_ad_product_data.js`: fast single-SKU ad-product fetch through `/product/adProductData`.
-- `scripts/execute/fetch_ad_group_rows.js`: fast ad-group row fetch through `/keyword/findAllNew` for SP keyword, SP auto, SP manual targeting, SB keyword, and SB targeting; also fetches customer search terms.
-- `scripts/execute/fetch_campaign_placement.js`: fast campaign placement fetch through `/placement/findAllPlacement`.
-- `scripts/execute/fetch_sp_group_detail.js`: fast SP ad-group internal fetch through `/advTarget/findManualProductTarget` and `/customerSearch/targetFindAll`.
-- `scripts/execute/run_actions.js`: action schema runner.
-- `scripts/generators/generate_profit_create_schema.js`: candidate schema generator; output is not auto-executable until Codex rewrites/approves it.
-- `scripts/generators/generate_profit_adjust_schema.js`: candidate schema generator; output is not auto-executable until Codex rewrites/approves it.
-- `scripts/execute/generate_closed_loop_report.js`: writes closed-loop HTML reports under `archive/reports/YYYY-MM-DD/`.
-- `scripts/analytics/analyze_execution_impact.js`: local post-execution attribution report for learning from action outcomes.
-- `scripts/execute/generate_personal_trend_report.js`: writes daily personal trend HTML under `黄成喆个人数据趋�?每日 近七�?数据趋势/`.
-- `scripts/diagnostics/watch_daily_sku_group.js`: daily report for the priority SKU group.
-- `memory.md`: long-term operating memory and durable decision口径.
-- `docs/CODEX_HANDOFF_RUNBOOK.md`: handoff and operating runbook.
-- `docs/Q2_AD_OPS_PLAYBOOK.md`: Q2 decision context for Codex.
-- `docs/CODEX_AI_BOUNDARY.md`: Codex-only architecture boundary.

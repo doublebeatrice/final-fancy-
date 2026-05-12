@@ -1,0 +1,1022 @@
+{
+  "generatedAt": "2026-05-09T08:01:01.918Z",
+  "businessDate": "2026-05-09",
+  "sourceBoard": "D:\\ad-ops-workbench\\data\\tasks\\daily_task_board_2026-05-09.json",
+  "sourceHistory": "D:\\ad-ops-workbench\\data\\adjustment_history.json",
+  "summary": {
+    "mainP0P1": 80,
+    "touchedToday": 35,
+    "reviewOrDeferred": 45,
+    "byPriority": {
+      "P0": 29,
+      "P1": 16
+    },
+    "byBucket": {
+      "needs_lower_layer_entity_fetch_before_write": 9,
+      "review_only_business_or_structure_decision": 36
+    }
+  },
+  "items": [
+    {
+      "priority": "P0",
+      "sku": "GM3149",
+      "asin": "B0GGRG6SDV",
+      "primaryTaskType": "profit_bleeding",
+      "suggestedAction": "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
+      "boardExecutableHint": true,
+      "reason": "recent ad spend has no orders while margin is weak",
+      "facts": [
+        "7d spend=8.04, 7d orders=0",
+        "30d units=22, profit=-15.4%",
+        "sellableDays=217",
+        "seasonWindows=none",
+        "signals=profit_bleeding,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "profit_bleeding",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "needs_lower_layer_entity_fetch_before_write"
+    },
+    {
+      "priority": "P0",
+      "sku": "RU2391",
+      "asin": "B0G5N4JMGC",
+      "primaryTaskType": "profit_bleeding",
+      "suggestedAction": "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
+      "boardExecutableHint": true,
+      "reason": "recent ad spend has no orders while margin is weak",
+      "facts": [
+        "7d spend=5.15, 7d orders=0",
+        "30d units=13, profit=5.7%",
+        "sellableDays=148",
+        "seasonWindows=none",
+        "signals=profit_bleeding,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "profit_bleeding",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "needs_lower_layer_entity_fetch_before_write"
+    },
+    {
+      "priority": "P0",
+      "sku": "YEO0766",
+      "asin": "B0FZ9GMQJS",
+      "primaryTaskType": "profit_bleeding",
+      "suggestedAction": "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
+      "boardExecutableHint": true,
+      "reason": "recent ad spend has no orders while margin is weak",
+      "facts": [
+        "7d spend=6.40, 7d orders=0",
+        "30d units=5, profit=11.7%",
+        "sellableDays=312",
+        "seasonWindows=none",
+        "signals=profit_bleeding,stale_inventory_risk,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "profit_bleeding",
+        "stale_inventory_risk",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "needs_lower_layer_entity_fetch_before_write"
+    },
+    {
+      "priority": "P0",
+      "sku": "LUO1012",
+      "asin": "B0FHJ4RJH5",
+      "primaryTaskType": "profit_bleeding",
+      "suggestedAction": "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
+      "boardExecutableHint": true,
+      "reason": "recent ad spend has no orders while margin is weak",
+      "facts": [
+        "7d spend=5.27, 7d orders=0",
+        "30d units=11, profit=-11.0%",
+        "sellableDays=224",
+        "seasonWindows=none",
+        "signals=profit_bleeding,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "profit_bleeding",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "needs_lower_layer_entity_fetch_before_write"
+    },
+    {
+      "priority": "P0",
+      "sku": "NO5155",
+      "asin": "B0F1CGBYL3",
+      "primaryTaskType": "profit_bleeding",
+      "suggestedAction": "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
+      "boardExecutableHint": true,
+      "reason": "recent ad spend has no orders while margin is weak",
+      "facts": [
+        "7d spend=16.38, 7d orders=0",
+        "30d units=2, profit=12.9%",
+        "sellableDays=390",
+        "seasonWindows=Nurse Week:peak",
+        "signals=profit_bleeding,stale_inventory_risk,ad_structure_missing,season_peak,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "profit_bleeding",
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "needs_lower_layer_entity_fetch_before_write"
+    },
+    {
+      "priority": "P0",
+      "sku": "YUN2686",
+      "asin": "B0DZXJ5JWT",
+      "primaryTaskType": "profit_bleeding",
+      "suggestedAction": "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
+      "boardExecutableHint": true,
+      "reason": "recent ad spend has no orders while margin is weak",
+      "facts": [
+        "7d spend=9.58, 7d orders=0",
+        "30d units=44, profit=6.9%",
+        "sellableDays=15",
+        "seasonWindows=none",
+        "signals=profit_bleeding,inventory_tight,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "profit_bleeding",
+        "inventory_tight",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "needs_lower_layer_entity_fetch_before_write"
+    },
+    {
+      "priority": "P0",
+      "sku": "FLO2960",
+      "asin": "B0D8W1MPQT",
+      "primaryTaskType": "profit_bleeding",
+      "suggestedAction": "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
+      "boardExecutableHint": true,
+      "reason": "recent ad spend has no orders while margin is weak",
+      "facts": [
+        "7d spend=37.39, 7d orders=0",
+        "30d units=3, profit=-42.5%",
+        "sellableDays=260",
+        "seasonWindows=none",
+        "signals=profit_bleeding,stale_inventory_risk,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "profit_bleeding",
+        "stale_inventory_risk",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "needs_lower_layer_entity_fetch_before_write"
+    },
+    {
+      "priority": "P0",
+      "sku": "NO3390",
+      "asin": "B0CZDXJ81G",
+      "primaryTaskType": "profit_bleeding",
+      "suggestedAction": "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
+      "boardExecutableHint": true,
+      "reason": "recent ad spend has no orders while margin is weak",
+      "facts": [
+        "7d spend=5.50, 7d orders=0",
+        "30d units=31, profit=10.0%",
+        "sellableDays=94",
+        "seasonWindows=none",
+        "signals=profit_bleeding,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "profit_bleeding",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "needs_lower_layer_entity_fetch_before_write"
+    },
+    {
+      "priority": "P0",
+      "sku": "SES0574",
+      "asin": "B0C69RGS8Y",
+      "primaryTaskType": "profit_bleeding",
+      "suggestedAction": "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
+      "boardExecutableHint": true,
+      "reason": "recent ad spend has no orders while margin is weak",
+      "facts": [
+        "7d spend=5.05, 7d orders=0",
+        "30d units=8, profit=14.2%",
+        "sellableDays=42",
+        "seasonWindows=none",
+        "signals=profit_bleeding,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "profit_bleeding",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "needs_lower_layer_entity_fetch_before_write"
+    },
+    {
+      "priority": "P0",
+      "sku": "TUR8821",
+      "asin": "B0GVT9WTG2",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=0, profit=26.8%",
+        "sellableDays=999",
+        "seasonWindows=Nurse Week:peak",
+        "signals=stale_inventory_risk,season_peak,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "QUN5204",
+      "asin": "B0GTTQX894",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=0, profit=34.5%",
+        "sellableDays=999",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "SHQ3950",
+      "asin": "B0GT3G8TG6",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=0, profit=20.4%",
+        "sellableDays=999",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "SHQ3955",
+      "asin": "B0GT33N8Y4",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=0, profit=20.5%",
+        "sellableDays=999",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "SSU4939",
+      "asin": "B0GRGV8DWL",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=1, profit=-31.4%",
+        "sellableDays=450",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "YUH4890",
+      "asin": "B0GH7B281D",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=0, profit=2.4%",
+        "sellableDays=999",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "YUH4842",
+      "asin": "B0GH73QSR2",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=1, profit=-2.0%",
+        "sellableDays=1410",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "HUA6645",
+      "asin": "B0GDXPLX6B",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.27, 7d orders=0",
+        "30d units=0, profit=13.6%",
+        "sellableDays=999",
+        "seasonWindows=Wedding Season:peak",
+        "signals=stale_inventory_risk,ad_structure_missing,season_peak,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "LEM8356",
+      "asin": "B0GDTG4MW9",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=0, profit=-22.6%",
+        "sellableDays=999",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "COT3013",
+      "asin": "B0GCMSFKQD",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=0, profit=39.3%",
+        "sellableDays=999",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "DUC4780",
+      "asin": "B0G712Q6YC",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=0, profit=32.3%",
+        "sellableDays=999",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "LEM7532",
+      "asin": "B0G65LXMY8",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=0, profit=-29.1%",
+        "sellableDays=999",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "RU2438",
+      "asin": "B0G5864FSV",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.81, 7d orders=0",
+        "30d units=1, profit=21.0%",
+        "sellableDays=1410",
+        "seasonWindows=Nurse Week:peak",
+        "signals=stale_inventory_risk,ad_structure_missing,season_peak,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "RHO0477",
+      "asin": "B0G39LH2CB",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=0, profit=14.1%",
+        "sellableDays=999",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "RHO0473",
+      "asin": "B0G39KM25B",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=0, profit=36.3%",
+        "sellableDays=999",
+        "seasonWindows=Nurse Week:peak",
+        "signals=stale_inventory_risk,ad_structure_missing,season_peak,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "CAS4030",
+      "asin": "B0FZSSJL2H",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=2.60, 7d orders=0",
+        "30d units=1, profit=33.9%",
+        "sellableDays=4560",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "SAN1320",
+      "asin": "B0FX4K6WPN",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.34, 7d orders=0",
+        "30d units=1, profit=23.6%",
+        "sellableDays=2700",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "RUX1630",
+      "asin": "B0FWKD5Q5Y",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=0, profit=19.2%",
+        "sellableDays=999",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "RUX1599",
+      "asin": "B0FWKFGP2Q",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=1, profit=9.8%",
+        "sellableDays=1830",
+        "seasonWindows=none",
+        "signals=stale_inventory_risk,ad_structure_missing,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P0",
+      "sku": "HEL3107",
+      "asin": "B0FVFJBZBW",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_clearance_price_listing_or_low_budget_sell_through_plan",
+      "boardExecutableHint": true,
+      "reason": "severe inventory pressure with almost no recent sales",
+      "facts": [
+        "7d spend=0.61, 7d orders=0",
+        "30d units=0, profit=-1.9%",
+        "sellableDays=999",
+        "seasonWindows=Nurse Week:peak, Graduation:preheat",
+        "signals=stale_inventory_risk,ad_structure_missing,season_peak,season_preheat,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_peak",
+        "season_preheat",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "MF6280",
+      "asin": "B0GMN29W7J",
+      "primaryTaskType": "season_peak",
+      "suggestedAction": "fix_seasonal_structure_gap_in_dry_run",
+      "boardExecutableHint": true,
+      "reason": "current season window plus ad structure gap has sales/inventory evidence",
+      "facts": [
+        "7d spend=0.74, 7d orders=0",
+        "30d units=21, profit=16.1%",
+        "sellableDays=83",
+        "seasonWindows=Mother's Day:peak, Summer:preheat",
+        "signals=ad_structure_missing,season_peak,season_preheat,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "ad_structure_missing",
+        "season_peak",
+        "season_preheat",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "HAI4870",
+      "asin": "B0FP19WXC6",
+      "primaryTaskType": "season_peak",
+      "suggestedAction": "fix_seasonal_structure_gap_in_dry_run",
+      "boardExecutableHint": true,
+      "reason": "current season window plus ad structure gap has sales/inventory evidence",
+      "facts": [
+        "7d spend=3.27, 7d orders=0",
+        "30d units=8, profit=22.3%",
+        "sellableDays=64",
+        "seasonWindows=Nurse Week:peak",
+        "signals=ad_structure_missing,season_peak,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "YYW2629",
+      "asin": "B0FMRNLGTW",
+      "primaryTaskType": "season_peak",
+      "suggestedAction": "fix_seasonal_structure_gap_in_dry_run",
+      "boardExecutableHint": true,
+      "reason": "current season window plus ad structure gap has sales/inventory evidence",
+      "facts": [
+        "7d spend=64.43, 7d orders=6",
+        "30d units=25, profit=15.0%",
+        "sellableDays=44",
+        "seasonWindows=Nurse Week:peak",
+        "signals=ad_structure_missing,season_peak,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "MF3043",
+      "asin": "B0DMW4GC1S",
+      "primaryTaskType": "season_peak",
+      "suggestedAction": "fix_seasonal_structure_gap_in_dry_run",
+      "boardExecutableHint": true,
+      "reason": "current season window plus ad structure gap has sales/inventory evidence",
+      "facts": [
+        "7d spend=0.20, 7d orders=0",
+        "30d units=6, profit=13.9%",
+        "sellableDays=145",
+        "seasonWindows=Wedding Season:peak",
+        "signals=ad_structure_missing,season_peak,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "LNY3024",
+      "asin": "B0D7YR38F7",
+      "primaryTaskType": "season_peak",
+      "suggestedAction": "fix_seasonal_structure_gap_in_dry_run",
+      "boardExecutableHint": true,
+      "reason": "current season window plus ad structure gap has sales/inventory evidence",
+      "facts": [
+        "7d spend=15.74, 7d orders=1",
+        "30d units=7, profit=18.3%",
+        "sellableDays=210",
+        "seasonWindows=Nurse Week:peak, Teacher Appreciation:tail",
+        "signals=ad_structure_missing,season_peak,season_tail,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "ad_structure_missing",
+        "season_peak",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "YAN3229",
+      "asin": "B0D5L7RDZQ",
+      "primaryTaskType": "season_peak",
+      "suggestedAction": "fix_seasonal_structure_gap_in_dry_run",
+      "boardExecutableHint": true,
+      "reason": "current season window plus ad structure gap has sales/inventory evidence",
+      "facts": [
+        "7d spend=23.60, 7d orders=6",
+        "30d units=29, profit=22.8%",
+        "sellableDays=46",
+        "seasonWindows=Nurse Week:peak, Memorial Day:preheat",
+        "signals=ad_structure_missing,season_peak,season_preheat,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "ad_structure_missing",
+        "season_peak",
+        "season_preheat",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "JOY0431",
+      "asin": "B0CQJTRCZX",
+      "primaryTaskType": "season_peak",
+      "suggestedAction": "fix_seasonal_structure_gap_in_dry_run",
+      "boardExecutableHint": true,
+      "reason": "current season window plus ad structure gap has sales/inventory evidence",
+      "facts": [
+        "7d spend=31.41, 7d orders=7",
+        "30d units=28, profit=20.8%",
+        "sellableDays=51",
+        "seasonWindows=Nurse Week:peak, Teacher Appreciation:tail",
+        "signals=ad_structure_missing,season_peak,season_tail,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "ad_structure_missing",
+        "season_peak",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "ZHW0104",
+      "asin": "B0CF9V3J2Y",
+      "primaryTaskType": "season_peak",
+      "suggestedAction": "fix_seasonal_structure_gap_in_dry_run",
+      "boardExecutableHint": true,
+      "reason": "current season window plus ad structure gap has sales/inventory evidence",
+      "facts": [
+        "7d spend=6.36, 7d orders=2",
+        "30d units=10, profit=23.2%",
+        "sellableDays=189",
+        "seasonWindows=Mother's Day:peak, Nurse Week:peak",
+        "signals=ad_structure_missing,season_peak,season_peak,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "UAN1375",
+      "asin": "B0CBRZBTGW",
+      "primaryTaskType": "season_peak",
+      "suggestedAction": "fix_seasonal_structure_gap_in_dry_run",
+      "boardExecutableHint": true,
+      "reason": "current season window plus ad structure gap has sales/inventory evidence",
+      "facts": [
+        "7d spend=10.64, 7d orders=1",
+        "30d units=3, profit=14.8%",
+        "sellableDays=50",
+        "seasonWindows=Nurse Week:peak",
+        "signals=ad_structure_missing,season_peak,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "YAN2284",
+      "asin": "B0C3VLV2YC",
+      "primaryTaskType": "season_peak",
+      "suggestedAction": "fix_seasonal_structure_gap_in_dry_run",
+      "boardExecutableHint": true,
+      "reason": "current season window plus ad structure gap has sales/inventory evidence",
+      "facts": [
+        "7d spend=2.52, 7d orders=0",
+        "30d units=11, profit=13.6%",
+        "sellableDays=101",
+        "seasonWindows=Nurse Week:peak",
+        "signals=ad_structure_missing,season_peak,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "HAN0044",
+      "asin": "B0BZR32F82",
+      "primaryTaskType": "season_peak",
+      "suggestedAction": "fix_seasonal_structure_gap_in_dry_run",
+      "boardExecutableHint": true,
+      "reason": "current season window plus ad structure gap has sales/inventory evidence",
+      "facts": [
+        "7d spend=12.21, 7d orders=2",
+        "30d units=32, profit=35.5%",
+        "sellableDays=99",
+        "seasonWindows=Nurse Week:peak, Memorial Day:preheat",
+        "signals=ad_structure_missing,season_peak,season_preheat,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "ad_structure_missing",
+        "season_peak",
+        "season_preheat",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "WC2648",
+      "asin": "B0CGV931JK",
+      "primaryTaskType": "season_preheat",
+      "suggestedAction": "fix_seasonal_structure_gap_in_dry_run",
+      "boardExecutableHint": true,
+      "reason": "current season window plus ad structure gap has sales/inventory evidence",
+      "facts": [
+        "7d spend=21.94, 7d orders=0",
+        "30d units=18, profit=30.7%",
+        "sellableDays=67",
+        "seasonWindows=Memorial Day:preheat",
+        "signals=ad_structure_missing,season_preheat,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "ad_structure_missing",
+        "season_preheat",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "GT2491",
+      "asin": "B0BPCJH55M",
+      "primaryTaskType": "season_preheat",
+      "suggestedAction": "fix_seasonal_structure_gap_in_dry_run",
+      "boardExecutableHint": true,
+      "reason": "current season window plus ad structure gap has sales/inventory evidence",
+      "facts": [
+        "7d spend=0.47, 7d orders=0",
+        "30d units=16, profit=17.6%",
+        "sellableDays=38",
+        "seasonWindows=Memorial Day:preheat",
+        "signals=ad_structure_missing,season_preheat,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "ad_structure_missing",
+        "season_preheat",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "RHO1540",
+      "asin": "B0GLPCPFK9",
+      "primaryTaskType": "inventory_tight",
+      "suggestedAction": "control_spend_or_review_price_until_inventory_recovers",
+      "boardExecutableHint": false,
+      "reason": "active demand with tight sellable days",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=73, profit=27.8%",
+        "sellableDays=8",
+        "seasonWindows=Wedding Season:peak",
+        "signals=inventory_tight,ad_structure_missing,season_peak,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "inventory_tight",
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "OB4139",
+      "asin": "B0GJRV1TCQ",
+      "primaryTaskType": "inventory_tight",
+      "suggestedAction": "control_spend_or_review_price_until_inventory_recovers",
+      "boardExecutableHint": false,
+      "reason": "active demand with tight sellable days",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=71, profit=-22.1%",
+        "sellableDays=13",
+        "seasonWindows=Nurse Week:peak",
+        "signals=inventory_tight,ad_structure_missing,season_peak,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "inventory_tight",
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    },
+    {
+      "priority": "P1",
+      "sku": "OB3296",
+      "asin": "B0GJRF57B5",
+      "primaryTaskType": "inventory_tight",
+      "suggestedAction": "control_spend_or_review_price_until_inventory_recovers",
+      "boardExecutableHint": false,
+      "reason": "active demand with tight sellable days",
+      "facts": [
+        "7d spend=0.00, 7d orders=0",
+        "30d units=70, profit=-10.7%",
+        "sellableDays=13",
+        "seasonWindows=Nurse Week:peak",
+        "signals=inventory_tight,ad_structure_missing,season_peak,seven_day_unadjusted"
+      ],
+      "mergedSignals": [
+        "inventory_tight",
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "reviewBucket": "review_only_business_or_structure_decision"
+    }
+  ]
+}

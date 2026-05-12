@@ -1,0 +1,254 @@
+[
+  {
+    "sku": "XIX0903",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "535874784688944",
+    "entityName": "kw2_letterstencils_xix0903",
+    "beforeValue": 0.3,
+    "afterValue": 0.32,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"535874784688944\"}],\"error\":[]}}",
+    "runAt": "2026-05-09T09:46:36.828Z",
+    "businessDate": "2026-05-09",
+    "dataDate": "2026-05-08",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-09T09-46-36-828Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "This high-relevance exact keyword has low traffic but proven conversion, so a small lift should reveal scale potential.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "no additional clicks by day 3 or spend rises without orders by day 7"
+        }
+      }
+    }
+  },
+  {
+    "sku": "XIX0903",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "263129838960347",
+    "entityName": "kw business_letterstencils_xix0903",
+    "beforeValue": 0.43,
+    "afterValue": 0.45,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"263129838960347\"}],\"error\":[]}}",
+    "runAt": "2026-05-09T09:46:36.828Z",
+    "businessDate": "2026-05-09",
+    "dataDate": "2026-05-08",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-09T09-46-36-828Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "The business keyword has early conversion and may open incremental batch-use demand with a small lift.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "no click lift by day 3 or no orders by day 7"
+        }
+      }
+    }
+  },
+  {
+    "sku": "XIX0903",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "414722539438294",
+    "entityName": "kw_letterstencils_xix0903",
+    "beforeValue": 0.22,
+    "afterValue": 0.2,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"414722539438294\"}],\"error\":[]}}",
+    "runAt": "2026-05-09T09:46:36.828Z",
+    "businessDate": "2026-05-09",
+    "dataDate": "2026-05-08",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-09T09-46-36-828Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "success",
+    "dryRun": false,
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Trimming a weak SP keyword should reduce inefficient clicks and free budget for proven entries.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "down"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "SKU orders drop faster than spend reduction or the keyword remains the only converting path"
+        }
+      }
+    }
+  },
+  {
+    "sku": "XIX0903",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "452903620147343",
+    "entityName": "asin exact_letterstencils_xix0903",
+    "beforeValue": 0.07,
+    "afterValue": 0.08,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"452903620147343\"},{\"targetId\":\"560262236321918\"}],\"error\":[]}}",
+    "runAt": "2026-05-09T09:46:36.828Z",
+    "businessDate": "2026-05-09",
+    "dataDate": "2026-05-08",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-09T09-46-36-828Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "This converting expanded ASIN target can recover traffic with a one-cent bid lift.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "7d spend rises faster than orders"
+        }
+      }
+    }
+  },
+  {
+    "sku": "XIX0903",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "560262236321918",
+    "entityName": "asin exact_letterstencils_xix0903",
+    "beforeValue": 0.08,
+    "afterValue": 0.09,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"452903620147343\"},{\"targetId\":\"560262236321918\"}],\"error\":[]}}",
+    "runAt": "2026-05-09T09:46:36.828Z",
+    "businessDate": "2026-05-09",
+    "dataDate": "2026-05-08",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-09T09-46-36-828Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Self-ASIN targeting has strong conversion and can take a small bid lift for defensive/related-page traffic.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "traffic does not grow or ACOS exceeds target"
+        }
+      }
+    }
+  },
+  {
+    "sku": "XIX0903",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "review",
+    "entityType": "manualTarget",
+    "entityId": "460479464100648",
+    "entityName": "asin exact_letterstencils_xix0903",
+    "beforeValue": null,
+    "afterValue": null,
+    "reason": "ASIN exact 是历史强入口但近30天较前期掉量；该ASIN近30天 19点击/3单/ACOS 15.9%，仍在可接受区间。小幅0.06->0.07用于恢复商品页流量，不扩大到全组预算。预期3天点击恢复，7天订单跟上；若点击不恢复或ACOS超出利润空间则回滚。 [risk_gate:high_volume_strong_bid_change:changePct=0.1667,threshold=0.15]",
+    "runAt": "2026-05-09T09:46:36.828Z",
+    "businessDate": "2026-05-09",
+    "dataDate": "2026-05-08",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-09T09-46-36-828Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "manual_review",
+    "dryRun": false,
+    "meta": {
+      "apiStatus": "manual_review",
+      "finalStatus": "manual_review",
+      "expectation": {
+        "hypothesis": "A one-cent lift on a proven ASIN target should repair product-page traffic after recent volume loss.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "clicks do not recover or 7d ACOS rises above the SKU profit room"
+        }
+      }
+    }
+  }
+]

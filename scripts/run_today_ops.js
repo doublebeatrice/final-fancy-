@@ -24,14 +24,18 @@ function parseArgs(argv) {
   const schemaIndex = args.findIndex(arg => arg === '--schema');
   const snapshotIndex = args.findIndex(arg => arg === '--snapshot');
   const modeIndex = args.findIndex(arg => arg === '--mode');
-  const requestedSchemaFile = schemaIndex >= 0 ? args[schemaIndex + 1] : (process.env.ACTION_SCHEMA_FILE || path.join(ROOT, 'data', 'snapshots', 'action_schema.json'));
+  const actorIndex = args.findIndex(arg => arg === '--actor');
+  const requestedActor = actorIndex >= 0 ? String(args[actorIndex + 1] || '').toLowerCase().trim() : String(process.env.RUN_ACTOR || '').toLowerCase().trim();
+  const actor = ['codex', 'claude', 'manual'].includes(requestedActor) ? requestedActor : 'codex';
+  const requestedSchemaFile = schemaIndex >= 0 ? args[schemaIndex + 1] : (process.env.ACTION_SCHEMA_FILE || '');
   const requestedMode = modeIndex >= 0 ? args[modeIndex + 1] : '';
   const runtimeMode = execute ? 'execute' : ((requestedMode || 'fast').trim() || 'fast');
   return {
     mode: runtimeMode,
     dryRun: !execute,
     execute,
-    actionSchemaFile: resolveActionSchemaFile(requestedSchemaFile),
+    actor,
+    actionSchemaFile: resolveActionSchemaFile(requestedSchemaFile, actor),
     snapshotFileArg: snapshotIndex >= 0 ? args[snapshotIndex + 1] : '',
   };
 }
@@ -48,25 +52,34 @@ function isUsableSchemaFile(file) {
   }
 }
 
-function resolveActionSchemaFile(requestedFile) {
+function resolveActionSchemaFile(requestedFile, actor = 'codex') {
   if (isUsableSchemaFile(requestedFile)) return requestedFile;
 
+  const today = new Date().toISOString().slice(0, 10);
   const preferred = [
+    path.join(SNAPSHOT_DATA_DIR, `action_schema_${today}_${actor}.json`),
+    path.join(SNAPSHOT_DATA_DIR, 'action_schema.json'),
     path.join(SNAPSHOT_DATA_DIR, 'q2_full_test_action_schema.json'),
   ];
   for (const file of preferred) {
     if (isUsableSchemaFile(file)) return file;
   }
 
-  const fallback = fs.existsSync(SNAPSHOT_DATA_DIR)
+  const actorPattern = new RegExp(`action_schema_.*_${actor}\\.json$`, 'i');
+  const candidates = fs.existsSync(SNAPSHOT_DATA_DIR)
     ? fs.readdirSync(SNAPSHOT_DATA_DIR)
       .filter(name => /schema.*\.json$/i.test(name))
       .map(name => path.join(SNAPSHOT_DATA_DIR, name))
       .filter(isUsableSchemaFile)
-      .sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)[0]
-    : '';
+    : [];
 
-  return fallback || requestedFile;
+  const actorScoped = candidates
+    .filter(file => actorPattern.test(path.basename(file)))
+    .sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)[0];
+  if (actorScoped) return actorScoped;
+
+  const fallback = candidates.sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)[0];
+  return fallback || requestedFile || path.join(SNAPSHOT_DATA_DIR, `action_schema_${today}_${actor}.json`);
 }
 
 function nowStamp() {
@@ -615,6 +628,7 @@ async function main() {
     businessDate: timeContext.businessDate,
     dataDate: timeContext.dataDate,
     siteTimezone: timeContext.siteTimezone,
+    runActor: options.actor || 'codex',
     mode: options.mode,
     startedAt: timeContext.runAt,
     actionSchemaFile: path.resolve(options.actionSchemaFile),

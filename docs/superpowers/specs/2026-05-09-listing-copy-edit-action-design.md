@@ -150,12 +150,13 @@ Execution should use the current debug Chrome session and find a `sellerinventor
 
 The executor should:
 
-1. Read CSRF from the DOM, Laravel globals, input token, or cookie inside the live browser tab.
-2. Build `URLSearchParams` from the normalized action.
-3. POST to `https://sellerinventory.yswg.com.cn/kernel/productEditApply/store`.
-4. Use `credentials: "include"` and browser cookies.
-5. Parse JSON response.
-6. Record `code`, `msg`, `id`, and `ids`.
+1. Fetch the original English edit data from `/kernel/productEditApply/getOriginData?sku=<SKU>&type=en` when original copy is missing or stale.
+2. Read CSRF from the DOM, Laravel globals, input token, or cookie inside the live browser tab.
+3. Build `URLSearchParams` from the normalized action.
+4. POST to `https://sellerinventory.yswg.com.cn/kernel/productEditApply/store`.
+5. Use `credentials: "include"` and browser cookies.
+6. Parse JSON response.
+7. Record `code`, `msg`, `id`, and `ids`.
 
 Sensitive values must not be persisted:
 
@@ -195,8 +196,9 @@ Recommended warnings:
 - More than five bullet points.
 - Title over common Amazon length targets.
 - Bullet text that appears unrelated to product profile or keyword seeds.
-- Variant synchronization requested without explicit `synchronizeVariantSkus`.
+- Variant synchronization requested without explicit `synchronizeVariantSkus`. If no variant SKUs are selected, omit `synchronizeFields[]` entirely; sending sync fields with empty `now[synchronize_variant_sku]` causes the backend to reject the request with `请选择要同步的变体`.
 - Missing original copy, because review diffs become weaker.
+- Theme conflict between automatic season tags and concrete listing/search/operator evidence.
 
 ## AI-Generated Copy Path
 
@@ -205,10 +207,13 @@ Codex may generate copy candidates, but script code must not generate copy.
 Flow:
 
 1. Read current SKU context from snapshot, listing cache, product profile, sales history, and operator instruction.
-2. Codex writes a candidate `copy_edit` action schema.
-3. Run dry-run.
-4. Operator reviews the preview artifact.
-5. If approved, Codex or manual reviewer sets approval fields and runs execute.
+2. Fetch original edit data through `getOriginData` when snapshot listing fields are missing.
+3. Decide the copy theme from concrete evidence first: title, bullets, `search_core_keywords`, `phrase_frequency_text`, and operator notes. Automatic season tags are supporting evidence only.
+4. If concrete evidence conflicts with automatic season tags, emit review instead of blindly generating copy from the tag. For example, `father`, `dad`, `men`, or `父亲节` in title/search/operator notes should override an unrelated Nurse Week or Graduation auto tag unless stronger product evidence says otherwise.
+5. Codex writes a candidate `copy_edit` action schema.
+6. Run dry-run.
+7. Operator reviews the preview artifact.
+8. If approved, Codex or manual reviewer sets approval fields and runs execute.
 
 ## Manual Copy Path
 

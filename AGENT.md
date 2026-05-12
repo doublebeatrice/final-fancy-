@@ -1,6 +1,6 @@
 # Agent Instructions
 
-This project is operated by Codex as the only AI decision entry point.
+This project is operated by a single operator-facing AI session — either Codex or Claude — as the AI decision entry point for any given run. Both are peers; neither is hosted inside the extension or scripts.
 
 ## Required Read Order
 
@@ -9,16 +9,17 @@ Before running or changing the workflow, read:
 1. `README.md`
 2. `memory.md`
 3. `docs/CODEX_HANDOFF_RUNBOOK.md`
-4. `docs/CODEX_AI_BOUNDARY.md`
-5. `docs/Q2_AD_OPS_PLAYBOOK.md`
-6. `docs/CODEX_MINIMAL_CLOSED_LOOP.md`
-7. `docs/STAGNANT_INVENTORY_RULES.md`
+4. `docs/AI_DECISION_BOUNDARY.md`
+5. `docs/AI_DECISION_ENTRY_POINTS.md`
+6. `docs/Q2_AD_OPS_PLAYBOOK.md`
+7. `docs/CODEX_MINIMAL_CLOSED_LOOP.md`
+8. `docs/STAGNANT_INVENTORY_RULES.md`
 
 ## Architecture Boundary
 
 The extension panel is not an AI product. It only captures data, exports structured snapshots, visualizes rows, exposes execution bridges, shows results, and supports manual confirmation.
 
-Codex performs the decision work outside the panel:
+The deciding AI session (Codex or Claude) performs the decision work outside the panel:
 
 - Read snapshot and docs.
 - Understand ad, inventory, Q2, product-stage, and history context.
