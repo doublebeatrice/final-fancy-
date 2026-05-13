@@ -102,23 +102,32 @@ Inventory listing performance is part of the AI context: `session_7/14/21` are l
 
 Codex reads the snapshot and Q2 playbook, then writes an action schema JSON. The schema is the only decision artifact. The executor must not invent actions.
 
-Low-risk auto-executable actions currently allowed:
+Operating doctrine from 2026-05-12: do not treat advertising business risk as a reason to wait for manual review. If Codex believes a supported advertising action can improve profit, sales quality, inventory turnover, or KPI trajectory, approve and execute it, then learn from the next 1/3/7-day data cycle.
+
+Executable ad actions currently include:
 
 - `bid_up`
 - `bid_down`
 - `enable`
 - `pause`
+- SP campaign `pause` for low-risk approved schemas with campaign metadata
 - Seven-day untouched low-risk touch actions
 - low-budget SP `create` when backed by inventory, margin, Q2/seasonal timing, low impressions/clicks, stuck-stock risk, or old-product recovery evidence
+- budget and placement changes when schema validation can verify landing
+- explicit `forceExecute: true` advertising experiments approved by Codex/Claude/manual
 
 Review-only actions:
 
 - SB `create` until the real SB creation interface is captured and verified
 - `structure_fix`
-- large bid changes
 - listing changes
 - price changes
 - replenishment decisions
+- unknown/out-of-scope entities, incomplete fields, missing verification mapping, or any write surface that cannot be landed/verified
+
+SP campaign state actions are campaign-level even when rows are sourced from child keyword/target/product-ad tables. Match by `campaignId`, write through `/campaign/batchCampaign`, and verify `campaignState` or campaign status before child row `state`. For pause, API success plus disappearance from enabled child-row pools can be a landed result; enable must visibly verify as enabled.
+
+Known technical blocker: SP campaign `enable` returned API success but did not land in force-execution waves on 2026-05-12. Treat it as `not_landed` / automation work, not as a manual-review strategy decision.
 
 ## Dry Run
 
@@ -137,6 +146,18 @@ node scripts\execute\run_actions.js data\snapshots\action_schema.json --snapshot
 ```
 
 Expected outputs are written under `data/snapshots/`, including verification and execution summary files.
+
+## Completion Check
+
+Do not report the day as closed from a report file alone. Confirm the final intended run has:
+
+- A dry-run-clean schema.
+- Execution API failures at 0 for executable actions.
+- Landing verification success for every executable action.
+- Inventory notes and adjustment logs written.
+- `execution_summary_<date>.json`, `execution_verify_<date>.json`, the report, and daily learning pointing to the same final run/sourceRunId.
+
+When same-day retries or dry-runs exist, use daily learning `decisions.finalRunLanding` for the completion verdict. All-day adjustment aggregates preserve history and can include failed attempts from earlier retries.
 
 ## Troubleshooting
 

@@ -112,9 +112,36 @@ function uniqueSchemaSkus(decision = {}) {
   return [...values];
 }
 
+function approvedSource(action = {}) {
+  const approvedBy = normalizeText(action.approvedBy).toLowerCase();
+  const sources = Array.isArray(action.actionSource)
+    ? action.actionSource
+    : (action.actionSource ? [action.actionSource] : []);
+  return ['codex', 'claude', 'manual'].includes(approvedBy)
+    && sources.map(item => normalizeText(item).toLowerCase()).some(item => ['codex', 'claude', 'manual'].includes(item));
+}
+
+function operatorRequestedRawSkus(decision = {}) {
+  const rawPlan = Array.isArray(decision.rawPlan) ? decision.rawPlan : [];
+  return new Set(rawPlan
+    .filter(item => item?.operatorRequested === true)
+    .map(item => normalizeText(item?.sku))
+    .filter(Boolean));
+}
+
+function canUseOperatorRequestedOverride(item = {}, rawOverrideSkus = new Set()) {
+  const sku = normalizeText(item.sku);
+  const actions = item.actions || [];
+  return rawOverrideSkus.has(sku)
+    && actions.length > 0
+    && actions.every(action => action?.forceExecute === true && approvedSource(action) && action.canAutoExecute !== false);
+}
+
 function applyAllowedOperationScope(decision = {}, scopeAnalysis) {
   const allowedSkuSet = scopeAnalysis?.allowedSkuSet || new Set();
   const schemaSkuSet = new Set(uniqueSchemaSkus(decision).map(normalizeText));
+  const rawOverrideSkus = operatorRequestedRawSkus(decision);
+  const operatorRequestedOverrides = [];
   const outOfScope = [];
   const recordOutOfScope = (sku, source, payload = {}) => {
     const normalizedSku = normalizeText(sku);
@@ -131,6 +158,11 @@ function applyAllowedOperationScope(decision = {}, scopeAnalysis) {
       continue;
     }
     if (!allowedSkuSet.has(normalizeSku(item.sku))) {
+      if (canUseOperatorRequestedOverride(item, rawOverrideSkus)) {
+        operatorRequestedOverrides.push(sku);
+        scopedPlan.push(item);
+        continue;
+      }
       recordOutOfScope(sku, 'plan', {
         actionCount: (item.actions || []).length,
         reason: 'out_of_scope',
@@ -189,6 +221,8 @@ function applyAllowedOperationScope(decision = {}, scopeAnalysis) {
       outOfScopeSkus: outOfScopeSkuList.length,
       outOfScopeSkuList,
       outOfScope,
+      operatorRequestedOverrideSkus: new Set(operatorRequestedOverrides).size,
+      operatorRequestedOverrideSkuList: [...new Set(operatorRequestedOverrides)],
       reviewSkus: [...new Set(scopedReview.map(item => item.sku))].length,
       plannedSkus: scopedPlan.filter(item => (item.actions || []).length > 0).length,
       executableSkus: scopedPlan.filter(item => (item.actions || []).some(action => action.canAutoExecute !== false)).length,

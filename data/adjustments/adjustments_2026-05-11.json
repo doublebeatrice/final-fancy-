@@ -11497,5 +11497,550 @@
         "reviewPlan": {}
       }
     }
+  },
+  {
+    "sku": "LO3817",
+    "asin": "B0G4R61LRM",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "entityId": "33267571931564",
+    "entityName": "mothers day gifts for women-lo3817-system-a",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Holiday-keyword campaign. Mothers Day passed 2 days ago. 7d $25.86/7ord/19.3% — traffic will collapse and ACOS spike; pause to stop bleed.",
+    "runAt": "2026-05-12T06:56:54.536Z",
+    "businessDate": "2026-05-11",
+    "dataDate": "2026-05-10",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "today_ops_2026-05-12T06-56-54-536Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Holiday-keyword traffic falls off a cliff post-event; pausing now avoids 2-4 weeks of high-ACOS spend.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            7,
+            30
+          ],
+          "metrics": [
+            "spend"
+          ],
+          "escalationPlan": "re-enable ~2027-04-15 if 2027 Mothers Day push is planned"
+        }
+      }
+    }
+  },
+  {
+    "sku": "LO3817",
+    "asin": "B0G4R61LRM",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "entityId": "278655799315598",
+    "entityName": "kw broad_christian mothers day gifts_lo3817",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Holiday-keyword broad campaign. 7d $32.94/3ord/52% ACOS already deteriorating. Pause post-season.",
+    "runAt": "2026-05-12T06:56:54.536Z",
+    "businessDate": "2026-05-11",
+    "dataDate": "2026-05-10",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "today_ops_2026-05-12T06-56-54-536Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Broad on \"christian mothers day gifts\" has no off-season demand; pausing stops drag.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            7,
+            30
+          ],
+          "metrics": [
+            "spend"
+          ],
+          "escalationPlan": "re-enable ~2027-04-15 for next Mothers Day"
+        }
+      }
+    }
+  },
+  {
+    "sku": "LO3817",
+    "asin": "B0G4R61LRM",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "entityId": "63890741951795",
+    "entityName": "asin expanded_christian mothers day gifts_lo3817",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "ASIN expanded holiday campaign. 7d $14.81/0ord. Pause post-season.",
+    "runAt": "2026-05-12T06:56:54.536Z",
+    "businessDate": "2026-05-11",
+    "dataDate": "2026-05-10",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "today_ops_2026-05-12T06-56-54-536Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Already 0 orders 7d; off-season will be worse.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            7
+          ],
+          "metrics": [
+            "spend"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "sku": "LO3817",
+    "asin": "B0G4R61LRM",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "entityId": "118817902662121",
+    "entityName": "mothers day gifts for women-lo3817-system-keyword",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Holiday-keyword system campaign. 7d 0 spend already idle. Pause to prevent later auto-activation.",
+    "runAt": "2026-05-12T06:56:54.536Z",
+    "businessDate": "2026-05-11",
+    "dataDate": "2026-05-10",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "today_ops_2026-05-12T06-56-54-536Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Idle holiday campaign should be paused so it doesn't auto-spend in off-season.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            30
+          ],
+          "metrics": [
+            "spend"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "sku": "LO3817",
+    "asin": "B0G4R61LRM",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "entityId": "233030379464748",
+    "entityName": "kw_b2b_mothers day gifts bulk_LO3817",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "B2B holiday-keyword campaign. 7d $1.28/0ord. Pause post-season.",
+    "runAt": "2026-05-12T06:56:54.536Z",
+    "businessDate": "2026-05-11",
+    "dataDate": "2026-05-10",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "today_ops_2026-05-12T06-56-54-536Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Bulk-buy mothers day demand vanishes post-holiday.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            30
+          ],
+          "metrics": [
+            "spend"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "sku": "LO3821",
+    "asin": "B0G4R6JZD5",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "entityId": "137160898833361",
+    "entityName": "mothers day gifts for women-lo3821-system-a",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Holiday-keyword. 7d $53.79/7ord/32.4% — already at 7d ACOS 32%, post-season will worsen. Pause.",
+    "runAt": "2026-05-12T06:56:54.536Z",
+    "businessDate": "2026-05-11",
+    "dataDate": "2026-05-10",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "today_ops_2026-05-12T06-56-54-536Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Holiday-keyword falls off a cliff post-event.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            7,
+            30
+          ],
+          "metrics": [
+            "spend"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "sku": "LO3821",
+    "asin": "B0G4R6JZD5",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "entityId": "107979266899605",
+    "entityName": "kw broad_christian mothers day gifts_lo3821",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Holiday broad keyword. 7d $17.9/2ord/40.7%. Pause post-season.",
+    "runAt": "2026-05-12T06:56:54.536Z",
+    "businessDate": "2026-05-11",
+    "dataDate": "2026-05-10",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "today_ops_2026-05-12T06-56-54-536Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Off-season demand for this query string is near-zero.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            30
+          ],
+          "metrics": [
+            "spend"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "sku": "LO3821",
+    "asin": "B0G4R6JZD5",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "entityId": "122896202903251",
+    "entityName": "asin expanded_christian mothers day gifts_lo3821",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "ASIN-expanded holiday campaign. 7d $15.11/2ord/37.8%. Pause post-season.",
+    "runAt": "2026-05-12T06:56:54.536Z",
+    "businessDate": "2026-05-11",
+    "dataDate": "2026-05-10",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "today_ops_2026-05-12T06-56-54-536Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "ASIN-expanded holiday campaign. 7d $15.11/2ord/37.8%. Pause post-season.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            30
+          ],
+          "metrics": [
+            "spend"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "sku": "LO3821",
+    "asin": "B0G4R6JZD5",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "entityId": "144439831859437",
+    "entityName": "auto_christian mothers day gifts_lo3821",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Auto campaign named after the holiday; on LO3821 it has only $1.53/0ord — variant is colder. Pause; LO3817 keeps the auto placeholder.",
+    "runAt": "2026-05-12T06:56:54.536Z",
+    "businessDate": "2026-05-11",
+    "dataDate": "2026-05-10",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "today_ops_2026-05-12T06-56-54-536Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Auto campaign named after the holiday; on LO3821 it has only $1.53/0ord — variant is colder. Pause; LO3817 keeps the auto placeholder.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            30
+          ],
+          "metrics": [
+            "spend"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "sku": "LO3821",
+    "asin": "B0G4R6JZD5",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "entityId": "251962509461283",
+    "entityName": "kw_b2b_mothers day gifts bulk_LO3821",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "B2B holiday bulk. 7d $0.4/0ord. Pause post-season.",
+    "runAt": "2026-05-12T06:56:54.536Z",
+    "businessDate": "2026-05-11",
+    "dataDate": "2026-05-10",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "today_ops_2026-05-12T06-56-54-536Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "B2B holiday bulk. 7d $0.4/0ord. Pause post-season.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            30
+          ],
+          "metrics": [
+            "spend"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "sku": "LO3821",
+    "asin": "B0G4R6JZD5",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "entityId": "194412358197809",
+    "entityName": "mothers day gifts for women-lo3821-system-keyword",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Holiday system-keyword campaign idle (7d 0 spend). Pause to prevent off-season auto-activation.",
+    "runAt": "2026-05-12T06:56:54.536Z",
+    "businessDate": "2026-05-11",
+    "dataDate": "2026-05-10",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "today_ops_2026-05-12T06-56-54-536Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Holiday system-keyword campaign idle (7d 0 spend). Pause to prevent off-season auto-activation.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            30
+          ],
+          "metrics": [
+            "spend"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "sku": "LO3821",
+    "asin": "B0G4R6JZD5",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "entityId": "143136719717943",
+    "entityName": "auto_b2b_LO3821",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "B2B auto, 0 spend/0 orders. LO3817 keeps the b2b auto placeholder; LO3821 pause to consolidate.",
+    "runAt": "2026-05-12T06:56:54.536Z",
+    "businessDate": "2026-05-11",
+    "dataDate": "2026-05-10",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "today_ops_2026-05-12T06-56-54-536Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "B2B auto, 0 spend/0 orders. LO3817 keeps the b2b auto placeholder; LO3821 pause to consolidate.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            30
+          ],
+          "metrics": [
+            "spend"
+          ]
+        }
+      }
+    }
   }
 ]

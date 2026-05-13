@@ -1,0 +1,52 @@
+{
+  "sourceId": "profitMargin.compensate.index",
+  "generatedAt": "2026-05-13T10:36:12.502Z",
+  "fieldCount": 0,
+  "fieldSummary": {
+    "confirmed": 0,
+    "probable": 0,
+    "unknown": 0
+  },
+  "fields": [],
+  "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\report_probe_profitMargin_compensate_index_2026-05-13.json",
+  "route": {
+    "routeId": "profitMargin.compensate.index",
+    "routeName": "FBA费赔偿系统",
+    "url": "https://sellerinventory.yswg.com.cn/profitMargin/compensate/index",
+    "source": "sellerinventory"
+  },
+  "networkSummary": {
+    "requestCount": 36,
+    "sampleRowCount": 0,
+    "endpointCandidateCount": 2
+  },
+  "endpointSummary": {
+    "total": 2,
+    "safeRead": 0,
+    "writeOrSensitive": 0,
+    "unknown": 0,
+    "commonNoise": 2
+  },
+  "endpointCandidates": [
+    {
+      "path": "/api/note/detail",
+      "method": "UNKNOWN",
+      "evidence": "//便签内容去mongose数据库拿 $.ajax({ type:'get', url:'https://shopifyapi.yswg.com.cn/api/note/detail', data:{ user_id:$('a.user_area').attr('data-id'), }, success:functi",
+      "from": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/lib/admin.js",
+      "risk": "common_noise",
+      "reasons": [
+        "common_page_note_endpoint"
+      ]
+    },
+    {
+      "path": "/api/note/save",
+      "method": "UNKNOWN",
+      "evidence": "}else{ $.ajax({ url:'https://shopifyapi.yswg.com.cn/api/note/save', // url:'http://192.168.2.108:3001/note/save', type:'post',",
+      "from": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/lib/admin.js",
+      "risk": "common_noise",
+      "reasons": [
+        "common_page_note_endpoint"
+      ]
+    }
+  ]
+}

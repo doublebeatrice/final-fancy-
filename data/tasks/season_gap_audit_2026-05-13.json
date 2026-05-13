@@ -1,0 +1,903 @@
+{
+  "generatedAt": "2026-05-13T03:21:21.284Z",
+  "businessDate": "2026-05-13",
+  "dataDate": "2026-05-12",
+  "siteTimezone": "America/Los_Angeles",
+  "sourceRunId": "season_gap_audit_2026-05-13",
+  "summary": {
+    "auditedTasks": 656,
+    "activeSeasonTasks": 96,
+    "riskItems": 23,
+    "suppressedRiskItems": 5,
+    "byRiskType": {
+      "critical_stale_season": 10,
+      "season_structure_stale_risk": 4,
+      "season_stale_watch": 5,
+      "inventory_tight_no_scale": 4
+    }
+  },
+  "items": [
+    {
+      "sku": "RUX1599",
+      "asin": "B0FWKFGP2Q",
+      "priority": "Low Priority",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "riskType": "critical_stale_season",
+      "score": 150,
+      "suppressedByMainTaskLimit": true,
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "preheat"
+        },
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "preheat"
+        },
+        {
+          "key": "mothers_day",
+          "label": "Mother's Day",
+          "phase": "tail"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 1,
+      "units7d": 0,
+      "profitRate": 0.0973,
+      "sellableDays": 1830,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "signals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_peak",
+        "season_preheat",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "check_margin_before_discounting",
+        "provisional_local_policy_not_external_ai",
+        "daily_board_main_task_limit_exceeded"
+      ]
+    },
+    {
+      "sku": "STA2610",
+      "asin": "B0FND7GY4V",
+      "priority": "P2",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "riskType": "critical_stale_season",
+      "score": 138,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 2,
+      "units7d": 0,
+      "profitRate": -0.2597,
+      "sellableDays": 2745,
+      "adSpend7d": 4.05,
+      "adOrders7d": 0,
+      "signals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_preheat",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "check_margin_before_discounting",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "HEL3107",
+      "asin": "B0FVFJBZBW",
+      "priority": "Low Priority",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "riskType": "critical_stale_season",
+      "score": 138,
+      "suppressedByMainTaskLimit": true,
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "preheat"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 0,
+      "units7d": 0,
+      "profitRate": -0.0198,
+      "sellableDays": 999,
+      "adSpend7d": 0.6000000000000001,
+      "adOrders7d": 1,
+      "signals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_preheat",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "check_margin_before_discounting",
+        "provisional_local_policy_not_external_ai",
+        "daily_board_main_task_limit_exceeded"
+      ]
+    },
+    {
+      "sku": "STA2607",
+      "asin": "B0FND9XC4Y",
+      "priority": "Low Priority",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "riskType": "critical_stale_season",
+      "score": 138,
+      "suppressedByMainTaskLimit": true,
+      "seasonWindows": [
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        }
+      ],
+      "units30d": 0,
+      "units7d": 0,
+      "profitRate": -0.0713,
+      "sellableDays": 999,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "signals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_preheat",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "check_margin_before_discounting",
+        "provisional_local_policy_not_external_ai",
+        "daily_board_main_task_limit_exceeded"
+      ]
+    },
+    {
+      "sku": "STA2604",
+      "asin": "B0FN7P88D4",
+      "priority": "Low Priority",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "riskType": "critical_stale_season",
+      "score": 138,
+      "suppressedByMainTaskLimit": true,
+      "seasonWindows": [
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 0,
+      "units7d": 0,
+      "profitRate": -0.0001,
+      "sellableDays": 999,
+      "adSpend7d": 1.44,
+      "adOrders7d": 0,
+      "signals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_preheat",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "check_margin_before_discounting",
+        "provisional_local_policy_not_external_ai",
+        "daily_board_main_task_limit_exceeded"
+      ]
+    },
+    {
+      "sku": "CEE0467",
+      "asin": "B09SW2NT6J",
+      "priority": "Low Priority",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "riskType": "critical_stale_season",
+      "score": 138,
+      "suppressedByMainTaskLimit": true,
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 0,
+      "units7d": 0,
+      "profitRate": -0.1421,
+      "sellableDays": 999,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "signals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_peak",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "check_margin_before_discounting",
+        "provisional_local_policy_not_external_ai",
+        "daily_board_main_task_limit_exceeded"
+      ]
+    },
+    {
+      "sku": "LEM6585",
+      "asin": "B0FXVB2SYG",
+      "priority": "P0",
+      "primaryTaskType": "profit_bleeding",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "riskType": "critical_stale_season",
+      "score": 128,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 0,
+      "units7d": 0,
+      "profitRate": -0.0655,
+      "sellableDays": 999,
+      "adSpend7d": 5.819999999999999,
+      "adOrders7d": 0,
+      "signals": [
+        "profit_bleeding",
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_peak",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "verify_entity_level_before_execution",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "HUA6645",
+      "asin": "B0GDXPLX6B",
+      "priority": "P0",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "riskType": "critical_stale_season",
+      "score": 128,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 0,
+      "units7d": 0,
+      "profitRate": 0.1357,
+      "sellableDays": 999,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "signals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_peak",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "check_margin_before_discounting",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "QUN5204",
+      "asin": "B0GTTQX894",
+      "priority": "P0",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "riskType": "critical_stale_season",
+      "score": 116,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "preheat"
+        }
+      ],
+      "units30d": 0,
+      "units7d": 0,
+      "profitRate": 0.3443,
+      "sellableDays": 999,
+      "adSpend7d": 5.62,
+      "adOrders7d": 0,
+      "signals": [
+        "stale_inventory_risk",
+        "season_peak",
+        "season_preheat",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "check_margin_before_discounting",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "YUT4458",
+      "asin": "B0D1VMCWXL",
+      "priority": "P0",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "riskType": "critical_stale_season",
+      "score": 116,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "units30d": 0,
+      "units7d": 0,
+      "profitRate": 0.1523,
+      "sellableDays": 999,
+      "adSpend7d": 8.799999999999999,
+      "adOrders7d": 2,
+      "signals": [
+        "stale_inventory_risk",
+        "season_preheat",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "check_margin_before_discounting",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "MF6292",
+      "asin": "B0GMNCFTF2",
+      "priority": "P2",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "riskType": "season_structure_stale_risk",
+      "score": 101,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        },
+        {
+          "key": "mothers_day",
+          "label": "Mother's Day",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 4,
+      "units7d": 2,
+      "profitRate": 0.1657,
+      "sellableDays": 713,
+      "adSpend7d": 13.510000000000002,
+      "adOrders7d": 2,
+      "signals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_preheat",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "check_margin_before_discounting",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "GM2827",
+      "asin": "B0FT7S38HH",
+      "priority": "P1",
+      "primaryTaskType": "season_preheat",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "riskType": "season_structure_stale_risk",
+      "score": 95,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "preheat"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 7,
+      "units7d": 6,
+      "profitRate": 0.1387,
+      "sellableDays": 673,
+      "adSpend7d": 0.62,
+      "adOrders7d": 0,
+      "signals": [
+        "ad_structure_missing",
+        "season_preheat",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "season_structure_gap_must_not_be_suppressed",
+        "verify_seed_listing_fit_before_execution",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "TAN2986",
+      "asin": "B0FYDRZ1ZC",
+      "priority": "P2",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "riskType": "season_stale_watch",
+      "score": 94,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "preheat"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 3,
+      "units7d": 0,
+      "profitRate": 0.2444,
+      "sellableDays": 1710,
+      "adSpend7d": 5.44,
+      "adOrders7d": 5,
+      "signals": [
+        "stale_inventory_risk",
+        "season_preheat",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "check_margin_before_discounting",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "MF3043",
+      "asin": "B0DMW4GC1S",
+      "priority": "P1",
+      "primaryTaskType": "season_peak",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "riskType": "season_structure_stale_risk",
+      "score": 88,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 6,
+      "units7d": 1,
+      "profitRate": 0.139,
+      "sellableDays": 145,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "signals": [
+        "ad_structure_missing",
+        "season_peak",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "season_structure_gap_must_not_be_suppressed",
+        "verify_seed_listing_fit_before_execution",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "HOS0946",
+      "asin": "B0DYP2LM2M",
+      "priority": "P1",
+      "primaryTaskType": "season_preheat",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "riskType": "season_structure_stale_risk",
+      "score": 83,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "preheat"
+        },
+        {
+          "key": "teacher_appreciation",
+          "label": "Teacher Appreciation",
+          "phase": "tail"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 8,
+      "units7d": 1,
+      "profitRate": 0.1529,
+      "sellableDays": 102,
+      "adSpend7d": 1.74,
+      "adOrders7d": 1,
+      "signals": [
+        "ad_structure_missing",
+        "season_preheat",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "season_structure_gap_must_not_be_suppressed",
+        "verify_seed_listing_fit_before_execution",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "LEM6577",
+      "asin": "B0FXGN8CXZ",
+      "priority": "P2",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "riskType": "season_stale_watch",
+      "score": 77,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 5,
+      "units7d": 0,
+      "profitRate": -0.0604,
+      "sellableDays": 192,
+      "adSpend7d": 0.29000000000000004,
+      "adOrders7d": 0,
+      "signals": [
+        "stale_inventory_risk",
+        "ad_structure_missing",
+        "season_peak",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "check_margin_before_discounting",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "YEO1452",
+      "asin": "B0GHXQKZTQ",
+      "priority": "P0",
+      "primaryTaskType": "profit_bleeding",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "riskType": "season_stale_watch",
+      "score": 75,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "units30d": 4,
+      "units7d": 1,
+      "profitRate": 0.0102,
+      "sellableDays": 705,
+      "adSpend7d": 5.1,
+      "adOrders7d": 0,
+      "signals": [
+        "profit_bleeding",
+        "stale_inventory_risk",
+        "season_preheat",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "verify_entity_level_before_execution",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "YUT2946",
+      "asin": "B0D1VJWGXN",
+      "priority": "P2",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "riskType": "season_stale_watch",
+      "score": 72,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "units30d": 5,
+      "units7d": 2,
+      "profitRate": 0.1679,
+      "sellableDays": 618,
+      "adSpend7d": 2.79,
+      "adOrders7d": 0,
+      "signals": [
+        "stale_inventory_risk",
+        "season_preheat",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "check_margin_before_discounting",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "YEO0766",
+      "asin": "B0FZ9GMQJS",
+      "priority": "P2",
+      "primaryTaskType": "stale_inventory_risk",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "riskType": "season_stale_watch",
+      "score": 67,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "units30d": 5,
+      "units7d": 2,
+      "profitRate": 0.0859,
+      "sellableDays": 306,
+      "adSpend7d": 6.7,
+      "adOrders7d": 1,
+      "signals": [
+        "stale_inventory_risk",
+        "season_preheat",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "check_margin_before_discounting",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "OCE1413",
+      "asin": "B0FHK5GS4F",
+      "priority": "P1",
+      "primaryTaskType": "inventory_tight",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "riskType": "inventory_tight_no_scale",
+      "score": 37,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "units30d": 140,
+      "units7d": 29,
+      "profitRate": 0.1637,
+      "sellableDays": 16,
+      "adSpend7d": 14.320000000000002,
+      "adOrders7d": 8,
+      "signals": [
+        "inventory_tight",
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "inventory_tight_no_scale",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "QUN1382",
+      "asin": "B0GPVPXWBX",
+      "priority": "P1",
+      "primaryTaskType": "inventory_tight",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "riskType": "inventory_tight_no_scale",
+      "score": 37,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "preheat"
+        },
+        {
+          "key": "mothers_day",
+          "label": "Mother's Day",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 266,
+      "units7d": 15,
+      "profitRate": 0.4661,
+      "sellableDays": 16,
+      "adSpend7d": 52.12,
+      "adOrders7d": 12,
+      "signals": [
+        "inventory_tight",
+        "ad_structure_missing",
+        "season_peak",
+        "season_preheat",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "inventory_tight_no_scale",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "RHO1540",
+      "asin": "B0GLPCPFK9",
+      "priority": "P1",
+      "primaryTaskType": "inventory_tight",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "riskType": "inventory_tight_no_scale",
+      "score": 37,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "units30d": 76,
+      "units7d": 10,
+      "profitRate": 0.2775,
+      "sellableDays": 7,
+      "adSpend7d": 1.16,
+      "adOrders7d": 2,
+      "signals": [
+        "inventory_tight",
+        "ad_structure_missing",
+        "season_peak",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "inventory_tight_no_scale",
+        "provisional_local_policy_not_external_ai"
+      ]
+    },
+    {
+      "sku": "SC3527",
+      "asin": "B0CGV7S8V9",
+      "priority": "P1",
+      "primaryTaskType": "inventory_tight",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "riskType": "inventory_tight_no_scale",
+      "score": 25,
+      "suppressedByMainTaskLimit": false,
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "preheat"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "units30d": 35,
+      "units7d": 5,
+      "profitRate": 0.3547,
+      "sellableDays": 18,
+      "adSpend7d": 12.99,
+      "adOrders7d": 3,
+      "signals": [
+        "inventory_tight",
+        "season_preheat",
+        "season_tail",
+        "seven_day_unadjusted"
+      ],
+      "riskNotes": [
+        "inventory_tight_no_scale",
+        "provisional_local_policy_not_external_ai"
+      ]
+    }
+  ]
+}

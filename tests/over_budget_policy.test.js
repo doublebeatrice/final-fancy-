@@ -180,8 +180,8 @@ const genericSeasonalDecision = assessSeasonalSellThroughOpportunity({
     unitsSold_30d: 50,
   },
   group: {
-    campaignName: 'auto_lab week_generic1',
-    groupName: 'auto_lab week_generic1',
+    campaignName: 'auto_kitchen widget_generic1',
+    groupName: 'auto_kitchen widget_generic1',
     orders: 6,
     sales: 90,
     spend: 15,

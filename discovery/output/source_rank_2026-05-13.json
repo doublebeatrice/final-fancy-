@@ -1,0 +1,301 @@
+{
+  "generatedAt": "2026-05-13T10:36:37.855Z",
+  "sourceCount": 10,
+  "sources": [
+    {
+      "sourceId": "pm.abnormalDefectiveInventory.index",
+      "routeName": "异常瑕疵库存",
+      "fieldSummary": {
+        "confirmed": 0,
+        "probable": 0,
+        "unknown": 0
+      },
+      "networkSummary": {
+        "requestCount": 23,
+        "sampleRowCount": 0,
+        "endpointCandidateCount": 12
+      },
+      "endpointSummary": {
+        "total": 12,
+        "safeRead": 11,
+        "writeOrSensitive": 0,
+        "unknown": 1,
+        "commonNoise": 0
+      },
+      "riskLevel": "read_only",
+      "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\field_inference_pm_abnormalDefectiveInventory_index_2026-05-13.json",
+      "score": 58,
+      "reasons": [
+        "inventory_value",
+        "risk_value",
+        "has_network_sample",
+        "has_safe_read_endpoint_candidate"
+      ]
+    },
+    {
+      "sourceId": "searchPerformance.productIndex",
+      "routeName": "商品搜索表现",
+      "fieldSummary": {
+        "confirmed": 0,
+        "probable": 0,
+        "unknown": 0
+      },
+      "networkSummary": {
+        "requestCount": 31,
+        "sampleRowCount": 0,
+        "endpointCandidateCount": 6
+      },
+      "endpointSummary": {
+        "total": 6,
+        "safeRead": 3,
+        "writeOrSensitive": 1,
+        "unknown": 0,
+        "commonNoise": 2
+      },
+      "riskLevel": "read_only",
+      "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\field_inference_searchPerformance_productIndex_2026-05-13.json",
+      "score": 36,
+      "reasons": [
+        "traffic_value",
+        "has_network_sample",
+        "has_safe_read_endpoint_candidate",
+        "has_write_endpoint_candidate"
+      ]
+    },
+    {
+      "sourceId": "marketing.clearanceStockIndex",
+      "routeName": "清仓管理",
+      "fieldSummary": {
+        "confirmed": 0,
+        "probable": 0,
+        "unknown": 0
+      },
+      "networkSummary": {
+        "requestCount": 28,
+        "sampleRowCount": 0,
+        "endpointCandidateCount": 15
+      },
+      "endpointSummary": {
+        "total": 15,
+        "safeRead": 7,
+        "writeOrSensitive": 6,
+        "unknown": 2,
+        "commonNoise": 0
+      },
+      "riskLevel": "read_only",
+      "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\field_inference_marketing_clearanceStockIndex_2026-05-13.json",
+      "score": 28,
+      "reasons": [
+        "inventory_value",
+        "has_network_sample",
+        "has_safe_read_endpoint_candidate",
+        "has_write_endpoint_candidate"
+      ]
+    },
+    {
+      "sourceId": "product_line.sellerCoreData",
+      "routeName": "销售核心数据",
+      "fieldSummary": {
+        "confirmed": 0,
+        "probable": 0,
+        "unknown": 0
+      },
+      "networkSummary": {
+        "requestCount": 27,
+        "sampleRowCount": 0,
+        "endpointCandidateCount": 10
+      },
+      "endpointSummary": {
+        "total": 10,
+        "safeRead": 9,
+        "writeOrSensitive": 0,
+        "unknown": 1,
+        "commonNoise": 0
+      },
+      "riskLevel": "read_only",
+      "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\field_inference_product_line_sellerCoreData_2026-05-13.json",
+      "score": 23,
+      "reasons": [
+        "general_report",
+        "has_network_sample",
+        "has_safe_read_endpoint_candidate"
+      ]
+    },
+    {
+      "sourceId": "product_line.sellerSuccess",
+      "routeName": "产品成功率",
+      "fieldSummary": {
+        "confirmed": 0,
+        "probable": 0,
+        "unknown": 0
+      },
+      "networkSummary": {
+        "requestCount": 34,
+        "sampleRowCount": 0,
+        "endpointCandidateCount": 10
+      },
+      "endpointSummary": {
+        "total": 10,
+        "safeRead": 7,
+        "writeOrSensitive": 1,
+        "unknown": 0,
+        "commonNoise": 2
+      },
+      "riskLevel": "read_only",
+      "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\field_inference_product_line_sellerSuccess_2026-05-13.json",
+      "score": 21,
+      "reasons": [
+        "general_report",
+        "has_network_sample",
+        "has_safe_read_endpoint_candidate",
+        "has_write_endpoint_candidate"
+      ]
+    },
+    {
+      "sourceId": "profitMargin.compensate.index",
+      "routeName": "FBA费赔偿系统",
+      "fieldSummary": {
+        "confirmed": 0,
+        "probable": 0,
+        "unknown": 0
+      },
+      "networkSummary": {
+        "requestCount": 36,
+        "sampleRowCount": 0,
+        "endpointCandidateCount": 2
+      },
+      "endpointSummary": {
+        "total": 2,
+        "safeRead": 0,
+        "writeOrSensitive": 0,
+        "unknown": 0,
+        "commonNoise": 2
+      },
+      "riskLevel": "read_only",
+      "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\field_inference_profitMargin_compensate_index_2026-05-13.json",
+      "score": 18,
+      "reasons": [
+        "profit_value",
+        "inventory_value",
+        "has_network_sample",
+        "only_common_endpoint_noise"
+      ]
+    },
+    {
+      "sourceId": "sales_ranking.index",
+      "routeName": "排名销量工具",
+      "fieldSummary": {
+        "confirmed": 0,
+        "probable": 0,
+        "unknown": 0
+      },
+      "networkSummary": {
+        "requestCount": 31,
+        "sampleRowCount": 0,
+        "endpointCandidateCount": 3
+      },
+      "endpointSummary": {
+        "total": 3,
+        "safeRead": 1,
+        "writeOrSensitive": 0,
+        "unknown": 0,
+        "commonNoise": 2
+      },
+      "riskLevel": "read_only",
+      "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\field_inference_sales_ranking_index_2026-05-13.json",
+      "score": 15,
+      "reasons": [
+        "general_report",
+        "has_network_sample",
+        "has_safe_read_endpoint_candidate"
+      ]
+    },
+    {
+      "sourceId": "product_problem.index",
+      "routeName": "查看产品问题",
+      "fieldSummary": {
+        "confirmed": 0,
+        "probable": 0,
+        "unknown": 0
+      },
+      "networkSummary": {
+        "requestCount": 38,
+        "sampleRowCount": 0,
+        "endpointCandidateCount": 2
+      },
+      "endpointSummary": {
+        "total": 2,
+        "safeRead": 0,
+        "writeOrSensitive": 0,
+        "unknown": 0,
+        "commonNoise": 2
+      },
+      "riskLevel": "read_only",
+      "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\field_inference_product_problem_index_2026-05-13.json",
+      "score": -4,
+      "reasons": [
+        "conversion_value",
+        "has_network_sample",
+        "only_common_endpoint_noise"
+      ]
+    },
+    {
+      "sourceId": "follow_check.index",
+      "routeName": "跟卖检查",
+      "fieldSummary": {
+        "confirmed": 0,
+        "probable": 0,
+        "unknown": 0
+      },
+      "networkSummary": {
+        "requestCount": 35,
+        "sampleRowCount": 0,
+        "endpointCandidateCount": 2
+      },
+      "endpointSummary": {
+        "total": 2,
+        "safeRead": 0,
+        "writeOrSensitive": 0,
+        "unknown": 0,
+        "commonNoise": 2
+      },
+      "riskLevel": "read_only",
+      "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\field_inference_follow_check_index_2026-05-13.json",
+      "score": -8,
+      "reasons": [
+        "risk_value",
+        "has_network_sample",
+        "only_common_endpoint_noise"
+      ]
+    },
+    {
+      "sourceId": "activityAnalysisIndex.index",
+      "routeName": "促销结果分析",
+      "fieldSummary": {
+        "confirmed": 0,
+        "probable": 0,
+        "unknown": 0
+      },
+      "networkSummary": {
+        "requestCount": 37,
+        "sampleRowCount": 0,
+        "endpointCandidateCount": 2
+      },
+      "endpointSummary": {
+        "total": 2,
+        "safeRead": 0,
+        "writeOrSensitive": 0,
+        "unknown": 0,
+        "commonNoise": 2
+      },
+      "riskLevel": "read_only",
+      "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\field_inference_activityAnalysisIndex_index_2026-05-13.json",
+      "score": -21,
+      "reasons": [
+        "general_report",
+        "has_network_sample",
+        "only_common_endpoint_noise"
+      ]
+    }
+  ]
+}

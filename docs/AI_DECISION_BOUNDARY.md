@@ -101,19 +101,32 @@ Before a real run:
 
 Without the debug browser or panel page, scripts cannot find the bridge.
 
-## Default Review Actions
+## Execution And Review Boundary
 
-These actions remain review-only:
+Advertising strategy risk is not a default review reason. The deciding AI session should execute supported advertising actions when it believes the action can improve profit, sales quality, inventory turnover, or KPI trajectory, then learn from the next data cycle.
 
-- `create`
-- `structure_fix`
-- large bid changes
-- strong actions on high-sales products
-- listing edits
-- price changes
-- replenishment decisions
+For supported ad actions, use explicit approval plus `forceExecute: true` when overriding conservative risk gates. The schema must carry:
 
-The deciding AI can recommend them, but execution must not auto-run them until the operator releases that scope.
+- `decisionStage: "ai_approved"` or `"manual_approved"`
+- `approvedBy: "codex"`, `"claude"`, or `"manual"`
+- `actionSource` including the approving actor
+- `requiresAiDecision: false`
+- `hypothesis`
+- `expectedEffect`
+- `reviewPlan` or measurement windows and rollback condition
+
+These remain review-only or blocked because they are outside the current verified advertising execution surface:
+
+- SB `create` until the real SB creation interface is captured and verified.
+- `structure_fix` without a concrete writable entity.
+- listing edits unless the listing-copy application flow is explicitly used and reported as submitted pending review.
+- price changes.
+- replenishment decisions.
+- unknown/out-of-scope SKUs or entities.
+- actions missing required ids/fields or post-write verification mapping.
+- writes that return API success but do not land; report these as `not_landed` or technical blockers, not as business review.
+
+Known 2026-05-12 technical issue: SP campaign `enable` can return API success while the campaign remains paused. This is not a manual-review decision; it is an automation/endpoint issue and must not be counted as landed success until visible verification passes.
 
 ## Decision Attribution
 

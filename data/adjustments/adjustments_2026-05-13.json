@@ -1,0 +1,783 @@
+[
+  {
+    "sku": "MH1806",
+    "asin": "B09SW2NT6J",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "326440655266082",
+    "entityName": "fruit cups plastic mh1806-2 place",
+    "beforeValue": 0.02,
+    "afterValue": 0.03,
+    "reason": "This exact active keyword has 90d history of 215 clicks, 5 orders, $88.95 sales, and 24.41% ACOS, but traffic has collapsed recently at a $0.02 bid. I am making only a one-cent lift to recover some visibility without turning it into a broad spend increase.",
+    "runAt": "2026-05-13T08:53:00.513Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T08-53-00-513Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A one-cent lift on the only historically converting active exact keyword should restore some traffic while keeping spend tightly capped.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_small",
+          "orders": "watch",
+          "acos": "hold_under_35pct"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "The keyword spends 20 or more new clicks without orders, or 7-day ACOS stays above 35%."
+        }
+      }
+    }
+  },
+  {
+    "sku": "MH1806",
+    "asin": "B09SW2NT6J",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "326440655266082",
+    "entityName": "fruit cups plastic mh1806-2 place",
+    "beforeValue": 0.02,
+    "afterValue": 0.03,
+    "reason": "This exact active keyword has 90d history of 215 clicks, 5 orders, $88.95 sales, and 24.41% ACOS, but traffic has collapsed recently at a $0.02 bid. I am making only a one-cent lift to recover some visibility without turning it into a broad spend increase.",
+    "runAt": "2026-05-13T08:56:18.349Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T08-56-18-349Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A one-cent lift on the only historically converting active exact keyword should restore some traffic while keeping spend tightly capped.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_small",
+          "orders": "watch",
+          "acos": "hold_under_35pct"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "The keyword spends 20 or more new clicks without orders, or 7-day ACOS stays above 35%."
+        }
+      }
+    }
+  },
+  {
+    "sku": "MH1806",
+    "asin": "B09SW2NT6J",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "keyword",
+    "entityId": "308231790287347",
+    "entityName": "fruit cups plastic mh1806-2 place",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "This paused term is a product-matched phrase and has 90d history of 15 clicks, 1 order, and 12.10% ACOS. It is a better customer-intent recovery test than raising unrelated or no-order terms.",
+    "runAt": "2026-05-13T08:56:18.349Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T08-56-18-349Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring this historically converting product term should regain cheap, relevant traffic.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_controlled",
+          "spend": "up_small",
+          "orders": "watch",
+          "acos": "hold_under_30pct"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "The restored keyword spends 20 or more clicks without orders, or 7-day ACOS moves above 30%."
+        }
+      }
+    }
+  },
+  {
+    "sku": "MH1806",
+    "asin": "B09SW2NT6J",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "keyword",
+    "entityId": "384825546273367",
+    "entityName": "fruit cups plastic mh1806-2 place",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "This paused exact term is tightly matched to the product and carries old-order history. The bid is low, so I am restoring it as a small coverage test, not a heavy scale move.",
+    "runAt": "2026-05-13T08:56:18.349Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T08-56-18-349Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring this old-order exact term should add a small amount of highly relevant coverage.",
+        "expectedEffect": {
+          "impressions": "up_small",
+          "clicks": "up_small",
+          "spend": "up_small",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "The restored keyword spends 15 or more clicks without orders."
+        }
+      }
+    }
+  },
+  {
+    "sku": "MH1806",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "keyword",
+    "entityId": "308231790287347",
+    "entityName": "fruit cups plastic mh1806-2 place",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"308231790287347\"}],\"error\":[]}}",
+    "runAt": "2026-05-13T08:57:02.045Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T08-57-02-045Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring this historically converting product term should regain cheap, relevant traffic.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_controlled",
+          "spend": "up_small",
+          "orders": "watch",
+          "acos": "hold_under_30pct"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "The restored keyword spends 20 or more clicks without orders, or 7-day ACOS moves above 30%."
+        }
+      }
+    }
+  },
+  {
+    "sku": "MH1806",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "keyword",
+    "entityId": "384825546273367",
+    "entityName": "fruit cups plastic mh1806-2 place",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"384825546273367\"}],\"error\":[]}}",
+    "runAt": "2026-05-13T08:57:02.045Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T08-57-02-045Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring this old-order exact term should add a small amount of highly relevant coverage.",
+        "expectedEffect": {
+          "impressions": "up_small",
+          "clicks": "up_small",
+          "spend": "up_small",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "The restored keyword spends 15 or more clicks without orders."
+        }
+      }
+    }
+  },
+  {
+    "sku": "MH1806",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "326440655266082",
+    "entityName": "fruit cups plastic mh1806-2 place",
+    "beforeValue": 0.02,
+    "afterValue": 0.03,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"326440655266082\"}],\"error\":[]}}",
+    "runAt": "2026-05-13T08:57:02.045Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T08-57-02-045Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "A one-cent lift on the only historically converting active exact keyword should restore some traffic while keeping spend tightly capped.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_small",
+          "orders": "watch",
+          "acos": "hold_under_35pct"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "The keyword spends 20 or more new clicks without orders, or 7-day ACOS stays above 35%."
+        }
+      }
+    }
+  },
+  {
+    "sku": "TIN2239",
+    "asin": "B0CNR36NZQ",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "551214029489345",
+    "entityName": "kw_duck tags_tin2239",
+    "beforeValue": 5.81,
+    "afterValue": 7,
+    "reason": "The SP keyword campaign is the cleanest TIN2239 scale lane: 30d spend $7.62, 3 orders, $83.97 sales, ACOS 9.07%. I am lifting budget moderately to let the proven exact/product-intent keyword get more room.",
+    "runAt": "2026-05-13T09:12:38.407Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T09-12-38-407Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "More room on the proven SP keyword campaign should add orders without relying on weaker auto/broad traffic.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up",
+          "acos": "hold_under_25pct"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "7-day campaign ACOS rises above 25% or spend increases without order growth."
+        }
+      }
+    }
+  },
+  {
+    "sku": "TIN2239",
+    "asin": "B0CNR36NZQ",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "350284123751783",
+    "entityName": "kw_duck tags_tin2239",
+    "beforeValue": 0.44,
+    "afterValue": 0.48,
+    "reason": "This is the strongest SP keyword: 30d 17 clicks, 3 orders, ACOS 7.79% in the live ad-group pull. A small bid lift should win more relevant traffic while staying controlled.",
+    "runAt": "2026-05-13T09:12:38.407Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T09-12-38-407Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A small lift on the best SP keyword should add order volume at acceptable ACOS.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_controlled",
+          "spend": "up_small",
+          "orders": "up_or_watch",
+          "acos": "hold_under_20pct"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "The keyword spends 20 or more new clicks without orders or 7-day ACOS rises above 20%."
+        }
+      }
+    }
+  },
+  {
+    "sku": "TIN2239",
+    "asin": "B0CNR36NZQ",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "527177800638470",
+    "entityName": "auto_duck tags_tin2239",
+    "beforeValue": 0.3,
+    "afterValue": 0.33,
+    "reason": "The auto campaign has one efficient high-relevance lane while broad traffic is wasteful. I am only lifting queryHighRelMatches, not the whole auto campaign.",
+    "runAt": "2026-05-13T09:12:38.407Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T09-12-38-407Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Scaling only the high-relevance auto target should add qualified traffic while avoiding the wasteful broad lane.",
+        "expectedEffect": {
+          "impressions": "up_on_high_relevance_auto",
+          "clicks": "up_controlled",
+          "spend": "up_small",
+          "orders": "up_or_watch",
+          "acos": "hold_under_25pct"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "The target gets 20 or more new clicks without orders or 7-day target ACOS rises above 25%."
+        }
+      }
+    }
+  },
+  {
+    "sku": "TIN2239",
+    "asin": "B0CNR36NZQ",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "sbKeyword",
+    "entityId": "560425397382021",
+    "entityName": "duck tags for cruise ducking-tin2239-sbv-s-new",
+    "beforeValue": 0.25,
+    "afterValue": 0.27,
+    "reason": "The SB video keyword is the main TIN2239 order driver: 30d 810 clicks, 38 orders, $1168.62 sales, ACOS 19.48%. I am making a light bid lift to regain volume without reopening paused no-order SB terms.",
+    "runAt": "2026-05-13T09:12:38.407Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T09-12-38-407Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A small SB video keyword lift should improve exposure for the main converting ad lane.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up_controlled",
+          "orders": "up_or_watch",
+          "acos": "hold_under_25pct"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "SB keyword spend rises materially with no new orders, or 7-day ACOS moves above 25%."
+        }
+      }
+    }
+  },
+  {
+    "sku": "HAY1929",
+    "asin": "B0CT3347TB",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "productAd",
+    "entityId": "386337911124272",
+    "entityName": "cruise ship ducks-hay0218-system-keyword",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "HAY1929 is eligible and normal sale, but the product ad in an enabled keyword campaign is paused. Since the user says stock has been replenished, restoring this product ad is the safest first add-spend step.",
+    "runAt": "2026-05-13T09:12:38.407Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T09-12-38-407Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring the HAY1929 product ad in an active campaign should let replenished inventory start receiving qualified keyword traffic again.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_controlled",
+          "spend": "up_small",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "The restored product ad spends for 20 or more clicks without orders, or HAY1929 ACOS stays above 35% after traffic returns."
+        }
+      }
+    }
+  },
+  {
+    "sku": "HAY1929",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "productAd",
+    "entityId": "386337911124272",
+    "entityName": "cruise ship ducks-hay0218-system-keyword",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"adId\":\"386337911124272\"}],\"error\":[]}}",
+    "runAt": "2026-05-13T09:13:26.595Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T09-13-26-595Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring the HAY1929 product ad in an active campaign should let replenished inventory start receiving qualified keyword traffic again.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_controlled",
+          "spend": "up_small",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "The restored product ad spends for 20 or more clicks without orders, or HAY1929 ACOS stays above 35% after traffic returns."
+        }
+      }
+    }
+  },
+  {
+    "sku": "TIN2239",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "350284123751783",
+    "entityName": "kw_duck tags_tin2239",
+    "beforeValue": 0.44,
+    "afterValue": 0.48,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"350284123751783\"}],\"error\":[]}}",
+    "runAt": "2026-05-13T09:13:26.595Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T09-13-26-595Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "A small lift on the best SP keyword should add order volume at acceptable ACOS.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_controlled",
+          "spend": "up_small",
+          "orders": "up_or_watch",
+          "acos": "hold_under_20pct"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "The keyword spends 20 or more new clicks without orders or 7-day ACOS rises above 20%."
+        }
+      }
+    }
+  },
+  {
+    "sku": "TIN2239",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "sbKeyword",
+    "entityId": "560425397382021",
+    "entityName": "duck tags for cruise ducking-tin2239-sbv-s-new",
+    "beforeValue": 0.25,
+    "afterValue": 0.27,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"560425397382021\"}],\"error\":[]}}",
+    "runAt": "2026-05-13T09:13:26.595Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T09-13-26-595Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "A small SB video keyword lift should improve exposure for the main converting ad lane.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up_controlled",
+          "orders": "up_or_watch",
+          "acos": "hold_under_25pct"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "SB keyword spend rises materially with no new orders, or 7-day ACOS moves above 25%."
+        }
+      }
+    }
+  },
+  {
+    "sku": "TIN2239",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "527177800638470",
+    "entityName": "auto_duck tags_tin2239",
+    "beforeValue": 0.3,
+    "afterValue": 0.33,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"527177800638470\"}],\"error\":[]}}",
+    "runAt": "2026-05-13T09:13:26.595Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T09-13-26-595Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Scaling only the high-relevance auto target should add qualified traffic while avoiding the wasteful broad lane.",
+        "expectedEffect": {
+          "impressions": "up_on_high_relevance_auto",
+          "clicks": "up_controlled",
+          "spend": "up_small",
+          "orders": "up_or_watch",
+          "acos": "hold_under_25pct"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "The target gets 20 or more new clicks without orders or 7-day target ACOS rises above 25%."
+        }
+      }
+    }
+  },
+  {
+    "sku": "TIN2239",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "551214029489345",
+    "entityName": "kw_duck tags_tin2239",
+    "beforeValue": 5.81,
+    "afterValue": 7,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"551214029489345\"}],\"error\":[]}}",
+    "runAt": "2026-05-13T09:13:26.595Z",
+    "businessDate": "2026-05-13",
+    "dataDate": "2026-05-12",
+    "siteTimezone": "America/Los_Angeles",
+    "sourceRunId": "ops_2026-05-13T09-13-26-595Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "More room on the proven SP keyword campaign should add orders without relying on weaker auto/broad traffic.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up",
+          "acos": "hold_under_25pct"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "7-day campaign ACOS rises above 25% or spend increases without order growth."
+        }
+      }
+    }
+  }
+]

@@ -1,78 +1,133 @@
 {
   "version": 1,
-  "generatedAt": "2026-05-11T16:10:42.293Z",
+  "generatedAt": "2026-05-12T07:01:38.499Z",
   "time": {
-    "runAt": "2026-05-11T16:10:00Z",
+    "runAt": "2026-05-12T06:56:54.536Z",
     "businessDate": "2026-05-11",
     "dataDate": "2026-05-10",
     "siteTimezone": "America/Los_Angeles",
-    "sourceRunId": "claude-2026-05-11-v2"
+    "sourceRunId": "today_ops_2026-05-12T06-56-54-536Z"
   },
   "sources": {
-    "snapshotFile": "data/snapshots/latest_snapshot.json",
-    "taskPoolFile": "",
-    "actionSchemaFile": "data/snapshots/action_schema_2026-05-11_claude_v2.json",
-    "dryRunFile": "",
+    "snapshotFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-05-12T06-56-54-536Z\\snapshot_2026-05-12.json",
+    "taskPoolFile": "D:\\ad-ops-workbench\\data\\tasks\\daily_tasks_2026-05-11.json",
+    "actionSchemaFile": "D:\\ad-ops-workbench\\data\\snapshots\\action_schema_2026-05-12_claude_postseason_lo3817.json",
+    "dryRunFile": "D:\\ad-ops-workbench\\data\\snapshots\\execution_dry_run_2026-05-12.json",
     "verifyFile": "",
-    "adjustmentLogFile": "data/adjustments/adjustments_2026-05-11.json",
-    "manifestFile": ""
+    "adjustmentLogFile": "D:\\ad-ops-workbench\\data\\adjustments\\adjustments_2026-05-11.json",
+    "manifestFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-05-12T06-56-54-536Z\\manifest.json"
   },
   "dataQuality": {
     "baselineQuality": "complete",
-    "productCards": 1270,
-    "allowedScopeSkuCount": 0,
+    "productCards": 1261,
+    "allowedScopeSkuCount": 588,
     "dataMissing": 0,
-    "overBudgetStatus": "",
-    "warnings": []
+    "overBudgetStatus": "complete",
+    "warnings": [
+      "execution_skipped",
+      "schema_validation_errors"
+    ]
   },
   "observedPressure": {
     "snapshotMetrics": {
-      "productCards": 1270,
-      "units7d": 4176,
-      "units30d": 17233,
-      "adSpend7d": 7474.480000000002,
+      "productCards": 1261,
+      "units7d": 3982,
+      "units30d": 17295,
+      "adSpend7d": 7379.279999999999,
       "adSales7d": 0,
       "adSales7dAvailable": false,
-      "adOrders7d": 1404,
+      "adOrders7d": 1333,
       "inventoryTight": 60,
-      "staleInventory": 112,
-      "lowProfit": 126,
+      "staleInventory": 109,
+      "lowProfit": 125,
       "adAcos7d": null
     },
-    "topSignals": [],
-    "taskSummary": {}
+    "topSignals": [
+      {
+        "signal": "seven_day_unadjusted",
+        "count": 508
+      },
+      {
+        "signal": "ad_structure_missing",
+        "count": 494
+      },
+      {
+        "signal": "season_peak",
+        "count": 150
+      },
+      {
+        "signal": "stale_inventory_risk",
+        "count": 132
+      },
+      {
+        "signal": "season_preheat",
+        "count": 53
+      },
+      {
+        "signal": "inventory_tight",
+        "count": 50
+      },
+      {
+        "signal": "season_tail",
+        "count": 43
+      },
+      {
+        "signal": "profit_bleeding",
+        "count": 19
+      }
+    ],
+    "taskSummary": {
+      "total": 656,
+      "bySignal": {
+        "stale_inventory_risk": 132,
+        "seven_day_unadjusted": 508,
+        "ad_structure_missing": 494,
+        "inventory_tight": 50,
+        "season_peak": 150,
+        "season_tail": 43,
+        "season_preheat": 53,
+        "profit_bleeding": 19
+      },
+      "withDataMissing": 0,
+      "dataMissing": 0,
+      "reservedPageBlocked": 0,
+      "skippedAdEntityCards": 605
+    }
   },
   "decisions": {
-    "schemaSkuCount": 117,
-    "plannedSkus": 17,
-    "executableSkus": 17,
-    "reviewSkus": 100,
-    "plannedActions": 117,
+    "schemaSkuCount": 2,
+    "plannedSkus": 2,
+    "executableSkus": 2,
+    "reviewSkus": 1,
+    "plannedActions": 12,
     "actionBreakdown": {
       "byAction": {
-        "keyword:bid": 38,
-        "keyword:review": 1,
-        "skuCandidate:review": 100
+        "keyword:bid": 48,
+        "keyword:review": 2,
+        "skuCandidate:review": 199,
+        "autoTarget:bid": 34,
+        "manualTarget:bid": 2,
+        "campaign:pause": 12
       },
       "byDirection": {
-        "up": 25,
-        "down": 14,
-        "unknown": 100
+        "up": 50,
+        "down": 36,
+        "unknown": 211
       },
       "landed": {
-        "success": 19,
+        "success": 41,
         "failed": 0,
-        "planned": 19,
-        "unknown": 101
+        "planned": 55,
+        "unknown": 201
       }
     },
     "decisionAttribution": {
       "claude": {
-        "plannedActions": 139,
-        "landedSuccess": 19,
+        "plannedActions": 297,
+        "landedSuccess": 41,
         "landedFailed": 0,
-        "dryRunPlanned": 19,
-        "unknown": 101
+        "dryRunPlanned": 55,
+        "unknown": 201
       }
     }
   },

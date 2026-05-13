@@ -1,8 +1,17 @@
 const { buildProductContexts } = require('../../src/ai_decision');
+const { bucketOverBudgetRows } = require('../../src/over_budget_policy');
 const fs = require('fs');
 const path = require('path');
 
-const snap = JSON.parse(fs.readFileSync('data/snapshots/latest_snapshot.json', 'utf8'));
+const args = process.argv.slice(2);
+function argValue(flag) {
+  const idx = args.findIndex(a => a === flag);
+  return idx >= 0 ? args[idx + 1] : '';
+}
+const snapshotFile = argValue('--snapshot') || 'data/snapshots/latest_snapshot.json';
+const outFile = argValue('--out') || `data/tmp_tests/claude_scope_${new Date().toISOString().slice(0, 10)}.json`;
+
+const snap = JSON.parse(fs.readFileSync(snapshotFile, 'utf8'));
 const rawCards = snap.productCards || [];
 const ctx = buildProductContexts(rawCards, {
   keyword: snap.kwRows || [],
@@ -27,12 +36,17 @@ for (const c of rawCards) {
 
 const cooldownFiles = ['adjustments_2026-05-04.json', 'adjustments_2026-05-05.json', 'adjustments_2026-05-06.json', 'adjustments_2026-05-09.json', 'adjustments_2026-05-11.json'];
 const cooldown = new Set();
+const cooldownCampaignIds = new Set();
 for (const f of cooldownFiles) {
   try {
     for (const r of JSON.parse(fs.readFileSync('data/adjustments/' + f, 'utf8'))) {
       // Only cooldown SKUs that had real entity-level execution, not review-only.
       const isReal = !r.dryRun && r.outcome === 'success' && r.actionType !== 'review';
       if (isReal) cooldown.add(r.sku);
+      // Campaign-scoped cooldown: only block over_budget budget moves on campaigns we already touched at campaign level.
+      if (isReal && r.actionType === 'budget' && r.entityId) {
+        cooldownCampaignIds.add(String(r.entityId));
+      }
     }
   } catch (_) {}
 }
@@ -57,6 +71,11 @@ const buckets = {
   review_negative_profit: [],
   review_marginal: [],
   no_action_stable: [],
+  overBudget_aggressive: [],
+  overBudget_controlled: [],
+  overBudget_seasonal: [],
+  overBudget_lowerLayer: [],
+  overBudget_review: [],
 };
 
 for (const p of ctx.products) {
@@ -154,8 +173,34 @@ for (const p of ctx.products) {
 
 console.log('stats:', JSON.stringify(stats, null, 2));
 console.log('---');
+const overBudgetResult = bucketOverBudgetRows(snap, { cooldownCampaignIds });
+const laneToBucket = {
+  aggressive_budget_expansion: 'overBudget_aggressive',
+  controlled_budget_up: 'overBudget_controlled',
+  seasonal_sell_through: 'overBudget_seasonal',
+  lower_layer_cost_control: 'overBudget_lowerLayer',
+  review: 'overBudget_review',
+};
+for (const [lane, name] of Object.entries(laneToBucket)) {
+  for (const entry of overBudgetResult.buckets[lane] || []) buckets[name].push(entry);
+}
 for (const [k, v] of Object.entries(buckets)) console.log(k, ':', v.length);
+console.log('---');
+console.log('overBudget filtered:', JSON.stringify(overBudgetResult.filtered, null, 2));
+console.log('overBudget counts (by lane):', JSON.stringify(overBudgetResult.counts, null, 2));
+console.log('overBudget snapshotRows:', overBudgetResult.filtered.rows, 'campaignsClassified:', overBudgetResult.campaignsClassified);
 
-fs.mkdirSync('data/tmp_tests', { recursive: true });
-fs.writeFileSync('data/tmp_tests/claude_scope_2026-05-11.json', JSON.stringify(buckets, null, 2));
-console.log('scope written to data/tmp_tests/claude_scope_2026-05-11.json');
+fs.mkdirSync(path.dirname(outFile), { recursive: true });
+fs.writeFileSync(outFile, JSON.stringify({
+  generatedAt: new Date().toISOString(),
+  snapshotFile,
+  stats,
+  overBudget: {
+    filtered: overBudgetResult.filtered,
+    counts: overBudgetResult.counts,
+    snapshotRows: overBudgetResult.filtered.rows,
+    campaignsClassified: overBudgetResult.campaignsClassified,
+  },
+  buckets,
+}, null, 2));
+console.log('scope written to', outFile);

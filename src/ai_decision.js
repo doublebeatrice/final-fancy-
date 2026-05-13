@@ -764,6 +764,7 @@ function assessMarginalScaleEconomics(product = {}, action = {}, entity = {}) {
 
 function gateRisk(product, entity, action) {
   const gated = { ...action };
+  const forceExecute = gated.forceExecute === true;
   const currentBid = toNum(gated.currentBid);
   const suggestedBid = toNum(gated.suggestedBid);
   const currentBudget = toNum(gated.currentBudget);
@@ -822,7 +823,7 @@ function gateRisk(product, entity, action) {
   if (isScaleOrBuildAction(gated)) {
     const operating = assessAdOperatingContext(product || {});
     const readiness = operating.readiness || {};
-    if (readiness.disallowNewAds || readiness.disallowScaleActions) {
+    if ((readiness.disallowNewAds || readiness.disallowScaleActions) && !forceExecute) {
       const evidence = [
         ...currentAdReadinessEvidence(readiness),
         `readinessReason=${readiness.reason || 'unknown'}`,
@@ -836,12 +837,15 @@ function gateRisk(product, entity, action) {
     }
 
     const economics = assessMarginalScaleEconomics(product || {}, gated, entity || {});
-    if (!economics.ok) {
+    if (!economics.ok && !forceExecute) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
       gated.riskLevel = 'marginal_profit_review';
       gated.reason = `${gated.reason || ''} [risk_gate:marginal_profit:${economics.reason}] Scale/build action needs manual review because recent ad spend is not producing enough sales/orders to cover gross profit. evidence: ${(economics.evidence || []).join('; ')}`.trim();
       return gated;
+    }
+    if (forceExecute && !economics.ok) {
+      gated.forceOverrideReasons = [...(gated.forceOverrideReasons || []), `marginal_profit:${economics.reason}`];
     }
   }
 
@@ -880,14 +884,14 @@ function gateRisk(product, entity, action) {
   if (gated.actionType === 'bid' && Number.isFinite(currentBid) && currentBid > 0 && Number.isFinite(suggestedBid)) {
     const changePct = Math.abs(suggestedBid - currentBid) / currentBid;
     const explicitTrafficPushOverride = gated.allowLargeBidChange === true && gated.riskLevel === 'traffic_push';
-    if (highVolume && changePct > HIGH_VOLUME_BID_CHANGE_REVIEW_THRESHOLD && !explicitTrafficPushOverride) {
+    if (highVolume && changePct > HIGH_VOLUME_BID_CHANGE_REVIEW_THRESHOLD && !explicitTrafficPushOverride && !forceExecute) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
       gated.riskLevel = 'manual_review';
       gated.reason = `${gated.reason || ''} [risk_gate:high_volume_strong_bid_change:changePct=${changePct.toFixed(4)},threshold=${HIGH_VOLUME_BID_CHANGE_REVIEW_THRESHOLD}]`.trim();
       return gated;
     }
-    if (!highVolume && changePct > NORMAL_BID_CHANGE_REVIEW_THRESHOLD && !explicitTrafficPushOverride) {
+    if (!highVolume && changePct > NORMAL_BID_CHANGE_REVIEW_THRESHOLD && !explicitTrafficPushOverride && !forceExecute) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
       gated.riskLevel = 'manual_review';
@@ -900,7 +904,7 @@ function gateRisk(product, entity, action) {
     const changePct = Math.abs(suggestedBudget - currentBudget) / currentBudget;
     const explicitBudgetOverride = gated.allowLargeBudgetChange === true &&
       (gated.riskLevel === 'traffic_push' || gated.riskLevel === 'over_budget_min_budget_repair');
-    if (changePct > 0.5 && !explicitBudgetOverride) {
+    if (changePct > 0.5 && !explicitBudgetOverride && !forceExecute) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
       gated.riskLevel = 'manual_review';
@@ -918,7 +922,7 @@ function gateRisk(product, entity, action) {
       gated.reason = `${gated.reason || ''} [risk_gate:invalid_placement]`.trim();
       return gated;
     }
-    if (next > 100 && !(gated.allowLargePlacementChange === true && gated.riskLevel === 'traffic_push')) {
+    if (next > 100 && !(gated.allowLargePlacementChange === true && gated.riskLevel === 'traffic_push') && !forceExecute) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
       gated.riskLevel = 'manual_review';
@@ -1037,6 +1041,8 @@ function validateAndNormalizePlan(rawPlan, context) {
         evidence,
         confidence: Math.max(0, Math.min(1, toNum(rawAction.confidence) ?? 0)),
         riskLevel: String(rawAction.riskLevel || '').trim() || 'low_confidence',
+        forceExecute: rawAction.forceExecute === true,
+        forceReason: normalizeText(rawAction.forceReason),
         currentAdReadinessJudgement: String(rawAction.currentAdReadinessJudgement || '').trim(),
         source: normalizeText(rawAction.source || rawAction.candidateSource || 'external_action_schema'),
         actionSource: normalizeActionSources(rawAction.actionSource, []),

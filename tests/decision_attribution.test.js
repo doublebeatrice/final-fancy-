@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { decisionAttribution, actionBreakdown } = require('../src/daily_learning');
+const { decisionAttribution, actionBreakdown, finalRunLanding } = require('../src/daily_learning');
 const { normalizeAdjustmentRecord } = require('../src/adjustment_log');
 
 const timeContext = { runAt: '2026-05-11T00:00:00Z', businessDate: '2026-05-11', sourceRunId: 'test-run' };
@@ -26,6 +26,23 @@ const records = [
   assert.strictEqual(breakdown.landed.success, 4);
   assert.strictEqual(breakdown.landed.failed, 1);
   assert.strictEqual(breakdown.landed.planned, 1);
+}
+
+{
+  const mixedRuns = [
+    normalizeAdjustmentRecord({ sku: 'OLD', action: { actionType: 'pause', entityType: 'campaign', id: 'old', approvedBy: 'claude', actionSource: ['claude'] }, outcome: 'failed' }, { ...timeContext, sourceRunId: 'old-run' }),
+    normalizeAdjustmentRecord({ sku: 'NEW', action: { actionType: 'pause', entityType: 'campaign', id: 'new', approvedBy: 'claude', actionSource: ['claude'] }, outcome: 'success' }, { ...timeContext, sourceRunId: 'final-run' }),
+    normalizeAdjustmentRecord({ sku: 'REVIEW', action: { actionType: 'review', entityType: 'campaign', id: 'review', approvedBy: 'claude', actionSource: ['claude'] }, outcome: 'manual_review' }, { ...timeContext, sourceRunId: 'final-run' }),
+  ];
+  assert.deepStrictEqual(finalRunLanding(mixedRuns, 'final-run'), {
+    sourceRunId: 'final-run',
+    total: 2,
+    success: 1,
+    failed: 0,
+    planned: 0,
+    manualReview: 1,
+    unknown: 0,
+  });
 }
 
 {

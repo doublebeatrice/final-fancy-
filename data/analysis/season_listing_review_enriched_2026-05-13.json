@@ -1,0 +1,1805 @@
+{
+  "generatedAt": "2026-05-13T04:29:37.573Z",
+  "sourceSnapshot": "data/snapshots/latest_snapshot.json",
+  "sourceSeasonListingReview": "data/analysis/season_listing_review_2026-05-13.json",
+  "sourceListingCache": "data/listing_cache.json",
+  "policy": "Diagnostic candidate layering only. No listing edits are submitted by this report. Listing edits require a separate draft and manual approval.",
+  "summary": {
+    "taxonomy_manual_review": 1,
+    "light_test_no_copy_edit": 5,
+    "sell_through_watch": 7,
+    "inventory_hold_listing_ok": 4,
+    "season_fit_ok_no_copy_edit": 6
+  },
+  "items": [
+    {
+      "sku": "HUA6645",
+      "asin": "B0GDXPLX6B",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": 0.1357,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "hasListing": true,
+      "listingTitle": "Suhine 9 Pcs Lace Mrs Bridal Panties Set, Wedding Bride Underwear, White Size L for Bride and Bridesmaids, Bachelorette Favors Party Gift, Bridal Gift for Her",
+      "listingThemes": [
+        "wedding"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "recommendation": "小预算、小 bid 测试",
+        "themes": [],
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "hasTransferPath": false,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 231
+      },
+      "ad30": {
+        "spend": 11.5,
+        "orders": 0,
+        "clicks": 32,
+        "impressions": 4845
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-09T02:59:49.155Z",
+      "enrichedBucket": "taxonomy_manual_review",
+      "enrichedAction": "fix_or_confirm_wedding_theme_detection",
+      "enrichedPriority": 70,
+      "enrichedReason": "Title is bridal/wedding, but current listingSeasonFit rules do not classify wedding; review taxonomy before any copy edit."
+    },
+    {
+      "sku": "GM2827",
+      "asin": "B0FT7S38HH",
+      "riskType": "season_structure_stale_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Graduation:preheat",
+        "Nurse Week:tail"
+      ],
+      "units7d": 6,
+      "units30d": 7,
+      "sellableDays": 673,
+      "profitRate": 0.1387,
+      "adSpend7d": 0.62,
+      "adOrders7d": 0,
+      "hasListing": true,
+      "listingTitle": "Kenning 25 Pcs 2026 Nurses Appreciation Week Gifts for Practitioner Bulk Lapel Pins with Inspirational Cards OPP Bags Pins for Women Men Nurse Assistant Doctor Healthcare Appreciation Gift",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Graduation:preheat"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "transferable",
+        "pushLevel": "light_test",
+        "recommendation": "Listing 可转当前节点或全年礼品，只能小预算小 bid 测试",
+        "themes": [
+          "christmas",
+          "nurse_week",
+          "graduation",
+          "christian_evergreen",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "graduation",
+          "christian_evergreen",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [
+          "christmas"
+        ],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 0.62,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 846
+      },
+      "ad30": {
+        "spend": 52.93,
+        "orders": 0,
+        "clicks": 168,
+        "impressions": 11863
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-13T03:21:00.115Z",
+      "enrichedBucket": "light_test_no_copy_edit",
+      "enrichedAction": "keep_listing_light_test_only",
+      "enrichedPriority": 55,
+      "enrichedReason": "Older strong themes: christmas; current/evergreen fit: graduation, christian_evergreen, evergreen_gift. Do not directly rewrite listing."
+    },
+    {
+      "sku": "MF3043",
+      "asin": "B0DMW4GC1S",
+      "riskType": "season_structure_stale_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "units7d": 1,
+      "units30d": 6,
+      "sellableDays": 145,
+      "profitRate": 0.139,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "hasListing": true,
+      "listingTitle": "54 Pcs Fun Wedding Guest Book Alternative Set Four in a Row Game for Reception, with Mr & Mrs Wooden Heart Sign Guest Book for Wedding Party Games Ideas, Bridal Shower, Engagement, Anniversary Unique",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Wedding Season:peak"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "transferable",
+        "pushLevel": "light_test",
+        "recommendation": "Listing 可转当前节点或全年礼品，只能小预算小 bid 测试",
+        "themes": [
+          "christmas",
+          "nurse_week",
+          "graduation",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "graduation",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [
+          "christmas"
+        ],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 112,
+        "threeWeeksAgo": 43
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 1.79,
+        "threeWeeksAgo": 4.65
+      },
+      "ad7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 3
+      },
+      "ad30": {
+        "spend": 9.15,
+        "orders": 0,
+        "clicks": 65,
+        "impressions": 3927
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-13T04:23:42.120Z",
+      "enrichedBucket": "light_test_no_copy_edit",
+      "enrichedAction": "keep_listing_light_test_only",
+      "enrichedPriority": 55,
+      "enrichedReason": "Older strong themes: christmas; current/evergreen fit: graduation, evergreen_gift. Do not directly rewrite listing."
+    },
+    {
+      "sku": "STA2604",
+      "asin": "B0FN7P88D4",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Father's Day:preheat",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": -0.0001,
+      "adSpend7d": 1.44,
+      "adOrders7d": 0,
+      "hasListing": true,
+      "listingTitle": "Thenshop 24 Pcs Pastor Father's Day Christian Church Gifts for Men, Leather Prayer Journal Notebooks with Bible Verse Pens, Religious Bible Study for Pastor Church Events (Multicolor)",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Father's Day:preheat"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "transferable",
+        "pushLevel": "light_test",
+        "recommendation": "Listing 可转当前节点或全年礼品，只能小预算小 bid 测试",
+        "themes": [
+          "christmas",
+          "easter",
+          "graduation",
+          "fathers_day",
+          "christian_evergreen"
+        ],
+        "activeThemes": [
+          "graduation",
+          "fathers_day",
+          "christian_evergreen"
+        ],
+        "offSeasonThemes": [
+          "christmas",
+          "easter"
+        ],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 1.44,
+        "orders": 0,
+        "clicks": 4,
+        "impressions": 389
+      },
+      "ad30": {
+        "spend": 21.55,
+        "orders": 0,
+        "clicks": 62,
+        "impressions": 6379
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-13T04:23:32.114Z",
+      "enrichedBucket": "light_test_no_copy_edit",
+      "enrichedAction": "keep_listing_light_test_only",
+      "enrichedPriority": 55,
+      "enrichedReason": "Older strong themes: christmas, easter; current/evergreen fit: graduation, fathers_day, christian_evergreen. Do not directly rewrite listing."
+    },
+    {
+      "sku": "STA2607",
+      "asin": "B0FND9XC4Y",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Father's Day:preheat"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": -0.0713,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "hasListing": true,
+      "listingTitle": "Thenshop 30 Pcs Pastor Father's Day Christian Church Gifts for Men, Leather Prayer Journal Notebooks with Bible Verse Pens, Religious Bible Study for Pastor Church Events (Black)",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Father's Day:preheat"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "transferable",
+        "pushLevel": "light_test",
+        "recommendation": "Listing 可转当前节点或全年礼品，只能小预算小 bid 测试",
+        "themes": [
+          "christmas",
+          "easter",
+          "graduation",
+          "fathers_day",
+          "christian_evergreen"
+        ],
+        "activeThemes": [
+          "graduation",
+          "fathers_day",
+          "christian_evergreen"
+        ],
+        "offSeasonThemes": [
+          "christmas",
+          "easter"
+        ],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 87
+      },
+      "ad30": {
+        "spend": 8.3,
+        "orders": 0,
+        "clicks": 20,
+        "impressions": 3258
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-13T04:23:22.115Z",
+      "enrichedBucket": "light_test_no_copy_edit",
+      "enrichedAction": "keep_listing_light_test_only",
+      "enrichedPriority": 55,
+      "enrichedReason": "Older strong themes: christmas, easter; current/evergreen fit: graduation, fathers_day, christian_evergreen. Do not directly rewrite listing."
+    },
+    {
+      "sku": "STA2610",
+      "asin": "B0FND7GY4V",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Father's Day:preheat",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 2,
+      "sellableDays": 2745,
+      "profitRate": -0.2597,
+      "adSpend7d": 4.05,
+      "adOrders7d": 0,
+      "hasListing": true,
+      "listingTitle": "Thenshop 20 Pcs Pastor Father's Day Christian Church Gifts for Men, Leather Prayer Journal Notebooks with Bible Verse Pens, Religious Bible Study for Pastor Church Events (Dark Brown)",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Father's Day:preheat"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "transferable",
+        "pushLevel": "light_test",
+        "recommendation": "Listing 可转当前节点或全年礼品，只能小预算小 bid 测试",
+        "themes": [
+          "christmas",
+          "easter",
+          "graduation",
+          "fathers_day",
+          "christian_evergreen"
+        ],
+        "activeThemes": [
+          "graduation",
+          "fathers_day",
+          "christian_evergreen"
+        ],
+        "offSeasonThemes": [
+          "christmas",
+          "easter"
+        ],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 9
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 11.11
+      },
+      "ad7": {
+        "spend": 4.05,
+        "orders": 0,
+        "clicks": 13,
+        "impressions": 4157
+      },
+      "ad30": {
+        "spend": 27.14,
+        "orders": 0,
+        "clicks": 76,
+        "impressions": 21140
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-13T04:23:22.111Z",
+      "enrichedBucket": "light_test_no_copy_edit",
+      "enrichedAction": "keep_listing_light_test_only",
+      "enrichedPriority": 55,
+      "enrichedReason": "Older strong themes: christmas, easter; current/evergreen fit: graduation, fathers_day, christian_evergreen. Do not directly rewrite listing."
+    },
+    {
+      "sku": "HOS0946",
+      "asin": "B0DYP2LM2M",
+      "riskType": "season_structure_stale_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Graduation:preheat",
+        "Teacher Appreciation:tail",
+        "Nurse Week:tail"
+      ],
+      "units7d": 1,
+      "units30d": 8,
+      "sellableDays": 102,
+      "profitRate": 0.1529,
+      "adSpend7d": 1.74,
+      "adOrders7d": 1,
+      "hasListing": true,
+      "listingTitle": "AmazingSpark DIY Felt Flower Bouquet Kit – 2 Sets Felt Flowers for Crafts Handmade Desk Decor, Handmade Flower Vase Craft with Instructions for Gift and Home or Event Decorations",
+      "listingThemes": [
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [
+        "Graduation:preheat"
+      ],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "teacher_appreciation",
+          "nurse_week",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "teacher_appreciation",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "normal_push_sell_through",
+      "listingSessions": {
+        "lastWeek": 48,
+        "twoWeeksAgo": 37,
+        "threeWeeksAgo": 16
+      },
+      "listingConversionRates": {
+        "lastWeek": 2.08,
+        "twoWeeksAgo": 10.81,
+        "threeWeeksAgo": 18.75
+      },
+      "ad7": {
+        "spend": 1.74,
+        "orders": 1,
+        "clicks": 8,
+        "impressions": 790
+      },
+      "ad30": {
+        "spend": 28.5,
+        "orders": 6,
+        "clicks": 128,
+        "impressions": 6356
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-13T04:23:32.116Z",
+      "enrichedBucket": "sell_through_watch",
+      "enrichedAction": "watch_conversion_and_inventory",
+      "enrichedPriority": 45,
+      "enrichedReason": "Listing fits current demand. Sessions7d=48, CR7d=2.08%; watch after ad changes."
+    },
+    {
+      "sku": "LEM6577",
+      "asin": "B0FXGN8CXZ",
+      "riskType": "season_stale_watch",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 5,
+      "sellableDays": 192,
+      "profitRate": -0.0604,
+      "adSpend7d": 0.29000000000000004,
+      "adOrders7d": 0,
+      "hasListing": true,
+      "listingTitle": "LemonRoad 6 Sets Wedding Centerpieces for Tables Include Galvanized Flower Bucket Metal Vases with Artificial Flowers Bridal Shower Decorations Wedding Party Favors for Guests (White)",
+      "listingThemes": [
+        "wedding",
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "nurse_week",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": false
+      },
+      "operatingFinalAction": "normal_push_sell_through",
+      "listingSessions": {
+        "lastWeek": 33,
+        "twoWeeksAgo": 29,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 6.06,
+        "twoWeeksAgo": 10.34,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 0.29000000000000004,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 169
+      },
+      "ad30": {
+        "spend": 2.02,
+        "orders": 0,
+        "clicks": 8,
+        "impressions": 1971
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-12T01:32:57.714Z",
+      "enrichedBucket": "sell_through_watch",
+      "enrichedAction": "watch_conversion_and_inventory",
+      "enrichedPriority": 45,
+      "enrichedReason": "Listing fits current demand. Sessions7d=33, CR7d=6.06%; watch after ad changes."
+    },
+    {
+      "sku": "MF6292",
+      "asin": "B0GMNCFTF2",
+      "riskType": "season_structure_stale_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "tail_cleanup_review",
+      "action": "review_tail_theme_cleanup",
+      "reason": [
+        "listing????? mothers_day_tail???/???????????evergreen??????"
+      ],
+      "seasonWindows": [
+        "Summer:preheat",
+        "Mother's Day:tail"
+      ],
+      "units7d": 2,
+      "units30d": 4,
+      "sellableDays": 713,
+      "profitRate": 0.1657,
+      "adSpend7d": 13.510000000000002,
+      "adOrders7d": 2,
+      "hasListing": true,
+      "listingTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "listingThemes": [
+        "summer",
+        "memorial_day",
+        "mothers_day_tail"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [
+        "mothers_day_tail"
+      ],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "mothers_day",
+          "summer",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "mothers_day",
+          "summer",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "normal_push_sell_through",
+      "listingSessions": {
+        "lastWeek": 24,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 12
+      },
+      "listingConversionRates": {
+        "lastWeek": 8.33,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 8.33
+      },
+      "ad7": {
+        "spend": 13.510000000000002,
+        "orders": 2,
+        "clicks": 41,
+        "impressions": 1228
+      },
+      "ad30": {
+        "spend": 31.46,
+        "orders": 4,
+        "clicks": 96,
+        "impressions": 3782
+      },
+      "listingCacheUsed": false,
+      "listingFetchedAt": "2026-05-09T02:59:02.126Z",
+      "enrichedBucket": "sell_through_watch",
+      "enrichedAction": "watch_conversion_and_inventory",
+      "enrichedPriority": 45,
+      "enrichedReason": "Listing fits current demand. Sessions7d=24, CR7d=8.33%; watch after ad changes."
+    },
+    {
+      "sku": "TAN2986",
+      "asin": "B0FYDRZ1ZC",
+      "riskType": "season_stale_watch",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "bucket": "watch",
+      "action": "no_listing_change",
+      "reason": [
+        "listing???????????????"
+      ],
+      "seasonWindows": [
+        "Graduation:preheat",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 3,
+      "sellableDays": 1710,
+      "profitRate": 0.2444,
+      "adSpend7d": 5.44,
+      "adOrders7d": 5,
+      "hasListing": true,
+      "listingTitle": "Quelay 24 Set 2026 Nurse Week Gift Anesthetist Appreciation Bracelet Gifts Bulk Colorful Clay Beaded Stretch Bracelet Thank You Gifts for Crna Nurse Anesthesiologists Birthday Medical Professional",
+      "listingThemes": [
+        "graduation",
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "nurse_week",
+          "graduation",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "graduation",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "normal_push_sell_through",
+      "listingSessions": {
+        "lastWeek": 29,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 3.45,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 5.44,
+        "orders": 5,
+        "clicks": 13,
+        "impressions": 1329
+      },
+      "ad30": {
+        "spend": 30.959999999999997,
+        "orders": 14,
+        "clicks": 86,
+        "impressions": 7955
+      },
+      "listingCacheUsed": false,
+      "listingFetchedAt": "2026-05-09T03:00:43.123Z",
+      "enrichedBucket": "sell_through_watch",
+      "enrichedAction": "watch_conversion_and_inventory",
+      "enrichedPriority": 45,
+      "enrichedReason": "Listing fits current demand. Sessions7d=29, CR7d=3.45%; watch after ad changes."
+    },
+    {
+      "sku": "YEO0766",
+      "asin": "B0FZ9GMQJS",
+      "riskType": "season_stale_watch",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "bucket": "watch",
+      "action": "no_listing_change",
+      "reason": [
+        "listing???????????????"
+      ],
+      "seasonWindows": [
+        "Summer:preheat"
+      ],
+      "units7d": 2,
+      "units30d": 5,
+      "sellableDays": 306,
+      "profitRate": 0.0859,
+      "adSpend7d": 6.7,
+      "adOrders7d": 1,
+      "hasListing": true,
+      "listingTitle": "4 Pack Boonie Safari Hats for Men Women, Wide Brim Sun Hats with Chin Strap for Fishing Hiking Lightweight",
+      "listingThemes": [
+        "summer"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "summer",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "summer",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "normal_push_sell_through",
+      "listingSessions": {
+        "lastWeek": 49,
+        "twoWeeksAgo": 60,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 2.04,
+        "twoWeeksAgo": 3.33,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 6.7,
+        "orders": 1,
+        "clicks": 22,
+        "impressions": 2141
+      },
+      "ad30": {
+        "spend": 77.23999999999998,
+        "orders": 12,
+        "clicks": 253,
+        "impressions": 26774
+      },
+      "listingCacheUsed": false,
+      "listingFetchedAt": "2026-05-09T03:00:43.130Z",
+      "enrichedBucket": "sell_through_watch",
+      "enrichedAction": "watch_conversion_and_inventory",
+      "enrichedPriority": 45,
+      "enrichedReason": "Listing fits current demand. Sessions7d=49, CR7d=2.04%; watch after ad changes."
+    },
+    {
+      "sku": "YEO1452",
+      "asin": "B0GHXQKZTQ",
+      "riskType": "season_stale_watch",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Summer:preheat"
+      ],
+      "units7d": 1,
+      "units30d": 4,
+      "sellableDays": 705,
+      "profitRate": 0.0102,
+      "adSpend7d": 5.1,
+      "adOrders7d": 0,
+      "hasListing": true,
+      "listingTitle": "4 Pack Boonie Safari Hats for Men Women, Wide Brim Sun Hats with Chin Strap for Fishing Hiking Lightweight",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Summer:preheat"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "summer"
+        ],
+        "activeThemes": [
+          "summer"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": false
+      },
+      "operatingFinalAction": "normal_push_sell_through",
+      "listingSessions": {
+        "lastWeek": 34,
+        "twoWeeksAgo": 41,
+        "threeWeeksAgo": 20
+      },
+      "listingConversionRates": {
+        "lastWeek": 2.94,
+        "twoWeeksAgo": 2.44,
+        "threeWeeksAgo": 10
+      },
+      "ad7": {
+        "spend": 5.1,
+        "orders": 0,
+        "clicks": 16,
+        "impressions": 1677
+      },
+      "ad30": {
+        "spend": 24.300000000000004,
+        "orders": 4,
+        "clicks": 82,
+        "impressions": 11956
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-09T01:22:26.288Z",
+      "enrichedBucket": "sell_through_watch",
+      "enrichedAction": "watch_conversion_and_inventory",
+      "enrichedPriority": 45,
+      "enrichedReason": "Listing fits current demand. Sessions7d=34, CR7d=2.94%; watch after ad changes."
+    },
+    {
+      "sku": "YUT2946",
+      "asin": "B0D1VJWGXN",
+      "riskType": "season_stale_watch",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "bucket": "watch",
+      "action": "no_listing_change",
+      "reason": [
+        "listing???????????????"
+      ],
+      "seasonWindows": [
+        "Summer:preheat"
+      ],
+      "units7d": 2,
+      "units30d": 5,
+      "sellableDays": 618,
+      "profitRate": 0.1679,
+      "adSpend7d": 2.79,
+      "adOrders7d": 0,
+      "hasListing": true,
+      "listingTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "listingThemes": [
+        "summer",
+        "memorial_day"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "summer",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "summer",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "normal_push_sell_through",
+      "listingSessions": {
+        "lastWeek": 27,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 3.7,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 2.79,
+        "orders": 0,
+        "clicks": 11,
+        "impressions": 1032
+      },
+      "ad30": {
+        "spend": 57.10000000000001,
+        "orders": 8,
+        "clicks": 185,
+        "impressions": 15794
+      },
+      "listingCacheUsed": false,
+      "listingFetchedAt": "2026-05-12T10:40:18.546Z",
+      "enrichedBucket": "sell_through_watch",
+      "enrichedAction": "watch_conversion_and_inventory",
+      "enrichedPriority": 45,
+      "enrichedReason": "Listing fits current demand. Sessions7d=27, CR7d=3.70%; watch after ad changes."
+    },
+    {
+      "sku": "OCE1413",
+      "asin": "B0FHK5GS4F",
+      "riskType": "inventory_tight_no_scale",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak"
+      ],
+      "units7d": 29,
+      "units30d": 140,
+      "sellableDays": 16,
+      "profitRate": 0.1637,
+      "adSpend7d": 14.320000000000002,
+      "adOrders7d": 8,
+      "hasListing": true,
+      "listingTitle": "Engrowtic Wedding Officiant Book Personalized Linen Hardcover Journal with Name Sticker, 160 Lined Pages, 5.31 x 8.27 in A5 Notebook, Pastor Minister Sermon Officiant Gift for Wedding Ceremony",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Wedding Season:peak"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "christian_evergreen",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "christian_evergreen",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": false
+      },
+      "operatingFinalAction": "hold_or_light_test",
+      "listingSessions": {
+        "lastWeek": 385,
+        "twoWeeksAgo": 367,
+        "threeWeeksAgo": 348
+      },
+      "listingConversionRates": {
+        "lastWeek": 5.71,
+        "twoWeeksAgo": 8.45,
+        "threeWeeksAgo": 8.05
+      },
+      "ad7": {
+        "spend": 14.320000000000002,
+        "orders": 8,
+        "clicks": 82,
+        "impressions": 4373
+      },
+      "ad30": {
+        "spend": 153.04,
+        "orders": 91,
+        "clicks": 905,
+        "impressions": 44053
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-13T04:23:31.111Z",
+      "enrichedBucket": "inventory_hold_listing_ok",
+      "enrichedAction": "hold_ad_scale_check_replenishment",
+      "enrichedPriority": 40,
+      "enrichedReason": "Listing has current demand fit; risk is inventory capacity. Units7d=29, CR7d=5.71%."
+    },
+    {
+      "sku": "QUN1382",
+      "asin": "B0GPVPXWBX",
+      "riskType": "inventory_tight_no_scale",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Graduation:preheat",
+        "Mother's Day:tail"
+      ],
+      "units7d": 15,
+      "units30d": 266,
+      "sellableDays": 16,
+      "profitRate": 0.4661,
+      "adSpend7d": 52.12,
+      "adOrders7d": 12,
+      "hasListing": true,
+      "listingTitle": "Hahafelt Bouquet Sash with Custom Name, Prom Bouquet Ribbon Kit with DIY Iron-on Letters, Personalized Ribbon for Year, Senior Night, Weddings, Recitals, Holidays & Keepsake",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Wedding Season:peak",
+        "Graduation:preheat"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "graduation",
+          "mothers_day",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "graduation",
+          "mothers_day",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "hold_or_light_test",
+      "listingSessions": {
+        "lastWeek": 251,
+        "twoWeeksAgo": 597,
+        "threeWeeksAgo": 1017
+      },
+      "listingConversionRates": {
+        "lastWeek": 4.38,
+        "twoWeeksAgo": 4.6899999999999995,
+        "threeWeeksAgo": 8.85
+      },
+      "ad7": {
+        "spend": 52.12,
+        "orders": 12,
+        "clicks": 180,
+        "impressions": 15000
+      },
+      "ad30": {
+        "spend": 241.45000000000002,
+        "orders": 89,
+        "clicks": 959,
+        "impressions": 59544
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-09T02:59:02.125Z",
+      "enrichedBucket": "inventory_hold_listing_ok",
+      "enrichedAction": "hold_ad_scale_check_replenishment",
+      "enrichedPriority": 40,
+      "enrichedReason": "Listing has current demand fit; risk is inventory capacity. Units7d=15, CR7d=4.38%."
+    },
+    {
+      "sku": "RHO1540",
+      "asin": "B0GLPCPFK9",
+      "riskType": "inventory_tight_no_scale",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak"
+      ],
+      "units7d": 10,
+      "units30d": 76,
+      "sellableDays": 7,
+      "profitRate": 0.2775,
+      "adSpend7d": 1.16,
+      "adOrders7d": 2,
+      "hasListing": true,
+      "listingTitle": "Personalized Will You Be My Bridesmaid Sticker with Name Pearl Decal Vinyl Proposal Decal Custom Name Decals DTF Transfer for Bridesmaids Box Bridal Shower Wedding Bachelorette Party (Gold)",
+      "listingThemes": [
+        "wedding"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": false
+      },
+      "operatingFinalAction": "hold_or_light_test",
+      "listingSessions": {
+        "lastWeek": 104,
+        "twoWeeksAgo": 157,
+        "threeWeeksAgo": 138
+      },
+      "listingConversionRates": {
+        "lastWeek": 6.73,
+        "twoWeeksAgo": 19.11,
+        "threeWeeksAgo": 6.52
+      },
+      "ad7": {
+        "spend": 1.16,
+        "orders": 2,
+        "clicks": 5,
+        "impressions": 350
+      },
+      "ad30": {
+        "spend": 83.12,
+        "orders": 38,
+        "clicks": 370,
+        "impressions": 18902
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-09T01:22:03.131Z",
+      "enrichedBucket": "inventory_hold_listing_ok",
+      "enrichedAction": "hold_ad_scale_check_replenishment",
+      "enrichedPriority": 40,
+      "enrichedReason": "Listing has current demand fit; risk is inventory capacity. Units7d=10, CR7d=6.73%."
+    },
+    {
+      "sku": "SC3527",
+      "asin": "B0CGV7S8V9",
+      "riskType": "inventory_tight_no_scale",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Memorial Day:preheat",
+        "Nurse Week:tail"
+      ],
+      "units7d": 5,
+      "units30d": 35,
+      "sellableDays": 18,
+      "profitRate": 0.3547,
+      "adSpend7d": 12.99,
+      "adOrders7d": 3,
+      "hasListing": true,
+      "listingTitle": "Inbagi Memorial Cardinal Sign Pins Set Include Bird Funeral Pocket Token Red Cardinal Pin Organza Bags and Remember Me Poem Cards Charms Funeral Favors for Guests Gift (60 Sets)",
+      "listingThemes": [
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [
+        "Memorial Day:preheat"
+      ],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "nurse_week",
+          "mothers_day",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "mothers_day",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": false
+      },
+      "operatingFinalAction": "hold_or_light_test",
+      "listingSessions": {
+        "lastWeek": 67,
+        "twoWeeksAgo": 57,
+        "threeWeeksAgo": 35
+      },
+      "listingConversionRates": {
+        "lastWeek": 7.46,
+        "twoWeeksAgo": 5.26,
+        "threeWeeksAgo": 20
+      },
+      "ad7": {
+        "spend": 12.99,
+        "orders": 3,
+        "clicks": 54,
+        "impressions": 3767
+      },
+      "ad30": {
+        "spend": 92.45,
+        "orders": 22,
+        "clicks": 358,
+        "impressions": 22681
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-13T04:23:43.112Z",
+      "enrichedBucket": "inventory_hold_listing_ok",
+      "enrichedAction": "hold_ad_scale_check_replenishment",
+      "enrichedPriority": 40,
+      "enrichedReason": "Listing has current demand fit; risk is inventory capacity. Units7d=5, CR7d=7.46%."
+    },
+    {
+      "sku": "CEE0467",
+      "asin": "B09SW2NT6J",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": -0.1421,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "hasListing": true,
+      "listingTitle": "Cunhill 50 Pack Dessert Cups with Dome Lids Disposable Plastic Cups with Lids Clear Pet (No Hole), Sporks and Stickers for Plastic Fruit, Cake and Mini Snack Bowls(9 oz,Simple Cup)",
+      "listingThemes": [
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [
+        "Wedding Season:peak"
+      ],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "nurse_week",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": false
+      },
+      "operatingFinalAction": "normal_push",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0
+      },
+      "ad30": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 2
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-13T04:23:43.117Z",
+      "enrichedBucket": "season_fit_ok_no_copy_edit",
+      "enrichedAction": "no_listing_change_today",
+      "enrichedPriority": 35,
+      "enrichedReason": "Listing fits current/evergreen themes: evergreen_gift."
+    },
+    {
+      "sku": "HEL3107",
+      "asin": "B0FVFJBZBW",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Graduation:preheat",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": -0.0198,
+      "adSpend7d": 0.6000000000000001,
+      "adOrders7d": 1,
+      "hasListing": true,
+      "listingTitle": "Huquary 32 Sets Football Senior Night Gifts Positive Gnome Keychains with Thank You Cards and Opp Bags Acrylic Bulk Keychain Gifts for Team Players Tailgate Football Birthday Party Favors",
+      "listingThemes": [
+        "graduation",
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "nurse_week",
+          "graduation"
+        ],
+        "activeThemes": [
+          "graduation"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "normal_push_sell_through",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 0.6000000000000001,
+        "orders": 1,
+        "clicks": 3,
+        "impressions": 195
+      },
+      "ad30": {
+        "spend": 2.5799999999999996,
+        "orders": 2,
+        "clicks": 16,
+        "impressions": 1376
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-12T10:40:07.536Z",
+      "enrichedBucket": "season_fit_ok_no_copy_edit",
+      "enrichedAction": "no_listing_change_today",
+      "enrichedPriority": 35,
+      "enrichedReason": "Listing fits current/evergreen themes: graduation."
+    },
+    {
+      "sku": "LEM6585",
+      "asin": "B0FXVB2SYG",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": -0.0655,
+      "adSpend7d": 5.819999999999999,
+      "adOrders7d": 0,
+      "hasListing": true,
+      "listingTitle": "LemonRoad 6 Sets Wedding Centerpieces for Tables Include Galvanized Flower Bucket Metal Vases with Artificial Flowers Bridal Shower Decorations Wedding Party Favors for Guests (Blue)",
+      "listingThemes": [
+        "wedding",
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "nurse_week",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": false
+      },
+      "operatingFinalAction": "normal_push",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 5.819999999999999,
+        "orders": 0,
+        "clicks": 30,
+        "impressions": 16071
+      },
+      "ad30": {
+        "spend": 30.099999999999994,
+        "orders": 0,
+        "clicks": 133,
+        "impressions": 50416
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-12T01:32:57.699Z",
+      "enrichedBucket": "season_fit_ok_no_copy_edit",
+      "enrichedAction": "no_listing_change_today",
+      "enrichedPriority": 35,
+      "enrichedReason": "Listing fits current/evergreen themes: evergreen_gift."
+    },
+    {
+      "sku": "QUN5204",
+      "asin": "B0GTTQX894",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Graduation:preheat"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": 0.3443,
+      "adSpend7d": 5.62,
+      "adOrders7d": 0,
+      "hasListing": true,
+      "listingTitle": "Hahafelt Red Bouquet Sash with Name, 35 Inch Satin Sash, Custom Prom Ribbon with DIY Iron-on Letters, Personalized for Senior Night, Weddings, Recitals",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Wedding Season:peak",
+        "Graduation:preheat"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "graduation",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "graduation",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "normal_push",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 5.62,
+        "orders": 0,
+        "clicks": 20,
+        "impressions": 1212
+      },
+      "ad30": {
+        "spend": 11.24,
+        "orders": 0,
+        "clicks": 40,
+        "impressions": 2484
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-09T02:43:07.124Z",
+      "enrichedBucket": "season_fit_ok_no_copy_edit",
+      "enrichedAction": "no_listing_change_today",
+      "enrichedPriority": 35,
+      "enrichedReason": "Listing fits current/evergreen themes: graduation, evergreen_gift."
+    },
+    {
+      "sku": "RUX1599",
+      "asin": "B0FWKFGP2Q",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Graduation:preheat",
+        "Memorial Day:preheat",
+        "Mother's Day:tail",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 1,
+      "sellableDays": 1830,
+      "profitRate": 0.0973,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "hasListing": true,
+      "listingTitle": "Norme 3 Pcs Large Garage Door Bow Decoration Set, Blue & White Chinoiserie Ribbon Wrap Red Bow for Housewarming New Home Reveal Open House Surprise Gift Wrap Patriotic Holiday Outdoor Decor",
+      "listingThemes": [
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [
+        "Wedding Season:peak",
+        "Graduation:preheat",
+        "Memorial Day:preheat"
+      ],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "nurse_week",
+          "graduation",
+          "mothers_day",
+          "patriotic",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "graduation",
+          "mothers_day",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "normal_push_sell_through",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0
+      },
+      "ad30": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 4
+      },
+      "listingCacheUsed": true,
+      "listingFetchedAt": "2026-05-12T10:22:21.556Z",
+      "enrichedBucket": "season_fit_ok_no_copy_edit",
+      "enrichedAction": "no_listing_change_today",
+      "enrichedPriority": 35,
+      "enrichedReason": "Listing fits current/evergreen themes: graduation, mothers_day, evergreen_gift."
+    },
+    {
+      "sku": "YUT4458",
+      "asin": "B0D1VMCWXL",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "bucket": "watch",
+      "action": "no_listing_change",
+      "reason": [
+        "listing???????????????"
+      ],
+      "seasonWindows": [
+        "Summer:preheat"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": 0.1523,
+      "adSpend7d": 8.799999999999999,
+      "adOrders7d": 2,
+      "hasListing": true,
+      "listingTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "listingThemes": [
+        "summer",
+        "memorial_day"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "recommendation": "Listing 明确适配当前节点或全年礼品，可正常建组/加投",
+        "themes": [
+          "summer",
+          "evergreen_gift"
+        ],
+        "activeThemes": [
+          "summer",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "hasTransferPath": true,
+        "expiredTitle": false,
+        "expiredImage": false,
+        "bulletsFitCurrent": true
+      },
+      "operatingFinalAction": "normal_push",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 8.799999999999999,
+        "orders": 2,
+        "clicks": 29,
+        "impressions": 1623
+      },
+      "ad30": {
+        "spend": 99.33000000000001,
+        "orders": 4,
+        "clicks": 288,
+        "impressions": 14059
+      },
+      "listingCacheUsed": false,
+      "listingFetchedAt": "2026-05-12T10:39:56.549Z",
+      "enrichedBucket": "season_fit_ok_no_copy_edit",
+      "enrichedAction": "no_listing_change_today",
+      "enrichedPriority": 35,
+      "enrichedReason": "Listing fits current/evergreen themes: summer, evergreen_gift."
+    }
+  ]
+}

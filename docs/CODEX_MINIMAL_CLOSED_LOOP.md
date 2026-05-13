@@ -14,6 +14,33 @@ This document records the implemented and verified closed loop.
 7. The runner verifies that changes landed.
 8. The runner writes inventory notes.
 9. The runner writes a summary.
+10. The next daily loop compares actual sales/profit/ad movement against each action's hypothesis and issues corrective actions when reality diverges.
+
+The strategic loop is `hypothesis -> action -> landed verification -> daily data check -> attribution -> correction`. Business risk on supported advertising actions should not become artificial manual review. If Codex believes the action can improve profit, sales quality, inventory turnover, or KPI trajectory, it should approve and execute the supported action, then learn from the data.
+
+## Completion Criteria
+
+Daily work is not closed just because a report exists. A day is closed only when the latest intended run has:
+
+- Fresh data artifacts: snapshot, task/watch diagnostics, season audit, personal trend archive, report, and daily learning.
+- A schema that passed dry-run before execution.
+- Execution API failures at 0 for executable actions.
+- Landing verification success for every executable action.
+- Inventory notes and adjustment logs written.
+- `execution_summary_<date>.json`, `execution_verify_<date>.json`, the report, and `daily_learning_<date>.json` all pointing to the same final run/sourceRunId.
+
+When same-day retries or dry-runs exist, use daily learning `decisions.finalRunLanding` as the completion lens. All-day aggregate adjustment counts can preserve failed history, but they are not the final completion verdict.
+
+## SP Campaign State Notes
+
+SP campaign state actions are campaign-level actions even when the available rows come from child keyword, target, or product-ad tables.
+
+- Match metadata by `campaignId`.
+- Build SP campaign state writes through `/campaign/batchCampaign`.
+- Verify state from `campaignState` or campaign status fields before child row `state`.
+- For pause, API success plus disappearance from enabled child-row pools can be a landed result.
+- For enable, the campaign must visibly verify as enabled.
+- SP campaign pause was verified live on 2026-05-12. SP campaign enable and SP/SB adGroup state are technical verification gaps; if attempted and not landed, report `not_landed` and fix automation rather than routing them to business review.
 
 ## Commands
 
@@ -78,7 +105,9 @@ The repo does not:
 - Generate AI decisions inside the panel.
 - Use execution-layer rule functions as the decision source.
 
-If Codex cannot judge an action, Codex should write `review` in the action schema.
+If Codex cannot perfectly judge a supported advertising action, Codex should still make the best explicit decision and use `forceExecute: true` when overriding conservative strategy gates. Use `review` only for unsupported or non-advertising surfaces such as SB create, listing edits, price changes, replenishment, missing fields, unknown entities, missing verification mapping, or writes that cannot be landed.
+
+Known 2026-05-12 technical blocker: SP campaign `enable` returned API success but verified as still paused. This is automation work / `not_landed`, not a manual-review strategy decision.
 
 ## Verified
 
@@ -95,6 +124,22 @@ Verified on 2026-04-23:
 - Incremental verification.
 - Inventory note writing in snapshot mode.
 - Summary generation.
+
+Verified on 2026-05-12:
+
+- `npm test`
+- `node --check auto_adjust.js`
+- `node --check src\ai_decision.js`
+- `node --check src\daily_learning.js`
+- Final runner command:
+
+```powershell
+node scripts\run_today_ops.js --execute --schema data\snapshots\action_schema_2026-05-12_claude_postseason_lo3817.json --snapshot data\snapshots\runs\today_ops_2026-05-12T07-38-11-344Z\snapshot_2026-05-12.json
+```
+
+- Final run `today_ops_2026-05-12T09-41-50-232Z` landed 11/11 SP campaign pause actions with 0 API failures.
+- Inventory note writes succeeded for the closed-loop run.
+- `data\learning\daily_learning_2026-05-12.*` now records `decisions.finalRunLanding` so historical same-day retries do not obscure the final landed state.
 
 ## Known External Dependencies
 

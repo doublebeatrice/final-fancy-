@@ -40,6 +40,8 @@ Every executable action must carry:
 
 Missing any of these forces the action into review. See `src/ai_decision.js:executionApprovalFailures`.
 
+For supported advertising actions, strategic uncertainty should be resolved by the deciding AI, not by manual review. Use `forceExecute: true` plus a hypothesis, expected effect, measurement window, and rollback condition when overriding conservative business-risk gates. Review remains for missing attribution/approval, unsupported surfaces, missing technical fields, missing verification mapping, or writes that do not land.
+
 The attribution is preserved across the execution chain:
 
 - `data/adjustments/adjustments_<date>.json` records `approvedBy` and `actionSource` per row.

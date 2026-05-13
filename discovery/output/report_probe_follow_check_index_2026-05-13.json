@@ -1,0 +1,621 @@
+{
+  "generatedAt": "2026-05-13T10:29:07.162Z",
+  "readOnly": true,
+  "route": {
+    "routeId": "follow_check.index",
+    "routeName": "跟卖检查",
+    "url": "https://sellerinventory.yswg.com.cn/pm/follow_check/index",
+    "source": "sellerinventory"
+  },
+  "page": {
+    "title": "亚声威格亚马逊管理系统",
+    "url": "https://sellerinventory.yswg.com.cn/pm/follow_check/index",
+    "columns": [
+      {
+        "label": "修改内容",
+        "field": ""
+      },
+      {
+        "label": "新内容",
+        "field": ""
+      },
+      {
+        "label": "修改人",
+        "field": ""
+      },
+      {
+        "label": "修改时间",
+        "field": ""
+      }
+    ],
+    "buttons": [
+      {
+        "tag": "INPUT",
+        "text": "HJ17,HJ171,HJ172",
+        "type": "text"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "批量复制原SKU",
+        "type": "button"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "批量复制跟卖SKU",
+        "type": "button"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "批量调整处理状态",
+        "type": "button"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "保存查询条件",
+        "type": "button"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "重置",
+        "type": "button"
+      },
+      {
+        "tag": "INPUT",
+        "text": "DELETE",
+        "type": "hidden"
+      },
+      {
+        "tag": "INPUT",
+        "text": "aVtbRtCEaaIRRe6PXlKSgOwAslCrTPEA39tM1lHK",
+        "type": "hidden"
+      }
+    ],
+    "clicked": null
+  },
+  "networkSummary": {
+    "requestCount": 35,
+    "sampleBodyCount": 26,
+    "endpointCandidateCount": 2
+  },
+  "requests": [
+    {
+      "requestId": "C995A2145A21A18EBC39A8879ECE2390",
+      "url": "https://sellerinventory.yswg.com.cn/pm/follow_check/index",
+      "method": "GET",
+      "resourceType": "Document",
+      "postData": "",
+      "status": 200,
+      "mimeType": "text/html"
+    },
+    {
+      "requestId": "23376.2",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/css/layui.css",
+      "method": "GET",
+      "resourceType": "Stylesheet",
+      "postData": "",
+      "status": 200,
+      "mimeType": "text/css"
+    },
+    {
+      "requestId": "23376.3",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/style/admin.css",
+      "method": "GET",
+      "resourceType": "Stylesheet",
+      "postData": "",
+      "status": 200,
+      "mimeType": "text/css"
+    },
+    {
+      "requestId": "23376.4",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layui/css/select2.css",
+      "method": "GET",
+      "resourceType": "Stylesheet",
+      "postData": "",
+      "status": 200,
+      "mimeType": "text/css"
+    },
+    {
+      "requestId": "23376.5",
+      "url": "https://sellerinventory.yswg.com.cn/frame/elementPlus/element-plus.css",
+      "method": "GET",
+      "resourceType": "Stylesheet",
+      "postData": "",
+      "status": 200,
+      "mimeType": "text/css"
+    },
+    {
+      "requestId": "23376.6",
+      "url": "https://sellerinventory.yswg.com.cn/css/formSelects-v4.css",
+      "method": "GET",
+      "resourceType": "Stylesheet",
+      "postData": "",
+      "status": 200,
+      "mimeType": "text/css"
+    },
+    {
+      "requestId": "23376.12",
+      "url": "https://sellerinventory.yswg.com.cn/js/jquery.min.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.13",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/layui.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.14",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layui/select2.full.min.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.15",
+      "url": "https://sellerinventory.yswg.com.cn/js/main.js?v=20260323",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.16",
+      "url": "https://sellerinventory.yswg.com.cn/js/util/download.js?v=20251208",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.17",
+      "url": "https://sellerinventory.yswg.com.cn/frame/vue/vue.min.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.18",
+      "url": "https://sellerinventory.yswg.com.cn/frame/elementPlus/element-plus.js?v=2.6.1",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.19",
+      "url": "https://sellerinventory.yswg.com.cn/frame/elementPlus/zh-cn.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.20",
+      "url": "https://sellerinventory.yswg.com.cn/frame/elementPlus/element-plus-icons.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.21",
+      "url": "https://sellerinventory.yswg.com.cn/assert/formSelect/formSelects-v4.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.22",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/font/iconfont.woff2?v=256",
+      "method": "GET",
+      "resourceType": "Font",
+      "postData": "",
+      "status": 200,
+      "mimeType": "font/woff2"
+    },
+    {
+      "requestId": "23376.36",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/form.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.25",
+      "url": "data:application/x-font-woff;charset=utf-8;base64,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",
+      "method": "GET",
+      "resourceType": "Font",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/x-font-woff"
+    },
+    {
+      "requestId": "23376.38",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/lib/index.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.39",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/layer.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.40",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/config.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.41",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/css/modules/layer/default/layer.css?v=3.1.1",
+      "method": "GET",
+      "resourceType": "Stylesheet",
+      "postData": "",
+      "status": 200,
+      "mimeType": "text/css"
+    },
+    {
+      "requestId": "23376.42",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/laytpl.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.43",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/element.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.44",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/util.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.45",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/lib/admin.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.46",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/lib/view.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.47",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/modules/common.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.48",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/table.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.49",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/laypage.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.50",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/modules/commonTool.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.51",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/laydate.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    },
+    {
+      "requestId": "23376.52",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/css/modules/laydate/default/laydate.css?v=5.0.10",
+      "method": "GET",
+      "resourceType": "Stylesheet",
+      "postData": "",
+      "status": 200,
+      "mimeType": "text/css"
+    },
+    {
+      "requestId": "23376.53",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/modules/xmSelect.js",
+      "method": "GET",
+      "resourceType": "Script",
+      "postData": "",
+      "status": 200,
+      "mimeType": "application/javascript"
+    }
+  ],
+  "bodySamples": [
+    {
+      "requestId": "C995A2145A21A18EBC39A8879ECE2390",
+      "url": "https://sellerinventory.yswg.com.cn/pm/follow_check/index",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"utf-8\">\n    <title>亚声威格亚马逊管理系统</title>\n    <meta name=\"renderer\" content=\"webkit\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n    <meta name=\"csrf-token\" content=\"aVtbRtCEaaIRRe6PXlKSgOwAslCrTPEA39tM1lHK\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0\">\n    <link rel=\"stylesheet\" href=\"https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/css/layui.css\" media=\"all\">\n    <link rel=\"stylesheet\" href=\"https://sellerinventory.yswg.com.cn/frame/layuiadmin/style/admin.css\" media=\"all\">\n    <link rel=\"icon\" href=\"https://sellerinventory.yswg.com.cn/frame/layuiadmin/icon/favicon.ico\" type=\"image/x-icon\"/>\n    \n    <link rel=\"stylesheet\" href=\"https://sellerinventory.yswg.com.cn/frame/layui/css/select2.css\">\n    \n    \n\n    \n    <link rel=\"stylesheet\" href=\"https://sellerinventory.yswg.com.cn/frame/elementPlus/element-plus.css\">\n\n\n\n\n\n    </head>\n<body style=\"background: #eee4e47a;\">\n<div class=\"container\">\n        <link rel=\"stylesheet\" type=\"text/css\" href=\"https://sellerinventory.yswg.com.cn/css/formSelects-v4.css\"/>\n    <style type=\"text/css\">\n        .layui-table-cell {\n            height: auto;\n            white-space: normal;\n            word-wrap: break-word;\n        }\n        #openTable,#openDialogs,#openDialogSelect{\n            /*text-align: center;*/\n            padding: 10px;\n        }\n        #openTable .tableDiv{\n            width: 100%;\n        }\n        #children_table{\n            width: 100%;\n            word-break:break-all\n        }\n        .textarea-style .layui-textarea{\n            min-height: 38px;\n            height: 38px;\n        }\n        /* 筛选保存展示区域 */\n        .search_save_tag_area {\n            display: flex;\n            flex-flow: row wrap;\n        }\n\n        .search_save_tag_area .item {\n            padding: 4px 10px;\n            border: 1px solid #666;\n            margin-left: "
+    },
+    {
+      "requestId": "23376.12",
+      "url": "https://sellerinventory.yswg.com.cn/js/jquery.min.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/*! jQuery v2.0.0 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license\n//@ sourceMappingURL=jquery.min.map\n*/\n(function (e, undefined) {\n    var t, n, r = typeof undefined, i = e.location, o = e.document, s = o.documentElement, a = e.jQuery, u = e.$,\n        l = {}, c = [], f = \"2.0.0\", p = c.concat, h = c.push, d = c.slice, g = c.indexOf, m = l.toString,\n        y = l.hasOwnProperty, v = f.trim, x = function (e, n) {\n            return new x.fn.init(e, n, t)\n        }, b = /[+-]?(?:\\d*\\.|)\\d+(?:[eE][+-]?\\d+|)/.source, w = /\\S+/g, T = /^(?:(<[\\w\\W]+>)[^>]*|#([\\w-]*))$/,\n        C = /^<(\\w+)\\s*\\/?>(?:<\\/\\1>|)$/, k = /^-ms-/, N = /-([\\da-z])/gi, E = function (e, t) {\n            return t.toUpperCase()\n        }, S = function () {\n            o.removeEventListener(\"DOMContentLoaded\", S, !1), e.removeEventListener(\"load\", S, !1), x.ready()\n        };\n    x.fn = x.prototype = {\n        jquery: f, constructor: x, init: function (e, t, n) {\n            var r, i;\n            if (!e) return this;\n            if (\"string\" == typeof e) {\n                if (r = \"<\" === e.charAt(0) && \">\" === e.charAt(e.length - 1) && e.length >= 3 ? [null, e, null] : T.exec(e), !r || !r[1] && t) return !t || t.jquery ? (t || n).find(e) : this.constructor(t).find(e);\n                if (r[1]) {\n                    if (t = t instanceof x ? t[0] : t, x.merge(this, x.parseHTML(r[1], t && t.nodeType ? t.ownerDocument || t : o, !0)), C.test(r[1]) && x.isPlainObject(t)) for (r in t) x.isFunction(this[r]) ? this[r](t[r]) : this.attr(r, t[r]);\n                    return this\n                }\n                return i = o.getElementById(r[2]), i && i.parentNode && (this.length = 1, this[0] = i), this.context = o, this.selector = e, this\n            }\n            return e.nodeType ? (this.context = this[0] = e, this.length = 1, this) : x.isFunction(e) ? n.ready(e) : (e.selector !== undefined && (this.selector = e.selector, this.context = e.context), x.makeArray(e, this))\n        }, selector: \"\","
+    },
+    {
+      "requestId": "23376.13",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/layui.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/** layui-v2.4.5 MIT License By https://www.layui.com */\n ;!function(e){\"use strict\";var t=document,o={modules:{},status:{},timeout:10,event:{}},n=function(){this.v=\"2.4.5\"},r=function(){var e=t.currentScript?t.currentScript.src:function(){for(var e,o=t.scripts,n=o.length-1,r=n;r>0;r--)if(\"interactive\"===o[r].readyState){e=o[r].src;break}return e||o[n].src}();return e.substring(0,e.lastIndexOf(\"/\")+1)}(),i=function(t){e.console&&console.error&&console.error(\"Layui hint: \"+t)},a=\"undefined\"!=typeof opera&&\"[object Opera]\"===opera.toString(),u={layer:\"modules/layer\",laydate:\"modules/laydate\",laypage:\"modules/laypage\",laytpl:\"modules/laytpl\",layim:\"modules/layim\",layedit:\"modules/layedit\",form:\"modules/form\",upload:\"modules/upload\",tree:\"modules/tree\",table:\"modules/table\",element:\"modules/element\",rate:\"modules/rate\",colorpicker:\"modules/colorpicker\",slider:\"modules/slider\",carousel:\"modules/carousel\",flow:\"modules/flow\",util:\"modules/util\",code:\"modules/code\",jquery:\"modules/jquery\",mobile:\"modules/mobile\",\"layui.all\":\"../layui.all\"};n.prototype.cache=o,n.prototype.define=function(e,t){var n=this,r=\"function\"==typeof e,i=function(){var e=function(e,t){layui[e]=t,o.status[e]=!0};return\"function\"==typeof t&&t(function(n,r){e(n,r),o.callback[n]=function(){t(e)}}),this};return r&&(t=e,e=[]),layui[\"layui.all\"]||!layui[\"layui.all\"]&&layui[\"layui.mobile\"]?i.call(n):(n.use(e,i),n)},n.prototype.use=function(e,n,l){function s(e,t){var n=\"PLaySTATION 3\"===navigator.platform?/^complete$/:/^(complete|loaded)$/;(\"load\"===e.type||n.test((e.currentTarget||e.srcElement).readyState))&&(o.modules[f]=t,d.removeChild(v),function r(){return++m>1e3*o.timeout/4?i(f+\" is not a valid module\"):void(o.status[f]?c():setTimeout(r,4))}())}function c(){l.push(layui[f]),e.length>1?y.use(e.slice(1),n,l):\"function\"==typeof n&&n.apply(layui,l)}var y=this,p=o.dir=o.dir?o.dir:r,d=t.getElementsByTagName(\"head\")[0];e=\"string\"==typeof e?[e]:e,window.jQuery&&jQuery.fn.on&&(y.each(e,function(t,o){\"jquery\"===o"
+    },
+    {
+      "requestId": "23376.14",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layui/select2.full.min.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/*! Select2 4.0.8 | https://github.com/select2/select2/blob/master/LICENSE.md */\n!function(n){\"function\"==typeof define&&define.amd?define([\"jquery\"],n):\"object\"==typeof module&&module.exports?module.exports=function(e,t){return void 0===t&&(t=\"undefined\"!=typeof window?require(\"jquery\"):require(\"jquery\")(e)),n(t),t}:n(jQuery)}(function(d){var e=function(){if(d&&d.fn&&d.fn.select2&&d.fn.select2.amd)var e=d.fn.select2.amd;var t,n,i,h,o,s,f,g,m,v,y,_,r,a,w,l;function b(e,t){return r.call(e,t)}function c(e,t){var n,i,r,o,s,a,l,c,u,d,p,h=t&&t.split(\"/\"),f=y.map,g=f&&f[\"*\"]||{};if(e){for(s=(e=e.split(\"/\")).length-1,y.nodeIdCompat&&w.test(e[s])&&(e[s]=e[s].replace(w,\"\")),\".\"===e[0].charAt(0)&&h&&(e=h.slice(0,h.length-1).concat(e)),u=0;u<e.length;u++)if(\".\"===(p=e[u]))e.splice(u,1),u-=1;else if(\"..\"===p){if(0===u||1===u&&\"..\"===e[2]||\"..\"===e[u-1])continue;0<u&&(e.splice(u-1,2),u-=2)}e=e.join(\"/\")}if((h||g)&&f){for(u=(n=e.split(\"/\")).length;0<u;u-=1){if(i=n.slice(0,u).join(\"/\"),h)for(d=h.length;0<d;d-=1)if(r=(r=f[h.slice(0,d).join(\"/\")])&&r[i]){o=r,a=u;break}if(o)break;!l&&g&&g[i]&&(l=g[i],c=u)}!o&&l&&(o=l,a=c),o&&(n.splice(0,a,o),e=n.join(\"/\"))}return e}function A(t,n){return function(){var e=a.call(arguments,0);return\"string\"!=typeof e[0]&&1===e.length&&e.push(null),s.apply(h,e.concat([t,n]))}}function x(t){return function(e){m[t]=e}}function S(e){if(b(v,e)){var t=v[e];delete v[e],_[e]=!0,o.apply(h,t)}if(!b(m,e)&&!b(_,e))throw new Error(\"No \"+e);return m[e]}function u(e){var t,n=e?e.indexOf(\"!\"):-1;return-1<n&&(t=e.substring(0,n),e=e.substring(n+1,e.length)),[t,e]}function D(e){return e?u(e):[]}return e&&e.requirejs||(e?n=e:e={},m={},v={},y={},_={},r=Object.prototype.hasOwnProperty,a=[].slice,w=/\\.js$/,f=function(e,t){var n,i=u(e),r=i[0],o=t[1];return e=i[1],r&&(n=S(r=c(r,o))),r?e=n&&n.normalize?n.normalize(e,function(t){return function(e){return c(e,t)}}(o)):c(e,o):(r=(i=u(e=c(e,o)))[0],e=i[1],r&&(n=S(r))),{f:r?r+\"!\"+e:e,n:e,pr:r,p:n}},g={require:function(e){return A(e)"
+    },
+    {
+      "requestId": "23376.15",
+      "url": "https://sellerinventory.yswg.com.cn/js/main.js?v=20260323",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/**\n * 获取Url地址后面的参数\n * @returns {Object}\n */\nfunction getUrlParams() {\n\tvar params = {}\n\tvar query = location.search.substring(1) //获取查询串\n\tvar pairs = query.split('&') //在逗号处断开\n\tfor (var i = 0; i < pairs.length; i++) {\n\t\tvar pos = pairs[i].indexOf('=') //查找name=value\n\t\tif (pos === -1) continue //如果没有找到就跳过\n\t\tvar key = pairs[i].substring(0, pos) //提取name\n\t\tvar value = pairs[i].substring(pos + 1) //提取value\n\t\tparams[key] = unescape(decodeURI(value)) //存为属性,解码\n\t}\n\tdelete params['Inventory-Token']\n\treturn params\n}\n\nfunction getUrl(path, params) {\n\tvar url = path\n\tif (!$.isEmptyObject(params)) {\n\t\tvar quary = ''\n\t\tObject.keys(params).forEach(function (key) {\n\t\t\tif (params[key]) {\n\t\t\t\tquary += '&' + key + '=' + params[key]\n\t\t\t}\n\t\t})\n\t\tif (quary) {\n\t\t\turl += '?' + quary.substring(1)\n\t\t}\n\t}\n\treturn url\n}\n// 参数说明\n// type：本地梳理数据的类型get:取数据  set:存数据\n// inputData: set时需要存的数据\n// titleTip: 存在localStorage中的键名 默认问当前页面路径+'/_cache'\n// handle: 回调函数 默认逻辑为存数据到本地 没有其他操作 也可以自写逻辑\nfunction pageLocalCacheData({\n\ttype = 'get',\n\tinputData = '',\n\ttitleTip = (() => location.pathname + '/_cache')(),\n\thandle = function (type, inputData, titleTip) {\n\t\tif (type == 'set') {\n\t\t\tif (inputData) {\n\t\t\t\tlocalStorage.setItem(titleTip, JSON.stringify(inputData))\n\t\t\t} else {\n\t\t\t\tconsole.warn('无输入数据')\n\t\t\t}\n\t\t} else if (type == 'get') {\n\t\t\treturn localStorage.getItem(titleTip)\n\t\t} else {\n\t\t\tconsole.warn('type只能是set / get 这两种类型')\n\t\t}\n\t},\n} = data) {\n\tswitch (type) {\n\t\tcase 'get':\n\t\t\treturn handle(type, inputData, titleTip)\n\t\tcase 'set':\n\t\t\thandle(type, inputData, titleTip)\n\t\t\tbreak\n\t\tdefault:\n\t\t\tconsole.warn('type只能是set / get 这两种类型')\n\t\t\tbreak\n\t}\n}\nfunction getDate(dateStr, formatStr = 'yyyy-MM-dd HH:mm:ss') {\n\tvar year = 0\n\tvar start = -1\n\tvar len = dateStr.length\n\tif ((start = formatStr.indexOf('yyyy')) > -1 && start < len) {\n\t\tyear = dateStr.substr(start, 4)\n\t}\n\tvar month = 0\n\tif ((start = formatStr.indexOf('MM')) > -1 && start < len) {\n\t\tmonth = parseInt(dateStr.substr(start, 2)) - 1\n\t}\n\tvar day = 0\n\tif ((start "
+    },
+    {
+      "requestId": "23376.16",
+      "url": "https://sellerinventory.yswg.com.cn/js/util/download.js?v=20251208",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "// utils/download.js\nasync function downloadFileNew(url, data = {}) {\n  // 创建进度条 UI\n  const progressBar = createProgressBar();\n\n  try {\n    const response = await fetch(url, {\n      method: 'post',\n      headers: {\n        'Accept': 'application/octet-stream',\n        \"X-CSRF-TOKEN\": $('meta[name=\"csrf-token\"]').attr(\"content\"),\n        \"inventory-token\": localStorage.getItem('surfaceKey'),\n        \"jwt-token\": localStorage.getItem('jwt_token'),\n        'Content-Type': 'application/json'\n      },\n      body: JSON.stringify(data)\n    });\n    const contentType = response.headers.get('content-type') || '';\n    if (contentType.includes('application/json')) {\n      // 后端返回 JSON 错误\n      const json = await response.json();\n      if (json.code != 200) {\n        progressBar.remove();\n        layui.layer.msg(json.msg || '未登录或登录已过期，请重新登录');\n        return false;\n      }\n    }\n    // 检查响应状态\n    if (!response.ok) {\n      throw new Error(await response.text() || '下载失败');\n    }\n\n    // 获取文件名\n    const contentDisposition = response.headers.get('Content-Disposition');\n    let fileName = 'download';\n    if (contentDisposition) {\n      const match = contentDisposition.match(/filename\\*?=(?:UTF-8''|\")?([^\";]+)/i);\n      if (match && match[1]) {\n        let raw = match[1].replace(/^\"(.*)\"$/, '$1'); // 去掉引号\n\n        // 尝试几种方式逐级解析 1. 优先：URL 编码\n        let decoded = decodeURIComponent(raw);\n\n        // 2. 如果依旧是乱码（比如 \"ä»åº...\"），尝试 Latin1 -> UTF-8\n        if (/[\\u00C0-\\u024F]/.test(decoded)) { // 有西欧拉丁字符，疑似乱码\n          const bytes = new Uint8Array([...raw].map(c => c.charCodeAt(0)));\n          decoded = new TextDecoder('utf-8').decode(bytes);\n        }\n\n        // 3. 如果解析失败，就保留原始字符串\n        fileName = decoded || raw;\n      }\n    }\n    // 获取总大小（有些流式导出可能为 null）\n    const total = +response.headers.get('Content-Length') || 0;\n    let receivedLength = 0;\n    const chunks = [];\n\n    // 读取流\n    const reader = response.body.getReader();\n    while (true) {\n      const { done, value } = await reade"
+    },
+    {
+      "requestId": "23376.17",
+      "url": "https://sellerinventory.yswg.com.cn/frame/vue/vue.min.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/**\n * vue v3.4.15\n * (c) 2018-present Yuxi (Evan) You and Vue contributors\n * @license MIT\n **/\nvar Vue=function(e){\"use strict\";function t(e,t){const n=new Set(e.split(\",\"));return t?e=>n.has(e.toLowerCase()):e=>n.has(e)}const n={},s=[],o=()=>{},r=()=>!1,i=e=>111===e.charCodeAt(0)&&110===e.charCodeAt(1)&&(e.charCodeAt(2)>122||e.charCodeAt(2)<97),l=e=>e.startsWith(\"onUpdate:\"),c=Object.assign,a=(e,t)=>{const n=e.indexOf(t);n>-1&&e.splice(n,1)},u=Object.prototype.hasOwnProperty,d=(e,t)=>u.call(e,t),p=Array.isArray,h=e=>\"[object Map]\"===x(e),f=e=>\"[object Set]\"===x(e),m=e=>\"[object Date]\"===x(e),g=e=>\"function\"==typeof e,v=e=>\"string\"==typeof e,y=e=>\"symbol\"==typeof e,b=e=>null!==e&&\"object\"==typeof e,_=e=>(b(e)||g(e))&&g(e.then)&&g(e.catch),S=Object.prototype.toString,x=e=>S.call(e),C=e=>x(e).slice(8,-1),k=e=>\"[object Object]\"===x(e),T=e=>v(e)&&\"NaN\"!==e&&\"-\"!==e[0]&&\"\"+parseInt(e,10)===e,w=t(\",key,ref,ref_for,ref_key,onVnodeBeforeMount,onVnodeMounted,onVnodeBeforeUpdate,onVnodeUpdated,onVnodeBeforeUnmount,onVnodeUnmounted\"),N=t(\"bind,cloak,else-if,else,for,html,if,model,on,once,pre,show,slot,text,memo\"),A=e=>{const t=Object.create(null);return n=>t[n]||(t[n]=e(n))},E=/-(\\w)/g,I=A((e=>e.replace(E,((e,t)=>t?t.toUpperCase():\"\")))),R=/\\B([A-Z])/g,O=A((e=>e.replace(R,\"-$1\").toLowerCase())),F=A((e=>e.charAt(0).toUpperCase()+e.slice(1))),L=A((e=>e?`on${F(e)}`:\"\")),M=(e,t)=>!Object.is(e,t),P=(e,t)=>{for(let n=0;n<e.length;n++)e[n](t)},$=(e,t,n)=>{Object.defineProperty(e,t,{configurable:!0,enumerable:!1,value:n})},B=e=>{const t=parseFloat(e);return isNaN(t)?e:t},V=e=>{const t=v(e)?Number(e):NaN;return isNaN(t)?e:t};let D;const U=()=>D||(D=\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:{}),j=t(\"Infinity,undefined,NaN,isFinite,isNaN,parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,BigInt"
+    },
+    {
+      "requestId": "23376.18",
+      "url": "https://sellerinventory.yswg.com.cn/frame/elementPlus/element-plus.js?v=2.6.1",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/*! Element Plus v2.6.1 */(function(M,e){typeof exports==\"object\"&&typeof module!=\"undefined\"?e(exports,require(\"vue\")):typeof define==\"function\"&&define.amd?define([\"exports\",\"vue\"],e):(M=typeof globalThis!=\"undefined\"?globalThis:M||self,e(M.ElementPlus={},M.Vue))})(this,function(M,e){\"use strict\";const VN='a[href],button:not([disabled]),button:not([hidden]),:not([tabindex=\"-1\"]),input:not([disabled]),input:not([type=\"hidden\"]),select:not([disabled]),textarea:not([disabled])',vN=t=>getComputedStyle(t).position===\"fixed\"?!1:t.offsetParent!==null,Xm=t=>Array.from(t.querySelectorAll(VN)).filter(n=>MN(n)&&vN(n)),MN=t=>{if(t.tabIndex>0||t.tabIndex===0&&t.getAttribute(\"tabIndex\")!==null)return!0;if(t.disabled)return!1;switch(t.nodeName){case\"A\":return!!t.href&&t.rel!==\"ignore\";case\"INPUT\":return!(t.type===\"hidden\"||t.type===\"file\");case\"BUTTON\":case\"SELECT\":case\"TEXTAREA\":return!0;default:return!1}},ls=function(t,n,...o){let r;n.includes(\"mouse\")||n.includes(\"click\")?r=\"MouseEvents\":n.includes(\"key\")?r=\"KeyboardEvent\":r=\"HTMLEvents\";const l=document.createEvent(r);return l.initEvent(n,...o),t.dispatchEvent(l),t},Zm=t=>!t.getAttribute(\"aria-owns\"),Jm=(t,n,o)=>{const{parentNode:r}=t;if(!r)return null;const l=r.querySelectorAll(o),a=Array.prototype.indexOf.call(l,t);return l[a+n]||null},as=t=>{!t||(t.focus(),!Zm(t)&&t.click())},bt=(t,n,{checkForDefaultPrevented:o=!0}={})=>l=>{const a=t==null?void 0:t(l);if(o===!1||!a)return n==null?void 0:n(l)},Qm=t=>n=>n.pointerType===\"mouse\"?t(n):void 0;var RN=Object.defineProperty,IN=Object.defineProperties,ON=Object.getOwnPropertyDescriptors,eh=Object.getOwnPropertySymbols,PN=Object.prototype.hasOwnProperty,AN=Object.prototype.propertyIsEnumerable,th=(t,n,o)=>n in t?RN(t,n,{enumerable:!0,configurable:!0,writable:!0,value:o}):t[n]=o,zN=(t,n)=>{for(var o in n||(n={}))PN.call(n,o)&&th(t,o,n[o]);if(eh)for(var o of eh(n))AN.call(n,o)&&th(t,o,n[o]);return t},xN=(t,n)=>IN(t,ON(n));function nh(t,n){var o;const r=e.shallowRef();return e.watchEff"
+    },
+    {
+      "requestId": "23376.19",
+      "url": "https://sellerinventory.yswg.com.cn/frame/elementPlus/zh-cn.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/*! Element Plus v2.5.3 */\n\n(function (global, factory) {\n    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :\n        typeof define === 'function' && define.amd ? define(factory) :\n            (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.ElementPlusLocaleZhCn = factory());\n})(this, (function () { 'use strict';\n\n    var zhCn = {\n        name: \"zh-cn\",\n        el: {\n            colorpicker: {\n                confirm: \"\\u786E\\u5B9A\",\n                clear: \"\\u6E05\\u7A7A\"\n            },\n            datepicker: {\n                now: \"\\u6B64\\u523B\",\n                today: \"\\u4ECA\\u5929\",\n                cancel: \"\\u53D6\\u6D88\",\n                clear: \"\\u6E05\\u7A7A\",\n                confirm: \"\\u786E\\u5B9A\",\n                selectDate: \"\\u9009\\u62E9\\u65E5\\u671F\",\n                selectTime: \"\\u9009\\u62E9\\u65F6\\u95F4\",\n                startDate: \"\\u5F00\\u59CB\\u65E5\\u671F\",\n                startTime: \"\\u5F00\\u59CB\\u65F6\\u95F4\",\n                endDate: \"\\u7ED3\\u675F\\u65E5\\u671F\",\n                endTime: \"\\u7ED3\\u675F\\u65F6\\u95F4\",\n                prevYear: \"\\u524D\\u4E00\\u5E74\",\n                nextYear: \"\\u540E\\u4E00\\u5E74\",\n                prevMonth: \"\\u4E0A\\u4E2A\\u6708\",\n                nextMonth: \"\\u4E0B\\u4E2A\\u6708\",\n                year: \"\\u5E74\",\n                month1: \"1 \\u6708\",\n                month2: \"2 \\u6708\",\n                month3: \"3 \\u6708\",\n                month4: \"4 \\u6708\",\n                month5: \"5 \\u6708\",\n                month6: \"6 \\u6708\",\n                month7: \"7 \\u6708\",\n                month8: \"8 \\u6708\",\n                month9: \"9 \\u6708\",\n                month10: \"10 \\u6708\",\n                month11: \"11 \\u6708\",\n                month12: \"12 \\u6708\",\n                weeks: {\n                    sun: \"\\u65E5\",\n                    mon: \"\\u4E00\",\n                    tue: \"\\u4E8C\",\n                    wed: \"\\u4E09\",\n                    thu: \"\\u56DB\",\n                 "
+    },
+    {
+      "requestId": "23376.20",
+      "url": "https://sellerinventory.yswg.com.cn/frame/elementPlus/element-plus-icons.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/*! Element Plus Icons Vue v2.3.1 */\n\n\"use strict\";var ElementPlusIconsVue=(()=>{var Xs=Object.create;var H1=Object.defineProperty;var Ys=Object.getOwnPropertyDescriptor;var $s=Object.getOwnPropertyNames;var e_=Object.getPrototypeOf,o_=Object.prototype.hasOwnProperty;var t_=(t,r)=>()=>(r||t((r={exports:{}}).exports,r),r.exports),r_=(t,r)=>{for(var a in r)H1(t,a,{get:r[a],enumerable:!0})},A1=(t,r,a,L1)=>{if(r&&typeof r==\"object\"||typeof r==\"function\")for(let N1 of $s(r))!o_.call(t,N1)&&N1!==a&&H1(t,N1,{get:()=>r[N1],enumerable:!(L1=Ys(r,N1))||L1.enumerable});return t};var o=(t,r,a)=>(a=t!=null?Xs(e_(t)):{},A1(r||!t||!t.__esModule?H1(a,\"default\",{value:t,enumerable:!0}):a,t)),a_=t=>A1(H1({},\"__esModule\",{value:!0}),t);var e=t_((l_,S1)=>{S1.exports=Vue});var n_={};r_(n_,{AddLocation:()=>b1,Aim:()=>R1,AlarmClock:()=>G1,Apple:()=>I1,ArrowDown:()=>X1,ArrowDownBold:()=>Q1,ArrowLeft:()=>r4,ArrowLeftBold:()=>e4,ArrowRight:()=>c4,ArrowRightBold:()=>m4,ArrowUp:()=>u4,ArrowUpBold:()=>_4,Avatar:()=>v4,Back:()=>k4,Baseball:()=>V4,Basketball:()=>y4,Bell:()=>S4,BellFilled:()=>H4,Bicycle:()=>b4,Bottom:()=>I4,BottomLeft:()=>R4,BottomRight:()=>G4,Bowl:()=>Q4,Box:()=>X4,Briefcase:()=>et,Brush:()=>mt,BrushFilled:()=>rt,Burger:()=>ct,Calendar:()=>_t,Camera:()=>vt,CameraFilled:()=>ut,CaretBottom:()=>kt,CaretLeft:()=>Vt,CaretRight:()=>yt,CaretTop:()=>Ht,Cellphone:()=>St,ChatDotRound:()=>bt,ChatDotSquare:()=>Rt,ChatLineRound:()=>Gt,ChatLineSquare:()=>It,ChatRound:()=>Qt,ChatSquare:()=>Xt,Check:()=>er,Checked:()=>rr,Cherry:()=>mr,Chicken:()=>cr,ChromeFilled:()=>_r,CircleCheck:()=>vr,CircleCheckFilled:()=>ur,CircleClose:()=>Vr,CircleCloseFilled:()=>kr,CirclePlus:()=>Hr,CirclePlusFilled:()=>yr,Clock:()=>Sr,Close:()=>Rr,CloseBold:()=>br,Cloudy:()=>Gr,Coffee:()=>Qr,CoffeeCup:()=>Ir,Coin:()=>Xr,ColdDrink:()=>e6,Collection:()=>m6,CollectionTag:()=>r6,Comment:()=>c6,Compass:()=>_6,Connection:()=>u6,Coordinate:()=>v6,CopyDocument:()=>k6,Cpu:()=>V6,CreditCard:()=>y6,Crop:()=>H6,DArrowLeft:()=>S6,DArr"
+    },
+    {
+      "requestId": "23376.21",
+      "url": "https://sellerinventory.yswg.com.cn/assert/formSelect/formSelects-v4.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "'use strict';\n\nvar _typeof = typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; };\n\nfunction _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }\n\n/**\n * name: formSelects\n * 基于Layui Select多选\n * version: 4.0.0.0910\n * http://sun.faysunshine.com/layui/formSelects-v4/dist/formSelects-v4.js\n */\n(function (layui, window, factory) {\n\tif ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') {\n\t\t// 支持 CommonJS\n\t\tmodule.exports = factory();\n\t} else if (typeof define === 'function' && define.amd) {\n\t\t// 支持 AMD\n\t\tdefine(factory);\n\t} else if (window.layui && layui.define) {\n\t\t//layui加载\n\t\tlayui.define(['jquery'], function (exports) {\n\t\t\texports('formSelects', factory());\n\t\t});\n\t} else {\n\t\twindow.formSelects = factory();\n\t}\n})(typeof layui == 'undefined' ? null : layui, window, function () {\n\tvar v = '4.0.0.0910',\n\t    NAME = 'xm-select',\n\t    PNAME = 'xm-select-parent',\n\t    INPUT = 'xm-select-input',\n\t    TDIV = 'xm-select--suffix',\n\t    THIS = 'xm-select-this',\n\t    LABEL = 'xm-select-label',\n\t    SEARCH = 'xm-select-search',\n\t    SEARCH_TYPE = 'xm-select-search-type',\n\t    SHOW_COUNT = 'xm-select-show-count',\n\t    CREATE = 'xm-select-create',\n\t    CREATE_LONG = 'xm-select-create-long',\n\t    MAX = 'xm-select-max',\n\t    SKIN = 'xm-select-skin',\n\t    DIRECTION = \"xm-select-direction\",\n\t    HEIGHT = 'xm-select-height',\n\t    DISABLED = 'xm-dis-disabled',\n\t    DIS = 'xm-select-dis',\n\t    TEMP = 'xm-select-temp',\n\t    RADIO = 'xm-select-radio',\n\t    LINKAGE = 'xm-select-linkage',\n\t    DL = 'xm-select-dl',\n\t    DD_HIDE = 'xm-select-hide',\n\t    HIDE_INPUT = 'xm-hide-input',\n\t    SANJIAO = 'xm-select-sj',\n\t    ICON"
+    },
+    {
+      "requestId": "23376.36",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/form.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/**\n\n @Name：layui.form 表单组件\n @Author：贤心\n @License：MIT\n\n */\n\nlayui.define('layer', function(exports){\n    \"use strict\";\n\n    var $ = layui.$\n        ,layer = layui.layer\n        ,hint = layui.hint()\n        ,device = layui.device()\n\n        ,MOD_NAME = 'form', ELEM = '.layui-form', THIS = 'layui-this'\n        ,SHOW = 'layui-show', HIDE = 'layui-hide', DISABLED = 'layui-disabled'\n\n        ,Form = function(){\n        this.config = {\n            verify: {\n                required: [\n                    /[\\S]+/\n                    ,'必填项不能为空'\n                ]\n                ,phone: [\n                    /^1\\d{10}$/\n                    ,'请输入正确的手机号'\n                ]\n                ,email: [\n                    /^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$/\n                    ,'邮箱格式不正确'\n                ]\n                ,url: [\n                    /(^#)|(^http(s*):\\/\\/[^\\s]+\\.[^\\s]+)/\n                    ,'链接格式不正确'\n                ]\n                ,number: function(value){\n                    if(!value || isNaN(value)) return '只能填写数字'\n                }\n                ,date: [\n                    /^(\\d{4})[-\\/](\\d{1}|0\\d{1}|1[0-2])([-\\/](\\d{1}|0\\d{1}|[1-2][0-9]|3[0-1]))*$/\n                    ,'日期格式不正确'\n                ]\n                ,identity: [\n                    /(^\\d{15}$)|(^\\d{17}(x|X|\\d)$)/\n                    ,'请输入正确的身份证号'\n                ],\n                zeroUp:[\n                    /^([0]|[1-9][0-9]*)$/\n                    ,'只能输入零或正整数'\n                ]\n            }\n        };\n    };\n\n    //全局设置\n    Form.prototype.set = function(options){\n        var that = this;\n        $.extend(true, that.config, options);\n        return that;\n    };\n\n    //验证规则设定\n    Form.prototype.verify = function(settings){\n        var that = this;\n        $.extend(true, that.config.verify, settings);\n        return that;\n    };\n\n    //表单事件监听\n    Form.prototype.on = function(events, callback){\n        return layui.onevent.call(this, MOD_NAME, events, callback);\n"
+    },
+    {
+      "requestId": "23376.38",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/lib/index.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/**\n\n @Name：layuiAdmin iframe版主入口\n @Author：贤心\n @Site：http://www.layui.com/admin/\n @License：LPPL\n    \n */\n\n\nlayui\n  .extend({\n    setter: 'config', //配置模块\n    admin: 'lib/admin', //核心模块\n    view: 'lib/view', //视图渲染模块\n  })\n  .define(['setter', 'admin'], function (exports) {\n    var setter = layui.setter,\n      element = layui.element,\n      admin = layui.admin,\n      tabsPage = admin.tabsPage,\n      view = layui.view,\n      //打开标签页\n      openTabsPage = function (url, text) {\n        //遍历页签选项卡\n        var matchTo,\n          tabs = $('#LAY_app_tabsheader>li'),\n          path = url.replace(/(^http(s*):)|(\\?[\\s\\S]*$)/g, '');\n\n        tabs.each(function (index) {\n          var li = $(this),\n            layid = li.attr('lay-id');\n\n          if (layid === url) {\n            matchTo = true;\n            tabsPage.index = index;\n          }\n        });\n\n        text = text || '新标签页';\n\n        if (setter.pageTabs) {\n          //如果未在选项卡中匹配到，则追加选项卡\n          // if(!matchTo){\n          var tempTime = new Date().getTime();\n          if (url.trim().indexOf('?') > -1) {\n            if (url.trim().indexOf('tempid=') > -1) {\n              url = url;\n            } else {\n              url = url.trim() + '&tempid=' + tempTime;\n            }\n          } else {\n            url = url.trim() + '?tempid=' + tempTime;\n          }\n          let inv_token='';\n          let tempPath = path.trim() + '?tempid=' + tempTime;\n          if(localStorage.getItem('surfaceKey')){\n            inv_token=<redacted>'surfaceKey');\n            url=url+'&Inventory-Token='+inv_token;\n            tempPath=tempPath+'&Inventory-Token='+inv_token;\n          }\n          $(APP_BODY).append(\n            [\n              '<div class=\"layadmin-tabsbody-item layui-show\">',\n              '<iframe src=\"' +\n                url +\n                '\" frameborder=\"0\" class=\"layadmin-iframe\" allow=\"clipboard-write\"></iframe>',\n              '</div>',\n            ].join('')\n          );\n          tabsPage.index = tabs.length"
+    },
+    {
+      "requestId": "23376.39",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/layer.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/** layui-v2.4.5 MIT License By https://www.layui.com */\n;!function(e,t){\"use strict\";var i,n,a=e.layui&&layui.define,o={getPath:function(){var e=document.currentScript?document.currentScript.src:function(){for(var e,t=document.scripts,i=t.length-1,n=i;n>0;n--)if(\"interactive\"===t[n].readyState){e=t[n].src;break}return e||t[i].src}();return e.substring(0,e.lastIndexOf(\"/\")+1)}(),config:{},end:{},minIndex:0,minLeft:[],btn:[\"&#x786E;&#x5B9A;\",\"&#x53D6;&#x6D88;\"],type:[\"dialog\",\"page\",\"iframe\",\"loading\",\"tips\"],getStyle:function(t,i){var n=t.currentStyle?t.currentStyle:e.getComputedStyle(t,null);return n[n.getPropertyValue?\"getPropertyValue\":\"getAttribute\"](i)},link:function(t,i,n){if(r.path){var a=document.getElementsByTagName(\"head\")[0],s=document.createElement(\"link\");\"string\"==typeof i&&(n=i);var l=(n||t).replace(/\\.|\\//g,\"\"),f=\"layuicss-\"+l,c=0;s.rel=\"stylesheet\",s.href=r.path+t,s.id=f,document.getElementById(f)||a.appendChild(s),\"function\"==typeof i&&!function u(){return++c>80?e.console&&console.error(\"layer.css: Invalid\"):void(1989===parseInt(o.getStyle(document.getElementById(f),\"width\"))?i():setTimeout(u,100))}()}}},r={v:\"3.1.1\",ie:function(){var t=navigator.userAgent.toLowerCase();return!!(e.ActiveXObject||\"ActiveXObject\"in e)&&((t.match(/msie\\s(\\d+)/)||[])[1]||\"11\")}(),index:e.layer&&e.layer.v?1e5:0,path:o.getPath,config:function(e,t){return e=e||{},r.cache=o.config=i.extend({},o.config,e),r.path=o.config.path||r.path,\"string\"==typeof e.extend&&(e.extend=[e.extend]),o.config.path&&r.ready(),e.extend?(a?layui.addcss(\"modules/layer/\"+e.extend):o.link(\"theme/\"+e.extend),this):this},ready:function(e){var t=\"layer\",i=\"\",n=(a?\"modules/layer/\":\"theme/\")+\"default/layer.css?v=\"+r.v+i;return a?layui.addcss(n,e,t):o.link(n,e,t),this},alert:function(e,t,n){var a=\"function\"==typeof t;return a&&(n=t),r.open(i.extend({content:e,yes:n},a?{}:t))},confirm:function(e,t,n,a){var s=\"function\"==typeof t;return s&&(a=n,n=t),r.open(i.extend({content:e,btn:o.btn,yes:n,btn2:a},s?{}:t"
+    },
+    {
+      "requestId": "23376.40",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/config.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/**\n\n @Name：layuiAdmin iframe版全局配置\n @Author：贤心\n @Site：http://www.layui.com/admin/\n @License：LPPL（layui付费产品协议）\n    \n */\n \nlayui.define(['laytpl', 'layer', 'element', 'util'], function(exports){\n  exports('setter', {\n    container: 'LAY_app' //容器ID\n    ,base: layui.cache.base //记录静态资源所在路径\n    ,views: layui.cache.base + 'tpl/' //动态模板所在目录\n    ,entry: 'index' //默认视图文件名\n    ,engine: '.html' //视图文件后缀名\n    ,pageTabs: true //是否开启页面选项卡功能。iframe版推荐开启\n    \n    ,name: 'layuiAdmin'\n    ,tableName: 'layuiAdmin' //本地存储表名\n    ,MOD_NAME: 'admin' //模块事件名\n    \n    ,debug: true //是否开启调试模式。如开启，接口异常时会抛出异常 URL 等信息\n\n    //自定义请求字段\n    ,request: {\n      tokenName: false //自动携带 token 的字段名（如：access_token）。可设置 false 不携带。\n    }\n    \n    //自定义响应字段\n    ,response: {\n      statusName: 'code' //数据状态的字段名称\n      ,statusCode: {\n        ok: 0 //数据状态一切正常的状态码\n        ,logout: 1001 //登录状态失效的状态码\n      }\n      ,msgName: 'msg' //状态信息的字段名称\n      ,dataName: 'data' //数据详情的字段名称\n    }\n    \n    //扩展的第三方模块\n    ,extend: [\n      'echarts', //echarts 核心包\n      'echartsTheme' //echarts 主题\n    ]\n    \n    //主题配置\n    ,theme: {\n      //内置主题配色方案\n      color: [{\n        main: '#20222A' //主题色\n        ,selected: '#009688' //选中色\n        ,alias: 'default' //默认别名\n      },{\n        main: '#03152A'\n        ,selected: '#3B91FF'\n        ,alias: 'dark-blue' //藏蓝\n      },{\n        main: '#2E241B'\n        ,selected: '#A48566'\n        ,alias: 'coffee' //咖啡\n      },{\n        main: '#50314F'\n        ,selected: '#7A4D7B'\n        ,alias: 'purple-red' //紫红\n      },{\n        main: '#344058'\n        ,logo: '#1E9FFF'\n        ,selected: '#1E9FFF'\n        ,alias: 'ocean' //海洋\n      },{\n        main: '#3A3D49'\n        ,logo: '#2F9688'\n        ,selected: '#5FB878'\n        ,alias: 'green' //墨绿\n      },{\n        main: '#20222A'\n        ,logo: '#F78400'\n        ,selected: '#F78400'\n        ,alias: 'red' //橙色\n      },{\n        main: '#28333E'\n        ,logo: '#AA3130'\n        ,selected: '#AA3130'\n        ,alias: 'fashion-red' //时尚红\n      },{\n        main: '"
+    },
+    {
+      "requestId": "23376.42",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/laytpl.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/** layui-v2.4.5 MIT License By https://www.layui.com */\n ;layui.define(function(e){\"use strict\";var r={open:\"{{\",close:\"}}\"},c={exp:function(e){return new RegExp(e,\"g\")},query:function(e,c,t){var o=[\"#([\\\\s\\\\S])+?\",\"([^{#}])*?\"][e||0];return n((c||\"\")+r.open+o+r.close+(t||\"\"))},escape:function(e){return String(e||\"\").replace(/&(?!#?[a-zA-Z0-9]+;)/g,\"&amp;\").replace(/</g,\"&lt;\").replace(/>/g,\"&gt;\").replace(/'/g,\"&#39;\").replace(/\"/g,\"&quot;\")},error:function(e,r){var c=\"Laytpl Error：\";return\"object\"==typeof console&&console.error(c+e+\"\\n\"+(r||\"\")),c+e}},n=c.exp,t=function(e){this.tpl=e};t.pt=t.prototype,window.errors=0,t.pt.parse=function(e,t){var o=this,p=e,a=n(\"^\"+r.open+\"#\",\"\"),l=n(r.close+\"$\",\"\");e=e.replace(/\\s+|\\r|\\t|\\n/g,\" \").replace(n(r.open+\"#\"),r.open+\"# \").replace(n(r.close+\"}\"),\"} \"+r.close).replace(/\\\\/g,\"\\\\\\\\\").replace(n(r.open+\"!(.+?)!\"+r.close),function(e){return e=e.replace(n(\"^\"+r.open+\"!\"),\"\").replace(n(\"!\"+r.close),\"\").replace(n(r.open+\"|\"+r.close),function(e){return e.replace(/(.)/g,\"\\\\$1\")})}).replace(/(?=\"|')/g,\"\\\\\").replace(c.query(),function(e){return e=e.replace(a,\"\").replace(l,\"\"),'\";'+e.replace(/\\\\/g,\"\")+';view+=\"'}).replace(c.query(1),function(e){var c='\"+(';return e.replace(/\\s/g,\"\")===r.open+r.close?\"\":(e=e.replace(n(r.open+\"|\"+r.close),\"\"),/^=/.test(e)&&(e=e.replace(/^=/,\"\"),c='\"+_escape_('),c+e.replace(/\\\\/g,\"\")+')+\"')}),e='\"use strict\";var view = \"'+e+'\";return view;';try{return o.cache=e=new Function(\"d, _escape_\",e),e(t,c.escape)}catch(u){return delete o.cache,c.error(u,p)}},t.pt.render=function(e,r){var n,t=this;return e?(n=t.cache?t.cache(e,c.escape):t.parse(t.tpl,e),r?void r(n):n):c.error(\"no data\")};var o=function(e){return\"string\"!=typeof e?c.error(\"Template not found\"):new t(e)};o.config=function(e){e=e||{};for(var c in e)r[c]=e[c]},o.v=\"1.2.0\",e(\"laytpl\",o)});"
+    },
+    {
+      "requestId": "23376.43",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/element.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/** layui-v2.4.5 MIT License By https://www.layui.com */\nlayui.define('jquery', function (t) {\n  'use strict'\n  var a = layui.$,\n    i = (layui.hint(), layui.device()),\n    e = 'element',\n    l = 'layui-this',\n    n = 'layui-show',\n    s = function () {\n      this.config = {}\n    }\n  ;(s.prototype.set = function (t) {\n    var i = this\n    return a.extend(!0, i.config, t), i\n  }),\n    (s.prototype.on = function (t, a) {\n      return layui.onevent.call(this, e, t, a)\n    }),\n    (s.prototype.tabAdd = function (t, i) {\n      var e = '.layui-tab-title',\n        l = a('.layui-tab[lay-filter=' + t + ']'),\n        n = l.children(e),\n        s = n.children('.layui-tab-bar'),\n        o = l.children('.layui-tab-content'),\n        r =\n          '<li class=\"' +\n          (i.class || '') +\n          '\" lay-id=\"' +\n          (i.id || '') +\n          '\"' +\n          (i.attr ? ' lay-attr=\"' + i.attr + '\"' : '') +\n          '>' +\n          (i.title || 'unnaming') +\n          '</li>'\n      return (\n        s[0] ? s.before(r) : n.append(r),\n        o.append(\n          '<div class=\"layui-tab-item\">' +\n            (i.content || '') +\n            '</div>'\n        ),\n        f.hideTabMore(!0),\n        f.tabAuto(),\n        this\n      )\n    }),\n    (s.prototype.tabDelete = function (t, i) {\n      var e = '.layui-tab-title',\n        l = a('.layui-tab[lay-filter=' + t + ']'),\n        n = l.children(e),\n        s = n.find('>li[lay-id=\"' + i + '\"]')\n      return f.tabDelete(null, s), this\n    }),\n    (s.prototype.tabChange = function (t, i) {\n      var e = '.layui-tab-title',\n        l = a('.layui-tab[lay-filter=' + t + ']'),\n        n = l.children(e),\n        s = n.find('>li[lay-id=\"' + i + '\"]')\n      return f.tabClick.call(s[0], null, null, s), this\n    }),\n    (s.prototype.tab = function (t) {\n      ;(t = t || {}),\n        b.on('click', t.headerElem, function (i) {\n          var e = a(this).index()\n          f.tabClick.call(this, i, e, null, t)\n        })\n    }),\n    (s.prototype.progress ="
+    },
+    {
+      "requestId": "23376.44",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/util.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/** layui-v2.4.5 MIT License By https://www.layui.com */\n ;layui.define(\"jquery\",function(t){\"use strict\";var e=layui.$,i={fixbar:function(t){var i,a,n=\"layui-fixbar\",r=\"layui-fixbar-top\",o=e(document),l=e(\"body\");t=e.extend({showHeight:200},t),t.bar1=t.bar1===!0?\"&#xe606;\":t.bar1,t.bar2=t.bar2===!0?\"&#xe607;\":t.bar2,t.bgcolor=t.bgcolor?\"background-color:\"+t.bgcolor:\"\";var c=[t.bar1,t.bar2,\"&#xe604;\"],g=e(['<ul class=\"'+n+'\">',t.bar1?'<li class=\"layui-icon\" lay-type=\"bar1\" style=\"'+t.bgcolor+'\">'+c[0]+\"</li>\":\"\",t.bar2?'<li class=\"layui-icon\" lay-type=\"bar2\" style=\"'+t.bgcolor+'\">'+c[1]+\"</li>\":\"\",'<li class=\"layui-icon '+r+'\" lay-type=\"top\" style=\"'+t.bgcolor+'\">'+c[2]+\"</li>\",\"</ul>\"].join(\"\")),s=g.find(\".\"+r),u=function(){var e=o.scrollTop();e>=t.showHeight?i||(s.show(),i=1):i&&(s.hide(),i=0)};e(\".\"+n)[0]||(\"object\"==typeof t.css&&g.css(t.css),l.append(g),u(),g.find(\"li\").on(\"click\",function(){var i=e(this),a=i.attr(\"lay-type\");\"top\"===a&&e(\"html,body\").animate({scrollTop:0},200),t.click&&t.click.call(this,a)}),o.on(\"scroll\",function(){clearTimeout(a),a=setTimeout(function(){u()},100)}))},countdown:function(t,e,i){var a=this,n=\"function\"==typeof e,r=new Date(t).getTime(),o=new Date(!e||n?(new Date).getTime():e).getTime(),l=r-o,c=[Math.floor(l/864e5),Math.floor(l/36e5)%24,Math.floor(l/6e4)%60,Math.floor(l/1e3)%60];n&&(i=e);var g=setTimeout(function(){a.countdown(t,o+1e3,i)},1e3);return i&&i(l>0?c:[0,0,0,0],e,g),l<=0&&clearTimeout(g),g},timeAgo:function(t,e){var i=this,a=[[],[]],n=(new Date).getTime()-new Date(t).getTime();return n>6912e5?(n=new Date(t),a[0][0]=i.digit(n.getFullYear(),4),a[0][1]=i.digit(n.getMonth()+1),a[0][2]=i.digit(n.getDate()),e||(a[1][0]=i.digit(n.getHours()),a[1][1]=i.digit(n.getMinutes()),a[1][2]=i.digit(n.getSeconds())),a[0].join(\"-\")+\" \"+a[1].join(\":\")):n>=864e5?(n/1e3/60/60/24|0)+\"天前\":n>=36e5?(n/1e3/60/60|0)+\"小时前\":n>=12e4?(n/1e3/60|0)+\"分钟前\":n<0?\"未来\":\"刚刚\"},digit:function(t,e){var i=\"\";t=String(t),e=e||2;for(var a=t.length;a<e;a++)i+=\"0\";re"
+    },
+    {
+      "requestId": "23376.45",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/lib/admin.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 2,
+      "sample": "/**\n\n @Name：layuiAdmin iframe版核心模块\n @Author：贤心\n @Site：http://www.layui.com/admin/\n @License：LPPL\n    \n */\n\n layui.define('view', function (exports) {\n  var $ = layui.jquery,\n    laytpl = layui.laytpl,\n    element = layui.element,\n    setter = layui.setter,\n    view = layui.view,\n    device = layui.device(),\n    $win = $(window),\n    $body = $('body'),\n    container = $('#' + setter.container),\n    SHOW = 'layui-show',\n    HIDE = 'layui-hide',\n    THIS = 'layui-this',\n    DISABLED = 'layui-disabled',\n    TEMP = 'template',\n    VISIBILITY = 'visibility_show',\n    APP_BODY = '#LAY_app_body',\n    APP_FLEXIBLE = 'LAY_app_flexible',\n    FILTER_TAB_TBAS = 'layadmin-layout-tabs',\n    APP_SPREAD_SM = 'layadmin-side-spread-sm',\n    TABS_BODY = 'layadmin-tabsbody-item',\n    ICON_SHRINK = 'layui-icon-shrink-right',\n    ICON_SPREAD = 'layui-icon-spread-left',\n    SIDE_SHRINK = 'layadmin-side-shrink',\n    SIDE_MENU = 'LAY-system-side-menu',\n    //通用方法\n    admin = {\n      v: '1.2.1 std',\n\n      //数据的异步请求\n      req: view.req,\n\n      //清除本地 token，并跳转到登入页\n      exit: view.exit,\n\n      //xss 转义\n      escape: function (html) {\n        return String(html || '')\n          .replace(/&(?!#?[a-zA-Z0-9]+;)/g, '&amp;')\n          .replace(/</g, '&lt;')\n          .replace(/>/g, '&gt;')\n          .replace(/'/g, '&#39;')\n          .replace(/\"/g, '&quot;');\n      },\n\n      //事件监听\n      on: function (events, callback) {\n        return layui.onevent.call(this, setter.MOD_NAME, events, callback);\n      },\n\n      //发送验证码\n      sendAuthCode: function (options) {\n        options = $.extend(\n          {\n            seconds: 60,\n            elemPhone: '#LAY_phone',\n            elemVercode: '#LAY_vercode',\n          },\n          options\n        );\n\n        var seconds = options.seconds,\n          btn = $(options.elem),\n          token = null,\n          timer,\n          countDown = function (loop) {\n            seconds--;\n            if (seconds < 0) {\n              btn.removeClass(DISABLED).html('获取验证码');\n"
+    },
+    {
+      "requestId": "23376.46",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/lib/view.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/**\n\n @Name：layuiAdmin 视图模块\n @Author：贤心\n @Site：http://www.layui.com/admin/\n @License：LPPL\n    \n */\n \nlayui.define(['laytpl', 'layer'], function(exports){\n  var $ = layui.jquery\n  ,laytpl = layui.laytpl\n  ,layer = layui.layer\n  ,setter = layui.setter\n  ,device = layui.device()\n  ,hint = layui.hint()\n  \n  //对外接口\n  ,view = function(id){\n    return new Class(id);\n  }\n  \n  ,SHOW = 'layui-show', LAY_BODY = 'LAY_app_body'\n  \n  //构造器\n  ,Class = function(id){\n    this.id = id;\n    this.container = $('#'+(id || LAY_BODY));\n  };\n  \n  //加载中\n  view.loading = function(elem){\n    elem.append(\n      this.elemLoad = $('<i class=\"layui-anim layui-anim-rotate layui-anim-loop layui-icon layui-icon-loading layadmin-loading\"></i>')\n    );\n  };\n    \n  //移除加载\n  view.removeLoad = function(){\n    this.elemLoad && this.elemLoad.remove();\n  };\n  \n  //清除 token，并跳转到登入页\n  view.exit = function(callback){\n    //清空本地记录的 token\n    layui.data(setter.tableName, {\n      key: setter.request.tokenName\n      ,remove: true\n    });\n    \n    //跳转到登入页\n    //location.hash = '/user/login'; \n    callback && callback();\n  };\n  \n  //Ajax请求\n  view.req = function(options){\n    var that = this\n    ,success = options.success\n    ,error = options.error\n    ,request = setter.request\n    ,response = setter.response\n    ,debug = function(){\n      return setter.debug \n        ? '<br><cite>URL：</cite>' + options.url\n      : '';\n    };\n    \n    options.data = options.data || {};\n    options.headers = options.headers || {};\n    \n    if(request.tokenName){\n      var sendData = typeof options.data === 'string' \n        ? JSON.parse(options.data) \n      : options.data;\n\n      //自动给参数传入默认 token\n      options.data[request.tokenName] = request.tokenName in sendData\n        ?  options.data[request.tokenName]\n      : (layui.data(setter.tableName)[request.tokenName] || '');\n      \n      //自动给 Request Headers 传入 token\n      options.headers[request.tokenName] = request.tokenName in options.headers \n        ?  options.headers[request.toke"
+    },
+    {
+      "requestId": "23376.47",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/modules/common.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/**\n\n @Name：layuiAdmin 公共业务\n @Author：贤心\n @Site：http://www.layui.com/admin/\n @License：LPPL\n    \n */\n \nlayui.define(function(exports){\n  var $ = layui.$\n  ,layer = layui.layer\n  ,laytpl = layui.laytpl\n  ,setter = layui.setter\n  ,view = layui.view\n  ,admin = layui.admin\n  \n  //公共业务的逻辑处理可以写在此处，切换任何页面都会执行\n  //……\n  \n  \n  \n  //退出\n  admin.events.logout = function(){\n    //执行退出接口\n    admin.req({\n      url: layui.setter.base + 'json/user/logout.js'\n      ,type: 'get'\n      ,data: {}\n      ,done: function(res){ //这里要说明一下：done 是只有 response 的 code 正常才会执行。而 succese 则是只要 http 为 200 就会执行\n        \n        //清空本地记录的 token，并跳转到登入页\n        admin.exit(function(){\n          location.href = 'user/login.html';\n        });\n      }\n    });\n  };\n\n  \n  //对外暴露的接口\n  exports('common', {});\n});"
+    },
+    {
+      "requestId": "23376.48",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/table.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/**\n\n @Name：layui.table 表格操作\n @Author：贤心\n @License：MIT\n\n */\n\nlayui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){\n    \"use strict\";\n\n    var $ = layui.$\n        ,laytpl = layui.laytpl\n        ,laypage = layui.laypage\n        ,layer = layui.layer\n        ,form = layui.form\n        ,util = layui.util\n        ,hint = layui.hint()\n        ,device = layui.device()\n\n        //外部接口\n        ,table = {\n            config: {\n                checkName: 'LAY_CHECKED' //是否选中状态的字段名\n                ,indexName: 'LAY_TABLE_INDEX' //下标索引名\n            } //全局配置项\n            ,cache: {} //数据缓存\n            ,index: layui.table ? (layui.table.index + 10000) : 0\n\n            //设置全局项\n            ,set: function(options){\n                var that = this;\n                that.config = $.extend({}, that.config, options);\n                return that;\n            }\n\n            //事件监听\n            ,on: function(events, callback){\n                return layui.onevent.call(this, MOD_NAME, events, callback);\n            }\n        }\n\n        //操作当前实例\n        ,thisTable = function(){\n            var that = this\n                ,options = that.config\n                ,id = options.id || options.index;\n\n            if(id){\n                thisTable.that[id] = that; //记录当前实例对象\n                thisTable.config[id] = options; //记录当前实例配置项\n            }\n\n            return {\n                config: options\n                ,reload: function(options){\n                    that.reload.call(that, options);\n                }\n                ,setColsWidth: function(){\n                    that.setColsWidth.call(that);\n                }\n                ,resize: function(){ //重置表格尺寸/结构\n                    that.resize.call(that);\n                }\n            }\n        }\n\n        //获取当前实例配置项\n        ,getThisTableConfig = function(id){\n            var config = thisTable.config[id];\n            if(!config) hint.error('The ID option was not found in the table instance');\n            return config ||"
+    },
+    {
+      "requestId": "23376.49",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/laypage.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/** layui-v2.4.5 MIT License By https://www.layui.com */\n ;layui.define(function(e){\"use strict\";var a=document,t=\"getElementById\",n=\"getElementsByTagName\",i=\"laypage\",r=\"layui-disabled\",u=function(e){var a=this;a.config=e||{},a.config.index=++s.index,a.render(!0)};u.prototype.type=function(){var e=this.config;if(\"object\"==typeof e.elem)return void 0===e.elem.length?2:3},u.prototype.view=function(){var e=this,a=e.config,t=a.groups=\"groups\"in a?0|a.groups:5;a.layout=\"object\"==typeof a.layout?a.layout:[\"prev\",\"page\",\"next\"],a.count=0|a.count,a.curr=0|a.curr||1,a.limits=\"object\"==typeof a.limits?a.limits:[10,20,30,40,50],a.limit=0|a.limit||10,a.pages=Math.ceil(a.count/a.limit)||1,a.curr>a.pages&&(a.curr=a.pages),t<0?t=1:t>a.pages&&(t=a.pages),a.prev=\"prev\"in a?a.prev:\"&#x4E0A;&#x4E00;&#x9875;\",a.next=\"next\"in a?a.next:\"&#x4E0B;&#x4E00;&#x9875;\";var n=a.pages>t?Math.ceil((a.curr+(t>1?1:0))/(t>0?t:1)):1,i={prev:function(){return a.prev?'<a href=\"javascript:;\" class=\"layui-laypage-prev'+(1==a.curr?\" \"+r:\"\")+'\" data-page=\"'+(a.curr-1)+'\">'+a.prev+\"</a>\":\"\"}(),page:function(){var e=[];if(a.count<1)return\"\";n>1&&a.first!==!1&&0!==t&&e.push('<a href=\"javascript:;\" class=\"layui-laypage-first\" data-page=\"1\"  title=\"&#x9996;&#x9875;\">'+(a.first||1)+\"</a>\");var i=Math.floor((t-1)/2),r=n>1?a.curr-i:1,u=n>1?function(){var e=a.curr+(t-i-1);return e>a.pages?a.pages:e}():t;for(u-r<t-1&&(r=u-t+1),a.first!==!1&&r>2&&e.push('<span class=\"layui-laypage-spr\">&#x2026;</span>');r<=u;r++)r===a.curr?e.push('<span class=\"layui-laypage-curr\"><em class=\"layui-laypage-em\" '+(/^#/.test(a.theme)?'style=\"background-color:'+a.theme+';\"':\"\")+\"></em><em>\"+r+\"</em></span>\"):e.push('<a href=\"javascript:;\" data-page=\"'+r+'\">'+r+\"</a>\");return a.pages>t&&a.pages>u&&a.last!==!1&&(u+1<a.pages&&e.push('<span class=\"layui-laypage-spr\">&#x2026;</span>'),0!==t&&e.push('<a href=\"javascript:;\" class=\"layui-laypage-last\" title=\"&#x5C3E;&#x9875;\"  data-page=\"'+a.pages+'\">'+(a.last||a.pages)+\"</a>\")),e.join(\"\")}(),nex"
+    },
+    {
+      "requestId": "23376.50",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/modules/commonTool.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "layui.define(function (exports) {\n    var index, $;\n    layui.use(['index',], function () {\n        index = layui.index;\n        $ = layui.$;\n    });\n    var consoleTime = function () {\n\n    };\n    /**\n     *\n     * 关闭当前页面，返回指定页面，若指定页面存在，则刷新\n     * params; 正则指定页面结尾，新开指定页面链接，新开指定页面标题\n     * */\n    var closeCurPageRefreshPage = function (reg, url, title, isRefresh) {\n        var liItem = parent.layui.$('#LAY_app_tabs #LAY_app_tabsheader li');\n        var isRefresh = isRefresh == undefined ? true : false;\n        var originUrl = '';\n        var originItem;\n        var reg = reg;\n        for (var i = 0; i < liItem.length; i++) {\n            if (reg.test($(liItem[i]).attr('lay-id').trim())) {\n                originItem = $(liItem[i]);\n                originUrl = $(liItem[i]).attr('lay-id').trim();\n            }\n        }\n        var ifr = parent.layui.$('iframe');\n        var originIfr;\n        parent.layui.$('.layui-this').addClass('wait_delete');\n        if (originItem) {\n            for (var k = 0; k < ifr.length; k++) {\n                if ($(ifr[k]).attr('src').trim() == originUrl) {\n                    originIfr = $(ifr[k]);\n                }\n            }\n            if (isRefresh) {\n                $(originIfr).attr('src', originUrl);\n            }\n            $(originItem).trigger('click');\n        } else {\n            parent.layui.index.openTabsPageContent(url, title);\n        }\n        parent.layui.$('.wait_delete .layui-tab-close').trigger('click');\n    };\n    /**\n     * 提交数据\n     * 接收参数：url，data，type，cb\n     * */\n    var putAjaxDataToServer = function (url, data, type, cb, isLoad) {\n        let tempLoading = ''\n        if(isLoad == true) tempLoading = layer.load()\n\n        $.ajax({\n            url: url,\n            type: type,\n            headers: {\n                'X-CSRF-TOKEN': $('meta[name=\"csrf-token\"]').attr('content'),\n                \"inventory-token\": localStorage.getItem('surfaceKey'),\n                \"jwt-token\": localStorage.getItem('jwt_token')\n "
+    },
+    {
+      "requestId": "23376.51",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/lay/modules/laydate.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/**\n\n @Name : layDate 5.0.9 日期时间控件\n @Author: 贤心\n @Site：http://www.layui.com/laydate/\n @License：MIT\n\n */\n\n;!function(){\n    \"use strict\";\n\n    var isLayui = window.layui && layui.define, ready = {\n            getPath: function(){\n                var jsPath = document.currentScript ? document.currentScript.src : function(){\n                    var js = document.scripts\n                        ,last = js.length - 1\n                        ,src;\n                    for(var i = last; i > 0; i--){\n                        if(js[i].readyState === 'interactive'){\n                            src = js[i].src;\n                            break;\n                        }\n                    }\n                    return src || js[last].src;\n                }();\n                return jsPath.substring(0, jsPath.lastIndexOf('/') + 1);\n            }()\n\n            //获取节点的style属性值\n            ,getStyle: function(node, name){\n                var style = node.currentStyle ? node.currentStyle : window.getComputedStyle(node, null);\n                return style[style.getPropertyValue ? 'getPropertyValue' : 'getAttribute'](name);\n            }\n\n            //载入CSS配件\n            ,link: function(href, fn, cssname){\n\n                //未设置路径，则不主动加载css\n                if(!laydate.path) return;\n\n                var head = document.getElementsByTagName(\"head\")[0], link = document.createElement('link');\n                if(typeof fn === 'string') cssname = fn;\n                var app = (cssname || href).replace(/\\.|\\//g, '');\n                var id = 'layuicss-'+ app, timeout = 0;\n\n                link.rel = 'stylesheet';\n                link.href = laydate.path + href;\n                link.id = id;\n\n                if(!document.getElementById(id)){\n                    head.appendChild(link);\n                }\n\n                if(typeof fn !== 'function') return;\n\n                //轮询css是否加载完毕\n                (function poll() {\n                    if(++timeout > 8 * 1000 / 100){\n                   "
+    },
+    {
+      "requestId": "23376.53",
+      "url": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/modules/xmSelect.js",
+      "status": 200,
+      "jsonKeys": [],
+      "endpointCandidateCount": 0,
+      "sample": "/*!\n * @Title: xm-select\n * @Version: 1.1.8\n * @Description：基于layui的多选解决方案\n * @Site: https://gitee.com/maplemei/xm-select\n * @Author: maplemei\n * @License：Apache License 2.0\n */\n!function (e) {\n    var t = {};\n    function n(o) {\n        if (t[o]) return t[o].exports;\n        var r = t[o] = {i: o, l: !1, exports: {}};\n        return e[o].call(r.exports, r, r.exports, n), r.l = !0, r.exports\n    }\n\n    n.m = e, n.c = t, n.d = function (e, t, o) {\n        n.o(e, t) || Object.defineProperty(e, t, {enumerable: !0, get: o})\n    }, n.r = function (e) {\n        \"undefined\" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {value: \"Module\"}), Object.defineProperty(e, \"__esModule\", {value: !0})\n    }, n.t = function (e, t) {\n        if (1 & t && (e = n(e)), 8 & t) return e;\n        if (4 & t && \"object\" == typeof e && e && e.__esModule) return e;\n        var o = Object.create(null);\n        if (n.r(o), Object.defineProperty(o, \"default\", {\n            enumerable: !0,\n            value: e\n        }), 2 & t && \"string\" != typeof e) for (var r in e) n.d(o, r, function (t) {\n            return e[t]\n        }.bind(null, r));\n        return o\n    }, n.n = function (e) {\n        var t = e && e.__esModule ? function () {\n            return e.default\n        } : function () {\n            return e\n        };\n        return n.d(t, \"a\", t), t\n    }, n.o = function (e, t) {\n        return Object.prototype.hasOwnProperty.call(e, t)\n    }, n.p = \"./\", n(n.s = 213)\n}({\n    104: function (e, t) {\n        e.exports = function (e) {\n            var t = \"undefined\" != typeof window && window.location;\n            if (!t) throw new Error(\"fixUrls requires window.location\");\n            if (!e || \"string\" != typeof e) return e;\n            var n = t.protocol + \"//\" + t.host, o = n + t.pathname.replace(/\\/[^\\/]*$/, \"/\");\n            return e.replace(/url\\s*\\(((?:[^)(]|\\((?:[^)(]+|\\([^)(]*\\))*\\))*)\\)/gi, (function (e, t) {\n                var r, i = t.trim().rep"
+    }
+  ],
+  "endpointCandidates": [
+    {
+      "path": "/api/note/detail",
+      "method": "UNKNOWN",
+      "evidence": "//便签内容去mongose数据库拿 $.ajax({ type:'get', url:'https://shopifyapi.yswg.com.cn/api/note/detail', data:{ user_id:$('a.user_area').attr('data-id'), }, success:functi",
+      "from": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/lib/admin.js"
+    },
+    {
+      "path": "/api/note/save",
+      "method": "UNKNOWN",
+      "evidence": "}else{ $.ajax({ url:'https://shopifyapi.yswg.com.cn/api/note/save', // url:'http://192.168.2.108:3001/note/save', type:'post',",
+      "from": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/lib/admin.js"
+    }
+  ]
+}

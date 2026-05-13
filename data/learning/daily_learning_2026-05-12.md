@@ -2,30 +2,38 @@
 
 - dataDate: 2026-05-11
 - baselineQuality: complete
-- productCards: 1264
-- 7d units: 3897
-- 7d ad spend: 6751.86
+- productCards: 1272
+- 7d units: 3820
+- 7d ad spend: 6503.21
 - 7d ad sales: unavailable in snapshot window
 - 7d ad ACOS: unavailable
-- inventory tight: 59
-- stale inventory: 109
-- low profit: 127
+- inventory tight: 63
+- stale inventory: 104
+- low profit: 124
 
 ## Task Pressure
-- none
+- seven_day_unadjusted: 487
+- ad_structure_missing: 482
+- season_peak: 178
+- stale_inventory_risk: 130
+- season_tail: 62
+- season_preheat: 62
+- inventory_tight: 50
+- profit_bleeding: 23
 
 ## Decisions
-- schema SKUs: 122
-- planned SKUs: 22
-- executable SKUs: 22
-- review SKUs: 100
-- planned actions: 122
-- landed success: 22
+- schema SKUs: 95
+- planned SKUs: 95
+- executable SKUs: 95
+- review SKUs: 0
+- planned actions: 124
+- landed success: 124
 - landed failed: 0
-- dry-run planned: 22
+- dry-run planned: 0
+- final run: success 124, failed 0, planned 0, manual review 0, unknown 0
 
 ## Decision Attribution
-- claude: planned 144, landed 22, failed 0, dry-run 22
+- codex: planned 124, landed 124, failed 0, dry-run 0
 
 ## Carry Forward
 - Must read this file before tomorrow's decisions.

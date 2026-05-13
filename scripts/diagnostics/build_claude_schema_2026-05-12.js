@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { buildProductContexts } = require('../../src/ai_decision');
+const { buildOverBudgetPlanItems } = require('../../src/over_budget_to_actions');
 
 const buckets = JSON.parse(fs.readFileSync('data/tmp_tests/claude_scope_2026-05-11.json', 'utf8'));
 const snap = JSON.parse(fs.readFileSync('data/snapshots/latest_snapshot.json', 'utf8'));
@@ -202,5 +203,25 @@ for (const item of plan) for (const a of item.actions) {
   else counts.review++;
 }
 console.log('action breakdown:', counts);
-fs.writeFileSync('data/snapshots/action_schema_2026-05-12_claude.json', JSON.stringify(plan, null, 2));
+
+const adjForCooldown = JSON.parse(fs.readFileSync('data/adjustments/adjustments_2026-05-11.json', 'utf8'));
+const cooldownSkus = new Set();
+for (const r of adjForCooldown) {
+  if (!r.dryRun && r.outcome === 'success' && r.actionType !== 'review') cooldownSkus.add(r.sku);
+}
+const overBudget = buildOverBudgetPlanItems(snap, { actor: 'claude', cooldown: cooldownSkus });
+console.log('overBudget bucket counts:', overBudget.bucketCounts);
+console.log('overBudget plan counts:', overBudget.counts);
+const overBudgetCounts = { budget_up: 0, budget_down: 0, pause: 0, review: 0 };
+for (const item of overBudget.items) for (const a of item.actions) {
+  if (a.actionType === 'budget' && a.suggestedBudget > a.currentBudget) overBudgetCounts.budget_up++;
+  else if (a.actionType === 'budget' && a.suggestedBudget < a.currentBudget) overBudgetCounts.budget_down++;
+  else if (a.actionType === 'pause') overBudgetCounts.pause++;
+  else overBudgetCounts.review++;
+}
+console.log('overBudget action breakdown:', overBudgetCounts);
+
+const merged = [...plan, ...overBudget.items];
+console.log('merged plan items:', merged.length);
+fs.writeFileSync('data/snapshots/action_schema_2026-05-12_claude.json', JSON.stringify(merged, null, 2));
 console.log('written: data/snapshots/action_schema_2026-05-12_claude.json');

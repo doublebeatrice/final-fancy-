@@ -63,4 +63,39 @@ assert.strictEqual(isRowInAllowedOperationScope({ ...openedUsRow, fuldate: '', o
   assert.strictEqual(scope.summary.allowedScopeSkuCount, 1);
 }
 
+{
+  const scope = analyzeAllowedOperationScope({
+    productCards: [{ sku: 'MH0525' }],
+    inventoryScopeRows: [
+      { ...openedUsRow, sku: 'MH0525', saleStatus: '发货限制安排跟卖' },
+    ],
+  });
+
+  const scoped = applyAllowedOperationScope({
+    rawPlan: [
+      { sku: 'MH0525', operatorRequested: true, actions: [{ id: 'kw1' }] },
+    ],
+    plan: [
+      {
+        sku: 'MH0525',
+        actions: [{
+          id: 'kw1',
+          canAutoExecute: true,
+          decisionStage: 'ai_approved',
+          approvedBy: 'codex',
+          actionSource: ['codex'],
+          forceExecute: true,
+        }],
+      },
+    ],
+    review: [],
+    skipped: [],
+    errors: [],
+  }, scope);
+
+  assert.deepStrictEqual(scoped.plan.map(item => item.sku), ['MH0525']);
+  assert.strictEqual(scoped.scope.outOfScopeSkus, 0);
+  assert.strictEqual(scoped.scope.operatorRequestedOverrideSkus, 1);
+}
+
 console.log('operation_scope tests passed');

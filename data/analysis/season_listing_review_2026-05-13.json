@@ -1,0 +1,2847 @@
+{
+  "generatedAt": "2026-05-13T04:16:43.158Z",
+  "sourceSnapshot": "data/snapshots/latest_snapshot.json",
+  "sourceSeasonAudit": "data/tasks/season_gap_audit_2026-05-13.json",
+  "policy": "diagnosis_only_no_listing_submission",
+  "summary": {
+    "needs_listing_fetch": 18,
+    "watch": 4,
+    "tail_cleanup_review": 1
+  },
+  "items": [
+    {
+      "sku": "RUX1599",
+      "asin": "B0FWKFGP2Q",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Graduation:preheat",
+        "Memorial Day:preheat",
+        "Mother's Day:tail",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 1,
+      "sellableDays": 1830,
+      "profitRate": 0.0973,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [
+        "Wedding Season:peak",
+        "Graduation:preheat",
+        "Memorial Day:preheat"
+      ],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0
+      },
+      "ad30": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 4
+      }
+    },
+    {
+      "sku": "STA2610",
+      "asin": "B0FND7GY4V",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Father's Day:preheat",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 2,
+      "sellableDays": 2745,
+      "profitRate": -0.2597,
+      "adSpend7d": 4.05,
+      "adOrders7d": 0,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Father's Day:preheat"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 9
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 11.11
+      },
+      "ad7": {
+        "spend": 4.05,
+        "orders": 0,
+        "clicks": 13,
+        "impressions": 4157
+      },
+      "ad30": {
+        "spend": 27.14,
+        "orders": 0,
+        "clicks": 76,
+        "impressions": 21140
+      }
+    },
+    {
+      "sku": "HEL3107",
+      "asin": "B0FVFJBZBW",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Graduation:preheat",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": -0.0198,
+      "adSpend7d": 0.6000000000000001,
+      "adOrders7d": 1,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [
+        "graduation",
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "activeThemes": [
+          "graduation"
+        ],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": true
+      },
+      "operatingFinalAction": "normal_push_sell_through",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 0.6000000000000001,
+        "orders": 1,
+        "clicks": 3,
+        "impressions": 195
+      },
+      "ad30": {
+        "spend": 2.5799999999999996,
+        "orders": 2,
+        "clicks": 16,
+        "impressions": 1376
+      }
+    },
+    {
+      "sku": "STA2607",
+      "asin": "B0FND9XC4Y",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Father's Day:preheat"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": -0.0713,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Father's Day:preheat"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 87
+      },
+      "ad30": {
+        "spend": 8.3,
+        "orders": 0,
+        "clicks": 20,
+        "impressions": 3258
+      }
+    },
+    {
+      "sku": "STA2604",
+      "asin": "B0FN7P88D4",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Father's Day:preheat",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": -0.0001,
+      "adSpend7d": 1.44,
+      "adOrders7d": 0,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Father's Day:preheat"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 1.44,
+        "orders": 0,
+        "clicks": 4,
+        "impressions": 389
+      },
+      "ad30": {
+        "spend": 21.55,
+        "orders": 0,
+        "clicks": 62,
+        "impressions": 6379
+      }
+    },
+    {
+      "sku": "CEE0467",
+      "asin": "B09SW2NT6J",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": -0.1421,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [
+        "Wedding Season:peak"
+      ],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 0
+      },
+      "ad30": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 2
+      }
+    },
+    {
+      "sku": "LEM6585",
+      "asin": "B0FXVB2SYG",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": -0.0655,
+      "adSpend7d": 5.819999999999999,
+      "adOrders7d": 0,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [
+        "wedding",
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 5.819999999999999,
+        "orders": 0,
+        "clicks": 30,
+        "impressions": 16071
+      },
+      "ad30": {
+        "spend": 30.099999999999994,
+        "orders": 0,
+        "clicks": 133,
+        "impressions": 50416
+      }
+    },
+    {
+      "sku": "HUA6645",
+      "asin": "B0GDXPLX6B",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": 0.1357,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [
+        "wedding"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 231
+      },
+      "ad30": {
+        "spend": 11.5,
+        "orders": 0,
+        "clicks": 32,
+        "impressions": 4845
+      }
+    },
+    {
+      "sku": "QUN5204",
+      "asin": "B0GTTQX894",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Graduation:preheat"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": 0.3443,
+      "adSpend7d": 5.62,
+      "adOrders7d": 0,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Wedding Season:peak",
+        "Graduation:preheat"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 5.62,
+        "orders": 0,
+        "clicks": 20,
+        "impressions": 1212
+      },
+      "ad30": {
+        "spend": 11.24,
+        "orders": 0,
+        "clicks": 40,
+        "impressions": 2484
+      }
+    },
+    {
+      "sku": "YUT4458",
+      "asin": "B0D1VMCWXL",
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "bucket": "watch",
+      "action": "no_listing_change",
+      "reason": [
+        "listing???????????????"
+      ],
+      "seasonWindows": [
+        "Summer:preheat"
+      ],
+      "units7d": 0,
+      "units30d": 0,
+      "sellableDays": 999,
+      "profitRate": 0.1523,
+      "adSpend7d": 8.799999999999999,
+      "adOrders7d": 2,
+      "hasListing": true,
+      "listingTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "listingThemes": [
+        "summer",
+        "memorial_day"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "activeThemes": [
+          "summer",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": true
+      },
+      "operatingFinalAction": "normal_push",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 8.799999999999999,
+        "orders": 2,
+        "clicks": 29,
+        "impressions": 1623
+      },
+      "ad30": {
+        "spend": 99.33000000000001,
+        "orders": 4,
+        "clicks": 288,
+        "impressions": 14059
+      }
+    },
+    {
+      "sku": "MF6292",
+      "asin": "B0GMNCFTF2",
+      "riskType": "season_structure_stale_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "tail_cleanup_review",
+      "action": "review_tail_theme_cleanup",
+      "reason": [
+        "listing????? mothers_day_tail???/???????????evergreen??????"
+      ],
+      "seasonWindows": [
+        "Summer:preheat",
+        "Mother's Day:tail"
+      ],
+      "units7d": 2,
+      "units30d": 4,
+      "sellableDays": 713,
+      "profitRate": 0.1657,
+      "adSpend7d": 13.510000000000002,
+      "adOrders7d": 2,
+      "hasListing": true,
+      "listingTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "listingThemes": [
+        "summer",
+        "memorial_day",
+        "mothers_day_tail"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [
+        "mothers_day_tail"
+      ],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "activeThemes": [
+          "mothers_day",
+          "summer",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": true
+      },
+      "operatingFinalAction": "normal_push_sell_through",
+      "listingSessions": {
+        "lastWeek": 24,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 12
+      },
+      "listingConversionRates": {
+        "lastWeek": 8.33,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 8.33
+      },
+      "ad7": {
+        "spend": 13.510000000000002,
+        "orders": 2,
+        "clicks": 41,
+        "impressions": 1228
+      },
+      "ad30": {
+        "spend": 31.46,
+        "orders": 4,
+        "clicks": 96,
+        "impressions": 3782
+      }
+    },
+    {
+      "sku": "GM2827",
+      "asin": "B0FT7S38HH",
+      "riskType": "season_structure_stale_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Graduation:preheat",
+        "Nurse Week:tail"
+      ],
+      "units7d": 6,
+      "units30d": 7,
+      "sellableDays": 673,
+      "profitRate": 0.1387,
+      "adSpend7d": 0.62,
+      "adOrders7d": 0,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Graduation:preheat"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 0.62,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 846
+      },
+      "ad30": {
+        "spend": 52.93,
+        "orders": 0,
+        "clicks": 168,
+        "impressions": 11863
+      }
+    },
+    {
+      "sku": "TAN2986",
+      "asin": "B0FYDRZ1ZC",
+      "riskType": "season_stale_watch",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "bucket": "watch",
+      "action": "no_listing_change",
+      "reason": [
+        "listing???????????????"
+      ],
+      "seasonWindows": [
+        "Graduation:preheat",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 3,
+      "sellableDays": 1710,
+      "profitRate": 0.2444,
+      "adSpend7d": 5.44,
+      "adOrders7d": 5,
+      "hasListing": true,
+      "listingTitle": "Quelay 24 Set 2026 Nurse Week Gift Anesthetist Appreciation Bracelet Gifts Bulk Colorful Clay Beaded Stretch Bracelet Thank You Gifts for Crna Nurse Anesthesiologists Birthday Medical Professional",
+      "listingThemes": [
+        "graduation",
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "activeThemes": [
+          "graduation",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": true
+      },
+      "operatingFinalAction": "normal_push_sell_through",
+      "listingSessions": {
+        "lastWeek": 29,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 3.45,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 5.44,
+        "orders": 5,
+        "clicks": 13,
+        "impressions": 1329
+      },
+      "ad30": {
+        "spend": 30.959999999999997,
+        "orders": 14,
+        "clicks": 86,
+        "impressions": 7955
+      }
+    },
+    {
+      "sku": "MF3043",
+      "asin": "B0DMW4GC1S",
+      "riskType": "season_structure_stale_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "units7d": 1,
+      "units30d": 6,
+      "sellableDays": 145,
+      "profitRate": 0.139,
+      "adSpend7d": 0,
+      "adOrders7d": 0,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Wedding Season:peak"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 112,
+        "threeWeeksAgo": 43
+      },
+      "listingConversionRates": {
+        "lastWeek": 0,
+        "twoWeeksAgo": 1.79,
+        "threeWeeksAgo": 4.65
+      },
+      "ad7": {
+        "spend": 0,
+        "orders": 0,
+        "clicks": 0,
+        "impressions": 3
+      },
+      "ad30": {
+        "spend": 9.15,
+        "orders": 0,
+        "clicks": 65,
+        "impressions": 3927
+      }
+    },
+    {
+      "sku": "HOS0946",
+      "asin": "B0DYP2LM2M",
+      "riskType": "season_structure_stale_risk",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Graduation:preheat",
+        "Teacher Appreciation:tail",
+        "Nurse Week:tail"
+      ],
+      "units7d": 1,
+      "units30d": 8,
+      "sellableDays": 102,
+      "profitRate": 0.1529,
+      "adSpend7d": 1.74,
+      "adOrders7d": 1,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [
+        "Graduation:preheat"
+      ],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 48,
+        "twoWeeksAgo": 37,
+        "threeWeeksAgo": 16
+      },
+      "listingConversionRates": {
+        "lastWeek": 2.08,
+        "twoWeeksAgo": 10.81,
+        "threeWeeksAgo": 18.75
+      },
+      "ad7": {
+        "spend": 1.74,
+        "orders": 1,
+        "clicks": 8,
+        "impressions": 790
+      },
+      "ad30": {
+        "spend": 28.5,
+        "orders": 6,
+        "clicks": 128,
+        "impressions": 6356
+      }
+    },
+    {
+      "sku": "LEM6577",
+      "asin": "B0FXGN8CXZ",
+      "riskType": "season_stale_watch",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "units7d": 0,
+      "units30d": 5,
+      "sellableDays": 192,
+      "profitRate": -0.0604,
+      "adSpend7d": 0.29000000000000004,
+      "adOrders7d": 0,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [
+        "wedding",
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 33,
+        "twoWeeksAgo": 29,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 6.06,
+        "twoWeeksAgo": 10.34,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 0.29000000000000004,
+        "orders": 0,
+        "clicks": 2,
+        "impressions": 169
+      },
+      "ad30": {
+        "spend": 2.02,
+        "orders": 0,
+        "clicks": 8,
+        "impressions": 1971
+      }
+    },
+    {
+      "sku": "YEO1452",
+      "asin": "B0GHXQKZTQ",
+      "riskType": "season_stale_watch",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Summer:preheat"
+      ],
+      "units7d": 1,
+      "units30d": 4,
+      "sellableDays": 705,
+      "profitRate": 0.0102,
+      "adSpend7d": 5.1,
+      "adOrders7d": 0,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Summer:preheat"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 34,
+        "twoWeeksAgo": 41,
+        "threeWeeksAgo": 20
+      },
+      "listingConversionRates": {
+        "lastWeek": 2.94,
+        "twoWeeksAgo": 2.44,
+        "threeWeeksAgo": 10
+      },
+      "ad7": {
+        "spend": 5.1,
+        "orders": 0,
+        "clicks": 16,
+        "impressions": 1677
+      },
+      "ad30": {
+        "spend": 24.300000000000004,
+        "orders": 4,
+        "clicks": 82,
+        "impressions": 11956
+      }
+    },
+    {
+      "sku": "YUT2946",
+      "asin": "B0D1VJWGXN",
+      "riskType": "season_stale_watch",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "bucket": "watch",
+      "action": "no_listing_change",
+      "reason": [
+        "listing???????????????"
+      ],
+      "seasonWindows": [
+        "Summer:preheat"
+      ],
+      "units7d": 2,
+      "units30d": 5,
+      "sellableDays": 618,
+      "profitRate": 0.1679,
+      "adSpend7d": 2.79,
+      "adOrders7d": 0,
+      "hasListing": true,
+      "listingTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "listingThemes": [
+        "summer",
+        "memorial_day"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "activeThemes": [
+          "summer",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": true
+      },
+      "operatingFinalAction": "normal_push_sell_through",
+      "listingSessions": {
+        "lastWeek": 27,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 3.7,
+        "twoWeeksAgo": 0,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 2.79,
+        "orders": 0,
+        "clicks": 11,
+        "impressions": 1032
+      },
+      "ad30": {
+        "spend": 57.10000000000001,
+        "orders": 8,
+        "clicks": 185,
+        "impressions": 15794
+      }
+    },
+    {
+      "sku": "YEO0766",
+      "asin": "B0FZ9GMQJS",
+      "riskType": "season_stale_watch",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "bucket": "watch",
+      "action": "no_listing_change",
+      "reason": [
+        "listing???????????????"
+      ],
+      "seasonWindows": [
+        "Summer:preheat"
+      ],
+      "units7d": 2,
+      "units30d": 5,
+      "sellableDays": 306,
+      "profitRate": 0.0859,
+      "adSpend7d": 6.7,
+      "adOrders7d": 1,
+      "hasListing": true,
+      "listingTitle": "4 Pack Boonie Safari Hats for Men Women, Wide Brim Sun Hats with Chin Strap for Fishing Hiking Lightweight",
+      "listingThemes": [
+        "summer"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "activeThemes": [
+          "summer",
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": true
+      },
+      "operatingFinalAction": "normal_push_sell_through",
+      "listingSessions": {
+        "lastWeek": 49,
+        "twoWeeksAgo": 60,
+        "threeWeeksAgo": 0
+      },
+      "listingConversionRates": {
+        "lastWeek": 2.04,
+        "twoWeeksAgo": 3.33,
+        "threeWeeksAgo": 0
+      },
+      "ad7": {
+        "spend": 6.7,
+        "orders": 1,
+        "clicks": 22,
+        "impressions": 2141
+      },
+      "ad30": {
+        "spend": 77.23999999999998,
+        "orders": 12,
+        "clicks": 253,
+        "impressions": 26774
+      }
+    },
+    {
+      "sku": "OCE1413",
+      "asin": "B0FHK5GS4F",
+      "riskType": "inventory_tight_no_scale",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak"
+      ],
+      "units7d": 29,
+      "units30d": 140,
+      "sellableDays": 16,
+      "profitRate": 0.1637,
+      "adSpend7d": 14.320000000000002,
+      "adOrders7d": 8,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Wedding Season:peak"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 385,
+        "twoWeeksAgo": 367,
+        "threeWeeksAgo": 348
+      },
+      "listingConversionRates": {
+        "lastWeek": 5.71,
+        "twoWeeksAgo": 8.45,
+        "threeWeeksAgo": 8.05
+      },
+      "ad7": {
+        "spend": 14.320000000000002,
+        "orders": 8,
+        "clicks": 82,
+        "impressions": 4373
+      },
+      "ad30": {
+        "spend": 153.04,
+        "orders": 91,
+        "clicks": 905,
+        "impressions": 44053
+      }
+    },
+    {
+      "sku": "QUN1382",
+      "asin": "B0GPVPXWBX",
+      "riskType": "inventory_tight_no_scale",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak",
+        "Graduation:preheat",
+        "Mother's Day:tail"
+      ],
+      "units7d": 15,
+      "units30d": 266,
+      "sellableDays": 16,
+      "profitRate": 0.4661,
+      "adSpend7d": 52.12,
+      "adOrders7d": 12,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [],
+      "missingActiveThemes": [
+        "Wedding Season:peak",
+        "Graduation:preheat"
+      ],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "fit_current",
+        "pushLevel": "normal_push",
+        "activeThemes": [
+          "evergreen_gift"
+        ],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": true
+      },
+      "operatingFinalAction": "hold_or_light_test",
+      "listingSessions": {
+        "lastWeek": 251,
+        "twoWeeksAgo": 597,
+        "threeWeeksAgo": 1017
+      },
+      "listingConversionRates": {
+        "lastWeek": 4.38,
+        "twoWeeksAgo": 4.6899999999999995,
+        "threeWeeksAgo": 8.85
+      },
+      "ad7": {
+        "spend": 52.12,
+        "orders": 12,
+        "clicks": 180,
+        "impressions": 15000
+      },
+      "ad30": {
+        "spend": 241.45000000000002,
+        "orders": 89,
+        "clicks": 959,
+        "impressions": 59544
+      }
+    },
+    {
+      "sku": "RHO1540",
+      "asin": "B0GLPCPFK9",
+      "riskType": "inventory_tight_no_scale",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Wedding Season:peak"
+      ],
+      "units7d": 10,
+      "units30d": 76,
+      "sellableDays": 7,
+      "profitRate": 0.2775,
+      "adSpend7d": 1.16,
+      "adOrders7d": 2,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [
+        "wedding"
+      ],
+      "missingActiveThemes": [],
+      "expiredThemes": [],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 104,
+        "twoWeeksAgo": 157,
+        "threeWeeksAgo": 138
+      },
+      "listingConversionRates": {
+        "lastWeek": 6.73,
+        "twoWeeksAgo": 19.11,
+        "threeWeeksAgo": 6.52
+      },
+      "ad7": {
+        "spend": 1.16,
+        "orders": 2,
+        "clicks": 5,
+        "impressions": 350
+      },
+      "ad30": {
+        "spend": 83.12,
+        "orders": 38,
+        "clicks": 370,
+        "impressions": 18902
+      }
+    },
+    {
+      "sku": "SC3527",
+      "asin": "B0CGV7S8V9",
+      "riskType": "inventory_tight_no_scale",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "bucket": "needs_listing_fetch",
+      "action": "fetch_listing_before_copy_decision",
+      "reason": [
+        "????????listing?????????/??????"
+      ],
+      "seasonWindows": [
+        "Memorial Day:preheat",
+        "Nurse Week:tail"
+      ],
+      "units7d": 5,
+      "units30d": 35,
+      "sellableDays": 18,
+      "profitRate": 0.3547,
+      "adSpend7d": 12.99,
+      "adOrders7d": 3,
+      "hasListing": false,
+      "listingTitle": "",
+      "listingThemes": [
+        "nurse_week_tail"
+      ],
+      "missingActiveThemes": [
+        "Memorial Day:preheat"
+      ],
+      "expiredThemes": [
+        "nurse_week_tail"
+      ],
+      "listingFit": {
+        "fit": "unclear",
+        "pushLevel": "light_test",
+        "activeThemes": [],
+        "offSeasonThemes": [],
+        "expiredTitle": false,
+        "hasTransferPath": false
+      },
+      "operatingFinalAction": "light_test",
+      "listingSessions": {
+        "lastWeek": 67,
+        "twoWeeksAgo": 57,
+        "threeWeeksAgo": 35
+      },
+      "listingConversionRates": {
+        "lastWeek": 7.46,
+        "twoWeeksAgo": 5.26,
+        "threeWeeksAgo": 20
+      },
+      "ad7": {
+        "spend": 12.99,
+        "orders": 3,
+        "clicks": 54,
+        "impressions": 3767
+      },
+      "ad30": {
+        "spend": 92.45,
+        "orders": 22,
+        "clicks": 358,
+        "impressions": 22681
+      }
+    }
+  ],
+  "byPriority": {
+    "immediateReview": [
+      {
+        "sku": "MF6292",
+        "asin": "B0GMNCFTF2",
+        "riskType": "season_structure_stale_risk",
+        "suggestedAction": "review_low_budget_season_structure_gap",
+        "bucket": "tail_cleanup_review",
+        "action": "review_tail_theme_cleanup",
+        "reason": [
+          "listing????? mothers_day_tail???/???????????evergreen??????"
+        ],
+        "seasonWindows": [
+          "Summer:preheat",
+          "Mother's Day:tail"
+        ],
+        "units7d": 2,
+        "units30d": 4,
+        "sellableDays": 713,
+        "profitRate": 0.1657,
+        "adSpend7d": 13.510000000000002,
+        "adOrders7d": 2,
+        "hasListing": true,
+        "listingTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+        "listingThemes": [
+          "summer",
+          "memorial_day",
+          "mothers_day_tail"
+        ],
+        "missingActiveThemes": [],
+        "expiredThemes": [
+          "mothers_day_tail"
+        ],
+        "listingFit": {
+          "fit": "fit_current",
+          "pushLevel": "normal_push",
+          "activeThemes": [
+            "mothers_day",
+            "summer",
+            "evergreen_gift"
+          ],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": true
+        },
+        "operatingFinalAction": "normal_push_sell_through",
+        "listingSessions": {
+          "lastWeek": 24,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 12
+        },
+        "listingConversionRates": {
+          "lastWeek": 8.33,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 8.33
+        },
+        "ad7": {
+          "spend": 13.510000000000002,
+          "orders": 2,
+          "clicks": 41,
+          "impressions": 1228
+        },
+        "ad30": {
+          "spend": 31.46,
+          "orders": 4,
+          "clicks": 96,
+          "impressions": 3782
+        }
+      }
+    ],
+    "needsFetch": [
+      {
+        "sku": "RUX1599",
+        "asin": "B0FWKFGP2Q",
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Wedding Season:peak",
+          "Graduation:preheat",
+          "Memorial Day:preheat",
+          "Mother's Day:tail",
+          "Nurse Week:tail"
+        ],
+        "units7d": 0,
+        "units30d": 1,
+        "sellableDays": 1830,
+        "profitRate": 0.0973,
+        "adSpend7d": 0,
+        "adOrders7d": 0,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [
+          "nurse_week_tail"
+        ],
+        "missingActiveThemes": [
+          "Wedding Season:peak",
+          "Graduation:preheat",
+          "Memorial Day:preheat"
+        ],
+        "expiredThemes": [
+          "nurse_week_tail"
+        ],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "listingConversionRates": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "ad7": {
+          "spend": 0,
+          "orders": 0,
+          "clicks": 0,
+          "impressions": 0
+        },
+        "ad30": {
+          "spend": 0,
+          "orders": 0,
+          "clicks": 0,
+          "impressions": 4
+        }
+      },
+      {
+        "sku": "STA2610",
+        "asin": "B0FND7GY4V",
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Father's Day:preheat",
+          "Nurse Week:tail"
+        ],
+        "units7d": 0,
+        "units30d": 2,
+        "sellableDays": 2745,
+        "profitRate": -0.2597,
+        "adSpend7d": 4.05,
+        "adOrders7d": 0,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [],
+        "missingActiveThemes": [
+          "Father's Day:preheat"
+        ],
+        "expiredThemes": [],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 9
+        },
+        "listingConversionRates": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 11.11
+        },
+        "ad7": {
+          "spend": 4.05,
+          "orders": 0,
+          "clicks": 13,
+          "impressions": 4157
+        },
+        "ad30": {
+          "spend": 27.14,
+          "orders": 0,
+          "clicks": 76,
+          "impressions": 21140
+        }
+      },
+      {
+        "sku": "HEL3107",
+        "asin": "B0FVFJBZBW",
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Graduation:preheat",
+          "Nurse Week:tail"
+        ],
+        "units7d": 0,
+        "units30d": 0,
+        "sellableDays": 999,
+        "profitRate": -0.0198,
+        "adSpend7d": 0.6000000000000001,
+        "adOrders7d": 1,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [
+          "graduation",
+          "nurse_week_tail"
+        ],
+        "missingActiveThemes": [],
+        "expiredThemes": [
+          "nurse_week_tail"
+        ],
+        "listingFit": {
+          "fit": "fit_current",
+          "pushLevel": "normal_push",
+          "activeThemes": [
+            "graduation"
+          ],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": true
+        },
+        "operatingFinalAction": "normal_push_sell_through",
+        "listingSessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "listingConversionRates": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "ad7": {
+          "spend": 0.6000000000000001,
+          "orders": 1,
+          "clicks": 3,
+          "impressions": 195
+        },
+        "ad30": {
+          "spend": 2.5799999999999996,
+          "orders": 2,
+          "clicks": 16,
+          "impressions": 1376
+        }
+      },
+      {
+        "sku": "STA2607",
+        "asin": "B0FND9XC4Y",
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Father's Day:preheat"
+        ],
+        "units7d": 0,
+        "units30d": 0,
+        "sellableDays": 999,
+        "profitRate": -0.0713,
+        "adSpend7d": 0,
+        "adOrders7d": 0,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [],
+        "missingActiveThemes": [
+          "Father's Day:preheat"
+        ],
+        "expiredThemes": [],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "listingConversionRates": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "ad7": {
+          "spend": 0,
+          "orders": 0,
+          "clicks": 0,
+          "impressions": 87
+        },
+        "ad30": {
+          "spend": 8.3,
+          "orders": 0,
+          "clicks": 20,
+          "impressions": 3258
+        }
+      },
+      {
+        "sku": "STA2604",
+        "asin": "B0FN7P88D4",
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Father's Day:preheat",
+          "Nurse Week:tail"
+        ],
+        "units7d": 0,
+        "units30d": 0,
+        "sellableDays": 999,
+        "profitRate": -0.0001,
+        "adSpend7d": 1.44,
+        "adOrders7d": 0,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [],
+        "missingActiveThemes": [
+          "Father's Day:preheat"
+        ],
+        "expiredThemes": [],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "listingConversionRates": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "ad7": {
+          "spend": 1.44,
+          "orders": 0,
+          "clicks": 4,
+          "impressions": 389
+        },
+        "ad30": {
+          "spend": 21.55,
+          "orders": 0,
+          "clicks": 62,
+          "impressions": 6379
+        }
+      },
+      {
+        "sku": "CEE0467",
+        "asin": "B09SW2NT6J",
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Wedding Season:peak",
+          "Nurse Week:tail"
+        ],
+        "units7d": 0,
+        "units30d": 0,
+        "sellableDays": 999,
+        "profitRate": -0.1421,
+        "adSpend7d": 0,
+        "adOrders7d": 0,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [
+          "nurse_week_tail"
+        ],
+        "missingActiveThemes": [
+          "Wedding Season:peak"
+        ],
+        "expiredThemes": [
+          "nurse_week_tail"
+        ],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "listingConversionRates": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "ad7": {
+          "spend": 0,
+          "orders": 0,
+          "clicks": 0,
+          "impressions": 0
+        },
+        "ad30": {
+          "spend": 0,
+          "orders": 0,
+          "clicks": 0,
+          "impressions": 2
+        }
+      },
+      {
+        "sku": "LEM6585",
+        "asin": "B0FXVB2SYG",
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Wedding Season:peak",
+          "Nurse Week:tail"
+        ],
+        "units7d": 0,
+        "units30d": 0,
+        "sellableDays": 999,
+        "profitRate": -0.0655,
+        "adSpend7d": 5.819999999999999,
+        "adOrders7d": 0,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [
+          "wedding",
+          "nurse_week_tail"
+        ],
+        "missingActiveThemes": [],
+        "expiredThemes": [
+          "nurse_week_tail"
+        ],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "listingConversionRates": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "ad7": {
+          "spend": 5.819999999999999,
+          "orders": 0,
+          "clicks": 30,
+          "impressions": 16071
+        },
+        "ad30": {
+          "spend": 30.099999999999994,
+          "orders": 0,
+          "clicks": 133,
+          "impressions": 50416
+        }
+      },
+      {
+        "sku": "HUA6645",
+        "asin": "B0GDXPLX6B",
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Wedding Season:peak",
+          "Nurse Week:tail"
+        ],
+        "units7d": 0,
+        "units30d": 0,
+        "sellableDays": 999,
+        "profitRate": 0.1357,
+        "adSpend7d": 0,
+        "adOrders7d": 0,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [
+          "wedding"
+        ],
+        "missingActiveThemes": [],
+        "expiredThemes": [],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "listingConversionRates": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "ad7": {
+          "spend": 0,
+          "orders": 0,
+          "clicks": 0,
+          "impressions": 231
+        },
+        "ad30": {
+          "spend": 11.5,
+          "orders": 0,
+          "clicks": 32,
+          "impressions": 4845
+        }
+      },
+      {
+        "sku": "QUN5204",
+        "asin": "B0GTTQX894",
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_stale_inventory_sell_through_plan",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Wedding Season:peak",
+          "Graduation:preheat"
+        ],
+        "units7d": 0,
+        "units30d": 0,
+        "sellableDays": 999,
+        "profitRate": 0.3443,
+        "adSpend7d": 5.62,
+        "adOrders7d": 0,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [],
+        "missingActiveThemes": [
+          "Wedding Season:peak",
+          "Graduation:preheat"
+        ],
+        "expiredThemes": [],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "listingConversionRates": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "ad7": {
+          "spend": 5.62,
+          "orders": 0,
+          "clicks": 20,
+          "impressions": 1212
+        },
+        "ad30": {
+          "spend": 11.24,
+          "orders": 0,
+          "clicks": 40,
+          "impressions": 2484
+        }
+      },
+      {
+        "sku": "GM2827",
+        "asin": "B0FT7S38HH",
+        "riskType": "season_structure_stale_risk",
+        "suggestedAction": "review_low_budget_season_structure_gap",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Graduation:preheat",
+          "Nurse Week:tail"
+        ],
+        "units7d": 6,
+        "units30d": 7,
+        "sellableDays": 673,
+        "profitRate": 0.1387,
+        "adSpend7d": 0.62,
+        "adOrders7d": 0,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [],
+        "missingActiveThemes": [
+          "Graduation:preheat"
+        ],
+        "expiredThemes": [],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "listingConversionRates": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "ad7": {
+          "spend": 0.62,
+          "orders": 0,
+          "clicks": 2,
+          "impressions": 846
+        },
+        "ad30": {
+          "spend": 52.93,
+          "orders": 0,
+          "clicks": 168,
+          "impressions": 11863
+        }
+      },
+      {
+        "sku": "MF3043",
+        "asin": "B0DMW4GC1S",
+        "riskType": "season_structure_stale_risk",
+        "suggestedAction": "review_low_budget_season_structure_gap",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Wedding Season:peak",
+          "Nurse Week:tail"
+        ],
+        "units7d": 1,
+        "units30d": 6,
+        "sellableDays": 145,
+        "profitRate": 0.139,
+        "adSpend7d": 0,
+        "adOrders7d": 0,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [],
+        "missingActiveThemes": [
+          "Wedding Season:peak"
+        ],
+        "expiredThemes": [],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 112,
+          "threeWeeksAgo": 43
+        },
+        "listingConversionRates": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 1.79,
+          "threeWeeksAgo": 4.65
+        },
+        "ad7": {
+          "spend": 0,
+          "orders": 0,
+          "clicks": 0,
+          "impressions": 3
+        },
+        "ad30": {
+          "spend": 9.15,
+          "orders": 0,
+          "clicks": 65,
+          "impressions": 3927
+        }
+      },
+      {
+        "sku": "HOS0946",
+        "asin": "B0DYP2LM2M",
+        "riskType": "season_structure_stale_risk",
+        "suggestedAction": "review_low_budget_season_structure_gap",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Graduation:preheat",
+          "Teacher Appreciation:tail",
+          "Nurse Week:tail"
+        ],
+        "units7d": 1,
+        "units30d": 8,
+        "sellableDays": 102,
+        "profitRate": 0.1529,
+        "adSpend7d": 1.74,
+        "adOrders7d": 1,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [
+          "nurse_week_tail"
+        ],
+        "missingActiveThemes": [
+          "Graduation:preheat"
+        ],
+        "expiredThemes": [
+          "nurse_week_tail"
+        ],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 48,
+          "twoWeeksAgo": 37,
+          "threeWeeksAgo": 16
+        },
+        "listingConversionRates": {
+          "lastWeek": 2.08,
+          "twoWeeksAgo": 10.81,
+          "threeWeeksAgo": 18.75
+        },
+        "ad7": {
+          "spend": 1.74,
+          "orders": 1,
+          "clicks": 8,
+          "impressions": 790
+        },
+        "ad30": {
+          "spend": 28.5,
+          "orders": 6,
+          "clicks": 128,
+          "impressions": 6356
+        }
+      },
+      {
+        "sku": "LEM6577",
+        "asin": "B0FXGN8CXZ",
+        "riskType": "season_stale_watch",
+        "suggestedAction": "review_low_budget_season_structure_gap",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Wedding Season:peak",
+          "Nurse Week:tail"
+        ],
+        "units7d": 0,
+        "units30d": 5,
+        "sellableDays": 192,
+        "profitRate": -0.0604,
+        "adSpend7d": 0.29000000000000004,
+        "adOrders7d": 0,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [
+          "wedding",
+          "nurse_week_tail"
+        ],
+        "missingActiveThemes": [],
+        "expiredThemes": [
+          "nurse_week_tail"
+        ],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 33,
+          "twoWeeksAgo": 29,
+          "threeWeeksAgo": 0
+        },
+        "listingConversionRates": {
+          "lastWeek": 6.06,
+          "twoWeeksAgo": 10.34,
+          "threeWeeksAgo": 0
+        },
+        "ad7": {
+          "spend": 0.29000000000000004,
+          "orders": 0,
+          "clicks": 2,
+          "impressions": 169
+        },
+        "ad30": {
+          "spend": 2.02,
+          "orders": 0,
+          "clicks": 8,
+          "impressions": 1971
+        }
+      },
+      {
+        "sku": "YEO1452",
+        "asin": "B0GHXQKZTQ",
+        "riskType": "season_stale_watch",
+        "suggestedAction": "review_stale_inventory_sell_through_plan",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Summer:preheat"
+        ],
+        "units7d": 1,
+        "units30d": 4,
+        "sellableDays": 705,
+        "profitRate": 0.0102,
+        "adSpend7d": 5.1,
+        "adOrders7d": 0,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [],
+        "missingActiveThemes": [
+          "Summer:preheat"
+        ],
+        "expiredThemes": [],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 34,
+          "twoWeeksAgo": 41,
+          "threeWeeksAgo": 20
+        },
+        "listingConversionRates": {
+          "lastWeek": 2.94,
+          "twoWeeksAgo": 2.44,
+          "threeWeeksAgo": 10
+        },
+        "ad7": {
+          "spend": 5.1,
+          "orders": 0,
+          "clicks": 16,
+          "impressions": 1677
+        },
+        "ad30": {
+          "spend": 24.300000000000004,
+          "orders": 4,
+          "clicks": 82,
+          "impressions": 11956
+        }
+      },
+      {
+        "sku": "OCE1413",
+        "asin": "B0FHK5GS4F",
+        "riskType": "inventory_tight_no_scale",
+        "suggestedAction": "hold_scale_and_check_replenishment",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Wedding Season:peak"
+        ],
+        "units7d": 29,
+        "units30d": 140,
+        "sellableDays": 16,
+        "profitRate": 0.1637,
+        "adSpend7d": 14.320000000000002,
+        "adOrders7d": 8,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [],
+        "missingActiveThemes": [
+          "Wedding Season:peak"
+        ],
+        "expiredThemes": [],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 385,
+          "twoWeeksAgo": 367,
+          "threeWeeksAgo": 348
+        },
+        "listingConversionRates": {
+          "lastWeek": 5.71,
+          "twoWeeksAgo": 8.45,
+          "threeWeeksAgo": 8.05
+        },
+        "ad7": {
+          "spend": 14.320000000000002,
+          "orders": 8,
+          "clicks": 82,
+          "impressions": 4373
+        },
+        "ad30": {
+          "spend": 153.04,
+          "orders": 91,
+          "clicks": 905,
+          "impressions": 44053
+        }
+      },
+      {
+        "sku": "QUN1382",
+        "asin": "B0GPVPXWBX",
+        "riskType": "inventory_tight_no_scale",
+        "suggestedAction": "hold_scale_and_check_replenishment",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Wedding Season:peak",
+          "Graduation:preheat",
+          "Mother's Day:tail"
+        ],
+        "units7d": 15,
+        "units30d": 266,
+        "sellableDays": 16,
+        "profitRate": 0.4661,
+        "adSpend7d": 52.12,
+        "adOrders7d": 12,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [],
+        "missingActiveThemes": [
+          "Wedding Season:peak",
+          "Graduation:preheat"
+        ],
+        "expiredThemes": [],
+        "listingFit": {
+          "fit": "fit_current",
+          "pushLevel": "normal_push",
+          "activeThemes": [
+            "evergreen_gift"
+          ],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": true
+        },
+        "operatingFinalAction": "hold_or_light_test",
+        "listingSessions": {
+          "lastWeek": 251,
+          "twoWeeksAgo": 597,
+          "threeWeeksAgo": 1017
+        },
+        "listingConversionRates": {
+          "lastWeek": 4.38,
+          "twoWeeksAgo": 4.6899999999999995,
+          "threeWeeksAgo": 8.85
+        },
+        "ad7": {
+          "spend": 52.12,
+          "orders": 12,
+          "clicks": 180,
+          "impressions": 15000
+        },
+        "ad30": {
+          "spend": 241.45000000000002,
+          "orders": 89,
+          "clicks": 959,
+          "impressions": 59544
+        }
+      },
+      {
+        "sku": "RHO1540",
+        "asin": "B0GLPCPFK9",
+        "riskType": "inventory_tight_no_scale",
+        "suggestedAction": "hold_scale_and_check_replenishment",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Wedding Season:peak"
+        ],
+        "units7d": 10,
+        "units30d": 76,
+        "sellableDays": 7,
+        "profitRate": 0.2775,
+        "adSpend7d": 1.16,
+        "adOrders7d": 2,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [
+          "wedding"
+        ],
+        "missingActiveThemes": [],
+        "expiredThemes": [],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 104,
+          "twoWeeksAgo": 157,
+          "threeWeeksAgo": 138
+        },
+        "listingConversionRates": {
+          "lastWeek": 6.73,
+          "twoWeeksAgo": 19.11,
+          "threeWeeksAgo": 6.52
+        },
+        "ad7": {
+          "spend": 1.16,
+          "orders": 2,
+          "clicks": 5,
+          "impressions": 350
+        },
+        "ad30": {
+          "spend": 83.12,
+          "orders": 38,
+          "clicks": 370,
+          "impressions": 18902
+        }
+      },
+      {
+        "sku": "SC3527",
+        "asin": "B0CGV7S8V9",
+        "riskType": "inventory_tight_no_scale",
+        "suggestedAction": "hold_scale_and_check_replenishment",
+        "bucket": "needs_listing_fetch",
+        "action": "fetch_listing_before_copy_decision",
+        "reason": [
+          "????????listing?????????/??????"
+        ],
+        "seasonWindows": [
+          "Memorial Day:preheat",
+          "Nurse Week:tail"
+        ],
+        "units7d": 5,
+        "units30d": 35,
+        "sellableDays": 18,
+        "profitRate": 0.3547,
+        "adSpend7d": 12.99,
+        "adOrders7d": 3,
+        "hasListing": false,
+        "listingTitle": "",
+        "listingThemes": [
+          "nurse_week_tail"
+        ],
+        "missingActiveThemes": [
+          "Memorial Day:preheat"
+        ],
+        "expiredThemes": [
+          "nurse_week_tail"
+        ],
+        "listingFit": {
+          "fit": "unclear",
+          "pushLevel": "light_test",
+          "activeThemes": [],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": false
+        },
+        "operatingFinalAction": "light_test",
+        "listingSessions": {
+          "lastWeek": 67,
+          "twoWeeksAgo": 57,
+          "threeWeeksAgo": 35
+        },
+        "listingConversionRates": {
+          "lastWeek": 7.46,
+          "twoWeeksAgo": 5.26,
+          "threeWeeksAgo": 20
+        },
+        "ad7": {
+          "spend": 12.99,
+          "orders": 3,
+          "clicks": 54,
+          "impressions": 3767
+        },
+        "ad30": {
+          "spend": 92.45,
+          "orders": 22,
+          "clicks": 358,
+          "impressions": 22681
+        }
+      }
+    ],
+    "watch": [
+      {
+        "sku": "YUT4458",
+        "asin": "B0D1VMCWXL",
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_stale_inventory_sell_through_plan",
+        "bucket": "watch",
+        "action": "no_listing_change",
+        "reason": [
+          "listing???????????????"
+        ],
+        "seasonWindows": [
+          "Summer:preheat"
+        ],
+        "units7d": 0,
+        "units30d": 0,
+        "sellableDays": 999,
+        "profitRate": 0.1523,
+        "adSpend7d": 8.799999999999999,
+        "adOrders7d": 2,
+        "hasListing": true,
+        "listingTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+        "listingThemes": [
+          "summer",
+          "memorial_day"
+        ],
+        "missingActiveThemes": [],
+        "expiredThemes": [],
+        "listingFit": {
+          "fit": "fit_current",
+          "pushLevel": "normal_push",
+          "activeThemes": [
+            "summer",
+            "evergreen_gift"
+          ],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": true
+        },
+        "operatingFinalAction": "normal_push",
+        "listingSessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "listingConversionRates": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "ad7": {
+          "spend": 8.799999999999999,
+          "orders": 2,
+          "clicks": 29,
+          "impressions": 1623
+        },
+        "ad30": {
+          "spend": 99.33000000000001,
+          "orders": 4,
+          "clicks": 288,
+          "impressions": 14059
+        }
+      },
+      {
+        "sku": "TAN2986",
+        "asin": "B0FYDRZ1ZC",
+        "riskType": "season_stale_watch",
+        "suggestedAction": "review_stale_inventory_sell_through_plan",
+        "bucket": "watch",
+        "action": "no_listing_change",
+        "reason": [
+          "listing???????????????"
+        ],
+        "seasonWindows": [
+          "Graduation:preheat",
+          "Nurse Week:tail"
+        ],
+        "units7d": 0,
+        "units30d": 3,
+        "sellableDays": 1710,
+        "profitRate": 0.2444,
+        "adSpend7d": 5.44,
+        "adOrders7d": 5,
+        "hasListing": true,
+        "listingTitle": "Quelay 24 Set 2026 Nurse Week Gift Anesthetist Appreciation Bracelet Gifts Bulk Colorful Clay Beaded Stretch Bracelet Thank You Gifts for Crna Nurse Anesthesiologists Birthday Medical Professional",
+        "listingThemes": [
+          "graduation",
+          "nurse_week_tail"
+        ],
+        "missingActiveThemes": [],
+        "expiredThemes": [
+          "nurse_week_tail"
+        ],
+        "listingFit": {
+          "fit": "fit_current",
+          "pushLevel": "normal_push",
+          "activeThemes": [
+            "graduation",
+            "evergreen_gift"
+          ],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": true
+        },
+        "operatingFinalAction": "normal_push_sell_through",
+        "listingSessions": {
+          "lastWeek": 29,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "listingConversionRates": {
+          "lastWeek": 3.45,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "ad7": {
+          "spend": 5.44,
+          "orders": 5,
+          "clicks": 13,
+          "impressions": 1329
+        },
+        "ad30": {
+          "spend": 30.959999999999997,
+          "orders": 14,
+          "clicks": 86,
+          "impressions": 7955
+        }
+      },
+      {
+        "sku": "YUT2946",
+        "asin": "B0D1VJWGXN",
+        "riskType": "season_stale_watch",
+        "suggestedAction": "review_stale_inventory_sell_through_plan",
+        "bucket": "watch",
+        "action": "no_listing_change",
+        "reason": [
+          "listing???????????????"
+        ],
+        "seasonWindows": [
+          "Summer:preheat"
+        ],
+        "units7d": 2,
+        "units30d": 5,
+        "sellableDays": 618,
+        "profitRate": 0.1679,
+        "adSpend7d": 2.79,
+        "adOrders7d": 0,
+        "hasListing": true,
+        "listingTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+        "listingThemes": [
+          "summer",
+          "memorial_day"
+        ],
+        "missingActiveThemes": [],
+        "expiredThemes": [],
+        "listingFit": {
+          "fit": "fit_current",
+          "pushLevel": "normal_push",
+          "activeThemes": [
+            "summer",
+            "evergreen_gift"
+          ],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": true
+        },
+        "operatingFinalAction": "normal_push_sell_through",
+        "listingSessions": {
+          "lastWeek": 27,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "listingConversionRates": {
+          "lastWeek": 3.7,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "ad7": {
+          "spend": 2.79,
+          "orders": 0,
+          "clicks": 11,
+          "impressions": 1032
+        },
+        "ad30": {
+          "spend": 57.10000000000001,
+          "orders": 8,
+          "clicks": 185,
+          "impressions": 15794
+        }
+      },
+      {
+        "sku": "YEO0766",
+        "asin": "B0FZ9GMQJS",
+        "riskType": "season_stale_watch",
+        "suggestedAction": "review_stale_inventory_sell_through_plan",
+        "bucket": "watch",
+        "action": "no_listing_change",
+        "reason": [
+          "listing???????????????"
+        ],
+        "seasonWindows": [
+          "Summer:preheat"
+        ],
+        "units7d": 2,
+        "units30d": 5,
+        "sellableDays": 306,
+        "profitRate": 0.0859,
+        "adSpend7d": 6.7,
+        "adOrders7d": 1,
+        "hasListing": true,
+        "listingTitle": "4 Pack Boonie Safari Hats for Men Women, Wide Brim Sun Hats with Chin Strap for Fishing Hiking Lightweight",
+        "listingThemes": [
+          "summer"
+        ],
+        "missingActiveThemes": [],
+        "expiredThemes": [],
+        "listingFit": {
+          "fit": "fit_current",
+          "pushLevel": "normal_push",
+          "activeThemes": [
+            "summer",
+            "evergreen_gift"
+          ],
+          "offSeasonThemes": [],
+          "expiredTitle": false,
+          "hasTransferPath": true
+        },
+        "operatingFinalAction": "normal_push_sell_through",
+        "listingSessions": {
+          "lastWeek": 49,
+          "twoWeeksAgo": 60,
+          "threeWeeksAgo": 0
+        },
+        "listingConversionRates": {
+          "lastWeek": 2.04,
+          "twoWeeksAgo": 3.33,
+          "threeWeeksAgo": 0
+        },
+        "ad7": {
+          "spend": 6.7,
+          "orders": 1,
+          "clicks": 22,
+          "impressions": 2141
+        },
+        "ad30": {
+          "spend": 77.23999999999998,
+          "orders": 12,
+          "clicks": 253,
+          "impressions": 26774
+        }
+      }
+    ]
+  }
+}

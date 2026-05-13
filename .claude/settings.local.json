@@ -42,7 +42,11 @@
       "Bash(cp auto_adjust.js \"auto_adjust_v2_20260417b.js\")",
       "Bash(npx chrome-devtools-mcp *)",
       "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); exts=d.get\\('extensions',{}\\).get\\('settings',{}\\); [print\\(k, v.get\\('manifest',{}\\).get\\('name','?'\\), v.get\\('path',''\\)\\) for k,v in exts.items\\(\\)]\")",
-      "Bash(python *)"
+      "Bash(python *)",
+      "mcp__chrome-devtools__list_pages",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__take_snapshot",
+      "mcp__chrome-devtools__evaluate_script"
     ]
   }
 }

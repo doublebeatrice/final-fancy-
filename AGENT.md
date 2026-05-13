@@ -36,11 +36,15 @@ Do not add an OpenAI-compatible provider or AI runtime inside the panel. Do not 
 
 - Code may validate schema, execute APIs, verify, write notes, and summarize.
 - Code must not secretly decide strategy through old rule trees.
-- If Codex cannot decide, emit `review`.
+- Codex is responsible for advertising strategy decisions. When Codex believes an advertising action can improve profit, sales quality, inventory turnover, or KPI trajectory, it should execute the supported action and learn from the next data cycle instead of parking the action in manual review for business-risk reasons.
+- Use `review` only for unsupported or non-advertising surfaces: SB create, listing edits, price changes, replenishment, structure fixes without a writable entity, unknown/out-of-scope entities, missing required fields, or actions without post-write verification. Strategic uncertainty on a supported ad action should be explicit `forceExecute: true` with a hypothesis, expected effect, measurement window, and rollback condition.
 - Do not use fallback logic to pretend AI made a decision.
+- Daily operations may be reported as "closed loop complete" only when the data loop and advertising execution loop are both complete. Data loop completion means a fresh snapshot, task pool/watch diagnostics, season gap audit, personal trend archive, report, and daily learning artifacts exist. Advertising loop completion means the action schema passed dry-run, execution API calls succeeded, landing verification succeeded, inventory notes and adjustment logs were written, and daily learning records the final landing status. If execution fails, does not land, is dry-run only, or only writes notes, report it as `data loop complete; advertising loop incomplete` and keep the open blocker explicit.
+- Use final-run landing when same-day retries exist. Aggregate adjustment logs are historical evidence, not the final completion verdict. Read the latest intended run's manifest/sourceRunId, `execution_summary_<date>.json`, `execution_verify_<date>.json`, and daily learning `decisions.finalRunLanding`; completion requires API failures at 0, executable actions landed, note writes recorded, and report/learning artifacts tied to that same run.
+- SP campaign state execution must match metadata by `campaignId`. Verify campaign state from `campaignState` or campaign status fields, not child keyword/target/product-ad `state`. Pause can land by API success plus disappearance from enabled child-row pools; enable must visibly verify as enabled. SP campaign pause was verified live on 2026-05-12; SP campaign enable and SP/SB adGroup state are technical verification gaps, not business-review decisions.
 - Helper generators may emit `actionSource: ["generator_candidate"]` only. The validator must keep those actions review-only unless Codex rewrites them as an explicit Codex action schema.
 - All failures must be structured.
-- High-risk actions remain review-only unless explicitly released.
+- High-risk advertising actions are allowed when explicitly released by Codex/Claude/manual approval and, when overriding strategy risk, marked `forceExecute: true`. Technical failures still block execution and must be reported as validation failure, API failure, or `not_landed`.
 - New campaign keyword creation must pass product-theme isolation before dry-run. Do not use existing campaign/ad-group/keyword text as theme evidence for creating new keywords, because old or wrong ads can contaminate the next creation pass.
 - When `createContext.keywordSeeds` or listing text conflicts with a low-confidence/stale `productProfile`, prefer seed/listing evidence and send the SKU to review if the conflict cannot be resolved. Never let a stale profile such as `nurse/fiesta` override seed terms for a `godmother` product.
 - Do not create naked seasonal generic keywords unless the product itself explicitly supports that exact theme through listing text or exact keyword seed. Examples that must be blocked without direct support: `dad gifts`, `fathers day gifts`, `fiesta party supplies`, `mexican party favors`, `cinco de mayo decorations`, `teacher appreciation gifts`, and similar broad occasion terms.
@@ -70,17 +74,22 @@ Low-risk actions:
 - `bid_down`
 - `enable`
 - `pause`
+- SP campaign `pause` for low-risk approved schemas with campaign metadata
 - seven-day untouched low-risk touch actions
 - low-budget SP `create` when backed by inventory, margin, Q2/seasonal timing, low impressions/clicks, stuck-stock risk, or old-product recovery evidence
+- Explicit `forceExecute: true` advertising experiments approved by Codex/Claude/manual when the schema includes hypothesis, expected effect, measurement windows, and rollback condition
 
 Review-only actions:
 
 - SB `create` until the real SB creation interface is captured and verified
 - `structure_fix`
-- large bid changes
 - listing edits
 - price changes
 - replenishment decisions
+
+Known technical blocker:
+
+- SP campaign `enable` currently returns API success but verifies as still paused. Treat it as `not_landed` / automation work, not as a manual-review business decision.
 
 ## Daily Watchlist
 

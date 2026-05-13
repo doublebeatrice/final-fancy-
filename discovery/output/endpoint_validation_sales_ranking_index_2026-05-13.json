@@ -1,0 +1,62 @@
+{
+  "generatedAt": "2026-05-13T10:46:09.315Z",
+  "readOnly": true,
+  "route": {
+    "source": "sellerinventory",
+    "domain": "sellerinventory.yswg.com.cn",
+    "routeId": "sales_ranking.index",
+    "visibleText": "排名销量工具",
+    "url": "https://sellerinventory.yswg.com.cn/pm/formal/salesRankingIndex",
+    "attrs": {
+      "lay-href": "https://sellerinventory.yswg.com.cn/pm/formal/salesRankingIndex",
+      "data-routeid": "sales_ranking.index"
+    },
+    "tag": "A",
+    "riskLevel": "read_only_candidate"
+  },
+  "validations": [
+    {
+      "path": "/pm/formal/salesRankingSearch",
+      "method": "GET",
+      "params": {
+        "site": "Amazon.com",
+        "type": "Home & Kitchen",
+        "ranking": 100
+      },
+      "status": 200,
+      "ok": true,
+      "contentType": "application/json",
+      "textLength": 491,
+      "sample": {
+        "code": 200,
+        "msg": [
+          {
+            "rank": 98,
+            "sales": 60
+          },
+          {
+            "rank": 1693,
+            "sales": 6903
+          }
+        ],
+        "tip": "<span style=\"color: red\">1. 数据源：取自公司产品过去一周的平均排名以及平均销量<br>2. 显示规则：输入数值的前后相近的排名以及对应销量<br>3. 更新时间：每周日更新一次</span>"
+      },
+      "responseSummary": {
+        "topLevelKeys": [
+          "code",
+          "msg",
+          "tip"
+        ],
+        "rowCount": 2,
+        "sampleFields": [
+          "rank",
+          "sales"
+        ],
+        "sampleRow": {
+          "rank": 98,
+          "sales": 60
+        }
+      }
+    }
+  ]
+}

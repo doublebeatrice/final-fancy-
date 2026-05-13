@@ -1,0 +1,182 @@
+{
+  "sourceId": "marketing.clearanceStockIndex",
+  "generatedAt": "2026-05-13T10:36:12.117Z",
+  "fieldCount": 0,
+  "fieldSummary": {
+    "confirmed": 0,
+    "probable": 0,
+    "unknown": 0
+  },
+  "fields": [],
+  "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\report_probe_marketing_clearanceStockIndex_2026-05-13.json",
+  "route": {
+    "routeId": "marketing.clearanceStockIndex",
+    "routeName": "清仓管理",
+    "url": "https://sellerinventory.yswg.com.cn/marketing/clearanceStockIndex",
+    "source": "sellerinventory"
+  },
+  "networkSummary": {
+    "requestCount": 28,
+    "sampleRowCount": 0,
+    "endpointCandidateCount": 15
+  },
+  "endpointSummary": {
+    "total": 15,
+    "safeRead": 7,
+    "writeOrSensitive": 6,
+    "unknown": 2,
+    "commonNoise": 0
+  },
+  "endpointCandidates": [
+    {
+      "path": "/marketing/getAllClearanceStock",
+      "method": "POST",
+      "evidence": "\" const request = { query: { url: baseUrl + '/marketing/getAllClearanceStock', method: 'post' }, batchUpdateStatus: { url: baseUrl + '/mark",
+      "from": "https://sellerinventory.yswg.com.cn/marketing/clearanceStockIndex",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path",
+        "post_query_candidate"
+      ]
+    },
+    {
+      "path": "/marketing/batchUpdateClearancesStatus",
+      "method": "POST",
+      "evidence": "}, batchUpdateStatus: { url: baseUrl + '/marketing/batchUpdateClearancesStatus', method: 'patch' }, batchUpdateColumn: { url: baseUrl + '/mar",
+      "from": "https://sellerinventory.yswg.com.cn/marketing/clearanceStockIndex",
+      "risk": "write_or_sensitive",
+      "reasons": [
+        "write_path"
+      ]
+    },
+    {
+      "path": "/marketing/batchUpdateColumn",
+      "method": "PATCH",
+      "evidence": "}, batchUpdateColumn: { url: baseUrl + '/marketing/batchUpdateColumn', method: 'post' }, updateClolumn: { url: baseUrl + '/marketin",
+      "from": "https://sellerinventory.yswg.com.cn/marketing/clearanceStockIndex",
+      "risk": "write_or_sensitive",
+      "reasons": [
+        "write_method",
+        "write_path"
+      ]
+    },
+    {
+      "path": "/marketing/updateClearancesData",
+      "method": "POST",
+      "evidence": "ost' }, updateClolumn: { url: baseUrl + '/marketing/updateClearancesData', method: 'patch' }, getHistoryLog: { url: baseUrl + '/marketi",
+      "from": "https://sellerinventory.yswg.com.cn/marketing/clearanceStockIndex",
+      "risk": "write_or_sensitive",
+      "reasons": [
+        "write_path"
+      ]
+    },
+    {
+      "path": "/marketing/getClearanceUpdateLogDetail",
+      "method": "PATCH",
+      "evidence": "tch' }, getHistoryLog: { url: baseUrl + '/marketing/getClearanceUpdateLogDetail', method: 'get' }, financial: { url: baseUrl + '/reimburse/inp",
+      "from": "https://sellerinventory.yswg.com.cn/marketing/clearanceStockIndex",
+      "risk": "write_or_sensitive",
+      "reasons": [
+        "write_method",
+        "write_path"
+      ]
+    },
+    {
+      "path": "/reimburse/inputFinancialInfo",
+      "method": "GET",
+      "evidence": "d: 'get' }, financial: { url: baseUrl + '/reimburse/inputFinancialInfo', method: 'post' }, download: { url: baseUrl + '/marketing/dow",
+      "from": "https://sellerinventory.yswg.com.cn/marketing/clearanceStockIndex",
+      "risk": "unknown",
+      "reasons": []
+    },
+    {
+      "path": "/marketing/downLoadClearanceProducts",
+      "method": "POST",
+      "evidence": "d: 'post' }, download: { url: baseUrl + '/marketing/downLoadClearanceProducts' }, delete: { url: baseUrl + '/marketing/deleteClearancesData',",
+      "from": "https://sellerinventory.yswg.com.cn/marketing/clearanceStockIndex",
+      "risk": "write_or_sensitive",
+      "reasons": [
+        "write_path"
+      ]
+    },
+    {
+      "path": "/marketing/deleteClearancesData",
+      "method": "DELETE",
+      "evidence": "ceProducts' }, delete: { url: baseUrl + '/marketing/deleteClearancesData', method: 'delete' } } const role = { operation: top.permissio",
+      "from": "https://sellerinventory.yswg.com.cn/marketing/clearanceStockIndex",
+      "risk": "write_or_sensitive",
+      "reasons": [
+        "write_method",
+        "write_path"
+      ]
+    },
+    {
+      "path": "/commonUtil/getSellerTree",
+      "method": "UNKNOWN",
+      "evidence": "an, default: true }, apiUrl: { type: String, default: '/commonUtil/getSellerTree' }, useCache: { type: Boolean, default: true }, forceRefresh: { type: Boolean,",
+      "from": "https://sellerinventory.yswg.com.cn/vue/components/userSelect.js?v=20260123",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/pm/formal/list?sku=${sku}&site=${site}",
+      "method": "UNKNOWN",
+      "evidence": "转Amazon产品页面 const goAmazonListBySku = (site, sku) => { openTabsPage(`/pm/formal/list?sku=${sku}&site=${site}`, `${sku}:Amazon产品列表`); } // 跳转审核列表 const goReviewList = (sku) => { openTabsPage(`/pm/list?sku=${s",
+      "from": "https://sellerinventory.yswg.com.cn/vue/utils/commonMixin.js",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/pm/list?sku=${sku}",
+      "method": "UNKNOWN",
+      "evidence": "); } // 跳转审核列表 const goReviewList = (sku) => { openTabsPage(`/pm/list?sku=${sku}`, `${sku}:审核列表`); } // SKU跳转活动提报记录页面 const goActivityRecordBySku = (site, sku) => { openTabsPage(`",
+      "from": "https://sellerinventory.yswg.com.cn/vue/utils/commonMixin.js",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/s?k=${searchTerm}",
+      "method": "UNKNOWN",
+      "evidence": "转亚马逊 const goAmazonBySearchTerm = (site, searchTerm) => { let url = `https://www.${site}/s?k=${searchTerm}` window.open(url) } // 不打开新标签页下载 const elDownloadFile = (url, fileName, isLoading = true) => {",
+      "from": "https://sellerinventory.yswg.com.cn/vue/utils/commonMixin.js",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/performance/api/pm/checkKeywordsNew",
+      "method": "UNKNOWN",
+      "evidence": "jaxPromise( localStorage.getItem('curr_app_env') == 'pro' ? 'https://api.yswg.com.cn/performance/api/pm/checkKeywordsNew' : '/api/pm/checkKeywordsNew',//全部请求119服务器分流 updateData, 'POST',",
+      "from": "https://sellerinventory.yswg.com.cn/vue/utils/commonMixin.js",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/api/pm/checkKeywordsNew",
+      "method": "UNKNOWN",
+      "evidence": "nv') == 'pro' ? 'https://api.yswg.com.cn/performance/api/pm/checkKeywordsNew' : '/api/pm/checkKeywordsNew',//全部请求119服务器分流 updateData, 'POST', {",
+      "from": "https://sellerinventory.yswg.com.cn/vue/utils/commonMixin.js",
+      "risk": "unknown",
+      "reasons": []
+    },
+    {
+      "path": "/commonUtil/getInfoFromRedisByKey",
+      "method": "UNKNOWN",
+      "evidence": "ember = (key, treeDataMapRef, customUrl='')=>{ let url = customUrl||'/commonUtil/getInfoFromRedisByKey' ajaxPromise( window.origin+url, {key}, 'get',",
+      "from": "https://sellerinventory.yswg.com.cn/vue/utils/commonMixin.js",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    }
+  ]
+}

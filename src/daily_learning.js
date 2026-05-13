@@ -113,6 +113,28 @@ function decisionAttribution(records = []) {
   return groups;
 }
 
+function finalRunLanding(records = [], sourceRunId = '') {
+  const filtered = (records || []).filter(record => String(record.sourceRunId || '') === String(sourceRunId || ''));
+  const summary = {
+    sourceRunId: String(sourceRunId || ''),
+    total: filtered.length,
+    success: 0,
+    failed: 0,
+    planned: 0,
+    manualReview: 0,
+    unknown: 0,
+  };
+  for (const record of filtered) {
+    const outcome = String(record.outcome || '').toLowerCase();
+    if (record.dryRun || outcome.includes('dry_run')) summary.planned += 1;
+    else if (outcome.includes('success') || outcome.includes('landed')) summary.success += 1;
+    else if (outcome.includes('fail') || outcome.includes('miss') || outcome.includes('blocked')) summary.failed += 1;
+    else if (outcome.includes('manual_review') || outcome === 'review') summary.manualReview += 1;
+    else summary.unknown += 1;
+  }
+  return summary;
+}
+
 function buildLearningRecord(input = {}) {
   const time = input.timeContext || {};
   const snapshot = input.snapshot || {};
@@ -172,6 +194,7 @@ function buildLearningRecord(input = {}) {
       plannedActions: schema.planActionCount || 0,
       actionBreakdown: actionBreakdown(adjustmentRecords),
       decisionAttribution: decisionAttribution(adjustmentRecords),
+      finalRunLanding: finalRunLanding(adjustmentRecords, time.sourceRunId || manifest.runId || ''),
     },
     carryForward: {
       mustReadBeforeTomorrowDecision: true,
@@ -195,6 +218,7 @@ function buildLearningRecord(input = {}) {
 function renderLearningMarkdown(record = {}) {
   const metrics = record.observedPressure?.snapshotMetrics || {};
   const landed = record.decisions?.actionBreakdown?.landed || {};
+  const finalRun = record.decisions?.finalRunLanding || {};
   const signals = (record.observedPressure?.topSignals || [])
     .map(item => `- ${item.signal}: ${item.count}`)
     .join('\n') || '- none';
@@ -230,6 +254,7 @@ ${signals}
 - landed success: ${landed.success || 0}
 - landed failed: ${landed.failed || 0}
 - dry-run planned: ${landed.planned || 0}
+- final run: success ${finalRun.success || 0}, failed ${finalRun.failed || 0}, planned ${finalRun.planned || 0}, manual review ${finalRun.manualReview || 0}, unknown ${finalRun.unknown || 0}
 
 ## Decision Attribution
 ${attributionLines}
@@ -255,6 +280,7 @@ module.exports = {
   actionBreakdown,
   buildLearningRecord,
   decisionAttribution,
+  finalRunLanding,
   persistDailyLearning,
   renderLearningMarkdown,
 };

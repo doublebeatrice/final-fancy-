@@ -1,0 +1,92 @@
+{
+  "sourceId": "searchPerformance.productIndex",
+  "generatedAt": "2026-05-13T10:36:12.619Z",
+  "fieldCount": 0,
+  "fieldSummary": {
+    "confirmed": 0,
+    "probable": 0,
+    "unknown": 0
+  },
+  "fields": [],
+  "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\report_probe_searchPerformance_productIndex_2026-05-13.json",
+  "route": {
+    "routeId": "searchPerformance.productIndex",
+    "routeName": "商品搜索表现",
+    "url": "https://sellerinventory.yswg.com.cn/searchPerformance/productIndex",
+    "source": "sellerinventory"
+  },
+  "networkSummary": {
+    "requestCount": 31,
+    "sampleRowCount": 0,
+    "endpointCandidateCount": 6
+  },
+  "endpointSummary": {
+    "total": 6,
+    "safeRead": 3,
+    "writeOrSensitive": 1,
+    "unknown": 0,
+    "commonNoise": 2
+  },
+  "endpointCandidates": [
+    {
+      "path": "/searchPerformance/fileSearchPerformance",
+      "method": "UNKNOWN",
+      "evidence": "k',function(){ commonTool.ajaxPromise({ url:`https://sellerinventory.yswg.com.cn/searchPerformance/fileSearchPerformance`, }).then(res=>{ if(!res.data.data.length){ layer.msg('暂无相",
+      "from": "https://sellerinventory.yswg.com.cn/searchPerformance/productIndex",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/searchPerformance/uploadProductSearchPerformance",
+      "method": "UNKNOWN",
+      "evidence": "// } commonTool.ajaxPromise({ url:`https://sellerinventory.yswg.com.cn/searchPerformance/uploadProductSearchPerformance`, type:'post', data:fd, file:true }).then(",
+      "from": "https://sellerinventory.yswg.com.cn/searchPerformance/productIndex",
+      "risk": "write_or_sensitive",
+      "reasons": [
+        "write_path"
+      ]
+    },
+    {
+      "path": "/searchPerformance/getProductDataArray",
+      "method": "UNKNOWN",
+      "evidence": "eBySite(site){ commonTool.ajaxPromise({ url:`https://sellerinventory.yswg.com.cn/searchPerformance/getProductDataArray`, data:{site}, msgShow:false }).then(res=>{",
+      "from": "https://sellerinventory.yswg.com.cn/searchPerformance/productIndex",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/searchPerformance/findProductSearchPerformance",
+      "method": "UNKNOWN",
+      "evidence": "tData(params){ commonTool.ajaxPromise({ url:`https://sellerinventory.yswg.com.cn/searchPerformance/findProductSearchPerformance`, data:params, msgShow:false }).then(res=>{",
+      "from": "https://sellerinventory.yswg.com.cn/searchPerformance/productIndex",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/api/note/detail",
+      "method": "UNKNOWN",
+      "evidence": "//便签内容去mongose数据库拿 $.ajax({ type:'get', url:'https://shopifyapi.yswg.com.cn/api/note/detail', data:{ user_id:$('a.user_area').attr('data-id'), }, success:functi",
+      "from": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/lib/admin.js",
+      "risk": "common_noise",
+      "reasons": [
+        "common_page_note_endpoint"
+      ]
+    },
+    {
+      "path": "/api/note/save",
+      "method": "UNKNOWN",
+      "evidence": "}else{ $.ajax({ url:'https://shopifyapi.yswg.com.cn/api/note/save', // url:'http://192.168.2.108:3001/note/save', type:'post',",
+      "from": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/lib/admin.js",
+      "risk": "common_noise",
+      "reasons": [
+        "common_page_note_endpoint"
+      ]
+    }
+  ]
+}

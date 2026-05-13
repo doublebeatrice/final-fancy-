@@ -1,0 +1,132 @@
+{
+  "sourceId": "product_line.sellerSuccess",
+  "generatedAt": "2026-05-13T10:36:12.386Z",
+  "fieldCount": 0,
+  "fieldSummary": {
+    "confirmed": 0,
+    "probable": 0,
+    "unknown": 0
+  },
+  "fields": [],
+  "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\report_probe_product_line_sellerSuccess_2026-05-13.json",
+  "route": {
+    "routeId": "product_line.sellerSuccess",
+    "routeName": "产品成功率",
+    "url": "https://sellerinventory.yswg.com.cn/pm/product/sellerSuccess",
+    "source": "sellerinventory"
+  },
+  "networkSummary": {
+    "requestCount": 34,
+    "sampleRowCount": 0,
+    "endpointCandidateCount": 10
+  },
+  "endpointSummary": {
+    "total": 10,
+    "safeRead": 7,
+    "writeOrSensitive": 1,
+    "unknown": 0,
+    "commonNoise": 2
+  },
+  "endpointCandidates": [
+    {
+      "path": "/pm/product/successRate",
+      "method": "UNKNOWN",
+      "evidence": "$('.product_success_rate').on('click',function(){ openTabsPage(\"https://sellerinventory.yswg.com.cn/pm/product/successRate\",'产品成功率'); return false; }); //定义部门分组 var sell_dept_super_groups",
+      "from": "https://sellerinventory.yswg.com.cn/pm/product/sellerSuccess",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/administrator/developer/getSpecialTypeAll",
+      "method": "UNKNOWN",
+      "evidence": "ck(function(){ commonTool.ajaxPromise({ url:'https://sellerinventory.yswg.com.cn/administrator/developer/getSpecialTypeAll' }).then(res=>{ res['0']='无' let inputData = {}",
+      "from": "https://sellerinventory.yswg.com.cn/pm/product/sellerSuccess",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/pm/product/sellerSuccess",
+      "method": "UNKNOWN",
+      "evidence": "AY-success-manage' ,autoSort:false ,url:'https://sellerinventory.yswg.com.cn/pm/product/sellerSuccess' ,title:'产品成功率' ,headers: {\"X-CSRF-TOKEN\": $('meta[name=\"csrf-token\"]').attr(",
+      "from": "https://sellerinventory.yswg.com.cn/pm/product/sellerSuccess",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/pm/product/successSellerDetailList?start=",
+      "method": "UNKNOWN",
+      "evidence": "var category = $('#type').val().replace('&',\"%26\"); var url = \"https://sellerinventory.yswg.com.cn/pm/product/successSellerDetailList?start=\" + startDate+'&end='+end + '&site=' + site +'&category='+category; var tagName = data.seller_num+'成功产品",
+      "from": "https://sellerinventory.yswg.com.cn/pm/product/sellerSuccess",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/pm/product/developSuccessIndex?${urlArr.join(",
+      "method": "UNKNOWN",
+      "evidence": "y}=${obj[key]}`) } openTabsPage(`https://sellerinventory.yswg.com.cn/pm/product/developSuccessIndex?${urlArr.join('&')}`, '开发产品成功率'); break; } }); var sellerDept_val = $",
+      "from": "https://sellerinventory.yswg.com.cn/pm/product/sellerSuccess",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/pm/product/sellerSuccessDownload?download=1&fuldate_max=",
+      "method": "UNKNOWN",
+      "evidence": "unction(data){ var field= data.field; var url = 'https://sellerinventory.yswg.com.cn/pm/product/sellerSuccessDownload?download=1&fuldate_max='+field.fuldate_max + '&fuldate_min='+ field.fuldate_min + '&salesChannel=' + field.salesChannel + '&se",
+      "from": "https://sellerinventory.yswg.com.cn/pm/product/sellerSuccess",
+      "risk": "write_or_sensitive",
+      "reasons": [
+        "write_path"
+      ]
+    },
+    {
+      "path": "/product_success_rate/product_success_rate_echarts.html?t=20220608",
+      "method": "UNKNOWN",
+      "evidence": "itle: '重点老品:年变化表' , shade: 0 , content: 'https://sellerinventory.yswg.com.cn/product_success_rate/product_success_rate_echarts.html?t=20220608' , area: ['90%', '85%'] , maxmin: true , yes: function (in",
+      "from": "https://sellerinventory.yswg.com.cn/pm/product/sellerSuccess",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/pm/product/sellerSuccessChart?seller_num=",
+      "method": "UNKNOWN",
+      "evidence": "switch (type) { case 1: openTabsPage('https://sellerinventory.yswg.com.cn/pm/product/sellerSuccessChart?seller_num='+seller_num, seller_num + '-历史成功率'); break; default: break;",
+      "from": "https://sellerinventory.yswg.com.cn/pm/product/sellerSuccess",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/api/note/detail",
+      "method": "UNKNOWN",
+      "evidence": "//便签内容去mongose数据库拿 $.ajax({ type:'get', url:'https://shopifyapi.yswg.com.cn/api/note/detail', data:{ user_id:$('a.user_area').attr('data-id'), }, success:functi",
+      "from": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/lib/admin.js",
+      "risk": "common_noise",
+      "reasons": [
+        "common_page_note_endpoint"
+      ]
+    },
+    {
+      "path": "/api/note/save",
+      "method": "UNKNOWN",
+      "evidence": "}else{ $.ajax({ url:'https://shopifyapi.yswg.com.cn/api/note/save', // url:'http://192.168.2.108:3001/note/save', type:'post',",
+      "from": "https://sellerinventory.yswg.com.cn/frame/layuiadmin/lib/admin.js",
+      "risk": "common_noise",
+      "reasons": [
+        "common_page_note_endpoint"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "created_at": "2026-05-13",
+    "marketplace": "amazon.com",
+    "queries": [
+      "baby shower lantern (60 results)",
+      "baby shower hot air balloon lantern (60 results)"
+    ],
+    "raw_count": 120,
+    "unique_after_dedup": 95,
+    "analyzed_count": 30,
+    "note": "样本来自两次搜索结果第一页有机自然位 + 同款合并去重，挑选评论代表性最强、价格分布均衡的 30 个 ASIN 进入分析"
+  },
+  "samples": [
+    { "asin": "B0D6YGPMCD", "title_short": "Pink/Gold Round Paper Lanterns 20pc",                     "price": 19.99, "rating": 4.7, "color": ["pink","gold"],                     "material": ["paper"],                                "theme": ["generic"],            "form": "lantern_only" },
+    { "asin": "B0CGHT5ZQH", "title_short": "Sage/Gold/Ivory Rustic Paper Lanterns 15pc",              "price": 18.59, "rating": 4.7, "color": ["sage","gold","ivory"],              "material": ["paper"],                                "theme": ["rustic","boho"],      "form": "lantern_only" },
+    { "asin": "B0F27RFDQ6", "title_short": "Sage Green Neutral Set w/ Banner",                        "price": 18.99, "rating": 4.8, "color": ["sage"],                              "material": ["paper","tissue"],                       "theme": ["gender_neutral"],     "form": "kit" },
+    { "asin": "B0DK6S6J2F", "title_short": "Rustic Creamy White Boho Lantern 12pc",                   "price": 13.99, "rating": 5.0, "color": ["white","cream"],                    "material": ["paper"],                                "theme": ["boho","rustic"],      "form": "lantern_only" },
+    { "asin": "B07C7DZKZG", "title_short": "Pink/White Lantern + Pom Pom 15pc",                       "price": 15.59, "rating": 4.6, "color": ["pink","white"],                     "material": ["paper","tissue"],                       "theme": ["girl"],               "form": "lantern_only" },
+    { "asin": "B0DHVB6859", "title_short": "Boho Burlap Print Lantern 10pc",                          "price": 17.99, "rating": 4.6, "color": ["beige","brown"],                    "material": ["paper","burlap_print"],                 "theme": ["boho","farmhouse"],   "form": "lantern_only" },
+    { "asin": "B0F48343RL", "title_short": "Chinoiserie Blue/White Porcelain Lantern 12pc",           "price": 19.99, "rating": 4.9, "color": ["blue","white"],                     "material": ["paper"],                                "theme": ["chinoiserie"],        "form": "lantern_only" },
+    { "asin": "B0GGQJBNCD", "title_short": "Green/White/Gold Lantern + Honeycomb 16pc",               "price": 17.88, "rating": 4.7, "color": ["green","white","gold"],             "material": ["paper","honeycomb"],                    "theme": ["graduation","generic"],"form": "lantern_only" },
+    { "asin": "B09YL7YK5H", "title_short": "Gradient Blue/White Ocean Theme 14pc",                    "price": 17.99, "rating": 4.7, "color": ["blue","white"],                     "material": ["paper"],                                "theme": ["ocean","boy"],        "form": "lantern_only" },
+    { "asin": "B0F1TGWYK5", "title_short": "Dusty Pink + Dusty Blue Gender-Reveal Set",               "price": 15.99, "rating": 4.4, "color": ["dusty_pink","dusty_blue"],          "material": ["paper","tissue"],                       "theme": ["gender_reveal"],      "form": "kit" },
+    { "asin": "B0CH9JGRQ5", "title_short": "Mermaid Jellyfish Paper Lanterns 6pc",                    "price": 18.99, "rating": 4.7, "color": ["blue","pink","purple"],             "material": ["paper"],                                "theme": ["mermaid","ocean"],    "form": "lantern_only" },
+    { "asin": "B0CGD6F4D4", "title_short": "Beige/Champagne/Peach Boho 20pc",                         "price": 18.99, "rating": 4.7, "color": ["beige","champagne","peach"],        "material": ["paper","tissue","honeycomb"],           "theme": ["boho"],               "form": "kit" },
+    { "asin": "B0CB5WZ18J", "title_short": "Teal/Gold Lantern + Pom Set",                             "price": 16.99, "rating": 4.6, "color": ["teal","gold"],                      "material": ["paper","tissue"],                       "theme": ["generic"],            "form": "kit" },
+    { "asin": "B0G6KFXRVN", "title_short": "Wildflower Watercolor Paper Lantern 12pc",                "price": 29.99, "rating": 4.8, "color": ["multi_floral"],                     "material": ["paper"],                                "theme": ["wildflower","garden"],"form": "lantern_only" },
+    { "asin": "B0FPQMVC6V", "title_short": "Sage/White Hot Air Balloon Centerpiece 8set",             "price": 40.99, "rating": 4.0, "color": ["sage","white"],                     "material": ["paper","wood"],                         "theme": ["hot_air_balloon"],    "form": "centerpiece" },
+    { "asin": "B0G64DD3Q3", "title_short": "Blue Safari Toile De Jouy Lantern 12pc",                  "price": 19.99, "rating": 4.7, "color": ["blue","white"],                     "material": ["paper"],                                "theme": ["safari","jungle","chinoiserie"], "form": "lantern_only" },
+    { "asin": "B0GHVT8HYK", "title_short": "Blue/White Hot Air Balloon DIY 5pc",                      "price": 12.99, "rating": 4.0, "color": ["blue","white"],                     "material": ["paper"],                                "theme": ["hot_air_balloon"],    "form": "lantern_only" },
+    { "asin": "B0CFLPJ68G", "title_short": "Nude Striped Hot Air Balloon Centerpiece 12set",          "price": 28.99, "rating": 3.7, "color": ["nude","beige"],                     "material": ["paper","wood","rope"],                  "theme": ["hot_air_balloon","boho"],"form": "centerpiece" },
+    { "asin": "B0DH24BQG3", "title_short": "Orange/Green Citrus Cutie Set",                           "price": 13.99, "rating": 4.6, "color": ["orange","green"],                   "material": ["paper","tissue"],                       "theme": ["citrus","fruit"],     "form": "kit" },
+    { "asin": "B09WDPVKW3", "title_short": "Brushed Brass Mini Metal Lantern 8pc",                    "price": 23.99, "rating": 4.6, "color": ["brass"],                            "material": ["metal"],                                "theme": ["vintage","enchanted"],"form": "lantern_only" },
+    { "asin": "B0CR5KY719", "title_short": "Pink + Gold Hanging Paper Lantern 12pc",                  "price": 12.99, "rating": 4.5, "color": ["pink","gold"],                      "material": ["paper"],                                "theme": ["girl"],               "form": "lantern_only" },
+    { "asin": "B08DC9D1H7", "title_short": "Yellow Round Asian Paper Lantern 10pc",                   "price": 12.99, "rating": 4.6, "color": ["yellow"],                           "material": ["paper"],                                "theme": ["asian","fall"],       "form": "lantern_only" },
+    { "asin": "B0FPQL2JV3", "title_short": "Bee Theme 'Honey is on the Way' Set",                     "price": 16.99, "rating": 4.7, "color": ["yellow","black"],                   "material": ["paper","tissue","honeycomb"],           "theme": ["bee"],                "form": "kit" },
+    { "asin": "B0FDGZJQBF", "title_short": "Purple/White Lavender Set",                               "price": 15.99, "rating": 4.5, "color": ["purple","white"],                   "material": ["paper","tissue","honeycomb"],           "theme": ["lavender","graduation"],"form": "kit" },
+    { "asin": "B09ZNRKR8R", "title_short": "Rose Gold Vintage Floral Lantern 12pc",                   "price": 13.52, "rating": 4.7, "color": ["rose_gold","floral"],               "material": ["paper"],                                "theme": ["vintage","floral"],   "form": "lantern_only" },
+    { "asin": "B0DB7999M3", "title_short": "Adventure Begins Hot Air Balloon Card",                   "price":  4.95, "rating": 5.0, "color": ["multi"],                            "material": ["paper_card"],                            "theme": ["hot_air_balloon"],    "form": "card" },
+    { "asin": "B0G2Y1QC9C", "title_short": "Linen Hot Air Balloon Lampshade 14in 3pc",                "price": 64.39, "rating": 4.4, "color": ["white"],                            "material": ["linen_fabric","wood"],                  "theme": ["hot_air_balloon","nursery"],"form": "lampshade" },
+    { "asin": "B0DSKJKL1Y", "title_short": "Pink Hot Air Balloon w/ Plush Bear 12set",                "price": 59.99, "rating": 4.1, "color": ["pink","beige"],                     "material": ["paper","wood","plush"],                 "theme": ["hot_air_balloon","bear"],"form": "centerpiece" },
+    { "asin": "B0F32WZNDW", "title_short": "Sage Green Mega Kit incl. Tablecloth",                    "price": 35.99, "rating": 4.7, "color": ["sage"],                             "material": ["paper","balloon_latex","plastic_tablecloth"], "theme": ["gender_neutral"], "form": "mega_kit" },
+    { "asin": "B0CXST9SDP", "title_short": "Safari Giraffe Hot Air Balloon Lampshade",                "price": 19.99, "rating": 3.4, "color": ["beige","brown"],                    "material": ["paper","fabric"],                       "theme": ["safari","jungle","hot_air_balloon"],"form": "lampshade" }
+  ]
+}

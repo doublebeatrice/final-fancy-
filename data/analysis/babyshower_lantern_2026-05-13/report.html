@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Baby Shower Lantern 市场调研 · 2026-05-13</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0f1420; --panel:#171e2e; --ink:#e8ecf3; --muted:#8a94a6;
+    --accent:#7ee0c0; --accent2:#f5b971; --warn:#ff7a7a; --line:#24304a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  .wrap{max-width:1200px;margin:0 auto;padding:32px 24px}
+  header{margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:16px}
+  h1{margin:0 0 8px;font-size:26px}
+  .sub{color:var(--muted);font-size:13px}
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:24px 0}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .kpi .v{font-size:22px;font-weight:700;color:var(--accent)}
+  .kpi .l{font-size:12px;color:var(--muted);margin-top:4px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:800px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .card h2{margin:0 0 4px;font-size:15px;color:var(--accent)}
+  .card .hint{font-size:12px;color:var(--muted);margin-bottom:12px}
+  canvas{max-height:300px}
+  .section-title{margin:32px 0 12px;font-size:16px;color:var(--accent2);letter-spacing:1px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:500;font-size:12px;text-transform:uppercase}
+  .tag{display:inline-block;padding:2px 8px;border-radius:4px;background:#243049;color:#cfd7e6;font-size:11px;margin:2px 4px 2px 0}
+  .concl{background:linear-gradient(135deg,#1a2337,#1f2d4a);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+  .concl ul{padding-left:18px}
+  .concl li{margin:6px 0}
+  .rec{border-left:3px solid var(--accent);background:var(--panel);padding:14px 18px;margin:10px 0;border-radius:0 8px 8px 0}
+  .rec h3{margin:0 0 6px;font-size:14px;color:var(--accent2)}
+  .rec p{margin:4px 0;font-size:13px}
+  .foot{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+  .bar-empty{color:var(--warn);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Baby Shower Lantern 市场调研</h1>
+  <div class="sub">数据源：amazon.com 搜索词 "baby shower lantern" + "baby shower hot air balloon lantern" · 样本 N=30 · 2026-05-13</div>
+</header>
+
+<div class="kpi-row">
+  <div class="kpi"><div class="v">$22.02</div><div class="l">均价</div></div>
+  <div class="kpi"><div class="v">$18.29</div><div class="l">中位价</div></div>
+  <div class="kpi"><div class="v">$13.02</div><div class="l">标准差</div></div>
+  <div class="kpi"><div class="v">4.54★</div><div class="l">平均评分</div></div>
+  <div class="kpi"><div class="v">83%</div><div class="l">1σ 内占比 (理论 68%)</div></div>
+  <div class="kpi"><div class="v">90%</div><div class="l">纸质材质占比</div></div>
+</div>
+
+<div class="section-title">一、价格分布（右偏，非标准正态）</div>
+<div class="grid">
+  <div class="card">
+    <h2>价格区间密度</h2>
+    <div class="hint">53% 样本挤在 $15–20，$20–30 出现断层，$30+ 为套装/灯罩</div>
+    <canvas id="priceDist"></canvas>
+  </div>
+  <div class="card">
+    <h2>价格 vs 评分 散点</h2>
+    <div class="hint">高价 centerpiece 评分偏低（3.7–4.1），是可切入信号</div>
+    <canvas id="priceRating"></canvas>
+  </div>
+</div>
+
+<div class="section-title">二、色系与材质</div>
+<div class="grid">
+  <div class="card">
+    <h2>色系出现频次 Top 10</h2>
+    <div class="hint">白/奶油、粉、金、米、蓝、鼠尾草绿吃掉 70% 曝光</div>
+    <canvas id="colorDist"></canvas>
+  </div>
+  <div class="card">
+    <h2>材质分布</h2>
+    <div class="hint">纸质垄断，非纸材质仅作为配件出现</div>
+    <canvas id="matDist"></canvas>
+  </div>
+</div>
+
+<div class="section-title">三、主题与形态</div>
+<div class="grid">
+  <div class="card">
+    <h2>主题分布</h2>
+    <div class="hint">热气球 + 波西米亚双头部，其余主题每个仅 1–2 条</div>
+    <canvas id="themeDist"></canvas>
+  </div>
+  <div class="card">
+    <h2>产品形态</h2>
+    <div class="hint">centerpiece/灯罩数量少但客单价 2–4 倍</div>
+    <canvas id="formDist"></canvas>
+  </div>
+</div>
+
+<div class="section-title">四、空白方向识别</div>
+<div class="card">
+  <table>
+    <thead><tr><th>维度</th><th>红海（集中）</th><th>空白（未开发）</th></tr></thead>
+    <tbody>
+      <tr><td>价格带</td><td>$15–20 (16/30)</td><td class="bar-empty">$22–28 中端断层</td></tr>
+      <tr><td>色系</td><td>白 / 鼠尾草绿 / 尘灰蓝 / 米波西米亚</td><td class="bar-empty">红 · 黑 · 深绿 · 橙 · 薰衣草紫</td></tr>
+      <tr><td>材质</td><td>纸质 27/30</td><td class="bar-empty">亚麻布 · 金属 · 编织 主灯笼</td></tr>
+      <tr><td>主题</td><td>热气球 · 波西米亚</td><td class="bar-empty">青花瓷 · 水彩野花 · 小熊 · 蜜蜂</td></tr>
+      <tr><td>形态</td><td>纸灯笼串 16 / 套装 7</td><td class="bar-empty">可复用 LED 夜灯 centerpiece</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section-title">五、市场结论</div>
+<div class="concl">
+  <ul>
+    <li><b>两头挤中间薄</b>：$15–20 红海 + $30+ 高价带存在评分洼地，中间 $22–28 是真空。</li>
+    <li><b>色系内卷严重</b>：6 种主流色占 70%，高饱和 / 深色系 / 节日色空白。</li>
+    <li><b>材质单一</b>：90% 纸质，可复用 / 高档感 / 布艺方向只有零星试探。</li>
+    <li><b>主题长尾机会</b>：评分 ≥4.8 的小众主题(青花瓷/水彩野花)供给只有 1–2 条，关键词竞争低。</li>
+    <li><b>Centerpiece 是品质洼地</b>：高价但评分仅 3.7–4.1，说明市场要货而现有供给质量差。</li>
+  </ul>
+</div>
+
+<div class="section-title">六、产品开发建议</div>
+
+<div class="rec">
+  <h3>建议 1 · 切入 $22–28 中端断层：升级版热气球 centerpiece</h3>
+  <p>8–12 件套，真藤编篮 + 灯笼内嵌 LED 小夜灯（派对后可留作婴儿房装饰），定价 $24.99。</p>
+  <p>对标痛点：现有 $30+ 玩家评分 3.7–4.1，用户抱怨易塌、不能复用。</p>
+  <div><span class="tag">价格带</span><span class="tag">品质升级</span><span class="tag">两用场景</span></div>
+</div>
+
+<div class="rec">
+  <h3>建议 2 · 非纸质主灯笼：鼠尾草绿 × 亚麻布</h3>
+  <p>6/8/10 寸三件套，亚麻布替代纸，定价 $26.99，卡在纸灯笼 $18 与亚麻灯罩 $64 之间。</p>
+  <p>目标人群：想要高档感但不想一次性的妈妈群体。</p>
+  <div><span class="tag">材质差异化</span><span class="tag">色系 Top 3</span><span class="tag">中端定价</span></div>
+</div>
+
+<div class="rec">
+  <h3>建议 3 · 小众主题抢位：Chinoiserie 青花瓷 / Wildflower 水彩</h3>
+  <p>两主题现有评分 4.8–4.9 但 SKU 仅 1–2 条，做 12 件装灯笼套装，定价 $19.99–22.99。</p>
+  <p>策略：铺货试错、评分壁垒低、避开鼠尾草绿红海、长尾关键词流量获取成本低。</p>
+  <div><span class="tag">长尾主题</span><span class="tag">评分壁垒低</span><span class="tag">快速试错</span></div>
+</div>
+
+<div class="foot">
+  原始数据：<code>data/analysis/babyshower_lantern_2026-05-13/samples.json</code> · 生成于 2026-05-13 · 样本为搜索结果第一页有机位 + 去重
+</div>
+
+</div>
+
+<script>
+const common = {
+  plugins:{legend:{labels:{color:'#cfd7e6',font:{size:11}}}},
+  scales:{
+    x:{ticks:{color:'#8a94a6',font:{size:11}},grid:{color:'#24304a'}},
+    y:{ticks:{color:'#8a94a6',font:{size:11}},grid:{color:'#24304a'}}
+  }
+};
+
+new Chart(document.getElementById('priceDist'),{
+  type:'bar',
+  data:{
+    labels:['$0-10','$10-15','$15-20','$20-25','$25-30','$30-40','$40-50','$50-70'],
+    datasets:[{label:'样本数',data:[1,6,16,1,2,1,1,2],backgroundColor:'#7ee0c0'}]
+  },
+  options:common
+});
+
+new Chart(document.getElementById('priceRating'),{
+  type:'scatter',
+  data:{datasets:[{
+    label:'产品',
+    data:[
+      {x:19.99,y:4.7},{x:18.59,y:4.7},{x:18.99,y:4.8},{x:13.99,y:5.0},{x:15.59,y:4.6},
+      {x:17.99,y:4.6},{x:19.99,y:4.9},{x:17.88,y:4.7},{x:17.99,y:4.7},{x:15.99,y:4.4},
+      {x:18.99,y:4.7},{x:18.99,y:4.7},{x:16.99,y:4.6},{x:29.99,y:4.8},{x:40.99,y:4.0},
+      {x:19.99,y:4.7},{x:12.99,y:4.0},{x:28.99,y:3.7},{x:13.99,y:4.6},{x:23.99,y:4.6},
+      {x:12.99,y:4.5},{x:12.99,y:4.6},{x:16.99,y:4.7},{x:15.99,y:4.5},{x:13.52,y:4.7},
+      {x:4.95,y:5.0},{x:64.39,y:4.4},{x:59.99,y:4.1},{x:35.99,y:4.7},{x:19.99,y:3.4}
+    ],
+    backgroundColor:'#f5b971',
+    pointRadius:5
+  }]},
+  options:{...common,
+    scales:{
+      x:{...common.scales.x,title:{display:true,text:'价格 USD',color:'#8a94a6'}},
+      y:{...common.scales.y,title:{display:true,text:'评分',color:'#8a94a6'},min:3,max:5.1}
+    }
+  }
+});
+
+new Chart(document.getElementById('colorDist'),{
+  type:'bar',
+  data:{
+    labels:['white/cream','pink','gold','beige','blue','sage','brown','green','purple','yellow'],
+    datasets:[{label:'出现次数',data:[11,6,5,5,5,4,2,2,2,2],backgroundColor:'#7ee0c0'}]
+  },
+  options:{...common,indexAxis:'y'}
+});
+
+new Chart(document.getElementById('matDist'),{
+  type:'doughnut',
+  data:{
+    labels:['paper','tissue','honeycomb','wood','metal/linen/rope/其他'],
+    datasets:[{data:[27,8,4,4,6],backgroundColor:['#7ee0c0','#f5b971','#8ab4f8','#e07ec3','#5a6680']}]
+  },
+  options:{plugins:{legend:{labels:{color:'#cfd7e6',font:{size:12}}}}}
+});
+
+new Chart(document.getElementById('themeDist'),{
+  type:'bar',
+  data:{
+    labels:['hot_air_balloon','boho','generic','rustic','gender_neutral','chinoiserie','ocean','safari/jungle','graduation','其他长尾'],
+    datasets:[{label:'样本数',data:[7,5,3,2,2,2,2,2,2,8],backgroundColor:'#f5b971'}]
+  },
+  options:{...common,indexAxis:'y'}
+});
+
+new Chart(document.getElementById('formDist'),{
+  type:'doughnut',
+  data:{
+    labels:['lantern_only','kit','centerpiece','lampshade','card/mega_kit'],
+    datasets:[{data:[16,7,3,2,2],backgroundColor:['#7ee0c0','#f5b971','#ff7a7a','#8ab4f8','#5a6680']}]
+  },
+  options:{plugins:{legend:{labels:{color:'#cfd7e6',font:{size:12}}}}}
+});
+</script>
+</body>
+</html>

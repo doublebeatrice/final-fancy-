@@ -309,6 +309,46 @@ const codexApproval = {
 }
 
 {
+  const weakScaleCards = [{
+    ...cards[0],
+    profitRate: 0.2,
+    adStats: {
+      '7d': { spend: 25, orders: 0, clicks: 80, sales: 0 },
+      '30d': { spend: 60, orders: 1, clicks: 180, sales: 20 },
+    },
+    sbStats: {},
+  }];
+  const context = { products: buildProductContexts(weakScaleCards, rowsByType, [], [], []).products };
+  const validated = validateAndNormalizePlan([
+    {
+      sku: 'SKU-1',
+      summary: 'forced budget push without conversion',
+      actions: [
+        {
+          entityType: 'campaign',
+          id: 'c1',
+          actionType: 'budget',
+          currentBudget: 5,
+          suggestedBudget: 6,
+          reason: 'operator wants fast learning loop',
+          evidence: ['budget capped'],
+          confidence: 0.8,
+          riskLevel: 'budget_scale',
+          forceExecute: true,
+          forceReason: 'operator requested no manual review',
+          ...codexApproval,
+        },
+      ],
+    },
+  ], context);
+  assert.strictEqual(validated.errors.length, 0);
+  assert.strictEqual(validated.review.length, 0);
+  assert.strictEqual(validated.plan[0].actions.length, 1);
+  assert.strictEqual(validated.plan[0].actions[0].forceExecute, true);
+  assert.ok(validated.plan[0].actions[0].forceOverrideReasons[0].startsWith('marginal_profit:'));
+}
+
+{
   const context = { products: buildProductContexts(cards, rowsByType, [], [], []).products };
   const validated = validateAndNormalizePlan([
     {
@@ -871,13 +911,13 @@ const codexApproval = {
   const validated = validateAndNormalizePlan([
     {
       sku: 'SKU-1',
-      summary: 'campaign state verify mapping',
+      summary: 'sp campaign state can execute with verification',
       actions: [
         {
           entityType: 'campaign',
           id: 'c1',
-          actionType: 'enable',
-          reason: 'resume campaign',
+          actionType: 'pause',
+          reason: 'pause post-season campaign',
           evidence: ['test'],
           confidence: 0.8,
           riskLevel: 'low',
@@ -886,10 +926,12 @@ const codexApproval = {
       ],
     },
   ], context);
-  assert.strictEqual(validated.plan[0].actions.length, 1);
+  assert.strictEqual(validated.errors.length, 0);
   assert.strictEqual(validated.review.length, 0);
+  assert.strictEqual(validated.plan[0].actions.length, 1);
   assert.strictEqual(validated.plan[0].actions[0].verifySource, 'campaignRows');
   assert.strictEqual(validated.plan[0].actions[0].verifyField, 'state');
+  assert.strictEqual(validated.plan[0].actions[0].expected.value, 'paused');
 }
 
 {

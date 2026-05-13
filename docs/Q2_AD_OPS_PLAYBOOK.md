@@ -123,25 +123,30 @@ Inventory:
 
 ## Automation Decision Boundary
 
-Codex may auto-execute low-risk actions when the evidence is clear:
+Codex should execute supported advertising actions when it has a defensible profit/KPI hypothesis. The operating model is not to avoid risk; it is to create explicit hypotheses, act, verify landing, and use the next daily data cycle to learn or correct.
+
+Codex may auto-execute:
 
 - Small bid increases.
 - Small bid decreases.
 - Enable or pause on clearly valid supported entities.
 - Seven-day untouched low-risk touch actions.
 - Low-budget SP ad creation when the operator has explicitly released creation for testing or rollout and the SKU has inventory, margin, and Q2 or old-product recovery rationale.
+- Budget, placement, bid, create, pause, or other supported advertising experiments with explicit Codex approval.
+- Higher-risk supported ad actions when marked `forceExecute: true` and accompanied by hypothesis, expected effect, measurement window, and rollback condition.
 
 Codex must send these to review:
 
 - SB creation until the real SB creation interface is captured and verified.
 - Structure repair.
-- Large bid changes.
 - Listing changes.
 - Price changes.
 - Replenishment decisions.
-- Any action where evidence is weak or fields are incomplete.
+- Unknown/out-of-scope entities, incomplete fields, missing verification mapping, or unsupported write surfaces.
 
-If Codex cannot judge, output `review`. Do not use old rule logic as fallback.
+If Codex cannot judge a supported advertising action perfectly, it should still choose the best profit/KPI action, approve it explicitly, and let the daily closed loop evaluate the result. Do not use old rule logic as fallback, and do not count API success as success unless landing verification passes.
+
+Known 2026-05-12 exception: SP campaign `enable` is a technical not-landed issue. It should be fixed in automation or reported as `not_landed`, not treated as a manual-review business decision.
 
 ## Seven-Day Untouched Lessons
 

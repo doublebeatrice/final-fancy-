@@ -8,6 +8,8 @@ const { appendAdjustmentRecords, recordsFromExecutionEvents, recordsFromPlan } =
 const { buildOpsTimeContext } = require('../src/ops_time');
 const { buildDailyTaskPool } = require('../src/task_scheduler');
 const { persistDailyLearning } = require('../src/daily_learning');
+const { summarizeOverBudgetCoverage } = require('../src/over_budget_policy');
+const { updateHistoryFromSnapshot, annotateCapSince } = require('../src/over_budget_history');
 const { exportSnapshot } = require('./execute/export_snapshot');
 const { run } = require('../auto_adjust');
 
@@ -562,6 +564,8 @@ function buildRunSummary(manifest) {
       .map(stage => ({ stage: stage.stage, durationMs: stage.durationMs, attempted: stage.attempted || 0, success: stage.success || 0, failed: stage.failed || 0, skipped: stage.skipped || 0 })),
     outputFiles: manifest.outputFiles || {},
     overBudgetCapture: manifest.overBudgetCapture || {},
+    overBudgetCoverage: manifest.overBudgetCoverage || null,
+    warnings: manifest.warnings || [],
     dailyLearning: manifest.dailyLearning || null,
   };
 }
@@ -694,6 +698,15 @@ async function main() {
         ...manifest.overBudgetCapture,
         ...(result.snapshot?.dataAvailability?.overBudget || {}),
       };
+      try {
+        const history = updateHistoryFromSnapshot(result.snapshot || readJson(result.outputFile, {}));
+        manifest.overBudgetHistory = {
+          campaigns: Object.keys(history.campaigns || {}).length,
+          updatedAt: history.updatedAt,
+        };
+      } catch (err) {
+        manifest.overBudgetHistory = { error: err.message };
+      }
       return {
         outputs: { snapshotFile: result.outputFile },
         details: {
@@ -781,7 +794,19 @@ async function main() {
       });
       const scoped = applyAllowedOperationScope(loaded, scopeAnalysis);
       const summary = summarizeValidation(scoped);
+      const planActions = (loaded.plan || [])
+        .flatMap(item => item.actions || [])
+        .concat(((scoped.review || []).map(item => item.action)).filter(Boolean));
+      const overBudgetCoverage = summarizeOverBudgetCoverage(snapshot, planActions);
       manifest.schemaValidation = summary;
+      manifest.overBudgetCoverage = overBudgetCoverage;
+      if (overBudgetCoverage.warning) {
+        manifest.warnings = [...(manifest.warnings || []), {
+          code: overBudgetCoverage.warning,
+          detail: `overBudgetRows=${overBudgetCoverage.snapshotRows}, eligibleCampaigns=${overBudgetCoverage.eligibleCampaigns}, actionableCampaigns=${overBudgetCoverage.actionableCampaigns}, matchedActions=${overBudgetCoverage.matchedActionCount}`,
+        }];
+        console.warn(`[warn] over_budget coverage: ${overBudgetCoverage.warning} | rows=${overBudgetCoverage.snapshotRows} eligible=${overBudgetCoverage.eligibleCampaigns} actionable=${overBudgetCoverage.actionableCampaigns} matched=${overBudgetCoverage.matchedActionCount}`);
+      }
       manifest.outputFiles.validatedPlanFile = path.join(SNAPSHOTS_DIR, 'ai_decision_validated_plan.json');
       if (summary.errorCount > 0 && options.execute) {
         throw new Error(`schema validation failed: ${summary.errorCount} errors`);
@@ -791,7 +816,7 @@ async function main() {
           actionSchemaFile,
           validatedPlanFile: manifest.outputFiles.validatedPlanFile,
         },
-        details: summary,
+        details: { ...summary, overBudgetCoverage },
       };
     });
 

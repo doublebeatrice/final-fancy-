@@ -145,6 +145,23 @@ function campaignRowId(row = {}) {
   return String(row.campaignId || row.campaign_id || row.id || '').trim();
 }
 
+function stateEntityRowId(row = {}, entityType = '') {
+  return String(entityType || '') === 'campaign' ? campaignRowId(row) : entityRowId(row);
+}
+
+function missingStateRowIsSuccess(entityType = '', actionType = '', expectedState = '') {
+  return String(entityType || '') === 'campaign' &&
+    String(actionType || '') === 'pause' &&
+    String(expectedState || '') === 'paused';
+}
+
+function stateValueForEntity(row = {}, entityType = '') {
+  if (String(entityType || '') === 'campaign') {
+    return row.campaignState ?? row.campaign_state ?? row.campaignStatus ?? row.campaign_status ?? row.state ?? row.status ?? row.servingStatus ?? row.activeStatus;
+  }
+  return row.state ?? row.status ?? row.servingStatus ?? row.activeStatus;
+}
+
 function isInvalidState(value) {
   const text = String(value ?? '').toUpperCase();
   return /PAUSED|ARCHIVED|DISABLED|ENDED|INCOMPLETE|CAMPAIGN_INCOMPLETE/.test(text) || text === '0' || text === '2';
@@ -668,11 +685,13 @@ async function run(options = {}) {
           if (lower === 'paused' || lower === 'disabled' || lower === 'archived' || lower === 'ended') return 'paused';
           return lower;
         };
+        const stateValueForEntity = ${stateValueForEntity.toString()};
         const expectedStateFor = event => {
           if (event.action?.actionType === 'enable') return 'enabled';
           if (event.action?.actionType === 'pause') return 'paused';
           return '';
         };
+        const missingStateRowIsSuccess = ${missingStateRowIsSuccess.toString()};
         const placementAliases = {
           placementTop: ['placementTop', 'topOfSearch', 'top_of_search', 'topSearch', 'topSearchPercent'],
           placementProductPage: ['placementProductPage', 'placementPage', 'productPage', 'product_page', 'detailPage', 'detailPagePercent'],
@@ -750,10 +769,10 @@ async function run(options = {}) {
               return out;
             }
           }
-          if (event.action?.actionType === 'enable' || event.action?.actionType === 'pause') {
+          if ((event.action?.actionType === 'enable' || event.action?.actionType === 'pause') && event.entityType !== 'campaign' && event.entityType !== 'sbCampaign') {
             const row = rowsFor(event.entityType).find(r => rowId(r) === String(event.id));
             const expectedState = expectedStateFor(event);
-            const actualState = row ? normalizeState(row.state ?? row.status ?? row.servingStatus ?? row.activeStatus) : '';
+            const actualState = row ? normalizeState(stateValueForEntity(row, event.entityType)) : '';
             out.rowFound = !!row;
             out.expectedState = expectedState;
             out.actualState = actualState;
@@ -773,7 +792,7 @@ async function run(options = {}) {
             out.rowFound = !!row;
             if (event.action?.actionType === 'enable' || event.action?.actionType === 'pause') {
               const expectedState = expectedStateFor(event);
-              const actualState = row ? normalizeState(row.state ?? row.status ?? row.activeStatus) : '';
+              const actualState = row ? normalizeState(stateValueForEntity(row, event.entityType)) : '';
               out.expectedState = expectedState;
               out.actualState = actualState;
               if (row && actualState === expectedState) {
@@ -807,6 +826,22 @@ async function run(options = {}) {
           if (event.entityType === 'campaign') {
             const row = rowsFor(event.entityType).find(r => String(r.campaignId || r.campaign_id || '') === String(event.id));
             out.rowFound = !!row;
+            if (event.action?.actionType === 'enable' || event.action?.actionType === 'pause') {
+              const expectedState = expectedStateFor(event);
+              const actualState = row ? normalizeState(stateValueForEntity(row, event.entityType)) : '';
+              out.expectedState = expectedState;
+              out.actualState = actualState;
+              if ((row && actualState === expectedState) || (!row && missingStateRowIsSuccess(event.entityType, event.action?.actionType, expectedState))) {
+                out.finalStatus = 'success';
+                out.success = true;
+                out.errorReason = '';
+              } else {
+                out.finalStatus = 'not_landed';
+                out.success = false;
+                out.errorReason = row ? 'sp campaign state verify did not land' : 'sp campaign state API success but row missing';
+              }
+              return out;
+            }
             if (event.action?.actionType === 'budget') {
               const expected = bidNum(event.suggestedBudget);
               const actual = row ? bidNum(row.budget ?? row.dailyBudget ?? row.daily_budget) : null;
@@ -1279,7 +1314,7 @@ async function run(options = {}) {
     let apiFailed = 0;
     for (const item of items) {
       const rows = rowsByEntityType[item.entityType] || [];
-      const meta = rows.find(row => entityRowId(row) === String(item.id));
+      const meta = rows.find(row => stateEntityRowId(row, item.entityType) === String(item.id));
       if (!meta) {
         apiFailed += 1;
         recordExecutionEvent(item, item.entityType, 'failed', { msg: 'missing state row metadata' });
@@ -1804,6 +1839,24 @@ function buildStateToggleRequest(row = {}, action = '', hintedType = '') {
     requestUrl = '/campaignSb/batchSbCampaign';
     missingFields = [campaignId ? '' : 'campaignId'].filter(Boolean);
     requestBody = { siteId, accountId, campaignIdArray: [campaignId], batchType: 'state', batchValue: values.textState.toUpperCase(), campaignNewArray: [{ siteId, accountId, campaignId, state: values.numericState }] };
+  } else if (entityType === 'SP_CAMPAIGN') {
+    requestUrl = '/campaign/batchCampaign';
+    missingFields = [campaignId ? '' : 'campaignId'].filter(Boolean);
+    requestBody = {
+      siteId,
+      accountId,
+      column: 'state',
+      property: 'campaign',
+      operation: 'state',
+      batchType: 'state',
+      batchValue: [values.numericState],
+      columnVal: [values.numericState],
+      value: values.textState.toLowerCase(),
+      campaignIdArray: [campaignId],
+      batch_campaigns: [campaignId],
+      idArray: [campaignId],
+      campaignNewArray: [{ siteId, accountId, campaignId, state: values.numericState, campaignState: values.numericState }],
+    };
   } else if (entityType === 'SP_PRODUCT_AD') {
     requestUrl = '/advProduct/batchProduct';
     missingFields = [adId ? '' : 'adId', campaignId ? '' : 'campaignId', adGroupId ? '' : 'adGroupId'].filter(Boolean);
@@ -1820,7 +1873,11 @@ function buildStateToggleRequest(row = {}, action = '', hintedType = '') {
 module.exports = {
   run,
   groupByAccountSite,
+  buildStateToggleRequest,
   hasRecentCandidateBlock,
+  missingStateRowIsSuccess,
+  stateValueForEntity,
+  stateEntityRowId,
 };
 
 if (require.main === module) {

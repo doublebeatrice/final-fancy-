@@ -1,0 +1,150 @@
+{
+  "sourceId": "pm.abnormalDefectiveInventory.index",
+  "generatedAt": "2026-05-13T10:36:12.226Z",
+  "fieldCount": 0,
+  "fieldSummary": {
+    "confirmed": 0,
+    "probable": 0,
+    "unknown": 0
+  },
+  "fields": [],
+  "inputFile": "D:\\ad-ops-workbench\\discovery\\output\\report_probe_pm_abnormalDefectiveInventory_index_2026-05-13.json",
+  "route": {
+    "routeId": "pm.abnormalDefectiveInventory.index",
+    "routeName": "异常瑕疵库存",
+    "url": "https://sellerinventory.yswg.com.cn/pm/abnormalDefectiveInventory/index",
+    "source": "sellerinventory"
+  },
+  "networkSummary": {
+    "requestCount": 23,
+    "sampleRowCount": 0,
+    "endpointCandidateCount": 12
+  },
+  "endpointSummary": {
+    "total": 12,
+    "safeRead": 11,
+    "writeOrSensitive": 0,
+    "unknown": 1,
+    "commonNoise": 0
+  },
+  "endpointCandidates": [
+    {
+      "path": "/pm/formal/list?sku=${row.sku}&salesChannel=${row.salesChannel}",
+      "method": "UNKNOWN",
+      "evidence": "case 'amazon': openTabsPage(`https://sellerinventory.yswg.com.cn/pm/formal/list?sku=${row.sku}&salesChannel=${row.salesChannel}`, `Amazon产品：${row.sku}-${row.salesChannel}`) break; }",
+      "from": "https://sellerinventory.yswg.com.cn/pm/abnormalDefectiveInventory/index",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/pm/fba_inventory/detail_index?account=${account}&site=${site}&sku=${sku}",
+      "method": "UNKNOWN",
+      "evidence": "et: [50], btn: ['关闭'], content: `https://sellerinventory.yswg.com.cn/pm/fba_inventory/detail_index?account=${account}&site=${site}&sku=${sku}`, }); }; // 表格数据 const tableData = ref([])",
+      "from": "https://sellerinventory.yswg.com.cn/pm/abnormalDefectiveInventory/index",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/commonUtil/getInfoFromRedisByKey",
+      "method": "GET",
+      "evidence": "tData = () => { extendRequest(ajaxPromise,[{ url: baseURL + '/commonUtil/getInfoFromRedisByKey', method: 'get', data: {key: 'solar_term_festival_info'}, clearParamsFlag:false",
+      "from": "https://sellerinventory.yswg.com.cn/vue/components/filterItem/Myhooks/useSyncSelectData.js?v=",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/pm/authentication/getQuerySelect",
+      "method": "GET",
+      "evidence": "tData = () => { extendRequest(ajaxPromise,[{ url: baseURL + '/pm/authentication/getQuerySelect', method: 'get', data: {type: 'certification'}, clearParamsFlag:false }]).",
+      "from": "https://sellerinventory.yswg.com.cn/vue/components/filterItem/Myhooks/useSyncSelectData.js?v=",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/pm/formal/get_amazon_user_have_accounts",
+      "method": "GET",
+      "evidence": "tData = () => { extendRequest(ajaxPromise,[{ url: baseURL + '/pm/formal/get_amazon_user_have_accounts', method: 'get', data: {key: 'account_name_info_amazon'}, clearParamsFlag:false",
+      "from": "https://sellerinventory.yswg.com.cn/vue/components/filterItem/Myhooks/useSyncSelectData.js?v=",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/internalControl/get_internal_audit_group",
+      "method": "GET",
+      "evidence": "tData = () => { extendRequest(ajaxPromise,[{ url: baseURL + '/internalControl/get_internal_audit_group', method: 'get', data: {}, clearParamsFlag:false }]).then(res=>{",
+      "from": "https://sellerinventory.yswg.com.cn/vue/components/filterItem/Myhooks/useSyncSelectData.js?v=",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/pm/formal/list?sku=${sku}&site=${site}",
+      "method": "UNKNOWN",
+      "evidence": "转Amazon产品页面 const goAmazonListBySku = (site, sku) => { openTabsPage(`/pm/formal/list?sku=${sku}&site=${site}`, `${sku}:Amazon产品列表`); } // 跳转审核列表 const goReviewList = (sku) => { openTabsPage(`/pm/list?sku=${s",
+      "from": "https://sellerinventory.yswg.com.cn/vue/utils/commonMixin.js",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/pm/list?sku=${sku}",
+      "method": "UNKNOWN",
+      "evidence": "); } // 跳转审核列表 const goReviewList = (sku) => { openTabsPage(`/pm/list?sku=${sku}`, `${sku}:审核列表`); } // SKU跳转活动提报记录页面 const goActivityRecordBySku = (site, sku) => { openTabsPage(`",
+      "from": "https://sellerinventory.yswg.com.cn/vue/utils/commonMixin.js",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/s?k=${searchTerm}",
+      "method": "UNKNOWN",
+      "evidence": "转亚马逊 const goAmazonBySearchTerm = (site, searchTerm) => { let url = `https://www.${site}/s?k=${searchTerm}` window.open(url) } // 不打开新标签页下载 const elDownloadFile = (url, fileName, isLoading = true) => {",
+      "from": "https://sellerinventory.yswg.com.cn/vue/utils/commonMixin.js",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/performance/api/pm/checkKeywordsNew",
+      "method": "UNKNOWN",
+      "evidence": "jaxPromise( localStorage.getItem('curr_app_env') == 'pro' ? 'https://api.yswg.com.cn/performance/api/pm/checkKeywordsNew' : '/api/pm/checkKeywordsNew',//全部请求119服务器分流 updateData, 'POST',",
+      "from": "https://sellerinventory.yswg.com.cn/vue/utils/commonMixin.js",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    },
+    {
+      "path": "/api/pm/checkKeywordsNew",
+      "method": "UNKNOWN",
+      "evidence": "nv') == 'pro' ? 'https://api.yswg.com.cn/performance/api/pm/checkKeywordsNew' : '/api/pm/checkKeywordsNew',//全部请求119服务器分流 updateData, 'POST', {",
+      "from": "https://sellerinventory.yswg.com.cn/vue/utils/commonMixin.js",
+      "risk": "unknown",
+      "reasons": []
+    },
+    {
+      "path": "/commonUtil/getInfoFromRedisByKey",
+      "method": "UNKNOWN",
+      "evidence": "ember = (key, treeDataMapRef, customUrl='')=>{ let url = customUrl||'/commonUtil/getInfoFromRedisByKey' ajaxPromise( window.origin+url, {key}, 'get',",
+      "from": "https://sellerinventory.yswg.com.cn/vue/utils/commonMixin.js",
+      "risk": "safe_read_candidate",
+      "reasons": [
+        "read_path"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-05-13T10:47:38.061Z",
+  "readOnly": true,
+  "route": {
+    "source": "sellerinventory",
+    "domain": "sellerinventory.yswg.com.cn",
+    "routeId": "product_line.sellerSuccess",
+    "visibleText": "产品成功率",
+    "url": "https://sellerinventory.yswg.com.cn/pm/product/sellerSuccess",
+    "attrs": {
+      "lay-href": "https://sellerinventory.yswg.com.cn/pm/product/sellerSuccess",
+      "data-routeid": "product_line.sellerSuccess"
+    },
+    "tag": "A",
+    "riskLevel": "read_only_candidate"
+  },
+  "validations": [
+    {
+      "path": "/administrator/developer/getSpecialTypeAll",
+      "method": "GET",
+      "params": {},
+      "status": 200,
+      "ok": true,
+      "contentType": "application/json",
+      "textLength": 172,
+      "sample": {
+        "3": "周期性专项",
+        "19": "节日专项",
+        "23": "低价专项",
+        "24": "周期性精品",
+        "25": "服装专项"
+      },
+      "responseSummary": {
+        "topLevelKeys": [
+          "3",
+          "19",
+          "23",
+          "24",
+          "25"
+        ],
+        "rowCount": 0,
+        "sampleFields": [],
+        "sampleRow": null
+      }
+    },
+    {
+      "path": "/pm/product/sellerSuccess",
+      "method": "POST",
+      "params": {
+        "page": 1,
+        "limit": 20,
+        "seller": "",
+        "sellerDept": "",
+        "sell_depts": "",
+        "sell_dept_groups": "",
+        "sellerGroup": "",
+        "salesChannel": "",
+        "type": "",
+        "fuldate_min": "",
+        "fuldate_max": "",
+        "special_type": "",
+        "is_common_product": ""
+      },
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html",
+      "textLength": 555,
+      "sample": "<html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx/1.20.1</center>\r\n</body>\r\n</html>\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n",
+      "responseSummary": {
+        "topLevelKeys": [],
+        "rowCount": 0,
+        "sampleFields": [],
+        "sampleRow": null
+      }
+    },
+    {
+      "path": "/pm/product/successSellerDetailList",
+      "method": "GET",
+      "params": {
+        "start": "",
+        "end": "",
+        "site": "",
+        "category": ""
+      },
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "textLength": 18497,
+      "sample": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"utf-8\">\n    <title>亚声威格亚马逊管理系统</title>\n    <meta name=\"renderer\" content=\"webkit\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n    <meta name=\"csrf-token\" content=\"aVtbRtCEaaIRRe6PXlKSgOwAslCrTPEA39tM1lHK\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0\">\n    <link rel=\"stylesheet\" href=\"https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/css/layui.css\" media=\"all\">\n    <link rel=\"stylesheet\" href=\"https://sellerinventory.yswg.com.cn/frame/layuiadmin/style/admin.css\" media=\"all\">\n    <link rel=\"icon\" href=\"https://sellerinventory.yswg.com.cn/frame/layuiadmin/icon/favicon.ico\" type=\"image/x-icon\"/>\n    \n    <link rel=\"stylesheet\" href=\"https://sellerinventory.yswg.com.cn/frame/layui/css/select2.css\">\n    \n    \n\n    \n    <link rel=\"stylesheet\" href=\"https://sellerinventory.yswg.com.cn/frame/elementPlus/element-plus.css\">\n\n\n\n\n\n    </head>\n<body style=\"background: #eee4e47a;\">\n<div class=\"container\">\n    \n\n    <div class=\"layui-fluid\">\n        <div class=\"layui-card\">\n            <div class=\"layui-card-body\">\n                <div class=\"demoTable layui-form\">\n                    <input type=\"hidden\"  id=\"seller_num\" name=\"seller_num\"  autocomplete=\"off\" class=\"layui-input\" value=\"\">\n                    <input type=\"hidden\"  id=\"start\" name=\"start\"  autocomplete=\"off\" class=\"layui-input\" value=\"\">\n                    <input type=\"hidden\"  id=\"end\" name=\"end\"  autocomplete=\"off\" class=\"layui-input\" value=\"\">\n                    <input type=\"hidden\"  id=\"site\" name=\"site\"  autocomplete=\"off\" class=\"layui-input\" value=\"\">\n                    <input type=\"hidden\"  id=\"category\" name=\"category\"  autocomplete=\"off\" class=\"layui-input\" value=\"\">\n                    <input type=\"hidden\"  id=\"type\" name=\"type\"  autocomplete=\"off\" class=\"layui-input\" value=\"\">\n                    <div class=\"layui-form-item\">\n    ",
+      "responseSummary": {
+        "topLevelKeys": [],
+        "rowCount": 0,
+        "sampleFields": [],
+        "sampleRow": null
+      }
+    },
+    {
+      "path": "/pm/product/sellerSuccessChart",
+      "method": "GET",
+      "params": {
+        "seller_num": ""
+      },
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "textLength": 12195,
+      "sample": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"utf-8\">\n    <title>亚声威格亚马逊管理系统</title>\n    <meta name=\"renderer\" content=\"webkit\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n    <meta name=\"csrf-token\" content=\"aVtbRtCEaaIRRe6PXlKSgOwAslCrTPEA39tM1lHK\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0\">\n    <link rel=\"stylesheet\" href=\"https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/css/layui.css\" media=\"all\">\n    <link rel=\"stylesheet\" href=\"https://sellerinventory.yswg.com.cn/frame/layuiadmin/style/admin.css\" media=\"all\">\n    <link rel=\"icon\" href=\"https://sellerinventory.yswg.com.cn/frame/layuiadmin/icon/favicon.ico\" type=\"image/x-icon\"/>\n    \n    <link rel=\"stylesheet\" href=\"https://sellerinventory.yswg.com.cn/frame/layui/css/select2.css\">\n    \n    \n\n    \n    <link rel=\"stylesheet\" href=\"https://sellerinventory.yswg.com.cn/frame/elementPlus/element-plus.css\">\n\n\n\n\n\n    </head>\n<body style=\"background: #eee4e47a;\">\n<div class=\"container\">\n        <div class=\"layui-fluid\">\n        <div class=\"layui-card\">\n            <div class=\"layui-card-body\">\n                <div class=\"layui-row\">\n                    <div class=\"layui-col-md12\">\n                        <div id=\"echarts_main\" style=\"height: 400px;\"></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <!-- Delete Form -->\n    <form id=\"form-delete\" action=\"\" method=\"POST\" style=\"display:none;\">\n        <input type=\"hidden\" name=\"_method\" value=\"DELETE\">\n        <input type=\"hidden\" name=\"_token\" value=\"aVtbRtCEaaIRRe6PXlKSgOwAslCrTPEA39tM1lHK\">\n    </form>\n\n</div>\n<script src=\"https://sellerinventory.yswg.com.cn/js/jquery.min.js\"></script>\n<script src=\"https://sellerinventory.yswg.com.cn/frame/layuiadmin/layui/layui.js\"></script>\n<script src=\"https://sellerinventory.yswg.com.cn/frame/layui/select2.full.min.js\"></script>\n<script src=\"htt",
+      "responseSummary": {
+        "topLevelKeys": [],
+        "rowCount": 0,
+        "sampleFields": [],
+        "sampleRow": null
+      }
+    }
+  ]
+}
