@@ -1,0 +1,4 @@
+interface:
+  display_name: "Daily Data Deposit"
+  short_description: "Check, archive, analyze, and render daily business data as a durable HTML-backed database."
+  default_prompt: "Run today's data deposit: inspect raw inputs, verify normalized artifacts, generate detailed HTML, and list missing or suspicious files."

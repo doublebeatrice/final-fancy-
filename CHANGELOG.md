@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-05-13
+
+- Added the `daily-data-deposit` Codex skill to standardize the daily data deposit workflow.
+- Defined the raw input contract for sales core spreadsheets, inventory CSV exports, and ad full export CSVs.
+- Documented the detailed HTML archive structure needed for a long-term business database, including SKU pools, ad detail, inventory detail, seasonal context, and learning notes.
+- Added release notes for the daily deposit skill and daily reminder workflow.
+
 ## 2026-05-06
 
 - Enforced the Codex-only execution boundary: real executable actions now require approved decision metadata, Codex/manual approval, and a Codex/manual action source.
