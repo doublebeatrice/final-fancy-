@@ -102,6 +102,34 @@ function normalizeExportOptions(input) {
   return input || {};
 }
 
+function cliFetchOptions() {
+  const args = process.argv.slice(2);
+  const has = name => args.includes(name);
+  const valueAfter = name => {
+    const index = args.indexOf(name);
+    return index >= 0 ? args[index + 1] : '';
+  };
+  const envOptions = parseJson(process.env.EXPORT_SNAPSHOT_FETCH_OPTIONS, null);
+  if (envOptions && typeof envOptions === 'object') return envOptions;
+
+  if (has('--with-listing')) {
+    return {
+      mode: 'full-snapshot',
+      listingStrategy: valueAfter('--listing-strategy') || 'schema',
+      chartStrategy: valueAfter('--chart-strategy') || 'none',
+      salesHistoryStrategy: valueAfter('--sales-history-strategy') || 'none',
+    };
+  }
+
+  return {
+    mode: 'full-snapshot',
+    skipListing: true,
+    listingStrategy: 'none',
+    chartStrategy: 'none',
+    salesHistoryStrategy: 'none',
+  };
+}
+
 async function exportSnapshot(input = '') {
   const options = normalizeExportOptions(input);
   const resolvedOutputFile =
@@ -201,6 +229,13 @@ async function exportSnapshot(input = '') {
     sevenDayUntouchedMeta: parseJson(await evalInPanel('JSON.stringify(STATE.sevenDayUntouchedMeta || {})'), {}),
   };
 
+  if (!Array.isArray(snapshot.productCards) || snapshot.productCards.length === 0) {
+    ws.close();
+    throw new Error(
+      'export_snapshot produced 0 productCards. Check that the extension panel is open and both adv/inventory sessions are logged in; refusing to write an empty daily snapshot.'
+    );
+  }
+
   const cacheFile = process.env.PRODUCT_PROFILE_CACHE || DEFAULT_CACHE_FILE;
   const cache = loadProfileCache(cacheFile);
   const profiled = enrichSnapshotWithProfiles(snapshot, { cache, cacheFile });
@@ -219,7 +254,24 @@ async function exportSnapshot(input = '') {
 }
 
 async function main() {
-  const result = await exportSnapshot(process.argv[2] || '');
+  const args = process.argv.slice(2);
+  const valueFlags = new Set(['--listing-strategy', '--chart-strategy', '--sales-history-strategy']);
+  let outputArg = '';
+  for (let index = 0; index < args.length; index += 1) {
+    const arg = args[index];
+    if (valueFlags.has(arg)) {
+      index += 1;
+      continue;
+    }
+    if (arg && !arg.startsWith('--')) {
+      outputArg = arg;
+      break;
+    }
+  }
+  const result = await exportSnapshot({
+    outputFile: outputArg,
+    fetchOptions: cliFetchOptions(),
+  });
   console.log(result.outputFile);
   console.error(`productProfile: ${JSON.stringify(result.profileMeta)}`);
 }

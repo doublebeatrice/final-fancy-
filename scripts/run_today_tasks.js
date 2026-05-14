@@ -4,6 +4,7 @@ const { buildOpsTimeContext } = require('../src/ops_time');
 const { readAdjustmentLog } = require('../src/adjustment_log');
 const { buildDailyTaskPool } = require('../src/task_scheduler');
 const { buildDailyTaskBoard } = require('../src/task_board');
+const { buildProactiveOperatingAudit, renderProactiveOperatingAuditHtml } = require('../src/proactive_audit');
 
 const ROOT = path.join(__dirname, '..');
 const TASK_DIR = path.join(ROOT, 'data', 'tasks');
@@ -245,19 +246,26 @@ function main() {
     throw new Error(`AI decision file must be a JSON array: ${options.aiDecisions}`);
   }
   const board = buildDailyTaskBoard(pool, { externalDecisions });
+  const proactiveAudit = buildProactiveOperatingAudit({ snapshot, timeContext });
   pool.snapshotFile = snapshotFile;
   pool.dryRun = options.dryRun;
   board.snapshotFile = snapshotFile;
   board.dryRun = options.dryRun;
+  proactiveAudit.snapshotFile = snapshotFile;
+  proactiveAudit.dryRun = options.dryRun;
   fs.mkdirSync(TASK_DIR, { recursive: true });
   const jsonFile = path.join(TASK_DIR, `daily_tasks_${timeContext.businessDate}.json`);
   const htmlFile = path.join(TASK_DIR, `daily_tasks_${timeContext.businessDate}.html`);
   const boardJsonFile = path.join(TASK_DIR, `daily_task_board_${timeContext.businessDate}.json`);
   const boardHtmlFile = path.join(TASK_DIR, `daily_task_board_${timeContext.businessDate}.html`);
+  const proactiveAuditJsonFile = path.join(TASK_DIR, `proactive_operating_audit_${timeContext.businessDate}.json`);
+  const proactiveAuditHtmlFile = path.join(TASK_DIR, `proactive_operating_audit_${timeContext.businessDate}.html`);
   writeJson(jsonFile, pool);
   fs.writeFileSync(htmlFile, renderHtml(pool), 'utf8');
   writeJson(boardJsonFile, board);
   fs.writeFileSync(boardHtmlFile, renderBoardHtml(board), 'utf8');
+  writeJson(proactiveAuditJsonFile, proactiveAudit);
+  fs.writeFileSync(proactiveAuditHtmlFile, renderProactiveOperatingAuditHtml(proactiveAudit), 'utf8');
   console.log(JSON.stringify({
     dryRun: options.dryRun,
     time: timeContext,
@@ -266,9 +274,19 @@ function main() {
     htmlFile,
     boardJsonFile,
     boardHtmlFile,
+    proactiveAuditJsonFile,
+    proactiveAuditHtmlFile,
     aiDecisionFile: options.aiDecisions || '',
     summary: pool.summary,
     boardSummary: board.summary,
+    proactiveAuditSummary: {
+      kpiStatus: proactiveAudit.kpi.status,
+      newProductLaunch: proactiveAudit.newProductLaunch.summary.total,
+      arrivalAdRecovery: proactiveAudit.arrivalAdRecovery.summary.total,
+      priceActions: proactiveAudit.priceActions.summary.total,
+      expiredSeasonKeywordWaste: proactiveAudit.expiredSeasonKeywordWaste.summary.totalEnabledRows,
+      listingRepair: proactiveAudit.listingRepair.summary.total,
+    },
   }, null, 2));
 }
 
