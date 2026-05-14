@@ -5,6 +5,7 @@ const { log, loadHistory, saveHistory, hasRecentOutcome, SNAPSHOTS_DIR, today, f
 const { hasRequiredVerification, loadExternalActionSchema } = require('./src/ai_decision');
 const { analyzeAllowedOperationScope, applyAllowedOperationScope } = require('./src/operation_scope');
 const { attachTimeToPlan, buildOpsTimeContext } = require('./src/ops_time');
+const { executePriceActions } = require('./src/price_executor');
 
 const BATCH = 50;
 const VERIFY_TOLERANCE = 0.0001;
@@ -1297,6 +1298,7 @@ async function run(options = {}) {
   const spCampaignPlacementItems = plan.flatMap(p => p.actions.filter(a => a.entityType === 'campaign' && a.actionType === 'placement').map(a => ({ ...a, sku: p.sku })));
   const stateItems = plan.flatMap(p => p.actions.filter(a => ['enable', 'pause'].includes(a.actionType)).map(a => ({ ...a, sku: p.sku })));
   const createItems = plan.flatMap(p => p.actions.filter(a => a.actionType === 'create').map(a => ({ ...a, sku: p.sku })));
+  const priceItems = plan.flatMap(p => p.actions.filter(a => a.entityType === 'sku' && a.actionType === 'price').map(a => ({ ...a, sku: p.sku, asin: p.asin })));
 
   const kwMeta = Object.fromEntries(kwRows.map(row => [String(row.keywordId), row]));
   const sbKwMeta = Object.fromEntries(sbKwRows.map(row => [String(row.keywordId), row]));
@@ -1355,12 +1357,33 @@ async function run(options = {}) {
   apiStats.spCampaignBudget = await executeSpCampaignBudgetItems(spCampaignBudgetItems, spCampaignRows, 'SP campaign budget');
   apiStats.spCampaignPlacement = await executeSpCampaignPlacementItems(spCampaignPlacementItems, spCampaignRows, 'SP campaign placement');
   apiStats.create = await executeCreateItems(createItems);
+  apiStats.price = await executePriceActions(priceItems);
+  if (priceItems.length) log(`Price applications: success=${apiStats.price.apiSuccess || 0}, failed=${apiStats.price.apiFailed || 0}`);
 
-  const verifiedEvents = await verifyLanding();
+  const priceExecutionEvents = (apiStats.price.events || []).map(event => {
+    const planItem = plan.find(p => p.sku === event.sku) || {};
+    const action = (planItem.actions || []).find(a => a.entityType === 'sku' && a.actionType === 'price' && String(a.id) === String(event.action?.id || event.id)) ||
+      (planItem.actions || []).find(a => a.entityType === 'sku' && a.actionType === 'price') ||
+      event.action ||
+      {};
+    return {
+      ...event,
+      asin: event.asin || planItem.asin || action.asin || '',
+      action: { ...action, ...(event.action || {}) },
+      plan: planItem,
+      source: event.source || action.source || 'codex',
+      actionSource: normalizeSources(event.actionSource || action.actionSource || action.source || 'codex'),
+      approvedBy: event.approvedBy || action.approvedBy || '',
+    };
+  });
+  const verifiedEvents = [...priceExecutionEvents, ...await verifyLanding()];
   const finalCounts = summarize(verifiedEvents);
   const eventsBySku = groupEventsBySku(verifiedEvents);
   for (const event of verifiedEvents) {
-    if (event.finalStatus === 'success' || event.finalStatus === 'created_pending_visibility') landedIds.add(executionEntityKey(event.entityType, event.id));
+    if (event.finalStatus === 'success' || event.finalStatus === 'created_pending_visibility' || event.finalStatus === 'application_submitted') {
+      landedIds.add(executionEntityKey(event.entityType, event.id));
+      if (event.action?.id) landedIds.add(executionEntityKey(event.entityType, event.action.id));
+    }
   }
 
   const nonExecutionEvents = [
@@ -1468,6 +1491,10 @@ async function run(options = {}) {
         toBid: a.suggestedBid,
         fromBudget: a.currentBudget,
         toBudget: a.suggestedBudget,
+        fromPrice: a.currentPrice,
+        toPrice: a.suggestedPrice,
+        priceIntent: a.priceIntent || '',
+        adCoupling: a.adCoupling || null,
         placementKey: a.placementKey,
         fromPlacementPercent: a.currentPlacementPercent,
         toPlacementPercent: a.suggestedPlacementPercent,
@@ -1553,6 +1580,9 @@ async function run(options = {}) {
     if (events.some(event => event.finalStatus === 'success')) {
       status = 'adjusted';
       reason = 'verified_landed';
+    } else if (events.some(event => event.finalStatus === 'application_submitted')) {
+      status = 'adjusted';
+      reason = 'price_application_submitted';
     } else if (events.some(event => event.finalStatus === 'created_pending_visibility')) {
       status = 'adjusted';
       reason = 'create_api_success_pending_list_visibility';

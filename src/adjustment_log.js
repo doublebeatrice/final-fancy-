@@ -35,6 +35,8 @@ function inferBeforeAfter(action = {}) {
   if (action.actionType === 'bid') return [action.currentBid, action.suggestedBid];
   if (action.actionType === 'budget') return [action.currentBudget, action.suggestedBudget];
   if (action.actionType === 'placement') return [action.currentPlacementPercent, action.suggestedPlacementPercent];
+  if (action.actionType === 'price') return [action.currentPrice ?? action.priceRaw ?? action.beforeValue, action.suggestedPrice ?? action.priceApply ?? action.afterValue];
+  if (action.actionType === 'price_cancel') return [action.beforeValue ?? action.suggestedPrice ?? action.priceApply, action.afterValue ?? action.currentPrice ?? action.priceRaw];
   if (action.actionType === 'pause') return [action.currentState || action.state || 'enabled', 'paused'];
   if (action.actionType === 'enable') return [action.currentState || action.state || 'paused', 'enabled'];
   if (action.actionType === 'create') return [null, action.createInput || action.expected || 'created'];
@@ -131,7 +133,7 @@ function recordsFromExecutionEvents(events = [], timeContext = {}, options = {})
     outcome: event.finalStatus || event.apiStatus || options.outcome || '',
     dryRun: options.dryRun === true,
     reason: event.errorReason || event.resultMessage || event.action?.reason || '',
-    meta: { apiStatus: event.apiStatus || '', finalStatus: event.finalStatus || '' },
+    meta: { ...(event.meta || {}), apiStatus: event.apiStatus || '', finalStatus: event.finalStatus || '' },
   }, timeContext));
 }
 

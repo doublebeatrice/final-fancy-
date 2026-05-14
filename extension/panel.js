@@ -1484,6 +1484,14 @@ async function ensureAdKeywordPage(tabId) {
   throw new Error('广告关键词页未就绪：请确认 adv.yswg.com.cn 已登录，并能打开“您的关键词”页面');
 }
 
+function isInventoryListFrameReady(doc, win) {
+  if (!doc || doc.readyState !== 'complete') return false;
+  const hasQueryEntry = !!doc.querySelector('input.search_btn');
+  const hasTableMarker = !!doc.querySelector('.layui-table-view,.layui-table-main,table');
+  const hasLegacyTable = typeof win?.list_table === 'object';
+  return hasQueryEntry || hasTableMarker || hasLegacyTable;
+}
+
 async function ensureInventoryListPage(tabId) {
   const openListInRoot = async () => execInTab(tabId, () => {
     const hasListFrame = [...document.querySelectorAll('iframe')]
@@ -1511,21 +1519,20 @@ async function ensureInventoryListPage(tabId) {
   }
 
   for (let i = 0; i < 40; i++) {
-    const ready = await execInTab(tabId, () => {
+    const ready = await execInTab(tabId, readySource => {
+      const isInventoryListFrameReady = Function(`return (${readySource});`)();
       const frame = [...document.querySelectorAll('iframe')]
         .find(f => (f.src || '').includes('/pm/formal/list') && (f.src || '').includes('Inventory-Token'));
       if (!frame) return { ready: false };
       try {
         const w = frame.contentWindow;
         const doc = w?.document;
-        const ready = doc?.readyState === 'complete' &&
-          !!doc.querySelector('input.search_btn') &&
-          typeof w.list_table === 'object';
+        const ready = isInventoryListFrameReady(doc, w);
         return { ready, src: frame.src };
       } catch(e) {
         return { ready: false, src: frame.src, error: e.message };
       }
-    });
+    }, [isInventoryListFrameReady.toString()]);
     if (ready?.ready) {
       log(`库存产品列表已就绪：${ready.src.slice(0, 120)}`, 'warn');
       return;
