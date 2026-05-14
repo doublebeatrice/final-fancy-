@@ -28,6 +28,20 @@ This changes the default operating stance:
 - SB is currently adjusted only. Do not create SB campaigns until the real SB creation interface is captured and verified.
 - For upcoming seasonal products with low impressions/clicks and inventory moving toward stuck-stock risk, prefer building missing SP coverage aggressively.
 
+## Daily Operating Guardrails
+
+The 2026-05-14 operating retrospective is part of this playbook: `data/learning/operations_retrospective_2026-05-06_to_2026-05-14.md`.
+
+Q2 growth work must still pass these daily guardrails:
+
+- Do the full loop directly; do not stop after small staged rounds and wait for the operator to push.
+- Judge the business surface before celebrating execution: sales, units, net profit rate, refund rate, ACOS, ad share, and CPC.
+- Include overbudget in every daily plan. Classify it as hard stop, budget shift, or watch-only.
+- Treat refund pressure as a hard traffic gate for low-profit SKUs.
+- Require proof before opportunity recovery: recent acceptable orders, proven traffic underdelivery, inventory support, and season/node fit.
+- Do not repeat-push the same SKU/entity without recent-history review and new evidence.
+- Close every candidate as execute, manual diagnosis with reason, or no-action with reason.
+
 Listing:
 
 - Check title, bullets, and long description keyword coverage.

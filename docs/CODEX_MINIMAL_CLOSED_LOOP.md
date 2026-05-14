@@ -31,6 +31,22 @@ Daily work is not closed just because a report exists. A day is closed only when
 
 When same-day retries or dry-runs exist, use daily learning `decisions.finalRunLanding` as the completion lens. All-day aggregate adjustment counts can preserve failed history, but they are not the final completion verdict.
 
+## Daily Operating Doctrine
+
+The 2026-05-14 retrospective is now part of the closed loop: `data/learning/operations_retrospective_2026-05-06_to_2026-05-14.md`.
+
+Daily operations must not be split into small "first round / second round / third round" reports that depend on the user pushing the next step. Run the whole loop directly:
+
+1. Data health check.
+2. Total-result diagnosis: sales, units, net profit, refund, ACOS, ad share, CPC.
+3. Risk-first pool: overbudget, high refund, high ACOS/no orders, low profit.
+4. Old-product repair pool: split by traffic loss, conversion loss, inventory, season, refund, and ad disconnect.
+5. Opportunity pool: only proven converters with healthy inventory, acceptable refund/profit, and current season/node support.
+6. Dry-run, execute, verify landing, write notes/logs.
+7. Write daily learning and 1d/3d/7d follow-up expectations.
+
+Execution volume is not a success metric. If the business surface worsens, say so and correct the next plan. Overbudget must be present in every daily plan and classified as hard stop, budget shift, or watch-only. Refund pressure is a hard traffic gate. Same-SKU repeat pushes require recent-history review and new evidence.
+
 ## SP Campaign State Notes
 
 SP campaign state actions are campaign-level actions even when the available rows come from child keyword, target, or product-ad tables.

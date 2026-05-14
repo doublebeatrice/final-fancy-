@@ -105,6 +105,8 @@ Without the debug browser or panel page, scripts cannot find the bridge.
 
 Advertising strategy risk is not a default review reason. The deciding AI session should execute supported advertising actions when it believes the action can improve profit, sales quality, inventory turnover, or KPI trajectory, then learn from the next data cycle.
 
+The 2026-05-14 operating retrospective is part of this boundary: `data/learning/operations_retrospective_2026-05-06_to_2026-05-14.md`. The deciding AI must complete the whole daily operating loop directly rather than stopping after staged rounds. Every daily plan must include overbudget classification, refund gating, evidence-backed opportunity recovery, same-SKU cooldown, and explicit candidate closure. Execution volume alone is not a success metric if sales, units, net profit, refund, or ACOS deteriorate.
+
 For supported ad actions, use explicit approval plus `forceExecute: true` when overriding conservative risk gates. The schema must carry:
 
 - `decisionStage: "ai_approved"` or `"manual_approved"`

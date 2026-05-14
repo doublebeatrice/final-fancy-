@@ -42,6 +42,8 @@ Missing any of these forces the action into review. See `src/ai_decision.js:exec
 
 For supported advertising actions, strategic uncertainty should be resolved by the deciding AI, not by manual review. Use `forceExecute: true` plus a hypothesis, expected effect, measurement window, and rollback condition when overriding conservative business-risk gates. Review remains for missing attribution/approval, unsupported surfaces, missing technical fields, missing verification mapping, or writes that do not land.
 
+The 2026-05-14 operating correction applies to both Codex and Claude: do not split daily operations into small rounds and wait for the operator to push. Read `data/learning/operations_retrospective_2026-05-06_to_2026-05-14.md` when present, then run one complete loop with overbudget, refund, old-product repair, opportunity proof, execution, verification, and follow-up learning. Execution volume alone is not success.
+
 The attribution is preserved across the execution chain:
 
 - `data/adjustments/adjustments_<date>.json` records `approvedBy` and `actionSource` per row.
@@ -76,9 +78,10 @@ Both Codex and Claude should consume the same operating context before deciding:
 5. `docs/Q2_AD_OPS_PLAYBOOK.md`
 6. `docs/CODEX_MINIMAL_CLOSED_LOOP.md`
 7. `docs/STAGNANT_INVENTORY_RULES.md`
-8. Latest `data/learning/daily_learning_<date>.{json,md}` from the previous run
-9. Latest `data/adjustments/adjustments_<date>.json` to check recent cooldowns
-10. `scripts/diagnostics/review_recent_decisions.js --days 3` if the prior run was driven by the other AI
+8. `data/learning/operations_retrospective_2026-05-06_to_2026-05-14.md` if present
+9. Latest `data/learning/daily_learning_<date>.{json,md}` from the previous run
+10. Latest `data/adjustments/adjustments_<date>.json` to check recent cooldowns
+11. `scripts/diagnostics/review_recent_decisions.js --days 3` if the prior run was driven by the other AI
 
 ## Non-Goals
 

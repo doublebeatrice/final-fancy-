@@ -30,8 +30,8 @@ memory.md                  长期运营记忆（比 docs 更细的决策口径�
 ## 每日闭环（一次完整运行）
 
 ### 0. 准备
-- Chrome 跑在 debug 模式（端口 9222），由 `scripts/execute/open_debug_browser_fixed_profile.ps1` 启动
-- 两个后台都要登录：`https://adv.yswg.com.cn/`、`https://sellerinventory.yswg.com.cn/`
+- Chrome 跑在 debug 模式（端口 9222），由 `scripts/execute/open_debug_browser_fixed_profile.ps1` 启动，并自动运行 `scripts/execute/ensure_backend_login.js`
+- 两个后台都要登录：`https://adv.yswg.com.cn/`、`https://sellerinventory.yswg.com.cn/`；如果企业微信桌面端已登录，脚本会自动点击“继续在浏览器中登录访问”
 - 打开扩展面板 `chrome-extension://.../panel.html`
 
 > 隔夜后 session 会过期；adv 后台的 KeywordManage 页带了 filter 参数会让快照只抓到子集。两个坑都记在 `memory.md`。
@@ -128,6 +128,7 @@ node scripts\diagnostics\review_recent_decisions.js --by codex --days 7
 - `docs/CODEX_HANDOFF_RUNBOOK.md` — 运营交接手册
 - `docs/Q2_AD_OPS_PLAYBOOK.md` — Q2 决策上下文
 - `docs/STAGNANT_INVENTORY_RULES.md` — 滞销库存决策规则（清 / 留 / 减仓 / 继续推广告）
+- `data/learning/operations_retrospective_2026-05-06_to_2026-05-14.md` — 5/14 运营复盘和后续每日闭环硬规则
 
 ## 几个最容易翻车的点
 
@@ -135,11 +136,17 @@ node scripts\diagnostics\review_recent_decisions.js --by codex --days 7
 - **新品保护**：上架 ≤ 6 个月 + 销量加速 + sessions 刚来 + CR 健康 → 不准降 bid，应保护流量
 - **productProfile 可能误识别**：铅笔被识别为 gift basket、母亲节被识别为护士周，会污染 keyword seeds。先验证 profile 和 listing.title/breadcrumbs 一致再用
 - **不看全量 = 放弃决策**：每日闭环必须把 1200+ SKU 全部归到 action / review / no-action，单日只做 3 条 = 甩锅
+- **不能分轮等人推**：每日运营不能按"第一轮/第二轮/第三轮"汇报后停住。一次完整闭环必须直接跑完数据健康、总盘诊断、超预算/退货/高 ACOS 风险池、老品修复、机会恢复、执行、落地验证和学习记录。
+- **动作多 ≠ 运营好**：如果销售额、销量、净利、退货率、ACOS 变差，就要如实判定经营结果差，并用下一轮闭环纠偏；不能因为落地动作多就报喜。
+- **超预算每天必须处理**：超预算不是附加项，必须分成 hard stop / budget shift / watch-only。低效超预算先控费，利润/库存/转化都支持时才加预算。
+- **退货是硬门槛**：高退货低利润 SKU 不能继续加流量，除非有证据说明退货问题已经隔离、历史化或正在改善。
+- **机会恢复要有证据**：bid up / budget up 必须有近期可接受转化、历史承接能力、健康库存和季节节点支持。上次动作后花费涨但订单没跟上，就不能继续推。
+- **同 SKU 要 cooldown**：重复推动同 SKU/实体前必须看近期调整历史；只有新证据、落地失败、异常低投放或明确库存/季节保护时才允许再动。
 
 ## 常用命令速查
 
 ```powershell
-# 启动 debug Chrome（用户只负责登录后台）
+# 启动 debug Chrome 并自动检查/修复后台登录态
 powershell -ExecutionPolicy Bypass -File scripts\execute\open_debug_browser_fixed_profile.ps1
 
 # 单 SKU 快诊（不用导全量快照）

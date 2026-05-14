@@ -14,6 +14,7 @@ Before running or changing the workflow, read:
 6. `docs/Q2_AD_OPS_PLAYBOOK.md`
 7. `docs/CODEX_MINIMAL_CLOSED_LOOP.md`
 8. `docs/STAGNANT_INVENTORY_RULES.md`
+9. `data/learning/operations_retrospective_2026-05-06_to_2026-05-14.md` if present
 
 ## Architecture Boundary
 
@@ -36,6 +37,12 @@ Do not add an OpenAI-compatible provider or AI runtime inside the panel. Do not 
 
 - Code may validate schema, execute APIs, verify, write notes, and summarize.
 - Code must not secretly decide strategy through old rule trees.
+- Daily operations must be run as one complete operating loop, not as staged "rounds" that wait for the user to push the next step. The loop is: data health check, total-result diagnosis, overbudget/high-refund/high-ACOS risk pool, old-product repair pool, evidence-backed opportunity pool, dry-run, execute, landing verification, notes/logs, and daily learning/follow-up. The 2026-05-14 retrospective lives at `data/learning/operations_retrospective_2026-05-06_to_2026-05-14.md` and must be read before the next daily decision pass.
+- Execution count is not a success metric by itself. If sales, units, net profit, refund, or ACOS deteriorate, report that plainly and use the next loop to correct. Never call a day healthy only because many actions landed.
+- Overbudget belongs in every daily plan. Classify each row as hard stop, budget shift, or watch-only before closing operations.
+- Refund pressure is a hard traffic gate. High-refund, low-profit SKUs should not receive more traffic unless the evidence shows the refund problem is isolated, historical, or already improving.
+- Opportunity recovery must be evidence-backed: proven recent orders with acceptable ACOS, underdelivery against historically converting traffic, healthy inventory, and current season/node support. If spend rose without orders after a previous action, do not keep increasing bids or budgets.
+- Same-SKU cooldown is mandatory. Check recent action history before repeat pushes; allow another action only when today's evidence shows new cause, failed landing, abnormal underdelivery, or an explicit inventory/season guardrail.
 - Codex is responsible for advertising strategy decisions. When Codex believes an advertising action can improve profit, sales quality, inventory turnover, or KPI trajectory, it should execute the supported action and learn from the next data cycle instead of parking the action in manual review for business-risk reasons.
 - Use `review` only for unsupported or non-advertising surfaces: SB create, listing edits, price changes, replenishment, structure fixes without a writable entity, unknown/out-of-scope entities, missing required fields, or actions without post-write verification. Strategic uncertainty on a supported ad action should be explicit `forceExecute: true` with a hypothesis, expected effect, measurement window, and rollback condition.
 - Do not use fallback logic to pretend AI made a decision.
@@ -156,20 +163,13 @@ The generated HTML belongs under `黄成喆个人数据趋势/每日 近七天 �
 
 ## Normal Command Flow
 
-Start debug Chrome:
+Start debug Chrome and run backend login readiness:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts\execute\open_debug_browser.ps1
+powershell -ExecutionPolicy Bypass -File scripts\execute\open_debug_browser_fixed_profile.ps1
 ```
 
-Before exporting a snapshot, open both backend systems and wait for the operator to manually confirm the browser login state:
-
-```text
-https://adv.yswg.com.cn/
-https://sellerinventory.yswg.com.cn/
-```
-
-Do not treat a browser session as ready until the operator has confirmed both pages are logged in. If this is skipped, full snapshot export may capture inventory only and no ad rows.
+The startup script opens both backend systems and the extension panel, then runs `node scripts\execute\ensure_backend_login.js`. This can click the WeCom "continue/login in browser" entry when the desktop WeCom session is available. Do not treat a browser session as ready until the readiness script reports both ad and inventory health checks as `ok=true`. If it reports `manual_login_required`, ask the operator to sign in to WeCom or approve the visible prompt, then rerun the startup command.
 
 Export snapshot:
 

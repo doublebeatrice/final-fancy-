@@ -104,6 +104,16 @@ Codex reads the snapshot and Q2 playbook, then writes an action schema JSON. The
 
 Operating doctrine from 2026-05-12: do not treat advertising business risk as a reason to wait for manual review. If Codex believes a supported advertising action can improve profit, sales quality, inventory turnover, or KPI trajectory, approve and execute it, then learn from the next 1/3/7-day data cycle.
 
+Operating correction from 2026-05-14: do not run daily operations in small rounds and wait for the operator to push the next step. Read `data/learning/operations_retrospective_2026-05-06_to_2026-05-14.md`, then run one complete loop: data health, total-result diagnosis, risk-first pool, old-product repair pool, opportunity pool, execution, landing verification, and follow-up learning. Execution volume is not success if sales, units, net profit, refund, or ACOS deteriorate.
+
+Every daily plan must include:
+
+- Overbudget classification: hard stop, budget shift, or watch-only.
+- Refund gate: high-refund low-profit SKUs do not receive more traffic without evidence that refund risk is isolated or improving.
+- Opportunity proof: bid-up/budget-up only when conversion, inventory, profit/refund, and season/node evidence support it.
+- Same-SKU cooldown: no repeat push without recent-history review and new evidence.
+- Candidate closure: every candidate ends as execute, manual diagnosis with reason, or no-action with reason.
+
 Executable ad actions currently include:
 
 - `bid_up`
