@@ -55,11 +55,25 @@ function Ensure-RequiredTabs {
   }
 }
 
+function Invoke-BackendLoginReady {
+  $scriptPath = Join-Path $PSScriptRoot "ensure_backend_login.js"
+  if (-not (Test-Path $scriptPath)) {
+    Write-Host "Backend login readiness script not found: $scriptPath"
+    return 1
+  }
+
+  Write-Host "Checking backend login readiness through WeCom browser access..."
+  & node $scriptPath
+  if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+  }
+}
+
 $existingTabs = Get-DebugTabs
 if ($existingTabs) {
   Write-Host "Reusing existing Chrome debug session on $debugUrl"
   Ensure-RequiredTabs
-  Write-Host "This does not log in automatically. Use the opened tabs to manually confirm login."
+  Invoke-BackendLoginReady
   exit 0
 }
 
@@ -100,8 +114,9 @@ foreach ($url in $requiredUrls) {
 }
 
 Start-Process -FilePath $chromePath -ArgumentList $chromeArgs
+Start-Sleep -Seconds 3
 
 Write-Host "Started Chrome with remote debugging on $debugUrl"
 Write-Host "Chrome binary: $chromePath"
 Write-Host "User data dir: $profileDir"
-Write-Host "This does not log in automatically. Use the opened tabs to manually confirm login."
+Invoke-BackendLoginReady
