@@ -195,6 +195,30 @@ Price actions should be avoided or routed to review when:
 - The action would create negative or near-zero profit without a specific clearance hypothesis.
 - The current backend field values are missing or stale.
 
+## Price And Advertising Coupling
+
+Price execution must not use a simplistic "price up means ads down" or "price down means ads up" rule. The deciding AI session must infer and record the strategic intent behind the price move, then decide how advertising should respond.
+
+Add these fields to price actions:
+
+- `priceIntent`: `ad_space_expansion`, `inventory_protection`, `margin_repair`, `conversion_recovery`, `seasonal_sell_through`, `clearance`, or `review`.
+- `adCoupling.direction`: `up`, `down`, `hold`, or `review`.
+- `adCoupling.reason`: short reason linking the price move to the advertising posture.
+- `adCoupling.allowedAdActions`: ad actions that are consistent with the price intent.
+- `adCoupling.blockedAdActions`: ad actions that would contradict the price intent unless separately approved.
+- `adCoupling.checkAfterDays`: default `[1, 3, 7]` unless the SKU needs a different measurement window.
+
+Examples:
+
+- `ad_space_expansion`: raise price because higher margin creates room to buy more traffic. If inventory, conversion, refund, and ACOS are healthy, ads can follow upward through controlled bid, budget, placement, or structure expansion.
+- `inventory_protection`: raise price because sellable stock is low or replenishment is tight. Ads should usually hold, reduce, or pause waste so the SKU does not stock out faster.
+- `margin_repair`: raise price because current sales are too low-margin. Ads usually hold or lightly control until post-price conversion and ACOS prove the SKU can still scale.
+- `conversion_recovery`: lower price to recover conversion. Ads do not automatically scale; the lower margin must still cover ad cost.
+- `seasonal_sell_through`: lower price to move stock before the season window closes. Ads can push proven efficient terms and cut broad or wasteful traffic.
+- `clearance`: lower price for liquidation. Ads should be tightly capped unless the clearance economics justify broader traffic.
+
+The same daily schema should include the matching advertising action when the evidence is strong. If the ad move is deferred, the price action must include a review plan that states which post-price data will decide the next move: sessions, conversion rate, units, ACOS, inventory days, margin, and refund pressure.
+
 ## Tests
 
 Add focused regression coverage:
