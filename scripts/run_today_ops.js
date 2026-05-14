@@ -8,6 +8,7 @@ const { appendAdjustmentRecords, recordsFromExecutionEvents, recordsFromPlan } =
 const { buildOpsTimeContext } = require('../src/ops_time');
 const { buildDailyTaskPool } = require('../src/task_scheduler');
 const { persistDailyLearning } = require('../src/daily_learning');
+const { buildProactiveOperatingAudit, renderProactiveOperatingAuditHtml } = require('../src/proactive_audit');
 const { summarizeOverBudgetCoverage } = require('../src/over_budget_policy');
 const { updateHistoryFromSnapshot, annotateCapSince } = require('../src/over_budget_history');
 const { exportSnapshot } = require('./execute/export_snapshot');
@@ -96,9 +97,38 @@ function readJson(file, fallback = null) {
   }
 }
 
-function writeJson(file, value) {
+function isTransientWriteError(error) {
+  const code = String(error?.code || '').toUpperCase();
+  const message = String(error?.message || '').toLowerCase();
+  return ['UNKNOWN', 'EBUSY', 'EPERM', 'EACCES'].includes(code) ||
+    (message.includes('unknown error') && message.includes('open'));
+}
+
+function sleepSync(ms) {
+  if (!ms || ms <= 0) return;
+  const buffer = new SharedArrayBuffer(4);
+  const view = new Int32Array(buffer);
+  Atomics.wait(view, 0, 0, ms);
+}
+
+function writeTextFileWithRetry(file, text, options = {}) {
+  const retries = Number(options.retries ?? 4);
+  const sleepMs = Number(options.sleepMs ?? 150);
+  const writeFileSync = options.writeFileSync || fs.writeFileSync;
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, JSON.stringify(value, null, 2));
+  for (let attempt = 0; attempt <= retries; attempt += 1) {
+    try {
+      writeFileSync(file, text, 'utf8');
+      return;
+    } catch (error) {
+      if (attempt >= retries || !isTransientWriteError(error)) throw error;
+      sleepSync(sleepMs * (attempt + 1));
+    }
+  }
+}
+
+function writeJson(file, value) {
+  writeTextFileWithRetry(file, JSON.stringify(value, null, 2));
 }
 
 function escapeHtml(value) {
@@ -193,6 +223,21 @@ function buildFetchOptions(options) {
     listingCacheTtlMs: Number(process.env.AD_OPS_LISTING_CACHE_TTL_MS || (7 * 24 * 60 * 60 * 1000)),
     listingOptional: true,
     schemaSkus,
+  };
+}
+
+function getSnapshotStepPlan(options = {}, defaultSnapshotFile = '') {
+  if (options.snapshotFileArg) {
+    return {
+      shouldExport: false,
+      reason: 'reuse_provided_snapshot',
+      snapshotFile: path.resolve(options.snapshotFileArg),
+    };
+  }
+  return {
+    shouldExport: true,
+    reason: 'export_fresh_snapshot',
+    snapshotFile: path.resolve(defaultSnapshotFile),
   };
 }
 
@@ -621,9 +666,8 @@ async function main() {
   const runDir = path.join(SNAPSHOTS_DIR, 'runs', runId);
   const manifestFile = path.join(runDir, 'manifest.json');
   const summaryFile = path.join(runDir, 'summary.json');
-  const snapshotFile = options.snapshotFileArg
-    ? path.resolve(options.snapshotFileArg)
-    : path.join(runDir, `snapshot_${today}.json`);
+  const snapshotPlan = getSnapshotStepPlan(options, path.join(runDir, `snapshot_${today}.json`));
+  const snapshotFile = snapshotPlan.snapshotFile;
 
   const manifest = {
     runId,
@@ -689,17 +733,20 @@ async function main() {
 
     const fetchOptions = buildFetchOptions(options);
     await runStep('snapshot', async () => {
-      const result = await exportSnapshot({ outputFile: snapshotFile, fetchOptions });
+      let result = { outputFile: snapshotFile, snapshot: readJson(snapshotFile, {}) };
+      if (snapshotPlan.shouldExport) {
+        result = await exportSnapshot({ outputFile: snapshotFile, fetchOptions });
+      }
       const snapshotCheck = validateSnapshotFile(result.outputFile);
       if (!snapshotCheck.ok) throw new Error(snapshotCheck.reason);
       manifest.outputFiles.snapshotFile = result.outputFile;
-      manifest.panelFetchMetrics = result.snapshot?.fetchMetrics || {};
+      manifest.panelFetchMetrics = result.snapshot?.fetchMetrics || snapshotCheck.snapshot?.fetchMetrics || {};
       manifest.overBudgetCapture = {
         ...manifest.overBudgetCapture,
-        ...(result.snapshot?.dataAvailability?.overBudget || {}),
+        ...((result.snapshot || snapshotCheck.snapshot)?.dataAvailability?.overBudget || {}),
       };
       try {
-        const history = updateHistoryFromSnapshot(result.snapshot || readJson(result.outputFile, {}));
+        const history = updateHistoryFromSnapshot(result.snapshot || snapshotCheck.snapshot || readJson(result.outputFile, {}));
         manifest.overBudgetHistory = {
           campaigns: Object.keys(history.campaigns || {}).length,
           updatedAt: history.updatedAt,
@@ -710,9 +757,10 @@ async function main() {
       return {
         outputs: { snapshotFile: result.outputFile },
         details: {
+          snapshotSource: snapshotPlan.reason,
           profileMeta: result.profileMeta,
           snapshotCounts: snapshotCheck.counts,
-          fetchMetrics: result.snapshot?.fetchMetrics || {},
+          fetchMetrics: result.snapshot?.fetchMetrics || snapshotCheck.snapshot?.fetchMetrics || {},
           fetchOptions,
         },
       };
@@ -726,6 +774,7 @@ async function main() {
     const rowsByType = buildRowsByType(snapshot);
 
     let dailyTaskPool = null;
+    let proactiveAudit = null;
     await runStep('daily_task_pool', async () => {
       const adjustments = [
         ...readJson(path.join(ROOT, 'data', 'adjustments', `adjustments_${timeContext.businessDate}.json`), []),
@@ -738,13 +787,37 @@ async function main() {
       const jsonFile = path.join(taskDir, `daily_tasks_${timeContext.businessDate}.json`);
       const htmlFile = path.join(taskDir, `daily_tasks_${timeContext.businessDate}.html`);
       writeJson(jsonFile, pool);
-      fs.writeFileSync(htmlFile, renderTaskPoolHtml(pool), 'utf8');
+      writeTextFileWithRetry(htmlFile, renderTaskPoolHtml(pool));
       manifest.outputFiles.dailyTaskPoolJson = jsonFile;
       manifest.outputFiles.dailyTaskPoolHtml = htmlFile;
       manifest.dailyTaskPool = pool.summary;
       return {
         outputs: { dailyTaskPoolJson: jsonFile, dailyTaskPoolHtml: htmlFile },
         details: pool.summary,
+      };
+    });
+
+    await runStep('proactive_operating_audit', async () => {
+      proactiveAudit = buildProactiveOperatingAudit({ snapshot, timeContext });
+      proactiveAudit.snapshotFile = snapshotFile;
+      const taskDir = path.join(ROOT, 'data', 'tasks');
+      const jsonFile = path.join(taskDir, `proactive_operating_audit_${timeContext.businessDate}.json`);
+      const htmlFile = path.join(taskDir, `proactive_operating_audit_${timeContext.businessDate}.html`);
+      writeJson(jsonFile, proactiveAudit);
+      writeTextFileWithRetry(htmlFile, renderProactiveOperatingAuditHtml(proactiveAudit));
+      manifest.outputFiles.proactiveOperatingAuditJson = jsonFile;
+      manifest.outputFiles.proactiveOperatingAuditHtml = htmlFile;
+      manifest.proactiveOperatingAudit = {
+        kpiStatus: proactiveAudit.kpi.status,
+        newProductLaunch: proactiveAudit.newProductLaunch.summary.total,
+        arrivalAdRecovery: proactiveAudit.arrivalAdRecovery.summary.total,
+        priceActions: proactiveAudit.priceActions.summary.total,
+        expiredSeasonKeywordWaste: proactiveAudit.expiredSeasonKeywordWaste.summary.totalEnabledRows,
+        listingRepair: proactiveAudit.listingRepair.summary.total,
+      };
+      return {
+        outputs: { proactiveOperatingAuditJson: jsonFile, proactiveOperatingAuditHtml: htmlFile },
+        details: manifest.proactiveOperatingAudit,
       };
     });
 
@@ -944,7 +1017,14 @@ async function main() {
   }
 }
 
-main().catch(error => {
-  console.error(error.stack || error.message);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch(error => {
+    console.error(error.stack || error.message);
+    process.exit(1);
+  });
+}
+
+module.exports = {
+  getSnapshotStepPlan,
+  writeTextFileWithRetry,
+};

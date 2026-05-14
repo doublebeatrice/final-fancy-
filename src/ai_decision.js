@@ -7,6 +7,7 @@ const {
   formatCurrentAdReadiness,
   lifecycleSeasonEvidence,
 } = require('./inventory_economics');
+const { validatePriceAction } = require('./price_executor');
 
 const EXECUTABLE_ACTION_SOURCES = new Set(['codex', 'claude', 'manual']);
 const ACCEPTED_ACTION_SOURCES = new Set([
@@ -167,6 +168,9 @@ function actionBaselineQuality(action) {
   if (action.actionType === 'placement' && !Number.isFinite(action.currentPlacementPercent)) {
     warnings.push('missing_current_placement');
   }
+  if (action.actionType === 'price' && (!Number.isFinite(action.currentPrice) || !Number.isFinite(action.suggestedPrice))) {
+    warnings.push('missing_current_or_suggested_price');
+  }
   if (!Array.isArray(action.evidence) || !action.evidence.length) warnings.push('missing_evidence');
   return {
     level: warnings.length ? 'incomplete' : 'complete',
@@ -196,6 +200,12 @@ function inferExpectedEffect(action) {
   if (action.actionType === 'pause') {
     return { impressions: 'down', clicks: 'down', spend: 'down', orders: 'watch', acos: 'watch' };
   }
+  if (action.actionType === 'price') {
+    if (action.priceIntent === 'ad_space_expansion') return { price: 'up', margin: 'up', adSpace: 'up', adSpend: action.adCoupling?.direction || 'watch', conversionRate: 'watch' };
+    if (action.priceIntent === 'inventory_protection') return { price: 'up', sellThrough: 'down', inventoryDays: 'protect', adSpend: action.adCoupling?.direction || 'watch', conversionRate: 'watch' };
+    if (action.priceIntent === 'conversion_recovery' || action.priceIntent === 'seasonal_sell_through' || action.priceIntent === 'clearance') return { price: 'down', conversionRate: 'watch', units: 'up', margin: 'down', adSpend: action.adCoupling?.direction || 'watch' };
+    return { price: action.direction || 'watch', margin: 'watch', conversionRate: 'watch', adSpend: action.adCoupling?.direction || 'watch' };
+  }
   return { effect: 'review' };
 }
 
@@ -219,6 +229,10 @@ function buildLearningContext(product, entity, action, rawAction = {}) {
       suggestedBid: Number.isFinite(action.suggestedBid) ? action.suggestedBid : null,
       currentBudget: Number.isFinite(action.currentBudget) ? action.currentBudget : null,
       suggestedBudget: Number.isFinite(action.suggestedBudget) ? action.suggestedBudget : null,
+      currentPrice: Number.isFinite(action.currentPrice) ? action.currentPrice : null,
+      suggestedPrice: Number.isFinite(action.suggestedPrice) ? action.suggestedPrice : null,
+      priceIntent: action.priceIntent || '',
+      adCoupling: action.adCoupling || null,
       placementKey: action.placementKey || '',
       currentPlacementPercent: Number.isFinite(action.currentPlacementPercent) ? action.currentPlacementPercent : null,
       suggestedPlacementPercent: Number.isFinite(action.suggestedPlacementPercent) ? action.suggestedPlacementPercent : null,
@@ -346,6 +360,19 @@ function buildVerificationSpec(action) {
         type: 'created_entity',
         sourceField: 'apiResult.campaignId',
         value: 'created_campaign_visible_or_pending_visibility',
+      },
+    };
+  }
+
+  if (actionType === 'price') {
+    if (entityType !== 'sku' || !Number.isFinite(toNum(action?.suggestedPrice))) return null;
+    return {
+      verifySource: 'inventoryRows',
+      verifyField: 'today_price_apply',
+      expected: {
+        type: 'price_application',
+        sourceField: 'suggestedPrice',
+        value: toNum(action.suggestedPrice),
       },
     };
   }
@@ -613,6 +640,7 @@ function buildProductContexts(cards, rowsByType, sp7DayRows, sb7DayRows, history
       yoyRank: toNum(card.yoyRank),
       note: card.note || null,
       personalSales: card.personalSales || null,
+      productLabels: card.productLabels || null,
       listingSessions: card.listingSessions || {},
       listingConversionRates: card.listingConversionRates || {},
       adStats: card.adStats || {},
@@ -638,13 +666,13 @@ function buildProductContexts(cards, rowsByType, sp7DayRows, sb7DayRows, history
 
 function normalizeEntityType(value) {
   const text = String(value || '').trim();
-  if (['campaign', 'keyword', 'autoTarget', 'manualTarget', 'productAd', 'sbKeyword', 'sbTarget', 'sbCampaign', 'skuCandidate', 'sbCampaignCandidate'].includes(text)) return text;
+  if (['campaign', 'keyword', 'autoTarget', 'manualTarget', 'productAd', 'sbKeyword', 'sbTarget', 'sbCampaign', 'skuCandidate', 'sbCampaignCandidate', 'sku'].includes(text)) return text;
   return 'unknown';
 }
 
 function normalizeActionType(value) {
   const text = String(value || '').trim().toLowerCase();
-  if (['bid', 'budget', 'placement', 'enable', 'pause', 'review', 'create', 'structure_fix'].includes(text)) return text;
+  if (['bid', 'budget', 'placement', 'enable', 'pause', 'review', 'create', 'structure_fix', 'price'].includes(text)) return text;
   return 'review';
 }
 
@@ -762,6 +790,128 @@ function assessMarginalScaleEconomics(product = {}, action = {}, entity = {}) {
   return { ok: true, reason: 'marginal_economics_ok', evidence };
 }
 
+function isTrafficIncreasingAction(action = {}) {
+  const actionType = String(action.actionType || '');
+  if (actionType === 'create' || actionType === 'enable') return true;
+  if (actionType === 'bid' && Number.isFinite(toNum(action.currentBid)) && Number.isFinite(toNum(action.suggestedBid))) {
+    return toNum(action.suggestedBid) > toNum(action.currentBid);
+  }
+  if (actionType === 'budget' && Number.isFinite(toNum(action.currentBudget)) && Number.isFinite(toNum(action.suggestedBudget))) {
+    return toNum(action.suggestedBudget) > toNum(action.currentBudget);
+  }
+  if (actionType === 'placement') {
+    const next = toNum(action.suggestedPlacementPercent);
+    const prev = toNum(action.currentPlacementPercent);
+    if (Number.isFinite(next) && Number.isFinite(prev)) return next > prev;
+  }
+  return false;
+}
+
+function refundGateAssessment(product = {}, action = {}) {
+  if (!isTrafficIncreasingAction(action)) return { ok: true, reason: 'not_traffic_push' };
+  const labels = product.productLabels || {};
+  const isHighReturn = Number(labels.is_high_return_rate) === 1;
+  const profitRate = toNum(product.profitRate);
+  const lowProfit = Number.isFinite(profitRate) && profitRate < 0.12;
+  if (!isHighReturn) return { ok: true, reason: 'not_high_return' };
+  if (!lowProfit) return { ok: true, reason: 'high_return_but_profit_acceptable' };
+  return {
+    ok: false,
+    reason: 'high_return_low_profit_blocks_traffic_push',
+    evidence: [
+      `is_high_return_rate=${labels.is_high_return_rate || 0}`,
+      `profitRate=${Number.isFinite(profitRate) ? profitRate.toFixed(4) : 'unknown'}`,
+      'rule:retro_2026-05-14:refund_is_hard_traffic_gate',
+    ],
+  };
+}
+
+function cooldownAssessment(product = {}, action = {}) {
+  const sku = String(product.sku || '');
+  if (!sku) return { ok: true, reason: 'no_sku' };
+  const actionType = String(action.actionType || '');
+  if (!['bid', 'budget', 'placement', 'enable', 'create'].includes(actionType)) {
+    return { ok: true, reason: 'cooldown_does_not_apply_to_pause_review' };
+  }
+  if (!isTrafficIncreasingAction(action)) {
+    return { ok: true, reason: 'down_or_neutral_action_skips_cooldown' };
+  }
+
+  const entityKey = `${actionType}::${action.entityType || ''}::${action.id || ''}`;
+  const recent = (product.history || []).filter(item => {
+    if (!item) return false;
+    if (String(item.sku || '') !== sku) return false;
+    const direction = String(item.direction || '');
+    const sameAction = String(item.actionType || '') === actionType ||
+      (item.toBid !== undefined || item.fromBid !== undefined);
+    return sameAction && (direction === 'up' || direction === '');
+  });
+
+  const sameEntityRecent = recent.filter(item => {
+    const id = String(item.entityId || item.id || '');
+    return !id || id === String(action.id || '');
+  });
+
+  if (sameEntityRecent.length === 0) return { ok: true, reason: 'no_recent_traffic_push' };
+
+  const lastDateRaw = sameEntityRecent
+    .map(item => String(item.runAt || item.date || ''))
+    .sort()
+    .pop() || '';
+  const lastDate = lastDateRaw.slice(0, 10);
+  const today = String(action.businessDate || '').slice(0, 10) ||
+    new Date().toISOString().slice(0, 10);
+  const daysSince = lastDate && today ? Math.max(0, Math.floor(
+    (new Date(`${today}T00:00:00Z`).getTime() - new Date(`${lastDate}T00:00:00Z`).getTime()) / 86400000
+  )) : null;
+
+  const COOLDOWN_DAYS = 1;
+  if (daysSince !== null && daysSince > COOLDOWN_DAYS) {
+    return { ok: true, reason: 'cooldown_window_passed', daysSince };
+  }
+  return {
+    ok: false,
+    reason: 'same_sku_traffic_push_within_cooldown',
+    evidence: [
+      `sku=${sku}`,
+      `entity=${entityKey}`,
+      `lastTrafficPushAt=${lastDateRaw || 'unknown'}`,
+      `daysSince=${daysSince === null ? 'unknown' : daysSince}`,
+      `cooldownDays=${COOLDOWN_DAYS}`,
+      'rule:retro_2026-05-14:same_sku_cooldown_required',
+    ],
+  };
+}
+
+function overBudgetWarningAssessment(product = {}, action = {}) {
+  const operating = product.operatingContext || {};
+  const overBudget = operating.overBudget || product.overBudget || null;
+  if (!overBudget) return { ok: true, reason: 'no_over_budget_signal' };
+  const isBudgetUp = String(action.actionType) === 'budget' &&
+    Number.isFinite(toNum(action.currentBudget)) &&
+    Number.isFinite(toNum(action.suggestedBudget)) &&
+    toNum(action.suggestedBudget) > toNum(action.currentBudget);
+  if (!isBudgetUp) return { ok: true, reason: 'not_budget_up' };
+  const recentOrders = toNum(overBudget.recentOrders) || 0;
+  const recentSpend = toNum(overBudget.recentSpend) || 0;
+  const acos = toNum(overBudget.acos);
+  const inefficient = recentSpend > 0 && recentOrders === 0;
+  const highAcos = Number.isFinite(acos) && acos > 0.45;
+  if (inefficient || highAcos) {
+    return {
+      ok: false,
+      reason: 'over_budget_inefficient_blocks_budget_up',
+      evidence: [
+        `recentSpend=${recentSpend.toFixed(2)}`,
+        `recentOrders=${recentOrders}`,
+        `acos=${Number.isFinite(acos) ? acos.toFixed(4) : 'unknown'}`,
+        'rule:retro_2026-05-14:overbudget_classify_first',
+      ],
+    };
+  }
+  return { ok: true, reason: 'over_budget_acceptable_for_budget_up' };
+}
+
 function gateRisk(product, entity, action) {
   const gated = { ...action };
   const forceExecute = gated.forceExecute === true;
@@ -789,6 +939,42 @@ function gateRisk(product, entity, action) {
     gated.requiresAiDecision = true;
     gated.reason = `${gated.reason || ''} [risk_gate:candidate_requires_ai_decision] Rule-generator candidates are evidence, not final Codex decisions. Approve with decisionStage=ai_approved/manual_approved, approvedBy, and executable actionSource before execution.`.trim();
     return gated;
+  }
+
+  const refundGate = refundGateAssessment(product || {}, gated);
+  if (!refundGate.ok && !forceExecute) {
+    gated.actionType = 'review';
+    gated.canAutoExecute = false;
+    gated.riskLevel = 'refund_gate';
+    gated.reason = `${gated.reason || ''} [risk_gate:refund_gate:${refundGate.reason}] High-return-rate SKU with thin profit cannot receive more traffic without explicit forceExecute proving the refund issue is isolated, historical, or already improving. evidence: ${(refundGate.evidence || []).join('; ')}`.trim();
+    return gated;
+  }
+  if (forceExecute && !refundGate.ok) {
+    gated.forceOverrideReasons = [...(gated.forceOverrideReasons || []), `refund_gate:${refundGate.reason}`];
+  }
+
+  const cooldown = cooldownAssessment(product || {}, gated);
+  if (!cooldown.ok && !forceExecute) {
+    gated.actionType = 'review';
+    gated.canAutoExecute = false;
+    gated.riskLevel = 'same_sku_cooldown';
+    gated.reason = `${gated.reason || ''} [risk_gate:same_sku_cooldown:${cooldown.reason}] Same-SKU traffic-push within ${cooldown.evidence?.find(e => e.startsWith('cooldownDays=')) || 'cooldown'} requires explicit forceExecute and a new-evidence reason. evidence: ${(cooldown.evidence || []).join('; ')}`.trim();
+    return gated;
+  }
+  if (forceExecute && !cooldown.ok) {
+    gated.forceOverrideReasons = [...(gated.forceOverrideReasons || []), `same_sku_cooldown:${cooldown.reason}`];
+  }
+
+  const overBudget = overBudgetWarningAssessment(product || {}, gated);
+  if (!overBudget.ok && !forceExecute) {
+    gated.actionType = 'review';
+    gated.canAutoExecute = false;
+    gated.riskLevel = 'overbudget_inefficient';
+    gated.reason = `${gated.reason || ''} [risk_gate:overbudget_inefficient:${overBudget.reason}] Budget-up on a campaign that is already over budget without orders or with excessive ACOS must be classified as hard-stop or budget-shift first. evidence: ${(overBudget.evidence || []).join('; ')}`.trim();
+    return gated;
+  }
+  if (forceExecute && !overBudget.ok) {
+    gated.forceOverrideReasons = [...(gated.forceOverrideReasons || []), `overbudget_inefficient:${overBudget.reason}`];
   }
 
   if (['keyword', 'autoTarget', 'manualTarget', 'productAd'].includes(gated.entityType) && hasInactiveParentAdObject(entity)) {
@@ -985,6 +1171,8 @@ function validateAndNormalizePlan(rawPlan, context) {
         rawAction.id ||
         (actionType === 'create'
           ? `create::${sku}::${rawCreateInput.mode || rawAction.mode || 'unknown'}::${rawCreateInput.coreTerm || rawAction.coreTerm || ''}`
+          : actionType === 'price'
+            ? sku
           : '')
       ).trim();
 
@@ -1000,7 +1188,16 @@ function validateAndNormalizePlan(rawPlan, context) {
 
       const entity = actionType === 'create' || (actionType === 'review' && entityType === 'skuCandidate')
         ? { id, entityType: 'skuCandidate', sourceSignals: ['codex'], currentBid: null }
-        : findProductEntity(product, entityType, id);
+        : actionType === 'price' && entityType === 'sku'
+          ? {
+            id: id || sku,
+            entityType: 'sku',
+            sourceSignals: ['codex'],
+            currentPrice: toNum(product.price ?? product.listing?.price),
+            profitRate: toNum(product.profitRate),
+            asin: product.asin || '',
+          }
+          : findProductEntity(product, entityType, id);
       if (entityType === 'unknown') {
         errors.push({ sku, id, reason: 'unsupported entity type in action schema' });
         continue;
@@ -1029,6 +1226,26 @@ function validateAndNormalizePlan(rawPlan, context) {
         suggestedBid: toNum(rawAction.suggestedBid),
         currentBudget: toNum(rawAction.currentBudget ?? entity.currentBudget),
         suggestedBudget: toNum(rawAction.suggestedBudget),
+        currentPrice: toNum(rawAction.currentPrice ?? rawAction.priceRaw ?? rawAction.price_raw ?? entity.currentPrice ?? product.price ?? product.listing?.price),
+        suggestedPrice: toNum(rawAction.suggestedPrice ?? rawAction.priceApply ?? rawAction.price_apply),
+        site: String(rawAction.site || rawAction.salesChannel || 'Amazon.com').trim(),
+        saleStatus: String(rawAction.saleStatus || rawAction.sale_status || '').trim(),
+        profitBefore: toNum(rawAction.profitBefore ?? rawAction.profit_raw ?? product.profitRate),
+        profitBeforeSea: toNum(rawAction.profitBeforeSea ?? rawAction.profit_raw_sea),
+        profitAfter: toNum(rawAction.profitAfter ?? rawAction.profit_apply),
+        profitAfterSea: toNum(rawAction.profitAfterSea ?? rawAction.profit_apply_sea),
+        floatPrice: toNum(rawAction.floatPrice ?? rawAction.float_price),
+        isUrgent: String(rawAction.isUrgent || rawAction.is_urgent || '').trim(),
+        account: String(rawAction.account || '').trim(),
+        developerNum: String(rawAction.developerNum || rawAction.developer_num || '').trim(),
+        sellerNum: String(rawAction.sellerNum || rawAction.seller_num || '').trim(),
+        remark: String(rawAction.remark || '').trim(),
+        variantSku: String(rawAction.variantSku || rawAction.variant_sku || '').trim(),
+        maliciousUserId: String(rawAction.maliciousUserId || rawAction.malicious_user_id || '').trim(),
+        minPrice: rawAction.minPrice ?? rawAction.min_price ?? '',
+        maxPrice: rawAction.maxPrice ?? rawAction.max_price ?? '',
+        priceIntent: String(rawAction.priceIntent || '').trim(),
+        adCoupling: rawAction.adCoupling && typeof rawAction.adCoupling === 'object' ? rawAction.adCoupling : null,
         placementKey: String(rawAction.placementKey || rawAction.key || '').trim(),
         currentPlacementPercent: toNum(rawAction.currentPlacementPercent ?? (rawAction.placementKey ? entity[rawAction.placementKey] : null)),
         suggestedPlacementPercent: toNum(rawAction.suggestedPlacementPercent ?? rawAction.column),
@@ -1114,6 +1331,22 @@ function validateAndNormalizePlan(rawPlan, context) {
           normalized.direction = normalized.suggestedPlacementPercent > normalized.currentPlacementPercent ? 'up' : (normalized.suggestedPlacementPercent < normalized.currentPlacementPercent ? 'down' : 'same');
         } else {
           normalized.direction = 'unknown';
+        }
+      }
+
+      if (normalized.actionType === 'price') {
+        const priceValidation = validatePriceAction(normalized, { requireAdCoupling: true });
+        normalized.currentPrice = priceValidation.currentPrice;
+        normalized.suggestedPrice = priceValidation.suggestedPrice;
+        normalized.direction = priceValidation.direction;
+        normalized.priceIntent = priceValidation.priceIntent;
+        normalized.adCoupling = priceValidation.adCoupling;
+        normalized.priceValidationWarnings = priceValidation.warnings;
+        if (!priceValidation.ok) {
+          normalized.actionType = 'review';
+          normalized.canAutoExecute = false;
+          normalized.riskLevel = 'manual_review';
+          normalized.reason = `${normalized.reason || ''} [risk_gate:price_validation:${priceValidation.errors.join(',')}]`.trim();
         }
       }
 
@@ -1209,7 +1442,11 @@ function loadExternalActionSchema({
 
 module.exports = {
   buildProductContexts,
+  cooldownAssessment,
   hasRequiredVerification,
-  validateAndNormalizePlan,
+  isTrafficIncreasingAction,
   loadExternalActionSchema,
+  overBudgetWarningAssessment,
+  refundGateAssessment,
+  validateAndNormalizePlan,
 };

@@ -72,45 +72,88 @@ function topSignals(taskPool = {}) {
     .slice(0, 12);
 }
 
+function classifyOutcome(record) {
+  if (record.dryRun || String(record.outcome || '').toLowerCase().includes('dry_run')) return 'planned';
+  const outcome = String(record.outcome || '').toLowerCase();
+  if (outcome.includes('success') || outcome.includes('landed') || outcome === 'application_submitted') return 'success';
+  if (outcome.includes('fail') || outcome.includes('miss') || outcome.includes('blocked')) return 'failed';
+  if (outcome.includes('manual_review') || outcome === 'review') return 'manualReview';
+  if (outcome.includes('skipped') || outcome === 'cancelled') return 'skipped';
+  return 'unknown';
+}
+
 function actionBreakdown(records = []) {
   const byAction = {};
   const byDirection = {};
-  const landed = { success: 0, failed: 0, planned: 0, unknown: 0 };
+  const landed = { success: 0, failed: 0, planned: 0, manualReview: 0, skipped: 0, unknown: 0 };
   for (const record of records || []) {
     const actionKey = `${record.entityType || 'unknown'}:${record.actionType || 'unknown'}`;
     byAction[actionKey] = (byAction[actionKey] || 0) + 1;
     const direction = record.direction || 'unknown';
     byDirection[direction] = (byDirection[direction] || 0) + 1;
-    const outcome = String(record.outcome || '').toLowerCase();
-    if (record.dryRun || outcome.includes('dry_run')) landed.planned += 1;
-    else if (outcome.includes('success') || outcome.includes('landed')) landed.success += 1;
-    else if (outcome.includes('fail') || outcome.includes('miss') || outcome.includes('blocked')) landed.failed += 1;
-    else landed.unknown += 1;
+    landed[classifyOutcome(record)] += 1;
   }
   return { byAction, byDirection, landed };
-}
-
-function classifyOutcome(record) {
-  if (record.dryRun || String(record.outcome || '').toLowerCase().includes('dry_run')) return 'planned';
-  const outcome = String(record.outcome || '').toLowerCase();
-  if (outcome.includes('success') || outcome.includes('landed')) return 'success';
-  if (outcome.includes('fail') || outcome.includes('miss') || outcome.includes('blocked')) return 'failed';
-  return 'unknown';
 }
 
 function decisionAttribution(records = []) {
   const groups = {};
   for (const record of records || []) {
     const key = (record.approvedBy || '').toLowerCase() || 'unattributed';
-    if (!groups[key]) groups[key] = { plannedActions: 0, landedSuccess: 0, landedFailed: 0, dryRunPlanned: 0, unknown: 0 };
+    if (!groups[key]) groups[key] = { plannedActions: 0, landedSuccess: 0, landedFailed: 0, dryRunPlanned: 0, manualReview: 0, skipped: 0, unknown: 0 };
     groups[key].plannedActions += 1;
     const bucket = classifyOutcome(record);
     if (bucket === 'success') groups[key].landedSuccess += 1;
     else if (bucket === 'failed') groups[key].landedFailed += 1;
     else if (bucket === 'planned') groups[key].dryRunPlanned += 1;
+    else if (bucket === 'manualReview') groups[key].manualReview += 1;
+    else if (bucket === 'skipped') groups[key].skipped += 1;
     else groups[key].unknown += 1;
   }
   return groups;
+}
+
+function allDayLanding(records = [], businessDate = '') {
+  const filtered = businessDate
+    ? (records || []).filter(record => String(record.businessDate || '') === String(businessDate))
+    : (records || []);
+  const summary = {
+    businessDate: String(businessDate || ''),
+    total: filtered.length,
+    runs: 0,
+    success: 0,
+    failed: 0,
+    planned: 0,
+    manualReview: 0,
+    skipped: 0,
+    unknown: 0,
+    bestRunId: '',
+    bestRunSuccess: 0,
+  };
+  const byRun = new Map();
+  for (const record of filtered) {
+    const bucket = classifyOutcome(record);
+    if (bucket === 'success') summary.success += 1;
+    else if (bucket === 'failed') summary.failed += 1;
+    else if (bucket === 'planned') summary.planned += 1;
+    else if (bucket === 'manualReview') summary.manualReview += 1;
+    else if (bucket === 'skipped') summary.skipped += 1;
+    else summary.unknown += 1;
+    const runId = String(record.sourceRunId || '');
+    if (runId) {
+      const entry = byRun.get(runId) || { runId, success: 0 };
+      if (bucket === 'success') entry.success += 1;
+      byRun.set(runId, entry);
+    }
+  }
+  summary.runs = byRun.size;
+  for (const entry of byRun.values()) {
+    if (entry.success > summary.bestRunSuccess) {
+      summary.bestRunSuccess = entry.success;
+      summary.bestRunId = entry.runId;
+    }
+  }
+  return summary;
 }
 
 function finalRunLanding(records = [], sourceRunId = '') {
@@ -122,14 +165,16 @@ function finalRunLanding(records = [], sourceRunId = '') {
     failed: 0,
     planned: 0,
     manualReview: 0,
+    skipped: 0,
     unknown: 0,
   };
   for (const record of filtered) {
-    const outcome = String(record.outcome || '').toLowerCase();
-    if (record.dryRun || outcome.includes('dry_run')) summary.planned += 1;
-    else if (outcome.includes('success') || outcome.includes('landed')) summary.success += 1;
-    else if (outcome.includes('fail') || outcome.includes('miss') || outcome.includes('blocked')) summary.failed += 1;
-    else if (outcome.includes('manual_review') || outcome === 'review') summary.manualReview += 1;
+    const bucket = classifyOutcome(record);
+    if (bucket === 'success') summary.success += 1;
+    else if (bucket === 'failed') summary.failed += 1;
+    else if (bucket === 'planned') summary.planned += 1;
+    else if (bucket === 'manualReview') summary.manualReview += 1;
+    else if (bucket === 'skipped') summary.skipped += 1;
     else summary.unknown += 1;
   }
   return summary;
@@ -162,6 +207,7 @@ function buildLearningRecord(input = {}) {
       dryRunFile: manifest.outputFiles?.dryRunFile || '',
       verifyFile: manifest.outputFiles?.verifyFile || '',
       adjustmentLogFile: manifest.outputFiles?.executeAdjustmentLogFile || manifest.outputFiles?.dryRunAdjustmentLogFile || '',
+      proactiveOperatingAuditJson: manifest.outputFiles?.proactiveOperatingAuditJson || '',
       manifestFile: manifest.manifestFile || '',
     },
     dataQuality: {
@@ -185,6 +231,7 @@ function buildLearningRecord(input = {}) {
       },
       topSignals: topSignals(taskPool),
       taskSummary: taskPool.summary || {},
+      proactiveOperatingAudit: manifest.proactiveOperatingAudit || null,
     },
     decisions: {
       schemaSkuCount: schema.schemaSkuCount || 0,
@@ -195,6 +242,7 @@ function buildLearningRecord(input = {}) {
       actionBreakdown: actionBreakdown(adjustmentRecords),
       decisionAttribution: decisionAttribution(adjustmentRecords),
       finalRunLanding: finalRunLanding(adjustmentRecords, time.sourceRunId || manifest.runId || ''),
+      allDayLanding: allDayLanding(adjustmentRecords, time.businessDate || manifest.businessDate || ''),
     },
     carryForward: {
       mustReadBeforeTomorrowDecision: true,
@@ -219,6 +267,8 @@ function renderLearningMarkdown(record = {}) {
   const metrics = record.observedPressure?.snapshotMetrics || {};
   const landed = record.decisions?.actionBreakdown?.landed || {};
   const finalRun = record.decisions?.finalRunLanding || {};
+  const allDay = record.decisions?.allDayLanding || {};
+  const proactive = record.observedPressure?.proactiveOperatingAudit || {};
   const signals = (record.observedPressure?.topSignals || [])
     .map(item => `- ${item.signal}: ${item.count}`)
     .join('\n') || '- none';
@@ -226,7 +276,7 @@ function renderLearningMarkdown(record = {}) {
   const attributionLines = Object.keys(attribution).length
     ? Object.entries(attribution)
         .sort(([a], [b]) => a.localeCompare(b))
-        .map(([who, stats]) => `- ${who}: planned ${stats.plannedActions || 0}, landed ${stats.landedSuccess || 0}, failed ${stats.landedFailed || 0}, dry-run ${stats.dryRunPlanned || 0}`)
+        .map(([who, stats]) => `- ${who}: planned ${stats.plannedActions || 0}, landed ${stats.landedSuccess || 0}, failed ${stats.landedFailed || 0}, manual-review ${stats.manualReview || 0}, skipped ${stats.skipped || 0}, dry-run ${stats.dryRunPlanned || 0}`)
         .join('\n')
     : '- none';
   return `# Daily Learning ${record.time?.businessDate || ''}
@@ -241,20 +291,44 @@ function renderLearningMarkdown(record = {}) {
 - inventory tight: ${metrics.inventoryTight || 0}
 - stale inventory: ${metrics.staleInventory || 0}
 - low profit: ${metrics.lowProfit || 0}
+- proactive KPI status: ${proactive.kpiStatus || 'not_recorded'}
+- proactive new product launch gaps: ${proactive.newProductLaunch ?? 'not_recorded'}
+- proactive arrival ad recovery gaps: ${proactive.arrivalAdRecovery ?? 'not_recorded'}
+- proactive price actions: ${proactive.priceActions ?? 'not_recorded'}
+- proactive expired season keyword waste rows: ${proactive.expiredSeasonKeywordWaste ?? 'not_recorded'}
+- proactive listing repair gaps: ${proactive.listingRepair ?? 'not_recorded'}
 
 ## Task Pressure
 ${signals}
 
-## Decisions
+## All-Day Landing (across ${allDay.runs || 0} run${(allDay.runs || 0) === 1 ? '' : 's'})
+- total records: ${allDay.total || 0}
+- success: ${allDay.success || 0}
+- failed: ${allDay.failed || 0}
+- manual-review: ${allDay.manualReview || 0}
+- skipped: ${allDay.skipped || 0}
+- dry-run planned: ${allDay.planned || 0}
+- unknown: ${allDay.unknown || 0}
+- best run by success count: ${allDay.bestRunId || 'n/a'} (${allDay.bestRunSuccess || 0})
+
+## Final Run
+- run id: ${finalRun.sourceRunId || ''}
+- success: ${finalRun.success || 0}, failed: ${finalRun.failed || 0}, manual-review: ${finalRun.manualReview || 0}, skipped: ${finalRun.skipped || 0}, dry-run: ${finalRun.planned || 0}, unknown: ${finalRun.unknown || 0}
+
+## Final-Run Schema (last action_schema only, NOT all-day total)
 - schema SKUs: ${record.decisions?.schemaSkuCount || 0}
 - planned SKUs: ${record.decisions?.plannedSkus || 0}
 - executable SKUs: ${record.decisions?.executableSkus || 0}
 - review SKUs: ${record.decisions?.reviewSkus || 0}
 - planned actions: ${record.decisions?.plannedActions || 0}
+
+## Action Breakdown (across all runs today)
 - landed success: ${landed.success || 0}
 - landed failed: ${landed.failed || 0}
+- manual-review: ${landed.manualReview || 0}
+- skipped: ${landed.skipped || 0}
 - dry-run planned: ${landed.planned || 0}
-- final run: success ${finalRun.success || 0}, failed ${finalRun.failed || 0}, planned ${finalRun.planned || 0}, manual review ${finalRun.manualReview || 0}, unknown ${finalRun.unknown || 0}
+- unknown: ${landed.unknown || 0}
 
 ## Decision Attribution
 ${attributionLines}
@@ -262,6 +336,7 @@ ${attributionLines}
 ## Carry Forward
 - Must read this file before tomorrow's decisions.
 - Compare 1d, 3d, 7d, 14d, and 30d movement against the sources listed in the JSON record.
+- All-day landing is the canonical day-completion lens. Final-run schema reflects only the last action_schema run; it is normal for that to be a manual repair queue with 0 executable actions.
 `;
 }
 
@@ -278,7 +353,9 @@ function persistDailyLearning(input = {}) {
 module.exports = {
   LEARNING_DIR,
   actionBreakdown,
+  allDayLanding,
   buildLearningRecord,
+  classifyOutcome,
   decisionAttribution,
   finalRunLanding,
   persistDailyLearning,
