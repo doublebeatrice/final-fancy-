@@ -106,6 +106,12 @@ async function main() {
   const fakeSnapshot = { lowEfficiencyRows: pools };
   const scan = scanLowEfficiencyPools(fakeSnapshot, { now: new Date(), cooldownDays: COOLDOWN_DAYS });
   log(`decisions: actionable=${scan.summary.totals.actionable} hold=${scan.summary.totals.hold} skip=${scan.summary.totals.skip}`);
+  for (const [k, s] of Object.entries(scan.summary.byKind)) {
+    log(`  ${k}: scanned=${s.scanned} actionable=${s.actionable} hold=${s.hold} skip=${s.skip}`);
+  }
+  const poolsPath = path.join(ROOT, 'data', 'tasks', `low_efficiency_pools_${today}.json`);
+  fs.writeFileSync(poolsPath, JSON.stringify(scan, null, 2));
+  log(`pool scan persisted to ${poolsPath}`);
 
   const actionables = [];
   for (const [kind, decisions] of Object.entries(scan.results)) {

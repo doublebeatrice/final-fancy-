@@ -272,11 +272,22 @@ function pauseEligibilityForPersistentlyLow(entry) {
   return { pause: false };
 }
 
+function isExplicitlyDisabled(value) {
+  if (value === null || value === undefined || value === '') return false;
+  if (typeof value === 'string') {
+    const s = value.trim().toLowerCase();
+    if (!s) return false;
+    return s === 'paused' || s === 'archived' || s === 'disabled' || s === '0' || s === '2';
+  }
+  const n = Number(value);
+  return Number.isFinite(n) && n !== 1;
+}
+
 function decideFromPoolMembership(entry = {}, options = {}) {
   const now = options.now instanceof Date ? options.now : new Date();
   const cooldownDays = Number(options.cooldownDays || 14);
 
-  if (num(entry.state) !== 1 || num(entry.campaignState) !== 1 || num(entry.groupState) !== 1) {
+  if (isExplicitlyDisabled(entry.state) || isExplicitlyDisabled(entry.campaignState) || isExplicitlyDisabled(entry.groupState)) {
     return { actionType: 'skip', reasonCode: 'inactive_parent_or_entity', pattern: 'inactive', presence: presenceFlags(entry), reason: 'Entity, campaign, or ad group is not enabled.' };
   }
 

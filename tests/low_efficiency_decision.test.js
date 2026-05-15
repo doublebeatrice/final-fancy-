@@ -337,6 +337,22 @@ test('pool decision skips inactive parents regardless of pattern', () => {
   assert.strictEqual(decision.reasonCode, 'inactive_parent_or_entity');
 });
 
+test('pool decision treats SB string campaignState=ENABLED and missing groupState as enabled', () => {
+  const entry = poolEntry(
+    { 30: {}, 15: {}, 7: {}, 3: {} },
+    { campaignState: 'ENABLED', groupState: undefined, updatedAt: '2026-04-01' }
+  );
+  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  assert.notStrictEqual(decision.reasonCode, 'inactive_parent_or_entity');
+});
+
+test('pool decision skips when campaignState is the SB paused string', () => {
+  const entry = poolEntry({ 30: {}, 15: {}, 7: {}, 3: {} }, { campaignState: 'paused' });
+  const decision = decideFromPoolMembership(entry, { now: NOW });
+  assert.strictEqual(decision.actionType, 'skip');
+  assert.strictEqual(decision.reasonCode, 'inactive_parent_or_entity');
+});
+
 test('pool decision holds when only the 3d pool flags the row (noise)', () => {
   const entry = poolEntry({ 3: { clicks: 3, spend: 1, orders: 0 } });
   const decision = decideFromPoolMembership(entry, { now: NOW });
