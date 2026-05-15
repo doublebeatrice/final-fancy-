@@ -192,6 +192,166 @@ function fmtBid(value) {
   return Number(value).toFixed(2);
 }
 
+const POOL_WINDOWS = [30, 15, 7, 3];
+
+function presenceFlags(entry = {}) {
+  const w = entry.windows || {};
+  return {
+    30: !!(w['30'] || w[30]),
+    15: !!(w['15'] || w[15]),
+    7:  !!(w['7']  || w[7]),
+    3:  !!(w['3']  || w[3]),
+  };
+}
+
+function classifyPoolPattern(flags) {
+  const { 30: d30, 15: d15, 7: d7, 3: d3 } = flags;
+  if (!d30 && !d15 && !d7 && !d3) return 'no_pool_membership';
+  if (d30 && d15 && d7 && d3) return 'persistently_low';
+  if (d30 && !d15 && !d7 && !d3) return 'improving_long_only';
+  if (d30 && d15 && !d7 && !d3) return 'improving_recently';
+  if (d30 && d15 && d7 && !d3) return 'improving_marginally';
+  if (!d30 && d15 && d7 && d3) return 'recently_degraded';
+  if (!d30 && !d15 && d7 && d3) return 'late_degrading';
+  if (!d30 && !d15 && !d7 && d3) return 'noise_only_3d';
+  if (d30 && !d15 && d7 && d3) return 'volatile_recent_degrade';
+  if (d30 && d15 && !d7 && d3) return 'volatile_3d_degrade';
+  if (d30 && !d15 && !d7 && d3) return 'volatile_3d_only';
+  if (!d30 && d15 && !d7 && d3) return 'volatile_15_3';
+  if (!d30 && d15 && d7 && !d3) return 'volatile_15_7';
+  if (!d30 && d15 && !d7 && !d3) return 'volatile_15_only';
+  if (d30 && !d15 && d7 && !d3) return 'volatile_30_7';
+  return 'mixed_other';
+}
+
+const PATTERN_INTENT = {
+  no_pool_membership:       { actionType: 'skip', reasonCode: 'no_pool_membership',         severity: 0 },
+  improving_long_only:      { actionType: 'hold', reasonCode: 'recent_trend_improved',      severity: 0 },
+  improving_recently:       { actionType: 'hold', reasonCode: 'recent_trend_improving',     severity: 0 },
+  improving_marginally:     { actionType: 'hold', reasonCode: 'recent_trend_just_turned',   severity: 0 },
+  noise_only_3d:            { actionType: 'hold', reasonCode: 'noise_only_3d',              severity: 0 },
+  volatile_15_only:         { actionType: 'hold', reasonCode: 'volatile_no_recent_signal',  severity: 0 },
+  volatile_30_7:            { actionType: 'hold', reasonCode: 'volatile_unclear_trend',     severity: 0 },
+  volatile_15_3:            { actionType: 'hold', reasonCode: 'volatile_unclear_trend',     severity: 0 },
+  volatile_15_7:            { actionType: 'hold', reasonCode: 'volatile_unclear_trend',     severity: 0 },
+  volatile_3d_only:         { actionType: 'hold', reasonCode: 'noise_only_3d',              severity: 0 },
+  recently_degraded:        { actionType: 'bid_small', reasonCode: 'recently_degraded',     severity: 1 },
+  late_degrading:           { actionType: 'bid_small', reasonCode: 'late_degrading',        severity: 1 },
+  volatile_recent_degrade:  { actionType: 'bid_small', reasonCode: 'volatile_recent_degrade', severity: 1 },
+  volatile_3d_degrade:      { actionType: 'bid_small', reasonCode: 'volatile_3d_degrade',   severity: 1 },
+  persistently_low:         { actionType: 'bid_or_pause', reasonCode: 'persistently_low',   severity: 2 },
+  mixed_other:              { actionType: 'bid_small', reasonCode: 'mixed_other',           severity: 1 },
+};
+
+function pickFocusMetric(entry, pattern) {
+  const w = entry.windows || {};
+  if (pattern === 'persistently_low') return w['30'] || w[30] || w['15'] || w[15] || w['7'] || w[7] || w['3'] || w[3] || {};
+  if (pattern === 'recently_degraded' || pattern === 'late_degrading' || pattern === 'volatile_recent_degrade' || pattern === 'volatile_3d_degrade') {
+    return w['7'] || w[7] || w['3'] || w[3] || w['15'] || w[15] || {};
+  }
+  return w['30'] || w[30] || w['15'] || w[15] || w['7'] || w[7] || w['3'] || w[3] || {};
+}
+
+function smallBidStep(currentBid) {
+  const bid = Number(currentBid) || 0;
+  if (bid >= 1) return 0.10;
+  if (bid >= 0.5) return 0.05;
+  if (bid >= 0.2) return 0.03;
+  return 0.02;
+}
+
+function pauseEligibilityForPersistentlyLow(entry) {
+  const w = entry.windows || {};
+  const m30 = w['30'] || w[30] || {};
+  const clicks30 = num(m30.clicks);
+  const spend30 = num(m30.spend);
+  const orders30 = num(m30.orders);
+  const acos30 = m30.acos === null || m30.acos === undefined ? null : num(m30.acos);
+  if (orders30 === 0 && clicks30 >= 15 && spend30 >= 5) return { pause: true, reasonCode: 'no_order_hard_stop' };
+  if (orders30 > 0 && acos30 !== null && acos30 > 0.7) return { pause: true, reasonCode: 'acos_hard_stop' };
+  return { pause: false };
+}
+
+function decideFromPoolMembership(entry = {}, options = {}) {
+  const now = options.now instanceof Date ? options.now : new Date();
+  const cooldownDays = Number(options.cooldownDays || 14);
+
+  if (num(entry.state) !== 1 || num(entry.campaignState) !== 1 || num(entry.groupState) !== 1) {
+    return { actionType: 'skip', reasonCode: 'inactive_parent_or_entity', pattern: 'inactive', presence: presenceFlags(entry), reason: 'Entity, campaign, or ad group is not enabled.' };
+  }
+
+  const lastAdjust = entry.operatedAt || entry.updatedAt;
+  if (daysSince(lastAdjust, now) < cooldownDays) {
+    return { actionType: 'skip', reasonCode: 'adjustment_cooldown_not_elapsed', pattern: 'cooldown', presence: presenceFlags(entry), reason: `Last adjustment is inside the ${cooldownDays}-day cooldown.` };
+  }
+
+  const flags = presenceFlags(entry);
+  const pattern = classifyPoolPattern(flags);
+  const intent = PATTERN_INTENT[pattern] || PATTERN_INTENT.mixed_other;
+  const focus = pickFocusMetric(entry, pattern);
+  const focusSummary = `clicks=${num(focus.clicks)}, spend=${num(focus.spend).toFixed(2)}, orders=${num(focus.orders)}, acos=${focus.acos === null || focus.acos === undefined ? '-' : Number(focus.acos).toFixed(3)}`;
+  const presenceSummary = `30d=${flags[30] ? 'in' : 'ok'} 15d=${flags[15] ? 'in' : 'ok'} 7d=${flags[7] ? 'in' : 'ok'} 3d=${flags[3] ? 'in' : 'ok'}`;
+
+  if (intent.actionType === 'skip' || intent.actionType === 'hold') {
+    return { actionType: intent.actionType === 'skip' ? 'skip' : 'hold', reasonCode: intent.reasonCode, pattern, presence: flags, reason: `${presenceSummary}. ${focusSummary}.` };
+  }
+
+  const bid = num(entry.bid) || 0;
+  if (bid <= 0) {
+    return { actionType: 'hold', reasonCode: 'missing_bid', pattern, presence: flags, reason: `Cannot compute bid step without a current bid. ${presenceSummary}.` };
+  }
+
+  if (intent.actionType === 'bid_or_pause') {
+    const eligibility = pauseEligibilityForPersistentlyLow(entry);
+    if (eligibility.pause) {
+      return { actionType: 'pause', reasonCode: eligibility.reasonCode, pattern, presence: flags, reason: `${presenceSummary}. 30d ${focusSummary}.` };
+    }
+    const focusMetric = entry.windows?.['30'] || entry.windows?.[30] || focus;
+    const amount = bidDownAmount(focusMetric, bid, 30);
+    if (amount >= bid) {
+      return { actionType: 'pause', reasonCode: focusMetric.orders > 0 ? 'acos_hard_stop' : 'no_order_hard_stop', pattern, presence: flags, reason: `${presenceSummary}. 30d ${focusSummary}.` };
+    }
+    if (amount > 0) {
+      const suggestedBid = clampBid(bid - amount);
+      return { actionType: 'bid', currentBid: bid, suggestedBid, reasonCode: focusMetric.orders > 0 ? 'acos_bid_down' : 'no_order_bid_down', pattern, presence: flags, reason: `${presenceSummary}. 30d ${focusSummary}.` };
+    }
+    const step = smallBidStep(bid);
+    return { actionType: 'bid', currentBid: bid, suggestedBid: clampBid(bid - step), reasonCode: 'persistently_low_small_step', pattern, presence: flags, reason: `${presenceSummary}. 30d ${focusSummary}.` };
+  }
+
+  const step = smallBidStep(bid);
+  const suggestedBid = clampBid(bid - step);
+  if (suggestedBid >= bid) {
+    return { actionType: 'hold', reasonCode: 'bid_already_at_floor', pattern, presence: flags, reason: `Current bid ${bid.toFixed(2)} is already near the floor. ${presenceSummary}.` };
+  }
+  return { actionType: 'bid', currentBid: bid, suggestedBid, reasonCode: intent.reasonCode, pattern, presence: flags, reason: `${presenceSummary}. focus ${focusSummary}.` };
+}
+
+function scanLowEfficiencyPools(snapshot = {}, options = {}) {
+  const now = options.now instanceof Date ? options.now : new Date();
+  const cooldownDays = Number(options.cooldownDays || 14);
+  const pools = snapshot.lowEfficiencyRows || {};
+  const order = ['kw', 'auto', 'manual', 'sbKw', 'sbTarget'];
+  const results = {};
+  const summary = { byKind: {}, totals: { actionable: 0, hold: 0, skip: 0 } };
+  for (const kind of order) {
+    const rows = pools[kind] || [];
+    const decisions = rows.map(entry => {
+      const decision = decideFromPoolMembership(entry, { now, cooldownDays });
+      return { entry, decision };
+    });
+    const actionable = decisions.filter(d => d.decision.actionType === 'bid' || d.decision.actionType === 'pause');
+    const hold = decisions.filter(d => d.decision.actionType === 'hold');
+    const skip = decisions.filter(d => d.decision.actionType === 'skip');
+    results[kind] = decisions;
+    summary.byKind[kind] = { scanned: rows.length, actionable: actionable.length, hold: hold.length, skip: skip.length };
+    summary.totals.actionable += actionable.length;
+    summary.totals.hold += hold.length;
+    summary.totals.skip += skip.length;
+  }
+  return { generatedAt: new Date().toISOString(), cooldownDays, summary, results };
+}
+
 function metricsFromRowWithWindows(row = {}) {
   const win = (suffix) => ({
     impressions: num(row[`impressions${suffix}`] ?? row[`Impressions${suffix}`]),
@@ -402,6 +562,10 @@ function buildWriterRequest(entity, decision) {
 module.exports = {
   normalizeLowEfficiencyRow,
   decideLowEfficiencyAction,
+  decideFromPoolMembership,
   buildWriterRequest,
-  scanLowEfficiencyCandidates
+  scanLowEfficiencyCandidates,
+  scanLowEfficiencyPools,
+  classifyPoolPattern,
+  presenceFlags
 };

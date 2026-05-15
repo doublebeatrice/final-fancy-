@@ -390,6 +390,18 @@ async function fetchAllData(rawOptions = null) {
     setProgress('fetchProgress', 94);
 
     try {
+      const lowEffStage = stages.start('low_efficiency_pools');
+      const pools = await fetchLowEfficiencyPools(STATE.kwCapture);
+      STATE.lowEfficiencyRows = pools || { kw: [], auto: [], manual: [], sbKw: [], sbTarget: [] };
+      const total = Object.values(STATE.lowEfficiencyRows).reduce((acc, rows) => acc + (rows?.length || 0), 0);
+      stages.end(lowEffStage, { attempted: 20, success: total, failed: 0 });
+      log(`低效池总条数：${total}（kw=${STATE.lowEfficiencyRows.kw.length} auto=${STATE.lowEfficiencyRows.auto.length} manual=${STATE.lowEfficiencyRows.manual.length} sbKw=${STATE.lowEfficiencyRows.sbKw.length} sbTarget=${STATE.lowEfficiencyRows.sbTarget.length}）`, total ? 'ok' : 'warn');
+    } catch (e) {
+      STATE.lowEfficiencyRows = STATE.lowEfficiencyRows || { kw: [], auto: [], manual: [], sbKw: [], sbTarget: [] };
+      log(`低效池抓取失败：${e.message}`, 'warn');
+    }
+
+    try {
       const untouchedStage = stages.start('seven_day_untouched');
       const untouched = await fetchSevenDayUntouchedPools();
       STATE.sp7DayUntouchedRows = untouched.spRows || [];
@@ -3663,7 +3675,90 @@ async function enrichAdMetricWindows(kwCapture) {
   }
 }
 
-async function fetchAdMetricWindow(kwCapture, cfg, days) {
+async function fetchLowEfficiencyPools(kwCapture) {
+  if (!kwCapture?.body) {
+    log('无关键词捕获，跳过低效池抓取', 'warn');
+    return null;
+  }
+  const configs = [
+    { kind: 'kw',       label: 'SP关键词低效', property: '1' },
+    { kind: 'auto',     label: 'SP自动低效',   property: '2', tableName: 'product_target' },
+    { kind: 'manual',   label: 'SP定位低效',   property: '3', tableName: 'product_manual_target' },
+    { kind: 'sbKw',     label: 'SB关键词低效', property: '4' },
+    { kind: 'sbTarget', label: 'SB定位低效',   property: '6' },
+  ];
+  const windows = [3, 7, 15, 30];
+  const result = {};
+  const tasks = [];
+  for (const cfg of configs) {
+    result[cfg.kind] = new Map();
+    for (const days of windows) tasks.push({ cfg, days });
+  }
+  const concurrency = Number(localStorage.getItem('AD_OPS_LOW_EFFICIENCY_CONCURRENCY') || 2);
+  for (let i = 0; i < tasks.length; i += concurrency) {
+    const batch = tasks.slice(i, i + concurrency);
+    await Promise.all(batch.map(async ({ cfg, days }) => {
+      try {
+        const rows = await fetchAdMetricWindow(kwCapture, cfg, days, { lowEfficiency: true });
+        const bucket = result[cfg.kind];
+        for (const row of rows) {
+          const id = String(row.keywordId || row.targetId || row.id || '').trim();
+          if (!id) continue;
+          let merged = bucket.get(id);
+          if (!merged) {
+            merged = {
+              kind: cfg.kind,
+              id,
+              keywordId: row.keywordId,
+              targetId: row.targetId,
+              keywordText: row.keywordText || row.targetText || row.type || row.targetType || '',
+              matchType: row.matchType || '',
+              campaignId: String(row.campaignId || ''),
+              adGroupId: String(row.adGroupId || ''),
+              accountId: row.accountId,
+              siteId: row.siteId || 4,
+              campaignName: row.campaignName || '',
+              groupName: row.groupName || '',
+              state: row.state,
+              campaignState: row.campaignState,
+              groupState: row.groupState,
+              bid: row.bid,
+              updatedAt: row.updatedAt || row.updated_at || '',
+              operatedAt: row.operatedAt || row.operationTime || row.remarkTime || '',
+              sku: row.sku || '',
+              windows: {},
+              __adProperty: row.__adProperty,
+            };
+            bucket.set(id, merged);
+          }
+          merged.windows[String(days)] = {
+            impressions: row.Impressions ?? row.impressions ?? 0,
+            clicks: row.Clicks ?? row.clicks ?? 0,
+            spend: row.Spend ?? row.spend ?? 0,
+            orders: row.Orders ?? row.orders ?? 0,
+            sales: row.Sales ?? row.sales ?? 0,
+            acos: row.ACOS ?? row.acos ?? null,
+            cpc: row.CPC ?? row.cpc ?? 0,
+          };
+          merged.bid = merged.bid || row.bid;
+          merged.updatedAt = merged.updatedAt || row.updatedAt || '';
+          merged.operatedAt = merged.operatedAt || row.operatedAt || '';
+        }
+        log(`${cfg.label} ${days}天：${rows.length} 条`, rows.length ? 'ok' : 'warn');
+      } catch (err) {
+        log(`${cfg.label} ${days}天 抓取失败：${err.message}`, 'error');
+      }
+    }));
+  }
+  const out = {};
+  for (const cfg of configs) {
+    out[cfg.kind] = [...result[cfg.kind].values()];
+    log(`低效池 ${cfg.kind} 合并后：${out[cfg.kind].length} 条`, out[cfg.kind].length ? 'ok' : 'warn');
+  }
+  return out;
+}
+
+async function fetchAdMetricWindow(kwCapture, cfg, days, options = {}) {
   const tab = await findTab('*://adv.yswg.com.cn/*');
   let kwBody;
   try { kwBody = JSON.parse(kwCapture.body); } catch(e) { return []; }
@@ -3680,8 +3775,16 @@ async function fetchAdMetricWindow(kwCapture, cfg, days) {
   };
   if (cfg.tableName) baseBody.tableName = cfg.tableName;
   else delete baseBody.tableName;
+  if (options.lowEfficiency) {
+    baseBody.lowCost = 2;
+    baseBody.isHigh = '2';
+    baseBody.coreMark = '0';
+    baseBody.publicAdv = '2';
+    baseBody.state = '1';
+    baseBody.filterArray = { ...baseBody.filterArray, campaignState: '1' };
+  }
 
-  const sliceKey = `__metricWindow_${cfg.property}_${days}_${Date.now()}`;
+  const sliceKey = `__metricWindow_${cfg.property}_${days}_${options.lowEfficiency ? 'low_' : ''}${Date.now()}`;
   await new Promise(resolve => {
     chrome.scripting.executeScript(
       { target: { tabId: tab.id }, world: 'MAIN',

@@ -227,6 +227,7 @@ async function exportSnapshot(input = '') {
     sp7DayUntouchedRows: parseJson(await evalInPanel('JSON.stringify(STATE.sp7DayUntouchedRows || [])'), []),
     sb7DayUntouchedRows: parseJson(await evalInPanel('JSON.stringify(STATE.sb7DayUntouchedRows || [])'), []),
     sevenDayUntouchedMeta: parseJson(await evalInPanel('JSON.stringify(STATE.sevenDayUntouchedMeta || {})'), {}),
+    lowEfficiencyRows: parseJson(await evalInPanel('JSON.stringify(STATE.lowEfficiencyRows || { kw: [], auto: [], manual: [], sbKw: [], sbTarget: [] })'), { kw: [], auto: [], manual: [], sbKw: [], sbTarget: [] }),
   };
 
   if (!Array.isArray(snapshot.productCards) || snapshot.productCards.length === 0) {

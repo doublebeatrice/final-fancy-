@@ -3,6 +3,9 @@ const assert = require('assert');
 const {
   normalizeLowEfficiencyRow,
   decideLowEfficiencyAction,
+  decideFromPoolMembership,
+  classifyPoolPattern,
+  presenceFlags,
   buildWriterRequest
 } = require('../src/low_efficiency_decision');
 
@@ -246,4 +249,97 @@ test('builds SB keyword pause writer payload with paused lowercase and matchType
   assert.strictEqual(request.body.targetArray[0].matchType, 'EXACT');
   assert.strictEqual(request.body.targetNewArray[0].state, 2);
   assert.strictEqual(request.body.targetNewArray[0].matchType, 'EXACT');
+});
+
+// ---- Pool-membership trend tests ----
+
+function poolEntry(windows, overrides = {}) {
+  return {
+    kind: 'kw',
+    id: 'k1',
+    state: 1,
+    campaignState: 1,
+    groupState: 1,
+    bid: 0.8,
+    matchType: 'BROAD',
+    campaignId: 'c1',
+    adGroupId: 'g1',
+    accountId: 1,
+    siteId: 4,
+    updatedAt: '2026-04-01',
+    operatedAt: '',
+    windows,
+    ...overrides,
+  };
+}
+
+test('classifyPoolPattern recognizes the four canonical states', () => {
+  assert.strictEqual(classifyPoolPattern(presenceFlags(poolEntry({ 30: {}, 15: {}, 7: {}, 3: {} }))), 'persistently_low');
+  assert.strictEqual(classifyPoolPattern(presenceFlags(poolEntry({ 30: {} }))), 'improving_long_only');
+  assert.strictEqual(classifyPoolPattern(presenceFlags(poolEntry({ 30: {}, 15: {} }))), 'improving_recently');
+  assert.strictEqual(classifyPoolPattern(presenceFlags(poolEntry({ 15: {}, 7: {}, 3: {} }))), 'recently_degraded');
+});
+
+test('pool decision holds when only the 30d pool flags the row but 15/7/3 are clean', () => {
+  const entry = poolEntry({ 30: { clicks: 20, spend: 6, orders: 1, acos: 0.40 } });
+  const decision = decideFromPoolMembership(entry, { now: NOW });
+  assert.strictEqual(decision.actionType, 'hold');
+  assert.strictEqual(decision.reasonCode, 'recent_trend_improved');
+  assert.strictEqual(decision.pattern, 'improving_long_only');
+});
+
+test('pool decision holds for marginally improving rows (only 3d is clean)', () => {
+  const entry = poolEntry({
+    30: { clicks: 25, spend: 7, orders: 0 },
+    15: { clicks: 14, spend: 4, orders: 0 },
+    7: { clicks: 7, spend: 2, orders: 0 },
+  });
+  const decision = decideFromPoolMembership(entry, { now: NOW });
+  assert.strictEqual(decision.actionType, 'hold');
+  assert.strictEqual(decision.reasonCode, 'recent_trend_just_turned');
+});
+
+test('pool decision flags recently-degraded rows (30d clean, 15/7/3 in pool) as bid_small', () => {
+  const entry = poolEntry({
+    15: { clicks: 8, spend: 3, orders: 0 },
+    7: { clicks: 5, spend: 2, orders: 0 },
+    3: { clicks: 3, spend: 1, orders: 0 },
+  }, { bid: 1.2 });
+  const decision = decideFromPoolMembership(entry, { now: NOW });
+  assert.strictEqual(decision.actionType, 'bid');
+  assert.strictEqual(decision.reasonCode, 'recently_degraded');
+  assert.strictEqual(decision.suggestedBid, 1.05);
+});
+
+test('pool decision pauses persistently-low rows that pass the hard-stop test', () => {
+  const entry = poolEntry({
+    30: { clicks: 20, spend: 8, orders: 0 },
+    15: { clicks: 12, spend: 4, orders: 0 },
+    7: { clicks: 6, spend: 2, orders: 0 },
+    3: { clicks: 3, spend: 1, orders: 0 },
+  }, { bid: 0.8 });
+  const decision = decideFromPoolMembership(entry, { now: NOW });
+  assert.strictEqual(decision.actionType, 'pause');
+  assert.strictEqual(decision.reasonCode, 'no_order_hard_stop');
+});
+
+test('pool decision skips rows still inside the adjustment cooldown', () => {
+  const entry = poolEntry({ 30: {}, 15: {}, 7: {}, 3: {} }, { updatedAt: '2026-05-10' });
+  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  assert.strictEqual(decision.actionType, 'skip');
+  assert.strictEqual(decision.reasonCode, 'adjustment_cooldown_not_elapsed');
+});
+
+test('pool decision skips inactive parents regardless of pattern', () => {
+  const entry = poolEntry({ 30: {}, 15: {}, 7: {}, 3: {} }, { campaignState: 2 });
+  const decision = decideFromPoolMembership(entry, { now: NOW });
+  assert.strictEqual(decision.actionType, 'skip');
+  assert.strictEqual(decision.reasonCode, 'inactive_parent_or_entity');
+});
+
+test('pool decision holds when only the 3d pool flags the row (noise)', () => {
+  const entry = poolEntry({ 3: { clicks: 3, spend: 1, orders: 0 } });
+  const decision = decideFromPoolMembership(entry, { now: NOW });
+  assert.strictEqual(decision.actionType, 'hold');
+  assert.strictEqual(decision.reasonCode, 'noise_only_3d');
 });
