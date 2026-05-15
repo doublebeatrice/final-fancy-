@@ -8,6 +8,10 @@ const {
   lifecycleSeasonEvidence,
 } = require('./inventory_economics');
 const { validatePriceAction } = require('./price_executor');
+const {
+  normalizeLowEfficiencyRow,
+  decideLowEfficiencyAction,
+} = require('./low_efficiency_decision');
 
 const EXECUTABLE_ACTION_SOURCES = new Set(['codex', 'claude', 'manual']);
 const ACCEPTED_ACTION_SOURCES = new Set([
@@ -807,6 +811,76 @@ function isTrafficIncreasingAction(action = {}) {
   return false;
 }
 
+const LOW_EFFICIENCY_KIND_BY_ENTITY_TYPE = {
+  keyword: 'spKeyword',
+  autoTarget: 'spAuto',
+  manualTarget: 'spTarget',
+  sbKeyword: 'sbKeyword',
+  sbTarget: 'sbTarget',
+};
+
+function lowEfficiencyAssessment(product = {}, entity = {}, action = {}) {
+  const actionType = String(action.actionType || '');
+  if (!['bid', 'pause'].includes(actionType)) return { ok: true, reason: 'not_low_efficiency_target_action' };
+  if (actionType === 'bid') {
+    const current = toNum(action.currentBid);
+    const suggested = toNum(action.suggestedBid);
+    if (!Number.isFinite(current) || !Number.isFinite(suggested) || suggested >= current) {
+      return { ok: true, reason: 'bid_not_a_cut' };
+    }
+  }
+  const kind = LOW_EFFICIENCY_KIND_BY_ENTITY_TYPE[String(action.entityType || '')];
+  if (!kind) return { ok: true, reason: 'entity_type_outside_low_efficiency_scope' };
+
+  const lastAdjust = String(action.lastAdjustedAt || entity.operatedAt || entity.updatedAt || entity.lastAdjustedAt || '').trim();
+  if (!lastAdjust) return { ok: true, reason: 'no_last_adjust_timestamp' };
+
+  const row = {
+    [kind === 'spKeyword' || kind === 'sbKeyword' ? 'keywordId' : 'targetId']: action.id,
+    matchType: entity.matchType || action.matchType,
+    state: entity.state ?? 1,
+    campaignState: entity.campaignState ?? 1,
+    groupState: entity.groupState ?? 1,
+    bid: toNum(action.currentBid ?? entity.currentBid) || 0,
+    campaignId: entity.campaignId || action.campaignId,
+    adGroupId: entity.adGroupId || action.adGroupId,
+    accountId: entity.accountId || 0,
+    siteId: entity.siteId || 4,
+    campaignName: entity.campaignName || '',
+    groupName: entity.groupName || '',
+    updatedAt: lastAdjust,
+  };
+  const stats30 = entity.stats30d || {};
+  const stats15 = entity.stats15d || {};
+  const stats7 = entity.stats7d || {};
+  const stats3 = entity.stats3d || {};
+  const toMetric = stats => ({
+    impressions: toNum(stats.impressions) || 0,
+    clicks: toNum(stats.clicks) || 0,
+    spend: toNum(stats.spend) || 0,
+    orders: toNum(stats.orders) || 0,
+    sales: toNum(stats.sales) || 0,
+    acos: stats.acos === undefined || stats.acos === null ? null : toNum(stats.acos),
+    cpc: toNum(stats.cpc) || 0,
+  });
+  const normalizedEntity = normalizeLowEfficiencyRow(kind, row, {
+    metrics: {
+      30: toMetric(stats30),
+      15: toMetric(stats15),
+      7: toMetric(stats7),
+      3: toMetric(stats3),
+    },
+  });
+  const decision = decideLowEfficiencyAction(normalizedEntity, { windowDays: 30 });
+  if (decision.actionType === 'skip' && decision.reasonCode === 'adjustment_window_not_elapsed') {
+    return { ok: false, reason: 'adjustment_window_not_elapsed', evidence: [`lastAdjustedAt=${lastAdjust}`] };
+  }
+  if (decision.actionType === 'hold' && decision.reasonCode === 'recent_trend_improved') {
+    return { ok: false, reason: 'recent_trend_improved', evidence: [`30d_acos=${stats30.acos ?? ''}`, `7d_acos=${stats7.acos ?? ''}`, `3d_acos=${stats3.acos ?? ''}`] };
+  }
+  return { ok: true, reason: decision.reasonCode || 'low_efficiency_passes' };
+}
+
 function refundGateAssessment(product = {}, action = {}) {
   if (!isTrafficIncreasingAction(action)) return { ok: true, reason: 'not_traffic_push' };
   const labels = product.productLabels || {};
@@ -983,6 +1057,27 @@ function gateRisk(product, entity, action) {
     gated.riskLevel = 'parent_ad_object_inactive';
     gated.reason = `${gated.reason || ''} [risk_gate:parent_ad_object_inactive:campaignState=${entity.campaignState || ''},groupState=${entity.groupState || ''}] Child row is not safe to adjust while the parent campaign/ad group is paused or closed; reactivate the parent first or choose another active ad form.`.trim();
     return gated;
+  }
+
+  const lowEfficiency = lowEfficiencyAssessment(product || {}, entity || {}, gated);
+  if (!lowEfficiency.ok && !forceExecute) {
+    if (lowEfficiency.reason === 'adjustment_window_not_elapsed') {
+      gated.actionType = 'skip';
+      gated.canAutoExecute = false;
+      gated.riskLevel = 'low_efficiency_window_not_elapsed';
+      gated.reason = `${gated.reason || ''} [risk_gate:low_efficiency_window_not_elapsed] Last adjustment is inside the 30-day observation window; let the previous change land before another bid cut. evidence: ${(lowEfficiency.evidence || []).join('; ')}`.trim();
+      return gated;
+    }
+    if (lowEfficiency.reason === 'recent_trend_improved') {
+      gated.actionType = 'review';
+      gated.canAutoExecute = false;
+      gated.riskLevel = 'low_efficiency_recent_improved';
+      gated.reason = `${gated.reason || ''} [risk_gate:low_efficiency_recent_improved] 30d looks bad but recent windows are improving; do not bid-cut a row that is currently turning. evidence: ${(lowEfficiency.evidence || []).join('; ')}`.trim();
+      return gated;
+    }
+  }
+  if (forceExecute && !lowEfficiency.ok) {
+    gated.forceOverrideReasons = [...(gated.forceOverrideReasons || []), `low_efficiency:${lowEfficiency.reason}`];
   }
 
   if (gated.actionType === 'review') {
@@ -1446,6 +1541,7 @@ module.exports = {
   hasRequiredVerification,
   isTrafficIncreasingAction,
   loadExternalActionSchema,
+  lowEfficiencyAssessment,
   overBudgetWarningAssessment,
   refundGateAssessment,
   validateAndNormalizePlan,

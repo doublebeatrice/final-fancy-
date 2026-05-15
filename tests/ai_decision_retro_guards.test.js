@@ -2,6 +2,7 @@ const assert = require('assert');
 const {
   cooldownAssessment,
   isTrafficIncreasingAction,
+  lowEfficiencyAssessment,
   overBudgetWarningAssessment,
   refundGateAssessment,
 } = require('../src/ai_decision');
@@ -112,6 +113,50 @@ const {
     'budget-down is not blocked');
   assert.strictEqual(overBudgetWarningAssessment(productOverBudgetNoOrders, { actionType: 'bid', currentBid: 0.5, suggestedBid: 0.7 }).ok, true,
     'bid action is not handled by overbudget gate');
+}
+
+{
+  const recentLastAdjust = '2026-05-01 10:00:00';
+  const oldLastAdjust = '2026-04-01 10:00:00';
+  const product = { sku: 'L1' };
+
+  const insideWindow = lowEfficiencyAssessment(product,
+    { campaignState: 1, groupState: 1, state: 1, currentBid: 1.0, matchType: 'BROAD', stats30d: { clicks: 20, spend: 8, orders: 0 } },
+    { actionType: 'bid', entityType: 'keyword', id: 'k1', currentBid: 1.0, suggestedBid: 0.85, lastAdjustedAt: recentLastAdjust });
+  assert.strictEqual(insideWindow.ok, false);
+  assert.strictEqual(insideWindow.reason, 'adjustment_window_not_elapsed');
+
+  const elapsed = lowEfficiencyAssessment(product,
+    { campaignState: 1, groupState: 1, state: 1, currentBid: 1.0, matchType: 'BROAD', stats30d: { clicks: 20, spend: 8, orders: 0 } },
+    { actionType: 'bid', entityType: 'keyword', id: 'k1', currentBid: 1.0, suggestedBid: 0.85, lastAdjustedAt: oldLastAdjust });
+  assert.strictEqual(elapsed.ok, true);
+
+  const improved = lowEfficiencyAssessment(product,
+    {
+      campaignState: 1, groupState: 1, state: 1, currentBid: 0.75, matchType: 'BROAD',
+      stats30d: { clicks: 34, spend: 19.24, orders: 1, sales: 56.99, acos: 0.34 },
+      stats15d: { clicks: 12, spend: 5.2, orders: 1, sales: 56.99, acos: 0.09 },
+      stats7d: { clicks: 5, spend: 1.6, orders: 1, sales: 56.99, acos: 0.03 },
+      stats3d: { clicks: 2, spend: 0.5, orders: 1, sales: 56.99, acos: 0.01 },
+    },
+    { actionType: 'bid', entityType: 'keyword', id: 'k2', currentBid: 0.75, suggestedBid: 0.6, lastAdjustedAt: oldLastAdjust });
+  assert.strictEqual(improved.ok, false);
+  assert.strictEqual(improved.reason, 'recent_trend_improved');
+
+  const bidUp = lowEfficiencyAssessment(product,
+    { campaignState: 1, groupState: 1, state: 1, currentBid: 1.0, matchType: 'BROAD' },
+    { actionType: 'bid', entityType: 'keyword', id: 'k3', currentBid: 1.0, suggestedBid: 1.2, lastAdjustedAt: recentLastAdjust });
+  assert.strictEqual(bidUp.ok, true, 'bid-up is not handled by low-efficiency gate');
+
+  const wrongEntity = lowEfficiencyAssessment(product,
+    { campaignState: 1, groupState: 1, state: 1, currentBudget: 20 },
+    { actionType: 'budget', entityType: 'campaign', id: 'c1', currentBudget: 20, suggestedBudget: 10, lastAdjustedAt: recentLastAdjust });
+  assert.strictEqual(wrongEntity.ok, true, 'budget action is outside scope');
+
+  const noTimestamp = lowEfficiencyAssessment(product,
+    { campaignState: 1, groupState: 1, state: 1, currentBid: 1.0, matchType: 'BROAD' },
+    { actionType: 'bid', entityType: 'keyword', id: 'k4', currentBid: 1.0, suggestedBid: 0.85 });
+  assert.strictEqual(noTimestamp.ok, true, 'no timestamp means we cannot judge — let other gates speak');
 }
 
 console.log('ai_decision_retro_guards tests passed');

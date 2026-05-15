@@ -11,6 +11,7 @@ const { persistDailyLearning } = require('../src/daily_learning');
 const { buildProactiveOperatingAudit, renderProactiveOperatingAuditHtml } = require('../src/proactive_audit');
 const { summarizeOverBudgetCoverage } = require('../src/over_budget_policy');
 const { updateHistoryFromSnapshot, annotateCapSince } = require('../src/over_budget_history');
+const { scanLowEfficiencyCandidates } = require('../src/low_efficiency_decision');
 const { exportSnapshot } = require('./execute/export_snapshot');
 const { run } = require('../auto_adjust');
 
@@ -818,6 +819,19 @@ async function main() {
       return {
         outputs: { proactiveOperatingAuditJson: jsonFile, proactiveOperatingAuditHtml: htmlFile },
         details: manifest.proactiveOperatingAudit,
+      };
+    });
+
+    await runStep('low_efficiency_candidates', async () => {
+      const scan = scanLowEfficiencyCandidates(snapshot, { now: new Date(timeContext.runAt || Date.now()) });
+      const taskDir = path.join(ROOT, 'data', 'tasks');
+      const jsonFile = path.join(taskDir, `low_efficiency_candidates_${timeContext.businessDate}.json`);
+      writeJson(jsonFile, scan);
+      manifest.outputFiles.lowEfficiencyCandidatesJson = jsonFile;
+      manifest.lowEfficiencyCandidates = scan.summary;
+      return {
+        outputs: { lowEfficiencyCandidatesJson: jsonFile },
+        details: scan.summary,
       };
     });
 
