@@ -1,0 +1,3291 @@
+{
+  "items": [
+    {
+      "sku": "YUT2927",
+      "asin": "B0D1C7Q59K",
+      "summary": "[over_budget:auto_pause] productAd 299888118113387 | auto_16 pool float_yut2927 | 84 clicks / 0 orders / $25.98",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "299888118113387",
+          "campaignId": "7259560460467",
+          "adGroupId": "432094219589501",
+          "campaignName": "auto_16 pool float_yut2927",
+          "groupName": "auto_16 pool float_yut2927",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 84 clicks, $25.98 spend. SKU profit 12.5%, invDays 171. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=299888118113387 campaign=7259560460467",
+            "7d clicks=84 orders=0 spend=25.98 sales=0.00",
+            "sku profitRate=12.5% invDays=171 units7=7 units30=20",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "NAY1449",
+      "asin": "B0DQW5BHRQ",
+      "summary": "[over_budget:auto_pause] productAd 388770313676410 | kw_ballpoint pen-nay1449 | 43 clicks / 0 orders / $14.67",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "388770313676410",
+          "campaignId": "366481638932539",
+          "adGroupId": "540208486615500",
+          "campaignName": "kw_ballpoint pen-nay1449",
+          "groupName": "kw_ballpoint pen-nay1449",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 43 clicks, $14.67 spend. SKU profit 32.4%, invDays 37. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=388770313676410 campaign=366481638932539",
+            "7d clicks=43 orders=0 spend=14.67 sales=0.00",
+            "sku profitRate=32.4% invDays=37 units7=11 units30=45",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "YAN2008",
+      "asin": "B0BXW1H1WC",
+      "summary": "[over_budget:auto_pause] productAd 445628721746210 | auto_q2 profit yan2008 auto_yan2008 | 58 clicks / 0 orders / $10.63",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "445628721746210",
+          "campaignId": "9553366564597",
+          "adGroupId": "488885956214705",
+          "campaignName": "auto_q2 profit yan2008 auto_yan2008",
+          "groupName": "auto_q2 profit yan2008 auto_yan2008",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 58 clicks, $10.63 spend. SKU profit 1.5%, invDays 36. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=445628721746210 campaign=9553366564597",
+            "7d clicks=58 orders=0 spend=10.63 sales=0.00",
+            "sku profitRate=1.5% invDays=36 units7=2 units30=32",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "LO3817",
+      "asin": "B0G4R61LRM",
+      "summary": "[over_budget:auto_pause] productAd 449892642827660 | asin expanded_christian mothers day gifts_lo3817 | 42 clicks / 0 orders / $13.82",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "449892642827660",
+          "campaignId": "63890741951795",
+          "adGroupId": "391767870872319",
+          "campaignName": "asin expanded_christian mothers day gifts_lo3817",
+          "groupName": "asin expanded_christian mothers day gifts_lo3817",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 42 clicks, $13.82 spend. SKU profit 0.2%, invDays 57. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=449892642827660 campaign=63890741951795",
+            "7d clicks=42 orders=0 spend=13.82 sales=0.00",
+            "sku profitRate=0.2% invDays=57 units7=7 units30=64",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "DUN1393",
+      "asin": "B0CJ52TDNH",
+      "summary": "[over_budget:auto_pause] productAd 522194872879553 | food storage buckets with lids-dun1393-system-keyword | 24 clicks / 0 orders / $12.35",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "522194872879553",
+          "campaignId": "519811860083652",
+          "adGroupId": "463003992230494",
+          "campaignName": "food storage buckets with lids-dun1393-system-keyword",
+          "groupName": "food storage buckets with lids-dun1393-system-keyword",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 24 clicks, $12.35 spend. SKU profit -4.5%, invDays 150. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=522194872879553 campaign=519811860083652",
+            "7d clicks=24 orders=0 spend=12.35 sales=0.00",
+            "sku profitRate=-4.5% invDays=150 units7=1 units30=1",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "STY2760",
+      "asin": "B0G3PBLJ62",
+      "summary": "[over_budget:auto_pause] productAd 505723818050946 | auto_q2 profit sty2760 auto_sty2760 | 68 clicks / 0 orders / $8.48",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "505723818050946",
+          "campaignId": "45855586998506",
+          "adGroupId": "298694287373028",
+          "campaignName": "auto_q2 profit sty2760 auto_sty2760",
+          "groupName": "auto_q2 profit sty2760 auto_sty2760",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 68 clicks, $8.48 spend. SKU profit 6.3%, invDays 304. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=505723818050946 campaign=45855586998506",
+            "7d clicks=68 orders=0 spend=8.48 sales=0.00",
+            "sku profitRate=6.3% invDays=304 units7=1 units30=8",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "QA3169",
+      "asin": "B0CP28LC4S",
+      "summary": "[over_budget:auto_pause] productAd 349158467937557 | kw broad_softball senior night gifts_qa3169 | 45 clicks / 0 orders / $12.45",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "349158467937557",
+          "campaignId": "3580212781710",
+          "adGroupId": "48968697866360",
+          "campaignName": "kw broad_softball senior night gifts_qa3169",
+          "groupName": "kw broad_softball senior night gifts_qa3169",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 45 clicks, $12.45 spend. SKU profit 10.5%, invDays 52. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=349158467937557 campaign=3580212781710",
+            "7d clicks=45 orders=0 spend=12.45 sales=0.00",
+            "sku profitRate=10.5% invDays=52 units7=4 units30=29",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "MF3043",
+      "asin": "B0DMW4GC1S",
+      "summary": "[over_budget:auto_pause] productAd 421932578564695 | auto2_wedding guest book_mf3043 | 63 clicks / 0 orders / $8.75",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "421932578564695",
+          "campaignId": "330382840340523",
+          "adGroupId": "409114129374750",
+          "campaignName": "auto2_wedding guest book_mf3043",
+          "groupName": "auto2_wedding guest book_mf3043",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 63 clicks, $8.75 spend. SKU profit 10.9%, invDays 140. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=421932578564695 campaign=330382840340523",
+            "7d clicks=63 orders=0 spend=8.75 sales=0.00",
+            "sku profitRate=10.9% invDays=140 units7=1 units30=6",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "EY2727",
+      "asin": "B0BX9M82QW",
+      "summary": "[over_budget:auto_pause] productAd 180525641208795 | straw sun hats for women ey2727-system | 38 clicks / 0 orders / $13.73",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "180525641208795",
+          "campaignId": "98612022832995",
+          "adGroupId": "115952191371311",
+          "campaignName": "straw sun hats for women ey2727-system",
+          "groupName": "straw sun hats for women ey2727-system",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 38 clicks, $13.73 spend. SKU profit 9.7%, invDays 51. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=180525641208795 campaign=98612022832995",
+            "7d clicks=38 orders=0 spend=13.73 sales=0.00",
+            "sku profitRate=9.7% invDays=51 units7=16 units30=40",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "GM2628",
+      "asin": "B0FR4KYWZY",
+      "summary": "[over_budget:auto_pause] productAd 537348702678903 | kw broad_christian mothers day gifts_gm2628 | 29 clicks / 0 orders / $10.35",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "537348702678903",
+          "campaignId": "230648663816440",
+          "adGroupId": "108864694083166",
+          "campaignName": "kw broad_christian mothers day gifts_gm2628",
+          "groupName": "kw broad_christian mothers day gifts_gm2628",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 29 clicks, $10.35 spend. SKU profit -2.2%, invDays 56. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=537348702678903 campaign=230648663816440",
+            "7d clicks=29 orders=0 spend=10.35 sales=0.00",
+            "sku profitRate=-2.2% invDays=56 units7=8 units30=26",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "YMF1073",
+      "asin": "B0F13F91SQ",
+      "summary": "[over_budget:auto_pause] productAd 308929957687052 | kw_q2 profit ymf1073 phrase_ymf1073 | 45 clicks / 0 orders / $12.09",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "308929957687052",
+          "campaignId": "114538750151156",
+          "adGroupId": "70645573076960",
+          "campaignName": "kw_q2 profit ymf1073 phrase_ymf1073",
+          "groupName": "kw_q2 profit ymf1073 phrase_ymf1073",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 45 clicks, $12.09 spend. SKU profit 3.6%, invDays 35. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=308929957687052 campaign=114538750151156",
+            "7d clicks=45 orders=0 spend=12.09 sales=0.00",
+            "sku profitRate=3.6% invDays=35 units7=9 units30=36",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "TUR5292",
+      "asin": "B0GFV4TN5L",
+      "summary": "[over_budget:auto_pause] productAd 358998160743489 | kw broad_christian gifts bulk_tur5292 | 42 clicks / 0 orders / $11.22",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "358998160743489",
+          "campaignId": "161451569122980",
+          "adGroupId": "276325322205858",
+          "campaignName": "kw broad_christian gifts bulk_tur5292",
+          "groupName": "kw broad_christian gifts bulk_tur5292",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 42 clicks, $11.22 spend. SKU profit 28.3%, invDays 36. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=358998160743489 campaign=161451569122980",
+            "7d clicks=42 orders=0 spend=11.22 sales=0.00",
+            "sku profitRate=28.3% invDays=36 units7=14 units30=108",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "TUR5292",
+      "asin": "B0GFV4TN5L",
+      "summary": "[over_budget:auto_pause] productAd 556275532596984 | auto_christian gifts bulk_tur5292 | 45 clicks / 0 orders / $10.59",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "556275532596984",
+          "campaignId": "72205133633350",
+          "adGroupId": "533590793389378",
+          "campaignName": "auto_christian gifts bulk_tur5292",
+          "groupName": "auto_christian gifts bulk_tur5292",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 45 clicks, $10.59 spend. SKU profit 28.3%, invDays 36. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=556275532596984 campaign=72205133633350",
+            "7d clicks=45 orders=0 spend=10.59 sales=0.00",
+            "sku profitRate=28.3% invDays=36 units7=14 units30=108",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "DAY2984",
+      "asin": "B0FLJZCGP2",
+      "summary": "[over_budget:auto_pause] productAd 384774445270942 | auto_end of year teacher gifts_day2984 | 38 clicks / 0 orders / $11.94",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "384774445270942",
+          "campaignId": "221981676819765",
+          "adGroupId": "310017236517665",
+          "campaignName": "auto_end of year teacher gifts_day2984",
+          "groupName": "auto_end of year teacher gifts_day2984",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 38 clicks, $11.94 spend. SKU profit 24.8%, invDays 36. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=384774445270942 campaign=221981676819765",
+            "7d clicks=38 orders=0 spend=11.94 sales=0.00",
+            "sku profitRate=24.8% invDays=36 units7=0 units30=33",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "EY2727",
+      "asin": "B0BX9M82QW",
+      "summary": "[over_budget:auto_pause] productAd 530046676090971 | straw sun hats for women ey2727-kw 1012 | 39 clicks / 0 orders / $11.69",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "530046676090971",
+          "campaignId": "296538294546544",
+          "adGroupId": "387056249835039",
+          "campaignName": "straw sun hats for women ey2727-kw 1012",
+          "groupName": "straw sun hats for women ey2727-kw 1012",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 39 clicks, $11.69 spend. SKU profit 9.7%, invDays 51. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=530046676090971 campaign=296538294546544",
+            "7d clicks=39 orders=0 spend=11.69 sales=0.00",
+            "sku profitRate=9.7% invDays=51 units7=16 units30=40",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "LE8150",
+      "asin": "B0GGRYV541",
+      "summary": "[over_budget:auto_pause] productAd 326108145538816 | asin expanded_social worker_le8150 | 25 clicks / 0 orders / $14.17",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "326108145538816",
+          "campaignId": "178997670360777",
+          "adGroupId": "475969396539181",
+          "campaignName": "asin expanded_social worker_le8150",
+          "groupName": "asin expanded_social worker_le8150",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 25 clicks, $14.17 spend. SKU profit 14.0%, invDays 134. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=326108145538816 campaign=178997670360777",
+            "7d clicks=25 orders=0 spend=14.17 sales=0.00",
+            "sku profitRate=14.0% invDays=134 units7=6 units30=23",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "BOY3356",
+      "asin": "B0F3CPBJ3B",
+      "summary": "[over_budget:auto_pause] productAd 332824010949803 | auto_baby shower  berry sweet_boy3356 | 40 clicks / 0 orders / $10.52",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "332824010949803",
+          "campaignId": "518415688676132",
+          "adGroupId": "325120359987833",
+          "campaignName": "auto_baby shower  berry sweet_boy3356",
+          "groupName": "auto_baby shower  berry sweet_boy3356",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 40 clicks, $10.52 spend. SKU profit 22.8%, invDays 140. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=332824010949803 campaign=518415688676132",
+            "7d clicks=40 orders=0 spend=10.52 sales=0.00",
+            "sku profitRate=22.8% invDays=140 units7=7 units30=22",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "WNE0355",
+      "asin": "B0CZLF8XNL",
+      "summary": "[over_budget:auto_pause] productAd 421771864859278 | kw_woodland  animals_wne0355 | 40 clicks / 0 orders / $10.28",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "421771864859278",
+          "campaignId": "433423126444485",
+          "adGroupId": "395404938520624",
+          "campaignName": "kw_woodland  animals_wne0355",
+          "groupName": "kw_woodland  animals_wne0355",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 40 clicks, $10.28 spend. SKU profit 12.5%, invDays 390. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=421771864859278 campaign=433423126444485",
+            "7d clicks=40 orders=0 spend=10.28 sales=0.00",
+            "sku profitRate=12.5% invDays=390 units7=1 units30=9",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "NAY1449",
+      "asin": "B0DQW5BHRQ",
+      "summary": "[over_budget:auto_pause] productAd 286376741495500 | ballpoint pen-nay1449-system-keyword | 25 clicks / 0 orders / $12.95",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "286376741495500",
+          "campaignId": "490185593158754",
+          "adGroupId": "487069526059626",
+          "campaignName": "ballpoint pen-nay1449-system-keyword",
+          "groupName": "ballpoint pen-nay1449-system-keyword",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 25 clicks, $12.95 spend. SKU profit 32.4%, invDays 37. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=286376741495500 campaign=490185593158754",
+            "7d clicks=25 orders=0 spend=12.95 sales=0.00",
+            "sku profitRate=32.4% invDays=37 units7=11 units30=45",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "YAN4858",
+      "asin": "B0GLWVNZ85",
+      "summary": "[over_budget:auto_pause] productAd 418124058721465 | auto_boy baby shower games_yan4858 | 39 clicks / 0 orders / $9.69",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "418124058721465",
+          "campaignId": "110446470059473",
+          "adGroupId": "418701861412222",
+          "campaignName": "auto_boy baby shower games_yan4858",
+          "groupName": "auto_boy baby shower games_yan4858",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 39 clicks, $9.69 spend. SKU profit 5.5%, invDays 176. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=418124058721465 campaign=110446470059473",
+            "7d clicks=39 orders=0 spend=9.69 sales=0.00",
+            "sku profitRate=5.5% invDays=176 units7=6 units30=14",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "YYW2630",
+      "asin": "B0FMRLKZ7R",
+      "summary": "[over_budget:auto_pause] productAd 473785119638862 | asin_baby shower bear bulk_yyw2630 | 35 clicks / 0 orders / $10.35",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "473785119638862",
+          "campaignId": "290569015884121",
+          "adGroupId": "401018523650423",
+          "campaignName": "asin_baby shower bear bulk_yyw2630",
+          "groupName": "asin_baby shower bear bulk_yyw2630",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 35 clicks, $10.35 spend. SKU profit 18.5%, invDays 35. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=473785119638862 campaign=290569015884121",
+            "7d clicks=35 orders=0 spend=10.35 sales=0.00",
+            "sku profitRate=18.5% invDays=35 units7=3 units30=14",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "LED6372",
+      "asin": "B0FBGLNW8F",
+      "summary": "[over_budget:auto_pause] productAd 341705102551908 | kw broad_mother's day gifts_led6372 | 36 clicks / 0 orders / $10.05",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "341705102551908",
+          "campaignId": "257501834289349",
+          "adGroupId": "133271011908712",
+          "campaignName": "kw broad_mother's day gifts_led6372",
+          "groupName": "kw broad_mother's day gifts_led6372",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 36 clicks, $10.05 spend. SKU profit 6.9%, invDays 251. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=341705102551908 campaign=257501834289349",
+            "7d clicks=36 orders=0 spend=10.05 sales=0.00",
+            "sku profitRate=6.9% invDays=251 units7=0 units30=6",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "LRU1537",
+      "asin": "B0C5XPGJH9",
+      "summary": "[over_budget:auto_pause] productAd 293088804443538 | kw_bear paper plates napkins_lru1537 | 32 clicks / 0 orders / $10.51",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "293088804443538",
+          "campaignId": "325907012162454",
+          "adGroupId": "531191569271756",
+          "campaignName": "kw_bear paper plates napkins_lru1537",
+          "groupName": "kw_bear paper plates napkins_lru1537",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 32 clicks, $10.51 spend. SKU profit 14.6%, invDays 81. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=293088804443538 campaign=325907012162454",
+            "7d clicks=32 orders=0 spend=10.51 sales=0.00",
+            "sku profitRate=14.6% invDays=81 units7=25 units30=103",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "RU2438",
+      "asin": "B0G5864FSV",
+      "summary": "[over_budget:auto_pause] productAd 405412020883735 | auto_auto ru2438 coverage_ru2438 | 36 clicks / 0 orders / $9.56",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "405412020883735",
+          "campaignId": "242625211400314",
+          "adGroupId": "338608255350583",
+          "campaignName": "auto_auto ru2438 coverage_ru2438",
+          "groupName": "auto_auto ru2438 coverage_ru2438",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 36 clicks, $9.56 spend. SKU profit 26.2%, invDays 999. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=405412020883735 campaign=242625211400314",
+            "7d clicks=36 orders=0 spend=9.56 sales=0.00",
+            "sku profitRate=26.2% invDays=999 units7=0 units30=0",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "YUT3587",
+      "asin": "B0DQNRCQYJ",
+      "summary": "[over_budget:auto_pause] productAd 518005647675985 | kw_mom teddy bear_yut3587 | 32 clicks / 0 orders / $10.20",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "518005647675985",
+          "campaignId": "229469831958403",
+          "adGroupId": "18885649984352",
+          "campaignName": "kw_mom teddy bear_yut3587",
+          "groupName": "kw_mom teddy bear_yut3587",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 32 clicks, $10.20 spend. SKU profit 10.1%, invDays 142. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=518005647675985 campaign=229469831958403",
+            "7d clicks=32 orders=0 spend=10.20 sales=0.00",
+            "sku profitRate=10.1% invDays=142 units7=2 units30=11",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "BEU0541",
+      "asin": "B099281V52",
+      "summary": "[over_budget:auto_pause] productAd 450647672433036 | auto_retirement gifts for women_beu0541 | 32 clicks / 0 orders / $9.37",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "450647672433036",
+          "campaignId": "329783198305222",
+          "adGroupId": "281976578110682",
+          "campaignName": "auto_retirement gifts for women_beu0541",
+          "groupName": "2",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 32 clicks, $9.37 spend. SKU profit 6.3%, invDays 74. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=450647672433036 campaign=329783198305222",
+            "7d clicks=32 orders=0 spend=9.37 sales=0.00",
+            "sku profitRate=6.3% invDays=74 units7=21 units30=81",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "YAN2008",
+      "asin": "B0BXW1H1WC",
+      "summary": "[over_budget:auto_pause] productAd 473494551789144 | kw_q2 profit yan2008 phrase_yan2008 | 35 clicks / 0 orders / $8.60",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "473494551789144",
+          "campaignId": "63581210236361",
+          "adGroupId": "192032519788278",
+          "campaignName": "kw_q2 profit yan2008 phrase_yan2008",
+          "groupName": "kw_q2 profit yan2008 phrase_yan2008",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 35 clicks, $8.60 spend. SKU profit 1.5%, invDays 36. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=473494551789144 campaign=63581210236361",
+            "7d clicks=35 orders=0 spend=8.60 sales=0.00",
+            "sku profitRate=1.5% invDays=36 units7=2 units30=32",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "STY2760",
+      "asin": "B0G3PBLJ62",
+      "summary": "[over_budget:auto_pause] productAd 518633088075393 | kw_q2 profit sty2760 phrase_sty2760 | 43 clicks / 0 orders / $7.00",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "518633088075393",
+          "campaignId": "163074268919695",
+          "adGroupId": "205644621228872",
+          "campaignName": "kw_q2 profit sty2760 phrase_sty2760",
+          "groupName": "kw_q2 profit sty2760 phrase_sty2760",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 43 clicks, $7.00 spend. SKU profit 6.3%, invDays 304. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=518633088075393 campaign=163074268919695",
+            "7d clicks=43 orders=0 spend=7.00 sales=0.00",
+            "sku profitRate=6.3% invDays=304 units7=1 units30=8",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "DAY2984",
+      "asin": "B0FLJZCGP2",
+      "summary": "[over_budget:auto_pause] productAd 553488019607229 | kw broad_end of year teacher gifts_day2984 | 28 clicks / 0 orders / $9.92",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "553488019607229",
+          "campaignId": "61162661378075",
+          "adGroupId": "270261974991610",
+          "campaignName": "kw broad_end of year teacher gifts_day2984",
+          "groupName": "kw broad_end of year teacher gifts_day2984",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 28 clicks, $9.92 spend. SKU profit 24.8%, invDays 36. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=553488019607229 campaign=61162661378075",
+            "7d clicks=28 orders=0 spend=9.92 sales=0.00",
+            "sku profitRate=24.8% invDays=36 units7=0 units30=33",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "GM4172",
+      "asin": "B0GN6L39XH",
+      "summary": "[over_budget:auto_pause] productAd 426953221152279 | 20260404-gm4172-system-a | 32 clicks / 0 orders / $8.88",
+      "actions": [
+        {
+          "entityType": "productAd",
+          "actionType": "pause",
+          "id": "426953221152279",
+          "campaignId": "238455745321329",
+          "adGroupId": "379449855068536",
+          "campaignName": "20260404-gm4172-system-a",
+          "groupName": "20260404-gm4172-system-a",
+          "riskLevel": "over_budget_no_order_pause",
+          "confidence": 0.82,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget productAd has 0 orders, 32 clicks, $8.88 spend. SKU profit 5.7%, invDays 68. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+          "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+          "expectedEffect": {
+            "impressions": "down",
+            "clicks": "down",
+            "spend": "down",
+            "orders_same_sku": "flat_or_up_via_other_paths"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7
+            ],
+            "metrics": [
+              "sku_units7",
+              "campaign_orders",
+              "campaign_acos",
+              "spend"
+            ],
+            "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+          },
+          "evidence": [
+            "over_budget productAd=426953221152279 campaign=238455745321329",
+            "7d clicks=32 orders=0 spend=8.88 sales=0.00",
+            "sku profitRate=5.7% invDays=68 units7=11 units30=59",
+            "safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "LNE1321",
+      "asin": "B0DSYX54TP",
+      "summary": "[over_budget:lower_layer_cost_control] kw_cosmetic bags_lne1321 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::470244727331360",
+          "campaignId": "470244727331360",
+          "adGroupId": "502327317338941",
+          "campaignName": "kw_cosmetic bags_lne1321",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign kw_cosmetic bags_lne1321 (470244727331360). Orders 48, spend 218.97, clicks 576, ACOS 15.8%, profit -2.3%, invDays 27. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=218.97 sales=1383.54 orders=48 clicks=576",
+            "acos=15.8% profitRate=-2.3%",
+            "invDays=27 absoluteInventory=98 units7=16 units30=55",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "DUN1392",
+      "asin": "B0CJ53ZB7Y",
+      "summary": "[over_budget:lower_layer_cost_control] auto_commercial food storage_dun1392 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::506021562500877",
+          "campaignId": "506021562500877",
+          "adGroupId": "505733559635653",
+          "campaignName": "auto_commercial food storage_dun1392",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_commercial food storage_dun1392 (506021562500877). Orders 12, spend 207.65, clicks 361, ACOS 26.6%, profit -2.0%, invDays 60. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=207.65 sales=781.87 orders=12 clicks=361",
+            "acos=26.6% profitRate=-2.0%",
+            "invDays=60 absoluteInventory=48 units7=2 units30=12",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "LEM6581",
+      "asin": "B0FXVC4W6W",
+      "summary": "[over_budget:lower_layer_cost_control] auto_ful full loop lem6581 auto_lem6581 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::220949860820297",
+          "campaignId": "220949860820297",
+          "adGroupId": "491653692774113",
+          "campaignName": "auto_ful full loop lem6581 auto_lem6581",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_ful full loop lem6581 auto_lem6581 (220949860820297). Orders 16, spend 202.22, clicks 468, ACOS 28.6%, profit -9.9%, invDays 32. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=202.22 sales=705.80 orders=16 clicks=468",
+            "acos=28.6% profitRate=-9.9%",
+            "invDays=32 absoluteInventory=44 units7=5 units30=21",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "TH2869",
+      "asin": "B0D4QXKXMR",
+      "summary": "[over_budget:lower_layer_cost_control] 词-silicone cable ties-th2869 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::157148480747022",
+          "campaignId": "157148480747022",
+          "adGroupId": "552770876043117",
+          "campaignName": "词-silicone cable ties-th2869",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign 词-silicone cable ties-th2869 (157148480747022). Orders 62, spend 186.25, clicks 296, ACOS 21.6%, profit -1.5%, invDays 59. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=186.25 sales=863.34 orders=62 clicks=296",
+            "acos=21.6% profitRate=-1.5%",
+            "invDays=59 absoluteInventory=278 units7=17 units30=71",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "DUN1127",
+      "asin": "B0CH8QTQLG",
+      "summary": "[over_budget:lower_layer_cost_control] auto_ful full loop dun1127 auto_dun1127 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::54985740126510",
+          "campaignId": "54985740126510",
+          "adGroupId": "548238369124528",
+          "campaignName": "auto_ful full loop dun1127 auto_dun1127",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_ful full loop dun1127 auto_dun1127 (54985740126510). Orders 8, spend 163.47, clicks 358, ACOS 44.0%, profit -37.1%, invDays 82. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=163.47 sales=371.91 orders=8 clicks=358",
+            "acos=44.0% profitRate=-37.1%",
+            "invDays=82 absoluteInventory=38 units7=4 units30=7",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "WEN1029",
+      "asin": "B0CQYV4J5Y",
+      "summary": "[over_budget:lower_layer_cost_control] kw broad_teacher appreciation gifts_wen1029 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::61388051795809",
+          "campaignId": "61388051795809",
+          "adGroupId": "131120479385416",
+          "campaignName": "kw broad_teacher appreciation gifts_wen1029",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign kw broad_teacher appreciation gifts_wen1029 (61388051795809). Orders 20, spend 146.90, clicks 382, ACOS 38.5%, profit -14.4%, invDays 17. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=146.90 sales=381.73 orders=20 clicks=382",
+            "acos=38.5% profitRate=-14.4%",
+            "invDays=17 absoluteInventory=52 units7=38 units30=46",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "LED3945",
+      "asin": "B0DT3TRCS2",
+      "summary": "[over_budget:lower_layer_cost_control] kw2_appreciationballpoint_led3945 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::489584341798677",
+          "campaignId": "489584341798677",
+          "adGroupId": "386889518330820",
+          "campaignName": "kw2_appreciationballpoint_led3945",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign kw2_appreciationballpoint_led3945 (489584341798677). Orders 19, spend 128.90, clicks 296, ACOS 37.7%, profit -41.1%, invDays 40. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=128.90 sales=341.82 orders=19 clicks=296",
+            "acos=37.7% profitRate=-41.1%",
+            "invDays=40 absoluteInventory=68 units7=5 units30=26",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "SH0423",
+      "asin": "B07S22D2CS",
+      "summary": "[over_budget:lower_layer_cost_control] auto_ful full loop sh0423 auto_sh0423 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::65262260013191",
+          "campaignId": "65262260013191",
+          "adGroupId": "316132603178717",
+          "campaignName": "auto_ful full loop sh0423 auto_sh0423",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_ful full loop sh0423 auto_sh0423 (65262260013191). Orders 30, spend 127.71, clicks 351, ACOS 33.8%, profit -5.0%, invDays 80. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=127.71 sales=377.66 orders=30 clicks=351",
+            "acos=33.8% profitRate=-5.0%",
+            "invDays=80 absoluteInventory=624 units7=49 units30=117",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "BEU0541",
+      "asin": "B099281V52",
+      "summary": "[over_budget:lower_layer_cost_control] retirement gifts beu0541-system review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::213348719755492",
+          "campaignId": "213348719755492",
+          "adGroupId": "236600693500121",
+          "campaignName": "retirement gifts beu0541-system",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign retirement gifts beu0541-system (213348719755492). Orders 25, spend 126.61, clicks 257, ACOS 48.0%, profit 6.3%, invDays 74. Blockers: acos_far_above_profit_room.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=126.61 sales=263.74 orders=25 clicks=257",
+            "acos=48.0% profitRate=6.3%",
+            "invDays=74 absoluteInventory=396 units7=21 units30=81",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "DH2685",
+      "asin": "B0FDQTG22G",
+      "summary": "[over_budget:lower_layer_cost_control] auto_safari goodie bag_dh2685 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::300848337365885",
+          "campaignId": "300848337365885",
+          "adGroupId": "333603795971902",
+          "campaignName": "auto_safari goodie bag_dh2685",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_safari goodie bag_dh2685 (300848337365885). Orders 21, spend 92.03, clicks 269, ACOS 23.0%, profit -16.5%, invDays 84. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=92.03 sales=400.77 orders=21 clicks=269",
+            "acos=23.0% profitRate=-16.5%",
+            "invDays=84 absoluteInventory=140 units7=10 units30=25",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "PR2214",
+      "asin": "B0BYJGTQLJ",
+      "summary": "[over_budget:lower_layer_cost_control] kw_easter bunny stuffed_pr2214 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::496897711307545",
+          "campaignId": "496897711307545",
+          "adGroupId": "313093449401175",
+          "campaignName": "kw_easter bunny stuffed_pr2214",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign kw_easter bunny stuffed_pr2214 (496897711307545). Orders 18, spend 91.89, clicks 269, ACOS 16.9%, profit -2.7%, invDays 113. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=91.89 sales=542.79 orders=18 clicks=269",
+            "acos=16.9% profitRate=-2.7%",
+            "invDays=113 absoluteInventory=464 units7=24 units30=62",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "AE1079",
+      "asin": "B0BD3NQ9QN",
+      "summary": "[over_budget:lower_layer_cost_control] god mother gifts for women ae1079-system review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::148733519211877",
+          "campaignId": "148733519211877",
+          "adGroupId": "206118702673241",
+          "campaignName": "god mother gifts for women ae1079-system",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign god mother gifts for women ae1079-system (148733519211877). Orders 21, spend 88.83, clicks 155, ACOS 28.0%, profit -1.7%, invDays 0. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=88.83 sales=317.79 orders=21 clicks=155",
+            "acos=28.0% profitRate=-1.7%",
+            "invDays=0 absoluteInventory=0 units7=24 units30=62",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "HUQ0699",
+      "asin": "B0CZRTJ7N4",
+      "summary": "[over_budget:lower_layer_cost_control] auto_q2 profit huq0699 auto_huq0699 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::48337376159745",
+          "campaignId": "48337376159745",
+          "adGroupId": "455353340746466",
+          "campaignName": "auto_q2 profit huq0699 auto_huq0699",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_q2 profit huq0699 auto_huq0699 (48337376159745). Orders 8, spend 85.68, clicks 507, ACOS 36.2%, profit -9.5%, invDays 39. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=85.68 sales=236.91 orders=8 clicks=507",
+            "acos=36.2% profitRate=-9.5%",
+            "invDays=39 absoluteInventory=36 units7=1 units30=14",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "FLO2960",
+      "asin": "B0D8W1MPQT",
+      "summary": "[over_budget:lower_layer_cost_control] plastic bucket-flo2960-system-a review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::405224436084882",
+          "campaignId": "405224436084882",
+          "adGroupId": "546190135024579",
+          "campaignName": "plastic bucket-flo2960-system-a",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign plastic bucket-flo2960-system-a (405224436084882). Orders 5, spend 81.49, clicks 172, ACOS 13.5%, profit -16.6%, invDays 126. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=81.49 sales=601.89 orders=5 clicks=172",
+            "acos=13.5% profitRate=-16.6%",
+            "invDays=126 absoluteInventory=50 units7=3 units30=6",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "YAN1353",
+      "asin": "B0BPFTLP8S",
+      "summary": "[over_budget:lower_layer_cost_control] auto_q2 profit yan1353 auto_yan1353 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::38476338827485",
+          "campaignId": "38476338827485",
+          "adGroupId": "465370401319005",
+          "campaignName": "auto_q2 profit yan1353 auto_yan1353",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_q2 profit yan1353 auto_yan1353 (38476338827485). Orders 17, spend 79.97, clicks 455, ACOS 31.7%, profit -48.4%, invDays 89. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=79.97 sales=252.33 orders=17 clicks=455",
+            "acos=31.7% profitRate=-48.4%",
+            "invDays=89 absoluteInventory=148 units7=5 units30=25",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "TH2837",
+      "asin": "B0CDH7KXM1",
+      "summary": "[over_budget:lower_layer_cost_control] auto_silicone cable ties_th2837 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::468076353069679",
+          "campaignId": "468076353069679",
+          "adGroupId": "443134028184551",
+          "campaignName": "auto_silicone cable ties_th2837",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_silicone cable ties_th2837 (468076353069679). Orders 8, spend 73.47, clicks 169, ACOS 46.2%, profit 20.2%, invDays 41. Blockers: acos_far_above_profit_room.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=73.47 sales=158.92 orders=8 clicks=169",
+            "acos=46.2% profitRate=20.2%",
+            "invDays=41 absoluteInventory=102 units7=16 units30=38",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "SC3077",
+      "asin": "B0CGV57T53",
+      "summary": "[over_budget:lower_layer_cost_control] autob2b_jewelholder_sc3077 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::137438277198771",
+          "campaignId": "137438277198771",
+          "adGroupId": "473545298724749",
+          "campaignName": "autob2b_jewelholder_sc3077",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign autob2b_jewelholder_sc3077 (137438277198771). Orders 7, spend 70.83, clicks 182, ACOS 46.6%, profit 3.8%, invDays 44. Blockers: acos_far_above_profit_room.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=70.83 sales=151.93 orders=7 clicks=182",
+            "acos=46.6% profitRate=3.8%",
+            "invDays=44 absoluteInventory=312 units7=35 units30=107",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "LED3945",
+      "asin": "B0DT3TRCS2",
+      "summary": "[over_budget:lower_layer_cost_control] auto_teacher pens bulk_led3945 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::223472646129244",
+          "campaignId": "223472646129244",
+          "adGroupId": "380577172384350",
+          "campaignName": "auto_teacher pens bulk_led3945",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_teacher pens bulk_led3945 (223472646129244). Orders 13, spend 70.35, clicks 211, ACOS 29.8%, profit -41.1%, invDays 40. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=70.35 sales=235.87 orders=13 clicks=211",
+            "acos=29.8% profitRate=-41.1%",
+            "invDays=40 absoluteInventory=68 units7=5 units30=26",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "ZUN0779",
+      "asin": "B0DTX9LKW7",
+      "summary": "[over_budget:lower_layer_cost_control] auto_q2 profit zun0779 auto_zun0779 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::76170039792250",
+          "campaignId": "76170039792250",
+          "adGroupId": "434873683692548",
+          "campaignName": "auto_q2 profit zun0779 auto_zun0779",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_q2 profit zun0779 auto_zun0779 (76170039792250). Orders 9, spend 67.60, clicks 472, ACOS 27.4%, profit -7.0%, invDays 53. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=67.60 sales=246.91 orders=9 clicks=472",
+            "acos=27.4% profitRate=-7.0%",
+            "invDays=53 absoluteInventory=84 units7=9 units30=24",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "AE3311",
+      "asin": "B0CJM5MSJZ",
+      "summary": "[over_budget:lower_layer_cost_control] auto_godmother gifts_ae3311 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::318647106897395",
+          "campaignId": "318647106897395",
+          "adGroupId": "453715386297722",
+          "campaignName": "auto_godmother gifts_ae3311",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_godmother gifts_ae3311 (318647106897395). Orders 11, spend 66.42, clicks 142, ACOS 39.8%, profit -4.5%, invDays 19. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=66.42 sales=166.89 orders=11 clicks=142",
+            "acos=39.8% profitRate=-4.5%",
+            "invDays=19 absoluteInventory=86 units7=48 units30=70",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "LUO0914",
+      "asin": "B0F6N5QY5N",
+      "summary": "[over_budget:lower_layer_cost_control] asin_bottle chug baby shower_luo0914 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::335705820080530",
+          "campaignId": "335705820080530",
+          "adGroupId": "316214288326796",
+          "campaignName": "asin_bottle chug baby shower_luo0914",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign asin_bottle chug baby shower_luo0914 (335705820080530). Orders 5, spend 66.06, clicks 157, ACOS 59.0%, profit -20.1%, invDays 174. Blockers: negative_profit|acos_far_above_profit_room.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=66.06 sales=111.95 orders=5 clicks=157",
+            "acos=59.0% profitRate=-20.1%",
+            "invDays=174 absoluteInventory=116 units7=0 units30=10",
+            "adGroupCount=1 adCount=1 positionTypes=productTarget",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "YH2554",
+      "asin": "B0BXCDS877",
+      "summary": "[over_budget:lower_layer_cost_control] auto_teacher appreciation gifts 4 pack_yh2554 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::46020977000110",
+          "campaignId": "46020977000110",
+          "adGroupId": "421043461447508",
+          "campaignName": "auto_teacher appreciation gifts 4 pack_yh2554",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_teacher appreciation gifts 4 pack_yh2554 (46020977000110). Orders 9, spend 60.53, clicks 221, ACOS 38.6%, profit -26.1%, invDays 66. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=60.53 sales=156.91 orders=9 clicks=221",
+            "acos=38.6% profitRate=-26.1%",
+            "invDays=66 absoluteInventory=44 units7=1 units30=10",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "YAN2290",
+      "asin": "B0C3VMMDZB",
+      "summary": "[over_budget:lower_layer_cost_control] auto_q2 profit yan2290 auto_yan2290 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::33752893740897",
+          "campaignId": "33752893740897",
+          "adGroupId": "459190146192116",
+          "campaignName": "auto_q2 profit yan2290 auto_yan2290",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_q2 profit yan2290 auto_yan2290 (33752893740897). Orders 22, spend 58.78, clicks 341, ACOS 18.6%, profit -28.1%, invDays 66. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=58.78 sales=315.47 orders=22 clicks=341",
+            "acos=18.6% profitRate=-28.1%",
+            "invDays=66 absoluteInventory=74 units7=6 units30=17",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "OCE2575",
+      "asin": "B0GN55FC6F",
+      "summary": "[over_budget:lower_layer_cost_control] kw broad_teacher appreciation gifts bulk_oce2575 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::134272030543573",
+          "campaignId": "134272030543573",
+          "adGroupId": "108509189812270",
+          "campaignName": "kw broad_teacher appreciation gifts bulk_oce2575",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign kw broad_teacher appreciation gifts bulk_oce2575 (134272030543573). Orders 2, spend 58.22, clicks 121, ACOS 107.8%, profit -34.3%, invDays 154. Blockers: negative_profit|acos_far_above_profit_room.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=58.22 sales=53.98 orders=2 clicks=121",
+            "acos=107.8% profitRate=-34.3%",
+            "invDays=154 absoluteInventory=164 units7=2 units30=16",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "AE3311",
+      "asin": "B0CJM5MSJZ",
+      "summary": "[over_budget:lower_layer_cost_control] god mother gifts for women-ae3311-system-a review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::295282411525603",
+          "campaignId": "295282411525603",
+          "adGroupId": "362962526446406",
+          "campaignName": "god mother gifts for women-ae3311-system-a",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign god mother gifts for women-ae3311-system-a (295282411525603). Orders 12, spend 57.63, clicks 108, ACOS 32.6%, profit -4.5%, invDays 19. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=57.63 sales=176.88 orders=12 clicks=108",
+            "acos=32.6% profitRate=-4.5%",
+            "invDays=19 absoluteInventory=86 units7=48 units30=70",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "OCE2575",
+      "asin": "B0GN55FC6F",
+      "summary": "[over_budget:lower_layer_cost_control] auto_teacher appreciation gifts bulk_oce2575 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::19576789368266",
+          "campaignId": "19576789368266",
+          "adGroupId": "543660079122196",
+          "campaignName": "auto_teacher appreciation gifts bulk_oce2575",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_teacher appreciation gifts bulk_oce2575 (19576789368266). Orders 4, spend 56.92, clicks 144, ACOS 59.3%, profit -34.3%, invDays 154. Blockers: negative_profit|acos_far_above_profit_room.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=56.92 sales=95.96 orders=4 clicks=144",
+            "acos=59.3% profitRate=-34.3%",
+            "invDays=154 absoluteInventory=164 units7=2 units30=16",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "TH2870",
+      "asin": "B0D4QWFQ23",
+      "summary": "[over_budget:lower_layer_cost_control] auto_ful full loop th2870 auto_th2870 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::239396149226700",
+          "campaignId": "239396149226700",
+          "adGroupId": "396512635777186",
+          "campaignName": "auto_ful full loop th2870 auto_th2870",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_ful full loop th2870 auto_th2870 (239396149226700). Orders 6, spend 56.06, clicks 82, ACOS 61.7%, profit 18.9%, invDays 9. Blockers: acos_far_above_profit_room.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=56.06 sales=90.94 orders=6 clicks=82",
+            "acos=61.7% profitRate=18.9%",
+            "invDays=9 absoluteInventory=12 units7=4 units30=22",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "YUN2646",
+      "asin": "B0F191MR54",
+      "summary": "[over_budget:lower_layer_cost_control] auto_sister in christ gift_yun2646 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::463937451493644",
+          "campaignId": "463937451493644",
+          "adGroupId": "408920227743439",
+          "campaignName": "auto_sister in christ gift_yun2646",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign auto_sister in christ gift_yun2646 (463937451493644). Orders 7, spend 54.38, clicks 174, ACOS 50.8%, profit 25.9%, invDays 14. Blockers: acos_far_above_profit_room.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=54.38 sales=106.94 orders=7 clicks=174",
+            "acos=50.8% profitRate=25.9%",
+            "invDays=14 absoluteInventory=34 units7=11 units30=39",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "AE3311",
+      "asin": "B0CJM5MSJZ",
+      "summary": "[over_budget:lower_layer_cost_control] kw_godmother mothers day broad ae3311_ae3311 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::246573025792858",
+          "campaignId": "246573025792858",
+          "adGroupId": "260179139983869",
+          "campaignName": "kw_godmother mothers day broad ae3311_ae3311",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign kw_godmother mothers day broad ae3311_ae3311 (246573025792858). Orders 15, spend 54.05, clicks 99, ACOS 25.3%, profit -4.5%, invDays 19. Blockers: negative_profit.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=54.05 sales=213.86 orders=15 clicks=99",
+            "acos=25.3% profitRate=-4.5%",
+            "invDays=19 absoluteInventory=86 units7=48 units30=70",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "LED3945",
+      "asin": "B0DT3TRCS2",
+      "summary": "[over_budget:lower_layer_cost_control] kw3_appreciationballpoint_led3945 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_lower_layer::311993317396139",
+          "campaignId": "311993317396139",
+          "adGroupId": "293631609932065",
+          "campaignName": "kw3_appreciationballpoint_led3945",
+          "riskLevel": "overbudget_lower_layer_cost_control",
+          "confidence": 0.68,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget waste on weak lower-layer traffic. Review productAd pause / keyword bid down for campaign kw3_appreciationballpoint_led3945 (311993317396139). Orders 5, spend 51.65, clicks 159, ACOS 47.0%, profit -41.1%, invDays 40. Blockers: negative_profit|acos_far_above_profit_room.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=51.65 sales=109.95 orders=5 clicks=159",
+            "acos=47.0% profitRate=-41.1%",
+            "invDays=40 absoluteInventory=68 units7=5 units30=26",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ],
+          "nextSteps": "inspect lower-layer entities (keywords / auto target / manual target / productAd) in this campaign; bid-down inefficient receivers; pause productAds with zero-order spend; do not lower campaign budget by default."
+        }
+      ]
+    },
+    {
+      "sku": "DN1655",
+      "asin": "B0C1S3XC8Q",
+      "summary": "[over_budget:review] galvanized flower bucket dn1655-pt2 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::305594633454808",
+          "campaignId": "305594633454808",
+          "adGroupId": "451827110375892",
+          "campaignName": "galvanized flower bucket dn1655-pt2",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: profit_below_12pct. Orders 49, spend 456.05, ACOS 14.7%, profit 4.1%, invDays 29.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=456.05 sales=3104.42 orders=49 clicks=644",
+            "acos=14.7% profitRate=4.1%",
+            "invDays=29 absoluteInventory=298 units7=35 units30=156",
+            "adGroupCount=1 adCount=1 positionTypes=productTarget",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "SAN0383",
+      "asin": "B09MK757X9",
+      "summary": "[over_budget:review] kw_cowhat&band_san0383 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::350659306277711",
+          "campaignId": "350659306277711",
+          "adGroupId": "552382127037963",
+          "campaignName": "kw_cowhat&band_san0383",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: profit_below_12pct. Orders 75, spend 437.62, ACOS 12.7%, profit 1.8%, invDays 86.",
+          "evidence": [
+            "over_budget_rows=3",
+            "campaign spend=437.62 sales=3456.08 orders=75 clicks=706",
+            "acos=12.7% profitRate=1.8%",
+            "invDays=86 absoluteInventory=486 units7=25 units30=85",
+            "adGroupCount=3 adCount=3 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "DN1655",
+      "asin": "B0C1S3XC8Q",
+      "summary": "[over_budget:review] auto _galvanized flower bucket_dn1655 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::453049963339506",
+          "campaignId": "453049963339506",
+          "adGroupId": "513370113754341",
+          "campaignName": "auto _galvanized flower bucket_dn1655",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: profit_below_12pct. Orders 56, spend 431.26, ACOS 13.2%, profit 4.1%, invDays 29.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=431.26 sales=3273.36 orders=56 clicks=728",
+            "acos=13.2% profitRate=4.1%",
+            "invDays=29 absoluteInventory=298 units7=35 units30=156",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "DN2683",
+      "asin": "B0CLYGDSMV",
+      "summary": "[over_budget:review] auto_galvanized flower bucket_dn2683 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::63198231606391",
+          "campaignId": "63198231606391",
+          "adGroupId": "360252503766979",
+          "campaignName": "auto_galvanized flower bucket_dn2683",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: profit_below_12pct. Orders 59, spend 398.05, ACOS 12.0%, profit 7.7%, invDays 21.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=398.05 sales=3326.38 orders=59 clicks=1197",
+            "acos=12.0% profitRate=7.7%",
+            "invDays=21 absoluteInventory=126 units7=13 units30=91",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "DN1655",
+      "asin": "B0C1S3XC8Q",
+      "summary": "[over_budget:review] auto_galvanized flower bucket_dn1655 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::159673292888645",
+          "campaignId": "159673292888645",
+          "adGroupId": "559723238510627",
+          "campaignName": "auto_galvanized flower bucket_dn1655",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: profit_below_12pct. Orders 45, spend 366.51, ACOS 15.5%, profit 4.1%, invDays 29.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=366.51 sales=2365.52 orders=45 clicks=786",
+            "acos=15.5% profitRate=4.1%",
+            "invDays=29 absoluteInventory=298 units7=35 units30=156",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "TIN2259",
+      "asin": "B0CNR3VGJ2",
+      "summary": "[over_budget:review] duck tags for cruise ducking-tin2259-a2 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::469755247048381",
+          "campaignId": "469755247048381",
+          "adGroupId": "361105737520305",
+          "campaignName": "duck tags for cruise ducking-tin2259-a2",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: profit_below_12pct. Orders 51, spend 334.63, ACOS 20.3%, profit 9.3%, invDays 36.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=334.63 sales=1647.40 orders=51 clicks=1023",
+            "acos=20.3% profitRate=9.3%",
+            "invDays=36 absoluteInventory=160 units7=8 units30=68",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "QA1950",
+      "asin": "B0BNHNX68F",
+      "summary": "[over_budget:review] wood circles qa1950-system-phrase review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::43587337061571",
+          "campaignId": "43587337061571",
+          "adGroupId": "83135059556448",
+          "campaignName": "wood circles qa1950-system-phrase",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: profit_below_12pct|acos_outside_profit_room. Orders 59, spend 295.64, ACOS 25.1%, profit 11.6%, invDays 19.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=295.64 sales=1180.41 orders=59 clicks=548",
+            "acos=25.1% profitRate=11.6%",
+            "invDays=19 absoluteInventory=114 units7=21 units30=90",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "GT3801",
+      "asin": "B0CYPW5Q3B",
+      "summary": "[over_budget:review] kw_purplecheer ribbon_gt3801 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::324693137642903",
+          "campaignId": "324693137642903",
+          "adGroupId": "434842339515083",
+          "campaignName": "kw_purplecheer ribbon_gt3801",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: profit_below_12pct|acos_outside_profit_room. Orders 63, spend 294.17, ACOS 28.5%, profit 11.0%, invDays 48.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=294.17 sales=1030.28 orders=63 clicks=546",
+            "acos=28.5% profitRate=11.0%",
+            "invDays=48 absoluteInventory=524 units7=44 units30=166",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "CL4170",
+      "asin": "B0BWN8LN4Q",
+      "summary": "[over_budget:review] kw_avocado pinata_cl4170 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::368417864842524",
+          "campaignId": "368417864842524",
+          "adGroupId": "317846949995307",
+          "campaignName": "kw_avocado pinata_cl4170",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: inventory_tight. Orders 85, spend 278.07, ACOS 10.7%, profit 26.6%, invDays 1.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=278.07 sales=2610.10 orders=85 clicks=637",
+            "acos=10.7% profitRate=26.6%",
+            "invDays=1 absoluteInventory=8 units7=2 units30=208",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "GT3812",
+      "asin": "B0CYPVQ5BG",
+      "summary": "[over_budget:review] auto_ful full loop gt3812 auto_gt3812 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::256873392901814",
+          "campaignId": "256873392901814",
+          "adGroupId": "533998250011476",
+          "campaignName": "auto_ful full loop gt3812 auto_gt3812",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: acos_outside_profit_room. Orders 48, spend 235.63, ACOS 25.1%, profit 13.5%, invDays 24.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=235.63 sales=938.72 orders=48 clicks=610",
+            "acos=25.1% profitRate=13.5%",
+            "invDays=24 absoluteInventory=132 units7=32 units30=86",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "EY0793",
+      "asin": "B09P55WGV7",
+      "summary": "[over_budget:review] auto_ful full loop ey0793 auto_ey0793 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::50423253765165",
+          "campaignId": "50423253765165",
+          "adGroupId": "459513222181734",
+          "campaignName": "auto_ful full loop ey0793 auto_ey0793",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: acos_outside_profit_room. Orders 25, spend 193.63, ACOS 30.3%, profit 27.2%, invDays 14.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=193.63 sales=639.70 orders=25 clicks=494",
+            "acos=30.3% profitRate=27.2%",
+            "invDays=14 absoluteInventory=132 units7=25 units30=146",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "SE6599",
+      "asin": "B0DJSQFBD1",
+      "summary": "[over_budget:review] kw_bearshirt_se6599 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::284336084748973",
+          "campaignId": "284336084748973",
+          "adGroupId": "348823057872187",
+          "campaignName": "kw_bearshirt_se6599",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: profit_below_12pct. Orders 50, spend 188.57, ACOS 17.7%, profit 7.1%, invDays 116.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=188.57 sales=1063.37 orders=50 clicks=456",
+            "acos=17.7% profitRate=7.1%",
+            "invDays=116 absoluteInventory=432 units7=19 units30=56",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "WOO0174",
+      "asin": "B0CDLR134G",
+      "summary": "[over_budget:review] auto_q2 profit woo0174 auto_woo0174 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::46170937690893",
+          "campaignId": "46170937690893",
+          "adGroupId": "500851753507256",
+          "campaignName": "auto_q2 profit woo0174 auto_woo0174",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: inventory_tight|acos_outside_profit_room. Orders 51, spend 177.61, ACOS 28.0%, profit 13.0%, invDays 8.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=177.61 sales=633.47 orders=51 clicks=694",
+            "acos=28.0% profitRate=13.0%",
+            "invDays=8 absoluteInventory=40 units7=9 units30=78",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "TH2599",
+      "asin": "B0B2RZVFCK",
+      "summary": "[over_budget:review] kw_cable organizer straps_th2599 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::492233985718668",
+          "campaignId": "492233985718668",
+          "adGroupId": "374787263115577",
+          "campaignName": "kw_cable organizer straps_th2599",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: profit_below_12pct|acos_outside_profit_room. Orders 27, spend 165.39, ACOS 33.9%, profit 7.2%, invDays 19.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=165.39 sales=487.70 orders=27 clicks=224",
+            "acos=33.9% profitRate=7.2%",
+            "invDays=19 absoluteInventory=68 units7=18 units30=55",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "SC3420",
+      "asin": "B0C2HKSG2X",
+      "summary": "[over_budget:review] kw_30redbirdmemory_sc3420 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::428072125021660",
+          "campaignId": "428072125021660",
+          "adGroupId": "487511060416564",
+          "campaignName": "kw_30redbirdmemory_sc3420",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: acos_outside_profit_room. Orders 32, spend 162.35, ACOS 22.5%, profit 15.2%, invDays 20.",
+          "evidence": [
+            "over_budget_rows=4",
+            "campaign spend=162.35 sales=722.61 orders=32 clicks=394",
+            "acos=22.5% profitRate=15.2%",
+            "invDays=20 absoluteInventory=80 units7=18 units30=61",
+            "adGroupCount=2 adCount=2 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "GT3308",
+      "asin": "B0C1GPJBXQ",
+      "summary": "[over_budget:review] kw_black funeral ribbons_gt3308 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::289156790722783",
+          "campaignId": "289156790722783",
+          "adGroupId": "336663321009281",
+          "campaignName": "kw_black funeral ribbons_gt3308",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: profit_below_12pct|acos_outside_profit_room. Orders 32, spend 157.03, ACOS 32.3%, profit 10.3%, invDays 19.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=157.03 sales=486.16 orders=32 clicks=343",
+            "acos=32.3% profitRate=10.3%",
+            "invDays=19 absoluteInventory=124 units7=19 units30=96",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "HAY0219",
+      "asin": "B0CGDVGP2S",
+      "summary": "[over_budget:review] cruise ship ducks-hay0219-system-keyword review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::407090607196578",
+          "campaignId": "407090607196578",
+          "adGroupId": "353297221715427",
+          "campaignName": "cruise ship ducks-hay0219-system-keyword",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: profit_below_12pct. Orders 33, spend 151.69, ACOS 14.3%, profit 4.8%, invDays 34.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=151.69 sales=1058.65 orders=33 clicks=332",
+            "acos=14.3% profitRate=4.8%",
+            "invDays=34 absoluteInventory=98 units7=10 units30=44",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "YUT3183",
+      "asin": "B0D3PKTJWT",
+      "summary": "[over_budget:review] auto_soccer balls-yut3183 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::548705110157115",
+          "campaignId": "548705110157115",
+          "adGroupId": "384455889080850",
+          "campaignName": "auto_soccer balls-yut3183",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: inventory_tight. Orders 17, spend 138.65, ACOS 17.3%, profit 13.4%, invDays 10.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=138.65 sales=803.80 orders=17 clicks=169",
+            "acos=17.3% profitRate=13.4%",
+            "invDays=10 absoluteInventory=32 units7=9 units30=51",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "QA3173",
+      "asin": "B0CP2948QH",
+      "summary": "[over_budget:review] kw_soccerkeychain_qa3173 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::560414799365003",
+          "campaignId": "560414799365003",
+          "adGroupId": "307539010545998",
+          "campaignName": "kw_soccerkeychain_qa3173",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: acos_outside_profit_room. Orders 34, spend 130.55, ACOS 24.8%, profit 27.0%, invDays 17.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=130.55 sales=525.65 orders=34 clicks=381",
+            "acos=24.8% profitRate=27.0%",
+            "invDays=17 absoluteInventory=84 units7=11 units30=77",
+            "adGroupCount=1 adCount=1 positionTypes=keywordTarget",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "QUN1382",
+      "asin": "B0GPVPXWBX",
+      "summary": "[over_budget:review] auto_ful full loop qun1382 auto_qun1382 review lower-layer",
+      "actions": [
+        {
+          "entityType": "skuCandidate",
+          "actionType": "review",
+          "id": "over_budget_review::100129711549611",
+          "campaignId": "100129711549611",
+          "adGroupId": "493957798605061",
+          "campaignName": "auto_ful full loop qun1382 auto_qun1382",
+          "riskLevel": "overbudget_review_required",
+          "confidence": 0.5,
+          "approvedBy": "codex",
+          "decisionStage": "ai_approved",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "reason": "Over-budget campaign missing safe basis for execution. Blockers: profit_below_12pct|acos_outside_profit_room. Orders 31, spend 128.47, ACOS 25.3%, profit 10.7%, invDays 20.",
+          "evidence": [
+            "over_budget_rows=1",
+            "campaign spend=128.47 sales=507.67 orders=31 clicks=446",
+            "acos=25.3% profitRate=10.7%",
+            "invDays=20 absoluteInventory=286 units7=13 units30=221",
+            "adGroupCount=1 adCount=1 positionTypes=auto",
+            "cappedHours=unknown capSince=unknown"
+          ]
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "aggressive": 0,
+    "controlled": 0,
+    "seasonal": 0,
+    "autoPause": 30,
+    "lowerLayer": 30,
+    "review": 20,
+    "skuDedupedDemoted": 0,
+    "accountCapDemoted": 0,
+    "total": 80,
+    "coreBidPaired": 0
+  },
+  "bucketCounts": {
+    "aggressive_budget_expansion": 53,
+    "controlled_budget_up": 228,
+    "seasonal_sell_through": 45,
+    "lower_layer_cost_control": 517,
+    "review": 3967
+  },
+  "filtered": {
+    "rows": 8198,
+    "notSp": 5,
+    "notEnabled": 0,
+    "noCampaign": 0,
+    "notAllowedSku": 5,
+    "onCooldownSku": 0,
+    "onCooldownCampaign": 0
+  },
+  "campaignsClassified": 4810,
+  "autoPauseStats": {
+    "rows": 8198,
+    "notSp": 5,
+    "notEnabled": 0,
+    "notAllowedSku": 5,
+    "onCooldownAd": 0,
+    "insufficientSignal": 8079,
+    "invTooTight": 17,
+    "clearanceProtect": 35,
+    "duplicate": 0,
+    "kept": 30
+  },
+  "autoPauseCandidateCount": 57,
+  "accountCap": {
+    "cap": 0,
+    "totalLiftRequested": 0,
+    "totalLiftApproved": 0
+  }
+}
