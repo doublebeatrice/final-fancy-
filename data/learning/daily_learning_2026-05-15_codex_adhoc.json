@@ -1,0 +1,1235 @@
+{
+  "generatedAt": "2026-05-15T01:44:26.143Z",
+  "localDate": "2026-05-15",
+  "executionBusinessDate": "2026-05-14",
+  "allDay": {
+    "total": 418,
+    "byOutcome": {
+      "dry_run_planned": 247,
+      "success": 171
+    }
+  },
+  "price": {
+    "submitted": 20,
+    "markerConfirmed": 20,
+    "records": [
+      {
+        "sku": "OB4139",
+        "outcome": "dry_run_planned",
+        "beforeValue": 29.99,
+        "afterValue": 31.49,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "AE3311",
+        "outcome": "dry_run_planned",
+        "beforeValue": 14.99,
+        "afterValue": 15.74,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "YUT2590",
+        "outcome": "dry_run_planned",
+        "beforeValue": 69.99,
+        "afterValue": 73.49,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "HL2535",
+        "outcome": "dry_run_planned",
+        "beforeValue": 23.99,
+        "afterValue": 24.95,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "UAN3248",
+        "outcome": "dry_run_planned",
+        "beforeValue": 24.99,
+        "afterValue": 26.24,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "CLO0344",
+        "outcome": "dry_run_planned",
+        "beforeValue": 24.99,
+        "afterValue": 26.24,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "YAN2281",
+        "outcome": "dry_run_planned",
+        "beforeValue": 8.99,
+        "afterValue": 9.49,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "LE8168",
+        "outcome": "dry_run_planned",
+        "beforeValue": 19.99,
+        "afterValue": 20.79,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "DN2685",
+        "outcome": "dry_run_planned",
+        "beforeValue": 57.99,
+        "afterValue": 60.89,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "WOO0173",
+        "outcome": "dry_run_planned",
+        "beforeValue": 27.99,
+        "afterValue": 29.39,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "YAN2278",
+        "outcome": "dry_run_planned",
+        "beforeValue": 9.99,
+        "afterValue": 10.49,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "BIO0027",
+        "outcome": "dry_run_planned",
+        "beforeValue": 56.99,
+        "afterValue": 59.84,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "WAR0228",
+        "outcome": "dry_run_planned",
+        "beforeValue": 50.99,
+        "afterValue": 53.54,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "LE8173",
+        "outcome": "dry_run_planned",
+        "beforeValue": 19.99,
+        "afterValue": 20.79,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "YUN2686",
+        "outcome": "dry_run_planned",
+        "beforeValue": 17.59,
+        "afterValue": 18.47,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "OB3296",
+        "outcome": "dry_run_planned",
+        "beforeValue": 29.99,
+        "afterValue": 31.49,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "CL4170",
+        "outcome": "dry_run_planned",
+        "beforeValue": 34.99,
+        "afterValue": 36.74,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "RO2165",
+        "outcome": "dry_run_planned",
+        "beforeValue": 20.99,
+        "afterValue": 22.04,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "GT2432",
+        "outcome": "dry_run_planned",
+        "beforeValue": 36.99,
+        "afterValue": 38.84,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "HAY1900",
+        "outcome": "dry_run_planned",
+        "beforeValue": 48.99,
+        "afterValue": 51.44,
+        "sourceRunId": "ops_2026-05-15T01-31-14-590Z"
+      },
+      {
+        "sku": "OB4139",
+        "outcome": "success",
+        "beforeValue": 29.99,
+        "afterValue": 31.49,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "AE3311",
+        "outcome": "success",
+        "beforeValue": 14.99,
+        "afterValue": 15.74,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "YUT2590",
+        "outcome": "success",
+        "beforeValue": 69.99,
+        "afterValue": 73.49,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "HL2535",
+        "outcome": "success",
+        "beforeValue": 23.99,
+        "afterValue": 24.95,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "UAN3248",
+        "outcome": "success",
+        "beforeValue": 24.99,
+        "afterValue": 26.24,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "CLO0344",
+        "outcome": "success",
+        "beforeValue": 24.99,
+        "afterValue": 26.24,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "YAN2281",
+        "outcome": "success",
+        "beforeValue": 8.99,
+        "afterValue": 9.49,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "LE8168",
+        "outcome": "success",
+        "beforeValue": 19.99,
+        "afterValue": 20.79,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "DN2685",
+        "outcome": "success",
+        "beforeValue": 57.99,
+        "afterValue": 60.89,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "WOO0173",
+        "outcome": "success",
+        "beforeValue": 27.99,
+        "afterValue": 29.39,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "YAN2278",
+        "outcome": "success",
+        "beforeValue": 9.99,
+        "afterValue": 10.49,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "BIO0027",
+        "outcome": "success",
+        "beforeValue": 56.99,
+        "afterValue": 59.84,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "WAR0228",
+        "outcome": "success",
+        "beforeValue": 50.99,
+        "afterValue": 53.54,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "LE8173",
+        "outcome": "success",
+        "beforeValue": 19.99,
+        "afterValue": 20.79,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "YUN2686",
+        "outcome": "success",
+        "beforeValue": 17.59,
+        "afterValue": 18.47,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "OB3296",
+        "outcome": "success",
+        "beforeValue": 29.99,
+        "afterValue": 31.49,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "CL4170",
+        "outcome": "success",
+        "beforeValue": 34.99,
+        "afterValue": 36.74,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "RO2165",
+        "outcome": "success",
+        "beforeValue": 20.99,
+        "afterValue": 22.04,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "GT2432",
+        "outcome": "success",
+        "beforeValue": 36.99,
+        "afterValue": 38.84,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      },
+      {
+        "sku": "HAY1900",
+        "outcome": "success",
+        "beforeValue": 48.99,
+        "afterValue": 51.44,
+        "sourceRunId": "ops_2026-05-15T01-31-45-417Z"
+      }
+    ]
+  },
+  "coverage": {
+    "generatedAt": "2026-05-15T01:43:44.896Z",
+    "snapshotFile": "D:\\ad-ops-workbench\\data\\snapshots\\latest_snapshot.json",
+    "counts": {
+      "followupRollbackActions": 82,
+      "priceSkus": 20,
+      "priceActions": 20,
+      "refundHighRiskSkus": 20,
+      "refundActionSkus": 15,
+      "refundActions": 39,
+      "kpiSkus": 30,
+      "kpiActions": 30,
+      "listingRepairItems": 291
+    },
+    "priceSkus": [
+      "OB4139",
+      "AE3311",
+      "YUT2590",
+      "HL2535",
+      "UAN3248",
+      "CLO0344",
+      "YAN2281",
+      "LE8168",
+      "DN2685",
+      "WOO0173",
+      "YAN2278",
+      "BIO0027",
+      "WAR0228",
+      "LE8173",
+      "YUN2686",
+      "OB3296",
+      "CL4170",
+      "RO2165",
+      "GT2432",
+      "HAY1900"
+    ],
+    "refundCoverage": [
+      {
+        "sku": "DN1655",
+        "highReturnFlag": 2,
+        "spend7": 353.25,
+        "profitRate": -0.2621,
+        "rowsWithSpend": 14,
+        "plannedActions": 3
+      },
+      {
+        "sku": "DN2683",
+        "highReturnFlag": 2,
+        "spend7": 130.13,
+        "profitRate": -0.2824,
+        "rowsWithSpend": 1,
+        "plannedActions": 1
+      },
+      {
+        "sku": "GT3812",
+        "highReturnFlag": 2,
+        "spend7": 75.41,
+        "profitRate": 0.3181,
+        "rowsWithSpend": 2,
+        "plannedActions": 2
+      },
+      {
+        "sku": "GT3308",
+        "highReturnFlag": 2,
+        "spend7": 50.28,
+        "profitRate": 0.2651,
+        "rowsWithSpend": 16,
+        "plannedActions": 3
+      },
+      {
+        "sku": "LRU1537",
+        "highReturnFlag": 2,
+        "spend7": 28.56,
+        "profitRate": -0.0941,
+        "rowsWithSpend": 17,
+        "plannedActions": 3
+      },
+      {
+        "sku": "SAN0148",
+        "highReturnFlag": 2,
+        "spend7": 12.920000000000002,
+        "profitRate": 0.2766,
+        "rowsWithSpend": 6,
+        "plannedActions": 3
+      },
+      {
+        "sku": "CL3650",
+        "highReturnFlag": 2,
+        "spend7": 10.8,
+        "profitRate": -0.0581,
+        "rowsWithSpend": 3,
+        "plannedActions": 2
+      },
+      {
+        "sku": "UAN2600",
+        "highReturnFlag": 2,
+        "spend7": 9.36,
+        "profitRate": -0.0533,
+        "rowsWithSpend": 8,
+        "plannedActions": 3
+      },
+      {
+        "sku": "YCL1246",
+        "highReturnFlag": 2,
+        "spend7": 7.04,
+        "profitRate": 0.1932,
+        "rowsWithSpend": 2,
+        "plannedActions": 2
+      },
+      {
+        "sku": "OYH0257",
+        "highReturnFlag": 2,
+        "spend7": 6.73,
+        "profitRate": 0.135,
+        "rowsWithSpend": 6,
+        "plannedActions": 3
+      },
+      {
+        "sku": "YB0698",
+        "highReturnFlag": 2,
+        "spend7": 6.709999999999999,
+        "profitRate": 0.1327,
+        "rowsWithSpend": 7,
+        "plannedActions": 3
+      },
+      {
+        "sku": "KA1544",
+        "highReturnFlag": 2,
+        "spend7": 6.11,
+        "profitRate": 0.1376,
+        "rowsWithSpend": 5,
+        "plannedActions": 3
+      },
+      {
+        "sku": "JOY0900",
+        "highReturnFlag": 2,
+        "spend7": 5.76,
+        "profitRate": 0.2712,
+        "rowsWithSpend": 4,
+        "plannedActions": 3
+      },
+      {
+        "sku": "NEW0005",
+        "highReturnFlag": 2,
+        "spend7": 2.4000000000000004,
+        "profitRate": 0.1773,
+        "rowsWithSpend": 3,
+        "plannedActions": 3
+      },
+      {
+        "sku": "UAN3257",
+        "highReturnFlag": 2,
+        "spend7": 1.06,
+        "profitRate": -0.0258,
+        "rowsWithSpend": 3,
+        "plannedActions": 2
+      },
+      {
+        "sku": "SIL0369",
+        "highReturnFlag": 2,
+        "spend7": 0,
+        "profitRate": -0.0659,
+        "rowsWithSpend": 0,
+        "plannedActions": 0
+      },
+      {
+        "sku": "TN0501",
+        "highReturnFlag": 2,
+        "spend7": 0,
+        "profitRate": -0.0379,
+        "rowsWithSpend": 0,
+        "plannedActions": 0
+      },
+      {
+        "sku": "AD1718",
+        "highReturnFlag": 2,
+        "spend7": 0,
+        "profitRate": 0.0684,
+        "rowsWithSpend": 0,
+        "plannedActions": 0
+      },
+      {
+        "sku": "NEW1818",
+        "highReturnFlag": 2,
+        "spend7": 0,
+        "profitRate": 0.2321,
+        "rowsWithSpend": 0,
+        "plannedActions": 0
+      },
+      {
+        "sku": "NEW1817",
+        "highReturnFlag": 2,
+        "spend7": 0,
+        "profitRate": 0.34,
+        "rowsWithSpend": 0,
+        "plannedActions": 0
+      }
+    ],
+    "kpiCoverage": [
+      {
+        "sku": "YUT4458",
+        "bucket": "low_profit_cut_waste",
+        "score": 4515.324,
+        "profitRate": 0.1046,
+        "units7": 1,
+        "invDays": 2370,
+        "ad7": {
+          "spend": 11.629999999999999,
+          "orders": 2,
+          "clicks": 37,
+          "impressions": 2022
+        },
+        "sessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "conversion": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        }
+      },
+      {
+        "sku": "GM2827",
+        "bucket": "low_profit_cut_waste",
+        "score": 2169.567,
+        "profitRate": 0.1161,
+        "units7": 6,
+        "invDays": 669,
+        "ad7": {
+          "spend": 3.07,
+          "orders": 0,
+          "clicks": 8,
+          "impressions": 1416
+        },
+        "sessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "conversion": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        }
+      },
+      {
+        "sku": "COT2347",
+        "bucket": "fallback_cost_control",
+        "score": 2124.3,
+        "profitRate": 0.1223,
+        "units7": 4,
+        "invDays": 750,
+        "ad7": {
+          "spend": 7.02,
+          "orders": 1,
+          "clicks": 23,
+          "impressions": 1884
+        },
+        "sessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "conversion": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        }
+      },
+      {
+        "sku": "STA2610",
+        "bucket": "low_profit_cut_waste",
+        "score": 1316.588,
+        "profitRate": -0.3484,
+        "units7": 1,
+        "invDays": 1820,
+        "ad7": {
+          "spend": 5.6499999999999995,
+          "orders": 0,
+          "clicks": 17,
+          "impressions": 3704
+        },
+        "sessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 9
+        },
+        "conversion": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 11.11
+        }
+      },
+      {
+        "sku": "XIX0903",
+        "bucket": "high_profit_proven_budget_up",
+        "score": 1203.1656,
+        "profitRate": 0.2313,
+        "units7": 91,
+        "invDays": 56,
+        "ad7": {
+          "spend": 54,
+          "orders": 13,
+          "clicks": 149,
+          "impressions": 19756
+        },
+        "sessions": {
+          "lastWeek": 489,
+          "twoWeeksAgo": 419,
+          "threeWeeksAgo": 345
+        },
+        "conversion": {
+          "lastWeek": 13.09,
+          "twoWeeksAgo": 15.27,
+          "threeWeeksAgo": 20.87
+        }
+      },
+      {
+        "sku": "HEL2829",
+        "bucket": "low_profit_cut_waste",
+        "score": 1086.19,
+        "profitRate": -0.0343,
+        "units7": 7,
+        "invDays": 590,
+        "ad7": {
+          "spend": 57.370000000000005,
+          "orders": 4,
+          "clicks": 179,
+          "impressions": 12282
+        },
+        "sessions": {
+          "lastWeek": 104,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 18
+        },
+        "conversion": {
+          "lastWeek": 0.96,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 11.11
+        }
+      },
+      {
+        "sku": "QQ1764",
+        "bucket": "low_profit_cut_waste",
+        "score": 880.8256,
+        "profitRate": 0.0875,
+        "units7": 32,
+        "invDays": 229,
+        "ad7": {
+          "spend": 16.619999999999997,
+          "orders": 5,
+          "clicks": 36,
+          "impressions": 4470
+        },
+        "sessions": {
+          "lastWeek": 97,
+          "twoWeeksAgo": 95,
+          "threeWeeksAgo": 85
+        },
+        "conversion": {
+          "lastWeek": 23.71,
+          "twoWeeksAgo": 24.21,
+          "threeWeeksAgo": 18.82
+        }
+      },
+      {
+        "sku": "HL4004",
+        "bucket": "high_profit_proven_budget_up",
+        "score": 708.876,
+        "profitRate": 0.3868,
+        "units7": 58,
+        "invDays": 36,
+        "ad7": {
+          "spend": 30.499999999999996,
+          "orders": 10,
+          "clicks": 94,
+          "impressions": 6538
+        },
+        "sessions": {
+          "lastWeek": 428,
+          "twoWeeksAgo": 401,
+          "threeWeeksAgo": 442
+        },
+        "conversion": {
+          "lastWeek": 6.31,
+          "twoWeeksAgo": 11.72,
+          "threeWeeksAgo": 11.09
+        }
+      },
+      {
+        "sku": "SHQ3375",
+        "bucket": "high_profit_proven_budget_up",
+        "score": 691.834,
+        "profitRate": 0.2311,
+        "units7": 59,
+        "invDays": 41,
+        "ad7": {
+          "spend": 47.58,
+          "orders": 10,
+          "clicks": 198,
+          "impressions": 20949
+        },
+        "sessions": {
+          "lastWeek": 419,
+          "twoWeeksAgo": 489,
+          "threeWeeksAgo": 454
+        },
+        "conversion": {
+          "lastWeek": 10.74,
+          "twoWeeksAgo": 7.57,
+          "threeWeeksAgo": 8.81
+        }
+      },
+      {
+        "sku": "KZ5816",
+        "bucket": "high_profit_low_traffic_bid_up",
+        "score": 577.592,
+        "profitRate": 0.3063,
+        "units7": 62,
+        "invDays": 34,
+        "ad7": {
+          "spend": 31.729999999999993,
+          "orders": 14,
+          "clicks": 74,
+          "impressions": 15311
+        },
+        "sessions": {
+          "lastWeek": 185,
+          "twoWeeksAgo": 216,
+          "threeWeeksAgo": 222
+        },
+        "conversion": {
+          "lastWeek": 28.65,
+          "twoWeeksAgo": 38.43,
+          "threeWeeksAgo": 31.53
+        }
+      },
+      {
+        "sku": "LEM5778",
+        "bucket": "low_profit_cut_waste",
+        "score": 532.0728,
+        "profitRate": -0.1412,
+        "units7": 3,
+        "invDays": 552,
+        "ad7": {
+          "spend": 4.35,
+          "orders": 0,
+          "clicks": 22,
+          "impressions": 520
+        },
+        "sessions": {
+          "lastWeek": 56,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "conversion": {
+          "lastWeek": 5.36,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        }
+      },
+      {
+        "sku": "QUN5204",
+        "bucket": "high_profit_low_traffic_bid_up",
+        "score": 524.661,
+        "profitRate": 0.3319,
+        "units7": 2,
+        "invDays": 915,
+        "ad7": {
+          "spend": 11.620000000000003,
+          "orders": 2,
+          "clicks": 43,
+          "impressions": 2326
+        },
+        "sessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "conversion": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        }
+      },
+      {
+        "sku": "SE5608",
+        "bucket": "high_profit_proven_budget_up",
+        "score": 524.409,
+        "profitRate": 0.346,
+        "units7": 67,
+        "invDays": 30,
+        "ad7": {
+          "spend": 51.35000000000001,
+          "orders": 17,
+          "clicks": 150,
+          "impressions": 16219
+        },
+        "sessions": {
+          "lastWeek": 253,
+          "twoWeeksAgo": 333,
+          "threeWeeksAgo": 309
+        },
+        "conversion": {
+          "lastWeek": 22.92,
+          "twoWeeksAgo": 19.22,
+          "threeWeeksAgo": 16.5
+        }
+      },
+      {
+        "sku": "QA0828",
+        "bucket": "high_profit_low_traffic_bid_up",
+        "score": 509.175,
+        "profitRate": 0.2893,
+        "units7": 31,
+        "invDays": 75,
+        "ad7": {
+          "spend": 36.5,
+          "orders": 10,
+          "clicks": 66,
+          "impressions": 4917
+        },
+        "sessions": {
+          "lastWeek": 109,
+          "twoWeeksAgo": 106,
+          "threeWeeksAgo": 95
+        },
+        "conversion": {
+          "lastWeek": 32.11,
+          "twoWeeksAgo": 24.53,
+          "threeWeeksAgo": 16.84
+        }
+      },
+      {
+        "sku": "YUT4466",
+        "bucket": "high_profit_low_traffic_bid_up",
+        "score": 456.1128,
+        "profitRate": 0.2403,
+        "units7": 8,
+        "invDays": 143,
+        "ad7": {
+          "spend": 1.41,
+          "orders": 0,
+          "clicks": 5,
+          "impressions": 382
+        },
+        "sessions": {
+          "lastWeek": 57,
+          "twoWeeksAgo": 62,
+          "threeWeeksAgo": 41
+        },
+        "conversion": {
+          "lastWeek": 7.02,
+          "twoWeeksAgo": 12.9,
+          "threeWeeksAgo": 14.63
+        }
+      },
+      {
+        "sku": "QQ2806",
+        "bucket": "high_profit_proven_budget_up",
+        "score": 432.54,
+        "profitRate": 0.2374,
+        "units7": 60,
+        "invDays": 27,
+        "ad7": {
+          "spend": 34.69,
+          "orders": 15,
+          "clicks": 103,
+          "impressions": 5767
+        },
+        "sessions": {
+          "lastWeek": 177,
+          "twoWeeksAgo": 190,
+          "threeWeeksAgo": 182
+        },
+        "conversion": {
+          "lastWeek": 34.46,
+          "twoWeeksAgo": 23.68,
+          "threeWeeksAgo": 28.02
+        }
+      },
+      {
+        "sku": "SE6685",
+        "bucket": "high_profit_proven_budget_up",
+        "score": 420.0438,
+        "profitRate": 0.3074,
+        "units7": 33,
+        "invDays": 62,
+        "ad7": {
+          "spend": 25.199999999999996,
+          "orders": 6,
+          "clicks": 106,
+          "impressions": 10033
+        },
+        "sessions": {
+          "lastWeek": 151,
+          "twoWeeksAgo": 135,
+          "threeWeeksAgo": 155
+        },
+        "conversion": {
+          "lastWeek": 15.23,
+          "twoWeeksAgo": 9.63,
+          "threeWeeksAgo": 10.97
+        }
+      },
+      {
+        "sku": "YUT4464",
+        "bucket": "fallback_cost_control",
+        "score": 414.834,
+        "profitRate": 0.1412,
+        "units7": 10,
+        "invDays": 166,
+        "ad7": {
+          "spend": 19.810000000000002,
+          "orders": 5,
+          "clicks": 53,
+          "impressions": 2997
+        },
+        "sessions": {
+          "lastWeek": 70,
+          "twoWeeksAgo": 66,
+          "threeWeeksAgo": 21
+        },
+        "conversion": {
+          "lastWeek": 12.86,
+          "twoWeeksAgo": 6.06,
+          "threeWeeksAgo": 9.52
+        }
+      },
+      {
+        "sku": "UAN0188",
+        "bucket": "low_profit_cut_waste",
+        "score": 391.4352,
+        "profitRate": -0.0747,
+        "units7": 26,
+        "invDays": 68,
+        "ad7": {
+          "spend": 27.01,
+          "orders": 11,
+          "clicks": 85,
+          "impressions": 4939
+        },
+        "sessions": {
+          "lastWeek": 169,
+          "twoWeeksAgo": 161,
+          "threeWeeksAgo": 186
+        },
+        "conversion": {
+          "lastWeek": 18.93,
+          "twoWeeksAgo": 8.07,
+          "threeWeeksAgo": 12.9
+        }
+      },
+      {
+        "sku": "TUR8821",
+        "bucket": "fallback_cost_control",
+        "score": 357.312,
+        "profitRate": 0.2387,
+        "units7": 5,
+        "invDays": 192,
+        "ad7": {
+          "spend": 3.6100000000000003,
+          "orders": 0,
+          "clicks": 14,
+          "impressions": 799
+        },
+        "sessions": {
+          "lastWeek": 26,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "conversion": {
+          "lastWeek": 3.85,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        }
+      },
+      {
+        "sku": "YUN2187",
+        "bucket": "low_profit_cut_waste",
+        "score": 354.6444,
+        "profitRate": -0.1082,
+        "units7": 3,
+        "invDays": 268,
+        "ad7": {
+          "spend": 16.13,
+          "orders": 3,
+          "clicks": 44,
+          "impressions": 2966
+        },
+        "sessions": {
+          "lastWeek": 196,
+          "twoWeeksAgo": 72,
+          "threeWeeksAgo": 0
+        },
+        "conversion": {
+          "lastWeek": 2.04,
+          "twoWeeksAgo": 6.9399999999999995,
+          "threeWeeksAgo": 0
+        }
+      },
+      {
+        "sku": "SEV0979",
+        "bucket": "fallback_cost_control",
+        "score": 343.241,
+        "profitRate": 0.1788,
+        "units7": 10,
+        "invDays": 109,
+        "ad7": {
+          "spend": 0.75,
+          "orders": 3,
+          "clicks": 15,
+          "impressions": 3317
+        },
+        "sessions": {
+          "lastWeek": 109,
+          "twoWeeksAgo": 136,
+          "threeWeeksAgo": 137
+        },
+        "conversion": {
+          "lastWeek": 9.17,
+          "twoWeeksAgo": 4.41,
+          "threeWeeksAgo": 8.76
+        }
+      },
+      {
+        "sku": "DN1656",
+        "bucket": "low_profit_cut_waste",
+        "score": 308.3396,
+        "profitRate": -0.25,
+        "units7": 38,
+        "invDays": 29,
+        "ad7": {
+          "spend": 27.820000000000004,
+          "orders": 1,
+          "clicks": 42,
+          "impressions": 11878
+        },
+        "sessions": {
+          "lastWeek": 504,
+          "twoWeeksAgo": 394,
+          "threeWeeksAgo": 238
+        },
+        "conversion": {
+          "lastWeek": 10.71,
+          "twoWeeksAgo": 11.42,
+          "threeWeeksAgo": 5.46
+        }
+      },
+      {
+        "sku": "WAR1276",
+        "bucket": "fallback_cost_control",
+        "score": 283.248,
+        "profitRate": 0.1451,
+        "units7": 36,
+        "invDays": 35,
+        "ad7": {
+          "spend": 27.220000000000002,
+          "orders": 5,
+          "clicks": 103,
+          "impressions": 7394
+        },
+        "sessions": {
+          "lastWeek": 357,
+          "twoWeeksAgo": 399,
+          "threeWeeksAgo": 403
+        },
+        "conversion": {
+          "lastWeek": 12.61,
+          "twoWeeksAgo": 8.27,
+          "threeWeeksAgo": 9.43
+        }
+      },
+      {
+        "sku": "YMF0656",
+        "bucket": "low_profit_cut_waste",
+        "score": 282.435,
+        "profitRate": 0.0428,
+        "units7": 1,
+        "invDays": 570,
+        "ad7": {
+          "spend": 1.16,
+          "orders": 0,
+          "clicks": 6,
+          "impressions": 568
+        },
+        "sessions": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        },
+        "conversion": {
+          "lastWeek": 0,
+          "twoWeeksAgo": 0,
+          "threeWeeksAgo": 0
+        }
+      },
+      {
+        "sku": "OC1858",
+        "bucket": "low_profit_cut_waste",
+        "score": 276.4386,
+        "profitRate": 0.0938,
+        "units7": 18,
+        "invDays": 59,
+        "ad7": {
+          "spend": 20.009999999999998,
+          "orders": 4,
+          "clicks": 67,
+          "impressions": 15370
+        },
+        "sessions": {
+          "lastWeek": 197,
+          "twoWeeksAgo": 284,
+          "threeWeeksAgo": 306
+        },
+        "conversion": {
+          "lastWeek": 7.11,
+          "twoWeeksAgo": 8.8,
+          "threeWeeksAgo": 10.46
+        }
+      },
+      {
+        "sku": "TH1516",
+        "bucket": "high_profit_low_traffic_bid_up",
+        "score": 258.0112,
+        "profitRate": 0.2482,
+        "units7": 16,
+        "invDays": 73,
+        "ad7": {
+          "spend": 29.440000000000005,
+          "orders": 8,
+          "clicks": 62,
+          "impressions": 11984
+        },
+        "sessions": {
+          "lastWeek": 66,
+          "twoWeeksAgo": 59,
+          "threeWeeksAgo": 37
+        },
+        "conversion": {
+          "lastWeek": 6.06,
+          "twoWeeksAgo": 20.34,
+          "threeWeeksAgo": 21.62
+        }
+      },
+      {
+        "sku": "YAN2278",
+        "bucket": "low_profit_cut_waste",
+        "score": 257.565,
+        "profitRate": 0.0959,
+        "units7": 42,
+        "invDays": 55,
+        "ad7": {
+          "spend": 44.33,
+          "orders": 13,
+          "clicks": 214,
+          "impressions": 15500
+        },
+        "sessions": {
+          "lastWeek": 771,
+          "twoWeeksAgo": 643,
+          "threeWeeksAgo": 865
+        },
+        "conversion": {
+          "lastWeek": 4.41,
+          "twoWeeksAgo": 4.82,
+          "threeWeeksAgo": 3.7
+        }
+      },
+      {
+        "sku": "LE8156",
+        "bucket": "low_profit_cut_waste",
+        "score": 248.634,
+        "profitRate": 0.0422,
+        "units7": 6,
+        "invDays": 190,
+        "ad7": {
+          "spend": 0.29,
+          "orders": 0,
+          "clicks": 2,
+          "impressions": 296
+        },
+        "sessions": {
+          "lastWeek": 38,
+          "twoWeeksAgo": 69,
+          "threeWeeksAgo": 38
+        },
+        "conversion": {
+          "lastWeek": 15.79,
+          "twoWeeksAgo": 4.35,
+          "threeWeeksAgo": 5.26
+        }
+      },
+      {
+        "sku": "PR2460",
+        "bucket": "high_profit_low_traffic_bid_up",
+        "score": 241.944,
+        "profitRate": 0.1868,
+        "units7": 24,
+        "invDays": 34,
+        "ad7": {
+          "spend": 17.22,
+          "orders": 4,
+          "clicks": 50,
+          "impressions": 7915
+        },
+        "sessions": {
+          "lastWeek": 72,
+          "twoWeeksAgo": 46,
+          "threeWeeksAgo": 44
+        },
+        "conversion": {
+          "lastWeek": 41.67,
+          "twoWeeksAgo": 32.61,
+          "threeWeeksAgo": 25
+        }
+      }
+    ],
+    "listingTriageCounts": {
+      "today_can_move": 100,
+      "this_week_can_move": 145,
+      "within_three_weeks": 46,
+      "four_weeks_no_move": 0
+    },
+    "files": {
+      "followupMd": "D:\\ad-ops-workbench\\data\\learning\\followup_review_2026-05-15.md",
+      "followupJson": "D:\\ad-ops-workbench\\data\\learning\\followup_review_2026-05-15.json",
+      "listingMd": "D:\\ad-ops-workbench\\data\\learning\\listing_repair_triage_2026-05-15.md",
+      "priceSchema": "D:\\ad-ops-workbench\\data\\snapshots\\action_schema_2026-05-15_price_approved.json",
+      "followupSchema": "D:\\ad-ops-workbench\\data\\snapshots\\action_schema_2026-05-15_followup_rollbacks.json",
+      "refundSchema": "D:\\ad-ops-workbench\\data\\snapshots\\action_schema_2026-05-15_refund_gate_approved.json",
+      "kpiSchema": "D:\\ad-ops-workbench\\data\\snapshots\\action_schema_2026-05-15_kpi_hard_30_approved.json",
+      "coverage": "D:\\ad-ops-workbench\\data\\learning\\closed_loop_coverage_2026-05-15.json"
+    }
+  }
+}
