@@ -3142,20 +3142,37 @@ async function triggerPageQuery(tabId) {
 }
 
 // 关键词全量拉取（拦截页面请求，捕获销售编号等参数）
-async function fetchAllKeywords() {
+async function seedKwCapture() {
+  if (STATE.kwCapture?.body) return STATE.kwCapture;
   const tab = await findTab('*://adv.yswg.com.cn/*');
   await ensureAdKeywordPage(tab.id);
   log('注入关键词拦截器，等待页面请求…');
-
   await injectAdInterceptor(tab.id, '/keyword/findAllNew', '__kwCaptures');
   await triggerPageQuery(tab.id);
-
   const capture = await waitCapture(tab.id, '__kwCaptures', 30);
   if (!capture) throw new Error('未捕获到关键词请求，请确认广告系统已打开并有关键词数据');
-
   STATE.kwCapture = capture;
   log(`已捕获关键词请求，URL：${capture.url}`);
+  return capture;
+}
 
+// 只跑低效池 — 不拉全量 kw/auto/manual/sb，不抓库存/listing/overBudget/7day_untouched，
+// 用最小种子 kwCapture 跑 fetchLowEfficiencyPools，把结果返回。
+async function runLowEfficiencyOnly() {
+  const t0 = Date.now();
+  await seedKwCapture();
+  log('开始抓低效池（5 类广告 × 4 窗口）…');
+  const pools = await fetchLowEfficiencyPools(STATE.kwCapture);
+  STATE.lowEfficiencyRows = pools || { kw: [], auto: [], manual: [], sbKw: [], sbTarget: [] };
+  const total = Object.values(STATE.lowEfficiencyRows).reduce((a, r) => a + (r?.length || 0), 0);
+  const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
+  log(`低效池抓取完成：${total} 条，用时 ${elapsed}s`, total ? 'ok' : 'warn');
+  return STATE.lowEfficiencyRows;
+}
+
+async function fetchAllKeywords() {
+  const tab = await findTab('*://adv.yswg.com.cn/*');
+  const capture = await seedKwCapture();
   const getList = d => d?.data?.records || d?.data?.list || d?.data?.rows ||
                        d?.records || d?.list || (Array.isArray(d?.data) ? d.data : []);
 
