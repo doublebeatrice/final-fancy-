@@ -21052,5 +21052,3929 @@
         }
       }
     }
+  },
+  {
+    "sku": "GM3065",
+    "asin": "B0FZFTF1V1",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "294304009587034",
+    "entityName": "auto 2_dentist appreciation gifts _gm3065",
+    "beforeValue": 4.05,
+    "afterValue": 5.56,
+    "reason": "Restore budget after 2026-05-15 correction: campaign was rolled back only because 3d orders were 0, but 7d still has orders and SKU has inventory/profit protection.",
+    "runAt": "2026-05-15T07:13:18.996Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-18-996Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "GM3065",
+    "asin": "B0FZFTF1V1",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "151599141222971",
+    "entityName": "kw2_dental hygienist week gifts _gm3065",
+    "beforeValue": 3,
+    "afterValue": 4.25,
+    "reason": "Restore budget after 2026-05-15 correction: campaign was rolled back only because 3d orders were 0, but 7d still has orders and SKU has inventory/profit protection.",
+    "runAt": "2026-05-15T07:13:18.996Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-18-996Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "GT3801",
+    "asin": "B0CYPW5Q3B",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "159193395125737",
+    "entityName": "kw_q2 profit gt3801 broad_gt3801",
+    "beforeValue": 4.05,
+    "afterValue": 5.56,
+    "reason": "Restore budget after 2026-05-15 correction: campaign was rolled back only because 3d orders were 0, but 7d still has orders and SKU has inventory/profit protection.",
+    "runAt": "2026-05-15T07:13:18.996Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-18-996Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "GT3811",
+    "asin": "B0CYPQPKZJ",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "374328911664283",
+    "entityName": "auto_yellow funeral ribbons_gt3811",
+    "beforeValue": 3.6,
+    "afterValue": 5,
+    "reason": "Restore budget after 2026-05-15 correction: campaign was rolled back only because 3d orders were 0, but 7d still has orders and SKU has inventory/profit protection.",
+    "runAt": "2026-05-15T07:13:18.996Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-18-996Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "YEO0766",
+    "asin": "B0FZ9GMQJS",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "446505746556485",
+    "entityName": "auto_fishing sun hats_yeo0766",
+    "beforeValue": 4.25,
+    "afterValue": 5.81,
+    "reason": "Restore budget after 2026-05-15 correction: campaign was rolled back only because 3d orders were 0, but 7d still has orders and SKU has inventory/profit protection.",
+    "runAt": "2026-05-15T07:13:18.996Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-18-996Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "NO5155",
+    "asin": "B0F1CGBYL3",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "253095158358940",
+    "entityName": "auto_q2 profit no5155 auto_no5155",
+    "beforeValue": 4.25,
+    "afterValue": 5.81,
+    "reason": "Restore budget after 2026-05-15 correction: campaign was rolled back only because 3d orders were 0, but 7d still has orders and SKU has inventory/profit protection.",
+    "runAt": "2026-05-15T07:13:18.996Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-18-996Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "TIN2239",
+    "asin": "B0CNR36NZQ",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "551214029489345",
+    "entityName": "kw_duck tags_tin2239",
+    "beforeValue": 4.25,
+    "afterValue": 5.81,
+    "reason": "Restore budget after 2026-05-15 correction: campaign was rolled back only because 3d orders were 0, but 7d still has orders and SKU has inventory/profit protection.",
+    "runAt": "2026-05-15T07:13:18.996Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-18-996Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "MF6292",
+    "asin": "B0GMNCFTF2",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "130034545684322",
+    "entityName": "kw broad_inflatable number pool float_mf6292",
+    "beforeValue": 3,
+    "afterValue": 4.25,
+    "reason": "Restore budget after 2026-05-15 correction: campaign was rolled back only because 3d orders were 0, but 7d still has orders and SKU has inventory/profit protection.",
+    "runAt": "2026-05-15T07:13:18.996Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-18-996Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "TH2619",
+    "asin": "B0B7JD3Y3L",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "219178631436033",
+    "entityName": "auto_silicone cable ties_th2619",
+    "beforeValue": 4.05,
+    "afterValue": 5.56,
+    "reason": "Restore budget after 2026-05-15 correction: campaign was rolled back only because 3d orders were 0, but 7d still has orders and SKU has inventory/profit protection.",
+    "runAt": "2026-05-15T07:13:18.996Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-18-996Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "YAN0656",
+    "asin": "B0B9N9PZG9",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "359706570634491",
+    "entityName": "auto_drysunf_yan0656",
+    "beforeValue": 5.56,
+    "afterValue": 6.67,
+    "reason": "Restore budget after 2026-05-15 correction: campaign was rolled back only because 3d orders were 0, but 7d still has orders and SKU has inventory/profit protection.",
+    "runAt": "2026-05-15T07:13:18.996Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-18-996Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "QQ2235",
+    "asin": "B0C782CPFL",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "195459013678674",
+    "entityName": "auto_rainbow table cloths_qq2235",
+    "beforeValue": 3,
+    "afterValue": 4.25,
+    "reason": "Restore budget after 2026-05-15 correction: campaign was rolled back only because 3d orders were 0, but 7d still has orders and SKU has inventory/profit protection.",
+    "runAt": "2026-05-15T07:13:18.996Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-18-996Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SHQ3375",
+    "asin": "B0DX1PXGZX",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "494910084393908",
+    "entityName": "asin_wooden cars to paint_shq3375",
+    "beforeValue": 6.39,
+    "afterValue": 7.35,
+    "reason": "Restore budget after 2026-05-15 correction: campaign was rolled back only because 3d orders were 0, but 7d still has orders and SKU has inventory/profit protection.",
+    "runAt": "2026-05-15T07:13:18.996Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-18-996Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SE5942",
+    "asin": "B09YRQ8PHL",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "35399760836051",
+    "entityName": "auto_school counselor desk accessories_se5942",
+    "beforeValue": 6.56,
+    "afterValue": 7.54,
+    "reason": "Restore budget after 2026-05-15 correction: campaign was rolled back only because 3d orders were 0, but 7d still has orders and SKU has inventory/profit protection.",
+    "runAt": "2026-05-15T07:13:18.996Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-18-996Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "GM3065",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "294304009587034",
+    "entityName": "auto 2_dentist appreciation gifts _gm3065",
+    "beforeValue": 4.05,
+    "afterValue": 5.56,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"campaignId\":\"294304009587034\"},{\"campaignId\":\"151599141222971\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:13:52.341Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-52-341Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "GM3065",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "151599141222971",
+    "entityName": "kw2_dental hygienist week gifts _gm3065",
+    "beforeValue": 3,
+    "afterValue": 4.25,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"campaignId\":\"294304009587034\"},{\"campaignId\":\"151599141222971\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:13:52.341Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-52-341Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "GT3801",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "159193395125737",
+    "entityName": "kw_q2 profit gt3801 broad_gt3801",
+    "beforeValue": 4.05,
+    "afterValue": 5.56,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"campaignId\":\"159193395125737\"},{\"campaignId\":\"374328911664283\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:13:52.341Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-52-341Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "GT3811",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "374328911664283",
+    "entityName": "auto_yellow funeral ribbons_gt3811",
+    "beforeValue": 3.6,
+    "afterValue": 5,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"campaignId\":\"159193395125737\"},{\"campaignId\":\"374328911664283\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:13:52.341Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-52-341Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "YEO0766",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "446505746556485",
+    "entityName": "auto_fishing sun hats_yeo0766",
+    "beforeValue": 4.25,
+    "afterValue": 5.81,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"446505746556485\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:13:52.341Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-52-341Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "NO5155",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "253095158358940",
+    "entityName": "auto_q2 profit no5155 auto_no5155",
+    "beforeValue": 4.25,
+    "afterValue": 5.81,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"253095158358940\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:13:52.341Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-52-341Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "TIN2239",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "551214029489345",
+    "entityName": "kw_duck tags_tin2239",
+    "beforeValue": 4.25,
+    "afterValue": 5.81,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"551214029489345\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:13:52.341Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-52-341Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "MF6292",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "130034545684322",
+    "entityName": "kw broad_inflatable number pool float_mf6292",
+    "beforeValue": 3,
+    "afterValue": 4.25,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"130034545684322\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:13:52.341Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-52-341Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "TH2619",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "219178631436033",
+    "entityName": "auto_silicone cable ties_th2619",
+    "beforeValue": 4.05,
+    "afterValue": 5.56,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"219178631436033\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:13:52.341Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-52-341Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "YAN0656",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "359706570634491",
+    "entityName": "auto_drysunf_yan0656",
+    "beforeValue": 5.56,
+    "afterValue": 6.67,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"359706570634491\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:13:52.341Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-52-341Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "QQ2235",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "195459013678674",
+    "entityName": "auto_rainbow table cloths_qq2235",
+    "beforeValue": 3,
+    "afterValue": 4.25,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"195459013678674\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:13:52.341Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-52-341Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SHQ3375",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "494910084393908",
+    "entityName": "asin_wooden cars to paint_shq3375",
+    "beforeValue": 6.39,
+    "afterValue": 7.35,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"494910084393908\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:13:52.341Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-52-341Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SE5942",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "35399760836051",
+    "entityName": "auto_school counselor desk accessories_se5942",
+    "beforeValue": 6.56,
+    "afterValue": 7.54,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"35399760836051\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:13:52.341Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-13-52-341Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring budget protects proven 7d converting traffic that was cut by an over-broad 3d rollback rule.",
+        "expectedEffect": {
+          "budget": "restore",
+          "impressions": "recover_or_hold",
+          "orders": "protect",
+          "spend": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign_spend",
+            "campaign_orders",
+            "campaign_acos",
+            "sku_units7",
+            "sku_profitRate"
+          ],
+          "rollbackIf": "spend rises for 3 days without orders or SKU profit/refund gate turns negative"
+        }
+      }
+    }
+  },
+  {
+    "sku": "DN1655",
+    "asin": "B0C1S3XC8Q",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "265444878160210",
+    "entityName": "kw broad_galvanized flower bucket_dn1655",
+    "beforeValue": 1,
+    "afterValue": 3,
+    "reason": "Restore DN flower bucket budget. The prior cut used profitRate=-26.2% as if it were reference net profit, but DN1655 reference net profit is positive around 4.12%-4.14%. This May-June vase/flower bucket group has active sell-through responsibility and high stale-inventory cost, so small loss or thin net profit should not floor traffic.",
+    "runAt": "2026-05-15T07:27:09.071Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-27-09-071Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring baseline keyword budget preserves controlled traffic for the May-June sell-through window while the group is still moving.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect",
+          "staleInventoryRisk": "down",
+          "spend": "watch",
+          "netProfit": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "DN1655 units",
+            "campaign spend",
+            "campaign orders",
+            "reference net profit",
+            "stagnant inventory exposure"
+          ],
+          "rollbackIf": "campaign spends for 3 days with no orders and another DN campaign can carry the same converting traffic"
+        }
+      }
+    }
+  },
+  {
+    "sku": "DN1655",
+    "asin": "B0C1S3XC8Q",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "453049963339506",
+    "entityName": "auto _galvanized flower bucket_dn1655",
+    "beforeValue": 1,
+    "afterValue": 150,
+    "reason": "Restore DN flower bucket auto budget. The prior cut used profitRate=-26.2% as if it were reference net profit, but DN1655 reference net profit is positive around 4.12%-4.14%. The campaign had 56 overbudget-scope orders at 13.17% ACOS and sits inside the May-June vase/flower bucket sell-through window.",
+    "runAt": "2026-05-15T07:27:09.071Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-27-09-071Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring the main auto budget protects the proven DN1655 sell-through path and avoids leaving high-cost stale inventory after the May-June window.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "staleInventoryRisk": "down",
+          "spend": "watch",
+          "netProfit": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "DN1655 units",
+            "reference net profit",
+            "stagnant inventory exposure"
+          ],
+          "rollbackIf": "ACOS or refund pressure breaks after restored traffic and lower-layer search terms show no sell-through value"
+        }
+      }
+    }
+  },
+  {
+    "sku": "DN1655",
+    "asin": "B0C1S3XC8Q",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "159673292888645",
+    "entityName": "auto_galvanized flower bucket_dn1655",
+    "beforeValue": 1,
+    "afterValue": 41,
+    "reason": "Restore DN1655 secondary auto budget after wrong profit-field refund gate. The campaign had 45 overbudget-scope orders at 15.49% ACOS, and the SKU is in the May-June sell-through window with high stale-inventory risk if traffic is floored.",
+    "runAt": "2026-05-15T07:27:09.071Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-27-09-071Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring this auto budget keeps a proven DN1655 converting path available during the narrow sell-through window.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect",
+          "staleInventoryRisk": "down",
+          "spend": "watch",
+          "netProfit": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "DN1655 units",
+            "reference net profit"
+          ],
+          "rollbackIf": "restored budget spends without orders and search-term detail shows no recoverable converting path"
+        }
+      }
+    }
+  },
+  {
+    "sku": "DN2683",
+    "asin": "B0CLYGDSMV",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "63198231606391",
+    "entityName": "auto_galvanized flower bucket_dn2683",
+    "beforeValue": 1,
+    "afterValue": 41,
+    "reason": "Restore DN2683 auto budget after wrong profit-field refund gate. The prior cut used profitRate as a hard negative-profit gate, but this DN flower bucket group is a May-June sell-through group where thin reference net profit and stagnant-inventory economics require controlled traffic rather than budget flooring.",
+    "runAt": "2026-05-15T07:27:09.071Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-27-09-071Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring DN2683 auto budget preserves remaining May-June sell-through while we monitor ACOS and reference net profit.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "recover_or_hold",
+          "staleInventoryRisk": "down",
+          "spend": "watch",
+          "netProfit": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "DN2683 units",
+            "reference net profit"
+          ],
+          "rollbackIf": "restored budget spends without orders and no same-group sell-through benefit appears"
+        }
+      }
+    }
+  },
+  {
+    "sku": "DN1655",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "265444878160210",
+    "entityName": "kw broad_galvanized flower bucket_dn1655",
+    "beforeValue": 1,
+    "afterValue": 3,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"campaignId\":\"265444878160210\"},{\"campaignId\":\"453049963339506\"},{\"campaignId\":\"159673292888645\"},{\"campaignId\":\"63198231606391\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:27:39.760Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-27-39-760Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring baseline keyword budget preserves controlled traffic for the May-June sell-through window while the group is still moving.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect",
+          "staleInventoryRisk": "down",
+          "spend": "watch",
+          "netProfit": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "DN1655 units",
+            "campaign spend",
+            "campaign orders",
+            "reference net profit",
+            "stagnant inventory exposure"
+          ],
+          "rollbackIf": "campaign spends for 3 days with no orders and another DN campaign can carry the same converting traffic"
+        }
+      }
+    }
+  },
+  {
+    "sku": "DN1655",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "453049963339506",
+    "entityName": "auto _galvanized flower bucket_dn1655",
+    "beforeValue": 1,
+    "afterValue": 150,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"campaignId\":\"265444878160210\"},{\"campaignId\":\"453049963339506\"},{\"campaignId\":\"159673292888645\"},{\"campaignId\":\"63198231606391\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:27:39.760Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-27-39-760Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring the main auto budget protects the proven DN1655 sell-through path and avoids leaving high-cost stale inventory after the May-June window.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "staleInventoryRisk": "down",
+          "spend": "watch",
+          "netProfit": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "DN1655 units",
+            "reference net profit",
+            "stagnant inventory exposure"
+          ],
+          "rollbackIf": "ACOS or refund pressure breaks after restored traffic and lower-layer search terms show no sell-through value"
+        }
+      }
+    }
+  },
+  {
+    "sku": "DN1655",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "159673292888645",
+    "entityName": "auto_galvanized flower bucket_dn1655",
+    "beforeValue": 1,
+    "afterValue": 41,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"campaignId\":\"265444878160210\"},{\"campaignId\":\"453049963339506\"},{\"campaignId\":\"159673292888645\"},{\"campaignId\":\"63198231606391\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:27:39.760Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-27-39-760Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring this auto budget keeps a proven DN1655 converting path available during the narrow sell-through window.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect",
+          "staleInventoryRisk": "down",
+          "spend": "watch",
+          "netProfit": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "DN1655 units",
+            "reference net profit"
+          ],
+          "rollbackIf": "restored budget spends without orders and search-term detail shows no recoverable converting path"
+        }
+      }
+    }
+  },
+  {
+    "sku": "DN2683",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "63198231606391",
+    "entityName": "auto_galvanized flower bucket_dn2683",
+    "beforeValue": 1,
+    "afterValue": 41,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"campaignId\":\"265444878160210\"},{\"campaignId\":\"453049963339506\"},{\"campaignId\":\"159673292888645\"},{\"campaignId\":\"63198231606391\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:27:39.760Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-27-39-760Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring DN2683 auto budget preserves remaining May-June sell-through while we monitor ACOS and reference net profit.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "recover_or_hold",
+          "staleInventoryRisk": "down",
+          "spend": "watch",
+          "netProfit": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "DN2683 units",
+            "reference net profit"
+          ],
+          "rollbackIf": "restored budget spends without orders and no same-group sell-through benefit appears"
+        }
+      }
+    }
+  },
+  {
+    "sku": "CLO0341",
+    "asin": "B0CN2NRMMB",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "136517545384380",
+    "entityName": "auto_rotating jewelry display stand_clo0341",
+    "beforeValue": 3,
+    "afterValue": 4.25,
+    "reason": "Restore additional false budget cut after 2026-05-15 overbudget/refund review. Prior cut relied on raw profitRate or short 3d proxy while reference net profit, inventory, and converting evidence supported keeping traffic. Restore budget and review on 1d/3d/7d evidence.",
+    "runAt": "2026-05-15T07:43:21.225Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-21-225Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "XIH2672",
+    "asin": "B0FJR6KCR1",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "148330764339010",
+    "entityName": "kw broad_mothers day gifts for mom_xih2672",
+    "beforeValue": 4.5,
+    "afterValue": 6.13,
+    "reason": "Restore additional false budget cut after 2026-05-15 overbudget/refund review. Prior cut relied on raw profitRate or short 3d proxy while reference net profit, inventory, and converting evidence supported keeping traffic. Restore budget and review on 1d/3d/7d evidence.",
+    "runAt": "2026-05-15T07:43:21.225Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-21-225Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "LRU1537",
+    "asin": "B0C5XPGJH9",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "454041268176741",
+    "entityName": "auto1_bear paper plates napkins_lru1537",
+    "beforeValue": 1,
+    "afterValue": 16.4,
+    "reason": "Restore additional false budget cut after 2026-05-15 overbudget/refund review. Prior cut relied on raw profitRate or short 3d proxy while reference net profit, inventory, and converting evidence supported keeping traffic. Restore budget and review on 1d/3d/7d evidence.",
+    "runAt": "2026-05-15T07:43:21.225Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-21-225Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "UAN2600",
+    "asin": "B0CHRT58V7",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "259256459577667",
+    "entityName": "kw_phrase_inspirational_journal_uan2600",
+    "beforeValue": 1,
+    "afterValue": 6.56,
+    "reason": "Restore additional false budget cut after 2026-05-15 overbudget/refund review. Prior cut relied on raw profitRate or short 3d proxy while reference net profit, inventory, and converting evidence supported keeping traffic. Restore budget and review on 1d/3d/7d evidence.",
+    "runAt": "2026-05-15T07:43:21.225Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-21-225Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "UAN2600",
+    "asin": "B0CHRT58V7",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "453571228298432",
+    "entityName": "auto_journals in bulk_uan2600",
+    "beforeValue": 1,
+    "afterValue": 15,
+    "reason": "Restore additional false budget cut after 2026-05-15 overbudget/refund review. Prior cut relied on raw profitRate or short 3d proxy while reference net profit, inventory, and converting evidence supported keeping traffic. Restore budget and review on 1d/3d/7d evidence.",
+    "runAt": "2026-05-15T07:43:21.225Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-21-225Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "UAN2600",
+    "asin": "B0CHRT58V7",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "37148295535639",
+    "entityName": "asin_expand_inspirational_journal_uan2600",
+    "beforeValue": 1,
+    "afterValue": 6.56,
+    "reason": "Restore additional false budget cut after 2026-05-15 overbudget/refund review. Prior cut relied on raw profitRate or short 3d proxy while reference net profit, inventory, and converting evidence supported keeping traffic. Restore budget and review on 1d/3d/7d evidence.",
+    "runAt": "2026-05-15T07:43:21.225Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-21-225Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "UAN3257",
+    "asin": "B0D25ZY7LC",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "370646046304242",
+    "entityName": "journals in bulk-uan3257-system-a",
+    "beforeValue": 1,
+    "afterValue": 14.4,
+    "reason": "Restore additional false budget cut after 2026-05-15 overbudget/refund review. Prior cut relied on raw profitRate or short 3d proxy while reference net profit, inventory, and converting evidence supported keeping traffic. Restore budget and review on 1d/3d/7d evidence.",
+    "runAt": "2026-05-15T07:43:21.225Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-21-225Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "UAN3257",
+    "asin": "B0D25ZY7LC",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "108267492732442",
+    "entityName": "b2b auto_mini journals bulk_uan3257",
+    "beforeValue": 1,
+    "afterValue": 3,
+    "reason": "Restore additional false budget cut after 2026-05-15 overbudget/refund review. Prior cut relied on raw profitRate or short 3d proxy while reference net profit, inventory, and converting evidence supported keeping traffic. Restore budget and review on 1d/3d/7d evidence.",
+    "runAt": "2026-05-15T07:43:21.225Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-21-225Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "CLO0341",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "136517545384380",
+    "entityName": "auto_rotating jewelry display stand_clo0341",
+    "beforeValue": 3,
+    "afterValue": 4.25,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"136517545384380\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:43:58.749Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-58-749Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "XIH2672",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "148330764339010",
+    "entityName": "kw broad_mothers day gifts for mom_xih2672",
+    "beforeValue": 4.5,
+    "afterValue": 6.13,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"148330764339010\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:43:58.749Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-58-749Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "LRU1537",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "454041268176741",
+    "entityName": "auto1_bear paper plates napkins_lru1537",
+    "beforeValue": 1,
+    "afterValue": 16.4,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"454041268176741\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:43:58.749Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-58-749Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "UAN2600",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "259256459577667",
+    "entityName": "kw_phrase_inspirational_journal_uan2600",
+    "beforeValue": 1,
+    "afterValue": 6.56,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"campaignId\":\"259256459577667\"},{\"campaignId\":\"453571228298432\"},{\"campaignId\":\"37148295535639\"},{\"campaignId\":\"370646046304242\"},{\"campaignId\":\"108267492732442\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:43:58.749Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-58-749Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "UAN2600",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "453571228298432",
+    "entityName": "auto_journals in bulk_uan2600",
+    "beforeValue": 1,
+    "afterValue": 15,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"campaignId\":\"259256459577667\"},{\"campaignId\":\"453571228298432\"},{\"campaignId\":\"37148295535639\"},{\"campaignId\":\"370646046304242\"},{\"campaignId\":\"108267492732442\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:43:58.749Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-58-749Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "UAN2600",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "37148295535639",
+    "entityName": "asin_expand_inspirational_journal_uan2600",
+    "beforeValue": 1,
+    "afterValue": 6.56,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"campaignId\":\"259256459577667\"},{\"campaignId\":\"453571228298432\"},{\"campaignId\":\"37148295535639\"},{\"campaignId\":\"370646046304242\"},{\"campaignId\":\"108267492732442\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:43:58.749Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-58-749Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "UAN3257",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "370646046304242",
+    "entityName": "journals in bulk-uan3257-system-a",
+    "beforeValue": 1,
+    "afterValue": 14.4,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"campaignId\":\"259256459577667\"},{\"campaignId\":\"453571228298432\"},{\"campaignId\":\"37148295535639\"},{\"campaignId\":\"370646046304242\"},{\"campaignId\":\"108267492732442\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:43:58.749Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-58-749Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "UAN3257",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "108267492732442",
+    "entityName": "b2b auto_mini journals bulk_uan3257",
+    "beforeValue": 1,
+    "afterValue": 3,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"campaignId\":\"259256459577667\"},{\"campaignId\":\"453571228298432\"},{\"campaignId\":\"37148295535639\"},{\"campaignId\":\"370646046304242\"},{\"campaignId\":\"108267492732442\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:43:58.749Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-43-58-749Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring the prior budget protects converting traffic that was cut by an over-broad refund/profit or 3d proxy rule while follow-up monitoring catches any real refund/ACOS deterioration.",
+        "expectedEffect": {
+          "budget": "restore",
+          "orders": "protect_or_recover",
+          "spend": "return_to_prior_cap",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "restored budget spends for 3 days without orders or refund/ACOS evidence proves this specific campaign is unprofitable after lower-layer cleanup"
+        }
+      }
+    }
+  },
+  {
+    "sku": "LRU1537",
+    "asin": "B0C5XPGJH9",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "193009564424757",
+    "entityName": "kw board_bear paper plates napkins_lru1537",
+    "beforeValue": 1,
+    "afterValue": 3,
+    "reason": "Restore LRU1537 keyword budget after additional review. The refund gate floored all LRU1537 traffic using raw profitRate, but SKU reference net profit is positive and the keyword campaign has converting evidence; keep it controlled at prior small budget rather than floor the campaign.",
+    "runAt": "2026-05-15T07:45:28.761Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-45-28-761Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Restoring the small keyword budget keeps a converting path alive while monitoring determines whether bid cleanup, not campaign floor, is the correct control.",
+        "expectedEffect": {
+          "budget": "restore_small_cap",
+          "orders": "protect",
+          "spend": "limited",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "3d spend resumes without orders or refund/ACOS evidence proves the keyword path is unprofitable"
+        }
+      }
+    }
+  },
+  {
+    "sku": "LRU1537",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "193009564424757",
+    "entityName": "kw board_bear paper plates napkins_lru1537",
+    "beforeValue": 1,
+    "afterValue": 3,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"193009564424757\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:46:00.745Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-46-00-745Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Restoring the small keyword budget keeps a converting path alive while monitoring determines whether bid cleanup, not campaign floor, is the correct control.",
+        "expectedEffect": {
+          "budget": "restore_small_cap",
+          "orders": "protect",
+          "spend": "limited",
+          "profit": "watch",
+          "refundExposure": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "refund/return signal"
+          ],
+          "rollbackIf": "3d spend resumes without orders or refund/ACOS evidence proves the keyword path is unprofitable"
+        }
+      }
+    }
+  },
+  {
+    "sku": "ZO0892",
+    "asin": "B0DW931ZLZ",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "169363857528922",
+    "entityName": "auto_christian mothers day gifts_zo0892",
+    "beforeValue": 12,
+    "afterValue": 18,
+    "reason": "Operator-logic correction: this over-budget auto campaign is a clean seasonal converter, not a budget-down case. SKU reference net profit is positive, inventory is available, and the campaign has 12 orders at 11.83% ACOS. Raise campaign budget so the proven auto path is not capped.",
+    "runAt": "2026-05-15T07:52:50.791Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-52-50-791Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Removing part of the budget cap on the proven seasonal auto campaign should recover additional orders while ACOS remains near the current efficient range.",
+        "expectedEffect": {
+          "budget": "up",
+          "impressions": "up",
+          "clicks": "up",
+          "orders": "up",
+          "acos": "watch_inside_reference_net_profit_room"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "inventory days"
+          ],
+          "rollbackIf": "3d ACOS rises materially without order growth or inventory days become tight"
+        }
+      }
+    }
+  },
+  {
+    "sku": "YH3707",
+    "asin": "B0BXPNLVYW",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "247706497082148",
+    "entityName": "asin expanded_teacher appreciation gifts 4 pack_yh3707",
+    "beforeValue": 0.27,
+    "afterValue": 0.3,
+    "reason": "Operator-logic correction: do not open broad budget on YH3707 because SKU net profit is negative and the campaign total ACOS is high. Instead, lift only the proven ASIN target that has 2 orders at 14.41% ACOS, matching the user's prior pattern of small traffic repair on the converting entry.",
+    "runAt": "2026-05-15T07:52:50.791Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-52-50-791Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A small bid lift on the proven ASIN target should concentrate limited spend on the only efficient entry while avoiding broad SKU-level expansion.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "orders": "protect_or_lift",
+          "spend": "limited",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "target spend",
+            "target orders",
+            "target ACOS",
+            "campaign ACOS",
+            "SKU units",
+            "SKU net profit"
+          ],
+          "rollbackIf": "target spend rises for 3 days without orders or target ACOS converges toward the campaign's high-ACOS average"
+        }
+      }
+    }
+  },
+  {
+    "sku": "YH3707",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "247706497082148",
+    "entityName": "asin expanded_teacher appreciation gifts 4 pack_yh3707",
+    "beforeValue": 0.27,
+    "afterValue": 0.3,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"247706497082148\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:53:29.080Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-53-29-080Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "A small bid lift on the proven ASIN target should concentrate limited spend on the only efficient entry while avoiding broad SKU-level expansion.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "orders": "protect_or_lift",
+          "spend": "limited",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "target spend",
+            "target orders",
+            "target ACOS",
+            "campaign ACOS",
+            "SKU units",
+            "SKU net profit"
+          ],
+          "rollbackIf": "target spend rises for 3 days without orders or target ACOS converges toward the campaign's high-ACOS average"
+        }
+      }
+    }
+  },
+  {
+    "sku": "ZO0892",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "169363857528922",
+    "entityName": "auto_christian mothers day gifts_zo0892",
+    "beforeValue": 12,
+    "afterValue": 18,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"169363857528922\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T07:53:29.080Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-15T07-53-29-080Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Removing part of the budget cap on the proven seasonal auto campaign should recover additional orders while ACOS remains near the current efficient range.",
+        "expectedEffect": {
+          "budget": "up",
+          "impressions": "up",
+          "clicks": "up",
+          "orders": "up",
+          "acos": "watch_inside_reference_net_profit_room"
+        },
+        "reviewPlan": {
+          "windows": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "campaign spend",
+            "campaign orders",
+            "campaign ACOS",
+            "SKU units",
+            "reference net profit",
+            "inventory days"
+          ],
+          "rollbackIf": "3d ACOS rises materially without order growth or inventory days become tight"
+        }
+      }
+    }
+  },
+  {
+    "sku": "HAY1932",
+    "asin": "B0CT4N1XGL",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "168104233793403",
+    "entityName": "kw_ rubber duck_hay1932",
+    "beforeValue": 0.32,
+    "afterValue": 0.29,
+    "reason": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=56, spend=17.89, orders=2, acos=0.320.",
+    "runAt": "2026-05-15T09:25:31.384Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-25-31-384Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=56, spend=17.89, orders=2, acos=0.320.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "RHO1540",
+    "asin": "B0GLPCPFK9",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "440127543827475",
+    "entityName": "kw broad_bridesmaid sticker_rho1540",
+    "beforeValue": 0.21,
+    "afterValue": 0.18,
+    "reason": "[low_efficiency_pool:late_degrading:late_degrading] 30d=ok 15d=ok 7d=in 3d=in. focus clicks=15, spend=3.88, orders=1, acos=0.324.",
+    "runAt": "2026-05-15T09:25:31.384Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-25-31-384Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:late_degrading:late_degrading] 30d=ok 15d=ok 7d=in 3d=in. focus clicks=15, spend=3.88, orders=1, acos=0.324.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "TH2837",
+    "asin": "B0CDH7KXM1",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "403646829343638",
+    "entityName": "auto_silicone cable ties_th2837",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:persistently_low:acos_hard_stop] 30d=in 15d=in 7d=in 3d=in. 30d clicks=71, spend=30.02, orders=1, acos=1.430.",
+    "runAt": "2026-05-15T09:25:31.384Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-25-31-384Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:persistently_low:acos_hard_stop] 30d=in 15d=in 7d=in 3d=in. 30d clicks=71, spend=30.02, orders=1, acos=1.430.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "YCL1247",
+    "asin": "B0CJVGLND3",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "498301196372131",
+    "entityName": "blue floral picks ycl1247-a0.08",
+    "beforeValue": 0.24,
+    "afterValue": 0.21,
+    "reason": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=125, spend=26.37, orders=3, acos=0.303.",
+    "runAt": "2026-05-15T09:25:31.384Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-25-31-384Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=125, spend=26.37, orders=3, acos=0.303.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "YYW2629",
+    "asin": "B0FMRNLGTW",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "371547138350520",
+    "entityName": "auto_baby shower bear bulk_yyw2629",
+    "beforeValue": 0.17,
+    "afterValue": 0.15,
+    "reason": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=140, spend=22.63, orders=1, acos=0.427.",
+    "runAt": "2026-05-15T09:25:31.384Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-25-31-384Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=140, spend=22.63, orders=1, acos=0.427.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "TH2837",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "403646829343638",
+    "entityName": "auto_silicone cable ties_th2837",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"403646829343638\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T09:25:31.384Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-25-31-384Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:persistently_low:acos_hard_stop] 30d=in 15d=in 7d=in 3d=in. 30d clicks=71, spend=30.02, orders=1, acos=1.430.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "HAY1932",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "168104233793403",
+    "entityName": "kw_ rubber duck_hay1932",
+    "beforeValue": 0.32,
+    "afterValue": 0.29,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"168104233793403\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T09:25:31.384Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-25-31-384Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=56, spend=17.89, orders=2, acos=0.320.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "RHO1540",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "440127543827475",
+    "entityName": "kw broad_bridesmaid sticker_rho1540",
+    "beforeValue": 0.21,
+    "afterValue": 0.18,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"440127543827475\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T09:25:31.384Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-25-31-384Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:late_degrading:late_degrading] 30d=ok 15d=ok 7d=in 3d=in. focus clicks=15, spend=3.88, orders=1, acos=0.324.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "YCL1247",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "498301196372131",
+    "entityName": "blue floral picks ycl1247-a0.08",
+    "beforeValue": 0.24,
+    "afterValue": 0.21,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"498301196372131\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T09:25:31.384Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-25-31-384Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=125, spend=26.37, orders=3, acos=0.303.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "YYW2629",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "371547138350520",
+    "entityName": "auto_baby shower bear bulk_yyw2629",
+    "beforeValue": 0.17,
+    "afterValue": 0.15,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"371547138350520\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T09:25:31.384Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-25-31-384Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=140, spend=22.63, orders=1, acos=0.427.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "HAY1932",
+    "asin": "B0CT4N1XGL",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "168104233793403",
+    "entityName": "kw_ rubber duck_hay1932",
+    "beforeValue": 0.32,
+    "afterValue": 0.29,
+    "reason": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=56, spend=17.89, orders=2, acos=0.320.",
+    "runAt": "2026-05-15T09:28:00.666Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-28-00-666Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=56, spend=17.89, orders=2, acos=0.320.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "RHO1540",
+    "asin": "B0GLPCPFK9",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "440127543827475",
+    "entityName": "kw broad_bridesmaid sticker_rho1540",
+    "beforeValue": 0.21,
+    "afterValue": 0.18,
+    "reason": "[low_efficiency_pool:late_degrading:late_degrading] 30d=ok 15d=ok 7d=in 3d=in. focus clicks=15, spend=3.88, orders=1, acos=0.324.",
+    "runAt": "2026-05-15T09:28:00.666Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-28-00-666Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:late_degrading:late_degrading] 30d=ok 15d=ok 7d=in 3d=in. focus clicks=15, spend=3.88, orders=1, acos=0.324.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "TH2837",
+    "asin": "B0CDH7KXM1",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "403646829343638",
+    "entityName": "auto_silicone cable ties_th2837",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:persistently_low:acos_hard_stop] 30d=in 15d=in 7d=in 3d=in. 30d clicks=71, spend=30.02, orders=1, acos=1.430.",
+    "runAt": "2026-05-15T09:28:00.666Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-28-00-666Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:persistently_low:acos_hard_stop] 30d=in 15d=in 7d=in 3d=in. 30d clicks=71, spend=30.02, orders=1, acos=1.430.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "YCL1247",
+    "asin": "B0CJVGLND3",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "498301196372131",
+    "entityName": "blue floral picks ycl1247-a0.08",
+    "beforeValue": 0.24,
+    "afterValue": 0.21,
+    "reason": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=125, spend=26.37, orders=3, acos=0.303.",
+    "runAt": "2026-05-15T09:28:00.666Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-28-00-666Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=125, spend=26.37, orders=3, acos=0.303.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "YYW2629",
+    "asin": "B0FMRNLGTW",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "371547138350520",
+    "entityName": "auto_baby shower bear bulk_yyw2629",
+    "beforeValue": 0.17,
+    "afterValue": 0.15,
+    "reason": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=140, spend=22.63, orders=1, acos=0.427.",
+    "runAt": "2026-05-15T09:28:00.666Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-28-00-666Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=140, spend=22.63, orders=1, acos=0.427.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "TH2837",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "403646829343638",
+    "entityName": "auto_silicone cable ties_th2837",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"403646829343638\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T09:28:00.666Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-28-00-666Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:persistently_low:acos_hard_stop] 30d=in 15d=in 7d=in 3d=in. 30d clicks=71, spend=30.02, orders=1, acos=1.430.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "HAY1932",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "168104233793403",
+    "entityName": "kw_ rubber duck_hay1932",
+    "beforeValue": 0.32,
+    "afterValue": 0.29,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"168104233793403\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T09:28:00.666Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-28-00-666Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=56, spend=17.89, orders=2, acos=0.320.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "RHO1540",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "440127543827475",
+    "entityName": "kw broad_bridesmaid sticker_rho1540",
+    "beforeValue": 0.21,
+    "afterValue": 0.18,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"440127543827475\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T09:28:00.666Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-28-00-666Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:late_degrading:late_degrading] 30d=ok 15d=ok 7d=in 3d=in. focus clicks=15, spend=3.88, orders=1, acos=0.324.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "YCL1247",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "498301196372131",
+    "entityName": "blue floral picks ycl1247-a0.08",
+    "beforeValue": 0.24,
+    "afterValue": 0.21,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"498301196372131\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T09:28:00.666Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-28-00-666Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=125, spend=26.37, orders=3, acos=0.303.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
+  },
+  {
+    "sku": "YYW2629",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "371547138350520",
+    "entityName": "auto_baby shower bear bulk_yyw2629",
+    "beforeValue": 0.17,
+    "afterValue": 0.15,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"371547138350520\"}],\"error\":[]}}",
+    "runAt": "2026-05-15T09:28:00.666Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-15",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-15T09-28-00-666Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=140, spend=22.63, orders=1, acos=0.427.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {}
+      }
+    }
   }
 ]
