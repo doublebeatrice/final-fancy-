@@ -2,13 +2,13 @@
 
 ## 2026-05-19
 
-- Completed the 2026-05-19 operating release with low-efficiency cleanup, over-budget productAd waste pauses, controlled over-budget campaign budget lifts, seasonal status tagging, high-efficiency bid review, and daily learning updates.
-- Added the `developer-product-inquiry` workflow and durable request archive for forwarded product/developer requests, including concise operator-ready reply handling.
-- Added selection ABA search-term and keyword conversion evidence sources for product/keyword judgement while keeping selection data read-only for execution decisions.
-- Added seasonal listing-copy guardrails, listing-copy application execution/withdrawal helpers, protected-SKU handling, and season-title action/listing schema generators.
-- Added high-efficiency review/execution support, ad-structure opportunity audit, customer-search-term candidate extraction, and off-target keyword audit artifacts.
-- Hardened daily operations quality reporting around `dataQuality`, `actionQuality`, `runQuality`, final-run landing, and all-day adjustment attribution.
-- Updated Codex runbooks and operating docs for full-loop execution, three-system readiness, product-market evidence, seasonal listing copy, and over-budget/low-efficiency guardrails.
+- 完成 2026-05-19 运营发布归档，覆盖低效清理、超预算 productAd 无效花费暂停、超预算可控预算恢复、季节状态标签、高效组出价复盘和 daily learning 更新。
+- 新增 `developer-product-inquiry` 工作流和持久诉求归档，用于处理开发/产品转发消息，并输出简短、可直接发送的运营回复。
+- 新增 selection ABA search term 和 keyword conversion 证据源，用于产品/关键词判断；selection 数据保持只读，不直接触发执行动作。
+- 补齐季节性 listing-copy 保护规则、listing 申请执行/撤回辅助、保护 SKU 处理，以及 season-title action/listing schema 生成器。
+- 增加高效组复盘/执行支持、广告结构机会审计、买家搜索词候选提取、跑偏词审计等任务产物。
+- 强化日常运营质量字段：`dataQuality`、`actionQuality`、`runQuality`、最后一轮落地、全天动作归因，避免把脚本成功误判为运营闭环完成。
+- 更新 Codex 运行手册和运营文档，明确全链路执行、三系统 readiness、产品市场证据、季节性 listing copy、超预算/低效处理边界。
 
 ## 2026-05-18
 
