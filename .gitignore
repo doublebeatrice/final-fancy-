@@ -1,6 +1,7 @@
 node_modules/
 data/snapshots/
 data/attribution/
+data/agent/
 data/adjustment_history.json
 data/listing_cache.json
 data/product_profiles.json

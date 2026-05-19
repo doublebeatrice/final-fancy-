@@ -43,6 +43,7 @@ This is the living map for what belongs in the repository root. The root should 
 | `data/tmp_tests/` | Scratch probes and failure evidence. Ignored by git; promote durable conclusions to `data/learning/` or `docs/`. |
 | `data/learning/` | Durable daily learning and operating conclusions. Commit selectively when the learning changes future decisions. |
 | `data/tasks/` | Daily task boards, proactive audits, seasonal audits, and review queues. |
+| `data/agent/` | 智能代理台账输出：外部任务收件箱、任务状态、授权判断、效果复查承诺、到期复查队列、复查证据、效果复查报告、能力注册目录、自主运营中枢队列、只读命令执行结果、命令结果回填。运行时产物，按需要提交关键样例。 |
 | `data/developer_requests/` | Forwarded developer/product request evidence, actions, reply drafts, and follow-up checkpoints. |
 | `archive/reports/` | Historical closed-loop HTML reports. |
 

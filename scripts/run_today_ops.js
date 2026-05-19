@@ -8,6 +8,7 @@ const { appendAdjustmentRecords, recordsFromExecutionEvents, recordsFromPlan } =
 const { buildOpsTimeContext } = require('../src/ops_time');
 const { buildDailyTaskPool } = require('../src/task_scheduler');
 const { persistDailyLearning } = require('../src/daily_learning');
+const { buildAgentLedger } = require('../src/agent_control_plane');
 const { buildProactiveOperatingAudit, renderProactiveOperatingAuditHtml } = require('../src/proactive_audit');
 const { writeSeasonTitleReport } = require('./generate_season_title_dry_run');
 const { buildSeasonTitleActionSchema } = require('./generators/generate_season_title_action_schema');
@@ -799,8 +800,46 @@ function buildRunSummary(manifest) {
     seasonTitleListingCopyDryRun: manifest.seasonTitleListingCopyDryRun || null,
     highEfficiencyRows: manifest.highEfficiencyRows || null,
     adStructureOpportunities: manifest.adStructureOpportunities || null,
+    agentLedger: manifest.agentLedger || null,
     dailyLearning: manifest.dailyLearning || null,
   };
+}
+
+function priorityFromHint(hint) {
+  const value = Number(hint || 0);
+  if (value >= 90) return 'P0';
+  if (value >= 70) return 'P1';
+  return 'P2';
+}
+
+function dailyTaskPoolToAgentTasks(pool = {}) {
+  const contexts = pool.candidateContexts || pool.tasks || [];
+  return contexts.map(context => {
+    const signals = context.possibleSignals || [];
+    const primarySignal = signals[0]?.type || context.primaryTaskType || context.category || 'daily_ops_review';
+    const evidence = [
+      ...signals.map(signal => signal.reason).filter(Boolean),
+      ...(context.dataMissing || []).map(item => `missing: ${item}`),
+    ];
+    const subject = {
+      sku: context.sku,
+      asin: context.asin,
+      campaignId: context.campaignId,
+      entityId: context.entityId,
+    };
+    return {
+      source: 'daily_ops',
+      kind: primarySignal,
+      title: `${context.sku || context.asin || context.groupKey || '未命名对象'} ${primarySignal}`,
+      description: evidence.join(' | '),
+      subject,
+      priority: context.priority || priorityFromHint(context.deterministicPriorityHint),
+      evidence,
+      sourceRunId: context.sourceRunId || pool.time?.sourceRunId || '',
+      businessDate: context.businessDate || pool.time?.businessDate || '',
+      dataDate: context.dataDate || pool.time?.dataDate || '',
+    };
+  });
 }
 
 function chinaClockParts(date = new Date()) {
@@ -965,6 +1004,7 @@ async function main() {
 
     let dailyTaskPool = null;
     let proactiveAudit = null;
+    let agentPlanActions = [];
     await runStep('daily_task_pool', async () => {
       const adjustments = [
         ...readJson(path.join(ROOT, 'data', 'adjustments', `adjustments_${timeContext.businessDate}.json`), []),
@@ -1160,9 +1200,23 @@ async function main() {
       });
       const scoped = applyAllowedOperationScope(loaded, scopeAnalysis);
       const summary = summarizeValidation(scoped);
-      const planActions = (loaded.plan || [])
-        .flatMap(item => item.actions || [])
-        .concat(((scoped.review || []).map(item => item.action)).filter(Boolean));
+      const executableActions = (loaded.plan || [])
+        .flatMap(item => (item.actions || []).map(action => ({
+          ...action,
+          sku: action.sku || item.sku,
+          asin: action.asin || item.asin,
+          sourceTaskId: action.sourceTaskId || item.boardTaskId || '',
+        })));
+      const reviewActions = (scoped.review || [])
+        .map(item => item.action ? ({
+          ...item.action,
+          sku: item.action.sku || item.sku,
+          asin: item.action.asin || item.asin,
+          sourceTaskId: item.action.sourceTaskId || item.boardTaskId || '',
+        }) : null)
+        .filter(Boolean);
+      const planActions = executableActions.concat(reviewActions);
+      agentPlanActions = planActions;
       const overBudgetCoverage = summarizeOverBudgetCoverage(snapshot, planActions);
       manifest.schemaValidation = summary;
       manifest.overBudgetCoverage = overBudgetCoverage;
@@ -1245,6 +1299,23 @@ async function main() {
     }
     manifest.actionQuality = buildActionQuality(manifest, options);
     manifest.runQuality = buildRunQuality(manifest, options);
+
+    await runStep('agent_control_ledger', async () => {
+      const agentDir = path.join(ROOT, 'data', 'agent');
+      const ledgerFile = path.join(agentDir, `agent_ledger_${timeContext.businessDate}.json`);
+      const ledger = buildAgentLedger({
+        timeContext,
+        tasks: dailyTaskPoolToAgentTasks(dailyTaskPool || {}),
+        actions: agentPlanActions,
+      });
+      writeJson(ledgerFile, ledger);
+      manifest.outputFiles.agentLedgerJson = ledgerFile;
+      manifest.agentLedger = ledger.summary;
+      return {
+        outputs: { agentLedgerJson: ledgerFile },
+        details: ledger.summary,
+      };
+    });
 
     await runStep('daily_learning', async () => {
       const adjustmentLogFile = manifest.outputFiles.executeAdjustmentLogFile || manifest.outputFiles.dryRunAdjustmentLogFile || '';
@@ -1338,6 +1409,7 @@ module.exports = {
   buildRunQuality,
   buildRunSummary,
   buildSnapshotDataQuality,
+  dailyTaskPoolToAgentTasks,
   getSnapshotStepPlan,
   parseArgs,
   validateSnapshotFile,

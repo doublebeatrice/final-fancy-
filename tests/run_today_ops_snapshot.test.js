@@ -8,6 +8,7 @@ const {
   buildRunQuality,
   buildRunSummary,
   buildSnapshotDataQuality,
+  dailyTaskPoolToAgentTasks,
   getSnapshotStepPlan,
   parseArgs,
   validateSnapshotFile,
@@ -121,17 +122,41 @@ const {
 }
 
 {
+  const tasks = dailyTaskPoolToAgentTasks({
+    candidateContexts: [{
+      sku: 'AGENT1',
+      asin: 'B0AGENT1',
+      deterministicPriorityHint: 95,
+      possibleSignals: [
+        { type: 'profit_bleeding', reason: '7d spend with zero orders' },
+        { type: 'stale_inventory_risk', reason: '180 sellable days' },
+      ],
+      dataMissing: [],
+      facts: { sales: { units30d: 0 }, inventory: { sellableDays: 180 } },
+    }],
+  });
+
+  assert.strictEqual(tasks.length, 1);
+  assert.strictEqual(tasks[0].source, 'daily_ops');
+  assert.strictEqual(tasks[0].kind, 'profit_bleeding');
+  assert.strictEqual(tasks[0].subject.sku, 'AGENT1');
+  assert.ok(tasks[0].evidence.includes('7d spend with zero orders'));
+}
+
+{
   const summary = buildRunSummary({
     mode: 'fast',
     runId: 'run-1',
     time: { businessDate: '2026-05-15' },
     startedAt: '2026-05-16T00:00:00.000Z',
     steps: [],
-    outputFiles: {
-      seasonTitleListingCopyDryRunJson: 'data/snapshots/listing_copy_edit_dry_run_2026-05-15.json',
-    },
     seasonTitleListingApplications: { built: 2, skipped: 1 },
     seasonTitleListingCopyDryRun: { total: 2, valid: 1, invalid: 1, warnings: 0 },
+    agentLedger: { taskCount: 3, actionCount: 2, reviewTaskCount: 1 },
+    outputFiles: {
+      seasonTitleListingCopyDryRunJson: 'data/snapshots/listing_copy_edit_dry_run_2026-05-15.json',
+      agentLedgerJson: 'data/agent/agent_ledger_2026-05-15.json',
+    },
   });
 
   assert.deepStrictEqual(summary.seasonTitleListingApplications, { built: 2, skipped: 1 });
@@ -140,6 +165,8 @@ const {
     summary.outputFiles.seasonTitleListingCopyDryRunJson,
     'data/snapshots/listing_copy_edit_dry_run_2026-05-15.json'
   );
+  assert.deepStrictEqual(summary.agentLedger, { taskCount: 3, actionCount: 2, reviewTaskCount: 1 });
+  assert.strictEqual(summary.outputFiles.agentLedgerJson, 'data/agent/agent_ledger_2026-05-15.json');
 }
 
 console.log('run_today_ops_snapshot.test.js passed');

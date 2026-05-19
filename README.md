@@ -21,11 +21,21 @@ CHANGELOG.md               重要能力变更记录
 auto_adjust.js             主执行编排入口；仍留根目录，避免破坏运行链路
 extension/                 浏览器扩展（面板、抓数据的桥）
 scripts/execute/           数据导出、执行接口、快速抓单 SKU 的脚本
+scripts/run_agent_control_plane.js  智能代理台账入口，汇总任务、授权、复查承诺
+scripts/run_external_task_inbox.js  外部任务入口，把临时消息转成任务卡
+scripts/run_agent_review_queue.js   到期复查队列，筛出今天必须回看的承诺
+scripts/run_agent_review_evidence.js  复查证据采集器，按到期 SKU 拉广告最小接口证据
+scripts/run_agent_effect_review.js  效果复查执行器，基于证据判断关闭、继续观察或回滚复核
+scripts/run_agent_capability_registry.js  能力注册中心，把新接口登记成可复用能力
+scripts/run_agent_operating_hub.js   自主运营中枢，把每日、外部、复查、能力任务合成今日队列
+scripts/run_agent_command_runner.js  只读命令执行器，只跑中枢计划里的白名单证据命令
+scripts/run_agent_execution_feedback.js  命令执行回填入口，把命令结果写回任务状态和历史
 scripts/generators/        候选 schema 生成器（输出都是 candidate，必须 AI 重写才可执行）
 scripts/diagnostics/       诊断类只读脚本（watch、scope scan、cross-AI review）
 scripts/analytics/         历史效果归因
 data/reference/            原始参考源文件，例如节气事件 Excel
 data/tmp_tests/            临时探针和故障现场文件；不是长期事实源
+src/agent_control_plane.js 智能代理底座：任务状态、授权边界、效果复查
 src/ai_decision.js         action schema 校验器（代码核心 gate）
 src/adjustment_log.js      每次调整落地记录
 src/daily_learning.js      每日学习汇总
@@ -69,6 +79,88 @@ The script splits comma-separated terms into separate ABA requests and merges th
 For any keyword, SKU, ASIN, product direction, developer request, traffic recovery, keyword creation, or "can this product be pushed" question, build a product market profile instead of judging only from ad rows or inventory rows.
 
 Use `docs/PRODUCT_MARKET_EVIDENCE_STACK.md` as the default read path: ABA demand/concentration, keyword conversion economics, SKU ad proof, listing/price fit, inventory/economics, and recent action history. Selection-system evidence is still read-only; executable ad actions require the normal schema, dry-run, execution, and landing verification flow.
+
+## 智能代理底座
+
+项目开始补齐“能负责一件事到闭环”的底座。`src/agent_control_plane.js` 统一处理三件事：任务台账、授权边界、效果复查。
+
+- 任务台账：把每日巡检、外部诉求、新能力接入、执行后复查统一成任务卡，状态包含新建、处理中、已执行、待复查、已阻塞、已关闭。
+- 授权边界：只读动作直接拉证据；低风险且已授权的广告动作走预演、执行、落地回查；高影响 listing、价格、新广告结构等动作必须有明确授权边界；候选生成器输出不能直接执行。
+- 效果复查：动作里如果带复查计划，会自动生成 1 日、3 日、7 日等复查任务，保留原动作、指标、执行前基线和回滚条件；有 `currentMetrics`、`adBaseline` 等执行时指标时，会自动带入复查基线。
+
+```powershell
+npm run ops:agent -- --tasks data\tasks\daily_tasks_<date>.json --actions data\snapshots\action_schema_<date>_codex.json --out data\agent\agent_ledger_<date>.json
+```
+
+`npm run ops:today` 也会自动输出 `data/agent/agent_ledger_<businessDate>.json`，把当天任务、动作授权和后续复查承诺登记到同一份台账里。详细说明见 `docs/AGENT_CONTROL_PLANE.md`。
+
+外部临时任务进入同一套台账前，先用外部任务入口标准化：
+
+```powershell
+npm run ops:agent:inbox -- --text "开发问 HAY0218 为什么没流量，能不能推"
+```
+
+每天要回看的承诺用复查队列筛出：
+
+```powershell
+npm run ops:agent:reviews -- --ledger data\agent\agent_ledger_<date>.json --today <date>
+```
+
+复查证据准备好后，用效果复查执行器给出关闭、继续观察或回滚复核判断：
+
+```powershell
+npm run ops:agent:review-effect -- --queue data\agent\review_queue_<date>.json --evidence data\agent\review_evidence_<date>.json --today <date>
+```
+
+如果要让复查器先自动拉广告 SKU 摘要证据，再判断：
+
+```powershell
+npm run ops:agent:review-effect -- --queue data\agent\review_queue_<date>.json --collect-evidence --today <date>
+```
+
+有库存、利润或选品报告时一并传入，复查器会把广告、库存、利润、选品放到同一份证据里。订单改善但库存偏紧、利润不支持、市场转化弱或竞争过高时，不会直接建议关闭：
+
+```powershell
+npm run ops:agent:review-effect -- --queue data\agent\review_queue_<date>.json --collect-evidence --inventory-report data\snapshots\inventory_review_<date>.json --profit-report data\snapshots\profit_review_<date>.json --keyword-conversion-report data\snapshots\selection_keyword_conversion_rate_<date>.json --aba-report data\snapshots\selection_aba_search_terms_<date>.json --today <date>
+```
+
+也可以单独采集证据：
+
+```powershell
+npm run ops:agent:review-evidence -- --queue data\agent\review_queue_<date>.json --today <date>
+```
+
+新发现的接口先进入能力注册中心，登记只读/可写、风险、字段契约和回查方式：
+
+```powershell
+npm run ops:agent:capabilities -- --file data\agent\capabilities_<date>.json --out data\agent\capability_registry_<date>.json
+```
+
+这个命令默认会合并内置能力目录，包含广告复查证据、选品关键词转化、选品 ABA、sellerinventory 读取/提交、复查证据采集和效果复查判断；只检查临时能力文件时加 `--no-defaults`。
+
+最后用自主运营中枢合成今天的工作队列：
+
+```powershell
+npm run ops:agent:hub -- --ledger data\agent\agent_ledger_<date>.json --inbox data\agent\external_inbox_<date>.json --reviews data\agent\review_queue_<date>.json --capabilities data\agent\capability_registry_<date>.json --today <date>
+```
+
+中枢输出的每条任务会带 `requiredCapabilities` 和 `executionPlan.commands`。它会把“该跑哪条只读证据命令”列出来，比如到期复查、选品关键词转化、ABA 搜索词证据；但不会绕过 schema、预演、授权边界或写后回查。
+
+只读证据命令可以交给受限执行器跑，它只接受中枢标记为 `safeToAutoRun=true` 且命令风险为 `read_only` 的白名单命令：
+
+```powershell
+npm run ops:agent:run-commands -- --hub data\agent\operating_hub_<date>.json --out data\agent\command_results_<date>.json
+```
+
+如果命令退出成功但没有生成声明的输出文件，会按失败处理，避免任务被误标为已执行。
+
+命令跑完后，把命令结果回填到任务状态和历史：
+
+```powershell
+npm run ops:agent:feedback -- --hub data\agent\operating_hub_<date>.json --results data\agent\command_results_<date>.json --out data\agent\operating_hub_feedback_<date>.json
+```
+
+结果文件支持 `{ "results": [...] }`，每条至少带 `taskId`、`ok`、`exitCode`，可附带 `command`、`summary`、`outputFiles`、`report.verdict`。成功的只读证据任务会标为已执行，失败会标为已阻塞，复查报告里的关闭/继续观察/回滚结论会写入任务历史。
 
 ## 每日闭环（一次完整运行）
 
