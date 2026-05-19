@@ -20,7 +20,7 @@ const TYPE_META = {
     channel: 'SP_AUTO',
     entityType: 'autoTarget',
     idField: 'targetId',
-    writerUrl: '/advTarget/batchUpdateManualTarget',
+    writerUrl: '/advTarget/batchEditAutoTarget',
     property: 'autoTarget'
   },
   spTarget: {
@@ -109,6 +109,41 @@ function daysSince(value, now) {
   return (now.getTime() - date.getTime()) / 86400000;
 }
 
+function latestTimestamp(...values) {
+  let best = '';
+  let bestTime = -Infinity;
+  for (const value of values) {
+    const date = parseDate(value);
+    if (!date) continue;
+    const time = date.getTime();
+    if (time > bestTime) {
+      bestTime = time;
+      best = value;
+    }
+  }
+  return best;
+}
+
+function localDateKey(date) {
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) return '';
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(date).reduce((acc, part) => {
+    if (part.type !== 'literal') acc[part.type] = part.value;
+    return acc;
+  }, {});
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
+
+function isSameLocalDate(value, now) {
+  const date = parseDate(value);
+  if (!date) return false;
+  return localDateKey(date) === localDateKey(now);
+}
+
 function activeEnough(entity) {
   return num(entity.state) === 1 && num(entity.campaignState) === 1 && num(entity.groupState) === 1;
 }
@@ -128,9 +163,21 @@ function hasRecentImprovement(entity, windowDays) {
   });
 }
 
-function clampBid(value) {
-  if (value >= 0.5) return Math.max(0.02, Number((Math.floor(value * 20) / 20).toFixed(2)));
-  return Math.max(0.02, Number(value.toFixed(2)));
+function isVideoSbKind(kind) {
+  return kind === 'sbKeyword' || kind === 'sbTarget' || kind === 'sbKw';
+}
+
+function bidFloorFor(item = {}) {
+  const kind = item.kind;
+  const campaignName = text(item.campaignName || item.raw?.campaignName);
+  if (isVideoSbKind(kind) && /sbv|video/i.test(campaignName)) return 0.25;
+  return 0.02;
+}
+
+function clampBid(value, floor = 0.02) {
+  const min = Number.isFinite(Number(floor)) ? Number(floor) : 0.02;
+  if (value >= 0.5) return Math.max(min, Number((Math.floor(value * 20) / 20).toFixed(2)));
+  return Math.max(min, Number(value.toFixed(2)));
 }
 
 function bidDownAmount(metric, bid, windowDays) {
@@ -159,7 +206,7 @@ function decideLowEfficiencyAction(entity, options = {}) {
   if (!activeEnough(entity)) {
     return { actionType: 'skip', reasonCode: 'inactive_parent_or_entity', reason: 'Entity, campaign, or ad group is not enabled.' };
   }
-  const lastAdjust = entity.operatedAt || entity.updatedAt;
+  const lastAdjust = latestTimestamp(entity.operatedAt, entity.updatedAt);
   if (daysSince(lastAdjust, now) < windowDays) {
     return { actionType: 'skip', reasonCode: 'adjustment_window_not_elapsed', reason: `Last adjustment is inside the ${windowDays}-day window.` };
   }
@@ -176,7 +223,14 @@ function decideLowEfficiencyAction(entity, options = {}) {
     };
   }
   if (amount > 0) {
-    const suggestedBid = clampBid(entity.bid - amount);
+    const suggestedBid = clampBid(entity.bid - amount, bidFloorFor(entity));
+    if (suggestedBid >= entity.bid) {
+      return {
+        actionType: 'hold',
+        reasonCode: 'bid_already_at_floor',
+        reason: `Current bid ${Number(entity.bid).toFixed(2)} is already near the floor.`
+      };
+    }
     return {
       actionType: 'bid',
       currentBid: entity.bid,
@@ -283,6 +337,83 @@ function isExplicitlyDisabled(value) {
   return Number.isFinite(n) && n !== 1;
 }
 
+function cooldownOverrideDecision(entry = {}, now = new Date()) {
+  const lastAdjust = latestTimestamp(entry.operatedAt, entry.updatedAt);
+  if (isSameLocalDate(lastAdjust, now)) return null;
+
+  const bid = num(entry.bid) || 0;
+  if (bid <= 0) return null;
+
+  const windowHit = continuingWasteWindow(entry);
+  if (!windowHit) return null;
+
+  const suggestedBid = clampBid(bid - smallBidStep(bid), bidFloorFor(entry));
+  if (suggestedBid >= bid) return null;
+
+  return {
+    actionType: 'bid',
+    currentBid: bid,
+    suggestedBid,
+    reasonCode: windowHit.reasonCode,
+    pattern: 'cooldown_override',
+    presence: presenceFlags(entry),
+    reason: windowHit.reason
+  };
+}
+
+function continuingWasteWindow(entry = {}) {
+  const bid = num(entry.bid) || 0;
+  if (bid <= 0) return null;
+
+  for (const windowDays of [7, 15, 30]) {
+    const metric = entry.windows?.[String(windowDays)] || entry.windows?.[windowDays];
+    if (!metric) continue;
+    const clicks = num(metric.clicks);
+    const spend = num(metric.spend);
+    const orders = num(metric.orders);
+    const acos = metric.acos === null || metric.acos === undefined || metric.acos === '' ? null : num(metric.acos);
+    const isSevenDay = windowDays === 7;
+    const zeroOrderClickGate = isSevenDay ? 7 : 8;
+    const zeroOrderSpendGate = isSevenDay ? 2 : 2.5;
+    const highAcosClickGate = isSevenDay ? 5 : 5;
+    const highAcosSpendGate = isSevenDay ? 2 : 2.5;
+
+    if (orders === 0 && (clicks >= zeroOrderClickGate || spend >= zeroOrderSpendGate)) {
+      return {
+        windowDays,
+        reasonCode: `cooldown_override_${windowDays}d_zero_order`,
+        reason: `${windowDays}d still has clicks/spend with zero orders: clicks=${clicks}, spend=${spend.toFixed(2)}, orders=0.`
+      };
+    }
+    if (orders > 0 && acos !== null && acos >= 0.3 && (clicks >= highAcosClickGate || spend >= highAcosSpendGate)) {
+      return {
+        windowDays,
+        reasonCode: `cooldown_override_${windowDays}d_high_acos`,
+        reason: `${windowDays}d ACOS is still high despite orders: clicks=${clicks}, spend=${spend.toFixed(2)}, orders=${orders}, acos=${acos.toFixed(3)}.`
+      };
+    }
+  }
+
+  return null;
+}
+
+function residualWasteBidDecision(entry = {}, pattern = '', flags = presenceFlags(entry)) {
+  const waste = continuingWasteWindow(entry);
+  if (!waste) return null;
+  const bid = num(entry.bid) || 0;
+  const suggestedBid = clampBid(bid - smallBidStep(bid), bidFloorFor(entry));
+  if (suggestedBid >= bid) return null;
+  return {
+    actionType: 'bid',
+    currentBid: bid,
+    suggestedBid,
+    reasonCode: waste.reasonCode.replace('cooldown_override_', 'residual_'),
+    pattern,
+    presence: flags,
+    reason: waste.reason
+  };
+}
+
 function decideFromPoolMembership(entry = {}, options = {}) {
   const now = options.now instanceof Date ? options.now : new Date();
   const cooldownDays = Number(options.cooldownDays || 14);
@@ -291,8 +422,10 @@ function decideFromPoolMembership(entry = {}, options = {}) {
     return { actionType: 'skip', reasonCode: 'inactive_parent_or_entity', pattern: 'inactive', presence: presenceFlags(entry), reason: 'Entity, campaign, or ad group is not enabled.' };
   }
 
-  const lastAdjust = entry.operatedAt || entry.updatedAt;
+  const lastAdjust = latestTimestamp(entry.operatedAt, entry.updatedAt);
   if (daysSince(lastAdjust, now) < cooldownDays) {
+    const override = cooldownOverrideDecision(entry, now);
+    if (override) return override;
     return { actionType: 'skip', reasonCode: 'adjustment_cooldown_not_elapsed', pattern: 'cooldown', presence: presenceFlags(entry), reason: `Last adjustment is inside the ${cooldownDays}-day cooldown.` };
   }
 
@@ -303,7 +436,32 @@ function decideFromPoolMembership(entry = {}, options = {}) {
   const focusSummary = `clicks=${num(focus.clicks)}, spend=${num(focus.spend).toFixed(2)}, orders=${num(focus.orders)}, acos=${focus.acos === null || focus.acos === undefined ? '-' : Number(focus.acos).toFixed(3)}`;
   const presenceSummary = `30d=${flags[30] ? 'in' : 'ok'} 15d=${flags[15] ? 'in' : 'ok'} 7d=${flags[7] ? 'in' : 'ok'} 3d=${flags[3] ? 'in' : 'ok'}`;
 
+  if (pattern === 'improving_marginally') {
+    const m7 = entry.windows?.['7'] || entry.windows?.[7] || {};
+    if (num(m7.orders) === 0 && (num(m7.clicks) > 0 || num(m7.spend) > 0)) {
+      const bid = num(entry.bid) || 0;
+      if (bid <= 0) {
+        return { actionType: 'hold', reasonCode: 'missing_bid', pattern, presence: flags, reason: `Cannot compute bid step without a current bid. ${presenceSummary}.` };
+      }
+      const suggestedBid = clampBid(bid - smallBidStep(bid), bidFloorFor(entry));
+      if (suggestedBid >= bid) {
+        return { actionType: 'hold', reasonCode: 'bid_already_at_floor', pattern, presence: flags, reason: `Current bid ${bid.toFixed(2)} is already near the floor. ${presenceSummary}.` };
+      }
+      return {
+        actionType: 'bid',
+        currentBid: bid,
+        suggestedBid,
+        reasonCode: 'seven_day_no_order_still_low',
+        pattern,
+        presence: flags,
+        reason: `${presenceSummary}. 7d clicks=${num(m7.clicks)}, spend=${num(m7.spend).toFixed(2)}, orders=0.`
+      };
+    }
+  }
+
   if (intent.actionType === 'skip' || intent.actionType === 'hold') {
+    const residual = residualWasteBidDecision(entry, pattern, flags);
+    if (residual) return residual;
     return { actionType: intent.actionType === 'skip' ? 'skip' : 'hold', reasonCode: intent.reasonCode, pattern, presence: flags, reason: `${presenceSummary}. ${focusSummary}.` };
   }
 
@@ -323,15 +481,22 @@ function decideFromPoolMembership(entry = {}, options = {}) {
       return { actionType: 'pause', reasonCode: focusMetric.orders > 0 ? 'acos_hard_stop' : 'no_order_hard_stop', pattern, presence: flags, reason: `${presenceSummary}. 30d ${focusSummary}.` };
     }
     if (amount > 0) {
-      const suggestedBid = clampBid(bid - amount);
+      const suggestedBid = clampBid(bid - amount, bidFloorFor(entry));
+      if (suggestedBid >= bid) {
+        return { actionType: 'hold', reasonCode: 'bid_already_at_floor', pattern, presence: flags, reason: `Current bid ${bid.toFixed(2)} is already near the floor. ${presenceSummary}.` };
+      }
       return { actionType: 'bid', currentBid: bid, suggestedBid, reasonCode: focusMetric.orders > 0 ? 'acos_bid_down' : 'no_order_bid_down', pattern, presence: flags, reason: `${presenceSummary}. 30d ${focusSummary}.` };
     }
     const step = smallBidStep(bid);
-    return { actionType: 'bid', currentBid: bid, suggestedBid: clampBid(bid - step), reasonCode: 'persistently_low_small_step', pattern, presence: flags, reason: `${presenceSummary}. 30d ${focusSummary}.` };
+    const suggestedBid = clampBid(bid - step, bidFloorFor(entry));
+    if (suggestedBid >= bid) {
+      return { actionType: 'hold', reasonCode: 'bid_already_at_floor', pattern, presence: flags, reason: `Current bid ${bid.toFixed(2)} is already near the floor. ${presenceSummary}.` };
+    }
+    return { actionType: 'bid', currentBid: bid, suggestedBid, reasonCode: 'persistently_low_small_step', pattern, presence: flags, reason: `${presenceSummary}. 30d ${focusSummary}.` };
   }
 
   const step = smallBidStep(bid);
-  const suggestedBid = clampBid(bid - step);
+  const suggestedBid = clampBid(bid - step, bidFloorFor(entry));
   if (suggestedBid >= bid) {
     return { actionType: 'hold', reasonCode: 'bid_already_at_floor', pattern, presence: flags, reason: `Current bid ${bid.toFixed(2)} is already near the floor. ${presenceSummary}.` };
   }
@@ -416,7 +581,7 @@ function scanLowEfficiencyCandidates(snapshot = {}, options = {}) {
         accountId: entity.accountId,
         siteId: entity.siteId,
         currentBid: entity.bid,
-        lastAdjustedAt: entity.operatedAt || entity.updatedAt,
+        lastAdjustedAt: latestTimestamp(entity.operatedAt, entity.updatedAt),
         metrics30: entity.metrics[30] || entity.metrics.current,
         metrics7: entity.metrics[7],
         metrics3: entity.metrics[3],

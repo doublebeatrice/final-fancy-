@@ -73,6 +73,38 @@ const {
 }
 
 {
+  const action = {
+    sku: 'WAR0228',
+    id: 'WAR0228',
+    site: 'Amazon.com',
+    currentPrice: 50.99,
+    suggestedPrice: 53.54,
+    remark: 'inventory protection price raise',
+    priceIntent: 'inventory_protection',
+    adCoupling: { direction: 'down', reason: 'protect tight inventory' },
+  };
+  const validation = validatePriceAction(action);
+  assert.strictEqual(validation.ok, true);
+  assert.strictEqual(validation.suggestedPrice, 53.99);
+  assert.strictEqual(validation.direction, 'up');
+  assert.ok(validation.warnings.includes('price_target_normalized_to_99'));
+
+  const built = buildApplyPricePayload(action, {
+    sku: 'WAR0228',
+    site: 'Amazon.com',
+    price: '50.99',
+    profit_raw: '0.2100',
+    profit_raw_sea: '0.3400',
+    account: 'WAR',
+    developer_num: 'DB000',
+    seller_num: 'HJ17',
+  }, { profit: '0.2600', profitSea: '0.3900' });
+  assert.strictEqual(built.ok, true);
+  assert.strictEqual(built.payload.price_apply, '53.99');
+  assert.strictEqual(built.payload.float_price, '0.0588');
+}
+
+{
   const defaulted = normalizeAdCoupling({
     priceIntent: 'ad_space_expansion',
     currentPrice: 20,

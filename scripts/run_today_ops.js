@@ -9,9 +9,14 @@ const { buildOpsTimeContext } = require('../src/ops_time');
 const { buildDailyTaskPool } = require('../src/task_scheduler');
 const { persistDailyLearning } = require('../src/daily_learning');
 const { buildProactiveOperatingAudit, renderProactiveOperatingAuditHtml } = require('../src/proactive_audit');
+const { writeSeasonTitleReport } = require('./generate_season_title_dry_run');
+const { buildSeasonTitleActionSchema } = require('./generators/generate_season_title_action_schema');
+const { buildSeasonTitleListingApplications } = require('./generators/generate_season_title_listing_schema');
+const { buildListingCopyDryRunReport } = require('../src/listing_copy_edit');
 const { summarizeOverBudgetCoverage } = require('../src/over_budget_policy');
 const { updateHistoryFromSnapshot, annotateCapSince } = require('../src/over_budget_history');
 const { scanLowEfficiencyCandidates, scanLowEfficiencyPools } = require('../src/low_efficiency_decision');
+const { auditAdStructureOpportunities } = require('../src/ad_structure_opportunity');
 const { exportSnapshot } = require('./execute/export_snapshot');
 const { run } = require('../auto_adjust');
 
@@ -33,9 +38,11 @@ function parseArgs(argv) {
   const actor = ['codex', 'claude', 'manual'].includes(requestedActor) ? requestedActor : 'codex';
   const requestedSchemaFile = schemaIndex >= 0 ? args[schemaIndex + 1] : (process.env.ACTION_SCHEMA_FILE || '');
   const requestedMode = modeIndex >= 0 ? args[modeIndex + 1] : '';
-  const runtimeMode = execute ? 'execute' : ((requestedMode || 'fast').trim() || 'fast');
+  const normalizedMode = String(requestedMode || 'fast').trim();
+  const snapshotMode = normalizedMode === 'full-snapshot' ? 'full-snapshot' : 'fast';
   return {
-    mode: runtimeMode,
+    mode: snapshotMode,
+    operationMode: execute ? 'execute' : 'dry-run',
     dryRun: !execute,
     execute,
     actor,
@@ -203,25 +210,33 @@ function extractSchemaSkuList(schemaFile) {
   return [];
 }
 
+function numberFromEnv(name, fallback) {
+  const raw = process.env[name];
+  if (raw === undefined || raw === '') return fallback;
+  const n = Number(raw);
+  return Number.isFinite(n) ? n : fallback;
+}
+
 function buildFetchOptions(options) {
   const schemaSkus = extractSchemaSkuList(options.actionSchemaFile);
+  const fullSnapshot = options.mode === 'full-snapshot';
   return {
-    mode: options.mode === 'full-snapshot' ? 'full-snapshot' : 'fast',
-    listingStrategy: options.mode === 'full-snapshot' ? 'all' : 'schema',
-    listingSkus: options.mode === 'full-snapshot' ? [] : schemaSkus,
-    chartStrategy: options.mode === 'full-snapshot' ? 'none' : 'schema',
-    chartSkus: options.mode === 'full-snapshot' ? [] : schemaSkus,
-    salesHistoryStrategy: options.mode === 'full-snapshot' ? (process.env.AD_OPS_SALES_HISTORY_STRATEGY || 'none') : (process.env.AD_OPS_SALES_HISTORY_STRATEGY || 'schema'),
-    salesHistorySkus: options.mode === 'full-snapshot' ? [] : schemaSkus,
-    salesHistoryLimit: Number(process.env.AD_OPS_SALES_HISTORY_LIMIT || (options.mode === 'full-snapshot' ? 0 : Math.max(10, schemaSkus.length || 0))),
-    salesHistoryConcurrency: Number(process.env.AD_OPS_SALES_HISTORY_CONCURRENCY || 3),
-    chartLookbackDays: Number(process.env.AD_OPS_PRODUCT_CHART_LOOKBACK_DAYS || 30),
-    listingConcurrency: Number(process.env.AD_OPS_LISTING_FETCH_CONCURRENCY || 5),
-    listingLimit: Number(process.env.AD_OPS_LISTING_FETCH_LIMIT || (options.mode === 'full-snapshot' ? 120 : Math.max(10, schemaSkus.length || 0))),
-    listingTimeoutMs: Number(process.env.AD_OPS_LISTING_FETCH_TIMEOUT_MS || 10000),
-    listingRetry: Number(process.env.AD_OPS_LISTING_FETCH_RETRY || 1),
-    listingStageTimeoutMs: Number(process.env.AD_OPS_LISTING_FETCH_STAGE_TIMEOUT_MS || 120000),
-    listingCacheTtlMs: Number(process.env.AD_OPS_LISTING_CACHE_TTL_MS || (7 * 24 * 60 * 60 * 1000)),
+    mode: fullSnapshot ? 'full-snapshot' : 'fast',
+    listingStrategy: fullSnapshot ? 'all' : 'schema',
+    listingSkus: fullSnapshot ? [] : schemaSkus,
+    chartStrategy: fullSnapshot ? 'none' : 'schema',
+    chartSkus: fullSnapshot ? [] : schemaSkus,
+    salesHistoryStrategy: fullSnapshot ? (process.env.AD_OPS_SALES_HISTORY_STRATEGY || 'none') : (process.env.AD_OPS_SALES_HISTORY_STRATEGY || 'schema'),
+    salesHistorySkus: fullSnapshot ? [] : schemaSkus,
+    salesHistoryLimit: numberFromEnv('AD_OPS_SALES_HISTORY_LIMIT', fullSnapshot ? 0 : Math.max(10, schemaSkus.length || 0)),
+    salesHistoryConcurrency: numberFromEnv('AD_OPS_SALES_HISTORY_CONCURRENCY', 3),
+    chartLookbackDays: numberFromEnv('AD_OPS_PRODUCT_CHART_LOOKBACK_DAYS', 30),
+    listingConcurrency: numberFromEnv('AD_OPS_LISTING_FETCH_CONCURRENCY', 5),
+    listingLimit: numberFromEnv('AD_OPS_LISTING_FETCH_LIMIT', fullSnapshot ? 0 : Math.max(10, schemaSkus.length || 0)),
+    listingTimeoutMs: numberFromEnv('AD_OPS_LISTING_FETCH_TIMEOUT_MS', 10000),
+    listingRetry: numberFromEnv('AD_OPS_LISTING_FETCH_RETRY', 1),
+    listingStageTimeoutMs: numberFromEnv('AD_OPS_LISTING_FETCH_STAGE_TIMEOUT_MS', 120000),
+    listingCacheTtlMs: numberFromEnv('AD_OPS_LISTING_CACHE_TTL_MS', 7 * 24 * 60 * 60 * 1000),
     listingOptional: true,
     schemaSkus,
   };
@@ -534,14 +549,82 @@ function validateSnapshotFile(snapshotFile) {
   return {
     ok: true,
     snapshot: parsed,
-    counts: {
-      productCards: parsed.productCards.length,
-      kwRows: (parsed.kwRows || []).length,
-      autoRows: (parsed.autoRows || []).length,
-      targetRows: (parsed.targetRows || []).length,
-      sbRows: (parsed.sbRows || []).length,
-      invMap: Object.keys(parsed.invMap || {}).length,
-    },
+    counts: buildSnapshotCounts(parsed),
+  };
+}
+
+function arrayCount(value) {
+  return Array.isArray(value) ? value.length : 0;
+}
+
+function objectCount(value) {
+  return value && typeof value === 'object' && !Array.isArray(value) ? Object.keys(value).length : 0;
+}
+
+function uniqueList(values = []) {
+  return [...new Set((values || []).filter(Boolean))];
+}
+
+function buildSnapshotCounts(snapshot = {}) {
+  const listingFetchMeta = snapshot.listingFetchMeta || {};
+  const counts = {
+    productCards: arrayCount(snapshot.productCards),
+    kwRows: arrayCount(snapshot.kwRows),
+    autoRows: arrayCount(snapshot.autoRows),
+    targetRows: arrayCount(snapshot.targetRows),
+    productAdRows: arrayCount(snapshot.productAdRows),
+    sbRows: arrayCount(snapshot.sbRows),
+    sbCampaignRows: arrayCount(snapshot.sbCampaignRows),
+    sellerSalesRows: arrayCount(snapshot.sellerSalesRows),
+    overBudgetRows: arrayCount(snapshot.overBudgetRows),
+    invMap: objectCount(snapshot.invMap),
+    inventoryScopeRows: arrayCount(snapshot.inventoryScopeRows),
+    salesHistorySkus: objectCount(snapshot.salesHistoryMap),
+    productChartSkus: objectCount(snapshot.productChartMap),
+    listingFetchAttempted: Number(listingFetchMeta.attempted || 0),
+    listingFetchSuccess: Number(listingFetchMeta.success || 0),
+    listingFetchFailed: Number(listingFetchMeta.failed || 0),
+    listingFetchSkipped: Number(listingFetchMeta.skipped || 0),
+    listingFetchMaxListings: Number(listingFetchMeta.maxListings || 0),
+  };
+  counts.adRowsTotal = counts.kwRows + counts.autoRows + counts.targetRows + counts.productAdRows + counts.sbRows + counts.sbCampaignRows;
+  return counts;
+}
+
+function buildSnapshotDataQuality(snapshot = {}, fetchOptions = {}) {
+  const counts = buildSnapshotCounts(snapshot);
+  const listingMeta = snapshot.listingFetchMeta || {};
+  const listingStrategy = String(fetchOptions.listingStrategy || listingMeta.listingStrategy || '').trim();
+  const listingLimit = Number(fetchOptions.listingLimit ?? listingMeta.maxListings ?? 0);
+  const listingCoverageThreshold = numberFromEnv('AD_OPS_LISTING_COVERAGE_WARN_THRESHOLD', 0.8);
+  const listingCoverage = counts.productCards > 0
+    ? counts.listingFetchSuccess / counts.productCards
+    : null;
+  const warnings = [];
+
+  if (counts.productCards <= 0) warnings.push('snapshot_missing_product_cards');
+  if (counts.adRowsTotal <= 0) warnings.push('ads_rows_missing');
+  if (counts.sellerSalesRows <= 0) warnings.push('seller_sales_rows_missing');
+  if (counts.invMap <= 0 && counts.inventoryScopeRows <= 0) warnings.push('inventory_rows_missing');
+
+  if (listingStrategy === 'all') {
+    if (listingLimit > 0 && counts.productCards > listingLimit) warnings.push('full_snapshot_listing_limited');
+    if (counts.listingFetchAttempted <= 0 && counts.productCards > 0) warnings.push('listing_fetch_missing');
+    if (counts.listingFetchFailed > 0 || counts.listingFetchSkipped > 0) warnings.push('listing_fetch_partial');
+    if (listingCoverage !== null && listingCoverage < listingCoverageThreshold) warnings.push('listing_coverage_low');
+  }
+
+  const baselineQuality = counts.productCards <= 0 || counts.adRowsTotal <= 0
+    ? 'incomplete'
+    : (warnings.length ? 'warning' : 'complete');
+
+  return {
+    baselineQuality,
+    ...counts,
+    listingStrategy,
+    listingLimit,
+    listingCoverage,
+    warnings: uniqueList(warnings),
   };
 }
 
@@ -573,6 +656,98 @@ function summarizeValidation(validation) {
   };
 }
 
+function buildOperatingClosure(manifest = {}) {
+  const proactive = manifest.proactiveOperatingAudit || {};
+  const seasonActionCount = Number(manifest.seasonTitleActionSchema?.actions || 0);
+  const listingApplicationCount = Number(manifest.seasonTitleListingApplications?.built || 0);
+  const overBudgetActionable = Number(manifest.overBudgetCoverage?.actionableCampaigns || 0);
+  const lowEfficiencyActionable = Number(
+    manifest.lowEfficiencyPools?.actionableRows
+    || manifest.lowEfficiencyPools?.actionable
+    || manifest.lowEfficiencyCandidates?.actionable
+    || 0
+  );
+  const proactiveGaps = [
+    Number(proactive.newProductLaunch || 0),
+    Number(proactive.arrivalAdRecovery || 0),
+    Number(proactive.priceActions || 0),
+    Number(proactive.expiredSeasonKeywordWaste || 0),
+    Number(proactive.listingRepair || 0),
+  ].reduce((sum, value) => sum + value, 0);
+  const generatedCandidateActions = seasonActionCount + listingApplicationCount + overBudgetActionable + lowEfficiencyActionable;
+  const primaryPlanActions = Number(manifest.schemaValidation?.planActionCount || 0);
+  const warnings = [];
+  if (generatedCandidateActions > 0 && primaryPlanActions <= 0) warnings.push('generated_candidates_not_in_primary_plan');
+  if (proactiveGaps > 0 && primaryPlanActions <= 0) warnings.push('diagnosis_pressure_without_primary_plan');
+
+  return {
+    status: primaryPlanActions > 0
+      ? 'primary_plan_ready'
+      : (generatedCandidateActions > 0 || proactiveGaps > 0 ? 'candidate_pressure_detected' : 'no_candidate_pressure'),
+    primaryPlanActions,
+    generatedCandidateActions,
+    proactiveGaps,
+    seasonTitleAdActions: seasonActionCount,
+    listingApplications: listingApplicationCount,
+    overBudgetActionableCampaigns: overBudgetActionable,
+    lowEfficiencyActionable,
+    warnings,
+  };
+}
+
+function buildActionQuality(manifest = {}, options = {}) {
+  const schema = manifest.schemaValidation || {};
+  const executeStep = (manifest.steps || []).find(step => step.name === 'execute_verify_note') || {};
+  const overBudgetCoverage = manifest.overBudgetCoverage || {};
+  const operatingClosure = manifest.operatingClosure || buildOperatingClosure(manifest);
+  const plannedActions = Number(schema.planActionCount || 0);
+  const executableSkus = Number(schema.executableSkus || 0);
+  const errorCount = Number(schema.errorCount || 0);
+  const warnings = [];
+
+  if (errorCount > 0) warnings.push('schema_validation_errors');
+  if (plannedActions <= 0) warnings.push('no_planned_actions');
+  if (overBudgetCoverage.warning) warnings.push(overBudgetCoverage.warning);
+  if (!options.execute || executeStep.status === 'skipped') warnings.push('execution_skipped');
+  warnings.push(...(operatingClosure.warnings || []));
+
+  let status = 'ready_to_execute';
+  if (errorCount > 0) status = 'blocked';
+  else if (plannedActions <= 0) status = 'no_action_plan';
+  else if (!options.execute || executeStep.status === 'skipped') status = 'dry_run_only';
+  else if (executeStep.status === 'success') status = 'executed';
+  else if (executeStep.status === 'failed') status = 'execution_failed';
+
+  return {
+    status,
+    plannedActions,
+    executableSkus,
+    errorCount,
+    operatingClosure,
+    warnings: uniqueList(warnings),
+  };
+}
+
+function buildRunQuality(manifest = {}, options = {}) {
+  const dataQuality = manifest.dataQuality || {};
+  const actionQuality = manifest.actionQuality || buildActionQuality(manifest, options);
+  const warnings = uniqueList([
+    ...(dataQuality.warnings || []),
+    ...(actionQuality.warnings || []),
+  ]);
+  let status = 'complete';
+  if (manifest.status === 'failed') status = 'failed';
+  else if (dataQuality.baselineQuality === 'incomplete' || actionQuality.status === 'blocked' || actionQuality.status === 'execution_failed') status = 'blocked';
+  else if (dataQuality.baselineQuality === 'warning' || actionQuality.status !== 'executed' || warnings.length) status = 'needs_attention';
+
+  return {
+    status,
+    dataQuality: dataQuality.baselineQuality || 'unknown',
+    actionQuality: actionQuality.status,
+    warnings,
+  };
+}
+
 function buildRunSummary(manifest) {
   const steps = manifest.steps.map(step => ({
     name: step.name,
@@ -585,6 +760,7 @@ function buildRunSummary(manifest) {
   const panelStages = manifest.panelFetchMetrics?.stages || [];
   return {
     mode: manifest.mode,
+    operationMode: manifest.operationMode || '',
     runId: manifest.runId,
     time: manifest.time || null,
     runAt: manifest.runAt || manifest.time?.runAt || manifest.startedAt,
@@ -596,6 +772,10 @@ function buildRunSummary(manifest) {
     steps,
     reviewActions: schemaSummary.reviewActions || [],
     blockedActions: schemaSummary.blockedActions || [],
+    dataQuality: manifest.dataQuality || null,
+    actionQuality: manifest.actionQuality || null,
+    runQuality: manifest.runQuality || null,
+    operatingClosure: manifest.operatingClosure || null,
     totalProductCards: schemaSummary.totalProductCards || 0,
     allowedScopeSkuCount: schemaSummary.allowedScopeSkuCount || 0,
     schemaSkuCount: schemaSummary.schemaSkuCount || 0,
@@ -612,6 +792,13 @@ function buildRunSummary(manifest) {
     overBudgetCapture: manifest.overBudgetCapture || {},
     overBudgetCoverage: manifest.overBudgetCoverage || null,
     warnings: manifest.warnings || [],
+    seasonTitleDryRun: manifest.seasonTitleDryRun || null,
+    seasonTitleListingQueue: manifest.seasonTitleListingQueue || null,
+    seasonTitleActionSchema: manifest.seasonTitleActionSchema || null,
+    seasonTitleListingApplications: manifest.seasonTitleListingApplications || null,
+    seasonTitleListingCopyDryRun: manifest.seasonTitleListingCopyDryRun || null,
+    highEfficiencyRows: manifest.highEfficiencyRows || null,
+    adStructureOpportunities: manifest.adStructureOpportunities || null,
     dailyLearning: manifest.dailyLearning || null,
   };
 }
@@ -679,6 +866,7 @@ async function main() {
     siteTimezone: timeContext.siteTimezone,
     runActor: options.actor || 'codex',
     mode: options.mode,
+    operationMode: options.operationMode,
     startedAt: timeContext.runAt,
     actionSchemaFile: path.resolve(options.actionSchemaFile),
     snapshotFile,
@@ -742,6 +930,7 @@ async function main() {
       if (!snapshotCheck.ok) throw new Error(snapshotCheck.reason);
       manifest.outputFiles.snapshotFile = result.outputFile;
       manifest.panelFetchMetrics = result.snapshot?.fetchMetrics || snapshotCheck.snapshot?.fetchMetrics || {};
+      manifest.dataQuality = buildSnapshotDataQuality(snapshotCheck.snapshot, fetchOptions);
       manifest.overBudgetCapture = {
         ...manifest.overBudgetCapture,
         ...((result.snapshot || snapshotCheck.snapshot)?.dataAvailability?.overBudget || {}),
@@ -822,6 +1011,53 @@ async function main() {
       };
     });
 
+    await runStep('season_title_dry_run', async () => {
+      const taskDir = path.join(ROOT, 'data', 'tasks');
+      const jsonFile = path.join(taskDir, `season_title_dry_run_${timeContext.businessDate}.json`);
+      const mdFile = path.join(taskDir, `season_title_dry_run_${timeContext.businessDate}.md`);
+      const queueFile = path.join(taskDir, `season_title_listing_queue_${timeContext.businessDate}.json`);
+      const actionSchemaFile = path.join(SNAPSHOT_DATA_DIR, `action_schema_${timeContext.businessDate}_season_title_ads.json`);
+      const listingApplicationsFile = path.join(SNAPSHOT_DATA_DIR, `season_title_listing_applications_${timeContext.businessDate}.json`);
+      const listingCopyDryRunFile = path.join(SNAPSHOT_DATA_DIR, `listing_copy_edit_dry_run_${timeContext.businessDate}.json`);
+      const result = writeSeasonTitleReport({
+        snapshot,
+        snapshotFile,
+        businessDate: timeContext.businessDate,
+        outJson: jsonFile,
+        outMd: mdFile,
+        outQueue: queueFile,
+      });
+      const actionSchema = buildSeasonTitleActionSchema({ report: result.report, snapshot });
+      const listingApplications = buildSeasonTitleListingApplications({ report: result.report, snapshot });
+      const listingCopyDryRun = buildListingCopyDryRunReport(listingApplications, {
+        businessDate: timeContext.businessDate,
+      });
+      writeJson(actionSchemaFile, actionSchema);
+      writeJson(listingApplicationsFile, listingApplications);
+      writeJson(listingCopyDryRunFile, {
+        ...listingCopyDryRun,
+        schemaFile: listingApplicationsFile,
+      });
+      manifest.outputFiles.seasonTitleDryRunJson = jsonFile;
+      manifest.outputFiles.seasonTitleDryRunMarkdown = mdFile;
+      manifest.outputFiles.seasonTitleListingQueueJson = queueFile;
+      manifest.outputFiles.seasonTitleActionSchemaJson = actionSchemaFile;
+      manifest.outputFiles.seasonTitleListingApplicationsJson = listingApplicationsFile;
+      manifest.outputFiles.seasonTitleListingCopyDryRunJson = listingCopyDryRunFile;
+      manifest.seasonTitleDryRun = result.report.summary;
+      manifest.seasonTitleListingQueue = { skus: result.listingQueue.skus.length };
+      manifest.seasonTitleActionSchema = {
+        skus: actionSchema.length,
+        actions: actionSchema.reduce((sum, item) => sum + item.actions.length, 0),
+      };
+      manifest.seasonTitleListingApplications = listingApplications.summary;
+      manifest.seasonTitleListingCopyDryRun = listingCopyDryRun.summary;
+      return {
+        outputs: { seasonTitleDryRunJson: jsonFile, seasonTitleDryRunMarkdown: mdFile, seasonTitleListingQueueJson: queueFile, seasonTitleActionSchemaJson: actionSchemaFile, seasonTitleListingApplicationsJson: listingApplicationsFile, seasonTitleListingCopyDryRunJson: listingCopyDryRunFile },
+        details: { ...result.report.summary, listingQueueSkus: result.listingQueue.skus.length, actionSchemaSkus: actionSchema.length, actionSchemaActions: actionSchema.reduce((sum, item) => sum + item.actions.length, 0), listingApplications: listingApplications.summary.built, listingCopyDryRun: listingCopyDryRun.summary },
+      };
+    });
+
     await runStep('low_efficiency_candidates', async () => {
       const taskDir = path.join(ROOT, 'data', 'tasks');
       const hasPools = !!(snapshot.lowEfficiencyRows && Object.values(snapshot.lowEfficiencyRows).some(arr => Array.isArray(arr) && arr.length));
@@ -845,6 +1081,37 @@ async function main() {
         details = { source: 'fallback_full_scan', ...scan.summary };
       }
       return { outputs, details };
+    });
+
+    await runStep('high_efficiency_rows', async () => {
+      const taskDir = path.join(ROOT, 'data', 'tasks');
+      const jsonFile = path.join(taskDir, `high_efficiency_rows_${timeContext.businessDate}.json`);
+      const scriptFile = path.join(ROOT, 'scripts', 'execute', 'fetch_high_efficiency_rows.js');
+      const stdout = execFileSync(process.execPath, [scriptFile, 'all', '4', '7', '', jsonFile], { encoding: 'utf8' });
+      const report = readJson(jsonFile, {});
+      manifest.outputFiles.highEfficiencyRowsJson = jsonFile;
+      manifest.highEfficiencyRows = {
+        totalRows: Number(report.totalRows || 0),
+        skuCount: Number(report.summary?.skuCount || 0),
+        topSkus: (report.summary?.skus || []).slice(0, 20),
+      };
+      return {
+        outputs: { highEfficiencyRowsJson: jsonFile },
+        details: { ...manifest.highEfficiencyRows, stdout: stdout.trim() },
+      };
+    });
+
+    await runStep('ad_structure_opportunities', async () => {
+      const taskDir = path.join(ROOT, 'data', 'tasks');
+      const jsonFile = path.join(taskDir, `ad_structure_opportunities_${timeContext.businessDate}.json`);
+      const report = auditAdStructureOpportunities(snapshot);
+      writeJson(jsonFile, report);
+      manifest.outputFiles.adStructureOpportunitiesJson = jsonFile;
+      manifest.adStructureOpportunities = report.summary;
+      return {
+        outputs: { adStructureOpportunitiesJson: jsonFile },
+        details: report.summary,
+      };
     });
 
     await runStep('sku_ad_form_summary', async () => {
@@ -906,6 +1173,8 @@ async function main() {
         }];
         console.warn(`[warn] over_budget coverage: ${overBudgetCoverage.warning} | rows=${overBudgetCoverage.snapshotRows} eligible=${overBudgetCoverage.eligibleCampaigns} actionable=${overBudgetCoverage.actionableCampaigns} matched=${overBudgetCoverage.matchedActionCount}`);
       }
+      manifest.operatingClosure = buildOperatingClosure(manifest);
+      manifest.actionQuality = buildActionQuality(manifest, options);
       manifest.outputFiles.validatedPlanFile = path.join(SNAPSHOTS_DIR, 'ai_decision_validated_plan.json');
       if (summary.errorCount > 0 && options.execute) {
         throw new Error(`schema validation failed: ${summary.errorCount} errors`);
@@ -924,6 +1193,7 @@ async function main() {
         actionSchemaFile: path.resolve(options.actionSchemaFile),
         snapshotFile,
         dryRun: true,
+        fastScope: options.mode !== 'full-snapshot',
         timeContext,
         sourceRunId: runId,
       });
@@ -931,6 +1201,7 @@ async function main() {
       const planForLog = readJson(result?.files?.planFile || path.join(SNAPSHOTS_DIR, `plan_${today}.json`), []);
       const logResult = appendAdjustmentRecords(recordsFromPlan(planForLog, timeContext, { dryRun: true }), { timeContext });
       manifest.outputFiles.dryRunAdjustmentLogFile = logResult.file;
+      manifest.actionQuality = buildActionQuality(manifest, options);
       return {
         outputs: { ...(result?.files || {}), dryRunAdjustmentLogFile: logResult.file },
         details: { ...(result?.dryReport || {}), adjustmentLogCount: logResult.count },
@@ -944,6 +1215,7 @@ async function main() {
           actionSchemaFile: path.resolve(options.actionSchemaFile),
           snapshotFile,
           dryRun: false,
+          fastScope: options.mode !== 'full-snapshot',
           timeContext,
           sourceRunId: runId,
         });
@@ -954,6 +1226,7 @@ async function main() {
           { timeContext }
         );
         manifest.outputFiles.executeAdjustmentLogFile = executionLogResult.file;
+        manifest.actionQuality = buildActionQuality(manifest, options);
         return {
           outputs: { ...(result?.files || {}), executeAdjustmentLogFile: executionLogResult.file },
           details: {
@@ -970,6 +1243,8 @@ async function main() {
         details: { reason: 'dry-run mode; execute step skipped' },
       }));
     }
+    manifest.actionQuality = buildActionQuality(manifest, options);
+    manifest.runQuality = buildRunQuality(manifest, options);
 
     await runStep('daily_learning', async () => {
       const adjustmentLogFile = manifest.outputFiles.executeAdjustmentLogFile || manifest.outputFiles.dryRunAdjustmentLogFile || '';
@@ -990,6 +1265,8 @@ async function main() {
         productCards: result.record.dataQuality.productCards,
         plannedActions: result.record.decisions.plannedActions,
         warnings: result.record.dataQuality.warnings,
+        actionQuality: result.record.decisions.actionQuality?.status || '',
+        runQuality: result.record.decisions.runQuality?.status || '',
       };
       return {
         outputs: { dailyLearningJson: result.jsonFile, dailyLearningMarkdown: result.mdFile },
@@ -1027,6 +1304,9 @@ async function main() {
     });
 
     manifest.finishedAt = new Date().toISOString();
+    manifest.operatingClosure = buildOperatingClosure(manifest);
+    manifest.actionQuality = buildActionQuality(manifest, options);
+    manifest.runQuality = buildRunQuality(manifest, options);
     manifest.status = 'success';
     persist();
     console.log(JSON.stringify(buildRunSummary(manifest), null, 2));
@@ -1037,6 +1317,8 @@ async function main() {
       message: error.message,
       details: error.details || null,
     };
+    manifest.actionQuality = buildActionQuality(manifest, options);
+    manifest.runQuality = buildRunQuality(manifest, options);
     persist();
     console.error(JSON.stringify(buildRunSummary(manifest), null, 2));
     process.exit(1);
@@ -1051,6 +1333,13 @@ if (require.main === module) {
 }
 
 module.exports = {
+  buildActionQuality,
+  buildFetchOptions,
+  buildRunQuality,
+  buildRunSummary,
+  buildSnapshotDataQuality,
   getSnapshotStepPlan,
+  parseArgs,
+  validateSnapshotFile,
   writeTextFileWithRetry,
 };

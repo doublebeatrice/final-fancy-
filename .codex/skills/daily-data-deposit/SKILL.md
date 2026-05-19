@@ -48,6 +48,7 @@ For each business date, produce or verify these artifact classes:
 - Raw input folder for the date, normally under the personal trend archive's raw daily data folder.
 - Detailed daily HTML under the personal trend archive's daily trend HTML folder, named exactly `<YYYY-MM-DD>.html`.
 - Normalized JSON/snapshot artifacts under `D:\ad-ops-workbench\data\snapshots\` or `data\snapshots\runs\`.
+- Seller success rate JSON/CSV for HJ17 from `/pm/product/sellerSuccess`, with `total`, `success`, `failure`, `inspect`, `success_rate`, and `success_rate_percent`.
 - Analysis and learning artifacts under `data\analysis\`, `data\learning\`, or a run-specific directory.
 - A manifest or explicit status summary listing complete, partial, missing, and suspicious data.
 
@@ -60,6 +61,7 @@ Check for the daily raw input set before generating conclusions:
 1. Sales core spreadsheet: usually `table-export*.xlsx` or date-named `.xlsx`.
 2. Inventory export: usually `inv_auto_filtered_*.csv`.
 3. Ad full export: usually the Chinese-named ad full export CSV with `30d` or near-30-day wording in the filename.
+4. Seller success rate response: `seller_success_rate_HJ17_<YYYY-MM-DD>.json` and `.csv`, fetched from the logged-in inventory browser session.
 
 If one is missing, say exactly which file class is missing and whether the existing HTML can only be a partial archive.
 
@@ -96,6 +98,8 @@ Before daily decisions or daily retrospective work, read the latest durable less
 - `memory.md`
 - `data\learning\operations_retrospective_2026-05-06_to_2026-05-14.md` when present
 - the latest `data\learning\daily_learning_<date>.md` and `.json`
+
+For total-account, sales-core, or core trend questions, do not derive a metric from SKU/ad/inventory data when the sales-core row already exposes it. Read the aggregated `sellerSalesRows` total row first. For 0-5 month new-product health, use `acos_in_5_month`, `advCost_in_5_month`, `order_sales_in_5_month`, `net_profit_in_5_month`, and `gross_profit_in_5_month` directly before drilling down.
 
 The 2026-05-14 rule is mandatory: do not run daily operations as "first round / second round / third round" and wait for the user to push. Run the full loop directly: data health, total-result diagnosis, risk-first action pool, old-product repair pool, opportunity pool, execution, landing verification, and follow-up learning.
 
@@ -148,6 +152,14 @@ The operator must be logged into:
 
 Never ask the user to paste JWT, CSRF, Inventory-Token, XSRF, cookies, or request headers. Use the active browser session.
 
+Do not mark the run blocked on the first bad backend response. First perform an active recovery pass:
+
+1. Run `npm run chrome:debug` to start or reuse the fixed-profile debug Chrome and let `ensure_backend_login.js` click the WeCom browser-access continuation buttons.
+2. Recheck Chrome remote debugging on `127.0.0.1:9222` and confirm the adv, sellerinventory, and extension panel tabs exist.
+3. If adv returns HTML, `419`, `Page Expired`, or a login page while the visible page looks logged in, reload or reopen `https://adv.yswg.com.cn/vue/KeywordManage?tabId=<timestamp>`, wait for `SP关键词` / `您的关键词`, and rerun the preflight.
+4. If sellerinventory returns HTML while the visible page looks logged in, reopen the sellerinventory home page, reopen the `/pm/formal/list` frame through the existing script path, and rerun the preflight.
+5. Only after the recovery pass still fails should the run be reported as blocked, with the exact backend state that must be restored.
+
 ### 3. Capture Or Refresh Structured Data
 
 Prefer existing repo commands and browser-session bridges:
@@ -155,6 +167,7 @@ Prefer existing repo commands and browser-session bridges:
 ```powershell
 node scripts\execute\export_snapshot.js data\snapshots\latest_snapshot.json
 node scripts\execute\generate_personal_trend_report.js data\snapshots\latest_snapshot.json
+node scripts\execute\fetch_seller_success_rate.js HJ17
 node scripts\run_today_tasks.js --snapshot data\snapshots\latest_snapshot.json
 node scripts\execute\normalize_daily_report_names.js
 ```
@@ -176,6 +189,7 @@ The detailed daily HTML should include these stable sections when data exists:
 - Data health card: raw inputs present, row counts, suspicious files, source paths.
 - Core visualization: at least trend, seller contribution, SKU risk/action, ad spend vs sales, or inventory pressure charts. Do not ship a text/table-only daily HTML unless the user explicitly accepts it.
 - Total business summary: sales, units, net profit, refund rate, ACOS, ROAS, ad share, CPC.
+- Seller success rate: daily HJ17 `success / total`, preserving numerator/denominator and the queried open-date window.
 - Historical trend: compare with prior deposited dates, not only with group averages.
 - Seller/account split: HJ17, HJ171, HJ172 contribution and drag factors.
 - Developer-line split: top sales, low profit, high refund, high ACOS, YoY decline.

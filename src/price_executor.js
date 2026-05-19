@@ -75,6 +75,21 @@ function priceDirection(currentPrice, suggestedPrice) {
   return 'same';
 }
 
+function normalizePriceTargetTo99(currentPrice, suggestedPrice) {
+  const current = toNum(currentPrice);
+  const suggested = toNum(suggestedPrice);
+  if (!Number.isFinite(suggested)) return suggested;
+  let normalized = Number((Math.floor(suggested) + 0.99).toFixed(2));
+  if (!Number.isFinite(current)) return normalized;
+
+  if (suggested > current && normalized <= current) {
+    normalized = Number((Math.floor(current) + 1.99).toFixed(2));
+  } else if (suggested < current && normalized >= current) {
+    normalized = Number((Math.floor(current) - 0.01).toFixed(2));
+  }
+  return normalized;
+}
+
 function normalizedIntent(value) {
   const text = normalizeText(value) || 'review';
   return PRICE_INTENTS.has(text) ? text : 'review';
@@ -105,7 +120,8 @@ function validatePriceAction(action = {}, options = {}) {
   const warnings = [];
   const sku = normalizeText(action.sku || action.id);
   const currentPrice = toNum(action.currentPrice ?? action.priceRaw ?? action.price_raw);
-  const suggestedPrice = toNum(action.suggestedPrice ?? action.priceApply ?? action.price_apply);
+  const rawSuggestedPrice = toNum(action.suggestedPrice ?? action.priceApply ?? action.price_apply);
+  const suggestedPrice = normalizePriceTargetTo99(currentPrice, rawSuggestedPrice);
   const intent = normalizedIntent(action.priceIntent);
   const hasAdCoupling = !!(action.adCoupling && typeof action.adCoupling === 'object');
   const adCoupling = normalizeAdCoupling(action);
@@ -120,6 +136,9 @@ function validatePriceAction(action = {}, options = {}) {
   if (!PRICE_INTENTS.has(intent) || intent === 'review') errors.push('missing_price_intent');
   if (options.requireAdCoupling && !hasAdCoupling) errors.push('missing_ad_coupling');
   if (hasAdCoupling && !normalizeText(action.adCoupling.reason)) errors.push('missing_ad_coupling_reason');
+  if (Number.isFinite(rawSuggestedPrice) && Number.isFinite(suggestedPrice) && Math.abs(rawSuggestedPrice - suggestedPrice) > 0.001) {
+    warnings.push('price_target_normalized_to_99');
+  }
 
   if (Number.isFinite(currentPrice) && Number.isFinite(suggestedPrice)) {
     const ratio = Math.abs(suggestedPrice - currentPrice) / currentPrice;
@@ -129,7 +148,11 @@ function validatePriceAction(action = {}, options = {}) {
     }
     const suppliedFloat = toNum(action.floatPrice ?? action.float_price);
     if (Number.isFinite(suppliedFloat) && Math.abs(suppliedFloat - ((suggestedPrice - currentPrice) / currentPrice)) > 0.002) {
-      errors.push('float_price_mismatch');
+      if (Number.isFinite(rawSuggestedPrice) && Math.abs(rawSuggestedPrice - suggestedPrice) > 0.001) {
+        warnings.push('float_price_recomputed_after_price_normalization');
+      } else {
+        errors.push('float_price_mismatch');
+      }
     }
   }
 
@@ -162,7 +185,7 @@ function fixedNumber(value, digits) {
 
 function buildApplyPricePayload(action = {}, row = {}, profitResult = {}) {
   const currentPrice = toNum(action.currentPrice ?? action.priceRaw ?? action.price_raw ?? pick(row, ['price', 'price_raw', 'salesPrice', 'sale_price']));
-  const suggestedPrice = toNum(action.suggestedPrice ?? action.priceApply ?? action.price_apply);
+  const suggestedPrice = normalizePriceTargetTo99(currentPrice, action.suggestedPrice ?? action.priceApply ?? action.price_apply);
   const errors = [];
   if (!normalizeText(action.sku || row.sku)) errors.push('missing_sku');
   if (!Number.isFinite(currentPrice) || currentPrice <= 0) errors.push('missing_current_price');
@@ -303,9 +326,19 @@ function panelExecutorSource() {
       const n = toNum(value);
       return Number.isFinite(n) ? n.toFixed(digits) : '';
     };
+    const normalizePriceTargetTo99 = (currentPrice, suggestedPrice) => {
+      const current = toNum(currentPrice);
+      const suggested = toNum(suggestedPrice);
+      if (!Number.isFinite(suggested)) return suggested;
+      let normalized = Number((Math.floor(suggested) + 0.99).toFixed(2));
+      if (!Number.isFinite(current)) return normalized;
+      if (suggested > current && normalized <= current) normalized = Number((Math.floor(current) + 1.99).toFixed(2));
+      else if (suggested < current && normalized >= current) normalized = Number((Math.floor(current) - 0.01).toFixed(2));
+      return normalized;
+    };
     const buildPayload = (action, row, profitResult) => {
       const currentPrice = toNum(action.currentPrice ?? action.priceRaw ?? action.price_raw ?? pick(row, ['price', 'price_raw', 'salesPrice', 'sale_price']));
-      const suggestedPrice = toNum(action.suggestedPrice ?? action.priceApply ?? action.price_apply);
+      const suggestedPrice = normalizePriceTargetTo99(currentPrice, action.suggestedPrice ?? action.priceApply ?? action.price_apply);
       const profitApply = pick(profitResult, ['profit', 'profit_apply', 'profitApply'], action.profitAfter ?? action.profit_apply);
       const profitApplySea = pick(profitResult, ['profitSea', 'profit_sea', 'profit_apply_sea', 'profitApplySea'], action.profitAfterSea ?? action.profit_apply_sea);
       const profitRaw = action.profitBefore ?? action.profit_raw ?? pick(row, ['profit_raw', 'profitRate', 'profit_rate', 'profit']);
@@ -371,6 +404,22 @@ function panelExecutorSource() {
         }
         const one = await execInTab(tab.id, async (action, row) => {
           const normalizeText = value => String(value ?? '').trim();
+          const preflightToNum = value => {
+            if (value === undefined || value === null || value === '') return null;
+            const n = Number(String(value).replace(/,/g, '').trim());
+            return Number.isFinite(n) ? n : null;
+          };
+          const preflightPriceTargetTo99 = (currentPrice, suggestedPrice) => {
+            const current = preflightToNum(currentPrice);
+            const suggested = preflightToNum(suggestedPrice);
+            if (!Number.isFinite(suggested)) return suggested;
+            let normalized = Number((Math.floor(suggested) + 0.99).toFixed(2));
+            if (!Number.isFinite(current)) return normalized;
+            if (suggested > current && normalized <= current) normalized = Number((Math.floor(current) + 1.99).toFixed(2));
+            else if (suggested < current && normalized >= current) normalized = Number((Math.floor(current) - 0.01).toFixed(2));
+            return normalized;
+          };
+          const profitPrice = preflightPriceTargetTo99(action.currentPrice ?? row.price, action.suggestedPrice);
           const csrf =
             document.querySelector('meta[name="csrf-token"]')?.content ||
             document.querySelector('input[name="_token"]')?.value ||
@@ -389,7 +438,7 @@ function panelExecutorSource() {
           const profitBody = new URLSearchParams();
           profitBody.set('sku', normalizeText(action.sku || action.id));
           profitBody.set('site', normalizeText(action.site || row.site || row.salesChannel) || 'Amazon.com');
-          profitBody.set('price_apply', Number(action.suggestedPrice).toFixed(2));
+          profitBody.set('price_apply', Number(profitPrice).toFixed(2));
           const profitRes = await fetch('/pm/formal/applyPriceProfit', {
             method: 'POST',
             mode: 'cors',
@@ -417,9 +466,19 @@ function panelExecutorSource() {
             const n = toNum(value);
             return Number.isFinite(n) ? n.toFixed(digits) : '';
           };
+          const normalizePriceTargetTo99 = (currentPrice, suggestedPrice) => {
+            const current = toNum(currentPrice);
+            const suggested = toNum(suggestedPrice);
+            if (!Number.isFinite(suggested)) return suggested;
+            let normalized = Number((Math.floor(suggested) + 0.99).toFixed(2));
+            if (!Number.isFinite(current)) return normalized;
+            if (suggested > current && normalized <= current) normalized = Number((Math.floor(current) + 1.99).toFixed(2));
+            else if (suggested < current && normalized >= current) normalized = Number((Math.floor(current) - 0.01).toFixed(2));
+            return normalized;
+          };
           const buildPayload = (payloadAction, payloadRow, payloadProfit) => {
             const currentPrice = toNum(payloadAction.currentPrice ?? payloadAction.priceRaw ?? payloadAction.price_raw ?? pick(payloadRow, ['price', 'price_raw', 'salesPrice', 'sale_price']));
-            const suggestedPrice = toNum(payloadAction.suggestedPrice ?? payloadAction.priceApply ?? payloadAction.price_apply);
+            const suggestedPrice = normalizePriceTargetTo99(currentPrice, payloadAction.suggestedPrice ?? payloadAction.priceApply ?? payloadAction.price_apply);
             const profitApply = pick(payloadProfit, ['profit', 'profit_apply', 'profitApply'], payloadAction.profitAfter ?? payloadAction.profit_apply);
             const profitApplySea = pick(payloadProfit, ['profitSea', 'profit_sea', 'profit_apply_sea', 'profitApplySea'], payloadAction.profitAfterSea ?? payloadAction.profit_apply_sea);
             const profitRaw = payloadAction.profitBefore ?? payloadAction.profit_raw ?? pick(payloadRow, ['profit_raw', 'profitRate', 'profit_rate', 'profit']);
@@ -540,6 +599,7 @@ module.exports = {
   buildApplyPricePayload,
   executePriceActions,
   normalizeAdCoupling,
+  normalizePriceTargetTo99,
   priceDirection,
   validatePriceAction,
 };

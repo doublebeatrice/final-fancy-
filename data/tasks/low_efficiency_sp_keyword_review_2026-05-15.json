@@ -1,0 +1,2150 @@
+{
+  "generatedAt": "2026-05-15T08:22:16.916Z",
+  "windowDays": 30,
+  "summary": {
+    "actionable": 43,
+    "skipped": 7636,
+    "holds": 868,
+    "scanned": 8547
+  },
+  "candidates": [
+    {
+      "kind": "spKeyword",
+      "id": "518907841101117",
+      "sku": "",
+      "text": "long dress garment bag formal gowns clear plastic",
+      "matchType": "3",
+      "campaignId": "202258915908660",
+      "adGroupId": "194331547920010",
+      "campaignName": "kw_garment bag_ssu1756",
+      "groupName": "kw_core",
+      "accountId": 432,
+      "siteId": 4,
+      "currentBid": 0.95,
+      "lastAdjustedAt": "2026-04-10 13:00:08",
+      "metrics30": {
+        "impressions": 544,
+        "clicks": 6,
+        "spend": 5.68,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.946666
+      },
+      "metrics7": {
+        "impressions": 40,
+        "clicks": 1,
+        "spend": 0.95,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 11,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.95,
+        "suggestedBid": 0.9,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 6 clicks, spend 5.68, 0 orders."
+      },
+      "suggestedBid": 0.9
+    },
+    {
+      "kind": "spKeyword",
+      "id": "414517007364890",
+      "sku": "",
+      "text": "teacher appreciation gift",
+      "matchType": "2",
+      "campaignId": "418391528139873",
+      "adGroupId": "457116458933806",
+      "campaignName": "kw_teacher appreciation gifts_hay2767",
+      "groupName": "core",
+      "accountId": 546,
+      "siteId": 4,
+      "currentBid": 0.24,
+      "lastAdjustedAt": "2026-04-10 17:40:21",
+      "metrics30": {
+        "impressions": 500,
+        "clicks": 17,
+        "spend": 3.73,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.219411
+      },
+      "metrics7": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.24,
+        "suggestedBid": 0.09,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 17 clicks, spend 3.73, 0 orders."
+      },
+      "suggestedBid": 0.09
+    },
+    {
+      "kind": "spKeyword",
+      "id": "348298342772691",
+      "sku": "",
+      "text": "maid honor cup",
+      "matchType": "3",
+      "campaignId": "398178639041862",
+      "adGroupId": "304069302863697",
+      "campaignName": "bridesmaid gifts-shu0362-system-keyword",
+      "groupName": "bridesmaid gifts-shu0362-system-keyword",
+      "accountId": 621,
+      "siteId": 4,
+      "currentBid": 0.52,
+      "lastAdjustedAt": "2026-04-10 13:05:06",
+      "metrics30": {
+        "impressions": 1742,
+        "clicks": 7,
+        "spend": 3.64,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.52
+      },
+      "metrics7": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.52,
+        "suggestedBid": 0.47,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 7 clicks, spend 3.64, 0 orders."
+      },
+      "suggestedBid": 0.47
+    },
+    {
+      "kind": "spKeyword",
+      "id": "405857804967895",
+      "sku": "",
+      "text": "keychain display stand 2 pack",
+      "matchType": "3",
+      "campaignId": "369193958866306",
+      "adGroupId": "337560920140354",
+      "campaignName": "kwcs_keychain display _clo0341",
+      "groupName": "kwcs_keychain display _clo0341",
+      "accountId": 624,
+      "siteId": 4,
+      "currentBid": 0.45,
+      "lastAdjustedAt": "2026-02-13 18:30:22",
+      "metrics30": {
+        "impressions": 929,
+        "clicks": 8,
+        "spend": 3.6,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.45
+      },
+      "metrics7": {
+        "impressions": 421,
+        "clicks": 2,
+        "spend": 0.9,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 35,
+        "clicks": 1,
+        "spend": 0.45,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.45,
+        "suggestedBid": 0.35,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 8 clicks, spend 3.6, 0 orders."
+      },
+      "suggestedBid": 0.35
+    },
+    {
+      "kind": "spKeyword",
+      "id": "284432275445589",
+      "sku": "",
+      "text": "cardinal pins funeral",
+      "matchType": "3",
+      "campaignId": "453743941002140",
+      "adGroupId": "282938966478227",
+      "campaignName": "cardinal gifts han0044-cs",
+      "groupName": "cardinal gifts han0044-cs",
+      "accountId": 559,
+      "siteId": 4,
+      "currentBid": 0.18,
+      "lastAdjustedAt": "2026-03-09",
+      "metrics30": {
+        "impressions": 1884,
+        "clicks": 12,
+        "spend": 3.09,
+        "orders": 1,
+        "sales": 9.99,
+        "acos": 0.309309,
+        "cpc": 0.2575
+      },
+      "metrics7": {
+        "impressions": 5,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.18,
+        "suggestedBid": 0.13,
+        "reasonCode": "acos_bid_down",
+        "reason": "30d has 12 clicks, spend 3.09, 1 orders."
+      },
+      "suggestedBid": 0.13
+    },
+    {
+      "kind": "spKeyword",
+      "id": "395178503333634",
+      "sku": "",
+      "text": "soccer ball set",
+      "matchType": "3",
+      "campaignId": "410374365859192",
+      "adGroupId": "446644550044183",
+      "campaignName": "kw_soccer balls-yut3183",
+      "groupName": "kw_soccer balls-yut3183",
+      "accountId": 737,
+      "siteId": 4,
+      "currentBid": 0.61,
+      "lastAdjustedAt": "2026-04-08 18:00:29",
+      "metrics30": {
+        "impressions": 328,
+        "clicks": 5,
+        "spend": 3.05,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.61
+      },
+      "metrics7": {
+        "impressions": 175,
+        "clicks": 4,
+        "spend": 2.44,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 33,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.61,
+        "suggestedBid": 0.55,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 5 clicks, spend 3.05, 0 orders."
+      },
+      "suggestedBid": 0.55
+    },
+    {
+      "kind": "spKeyword",
+      "id": "236029184490251",
+      "sku": "",
+      "text": "red birds cardinals gifts",
+      "matchType": "3",
+      "campaignId": "428072125021660",
+      "adGroupId": "487511060416564",
+      "campaignName": "kw_30redbirdmemory_sc3420",
+      "groupName": "kw_core",
+      "accountId": 113,
+      "siteId": 4,
+      "currentBid": 0.33,
+      "lastAdjustedAt": "2026-04-10 14:35:04",
+      "metrics30": {
+        "impressions": 1446,
+        "clicks": 9,
+        "spend": 2.93,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.325555
+      },
+      "metrics7": {
+        "impressions": 256,
+        "clicks": 2,
+        "spend": 0.66,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 79,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.33,
+        "suggestedBid": 0.23,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 9 clicks, spend 2.93, 0 orders."
+      },
+      "suggestedBid": 0.23
+    },
+    {
+      "kind": "spKeyword",
+      "id": "428856725460855",
+      "sku": "",
+      "text": "2 tier rotating jewelry display stand",
+      "matchType": "3",
+      "campaignId": "369193958866306",
+      "adGroupId": "337560920140354",
+      "campaignName": "kwcs_keychain display _clo0341",
+      "groupName": "kwcs_keychain display _clo0341",
+      "accountId": 624,
+      "siteId": 4,
+      "currentBid": 0.45,
+      "lastAdjustedAt": "2026-02-13 18:30:22",
+      "metrics30": {
+        "impressions": 453,
+        "clicks": 6,
+        "spend": 2.7,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.45
+      },
+      "metrics7": {
+        "impressions": 214,
+        "clicks": 3,
+        "spend": 1.35,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 41,
+        "clicks": 1,
+        "spend": 0.45,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.45,
+        "suggestedBid": 0.4,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 6 clicks, spend 2.7, 0 orders."
+      },
+      "suggestedBid": 0.4
+    },
+    {
+      "kind": "spKeyword",
+      "id": "449827323812004",
+      "sku": "",
+      "text": "memorial pins",
+      "matchType": "3",
+      "campaignId": "428072125021660",
+      "adGroupId": "487511060416564",
+      "campaignName": "kw_30redbirdmemory_sc3420",
+      "groupName": "kw_core",
+      "accountId": 113,
+      "siteId": 4,
+      "currentBid": 0.09,
+      "lastAdjustedAt": "2026-03-16",
+      "metrics30": {
+        "impressions": 1223,
+        "clicks": 9,
+        "spend": 2.65,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.294444
+      },
+      "metrics7": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "pause",
+        "reasonCode": "no_order_hard_stop",
+        "reason": "30d has 9 clicks, spend 2.65, 0 orders."
+      },
+      "suggestedBid": null
+    },
+    {
+      "kind": "spKeyword",
+      "id": "332948883058064",
+      "sku": "",
+      "text": "dog thank you cards",
+      "matchType": "3",
+      "campaignId": "313507791253213",
+      "adGroupId": "432841503514287",
+      "campaignName": "kw_vet tech appreciation gifts_day2990",
+      "groupName": "kw_vet tech appreciation gifts_day2990",
+      "accountId": 429,
+      "siteId": 4,
+      "currentBid": 0.38,
+      "lastAdjustedAt": "2026-04-10 17:45:16",
+      "metrics30": {
+        "impressions": 346,
+        "clicks": 7,
+        "spend": 2.65,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.378571
+      },
+      "metrics7": {
+        "impressions": 91,
+        "clicks": 1,
+        "spend": 0.38,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 25,
+        "clicks": 1,
+        "spend": 0.38,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.38,
+        "suggestedBid": 0.33,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 7 clicks, spend 2.65, 0 orders."
+      },
+      "suggestedBid": 0.33
+    },
+    {
+      "kind": "spKeyword",
+      "id": "189475603887928",
+      "sku": "",
+      "text": "bulk memorial pins",
+      "matchType": "3",
+      "campaignId": "428072125021660",
+      "adGroupId": "487511060416564",
+      "campaignName": "kw_30redbirdmemory_sc3420",
+      "groupName": "kw_core",
+      "accountId": 113,
+      "siteId": 4,
+      "currentBid": 0.33,
+      "lastAdjustedAt": "2026-04-10 14:35:04",
+      "metrics30": {
+        "impressions": 1272,
+        "clicks": 8,
+        "spend": 2.64,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.33
+      },
+      "metrics7": {
+        "impressions": 128,
+        "clicks": 1,
+        "spend": 0.33,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 40,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.33,
+        "suggestedBid": 0.23,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 8 clicks, spend 2.64, 0 orders."
+      },
+      "suggestedBid": 0.23
+    },
+    {
+      "kind": "spKeyword",
+      "id": "422051141373265",
+      "sku": "",
+      "text": "strawberry gift bag",
+      "matchType": "3",
+      "campaignId": "447259652311411",
+      "adGroupId": "364193935413350",
+      "campaignName": "kw_baby shower  berry sweet_boy3356",
+      "groupName": "kw_baby shower  berry sweet_boy3356",
+      "accountId": 84,
+      "siteId": 4,
+      "currentBid": 0.13,
+      "lastAdjustedAt": "2026-04-10 17:30:06",
+      "metrics30": {
+        "impressions": 456,
+        "clicks": 21,
+        "spend": 2.6,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.123809
+      },
+      "metrics7": {
+        "impressions": 255,
+        "clicks": 9,
+        "spend": 1.04,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 133,
+        "clicks": 3,
+        "spend": 0.36,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "pause",
+        "reasonCode": "no_order_hard_stop",
+        "reason": "30d has 21 clicks, spend 2.6, 0 orders."
+      },
+      "suggestedBid": null
+    },
+    {
+      "kind": "spKeyword",
+      "id": "432247150642512",
+      "sku": "",
+      "text": "car magnets",
+      "matchType": "3",
+      "campaignId": "506462874274728",
+      "adGroupId": "500182209065264",
+      "campaignName": "kw_hippie flower car magnet_kur0501",
+      "groupName": "kw_hippie flower car magnet_kur0501",
+      "accountId": 455,
+      "siteId": 4,
+      "currentBid": 0.06,
+      "lastAdjustedAt": "2026-04-03",
+      "metrics30": {
+        "impressions": 4515,
+        "clicks": 13,
+        "spend": 2.59,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.19923
+      },
+      "metrics7": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 46,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "pause",
+        "reasonCode": "no_order_hard_stop",
+        "reason": "30d has 13 clicks, spend 2.59, 0 orders."
+      },
+      "suggestedBid": null
+    },
+    {
+      "kind": "spKeyword",
+      "id": "424697604931112",
+      "sku": "",
+      "text": "mini colored pencil set",
+      "matchType": "3",
+      "campaignId": "316399681920495",
+      "adGroupId": "375727077500229",
+      "campaignName": "kw_mini colored pencils_qa1157",
+      "groupName": "kw_mini colored pencils_qa1157",
+      "accountId": 388,
+      "siteId": 4,
+      "currentBid": 0.24,
+      "lastAdjustedAt": "2026-01-23",
+      "metrics30": {
+        "impressions": 444,
+        "clicks": 11,
+        "spend": 2.57,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.233636
+      },
+      "metrics7": {
+        "impressions": 223,
+        "clicks": 8,
+        "spend": 1.92,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 106,
+        "clicks": 6,
+        "spend": 1.44,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.24,
+        "suggestedBid": 0.09,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 11 clicks, spend 2.57, 0 orders."
+      },
+      "suggestedBid": 0.09
+    },
+    {
+      "kind": "spKeyword",
+      "id": "494055691086236",
+      "sku": "",
+      "text": "gifts for kids with broken arms",
+      "matchType": "3",
+      "campaignId": "442455693519059",
+      "adGroupId": "325018138763727",
+      "campaignName": "kw_get well soon gifts _kv4231",
+      "groupName": "kw_get well soon gifts _kv4231",
+      "accountId": 357,
+      "siteId": 4,
+      "currentBid": 0.28,
+      "lastAdjustedAt": "2026-04-10 13:00:07",
+      "metrics30": {
+        "impressions": 894,
+        "clicks": 9,
+        "spend": 2.52,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.28
+      },
+      "metrics7": {
+        "impressions": 210,
+        "clicks": 1,
+        "spend": 0.28,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.28,
+        "suggestedBid": 0.18,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 9 clicks, spend 2.52, 0 orders."
+      },
+      "suggestedBid": 0.18
+    },
+    {
+      "kind": "spKeyword",
+      "id": "115062246149929",
+      "sku": "",
+      "text": "inflatable 30 pool float",
+      "matchType": "3",
+      "campaignId": "147667590201985",
+      "adGroupId": "4032918752677",
+      "campaignName": "kw broad_30th birthday pool float_yut4458",
+      "groupName": "kw broad_30th birthday pool float_yut4458",
+      "accountId": 737,
+      "siteId": 4,
+      "currentBid": 0.4,
+      "lastAdjustedAt": "2026-04-08 21:33:37",
+      "metrics30": {
+        "impressions": 437,
+        "clicks": 6,
+        "spend": 2.4,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.4
+      },
+      "metrics7": {
+        "impressions": 168,
+        "clicks": 2,
+        "spend": 0.8,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 31,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.4,
+        "suggestedBid": 0.35,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 6 clicks, spend 2.4, 0 orders."
+      },
+      "suggestedBid": 0.35
+    },
+    {
+      "kind": "spKeyword",
+      "id": "390899055846392",
+      "sku": "",
+      "text": "appreciation keychains",
+      "matchType": "3",
+      "campaignId": "556622432510677",
+      "adGroupId": "450726559851013",
+      "campaignName": "kw_thankyoukeychains_hel0319",
+      "groupName": "kw_thankyoukeychains_hel0319",
+      "accountId": 487,
+      "siteId": 4,
+      "currentBid": 0.25,
+      "lastAdjustedAt": "2026-01-02",
+      "metrics30": {
+        "impressions": 781,
+        "clicks": 10,
+        "spend": 2.38,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.238
+      },
+      "metrics7": {
+        "impressions": 537,
+        "clicks": 6,
+        "spend": 1.5,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 103,
+        "clicks": 2,
+        "spend": 0.5,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.25,
+        "suggestedBid": 0.1,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 10 clicks, spend 2.38, 0 orders."
+      },
+      "suggestedBid": 0.1
+    },
+    {
+      "kind": "spKeyword",
+      "id": "522431549715920",
+      "sku": "",
+      "text": "retail display stand with hooks",
+      "matchType": "3",
+      "campaignId": "369193958866306",
+      "adGroupId": "337560920140354",
+      "campaignName": "kwcs_keychain display _clo0341",
+      "groupName": "kwcs_keychain display _clo0341",
+      "accountId": 624,
+      "siteId": 4,
+      "currentBid": 0.45,
+      "lastAdjustedAt": "2026-02-13 18:30:22",
+      "metrics30": {
+        "impressions": 595,
+        "clicks": 5,
+        "spend": 2.25,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.45
+      },
+      "metrics7": {
+        "impressions": 170,
+        "clicks": 2,
+        "spend": 0.9,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 25,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.45,
+        "suggestedBid": 0.4,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 5 clicks, spend 2.25, 0 orders."
+      },
+      "suggestedBid": 0.4
+    },
+    {
+      "kind": "spKeyword",
+      "id": "470708603697994",
+      "sku": "",
+      "text": "birthday backdrop letters",
+      "matchType": "3",
+      "campaignId": "365259224872579",
+      "adGroupId": "335625314751776",
+      "campaignName": "kw_ baby shower banner_rt3172",
+      "groupName": "kw",
+      "accountId": 168,
+      "siteId": 4,
+      "currentBid": 0.28,
+      "lastAdjustedAt": "2026-04-10 17:40:08",
+      "metrics30": {
+        "impressions": 289,
+        "clicks": 8,
+        "spend": 2.24,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.28
+      },
+      "metrics7": {
+        "impressions": 134,
+        "clicks": 6,
+        "spend": 1.68,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 34,
+        "clicks": 1,
+        "spend": 0.28,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.28,
+        "suggestedBid": 0.18,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 8 clicks, spend 2.24, 0 orders."
+      },
+      "suggestedBid": 0.18
+    },
+    {
+      "kind": "spKeyword",
+      "id": "560393055892964",
+      "sku": "",
+      "text": "number stencil pack",
+      "matchType": "3",
+      "campaignId": "334076702056500",
+      "adGroupId": "417475020233215",
+      "campaignName": "kw_letterstencils_xix0903",
+      "groupName": "kw_letterstencils_xix0903",
+      "accountId": 772,
+      "siteId": 4,
+      "currentBid": 0.36,
+      "lastAdjustedAt": "2026-02-26",
+      "metrics30": {
+        "impressions": 2174,
+        "clicks": 6,
+        "spend": 2.16,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.36
+      },
+      "metrics7": {
+        "impressions": 2115,
+        "clicks": 6,
+        "spend": 2.16,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 1431,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.36,
+        "suggestedBid": 0.31,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 6 clicks, spend 2.16, 0 orders."
+      },
+      "suggestedBid": 0.31
+    },
+    {
+      "kind": "spKeyword",
+      "id": "296805808439264",
+      "sku": "",
+      "text": "social worker office decor",
+      "matchType": "3",
+      "campaignId": "278597471262654",
+      "adGroupId": "536526356613450",
+      "campaignName": "kw broad_employee appreciation_gm2824",
+      "groupName": "kw broad_employee appreciation_gm2824",
+      "accountId": 311,
+      "siteId": 4,
+      "currentBid": 0.36,
+      "lastAdjustedAt": "2026-04-10 14:35:11",
+      "metrics30": {
+        "impressions": 376,
+        "clicks": 6,
+        "spend": 2.16,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.36
+      },
+      "metrics7": {
+        "impressions": 41,
+        "clicks": 1,
+        "spend": 0.36,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 11,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.36,
+        "suggestedBid": 0.31,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 6 clicks, spend 2.16, 0 orders."
+      },
+      "suggestedBid": 0.31
+    },
+    {
+      "kind": "spKeyword",
+      "id": "499228812965185",
+      "sku": "",
+      "text": "square deli containers with lids",
+      "matchType": "3",
+      "campaignId": "551928504524650",
+      "adGroupId": "458867356826468",
+      "campaignName": "kw_deli containers with lids_bio0027",
+      "groupName": "kw_deli containers with lids_bio0027",
+      "accountId": 615,
+      "siteId": 4,
+      "currentBid": 0.22,
+      "lastAdjustedAt": "2026-04-03 12:00:31",
+      "metrics30": {
+        "impressions": 509,
+        "clicks": 10,
+        "spend": 2.15,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.215
+      },
+      "metrics7": {
+        "impressions": 140,
+        "clicks": 2,
+        "spend": 0.39,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 87,
+        "clicks": 2,
+        "spend": 0.39,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.22,
+        "suggestedBid": 0.07,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 10 clicks, spend 2.15, 0 orders."
+      },
+      "suggestedBid": 0.07
+    },
+    {
+      "kind": "spKeyword",
+      "id": "470529530336229",
+      "sku": "",
+      "text": "employee appreciation gifts bulk",
+      "matchType": "2",
+      "campaignId": "259256459577667",
+      "adGroupId": "339663453842733",
+      "campaignName": "kw_phrase_inspirational_journal_uan2600",
+      "groupName": "kw_phrase_inspirational_journal_uan2600",
+      "accountId": 515,
+      "siteId": 4,
+      "currentBid": 0.29,
+      "lastAdjustedAt": "2026-04-10 13:00:09",
+      "metrics30": {
+        "impressions": 164,
+        "clicks": 7,
+        "spend": 2.03,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.29
+      },
+      "metrics7": {
+        "impressions": 9,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.29,
+        "suggestedBid": 0.24,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 7 clicks, spend 2.03, 0 orders."
+      },
+      "suggestedBid": 0.24
+    },
+    {
+      "kind": "spKeyword",
+      "id": "492375541224653",
+      "sku": "",
+      "text": "foam roses",
+      "matchType": "3",
+      "campaignId": "541659165975879",
+      "adGroupId": "477369731960173",
+      "campaignName": "kw_artificial foam rose_ka1544",
+      "groupName": "kw_artificial foam rose_ka1544",
+      "accountId": 135,
+      "siteId": 4,
+      "currentBid": 0.25,
+      "lastAdjustedAt": "2025-12-19",
+      "metrics30": {
+        "impressions": 527,
+        "clicks": 8,
+        "spend": 2,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.25
+      },
+      "metrics7": {
+        "impressions": 144,
+        "clicks": 1,
+        "spend": 0.25,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.25,
+        "suggestedBid": 0.15,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 8 clicks, spend 2, 0 orders."
+      },
+      "suggestedBid": 0.15
+    },
+    {
+      "kind": "spKeyword",
+      "id": "529147736248496",
+      "sku": "",
+      "text": "meal prep soup containers with lids",
+      "matchType": "3",
+      "campaignId": "551928504524650",
+      "adGroupId": "458867356826468",
+      "campaignName": "kw_deli containers with lids_bio0027",
+      "groupName": "kw_deli containers with lids_bio0027",
+      "accountId": 615,
+      "siteId": 4,
+      "currentBid": 0.27,
+      "lastAdjustedAt": "2026-04-10 13:00:10",
+      "metrics30": {
+        "impressions": 484,
+        "clicks": 7,
+        "spend": 1.86,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.265714
+      },
+      "metrics7": {
+        "impressions": 164,
+        "clicks": 3,
+        "spend": 0.78,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 144,
+        "clicks": 3,
+        "spend": 0.78,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.27,
+        "suggestedBid": 0.22,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 7 clicks, spend 1.86, 0 orders."
+      },
+      "suggestedBid": 0.22
+    },
+    {
+      "kind": "spKeyword",
+      "id": "153553487701226",
+      "sku": "",
+      "text": "basket for bread",
+      "matchType": "3",
+      "campaignId": "484320128663086",
+      "adGroupId": "390668100575591",
+      "campaignName": "kw_baskets_dun1150",
+      "groupName": "kw_baskets_dun1150",
+      "accountId": 639,
+      "siteId": 4,
+      "currentBid": 0.24,
+      "lastAdjustedAt": "2026-04-10 00:50:08",
+      "metrics30": {
+        "impressions": 843,
+        "clicks": 8,
+        "spend": 1.83,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.22875
+      },
+      "metrics7": {
+        "impressions": 63,
+        "clicks": 1,
+        "spend": 0.2,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 56,
+        "clicks": 1,
+        "spend": 0.2,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.24,
+        "suggestedBid": 0.14,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 8 clicks, spend 1.83, 0 orders."
+      },
+      "suggestedBid": 0.14
+    },
+    {
+      "kind": "spKeyword",
+      "id": "401252839385952",
+      "sku": "",
+      "text": "premade bows",
+      "matchType": "1",
+      "campaignId": "491554553861601",
+      "adGroupId": "488383447687841",
+      "campaignName": "kw_bows for crafts_kl2977",
+      "groupName": "kw_bows for crafts_kl2977",
+      "accountId": 144,
+      "siteId": 4,
+      "currentBid": 0.2,
+      "lastAdjustedAt": "2026-04-02",
+      "metrics30": {
+        "impressions": 498,
+        "clicks": 9,
+        "spend": 1.81,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.201111
+      },
+      "metrics7": {
+        "impressions": 164,
+        "clicks": 1,
+        "spend": 0.18,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 65,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.2,
+        "suggestedBid": 0.1,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 9 clicks, spend 1.81, 0 orders."
+      },
+      "suggestedBid": 0.1
+    },
+    {
+      "kind": "spKeyword",
+      "id": "168164920391686",
+      "sku": "",
+      "text": "number pool float",
+      "matchType": "3",
+      "campaignId": "94186888732697",
+      "adGroupId": "237109550757287",
+      "campaignName": "kw broad_70th birthday pool float_yut4462",
+      "groupName": "kw broad_70th birthday pool float_yut4462",
+      "accountId": 737,
+      "siteId": 4,
+      "currentBid": 0.3,
+      "lastAdjustedAt": "2026-04-10 13:05:07",
+      "metrics30": {
+        "impressions": 198,
+        "clicks": 6,
+        "spend": 1.8,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.3
+      },
+      "metrics7": {
+        "impressions": 31,
+        "clicks": 1,
+        "spend": 0.3,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 8,
+        "clicks": 1,
+        "spend": 0.3,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.3,
+        "suggestedBid": 0.25,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 6 clicks, spend 1.8, 0 orders."
+      },
+      "suggestedBid": 0.25
+    },
+    {
+      "kind": "spKeyword",
+      "id": "409179815807392",
+      "sku": "",
+      "text": "tie the shoe baby shower game",
+      "matchType": "3",
+      "campaignId": "328866121285095",
+      "adGroupId": "448438911738057",
+      "campaignName": "kw_brown tie your shoe_yan3832",
+      "groupName": "kw_brown tie your shoe_yan3832",
+      "accountId": 423,
+      "siteId": 4,
+      "currentBid": 0.25,
+      "lastAdjustedAt": "2026-01-15",
+      "metrics30": {
+        "impressions": 225,
+        "clicks": 7,
+        "spend": 1.75,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.25
+      },
+      "metrics7": {
+        "impressions": 43,
+        "clicks": 1,
+        "spend": 0.25,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 9,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.25,
+        "suggestedBid": 0.2,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 7 clicks, spend 1.75, 0 orders."
+      },
+      "suggestedBid": 0.2
+    },
+    {
+      "kind": "spKeyword",
+      "id": "259904733186696",
+      "sku": "",
+      "text": "cardinal lapel pins",
+      "matchType": "3",
+      "campaignId": "428072125021660",
+      "adGroupId": "487511060416564",
+      "campaignName": "kw_30redbirdmemory_sc3420",
+      "groupName": "kw_core",
+      "accountId": 113,
+      "siteId": 4,
+      "currentBid": 0.33,
+      "lastAdjustedAt": "2026-04-10 14:35:04",
+      "metrics30": {
+        "impressions": 537,
+        "clicks": 5,
+        "spend": 1.65,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.33
+      },
+      "metrics7": {
+        "impressions": 50,
+        "clicks": 3,
+        "spend": 0.99,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.33,
+        "suggestedBid": 0.28,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 5 clicks, spend 1.65, 0 orders."
+      },
+      "suggestedBid": 0.28
+    },
+    {
+      "kind": "spKeyword",
+      "id": "438106009194000",
+      "sku": "",
+      "text": "here comes the son gift bags",
+      "matchType": "2",
+      "campaignId": "94934602744308",
+      "adGroupId": "443233423140335",
+      "campaignName": "kw phrase_babyshowerbags_boy3171",
+      "groupName": "kw phrase_babyshowerbags_boy3171",
+      "accountId": 84,
+      "siteId": 4,
+      "currentBid": 0.26,
+      "lastAdjustedAt": "2026-04-10 14:35:02",
+      "metrics30": {
+        "impressions": 377,
+        "clicks": 6,
+        "spend": 1.5,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.25
+      },
+      "metrics7": {
+        "impressions": 90,
+        "clicks": 3,
+        "spend": 0.78,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 45,
+        "clicks": 2,
+        "spend": 0.52,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.26,
+        "suggestedBid": 0.21,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 6 clicks, spend 1.5, 0 orders."
+      },
+      "suggestedBid": 0.21
+    },
+    {
+      "kind": "spKeyword",
+      "id": "461237074446038",
+      "sku": "",
+      "text": "good luck charm",
+      "matchType": "1",
+      "campaignId": "53386901225433",
+      "adGroupId": "456098882127767",
+      "campaignName": "kw exact_luck charm elephant_xia1681",
+      "groupName": "kw exact_luck charm elephant_xia1681",
+      "accountId": 426,
+      "siteId": 4,
+      "currentBid": 0.12,
+      "lastAdjustedAt": "2026-03-05",
+      "metrics30": {
+        "impressions": 1182,
+        "clicks": 11,
+        "spend": 1.48,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.134545
+      },
+      "metrics7": {
+        "impressions": 150,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 42,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "pause",
+        "reasonCode": "no_order_hard_stop",
+        "reason": "30d has 11 clicks, spend 1.48, 0 orders."
+      },
+      "suggestedBid": null
+    },
+    {
+      "kind": "spKeyword",
+      "id": "385631035079124",
+      "sku": "",
+      "text": "wedding pens",
+      "matchType": "3",
+      "campaignId": "540127990345088",
+      "adGroupId": "388449405213832",
+      "campaignName": "kw_ballpoint pen_nay0963",
+      "groupName": "kw_ballpoint pen_nay0963",
+      "accountId": 752,
+      "siteId": 4,
+      "currentBid": 0.17,
+      "lastAdjustedAt": "2026-02-20",
+      "metrics30": {
+        "impressions": 326,
+        "clicks": 9,
+        "spend": 1.48,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.164444
+      },
+      "metrics7": {
+        "impressions": 95,
+        "clicks": 6,
+        "spend": 0.97,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 20,
+        "clicks": 1,
+        "spend": 0.17,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.17,
+        "suggestedBid": 0.07,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 9 clicks, spend 1.48, 0 orders."
+      },
+      "suggestedBid": 0.07
+    },
+    {
+      "kind": "spKeyword",
+      "id": "300483752487811",
+      "sku": "",
+      "text": "teacher stress balls bulk",
+      "matchType": "3",
+      "campaignId": "418391528139873",
+      "adGroupId": "457116458933806",
+      "campaignName": "kw_teacher appreciation gifts_hay2767",
+      "groupName": "core",
+      "accountId": 546,
+      "siteId": 4,
+      "currentBid": 0.3,
+      "lastAdjustedAt": "2026-02-20",
+      "metrics30": {
+        "impressions": 386,
+        "clicks": 5,
+        "spend": 1.46,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.292
+      },
+      "metrics7": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.3,
+        "suggestedBid": 0.25,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 5 clicks, spend 1.46, 0 orders."
+      },
+      "suggestedBid": 0.25
+    },
+    {
+      "kind": "spKeyword",
+      "id": "325270083054939",
+      "sku": "",
+      "text": "rubber duck sailor",
+      "matchType": "3",
+      "campaignId": "505640237073919",
+      "adGroupId": "504255068457853",
+      "campaignName": "kw_cruise duck_hay0221",
+      "groupName": "kw_cruise duck_hay0221",
+      "accountId": 546,
+      "siteId": 4,
+      "currentBid": 0.28,
+      "lastAdjustedAt": "2026-04-10 14:35:17",
+      "metrics30": {
+        "impressions": 433,
+        "clicks": 5,
+        "spend": 1.4,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.28
+      },
+      "metrics7": {
+        "impressions": 135,
+        "clicks": 3,
+        "spend": 0.84,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 7,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.28,
+        "suggestedBid": 0.23,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 5 clicks, spend 1.4, 0 orders."
+      },
+      "suggestedBid": 0.23
+    },
+    {
+      "kind": "spKeyword",
+      "id": "540633291784640",
+      "sku": "",
+      "text": "shelf board",
+      "matchType": "3",
+      "campaignId": "434553166294632",
+      "adGroupId": "330413921406519",
+      "campaignName": "kw_acrylic shelves_if1738",
+      "groupName": "kw_acrylic shelves_if1738",
+      "accountId": 400,
+      "siteId": 4,
+      "currentBid": 0.25,
+      "lastAdjustedAt": "2026-02-12",
+      "metrics30": {
+        "impressions": 656,
+        "clicks": 6,
+        "spend": 1.35,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.225
+      },
+      "metrics7": {
+        "impressions": 305,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 88,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.25,
+        "suggestedBid": 0.2,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 6 clicks, spend 1.35, 0 orders."
+      },
+      "suggestedBid": 0.2
+    },
+    {
+      "kind": "spKeyword",
+      "id": "327348318802320",
+      "sku": "",
+      "text": "kpop photocard binder kpop photocard holder book",
+      "matchType": "3",
+      "campaignId": "240426200016011",
+      "adGroupId": "61100453784612",
+      "campaignName": "kw _photocard_oc1858",
+      "groupName": "kw_core",
+      "accountId": 256,
+      "siteId": 4,
+      "currentBid": 0.07,
+      "lastAdjustedAt": "2026-04-10",
+      "metrics30": {
+        "impressions": 1023,
+        "clicks": 6,
+        "spend": 1.34,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.223333
+      },
+      "metrics7": {
+        "impressions": 17,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 1,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.07,
+        "suggestedBid": 0.02,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 6 clicks, spend 1.34, 0 orders."
+      },
+      "suggestedBid": 0.02
+    },
+    {
+      "kind": "spKeyword",
+      "id": "376226033545620",
+      "sku": "",
+      "text": "ducks for cruise ship",
+      "matchType": "3",
+      "campaignId": "294664640982941",
+      "adGroupId": "302955866658178",
+      "campaignName": "cruise ship ducks hay1931",
+      "groupName": "cruise ship ducks hay1931",
+      "accountId": 546,
+      "siteId": 4,
+      "currentBid": 0.14,
+      "lastAdjustedAt": "2026-03-09",
+      "metrics30": {
+        "impressions": 396,
+        "clicks": 7,
+        "spend": 1.33,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.19
+      },
+      "metrics7": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 12,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.14,
+        "suggestedBid": 0.09,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 7 clicks, spend 1.33, 0 orders."
+      },
+      "suggestedBid": 0.09
+    },
+    {
+      "kind": "spKeyword",
+      "id": "321625329892220",
+      "sku": "",
+      "text": "cowboy hat",
+      "matchType": "3",
+      "campaignId": "341849241439909",
+      "adGroupId": "290542207924147",
+      "campaignName": "kw_cowboyhat_san1213",
+      "groupName": "kw_cowboyhat_san1213",
+      "accountId": 528,
+      "siteId": 4,
+      "currentBid": 0.21,
+      "lastAdjustedAt": "2026-04-10 13:00:09",
+      "metrics30": {
+        "impressions": 1157,
+        "clicks": 6,
+        "spend": 1.26,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.21
+      },
+      "metrics7": {
+        "impressions": 297,
+        "clicks": 2,
+        "spend": 0.42,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 80,
+        "clicks": 1,
+        "spend": 0.21,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.21,
+        "suggestedBid": 0.16,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 6 clicks, spend 1.26, 0 orders."
+      },
+      "suggestedBid": 0.16
+    },
+    {
+      "kind": "spKeyword",
+      "id": "391719833749255",
+      "sku": "",
+      "text": "magnetic car decals",
+      "matchType": "3",
+      "campaignId": "506462874274728",
+      "adGroupId": "500182209065264",
+      "campaignName": "kw_hippie flower car magnet_kur0501",
+      "groupName": "kw_hippie flower car magnet_kur0501",
+      "accountId": 455,
+      "siteId": 4,
+      "currentBid": 0.16,
+      "lastAdjustedAt": "2026-03-06",
+      "metrics30": {
+        "impressions": 917,
+        "clicks": 6,
+        "spend": 0.94,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.156666
+      },
+      "metrics7": {
+        "impressions": 502,
+        "clicks": 3,
+        "spend": 0.48,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 285,
+        "clicks": 2,
+        "spend": 0.32,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.16,
+        "suggestedBid": 0.11,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 6 clicks, spend 0.94, 0 orders."
+      },
+      "suggestedBid": 0.11
+    },
+    {
+      "kind": "spKeyword",
+      "id": "452721617817801",
+      "sku": "",
+      "text": "good luck charms",
+      "matchType": "2",
+      "campaignId": "112545975738851",
+      "adGroupId": "298874718302637",
+      "campaignName": "kw phrase_luck charm elephant_xia1681",
+      "groupName": "kw phrase_luck charm elephant_xia1681",
+      "accountId": 426,
+      "siteId": 4,
+      "currentBid": 0.1,
+      "lastAdjustedAt": "2026-02-24 09:40:20",
+      "metrics30": {
+        "impressions": 548,
+        "clicks": 8,
+        "spend": 0.75,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.09375
+      },
+      "metrics7": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 11,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "pause",
+        "reasonCode": "no_order_hard_stop",
+        "reason": "30d has 8 clicks, spend 0.75, 0 orders."
+      },
+      "suggestedBid": null
+    },
+    {
+      "kind": "spKeyword",
+      "id": "405832313445477",
+      "sku": "",
+      "text": "ultrasound picture frame",
+      "matchType": "3",
+      "campaignId": "303766173503082",
+      "adGroupId": "324681690559747",
+      "campaignName": "kw_butterfly picture frame_dea2064",
+      "groupName": "kw_butterfly picture frame_dea2064",
+      "accountId": 595,
+      "siteId": 4,
+      "currentBid": 0.1,
+      "lastAdjustedAt": "2026-04-10 13:00:09",
+      "metrics30": {
+        "impressions": 259,
+        "clicks": 6,
+        "spend": 0.53,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.088333
+      },
+      "metrics7": {
+        "impressions": 20,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 3,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "bid",
+        "currentBid": 0.1,
+        "suggestedBid": 0.05,
+        "reasonCode": "no_order_bid_down",
+        "reason": "30d has 6 clicks, spend 0.53, 0 orders."
+      },
+      "suggestedBid": 0.05
+    },
+    {
+      "kind": "spKeyword",
+      "id": "537709836697617",
+      "sku": "",
+      "text": "baby shower gifts for games girl lotto",
+      "matchType": "3",
+      "campaignId": "447122110944163",
+      "adGroupId": "426433231676220",
+      "campaignName": "kw_tie your shoe_yan2281",
+      "groupName": "kw_tie your shoe_yan2281",
+      "accountId": 423,
+      "siteId": 4,
+      "currentBid": 0.04,
+      "lastAdjustedAt": "2026-04-09",
+      "metrics30": {
+        "impressions": 98,
+        "clicks": 6,
+        "spend": 0.4,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0.066666
+      },
+      "metrics7": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": null,
+        "cpc": 0
+      },
+      "metrics3": {
+        "impressions": 0,
+        "clicks": 0,
+        "spend": 0,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0
+      },
+      "decision": {
+        "actionType": "pause",
+        "reasonCode": "no_order_hard_stop",
+        "reason": "30d has 6 clicks, spend 0.4, 0 orders."
+      },
+      "suggestedBid": null
+    }
+  ]
+}

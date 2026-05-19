@@ -1,0 +1,10 @@
+{
+  "skus": [
+    {
+      "sku": "LEM7532",
+      "scope": "listing",
+      "reason": "preserve existing product page; do not change listing copy for Wedding Season or other seasonal title maintenance",
+      "source": "operator_instruction_2026-05-18"
+    }
+  ]
+}

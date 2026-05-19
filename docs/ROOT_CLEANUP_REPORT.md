@@ -162,3 +162,29 @@ The following checks passed after the cleanup:
   - `extension/panel.js`
 
 Not run: `node auto_adjust.js`, because it can trigger real bid writes when the browser and panel are ready.
+
+## Follow-up Cleanup: 2026-05-18
+
+The root was reconciled again after new daily-deposit, seasonal-listing, developer-request, and selection-market-data work added more files.
+
+### Removed
+
+- `SKILL.md/`: a tracked copy of generic assistant skills. It was not part of the ad-ops runtime; active project skills live in `.codex/skills/`.
+- `archive/unknown/`: empty placeholder directory.
+
+### Moved
+
+- `节气巡查.xlsx` -> `data/reference/season_events_2026_source.xlsx`.
+
+### Updated
+
+- `README.md`: added a current root quick map and an error-trace read path.
+- `docs/ROOT_FILE_MAP.md`: refreshed to match the 2026-05-18 root structure.
+- `.gitignore`: added `data/tmp_tests/` as scratch/failure-evidence output.
+- `package.json`: added `ops:season-events:import` for regenerating `data/season_events_2026.json` from the source workbook.
+
+### Still Kept in Root
+
+- `auto_adjust.js`: still the main execution orchestrator and still imported by tests/scripts.
+- `memory.md`: still the durable operating memory.
+- `AGENT.md`: still the AI rule surface. It is large, but it contains execution guardrails that affect live ad actions.

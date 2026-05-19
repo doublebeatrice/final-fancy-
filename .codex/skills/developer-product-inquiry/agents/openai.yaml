@@ -1,0 +1,4 @@
+interface:
+  display_name: "Developer Product Inquiry"
+  short_description: "Handle forwarded developer/product requests with product diagnosis, follow-up, and human-ready replies."
+  default_prompt: "Use $developer-product-inquiry to analyze a forwarded developer request, decide the product-level action, set follow-up checkpoints, and draft a reply I can send."

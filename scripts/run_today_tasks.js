@@ -5,6 +5,10 @@ const { readAdjustmentLog } = require('../src/adjustment_log');
 const { buildDailyTaskPool } = require('../src/task_scheduler');
 const { buildDailyTaskBoard } = require('../src/task_board');
 const { buildProactiveOperatingAudit, renderProactiveOperatingAuditHtml } = require('../src/proactive_audit');
+const { writeSeasonTitleReport } = require('./generate_season_title_dry_run');
+const { buildSeasonTitleActionSchema } = require('./generators/generate_season_title_action_schema');
+const { buildSeasonTitleListingApplications } = require('./generators/generate_season_title_listing_schema');
+const { buildListingCopyDryRunReport } = require('../src/listing_copy_edit');
 
 const ROOT = path.join(__dirname, '..');
 const TASK_DIR = path.join(ROOT, 'data', 'tasks');
@@ -260,12 +264,43 @@ function main() {
   const boardHtmlFile = path.join(TASK_DIR, `daily_task_board_${timeContext.businessDate}.html`);
   const proactiveAuditJsonFile = path.join(TASK_DIR, `proactive_operating_audit_${timeContext.businessDate}.json`);
   const proactiveAuditHtmlFile = path.join(TASK_DIR, `proactive_operating_audit_${timeContext.businessDate}.html`);
+  const seasonTitleJsonFile = path.join(TASK_DIR, `season_title_dry_run_${timeContext.businessDate}.json`);
+  const seasonTitleMdFile = path.join(TASK_DIR, `season_title_dry_run_${timeContext.businessDate}.md`);
+  const seasonTitleQueueFile = path.join(TASK_DIR, `season_title_listing_queue_${timeContext.businessDate}.json`);
+  const seasonTitleActionSchemaFile = path.join(ROOT, 'data', 'snapshots', `action_schema_${timeContext.businessDate}_season_title_ads.json`);
+  const seasonTitleListingApplicationsFile = path.join(ROOT, 'data', 'snapshots', `season_title_listing_applications_${timeContext.businessDate}.json`);
+  const seasonTitleListingCopyDryRunFile = path.join(ROOT, 'data', 'snapshots', `listing_copy_edit_dry_run_${timeContext.businessDate}.json`);
   writeJson(jsonFile, pool);
   fs.writeFileSync(htmlFile, renderHtml(pool), 'utf8');
   writeJson(boardJsonFile, board);
   fs.writeFileSync(boardHtmlFile, renderBoardHtml(board), 'utf8');
   writeJson(proactiveAuditJsonFile, proactiveAudit);
   fs.writeFileSync(proactiveAuditHtmlFile, renderProactiveOperatingAuditHtml(proactiveAudit), 'utf8');
+  const seasonTitle = writeSeasonTitleReport({
+    snapshot,
+    snapshotFile,
+    businessDate: timeContext.businessDate,
+    outJson: seasonTitleJsonFile,
+    outMd: seasonTitleMdFile,
+    outQueue: seasonTitleQueueFile,
+  });
+  const seasonTitleActionSchema = buildSeasonTitleActionSchema({
+    report: seasonTitle.report,
+    snapshot,
+  });
+  const seasonTitleListingApplications = buildSeasonTitleListingApplications({
+    report: seasonTitle.report,
+    snapshot,
+  });
+  const seasonTitleListingCopyDryRun = buildListingCopyDryRunReport(seasonTitleListingApplications, {
+    businessDate: timeContext.businessDate,
+  });
+  writeJson(seasonTitleActionSchemaFile, seasonTitleActionSchema);
+  writeJson(seasonTitleListingApplicationsFile, seasonTitleListingApplications);
+  writeJson(seasonTitleListingCopyDryRunFile, {
+    ...seasonTitleListingCopyDryRun,
+    schemaFile: seasonTitleListingApplicationsFile,
+  });
   console.log(JSON.stringify({
     dryRun: options.dryRun,
     time: timeContext,
@@ -276,6 +311,12 @@ function main() {
     boardHtmlFile,
     proactiveAuditJsonFile,
     proactiveAuditHtmlFile,
+    seasonTitleJsonFile,
+    seasonTitleMdFile,
+    seasonTitleQueueFile,
+    seasonTitleActionSchemaFile,
+    seasonTitleListingApplicationsFile,
+    seasonTitleListingCopyDryRunFile,
     aiDecisionFile: options.aiDecisions || '',
     summary: pool.summary,
     boardSummary: board.summary,
@@ -286,6 +327,24 @@ function main() {
       priceActions: proactiveAudit.priceActions.summary.total,
       expiredSeasonKeywordWaste: proactiveAudit.expiredSeasonKeywordWaste.summary.totalEnabledRows,
       listingRepair: proactiveAudit.listingRepair.summary.total,
+    },
+    seasonTitleSummary: seasonTitle.report.summary,
+    seasonTitleListingQueue: {
+      file: seasonTitleQueueFile,
+      skus: seasonTitle.listingQueue.skus.length,
+    },
+    seasonTitleActionSchema: {
+      file: seasonTitleActionSchemaFile,
+      skus: seasonTitleActionSchema.length,
+      actions: seasonTitleActionSchema.reduce((sum, item) => sum + item.actions.length, 0),
+    },
+    seasonTitleListingApplications: {
+      file: seasonTitleListingApplicationsFile,
+      ...seasonTitleListingApplications.summary,
+    },
+    seasonTitleListingCopyDryRun: {
+      file: seasonTitleListingCopyDryRunFile,
+      ...seasonTitleListingCopyDryRun.summary,
     },
   }, null, 2));
 }

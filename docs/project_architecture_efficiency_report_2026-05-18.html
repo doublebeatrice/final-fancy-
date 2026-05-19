@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ad-ops-workbench 项目架构、效率与效果报告</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --paper: #ffffff;
+      --ink: #17202a;
+      --muted: #667085;
+      --line: #d7dde6;
+      --blue: #155eef;
+      --blue-soft: #e8f0ff;
+      --green: #087443;
+      --green-soft: #e7f6ed;
+      --amber: #a45f00;
+      --amber-soft: #fff4df;
+      --red: #b42318;
+      --red-soft: #fdeceb;
+      --slate: #344054;
+      --shadow: 0 8px 24px rgba(16, 24, 40, 0.07);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 14px/1.65 "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+    }
+
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 28px 22px 46px;
+    }
+
+    .hero {
+      background: #102033;
+      color: #fff;
+      border-radius: 8px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero h1 {
+      margin: 10px 0 8px;
+      font-size: 30px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .hero p { color: rgba(255, 255, 255, 0.82); }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    p { margin: 0; }
+
+    .section { margin-top: 18px; }
+
+    .grid-2,
+    .grid-3,
+    .grid-4,
+    .flow {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .flow { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+    .card,
+    .metric,
+    .node,
+    .callout {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero .metric {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.14);
+      box-shadow: none;
+      color: #fff;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1.15;
+      letter-spacing: 0;
+      margin-bottom: 4px;
+    }
+
+    .muted { color: var(--muted); }
+    .small { font-size: 12px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 12px;
+      font-weight: 700;
+      margin: 0 6px 6px 0;
+      white-space: nowrap;
+    }
+
+    .b-blue { color: var(--blue); background: var(--blue-soft); border-color: #bfd3ff; }
+    .b-green { color: var(--green); background: var(--green-soft); border-color: #b7e4c8; }
+    .b-amber { color: var(--amber); background: var(--amber-soft); border-color: #f4d59b; }
+    .b-red { color: var(--red); background: var(--red-soft); border-color: #f4c7c3; }
+
+    .list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .list li { margin: 6px 0; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    th,
+    td {
+      padding: 10px 11px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: #edf1f6;
+      color: var(--slate);
+      font-size: 13px;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .node {
+      position: relative;
+      min-height: 148px;
+    }
+
+    .node:not(:last-child)::after {
+      content: ">";
+      position: absolute;
+      right: -11px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #98a2b3;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .callout {
+      border-left: 4px solid var(--blue);
+      background: #f8fbff;
+    }
+
+    .warn { border-left-color: var(--amber); background: #fffaf0; }
+    .risk { border-left-color: var(--red); background: #fff8f7; }
+    .good { border-left-color: var(--green); background: #f7fdf9; }
+
+    .code {
+      font-family: Consolas, "SFMono-Regular", Menlo, monospace;
+      font-size: 12px;
+      background: #f1f3f6;
+      border: 1px solid #d9dee7;
+      border-radius: 6px;
+      padding: 2px 5px;
+      word-break: break-all;
+    }
+
+    .footer {
+      margin-top: 18px;
+      text-align: right;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .flow { grid-template-columns: 1fr; }
+
+      .node:not(:last-child)::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div>
+        <span class="badge b-blue">项目报告</span>
+        <span class="badge b-green">当前仓库取证</span>
+        <span class="badge b-amber">生成日期：2026-05-18</span>
+        <h1>ad-ops-workbench 项目架构、运行效率与运营效果报告</h1>
+        <p>本报告基于当前仓库结构、核心文档、测试结果、2026-05-18 运行产物和归因报表生成。结论重点放在架构是否清晰、执行链路是否高效、业务效果是否真实落地。</p>
+      </div>
+
+      <div class="grid-4 section">
+        <div class="metric">
+          <strong>4 层</strong>
+          <span>AI 编排、浏览器扩展、Node 执行、数据沉淀</span>
+        </div>
+        <div class="metric">
+          <strong>2.17 秒</strong>
+          <span>当前 `npm test` 全量测试耗时</span>
+        </div>
+        <div class="metric">
+          <strong>123 条</strong>
+          <span>2026-05-18 调整日志记录</span>
+        </div>
+        <div class="metric">
+          <strong>1271 张</strong>
+          <span>最新日常快照产品卡规模</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="callout good">
+        <h2>总判断</h2>
+        <p>项目已经从单点脚本演进为可追踪的广告运营工作台：能抓取后台数据、形成快照、生成候选池、校验 action schema、执行低风险广告动作、回查落地、写入调整日志和每日学习。当前状态不是纯自动驾驶，而是“Codex 外部决策 + 本地确定性执行引擎”。工程效率已经较高，业务效果有真实落地记录，但 KPI 仍处于 off_track，说明闭环能力已形成，经营结果还没有稳定达标。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>1. 当前项目架构</h2>
+      <div class="flow">
+        <div class="node">
+          <h3>AI 编排层</h3>
+          <p>Codex 或 Claude 作为唯一策略入口，读取快照、文档和历史记录，输出 action schema。仓库本身不内置模型 API。</p>
+          <p class="small muted code">AGENT.md / AI_DECISION_BOUNDARY.md</p>
+        </div>
+        <div class="node">
+          <h3>浏览器扩展层</h3>
+          <p>Chrome 扩展负责页面数据采集、面板展示、导出结构化快照，并提供广告写入和库存备注桥接。</p>
+          <p class="small muted code">extension/panel.js</p>
+        </div>
+        <div class="node">
+          <h3>执行脚本层</h3>
+          <p>Node 脚本负责启动调试浏览器、导出快照、dry-run、执行 API、回查落地、写总结。</p>
+          <p class="small muted code">scripts/execute/*.js</p>
+        </div>
+        <div class="node">
+          <h3>核心模块层</h3>
+          <p>src 内部承担 schema 校验、低效池判断、季节标题、库存经济、每日学习、调整日志等稳定逻辑。</p>
+          <p class="small muted code">src/*.js</p>
+        </div>
+        <div class="node">
+          <h3>数据与知识层</h3>
+          <p>data 和 docs 保存快照、任务池、学习记录、归因报告、SOP 和决策边界，支撑复盘和跨天判断。</p>
+          <p class="small muted code">data/ + docs/</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>2. 代码与产物规模</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>当前文件规模</h3>
+          <table>
+            <thead>
+              <tr><th>区域</th><th>文件数</th><th>说明</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>src</td><td>23</td><td>核心业务逻辑，约 8805 行</td></tr>
+              <tr><td>scripts</td><td>85</td><td>执行、诊断、报告、生成器脚本，JS 约 17631 行</td></tr>
+              <tr><td>extension</td><td>6</td><td>Chrome 扩展与面板，约 5414 行</td></tr>
+              <tr><td>tests</td><td>35</td><td>自动化测试，约 6504 行</td></tr>
+              <tr><td>docs</td><td>36</td><td>架构边界、运行手册、SOP、规则文档</td></tr>
+              <tr><td>data</td><td>1307</td><td>快照、任务池、每日学习、调整日志和历史归因</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h3>运行产物规模</h3>
+          <table>
+            <thead>
+              <tr><th>产物</th><th>数量 / 规模</th><th>含义</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>data/tasks</td><td>44 个 JSON、25 个 HTML、12 个 MD</td><td>日常任务池、主动审计、季节标题、低效池等结果已沉淀</td></tr>
+              <tr><td>data/learning</td><td>20 个 JSON、27 个 MD</td><td>跨天学习与闭环复盘已有连续记录</td></tr>
+              <tr><td>data/adjustments</td><td>11 个调整日志文件</td><td>广告动作能被追踪到日期、来源和执行结果</td></tr>
+              <tr><td>归因报表</td><td>43 个快照、10448 个执行事件、52240 条归因记录</td><td>能做后验影响分析，但仍有大量 pending 需要等待时间窗口</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>3. 运行效率评估</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>测试与静态检查</h3>
+          <p><span class="badge b-green">通过</span> `npm test` 当前耗时约 2.17 秒。</p>
+          <p><span class="badge b-green">通过</span> `node --check` 已覆盖 `auto_adjust.js`、`extension/panel.js`、`run_actions.js`、`run_today_ops.js`、`generate_daily_dashboard.js`。</p>
+        </div>
+        <div class="card">
+          <h3>日常数据处理效率</h3>
+          <p>最新日常快照包含 1271 张产品卡，可操作范围 SKU 591 个；任务池能自动识别 659 条 7 天未调整压力、480 条广告结构缺口、255 条季节尾部信号。</p>
+        </div>
+        <div class="card">
+          <h3>归因分析效率</h3>
+          <p>`npm run impact` 生成归因报告，读取 43 个快照、10448 个执行事件，写出 52240 条记录。这个能力让项目能从“做了什么”推进到“做完后有没有变好”。</p>
+        </div>
+      </div>
+
+      <div class="callout warn section">
+        <h3>效率结论</h3>
+        <p>工程执行效率高：测试快、脚本分工明确、产物自动沉淀、回溯成本低。当前主要效率瓶颈不在本地代码，而在三个外部依赖：Chrome debug 登录态、广告/库存后台接口稳定性、以及 Codex 产出 schema 前的人机编排过程。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>4. 运营效果评估</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>已经落地的效果</h3>
+          <ul class="list">
+            <li>2026-05-18 调整日志共 123 条，其中 bid 动作 87 条、pause 动作 36 条。</li>
+            <li>当天来源归因：Codex 109 条、Claude 14 条，已经能区分不同决策来源。</li>
+            <li>当天结果中 78 条记录为 `api_success_landed`，42 条为 `api_success`，另有 2 条重试、1 条冷却跳过。</li>
+            <li>低效规则修复后，6 条小幅降价 bid 已落地；冷却规则修正后，额外 71 条非同日低效烧钱项已执行并落地。</li>
+            <li>低效池刷新后 actionable=0，说明该类可执行低效项已经被当天处理干净。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>仍未达成的业务效果</h3>
+          <ul class="list">
+            <li>主动审计显示 KPI 状态仍为 off_track。</li>
+            <li>仍存在 14 个新品启动缺口、2 个到货广告恢复缺口、147 个价格动作、170 条过季关键词浪费、261 个 listing/offer 修复项。</li>
+            <li>超预算扫描规模很大：8226 条 over-budget rows、5066 个 campaign classified，其中 4200 个仍在 review 桶。</li>
+            <li>归因报告中大量记录仍为 pending，说明很多动作还需要 1/3/7/14/30 天窗口验证后才能判定真实经营收益。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <table>
+          <thead>
+            <tr>
+              <th>维度</th>
+              <th>当前状态</th>
+              <th>判断</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>数据闭环</td>
+              <td>baselineQuality=complete，产品卡 1271，数据缺失 0</td>
+              <td><span class="badge b-green">较稳</span> 可以支撑日常判断</td>
+            </tr>
+            <tr>
+              <td>广告执行闭环</td>
+              <td>支持 bid、pause、部分 budget/placement 与低效池处理</td>
+              <td><span class="badge b-green">可用</span> 低风险广告动作已经能落地</td>
+            </tr>
+            <tr>
+              <td>业务闭环</td>
+              <td>KPI off_track，仍有价格、listing、过季词、超预算 review 压力</td>
+              <td><span class="badge b-amber">未完全达标</span> 还需要持续经营纠偏</td>
+            </tr>
+            <tr>
+              <td>效果归因</td>
+              <td>已能生成 52240 条记录，但大量 pending</td>
+              <td><span class="badge b-amber">建设中</span> 有归因基础，判断窗口还需沉淀</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>5. 架构优点</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>边界清楚</h3>
+          <p>面板不做 AI 决策，脚本不偷偷替代策略，Codex/Claude 输出 schema 后再执行。这个边界降低了“规则伪装成 AI 决策”的风险。</p>
+        </div>
+        <div class="card">
+          <h3>可回放可追责</h3>
+          <p>每条动作能进入 adjustment log、daily learning 和归因报表，能回答谁做的、何时做的、是否落地、后续表现如何。</p>
+        </div>
+        <div class="card">
+          <h3>模块覆盖面广</h3>
+          <p>项目已经覆盖低效广告、超预算、季节标题、库存经济、主动审计、开发诉求、每日沉淀和个人趋势报告等实际运营场景。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>6. 当前主要风险</h2>
+      <div class="grid-2">
+        <div class="callout risk">
+          <h3>外部依赖风险</h3>
+          <p>真实运行依赖 Chrome remote debugging、广告后台、库存后台和扩展面板。登录态失效、419/Page Expired、接口结构变更都会影响自动化连续性。</p>
+        </div>
+        <div class="callout risk">
+          <h3>业务目标风险</h3>
+          <p>动作落地不等于业务达标。当前 KPI 仍 off_track，说明项目必须继续坚持总账户核心数据优先，再向 SKU、广告实体、价格、listing 和库存原因下钻。</p>
+        </div>
+        <div class="callout warn">
+          <h3>归因成熟度风险</h3>
+          <p>归因报表已经有规模，但 pending 多、unknown baseline 多。短窗口结论容易误判，必须按 1/3/7/14/30 天窗口持续验证。</p>
+        </div>
+        <div class="callout warn">
+          <h3>执行面覆盖风险</h3>
+          <p>SB create、非季节 listing、价格、补货、不可验证写入面仍应 review-only。贸然扩大自动执行范围会增加误操作风险。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>7. 下一阶段建议</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>优先级</th>
+            <th>建议</th>
+            <th>目标</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>P0</td>
+            <td>继续把 daily learning 作为每日启动必读文件，并以总账户 KPI、净利、退款、ACOS 作为第一判断层。</td>
+            <td>避免只看动作数量，确保经营结果优先。</td>
+          </tr>
+          <tr>
+            <td>P0</td>
+            <td>把超预算 review 桶继续压缩为 execute / manual repair / no-action，尤其是 4200 个 review campaign。</td>
+            <td>减少“看到了但没有关闭”的经营漏斗。</td>
+          </tr>
+          <tr>
+            <td>P1</td>
+            <td>完善归因 baseline，降低 unknown_baseline 和 pending 占比。</td>
+            <td>让“动作是否有效”能更快形成可用结论。</td>
+          </tr>
+          <tr>
+            <td>P1</td>
+            <td>继续固化浏览器登录恢复、真实 API 探针、面板桥接健康检查。</td>
+            <td>降低每日运行被登录态和页面状态打断的概率。</td>
+          </tr>
+          <tr>
+            <td>P2</td>
+            <td>谨慎扩展自动执行面，优先选择可验证、可回滚、低风险广告实体。</td>
+            <td>扩大自动化收益，同时不牺牲安全边界。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <div class="callout">
+        <h2>最终评价</h2>
+        <p>这个项目的工程架构是健康的：决策层、采集层、执行层、数据层分离清楚，测试和静态检查速度快，日常产物完整，广告动作具备可执行和可追踪能力。它现在最需要提高的不是“再多写几个脚本”，而是把已产生的大量 review、pending、unknown baseline 压缩成明确的经营闭环，并用总账户 KPI 结果持续校正自动化策略。</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      证据来源：README.md、AGENT.md、docs/AI_DECISION_BOUNDARY.md、docs/CODEX_MINIMAL_CLOSED_LOOP.md、data/learning/daily_learning_2026-05-18.*、data/adjustments/adjustments_2026-05-18.json、data/tasks/over_budget_review_2026-05-18.*、data/tasks/low_efficiency_pools_2026-05-18.json、data/attribution/execution_impact_report.*
+    </div>
+  </main>
+</body>
+</html>

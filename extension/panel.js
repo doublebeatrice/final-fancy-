@@ -132,6 +132,14 @@ function createStageRecorder(mode = 'full-snapshot') {
   };
 }
 
+function numberOption(value, fallback) {
+  const raw = value === undefined || value === null || value === '' ? fallback : value;
+  const n = Number(raw);
+  if (Number.isFinite(n)) return n;
+  const fallbackNumber = Number(fallback || 0);
+  return Number.isFinite(fallbackNumber) ? fallbackNumber : 0;
+}
+
 function normalizeFetchOptions(rawOptions = {}) {
   const mode = String(rawOptions.mode || 'full-snapshot');
   const skipListing = rawOptions.skipListing === true || rawOptions.listingStrategy === 'none';
@@ -147,17 +155,17 @@ function normalizeFetchOptions(rawOptions = {}) {
     chartSkus,
     salesHistoryStrategy: rawOptions.salesHistoryStrategy || (mode === 'fast' ? 'schema' : 'none'),
     salesHistorySkus,
-    salesHistoryLimit: Number(rawOptions.salesHistoryLimit || localStorage.getItem('AD_OPS_SALES_HISTORY_LIMIT') || (mode === 'fast' ? Math.max(10, salesHistorySkus.length || 0) : 0)),
-    salesHistoryConcurrency: Number(rawOptions.salesHistoryConcurrency || localStorage.getItem('AD_OPS_SALES_HISTORY_CONCURRENCY') || 3),
-    chartLookbackDays: Number(rawOptions.chartLookbackDays || 30),
+    salesHistoryLimit: numberOption(rawOptions.salesHistoryLimit, localStorage.getItem('AD_OPS_SALES_HISTORY_LIMIT') || (mode === 'fast' ? Math.max(10, salesHistorySkus.length || 0) : 0)),
+    salesHistoryConcurrency: numberOption(rawOptions.salesHistoryConcurrency, localStorage.getItem('AD_OPS_SALES_HISTORY_CONCURRENCY') || 3),
+    chartLookbackDays: numberOption(rawOptions.chartLookbackDays, 30),
     chartUserNames: Array.isArray(rawOptions.chartUserNames) && rawOptions.chartUserNames.length ? rawOptions.chartUserNames : ['HJ17', 'HJ171', 'HJ172'],
-    listingConcurrency: Number(rawOptions.listingConcurrency || localStorage.getItem('AD_OPS_LISTING_FETCH_CONCURRENCY') || localStorage.getItem('AD_OPS_LISTING_CONCURRENCY') || 5),
-    listingLimit: Number(rawOptions.listingLimit || localStorage.getItem('AD_OPS_LISTING_FETCH_LIMIT') || 120),
-    listingTimeoutMs: Number(rawOptions.listingTimeoutMs || localStorage.getItem('AD_OPS_LISTING_FETCH_TIMEOUT_MS') || localStorage.getItem('AD_OPS_LISTING_PER_ASIN_TIMEOUT_MS') || 10000),
-    listingRetry: Number(rawOptions.listingRetry || localStorage.getItem('AD_OPS_LISTING_FETCH_RETRY') || 1),
-    listingStageTimeoutMs: Number(rawOptions.listingStageTimeoutMs || localStorage.getItem('AD_OPS_LISTING_FETCH_STAGE_TIMEOUT_MS') || 120000),
+    listingConcurrency: numberOption(rawOptions.listingConcurrency, localStorage.getItem('AD_OPS_LISTING_FETCH_CONCURRENCY') || localStorage.getItem('AD_OPS_LISTING_CONCURRENCY') || 5),
+    listingLimit: numberOption(rawOptions.listingLimit, localStorage.getItem('AD_OPS_LISTING_FETCH_LIMIT') || (mode === 'fast' ? 120 : 0)),
+    listingTimeoutMs: numberOption(rawOptions.listingTimeoutMs, localStorage.getItem('AD_OPS_LISTING_FETCH_TIMEOUT_MS') || localStorage.getItem('AD_OPS_LISTING_PER_ASIN_TIMEOUT_MS') || 10000),
+    listingRetry: numberOption(rawOptions.listingRetry, localStorage.getItem('AD_OPS_LISTING_FETCH_RETRY') || 1),
+    listingStageTimeoutMs: numberOption(rawOptions.listingStageTimeoutMs, localStorage.getItem('AD_OPS_LISTING_FETCH_STAGE_TIMEOUT_MS') || 120000),
     listingOptional: rawOptions.listingOptional !== false,
-    listingCacheTtlMs: Number(rawOptions.listingCacheTtlMs || 7 * 24 * 60 * 60 * 1000),
+    listingCacheTtlMs: numberOption(rawOptions.listingCacheTtlMs, 7 * 24 * 60 * 60 * 1000),
   };
 }
 
@@ -300,46 +308,36 @@ async function fetchAllData(rawOptions = null) {
 
     log('并发拉取广告实体、汇总与管理表…');
     const adsStage = stages.start('ads_data_read');
-    const [
-      autoRows,
-      targetRows,
-      productAdRows,
-      sbRows,
-      sbCampaignRows,
-      adSkuSummaryRows,
-      advProductManageRows,
-      sbCampaignManageRows,
-    ] = await Promise.all([
-      fetchAllAutoTargets(STATE.kwCapture),
-      fetchAllTargeting(STATE.kwCapture),
-      fetchAllProductAds(),
-      fetchAllSponsoredBrands(),
-      fetchAllSbCampaigns(),
-      fetchAdSkuSummaryRows(),
-      fetchAdvProductManageRows(),
-      fetchSbCampaignManageRows(),
-    ]);
-    STATE.autoRows = autoRows || [];
-    STATE.targetRows = targetRows || [];
-    STATE.productAdRows = productAdRows || [];
-    STATE.sbRows = sbRows || [];
-    STATE.sbCampaignRows = sbCampaignRows || [];
-    STATE.adSkuSummaryRows = adSkuSummaryRows || [];
-    STATE.advProductManageRows = advProductManageRows || [];
-    STATE.sbCampaignManageRows = sbCampaignManageRows || [];
+    const adTasks = [
+      ['autoRows', () => fetchAllAutoTargets(STATE.kwCapture)],
+      ['targetRows', () => fetchAllTargeting(STATE.kwCapture)],
+      ['productAdRows', () => fetchAllProductAds()],
+      ['sbRows', () => fetchAllSponsoredBrands()],
+      ['sbCampaignRows', () => fetchAllSbCampaigns()],
+      ['adSkuSummaryRows', () => fetchAdSkuSummaryRows()],
+      ['advProductManageRows', () => fetchAdvProductManageRows()],
+      ['sbCampaignManageRows', () => fetchSbCampaignManageRows()],
+    ];
+    const adResults = await Promise.allSettled(adTasks.map(([, fn]) => fn()));
+    const failedAdTasks = [];
+    adResults.forEach((result, index) => {
+      const [stateKey] = adTasks[index];
+      if (result.status === 'fulfilled') {
+        STATE[stateKey] = result.value || [];
+      } else {
+        STATE[stateKey] = [];
+        failedAdTasks.push({
+          name: stateKey,
+          error: result.reason?.message || String(result.reason || ''),
+        });
+        log(`广告子表 ${stateKey} 拉取失败：${result.reason?.message || result.reason}`, 'warn');
+      }
+    });
     stages.end(adsStage, {
       attempted: 8,
-      success: [
-        STATE.autoRows.length,
-        STATE.targetRows.length,
-        STATE.productAdRows.length,
-        STATE.sbRows.length,
-        STATE.sbCampaignRows.length,
-        STATE.adSkuSummaryRows.length,
-        STATE.advProductManageRows.length,
-        STATE.sbCampaignManageRows.length,
-      ].filter(n => Number.isFinite(n)).length,
-      failed: 0,
+      success: adTasks.length - failedAdTasks.length,
+      failed: failedAdTasks.length,
+      failedTasks: failedAdTasks,
       rowsRead: {
         auto: STATE.autoRows.length,
         target: STATE.targetRows.length,
@@ -1180,7 +1178,7 @@ function selectListingFetchTasks(cards = [], options = {}) {
   }
   const listingSkus = new Set((options.listingSkus || []).map(item => String(item || '').trim().toUpperCase()).filter(Boolean));
   const fastSchemaOnly = options.listingStrategy === 'schema' && listingSkus.size > 0;
-  const maxListings = Number(options.listingLimit || localStorage.getItem('AD_OPS_LISTING_FETCH_LIMIT') || 120);
+  const maxListings = numberOption(options.listingLimit, localStorage.getItem('AD_OPS_LISTING_FETCH_LIMIT') || 120);
   const seen = new Set();
   const tasks = [];
   for (const card of cards || []) {
@@ -1194,7 +1192,7 @@ function selectListingFetchTasks(cards = [], options = {}) {
     if (seen.has(key)) continue;
     seen.add(key);
     tasks.push({ asin, domain, key });
-    if (tasks.length >= maxListings) break;
+    if (maxListings > 0 && tasks.length >= maxListings) break;
   }
   STATE.listingFetchMeta = {
     ...(STATE.listingFetchMeta || {}),
@@ -1573,6 +1571,43 @@ async function execAdApi(tabId, path, payload, method) {
       return { data: JSON.parse(text) };
     } catch (e) { return { error: e.message }; }
   }, [path, payload, method]);
+}
+
+function isRecoverableAdApiError(message) {
+  return /广告系统未登录|Page Expired|Unexpected token '<'|登录|login/i.test(String(message || ''));
+}
+
+async function recoverAdApiSession(tabId, reason) {
+  log(`广告接口疑似返回登录页，自动刷新关键词页后重试：${reason}`, 'warn');
+  try {
+    await new Promise((resolve, reject) => {
+      chrome.tabs.reload(tabId, {}, () => {
+        if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
+        else resolve();
+      });
+    });
+    await waitTabComplete(tabId, 20000);
+    await sleep(1200);
+    await ensureAdKeywordPage(tabId);
+    return true;
+  } catch (error) {
+    log(`广告页刷新恢复失败：${error.message}`, 'warn');
+    try {
+      await new Promise((resolve, reject) => {
+        chrome.tabs.update(tabId, { url: `https://adv.yswg.com.cn/vue/KeywordManage?tabId=${Date.now()}` }, tab => {
+          if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
+          else resolve(tab);
+        });
+      });
+      await waitTabComplete(tabId, 20000);
+      await sleep(1200);
+      await ensureAdKeywordPage(tabId);
+      return true;
+    } catch (fallbackError) {
+      log(`广告关键词页恢复失败：${fallbackError.message}`, 'warn');
+      return false;
+    }
+  }
 }
 
 // 广告写操作（PATCH），供 executePlan 使用
@@ -2119,10 +2154,20 @@ async function fetchPagedAdRows(path, basePayload, limit = 500) {
   let total = null;
   for (let page = 1; page <= 500; page++) {
     const payload = { ...basePayload, page, limit };
-    const tab = await findTab('*://adv.yswg.com.cn/*');
-    const result = await execAdApi(tab.id, path, payload, 'POST');
+    let tab = await findTab('*://adv.yswg.com.cn/*');
+    let result = null;
+    let lastError = '';
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      result = await execAdApi(tab.id, path, payload, 'POST');
+      lastError = result?.error || '';
+      if (!lastError) break;
+      if (!isRecoverableAdApiError(lastError) || attempt === 3) break;
+      const recovered = await recoverAdApiSession(tab.id, `${path} page=${page} attempt=${attempt}: ${lastError}`);
+      if (!recovered) break;
+      tab = await findTab('*://adv.yswg.com.cn/*');
+    }
     if (!result) throw new Error(`ad api ${path} returned empty result`);
-    if (result.error) throw new Error(result.error);
+    if (result.error) throw new Error(`${path}: ${result.error}`);
     const json = result.data;
     const list = getApiList(json);
     if (!Array.isArray(list) || !list.length) break;
@@ -3212,7 +3257,10 @@ async function fetchAllKeywords() {
             const makeHeaders = () => {
               const xsrf = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/)?.[1] || '';
               const headers = { 'Content-Type': 'application/json', ...hdrs };
-              if (xsrf && !Object.keys(headers).some(k => k.toLowerCase() === 'x-xsrf-token')) headers['x-xsrf-token'] = decodeURIComponent(xsrf);
+              for (const key of Object.keys(headers)) {
+                if (key.toLowerCase() === 'x-xsrf-token') delete headers[key];
+              }
+              if (xsrf) headers['x-xsrf-token'] = decodeURIComponent(xsrf);
               return headers;
             };
             const fetchPage = async p => {
@@ -3302,7 +3350,10 @@ async function fetchAllAutoTargets(kwCapture) {
                 const body = JSON.stringify({ ...baseBody, [pageField]: p, limit });
                 const xsrf = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/)?.[1] || '';
                 const headers = { 'Content-Type': 'application/json', ...hdrs };
-                if (xsrf && !Object.keys(headers).some(k => k.toLowerCase() === 'x-xsrf-token')) headers['x-xsrf-token'] = decodeURIComponent(xsrf);
+                for (const key of Object.keys(headers)) {
+                  if (key.toLowerCase() === 'x-xsrf-token') delete headers[key];
+                }
+                if (xsrf) headers['x-xsrf-token'] = decodeURIComponent(xsrf);
                 const res = await fetch(url, { method: 'POST', credentials: 'include',
                   headers, body });
                 const d = await res.json();
@@ -3382,7 +3433,10 @@ async function fetchAllTargeting(kwCapture) {
                 const body = JSON.stringify({ ...baseBody, [pageField]: p, limit });
                 const xsrf = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/)?.[1] || '';
                 const headers = { 'Content-Type': 'application/json', ...hdrs };
-                if (xsrf && !Object.keys(headers).some(k => k.toLowerCase() === 'x-xsrf-token')) headers['x-xsrf-token'] = decodeURIComponent(xsrf);
+                for (const key of Object.keys(headers)) {
+                  if (key.toLowerCase() === 'x-xsrf-token') delete headers[key];
+                }
+                if (xsrf) headers['x-xsrf-token'] = decodeURIComponent(xsrf);
                 const res = await fetch(url, { method: 'POST', credentials: 'include',
                   headers, body });
                 const d = await res.json();
@@ -3492,7 +3546,10 @@ async function fetchAllSponsoredBrands() {
           const all = [];
           const xsrf = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/)?.[1] || '';
           const headers = { ...hdrs };
-          if (xsrf && !Object.keys(headers).some(k => k.toLowerCase() === 'x-xsrf-token')) headers['x-xsrf-token'] = decodeURIComponent(xsrf);
+          for (const key of Object.keys(headers)) {
+            if (key.toLowerCase() === 'x-xsrf-token') delete headers[key];
+          }
+          if (xsrf) headers['x-xsrf-token'] = decodeURIComponent(xsrf);
           for (let p = 2; p <= 500; p++) {
             try {
               let body = null;
@@ -3583,7 +3640,10 @@ async function fetchSponsoredBrandsFromKeywordCapture(kwCapture) {
                   const body = JSON.stringify({ ...baseBody, [pageField]: p, limit });
                   const xsrf = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/)?.[1] || '';
                   const headers = { 'Content-Type': 'application/json', ...hdrs };
-                  if (xsrf && !Object.keys(headers).some(k => k.toLowerCase() === 'x-xsrf-token')) headers['x-xsrf-token'] = decodeURIComponent(xsrf);
+                  for (const key of Object.keys(headers)) {
+                    if (key.toLowerCase() === 'x-xsrf-token') delete headers[key];
+                  }
+                  if (xsrf) headers['x-xsrf-token'] = decodeURIComponent(xsrf);
                   const res = await fetch(url, { method: 'POST', credentials: 'include',
                     headers, body });
                   const d = await res.json();
@@ -3813,7 +3873,10 @@ async function fetchAdMetricWindow(kwCapture, cfg, days, options = {}) {
           const makeHeaders = () => {
             const xsrf = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/)?.[1] || '';
             const headers = { 'Content-Type': 'application/json', ...hdrs };
-            if (xsrf && !Object.keys(headers).some(k => k.toLowerCase() === 'x-xsrf-token')) headers['x-xsrf-token'] = decodeURIComponent(xsrf);
+            for (const key of Object.keys(headers)) {
+              if (key.toLowerCase() === 'x-xsrf-token') delete headers[key];
+            }
+            if (xsrf) headers['x-xsrf-token'] = decodeURIComponent(xsrf);
             return headers;
           };
           const fetchPage = async p => {

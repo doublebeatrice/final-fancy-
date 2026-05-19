@@ -73,6 +73,41 @@ const approval = {
   const validated = validateAndNormalizePlan([
     {
       sku: 'RHO1540',
+      summary: 'raise price and normalize target cents',
+      actions: [
+        {
+          entityType: 'sku',
+          id: 'RHO1540',
+          actionType: 'price',
+          currentPrice: 11.99,
+          suggestedPrice: 12.5,
+          site: 'Amazon.com',
+          remark: 'inventory protection price raise',
+          priceIntent: 'inventory_protection',
+          adCoupling: {
+            direction: 'down',
+            reason: 'low inventory, keep traffic controlled',
+          },
+          evidence: ['invDays=8', 'operator requires .99 price endings'],
+          riskLevel: 'low',
+          ...approval,
+        },
+      ],
+    },
+  ], context);
+  assert.strictEqual(validated.errors.length, 0);
+  assert.strictEqual(validated.review.length, 0);
+  const action = validated.plan[0].actions[0];
+  assert.strictEqual(action.suggestedPrice, 12.99);
+  assert.strictEqual(action.expected.value, 12.99);
+  assert.strictEqual(action.learning.baseline.suggestedPrice, 12.99);
+  assert.ok(action.priceValidationWarnings.includes('price_target_normalized_to_99'));
+}
+
+{
+  const validated = validateAndNormalizePlan([
+    {
+      sku: 'RHO1540',
       summary: 'raise price but forgot ad coupling',
       actions: [
         {

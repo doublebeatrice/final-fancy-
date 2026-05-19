@@ -40,8 +40,13 @@ async function main() {
   const args = process.argv.slice(2);
   const hasDryRunFlag = args.includes('--dry-run');
   const hasExecuteFlag = args.includes('--execute');
+  const hasFastScopeFlag = args.includes('--fast-scope');
+  const hasFullScopeFlag = args.includes('--full-scope');
   if (hasDryRunFlag && hasExecuteFlag) {
     throw new Error('choose either --dry-run or --execute');
+  }
+  if (hasFastScopeFlag && hasFullScopeFlag) {
+    throw new Error('choose either --fast-scope or --full-scope');
   }
   const actionSchemaFile = args.find(arg => !arg.startsWith('--')) || process.env.ACTION_SCHEMA_FILE || '';
   if (!actionSchemaFile) {
@@ -56,6 +61,7 @@ async function main() {
     actionSchemaFile: path.resolve(actionSchemaFile),
     snapshotFile: snapshotFile ? path.resolve(snapshotFile) : '',
     dryRun: hasExecuteFlag ? false : (hasDryRunFlag ? true : undefined),
+    fastScope: hasFullScopeFlag ? false : (hasFastScopeFlag ? true : undefined),
   });
   const logResult = persistAdjustmentLog(result);
   if (logResult?.count) {

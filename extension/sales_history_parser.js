@@ -20,6 +20,24 @@
     return `${match[1]}-${String(match[2]).padStart(2, '0')}-${String(match[3]).padStart(2, '0')}`;
   }
 
+  function parseSummaryDate(value) {
+    const text = clean(value);
+    const match = text.match(/^(20\d{2})-(\d{1,2})-(\d{1,2})$/);
+    if (match) {
+      return new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])));
+    }
+    const date = value instanceof Date ? value : new Date(value);
+    return Number.isNaN(date.getTime()) ? null : date;
+  }
+
+  function dateParts(date, utc = false) {
+    return {
+      year: utc ? date.getUTCFullYear() : date.getFullYear(),
+      month: (utc ? date.getUTCMonth() : date.getMonth()) + 1,
+      day: utc ? date.getUTCDate() : date.getDate(),
+    };
+  }
+
   function stripTags(value) {
     return clean(String(value || '')
       .replace(/<script[\s\S]*?<\/script>/gi, ' ')
@@ -94,26 +112,29 @@
   }
 
   function summarize(rows = [], options = {}) {
-    const now = options.currentDate ? new Date(options.currentDate) : new Date();
-    const currentYear = now.getFullYear();
-    const currentMonth = now.getMonth() + 1;
-    const currentMd = `${String(currentMonth).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    const hasPinnedDate = !!options.currentDate;
+    const now = (hasPinnedDate ? parseSummaryDate(options.currentDate) : new Date()) || new Date();
+    const nowParts = dateParts(now, hasPinnedDate);
+    const currentYear = nowParts.year;
+    const currentMonth = nowParts.month;
+    const currentMd = `${String(currentMonth).padStart(2, '0')}-${String(nowParts.day).padStart(2, '0')}`;
     const cleanRows = rows.filter(row => row.date);
     const byMonth = new Map();
     let recent7Qty = 0;
     let recent30Qty = 0;
     let lastYearSamePeriodQty = 0;
     for (const row of cleanRows) {
-      const date = new Date(row.date);
-      if (Number.isNaN(date.getTime())) continue;
-      const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      const date = parseSummaryDate(row.date);
+      if (!date) continue;
+      const parts = dateParts(date, true);
+      const monthKey = `${parts.year}-${String(parts.month).padStart(2, '0')}`;
       byMonth.set(monthKey, (byMonth.get(monthKey) || 0) + row.salesQty);
       const ageDays = Math.floor((now - date) / 86400000);
       if (ageDays >= 0 && ageDays < 7) recent7Qty += row.salesQty;
       if (ageDays >= 0 && ageDays < 30) recent30Qty += row.salesQty;
-      if (date.getFullYear() === currentYear - 1) {
-        const md = `${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-        if (Math.abs(md.localeCompare(currentMd)) <= 7 || date.getMonth() + 1 === currentMonth) lastYearSamePeriodQty += row.salesQty;
+      if (parts.year === currentYear - 1) {
+        const md = `${String(parts.month).padStart(2, '0')}-${String(parts.day).padStart(2, '0')}`;
+        if (Math.abs(md.localeCompare(currentMd)) <= 7 || parts.month === currentMonth) lastYearSamePeriodQty += row.salesQty;
       }
     }
     const monthTotals = [...byMonth.entries()].map(([month, qty]) => ({ month, qty })).sort((a, b) => a.month.localeCompare(b.month));

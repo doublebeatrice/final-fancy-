@@ -25,8 +25,10 @@ This changes the default operating stance:
 - Keep ACOS and ad share under control, but do not cut traffic mechanically when the SKU needs display volume to protect old-product profit recovery.
 - Build missing ad structure when it is the practical way to create profitable reach. Creation must be traceable, low-budget first, and verified after launch.
 - The operator has released SP ad creation from review-only mode. When evidence supports it, Codex should build rather than only recommend.
+- SP keyword creation is allowed only after product-theme isolation. Do not create phrase groups from raw product-profile fragments, naked category/audience words, or internal labels. If fewer than three specific buyer-facing search phrases survive filtering, send the SKU to review instead of creating a keyword group.
 - SB is currently adjusted only. Do not create SB campaigns until the real SB creation interface is captured and verified.
 - For upcoming seasonal products with low impressions/clicks and inventory moving toward stuck-stock risk, prefer building missing SP coverage aggressively.
+- For keyword, SKU, ASIN, product direction, developer request, traffic recovery, keyword creation, or product-push questions, use `docs/PRODUCT_MARKET_EVIDENCE_STACK.md`. Product judgement should combine market demand, keyword economics, SKU ad proof, listing/price fit, inventory/economics, and action history instead of relying only on ad or inventory rows.
 
 ## Daily Operating Guardrails
 
@@ -46,7 +48,7 @@ Listing:
 
 - Check title, bullets, and long description keyword coverage.
 - Combine Q2 search demand and current product demand.
-- Listing changes remain review-only in the current automation boundary.
+- Seasonal title edits can be auto-submitted only under `docs/SEASONAL_LISTING_COPY_RULES.md`: non-top-50 SKU, strong product-event evidence, clean dry-run, and current external verification when using year-specific event/theme wording. Non-seasonal listing edits, high-sales SKUs without operator approval, and low-evidence changes remain review-only.
 
 Ads and budget:
 
@@ -55,6 +57,8 @@ Ads and budget:
 - Expand long-tail coverage.
 - Watch over-budget campaigns.
 - For old products in a cooling period, prefer lower bid and wider coverage instead of only cutting traffic.
+- Use selection keyword conversion data as a pre-spend keyword quality check. Strong market keyword evidence can support exact/phrase candidates, but the action still requires SKU-level ad backend proof, product-theme fit, listing/price readiness, inventory support, and cross-validation with ABA or reverse-search tools.
+- Use selection ABA search-term data as a market demand/concentration check before product-selection or keyword-expansion decisions. High ABA demand can justify deeper SKU-fit review, but it must not create ads or raise spend without keyword conversion cost proof and SKU-level performance proof.
 
 Inventory:
 
@@ -153,7 +157,7 @@ Codex must send these to review:
 
 - SB creation until the real SB creation interface is captured and verified.
 - Structure repair.
-- Listing changes.
+- Non-seasonal listing changes, and seasonal title edits that fail `docs/SEASONAL_LISTING_COPY_RULES.md`.
 - Price changes.
 - Replenishment decisions.
 - Unknown/out-of-scope entities, incomplete fields, missing verification mapping, or unsupported write surfaces.

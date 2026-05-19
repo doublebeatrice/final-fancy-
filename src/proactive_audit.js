@@ -105,6 +105,17 @@ function inventoryReady(card = {}) {
   return fulfillable + reserved > 0 || num(card.invDays) >= 14 || inbound > 0;
 }
 
+function fulResUnits(card = {}) {
+  return num(card.fulFillable ?? card.fulfillable ?? card.stockFul) +
+    num(card.reservedQty ?? card.reserved ?? card.stockRes);
+}
+
+function sellableDaysFrom7dVelocity(card = {}) {
+  const units7d = num(card.unitsSold_7d);
+  if (units7d <= 0) return null;
+  return round(fulResUnits(card) / (units7d / 7), 1);
+}
+
 function recentDays(card = {}, businessDate) {
   const candidates = [card.fuldate, card.fulfillmentDate, card.opendate, card.openDate]
     .map(value => daysBetweenDateStrings(value, businessDate))
@@ -325,35 +336,33 @@ function buildPriceActionsAudit(snapshot = {}) {
     const invDays = num(card.invDays);
     const units7d = num(card.unitsSold_7d);
     const profitRate = num(card.profitRate);
-    if (invDays > 0 && invDays <= 21 && units7d > 0) {
+    const available = fulResUnits(card);
+    const sellableDays7d = sellableDaysFrom7dVelocity(card);
+    if (sellableDays7d !== null && sellableDays7d < 30) {
       items.push({
         sku: text(card.sku),
         asin: text(card.asin),
-        issue: 'tight_inventory_active_sales_price_gate',
+        issue: 'ful_res_7d_sellable_days_short_price_gate',
         invDays,
         units7d,
+        fulResUnits: available,
+        sellableDays7d,
         profitRate,
         price: num(card.price),
+        saleStatus: text(card.saleStatus),
         requiredAction: 'review_price_raise_or_recover_price',
-        why: 'Tight inventory with active demand should protect profit and stock before extra traffic.',
-      });
-    } else if (units7d > 0 && profitRate > 0 && profitRate < 0.12) {
-      items.push({
-        sku: text(card.sku),
-        asin: text(card.asin),
-        issue: 'active_sales_low_profit_price_gate',
-        invDays,
-        units7d,
-        profitRate,
-        price: num(card.price),
-        requiredAction: 'review_price_raise_or_margin_repair',
-        why: 'Sales with weak margin cannot be scaled until price or cost posture is checked.',
+        why: 'Ful+Res inventory cannot cover 30 days at current 7d sales velocity; harvest profit before adding traffic.',
       });
     }
   }
   return {
-    summary: { total: items.length, tightInventory: items.filter(item => item.issue.includes('tight_inventory')).length, lowProfit: items.filter(item => item.issue.includes('low_profit')).length },
-    items: items.sort((a, b) => a.invDays - b.invDays || b.units7d - a.units7d),
+    summary: {
+      total: items.length,
+      shortSellableDays: items.filter(item => item.issue.includes('sellable_days_short')).length,
+      tightInventory: items.filter(item => item.issue.includes('sellable_days_short')).length,
+      lowProfit: 0,
+    },
+    items: items.sort((a, b) => a.sellableDays7d - b.sellableDays7d || b.units7d - a.units7d),
   };
 }
 

@@ -59,6 +59,7 @@
       mainImageUrl: '',
       imageUrls: [],
       variationText: '',
+      hasVideo: false,
       fetchedAt: new Date().toISOString(),
     };
 
@@ -128,6 +129,10 @@
         .map(node => text(node))
     ).join(' | ');
 
+    result.hasVideo = !!query(
+      '.videoThumbnail, .vse-video-thumbnail, [data-video-url], [data-video-id], #videoBlock_feature_div, #vse-related-videos'
+    ) || /"hasVideo"\s*:\s*true|videoCount"\s*:\s*[1-9]|\bsbv-video\b/i.test(html);
+
     const bsrText = text(query('#detailBulletsWrapper_feature_div')) || text(query('#productDetails_detailBullets_sections1')) || text(query('#SalesRank'));
     const bsrRe = /#([\d,]+)\s+in\s+([^#\n(]+?)(?:\(|$|See Top)/g;
     let match;
@@ -156,6 +161,7 @@
       mainImageUrl: '',
       imageUrls: [],
       variationText: '',
+      hasVideo: false,
       fetchedAt: new Date().toISOString(),
     };
 
@@ -207,6 +213,8 @@
 
     const variationMatches = [...html.matchAll(/<span[^>]*class=["'][^"']*selection[^"']*["'][^>]*>([\s\S]*?)<\/span>/gi)];
     result.variationText = uniq(variationMatches.map(match => stripTags(match[1]))).join(' | ');
+
+    result.hasVideo = /class=["'][^"']*(?:videoThumbnail|vse-video-thumbnail)[^"']*["']|data-video-(?:url|id)=|id=["'](?:videoBlock_feature_div|vse-related-videos)["']|"hasVideo"\s*:\s*true|videoCount"\s*:\s*[1-9]/i.test(html);
 
     const bsrText = stripTags((html.match(/(?:detailBulletsWrapper_feature_div|productDetails_detailBullets_sections1|SalesRank)[\s\S]*?<\/(?:div|table)>/i) || [])[0] || '');
     const bsrRe = /#([\d,]+)\s+in\s+([^#\n(]+?)(?:\(|$|See Top)/g;

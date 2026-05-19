@@ -132,6 +132,132 @@ function keywordSeedsFor(product = {}) {
     .slice(0, 12);
 }
 
+const UNSAFE_NAKED_LAUNCH_KEYWORDS = new Set([
+  'apparel',
+  'baby',
+  'baby shower',
+  'decor',
+  'gift',
+  'gift basket',
+  'gifts',
+  'jewelry',
+  'party supplies',
+  'summer',
+  'women',
+]);
+
+const GENERIC_LAUNCH_KEYWORD_TOKENS = new Set([
+  'apparel',
+  'baby',
+  'basket',
+  'decor',
+  'gift',
+  'gifts',
+  'jewelry',
+  'mom',
+  'party',
+  'shower',
+  'supplies',
+  'summer',
+  'women',
+]);
+
+const SEARCH_STOPWORDS = new Set([
+  'a',
+  'an',
+  'and',
+  'by',
+  'for',
+  'from',
+  'in',
+  'include',
+  'includes',
+  'kit',
+  'of',
+  'on',
+  'or',
+  'pack',
+  'set',
+  'the',
+  'to',
+  'with',
+]);
+
+const DISTINCTIVE_LAUNCH_TOKENS = new Set([
+  'appreciation',
+  'bridal',
+  'bride',
+  'bridesmaid',
+  'christian',
+  'cinco',
+  'dad',
+  'easter',
+  'faith',
+  'father',
+  'fathers',
+  'fiesta',
+  'godmother',
+  'godparent',
+  'graduate',
+  'graduation',
+  'health',
+  'inspirational',
+  'lab',
+  'madrina',
+  'mental',
+  'mexican',
+  'mother',
+  'mothers',
+  'nurse',
+  'senior',
+  'teacher',
+  'tech',
+  'volunteer',
+  'week',
+  'wedding',
+]);
+
+const BUYER_INTENT_TOKENS = new Set([
+  'basket',
+  'bracelet',
+  'card',
+  'cards',
+  'decor',
+  'decoration',
+  'decorations',
+  'favor',
+  'favors',
+  'gift',
+  'gifts',
+  'keychain',
+  'sign',
+  'supplies',
+  'tumbler',
+]);
+
+function qualifiedLaunchKeywordSeeds(seeds = []) {
+  const qualified = [];
+  const seen = new Set();
+  for (const seed of seeds) {
+    const term = cleanTerm(seed);
+    if (!term || seen.has(term)) continue;
+    seen.add(term);
+    if (UNSAFE_NAKED_LAUNCH_KEYWORDS.has(term)) continue;
+    const tokens = term.split(' ').filter(Boolean);
+    if (tokens.length < 2 || tokens.length > 5) continue;
+    const meaningful = tokens.filter(token =>
+      !SEARCH_STOPWORDS.has(token) &&
+      !GENERIC_LAUNCH_KEYWORD_TOKENS.has(token)
+    );
+    const hasDistinctiveToken = tokens.some(token => DISTINCTIVE_LAUNCH_TOKENS.has(token));
+    const hasBuyerIntentToken = tokens.some(token => BUYER_INTENT_TOKENS.has(token));
+    if (!hasBuyerIntentToken) continue;
+    if (meaningful.length < 2 && !hasDistinctiveToken) continue;
+    qualified.push(term);
+  }
+  return qualified;
+}
+
 function createCampaignName(prefix, coreTerm, sku) {
   const term = cleanTerm(coreTerm).replace(/\s+/g, ' ').slice(0, 45);
   return `proactive ${prefix}_${term}_${String(sku || '').toLowerCase()}`.slice(0, 120);
@@ -240,14 +366,21 @@ function buildNewProductLaunchActions(audit = {}, products = new Map(), limit = 
           evidence,
         }));
       }
-      if (!coverage.hasSpKeyword && seeds.length >= 3 && actionCount + actions.length < limit) {
-        const coreTerm = seeds[0];
+      const qualifiedKeywordSeeds = qualifiedLaunchKeywordSeeds(seeds);
+      if (!coverage.hasSpKeyword && qualifiedKeywordSeeds.length >= 3 && actionCount + actions.length < limit) {
+        const coreTerm = qualifiedKeywordSeeds[0];
         actions.push(createSpAction(product, 'keywordTarget', coreTerm, {
           matchType: 'PHRASE',
-          keywords: seeds.slice(0, 8),
+          keywords: qualifiedKeywordSeeds.slice(0, 8),
           reason: 'New product has inventory but no SP keyword coverage. Build low-budget phrase coverage from product keyword seeds.',
-          evidence: [...evidence, `keywordSeeds=${seeds.slice(0, 8).join('|')}`],
+          evidence: [
+            ...evidence,
+            `keywordSeeds=${qualifiedKeywordSeeds.slice(0, 8).join('|')}`,
+            `rejectedKeywordSeeds=${seeds.filter(seed => !qualifiedKeywordSeeds.includes(cleanTerm(seed))).slice(0, 12).join('|')}`,
+          ],
         }));
+      } else if (!coverage.hasSpKeyword && actionCount + actions.length < limit) {
+        actions.push(reviewAction(item, 'new_product_keyword_seed_review', 'New product lacks SP keyword coverage, but keyword seeds are too broad or too thin for automatic phrase creation; rebuild with buyer-facing specific search phrases only.'));
       }
       if (!coverage.hasSpManual && actionCount + actions.length < limit) {
         actions.push(reviewAction(item, 'new_product_manual_targeting', 'New product still lacks SP manual/product targeting; target ASIN set is not available in the snapshot, so build or fetch ASIN targets manually.'));
@@ -468,5 +601,6 @@ module.exports = {
   buildExpiredSeasonActions,
   buildNewProductLaunchActions,
   buildReviewItems,
+  qualifiedLaunchKeywordSeeds,
   mergePlans,
 };

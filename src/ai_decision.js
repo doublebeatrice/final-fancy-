@@ -1391,6 +1391,9 @@ function validateAndNormalizePlan(rawPlan, context) {
           matchType: rawCreateInput.matchType || rawAction.matchType || '',
           keywords: rawCreateInput.keywords || rawAction.keywords || [],
           advType: rawCreateInput.advType || rawAction.advType || 'SP',
+          siteRestriction: rawCreateInput.siteRestriction || rawAction.siteRestriction || '',
+          siteAmazonBusiness: rawCreateInput.siteAmazonBusiness ?? rawAction.siteAmazonBusiness,
+          offAmazonBudgetControlStrategy: rawCreateInput.offAmazonBudgetControlStrategy ?? rawAction.offAmazonBudgetControlStrategy,
         };
       }
 
@@ -1442,6 +1445,11 @@ function validateAndNormalizePlan(rawPlan, context) {
           normalized.canAutoExecute = false;
           normalized.riskLevel = 'manual_review';
           normalized.reason = `${normalized.reason || ''} [risk_gate:price_validation:${priceValidation.errors.join(',')}]`.trim();
+        } else {
+          const priceVerification = buildVerificationSpec(normalized);
+          normalized.verifySource = priceVerification?.verifySource || normalized.verifySource;
+          normalized.verifyField = priceVerification?.verifyField || normalized.verifyField;
+          normalized.expected = priceVerification?.expected || normalized.expected;
         }
       }
 

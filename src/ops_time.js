@@ -52,17 +52,23 @@ function buildOpsTimeContext(options = {}) {
   const now = options.now instanceof Date ? options.now : new Date();
   const siteTimezone = options.siteTimezone || resolveSiteTimezone(options.site);
   const siteParts = partsInTimezone(now, siteTimezone);
+  const localTimezone = options.localTimezone || 'Asia/Shanghai';
+  const localParts = partsInTimezone(now, localTimezone);
   const businessDate = options.businessDate || formatDateParts(siteParts);
+  const localDate = options.localDate || formatDateParts(localParts);
   const dataLagDays = Number.isFinite(Number(options.dataLagDays)) ? Number(options.dataLagDays) : DEFAULT_DATA_LAG_DAYS;
   const dataDate = options.dataDate || addDays(businessDate, -dataLagDays);
   const sourceRunId = options.sourceRunId || `ops_${now.toISOString().replace(/[:.]/g, '-')}`;
   return {
     runAt: now.toISOString(),
     businessDate,
+    localDate,
     dataDate,
     siteTimezone,
+    localTimezone,
     sourceRunId,
     siteLocalTime: `${formatDateParts(siteParts)}T${pad(siteParts.hour)}:${pad(siteParts.minute)}:${pad(siteParts.second)}`,
+    localTime: `${formatDateParts(localParts)}T${pad(localParts.hour)}:${pad(localParts.minute)}:${pad(localParts.second)}`,
     dataLagDays,
   };
 }
@@ -72,8 +78,10 @@ function attachTimeToAction(action = {}, timeContext = {}) {
     ...action,
     runAt: action.runAt || timeContext.runAt,
     businessDate: action.businessDate || timeContext.businessDate,
+    localDate: action.localDate || timeContext.localDate,
     dataDate: action.dataDate || timeContext.dataDate,
     siteTimezone: action.siteTimezone || timeContext.siteTimezone,
+    localTimezone: action.localTimezone || timeContext.localTimezone,
     sourceRunId: action.sourceRunId || timeContext.sourceRunId,
   };
 }
@@ -83,8 +91,10 @@ function attachTimeToPlan(plan = [], timeContext = {}) {
     ...item,
     runAt: item.runAt || timeContext.runAt,
     businessDate: item.businessDate || timeContext.businessDate,
+    localDate: item.localDate || timeContext.localDate,
     dataDate: item.dataDate || timeContext.dataDate,
     siteTimezone: item.siteTimezone || timeContext.siteTimezone,
+    localTimezone: item.localTimezone || timeContext.localTimezone,
     sourceRunId: item.sourceRunId || timeContext.sourceRunId,
     actions: (item.actions || []).map(action => attachTimeToAction(action, timeContext)),
   }));

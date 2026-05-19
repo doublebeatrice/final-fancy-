@@ -117,12 +117,14 @@ For supported ad actions, use explicit approval plus `forceExecute: true` when o
 - `expectedEffect`
 - `reviewPlan` or measurement windows and rollback condition
 
-These remain review-only or blocked because they are outside the current verified advertising execution surface:
+Price execution has one verified non-advertising path: sellerinventory price applications generated from the Ful+Res shortage rule. The SKU must be normal-sale, 7d Ful+Res sellable days must be below 30, the target must be normalized to a `.99` ending, dry-run must pass, and the run must include post-write verification. If `fulResUnits <= 7` or `sellableDays7d <= 7`, the schema must pause enabled SKU ad delivery first at the productAd/SB row level where available. Sellerinventory success is a backend application marker, not Amazon-front-end propagation.
+
+These remain review-only or blocked because they are outside the current verified execution surfaces:
 
 - SB `create` until the real SB creation interface is captured and verified.
 - `structure_fix` without a concrete writable entity.
-- listing edits unless the listing-copy application flow is explicitly used and reported as submitted pending review.
-- price changes.
+- listing edits unless the listing-copy application flow is explicitly used, the edit passes `docs/SEASONAL_LISTING_COPY_RULES.md` or explicit approval gates, and the result is reported as `submitted_pending_review`.
+- price changes outside the verified Ful+Res sellerinventory price-execution path.
 - replenishment decisions.
 - unknown/out-of-scope SKUs or entities.
 - actions missing required ids/fields or post-write verification mapping.

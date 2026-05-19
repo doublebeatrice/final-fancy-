@@ -1,0 +1,564 @@
+{
+  "generatedAt": "2026-05-19T01:56:38.482Z",
+  "businessDate": "2026-05-19",
+  "sourceDataDate": "2026-05-17",
+  "rule": "Write only concise season/status tag after live title product-fit check. Ambiguous products use suspect/tail/bereavement labels instead of forcing wrong event labels.",
+  "items": [
+    {
+      "sku": "SAN1203",
+      "aid": 2513991,
+      "asin": "B0FGD7Z84F",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "seasonAudit": [
+        "Wedding Season:peak"
+      ],
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "productCheck": "wedding audit hit, but live title is cowboy/western party, not wedding-specific",
+      "liveTitle": "Zhanmai 12 Pcs Cowboy Hat & Bandana Set Western Costume Accessories for Cowboy Party Bulk Favors for Theme Party(Glossy Black)",
+      "metrics": {
+        "units30d": 1,
+        "sellableDays30d": 1380,
+        "profitRate": -0.3498,
+        "adSpend7d": 0,
+        "adOrders7d": 0
+      }
+    },
+    {
+      "sku": "STA2610",
+      "aid": 2638941,
+      "asin": "B0FND7GY4V",
+      "salesChannel": "Amazon.com",
+      "tag": "父亲未推未改",
+      "seasonAudit": [
+        "Father's Day:preheat"
+      ],
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "productCheck": "live title has Pastor Father's Day; loss/no-order ad signal, do not push",
+      "liveTitle": "Thenshop 20 Pcs Pastor Father's Day Christian Church Gifts for Men, Leather Prayer Journal Notebooks with Bible Verse Pens, Religious Bible Study for Pastor Church Events (Dark Brown)",
+      "metrics": {
+        "units30d": 2,
+        "sellableDays30d": 2730,
+        "profitRate": -0.3496,
+        "adSpend7d": 5.529999999999999,
+        "adOrders7d": 0
+      }
+    },
+    {
+      "sku": "LEM6585",
+      "aid": 2751197,
+      "asin": "B0FXVB2SYG",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "seasonAudit": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "productCheck": "live title has wedding centerpieces/bridal shower; no new push",
+      "liveTitle": "LemonRoad 6 Sets Wedding Centerpieces for Tables Include Galvanized Flower Bucket Metal Vases with Artificial Flowers Bridal Shower Decorations Wedding Party Favors for Guests (Blue)",
+      "metrics": {
+        "units30d": 0,
+        "sellableDays30d": 999,
+        "profitRate": -0.1469,
+        "adSpend7d": 3.42,
+        "adOrders7d": 0
+      }
+    },
+    {
+      "sku": "HEL3107",
+      "aid": 2722797,
+      "asin": "B0FVFJBZBW",
+      "salesChannel": "Amazon.com",
+      "tag": "毕业未推待改",
+      "seasonAudit": [
+        "Graduation:peak",
+        "Nurse Week:tail"
+      ],
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "productCheck": "live title has Senior Night team gifts; school/graduation adjacent but page needs review",
+      "liveTitle": "Huquary 32 Sets Football Senior Night Gifts Positive Gnome Keychains with Thank You Cards and Opp Bags Acrylic Bulk Keychain Gifts for Team Players Tailgate Football Birthday Party Favors",
+      "metrics": {
+        "units30d": 0,
+        "sellableDays30d": 999,
+        "profitRate": -0.2882,
+        "adSpend7d": 1.2100000000000002,
+        "adOrders7d": 0
+      }
+    },
+    {
+      "sku": "STA2607",
+      "aid": 2638940,
+      "asin": "B0FND9XC4Y",
+      "salesChannel": "Amazon.com",
+      "tag": "父亲未推未改",
+      "seasonAudit": [
+        "Father's Day:preheat",
+        "Nurse Week:tail"
+      ],
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "productCheck": "live title has Pastor Father's Day; no new push",
+      "liveTitle": "Thenshop 30 Pcs Pastor Father's Day Christian Church Gifts for Men, Leather Prayer Journal Notebooks with Bible Verse Pens, Religious Bible Study for Pastor Church Events (Black)",
+      "metrics": {
+        "units30d": 0,
+        "sellableDays30d": 999,
+        "profitRate": -0.185,
+        "adSpend7d": 1.6,
+        "adOrders7d": 0
+      }
+    },
+    {
+      "sku": "STA2604",
+      "aid": 2629328,
+      "asin": "B0FN7P88D4",
+      "salesChannel": "Amazon.com",
+      "tag": "父亲未推未改",
+      "seasonAudit": [
+        "Father's Day:preheat",
+        "Nurse Week:tail"
+      ],
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "productCheck": "live title has Pastor Father's Day; no new push",
+      "liveTitle": "Thenshop 24 Pcs Pastor Father's Day Christian Church Gifts for Men, Leather Prayer Journal Notebooks with Bible Verse Pens, Religious Bible Study for Pastor Church Events (Multicolor)",
+      "metrics": {
+        "units30d": 0,
+        "sellableDays30d": 999,
+        "profitRate": -0.0712,
+        "adSpend7d": 3.0999999999999996,
+        "adOrders7d": 1
+      }
+    },
+    {
+      "sku": "CEE0467",
+      "aid": 2282028,
+      "asin": "B09SW2NT6J",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "seasonAudit": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "productCheck": "live title is generic dessert cups; wedding fit not strong",
+      "liveTitle": "50 Pack Dessert Cups with Dome Lids Disposable Plastic Cups with Lids Clear Pet (No Hole), Sporks and Stickers for Plastic Fruit, Cake and Mini Snack Bowls(9 oz,Simple Cup)",
+      "metrics": {
+        "units30d": 0,
+        "sellableDays30d": 999,
+        "profitRate": -0.2361,
+        "adSpend7d": 0,
+        "adOrders7d": 0
+      }
+    },
+    {
+      "sku": "HUA6645",
+      "aid": 2887738,
+      "asin": "B0GDXPLX6B",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "seasonAudit": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "productCheck": "live title has bride/bridesmaids/bachelorette; ad create previously ineligible",
+      "liveTitle": "Suhine 9 Pcs Lace Mrs Bridal Panties Set, Wedding Bride Underwear, White Size L for Bride and Bridesmaids, Bachelorette Favors Party Gift, Bridal Gift for Her",
+      "metrics": {
+        "units30d": 0,
+        "sellableDays30d": 999,
+        "profitRate": 0.1165,
+        "adSpend7d": 8.98,
+        "adOrders7d": 0
+      }
+    },
+    {
+      "sku": "GUF3129",
+      "aid": 3120891,
+      "asin": "B0GWD724Y8",
+      "salesChannel": "Amazon.com",
+      "tag": "爱国未推待改",
+      "seasonAudit": [
+        "Summer:preheat"
+      ],
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "productCheck": "live title has American flag patriotic events; not generic summer",
+      "liveTitle": "Bunnycool 12 Pcs Patriotic Bucket Hat Set for Men Women, 4 Styles American Flag Fisherman Caps for Patriotic Events (Coastal Mix)",
+      "metrics": {
+        "units30d": 0,
+        "sellableDays30d": 999,
+        "profitRate": 0.171,
+        "adSpend7d": 0,
+        "adOrders7d": 0
+      }
+    },
+    {
+      "sku": "TAN2986",
+      "aid": 2759479,
+      "asin": "B0FYDRZ1ZC",
+      "salesChannel": "Amazon.com",
+      "tag": "护士尾期未推",
+      "seasonAudit": [
+        "Graduation:peak",
+        "Nurse Week:tail"
+      ],
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "productCheck": "live title is 2026 Nurse Week/CRNA gift, not graduation",
+      "liveTitle": "Quelay 24 Set 2026 Nurse Week Gift Anesthetist Appreciation Bracelet Gifts Bulk Colorful Clay Beaded Stretch Bracelet Thank You Gifts for Crna Nurse Anesthesiologists Birthday Medical Professional",
+      "metrics": {
+        "units30d": 2,
+        "sellableDays30d": 2565,
+        "profitRate": 0.1031,
+        "adSpend7d": 5.2,
+        "adOrders7d": 0
+      }
+    },
+    {
+      "sku": "YUT4458",
+      "aid": 2802035,
+      "asin": "B0D1VMCWXL",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "seasonAudit": [
+        "Summer:preheat"
+      ],
+      "riskType": "critical_stale_season",
+      "suggestedAction": "review_stale_inventory_sell_through_plan",
+      "productCheck": "live title has summer pool float; no new push",
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float - Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "metrics": {
+        "units30d": 2,
+        "sellableDays30d": 1170,
+        "profitRate": 0.104,
+        "adSpend7d": 12.879999999999999,
+        "adOrders7d": 0
+      }
+    },
+    {
+      "sku": "MF6292",
+      "aid": 3005337,
+      "asin": "B0GMNCFTF2",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "seasonAudit": [
+        "Summer:preheat"
+      ],
+      "riskType": "season_stale_watch",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "productCheck": "live title has summer pool float; no new push",
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men(20,Gold)",
+      "metrics": {
+        "units30d": 5,
+        "sellableDays30d": 564,
+        "profitRate": 0.1085,
+        "adSpend7d": 16.06,
+        "adOrders7d": 2
+      }
+    },
+    {
+      "sku": "LEM6577",
+      "aid": 2748408,
+      "asin": "B0FXGN8CXZ",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "seasonAudit": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "riskType": "season_stale_watch",
+      "suggestedAction": "review_low_budget_season_structure_gap",
+      "productCheck": "live title has wedding centerpieces/bridal shower; no new push",
+      "liveTitle": "LemonRoad 6 Sets Wedding Centerpieces for Tables Include Galvanized Flower Bucket Metal Vases with Artificial Flowers Bridal Shower Decorations Wedding Party Favors for Guests(White)",
+      "metrics": {
+        "units30d": 5,
+        "sellableDays30d": 192,
+        "profitRate": -0.1399,
+        "adSpend7d": 0.45999999999999996,
+        "adOrders7d": 0
+      }
+    },
+    {
+      "sku": "SC3420",
+      "aid": 2172432,
+      "asin": "B0C2HKSG2X",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念不加免改",
+      "seasonAudit": [
+        "Memorial Day:peak"
+      ],
+      "riskType": "inventory_tight_no_scale",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "productCheck": "live title is memorial cardinal/funeral remembrance; inventory tight, no scale",
+      "liveTitle": "Inbagi Memorial Cardinal Sign Pins Set Include Bird Funeral Pocket Token Red Cardinal Pin Organza Bags and Remember Me Poem Cards Cardinal Charms Funeral Favors for Guests Gift (30 Sets)",
+      "metrics": {
+        "units30d": 56,
+        "sellableDays30d": 20,
+        "profitRate": 0.3713,
+        "adSpend7d": 34.1,
+        "adOrders7d": 10
+      }
+    },
+    {
+      "sku": "OCE1413",
+      "aid": 2541123,
+      "asin": "B0FHK5GS4F",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼不加免改",
+      "seasonAudit": [
+        "Wedding Season:peak"
+      ],
+      "riskType": "inventory_tight_no_scale",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "productCheck": "live title has wedding officiant book; inventory tight, no scale",
+      "liveTitle": "Engrowtic Wedding Officiant Book Personalized Linen Hardcover Journal with Name Sticker, 160 Lined Pages, 5.31 x 8.27 in A5 Notebook, Pastor Minister Sermon Officiant Gift for Wedding Ceremony",
+      "metrics": {
+        "units30d": 126,
+        "sellableDays30d": 18,
+        "profitRate": 0.1254,
+        "adSpend7d": 15.730000000000002,
+        "adOrders7d": 11
+      }
+    },
+    {
+      "sku": "QAA4200",
+      "aid": 2604904,
+      "asin": "B0FM3ZN2BK",
+      "salesChannel": "Amazon.com",
+      "tag": "季节存疑未推",
+      "seasonAudit": [
+        "Wedding Season:peak",
+        "Nurse Week:tail"
+      ],
+      "riskType": "inventory_tight_no_scale",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "productCheck": "live title is generic crown/inspirational gifts; wedding/nurse fit weak",
+      "liveTitle": "Tondiamo Crown Brooch Pins Bulk Gifts for Mother Inspirational Gifts for Women Employee Appreciation with Inspirational Cards(60 Sets)",
+      "metrics": {
+        "units30d": 44,
+        "sellableDays30d": 15,
+        "profitRate": 0.4198,
+        "adSpend7d": 10.94,
+        "adOrders7d": 7
+      }
+    },
+    {
+      "sku": "RHO1540",
+      "aid": 2994241,
+      "asin": "B0GLPCPFK9",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼不加免改",
+      "seasonAudit": [
+        "Wedding Season:peak"
+      ],
+      "riskType": "inventory_tight_no_scale",
+      "suggestedAction": "hold_scale_and_check_replenishment",
+      "productCheck": "live title has bridesmaid/proposal/bridal shower; inventory tight, no scale",
+      "liveTitle": "YooNotee Personalized Will You Be My Bridesmaid Sticker with Name Pearl Decal Vinyl Proposal Decal Custom Name Decals DTF Transfer for Bridesmaids Box Bridal Shower Wedding Bachelorette Party (Gold)",
+      "metrics": {
+        "units30d": 73,
+        "sellableDays30d": 11,
+        "profitRate": 0.2243,
+        "adSpend7d": 5.9,
+        "adOrders7d": 1
+      }
+    },
+    {
+      "sku": "QQ1764",
+      "aid": 1509425,
+      "asin": "B0C1NF986W",
+      "salesChannel": "Amazon.com",
+      "tag": "同志已推已改",
+      "seasonAudit": [],
+      "riskType": "",
+      "suggestedAction": "",
+      "productCheck": "live title has Pride Month/LGBTQ; QQ1764 ads were scaled after user title change",
+      "liveTitle": "Tudomro 3 Pack Rainbow Plastic Tablecloth, 54 x 108 Inch Disposable Rainbow Table Covers for Pride Month, Lgbtq Party Decorations, Birthday Party, Celebration Supplies (Classic Color)",
+      "metrics": {
+        "units30d": 117,
+        "sellableDays30d": 216,
+        "profitRate": 0.0869,
+        "adSpend7d": null,
+        "adOrders7d": null
+      }
+    },
+    {
+      "sku": "YUT4462",
+      "aid": 2802037,
+      "asin": "B0DX5Y7RZ9",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季已推免改",
+      "seasonAudit": [],
+      "riskType": "",
+      "suggestedAction": "",
+      "productCheck": "live title has summer pool float; broad summer ad created",
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float - Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "metrics": {
+        "units30d": 13,
+        "sellableDays30d": 93,
+        "profitRate": 0.0193,
+        "adSpend7d": null,
+        "adOrders7d": null
+      }
+    },
+    {
+      "sku": "YUT4460",
+      "aid": 2802036,
+      "asin": "B0DX13SR8F",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季已推免改",
+      "seasonAudit": [],
+      "riskType": "",
+      "suggestedAction": "",
+      "productCheck": "live title has summer pool float; broad summer ad created",
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float - Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "metrics": {
+        "units30d": 12,
+        "sellableDays30d": 175,
+        "profitRate": 0.0982,
+        "adSpend7d": null,
+        "adOrders7d": null
+      }
+    },
+    {
+      "sku": "LO3817",
+      "aid": 2819424,
+      "asin": "B0G4R61LRM",
+      "salesChannel": "Amazon.com",
+      "tag": "教会已推未改",
+      "seasonAudit": [],
+      "riskType": "",
+      "suggestedAction": "",
+      "productCheck": "Christian/church favors fit VBS-style traffic; ad created, listing still Mother's Day wording",
+      "liveTitle": "Meanplan Christian Mothers Day Compact Mirrors with Bible Verses Religious Gifts for Women Mothers Day Church Favors(36 Set)",
+      "metrics": {
+        "units30d": 63,
+        "sellableDays30d": 57,
+        "profitRate": -0.0447,
+        "adSpend7d": null,
+        "adOrders7d": null
+      }
+    },
+    {
+      "sku": "OB4139",
+      "aid": 2949581,
+      "asin": "B0GJRV1TCQ",
+      "salesChannel": "Amazon.com",
+      "tag": "未来已提未推",
+      "seasonAudit": [],
+      "riskType": "",
+      "suggestedAction": "",
+      "productCheck": "Fiesta evergreen title application submitted, no ad push",
+      "liveTitle": "Lewtemi Mexican Duck Piñata for Birthday Party Cinco de Mayo Fiesta Decorations with Piñata Stick Blindfold Confetti Set",
+      "metrics": {
+        "units30d": 79,
+        "sellableDays30d": 7,
+        "profitRate": -0.1579,
+        "adSpend7d": null,
+        "adOrders7d": null
+      }
+    },
+    {
+      "sku": "OB3296",
+      "aid": 2949579,
+      "asin": "B0GJRF57B5",
+      "salesChannel": "Amazon.com",
+      "tag": "未来已提未推",
+      "seasonAudit": [],
+      "riskType": "",
+      "suggestedAction": "",
+      "productCheck": "covered by OB4139 variant title application, no ad push",
+      "liveTitle": "Lewtemi Mexican Donkey Piñata for Birthday Party Cinco de Mayo Fiesta Decorations with Piñata Stick Blindfold Confetti Set",
+      "metrics": {
+        "units30d": 73,
+        "sellableDays30d": 11,
+        "profitRate": -0.1604,
+        "adSpend7d": null,
+        "adOrders7d": null
+      }
+    },
+    {
+      "sku": "GM3213",
+      "aid": 2921147,
+      "asin": "B0GGZR3ZFV",
+      "salesChannel": "Amazon.com",
+      "tag": "实验免改未推",
+      "seasonAudit": [],
+      "riskType": "",
+      "suggestedAction": "",
+      "productCheck": "live title already Lab Tech Gifts, no Lab Week; no ad push",
+      "liveTitle": "Kenning 24 Pcs Lab Tech Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists (Gold)",
+      "metrics": {
+        "units30d": 81,
+        "sellableDays30d": 6,
+        "profitRate": 0.1026,
+        "adSpend7d": null,
+        "adOrders7d": null
+      }
+    },
+    {
+      "sku": "GM3210",
+      "aid": 2921145,
+      "asin": "B0GGZYQ8TH",
+      "salesChannel": "Amazon.com",
+      "tag": "实验免改未推",
+      "seasonAudit": [],
+      "riskType": "",
+      "suggestedAction": "",
+      "productCheck": "live title already Lab Tech Gifts, no Lab Week; no ad push",
+      "liveTitle": "Kenning 36 Pcs Lab Tech Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists (Gold)",
+      "metrics": {
+        "units30d": 31,
+        "sellableDays30d": 1,
+        "profitRate": 0.1565,
+        "adSpend7d": null,
+        "adOrders7d": null
+      }
+    },
+    {
+      "sku": "GM3207",
+      "aid": 2921144,
+      "asin": "B0GGRZB5D1",
+      "salesChannel": "Amazon.com",
+      "tag": "实验免改未推",
+      "seasonAudit": [],
+      "riskType": "",
+      "suggestedAction": "",
+      "productCheck": "live title already Lab Tech Gifts, no Lab Week; no ad push",
+      "liveTitle": "Kenning 24 Pcs Lab Tech Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists (Silver)",
+      "metrics": {
+        "units30d": 46,
+        "sellableDays30d": 66,
+        "profitRate": 0.1026,
+        "adSpend7d": null,
+        "adOrders7d": null
+      }
+    },
+    {
+      "sku": "GM3201",
+      "aid": 2918143,
+      "asin": "B0GGNQXLVR",
+      "salesChannel": "Amazon.com",
+      "tag": "实验免改未推",
+      "seasonAudit": [],
+      "riskType": "",
+      "suggestedAction": "",
+      "productCheck": "live title already Lab Tech Gifts, no Lab Week; no ad push",
+      "liveTitle": "Kenning 36 Pcs Lab Tech Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists (Silver)",
+      "metrics": {
+        "units30d": 40,
+        "sellableDays30d": 47,
+        "profitRate": 0.0352,
+        "adSpend7d": null,
+        "adOrders7d": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,1556 @@
+{
+  "generatedAt": "2026-05-19T04:46:28.140Z",
+  "highCount": 32,
+  "supported": 31,
+  "suspect": 1,
+  "reviewed": [
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "SAN0384"
+      ],
+      "campaignId": "552340778536030",
+      "adGroupId": "390730760213898",
+      "accountId": "528",
+      "keywordId": "490388969504240",
+      "campaignName": "kw_print cowboy_san0384",
+      "groupName": "kw_core",
+      "keywordText": "cow print cowboy hat kids",
+      "matchType": 3,
+      "bid": 0.46,
+      "stats": {
+        "impressions": 5034,
+        "clicks": 10,
+        "spend": 7.52,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.752
+      },
+      "reasons": [
+        "product_noun_mismatch:hat"
+      ],
+      "termSignals": [],
+      "productSignals": [],
+      "termNouns": [
+        "hat"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "SAN0384",
+          "support": true,
+          "searchCore": "hat cowboy men costume bandana black women cowgirl red kids party mask white headband western top accessories baby straw vest adult head girls belt halloween face brim leather cap wide brown dress decoration toy band jacket birthday scarf clothes boys"
+        }
+      ]
+    },
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "SAN0383"
+      ],
+      "campaignId": "350659306277711",
+      "adGroupId": "515181560403407",
+      "accountId": "528",
+      "keywordId": "325602990136328",
+      "campaignName": "kw_cowhat&band_san0383",
+      "groupName": "kw_cs",
+      "keywordText": "cowboy hats party pack",
+      "matchType": 3,
+      "bid": 0.38,
+      "stats": {
+        "impressions": 2014,
+        "clicks": 13,
+        "spend": 7.32,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.563076
+      },
+      "reasons": [
+        "product_noun_mismatch:hat"
+      ],
+      "termSignals": [],
+      "productSignals": [],
+      "termNouns": [
+        "hat"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "SAN0383",
+          "support": true,
+          "searchCore": "hat cowboy men party bandana black women cowgirl mask white headband western top accessories head straw vest adult belt face brim leather cap wide brown dress decoration jacket birthday scarf clothes"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "SHU2557"
+      ],
+      "campaignId": "357257900689107",
+      "adGroupId": "416696911778389",
+      "accountId": "621",
+      "keywordId": "521092675275480",
+      "campaignName": "bridesmaid gifts-shu2557-sb",
+      "groupName": "",
+      "keywordText": "bridesmaids glass",
+      "matchType": "broad",
+      "bid": 0.4,
+      "stats": {
+        "impressions": 11094,
+        "clicks": 18,
+        "spend": 6.96,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.386666
+      },
+      "reasons": [
+        "product_noun_mismatch:tumbler_cup"
+      ],
+      "termSignals": [
+        "bride_wedding"
+      ],
+      "productSignals": [
+        "bride_wedding"
+      ],
+      "termNouns": [
+        "tumbler_cup"
+      ],
+      "productNouns": [],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "SHU2557",
+          "support": true,
+          "searchCore": "wedding bridesmaid party glass set bride coffee lid gifts straw bridal shower cup engagement drinking bamboo favors wine cute supply kitchen water decorations reusable friend printed proposal home drinks juice style clear milk elegant braids"
+        }
+      ]
+    },
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "SAN1213"
+      ],
+      "campaignId": "341849241439909",
+      "adGroupId": "290542207924147",
+      "accountId": "528",
+      "keywordId": "495395149659381",
+      "campaignName": "kw_cowboyhat_san1213",
+      "groupName": "kw_cowboyhat_san1213",
+      "keywordText": "cowboy hat and bandana set",
+      "matchType": 3,
+      "bid": 0.3,
+      "stats": {
+        "impressions": 5672,
+        "clicks": 17,
+        "spend": 6.17,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.362941
+      },
+      "reasons": [
+        "product_noun_mismatch:hat"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "fiesta"
+      ],
+      "termNouns": [
+        "hat"
+      ],
+      "productNouns": [
+        "sticker",
+        "basket"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "SAN1213",
+          "support": true,
+          "searchCore": "bandana cowboy hat set western bulk party men women costume accessories brim cap brown black white headwear photo props"
+        }
+      ]
+    },
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "DN2108"
+      ],
+      "campaignId": "173337022604427",
+      "adGroupId": "8055935881233",
+      "accountId": "171",
+      "keywordId": "66530901673936",
+      "campaignName": "kw_may push dn2108 phrase_dn2108",
+      "groupName": "kw_may push dn2108 phrase_dn2108",
+      "keywordText": "galvanized flower bucket",
+      "matchType": 2,
+      "bid": 0.71,
+      "stats": {
+        "impressions": 2646,
+        "clicks": 6,
+        "spend": 4.62,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.77
+      },
+      "reasons": [
+        "product_noun_mismatch:flower_bucket"
+      ],
+      "termSignals": [],
+      "productSignals": [],
+      "termNouns": [
+        "flower_bucket"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "DN2108",
+          "support": true,
+          "searchCore": "galvanized buckets flowers vase wedding silver floor farmhouse french country decor metal large wide mouth arrangement floral container table centerpieces home farm fresh dried vintage planter set holiday florist porch antique rustic tall handles"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "SE6621"
+      ],
+      "campaignId": "446241241901254",
+      "adGroupId": "517923856183836",
+      "accountId": "150",
+      "keywordId": "174214654446813",
+      "campaignName": "sbv_bearshirts_se6621",
+      "groupName": "",
+      "keywordText": "teddy bear tee shirts",
+      "matchType": "broad",
+      "bid": 0.25,
+      "stats": {
+        "impressions": 2330,
+        "clicks": 18,
+        "spend": 4.62,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.256666
+      },
+      "reasons": [
+        "product_noun_mismatch:shirt"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "fiesta"
+      ],
+      "termNouns": [
+        "shirt"
+      ],
+      "productNouns": [
+        "hat",
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "SE6621",
+          "support": true,
+          "searchCore": "bear stuffed shirt animal clothes white tshirt doll toy clothing tee t small accessories plush boy care outfit stuff shop custom girl blank costume basic gift classic round 14 18inch diy draw write decorations pants fabric comfortable wash crew"
+        }
+      ]
+    },
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "JOY0900"
+      ],
+      "campaignId": "187727763680957",
+      "adGroupId": "45742887571489",
+      "accountId": "643",
+      "keywordId": "165230558084135",
+      "campaignName": "kw_q2 profit joy0900 phrase_joy0900",
+      "groupName": "kw_q2 profit joy0900 phrase_joy0900",
+      "keywordText": "thank you teacher gifts",
+      "matchType": 2,
+      "bid": 0.1,
+      "stats": {
+        "impressions": 1158,
+        "clicks": 15,
+        "spend": 4.17,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.278
+      },
+      "reasons": [
+        "direct_theme_conflict:teacher_vs_nurse",
+        "unsupported_theme:teacher"
+      ],
+      "termSignals": [
+        "teacher"
+      ],
+      "productSignals": [
+        "nurse"
+      ],
+      "termNouns": [],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "JOY0900",
+          "support": true,
+          "searchCore": "teacher appreciation gifts bulk compass keychain birthday charms key chains girls ladies preschool thankful ornament daycare kindergarten ideas thank you funny women student christmas valentines day presents school stuff cards woman cute apple"
+        }
+      ]
+    },
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "COO1855"
+      ],
+      "campaignId": "25695538562896",
+      "adGroupId": "148876469822117",
+      "accountId": "652",
+      "keywordId": "132522497789958",
+      "campaignName": "kw_q2 profit coo1855 phrase_coo1855",
+      "groupName": "kw_q2 profit coo1855 phrase_coo1855",
+      "keywordText": "star keychain",
+      "matchType": 2,
+      "bid": 0.17,
+      "stats": {
+        "impressions": 2105,
+        "clicks": 16,
+        "spend": 3.97,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.248125
+      },
+      "reasons": [
+        "product_noun_mismatch:keychain"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "nurse"
+      ],
+      "termNouns": [
+        "keychain"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "COO1855",
+          "support": true,
+          "searchCore": "appreciation star rainbow keychains gifts employee inspirational bulk positive motivational women student coworkers you awesome classroom awards teacher christmas school birthday nurse practitioner back to school kindergarten preschool acrylic cards"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "SAN0383"
+      ],
+      "campaignId": "32508318633794",
+      "adGroupId": "376312761163358",
+      "accountId": "528",
+      "keywordId": "244979497035769",
+      "campaignName": "sbv _cowhat&band_san0383",
+      "groupName": "",
+      "keywordText": "cowboy hats party",
+      "matchType": "broad",
+      "bid": 0.36,
+      "stats": {
+        "impressions": 829,
+        "clicks": 10,
+        "spend": 3.97,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.397
+      },
+      "reasons": [
+        "product_noun_mismatch:hat"
+      ],
+      "termSignals": [],
+      "productSignals": [],
+      "termNouns": [
+        "hat"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "SAN0383",
+          "support": true,
+          "searchCore": "hat cowboy men party bandana black women cowgirl mask white headband western top accessories head straw vest adult belt face brim leather cap wide brown dress decoration jacket birthday scarf clothes"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "SAN1050"
+      ],
+      "campaignId": "559223967003908",
+      "adGroupId": "540085063671779",
+      "accountId": "528",
+      "keywordId": "322475997978994",
+      "campaignName": "sbv_cowboy hats_san1050",
+      "groupName": "",
+      "keywordText": "cowboy hat decoration",
+      "matchType": "broad",
+      "bid": 0.25,
+      "stats": {
+        "impressions": 970,
+        "clicks": 12,
+        "spend": 3.81,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.3175
+      },
+      "reasons": [
+        "product_noun_mismatch:hat"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "fiesta"
+      ],
+      "termNouns": [
+        "hat",
+        "decor"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "SAN1050",
+          "support": true,
+          "searchCore": "bandana cowboy hat set western bulk party men women costume accessories brim cap brown black white headwear photo props"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "SAN1200"
+      ],
+      "campaignId": "482175547602171",
+      "adGroupId": "515221133059208",
+      "accountId": "528",
+      "keywordId": "554924957327838",
+      "campaignName": "sbvkw_cowboyhat_san1200",
+      "groupName": "",
+      "keywordText": "cowgirl hat and bandana set",
+      "matchType": "broad",
+      "bid": 0.49,
+      "stats": {
+        "impressions": 1232,
+        "clicks": 7,
+        "spend": 3.55,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.507142
+      },
+      "reasons": [
+        "product_noun_mismatch:hat"
+      ],
+      "termSignals": [],
+      "productSignals": [],
+      "termNouns": [
+        "hat"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "SAN1200",
+          "support": true,
+          "searchCore": "bandana cowboy hat set western bulk party men women costume accessories brim cap brown black white headwear photo props"
+        }
+      ]
+    },
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "YAN2008"
+      ],
+      "campaignId": "102224731033011",
+      "adGroupId": "134135914729511",
+      "accountId": "423",
+      "keywordId": "19307221528082",
+      "campaignName": "kw_q2 profit yan2008 broad_yan2008",
+      "groupName": "kw_q2 profit yan2008 broad_yan2008",
+      "keywordText": "diaper game baby shower",
+      "matchType": 3,
+      "bid": 0.08,
+      "stats": {
+        "impressions": 1100,
+        "clicks": 19,
+        "spend": 3.54,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.186315
+      },
+      "reasons": [
+        "product_noun_mismatch:game",
+        "unsupported_theme:baby"
+      ],
+      "termSignals": [
+        "baby"
+      ],
+      "productSignals": [
+        "nurse",
+        "fiesta"
+      ],
+      "termNouns": [
+        "game"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "YAN2008",
+          "support": true,
+          "searchCore": "tie your shoe baby shower game wooden sign greenery blue latex balloons party gender reveal girl boy gift decor 12 inch supply favor rustic small decorations pack white light kit prizes guest birthday tabletop funny green bulk letter wood"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "SE6621"
+      ],
+      "campaignId": "446241241901254",
+      "adGroupId": "517923856183836",
+      "accountId": "150",
+      "keywordId": "62859687964777",
+      "campaignName": "sbv_bearshirts_se6621",
+      "groupName": "",
+      "keywordText": "12 inch doll shirts rainbow",
+      "matchType": "broad",
+      "bid": 0.25,
+      "stats": {
+        "impressions": 1238,
+        "clicks": 15,
+        "spend": 3.53,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.235333
+      },
+      "reasons": [
+        "product_noun_mismatch:shirt",
+        "unsupported_theme:pride_rainbow"
+      ],
+      "termSignals": [
+        "pride_rainbow"
+      ],
+      "productSignals": [
+        "fiesta"
+      ],
+      "termNouns": [
+        "shirt"
+      ],
+      "productNouns": [
+        "hat",
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "SE6621",
+          "support": true,
+          "searchCore": "bear stuffed shirt animal clothes white tshirt doll toy clothing tee t small accessories plush boy care outfit stuff shop custom girl blank costume basic gift classic round 14 18inch diy draw write decorations pants fabric comfortable wash crew"
+        }
+      ]
+    },
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "SH0422"
+      ],
+      "campaignId": "138816326152029",
+      "adGroupId": "207374961594715",
+      "accountId": "49",
+      "keywordId": "148346815105213",
+      "campaignName": "kTN kw broad_umbrella hat_sh0422",
+      "groupName": "kw broad_umbrella hat_sh0422",
+      "keywordText": "hat umbrella",
+      "matchType": 3,
+      "bid": 0.32,
+      "stats": {
+        "impressions": 1684,
+        "clicks": 10,
+        "spend": 3.5,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.35
+      },
+      "reasons": [
+        "product_noun_mismatch:hat"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "fiesta"
+      ],
+      "termNouns": [
+        "hat"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "SH0422",
+          "support": true,
+          "searchCore": "rainbow umbrella, umbrella, funny rainbow hats, rain umbrella hat, sun umbrella, party umbrella hat, colorful umbrella hat, umbrella hat for kids, elastic umbrella hat, funny party hats, umbrella caps, rainbow hat>>>>"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "LED6372"
+      ],
+      "campaignId": "361885933569856",
+      "adGroupId": "385850982227307",
+      "accountId": "705",
+      "keywordId": "304910630586366",
+      "campaignName": "kwsbv_coquette pink_led6372",
+      "groupName": "",
+      "keywordText": "christian pens",
+      "matchType": "broad",
+      "bid": 0.25,
+      "stats": {
+        "impressions": 391,
+        "clicks": 13,
+        "spend": 3.34,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.256923
+      },
+      "reasons": [
+        "product_noun_mismatch:pen",
+        "unsupported_theme:christian"
+      ],
+      "termSignals": [
+        "christian"
+      ],
+      "productSignals": [
+        "fiesta"
+      ],
+      "termNouns": [
+        "pen"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "LED6372",
+          "support": true,
+          "searchCore": "christian pens women gifts women coquette pink bow bible verse ballpoint scripture multi colored bulk church vbs back to school supplies sunday party favors inspirational faith stationery motivational religious multicolor you are loved"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "SHU2557"
+      ],
+      "campaignId": "357257900689107",
+      "adGroupId": "416696911778389",
+      "accountId": "621",
+      "keywordId": "345182010672764",
+      "campaignName": "bridesmaid gifts-shu2557-sb",
+      "groupName": "",
+      "keywordText": "maid honor cup",
+      "matchType": "broad",
+      "bid": 0.49,
+      "stats": {
+        "impressions": 9779,
+        "clicks": 7,
+        "spend": 3.33,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.475714
+      },
+      "reasons": [
+        "product_noun_mismatch:tumbler_cup"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "bride_wedding"
+      ],
+      "termNouns": [
+        "tumbler_cup"
+      ],
+      "productNouns": [],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "SHU2557",
+          "support": true,
+          "searchCore": "wedding bridesmaid party glass set bride coffee lid gifts straw bridal shower cup engagement drinking bamboo favors wine cute supply kitchen water decorations reusable friend printed proposal home drinks juice style clear milk elegant braids"
+        }
+      ]
+    },
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "ZHW0104"
+      ],
+      "campaignId": "198215144851753",
+      "adGroupId": "62227266760508",
+      "accountId": "565",
+      "keywordId": "92922952139737",
+      "campaignName": "kw_q2 profit zhw0104 phrase_zhw0104",
+      "groupName": "kw_q2 profit zhw0104 phrase_zhw0104",
+      "keywordText": "grave markers for cemetery",
+      "matchType": 2,
+      "bid": 0.26,
+      "stats": {
+        "impressions": 437,
+        "clicks": 11,
+        "spend": 3.19,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.29
+      },
+      "reasons": [
+        "product_noun_mismatch:pen",
+        "unsupported_theme:memorial_remembrance"
+      ],
+      "termSignals": [
+        "memorial_remembrance"
+      ],
+      "productSignals": [
+        "nurse",
+        "dad_fathers_day"
+      ],
+      "termNouns": [
+        "pen"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "ZHW0104",
+          "support": true,
+          "searchCore": "dad memorial stakes fathers day cemetery decorations humans plaque monuments people gravesite outdoors site yard moments christmas gift robin double sided metal sympathy reliable iron long lasting durability visual appeal remember"
+        }
+      ]
+    },
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "COO1855"
+      ],
+      "campaignId": "25695538562896",
+      "adGroupId": "148876469822117",
+      "accountId": "652",
+      "keywordId": "178195920795431",
+      "campaignName": "kw_q2 profit coo1855 phrase_coo1855",
+      "groupName": "kw_q2 profit coo1855 phrase_coo1855",
+      "keywordText": "inspirational keychains bulk",
+      "matchType": 2,
+      "bid": 0.22,
+      "stats": {
+        "impressions": 5719,
+        "clicks": 12,
+        "spend": 2.99,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.249166
+      },
+      "reasons": [
+        "product_noun_mismatch:keychain"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "nurse"
+      ],
+      "termNouns": [
+        "keychain"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "COO1855",
+          "support": true,
+          "searchCore": "appreciation star rainbow keychains gifts employee inspirational bulk positive motivational women student coworkers you awesome classroom awards teacher christmas school birthday nurse practitioner back to school kindergarten preschool acrylic cards"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "SAN1050"
+      ],
+      "campaignId": "559223967003908",
+      "adGroupId": "540085063671779",
+      "accountId": "528",
+      "keywordId": "499564117965926",
+      "campaignName": "sbv_cowboy hats_san1050",
+      "groupName": "",
+      "keywordText": "bulk cheap cowboy hats",
+      "matchType": "broad",
+      "bid": 0.25,
+      "stats": {
+        "impressions": 792,
+        "clicks": 8,
+        "spend": 2.97,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.37125
+      },
+      "reasons": [
+        "product_noun_mismatch:hat"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "fiesta"
+      ],
+      "termNouns": [
+        "hat"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "still_suspect",
+      "supports": [
+        {
+          "sku": "SAN1050",
+          "support": false,
+          "searchCore": "bandana cowboy hat set western bulk party men women costume accessories brim cap brown black white headwear photo props"
+        }
+      ]
+    },
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "QAA2627"
+      ],
+      "campaignId": "381556684139946",
+      "adGroupId": "391744288642627",
+      "accountId": "604",
+      "keywordId": "45122243617069",
+      "campaignName": "kw2_mothers day gifts bulk_qaa2627",
+      "groupName": "kw2_mothers day gifts bulk_qaa2627",
+      "keywordText": "necklace in bulk wholesale",
+      "matchType": 3,
+      "bid": 0.23,
+      "stats": {
+        "impressions": 2217,
+        "clicks": 8,
+        "spend": 2.94,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.3675
+      },
+      "reasons": [
+        "product_noun_mismatch:necklace"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "mom_mothers_day",
+        "fiesta"
+      ],
+      "termNouns": [
+        "necklace"
+      ],
+      "productNouns": [
+        "hat",
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "QAA2627",
+          "support": true,
+          "searchCore": "christian necklaces for men christian bible verse jewelry religious necklace statement quote faith inspired spiritual pendant inspirational leather vintage bible themed charm fathers day gifts for dad grandpa husband church gifts"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "SAN1050"
+      ],
+      "campaignId": "559223967003908",
+      "adGroupId": "540085063671779",
+      "accountId": "528",
+      "keywordId": "503990386133843",
+      "campaignName": "sbv_cowboy hats_san1050",
+      "groupName": "",
+      "keywordText": "cowboy hats in bulk",
+      "matchType": "broad",
+      "bid": 0.25,
+      "stats": {
+        "impressions": 811,
+        "clicks": 9,
+        "spend": 2.86,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.317777
+      },
+      "reasons": [
+        "product_noun_mismatch:hat"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "fiesta"
+      ],
+      "termNouns": [
+        "hat"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "SAN1050",
+          "support": true,
+          "searchCore": "bandana cowboy hat set western bulk party men women costume accessories brim cap brown black white headwear photo props"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "SE6621"
+      ],
+      "campaignId": "446241241901254",
+      "adGroupId": "517923856183836",
+      "accountId": "150",
+      "keywordId": "104720346897529",
+      "campaignName": "sbv_bearshirts_se6621",
+      "groupName": "",
+      "keywordText": "bear with white shirt",
+      "matchType": "broad",
+      "bid": 0.26,
+      "stats": {
+        "impressions": 856,
+        "clicks": 10,
+        "spend": 2.75,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.275
+      },
+      "reasons": [
+        "product_noun_mismatch:shirt"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "fiesta"
+      ],
+      "termNouns": [
+        "shirt"
+      ],
+      "productNouns": [
+        "hat",
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "SE6621",
+          "support": true,
+          "searchCore": "bear stuffed shirt animal clothes white tshirt doll toy clothing tee t small accessories plush boy care outfit stuff shop custom girl blank costume basic gift classic round 14 18inch diy draw write decorations pants fabric comfortable wash crew"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "SE6621"
+      ],
+      "campaignId": "446241241901254",
+      "adGroupId": "517923856183836",
+      "accountId": "150",
+      "keywordId": "205194424374608",
+      "campaignName": "sbv_bearshirts_se6621",
+      "groupName": "",
+      "keywordText": "plush toy outfit tomorrow",
+      "matchType": "broad",
+      "bid": 0.27,
+      "stats": {
+        "impressions": 1332,
+        "clicks": 10,
+        "spend": 2.75,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.275
+      },
+      "reasons": [
+        "product_noun_mismatch:toy"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "fiesta"
+      ],
+      "termNouns": [
+        "toy"
+      ],
+      "productNouns": [
+        "hat",
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "SE6621",
+          "support": true,
+          "searchCore": "bear stuffed shirt animal clothes white tshirt doll toy clothing tee t small accessories plush boy care outfit stuff shop custom girl blank costume basic gift classic round 14 18inch diy draw write decorations pants fabric comfortable wash crew"
+        }
+      ]
+    },
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "NO3390"
+      ],
+      "campaignId": "353223566318509",
+      "adGroupId": "449400651740572",
+      "accountId": "277",
+      "keywordId": "88738199264473",
+      "campaignName": "kw2_butterfly baby shower_no3390",
+      "groupName": "kw2_butterfly baby shower_no3390",
+      "keywordText": "plastic gift bags with handles",
+      "matchType": 3,
+      "bid": 0.22,
+      "stats": {
+        "impressions": 527,
+        "clicks": 11,
+        "spend": 2.61,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.237272
+      },
+      "reasons": [
+        "product_noun_mismatch:bag"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "baby"
+      ],
+      "termNouns": [
+        "bag"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "NO3390",
+          "support": true,
+          "searchCore": "baby girl gift shower candy bags butterfly goodie party favor newly decorations theme purple return thank you guests sweet new small birthday treat handles supply ribbon goody little her way newborn present pink paper kids princess wrapping themed"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "KEN1043"
+      ],
+      "campaignId": "518063213751837",
+      "adGroupId": "517410949988056",
+      "accountId": "631",
+      "keywordId": "548440920429767",
+      "campaignName": "sbv_40thbirthdaybags_ken1043",
+      "groupName": "",
+      "keywordText": "40 and fabulous gift bag",
+      "matchType": "broad",
+      "bid": 0.25,
+      "stats": {
+        "impressions": 280,
+        "clicks": 9,
+        "spend": 2.42,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.268888
+      },
+      "reasons": [
+        "product_noun_mismatch:bag"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "fiesta",
+        "birthday"
+      ],
+      "termNouns": [
+        "bag"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "KEN1043",
+          "support": true,
+          "searchCore": "40th birthday bag gift women men decorations party favor handle bow ribbon black cheer gold happy 40 thing forty small year old idea decor cupcake cookies chocolate snack present banner anniversary candle outfit shopping wedding funny paper"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "DUN1127",
+        "DUN1128",
+        "DUN1150"
+      ],
+      "campaignId": "403697255305566",
+      "adGroupId": "455853616969620",
+      "accountId": "639",
+      "keywordId": "4032455405301",
+      "campaignName": "sb_dun1127dun1128dun1150",
+      "groupName": "",
+      "keywordText": "bread basket",
+      "matchType": "broad",
+      "bid": 0.29,
+      "stats": {
+        "impressions": 4841,
+        "clicks": 9,
+        "spend": 2.36,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.262222
+      },
+      "reasons": [
+        "product_noun_mismatch:basket"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "fiesta"
+      ],
+      "termNouns": [
+        "basket"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "DUN1127",
+          "support": true,
+          "searchCore": "bread baskets serving fruit lid cover storage prevent flies bowl against proof display tray food rattan acrylic wicker woven kitchen table large covered restaurant vegetable outdoor containers party set oval cookie dinner picnic world baking day"
+        },
+        {
+          "sku": "DUN1128",
+          "support": true,
+          "searchCore": "bread baskets serving fruit lid cover storage prevent flies bowl against proof display tray food rattan acrylic wicker woven kitchen table large covered restaurant vegetable outdoor containers party set oval cookie dinner picnic world baking day"
+        },
+        {
+          "sku": "DUN1150",
+          "support": true,
+          "searchCore": "bread baskets serving fruit lid cover storage prevent flies bowl against proof display tray food rattan acrylic wicker woven kitchen table large covered restaurant vegetable outdoor containers party set oval cookie dinner picnic world baking day"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "KEJ0561"
+      ],
+      "campaignId": "31162966242041",
+      "adGroupId": "358314997456605",
+      "accountId": "765",
+      "keywordId": "184566342354929",
+      "campaignName": "sbvkw_pegboardorganizer_kej0561",
+      "groupName": "",
+      "keywordText": "metal wire storage basket",
+      "matchType": "broad",
+      "bid": 0.27,
+      "stats": {
+        "impressions": 520,
+        "clicks": 8,
+        "spend": 2.27,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.28375
+      },
+      "reasons": [
+        "product_noun_mismatch:basket"
+      ],
+      "termSignals": [],
+      "productSignals": [],
+      "termNouns": [
+        "basket"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "KEJ0561",
+          "support": true,
+          "searchCore": "peg board organizer accessories pegboard basket bins shelf storage brackets heavy duty pantry wall mounted tool holder mount metal garage hanging organize home organization display office kitchen containers craft classroom room school decorations"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "YAN3832"
+      ],
+      "campaignId": "473215708211253",
+      "adGroupId": "464696973149687",
+      "accountId": "423",
+      "keywordId": "352603061001826",
+      "campaignName": "sb_brown tie your shoe_yan3832",
+      "groupName": "",
+      "keywordText": "baby shower game",
+      "matchType": "broad",
+      "bid": 0.12,
+      "stats": {
+        "impressions": 3020,
+        "clicks": 10,
+        "spend": 2.13,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.213
+      },
+      "reasons": [
+        "product_noun_mismatch:game",
+        "unsupported_theme:baby"
+      ],
+      "termSignals": [
+        "baby"
+      ],
+      "productSignals": [
+        "fiesta"
+      ],
+      "termNouns": [
+        "game"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "YAN3832",
+          "support": true,
+          "searchCore": "tie your shoe brown baby shower balloons games gender reveal centerpieces tables decorations white girl gifts prizes party birthday favors kit theme decor set stand toy supplies latex guests wooden signs sweet fun adults letter play items charm color"
+        }
+      ]
+    },
+    {
+      "channel": "SB",
+      "severity": "high",
+      "skus": [
+        "DUN1127",
+        "DUN1128",
+        "DUN1150"
+      ],
+      "campaignId": "403697255305566",
+      "adGroupId": "455853616969620",
+      "accountId": "639",
+      "keywordId": "32810215993629",
+      "campaignName": "sb_dun1127dun1128dun1150",
+      "groupName": "",
+      "keywordText": "bread basket with cover",
+      "matchType": "broad",
+      "bid": 0.29,
+      "stats": {
+        "impressions": 1970,
+        "clicks": 9,
+        "spend": 1.88,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.208888
+      },
+      "reasons": [
+        "product_noun_mismatch:basket"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "fiesta"
+      ],
+      "termNouns": [
+        "basket"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "DUN1127",
+          "support": true,
+          "searchCore": "bread baskets serving fruit lid cover storage prevent flies bowl against proof display tray food rattan acrylic wicker woven kitchen table large covered restaurant vegetable outdoor containers party set oval cookie dinner picnic world baking day"
+        },
+        {
+          "sku": "DUN1128",
+          "support": true,
+          "searchCore": "bread baskets serving fruit lid cover storage prevent flies bowl against proof display tray food rattan acrylic wicker woven kitchen table large covered restaurant vegetable outdoor containers party set oval cookie dinner picnic world baking day"
+        },
+        {
+          "sku": "DUN1150",
+          "support": true,
+          "searchCore": "bread baskets serving fruit lid cover storage prevent flies bowl against proof display tray food rattan acrylic wicker woven kitchen table large covered restaurant vegetable outdoor containers party set oval cookie dinner picnic world baking day"
+        }
+      ]
+    },
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "WE3925"
+      ],
+      "campaignId": "225413456000972",
+      "adGroupId": "528252645706679",
+      "accountId": "287",
+      "keywordId": "502089632972460",
+      "campaignName": "kw_ pizza slice favor_we3925",
+      "groupName": "kw_ pizza slice favor_we3925",
+      "keywordText": "pizza slice favor boxes set",
+      "matchType": 3,
+      "bid": 0.14,
+      "stats": {
+        "impressions": 620,
+        "clicks": 8,
+        "spend": 1.67,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.20875
+      },
+      "reasons": [
+        "product_noun_mismatch:box"
+      ],
+      "termSignals": [],
+      "productSignals": [
+        "nurse",
+        "fiesta"
+      ],
+      "termNouns": [
+        "box"
+      ],
+      "productNouns": [
+        "sticker",
+        "basket",
+        "decor"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "WE3925",
+          "support": true,
+          "searchCore": "pizza party favor boxes theme supplies slice treat triangle candy paper bulk pizzeria decorations wood board decor cutter turtle supplies turtle decorations birthday decorations pizza favors comic themed boxes turtle"
+        }
+      ]
+    },
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "YAN2293"
+      ],
+      "campaignId": "12141489415267",
+      "adGroupId": "19486167218198",
+      "accountId": "423",
+      "keywordId": "214490646552642",
+      "campaignName": "kw_q2 profit yan2293 broad_yan2293",
+      "groupName": "kw_q2 profit yan2293 broad_yan2293",
+      "keywordText": "fun baby shower games for adults",
+      "matchType": 3,
+      "bid": 0.13,
+      "stats": {
+        "impressions": 248,
+        "clicks": 10,
+        "spend": 1.5,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.15
+      },
+      "reasons": [
+        "product_noun_mismatch:game",
+        "unsupported_theme:baby"
+      ],
+      "termSignals": [
+        "baby"
+      ],
+      "productSignals": [
+        "nurse",
+        "fiesta"
+      ],
+      "termNouns": [
+        "game"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "YAN2293",
+          "support": true,
+          "searchCore": "tie your shoe baby shower game wooden sign greenery pink latex balloons party gender reveal girl boy gift set decor 12 inch supply favor rustic small decorations pack white light kit prizes guest birthday tabletop funny green bulk letter wood"
+        }
+      ]
+    },
+    {
+      "channel": "SP",
+      "severity": "high",
+      "skus": [
+        "NAY0963"
+      ],
+      "campaignId": "540127990345088",
+      "adGroupId": "388449405213832",
+      "accountId": "752",
+      "keywordId": "385631035079124",
+      "campaignName": "kw_ballpoint pen_nay0963",
+      "groupName": "kw_ballpoint pen_nay0963",
+      "keywordText": "wedding pens",
+      "matchType": 3,
+      "bid": 0.15,
+      "stats": {
+        "impressions": 329,
+        "clicks": 9,
+        "spend": 1.48,
+        "orders": 0,
+        "sales": 0,
+        "acos": 0,
+        "cpc": 0.164444
+      },
+      "reasons": [
+        "product_noun_mismatch:pen"
+      ],
+      "termSignals": [
+        "bride_wedding"
+      ],
+      "productSignals": [],
+      "termNouns": [
+        "pen"
+      ],
+      "productNouns": [
+        "sticker"
+      ],
+      "actionHint": "?????????/??/???????????????????? listing?",
+      "originReview": "supported_by_sellerinventory_origin",
+      "supports": [
+        {
+          "sku": "NAY0963",
+          "support": true,
+          "searchCore": "wedding favors guests black ink retractable ballpoint pen thank you cards hemp rope bridal shower book game party supplies gifts bulk set bag bridesmaid souvenirs decorations metal wishes engagement adults cute themed organza funny aesthetic"
+        }
+      ]
+    }
+  ]
+}

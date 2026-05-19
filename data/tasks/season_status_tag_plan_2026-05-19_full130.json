@@ -1,0 +1,3323 @@
+{
+  "generatedAt": "2026-05-19T02:08:09.081Z",
+  "businessDate": "2026-05-19",
+  "scope": "full seasonal related SKU union from title dry run, season gap risk, and active season tasks",
+  "counts": {
+    "union": 130,
+    "alreadyTagged": 27,
+    "toWrite": 94,
+    "noAid": 9
+  },
+  "items": [
+    {
+      "sku": "AE2739",
+      "aid": null,
+      "asin": "B0BXDF9P7F",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": false,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Sieral 2 Sets Future Mrs Lucky Mr Iced Coffee Cups Wedding Bridal Shower Gift 16 oz Wedding Glasses for Bride and Groom Can Shaped Mr and Mrs Mugs Drinking Jars Married Couple's Cup Tumbler",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "BOY1281",
+      "aid": 835141,
+      "asin": "B094R3HJ5W",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "4 Pieces Swim Goggles for Kids Age 4-16 No Leaking Anti Fog Goggles for Boys Girls, Soft Silicone Frame(Classic Style)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "BOY3171",
+      "aid": 2337795,
+      "asin": "B0DSFS5BVF",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Frienda 25 Pcs Here Comes the Son Favor Bags for Guests with Handles, Boy Baby Shower Party Favors, Sunshine Theme Gift Bags, Supplies and Decor",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "CAS4030",
+      "aid": 2767908,
+      "asin": "B0FZSSJL2H",
+      "salesChannel": "Amazon.com",
+      "tag": "六月未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_expired_title_no_replacement",
+      "selectedEvent": "",
+      "expiredEvents": [
+        "Black History Month"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "Bucherry Juneteenth Cupcake Toppers Juneteenth Decorations Mini Round Acrylic Cupcake Picks for Party Supplies Reusable Non-edible Cake Decorations(24 Pcs)",
+      "productCheck": "live title is Juneteenth; keep away from wedding-season relabeling"
+    },
+    {
+      "sku": "CEE0467",
+      "aid": 2282028,
+      "asin": "B09SW2NT6J",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "gap",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "50 Pack Dessert Cups with Dome Lids Disposable Plastic Cups with Lids Clear Pet (No Hole), Sporks and Stickers for Plastic Fruit, Cake and Mini Snack Bowls(9 oz,Simple Cup)",
+      "productCheck": "live title is generic dessert cups; wedding fit not strong"
+    },
+    {
+      "sku": "CL3650",
+      "aid": 2279585,
+      "asin": "B0B9Y2ZG9G",
+      "salesChannel": "Amazon.com",
+      "tag": "过季待改未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Lewtemi Mexican Piñata Small Red Chili for Birthday Party Cinco De Mayo Pepper Fiesta Decorations with Piñata Stick Blindfold Confetti Set",
+      "productCheck": "season/listing needs review or over-season replacement; no ad push"
+    },
+    {
+      "sku": "COT2347",
+      "aid": 2461039,
+      "asin": "B0F9WS3P4D",
+      "salesChannel": "Amazon.com",
+      "tag": "教会未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "Motipuns 24 Pcs Fishers of Men Bible Craft Kit, Mark 1:17 Christian Fish Paper Crafts, Religious Church Activity Supplies for VBS, Bible Study Groups, Home Church",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "COT3013",
+      "aid": 2872443,
+      "asin": "B0GCMSFKQD",
+      "salesChannel": "Amazon.com",
+      "tag": "复活保护未改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "protected_listing_hold",
+      "selectedEvent": "",
+      "expiredEvents": [
+        "Easter"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "Motipuns 24 Pcs Religious Easter Crafts Holy Week Craft Kit Easter Scene Cross Cards with Jesus Stickers for Christian Sunday Activities Church Decor Holy Week Hanging Ornament",
+      "productCheck": "protected/hold listing; mark not changed"
+    },
+    {
+      "sku": "DH2685",
+      "aid": 2490990,
+      "asin": "B0FDQTG22G",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Summer",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Eersida 18 Pcs Safari Goodie Bag Animals Jungle Gift Party Favors Wildlife Goodie Treat Bags with Handles Wild Animal Party Supplies for Jungle Safari Themed Baby Showers Birthday, 7 Design",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "DH2686",
+      "aid": 2490991,
+      "asin": "B0FDQQYZ89",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Eersida Animal Print Gift Bags Jungle Gift Party Favors Wildlife Goodie Treat Bags with Handles Wild Animal Party Supplies for Jungle Safari Themed Baby Showers Birthday, 7 Design",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "EY0793",
+      "aid": 1033818,
+      "asin": "B09P55WGV7",
+      "salesChannel": "Amazon.com",
+      "tag": "过季待改未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Sureio 108 Pcs Mexican Keychain Fiesta Party Return Favors Thank You Handwritten Font Tags Cinco De Mayo Party Gifts Cactus Keychain Organza Bag for Birthday Supplies",
+      "productCheck": "season/listing needs review or over-season replacement; no ad push"
+    },
+    {
+      "sku": "EY2727",
+      "aid": 1474973,
+      "asin": "B0BX9M82QW",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Summer",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "Sureio 6 Pcs Beach Hat for Women Summer Floppy Embroidered Foldable Sun Hat Large Brim Adjustable Straw for Vacation Travel",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "FE3232",
+      "aid": 2396975,
+      "asin": "B0F23LD73K",
+      "salesChannel": "Amazon.com",
+      "tag": "父亲未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "Kosiz 10 Sets Fathers Day Christian Prayer Journals Bulk for Women, Leather Bible Verse Notebooks with Pens, Church Bible Study Gifts for Fathers Day, Ministry and Retreat Events(Spanish)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "GM2616",
+      "aid": 2692263,
+      "asin": "B0FR46GZMN",
+      "salesChannel": "Amazon.com",
+      "tag": "教会未推待改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Kenning Christian Gifts Bible Verse Necklaces Bulk for Women, Inspirational Religious Pendant Necklaces(Vibrant,24 Pcs)",
+      "productCheck": "season/listing needs review or over-season replacement; no ad push"
+    },
+    {
+      "sku": "GM2620",
+      "aid": 2692264,
+      "asin": "B0FR4V8KJL",
+      "salesChannel": "Amazon.com",
+      "tag": "教会未推待改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Kenning Christian Gifts Bible Verse Necklaces Bulk for Women, Inspirational Religious Pendant Necklaces(Vibrant,36 Pcs)",
+      "productCheck": "season/listing needs review or over-season replacement; no ad push"
+    },
+    {
+      "sku": "GM2628",
+      "aid": 2692266,
+      "asin": "B0FR4KYWZY",
+      "salesChannel": "Amazon.com",
+      "tag": "教会未推待改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Kenning Christian Gifts Bible Verse Necklaces Bulk for Women, Inspirational Religious Pendant Necklaces(Floral,12 Pcs)",
+      "productCheck": "season/listing needs review or over-season replacement; no ad push"
+    },
+    {
+      "sku": "GM2634",
+      "aid": 2611800,
+      "asin": "B0FMJJ88NR",
+      "salesChannel": "Amazon.com",
+      "tag": "教会未推待改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Kenning Christian Gifts Bible Verse Necklaces Bulk for Women, Inspirational Religious Pendant Necklaces(Retro,24 Pcs)",
+      "productCheck": "season/listing needs review or over-season replacement; no ad push"
+    },
+    {
+      "sku": "GM3201",
+      "aid": 2918143,
+      "asin": "B0GGNQXLVR",
+      "salesChannel": "Amazon.com",
+      "tag": "实验免改未推",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "auto_execute",
+      "selectedEvent": "",
+      "expiredEvents": [
+        "Medical Laboratory Professionals Week / Lab Week"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "Kenning 36 Pcs Lab Tech Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists (Silver)",
+      "productCheck": "live title already Lab Tech Gifts, no Lab Week; no ad push"
+    },
+    {
+      "sku": "GM3207",
+      "aid": 2921144,
+      "asin": "B0GGRZB5D1",
+      "salesChannel": "Amazon.com",
+      "tag": "实验免改未推",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "auto_execute",
+      "selectedEvent": "",
+      "expiredEvents": [
+        "Medical Laboratory Professionals Week / Lab Week"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "Kenning 24 Pcs Lab Tech Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists (Silver)",
+      "productCheck": "live title already Lab Tech Gifts, no Lab Week; no ad push"
+    },
+    {
+      "sku": "GM3210",
+      "aid": 2921145,
+      "asin": "B0GGZYQ8TH",
+      "salesChannel": "Amazon.com",
+      "tag": "实验免改未推",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "auto_execute",
+      "selectedEvent": "",
+      "expiredEvents": [
+        "Medical Laboratory Professionals Week / Lab Week"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "Kenning 36 Pcs Lab Tech Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists (Gold)",
+      "productCheck": "live title already Lab Tech Gifts, no Lab Week; no ad push"
+    },
+    {
+      "sku": "GM3213",
+      "aid": 2921147,
+      "asin": "B0GGZR3ZFV",
+      "salesChannel": "Amazon.com",
+      "tag": "实验免改未推",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "auto_execute",
+      "selectedEvent": "",
+      "expiredEvents": [
+        "Medical Laboratory Professionals Week / Lab Week"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "Kenning 24 Pcs Lab Tech Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists (Gold)",
+      "productCheck": "live title already Lab Tech Gifts, no Lab Week; no ad push"
+    },
+    {
+      "sku": "GOO1089",
+      "aid": 2003661,
+      "asin": "B0CR1JF2GM",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "FoldTier 24 Pcs Votive Candle Holders Bulk, Glass Jars with Lids, Tealight Holders for Table Centerpieces, Home Decor Wedding Bridal Summer Baby Shower Favors",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "GRA4861",
+      "aid": 2111585,
+      "asin": "B0D1VDNK7Z",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Seajan Guess the Dress Bridal Shower Game Acrylic Sign Fun Table Sign 50 Guessing Cards 20 White Acrylic Pens for Guests Wedding Party(Black Gold)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "GRA5177",
+      "aid": 2403249,
+      "asin": "B0F2MZ74S2",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Seajan Guess the Dress Bridal Shower Game Acrylic Sign Fun Table Sign 50 Guessing Cards 20 White Acrylic Pens for Guests Wedding Party (Floral)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "GT2491",
+      "aid": 1424339,
+      "asin": "B0BPCJH55M",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Geosar 100 Pcs Memorial Balloons 12'' Funeral Balloons 5 Roll Ribbons 2 Markers Personalized Memorial Balloons to Release in Sky Remembrance Latex Balloon for Condolence Celebrate of Life(White)",
+      "productCheck": "live title is funeral/memorial/remembrance, not Memorial Day campaign wording"
+    },
+    {
+      "sku": "GT3308",
+      "aid": 1507469,
+      "asin": "B0C1GPJBXQ",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Geosar 100 Pcs Dove Funeral Memorial Ribbons Pins Memorial Service Respect Funeral Personalized Ribbon Bow with Safety Pins and White Dove for Mourning Remembrance Day Event(Lavender)(Black)",
+      "productCheck": "live title is funeral/memorial/remembrance, not Memorial Day campaign wording"
+    },
+    {
+      "sku": "GT3801",
+      "aid": 2093216,
+      "asin": "B0CYPW5Q3B",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Geosar 100 Pcs Dove Funeral Memorial Ribbons Pins Memorial Service Respect Funeral Personalized Ribbon Bow with Safety Pins and White Dove for Mourning Remembrance Day Event(Lavender)(Purple)",
+      "productCheck": "live title is funeral/memorial/remembrance, not Memorial Day campaign wording"
+    },
+    {
+      "sku": "GT3814",
+      "aid": 2093219,
+      "asin": "B0CYPWR9J8",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Geosar 100 Pcs Dove Funeral Memorial Ribbons Pins Memorial Service Respect Funeral Personalized Ribbon Bow with Safety Pins and White Dove for Mourning Remembrance Day Event(Lavender)(Red)",
+      "productCheck": "live title is funeral/memorial/remembrance, not Memorial Day campaign wording"
+    },
+    {
+      "sku": "GT3815",
+      "aid": 2093220,
+      "asin": "B0CYPWLQNC",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Geosar 100 Pcs Dove Funeral Memorial Ribbons Pins Memorial Service Respect Funeral Personalized Ribbon Bow with Safety Pins and White Dove for Mourning Remembrance Day Event(Lavender)(Green)",
+      "productCheck": "live title is funeral/memorial/remembrance, not Memorial Day campaign wording"
+    },
+    {
+      "sku": "GT4431",
+      "aid": 2789756,
+      "asin": "B0G2LY9D4X",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Geosar 100 Pcs Dove Funeral Memorial Ribbons Pins Memorial Service Respect Funeral Personalized Ribbon Bow with Safety Pins and White Dove for Mourning Remembrance Day Event(Lavender)(Pink)",
+      "productCheck": "live title is funeral/memorial/remembrance, not Memorial Day campaign wording"
+    },
+    {
+      "sku": "GUF3129",
+      "aid": 3120891,
+      "asin": "B0GWD724Y8",
+      "salesChannel": "Amazon.com",
+      "tag": "爱国未推待改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "gap",
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "Bunnycool 12 Pcs Patriotic Bucket Hat Set for Men Women, 4 Styles American Flag Fisherman Caps for Patriotic Events (Coastal Mix)",
+      "productCheck": "live title has American flag patriotic events; not generic summer"
+    },
+    {
+      "sku": "HAN0044",
+      "aid": 1500432,
+      "asin": "B0BZR32F82",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "SATINIOR Set of 10 Cardinal Pins Funeral Favors Red Cardinal Brooch Memorial Alloy Oil Dropped Pins Inspirational Poem Cards Organza Bags Cardinal Keepsake Presents Sympathy Gift for Guests(Classic)",
+      "productCheck": "live title is funeral/memorial/remembrance, not Memorial Day campaign wording"
+    },
+    {
+      "sku": "HEL0319",
+      "aid": 1630014,
+      "asin": "B0C6TSBBDK",
+      "salesChannel": "Amazon.com",
+      "tag": "季节存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "teacher_appreciation",
+          "label": "Teacher Appreciation",
+          "phase": "tail"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Huquary 30 Pcs Employee Appreciation Gift Inspirational Keychains Bulk Sometimes You Forget You're Awesome Motivational Gift for Nurse Employee Teacher Nurse Thank You Coworker Volunteers Party Favors",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "HEL0606",
+      "aid": 1637712,
+      "asin": "B0C7KGV5MT",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Summer",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "Huquary 24 Pcs Turtle Keychains Bulk Turtle Party Favors, Inspirational Encouragement Charm Gift with Positive Quote, Employee Appreciation Gift for Team Staff Teachers Volunteers and Coworkers Office",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "HEL2829",
+      "aid": 2520880,
+      "asin": "B0FGX9BJJG",
+      "salesChannel": "Amazon.com",
+      "tag": "毕业未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "teacher_appreciation",
+          "label": "Teacher Appreciation",
+          "phase": "tail"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Huquary 30 Sets Plush Bear Keychains Bulk with \"You're a Star\" Quote Cards, Mini Plush Bear Charms, End of Year Student Gifts from Teachers, Graduation Party Favors, Nurse Coworker Appreciation Gifts",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "HEL3107",
+      "aid": 2722797,
+      "asin": "B0FVFJBZBW",
+      "salesChannel": "Amazon.com",
+      "tag": "毕业未推待改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "gap",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Huquary 32 Sets Football Senior Night Gifts Positive Gnome Keychains with Thank You Cards and Opp Bags Acrylic Bulk Keychain Gifts for Team Players Tailgate Football Birthday Party Favors",
+      "productCheck": "live title has Senior Night team gifts; school/graduation adjacent but page needs review"
+    },
+    {
+      "sku": "HI3876",
+      "aid": 2427059,
+      "asin": "B0F5PR57TX",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Boao 50 Pcs Sweet 16th Birthday Party Favors for Guests Include 50 Cheers to 16 Years 1.7oz Mini Liquor Bottles Airtight Plastic Alcohol Shot Bottles with Funnels for 16th Birthday Party Supplies",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "HOS0946",
+      "aid": 2375479,
+      "asin": "B0DYP2LM2M",
+      "salesChannel": "Amazon.com",
+      "tag": "毕业存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "teacher_appreciation",
+          "label": "Teacher Appreciation",
+          "phase": "tail"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "AmazingSpark DIY Felt Flower Bouquet Kit – 2 Sets Felt Flowers for Crafts Handmade Desk Decor, Handmade Flower Vase Craft with Instructions for Gift and Home or Event Decorations",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "HUA6645",
+      "aid": 2887738,
+      "asin": "B0GDXPLX6B",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "gap",
+        "active"
+      ],
+      "titleDecision": "review_low_relevance_title_change",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Suhine 9 Pcs Lace Mrs Bridal Panties Set, Wedding Bride Underwear, White Size L for Bride and Bridesmaids, Bachelorette Favors Party Gift, Bridal Gift for Her",
+      "productCheck": "live title has bride/bridesmaids/bachelorette; ad create previously ineligible"
+    },
+    {
+      "sku": "HUQ0699",
+      "aid": 2105453,
+      "asin": "B0CZRTJ7N4",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Funnymoom 12 Set Travel Makeup Brush Set Bulk with Mirror Mini Travel Makeup Brushes Thank You Cards and Organza Bag Bridesmaid Gift for Bachelorette Party Gift Wedding(Pink)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "IFS0482",
+      "aid": 1453972,
+      "asin": "B0BTPFMGQK",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "9 Pcs Roaring 20s Party Decorations Jazz Roaring 1920's Party Honeycomb Centerpiece Black and Gold Roaring 20s Honeycomb Centerpiece Vintage Music Themed Table Toppers 1920s Wedding Party Supplies",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "JIN1883",
+      "aid": 1849240,
+      "asin": "B0CJJNWMT8",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Suzile Table Numbers 1-100, 100-piece Double Sided Gold Acrylic Table Number Tents, 3.15\" x 2.75\" Number Signs for Receptions, Banquets, Restaurants, and Wedding (Black and Gold)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "KA1589",
+      "aid": 719918,
+      "asin": "B08XK22G8P",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Syhood Artificial Foam Rose Flowers Vintage Fake Roses DIY Bouquets with Leaves and Stems for Wedding Bridal Shower Party Centerpieces Home Romantic Decor(Turquoise,50 Pieces)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "KZ6074",
+      "aid": 2128833,
+      "asin": "B0D479Z4QQ",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Blulu 2 Gold 3 Purple VIP Party Decorations Roaring 20s Movie Night Banner VIP Porch Sign Movie Theater Now Showing Hanging Porch Sign 1920s Party Supplies (47.2 x 11.8 in) (47.2 x 11.8 in)",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "LE5294",
+      "aid": 2921637,
+      "asin": "B0GGRVFSVL",
+      "salesChannel": "Amazon.com",
+      "tag": "毕业未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Baderke 4 Pcs Social Worker Graduation Gifts in Black and Gold, 15 Oz Mug Notebook Pen Candle Gift Set for BSW MSW DSW, Elegant Social Work Grad Gift",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "LE8150",
+      "aid": 2921683,
+      "asin": "B0GGRYV541",
+      "salesChannel": "Amazon.com",
+      "tag": "毕业未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Baderke 4 Pcs Social Worker Graduation Gifts in Morandi Pine Green, 15 Oz Mug Notebook Pen Candle Gift Set for BSW MSW DSW, Social Work Graduate Gift",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "LE8156",
+      "aid": 2921684,
+      "asin": "B0GGS465T6",
+      "salesChannel": "Amazon.com",
+      "tag": "毕业未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Baderke 4 Pcs Social Worker Graduation Gifts in Blush Pink, 15 Oz Mug Notebook Pen Candle Gift Set for BSW MSW DSW, Cute Social Work Grad Gift for Her",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "LE8168",
+      "aid": 2921687,
+      "asin": "B0GGRVCFN7",
+      "salesChannel": "Amazon.com",
+      "tag": "毕业未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Baderke 4 Pcs Social Worker Graduation Gifts in Lavender, 15 Oz Mug Notebook Pen Candle Gift Set for BSW MSW DSW, Social Work Graduation Gift for Her",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "LE8173",
+      "aid": 2921688,
+      "asin": "B0GGRYHLW4",
+      "salesChannel": "Amazon.com",
+      "tag": "毕业未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Baderke 4 Pcs Social Worker Graduation Gifts in Morandi Sky Blue, 15 Oz Mug Notebook Pen Candle Gift Set for BSW MSW DSW, Social Work Grad Gift for Women",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "LED3343",
+      "aid": 2341975,
+      "asin": "B0DSP2NDKX",
+      "salesChannel": "Amazon.com",
+      "tag": "毕业存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Sayglossy 20 Sets Book Lovers Gift Book Club Ballpoint Pens with Library Card Notepads, Vintage Library Reading Notebook Sets with Organza Bags",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "LEM6577",
+      "aid": 2748408,
+      "asin": "B0FXGN8CXZ",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "gap",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "LemonRoad 6 Sets Wedding Centerpieces for Tables Include Galvanized Flower Bucket Metal Vases with Artificial Flowers Bridal Shower Decorations Wedding Party Favors for Guests(White)",
+      "productCheck": "live title has wedding centerpieces/bridal shower; no new push"
+    },
+    {
+      "sku": "LEM6585",
+      "aid": 2751197,
+      "asin": "B0FXVB2SYG",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "gap",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "LemonRoad 6 Sets Wedding Centerpieces for Tables Include Galvanized Flower Bucket Metal Vases with Artificial Flowers Bridal Shower Decorations Wedding Party Favors for Guests (Blue)",
+      "productCheck": "live title has wedding centerpieces/bridal shower; no new push"
+    },
+    {
+      "sku": "LEM7532",
+      "aid": 2839461,
+      "asin": "B0G65LXMY8",
+      "salesChannel": "Amazon.com",
+      "tag": "圣帕保护未改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "protected_listing_hold",
+      "selectedEvent": "",
+      "expiredEvents": [
+        "St. Patrick's Day"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "LemonRoad 24 Sets Leprechaun Hat Crafts Kit, St. Patrick's Day Leprechaun Craft Kit DIY Plastic Light Bulb Bottles Fillable Mini Drink Containers for St Patrick's Day Party Decorations",
+      "productCheck": "protected/hold listing; mark not changed"
+    },
+    {
+      "sku": "LEM8356",
+      "aid": 2887273,
+      "asin": "B0GDTG4MW9",
+      "salesChannel": "Amazon.com",
+      "tag": "复活保护未改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "protected_listing_hold",
+      "selectedEvent": "",
+      "expiredEvents": [
+        "Easter"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "LemonRoad 172 Pcs/24 Sets Easter Craft Kit, DIY Bunny Easter Candy Containers, Fillable Plastic Light Bulb Candy Jar Kit Lightbulb Ornaments for Party Favors Home Activities Spring Gift",
+      "productCheck": "protected/hold listing; mark not changed"
+    },
+    {
+      "sku": "LNE1321",
+      "aid": 2345001,
+      "asin": "B0DSYX54TP",
+      "salesChannel": "Amazon.com",
+      "tag": "教会未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Kacctyen Christian Gifts Bulk for Mother, God Says You Are Makeup Bags Bible Verse Cosmetic Bags with Zipper, Inspirational for Women, Church Retreat(10 Pcs)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "LNY3024",
+      "aid": 2158236,
+      "asin": "B0D7YR38F7",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Maxcheck 25 Sets Retirement Party Favors Bottle Opener for Guest Vintage Cheers to Retirement Thank You Cards and Organza Bags Souvenirs Countdown Gifts for Man",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "LO3817",
+      "aid": 2819424,
+      "asin": "B0G4R61LRM",
+      "salesChannel": "Amazon.com",
+      "tag": "教会已推未改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "no_title_change_required",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [
+        "Mother's Day"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "Meanplan Christian Mothers Day Compact Mirrors with Bible Verses Religious Gifts for Women Mothers Day Church Favors(36 Set)",
+      "productCheck": "Christian/church favors fit VBS-style traffic; ad created, listing still Mother's Day wording"
+    },
+    {
+      "sku": "LO3821",
+      "aid": 2819425,
+      "asin": "B0G4R6JZD5",
+      "salesChannel": "Amazon.com",
+      "tag": "母亲待改未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_expired_title_no_replacement",
+      "selectedEvent": "",
+      "expiredEvents": [
+        "Mother's Day"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "Meanplan Christian Mothers Day Compact Mirrors with Bible Verses Religious Gifts for Women Mothers Day Church Favors (54 Set)",
+      "productCheck": "season/listing needs review or over-season replacement; no ad push"
+    },
+    {
+      "sku": "MF2992",
+      "aid": null,
+      "asin": "B0D1VJWGXN",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": false,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Summer",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float - Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Adults, Women and Men",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "MF2995",
+      "aid": null,
+      "asin": "B0DX13SR8F",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": false,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "no_title_change_required",
+      "selectedEvent": "Summer",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float - Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "MF2998",
+      "aid": null,
+      "asin": "B0DX5Y7RZ9",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": false,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "no_title_change_required",
+      "selectedEvent": "Summer",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float - Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "MF3043",
+      "aid": 2290118,
+      "asin": "B0DMW4GC1S",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "54 Pcs Fun Wedding Guest Book Alternative Set Four in a Row Game for Reception, with Mr & Mrs Wooden heart Sign Guest Book for Wedding Party Games Ideas, Bridal Shower, Engagement, Anniversary Unique",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "MF6280",
+      "aid": 3005336,
+      "asin": "B0GMN29W7J",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men (30,Gold)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "MF6292",
+      "aid": 3005337,
+      "asin": "B0GMNCFTF2",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "gap",
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men(20,Gold)",
+      "productCheck": "live title has summer pool float; no new push"
+    },
+    {
+      "sku": "MF6294",
+      "aid": 3001972,
+      "asin": "B0GMH7Q46X",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "HyDren 48 Inch Inflatable Baby Pool Float Letter– Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "MF6328",
+      "aid": 3005338,
+      "asin": "B0GMN2PCWN",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men(15,Gold)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "MH0525",
+      "aid": null,
+      "asin": "B09KLVT7NB",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": false,
+      "writable": false,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "50 Pack Dessert Cups with Dome Lids Disposable Plastic Cups with Lids Clear Pet (No Hole), Sporks and Stickers for Plastic Fruit, Cake and Mini Snack Bowls(12 oz,Simple Cup)",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "MH1806",
+      "aid": null,
+      "asin": "B09SW2NT6J",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": false,
+      "writable": false,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "50 Pack Dessert Cups with Dome Lids Disposable Plastic Cups with Lids Clear Pet (No Hole), Sporks and Stickers for Plastic Fruit, Cake and Mini Snack Bowls(9 oz,Simple Cup)",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "MM1820",
+      "aid": null,
+      "asin": "B0B3DGPSLG",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": false,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "Inflatable Glitter Beach Ball 5 Inch Confetti Beach Balls Pool Party Decorations Beach Party Decorations Pool Party Favors Pool Party Supplies for Summer Water Play Pool Hawaii Luau Party(100 Pcs)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "NAY0239",
+      "aid": 2118484,
+      "asin": "B0D2R8MRXP",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Humyoun 50 Set Wedding Favors for Guests Includes Black Ink Retractable Ballpoint Pen Thank You Cards Organza Bag with Hemp Rope Bridal Shower Favors Bridal Shower Gifts Party Supplies (Botanical)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "NAY0963",
+      "aid": 2283248,
+      "asin": "B0DLWFLBDJ",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Humyoun 25 Set Wedding Favors for Guests Includes Black Ink Retractable Ballpoint Pen Thank You Cards Organza Bag with Hemp Rope Bridal Shower Favors Bridal Shower Gifts Party Supplies (Botanical)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "NO5155",
+      "aid": 2389212,
+      "asin": "B0F1CGBYL3",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Spakon 25 Pack Bee Baby Shower Favors Gift Bags 5.51 x 2.36 x 4.72 inches Goodie Bags with Handles and Bow Ribbon for Baby Shower Return Gift",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "OB1169",
+      "aid": null,
+      "asin": "B0B9Y2ZG9G",
+      "salesChannel": "Amazon.com",
+      "tag": "过季待改未推",
+      "alreadyTagged": false,
+      "writable": false,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Lewtemi Mexican Piñata Small Red Chili for Birthday Party Cinco De Mayo Pepper Fiesta Decorations with Piñata Stick Blindfold Confetti Set",
+      "productCheck": "season/listing needs review or over-season replacement; no ad push"
+    },
+    {
+      "sku": "OB3296",
+      "aid": 2949579,
+      "asin": "B0GJRF57B5",
+      "salesChannel": "Amazon.com",
+      "tag": "未来已提未推",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "auto_execute",
+      "selectedEvent": "",
+      "expiredEvents": [
+        "Cinco de Mayo"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "Lewtemi Mexican Donkey Piñata for Birthday Party Cinco de Mayo Fiesta Decorations with Piñata Stick Blindfold Confetti Set",
+      "productCheck": "covered by OB4139 variant title application, no ad push"
+    },
+    {
+      "sku": "OB4139",
+      "aid": 2949581,
+      "asin": "B0GJRV1TCQ",
+      "salesChannel": "Amazon.com",
+      "tag": "未来已提未推",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "auto_execute",
+      "selectedEvent": "",
+      "expiredEvents": [
+        "Cinco de Mayo"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "Lewtemi Mexican Duck Piñata for Birthday Party Cinco de Mayo Fiesta Decorations with Piñata Stick Blindfold Confetti Set",
+      "productCheck": "Fiesta evergreen title application submitted, no ad push"
+    },
+    {
+      "sku": "OCE1413",
+      "aid": 2541123,
+      "asin": "B0FHK5GS4F",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼不加免改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "gap",
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Engrowtic Wedding Officiant Book Personalized Linen Hardcover Journal with Name Sticker, 160 Lined Pages, 5.31 x 8.27 in A5 Notebook, Pastor Minister Sermon Officiant Gift for Wedding Ceremony",
+      "productCheck": "live title has wedding officiant book; inventory tight, no scale"
+    },
+    {
+      "sku": "OYH0257",
+      "aid": 2107302,
+      "asin": "B0D14D3YFG",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "RimCereal 30 Sets Bridal Shower Favors for Guests Include Love Heart Cork Coasters Absorbent Cork Coasterthank You Cards and Organza Bags Baby Shower Favor Wedding Souvenirs for Guests",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "OYH0784",
+      "aid": 2283228,
+      "asin": "B0DLVRD815",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "RimCereal 50 Sets Bridal Shower Favors for Guests Include Love Heart Cork Coasters Absorbent Cork Coasterthank You Cards and Organza Bags Baby Shower Favor Wedding Souvenirs for Guests",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "PIR4617",
+      "aid": 2410271,
+      "asin": "B0F3XFYKZP",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass, Engraved Coaster, Stainless Steel Ice Cubes, Cotton Socks and Candle - Sentimental Gift from Daughter or Son(Groom)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "QA1157",
+      "aid": 1427731,
+      "asin": "B0BQ325P4G",
+      "salesChannel": "Amazon.com",
+      "tag": "教师尾期未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Fumete Mini Colored Pencils Bulk with Sharpener 12 Colors, Portable Pencil Tube Set for Teacher Appreciation Week & Exchange Kids Party Favors Classroom School Supplies",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "QA2074",
+      "aid": 1458236,
+      "asin": "B0BVBDVPNP",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Fumete Wedding Favors for Guests 50 Pcs Wedding Fans and 1 Pc Table Sign Portable Paper Fan with Wooden Handle Hand Fan for Bridal Shower Party Favor Appreciation Gift(Greenery)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "QA3169",
+      "aid": 1939684,
+      "asin": "B0CP28LC4S",
+      "salesChannel": "Amazon.com",
+      "tag": "毕业未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Fumete 12 Sets Baseball Soccer Softball Team Gifts Sport Keychain Thank You Card End of Season Senior Night Gift Party Favors(Softball)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "QA3278",
+      "aid": 2043396,
+      "asin": "B0CT32TY6V",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Fumete Wedding Favors for Guests 50 Pcs Wedding Fans and 1 Pc Table Sign Portable Paper Fan with Wooden Handle Hand Fan for Bridal Shower Party Favor Appreciation Gift(Light String)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "QA3896",
+      "aid": 2399527,
+      "asin": "B0F2F7NBYR",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Fumete 50 Pcs Blue Floral Chinoiserie Lip Balm Favors Bulk, Wedding Thank You Gift Set with Organza Bags and Cards, Baby Shower Favors, Bridal Shower Party Return Gifts for Guests",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "QA4115",
+      "aid": 2399530,
+      "asin": "B0F2F67Z2X",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "teacher_appreciation",
+          "label": "Teacher Appreciation",
+          "phase": "tail"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Fumete Wedding Favors for Guests 50 Pcs Wedding Fans and 1 Pc Table Sign Portable Paper Fan with Wooden Handle Hand Fan for Bridal Shower Party Favor Appreciation Gift(Wildflower)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "QAA4200",
+      "aid": 2604904,
+      "asin": "B0FM3ZN2BK",
+      "salesChannel": "Amazon.com",
+      "tag": "季节存疑未推",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "gap",
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Tondiamo Crown Brooch Pins Bulk Gifts for Mother Inspirational Gifts for Women Employee Appreciation with Inspirational Cards(60 Sets)",
+      "productCheck": "live title is generic crown/inspirational gifts; wedding/nurse fit weak"
+    },
+    {
+      "sku": "QQ1764",
+      "aid": 1509425,
+      "asin": "B0C1NF986W",
+      "salesChannel": "Amazon.com",
+      "tag": "同志已推已改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "operator_approval_required",
+      "selectedEvent": "Pride Month",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Tudomro 3 Pack Rainbow Plastic Tablecloth, 54 x 108 Inch Disposable Rainbow Table Covers for Pride Month, Lgbtq Party Decorations, Birthday Party, Celebration Supplies (Classic Color)",
+      "productCheck": "live title has Pride Month/LGBTQ; QQ1764 ads were scaled after user title change"
+    },
+    {
+      "sku": "RHO0122",
+      "aid": 2685222,
+      "asin": "B0FQJCXCT4",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "YooNotee Personalized Will You Be My Bridesmaid Sticker with Name Pearl Decal Vinyl Proposal Decal Custom Name Decals DTF Transfer for Bridesmaids Box Bridal Shower Wedding Bachelorette Party(Black)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "RHO1540",
+      "aid": 2994241,
+      "asin": "B0GLPCPFK9",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼不加免改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "gap",
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "YooNotee Personalized Will You Be My Bridesmaid Sticker with Name Pearl Decal Vinyl Proposal Decal Custom Name Decals DTF Transfer for Bridesmaids Box Bridal Shower Wedding Bachelorette Party (Gold)",
+      "productCheck": "live title has bridesmaid/proposal/bridal shower; inventory tight, no scale"
+    },
+    {
+      "sku": "RO2084",
+      "aid": 2321711,
+      "asin": "B07QLVNGR4",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "Shappy 12 Pieces Hawaiian Luau Hibiscus Green Silk Faux Flowers Hula Grass Skirt for Costume Party, Birthdays, Celebration (Muti)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "RU2411",
+      "aid": 2832443,
+      "asin": "B0G5NJRVN9",
+      "salesChannel": "Amazon.com",
+      "tag": "毕业未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Spiareal 9 Pack Dental Graduation Decorations, Table Centerpieces with Boxes, Tooth Toothbrush and Toothpaste Cutouts Toppers for Dental Assistant Graduation Party Decor",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "SAN1203",
+      "aid": 2513991,
+      "asin": "B0FGD7Z84F",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "gap",
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Zhanmai 12 Pcs Cowboy Hat & Bandana Set Western Costume Accessories for Cowboy Party Bulk Favors for Theme Party(Glossy Black)",
+      "productCheck": "wedding audit hit, but live title is cowboy/western party, not wedding-specific"
+    },
+    {
+      "sku": "SAW1720",
+      "aid": 2377646,
+      "asin": "B0DZ22MK2F",
+      "salesChannel": "Amazon.com",
+      "tag": "教会未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "mothers_day",
+          "label": "Mother's Day",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Feifeiya 25 Sets Spanish Christian Gifts Bulk, Bible Emergency Numbers Bookmarks, Scripture Wristbands and Pens, VBS Church Favors, Religious Graduation Gifts, Fathers Day Church for Men Women",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "SC3420",
+      "aid": 2172432,
+      "asin": "B0C2HKSG2X",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念不加免改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "gap",
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Inbagi Memorial Cardinal Sign Pins Set Include Bird Funeral Pocket Token Red Cardinal Pin Organza Bags and Remember Me Poem Cards Cardinal Charms Funeral Favors for Guests Gift (30 Sets)",
+      "productCheck": "live title is memorial cardinal/funeral remembrance; inventory tight, no scale"
+    },
+    {
+      "sku": "SC3527",
+      "aid": 2175208,
+      "asin": "B0CGV7S8V9",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Inbagi Memorial Cardinal Sign Pins Set Include Bird Funeral Pocket Token Red Cardinal Pin Organza Bags and Remember Me Poem Cards Cardinal Charms Funeral Favors for Guests Gift (60 Sets)",
+      "productCheck": "live title is funeral/memorial/remembrance, not Memorial Day campaign wording"
+    },
+    {
+      "sku": "SHQ0554",
+      "aid": 2148235,
+      "asin": "B0D73SYRYR",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "WinnerWhy 12 Pcs Campfire Plush Keychains, Mini Stuffed Fire Toys for Kids Backpacks, Outdoor Camping Theme Birthday Party Favors Goodie Bag Stuffers",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "SHU2552",
+      "aid": 2117065,
+      "asin": "B0D2KL7NFK",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "mothers_day",
+          "label": "Mother's Day",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Layhit 2 Pcs Bridesmaid Gifts Bridesmaid Proposal Gifts 16 Oz Cute Can Shaped Drinking Glasses with Bamboo Lids and Glass Straw Iced Coffee Cup Mason Jar Cups for Engagement Wedding Bridal (Fresh)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "SII0421",
+      "aid": 2115561,
+      "asin": "B0D2DHVJFZ",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Ninehaoou 72 Pcs Bridal Shower Tea Party Favor Game Prizes 1 Guessing How Many Tea Bags Sign 50 Guessing Game Cards with 20 Pencils and 1 PET Jar for Guests Wedding (No Tea Bag)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "STA2604",
+      "aid": 2629328,
+      "asin": "B0FN7P88D4",
+      "salesChannel": "Amazon.com",
+      "tag": "父亲未推未改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "gap",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Thenshop 24 Pcs Pastor Father's Day Christian Church Gifts for Men, Leather Prayer Journal Notebooks with Bible Verse Pens, Religious Bible Study for Pastor Church Events (Multicolor)",
+      "productCheck": "live title has Pastor Father's Day; no new push"
+    },
+    {
+      "sku": "STA2607",
+      "aid": 2638940,
+      "asin": "B0FND9XC4Y",
+      "salesChannel": "Amazon.com",
+      "tag": "父亲未推未改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "gap",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Thenshop 30 Pcs Pastor Father's Day Christian Church Gifts for Men, Leather Prayer Journal Notebooks with Bible Verse Pens, Religious Bible Study for Pastor Church Events (Black)",
+      "productCheck": "live title has Pastor Father's Day; no new push"
+    },
+    {
+      "sku": "STA2610",
+      "aid": 2638941,
+      "asin": "B0FND7GY4V",
+      "salesChannel": "Amazon.com",
+      "tag": "父亲未推未改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "gap",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "Thenshop 20 Pcs Pastor Father's Day Christian Church Gifts for Men, Leather Prayer Journal Notebooks with Bible Verse Pens, Religious Bible Study for Pastor Church Events (Dark Brown)",
+      "productCheck": "live title has Pastor Father's Day; loss/no-order ad signal, do not push"
+    },
+    {
+      "sku": "STY2760",
+      "aid": 2801757,
+      "asin": "B0G3PBLJ62",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Ferrochef 6 Set Baby Shower Bear Centerpieces for Tables Mason-style Glass Jars with Artificial Peonies and Baby's Breath Rustic Table Decor for Gender Reveal Party Wedding(Pink)",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "TAN2986",
+      "aid": 2759479,
+      "asin": "B0FYDRZ1ZC",
+      "salesChannel": "Amazon.com",
+      "tag": "护士尾期未推",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "gap",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Quelay 24 Set 2026 Nurse Week Gift Anesthetist Appreciation Bracelet Gifts Bulk Colorful Clay Beaded Stretch Bracelet Thank You Gifts for Crna Nurse Anesthesiologists Birthday Medical Professional",
+      "productCheck": "live title is 2026 Nurse Week/CRNA gift, not graduation"
+    },
+    {
+      "sku": "TI2209",
+      "aid": null,
+      "asin": "B0CGV7S8V9",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念未推免改",
+      "alreadyTagged": false,
+      "writable": false,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Inbagi Memorial Cardinal Sign Pins Set Include Bird Funeral Pocket Token Red Cardinal Pin Organza Bags and Remember Me Poem Cards Cardinal Charms Funeral Favors for Guests Gift (60 Sets)",
+      "productCheck": "live title is funeral/memorial/remembrance, not Memorial Day campaign wording"
+    },
+    {
+      "sku": "UAN2600",
+      "aid": 1825788,
+      "asin": "B0CHRT58V7",
+      "salesChannel": "Amazon.com",
+      "tag": "教会存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Fulmoon 30 Pcs Mini Notebooks Bulk Small Inspirational Pocket Notebooks & Mini Journals Bulk for Employee Appreciation Gifts Motivational Notepads for Teacher Nurse Coworkers Staff (Brown)",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "UAN3644",
+      "aid": 2244926,
+      "asin": "B0DH1ZVTKH",
+      "salesChannel": "Amazon.com",
+      "tag": "教会存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Fulmoon 100 Pcs Mini Notebooks Bulk Small Inspirational Pocket Notebooks & Mini Journals Bulk for Employee Appreciation Gifts Motivational Notepads for Teacher Nurse Coworkers Staff (Joyous Colors)",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "UY0879",
+      "aid": 1318271,
+      "asin": "B0BDLT56DH",
+      "salesChannel": "Amazon.com",
+      "tag": "季节存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "9 Pcs Mental Health Awareness Wall Decor, Positive Affirmations Signs for Therapist Office, School Counselor Desk Accessories, Classroom & Therapy Room Decorations, Motivational Psychology Gifts",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "WC2648",
+      "aid": 2184091,
+      "asin": "B0CGV931JK",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        }
+      ],
+      "liveTitle": "Inbagi Memorial Cardinal Sign Pins Set Include Bird Funeral Pocket Token Red Cardinal Pin Organza Bags and Remember Me Poem Cards Cardinal Charms Funeral Favors for Guests Gift (100 Sets)",
+      "productCheck": "live title is funeral/memorial/remembrance, not Memorial Day campaign wording"
+    },
+    {
+      "sku": "WE3925",
+      "aid": 2662061,
+      "asin": "B0FPQ86F1C",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "24 Pcs Pizza Slice Favor Boxes Set with Display Boards, Turtle Theme Party Supplies, Turtle Themed Birthday Party Decorations, Empty Treat Cardboard Boxes for Gatherings and Gift Exchange",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "XIH2672",
+      "aid": 2562080,
+      "asin": "B0FJR6KCR1",
+      "salesChannel": "Amazon.com",
+      "tag": "教会未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Resurhang 20 Set Christ Bow Spiral Notebook for Women, Dios Dice Que Eres Christian Journal Set with Pens, Pink Bow Spiral Lined Notebooks 5.5 x 8.3 in, Bible Study Party Favors",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "XIH2677",
+      "aid": 2562081,
+      "asin": "B0FJR7VWH1",
+      "salesChannel": "Amazon.com",
+      "tag": "教会未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Resurhang 10 Set Christ Bow Spiral Notebook, Dios Dice Que Eres Christian Journal Set with Pens, Pink Bow Spiral Lined Notebooks 5.5 x 8.3 in, Bible Study Party Favors",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "YAN0087",
+      "aid": 1310116,
+      "asin": "B0BC8FT8MJ",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        },
+        {
+          "key": "mothers_day",
+          "label": "Mother's Day",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Roowest 1 Pcs Cardinal Memorial Picture Frame Acrylic Magnetic Photo Frames, 7 x 10 Inch, Sympathy Gifts for Loss of Loved One Passed Away Gifts Memorial Bereavement for Mom, Dad, Family Home Decor",
+      "productCheck": "live title is funeral/memorial/remembrance, not Memorial Day campaign wording"
+    },
+    {
+      "sku": "YAN3229",
+      "aid": 2138063,
+      "asin": "B0D5L7RDZQ",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        },
+        {
+          "key": "mothers_day",
+          "label": "Mother's Day",
+          "phase": "tail"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Roowest Flower Memorial Picture Frame Sympathy Gifts for Loss of Loved One Passed Away Acrylic Magnetic Photo Frames Bereavement for Mom, Dad, Family, 7 x 10 Inch",
+      "productCheck": "live title is funeral/memorial/remembrance, not Memorial Day campaign wording"
+    },
+    {
+      "sku": "YEO1451",
+      "aid": 2940740,
+      "asin": "B0GHXTYSHP",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "Tivi Tovo 4 Pcs 4 Pack Boonie Safari Hats for Men Women, Wide Brim Sun Hats with Chin Strap for Fishing Hiking Lightweight (Multicolor 3)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "YMF0656",
+      "aid": 2135676,
+      "asin": "B0D59P9C7X",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Trandraft 150 Sets Baby Shower Favors for Guests – “Baby in Bloom” Seed Packet Envelopes with Thank You Tags and Twine, Kraft Paper Envelopes for Baby Shower Wedding Favors Decorations",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    },
+    {
+      "sku": "YUH4842",
+      "aid": 2927811,
+      "asin": "B0GH73QSR2",
+      "salesChannel": "Amazon.com",
+      "tag": "复活保护未改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "protected_listing_hold",
+      "selectedEvent": "",
+      "expiredEvents": [
+        "Easter"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "VioraWhite 30 Set Jesus Loves You Easter Eggs Prefilled with Mini Jesus Stress Balls Religious Easter Egg Fillers with John 3:16 Cards, Christian Basket Stuffers Party Favors (Traditional)",
+      "productCheck": "protected/hold listing; mark not changed"
+    },
+    {
+      "sku": "YUH4846",
+      "aid": 2927812,
+      "asin": "B0GH795Y8Q",
+      "salesChannel": "Amazon.com",
+      "tag": "复活保护未改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "protected_listing_hold",
+      "selectedEvent": "",
+      "expiredEvents": [
+        "Easter"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "VioraWhite 30 Set Jesus Loves You Easter Eggs Prefilled with Mini Jesus Stress Balls Religious Easter Egg Fillers with John 3:16 Cards, Christian Basket Stuffers Party Favors (Stylish)",
+      "productCheck": "protected/hold listing; mark not changed"
+    },
+    {
+      "sku": "YUH4890",
+      "aid": 2927813,
+      "asin": "B0GH7B281D",
+      "salesChannel": "Amazon.com",
+      "tag": "复活保护未改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "protected_listing_hold",
+      "selectedEvent": "",
+      "expiredEvents": [
+        "Easter"
+      ],
+      "seasonWindows": [],
+      "liveTitle": "VioraWhite 24 Set Jesus Loves You Easter Eggs Prefilled with Mini Jesus Stress Balls Religious Easter Egg Fillers with John 3:16 Cards, Christian Basket Stuffers Party Favors (Special)",
+      "productCheck": "protected/hold listing; mark not changed"
+    },
+    {
+      "sku": "YUN2187",
+      "aid": 2357758,
+      "asin": "B0DV47QV16",
+      "salesChannel": "Amazon.com",
+      "tag": "教会未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Skylety Christian Gifts for Women God Says You Are Tumblers 16 oz Reusable Plastic Cups with Lids, Bulk Christian Cute Cups for Church Gifts(10 Pcs)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "YUT2927",
+      "aid": 2700350,
+      "asin": "B0D1C7Q59K",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men(16,Gold)",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "YUT2946",
+      "aid": 2700369,
+      "asin": "B0D1VJWGXN",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Summer",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float - Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Adults, Women and Men",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "YUT4458",
+      "aid": 2802035,
+      "asin": "B0D1VMCWXL",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "gap",
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float - Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "productCheck": "live title has summer pool float; no new push"
+    },
+    {
+      "sku": "YUT4460",
+      "aid": 2802036,
+      "asin": "B0DX13SR8F",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季已推免改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "no_title_change_required",
+      "selectedEvent": "Summer",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float - Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "productCheck": "live title has summer pool float; broad summer ad created"
+    },
+    {
+      "sku": "YUT4462",
+      "aid": 2802037,
+      "asin": "B0DX5Y7RZ9",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季已推免改",
+      "alreadyTagged": true,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "no_title_change_required",
+      "selectedEvent": "Summer",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float - Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "productCheck": "live title has summer pool float; broad summer ad created"
+    },
+    {
+      "sku": "YUT4464",
+      "aid": 2802038,
+      "asin": "B0DX5T5D86",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float - Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "YUT4466",
+      "aid": 2802039,
+      "asin": "B0DX5XVDZJ",
+      "salesChannel": "Amazon.com",
+      "tag": "夏季未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "HyDren 48 Inch Inflatable Number Pool Float - Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "ZHW0104",
+      "aid": 1750531,
+      "asin": "B0CF9V3J2Y",
+      "salesChannel": "Amazon.com",
+      "tag": "悼念未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "active"
+      ],
+      "titleDecision": "",
+      "selectedEvent": "",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        },
+        {
+          "key": "mothers_day",
+          "label": "Mother's Day",
+          "phase": "tail"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "liveTitle": "Hicarer Grave Decorations for Cemetery Double Sided Metal Dad Grave Markers Robin Memorial Stakes Mother's Father's Day Cemetery Sympathy Outdoors Decorations for Garden Yard, 11.8 x 6.8 Inch",
+      "productCheck": "live title is funeral/memorial/remembrance, not Memorial Day campaign wording"
+    },
+    {
+      "sku": "ZO0891",
+      "aid": 2358487,
+      "asin": "B0DW8ZQX13",
+      "salesChannel": "Amazon.com",
+      "tag": "教会未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "6 Pcs Christian Gifts for Women Christian God Says You Are Glass Tumblers Set 16oz Iced Coffee Cups with Lids Glass Straws Scripture Bible Verse Cups Gifts for Women",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "ZO0892",
+      "aid": 2358488,
+      "asin": "B0DW931ZLZ",
+      "salesChannel": "Amazon.com",
+      "tag": "教会未推免改",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title",
+        "active"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "expiredEvents": [],
+      "seasonWindows": [
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        }
+      ],
+      "liveTitle": "12 Pcs Christian Gifts for Women Christian God Says You Are Glass Tumblers Set 16oz Iced Coffee Cups with Lids Glass Straws Scripture Bible Verse Cups Gifts for Women",
+      "productCheck": "live title supports detected season, no new push recorded"
+    },
+    {
+      "sku": "ZUN0779",
+      "aid": 2356463,
+      "asin": "B0DTX9LKW7",
+      "salesChannel": "Amazon.com",
+      "tag": "婚礼存疑未推",
+      "alreadyTagged": false,
+      "writable": true,
+      "sourceFlags": [
+        "title"
+      ],
+      "titleDecision": "review_missing_current_title",
+      "selectedEvent": "Wedding Season",
+      "expiredEvents": [],
+      "seasonWindows": [],
+      "liveTitle": "Geiserailie 48 Pcs Kpop Party Favors Friendship Gifts 6 Set Include Bracelet Disco Keychain Sunglasses Butterfly Clip and VIP Passes Holder for Kpop Fans Party Supplies Birthday Decorations",
+      "productCheck": "live title/product fit is weak for the detected season; mark suspect and do not push"
+    }
+  ],
+  "toWrite": [
+    "BOY1281",
+    "BOY3171",
+    "CAS4030",
+    "CL3650",
+    "COT2347",
+    "COT3013",
+    "DH2685",
+    "DH2686",
+    "EY0793",
+    "EY2727",
+    "FE3232",
+    "GM2616",
+    "GM2620",
+    "GM2628",
+    "GM2634",
+    "GOO1089",
+    "GRA4861",
+    "GRA5177",
+    "GT2491",
+    "GT3308",
+    "GT3801",
+    "GT3814",
+    "GT3815",
+    "GT4431",
+    "HAN0044",
+    "HEL0319",
+    "HEL0606",
+    "HEL2829",
+    "HI3876",
+    "HOS0946",
+    "HUQ0699",
+    "IFS0482",
+    "JIN1883",
+    "KA1589",
+    "KZ6074",
+    "LE5294",
+    "LE8150",
+    "LE8156",
+    "LE8168",
+    "LE8173",
+    "LED3343",
+    "LEM7532",
+    "LEM8356",
+    "LNE1321",
+    "LNY3024",
+    "LO3821",
+    "MF3043",
+    "MF6280",
+    "MF6294",
+    "MF6328",
+    "NAY0239",
+    "NAY0963",
+    "NO5155",
+    "OYH0257",
+    "OYH0784",
+    "PIR4617",
+    "QA1157",
+    "QA2074",
+    "QA3169",
+    "QA3278",
+    "QA3896",
+    "QA4115",
+    "RHO0122",
+    "RO2084",
+    "RU2411",
+    "SAW1720",
+    "SC3527",
+    "SHQ0554",
+    "SHU2552",
+    "SII0421",
+    "STY2760",
+    "UAN2600",
+    "UAN3644",
+    "UY0879",
+    "WC2648",
+    "WE3925",
+    "XIH2672",
+    "XIH2677",
+    "YAN0087",
+    "YAN3229",
+    "YEO1451",
+    "YMF0656",
+    "YUH4842",
+    "YUH4846",
+    "YUH4890",
+    "YUN2187",
+    "YUT2927",
+    "YUT2946",
+    "YUT4464",
+    "YUT4466",
+    "ZHW0104",
+    "ZO0891",
+    "ZO0892",
+    "ZUN0779"
+  ],
+  "noAid": [
+    {
+      "sku": "AE2739",
+      "tag": "婚礼未推免改",
+      "asin": "B0BXDF9P7F",
+      "reason": "missing formal inventory aid in current snapshot; skipped live tag write"
+    },
+    {
+      "sku": "MF2992",
+      "tag": "夏季未推免改",
+      "asin": "B0D1VJWGXN",
+      "reason": "missing formal inventory aid in current snapshot; skipped live tag write"
+    },
+    {
+      "sku": "MF2995",
+      "tag": "夏季未推免改",
+      "asin": "B0DX13SR8F",
+      "reason": "missing formal inventory aid in current snapshot; skipped live tag write"
+    },
+    {
+      "sku": "MF2998",
+      "tag": "夏季未推免改",
+      "asin": "B0DX5Y7RZ9",
+      "reason": "missing formal inventory aid in current snapshot; skipped live tag write"
+    },
+    {
+      "sku": "MH0525",
+      "tag": "婚礼存疑未推",
+      "asin": "B09KLVT7NB",
+      "reason": "missing formal inventory aid in current snapshot; skipped live tag write"
+    },
+    {
+      "sku": "MH1806",
+      "tag": "婚礼存疑未推",
+      "asin": "B09SW2NT6J",
+      "reason": "missing formal inventory aid in current snapshot; skipped live tag write"
+    },
+    {
+      "sku": "MM1820",
+      "tag": "夏季未推免改",
+      "asin": "B0B3DGPSLG",
+      "reason": "missing formal inventory aid in current snapshot; skipped live tag write"
+    },
+    {
+      "sku": "OB1169",
+      "tag": "过季待改未推",
+      "asin": "B0B9Y2ZG9G",
+      "reason": "missing formal inventory aid in current snapshot; skipped live tag write"
+    },
+    {
+      "sku": "TI2209",
+      "tag": "悼念未推免改",
+      "asin": "B0CGV7S8V9",
+      "reason": "missing formal inventory aid in current snapshot; skipped live tag write"
+    }
+  ]
+}

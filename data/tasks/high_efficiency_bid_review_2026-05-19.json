@@ -1,0 +1,856 @@
+{
+  "generatedAt": "2026-05-19T03:41:22.392Z",
+  "highFile": "D:\\ad-ops-workbench\\data\\tasks\\high_efficiency_rows_2026-05-19_execute.json",
+  "snapshotFile": "D:\\ad-ops-workbench\\data\\snapshots\\latest_snapshot.json",
+  "schemaFile": "D:\\ad-ops-workbench\\data\\snapshots\\high_efficiency_bid_schema_2026-05-19.json",
+  "enrichedSnapshotFile": "D:\\ad-ops-workbench\\data\\snapshots\\high_efficiency_execution_snapshot_2026-05-19.json",
+  "businessDate": "2026-05-19",
+  "summary": {
+    "highEfficiencyRows": 241,
+    "skuCount": 141,
+    "actionSkus": 83,
+    "actionRows": 130,
+    "decisions": {
+      "hold": 35,
+      "inventory_protect": 33,
+      "strong_bid_up": 2,
+      "small_bid_up": 112,
+      "standard_bid_up": 24,
+      "diagnose": 35
+    },
+    "reviewReasons": {
+      "negative_net_and_busy_profit": 31,
+      "efficient_but_inventory_tight": 33,
+      "conversion_inventory_profit_not_enough_for_bid_up": 14,
+      "profit_guardrail_blocks_scale": 21,
+      "inactive_parent_or_entity": 2,
+      "inventory_not_ready": 2
+    }
+  },
+  "review": [
+    {
+      "sku": "SAN0383",
+      "entityType": "keyword",
+      "id": "368345204556183",
+      "term": "cowboy hats",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "SAN0383",
+      "entityType": "keyword",
+      "id": "427180290337996",
+      "term": "brown cowboy hats bulk",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "SAN0383",
+      "entityType": "keyword",
+      "id": "419613223174431",
+      "term": "cowgirl hat",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "SAN0383",
+      "entityType": "keyword",
+      "id": "503010322227638",
+      "term": "bulk cowboy hats for adults",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "SAN0383",
+      "entityType": "keyword",
+      "id": "486108482929784",
+      "term": "party cowboy hats for adults",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "SAN0383",
+      "entityType": "sbKeyword",
+      "id": "293322975251829",
+      "term": "cowboy hats for adult party",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "GT2432",
+      "entityType": "keyword",
+      "id": "542125287174775",
+      "term": "6 inch pots",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "YUT3183",
+      "entityType": "keyword",
+      "id": "346203618751026",
+      "term": "soccer ball",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "OCE1413",
+      "entityType": "keyword",
+      "id": "472427699956286",
+      "term": "hard cover officiant book for ceremony",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "OCE1413",
+      "entityType": "keyword",
+      "id": "561545528556108",
+      "term": "officiant book",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "OCE1413",
+      "entityType": "autoTarget",
+      "id": "510031080806933",
+      "term": "",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "OCE1413",
+      "entityType": "autoTarget",
+      "id": "479912115243409",
+      "term": "",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "PR2214",
+      "entityType": "keyword",
+      "id": "406492355822295",
+      "term": "bunny birthday party favors",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "PR2214",
+      "entityType": "keyword",
+      "id": "476888194463174",
+      "term": "bunny goodie bags",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "PR2214",
+      "entityType": "keyword",
+      "id": "439268676372670",
+      "term": "bunny birthday party favors",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "PR2214",
+      "entityType": "keyword",
+      "id": "519461433693986",
+      "term": "small bunny plush",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "YUT4464",
+      "entityType": "keyword",
+      "id": "161211464447894",
+      "term": "number pool float",
+      "decision": "diagnose",
+      "reason": "conversion_inventory_profit_not_enough_for_bid_up"
+    },
+    {
+      "sku": "HAY1900",
+      "entityType": "keyword",
+      "id": "477327892340688",
+      "term": "sailor ducks",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "LNY3024",
+      "entityType": "keyword",
+      "id": "431067786658594",
+      "term": "retirement party gifts",
+      "decision": "diagnose",
+      "reason": "conversion_inventory_profit_not_enough_for_bid_up"
+    },
+    {
+      "sku": "DUN1391",
+      "entityType": "keyword",
+      "id": "462371745077987",
+      "term": "large food containers with lids",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "STY6101",
+      "entityType": "keyword",
+      "id": "261108372201231",
+      "term": "artificial flower centerpieces for tables",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "STY6101",
+      "entityType": "keyword",
+      "id": "187931100456607",
+      "term": "boho baby shower decor",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "LUO1012",
+      "entityType": "keyword",
+      "id": "439962755111412",
+      "term": "baby bottle chug games baby shower",
+      "decision": "diagnose",
+      "reason": "conversion_inventory_profit_not_enough_for_bid_up"
+    },
+    {
+      "sku": "MF6292",
+      "entityType": "keyword",
+      "id": "51705430186096",
+      "term": "number pool float",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "XIX1523",
+      "entityType": "keyword",
+      "id": "283542877612825",
+      "term": "letter stencils 1 inch",
+      "decision": "diagnose",
+      "reason": "conversion_inventory_profit_not_enough_for_bid_up"
+    },
+    {
+      "sku": "KEJ1748",
+      "entityType": "keyword",
+      "id": "299882115464301",
+      "term": "pegboard bin",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "DUN1128",
+      "entityType": "keyword",
+      "id": "297135405189332",
+      "term": "bread warmer basket with stone",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "QAA3142",
+      "entityType": "keyword",
+      "id": "368484861089785",
+      "term": "crown brooch pins",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "QAA3142",
+      "entityType": "sbKeyword",
+      "id": "280708267528895",
+      "term": "crown brooch pins bulk",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "QAA3142",
+      "entityType": "sbKeyword",
+      "id": "50838185811941",
+      "term": "crown pins bulk",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "QAA3142",
+      "entityType": "sbKeyword",
+      "id": "110959455731480",
+      "term": "mothers day gifts bulk",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "DUC0055",
+      "entityType": "keyword",
+      "id": "414067079487132",
+      "term": "large flamingo stuffed animal",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "CL3650",
+      "entityType": "keyword",
+      "id": "457173111212571",
+      "term": "piñat bulk",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "CL3650",
+      "entityType": "sbKeyword",
+      "id": "251680757397700",
+      "term": "chili pepper pinata",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "HAY1932",
+      "entityType": "autoTarget",
+      "id": "442349902098534",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "conversion_inventory_profit_not_enough_for_bid_up"
+    },
+    {
+      "sku": "LNY3098",
+      "entityType": "keyword",
+      "id": "221514628085086",
+      "term": "retirement party favors",
+      "decision": "diagnose",
+      "reason": "conversion_inventory_profit_not_enough_for_bid_up"
+    },
+    {
+      "sku": "LNY3098",
+      "entityType": "autoTarget",
+      "id": "486555545930328",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "conversion_inventory_profit_not_enough_for_bid_up"
+    },
+    {
+      "sku": "SAN1103",
+      "entityType": "keyword",
+      "id": "387468084003433",
+      "term": "cowgirl hat",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "ZO0891",
+      "entityType": "keyword",
+      "id": "58928391757897",
+      "term": "tumblers for women",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "ZO0891",
+      "entityType": "autoTarget",
+      "id": "555061156890316",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "OB3296",
+      "entityType": "keyword",
+      "id": "53710526310726",
+      "term": "piñata",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "HEL2829",
+      "entityType": "keyword",
+      "id": "227957357351536",
+      "term": "end of year gifts from teacher",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "HEL2829",
+      "entityType": "autoTarget",
+      "id": "553535933871646",
+      "term": "",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "HEL2829",
+      "entityType": "sbKeyword",
+      "id": "232405822668574",
+      "term": "motivational gifts for students",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "XIH2672",
+      "entityType": "keyword",
+      "id": "50367321411886",
+      "term": "regalos para mama cristianos",
+      "decision": "hold",
+      "reason": "inactive_parent_or_entity"
+    },
+    {
+      "sku": "XIH2672",
+      "entityType": "keyword",
+      "id": "107432486816991",
+      "term": "mothers day gifts for church",
+      "decision": "hold",
+      "reason": "inactive_parent_or_entity"
+    },
+    {
+      "sku": "QA4115",
+      "entityType": "keyword",
+      "id": "175907785128552",
+      "term": "wedding fan",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "GT3812",
+      "entityType": "autoTarget",
+      "id": "482390592197634",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "conversion_inventory_profit_not_enough_for_bid_up"
+    },
+    {
+      "sku": "GT3814",
+      "entityType": "autoTarget",
+      "id": "509447974420906",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "conversion_inventory_profit_not_enough_for_bid_up"
+    },
+    {
+      "sku": "QAA4200",
+      "entityType": "autoTarget",
+      "id": "284776649453452",
+      "term": "",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "RHO0122",
+      "entityType": "autoTarget",
+      "id": "344867469280556",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "conversion_inventory_profit_not_enough_for_bid_up"
+    },
+    {
+      "sku": "RHO0122",
+      "entityType": "autoTarget",
+      "id": "528778563593980",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "RHO0122",
+      "entityType": "autoTarget",
+      "id": "284911417065189",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "RHO0122",
+      "entityType": "manualTarget",
+      "id": "523226297352362",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "BOY3355",
+      "entityType": "autoTarget",
+      "id": "505212080265256",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "GM2628",
+      "entityType": "autoTarget",
+      "id": "548320590357462",
+      "term": "",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "GM2628",
+      "entityType": "autoTarget",
+      "id": "407898808935075",
+      "term": "",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "GM2628",
+      "entityType": "autoTarget",
+      "id": "394238518566840",
+      "term": "",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "GM3149",
+      "entityType": "autoTarget",
+      "id": "312626808831375",
+      "term": "",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "GM2634",
+      "entityType": "autoTarget",
+      "id": "518790080397177",
+      "term": "",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "GM2634",
+      "entityType": "sbKeyword",
+      "id": "308612476871297",
+      "term": "christian necklace for women",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "YUT2946",
+      "entityType": "autoTarget",
+      "id": "299806885847262",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "YUT2946",
+      "entityType": "autoTarget",
+      "id": "433214293586611",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "LED3945",
+      "entityType": "autoTarget",
+      "id": "486879491783749",
+      "term": "",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "KZ6074",
+      "entityType": "autoTarget",
+      "id": "477434230935075",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "conversion_inventory_profit_not_enough_for_bid_up"
+    },
+    {
+      "sku": "DH2685",
+      "entityType": "autoTarget",
+      "id": "329626779644800",
+      "term": "",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "YAN0087",
+      "entityType": "autoTarget",
+      "id": "191087225259884",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "conversion_inventory_profit_not_enough_for_bid_up"
+    },
+    {
+      "sku": "YMF1073",
+      "entityType": "autoTarget",
+      "id": "346493316011645",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "conversion_inventory_profit_not_enough_for_bid_up"
+    },
+    {
+      "sku": "MK0522",
+      "entityType": "autoTarget",
+      "id": "533274935457996",
+      "term": "",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "MK0522",
+      "entityType": "autoTarget",
+      "id": "355226813350768",
+      "term": "",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "OB4139",
+      "entityType": "autoTarget",
+      "id": "358858986497997",
+      "term": "",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "OB4139",
+      "entityType": "sbKeyword",
+      "id": "46422662366176",
+      "term": "fiesta pinata",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "OB4139",
+      "entityType": "sbKeyword",
+      "id": "44337833887210",
+      "term": "birthday pinata",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "YH3708",
+      "entityType": "autoTarget",
+      "id": "362119874123803",
+      "term": "",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "UAN3248",
+      "entityType": "autoTarget",
+      "id": "332936269399888",
+      "term": "",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "UAN3248",
+      "entityType": "manualTarget",
+      "id": "543401483494785",
+      "term": "",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "AE2140",
+      "entityType": "autoTarget",
+      "id": "320442023382851",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "conversion_inventory_profit_not_enough_for_bid_up"
+    },
+    {
+      "sku": "YUN2686",
+      "entityType": "autoTarget",
+      "id": "469446376646746",
+      "term": "",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "UAN2600",
+      "entityType": "manualTarget",
+      "id": "490835818394574",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "MH0525",
+      "entityType": "manualTarget",
+      "id": "115758909196310",
+      "term": "",
+      "decision": "hold",
+      "reason": "inventory_not_ready"
+    },
+    {
+      "sku": "SH0423",
+      "entityType": "manualTarget",
+      "id": "174439653827081",
+      "term": "",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "LNE1321",
+      "entityType": "manualTarget",
+      "id": "227454753499888",
+      "term": "",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "BEU0541",
+      "entityType": "manualTarget",
+      "id": "527825812798709",
+      "term": "",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "GRA4861",
+      "entityType": "manualTarget",
+      "id": "514298122913274",
+      "term": "",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "SC3077",
+      "entityType": "sbKeyword",
+      "id": "231999532375822",
+      "term": "jewelry safe insert",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "JUU1053",
+      "entityType": "sbKeyword",
+      "id": "508148968563310",
+      "term": "cakesicle stand display",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "KS0788",
+      "entityType": "sbKeyword",
+      "id": "322152993870018",
+      "term": "21st birthday decorations",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "KV0324",
+      "entityType": "sbKeyword",
+      "id": "336713855770084",
+      "term": "broken arm bear",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "KV0324",
+      "entityType": "sbKeyword",
+      "id": "359623310505442",
+      "term": "get well soon gifts for kids",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "KV0324",
+      "entityType": "sbKeyword",
+      "id": "410200526766795",
+      "term": "get well toys for child with broken arm",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "KV0324",
+      "entityType": "sbKeyword",
+      "id": "391496736864571",
+      "term": "broken arm bear",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "KV0324",
+      "entityType": "sbKeyword",
+      "id": "414366158927449",
+      "term": "stuffy with a cast arm",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "KV0324",
+      "entityType": "sbKeyword",
+      "id": "413343740887248",
+      "term": "get well soon gifts for kids",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "SE6621",
+      "entityType": "sbKeyword",
+      "id": "213246403145746",
+      "term": "teddy bear shirt for stuffed animal",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "SE6621",
+      "entityType": "sbKeyword",
+      "id": "25218173079942",
+      "term": "teddy bear bulk tshirts",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "SY4371",
+      "entityType": "sbKeyword",
+      "id": "528941878360851",
+      "term": "stuffed taco",
+      "decision": "inventory_protect",
+      "reason": "efficient_but_inventory_tight"
+    },
+    {
+      "sku": "DN1655",
+      "entityType": "sbKeyword",
+      "id": "545248273986254",
+      "term": "flower buckets for flower bar",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "LED3942",
+      "entityType": "sbKeyword",
+      "id": "194991859322649",
+      "term": "teacher appreciation week gifts",
+      "decision": "hold",
+      "reason": "negative_net_and_busy_profit"
+    },
+    {
+      "sku": "XIH2559",
+      "entityType": "sbKeyword",
+      "id": "324761589869617",
+      "term": "christian journals",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "YEO1463",
+      "entityType": "sbKeyword",
+      "id": "257146517239013",
+      "term": "safari hats",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "UY3674",
+      "entityType": "sbKeyword",
+      "id": "478416480032552",
+      "term": "orange tablecloth",
+      "decision": "hold",
+      "reason": "inventory_not_ready"
+    },
+    {
+      "sku": "UAN2599",
+      "entityType": "sbKeyword",
+      "id": "292308819259182",
+      "term": "small journals",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    },
+    {
+      "sku": "KEN1043",
+      "entityType": "sbKeyword",
+      "id": "420683827170583",
+      "term": "40 and fabulous return gift bag",
+      "decision": "diagnose",
+      "reason": "profit_guardrail_blocks_scale"
+    }
+  ]
+}

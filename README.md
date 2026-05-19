@@ -15,11 +15,17 @@
 ## 目录速查
 
 ```
+AGENT.md                   给 AI 的项目规则和红线
+README.md                  人和 AI 共用的入口说明
+CHANGELOG.md               重要能力变更记录
+auto_adjust.js             主执行编排入口；仍留根目录，避免破坏运行链路
 extension/                 浏览器扩展（面板、抓数据的桥）
 scripts/execute/           数据导出、执行接口、快速抓单 SKU 的脚本
 scripts/generators/        候选 schema 生成器（输出都是 candidate，必须 AI 重写才可执行）
 scripts/diagnostics/       诊断类只读脚本（watch、scope scan、cross-AI review）
 scripts/analytics/         历史效果归因
+data/reference/            原始参考源文件，例如节气事件 Excel
+data/tmp_tests/            临时探针和故障现场文件；不是长期事实源
 src/ai_decision.js         action schema 校验器（代码核心 gate）
 src/adjustment_log.js      每次调整落地记录
 src/daily_learning.js      每日学习汇总
@@ -27,19 +33,68 @@ docs/                      架构边界、运营 playbook、规则文件
 memory.md                  长期运营记忆（比 docs 更细的决策口径）
 ```
 
+完整根目录地图见 `docs/ROOT_FILE_MAP.md`。根目录只放入口、规则、依赖清单和长期状态文件；业务数据、临时探针、源表、报告都应进入 `data/`、`docs/`、`scripts/` 或 `archive/`。
+
+## Seasonal Listing Copy
+
+Seasonal title edits are no longer blanket review-only. Use `docs/SEASONAL_LISTING_COPY_RULES.md` for the current boundary: low-sales SKUs can be submitted after dry-run when product-event evidence is strong; top-50 SKUs, non-seasonal copy edits, low-evidence edits, and year-specific themes without current external verification remain review/manual. Sellerinventory success means `submitted_pending_review`, not Amazon-front-end landed.
+Products with sales status `保留页面` are listing-copy protected. Preserve the current product page and do not submit title/bullet/description/search-term edits for them; manual SKU protection files are only an extra override.
+
+## Price Execution
+
+Price changes are no longer blanket review-only, but the executable path is narrow: Ful+Res shortage pricing for normal-sale SKUs with 7d Ful+Res sellable days below 30. The approved schema must normalize every target to a `.99` ending, pass dry-run, submit through sellerinventory, verify the backend application marker, and write adjustment logs. When `fulResUnits <= 7` or `sellableDays7d <= 7`, pause enabled SKU ad delivery first at the productAd/SB row level where available. Sellerinventory success is not Amazon-front-end propagation; keep the 1/3/7-day follow-up.
+
+## Selection Keyword Conversion Rate
+
+Use the selection-system keyword conversion source before creating or expanding keyword traffic. It is read-only market evidence and must be cross-checked before spend changes.
+
+```powershell
+npm run ops:selection:keyword-conversion -- --keywords "american flag bucket hat, 4th of july decorations, nurse gifts for women"
+```
+
+The report writes to `data/snapshots/selection_keyword_conversion_rate_<YYYY-MM-DD>.json` by default and includes missing keywords, data freshness, keyword quality, cost risk, multi-strategy CPC/CPA/ACOS, and cross-validation requirements. See `docs/SELECTION_KEYWORD_CONVERSION_RATE.md`.
+
+## Selection ABA Search Terms
+
+Use the selection-system ABA search-term source to check market demand rank, search volume, top-ASIN concentration, category fit, monopoly, supply-demand pressure, and price/review context. It is read-only evidence and never an executable ad decision by itself.
+
+```powershell
+npm run ops:selection:aba-search-terms -- --search-terms "cowboy hat, nurse gifts, 4th of july decorations"
+```
+
+The script splits comma-separated terms into separate ABA requests and merges them into one report. The report writes to `data/snapshots/selection_aba_search_terms_<YYYY-MM-DD>.json` by default and includes missing exact terms, data freshness, demand tier, competition tier, recommended use, top ASINs, and cross-validation requirements. See `docs/SELECTION_ABA_SEARCH_TERMS.md`.
+
+## Product Market Evidence Stack
+
+For any keyword, SKU, ASIN, product direction, developer request, traffic recovery, keyword creation, or "can this product be pushed" question, build a product market profile instead of judging only from ad rows or inventory rows.
+
+Use `docs/PRODUCT_MARKET_EVIDENCE_STACK.md` as the default read path: ABA demand/concentration, keyword conversion economics, SKU ad proof, listing/price fit, inventory/economics, and recent action history. Selection-system evidence is still read-only; executable ad actions require the normal schema, dry-run, execution, and landing verification flow.
+
 ## 每日闭环（一次完整运行）
 
 ### 0. 准备
 - Chrome 跑在 debug 模式（端口 9222），由 `scripts/execute/open_debug_browser_fixed_profile.ps1` 启动，并自动运行 `scripts/execute/ensure_backend_login.js`
-- 两个后台都要登录：`https://adv.yswg.com.cn/`、`https://sellerinventory.yswg.com.cn/`；如果企业微信桌面端已登录，脚本会自动点击“继续在浏览器中登录访问”
+- 三个内部系统都要登录：`https://adv.yswg.com.cn/`、`https://sellerinventory.yswg.com.cn/`、`https://selection.yswg.com.cn/dashboard/analysis`；如果企业微信桌面端已登录，脚本会自动点击“继续在浏览器中登录访问”
+- Readiness is not based on visible pages alone. Treat the browser session as usable only when `health.adv.ok=true`, `health.inventory.ok=true`, and `health.selection.ok=true`; never paste or store `X-Access-Token`, cookies, CSRF, JWT, or Inventory-Token values.
 - 打开扩展面板 `chrome-extension://.../panel.html`
 
 > 隔夜后 session 会过期；adv 后台的 KeywordManage 页带了 filter 参数会让快照只抓到子集。两个坑都记在 `memory.md`。
 
 ### 1. 导出快照
+Recovery rule before exporting: do not stop after the first abnormal preflight. Run `npm run chrome:debug`, recover adv to `https://adv.yswg.com.cn/vue/KeywordManage?tabId=<timestamp>`, wait for the keyword table, recover sellerinventory to the `/pm/formal/list` frame, confirm selection is open at `https://selection.yswg.com.cn/dashboard/analysis`, and rerun preflight. Treat the run as blocked only after this recovery pass still fails.
+
 ```powershell
 node scripts\execute\export_snapshot.js data\snapshots\latest_snapshot.json
 ```
+
+Daily orchestrator:
+
+```powershell
+npm run ops:today -- --mode full-snapshot --actor codex
+npm run ops:today -- --execute --mode full-snapshot --actor codex
+```
+
+`--execute` controls whether writes land; it must not change snapshot scope. Full-snapshot listing fetch has no default 120-item cap. If `AD_OPS_LISTING_FETCH_LIMIT` is set, that is an intentional cap and the run quality should show listing coverage warnings when coverage is low.
 产出 1200+ 产品卡，8000+ 关键词，2400+ 自动广告目标等。
 
 ### 2. 给 SKU 附加产品画像（profile）
@@ -53,6 +108,9 @@ node scripts\diagnostics\watch_daily_sku_group.js data\snapshots\latest_snapshot
 node scripts\generate_season_gap_audit.js data\snapshots\latest_snapshot.json <YYYY-MM-DD>
 node scripts\execute\generate_personal_trend_report.js data\snapshots\latest_snapshot.json
 node scripts\execute\fetch_unsellable_seller.js HJ17,HJ171,HJ172
+node scripts\execute\fetch_seller_success_rate.js HJ17
+npm run ops:selection:keyword-conversion -- --keywords "<term1, term2>"
+npm run ops:selection:aba-search-terms -- --search-terms "<term1, term2>"
 ```
 
 ### 4. AI 全量扫描、写 schema
@@ -79,6 +137,7 @@ dry-run 通不过的就地拦截。执行后自动回查落地 + 写库存备注
 node -e "require('./src/daily_learning').persistDailyLearning({...})"
 ```
 产出 `data/learning/daily_learning_<date>.{json,md}`，含按决策方（codex/claude/manual）分组的 `decisionAttribution`。**第二天 AI 决策前必须读前一天的 learning 文件**。
+The learning record also carries `dataQuality`, `actionQuality`, `runQuality`, and `operatingClosure`. Do not treat a run as operationally closed when the script succeeded but ad rows, seller sales rows, listing coverage, executable actions, or final landing are missing.
 
 ### 7. 跨 AI review（任何一方都能看对方做了什么）
 ```powershell
@@ -95,6 +154,22 @@ node scripts\diagnostics\review_recent_decisions.js --by codex --days 7
 
 所以"Codex 昨天为什么 pause 了 DN1655"、"Claude 这周平均 ACOS 比 Codex 更好"这种问题，有数据可答。
 
+## 错误定位速查
+
+出现失败时，先按下面顺序查，不要只看终端最后一行：
+
+| 位置 | 用途 |
+|---|---|
+| `data/snapshots/auto_run_<YYYY-MM-DD>.log` | 自动执行过程日志，能看到 dry-run、API 调用、回查阶段卡在哪里。 |
+| `data/snapshots/execution_summary_<YYYY-MM-DD>.json` | 当日执行总数、成功/失败计数、coverage 结论。 |
+| `data/snapshots/execution_verify_<YYYY-MM-DD>.json` | 落地核验明细，判断 API 成功后是否真的变成 enabled/paused/created。 |
+| `data/adjustments/adjustments_<YYYY-MM-DD>.json` | 每条真实调整记录，含 SKU、动作类型、before/after、原因、sourceRunId。 |
+| `data/learning/daily_learning_<YYYY-MM-DD>.md` | 当日结论、carry-forward、规则修正和未闭环项。 |
+| `data/developer_requests/<date>_*.md` | 开发诉求的证据、处理动作、可转发回复和后续复查点。 |
+| `data/tmp_tests/` | 临时探针和故障现场。长期结论应迁到 `data/learning/` 或 `docs/`。 |
+
+如果这些文件彼此矛盾，以最新一次目标 run 的 `execution_summary`、`execution_verify` 和对应 `daily_learning` 为准；历史 adjustment log 只能说明发生过什么，不能单独证明最终闭环。
+
 ## 三条红线
 
 1. **扩展面板里不能有 AI runtime**（不调 Anthropic / OpenAI API）。AI 决策在操作员的 CLI 会话里跑，不在仓库代码里跑。
@@ -108,8 +183,8 @@ node scripts\diagnostics\review_recent_decisions.js --by codex --days 7
 - 结构修复 / 重建 campaign
 - 大幅度 bid 变动
 - 高销量/高风险 SKU 的强力操作
-- Listing 文案编辑（`copy_edit`，已经能通过 sellerinventory 后台提交编辑申请，但执行前强制 dry-run + 显式 approval）
-- 价格变动
+- Listing 文案编辑（`copy_edit`）：已实测可在已登录 sellerinventory 浏览器上下文提交编辑申请；当前仍应把结果记为“申请已提交到后台审核流程”，不是 Amazon 前台已生效。季节标题按 `docs/SEASONAL_LISTING_COPY_RULES.md` 可自动提交；非季节文案、高销量未放行、低证据或年度主题未核验的标题仍保留 dry-run + 显式 approval。
+- 价格变动（除 Ful+Res 短缺提价路径：`.99`、dry-run、sellerinventory 回查、广告联动都通过）
 - 海运补货决策
 
 ## 运营范围（哪些 SKU 可以操作）
@@ -158,6 +233,9 @@ node scripts\execute\fetch_sp_group_detail.js <campaignId> <adGroupId> <accountI
 
 # 测试套件
 npm test
+
+# 重新生成节气/季节事件 JSON
+npm run ops:season-events:import
 
 # 语法校验（单文件）
 node --check auto_adjust.js

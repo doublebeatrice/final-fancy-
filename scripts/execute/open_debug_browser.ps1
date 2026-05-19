@@ -2,6 +2,7 @@ $debugUrl = "http://127.0.0.1:9222"
 $requiredUrls = @(
   "https://adv.yswg.com.cn/",
   "https://sellerinventory.yswg.com.cn/",
+  "https://selection.yswg.com.cn/dashboard/analysis",
   "chrome-extension://ipidenfkcdlhadnieamoocalimlnhagj/panel.html"
 )
 

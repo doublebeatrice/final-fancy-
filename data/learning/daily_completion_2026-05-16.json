@@ -1,0 +1,195 @@
+{
+  "date": "2026-05-16",
+  "generatedAt": "2026-05-16T04:55:00.990Z",
+  "status": "auto_executable_complete_sales_deposit_complete_manual_review_remains",
+  "dataWindow": {
+    "yesterdayLocal": "2026-05-15",
+    "todayLocal": "2026-05-16",
+    "todayBusiness": "2026-05-15",
+    "todayDataDate": "2026-05-14"
+  },
+  "dataAvailability": {
+    "sellerSalesRows": 183,
+    "productCards": 1272,
+    "inventoryRows": 591,
+    "adSkuSummaryRows": 662,
+    "overBudgetRows": 8223
+  },
+  "sellerComparison": {
+    "selected": {
+      "yesterday": {
+        "seller_title": "所选编号汇总",
+        "order_sales": 522565.87,
+        "net_profit": 0.1855,
+        "gross_profit": 0.3318,
+        "advCost": 0.1163,
+        "ACOS": 0.2175,
+        "refund_percent": 0.0519,
+        "SP": 0.3505,
+        "AT": 0.4465,
+        "CPC": 2.286,
+        "CPS": 16.3513,
+        "ROAS": 4.5985,
+        "qty_yoy_over_1_year": -0.1979
+      },
+      "today": {
+        "seller_title": "所选编号汇总",
+        "order_sales": 520427.39,
+        "net_profit": 0.1918,
+        "gross_profit": 0.3326,
+        "advCost": 0.1108,
+        "ACOS": 0.2204,
+        "refund_percent": 0.0495,
+        "SP": 0.3332,
+        "AT": 0.4261,
+        "CPC": 2.2564,
+        "CPS": 16.5787,
+        "ROAS": 4.5366,
+        "qty_yoy_over_1_year": -0.1888
+      },
+      "delta": {
+        "order_sales": -2138.48,
+        "net_profit": 0.0063,
+        "gross_profit": 0.0008,
+        "advCost": -0.0055,
+        "ACOS": 0.0029,
+        "refund_percent": -0.0024,
+        "SP": -0.0173,
+        "AT": -0.0204,
+        "CPC": -0.0296,
+        "CPS": 0.2274,
+        "ROAS": -0.0619,
+        "qty_yoy_over_1_year": 0.0091
+      }
+    }
+  },
+  "taskPressure": {
+    "yesterday": {
+      "total": 657,
+      "bySignal": {
+        "stale_inventory_risk": 129,
+        "profit_bleeding": 23,
+        "seven_day_unadjusted": 519,
+        "ad_structure_missing": 479,
+        "inventory_tight": 57,
+        "season_tail": 178,
+        "season_preheat": 42,
+        "season_peak": 42
+      },
+      "withDataMissing": 0,
+      "dataMissing": 0,
+      "reservedPageBlocked": 0,
+      "skippedAdEntityCards": 612
+    },
+    "today": {
+      "total": 658,
+      "bySignal": {
+        "ad_structure_missing": 658,
+        "season_tail": 204,
+        "season_peak": 32,
+        "stale_inventory_risk": 127,
+        "seven_day_unadjusted": 419,
+        "season_preheat": 30,
+        "inventory_tight": 57,
+        "reserved_page_watch": 5
+      },
+      "withDataMissing": 0,
+      "dataMissing": 0,
+      "reservedPageBlocked": 5,
+      "skippedAdEntityCards": 606
+    },
+    "proactiveYesterday": {
+      "kpiStatus": "off_track",
+      "newProductLaunch": 14,
+      "arrivalAdRecovery": 3,
+      "priceActions": 145,
+      "expiredSeasonKeywordWaste": 179,
+      "listingRepair": 307
+    },
+    "proactiveToday": {
+      "kpiStatus": "off_track",
+      "newProductLaunch": 24,
+      "arrivalAdRecovery": 7,
+      "priceActions": 145,
+      "expiredSeasonKeywordWaste": 0,
+      "listingRepair": 0
+    }
+  },
+  "execution": {
+    "main": {
+      "plannedActions": 42,
+      "finalCounts": {
+        "success": 39,
+        "campaign:success": 8,
+        "skuCandidate:success": 31,
+        "failed": 3,
+        "skuCandidate:failed": 3
+      },
+      "noteSuccess": 187,
+      "noteFailure": 0
+    },
+    "repair": {
+      "plannedActions": 3,
+      "finalCounts": {
+        "success": 3,
+        "skuCandidate:success": 3
+      },
+      "noteSuccess": 3,
+      "noteFailure": 0
+    },
+    "effective": {
+      "originalPlannedActions": 42,
+      "originalSuccess": 39,
+      "originalFailed": 3,
+      "repairedFailures": 3,
+      "remainingAutoExecutableFailures": 0
+    }
+  },
+  "repairCampaigns": [
+    {
+      "sku": "TUR8821",
+      "status": "success",
+      "campaignId": "155534907678908",
+      "adGroupId": "271476873866663",
+      "campaignName": "kw_vbs_vacation_bible_school_tur8821_repair",
+      "keywords": [
+        "vbs vacation bible school gift",
+        "vbs vacation bible school gifts"
+      ]
+    },
+    {
+      "sku": "GM3940",
+      "status": "success",
+      "campaignId": "100075343377256",
+      "adGroupId": "141345996490922",
+      "campaignName": "kw_vbs_vacation_bible_school_gm3940_repair",
+      "keywords": [
+        "vbs vacation bible school gift",
+        "vbs vacation bible school gifts"
+      ]
+    },
+    {
+      "sku": "GM4172",
+      "status": "success",
+      "campaignId": "155629413138965",
+      "adGroupId": "168504742919945",
+      "campaignName": "kw_vbs_vacation_bible_school_gm4172_repair",
+      "keywords": [
+        "vbs vacation bible school gift",
+        "vbs vacation bible school gifts"
+      ]
+    }
+  ],
+  "artifacts": {
+    "salesRefreshSnapshot": "data/snapshots/runs/today_ops_2026-05-16_sales_refresh/snapshot_2026-05-16.json",
+    "mainExecutionBackup": "data/snapshots/execution_summary_2026-05-16_main_0429_backup.json",
+    "repairExecutionSummary": "data/snapshots/execution_summary_2026-05-16.json",
+    "repairSchema": "data/snapshots/action_schema_2026-05-16_vbs_keyword_repair.json",
+    "personalHtml": "?????????/?? ??? ????/2026-05-16.html"
+  },
+  "reportingPolicy": {
+    "primaryView": "total_account_summary_only",
+    "sourceRow": "selected_account_summary",
+    "note": "General operating answers must use the total selected-account / all-number summary first. Seller-number splits are attribution detail only and should not be reported unless the user explicitly asks for seller-number attribution."
+  }
+}

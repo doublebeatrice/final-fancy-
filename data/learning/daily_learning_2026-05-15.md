@@ -66,3 +66,5 @@
 - Must read this file before tomorrow's decisions.
 - Compare 1d, 3d, 7d, 14d, and 30d movement against the sources listed in the JSON record.
 - All-day landing is the canonical day-completion lens. Final-run schema reflects only the last action_schema run; it is normal for that to be a manual repair queue with 0 executable actions.
+- Budget correction carry-forward: after operator challenge, false campaign budget cuts were traced to raw `profitRate` misuse, 3d no-order proxy overreach, and missing action-granularity judgment. Restored protected converters, DN vase/flower-bucket budgets, additional false cuts, and the `ZO0892` / `YH3707` operator-logic misses. Detailed record: `data/learning/overbudget_error_audit_2026-05-15.md`.
+- Tomorrow's budget rule: protect converting, stocked traffic; use `netProfit` / `busyNetProfit` / operator reference profit rather than raw `profitRate`; and choose the action layer by the cleanest converting evidence. Clean campaign -> campaign budget. Weak SKU/campaign with one efficient target/keyword -> adjust only that lower-layer entity.

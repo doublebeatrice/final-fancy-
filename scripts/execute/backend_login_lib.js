@@ -5,7 +5,7 @@ const TARGETS = {
     requiredUrl: 'https://adv.yswg.com.cn/',
     origin: 'https://adv.yswg.com.cn',
     loginPath: '/login',
-    readyHints: ['YSWG', 'HJ17', 'HJ171', 'HJ172'],
+    readyHints: ['YSWG', 'HJ17', 'HJ171', 'HJ172', 'Huang'],
   },
   inventory: {
     key: 'inventory',
@@ -13,18 +13,27 @@ const TARGETS = {
     requiredUrl: 'https://sellerinventory.yswg.com.cn/',
     origin: 'https://sellerinventory.yswg.com.cn',
     loginPath: '/login',
-    readyHints: ['Amazon', 'Huang', 'HJ17'],
+    readyHints: ['Amazon', 'Huang', 'HJ17', '\u4ea7\u54c1'],
+  },
+  selection: {
+    key: 'selection',
+    label: 'selection backend',
+    requiredUrl: 'https://selection.yswg.com.cn/dashboard/analysis',
+    origin: 'https://selection.yswg.com.cn',
+    loginPath: '/user/login',
+    readyHints: ['\u9009\u54c1\u7cfb\u7edf', '\u4e9a\u9a6c\u900a\u9009\u54c1', '\u6b22\u8fce\u60a8'],
   },
 };
 
 const SENSITIVE_QUERY_KEYS = new Set([
-  'Inventory-Token',
+  'inventory-token',
   'jwt-token',
   'token',
   '_token',
+  'x-access-token',
   'x-xsrf-token',
   'csrf',
-  'XSRF-TOKEN',
+  'xsrf-token',
 ]);
 
 function redactSensitiveUrl(value) {
@@ -33,12 +42,14 @@ function redactSensitiveUrl(value) {
   try {
     const url = new URL(text);
     for (const key of [...url.searchParams.keys()]) {
-      if (SENSITIVE_QUERY_KEYS.has(key)) url.searchParams.set(key, '[redacted]');
+      if (SENSITIVE_QUERY_KEYS.has(String(key).toLowerCase())) {
+        url.searchParams.set(key, '[redacted]');
+      }
     }
     return url.toString();
   } catch (_) {
     return text
-      .replace(/([?&](?:Inventory-Token|jwt-token|token|_token|x-xsrf-token|csrf|XSRF-TOKEN)=)[^&\s]+/gi, '$1[redacted]')
+      .replace(/([?&](?:Inventory-Token|jwt-token|token|_token|X-Access-Token|x-xsrf-token|csrf|XSRF-TOKEN)=)[^&\s]+/gi, '$1[redacted]')
       .slice(0, 500);
   }
 }
@@ -60,8 +71,22 @@ function hasWeComLoginFrame(pageState = {}) {
   return (pageState.frames || []).some(src => String(src || '').includes('login.work.weixin.qq.com'));
 }
 
-function hasBrowserLoginText(text) {
-  return /继续在浏览器中登录访问|Log in and access in the browser|browser/i.test(text);
+function hasAnyHint(text, hints = []) {
+  return hints.some(hint => text.includes(hint));
+}
+
+function isReadyByText(target, text) {
+  if (target.key === 'adv') {
+    return (text.includes('YSWG') && hasAnyHint(text, ['HJ17', 'HJ171', 'HJ172', 'Huang'])) ||
+      text.includes('\u4e9a\u58f0\u5a01\u683c\u5e7f\u544a\u540e\u53f0\u7ba1\u7406\u7cfb\u7edf');
+  }
+  if (target.key === 'inventory') {
+    return hasAnyHint(text, ['Amazon', '\u4ea7\u54c1']) && hasAnyHint(text, ['Huang', 'HJ17', '\u4e66\u7b7e']);
+  }
+  if (target.key === 'selection') {
+    return hasAnyHint(text, target.readyHints);
+  }
+  return hasAnyHint(text, target.readyHints);
 }
 
 function classifyBackendPage(target, pageState = {}) {
@@ -69,14 +94,12 @@ function classifyBackendPage(target, pageState = {}) {
     return { status: 'missing', reason: 'tab_not_found' };
   }
 
-  const text = normalizeText(pageState.text);
+  const text = normalizeText(`${pageState.title || ''} ${pageState.text || ''}`);
   const href = String(pageState.href || '');
   const onLoginPage = isLoginHref(target, href);
   const hasWeCom = hasWeComLoginFrame(pageState);
   const readyByUrl = href.startsWith(target.origin) && !onLoginPage;
-  const readyByText = target.key === 'adv'
-    ? text.includes('YSWG') && (text.includes('HJ17') || text.includes('Huang') || text.includes('黄'))
-    : (text.includes('Amazon') || text.includes('产品')) && (text.includes('黄') || text.includes('Huang') || text.includes('书签'));
+  const readyByText = isReadyByText(target, text);
 
   if (readyByUrl && readyByText) {
     return { status: 'ready', reason: 'logged_in_app_visible' };
@@ -93,8 +116,18 @@ function classifyBackendPage(target, pageState = {}) {
   return { status: 'unknown', reason: 'unrecognized_backend_state' };
 }
 
+function parseSelectionAccessToken(rawValue) {
+  if (!rawValue) return '';
+  try {
+    const parsed = JSON.parse(String(rawValue));
+    return typeof parsed?.value === 'string' ? parsed.value : '';
+  } catch (_) {
+    return '';
+  }
+}
+
 function allTargetsReady(statusByKey) {
-  return ['adv', 'inventory'].every(key => statusByKey?.[key]?.status === 'ready');
+  return Object.keys(TARGETS).every(key => statusByKey?.[key]?.status === 'ready');
 }
 
 module.exports = {
@@ -102,5 +135,6 @@ module.exports = {
   allTargetsReady,
   classifyBackendPage,
   hasWeComLoginFrame,
+  parseSelectionAccessToken,
   redactSensitiveUrl,
 };

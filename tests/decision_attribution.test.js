@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { decisionAttribution, actionBreakdown, finalRunLanding, allDayLanding, classifyOutcome } = require('../src/daily_learning');
+const { buildLearningRecord, decisionAttribution, actionBreakdown, finalRunLanding, allDayLanding, classifyOutcome } = require('../src/daily_learning');
 const { normalizeAdjustmentRecord } = require('../src/adjustment_log');
 
 const timeContext = { runAt: '2026-05-11T00:00:00Z', businessDate: '2026-05-11', sourceRunId: 'test-run' };
@@ -103,6 +103,49 @@ const records = [
 
   const allRecords = allDayLanding(multiRun);
   assert.strictEqual(allRecords.total, 6, 'no businessDate filter returns everything');
+}
+
+{
+  const record = buildLearningRecord({
+    timeContext,
+    snapshot: {
+      productCards: [{ sku: 'SKU-1' }],
+    },
+    taskPool: {},
+    manifest: {
+      runId: 'quality-run',
+      dataQuality: {
+        baselineQuality: 'incomplete',
+        productCards: 1,
+        adRowsTotal: 0,
+        sellerSalesRows: 0,
+        listingFetchAttempted: 10,
+        listingFetchSuccess: 1,
+        listingFetchSkipped: 9,
+        listingCoverage: 0.1,
+        warnings: ['ads_rows_missing', 'listing_coverage_low'],
+      },
+      actionQuality: {
+        status: 'no_action_plan',
+        warnings: ['no_planned_actions'],
+      },
+      runQuality: {
+        status: 'blocked',
+        warnings: ['ads_rows_missing', 'no_planned_actions'],
+      },
+      schemaValidation: { planActionCount: 0, executableSkus: 0, errorCount: 0 },
+      steps: [{ name: 'execute_verify_note', status: 'skipped' }],
+      outputFiles: {},
+    },
+    adjustmentRecords: [],
+  });
+  assert.strictEqual(record.dataQuality.baselineQuality, 'incomplete');
+  assert.strictEqual(record.dataQuality.adRowsTotal, 0);
+  assert.strictEqual(record.dataQuality.listingCoverage, 0.1);
+  assert.ok(record.dataQuality.warnings.includes('ads_rows_missing'));
+  assert.ok(record.dataQuality.warnings.includes('listing_coverage_low'));
+  assert.strictEqual(record.decisions.actionQuality.status, 'no_action_plan');
+  assert.strictEqual(record.decisions.runQuality.status, 'blocked');
 }
 
 console.log('decision_attribution tests passed');

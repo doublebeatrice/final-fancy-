@@ -1,0 +1,374 @@
+{
+  "generatedAt": "2026-05-19T03:45:36.086Z",
+  "localDate": "2026-05-19",
+  "businessDate": "2026-05-18",
+  "dataDate": "2026-05-17",
+  "sourceRows": 241,
+  "sourceSkus": 141,
+  "initialClassification": {
+    "highEfficiencyRows": 241,
+    "skuCount": 141,
+    "actionSkus": 83,
+    "actionRows": 130,
+    "decisions": {
+      "hold": 35,
+      "inventory_protect": 33,
+      "strong_bid_up": 2,
+      "small_bid_up": 112,
+      "standard_bid_up": 24,
+      "diagnose": 35
+    },
+    "reviewReasons": {
+      "negative_net_and_busy_profit": 31,
+      "efficient_but_inventory_tight": 33,
+      "conversion_inventory_profit_not_enough_for_bid_up": 14,
+      "profit_guardrail_blocks_scale": 21,
+      "inactive_parent_or_entity": 2,
+      "inventory_not_ready": 2
+    }
+  },
+  "dryRun": {
+    "plannedSkus": 2,
+    "plannedActions": 3,
+    "reviewSkus": 1,
+    "validationErrors": 1
+  },
+  "execution": {
+    "success": 112,
+    "blockedBySystemRecentAdjust": 2,
+    "failed": 0,
+    "manualReview": 16,
+    "noteFailure": 0,
+    "finalCounts": {
+      "success": 112,
+      "keyword:success": 38,
+      "sbKeyword:success": 24,
+      "blocked_by_system_recent_adjust": 2,
+      "autoTarget:blocked_by_system_recent_adjust": 2,
+      "autoTarget:success": 46,
+      "manualTarget:success": 4,
+      "manual_review": 16,
+      "keyword:manual_review": 4,
+      "sbKeyword:manual_review": 3,
+      "autoTarget:manual_review": 8,
+      "manualTarget:manual_review": 1
+    }
+  },
+  "independentPostFetch": {
+    "postRows": 217,
+    "verifiedStillInHighPool": 87,
+    "successMissingFromPostHighPool": 25,
+    "mismatches": 0
+  },
+  "actionBreakdown": {
+    "byEntity": {
+      "keyword": 38,
+      "sbKeyword": 24,
+      "autoTarget": 46,
+      "manualTarget": 4
+    },
+    "byRisk": {
+      "traffic_push": 2,
+      "high_efficiency_small_bid_up": 103,
+      "high_efficiency_controlled_bid_up": 9
+    },
+    "top": [
+      {
+        "sku": "XIX1523",
+        "type": "sbKeyword",
+        "text": "number stencils",
+        "currentBid": 0.27,
+        "suggestedBid": 0.35,
+        "pct": 29.6,
+        "riskLevel": "traffic_push"
+      },
+      {
+        "sku": "IF1427",
+        "type": "keyword",
+        "text": "pegboard shelf",
+        "currentBid": 0.29,
+        "suggestedBid": 0.37,
+        "pct": 27.6,
+        "riskLevel": "traffic_push"
+      },
+      {
+        "sku": "SEV0979",
+        "type": "autoTarget",
+        "text": "queryBroadRelMatches",
+        "currentBid": 0.05,
+        "suggestedBid": 0.06,
+        "pct": 20,
+        "riskLevel": "high_efficiency_small_bid_up"
+      },
+      {
+        "sku": "DAY2984",
+        "type": "autoTarget",
+        "text": "queryBroadRelMatches",
+        "currentBid": 0.11,
+        "suggestedBid": 0.13,
+        "pct": 18.2,
+        "riskLevel": "high_efficiency_controlled_bid_up"
+      },
+      {
+        "sku": "DUC4152",
+        "type": "autoTarget",
+        "text": "queryHighRelMatches",
+        "currentBid": 0.12,
+        "suggestedBid": 0.14,
+        "pct": 16.7,
+        "riskLevel": "high_efficiency_controlled_bid_up"
+      },
+      {
+        "sku": "DAY2984",
+        "type": "autoTarget",
+        "text": "asinSubstituteRelated",
+        "currentBid": 0.3,
+        "suggestedBid": 0.35,
+        "pct": 16.7,
+        "riskLevel": "high_efficiency_controlled_bid_up"
+      },
+      {
+        "sku": "TIN2263",
+        "type": "manualTarget",
+        "text": "asinExpandedFrom=B0CN965PC2",
+        "currentBid": 0.19,
+        "suggestedBid": 0.22,
+        "pct": 15.8,
+        "riskLevel": "high_efficiency_controlled_bid_up"
+      },
+      {
+        "sku": "SHQ3375",
+        "type": "keyword",
+        "text": "cars for baby shower to decorate",
+        "currentBid": 0.35,
+        "suggestedBid": 0.4,
+        "pct": 14.3,
+        "riskLevel": "high_efficiency_controlled_bid_up"
+      },
+      {
+        "sku": "BIO0026",
+        "type": "keyword",
+        "text": "deli containers with lids",
+        "currentBid": 0.15,
+        "suggestedBid": 0.17,
+        "pct": 13.3,
+        "riskLevel": "high_efficiency_small_bid_up"
+      },
+      {
+        "sku": "OC1858",
+        "type": "autoTarget",
+        "text": "asinAccessoryRelated",
+        "currentBid": 0.15,
+        "suggestedBid": 0.17,
+        "pct": 13.3,
+        "riskLevel": "high_efficiency_small_bid_up"
+      },
+      {
+        "sku": "OC1858",
+        "type": "autoTarget",
+        "text": "asinSubstituteRelated",
+        "currentBid": 0.15,
+        "suggestedBid": 0.17,
+        "pct": 13.3,
+        "riskLevel": "high_efficiency_small_bid_up"
+      },
+      {
+        "sku": "YCL1246",
+        "type": "autoTarget",
+        "text": "asinSubstituteRelated",
+        "currentBid": 0.08,
+        "suggestedBid": 0.09,
+        "pct": 12.5,
+        "riskLevel": "high_efficiency_small_bid_up"
+      },
+      {
+        "sku": "LNY3024",
+        "type": "sbKeyword",
+        "text": "retirement party favors",
+        "currentBid": 0.25,
+        "suggestedBid": 0.28,
+        "pct": 12,
+        "riskLevel": "high_efficiency_small_bid_up"
+      },
+      {
+        "sku": "HAY1932",
+        "type": "autoTarget",
+        "text": "queryBroadRelMatches",
+        "currentBid": 0.25,
+        "suggestedBid": 0.28,
+        "pct": 12,
+        "riskLevel": "high_efficiency_small_bid_up"
+      },
+      {
+        "sku": "YUT2590",
+        "type": "autoTarget",
+        "text": "queryBroadRelMatches",
+        "currentBid": 0.25,
+        "suggestedBid": 0.28,
+        "pct": 12,
+        "riskLevel": "high_efficiency_small_bid_up"
+      }
+    ],
+    "byTier": {
+      "strong_bid_up": 2,
+      "small_bid_up": 103,
+      "standard_bid_up": 9
+    }
+  },
+  "blocked": [
+    {
+      "sku": "SHQ3949",
+      "type": "autoTarget",
+      "id": "399777227925143",
+      "currentBid": 0.23,
+      "suggestedBid": 0.25,
+      "error": "system_recent_adjust_guard"
+    },
+    {
+      "sku": "SHQ3950",
+      "type": "autoTarget",
+      "id": "409510228115011",
+      "currentBid": 0.26,
+      "suggestedBid": 0.29,
+      "error": "system_recent_adjust_guard"
+    }
+  ],
+  "manualReview": [
+    {
+      "sku": "SHQ3375",
+      "type": "keyword",
+      "id": "100567639780524",
+      "text": "kw_wooden cars to paint_shq3375",
+      "risk": "same_sku_cooldown",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=2; acos7=0.0973; invDays=43; netProfit=0.2808; busyNetProfit=0.2755. [risk_gate:same_sku_cooldown:same_sku_traffic_push_within_cooldown] Same-SKU traffic-push within cooldownDays=1 requires explicit forceExecute and a new-evidence reason. evidence: sku=SHQ3375; entity=bid::keyword::100567639780524; lastTrafficPushAt=2026-05-18; daysSince=1; cooldownDays=1; rule:retro_2026-05-14:same_sku_cooldown_required"
+    },
+    {
+      "sku": "DN1656",
+      "type": "keyword",
+      "id": "387542217176746",
+      "text": "galvanized flower bucket dn1656",
+      "risk": "same_sku_cooldown",
+      "reason": "high_efficiency_small_bid_up: positive_conversion+borderline_inventory_or_profit; orders7=1; acos7=0.0451; invDays=27; netProfit=0.2656; busyNetProfit=0.2406. [risk_gate:same_sku_cooldown:same_sku_traffic_push_within_cooldown] Same-SKU traffic-push within cooldownDays=1 requires explicit forceExecute and a new-evidence reason. evidence: sku=DN1656; entity=bid::keyword::387542217176746; lastTrafficPushAt=2026-05-18; daysSince=1; cooldownDays=1; rule:retro_2026-05-14:same_sku_cooldown_required"
+    },
+    {
+      "sku": "XIX1523",
+      "type": "sbKeyword",
+      "id": "179830173799172",
+      "text": "sbkw_letterstencils_xix1523 xix0903xix2011",
+      "risk": "high_volume_bid_change",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=2; acos7=0.0600; invDays=48; netProfit=0.1805; busyNetProfit=0.1748. [risk_gate:high_volume_strong_bid_change:changePct=0.1923,threshold=0.15]"
+    },
+    {
+      "sku": "NAY0239",
+      "type": "keyword",
+      "id": "555897492011617",
+      "text": "ballpoint pen-nay0239-system-keyword",
+      "risk": "high_volume_bid_change",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=3; acos7=0.0210; invDays=35; netProfit=0.2811; busyNetProfit=0.2775. [risk_gate:high_volume_strong_bid_change:changePct=0.1905,threshold=0.15]"
+    },
+    {
+      "sku": "UAN0188",
+      "type": "keyword",
+      "id": "509565209895500",
+      "text": "kw_ mini inspirational notebooks_uan0188",
+      "risk": "high_volume_bid_change",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=2; acos7=0.0178; invDays=70; netProfit=0.2132; busyNetProfit=0.2056. [risk_gate:high_volume_strong_bid_change:changePct=0.1667,threshold=0.15]"
+    },
+    {
+      "sku": "WAR1276",
+      "type": "autoTarget",
+      "id": "298774280178167",
+      "text": "auto_rainbow party-war1276",
+      "risk": "high_volume_bid_change",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=2; acos7=0.0985; invDays=34; netProfit=0.2256; busyNetProfit=0.2144. [risk_gate:high_volume_strong_bid_change:changePct=0.1579,threshold=0.15]"
+    },
+    {
+      "sku": "KL2977",
+      "type": "autoTarget",
+      "id": "394905188475610",
+      "text": "auto_bows for crafts_kl2977",
+      "risk": "high_volume_bid_change",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=3; acos7=0.1054; invDays=30; netProfit=0.0889; busyNetProfit=0.0821. [risk_gate:high_volume_strong_bid_change:changePct=0.1667,threshold=0.15]"
+    },
+    {
+      "sku": "GT3801",
+      "type": "autoTarget",
+      "id": "399380889797244",
+      "text": "auto_q2 profit gt3801 auto_gt3801",
+      "risk": "high_volume_bid_change",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=2; acos7=0.0694; invDays=45; netProfit=0.0874; busyNetProfit=0.0836. [risk_gate:high_volume_strong_bid_change:changePct=0.1667,threshold=0.15]"
+    },
+    {
+      "sku": "SE6685",
+      "type": "autoTarget",
+      "id": "504781603945234",
+      "text": "auto_bear clothes basic_se6685",
+      "risk": "high_volume_bid_change",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=2; acos7=0.0480; invDays=60; netProfit=0.2084; busyNetProfit=0.2035. [risk_gate:high_volume_strong_bid_change:changePct=0.1905,threshold=0.15]"
+    },
+    {
+      "sku": "SE5942",
+      "type": "autoTarget",
+      "id": "552818927709107",
+      "text": "auto_school counselor desk accessories_se5942",
+      "risk": "high_volume_bid_change",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=3; acos7=0.0400; invDays=57; netProfit=0.2351; busyNetProfit=0.2313. [risk_gate:high_volume_strong_bid_change:changePct=0.2000,threshold=0.15]"
+    },
+    {
+      "sku": "GT3815",
+      "type": "autoTarget",
+      "id": "560206258663311",
+      "text": "auto_greencheer ribbon_gt3815",
+      "risk": "high_volume_bid_change",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=2; acos7=0.0266; invDays=72; netProfit=0.1369; busyNetProfit=0.1323. [risk_gate:high_volume_strong_bid_change:changePct=0.1818,threshold=0.15]"
+    },
+    {
+      "sku": "KV4231",
+      "type": "autoTarget",
+      "id": "434534800605288",
+      "text": "auto_get well soon gifts _kv4231",
+      "risk": "high_volume_bid_change",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=2; acos7=0.0022; invDays=85; netProfit=0.1842; busyNetProfit=0.1637. [risk_gate:high_volume_strong_bid_change:changePct=0.1667,threshold=0.15]"
+    },
+    {
+      "sku": "ZO0892",
+      "type": "autoTarget",
+      "id": "316661546011554",
+      "text": "auto_christian gifts for women_zo0892",
+      "risk": "high_volume_bid_change",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=2; acos7=0.0033; invDays=55; netProfit=0.1154; busyNetProfit=0.0459. [risk_gate:high_volume_strong_bid_change:changePct=0.1765,threshold=0.15]"
+    },
+    {
+      "sku": "TUR5292",
+      "type": "manualTarget",
+      "id": "279259222039419",
+      "text": "asin expand_christian gifts bulk_tur5292",
+      "risk": "high_volume_bid_change",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=2; acos7=0.0240; invDays=32; netProfit=0.2790; busyNetProfit=0.2712. [risk_gate:high_volume_strong_bid_change:changePct=0.1786,threshold=0.15]"
+    },
+    {
+      "sku": "SE6599",
+      "type": "sbKeyword",
+      "id": "422066897644848",
+      "text": "sbkw_bear clothes basic_se6599 se6685 se7586",
+      "risk": "high_volume_bid_change",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=6; acos7=0.0433; invDays=101; netProfit=0.1092; busyNetProfit=0.1022. [risk_gate:high_volume_strong_bid_change:changePct=0.1579,threshold=0.15]"
+    },
+    {
+      "sku": "QAA3143",
+      "type": "sbKeyword",
+      "id": "21502426980329",
+      "text": "sbvkw_ crown brooch pins _qaa3143",
+      "risk": "high_volume_bid_change",
+      "reason": "high_efficiency_standard_bid_up: good_conversion+inventory_ok+profit_ok; orders7=2; acos7=0.0578; invDays=35; netProfit=0.2833; busyNetProfit=0.2824. [risk_gate:high_volume_strong_bid_change:changePct=0.1600,threshold=0.15]"
+    }
+  ],
+  "files": {
+    "highEfficiencyRows": "data/tasks/high_efficiency_rows_2026-05-19_execute.json",
+    "schema": "data/snapshots/high_efficiency_bid_schema_2026-05-19.json",
+    "enrichedSnapshot": "data/snapshots/high_efficiency_execution_snapshot_2026-05-19.json",
+    "postFetch": "data/tasks/high_efficiency_rows_2026-05-19_post_execute.json",
+    "adjustmentEvents": "data/tasks/high_efficiency_execution_events_2026-05-19.json",
+    "adjustmentLog": "data/adjustments/adjustments_2026-05-18.json"
+  }
+}

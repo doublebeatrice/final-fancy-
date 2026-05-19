@@ -26,6 +26,38 @@ This design upgrades the operating loop so that:
 
 `-` 表示该窗未出现在低效池里（即该窗"OK"）。
 
+### 2026-05-18 Correction: 7d Zero Orders Is Not Recovery
+
+`improving_marginally` originally meant `30d + 15d + 7d` are in the low-efficiency pools while `3d` is clean. That is not enough to call the row recovered. If the row is still in the 7d low-efficiency pool, has clicks or spend, and has zero 7d orders, it must take one small bid-down step with reasonCode `seven_day_no_order_still_low`.
+
+Example from the live fix: `SH0424 / kids uv 50 umbrella hat` had 7d clicks=7, spend=3.68, orders=0, bid=0.53. It was cut to 0.48 and verified landed. The lesson is that 3d absence can mean short-window sample noise; it cannot override 7d zero-order waste.
+
+### 2026-05-18 Correction: Cooldown Is Not a Waste Shield
+
+The 14-day cooldown prevents repeated same-day or rapid consecutive cuts after a landed adjustment. It must not block a non-same-day row that is still burning money in the 7d low-efficiency pool. `decideFromPoolMembership` now overrides cooldown with one small bid-down when either condition is true:
+
+- 7d orders are zero and `clicks >= 7` or `spend >= 2`.
+- 7d orders are positive but ACOS is at least 45%, with `clicks >= 6` or `spend >= 2`.
+
+Same-day adjustments remain protected. The live 2026-05-18 repair found 71 non-same-day cooldown rows with 7d waste/high ACOS, total 7d spend $519.48; all 71 were small bid-downs and verified landed.
+
+### 2026-05-19 Correction: Operator ACOS Control Applies Across Windows
+
+The operator correction on 2026-05-19 was that a single example such as a 3d ACOS around 30% should be generalized across all low-efficiency windows when account ad-cost pressure is high. The execution layer must scan 3d, 7d, 15d, and 30d together and apply one small bid-down to eligible rows when any window has enough spend/click/order evidence and ACOS is above the control line. Do not stop at the example window.
+
+This overlay is still a controlled action, not a broad reset:
+
+- exclude same-day adjusted rows;
+- exclude rows protected by `recent_trend_improved`, `recent_trend_improving`, or `volatile_unclear_trend`;
+- use one small bid-down per entity;
+- do not pause or make a large bid cut from this overlay alone.
+
+### 2026-05-19 Correction: Bid Floors and SBV Landing Verification
+
+Bid-down suggestions must be clamped by the writable floor for the actual entity type. Do not use a blanket `$0.25` floor for all ads: SP keyword, SP auto/manual target, and non-video SB rows may have legal bids below `$0.25`. SBV/video SB rows should be treated as `$0.25`-floor unless a refreshed live backend row proves a lower landed bid is valid.
+
+For SBV/video rows, the write response alone is not authoritative. A sub-floor request can return an API success shape but then remain at or return to `$0.25` after the row refreshes. Completion for SBV/video bid changes requires a fresh backend pull showing the expected bid and `updatedAt`; otherwise record it as `not_landed` or retry at the legal floor if there is still a real down-step from the current bid.
+
 ## Implementation Surface
 
 ### 1. Snapshot fetch (`extension/panel.js`)
@@ -54,7 +86,10 @@ This design upgrades the operating loop so that:
   - bid ≥ $0.20 → cut $0.03
   - else → cut $0.02
   - `clampBid` snaps to $0.05 step at ≥ $0.50, $0.02 floor.
-- `improving_*` and `noise_only_3d` always hold.
+- `improving_long_only` and `improving_recently` hold because the 7d pool is already clean.
+- `improving_marginally` is not automatically protected. If 7d is still in the low-efficiency pool and has clicks or spend with zero orders, use the same `smallBidStep` ladder and reasonCode `seven_day_no_order_still_low`. Only hold when the 7d window has orders or no meaningful traffic.
+- `noise_only_3d` always holds.
+- Operator pressure overlay: if account ad-cost pressure is high and a row is still in the current low-efficiency pool, scan all windows (`3/7/15/30`) for high-ACOS evidence before closing the row. This overlay must still obey same-day protection, trend/volatile holds, and bid floors.
 
 ### 5. Cooldown gate
 
@@ -69,4 +104,3 @@ The earlier design re-derived "low efficiency" from raw row metrics with a 30-da
 3. Date-only `updatedAt` strings parsed wrong and silently bypassed the 30-day cooldown.
 
 This version delegates classification to the seller-side filter, multiplexes four windows, and replaces the cooldown's role from "primary signal" to "anti-thrash protection."
-

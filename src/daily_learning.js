@@ -31,6 +31,10 @@ function pct(value) {
   return `${(num(value) * 100).toFixed(1)}%`;
 }
 
+function uniqueList(values = []) {
+  return [...new Set((values || []).filter(Boolean))];
+}
+
 function sumCardMetrics(cards = []) {
   return cards.reduce((acc, card) => {
     const sp7 = card.adStats?.['7d'] || {};
@@ -113,12 +117,38 @@ function decisionAttribution(records = []) {
   return groups;
 }
 
-function allDayLanding(records = [], businessDate = '') {
+function localDateFromRunAt(runAt, timeZone = 'Asia/Shanghai') {
+  if (!runAt) return '';
+  const date = new Date(runAt);
+  if (Number.isNaN(date.getTime())) return '';
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(date).reduce((acc, part) => {
+    if (part.type !== 'literal') acc[part.type] = part.value;
+    return acc;
+  }, {});
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
+
+function recordMatchesDate(record = {}, date = '', mode = 'businessDate') {
+  if (!date) return true;
+  if (mode === 'localDate') {
+    return String(record.localDate || localDateFromRunAt(record.runAt)) === String(date);
+  }
+  return String(record.businessDate || '') === String(date);
+}
+
+function allDayLanding(records = [], businessDate = '', options = {}) {
+  const dateMode = options.dateMode || 'businessDate';
   const filtered = businessDate
-    ? (records || []).filter(record => String(record.businessDate || '') === String(businessDate))
+    ? (records || []).filter(record => recordMatchesDate(record, businessDate, dateMode))
     : (records || []);
   const summary = {
     businessDate: String(businessDate || ''),
+    dateMode,
     total: filtered.length,
     runs: 0,
     success: 0,
@@ -188,7 +218,14 @@ function buildLearningRecord(input = {}) {
   const adjustmentRecords = input.adjustmentRecords || [];
   const snapshotMetrics = sumCardMetrics(snapshot.productCards || []);
   const schema = manifest.schemaValidation || {};
+  const manifestDataQuality = manifest.dataQuality || {};
   const executeStep = (manifest.steps || []).find(step => step.name === 'execute_verify_note') || {};
+  const dataWarnings = uniqueList([
+    ...(manifestDataQuality.warnings || []),
+    snapshotMetrics.productCards > 0 ? '' : 'snapshot_missing_product_cards',
+    executeStep.status === 'skipped' ? 'execution_skipped' : '',
+    schema.errorCount > 0 ? 'schema_validation_errors' : '',
+  ]);
 
   return {
     version: 1,
@@ -196,8 +233,10 @@ function buildLearningRecord(input = {}) {
     time: {
       runAt: time.runAt || manifest.runAt || '',
       businessDate: time.businessDate || manifest.businessDate || '',
+      localDate: time.localDate || manifest.localDate || '',
       dataDate: time.dataDate || manifest.dataDate || '',
       siteTimezone: time.siteTimezone || manifest.siteTimezone || '',
+      localTimezone: time.localTimezone || manifest.localTimezone || 'Asia/Shanghai',
       sourceRunId: time.sourceRunId || manifest.runId || '',
     },
     sources: {
@@ -211,16 +250,18 @@ function buildLearningRecord(input = {}) {
       manifestFile: manifest.manifestFile || '',
     },
     dataQuality: {
-      baselineQuality: snapshotMetrics.productCards > 0 ? 'complete' : 'incomplete',
-      productCards: snapshotMetrics.productCards,
+      baselineQuality: manifestDataQuality.baselineQuality || (snapshotMetrics.productCards > 0 ? 'complete' : 'incomplete'),
+      productCards: manifestDataQuality.productCards ?? snapshotMetrics.productCards,
+      adRowsTotal: manifestDataQuality.adRowsTotal ?? null,
+      sellerSalesRows: manifestDataQuality.sellerSalesRows ?? null,
+      listingFetchAttempted: manifestDataQuality.listingFetchAttempted ?? null,
+      listingFetchSuccess: manifestDataQuality.listingFetchSuccess ?? null,
+      listingFetchSkipped: manifestDataQuality.listingFetchSkipped ?? null,
+      listingCoverage: manifestDataQuality.listingCoverage ?? null,
       allowedScopeSkuCount: manifest.allowedOperationScope?.allowedScopeSkuCount || schema.allowedScopeSkuCount || 0,
       dataMissing: taskPool.summary?.dataMissing || taskPool.summary?.dataMissing?.total || 0,
       overBudgetStatus: manifest.overBudgetCapture?.status || '',
-      warnings: [
-        snapshotMetrics.productCards > 0 ? '' : 'snapshot_missing_product_cards',
-        executeStep.status === 'skipped' ? 'execution_skipped' : '',
-        schema.errorCount > 0 ? 'schema_validation_errors' : '',
-      ].filter(Boolean),
+      warnings: dataWarnings,
     },
     observedPressure: {
       snapshotMetrics: {
@@ -239,10 +280,17 @@ function buildLearningRecord(input = {}) {
       executableSkus: schema.executableSkus || 0,
       reviewSkus: schema.reviewSkus || 0,
       plannedActions: schema.planActionCount || 0,
+      actionQuality: manifest.actionQuality || null,
+      runQuality: manifest.runQuality || null,
+      operatingClosure: manifest.operatingClosure || null,
       actionBreakdown: actionBreakdown(adjustmentRecords),
       decisionAttribution: decisionAttribution(adjustmentRecords),
       finalRunLanding: finalRunLanding(adjustmentRecords, time.sourceRunId || manifest.runId || ''),
-      allDayLanding: allDayLanding(adjustmentRecords, time.businessDate || manifest.businessDate || ''),
+      allDayLanding: allDayLanding(
+        adjustmentRecords,
+        time.localDate || manifest.localDate || time.businessDate || manifest.businessDate || '',
+        { dateMode: time.localDate || manifest.localDate ? 'localDate' : 'businessDate' }
+      ),
     },
     carryForward: {
       mustReadBeforeTomorrowDecision: true,
@@ -269,6 +317,10 @@ function renderLearningMarkdown(record = {}) {
   const finalRun = record.decisions?.finalRunLanding || {};
   const allDay = record.decisions?.allDayLanding || {};
   const proactive = record.observedPressure?.proactiveOperatingAudit || {};
+  const qualityWarnings = (record.dataQuality?.warnings || []).join(', ') || 'none';
+  const actionQuality = record.decisions?.actionQuality || {};
+  const runQuality = record.decisions?.runQuality || record.runQuality || {};
+  const operatingClosure = record.decisions?.operatingClosure || {};
   const signals = (record.observedPressure?.topSignals || [])
     .map(item => `- ${item.signal}: ${item.count}`)
     .join('\n') || '- none';
@@ -279,11 +331,19 @@ function renderLearningMarkdown(record = {}) {
         .map(([who, stats]) => `- ${who}: planned ${stats.plannedActions || 0}, landed ${stats.landedSuccess || 0}, failed ${stats.landedFailed || 0}, manual-review ${stats.manualReview || 0}, skipped ${stats.skipped || 0}, dry-run ${stats.dryRunPlanned || 0}`)
         .join('\n')
     : '- none';
-  return `# Daily Learning ${record.time?.businessDate || ''}
+  return `# Daily Learning ${record.time?.localDate || record.time?.businessDate || ''}
 
+- localDate: ${record.time?.localDate || ''}
+- businessDate: ${record.time?.businessDate || ''}
 - dataDate: ${record.time?.dataDate || ''}
 - baselineQuality: ${record.dataQuality?.baselineQuality || 'unknown'}
+- actionQuality: ${actionQuality.status || 'unknown'}
+- runQuality: ${runQuality.status || 'unknown'}
+- qualityWarnings: ${qualityWarnings}
 - productCards: ${metrics.productCards || 0}
+- adRowsTotal: ${record.dataQuality?.adRowsTotal ?? 'unknown'}
+- sellerSalesRows: ${record.dataQuality?.sellerSalesRows ?? 'unknown'}
+- listingCoverage: ${record.dataQuality?.listingCoverage === null || record.dataQuality?.listingCoverage === undefined ? 'unknown' : pct(record.dataQuality.listingCoverage)}
 - 7d units: ${metrics.units7d || 0}
 - 7d ad spend: ${num(metrics.adSpend7d).toFixed(2)}
 - 7d ad sales: ${metrics.adSales7dAvailable ? num(metrics.adSales7d).toFixed(2) : 'unavailable in snapshot window'}
@@ -297,6 +357,7 @@ function renderLearningMarkdown(record = {}) {
 - proactive price actions: ${proactive.priceActions ?? 'not_recorded'}
 - proactive expired season keyword waste rows: ${proactive.expiredSeasonKeywordWaste ?? 'not_recorded'}
 - proactive listing repair gaps: ${proactive.listingRepair ?? 'not_recorded'}
+- operating closure: ${operatingClosure.status || 'not_recorded'}, generated candidates ${operatingClosure.generatedCandidateActions ?? 0}, primary actions ${operatingClosure.primaryPlanActions ?? 0}
 
 ## Task Pressure
 ${signals}
@@ -342,9 +403,9 @@ ${attributionLines}
 
 function persistDailyLearning(input = {}) {
   const record = buildLearningRecord(input);
-  const businessDate = record.time.businessDate || new Date().toISOString().slice(0, 10);
-  const jsonFile = path.join(LEARNING_DIR, `daily_learning_${businessDate}.json`);
-  const mdFile = path.join(LEARNING_DIR, `daily_learning_${businessDate}.md`);
+  const learningDate = record.time.localDate || record.time.businessDate || new Date().toISOString().slice(0, 10);
+  const jsonFile = path.join(LEARNING_DIR, `daily_learning_${learningDate}.json`);
+  const mdFile = path.join(LEARNING_DIR, `daily_learning_${learningDate}.md`);
   writeJson(jsonFile, record);
   writeText(mdFile, renderLearningMarkdown(record));
   return { record, jsonFile, mdFile };

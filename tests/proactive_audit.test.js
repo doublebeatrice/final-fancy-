@@ -6,6 +6,10 @@ const {
   buildReviewItems,
   mergePlans,
 } = require('../scripts/generators/generate_proactive_audit_action_schema');
+const {
+  buildIndexes,
+  buildPriceSchema,
+} = require('../scripts/execute/build_2026_05_15_closed_loop');
 
 const timeContext = {
   runAt: '2026-05-14T08:00:00.000Z',
@@ -95,6 +99,76 @@ const snapshot = {
       productProfile: { productType: 'decor', listingTitle: 'Fast Selling Decor' },
     },
     {
+      sku: 'FULRES1',
+      asin: 'B0FULRES1',
+      salesChannel: 'Amazon.com',
+      saleStatus: 'normal_sale',
+      fuldate: '2026-03-20',
+      opendate: '2026-03-20',
+      profitRate: 0.22,
+      price: 23.99,
+      invDays: 85,
+      fulFillable: 4,
+      reserved: 0,
+      unitsSold_3d: 5,
+      unitsSold_7d: 14,
+      unitsSold_30d: 44,
+      adStats: { '3d': { spend: 3, orders: 2, sales: 48, impressions: 800, clicks: 18 }, '7d': { spend: 9, orders: 6, sales: 144, impressions: 2100, clicks: 44 } },
+      sbStats: { '3d': { spend: 0, orders: 0 }, '7d': { spend: 0, orders: 0 } },
+      createContext: { coverage: { hasSpAuto: true, hasSpKeyword: true, hasSpManual: true } },
+      productProfile: { productType: 'gift', listingTitle: 'Fast Moving Gift' },
+      campaigns: [
+        {
+          campaignId: 'camp-fulres-1',
+          accountId: 11,
+          siteId: 4,
+          adGroupId: 'group-fulres-1',
+          name: 'fulres1 auto',
+          state: 1,
+          campaignState: 1,
+          groupState: 1,
+          productAds: [{ id: 'ad-fulres-1', state: 1 }],
+          keywords: [],
+          autoTargets: [],
+          manualTargets: [],
+        },
+        {
+          campaignId: 'camp-fulres-2',
+          accountId: 11,
+          siteId: 4,
+          adGroupId: 'group-fulres-2',
+          name: 'fulres1 keyword',
+          state: 1,
+          campaignState: 1,
+          groupState: 1,
+          productAds: [{ id: 'ad-fulres-2', state: 1 }, { id: 'ad-fulres-paused', state: 2 }],
+          keywords: [],
+          autoTargets: [],
+          manualTargets: [],
+        },
+      ],
+    },
+    {
+      sku: 'LOWPROFIT1',
+      asin: 'B0LOWPROFIT1',
+      salesChannel: 'Amazon.com',
+      saleStatus: 'normal_sale',
+      fuldate: '2026-03-15',
+      opendate: '2026-03-15',
+      profitRate: 0.06,
+      price: 19.99,
+      invDays: 180,
+      fulFillable: 180,
+      reserved: 30,
+      unitsSold_3d: 2,
+      unitsSold_7d: 7,
+      unitsSold_30d: 20,
+      adStats: { '3d': { spend: 2, orders: 1, sales: 20, impressions: 500, clicks: 10 }, '7d': { spend: 6, orders: 3, sales: 60, impressions: 1600, clicks: 28 } },
+      sbStats: { '3d': { spend: 0, orders: 0 }, '7d': { spend: 0, orders: 0 } },
+      createContext: { coverage: { hasSpAuto: true, hasSpKeyword: true, hasSpManual: true } },
+      productProfile: { productType: 'gift', listingTitle: 'Low Margin But Enough Stock' },
+    },
+    {
       sku: 'LIST1',
       asin: 'B0LIST1',
       salesChannel: 'Amazon.com',
@@ -171,6 +245,13 @@ assert(audit.newProductLaunch.items.some(item => item.sku === 'NEW001' && item.i
 assert(audit.newProductLaunch.items.some(item => item.sku === 'NEW002' && item.issue === 'new_product_existing_structure_low_delivery'));
 assert(audit.arrivalAdRecovery.items.some(item => item.sku === 'NEW001' && item.requiredAction === 'build_and_enable_basic_ads'));
 assert(audit.priceActions.items.some(item => item.sku === 'TIGHT1' && item.requiredAction === 'review_price_raise_or_recover_price'));
+assert(audit.priceActions.items.some(item =>
+  item.sku === 'FULRES1' &&
+  item.issue === 'ful_res_7d_sellable_days_short_price_gate' &&
+  item.fulResUnits === 4 &&
+  item.sellableDays7d === 2
+));
+assert(!audit.priceActions.items.some(item => item.sku === 'LOWPROFIT1'), 'low profit alone should not trigger a price raise when Ful+Res can cover 7d velocity for 30+ days');
 assert(audit.listingRepair.items.some(item => item.sku === 'LIST1' && item.issue === 'traffic_without_conversion_listing_repair'));
 assert.strictEqual(audit.expiredSeasonKeywordWaste.summary.totalEnabledRows, 2);
 assert.strictEqual(audit.expiredSeasonKeywordWaste.summary.spend3, 16.5);
@@ -179,6 +260,24 @@ assert(audit.expiredSeasonKeywordWaste.items.some(item => item.keywordText === '
 assert(audit.expiredSeasonKeywordWaste.items.some(item => item.keywordText === 'nurses week gifts bulk'));
 
 const products = new Map(snapshot.productCards.map(card => [card.sku.toUpperCase(), card]));
+const priceSchema = buildPriceSchema(audit, buildIndexes(snapshot), []);
+const fulResPricePlan = priceSchema.find(item => item.sku === 'FULRES1');
+assert(fulResPricePlan, 'short Ful+Res sellable-days SKU should reach the executable price schema even when invDays is high');
+assert.strictEqual(fulResPricePlan.actions[0].suggestedPrice, 25.99);
+assert(fulResPricePlan.actions[0].evidence.some(line => line === 'sellableDays7d=2'));
+assert.deepStrictEqual(
+  fulResPricePlan.actions
+    .filter(action => action.actionType === 'pause' && action.entityType === 'productAd')
+    .map(action => action.id)
+    .sort(),
+  ['ad-fulres-1', 'ad-fulres-2'],
+  'Ful+Res single-digit price raises must first pause all enabled product ads for that SKU'
+);
+assert(fulResPricePlan.actions
+  .filter(action => action.actionType === 'pause')
+  .every(action => action.reason.includes('Ful+Res=4') && action.reason.includes('sellableDays7d=2')));
+assert(!priceSchema.some(item => item.sku === 'LOWPROFIT1'), 'low profit alone should not reach the executable price schema');
+
 const expiredSeasonActions = buildExpiredSeasonActions(audit, products, 10);
 const newProductActions = buildNewProductLaunchActions(audit, products, 10);
 const reviewItems = buildReviewItems(audit, products, 10);

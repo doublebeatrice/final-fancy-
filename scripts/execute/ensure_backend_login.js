@@ -2,6 +2,7 @@ const {
   TARGETS,
   allTargetsReady,
   classifyBackendPage,
+  parseSelectionAccessToken,
   redactSensitiveUrl,
 } = require('./backend_login_lib');
 const {
@@ -240,8 +241,9 @@ async function ensureRequiredTabs() {
   const tabs = await listTabs();
   const adv = await ensureTab(TARGETS.adv.requiredUrl, items => findTabForTarget(items, TARGETS.adv));
   const inventory = await ensureTab(TARGETS.inventory.requiredUrl, items => findTabForTarget(items, TARGETS.inventory));
+  const selection = await ensureTab(TARGETS.selection.requiredUrl, items => findTabForTarget(items, TARGETS.selection));
   const panel = await ensureTab(PANEL_URL, items => findTabForUrl(items, PANEL_URL));
-  return { adv, inventory, panel, initialTabCount: tabs.length };
+  return { adv, inventory, selection, panel, initialTabCount: tabs.length };
 }
 
 async function checkAdHealth(tab) {
@@ -303,20 +305,110 @@ async function checkInventoryHealth(panelTab) {
   return runCheck(panelTab);
 }
 
+async function checkSelectionHealth(tab) {
+  return evaluate(tab, `(async () => {
+    const parseToken = rawValue => {
+      if (!rawValue) return '';
+      try {
+        const parsed = JSON.parse(String(rawValue));
+        return typeof parsed?.value === 'string' ? parsed.value : '';
+      } catch (_) {
+        return '';
+      }
+    };
+    const rawToken = localStorage.getItem('pro__Access-Token') || '';
+    const accessToken = parseToken(rawToken);
+    const tokenState = {
+      hasAccessToken: !!accessToken,
+      tokenLength: accessToken ? String(accessToken).length : 0,
+    };
+    const resultKeys = new Set();
+    const readJson = async path => {
+      const headers = { accept: 'application/json, text/plain, */*' };
+      if (accessToken) headers['X-Access-Token'] = accessToken;
+      const res = await fetch(path, { credentials: 'include', headers });
+      const text = await res.text();
+      let json = null;
+      try { json = JSON.parse(text); } catch (_) {}
+      if (json?.result && typeof json.result === 'object' && !Array.isArray(json.result)) {
+        Object.keys(json.result).forEach(key => resultKeys.add(key));
+      }
+      return {
+        status: res.status,
+        isJson: !!json,
+        success: json?.success ?? null,
+        code: json?.code ?? null,
+        message: String(json?.message || json?.msg || '').slice(0, 120),
+      };
+    };
+
+    if (!accessToken) {
+      return {
+        ok: false,
+        status: null,
+        code: null,
+        success: false,
+        message: 'selection access token missing',
+        resultKeys: [],
+        ...tokenState,
+      };
+    }
+
+    const checks = [
+      await readJson('/soundasia_selection/analysis/index/getSeasonDate'),
+      await readJson('/soundasia_selection/analysis/index/getHeadData?site=1'),
+    ];
+    const failed = checks.find(item => item.status !== 200 || item.code !== 200 || item.success !== true || !item.isJson);
+    if (failed) {
+      return {
+        ok: false,
+        status: failed.status,
+        code: failed.code,
+        success: failed.success,
+        message: failed.message || 'selection health check failed',
+        resultKeys: [...resultKeys].slice(0, 40),
+        ...tokenState,
+      };
+    }
+
+    const last = checks[checks.length - 1] || {};
+    return {
+      ok: true,
+      status: last.status,
+      code: last.code,
+      success: last.success,
+      message: 'ok',
+      resultKeys: [...resultKeys].slice(0, 40),
+      ...tokenState,
+    };
+  })()`, true);
+}
+
 async function ensureBackendsReady() {
   const tabs = await ensureRequiredTabs();
   const statuses = {};
 
   statuses.adv = await waitForBackendReady(TARGETS.adv, tabs.adv);
   statuses.inventory = await waitForBackendReady(TARGETS.inventory, tabs.inventory);
+  statuses.selection = await waitForBackendReady(TARGETS.selection, tabs.selection);
 
   const health = {
     adv: statuses.adv.status === 'ready' ? await checkAdHealth(tabs.adv) : { ok: false, skipped: statuses.adv.status },
     inventory: statuses.inventory.status === 'ready' ? await checkInventoryHealth(tabs.panel) : { ok: false, skipped: statuses.inventory.status },
+    selection: statuses.selection.status === 'ready' ? await checkSelectionHealth(tabs.selection) : {
+      ok: false,
+      status: null,
+      code: null,
+      success: false,
+      message: `selection page status: ${statuses.selection.status}`,
+      resultKeys: [],
+      hasAccessToken: false,
+      tokenLength: 0,
+    },
   };
 
   return {
-    ok: allTargetsReady(statuses) && !!health.adv?.ok && !!health.inventory?.ok,
+    ok: allTargetsReady(statuses) && Object.keys(TARGETS).every(key => !!health[key]?.ok),
     statuses,
     health,
   };
@@ -336,7 +428,9 @@ if (require.main === module) {
 }
 
 module.exports = {
+  checkSelectionHealth,
   ensureBackendsReady,
+  parseSelectionAccessToken,
   readPageState,
   waitForBackendReady,
 };

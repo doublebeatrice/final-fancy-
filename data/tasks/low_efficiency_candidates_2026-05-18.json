@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-05-19T01:20:31.706Z",
+  "windowDays": 30,
+  "summary": {
+    "actionable": 0,
+    "skipped": 0,
+    "holds": 0,
+    "byKind": {
+      "spKeyword": {
+        "actionable": 0,
+        "skipped": 0,
+        "holds": 0,
+        "scanned": 0
+      },
+      "spAuto": {
+        "actionable": 0,
+        "skipped": 0,
+        "holds": 0,
+        "scanned": 0
+      },
+      "spTarget": {
+        "actionable": 0,
+        "skipped": 0,
+        "holds": 0,
+        "scanned": 0
+      },
+      "sbKeyword": {
+        "actionable": 0,
+        "skipped": 0,
+        "holds": 0,
+        "scanned": 0
+      },
+      "sbTarget": {
+        "actionable": 0,
+        "skipped": 0,
+        "holds": 0,
+        "scanned": 0
+      }
+    }
+  },
+  "candidates": []
+}

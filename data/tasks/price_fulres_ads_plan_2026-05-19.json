@@ -1,0 +1,240 @@
+{
+  "generatedAt": "2026-05-19T03:07:16.216Z",
+  "localDate": "2026-05-19",
+  "businessDate": "2026-05-18",
+  "dataDate": "2026-05-17",
+  "snapshotFile": "data/snapshots/latest_snapshot.json",
+  "out": "data\\snapshots\\action_schema_2026-05-19_price_fulres_ads_approved.json",
+  "priceSkus": 20,
+  "totalActions": 39,
+  "priceActions": 20,
+  "pauseActions": 19,
+  "rows": [
+    {
+      "sku": "XLN0347",
+      "asin": "B0DT6B8RRC",
+      "currentPrice": 9.99,
+      "suggestedPrice": 10.99,
+      "fulResUnits": 0,
+      "sellableDays7d": 0,
+      "pauseActions": 0,
+      "pauseIds": []
+    },
+    {
+      "sku": "DN2437",
+      "asin": "B0CCJF7KZS",
+      "currentPrice": 58.99,
+      "suggestedPrice": 61.99,
+      "fulResUnits": 0,
+      "sellableDays7d": 0,
+      "pauseActions": 0,
+      "pauseIds": []
+    },
+    {
+      "sku": "HAY1931",
+      "asin": "B0CT31XTGF",
+      "currentPrice": 22.99,
+      "suggestedPrice": 24.99,
+      "fulResUnits": 4,
+      "sellableDays7d": 1.6,
+      "pauseActions": 3,
+      "pauseIds": [
+        "productAd:405828005479037",
+        "productAd:500724589847116",
+        "productAd:382096077041553"
+      ]
+    },
+    {
+      "sku": "WEN1029",
+      "asin": "B0CQYV4J5Y",
+      "currentPrice": 16.99,
+      "suggestedPrice": 17.99,
+      "fulResUnits": 10,
+      "sellableDays7d": 3,
+      "pauseActions": 5,
+      "pauseIds": [
+        "productAd:349181328381401",
+        "productAd:558451616378188",
+        "productAd:344532410175569",
+        "productAd:494074707365232",
+        "productAd:335183724034797"
+      ]
+    },
+    {
+      "sku": "TH2824",
+      "asin": "B0C4P5VHJQ",
+      "currentPrice": 19.99,
+      "suggestedPrice": 20.99,
+      "fulResUnits": 1,
+      "sellableDays7d": 3.5,
+      "pauseActions": 4,
+      "pauseIds": [
+        "productAd:556703983685036",
+        "productAd:427439340966330",
+        "productAd:346060286869939",
+        "productAd:372331561020198"
+      ]
+    },
+    {
+      "sku": "SHQ0554",
+      "asin": "B0D73SYRYR",
+      "currentPrice": 26.99,
+      "suggestedPrice": 28.99,
+      "fulResUnits": 15,
+      "sellableDays7d": 3.6,
+      "pauseActions": 2,
+      "pauseIds": [
+        "productAd:561120023883588",
+        "productAd:460076007506324"
+      ]
+    },
+    {
+      "sku": "SE6621",
+      "asin": "B0DQ5LDKDH",
+      "currentPrice": 17.99,
+      "suggestedPrice": 18.99,
+      "fulResUnits": 8,
+      "sellableDays7d": 4.7,
+      "pauseActions": 3,
+      "pauseIds": [
+        "productAd:457862408584498",
+        "productAd:308140366003233",
+        "productAd:536683466282634"
+      ]
+    },
+    {
+      "sku": "XIA3242",
+      "asin": "B0FHQ32H5R",
+      "currentPrice": 18.99,
+      "suggestedPrice": 19.99,
+      "fulResUnits": 2,
+      "sellableDays7d": 4.7,
+      "pauseActions": 0,
+      "pauseIds": []
+    },
+    {
+      "sku": "PIR4617",
+      "asin": "B0F3XFYKZP",
+      "currentPrice": 26.99,
+      "suggestedPrice": 28.99,
+      "fulResUnits": 7,
+      "sellableDays7d": 6.1,
+      "pauseActions": 1,
+      "pauseIds": [
+        "productAd:302461753268666"
+      ]
+    },
+    {
+      "sku": "MK0522",
+      "asin": "B07RW8LK7F",
+      "currentPrice": 11.99,
+      "suggestedPrice": 12.99,
+      "fulResUnits": 16,
+      "sellableDays7d": 7,
+      "pauseActions": 1,
+      "pauseIds": [
+        "productAd:470042580924339"
+      ]
+    },
+    {
+      "sku": "FA4843",
+      "asin": "B0BNPWK4JQ",
+      "currentPrice": 7.99,
+      "suggestedPrice": 8.99,
+      "fulResUnits": 4,
+      "sellableDays7d": 7,
+      "pauseActions": 0,
+      "pauseIds": []
+    },
+    {
+      "sku": "LE8163",
+      "asin": "B0GGRXJY9R",
+      "currentPrice": 28.99,
+      "suggestedPrice": 30.99,
+      "fulResUnits": 3,
+      "sellableDays7d": 7,
+      "pauseActions": 0,
+      "pauseIds": []
+    },
+    {
+      "sku": "DON4521",
+      "asin": "B0FNRBG3LQ",
+      "currentPrice": 9.99,
+      "suggestedPrice": 10.99,
+      "fulResUnits": 2,
+      "sellableDays7d": 7,
+      "pauseActions": 0,
+      "pauseIds": []
+    },
+    {
+      "sku": "GM3210",
+      "asin": "B0GGZYQ8TH",
+      "currentPrice": 13.99,
+      "suggestedPrice": 14.99,
+      "fulResUnits": 1,
+      "sellableDays7d": 7,
+      "pauseActions": 0,
+      "pauseIds": []
+    },
+    {
+      "sku": "AE2521",
+      "asin": "B0BWM3R8QZ",
+      "currentPrice": 14.99,
+      "suggestedPrice": 15.99,
+      "fulResUnits": 1,
+      "sellableDays7d": 7,
+      "pauseActions": 0,
+      "pauseIds": []
+    },
+    {
+      "sku": "GT2432",
+      "asin": "B0BNHZMWGP",
+      "currentPrice": 36.99,
+      "suggestedPrice": 38.99,
+      "fulResUnits": 1,
+      "sellableDays7d": 7,
+      "pauseActions": 0,
+      "pauseIds": []
+    },
+    {
+      "sku": "XIA1681",
+      "asin": "B0C7K43997",
+      "currentPrice": 13.99,
+      "suggestedPrice": 14.99,
+      "fulResUnits": 51,
+      "sellableDays7d": 7.3,
+      "pauseActions": 0,
+      "pauseIds": []
+    },
+    {
+      "sku": "TH2599",
+      "asin": "B0B2RZVFCK",
+      "currentPrice": 13.99,
+      "suggestedPrice": 14.99,
+      "fulResUnits": 20,
+      "sellableDays7d": 8.2,
+      "pauseActions": 0,
+      "pauseIds": []
+    },
+    {
+      "sku": "TH2870",
+      "asin": "B0D4QWFQ23",
+      "currentPrice": 19.99,
+      "suggestedPrice": 20.99,
+      "fulResUnits": 6,
+      "sellableDays7d": 8.4,
+      "pauseActions": 0,
+      "pauseIds": []
+    },
+    {
+      "sku": "YYW2629",
+      "asin": "B0FMRNLGTW",
+      "currentPrice": 54.99,
+      "suggestedPrice": 57.99,
+      "fulResUnits": 17,
+      "sellableDays7d": 9.2,
+      "pauseActions": 0,
+      "pauseIds": []
+    }
+  ]
+}

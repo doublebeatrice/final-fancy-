@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { log, loadHistory, saveHistory, hasRecentOutcome, SNAPSHOTS_DIR, today, findAdPageId } = require('./src/adjust_lib');
 const { hasRequiredVerification, loadExternalActionSchema } = require('./src/ai_decision');
+const { filterSnapshotForActionSchema } = require('./src/execution_scope');
 const { analyzeAllowedOperationScope, applyAllowedOperationScope } = require('./src/operation_scope');
 const { attachTimeToPlan, buildOpsTimeContext } = require('./src/ops_time');
 const { executePriceActions } = require('./src/price_executor');
@@ -986,11 +987,18 @@ async function run(options = {}) {
     throw new Error('Direct-page execution requires a snapshot file. Export/fetch scripts must provide --snapshot; extension panel fetch is no longer part of execution.');
   }
 
-  function loadSnapshotFile(snapshotFile) {
+  function loadSnapshotFile(snapshotFile, scopeOptions = {}) {
     if (!snapshotFile) return null;
     const resolved = path.resolve(snapshotFile);
-    const snapshot = JSON.parse(fs.readFileSync(resolved, 'utf8'));
+    const rawSnapshot = JSON.parse(fs.readFileSync(resolved, 'utf8'));
+    const snapshot = filterSnapshotForActionSchema(rawSnapshot, {
+      ...scopeOptions,
+      snapshotFile: resolved,
+    });
     log(`Using execution snapshot file: ${resolved}`);
+    if (snapshot.__fastActionScope?.enabled) {
+      log(`Fast action scope: schemaSkus=${snapshot.__fastActionScope.schemaSkuCount}; productCards ${snapshot.__fastActionScope.retainedProductCards}/${snapshot.__fastActionScope.originalProductCards}`);
+    }
     return {
       meta: {
         cards: (snapshot.productCards || []).length,
@@ -1007,6 +1015,7 @@ async function run(options = {}) {
         sb7: (snapshot.sb7DayUntouchedRows || []).length,
         snapshotFile: resolved,
         exportedAt: snapshot.exportedAt || '',
+        fastActionScope: snapshot.__fastActionScope || null,
       },
       cards: snapshot.productCards || [],
       kwRows: snapshot.kwRows || [],
@@ -1028,7 +1037,10 @@ async function run(options = {}) {
 
   log('=== Auto adjustment run started ===');
   const snapshotFile = options.snapshotFile || process.env.PANEL_SNAPSHOT_FILE || '';
-  const snapshotData = loadSnapshotFile(snapshotFile);
+  const snapshotData = loadSnapshotFile(snapshotFile, {
+    actionSchemaFile: options.actionSchemaFile || process.env.ACTION_SCHEMA_FILE,
+    fastScope: options.fastScope,
+  });
   log(snapshotData ? 'Loading execution context from snapshot...' : 'Fetching full data...');
   let fetchMeta = null;
   fetchMeta = snapshotData ? snapshotData.meta : await fetchSnapshotlessDataDirect();
@@ -1723,6 +1735,7 @@ function buildSpCreatePayload(input = {}) {
   const siteId = Number(input.siteId || 4);
   const dailyBudget = Number(input.dailyBudget);
   const defaultBid = Number(input.defaultBid);
+  const siteRestriction = String(input.siteRestriction || '').trim();
   const errors = [];
   if (!['auto', 'productTarget', 'keywordTarget'].includes(mode)) errors.push('mode must be auto, productTarget, or keywordTarget');
   if (!coreTerm) errors.push('coreTerm is required');
@@ -1749,17 +1762,20 @@ function buildSpCreatePayload(input = {}) {
     accountId,
     siteId,
     dailyBudget,
-    offAmazonBudgetControlStrategy: 'MINIMIZE_SPEND',
+    offAmazonBudgetControlStrategy: input.offAmazonBudgetControlStrategy !== undefined
+      ? input.offAmazonBudgetControlStrategy
+      : (siteRestriction === 'AMAZON_BUSINESS' ? null : 'MINIMIZE_SPEND'),
     placementTop: 0,
     placementProductPage: 0,
     placementRestOfSearch: 0,
-    siteAmazonBusiness: 0,
+    siteAmazonBusiness: input.siteAmazonBusiness !== undefined ? input.siteAmazonBusiness : 0,
     groupName: campaignName,
     haulFlag: false,
     asinArray: [asin],
     skuArray: [sku],
     defaultBid,
   };
+  if (siteRestriction) payload.siteRestriction = siteRestriction;
   if (mode === 'auto') {
     payload.targetingType = 'AUTO';
     payload.positionType = 'auto';

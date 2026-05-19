@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { normalizePriceTargetTo99 } = require('../../src/price_executor');
 
 const ROOT = path.join(__dirname, '..', '..');
 const SNAPSHOT_FILE = path.join(ROOT, 'data', 'snapshots', 'latest_snapshot.json');
@@ -72,6 +73,19 @@ function skuAd30(card) {
     clicks: num(sp.clicks) + num(sb.clicks),
     impressions: num(sp.impressions) + num(sb.impressions),
   };
+}
+
+function fulResUnits(card = {}) {
+  return num(card.fulFillable ?? card.fulfillable ?? card.stockFul) +
+    num(card.reservedQty ?? card.reserved ?? card.stockRes);
+}
+
+function sellableDaysFrom7dVelocity(card = {}, fallback = null) {
+  const explicit = num(fallback, NaN);
+  if (Number.isFinite(explicit)) return explicit;
+  const units7 = num(card.unitsSold_7d);
+  if (units7 <= 0) return null;
+  return round(fulResUnits(card) / (units7 / 7), 1);
 }
 
 function rowStats(row, days) {
@@ -312,24 +326,30 @@ function buildPriceSchema(audit, indexes, adjustments) {
     .map(item => ({ ...item, card: indexes.bySku.get(String(item.sku || '')) }))
     .filter(item => item.card)
     .filter(item => num(item.units7d ?? item.card.unitsSold_7d) > 0)
-    .filter(item => num(item.invDays ?? item.card.invDays) > 0 && num(item.invDays ?? item.card.invDays) <= 60)
+    .filter(item => {
+      const sellableDays7d = sellableDaysFrom7dVelocity(item.card, item.sellableDays7d);
+      return sellableDays7d !== null && sellableDays7d < 30;
+    })
     .filter(item => ![1, 2].includes(num(item.card.productLabels?.is_high_return_rate, 0)))
     .map(item => {
       const currentPrice = num(item.price ?? item.card.price);
       const profitBefore = num(item.profitRate ?? item.card.profitRate);
       const invDays = num(item.invDays ?? item.card.invDays);
       const units7 = num(item.units7d ?? item.card.unitsSold_7d);
-      const priceLift = invDays <= 21 ? 0.05 : 0.04;
-      const suggestedPrice = Math.max(currentPrice + 0.5, Math.ceil((currentPrice * (1 + priceLift)) * 100) / 100);
+      const sellableDays7d = sellableDaysFrom7dVelocity(item.card, item.sellableDays7d);
+      const available = fulResUnits(item.card);
+      const priceLift = sellableDays7d <= 21 ? 0.05 : 0.04;
+      const rawSuggestedPrice = Math.max(currentPrice + 0.5, Math.ceil((currentPrice * (1 + priceLift)) * 100) / 100);
+      const suggestedPrice = normalizePriceTargetTo99(currentPrice, rawSuggestedPrice);
       const floatPrice = (suggestedPrice - currentPrice) / currentPrice;
       const profitAfter = profitBefore + Math.min(0.08, Math.max(0.031, floatPrice * 0.9));
       let intent = 'margin_repair';
-      if (invDays <= 21) intent = 'inventory_protection';
+      if (sellableDays7d < 30) intent = 'inventory_protection';
       else if (profitAfter >= 0.15 && skuAd7(item.card).orders > 0 && skuAd7(item.card).spend > 0) intent = 'ad_space_expansion';
-      return { ...item, currentPrice, suggestedPrice, profitBefore, profitAfter, floatPrice, intent, invDays, units7 };
+      return { ...item, currentPrice, suggestedPrice, profitBefore, profitAfter, floatPrice, intent, invDays, units7, fulResUnits: available, sellableDays7d };
     })
     .filter(item => item.profitAfter > item.profitBefore && (item.profitAfter - item.profitBefore) >= 0.03)
-    .sort((a, b) => (b.units7 * Math.max(0.01, 0.12 - b.profitBefore)) - (a.units7 * Math.max(0.01, 0.12 - a.profitBefore)))
+    .sort((a, b) => a.sellableDays7d - b.sellableDays7d || b.units7 - a.units7)
     .slice(0, 20);
 
   return candidates.map(item => {
@@ -357,12 +377,12 @@ function buildPriceSchema(audit, indexes, adjustments) {
         checkAfterDays: [1, 3, 7, 14],
       },
     }[item.intent];
-    return withPlan(item.sku, item.asin || card.asin, `Price ${item.intent}: ${item.issue}`, {
+    const priceAction = {
       entityType: 'sku',
       id: item.sku,
       actionType: 'price',
       site: 'Amazon.com',
-      saleStatus: card.saleStatus || '正常销售',
+      saleStatus: card.saleStatus || 'normal_sale',
       currentPrice: item.currentPrice,
       suggestedPrice: item.suggestedPrice,
       profitBefore: round(item.profitBefore, 4),
@@ -370,15 +390,17 @@ function buildPriceSchema(audit, indexes, adjustments) {
       profitAfter: round(item.profitAfter, 4),
       profitAfterSea: round(num(card.seaProfitRate) + (item.profitAfter - item.profitBefore), 4),
       floatPrice: round(item.floatPrice, 4),
-      isUrgent: item.invDays <= 21 ? '是' : '否',
+      isUrgent: item.sellableDays7d < 30 ? 'yes' : 'no',
       remark: `codex_2026_05_15_${item.intent}_profit_${pct(item.profitBefore)}_to_${pct(item.profitAfter)}`,
       priceIntent: item.intent,
       adCoupling: coupling,
-      reason: `Price executor application for ${item.intent}; profitAfter improves by ${((item.profitAfter - item.profitBefore) * 100).toFixed(1)}pp.`,
+      reason: `Price executor application for ${item.intent}; Ful+Res covers ${item.sellableDays7d} days at 7d velocity and profitAfter improves by ${((item.profitAfter - item.profitBefore) * 100).toFixed(1)}pp.`,
       evidence: [
         `audit issue=${item.issue}`,
         `unitsSold_7d=${item.units7}`,
         `invDays=${item.invDays}`,
+        `fulResUnits=${item.fulResUnits}`,
+        `sellableDays7d=${item.sellableDays7d}`,
         `is_high_return_rate=${card.productLabels?.is_high_return_rate ?? 'missing'}`,
         `currentPrice=${item.currentPrice}, suggestedPrice=${item.suggestedPrice}`,
         `profitBefore=${round(item.profitBefore, 4)}, profitAfter=${round(item.profitAfter, 4)}`,
@@ -389,11 +411,19 @@ function buildPriceSchema(audit, indexes, adjustments) {
       confidence: 0.78,
       riskLevel: 'price_margin_recovery',
       ...approval(),
-    });
+    };
+    const plan = withPlan(item.sku, item.asin || card.asin, `Price ${item.intent}: ${item.issue}`, priceAction);
+    const pauseActions = buildInventoryHardStopPauseActions(card, item);
+    if (pauseActions.length) {
+      plan.summary += ` Inventory hard stop pauses ${pauseActions.length} enabled ad row(s) before more traffic spends remaining stock.`;
+      plan.actions.push(...pauseActions);
+    }
+    return plan;
   });
 }
 
-function enabledAdRows(card) {
+function enabledAdRows(card, options = {}) {
+  const includeSponsoredBrands = options.includeSponsoredBrands === true;
   const rows = [];
   for (const campaign of safeArray(card.campaigns)) {
     for (const [entityType, listName] of [
@@ -409,8 +439,73 @@ function enabledAdRows(card) {
         }
       }
     }
+    if (includeSponsoredBrands) {
+      const sbCampaign = campaign.sbCampaign || null;
+      if (sbCampaign && stateEnabled(sbCampaign.state ?? sbCampaign.campaignState ?? sbCampaign.status)) {
+        rows.push({ entityType: 'sbCampaign', row: sbCampaign, campaign, stats: childStats(sbCampaign) });
+      }
+      for (const row of safeArray(campaign.sponsoredBrands)) {
+        if (!stateEnabled(row.state ?? row.status) || !stateEnabled(row.campaignState ?? campaign.campaignState ?? campaign.state ?? 1)) continue;
+        const resolvedType = row.entityType === 'sbTarget' ? 'sbTarget' : 'sbKeyword';
+        rows.push({ entityType: resolvedType, row, campaign, stats: childStats(row) });
+      }
+    }
   }
   return rows;
+}
+
+function stateActionId(rowInfo = {}) {
+  const row = rowInfo.row || {};
+  if (rowInfo.entityType === 'productAd') return String(row.id || row.adId || row.ad_id || '');
+  if (rowInfo.entityType === 'sbCampaign' || rowInfo.entityType === 'campaign') return String(row.campaignId || row.campaign_id || row.id || '');
+  if (rowInfo.entityType === 'keyword' || rowInfo.entityType === 'sbKeyword') return String(row.id || row.keywordId || row.keyword_id || '');
+  return String(row.id || row.targetId || row.target_id || '');
+}
+
+function buildInventoryHardStopPauseActions(card = {}, priceItem = {}) {
+  const available = num(priceItem.fulResUnits ?? fulResUnits(card));
+  const sellableDays7d = num(priceItem.sellableDays7d, null);
+  if (available > 7 && !(sellableDays7d !== null && sellableDays7d <= 7)) return [];
+
+  const enabledRows = enabledAdRows(card, { includeSponsoredBrands: true });
+  const productAds = enabledRows.filter(item => item.entityType === 'productAd');
+  const sponsoredBrands = enabledRows.filter(item => item.entityType === 'sbCampaign' || item.entityType === 'sbKeyword' || item.entityType === 'sbTarget');
+  const selectedRows = productAds.length ? [...productAds, ...sponsoredBrands] : enabledRows;
+  const seen = new Set();
+  const actions = [];
+  for (const rowInfo of selectedRows) {
+    const id = stateActionId(rowInfo);
+    const key = `${rowInfo.entityType}:${id}`;
+    if (!id || seen.has(key)) continue;
+    seen.add(key);
+    actions.push({
+      id,
+      entityType: rowInfo.entityType,
+      actionType: 'pause',
+      campaignId: String(rowInfo.campaign?.campaignId || rowInfo.row?.campaignId || ''),
+      adGroupId: String(rowInfo.campaign?.adGroupId || rowInfo.row?.adGroupId || ''),
+      campaignName: rowInfo.campaign?.name || rowInfo.campaign?.campaignName || rowInfo.row?.campaignName || '',
+      groupName: rowInfo.campaign?.groupName || rowInfo.row?.groupName || '',
+      currentState: rowInfo.row?.state ?? rowInfo.row?.campaignState ?? 'enabled',
+      reason: `inventory_hard_stop: Ful+Res=${available}, sellableDays7d=${sellableDays7d}; pause enabled ${rowInfo.entityType} before price raise spends the remaining stock.`,
+      evidence: [
+        `SKU ${card.sku}: Ful+Res=${available}`,
+        `sellableDays7d=${sellableDays7d}`,
+        `unitsSold_7d=${num(card.unitsSold_7d)}`,
+        `priceTarget=${priceItem.currentPrice}->${priceItem.suggestedPrice}`,
+        `${rowInfo.entityType}:${id} campaign=${rowInfo.campaign?.campaignId || rowInfo.row?.campaignId || ''}`,
+      ],
+      hypothesis: 'Pausing SKU ad delivery protects the remaining inventory while the price application catches up.',
+      expectedEffect: { impressions: 'down_to_zero_for_sku', clicks: 'down_to_zero_for_sku', spend: 'blocked', units: 'watch_after_price' },
+      reviewPlan: reviewPlan('new Ful+Res inventory arrives or price lands and 3d/7d conversion remains stable enough to retest ads'),
+      forceExecute: true,
+      forceReason: 'ful_res_single_digit_inventory_hard_stop_pause_ads',
+      riskLevel: 'inventory_hard_stop_ad_pause',
+      confidence: 0.9,
+      ...approval(),
+    });
+  }
+  return actions;
 }
 
 function buildBidDownAction(card, rowInfo, ratio, reason, extraEvidence = []) {
@@ -915,5 +1010,12 @@ function finalDocs() {
   }, null, 2));
 }
 
-if (process.argv.includes('--final')) finalDocs();
-else prepare();
+if (require.main === module) {
+  if (process.argv.includes('--final')) finalDocs();
+  else prepare();
+}
+
+module.exports = {
+  buildIndexes,
+  buildPriceSchema,
+};

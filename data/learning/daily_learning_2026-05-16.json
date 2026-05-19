@@ -1,0 +1,209 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-16T04:49:12.664Z",
+  "time": {
+    "runAt": "2026-05-16T04:48:31.274Z",
+    "businessDate": "2026-05-15",
+    "localDate": "2026-05-16",
+    "dataDate": "2026-05-14",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-16T04-48-31-274Z"
+  },
+  "sources": {
+    "snapshotFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-05-16T04-22-03-539Z\\snapshot_2026-05-16.json",
+    "taskPoolFile": "D:\\ad-ops-workbench\\data\\tasks\\daily_tasks_2026-05-15.json",
+    "actionSchemaFile": "D:\\ad-ops-workbench\\data\\snapshots\\action_schema_2026-05-16_vbs_keyword_repair.json",
+    "dryRunFile": "D:\\ad-ops-workbench\\data\\snapshots\\execution_dry_run_2026-05-16.json",
+    "verifyFile": "D:\\ad-ops-workbench\\data\\snapshots\\execution_verify_2026-05-16.json",
+    "adjustmentLogFile": "D:\\ad-ops-workbench\\data\\adjustments\\adjustments_2026-05-15.json",
+    "proactiveOperatingAuditJson": "D:\\ad-ops-workbench\\data\\tasks\\proactive_operating_audit_2026-05-15.json",
+    "manifestFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-05-16T04-48-31-274Z\\manifest.json"
+  },
+  "dataQuality": {
+    "baselineQuality": "complete",
+    "productCards": 1264,
+    "allowedScopeSkuCount": 589,
+    "dataMissing": 0,
+    "overBudgetStatus": "complete",
+    "warnings": []
+  },
+  "observedPressure": {
+    "snapshotMetrics": {
+      "productCards": 1264,
+      "units7d": 3564,
+      "units30d": 17127,
+      "adSpend7d": 0,
+      "adSales7d": 0,
+      "adSales7dAvailable": false,
+      "adOrders7d": 0,
+      "inventoryTight": 67,
+      "staleInventory": 99,
+      "lowProfit": 140,
+      "adAcos7d": null
+    },
+    "topSignals": [
+      {
+        "signal": "ad_structure_missing",
+        "count": 658
+      },
+      {
+        "signal": "seven_day_unadjusted",
+        "count": 419
+      },
+      {
+        "signal": "season_tail",
+        "count": 204
+      },
+      {
+        "signal": "stale_inventory_risk",
+        "count": 127
+      },
+      {
+        "signal": "inventory_tight",
+        "count": 57
+      },
+      {
+        "signal": "season_peak",
+        "count": 32
+      },
+      {
+        "signal": "season_preheat",
+        "count": 30
+      },
+      {
+        "signal": "reserved_page_watch",
+        "count": 5
+      }
+    ],
+    "taskSummary": {
+      "total": 658,
+      "bySignal": {
+        "ad_structure_missing": 658,
+        "season_tail": 204,
+        "season_peak": 32,
+        "stale_inventory_risk": 127,
+        "seven_day_unadjusted": 419,
+        "season_preheat": 30,
+        "inventory_tight": 57,
+        "reserved_page_watch": 5
+      },
+      "withDataMissing": 0,
+      "dataMissing": 0,
+      "reservedPageBlocked": 5,
+      "skippedAdEntityCards": 606
+    },
+    "proactiveOperatingAudit": {
+      "kpiStatus": "off_track",
+      "newProductLaunch": 24,
+      "arrivalAdRecovery": 7,
+      "priceActions": 145,
+      "expiredSeasonKeywordWaste": 0,
+      "listingRepair": 0
+    }
+  },
+  "decisions": {
+    "schemaSkuCount": 3,
+    "plannedSkus": 3,
+    "executableSkus": 3,
+    "reviewSkus": 0,
+    "plannedActions": 3,
+    "actionBreakdown": {
+      "byAction": {
+        "sku:price": 40,
+        "campaign:budget": 232,
+        "autoTarget:bid": 96,
+        "keyword:bid": 107,
+        "manualTarget:bid": 8,
+        "keyword:enable": 16,
+        "sbKeyword:enable": 24,
+        "productAd:pause": 4,
+        "productAd:skip": 53,
+        "autoTarget:pause": 4,
+        "skuCandidate:create": 283,
+        "campaign:review": 6,
+        "skuCandidate:review": 6,
+        "skuCandidate:skip": 108
+      },
+      "byDirection": {
+        "up": 188,
+        "down": 292,
+        "unknown": 507
+      },
+      "landed": {
+        "success": 262,
+        "failed": 3,
+        "planned": 549,
+        "manualReview": 24,
+        "skipped": 149,
+        "unknown": 0
+      }
+    },
+    "decisionAttribution": {
+      "codex": {
+        "plannedActions": 958,
+        "landedSuccess": 243,
+        "landedFailed": 3,
+        "dryRunPlanned": 539,
+        "manualReview": 24,
+        "skipped": 149,
+        "unknown": 0
+      },
+      "claude": {
+        "plannedActions": 29,
+        "landedSuccess": 19,
+        "landedFailed": 0,
+        "dryRunPlanned": 10,
+        "manualReview": 0,
+        "skipped": 0,
+        "unknown": 0
+      }
+    },
+    "finalRunLanding": {
+      "sourceRunId": "today_ops_2026-05-16T04-48-31-274Z",
+      "total": 6,
+      "success": 3,
+      "failed": 0,
+      "planned": 3,
+      "manualReview": 0,
+      "skipped": 0,
+      "unknown": 0
+    },
+    "allDayLanding": {
+      "businessDate": "2026-05-16",
+      "dateMode": "localDate",
+      "total": 280,
+      "runs": 4,
+      "success": 42,
+      "failed": 3,
+      "planned": 90,
+      "manualReview": 12,
+      "skipped": 133,
+      "unknown": 0,
+      "bestRunId": "today_ops_2026-05-16T04-29-37-770Z",
+      "bestRunSuccess": 39
+    }
+  },
+  "carryForward": {
+    "mustReadBeforeTomorrowDecision": true,
+    "measurementWindows": [
+      1,
+      3,
+      7,
+      14,
+      30
+    ],
+    "compareTomorrowAgainst": {
+      "snapshotMetrics": true,
+      "taskPressure": true,
+      "actionLanding": true,
+      "skuLevelMovement": true
+    },
+    "openQuestions": [
+      "Did spend reductions reduce waste without cutting orders?",
+      "Did budget increases recover profitable orders?",
+      "Did paused or lowered entities stay quiet without same-SKU sales loss?",
+      "Which seasonal preheat candidates gained impressions, clicks, and orders?"
+    ]
+  }
+}

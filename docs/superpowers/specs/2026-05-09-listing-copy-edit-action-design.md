@@ -17,7 +17,9 @@ Both paths must enter the same action schema and default to dry-run. Execution s
 
 Codex remains the only AI decision entry point. Scripts validate, preview, submit, and record results; they do not generate copy or decide strategy.
 
-Listing copy edits remain high-risk compared with bid and budget actions. The first implementation should require explicit approval fields before execution and should make dry-run the default path.
+Listing copy edits remain high-risk compared with bid and budget actions. Dry-run remains the default path.
+
+Seasonal parent-title edits now have a limited operator-approved auto-execution path. Use `docs/SEASONAL_LISTING_COPY_RULES.md` as the controlling policy: non-top-50 SKU, title-only seasonal/core wording, strong product-event evidence, validation pass, and current external verification when the edit depends on annual or time-sensitive event wording. Other listing copy edits still require explicit operator, Codex, or manual approval fields before execution.
 
 Required approval fields for executable listing copy edits:
 
@@ -121,8 +123,12 @@ Field names should normalize to project style, but executor output must map to t
 - `reason`
 - `original[parent_title]`
 - `original[bullet_points][]`
+- `original[product_description]`
+- `original[search_core_keywords]`
 - `now[parent_title]`
 - `now[bullet_points][]`
+- `now[product_description]`
+- `now[search_core_keywords]`
 - `now[synchronize_variant_sku]`
 - `exclude_simple`
 - `phrase_frequency_text`
@@ -157,6 +163,13 @@ The executor should:
 5. Use `credentials: "include"` and browser cookies.
 6. Parse JSON response.
 7. Record `code`, `msg`, `id`, and `ids`.
+
+Observed 2026-05-15 live submission:
+
+- `STY6101` product description-only edit submitted successfully from the live `sellerinventory.yswg.com.cn` browser context.
+- Request used `filed_type=A`, `variant_status=2`, no `synchronizeFields[]`, empty `now[synchronize_variant_sku]`, `original[product_description]`, and `now[product_description]`.
+- Response was `{"code":200,"msg":"提交成功!","id":4449048,"ids":[4449048]}`.
+- Chinese `remark` and `reason` rendered correctly when the form body was built inside the browser with `URLSearchParams`; do not build Chinese form bodies through PowerShell inline strings because previous validation showed that can turn Chinese into `?`.
 
 Sensitive values must not be persisted:
 
@@ -207,13 +220,16 @@ Codex may generate copy candidates, but script code must not generate copy.
 Flow:
 
 1. Read current SKU context from snapshot, listing cache, product profile, sales history, and operator instruction.
-2. Fetch original edit data through `getOriginData` when snapshot listing fields are missing.
-3. Decide the copy theme from concrete evidence first: title, bullets, `search_core_keywords`, `phrase_frequency_text`, and operator notes. Automatic season tags are supporting evidence only.
+2. Fetch original edit data through `getOriginData` when snapshot listing fields are missing or before live execution.
+3. Decide the copy theme from concrete evidence first: title, bullets, `search_core_keywords`, `phrase_frequency_text`, product profile, inventory `productLabels.product_label`, current external event sources when needed, and operator notes. Automatic season tags are supporting evidence only.
 4. If concrete evidence conflicts with automatic season tags, emit review instead of blindly generating copy from the tag. For example, `father`, `dad`, `men`, or `父亲节` in title/search/operator notes should override an unrelated Nurse Week or Graduation auto tag unless stronger product evidence says otherwise.
-5. Codex writes a candidate `copy_edit` action schema.
-6. Run dry-run.
-7. Operator reviews the preview artifact.
-8. If approved, Codex or manual reviewer sets approval fields and runs execute.
+5. For seasonal titles, prefer stable buyer-facing terms over internal calendar labels. Do not write internal labels such as `Summer Product Season` into Amazon titles.
+6. If the historical title or product context clearly supports `baby shower`, `gender reveal`, or `baby sprinkle`, keep that core phrase even when inventory marks the SKU as non-children product.
+7. Sensitive awareness/cultural nodes require concrete event evidence. Do not map a product to Mental Health Awareness Month, Black History Month, Juneteenth, Pride, or similar nodes from generic overlap such as `month`, `day`, `gift`, or `party`.
+8. Codex writes a candidate `copy_edit` action schema.
+9. Run dry-run.
+10. Operator review is required for non-seasonal copy, top-50 SKUs without explicit release, weak evidence, unresolved external annual-theme checks, origin-title mismatch, or validation warnings that cannot be safely repaired.
+11. If approved or auto-executable under `docs/SEASONAL_LISTING_COPY_RULES.md`, Codex or manual reviewer sets approval fields and runs execute. The executor must compare live `getOriginData` parent title with the planned original parent title immediately before posting; mismatch means stale plan and no submission.
 
 ## Manual Copy Path
 

@@ -36,6 +36,10 @@ const sampleHtml = `
       </ul>
     </div>
     <div id="twister_feature_div"><span class="selection">Color: Pink</span></div>
+    <div id="imageBlock_feature_div">
+      <li class="videoThumbnail"></li>
+      <script>var cfg = {"hasVideo":true};</script>
+    </div>
     <img id="landingImage" data-a-dynamic-image='{"https://images.example.com/main.jpg":[1000,1000],"https://images.example.com/alt1.jpg":[800,800]}' />
     <div id="detailBulletsWrapper_feature_div">
       <span>#12 in Gift Baskets (See Top 100)</span>
@@ -55,6 +59,7 @@ assert.strictEqual(parsed.reviewCount, 1234);
 assert.strictEqual(parsed.reviewRating, 4.7);
 assert.strictEqual(parsed.price, 19.99);
 assert.strictEqual(parsed.hasPrime, true);
+assert.strictEqual(parsed.hasVideo, true);
 assert.deepStrictEqual(parsed.bullets, [
   'Nurse appreciation gift for RN women.',
   "Mother's day and hospital shift ready.",

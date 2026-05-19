@@ -429,6 +429,9 @@ const codexApproval = {
           keywords: ['nurse gifts', 'nurse week gifts'],
           dailyBudget: 3,
           defaultBid: 0.25,
+          siteRestriction: 'AMAZON_BUSINESS',
+          siteAmazonBusiness: 0,
+          offAmazonBudgetControlStrategy: null,
           reason: 'seasonal launch',
           evidence: ['inventory ready'],
           confidence: 0.85,
@@ -442,6 +445,8 @@ const codexApproval = {
   assert.strictEqual(validated.review.length, 0);
   assert.strictEqual(validated.plan[0].actions[0].actionType, 'create');
   assert.strictEqual(validated.plan[0].actions[0].createInput.accountId, 1);
+  assert.strictEqual(validated.plan[0].actions[0].createInput.siteRestriction, 'AMAZON_BUSINESS');
+  assert.strictEqual(validated.plan[0].actions[0].createInput.offAmazonBudgetControlStrategy, null);
 }
 
 {

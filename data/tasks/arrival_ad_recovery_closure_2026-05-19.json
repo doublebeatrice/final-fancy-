@@ -1,0 +1,553 @@
+{
+  "generatedAt": "2026-05-19T02:34:05.744Z",
+  "localDate": "2026-05-19",
+  "businessDate": "2026-05-18",
+  "dataDate": "2026-05-17",
+  "sourceAudit": "data/tasks/proactive_operating_audit_2026-05-18.json",
+  "sourceSnapshot": "data/snapshots/runs/today_ops_2026-05-19T01-17-33-617Z/snapshot_2026-05-19.json",
+  "executeSchema": "data/snapshots/action_schema_2026-05-19_arrival_ad_recovery_auto_create.json",
+  "verifyFile": "data/snapshots/execution_verify_2026-05-19.json",
+  "summaryFile": "data/snapshots/execution_summary_2026-05-19.json",
+  "closedLoopReport": "archive/reports/2026-05-19/closed_loop_report_2026-05-19T02-32-59.html",
+  "summary": {
+    "arrivalItems": 8,
+    "executed": 7,
+    "manualRepair": 1,
+    "failed": 0,
+    "unverified": 0,
+    "noteSuccess": 7,
+    "noteFailure": 0
+  },
+  "futureRule": "Arrival ad recovery is not closed by audit alone. Every item must be executed, manual_repair_required with reason/owner, or no_action with evidence before daily closeout.",
+  "items": [
+    {
+      "sku": "GUF3129",
+      "asin": "B0GWD724Y8",
+      "executableAutoCreates": 0,
+      "manualRepairItems": [
+        {
+          "id": "review::GUF3129::new_product_launch",
+          "reason": "New or recently arrived product must not wait for natural orders; build or repair basic ad launch.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=GUF3129",
+            "asin=B0GWD724Y8",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=1",
+            "profitRate=0.171",
+            "invDays=999",
+            "units7d=0",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::GUF3129::arrival_ad_recovery",
+          "reason": "Arrived inventory has no effective ad delivery; reopen, scale, or build ads.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=GUF3129",
+            "asin=B0GWD724Y8",
+            "ageDays=1",
+            "invDays=999",
+            "fulfillable=0",
+            "impressions7d=0",
+            "clicks7d=0",
+            "requiredAction=build_and_enable_basic_ads",
+            "issue=arrived_inventory_without_basic_ads"
+          ]
+        }
+      ],
+      "closureStatus": "manual_repair_required",
+      "executedAction": "none",
+      "reason": "missing accountId/createContext in snapshot; unsafe to create campaign automatically",
+      "verification": "not_executed"
+    },
+    {
+      "sku": "GUF3133",
+      "asin": "B0GWCK7H94",
+      "executableAutoCreates": 1,
+      "manualRepairItems": [
+        {
+          "id": "review::GUF3133::new_product_keyword_seed_review",
+          "reason": "New product lacks SP keyword coverage, but keyword seeds are too broad or too thin for automatic phrase creation; rebuild with buyer-facing specific search phrases only.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=GUF3133",
+            "asin=B0GWCK7H94",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=1",
+            "profitRate=0.1732",
+            "invDays=999",
+            "units7d=0",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::GUF3133::new_product_manual_targeting",
+          "reason": "New product still lacks SP manual/product targeting; target ASIN set is not available in the snapshot, so build or fetch ASIN targets manually.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=GUF3133",
+            "asin=B0GWCK7H94",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=1",
+            "profitRate=0.1732",
+            "invDays=999",
+            "units7d=0",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::GUF3133::arrival_ad_recovery",
+          "reason": "Arrived inventory has no effective ad delivery; reopen, scale, or build ads.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=GUF3133",
+            "asin=B0GWCK7H94",
+            "ageDays=1",
+            "invDays=999",
+            "fulfillable=0",
+            "impressions7d=0",
+            "clicks7d=0",
+            "requiredAction=build_and_enable_basic_ads",
+            "issue=arrived_inventory_without_basic_ads"
+          ]
+        }
+      ],
+      "closureStatus": "executed",
+      "executedAction": "SP auto create",
+      "campaignId": "152502593737284",
+      "adGroupId": "298312297409044",
+      "campaignName": "proactive auto_launch_guf3133",
+      "dailyBudget": 3,
+      "defaultBid": 0.3,
+      "verification": "verified_landed"
+    },
+    {
+      "sku": "SHQ3955",
+      "asin": "B0GT33N8Y4",
+      "executableAutoCreates": 1,
+      "manualRepairItems": [
+        {
+          "id": "review::SHQ3955::new_product_keyword_seed_review",
+          "reason": "New product lacks SP keyword coverage, but keyword seeds are too broad or too thin for automatic phrase creation; rebuild with buyer-facing specific search phrases only.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=SHQ3955",
+            "asin=B0GT33N8Y4",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=9",
+            "profitRate=0.1748",
+            "invDays=270",
+            "units7d=3",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::SHQ3955::new_product_manual_targeting",
+          "reason": "New product still lacks SP manual/product targeting; target ASIN set is not available in the snapshot, so build or fetch ASIN targets manually.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=SHQ3955",
+            "asin=B0GT33N8Y4",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=9",
+            "profitRate=0.1748",
+            "invDays=270",
+            "units7d=3",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::SHQ3955::arrival_ad_recovery",
+          "reason": "Arrived inventory has no effective ad delivery; reopen, scale, or build ads.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=SHQ3955",
+            "asin=B0GT33N8Y4",
+            "ageDays=9",
+            "invDays=270",
+            "fulfillable=10",
+            "impressions7d=0",
+            "clicks7d=0",
+            "requiredAction=build_and_enable_basic_ads",
+            "issue=arrived_inventory_without_basic_ads"
+          ]
+        }
+      ],
+      "closureStatus": "executed",
+      "executedAction": "SP auto create",
+      "campaignId": "36260165740189",
+      "adGroupId": "486500504516307",
+      "campaignName": "proactive auto_launch_shq3955",
+      "dailyBudget": 3,
+      "defaultBid": 0.3,
+      "verification": "verified_landed"
+    },
+    {
+      "sku": "TUR8821",
+      "asin": "B0GVT9WTG2",
+      "executableAutoCreates": 1,
+      "manualRepairItems": [
+        {
+          "id": "review::TUR8821::new_product_keyword_seed_review",
+          "reason": "New product lacks SP keyword coverage, but keyword seeds are too broad or too thin for automatic phrase creation; rebuild with buyer-facing specific search phrases only.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=TUR8821",
+            "asin=B0GVT9WTG2",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=10",
+            "profitRate=0.2381",
+            "invDays=255",
+            "units7d=3",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::TUR8821::new_product_manual_targeting",
+          "reason": "New product still lacks SP manual/product targeting; target ASIN set is not available in the snapshot, so build or fetch ASIN targets manually.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=TUR8821",
+            "asin=B0GVT9WTG2",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=10",
+            "profitRate=0.2381",
+            "invDays=255",
+            "units7d=3",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::TUR8821::arrival_ad_recovery",
+          "reason": "Arrived inventory has no effective ad delivery; reopen, scale, or build ads.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=TUR8821",
+            "asin=B0GVT9WTG2",
+            "ageDays=10",
+            "invDays=255",
+            "fulfillable=24",
+            "impressions7d=0",
+            "clicks7d=0",
+            "requiredAction=build_and_enable_basic_ads",
+            "issue=arrived_inventory_without_basic_ads"
+          ]
+        }
+      ],
+      "closureStatus": "executed",
+      "executedAction": "SP auto create",
+      "campaignId": "66942555686969",
+      "adGroupId": "451340603880161",
+      "campaignName": "proactive auto_launch_tur8821",
+      "dailyBudget": 3,
+      "defaultBid": 0.3,
+      "verification": "verified_landed"
+    },
+    {
+      "sku": "QUN5204",
+      "asin": "B0GTTQX894",
+      "executableAutoCreates": 1,
+      "manualRepairItems": [
+        {
+          "id": "review::QUN5204::new_product_keyword_seed_review",
+          "reason": "New product lacks SP keyword coverage, but keyword seeds are too broad or too thin for automatic phrase creation; rebuild with buyer-facing specific search phrases only.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=QUN5204",
+            "asin=B0GTTQX894",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=10",
+            "profitRate=0.3316",
+            "invDays=980",
+            "units7d=3",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::QUN5204::new_product_manual_targeting",
+          "reason": "New product still lacks SP manual/product targeting; target ASIN set is not available in the snapshot, so build or fetch ASIN targets manually.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=QUN5204",
+            "asin=B0GTTQX894",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=10",
+            "profitRate=0.3316",
+            "invDays=980",
+            "units7d=3",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::QUN5204::arrival_ad_recovery",
+          "reason": "Arrived inventory has no effective ad delivery; reopen, scale, or build ads.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=QUN5204",
+            "asin=B0GTTQX894",
+            "ageDays=10",
+            "invDays=980",
+            "fulfillable=42",
+            "impressions7d=0",
+            "clicks7d=0",
+            "requiredAction=build_and_enable_basic_ads",
+            "issue=arrived_inventory_without_basic_ads"
+          ]
+        }
+      ],
+      "closureStatus": "executed",
+      "executedAction": "SP auto create",
+      "campaignId": "230242108245245",
+      "adGroupId": "514381859161660",
+      "campaignName": "proactive auto_launch_qun5204",
+      "dailyBudget": 3,
+      "defaultBid": 0.3,
+      "verification": "verified_landed"
+    },
+    {
+      "sku": "SHQ3950",
+      "asin": "B0GT3G8TG6",
+      "executableAutoCreates": 1,
+      "manualRepairItems": [
+        {
+          "id": "review::SHQ3950::new_product_keyword_seed_review",
+          "reason": "New product lacks SP keyword coverage, but keyword seeds are too broad or too thin for automatic phrase creation; rebuild with buyer-facing specific search phrases only.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=SHQ3950",
+            "asin=B0GT3G8TG6",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=10",
+            "profitRate=0.1731",
+            "invDays=95",
+            "units7d=6",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::SHQ3950::new_product_manual_targeting",
+          "reason": "New product still lacks SP manual/product targeting; target ASIN set is not available in the snapshot, so build or fetch ASIN targets manually.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=SHQ3950",
+            "asin=B0GT3G8TG6",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=10",
+            "profitRate=0.1731",
+            "invDays=95",
+            "units7d=6",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::SHQ3950::arrival_ad_recovery",
+          "reason": "Arrived inventory has no effective ad delivery; reopen, scale, or build ads.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=SHQ3950",
+            "asin=B0GT3G8TG6",
+            "ageDays=10",
+            "invDays=95",
+            "fulfillable=22",
+            "impressions7d=0",
+            "clicks7d=0",
+            "requiredAction=build_and_enable_basic_ads",
+            "issue=arrived_inventory_without_basic_ads"
+          ]
+        }
+      ],
+      "closureStatus": "executed",
+      "executedAction": "SP auto create",
+      "campaignId": "150232346850156",
+      "adGroupId": "561418114084948",
+      "campaignName": "proactive auto_launch_shq3950",
+      "dailyBudget": 3,
+      "defaultBid": 0.3,
+      "verification": "verified_landed"
+    },
+    {
+      "sku": "SHQ3949",
+      "asin": "B0GT3G8ZL7",
+      "executableAutoCreates": 1,
+      "manualRepairItems": [
+        {
+          "id": "review::SHQ3949::new_product_keyword_seed_review",
+          "reason": "New product lacks SP keyword coverage, but keyword seeds are too broad or too thin for automatic phrase creation; rebuild with buyer-facing specific search phrases only.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=SHQ3949",
+            "asin=B0GT3G8ZL7",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=14",
+            "profitRate=0.1264",
+            "invDays=43",
+            "units7d=17",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::SHQ3949::new_product_manual_targeting",
+          "reason": "New product still lacks SP manual/product targeting; target ASIN set is not available in the snapshot, so build or fetch ASIN targets manually.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=SHQ3949",
+            "asin=B0GT3G8ZL7",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=14",
+            "profitRate=0.1264",
+            "invDays=43",
+            "units7d=17",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::SHQ3949::arrival_ad_recovery",
+          "reason": "Arrived inventory has no effective ad delivery; reopen, scale, or build ads.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=SHQ3949",
+            "asin=B0GT3G8ZL7",
+            "ageDays=14",
+            "invDays=43",
+            "fulfillable=15",
+            "impressions7d=0",
+            "clicks7d=0",
+            "requiredAction=build_and_enable_basic_ads",
+            "issue=arrived_inventory_without_basic_ads"
+          ]
+        }
+      ],
+      "closureStatus": "executed",
+      "executedAction": "SP auto create",
+      "campaignId": "263411993147374",
+      "adGroupId": "484770141706292",
+      "campaignName": "proactive auto_launch_shq3949",
+      "dailyBudget": 3,
+      "defaultBid": 0.3,
+      "verification": "verified_landed"
+    },
+    {
+      "sku": "DUC4152",
+      "asin": "B0FQCFWQ8H",
+      "executableAutoCreates": 1,
+      "manualRepairItems": [
+        {
+          "id": "review::DUC4152::new_product_keyword_seed_review",
+          "reason": "New product lacks SP keyword coverage, but keyword seeds are too broad or too thin for automatic phrase creation; rebuild with buyer-facing specific search phrases only.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=DUC4152",
+            "asin=B0FQCFWQ8H",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=18",
+            "profitRate=0.2581",
+            "invDays=334",
+            "units7d=6",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::DUC4152::new_product_manual_targeting",
+          "reason": "New product still lacks SP manual/product targeting; target ASIN set is not available in the snapshot, so build or fetch ASIN targets manually.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=DUC4152",
+            "asin=B0FQCFWQ8H",
+            "issue=new_product_missing_basic_ad_structure",
+            "ageDays=18",
+            "profitRate=0.2581",
+            "invDays=334",
+            "units7d=6",
+            "impressions7d=0",
+            "clicks7d=0",
+            "spend7d=0",
+            "requiredAction=build_basic_sp_auto_keyword_manual_ads",
+            "why=New inventory cannot wait for natural orders in a listing-heavy operating model."
+          ]
+        },
+        {
+          "id": "review::DUC4152::arrival_ad_recovery",
+          "reason": "Arrived inventory has no effective ad delivery; reopen, scale, or build ads.",
+          "riskLevel": "manual_repair_required",
+          "evidence": [
+            "sku=DUC4152",
+            "asin=B0FQCFWQ8H",
+            "ageDays=18",
+            "invDays=334",
+            "fulfillable=88",
+            "impressions7d=0",
+            "clicks7d=0",
+            "requiredAction=build_and_enable_basic_ads",
+            "issue=arrived_inventory_without_basic_ads"
+          ]
+        }
+      ],
+      "closureStatus": "executed",
+      "executedAction": "SP auto create",
+      "campaignId": "75306029373239",
+      "adGroupId": "318845485208573",
+      "campaignName": "proactive auto_launch_duc4152",
+      "dailyBudget": 3,
+      "defaultBid": 0.3,
+      "verification": "verified_landed"
+    }
+  ]
+}

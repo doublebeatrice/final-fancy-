@@ -113,6 +113,8 @@ Advertising decisions on stagnant or seasonal inventory must optimize total econ
 - If clear-now economics are better, avoid spending heavily to preserve a product that should be liquidated.
 - If inventory is tight, do not scale ads just because the season signal is strong.
 - If the product is late-launched, restricted, or previously underbuilt, route to review before classifying it as a failed product.
+- Operator-defined short windows override generic margin heuristics. Known case: DN galvanized flower bucket/vase SKUs (`DN1655`, `DN1656`, `DN2683`, `DN2684`) sell mainly in May-June and carry high stale-inventory/storage-cost risk after the window. During this window, evaluate reference net profit, sell-through value, and stale-cost avoidance before cutting traffic; thin profit or a small short-term loss may still justify controlled spend.
+- For short-window stagnant-risk groups, do not floor campaign budgets just because a raw profit field or refund gate looks weak. Preserve core converting campaigns and first remove non-converting keywords, targets, product ads, or duplicate same-SKU spend.
 
 ## Suggested Data Fields
 

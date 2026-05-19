@@ -44,6 +44,22 @@ function inferBeforeAfter(action = {}) {
   return [action.beforeValue, action.afterValue];
 }
 
+function localDateFromRunAt(runAt, timeZone = 'Asia/Shanghai') {
+  if (!runAt) return '';
+  const date = new Date(runAt);
+  if (Number.isNaN(date.getTime())) return '';
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(date).reduce((acc, part) => {
+    if (part.type !== 'literal') acc[part.type] = part.value;
+    return acc;
+  }, {});
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
+
 function normalizeExpectation(action = {}, input = {}) {
   const hypothesis = input.hypothesis || action.hypothesis || action.learning?.hypothesis || '';
   const expectedEffect = input.expectedEffect || action.expectedEffect || action.learning?.expectedEffect || null;
@@ -78,8 +94,10 @@ function normalizeAdjustmentRecord(input = {}, timeContext = {}) {
     reason: String(input.reason || action.reason || input.errorReason || '').trim(),
     runAt: input.runAt || action.runAt || timeContext.runAt,
     businessDate: input.businessDate || action.businessDate || timeContext.businessDate,
+    localDate: input.localDate || action.localDate || timeContext.localDate || localDateFromRunAt(input.runAt || action.runAt || timeContext.runAt, timeContext.localTimezone || 'Asia/Shanghai'),
     dataDate: input.dataDate || action.dataDate || timeContext.dataDate,
     siteTimezone: input.siteTimezone || action.siteTimezone || timeContext.siteTimezone,
+    localTimezone: input.localTimezone || action.localTimezone || timeContext.localTimezone || 'Asia/Shanghai',
     sourceRunId: input.sourceRunId || action.sourceRunId || timeContext.sourceRunId,
     lastAdjustedAt: input.lastAdjustedAt || action.lastAdjustedAt || null,
     direction: input.direction || action.direction || '',
@@ -162,6 +180,7 @@ module.exports = {
   dailyLogFile,
   daysBetween,
   findLastAdjustment,
+  localDateFromRunAt,
   normalizeAdjustmentRecord,
   readAdjustmentLog,
   recordsFromExecutionEvents,

@@ -1,0 +1,50 @@
+{
+  "generatedAt": "2026-05-16T04:34:46.279Z",
+  "cooldownDays": 14,
+  "summary": {
+    "byKind": {
+      "kw": {
+        "scanned": 0,
+        "actionable": 0,
+        "hold": 0,
+        "skip": 0
+      },
+      "auto": {
+        "scanned": 0,
+        "actionable": 0,
+        "hold": 0,
+        "skip": 0
+      },
+      "manual": {
+        "scanned": 0,
+        "actionable": 0,
+        "hold": 0,
+        "skip": 0
+      },
+      "sbKw": {
+        "scanned": 0,
+        "actionable": 0,
+        "hold": 0,
+        "skip": 0
+      },
+      "sbTarget": {
+        "scanned": 0,
+        "actionable": 0,
+        "hold": 0,
+        "skip": 0
+      }
+    },
+    "totals": {
+      "actionable": 0,
+      "hold": 0,
+      "skip": 0
+    }
+  },
+  "results": {
+    "kw": [],
+    "auto": [],
+    "manual": [],
+    "sbKw": [],
+    "sbTarget": []
+  }
+}
