@@ -355,6 +355,7 @@ function renderLearningMarkdown(record = {}) {
 - proactive new product launch gaps: ${proactive.newProductLaunch ?? 'not_recorded'}
 - proactive arrival ad recovery gaps: ${proactive.arrivalAdRecovery ?? 'not_recorded'}
 - proactive price actions: ${proactive.priceActions ?? 'not_recorded'}
+- proactive removal economics gaps: ${proactive.removalEconomics ?? 'not_recorded'}
 - proactive expired season keyword waste rows: ${proactive.expiredSeasonKeywordWaste ?? 'not_recorded'}
 - proactive listing repair gaps: ${proactive.listingRepair ?? 'not_recorded'}
 - operating closure: ${operatingClosure.status || 'not_recorded'}, generated candidates ${operatingClosure.generatedCandidateActions ?? 0}, primary actions ${operatingClosure.primaryPlanActions ?? 0}

@@ -192,9 +192,96 @@ function normalizeAbaSearchTermReport(report = {}) {
       topAsinCount: Array.isArray(row.topAsins) ? row.topAsins.length : num(row.topAsinCount),
     };
   }
+  const byQuery = {};
+  const queryRows = report.queryRows && typeof report.queryRows === 'object' ? report.queryRows : {};
+  for (const [term, row] of Object.entries(queryRows)) {
+    const searchTerm = termKey(term || row?.searchTerm || row?.term);
+    if (!searchTerm) continue;
+    byQuery[searchTerm] = {
+      searchTerm,
+      demandTier: text(row.demandTier || 'query_returned'),
+      competitionTier: text(row.competitionTier || 'unknown'),
+      recommendedUse: text(row.recommendedUse || 'cross_check_with_returned_terms'),
+      rank: num(row.rank),
+      searchVolume: num(row.searchVolume || row.search_volume),
+      estimatedOrders: num(row.estimatedOrders || row.orders),
+      totalClickShare: num(row.totalClickShare || row.total_click_share),
+      totalConversionShare: num(row.totalConversionShare || row.total_conversion_share),
+      topAsinCount: Array.isArray(row.topAsins) ? row.topAsins.length : num(row.topAsinCount),
+      returnedRows: num(row.returnedRows),
+      total: num(row.total),
+    };
+  }
+  for (const item of report.apiResults || []) {
+    const searchTerm = termKey(item.request?.stValue || item.stValue || item.searchTerm || item.term);
+    if (!searchTerm || byQuery[searchTerm] || num(item.rowCount) <= 0) continue;
+    byQuery[searchTerm] = {
+      searchTerm,
+      demandTier: 'query_returned',
+      competitionTier: 'unknown',
+      recommendedUse: 'cross_check_with_returned_terms',
+      rank: 0,
+      searchVolume: 0,
+      estimatedOrders: 0,
+      totalClickShare: 0,
+      totalConversionShare: 0,
+      topAsinCount: 0,
+      returnedRows: num(item.rowCount),
+      total: num(item.total),
+    };
+  }
   return {
     ok: report.ok !== false,
     source: report.source || 'selection_aba_search_terms',
+    exportedAt: report.generatedAt || report.exportedAt || '',
+    rowCount: Object.keys(byTerm).length,
+    rows: byTerm,
+    queryRows: byQuery,
+    coverage: report.coverage || {},
+    operatorSummary: report.operatorSummary || {},
+  };
+}
+
+function normalizeKeywordSeasonalityReport(report = {}) {
+  const rows = Array.isArray(report.rows) ? report.rows : [];
+  const byTerm = {};
+  for (const row of rows) {
+    const searchTerm = termKey(row.searchTerm || row.search_term || row.keyword || row.term);
+    if (!searchTerm) continue;
+    byTerm[searchTerm] = {
+      searchTerm,
+      seasonalityType: text(row.seasonalityType),
+      peakQuarter: text(row.peakQuarter),
+      maxOrdersMonth: text(row.maxOrdersMonth || row.max_orders_month),
+      quarterRatio: num(row.quarterRatio),
+      totalOrders: num(row.totalOrders || row.orders),
+      rank: num(row.rank),
+      searchVolume: num(row.searchVolume || row.search_volume),
+      asinCount: num(row.asinCount || row.asin_counts),
+      googleTrend: row.googleTrend && typeof row.googleTrend === 'object' ? {
+        latestValue: num(row.googleTrend.latestValue),
+        maxValue: num(row.googleTrend.maxValue),
+        minValue: num(row.googleTrend.minValue),
+        averageValue: num(row.googleTrend.averageValue),
+        direction: text(row.googleTrend.direction),
+      } : {},
+      competitorSummary: row.competitorSummary && typeof row.competitorSummary === 'object' ? {
+        asinCount: num(row.competitorSummary.asinCount),
+        priceAvg: num(row.competitorSummary.priceAvg),
+        ratingAvg: num(row.competitorSummary.ratingAvg),
+        reviewAvg: num(row.competitorSummary.reviewAvg),
+        brandCount: num(row.competitorSummary.brandCount),
+      } : {},
+      buyerSearchTermCount: Array.isArray(row.buyerSearchTerms) ? row.buyerSearchTerms.length : 0,
+      demandTier: text(row.demandTier),
+      competitionTier: text(row.competitionTier),
+      recommendedUse: text(row.recommendedUse),
+      topMonths: Array.isArray(row.topMonths) ? row.topMonths.slice(0, 3) : [],
+    };
+  }
+  return {
+    ok: report.ok !== false,
+    source: report.source || 'selection_keyword_seasonality',
     exportedAt: report.generatedAt || report.exportedAt || '',
     rowCount: Object.keys(byTerm).length,
     rows: byTerm,
@@ -210,6 +297,9 @@ function normalizeSelectionMarketReport(report = {}) {
     ),
     abaSearchTerms: normalizeAbaSearchTermReport(
       report.abaSearchTerms || report.abaSearchTermReport || report.aba || {}
+    ),
+    keywordSeasonality: normalizeKeywordSeasonalityReport(
+      report.keywordSeasonality || report.keywordSeasonalityReport || report.seasonality || {}
     ),
   };
 }
@@ -273,10 +363,12 @@ function marketEvidenceForTask(task = {}, selection = {}) {
   if (!terms.length) return null;
   const keywordConversion = selection.keywordConversion || {};
   const abaSearchTerms = selection.abaSearchTerms || {};
+  const keywordSeasonality = selection.keywordSeasonality || {};
   const rows = terms.map(term => ({
     term,
     keywordConversion: keywordConversion.rows?.[term] || null,
     abaSearchTerm: abaSearchTerms.rows?.[term] || null,
+    keywordSeasonality: keywordSeasonality.rows?.[term] || null,
   }));
   return {
     terms: rows,
@@ -284,8 +376,9 @@ function marketEvidenceForTask(task = {}, selection = {}) {
       requested: terms.length,
       keywordConversionMatched: rows.filter(row => row.keywordConversion).length,
       abaMatched: rows.filter(row => row.abaSearchTerm).length,
+      seasonalityMatched: rows.filter(row => row.keywordSeasonality).length,
     },
-    readyForDecisionSupport: rows.some(row => row.keywordConversion || row.abaSearchTerm),
+    readyForDecisionSupport: rows.some(row => row.keywordConversion || row.abaSearchTerm || row.keywordSeasonality),
     readyForAutoAction: false,
   };
 }
@@ -297,10 +390,15 @@ function marketRiskSignals(market = null) {
   for (const row of market.terms || []) {
     const conversion = row.keywordConversion || {};
     const aba = row.abaSearchTerm || {};
+    const seasonality = row.keywordSeasonality || {};
     if (['weak', 'no_conversion_proof'].includes(conversion.marketQuality)) signals.push('market_conversion_weak');
     if (conversion.costRisk === 'high') signals.push('market_cost_high');
     if (aba.demandTier === 'low') signals.push('market_demand_low');
     if (aba.competitionTier === 'high') signals.push('market_competition_high');
+    if (seasonality.seasonalityType === 'strong_seasonal') signals.push('market_strong_seasonality');
+    if (seasonality.demandTier === 'low') signals.push('market_demand_low');
+    if (seasonality.competitionTier === 'high') signals.push('market_competition_high');
+    if (seasonality.googleTrend?.direction === 'declining') signals.push('market_trend_declining');
   }
   return signals;
 }
@@ -364,6 +462,7 @@ function buildReviewEvidence({ queue = {}, adReports = {}, inventoryReports = {}
         ...(profit ? [sourceEntry(profitReport, 'profit')] : []),
         ...(market?.coverage?.keywordConversionMatched ? [sourceEntry(normalizedSelectionReports.keywordConversion, 'selection_keyword_conversion_rate')] : []),
         ...(market?.coverage?.abaMatched ? [sourceEntry(normalizedSelectionReports.abaSearchTerms, 'selection_aba_search_terms')] : []),
+        ...(market?.coverage?.seasonalityMatched ? [sourceEntry(normalizedSelectionReports.keywordSeasonality, 'selection_keyword_seasonality')] : []),
       ],
     };
   }
@@ -417,6 +516,7 @@ function collectAdSkuReviewEvidence(options = {}) {
     selectionReports: options.selectionReports || {
       keywordConversion: readJson(options.keywordConversionReportFile, {}),
       abaSearchTerms: readJson(options.abaSearchTermReportFile, {}),
+      keywordSeasonality: readJson(options.keywordSeasonalityReportFile, {}),
     },
   });
   const evidenceFile = options.outFile || path.join(ROOT, 'data', 'agent', `review_evidence_${today}.json`);

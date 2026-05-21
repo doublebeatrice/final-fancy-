@@ -56,10 +56,39 @@ function displaySeasonTerm(item = {}, adAction = {}) {
   return eventName || coreTerm;
 }
 
+function cleanKeywordList(keywords = []) {
+  const seen = new Set();
+  const out = [];
+  for (const raw of keywords || []) {
+    const term = String(raw || '').replace(/\s+/g, ' ').trim();
+    const key = term.toLowerCase();
+    if (!term || seen.has(key)) continue;
+    if (/\bunknown\b/i.test(term)) continue;
+    if (/\bfor\s*$/i.test(term)) continue;
+    seen.add(key);
+    out.push(term);
+  }
+  return out;
+}
+
+function seasonAdName(mode, coreTerm, sku, matchType = '') {
+  const term = String(coreTerm || '')
+    .normalize('NFKD')
+    .replace(/[^\x00-\x7F]/g, ' ')
+    .toLowerCase()
+    .replace(/[\\'"`]+/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim() || 'target';
+  const skuPart = String(sku || '').toLowerCase().replace(/[^a-z0-9]+/g, '') || 'sku';
+  const prefix = mode === 'auto' ? 'auto' : `kw ${String(matchType || 'phrase').toLowerCase()}`;
+  return `ai_${prefix}_${term}_${skuPart}`.slice(0, 90);
+}
+
 function createActionFromSeasonAd(item = {}, adAction = {}, product = {}) {
   const mode = actionModeFor(adAction);
   const coreTerm = item.selectedEvent?.coreTerm || adAction.coreTerm || '';
-  const campaignName = adAction.campaignName || `${adAction.mode || mode} - ${coreTerm} - ${item.sku}`;
+  const campaignName = adAction.campaignName || seasonAdName(mode, coreTerm, item.sku, adAction.matchType);
   const seasonTerm = displaySeasonTerm(item, adAction);
   const reason = `Season title dry-run create candidate: ${seasonTerm} for ${item.sku}.`;
   return {
@@ -106,7 +135,7 @@ function createActionFromSeasonAd(item = {}, adAction = {}, product = {}) {
       defaultBid: adAction.defaultBid,
       coreTerm,
       matchType: mode === 'keywordTarget' ? (adAction.matchType || 'BROAD') : '',
-      keywords: mode === 'keywordTarget' ? (adAction.keywords || []) : [],
+      keywords: mode === 'keywordTarget' ? cleanKeywordList(adAction.keywords || []) : [],
       campaignName,
       groupName: adAction.groupName || campaignName,
     },

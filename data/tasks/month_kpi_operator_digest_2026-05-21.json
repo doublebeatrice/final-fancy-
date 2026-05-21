@@ -1,0 +1,156 @@
+{
+  "generatedAt": "2026-05-21T01:23:48.409Z",
+  "summary": {
+    "date": "2026-05-21",
+    "businessDate": "2026-05-20",
+    "dataDate": "2026-05-19",
+    "dailyClosureStatus": "needs_recovery",
+    "kpiGateStatus": "fail",
+    "depositStatus": "complete",
+    "depositMissingCount": 0,
+    "depositSuspiciousCount": 0,
+    "landedActionSuccess": 483,
+    "writeApprovalNeeded": 0,
+    "writeBlocked": 0,
+    "dueReviews": 47,
+    "effectReviewTotal": 47,
+    "feedbackApplied": 47,
+    "recommendApprove": 1,
+    "approvalNeeded": 0,
+    "hold": 0,
+    "blocked": 0
+  },
+  "kpi": {
+    "status": "off_track",
+    "current": {
+      "sales": 516741.99,
+      "units": 3582,
+      "netProfitRate": 0.1933,
+      "estimatedNetProfit": 99886.226667,
+      "refundRate": 0.057,
+      "acos": 0.1978,
+      "roas": 5.056,
+      "adCostShare": 0.1016,
+      "spShare": 0.3127,
+      "adSpend": 52484.8234,
+      "cpc": 2.1822,
+      "cps": 16.1745
+    },
+    "lastGate": {
+      "status": "fail",
+      "targetBusinessDate": "2026-05-20",
+      "salesGap": 24338.89,
+      "unitsGap": 172,
+      "netProfitRateGap": 0.0014,
+      "acosGap": 0.0001,
+      "refundRateGap": 0.0042,
+      "adCostShareGap": 0
+    },
+    "nextTarget": {
+      "businessDate": "2026-05-21",
+      "salesTarget": 536451.66,
+      "unitsTarget": 3702,
+      "netProfitRateMin": 0.1941,
+      "acosMax": 0.1957,
+      "refundRateMax": 0.0545,
+      "adCostShareMax": 0.108,
+      "estimatedNetProfitTarget": null
+    },
+    "finalTarget": {
+      "target": {
+        "sales": 680000,
+        "units": 4600,
+        "netProfitRate": 0.205,
+        "estimatedNetProfit": 139000,
+        "adCostShare": 0.105,
+        "acos": 0.18,
+        "refundRate": 0.038,
+        "unitYoy": -0.15
+      },
+      "salesGap": 163258.01,
+      "unitsGap": 1018,
+      "netProfitRateGap": 0.0117,
+      "estimatedNetProfitGap": 39113.77,
+      "adCostShareGap": 0,
+      "acosGap": 0.0178,
+      "refundRateGap": 0.019,
+      "unitYoyGap": 0.0241
+    }
+  },
+  "actions": {
+    "recommendApprove": [
+      {
+        "key": "KZ5816::campaign::budget::128136203487216::0",
+        "sku": "KZ5816",
+        "asin": "B0BNHHNB2Q",
+        "entityType": "campaign",
+        "actionType": "budget",
+        "id": "128136203487216",
+        "campaignName": "asin_vip party_kz5816",
+        "current": 5.44,
+        "suggested": 6.8,
+        "decision": "recommend_approve",
+        "reasonCode": "controlled_profitable_budget_lift",
+        "operatorAction": "approve one controlled lift, then review 1d spend/orders and 3d ACOS",
+        "confidence": 0.78,
+        "sourceRiskLevel": "over_budget_controlled_budget_up",
+        "sourceReason": "Over-budget campaign converting inside profit room. Controlled lift 5.44 -> 6.8 (25%). Orders 21, ACOS 22.6%, profit 26.0%, invDays 30.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+        },
+        "metrics": {
+          "current": 5.44,
+          "suggested": 6.8,
+          "orders": 21,
+          "clicks": 92,
+          "spend": 40.97,
+          "sales": 181.39,
+          "acos": 0.226,
+          "profitRate": 0.26,
+          "invDays": 30,
+          "units7": 60,
+          "units30": 295,
+          "spend7": null,
+          "impressions7": null,
+          "clicks7": 92,
+          "orders7": 21
+        },
+        "evidence": [
+          "over_budget_rows=1",
+          "campaign spend=40.97 sales=181.39 orders=21 clicks=92",
+          "acos=22.6% profitRate=26.0%",
+          "invDays=30 absoluteInventory=590 units7=60 units30=295",
+          "adGroupCount=1 adCount=1 positionTypes=productTarget",
+          "cappedHours=unknown capSince=unknown"
+        ]
+      }
+    ],
+    "trueApprovalNeeded": [],
+    "hold": [],
+    "blocked": []
+  },
+  "files": {
+    "dashboardFile": "D:\\ad-ops-workbench\\data\\reports\\daily_dashboard_2026-05-21.html",
+    "kpiRecoveryNextActionsFile": "D:\\ad-ops-workbench\\data\\tasks\\kpi_recovery_next_actions_2026-05-21.md",
+    "closedLoopFile": "D:\\ad-ops-workbench\\data\\agent\\agent_closed_loop_2026-05-21.json",
+    "approvalReviewFile": "D:\\ad-ops-workbench\\data\\tasks\\kpi_approval_review_2026-05-21.json"
+  },
+  "markdown": "# 月 KPI 运营摘要 - 2026-05-21\n\n业务日期：2026-05-20；数据日期：2026-05-19\n\n- 结论：KPI 仍未追回；KPI gate=fail；沉淀=complete，缺失 0，可疑 0。\n- 当前总账户：销售 516,741.99；件数 3,582；净利率 19.33%；ACOS 19.78%；退款率 5.70%；广告费率 10.16%。\n- 上一验收线 2026-05-20：销售差 24,338.89；件数差 172；净利率差 0.14pp；ACOS 差 0.01pp；退款率差 0.42pp；广告费率差 0.00pp。\n- 下一业务日验收线 2026-05-21：销售至少 536,451.66；件数至少 3,702；净利率至少 19.41%；ACOS 不高于 19.57%；退款率不高于 5.45%；广告费率不高于 10.80%。\n- 月终缺口：销售 163,258.01；件数 1,018；净利润约 39,113.77；ACOS 差 1.78pp；退款率差 1.90pp。\n- 已落地动作 483；写入需确认 0；写入阻塞 0；复查覆盖：dueReviews 47；effectReviewTotal 47；feedbackApplied 47。\n\n## 推荐批准\n\n| SKU | 对象 | 调整 | 证据 | 处理 |\n| --- | --- | ---: | --- | --- |\n| KZ5816 | campaign/budget: asin_vip party_kz5816 | 5.44 -> 6.80 | orders 21; ACOS 22.60%; profit 26.00%; invDays 30; units7 60 | approve one controlled lift, then review 1d spend/orders and 3d ACOS |\n\n## 真正需要确认\n\n- 暂无真正需要确认项。\n\n## 暂缓\n\n- 暂无暂缓项。\n\n## 阻塞\n\n- 暂无阻塞项。\n\n## 下一次复查\n\n- 下一业务日先看是否达到 2026-05-21 验收线；未达标继续只推有转化、利润和库存空间的动作。\n- 推荐批准项执行后，先看 1 日 spend/orders，再看 3 日 ACOS，不重复扩大同一 SKU/entity。\n- hold 和 blocked 项不进入 live 写入，除非库存、listing、路线证据发生变化。\n\n## 文件\n\n- dashboard: D:\\ad-ops-workbench\\data\\reports\\daily_dashboard_2026-05-21.html\n- next actions: D:\\ad-ops-workbench\\data\\tasks\\kpi_recovery_next_actions_2026-05-21.md\n"
+}

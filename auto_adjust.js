@@ -1719,9 +1719,53 @@ function slugAdNamePart(value, fallback = 'ad') {
   return slug || fallback;
 }
 
-function buildAiCampaignName(mode, coreTerm, sku) {
-  const prefix = mode === 'auto' ? 'auto' : mode === 'productTarget' ? 'asin' : 'kw';
-  const term = slugAdNamePart(coreTerm, 'target');
+function adNameTermPart(value, fallback = 'target') {
+  const term = String(value || '')
+    .normalize('NFKD')
+    .replace(/[^\x00-\x7F]/g, ' ')
+    .toLowerCase()
+    .replace(/[\\'"`]+/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return term || fallback;
+}
+
+function canonicalRequestedAiName(value) {
+  const text = String(value || '').toLowerCase().replace(/\s+/g, ' ').trim();
+  let match = text.match(/^ai_kw[_ ](exact|phrase|broad)_(.+)_([a-z0-9]+)$/);
+  if (match) return `ai_kw ${match[1]}_${match[2].replace(/_/g, ' ')}_${match[3]}`;
+  match = text.match(/^ai_auto_(.+)_([a-z0-9]+)$/);
+  if (match) return `ai_auto_${match[1].replace(/_/g, ' ')}_${match[2]}`;
+  match = text.match(/^ai_asin_(same|expanded)_(.+)_([a-z0-9]+)$/);
+  if (match) {
+    const prefix = match[1] === 'expanded' ? 'ai_asin expanded' : 'ai_asin';
+    return `${prefix}_${match[2].replace(/_/g, ' ')}_${match[3]}`;
+  }
+  match = text.match(/^ai_asin_(.+)_([a-z0-9]+)$/);
+  if (match) return `ai_asin_${match[1].replace(/_/g, ' ')}_${match[2]}`;
+  return text;
+}
+
+function normalizeRequestedAdName(value) {
+  const cleaned = String(value || '')
+    .normalize('NFKD')
+    .replace(/[^\x00-\x7F]/g, ' ')
+    .replace(/[\\'"`]+/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return canonicalRequestedAiName(cleaned).slice(0, 90).trim();
+}
+
+function buildAiCampaignName(mode, coreTerm, sku, matchType = '', targetType = '') {
+  const match = String(matchType || '').trim().toLowerCase();
+  const target = String(targetType || '').trim().toLowerCase();
+  const prefix = mode === 'auto'
+    ? 'auto'
+    : mode === 'productTarget'
+      ? (/expand/i.test(target) ? 'asin expanded' : 'asin')
+      : `kw ${match || 'phrase'}`;
+  const term = adNameTermPart(coreTerm, 'target');
   const skuPart = slugAdNamePart(sku, 'sku');
   return `ai_${prefix}_${term}_${skuPart}`.slice(0, 90).replace(/_+$/g, '');
 }
@@ -1746,10 +1790,10 @@ function buildSpCreatePayload(input = {}) {
   if (!Number.isFinite(dailyBudget) || dailyBudget <= 0) errors.push('dailyBudget must be positive');
   if (!Number.isFinite(defaultBid) || defaultBid <= 0) errors.push('defaultBid must be positive');
 
-  const requestedName = slugAdNamePart(input.campaignName || input.groupName || '');
+  const requestedName = normalizeRequestedAdName(input.campaignName || input.groupName || '');
   const campaignName = requestedName && requestedName !== 'ad'
-    ? requestedName.slice(0, 90).replace(/_+$/g, '')
-    : buildAiCampaignName(mode, coreTerm, sku);
+    ? requestedName.slice(0, 90).trim()
+    : buildAiCampaignName(mode, coreTerm, sku, input.matchType, input.targetType);
   const requestUrl = '/campaign/createOneTime';
   if (errors.length) return { ok: false, errors, mode, requestUrl, campaignName, groupName: campaignName };
 
@@ -1818,6 +1862,99 @@ function buildSpCreatePayload(input = {}) {
     payload.negativeKeywordArray = [];
   }
   return { ok: true, mode, requestUrl, requestBody: payload, campaignName, groupName: campaignName, errors: [] };
+}
+
+function normalizeAppendPositionType(value) {
+  const mode = normalizeCreateMode(value);
+  if (mode === 'keywordTarget' || mode === 'productTarget') return mode;
+  const text = String(value || '').trim();
+  if (/keyword/i.test(text)) return 'keywordTarget';
+  if (/product|asin|target/i.test(text)) return 'productTarget';
+  return text;
+}
+
+function normalizeKeywordAppendLane(value) {
+  const text = String(value || '').trim().toUpperCase();
+  if (['BROAD', 'PHRASE', 'EXACT'].includes(text)) return text;
+  if (text === '1') return 'EXACT';
+  if (text === '2') return 'PHRASE';
+  if (text === '3') return 'BROAD';
+  const lane = text.match(/KEYWORD[:_\s-]+(BROAD|PHRASE|EXACT)/);
+  if (lane) return lane[1];
+  return '';
+}
+
+function buildSpAppendTargetPayload(input = {}) {
+  const positionType = normalizeAppendPositionType(input.positionType || input.mode);
+  const siteId = Number(input.siteId || 4);
+  const accountId = Number(input.accountId);
+  const campaignId = String(input.campaignId || '').trim();
+  const adGroupId = String(input.adGroupId || '').trim();
+  const targets = Array.isArray(input.targets) ? input.targets : [];
+  const errors = [];
+
+  if (!['keywordTarget', 'productTarget'].includes(positionType)) errors.push('positionType must be keywordTarget or productTarget');
+  if (!Number.isFinite(siteId) || siteId <= 0) errors.push('siteId must be positive');
+  if (!Number.isFinite(accountId) || accountId <= 0) errors.push('accountId must be positive');
+  if (!campaignId) errors.push('campaignId is required');
+  if (!adGroupId) errors.push('adGroupId is required');
+  if (!targets.length) errors.push('targets is required');
+
+  if (positionType === 'keywordTarget') {
+    const requestUrl = '/keyword/createKeywordNew';
+    const appendLane = normalizeKeywordAppendLane(
+      input.adGroupMatchType || input.existingMatchType || input.appendMatchType || input.appendLane || input.existingLane
+    );
+    const keywords = [];
+    const laneMismatches = [];
+    const seen = new Set();
+    if (!appendLane) errors.push('keyword append requires adGroupMatchType/appendLane so targets stay in the same lane');
+    for (const target of targets) {
+      const keywordText = String(target.value || target.keywordText || target.keyword || '').replace(/\s+/g, ' ').trim();
+      const matchType = String(target.matchType || '').trim().toUpperCase();
+      const bid = Number(target.bid);
+      const key = `${keywordText.toLowerCase()}::${matchType}`;
+      if (appendLane && matchType && matchType !== appendLane) {
+        laneMismatches.push(`${keywordText || '(blank)'}:${matchType}->${appendLane}`);
+        continue;
+      }
+      if (!keywordText || !matchType || !Number.isFinite(bid) || bid <= 0 || seen.has(key)) continue;
+      seen.add(key);
+      const row = { campaignId, adGroupId, bid, matchType, state: 'ENABLED', keywordText };
+      if (target.coreMark !== undefined && target.coreMark !== null && target.coreMark !== '') row.coreMark = target.coreMark;
+      keywords.push(row);
+    }
+    if (laneMismatches.length) errors.push(`keyword append lane mismatch: ${laneMismatches.join(', ')}`);
+    if (!keywords.length) errors.push('valid keyword targets are required');
+    if (errors.length) return { ok: false, errors, positionType, requestUrl, requestBody: null };
+    return { ok: true, positionType, requestUrl, requestBody: { siteId, accountId, keywords, keywordGroups: [] }, errors: [] };
+  }
+
+  const requestUrl = '/advTarget/storeManualTarget';
+  const targetingClauses = [];
+  const seen = new Set();
+  for (const target of targets) {
+    const value = String(target.value || target.asin || '').trim().toUpperCase();
+    const type = String(target.matchType || target.targetType || '').trim().toUpperCase();
+    const bid = Number(target.bid);
+    const key = `${value}::${type}`;
+    if (!value || !type || !Number.isFinite(bid) || bid <= 0 || seen.has(key)) continue;
+    seen.add(key);
+    const row = {
+      campaignId,
+      adGroupId,
+      expressionType: 'MANUAL',
+      state: 'ENABLED',
+      bid,
+      expression: [{ type, value }],
+      resolvedExpression: [{ type, value }],
+    };
+    if (target.targetMark !== undefined && target.targetMark !== null && target.targetMark !== '') row.targetMark = target.targetMark;
+    targetingClauses.push(row);
+  }
+  if (!targetingClauses.length) errors.push('valid product targets are required');
+  if (errors.length) return { ok: false, errors, positionType, requestUrl, requestBody: null };
+  return { ok: true, positionType, requestUrl, requestBody: { siteId, accountId, targetingClauses }, errors: [] };
 }
 
 function normalizeActionEntityType(value) {
@@ -1919,6 +2056,8 @@ function buildStateToggleRequest(row = {}, action = '', hintedType = '') {
 module.exports = {
   run,
   groupByAccountSite,
+  buildSpCreatePayload,
+  buildSpAppendTargetPayload,
   buildStateToggleRequest,
   hasRecentCandidateBlock,
   missingStateRowIsSuccess,

@@ -56,6 +56,7 @@ function main() {
     newProductLaunch: audit.newProductLaunch.summary.total,
     arrivalAdRecovery: audit.arrivalAdRecovery.summary.total,
     priceActions: audit.priceActions.summary.total,
+    removalEconomics: audit.removalEconomics.summary.total,
     expiredSeasonKeywordWaste: audit.expiredSeasonKeywordWaste.summary.totalEnabledRows,
     listingRepair: audit.listingRepair.summary.total,
   }, null, 2));

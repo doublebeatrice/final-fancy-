@@ -1,0 +1,208 @@
+{
+  "outputDate": "2026-05-21",
+  "businessDate": "2026-05-20",
+  "dataDate": "2026-05-19",
+  "generatedAt": "2026-05-21T07:19:28.238Z",
+  "executed": {
+    "kpiControlledBudgetLift": {
+      "runId": "ops_2026-05-21T07-10-50-649Z",
+      "total": 1,
+      "success": 1,
+      "failed": 0,
+      "byType": {
+        "campaign": 1
+      },
+      "sample": [
+        {
+          "sku": "KZ5816",
+          "entityType": "campaign",
+          "entityName": "asin_vip party_kz5816",
+          "before": 5.44,
+          "after": 6.8,
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-21T07-10-50-649Z"
+        }
+      ]
+    },
+    "lowEfficiencyStopLossRun": {
+      "runId": "low_efficiency_2026-05-21_1779347570121",
+      "total": 30,
+      "success": 30,
+      "failed": 0,
+      "byType": {
+        "keyword": 6,
+        "autoTarget": 13,
+        "manualTarget": 6,
+        "sbKeyword": 5
+      },
+      "sample": [
+        {
+          "sku": "lowEff::kw::333476993378422",
+          "entityType": "keyword",
+          "entityName": "wedding fan",
+          "before": 0.58,
+          "after": 0.5,
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-21_1779347570121"
+        },
+        {
+          "sku": "lowEff::kw::234964452089401",
+          "entityType": "keyword",
+          "entityName": "fans for wedding guests",
+          "before": 0.5,
+          "after": 0.45,
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-21_1779347570121"
+        },
+        {
+          "sku": "lowEff::kw::271754113478150",
+          "entityType": "keyword",
+          "entityName": "bridesmaid proposal gifts",
+          "before": 0.42,
+          "after": 0.27,
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-21_1779347570121"
+        },
+        {
+          "sku": "lowEff::kw::250628421318685",
+          "entityType": "keyword",
+          "entityName": "pride decorations",
+          "before": 0.72,
+          "after": 0.65,
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-21_1779347570121"
+        },
+        {
+          "sku": "lowEff::kw::79301308222374",
+          "entityType": "keyword",
+          "entityName": "baby games for baby shower",
+          "before": 0.23,
+          "after": 0.08,
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-21_1779347570121"
+        },
+        {
+          "sku": "lowEff::kw::372140112407816",
+          "entityType": "keyword",
+          "entityName": "women retirement gifts",
+          "before": 0.3,
+          "after": 0.27,
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-21_1779347570121"
+        },
+        {
+          "sku": "lowEff::auto::522738262646218",
+          "entityType": "autoTarget",
+          "entityName": "queryHighRelMatches",
+          "before": 0.25,
+          "after": 0.22,
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-21_1779347570121"
+        },
+        {
+          "sku": "lowEff::auto::293553568406859",
+          "entityType": "autoTarget",
+          "entityName": "queryHighRelMatches",
+          "before": 0.25,
+          "after": 0.22,
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-21_1779347570121"
+        }
+      ]
+    },
+    "concurrentAe1101Run": {
+      "runId": "ops_2026-05-21T07-14-46-991Z",
+      "total": 1,
+      "success": 1,
+      "failed": 0,
+      "byType": {
+        "manualTarget": 1
+      },
+      "sample": [
+        {
+          "sku": "AE1101",
+          "entityType": "manualTarget",
+          "entityName": "asin_coachgifts_ae1101",
+          "before": 0.44,
+          "after": 0.48,
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-21T07-14-46-991Z"
+        }
+      ]
+    }
+  },
+  "totals": {
+    "liveRows": 518,
+    "liveSuccess": 515,
+    "liveFailed": 3,
+    "dryRunRows": 2
+  },
+  "postChecks": {
+    "lowEfficiencyRerun": "actionable=2; same-day live guard skipped 2; nothing to execute",
+    "conflictStatus": "clear",
+    "sameEntityReverseCount": 0,
+    "sameNameReverseDifferentEntityCount": 0,
+    "closureVerifyOk": true,
+    "closureVerifySummary": {
+      "outputDate": "2026-05-21",
+      "businessDate": "2026-05-20",
+      "dataDate": "2026-05-19",
+      "dataLagDays": 1,
+      "dailyClosureStatus": "needs_recovery",
+      "dailyComplete": false,
+      "dailyClosureReasons": [
+        "kpi_off_track",
+        "recovery_gate_failed",
+        "operating_needs_recovery"
+      ],
+      "closedLoop": true,
+      "kpiStatus": "off_track",
+      "operatingClosureStatus": "needs_recovery",
+      "landedActionSuccess": 515,
+      "landedActionFailed": 3,
+      "landedActionManualReview": 0,
+      "writeApprovalNeeded": 0,
+      "writeBlocked": 0,
+      "feedbackApplied": 47,
+      "effectReviewFeedbackApplied": 47,
+      "depositStatus": "complete",
+      "depositMissingCount": 0,
+      "depositMissingItems": [],
+      "depositSuspiciousItems": [],
+      "rawRecoveryRequired": false,
+      "rawRecoveryQueueStatus": "clear",
+      "rawRecoveryOpen": 0,
+      "nextBusinessDayTarget": "2026-05-20",
+      "nextRecoveryTarget": "2026-05-21",
+      "kpiGateStatus": "fail",
+      "kpiCheckpointNextRecoveryTarget": "2026-05-21",
+      "recoveryDryRunHighEfficiencyBidUps": 0,
+      "recoveryDryRunSkuCount": 0,
+      "recoveryDryRunDecisionTotal": 0,
+      "recoveryDryRunDecisionApprovalNeeded": 0,
+      "recoveryDryRunDecisionBlocked": 0,
+      "kpiRecoveryNextActionsReady": true,
+      "kpiApprovalReviewReady": true,
+      "kpiApprovalReviewTotal": 1,
+      "kpiApprovalRecommendApprove": 1,
+      "kpiApprovalReviewApprovalNeeded": 0,
+      "kpiApprovalReviewHold": 0,
+      "kpiApprovalReviewBlocked": 0,
+      "monthKpiDigestReady": true,
+      "dueReviews": 47,
+      "reviewQueueDue": 47,
+      "effectReviewTotal": 47,
+      "landedActionConflictStatus": "clear",
+      "landedActionSameEntityReverseCount": 0,
+      "landedActionSameNameMixedCount": 0,
+      "landedActionLatestRunMixedSkuCount": 0
+    }
+  },
+  "files": {
+    "adjustmentLog": "data/adjustments/adjustments_2026-05-21.json",
+    "conflictAudit": "data/tasks/landed_action_conflict_audit_2026-05-21.json",
+    "checkpoint": "data/tasks/kpi_recovery_operator_checkpoint_2026-05-21.md",
+    "handoff": "data/agent/agent_handoff_2026-05-21.md",
+    "dashboard": "data/reports/daily_dashboard_2026-05-21.html"
+  }
+}

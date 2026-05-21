@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { analyzeAllowedOperationScope } = require('../../src/operation_scope');
+const { localInventoryQuantity } = require('../../src/local_inventory');
 
 const ROOT = path.join(__dirname, '..', '..');
 const DEFAULT_SNAPSHOT = path.join(ROOT, 'data', 'snapshots', 'realtime_pre_action_snapshot_2026-04-28.json');
@@ -12,6 +13,7 @@ function parseArgs(argv) {
     skus: [],
     out: '',
     limit: 0,
+    asOf: '',
   };
   for (let i = 0; i < args.length; i += 1) {
     const arg = args[i];
@@ -20,6 +22,7 @@ function parseArgs(argv) {
       options.skus.push(...String(args[++i] || '').split(/[,\s]+/).filter(Boolean));
     } else if (arg === '--out') options.out = args[++i];
     else if (arg === '--limit') options.limit = Number(args[++i] || options.limit);
+    else if (arg === '--as-of') options.asOf = String(args[++i] || '').trim();
   }
   options.snapshot = path.resolve(ROOT, options.snapshot);
   options.skus = [...new Set(options.skus.map(sku => String(sku).trim().toUpperCase()).filter(Boolean))];
@@ -206,7 +209,120 @@ function diagnose(card, formSummary, entities) {
   return diagnosis;
 }
 
-function summarizeCard(card) {
+function textJoin(parts) {
+  return parts
+    .flatMap(part => Array.isArray(part) ? part : [part])
+    .filter(part => part != null && part !== '')
+    .map(part => String(part))
+    .join(' ');
+}
+
+function readPurchaseNumber(labels, key) {
+  const value = labels?.[key];
+  const numeric = Number(value);
+  return Number.isFinite(numeric) && numeric > 0 ? numeric : null;
+}
+
+function seasonalStageForContext(text, asOfDate) {
+  const lower = String(text || '').toLowerCase();
+  const isMexicanNode = /(cinco|mexican|mexico|fiesta|pinata|piñata)/.test(lower);
+  if (!isMexicanNode) return { node: '', stage: '', risk: '' };
+
+  const date = asOfDate instanceof Date && !Number.isNaN(asOfDate.getTime()) ? asOfDate : new Date();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  let stage = 'off_window';
+  if (month === 4) stage = 'preheat_or_active';
+  else if (month === 5 && day <= 5) stage = 'peak';
+  else if (month === 5 && day <= 31) stage = 'post_peak_tail';
+  return {
+    node: 'mexican_cinco_fiesta',
+    stage,
+    risk: ['post_peak_tail', 'off_window'].includes(stage) ? 'stale_inventory_risk' : '',
+  };
+}
+
+function buildProductContext(card, entities, asOfDate) {
+  const labels = card.productLabels || {};
+  const profile = card.productProfile || {};
+  const text = textJoin([
+    card.sku,
+    labels.product_label,
+    labels.holiday_info,
+    labels.product_type,
+    profile.productType,
+    profile.productTypes,
+    profile.positioning,
+    profile.occasion,
+    profile.seasonality,
+    profile.visualTheme,
+    entities.map(row => [row.text, row.campaignName]),
+  ]);
+  const seasonal = seasonalStageForContext(text, asOfDate);
+  return {
+    productLabel: labels.product_label || '',
+    productType: labels.product_type || '',
+    holidayInfo: labels.holiday_info || '',
+    positioning: profile.positioning || '',
+    occasion: profile.occasion || [],
+    seasonality: profile.seasonality || [],
+    visualTheme: profile.visualTheme || [],
+    seasonalNode: seasonal.node,
+    seasonalStage: seasonal.stage,
+    seasonalRisk: seasonal.risk,
+    purchaseMoq: readPurchaseNumber(labels, 'purchase_change_amount_moq'),
+    purchaseMultiple: readPurchaseNumber(labels, 'purchase_change_amount_multiple'),
+    purchaseStepPrice: readPurchaseNumber(labels, 'purchase_change_amount_step_price'),
+  };
+}
+
+function buildReplenishmentReview(card, inventory, productContext) {
+  const local = inventory.local || {};
+  const fba = num(inventory.fulfillable) + num(inventory.reserved);
+  const inbound = num(inventory.inb);
+  const localAvailable = num(local.availableForPlan);
+  const localGood = num(local.goodStock);
+  const pending = num(local.pendingAndTestStock) + num(local.testWarehouseStock);
+  const fbaPlan = num(local.fbaPlanAir) + num(local.fbaPlanSea);
+  const existingPlan = num(local.fbaPlanTotalAir) + num(local.fbaPlanTotalSea);
+  const units7 = num(inventory.units7);
+  const units30 = num(inventory.units30);
+  const recentDaily = Math.max(units7 / 7, units30 / 30, 0);
+  const moq = productContext.purchaseMoq;
+  const moqDaysAtRecentRate = moq && recentDaily > 0 ? round(moq / recentDaily, 1) : null;
+  const reasons = [];
+
+  if (productContext.seasonalRisk) reasons.push(productContext.seasonalRisk);
+  if (productContext.seasonalStage === 'post_peak_tail') reasons.push('after_cinco_de_mayo_peak');
+  if (fbaPlan > 0 || existingPlan > 0) reasons.push('existing_fba_plan');
+  if (inbound > 0) reasons.push('amazon_inbound_pipeline');
+  if (pending > 0) reasons.push('local_pending_or_test_stock_not_actionable');
+  if (!moq) reasons.push('purchase_moq_missing');
+  if (moqDaysAtRecentRate != null && moqDaysAtRecentRate > 45) reasons.push('moq_consumption_risk');
+
+  let action = 'watch';
+  if (productContext.seasonalRisk) action = 'hold_replenishment_seasonal_tail';
+  else if (fbaPlan > 0 || existingPlan > 0) action = 'no_developer_action_existing_plan';
+  else if (inbound > 0 || pending > 0) action = 'no_developer_action_pipeline_only';
+  else if (localAvailable > 0 && localGood > 0 && !moq) action = 'check_moq_before_replenishment';
+  else if (localAvailable > 0 && localGood > 0) action = 'local_fba_actionable';
+
+  return {
+    action,
+    reasons: [...new Set(reasons)],
+    fba,
+    inbound,
+    localAvailable,
+    localGood,
+    pendingOrTest: pending,
+    fbaPlan,
+    existingFbaPlan: existingPlan,
+    purchaseMoq: moq,
+    moqDaysAtRecentRate,
+  };
+}
+
+function summarizeCard(card, asOfDate) {
   const price = num(card.price);
   const rawByType = collectRawByType(card);
   const entities = collectEntities(card);
@@ -214,47 +330,67 @@ function summarizeCard(card) {
   for (const [type, rows] of Object.entries(rawByType)) {
     formSummary[type] = summarizeType(rows, price);
   }
+  const productContext = buildProductContext(card, entities, asOfDate);
+  const inventory = {
+    invDays: num(card.invDays),
+    sellableDays3: num(card.sellableDays_3d),
+    sellableDays7: num(card.sellableDays_7d),
+    sellableDays30: num(card.sellableDays_30d || card.invDays),
+    sellableDaysFulRes: [
+      num(card.sellableDaysFulRes_3d || card.sellableDays_3d),
+      num(card.sellableDaysFulRes_7d || card.sellableDays_7d),
+      num(card.sellableDaysFulRes_30d || card.sellableDays_30d || card.invDays),
+    ],
+    sellableDaysAirFulRes: [
+      num(card.sellableDaysAirFulRes_3d),
+      num(card.sellableDaysAirFulRes_7d),
+      num(card.sellableDaysAirFulRes_30d),
+    ],
+    sellableDaysInbFulRes: [
+      num(card.sellableDaysInbFulRes_3d),
+      num(card.sellableDaysInbFulRes_7d),
+      num(card.sellableDaysInbFulRes_30d),
+    ],
+    sellableDaysInbFulResPlan: [
+      num(card.sellableDaysInbFulResPlan_3d),
+      num(card.sellableDaysInbFulResPlan_7d),
+      num(card.sellableDaysInbFulResPlan_30d),
+    ],
+    fulfillable: num(card.fulFillable),
+    reserved: num(card.reserved),
+    inbAir: num(card.stockInbAir),
+    inb: num(card.stockInb),
+    plan: num(card.stockPlan),
+    local: {
+      availableForPlan: num(card.localInventory?.availableForPlan ?? card.localAvailableForPlan),
+      goodStock: num(card.localInventory?.goodStock ?? card.localGoodStock),
+      purchasedTotal: num(card.localInventory?.purchasedTotal ?? card.localPurchasedTotal),
+      pendingAndTestStock: num(card.localInventory?.pendingAndTestStock ?? card.localPendingAndTestStock),
+      testWarehouseStock: num(card.localInventory?.testWarehouseStock ?? card.localTestWarehouseStock),
+      todayMadePlan: num(card.localInventory?.todayMadePlan ?? card.localTodayMadePlan),
+      lastShipmentTime: card.localInventory?.shipmentRecord?.lastShipmentTime || card.localLastShipmentTime || '',
+      lastShipmentQuantity: num(card.localInventory?.shipmentRecord?.lastShipmentQuantity ?? card.localLastShipmentQuantity),
+      fbaPlanAir: num(card.localInventory?.fbaPlanAir ?? card.localFbaPlanAir),
+      fbaPlanSea: num(card.localInventory?.fbaPlanSea ?? card.localFbaPlanSea),
+      fbaPlanTotalAir: num(card.localInventory?.fbaPlanTotalAir ?? card.localFbaPlanTotalAir),
+      fbaPlanTotalSea: num(card.localInventory?.fbaPlanTotalSea ?? card.localFbaPlanTotalSea),
+      orderAmount: num(card.localInventory?.orderAmount ?? card.localOrderAmount),
+      taskLocalQuantity: localInventoryQuantity(card),
+    },
+    units3: num(card.unitsSold_3d),
+    units7: num(card.unitsSold_7d),
+    units30: num(card.unitsSold_30d),
+    profitRate: round(card.profitRate, 4),
+    yoyAsinPct: round(card.yoyAsinPct ?? card.yoyUnitsPct, 4),
+    yoySourceField: card.yoySourceField || '',
+  };
   return {
     sku: card.sku,
     asin: card.asin || '',
     price,
-    inventory: {
-      invDays: num(card.invDays),
-      sellableDays3: num(card.sellableDays_3d),
-      sellableDays7: num(card.sellableDays_7d),
-      sellableDays30: num(card.sellableDays_30d || card.invDays),
-      sellableDaysFulRes: [
-        num(card.sellableDaysFulRes_3d || card.sellableDays_3d),
-        num(card.sellableDaysFulRes_7d || card.sellableDays_7d),
-        num(card.sellableDaysFulRes_30d || card.sellableDays_30d || card.invDays),
-      ],
-      sellableDaysAirFulRes: [
-        num(card.sellableDaysAirFulRes_3d),
-        num(card.sellableDaysAirFulRes_7d),
-        num(card.sellableDaysAirFulRes_30d),
-      ],
-      sellableDaysInbFulRes: [
-        num(card.sellableDaysInbFulRes_3d),
-        num(card.sellableDaysInbFulRes_7d),
-        num(card.sellableDaysInbFulRes_30d),
-      ],
-      sellableDaysInbFulResPlan: [
-        num(card.sellableDaysInbFulResPlan_3d),
-        num(card.sellableDaysInbFulResPlan_7d),
-        num(card.sellableDaysInbFulResPlan_30d),
-      ],
-      fulfillable: num(card.fulFillable),
-      reserved: num(card.reserved),
-      inbAir: num(card.stockInbAir),
-      inb: num(card.stockInb),
-      plan: num(card.stockPlan),
-      units3: num(card.unitsSold_3d),
-      units7: num(card.unitsSold_7d),
-      units30: num(card.unitsSold_30d),
-      profitRate: round(card.profitRate, 4),
-      yoyAsinPct: round(card.yoyAsinPct ?? card.yoyUnitsPct, 4),
-      yoySourceField: card.yoySourceField || '',
-    },
+    productContext,
+    inventory,
+    replenishmentReview: buildReplenishmentReview(card, inventory, productContext),
     campaignCount: (card.campaigns || []).length,
     adForms: formSummary,
     diagnosis: diagnose(card, formSummary, entities),
@@ -283,6 +419,7 @@ function scoreCard(card) {
 function main() {
   const options = parseArgs(process.argv);
   const snapshot = JSON.parse(fs.readFileSync(options.snapshot, 'utf8'));
+  const asOfDate = options.asOf ? new Date(`${options.asOf}T12:00:00`) : new Date();
   let cards = snapshot.productCards || [];
   if (options.skus.length) {
     const wanted = new Set(options.skus);
@@ -298,11 +435,12 @@ function main() {
   }
   const report = {
     generatedAt: new Date().toISOString(),
+    asOf: options.asOf || '',
     snapshotFile: options.snapshot,
     snapshotExportedAt: snapshot.exportedAt || '',
     requestedSkus: options.skus,
     skuCount: cards.length,
-    rows: cards.map(summarizeCard),
+    rows: cards.map(card => summarizeCard(card, asOfDate)),
   };
   fs.mkdirSync(path.dirname(options.out), { recursive: true });
   fs.writeFileSync(options.out, JSON.stringify(report, null, 2), 'utf8');

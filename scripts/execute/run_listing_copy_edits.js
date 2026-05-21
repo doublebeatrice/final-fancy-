@@ -170,7 +170,7 @@ function browserExecutorSource() {
     const originPayload = origin => {
       const data = origin?.data || origin?.result || origin || {};
       return {
-        parentTitle: normalizeText(data.title_en || data.parent_title || data.parentTitle || data.title || ''),
+        parentTitle: normalizeText(data.parent_title || data.parentTitle || data.title || data.title_en || ''),
         bulletPoints: asList(data.bullet_points || data.bulletPoints),
         productDescription: normalizeDescriptionText(data.product_description || data.productDescription || ''),
         searchCoreKeywords: normalizeText(data.search_core_keywords || data.searchCoreKeywords || ''),

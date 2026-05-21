@@ -1,0 +1,11 @@
+# Father/CNA listing title application plan
+
+Business date: 2026-05-19
+
+| SKU | Decision | Old title | New title | Validation |
+|---|---|---|---|---|
+| ZHW0104 | submit | Hicarer Grave Decorations for Cemetery Double Sided Metal Dad Grave Markers Robin Memorial Stakes Mother's Father's Day Cemetery Sympathy Outdoors Decorations for Garden Yard, 11.8 x 6.8 Inch | Hicarer Father's Day Dad Grave Marker for Cemetery, Double Sided Robin Memorial Stake, Sympathy Outdoor Grave Decorations for Garden Yard, 11.8 x 6.8 Inch | ok |
+| PIR4617 | submit | Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass, Engraved Coaster, Stainless Steel Ice Cubes, Cotton Socks and Candle - Sentimental Gift from Daughter or Son(Groom) | Reallnaive Father's Day Wedding Gift Box for Father of the Bride or Groom, 10oz Whiskey Glass, Engraved Coaster, Ice Cubes, Cotton Socks and Candle, Gift from Daughter or Son(Groom) | ok |
+| PIR4610 | submit | Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass, Engraved Coaster, Stainless Steel Ice Cubes, Cotton Socks and Candle - Sentimental Gift from Daughter or Son (Bride) | Reallnaive Father's Day Wedding Gift Box for Father of the Bride or Groom, 10oz Whiskey Glass, Engraved Coaster, Ice Cubes, Cotton Socks and Candle, Gift from Daughter or Son (Bride) | ok |
+| YAN3229 | submit | Roowest Flower Memorial Picture Frame Sympathy Gifts for Loss of Loved One Passed Away Acrylic Magnetic Photo Frames Bereavement for Mom, Dad, Family, 7 x 10 Inch | Roowest Flower Memorial Picture Frame, Father's Day Memorial Gifts for Loss of Dad, Acrylic Magnetic Sympathy Bereavement Photo Frame for Mom, Dad, Family, 7 x 10 Inch | ok |
+| HEL0319 | submit | Huquary 30 Pcs Employee Appreciation Gift Inspirational Keychains Bulk Sometimes You Forget You're Awesome Motivational Gift for Nurse Employee Teacher Nurse Thank You Coworker Volunteers Party Favors | Huquary 30 Pcs Nurse Appreciation Gifts Bulk, Inspirational Motivational Keychains for Employees Teachers Coworkers Volunteers Staff Party Favors | ok |

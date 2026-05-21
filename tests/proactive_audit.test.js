@@ -169,6 +169,54 @@ const snapshot = {
       productProfile: { productType: 'gift', listingTitle: 'Low Margin But Enough Stock' },
     },
     {
+      sku: 'KZ6722',
+      asin: 'B0KZ6722',
+      salesChannel: 'Amazon.com',
+      saleStatus: 'normal_sale',
+      fuldate: '2025-12-01',
+      opendate: '2025-12-01',
+      profitRate: 0.08,
+      price: 14.99,
+      invDays: 180,
+      fulFillable: 120,
+      reserved: 0,
+      unitsSold_3d: 0,
+      unitsSold_7d: 1,
+      unitsSold_30d: 3,
+      adStats: { '3d': { spend: 0, orders: 0 }, '7d': { spend: 2, orders: 0, sales: 0 } },
+      sbStats: { '3d': { spend: 0, orders: 0 }, '7d': { spend: 0, orders: 0 } },
+      removalInventoryAddView: {
+        readOnlyValues: [
+          { name: 'profit', value: '3.33' },
+          { name: 'offline_payment_collection', value: '0.33' },
+          { name: 'batch_clearance_payment_collection', value: '0.5' },
+          { name: 'abandoned_collection', value: '-0.84' },
+          { name: 'handle_suggest', value: '降价处理' },
+        ],
+        warnings: ['write_endpoint_detected_but_not_called'],
+      },
+      productProfile: { productType: 'gift', listingTitle: 'Stale Gift Basket' },
+    },
+    {
+      sku: 'MISSINGREM1',
+      asin: 'B0MISSINGREM1',
+      salesChannel: 'Amazon.com',
+      saleStatus: 'normal_sale',
+      fuldate: '2025-11-01',
+      opendate: '2025-11-01',
+      profitRate: 0.05,
+      price: 18.99,
+      invDays: 210,
+      fulFillable: 75,
+      reserved: 0,
+      unitsSold_3d: 0,
+      unitsSold_7d: 0,
+      unitsSold_30d: 0,
+      adStats: { '3d': { spend: 0, orders: 0 }, '7d': { spend: 0, orders: 0 } },
+      sbStats: { '3d': { spend: 0, orders: 0 }, '7d': { spend: 0, orders: 0 } },
+      productProfile: { productType: 'gift', listingTitle: 'Stale Inventory Missing Removal Economics' },
+    },
+    {
       sku: 'LIST1',
       asin: 'B0LIST1',
       salesChannel: 'Amazon.com',
@@ -253,6 +301,18 @@ assert(audit.priceActions.items.some(item =>
 ));
 assert(!audit.priceActions.items.some(item => item.sku === 'LOWPROFIT1'), 'low profit alone should not trigger a price raise when Ful+Res can cover 7d velocity for 30+ days');
 assert(audit.listingRepair.items.some(item => item.sku === 'LIST1' && item.issue === 'traffic_without_conversion_listing_repair'));
+assert(audit.requiredModules.some(module => module.name === 'removalEconomics' && module.status === 'checked'));
+assert.strictEqual(audit.removalEconomics.summary.total, 2);
+assert(audit.removalEconomics.items.some(item =>
+  item.sku === 'KZ6722' &&
+  item.requiredAction === 'discount_or_sell_through_before_removal' &&
+  item.bestRecoveryPath === 'current_sale' &&
+  item.currentSaleRecoveryUsd === 3.33
+));
+assert(audit.removalEconomics.items.some(item =>
+  item.sku === 'MISSINGREM1' &&
+  item.requiredAction === 'fetch_removal_inventory_add_view_readonly'
+));
 assert.strictEqual(audit.expiredSeasonKeywordWaste.summary.totalEnabledRows, 2);
 assert.strictEqual(audit.expiredSeasonKeywordWaste.summary.spend3, 16.5);
 assert.strictEqual(audit.expiredSeasonKeywordWaste.summary.noOrderSpend3, 16.5);
@@ -280,7 +340,7 @@ assert(!priceSchema.some(item => item.sku === 'LOWPROFIT1'), 'low profit alone s
 
 const expiredSeasonActions = buildExpiredSeasonActions(audit, products, 10);
 const newProductActions = buildNewProductLaunchActions(audit, products, 10);
-const reviewItems = buildReviewItems(audit, products, 10);
+const reviewItems = buildReviewItems(audit, products, 30);
 const mergedPlan = mergePlans([expiredSeasonActions, newProductActions, reviewItems]);
 const new001Actions = mergedPlan.find(item => item.sku === 'NEW001')?.actions || [];
 const new002Actions = mergedPlan.find(item => item.sku === 'NEW002')?.actions || [];
@@ -308,5 +368,6 @@ assert(new001Actions.some(action =>
 ));
 assert(new001Actions.some(action => action.entityType === 'skuCandidate' && action.actionType === 'review'));
 assert(reviewItems.some(item => item.sku === 'LIST1'));
+assert(reviewItems.some(item => item.sku === 'KZ6722' && item.actions.some(action => action.id === 'review::KZ6722::removal_economics')));
 
 console.log('proactive_audit.test.js passed');

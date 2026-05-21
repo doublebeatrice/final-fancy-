@@ -78,6 +78,16 @@ const PROMO_OR_CLAIM_TERMS = [
 
 const BLOCKED_TITLE_CHARS = ['!', '$', '?', '_', '{', '}', '^', '¬', '¦'];
 
+const VARIANT_SPECIFIC_TITLE_TERMS = [
+  { id: 'bride', source: /\bbride\b/i, target: /\bbride\b/i },
+  { id: 'groom', source: /\bgroom\b/i, target: /\bgroom\b/i },
+  { id: 'maid_of_honor', source: /\bmaid\s+of\s+honou?r\b/i, target: /\bmaid\s+of\s+honou?r\b/i },
+  { id: 'matron_of_honor', source: /\bmatron\s+of\s+honou?r\b/i, target: /\bmatron\s+of\s+honou?r\b/i },
+  { id: 'best_man', source: /\bbest\s+man\b/i, target: /\bbest\s+man\b/i },
+  { id: 'godfather', source: /\bgodfather\b/i, target: /\bgodfather\b/i },
+  { id: 'godmother', source: /\bgodmother\b/i, target: /\bgodmother\b/i },
+];
+
 function termPattern(term) {
   return new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
 }
@@ -170,6 +180,18 @@ function auditChildTitleTerms(title, options = {}) {
   return warnings;
 }
 
+function auditVariantTitleSpecificity(title, options = {}) {
+  const value = text(title);
+  const original = text(options.originalTitle);
+  if (!value || !original) return [];
+  const errors = [];
+  for (const term of VARIANT_SPECIFIC_TITLE_TERMS) {
+    if (!term.source.test(original) || term.target.test(value)) continue;
+    errors.push(`parent_title_variant_specific_term_removed:${term.id}`);
+  }
+  return errors;
+}
+
 function normalizeCopyEditPayload(input = {}) {
   const original = input.original || {};
   const now = input.now || {};
@@ -243,6 +265,7 @@ function validateCopyEditAction(input = {}) {
   if (payload.titleMaxLength <= 125 && payload.now.parentTitle.length > 125) errors.push('parent_title_over_125_conservative_limit');
   if (payload.now.parentTitle.length > 200) errors.push('parent_title_too_long');
   errors.push(...auditParentTitlePolicy(payload.now.parentTitle, { originalTitle: payload.original.parentTitle }));
+  errors.push(...auditVariantTitleSpecificity(payload.now.parentTitle, { originalTitle: payload.original.parentTitle }));
   warnings.push(...auditChildTitleTerms(payload.now.parentTitle, { originalTitle: payload.original.parentTitle, productCompliance: payload.productCompliance, productContext: payload.productContext }));
   if (payload.now.bulletPoints.length > 5) warnings.push('too_many_bullets');
   return { ok: errors.length === 0, errors, warnings, payload };
@@ -469,6 +492,7 @@ module.exports = {
   ENDPOINT,
   auditChildTitleTerms,
   auditParentTitlePolicy,
+  auditVariantTitleSpecificity,
   buildListingCopyDryRunReport,
   buildListingCopyEditForm,
   buildListingCopyEditPreview,

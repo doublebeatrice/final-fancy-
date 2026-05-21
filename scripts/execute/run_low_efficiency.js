@@ -16,6 +16,7 @@ const {
   buildWriterRequest,
 } = require('../../src/low_efficiency_decision');
 const { appendAdjustmentRecords } = require('../../src/adjustment_log');
+const { sameDayGuardedEntityIds } = require('../../src/low_efficiency_execution_guard');
 
 const ROOT = path.join(__dirname, '..', '..');
 const DRY_RUN = process.argv.includes('--dry-run');
@@ -113,12 +114,21 @@ async function main() {
   fs.writeFileSync(poolsPath, JSON.stringify(scan, null, 2));
   log(`pool scan persisted to ${poolsPath}`);
 
+  const alreadyLandedEntityIds = sameDayGuardedEntityIds(today);
   const actionables = [];
+  let alreadyLandedSkipped = 0;
   for (const [kind, decisions] of Object.entries(scan.results)) {
     for (const { entry, decision } of decisions) {
       if (decision.actionType !== 'bid' && decision.actionType !== 'pause') continue;
+      if (alreadyLandedEntityIds.has(String(entry.id))) {
+        alreadyLandedSkipped += 1;
+        continue;
+      }
       actionables.push({ kind, entry, decision });
     }
+  }
+  if (alreadyLandedSkipped) {
+    log(`same-day live guard: skipped ${alreadyLandedSkipped} already-landed entities from execution pool.`);
   }
 
   if (!actionables.length) {
@@ -165,6 +175,7 @@ async function main() {
     const exec = executions[i] || {};
     const text = entry.keywordText || '';
     const ENTITY_TYPE = { kw: 'keyword', auto: 'autoTarget', manual: 'manualTarget', sbKw: 'sbKeyword', sbTarget: 'sbTarget' };
+    const apiResultText = exec.result ? JSON.stringify(exec.result).slice(0, 500) : '';
     return {
       sku: entry.sku || `lowEff::${kind}::${entry.id}`,
       asin: '',
@@ -185,7 +196,8 @@ async function main() {
       },
       outcome: DRY_RUN ? 'dry_run_planned' : (exec.ok ? 'api_success' : 'api_failed'),
       dryRun: DRY_RUN,
-      reason: exec.error || '',
+      reason: exec.error || (!exec.ok ? apiResultText : ''),
+      meta: exec.result ? { apiResult: exec.result } : {},
     };
   });
 

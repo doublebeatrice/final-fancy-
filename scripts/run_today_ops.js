@@ -10,14 +10,22 @@ const { buildDailyTaskPool } = require('../src/task_scheduler');
 const { persistDailyLearning } = require('../src/daily_learning');
 const { buildAgentLedger } = require('../src/agent_control_plane');
 const { buildProactiveOperatingAudit, renderProactiveOperatingAuditHtml } = require('../src/proactive_audit');
+const { buildAllSkuOperatingReview, renderAllSkuOperatingReviewHtml } = require('../src/sku_operating_review');
 const { writeSeasonTitleReport } = require('./generate_season_title_dry_run');
 const { buildSeasonTitleActionSchema } = require('./generators/generate_season_title_action_schema');
 const { buildSeasonTitleListingApplications } = require('./generators/generate_season_title_listing_schema');
 const { buildListingCopyDryRunReport } = require('../src/listing_copy_edit');
 const { summarizeOverBudgetCoverage } = require('../src/over_budget_policy');
+const { buildOverBudgetPlanItems } = require('../src/over_budget_to_actions');
 const { updateHistoryFromSnapshot, annotateCapSince } = require('../src/over_budget_history');
 const { scanLowEfficiencyCandidates, scanLowEfficiencyPools } = require('../src/low_efficiency_decision');
 const { auditAdStructureOpportunities } = require('../src/ad_structure_opportunity');
+const {
+  buildExpiredSeasonActions,
+  buildNewProductLaunchActions,
+  buildReviewItems,
+  mergePlans,
+} = require('./generators/generate_proactive_audit_action_schema');
 const { exportSnapshot } = require('./execute/export_snapshot');
 const { run } = require('../auto_adjust');
 
@@ -48,6 +56,7 @@ function parseArgs(argv) {
     execute,
     actor,
     actionSchemaFile: resolveActionSchemaFile(requestedSchemaFile, actor),
+    explicitActionSchemaRequested: isUsableSchemaFile(requestedSchemaFile),
     snapshotFileArg: snapshotIndex >= 0 ? args[snapshotIndex + 1] : '',
   };
 }
@@ -657,6 +666,126 @@ function summarizeValidation(validation) {
   };
 }
 
+function buildProductMap(snapshot = {}) {
+  const map = new Map();
+  for (const card of snapshot.productCards || []) {
+    if (card.sku) {
+      const sku = String(card.sku).toUpperCase();
+      map.set(sku, {
+        ...card,
+        campaigns: Array.isArray(card.campaigns) ? [...card.campaigns] : [],
+      });
+    }
+  }
+  const skuByCampaignGroup = new Map();
+  for (const row of snapshot.productAdRows || []) {
+    const sku = String(row.sku || row.productAdSku || '').toUpperCase();
+    const campaignId = String(row.campaignId || '');
+    const adGroupId = String(row.adGroupId || '');
+    if (sku && campaignId && adGroupId) skuByCampaignGroup.set(`${campaignId}::${adGroupId}`, sku);
+  }
+  const ensureProduct = row => {
+    const campaignId = String(row.campaignId || '');
+    const adGroupId = String(row.adGroupId || '');
+    const sku = String(row.sku || row.productAdSku || skuByCampaignGroup.get(`${campaignId}::${adGroupId}`) || '').toUpperCase();
+    if (!sku) return null;
+    if (!map.has(sku)) map.set(sku, { sku, asin: row.asin || '', campaigns: [] });
+    return map.get(sku);
+  };
+  const ensureCampaign = (product, row) => {
+    const campaignId = String(row.campaignId || '');
+    const adGroupId = String(row.adGroupId || '');
+    if (!campaignId || !adGroupId) return null;
+    product.campaigns = product.campaigns || [];
+    let campaign = product.campaigns.find(item =>
+      String(item.campaignId || '') === campaignId && String(item.adGroupId || '') === adGroupId
+    );
+    if (!campaign) {
+      campaign = {
+        campaignId,
+        adGroupId,
+        campaignName: row.campaignName || row.name || '',
+        groupName: row.groupName || row.adGroupName || '',
+        campaignState: row.campaignState ?? row.state,
+        groupState: row.groupState,
+        keywords: [],
+        autoTargets: [],
+      };
+      product.campaigns.push(campaign);
+    }
+    campaign.keywords = campaign.keywords || [];
+    campaign.autoTargets = campaign.autoTargets || [];
+    return campaign;
+  };
+  const stats7d = row => ({
+    impressions: Number(row.Impressions ?? row['7_Impressions'] ?? 0) || 0,
+    clicks: Number(row.Clicks ?? row['7_Clicks'] ?? 0) || 0,
+    spend: Number(row.Spend ?? row['7_Spend'] ?? 0) || 0,
+    orders: Number(row.Orders ?? row['7_Orders'] ?? 0) || 0,
+    sales: Number(row.Sales ?? row['7_Sales'] ?? 0) || 0,
+  });
+  for (const row of snapshot.kwRows || []) {
+    const product = ensureProduct(row);
+    const campaign = product && ensureCampaign(product, row);
+    const id = row.keywordId || row.id;
+    if (campaign && id && !campaign.keywords.some(item => String(item.id) === String(id))) {
+      campaign.keywords.push({
+        id: String(id),
+        bid: row.bid,
+        state: row.state,
+        text: row.keywordText || row.text || '',
+        matchType: row.matchType,
+        stats7d: stats7d(row),
+      });
+    }
+  }
+  const targetRows = new Set(snapshot.targetRows || []);
+  for (const row of [...(snapshot.autoRows || []), ...(snapshot.targetRows || [])]) {
+    const product = ensureProduct(row);
+    const campaign = product && ensureCampaign(product, row);
+    const id = row.targetId || row.id;
+    if (campaign && id && !campaign.autoTargets.some(item => String(item.id) === String(id))) {
+      campaign.autoTargets.push({
+        id: String(id),
+        bid: row.bid,
+        state: row.state,
+        targetType: row.targetType || (targetRows.has(row) ? 'manual' : 'auto'),
+        text: row.keywordText || row.text || row.targetingText || row.targetMark || '',
+        stats7d: stats7d(row),
+      });
+    }
+  }
+  return map;
+}
+
+function countSchemaActions(schema = []) {
+  const actions = schema.reduce((sum, item) => sum + (item.actions || []).length, 0);
+  const executableActions = schema.reduce(
+    (sum, item) => sum + (item.actions || []).filter(action => action.actionType !== 'review').length,
+    0
+  );
+  return {
+    skus: schema.length,
+    actions,
+    executableActions,
+    reviewActions: actions - executableActions,
+  };
+}
+
+function mergeActionSchemas(parts = []) {
+  return mergePlans(parts.filter(Array.isArray));
+}
+
+function buildProactiveRecoveryActionSchema(audit = {}, snapshot = {}, options = {}) {
+  const products = buildProductMap(snapshot);
+  const reviewLimit = Number(options.reviewLimit || 80);
+  return mergePlans([
+    buildExpiredSeasonActions(audit, products, Number(options.expiredLimit || 80)),
+    buildNewProductLaunchActions(audit, products, Math.min(reviewLimit, 40)),
+    buildReviewItems(audit, products, reviewLimit),
+  ]);
+}
+
 function buildOperatingClosure(manifest = {}) {
   const proactive = manifest.proactiveOperatingAudit || {};
   const seasonActionCount = Number(manifest.seasonTitleActionSchema?.actions || 0);
@@ -672,6 +801,7 @@ function buildOperatingClosure(manifest = {}) {
     Number(proactive.newProductLaunch || 0),
     Number(proactive.arrivalAdRecovery || 0),
     Number(proactive.priceActions || 0),
+    Number(proactive.removalEconomics || 0),
     Number(proactive.expiredSeasonKeywordWaste || 0),
     Number(proactive.listingRepair || 0),
   ].reduce((sum, value) => sum + value, 0);
@@ -790,6 +920,7 @@ function buildRunSummary(manifest) {
       .slice(0, 10)
       .map(stage => ({ stage: stage.stage, durationMs: stage.durationMs, attempted: stage.attempted || 0, success: stage.success || 0, failed: stage.failed || 0, skipped: stage.skipped || 0 })),
     outputFiles: manifest.outputFiles || {},
+    allSkuOperatingReview: manifest.allSkuOperatingReview || null,
     overBudgetCapture: manifest.overBudgetCapture || {},
     overBudgetCoverage: manifest.overBudgetCoverage || null,
     warnings: manifest.warnings || [],
@@ -800,8 +931,50 @@ function buildRunSummary(manifest) {
     seasonTitleListingCopyDryRun: manifest.seasonTitleListingCopyDryRun || null,
     highEfficiencyRows: manifest.highEfficiencyRows || null,
     adStructureOpportunities: manifest.adStructureOpportunities || null,
+    kpiRecoveryOverBudgetSchema: manifest.kpiRecoveryOverBudgetSchema || null,
     agentLedger: manifest.agentLedger || null,
     dailyLearning: manifest.dailyLearning || null,
+  };
+}
+
+function overBudgetRecoveryLimitsFromEnv(env = process.env) {
+  return {
+    aggressive: Number(env.KPI_RECOVERY_OVERBUDGET_AGGRESSIVE_LIMIT || 0),
+    controlled: Number(env.KPI_RECOVERY_OVERBUDGET_CONTROLLED_LIMIT || 20),
+    seasonal: Number(env.KPI_RECOVERY_OVERBUDGET_SEASONAL_LIMIT || 0),
+    lowerLayer: Number(env.KPI_RECOVERY_OVERBUDGET_LOWER_LAYER_LIMIT || 20),
+    review: Number(env.KPI_RECOVERY_OVERBUDGET_REVIEW_LIMIT || 10),
+    autoPause: Number(env.KPI_RECOVERY_OVERBUDGET_AUTO_PAUSE_LIMIT || 20),
+  };
+}
+
+function summarizeKpiRecoveryOverBudgetSchema(snapshot, schemaItems, rawResult = {}) {
+  const actions = (schemaItems || []).flatMap(item => item.actions || []);
+  const coverage = summarizeOverBudgetCoverage(snapshot, actions);
+  return {
+    counts: rawResult.counts || {},
+    bucketCounts: rawResult.bucketCounts || {},
+    filtered: rawResult.filtered || {},
+    campaignsClassified: rawResult.campaignsClassified || 0,
+    autoPauseStats: rawResult.autoPauseStats || null,
+    autoPauseCandidateCount: rawResult.autoPauseCandidateCount || 0,
+    accountCap: rawResult.accountCap || {},
+    plannedSkus: new Set((schemaItems || []).map(item => item.sku).filter(Boolean)).size,
+    plannedActions: actions.length,
+    coverage,
+  };
+}
+
+function buildKpiRecoveryOverBudgetSchema(snapshot = {}, options = {}) {
+  const result = buildOverBudgetPlanItems(snapshot, {
+    actor: options.actor || 'codex',
+    currentDate: options.currentDate,
+    limit: options.limit || overBudgetRecoveryLimitsFromEnv(options.env || process.env),
+    maxDailyBudgetIncreaseUsd: options.maxDailyBudgetIncreaseUsd ?? Number((options.env || process.env).KPI_RECOVERY_OVERBUDGET_MAX_DAILY_LIFT_USD || 80),
+  });
+  return {
+    schema: result.items || [],
+    summary: summarizeKpiRecoveryOverBudgetSchema(snapshot, result.items || [], result),
   };
 }
 
@@ -1027,6 +1200,23 @@ async function main() {
       };
     });
 
+    await runStep('all_sku_operating_review', async () => {
+      const taskDir = path.join(ROOT, 'data', 'tasks');
+      const review = buildAllSkuOperatingReview({ snapshot, timeContext });
+      review.snapshotFile = snapshotFile;
+      const jsonFile = path.join(taskDir, `all_sku_operating_review_${timeContext.businessDate}.json`);
+      const htmlFile = path.join(taskDir, `all_sku_operating_review_${timeContext.businessDate}.html`);
+      writeJson(jsonFile, review);
+      writeTextFileWithRetry(htmlFile, renderAllSkuOperatingReviewHtml(review));
+      manifest.outputFiles.allSkuOperatingReviewJson = jsonFile;
+      manifest.outputFiles.allSkuOperatingReviewHtml = htmlFile;
+      manifest.allSkuOperatingReview = review.summary;
+      return {
+        outputs: { allSkuOperatingReviewJson: jsonFile, allSkuOperatingReviewHtml: htmlFile },
+        details: review.summary,
+      };
+    });
+
     await runStep('proactive_operating_audit', async () => {
       proactiveAudit = buildProactiveOperatingAudit({ snapshot, timeContext });
       proactiveAudit.snapshotFile = snapshotFile;
@@ -1042,12 +1232,30 @@ async function main() {
         newProductLaunch: proactiveAudit.newProductLaunch.summary.total,
         arrivalAdRecovery: proactiveAudit.arrivalAdRecovery.summary.total,
         priceActions: proactiveAudit.priceActions.summary.total,
+        removalEconomics: proactiveAudit.removalEconomics.summary.total,
         expiredSeasonKeywordWaste: proactiveAudit.expiredSeasonKeywordWaste.summary.totalEnabledRows,
         listingRepair: proactiveAudit.listingRepair.summary.total,
       };
       return {
         outputs: { proactiveOperatingAuditJson: jsonFile, proactiveOperatingAuditHtml: htmlFile },
         details: manifest.proactiveOperatingAudit,
+      };
+    });
+
+    await runStep('proactive_recovery_action_schema', async () => {
+      const schemaFile = path.join(SNAPSHOT_DATA_DIR, `action_schema_${timeContext.businessDate}_proactive_recovery_candidate.json`);
+      const schema = buildProactiveRecoveryActionSchema(proactiveAudit, snapshot);
+      writeJson(schemaFile, schema);
+      const counts = countSchemaActions(schema);
+      manifest.outputFiles.proactiveRecoveryActionSchemaJson = schemaFile;
+      manifest.proactiveRecoveryActionSchema = {
+        ...counts,
+        arrivalAdRecovery: proactiveAudit?.arrivalAdRecovery?.summary?.total || 0,
+        newProductLaunch: proactiveAudit?.newProductLaunch?.summary?.total || 0,
+      };
+      return {
+        outputs: { proactiveRecoveryActionSchemaJson: schemaFile },
+        details: manifest.proactiveRecoveryActionSchema,
       };
     });
 
@@ -1151,6 +1359,76 @@ async function main() {
       return {
         outputs: { adStructureOpportunitiesJson: jsonFile },
         details: report.summary,
+      };
+    });
+
+    await runStep('kpi_recovery_overbudget_schema', async () => {
+      if (options.explicitActionSchemaRequested) {
+        const proactiveCounts = manifest.proactiveRecoveryActionSchema || {};
+        if (Number(proactiveCounts.arrivalAdRecovery || 0) > 0) {
+          manifest.warnings = [...(manifest.warnings || []), {
+            code: 'explicit_schema_does_not_close_arrival_recovery',
+            detail: `arrivalAdRecovery=${proactiveCounts.arrivalAdRecovery}; proactive schema generated but not selected as primary execution schema`,
+          }];
+        }
+        return {
+          skipped: true,
+          outputs: {},
+          details: {
+            reason: 'explicit action schema requested; keeping provided schema',
+            actionSchemaFile: path.resolve(options.actionSchemaFile),
+            proactiveRecoveryActionSchemaJson: manifest.outputFiles.proactiveRecoveryActionSchemaJson || '',
+            proactiveRecoveryActionSchema: proactiveCounts,
+          },
+        };
+      }
+      const schemaFile = path.join(SNAPSHOT_DATA_DIR, `kpi_recovery_overbudget_schema_${timeContext.businessDate}.json`);
+      const summaryFile = path.join(ROOT, 'data', 'tasks', `kpi_recovery_overbudget_schema_summary_${timeContext.businessDate}.json`);
+      const combinedSchemaFile = path.join(SNAPSHOT_DATA_DIR, `action_schema_${timeContext.businessDate}_daily_recovery_combined.json`);
+      const { schema, summary } = buildKpiRecoveryOverBudgetSchema(snapshot, {
+        actor: options.actor,
+        currentDate: new Date(timeContext.siteLocalTime || timeContext.runAt || Date.now()),
+      });
+      const proactiveSchema = readJson(manifest.outputFiles.proactiveRecoveryActionSchemaJson || '', []);
+      const combinedSchema = mergeActionSchemas([schema, proactiveSchema]);
+      writeJson(schemaFile, schema);
+      writeJson(combinedSchemaFile, combinedSchema);
+      writeJson(summaryFile, {
+        ...summary,
+        schemaFile,
+        proactiveSchemaFile: manifest.outputFiles.proactiveRecoveryActionSchemaJson || '',
+        combinedSchemaFile,
+        combined: countSchemaActions(combinedSchema),
+        sourceSnapshotFile: snapshotFile,
+        businessDate: timeContext.businessDate,
+        dataDate: timeContext.dataDate,
+      });
+      options.actionSchemaFile = combinedSchemaFile;
+      manifest.actionSchemaFile = path.resolve(combinedSchemaFile);
+      manifest.outputFiles.kpiRecoveryOverBudgetSchemaJson = schemaFile;
+      manifest.outputFiles.dailyRecoveryCombinedSchemaJson = combinedSchemaFile;
+      manifest.outputFiles.kpiRecoveryOverBudgetSchemaSummaryJson = summaryFile;
+      manifest.kpiRecoveryOverBudgetSchema = {
+        plannedSkus: summary.plannedSkus,
+        plannedActions: summary.plannedActions,
+        matchedActionCount: summary.coverage?.matchedActionCount || 0,
+        matchedCampaignCount: summary.coverage?.matchedCampaignCount || 0,
+        actionableCampaigns: summary.coverage?.actionableCampaigns || 0,
+        accountCap: summary.accountCap,
+        counts: summary.counts,
+      };
+      manifest.dailyRecoveryCombinedSchema = countSchemaActions(combinedSchema);
+      return {
+        outputs: {
+          kpiRecoveryOverBudgetSchemaJson: schemaFile,
+          dailyRecoveryCombinedSchemaJson: combinedSchemaFile,
+          kpiRecoveryOverBudgetSchemaSummaryJson: summaryFile,
+        },
+        details: {
+          ...manifest.kpiRecoveryOverBudgetSchema,
+          combined: manifest.dailyRecoveryCombinedSchema,
+          proactiveRecoveryActionSchema: manifest.proactiveRecoveryActionSchema,
+        },
       };
     });
 
@@ -1406,12 +1684,18 @@ if (require.main === module) {
 module.exports = {
   buildActionQuality,
   buildFetchOptions,
+  buildKpiRecoveryOverBudgetSchema,
+  buildProductMap,
+  buildProactiveRecoveryActionSchema,
+  countSchemaActions,
   buildRunQuality,
   buildRunSummary,
   buildSnapshotDataQuality,
   dailyTaskPoolToAgentTasks,
   getSnapshotStepPlan,
+  mergeActionSchemas,
   parseArgs,
+  summarizeKpiRecoveryOverBudgetSchema,
   validateSnapshotFile,
   writeTextFileWithRetry,
 };

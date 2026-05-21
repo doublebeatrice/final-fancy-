@@ -1,0 +1,87 @@
+{
+  "date": "2026-05-21",
+  "generatedAt": "2026-05-21T01:23:48.364Z",
+  "businessDate": "2026-05-20",
+  "dataDate": "2026-05-19",
+  "sourceFiles": {
+    "writeExecution": "D:\\ad-ops-workbench\\data\\agent\\write_execution_2026-05-21.json",
+    "actionSchema": "data\\snapshots\\action_schema_2026-05-21_kpi_recommend_approve_pending.json",
+    "snapshot": "D:\\ad-ops-workbench\\data\\snapshots\\latest_snapshot.json",
+    "kpiCheckpoint": "D:\\ad-ops-workbench\\data\\tasks\\kpi_recovery_checkpoint_2026-05-21.json"
+  },
+  "summary": {
+    "total": 1,
+    "byDecision": {
+      "recommend_approve": 1
+    },
+    "skuCount": 1,
+    "recommendApprove": 1,
+    "approvalNeeded": 0,
+    "hold": 0,
+    "blocked": 0
+  },
+  "items": [
+    {
+      "key": "KZ5816::campaign::budget::128136203487216::0",
+      "sku": "KZ5816",
+      "asin": "B0BNHHNB2Q",
+      "entityType": "campaign",
+      "actionType": "budget",
+      "id": "128136203487216",
+      "campaignName": "asin_vip party_kz5816",
+      "current": 5.44,
+      "suggested": 6.8,
+      "decision": "recommend_approve",
+      "reasonCode": "controlled_profitable_budget_lift",
+      "operatorAction": "approve one controlled lift, then review 1d spend/orders and 3d ACOS",
+      "confidence": 0.78,
+      "sourceRiskLevel": "over_budget_controlled_budget_up",
+      "sourceReason": "Over-budget campaign converting inside profit room. Controlled lift 5.44 -> 6.8 (25%). Orders 21, ACOS 22.6%, profit 26.0%, invDays 30.",
+      "expectedEffect": {
+        "impressions": "up_modest",
+        "clicks": "up_modest",
+        "orders": "up_modest",
+        "spend": "up_modest",
+        "acos": "watch"
+      },
+      "reviewPlan": {
+        "windows": [
+          3,
+          7
+        ],
+        "metrics": [
+          "clicks",
+          "orders",
+          "acos",
+          "spend"
+        ],
+        "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+      },
+      "metrics": {
+        "current": 5.44,
+        "suggested": 6.8,
+        "orders": 21,
+        "clicks": 92,
+        "spend": 40.97,
+        "sales": 181.39,
+        "acos": 0.226,
+        "profitRate": 0.26,
+        "invDays": 30,
+        "units7": 60,
+        "units30": 295,
+        "spend7": null,
+        "impressions7": null,
+        "clicks7": 92,
+        "orders7": 21
+      },
+      "evidence": [
+        "over_budget_rows=1",
+        "campaign spend=40.97 sales=181.39 orders=21 clicks=92",
+        "acos=22.6% profitRate=26.0%",
+        "invDays=30 absoluteInventory=590 units7=60 units30=295",
+        "adGroupCount=1 adCount=1 positionTypes=productTarget",
+        "cappedHours=unknown capSince=unknown"
+      ]
+    }
+  ]
+}

@@ -36,8 +36,7 @@ function persistAdjustmentLog(result) {
   return null;
 }
 
-async function main() {
-  const args = process.argv.slice(2);
+function parseCliArgs(args = [], env = process.env) {
   const hasDryRunFlag = args.includes('--dry-run');
   const hasExecuteFlag = args.includes('--execute');
   const hasFastScopeFlag = args.includes('--fast-scope');
@@ -48,20 +47,31 @@ async function main() {
   if (hasFastScopeFlag && hasFullScopeFlag) {
     throw new Error('choose either --fast-scope or --full-scope');
   }
-  const actionSchemaFile = args.find(arg => !arg.startsWith('--')) || process.env.ACTION_SCHEMA_FILE || '';
+  const actionSchemaFile = args.find(arg => !arg.startsWith('--')) || env.ACTION_SCHEMA_FILE || '';
   if (!actionSchemaFile) {
     throw new Error('missing action schema file path: pass argv[2] or ACTION_SCHEMA_FILE');
   }
   const snapshotArgIndex = args.findIndex(arg => arg === '--snapshot');
   const snapshotFile = snapshotArgIndex >= 0
     ? args[snapshotArgIndex + 1]
-    : (args.find(arg => arg.startsWith('--snapshot=')) || '').slice('--snapshot='.length) || process.env.PANEL_SNAPSHOT_FILE || '';
+    : (args.find(arg => arg.startsWith('--snapshot=')) || '').slice('--snapshot='.length) || env.PANEL_SNAPSHOT_FILE || '';
+
+  return {
+    actionSchemaFile,
+    snapshotFile,
+    dryRun: hasExecuteFlag ? false : true,
+    fastScope: hasFullScopeFlag ? false : (hasFastScopeFlag ? true : undefined),
+  };
+}
+
+async function main() {
+  const options = parseCliArgs(process.argv.slice(2));
 
   const result = await run({
-    actionSchemaFile: path.resolve(actionSchemaFile),
-    snapshotFile: snapshotFile ? path.resolve(snapshotFile) : '',
-    dryRun: hasExecuteFlag ? false : (hasDryRunFlag ? true : undefined),
-    fastScope: hasFullScopeFlag ? false : (hasFastScopeFlag ? true : undefined),
+    actionSchemaFile: path.resolve(options.actionSchemaFile),
+    snapshotFile: options.snapshotFile ? path.resolve(options.snapshotFile) : '',
+    dryRun: options.dryRun,
+    fastScope: options.fastScope,
   });
   const logResult = persistAdjustmentLog(result);
   if (logResult?.count) {
@@ -69,7 +79,14 @@ async function main() {
   }
 }
 
-main().catch(error => {
-  console.error(error.stack || error.message);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch(error => {
+    console.error(error.stack || error.message);
+    process.exit(1);
+  });
+}
+
+module.exports = {
+  parseCliArgs,
+  persistAdjustmentLog,
+};

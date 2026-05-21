@@ -30,8 +30,12 @@ function renderMarkdown(audit) {
     '',
     `- Active season tasks: ${audit.summary.activeSeasonTasks}`,
     `- Risk items: ${audit.summary.riskItems}`,
+    `- Edge watch items: ${audit.summary.edgeWatchItems}`,
     `- Suppressed by main task limit: ${audit.summary.suppressedRiskItems}`,
     `- By risk type: ${Object.entries(audit.summary.byRiskType).map(([key, value]) => `${key}=${value}`).join(', ') || 'none'}`,
+    `- By edge watch type: ${Object.entries(audit.summary.byEdgeWatchType || {}).map(([key, value]) => `${key}=${value}`).join(', ') || 'none'}`,
+    '',
+    'Boundary: season windows are risk entries, not final listing identity. Every risk and edge-watch SKU requires Amazon title/bullets/specs review before action.',
     '',
     '| SKU | Risk | Season | Units 30d | Sellable Days | Profit | 7d Ads | Suppressed | Suggested Action |',
     '| --- | --- | --- | ---: | ---: | ---: | ---: | --- | --- |',
@@ -48,6 +52,29 @@ function renderMarkdown(audit) {
       pct(item.profitRate),
       `${item.adSpend7d.toFixed(2)}/${item.adOrders7d}`,
       item.suppressedByMainTaskLimit ? 'yes' : 'no',
+      item.suggestedAction,
+    ].join(' | ').replace(/^/, '| ').replace(/$/, ' |'));
+  }
+
+  lines.push(
+    '',
+    '## Edge Watch Items',
+    '',
+    '| SKU | Watch | Season | Units 30d | Sellable Days | Profit | 7d Ads | Reasons | Suggested Action |',
+    '| --- | --- | --- | ---: | ---: | ---: | ---: | --- | --- |',
+  );
+
+  for (const item of (audit.edgeWatchItems || []).slice(0, 40)) {
+    const seasons = item.seasonWindows.map(window => `${window.label}:${window.phase}`).join(', ');
+    lines.push([
+      item.sku,
+      item.watchType,
+      seasons,
+      item.units30d,
+      item.sellableDays,
+      pct(item.profitRate),
+      `${item.adSpend7d.toFixed(2)}/${item.adOrders7d}`,
+      (item.watchReasons || []).join('; '),
       item.suggestedAction,
     ].join(' | ').replace(/^/, '| ').replace(/$/, ' |'));
   }
@@ -80,5 +107,12 @@ console.log(JSON.stringify({
     units30d: item.units30d,
     sellableDays: item.sellableDays,
     suppressed: item.suppressedByMainTaskLimit,
+  })),
+  edgeWatch: audit.edgeWatchItems.slice(0, 12).map(item => ({
+    sku: item.sku,
+    watchType: item.watchType,
+    season: item.seasonWindows.map(window => `${window.label}:${window.phase}`),
+    units30d: item.units30d,
+    sellableDays: item.sellableDays,
   })),
 }, null, 2));

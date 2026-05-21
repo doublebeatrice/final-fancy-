@@ -1,0 +1,208 @@
+{
+  "generatedAt": "2026-05-19T10:06:12.221Z",
+  "businessDate": "2026-05-19",
+  "type": "father_cna_listing_title_repair_applications",
+  "dryRunDefault": true,
+  "note": "Repair for PIR repeated Bride/Groom backend title rule after first execution.",
+  "summary": {
+    "total": 2,
+    "valid": 2,
+    "invalid": 0
+  },
+  "validations": [
+    {
+      "sku": "PIR4617",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "oldLength": 198,
+      "newLength": 161,
+      "oldTitle": "Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass, Engraved Coaster, Stainless Steel Ice Cubes, Cotton Socks and Candle - Sentimental Gift from Daughter or Son(Groom)",
+      "newTitle": "Reallnaive Father's Day Wedding Gift Box for Dad, 10oz Whiskey Glass, Engraved Coaster, Ice Cubes, Cotton Socks and Candle, Sentimental Gift from Daughter or Son"
+    },
+    {
+      "sku": "PIR4610",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "oldLength": 199,
+      "newLength": 161,
+      "oldTitle": "Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass, Engraved Coaster, Stainless Steel Ice Cubes, Cotton Socks and Candle - Sentimental Gift from Daughter or Son (Bride)",
+      "newTitle": "Reallnaive Father's Day Wedding Gift Box for Dad, 10oz Whiskey Glass, Engraved Coaster, Ice Cubes, Cotton Socks and Candle, Sentimental Gift from Daughter or Son"
+    }
+  ],
+  "items": [
+    {
+      "sku": "PIR4617",
+      "asin": "B0F3XFYKZP",
+      "summary": "??????? Father of the Groom ?????????? 7505 ??/73 ???? Father's Day ???? ????????? Bride/Groom ?????????? Dad/Wedding Gift Box ??????????????????",
+      "vertical": "father_vertical",
+      "placement": "front_after_brand",
+      "actions": [
+        {
+          "entityType": "listing",
+          "actionType": "copy_edit",
+          "id": "listing::2410271::PIR4617::father_cna_title_repair",
+          "productId": "2410271",
+          "sku": "PIR4617",
+          "asin": "B0F3XFYKZP",
+          "filedType": "A",
+          "toEditorFlag": 1,
+          "variantStatus": 2,
+          "beforeStatus": 0,
+          "languageType": "us,uk,ca",
+          "synchronizeFields": [],
+          "synchronizeVariantSkus": [],
+          "remark": "2026-05-19 Father's Day/CNA title placement: front_after_brand repair repeated variant word",
+          "reason": "??????? Father of the Groom ?????????? 7505 ??/73 ???? Father's Day ???? ????????? Bride/Groom ?????????? Dad/Wedding Gift Box ??????????????????",
+          "original": {
+            "parentTitle": "Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass, Engraved Coaster, Stainless Steel Ice Cubes, Cotton Socks and Candle - Sentimental Gift from Daughter or Son(Groom)",
+            "bulletPoints": [],
+            "productDescription": "",
+            "searchCoreKeywords": "father of bride gift wedding dad from to bridal shower box glass engraved coaster socks reusable stones lavender candle sentimental keepsake present thank you father whiskey day groom's keepsake father set personalized groom you rustic daughter"
+          },
+          "now": {
+            "parentTitle": "Reallnaive Father's Day Wedding Gift Box for Dad, 10oz Whiskey Glass, Engraved Coaster, Ice Cubes, Cotton Socks and Candle, Sentimental Gift from Daughter or Son",
+            "bulletPoints": [],
+            "productDescription": "",
+            "searchCoreKeywords": "father of bride gift wedding dad from to bridal shower box glass engraved coaster socks reusable stones lavender candle sentimental keepsake present thank you father whiskey day groom's keepsake father set personalized groom you rustic daughter"
+          },
+          "phraseFrequencyText": "Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass, Engraved Coaster, Stainless Steel Ice Cubes, Cotton Socks and Candle - Sentimental Gift from Daughter or Son(Groom) Complete Father of the Groom gift set wedding gift for dad box includes a 10oz whiskey glass, engraved coaster, reusable stainless steel ice cubes (6 pcs), cotton socks, and a lavender-scented soy candle - a sentimental keepsake slate coaster food-grade stainless steel stones soy wax candle ''Father of the groom'' socks, Wedding Gift elegant keepsake box ideal bridal shower gift thoughtful ''Father of the groom'' gift set gift box Ready to Gift with No Extra Wrapping Needed black foldable box 10oz whiskey glass Slate coaster Stainless steel stones Lavender soy wax candle",
+          "productCompliance": {
+            "productLabel": "其他食品接触类&成人服装",
+            "isChildrenProduct": false,
+            "isNonChildrenProduct": false
+          },
+          "productContext": {
+            "listingTitle": "",
+            "productType": "unknown",
+            "productTypes": [],
+            "targetAudience": [],
+            "occasion": [],
+            "visualTheme": [],
+            "positioning": "",
+            "categoryPath": ""
+          },
+          "titleMaxLength": 200,
+          "hypothesis": "??????? Father of the Groom ?????????? 7505 ??/73 ???? Father's Day ????",
+          "expectedEffect": {
+            "sessions": "watch",
+            "conversionRate": "watch",
+            "orders": "watch",
+            "acos": "watch"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7,
+              14
+            ],
+            "metrics": [
+              "sessions",
+              "clicks",
+              "orders",
+              "conversion",
+              "acos"
+            ]
+          },
+          "riskLevel": "seasonal_title_image_and_traffic_reviewed",
+          "confidence": 0.82,
+          "decisionStage": "ai_approved",
+          "approvedBy": "codex",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "source": "father_cna_title_review_2026-05-19"
+        }
+      ]
+    },
+    {
+      "sku": "PIR4610",
+      "asin": "B0F3XHZVDT",
+      "summary": "PIR4617 ?? Bride ?????/??? Father of the Bride ?????? Father's Day ?????????? ????????? Bride/Groom ?????????? Dad/Wedding Gift Box ??????????????????",
+      "vertical": "father_vertical_variant",
+      "placement": "front_after_brand",
+      "actions": [
+        {
+          "entityType": "listing",
+          "actionType": "copy_edit",
+          "id": "listing::2410270::PIR4610::father_cna_title_repair",
+          "productId": "2410270",
+          "sku": "PIR4610",
+          "asin": "B0F3XHZVDT",
+          "filedType": "A",
+          "toEditorFlag": 1,
+          "variantStatus": 2,
+          "beforeStatus": 0,
+          "languageType": "us,uk,ca",
+          "synchronizeFields": [],
+          "synchronizeVariantSkus": [],
+          "remark": "2026-05-19 Father's Day/CNA title placement: front_after_brand repair repeated variant word",
+          "reason": "PIR4617 ?? Bride ?????/??? Father of the Bride ?????? Father's Day ?????????? ????????? Bride/Groom ?????????? Dad/Wedding Gift Box ??????????????????",
+          "original": {
+            "parentTitle": "Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass, Engraved Coaster, Stainless Steel Ice Cubes, Cotton Socks and Candle - Sentimental Gift from Daughter or Son (Bride)",
+            "bulletPoints": [],
+            "productDescription": "",
+            "searchCoreKeywords": "father of bride gift wedding dad from to bridal shower box glass engraved coaster socks reusable stones lavender candle sentimental keepsake present thank you father whiskey day groom's keepsake father set personalized groom you rustic daughter"
+          },
+          "now": {
+            "parentTitle": "Reallnaive Father's Day Wedding Gift Box for Dad, 10oz Whiskey Glass, Engraved Coaster, Ice Cubes, Cotton Socks and Candle, Sentimental Gift from Daughter or Son",
+            "bulletPoints": [],
+            "productDescription": "",
+            "searchCoreKeywords": "father of bride gift wedding dad from to bridal shower box glass engraved coaster socks reusable stones lavender candle sentimental keepsake present thank you father whiskey day groom's keepsake father set personalized groom you rustic daughter"
+          },
+          "phraseFrequencyText": "Complete Father of the Bride gift set  \nwedding gift for dad  \n box includes a 10oz whiskey glass, engraved coaster, reusable stainless steel ice cubes (6 pcs), cotton socks, and a lavender-scented soy candle - a sentimental keepsake\n slate coaster\nfood-grade stainless steel stones \nsoy wax candle\n''Father of the Bride'' socks,\nWedding Gift \nelegant keepsake box \nideal bridal shower gift \nthoughtful ''Father of the Bride'' gift set\ngift box\nReady to Gift with No Extra Wrapping Needed\n black foldable box\n10oz whiskey glass\n Slate coaster\n Stainless steel stones\n  Lavender soy wax candle",
+          "productCompliance": {
+            "productLabel": "其他食品接触类&成人服装",
+            "isChildrenProduct": false,
+            "isNonChildrenProduct": false
+          },
+          "productContext": {
+            "listingTitle": "",
+            "productType": "unknown",
+            "productTypes": [],
+            "targetAudience": [],
+            "occasion": [],
+            "visualTheme": [],
+            "positioning": "",
+            "categoryPath": ""
+          },
+          "titleMaxLength": 200,
+          "hypothesis": "PIR4617 ?? Bride ?????/??? Father of the Bride ?????? Father's Day ??????????",
+          "expectedEffect": {
+            "sessions": "watch",
+            "conversionRate": "watch",
+            "orders": "watch",
+            "acos": "watch"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7,
+              14
+            ],
+            "metrics": [
+              "sessions",
+              "clicks",
+              "orders",
+              "conversion",
+              "acos"
+            ]
+          },
+          "riskLevel": "seasonal_title_image_and_traffic_reviewed",
+          "confidence": 0.82,
+          "decisionStage": "ai_approved",
+          "approvedBy": "codex",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "source": "father_cna_title_review_2026-05-19"
+        }
+      ]
+    }
+  ]
+}

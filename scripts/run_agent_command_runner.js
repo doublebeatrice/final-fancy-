@@ -8,10 +8,21 @@ const DEFAULT_OUT_DIR = path.join(ROOT, 'data', 'agent');
 const ALLOWED_NPM_SCRIPTS = new Set([
   'ops:agent:review-effect',
   'ops:agent:review-evidence',
+  'ops:selection:keyword-research',
   'ops:selection:keyword-conversion',
   'ops:selection:aba-search-terms',
+  'ops:selection:keyword-seasonality',
   'ops:agent:capabilities',
 ]);
+const SCRIPT_ENTRYPOINTS = {
+  'ops:agent:review-effect': path.join(ROOT, 'scripts', 'run_agent_effect_review.js'),
+  'ops:agent:review-evidence': path.join(ROOT, 'scripts', 'run_agent_review_evidence.js'),
+  'ops:selection:keyword-research': path.join(ROOT, 'scripts', 'execute', 'fetch_selection_keyword_research.js'),
+  'ops:selection:keyword-conversion': path.join(ROOT, 'scripts', 'execute', 'fetch_selection_keyword_conversion_rate.js'),
+  'ops:selection:aba-search-terms': path.join(ROOT, 'scripts', 'execute', 'fetch_selection_aba_search_terms.js'),
+  'ops:selection:keyword-seasonality': path.join(ROOT, 'scripts', 'execute', 'fetch_selection_keyword_seasonality.js'),
+  'ops:agent:capabilities': path.join(ROOT, 'scripts', 'run_agent_capability_registry.js'),
+};
 
 function text(value) {
   return String(value ?? '').trim();
@@ -60,11 +71,13 @@ function parseNpmRunCommand(command) {
   }
   const script = tokens[2];
   if (!ALLOWED_NPM_SCRIPTS.has(script)) return { ok: false, reason: `not_allowlisted:${script}` };
+  const passthroughArgs = tokens[3] === '--' ? tokens.slice(4) : tokens.slice(3);
   return {
     ok: true,
     script,
-    bin: process.platform === 'win32' ? 'npm.cmd' : 'npm',
-    args: tokens.slice(1),
+    bin: process.execPath,
+    args: [SCRIPT_ENTRYPOINTS[script], ...passthroughArgs],
+    originalArgs: tokens.slice(1),
   };
 }
 
@@ -75,6 +88,7 @@ function commandHasPlaceholder(command = {}) {
 function collectRunnableCommands(hub = {}) {
   const runnable = [];
   const skipped = [];
+  const seenRunnable = new Set();
   for (const task of hub.todayQueue || []) {
     const plan = task.executionPlan || {};
     for (const command of plan.commands || []) {
@@ -103,6 +117,12 @@ function collectRunnableCommands(hub = {}) {
         skipped.push({ ...item, reason: parsed.reason });
         continue;
       }
+      const dedupeKey = [item.command, item.output].join('|');
+      if (seenRunnable.has(dedupeKey)) {
+        skipped.push({ ...item, reason: 'duplicate_command' });
+        continue;
+      }
+      seenRunnable.add(dedupeKey);
       runnable.push({ ...item, parsed });
     }
   }

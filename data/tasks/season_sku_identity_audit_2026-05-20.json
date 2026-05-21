@@ -1,0 +1,1828 @@
+{
+  "generatedAt": "2026-05-20T12:00:34.770Z",
+  "businessDate": "2026-05-20",
+  "dataDate": "2026-05-19",
+  "sourceGapAudit": "data/tasks/season_gap_audit_2026-05-20_latest.json",
+  "scope": {
+    "riskSkuCount": 26
+  },
+  "methodology": [
+    "Live Amazon title/bullets/specs were fetched for each of the 26 risk SKUs.",
+    "Manual listing identity review overrides automatic keyword hits.",
+    "season_gap is the risk entry point only; final scenario must come from listing identity plus metrics."
+  ],
+  "results": [
+    {
+      "sku": "SAN1203",
+      "asin": "B0FGD7Z84F",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Zhanmai 12 Pcs Cowboy Hat & Bandana Set Western Costume Accessories for Cowboy Party Bulk Favors for Theme Party",
+        "brand": "Zhanmai",
+        "price": null,
+        "rating": "4.5",
+        "review_count": "188",
+        "bullets": [],
+        "specs": {
+          "Brand Name": "Zhanmai",
+          "Style Number": "SAN-Zhanmai-1203",
+          "Costume Headwear Type": "Costume Hat",
+          "Unit Count": "12 Count",
+          "Age Range Description": "Adult",
+          "Part Number": "SAN-Zhanmai-1203",
+          "Manufacturer": "Zhanmai",
+          "Best Sellers Rank": "#296,474 in Home & Kitchen ( See Top 100 in Home & Kitchen ) #405 in Party Headwear",
+          "ASIN": "B0FGD7Z84F",
+          "Theme": "Cowboy",
+          "Occasion": "Cowboy Party, Theme Party",
+          "character": "Cowboy",
+          "Color": "Glossy Black",
+          "Style Name": "Western Cowboy Hats",
+          "Size": "One Size",
+          "Item Dimensions": "14.96 x 9.25 x 7.2 inches",
+          "Material": "Polyester",
+          "Product Care Instructions": "Hand Wash Only",
+          "Apparel Fabric Weight Class": "Lightweight",
+          "Apparel Fabric Stretch": "No Stretch",
+          "Fabric Type": "100% Polyester"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/81h-F+reK1L._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "metrics": {
+        "units30d": 1,
+        "units7d": 0,
+        "profitRate": -0.3498,
+        "sellableDays": 1380,
+        "adSpend7d": 0,
+        "adOrders7d": 0,
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap"
+      },
+      "identityAudit": {
+        "identity": "cowboy hat and bandana western/cowboy party accessories",
+        "primary": [
+          "Cowboy/Western party"
+        ],
+        "secondary": [
+          "Generic party"
+        ],
+        "alignment": "mismatch",
+        "correction": "Wedding mapping is weak; do not expand as wedding season.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "STA2607",
+      "asin": "B0FND9XC4Y",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Thenshop 30 Pcs Pastor Father's Day Christian Church Gifts for Men, Leather Prayer Journal Notebooks with Bible Verse Pens, Religious Bible Study for Pastor Church Events (Black)",
+        "brand": "Thenshop",
+        "price": null,
+        "rating": "4.4",
+        "review_count": "4",
+        "bullets": [
+          "Complete Pastor Gift Set: includes 15 leather pastor notebooks and 15 Bible verse pens, individually packed in OPP bags for a clean and professional presentation; Ideal for sharing with multiple pastors, ministry workers, or seminary students",
+          "Express Gratitude and Faith: each notebook and pen is embossed with gold Scripture and Pastor theme designs, serving as a constant reminder of encouragement and appreciation; A thoughtful way to show respect not only during Pastor Appreciation Month, but throughout the year",
+          "Ideal for Year-round Occasions: a versatile Christian gift for pastors, clergy, ministers, elders, bishops, or seminary graduates; Suitable for Clergy Appreciation Day, Christmas, Easter, Holy Week, Communion, Father's Day, birthdays, or church anniversaries, making it a meaningful gift for any season",
+          "Practical Leather Notebook: Measuring 6.1 x 3.74 inches (A6 size), each notebook features 80 lined pages for prayer notes, sermon outlines, weekly Bible study, or daily planning. Compact and portable, it helps pastors and believers stay organized and spiritually focused wherever they go",
+          "Inspirational Bible Verse Pens: metal pens (approx. 5.28 inches) with smooth black ink, engraved with uplifting Scripture such as “May the Lord bless you and protect you. ” Comfortable to hold, reliable for everyday writing, and meaningful as a faith-based office supply or church gift"
+        ],
+        "specs": {
+          "Brand Name": "Thenshop",
+          "Unit Count": "30.0 Count",
+          "Manufacturer": "Thenshop",
+          "Best Sellers Rank": "#195,322 in Office Products ( See Top 100 in Office Products ) #2,480 in Hardcover Executive Notebooks",
+          "ASIN": "B0FND9XC4Y",
+          "Item Dimensions L x W x Thickness": "15.35\"L x 6.69\"W x 3.35\"Th",
+          "Number of Items": "30",
+          "Item Dimensions L x W": "15.35\"L x 6.69\"W",
+          "Color": "Black",
+          "Binding": "Unknown Binding"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/811iSNyHmnL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 0,
+        "units7d": 0,
+        "profitRate": -0.185,
+        "sellableDays": 999,
+        "adSpend7d": 3.0100000000000002,
+        "adOrders7d": 2,
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap"
+      },
+      "identityAudit": {
+        "identity": "Pastor Fathers Day Christian church gift set",
+        "primary": [
+          "Pastor/Christian",
+          "Fathers Day"
+        ],
+        "secondary": [
+          "Appreciation gift"
+        ],
+        "alignment": "supported",
+        "correction": "Fathers/Pastor is supported; Nurse is not supported by listing.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "STA2604",
+      "asin": "B0FN7P88D4",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Thenshop 24 Pcs Pastor Father's Day Christian Church Gifts for Men, Leather Prayer Journal Notebooks with Bible Verse Pens, Religious Bible Study for Pastor Church Events (Multicolor)",
+        "brand": "Thenshop",
+        "price": null,
+        "rating": "4.4",
+        "review_count": "4",
+        "bullets": [
+          "Complete Pastor Gift Set: includes 12 leather pastor notebooks (black, dark brown, light brown – 4 each) and 12 Bible verse pens (3 colors, 4 each), individually packed in OPP bags for a clean and professional presentation; Ideal for sharing with multiple pastors, ministry workers, or seminary students",
+          "Express Gratitude and Faith: each notebook and pen is embossed with gold Scripture and Pastor theme designs, serving as a constant reminder of encouragement and appreciation; A thoughtful way to show respect not only during Pastor Appreciation Month, but throughout the year",
+          "Ideal for Year-round Occasions: a versatile Christian gift for pastors, clergy, ministers, elders, bishops, or seminary graduates; Suitable for Clergy Appreciation Day, Christmas, Easter, Holy Week, Communion, Father's Day, birthdays, or church anniversaries, making it a meaningful gift for any season",
+          "Practical Leather Notebook: Measuring 6.1 x 3.74 inches (A6 size), each notebook features 80 lined pages for prayer notes, sermon outlines, weekly Bible study, or daily planning. Compact and portable, it helps pastors and believers stay organized and spiritually focused wherever they go",
+          "Inspirational Bible Verse Pens: metal pens (approx. 5.28 inches) with smooth black ink, engraved with uplifting Scripture such as “May the Lord bless you and protect you. ” Comfortable to hold, reliable for everyday writing, and meaningful as a faith-based office supply or church gift"
+        ],
+        "specs": {
+          "Brand Name": "Thenshop",
+          "Unit Count": "24.0 Count",
+          "Manufacturer": "Thenshop",
+          "Item Weight": "3.3 Pounds",
+          "Best Sellers Rank": "#195,351 in Office Products ( See Top 100 in Office Products ) #2,480 in Hardcover Executive Notebooks",
+          "ASIN": "B0FN7P88D4",
+          "Item Dimensions L x W x Thickness": "11.81\"L x 6.3\"W x 3.54\"Th",
+          "Number of Items": "24",
+          "Item Dimensions L x W": "11.81\"L x 6.3\"W",
+          "Color": "Multicolor",
+          "Binding": "Unknown Binding"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/91vFIZKheeL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        }
+      ],
+      "metrics": {
+        "units30d": 0,
+        "units7d": 0,
+        "profitRate": -0.0712,
+        "sellableDays": 999,
+        "adSpend7d": 3.88,
+        "adOrders7d": 0,
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap"
+      },
+      "identityAudit": {
+        "identity": "Pastor Fathers Day Christian church gift set",
+        "primary": [
+          "Pastor/Christian",
+          "Fathers Day"
+        ],
+        "secondary": [
+          "Appreciation gift"
+        ],
+        "alignment": "supported",
+        "correction": "Fathers/Pastor is supported; use exact/phrase only due margin risk.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "JIN3992",
+      "asin": "B0F2FH8TSZ",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Suzile Table Numbers 1-100, 100-piece Double Sided Gold Acrylic Table Number Tents, 3.15\" x 2.75\" Number Signs for Receptions, Banquets, Restaurants, and Wedding (White and Black)",
+        "brand": "Suzile",
+        "price": null,
+        "rating": "4.1",
+        "review_count": "5",
+        "bullets": [
+          "Comprehensive Package: this product includes 100 pieces of table number signs, effectively meeting your bulk requirements for larger events or gatherings; Having so many table signs at your disposal makes sure you'll not fall short of guidance for your guests; They can be applied in an array of events, from gala dinners to wedding receptions and others in between",
+          "Elegant Style: displaying a fusion of sleek design and appealing aesthetics, each table number features black letters on a white background; The large font size ensures legibility even from a distance; It incorporates a thoughtful design element that adds a touch of elegance and visual appeal, enhancing the event's ambiance",
+          "Suitable Size: the charcuterie numbers measure about 3.15 x 2.76 inches; This size is both noticeable and eye catching without being obtrusive or occupying unnecessary table space; It's a thoughtful design choice, carefully implemented to cater to the needs and convenience of our customers",
+          "Quality Acrylic Material: our restaurant table numbers are crafted from quality acrylic, renowned for its reliability and sturdiness; Each sign is designed to withstand frequent handling and usage, ensuring its longevity for numerous events and gatherings; This quality also makes them easy to wipe clean and maintain, ensuring their appeal remains intact for an extended time period",
+          "Multifunctional Use: with a universal design that caters to a range of occasions, these table number stands have a versatile application; From weddings, birthday parties, Christmas parties, baby showers, charity parties, corporate events, to informal gatherings; These table numbers will make a stylish and functional addition, coordinating seamlessly with different decor styles or themes, suitable for restaurants, coffee shops, bistros and more"
+        ],
+        "specs": {
+          "Brand Name": "Suzile",
+          "Manufacturer": "Suzile",
+          "Unit Count": "1.0 Count",
+          "Part Number": "Suzile-Table Numbers-2",
+          "Best Sellers Rank": "#152,114 in Kitchen & Dining ( See Top 100 in Kitchen & Dining ) #1,518 in Place Cards",
+          "ASIN": "B0F2FH8TSZ",
+          "Mounting Type": "Tabletop Mount",
+          "Orientation": "Landscape",
+          "Pre Printed Text": "Numbers",
+          "Size": "about 3.15 x 2.76 inches",
+          "Item Weight": "5.32 Pounds",
+          "Item Dimensions L x W": "3.15\"L x 2.76\"W",
+          "Color": "White and Black",
+          "Material": "Acrylic"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/71zwLEA3x7L._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "metrics": {
+        "units30d": 0,
+        "units7d": 0,
+        "profitRate": 0.0365,
+        "sellableDays": 999,
+        "adSpend7d": 2.68,
+        "adOrders7d": 0,
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap"
+      },
+      "identityAudit": {
+        "identity": "table numbers for receptions/banquets/restaurants/wedding",
+        "primary": [
+          "Wedding reception",
+          "Event table numbers"
+        ],
+        "secondary": [
+          "Restaurant/banquet"
+        ],
+        "alignment": "supported_narrow",
+        "correction": "Wedding is valid but as table-number/reception utility, not bridal-party gifts.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "CEE0467",
+      "asin": "B09SW2NT6J",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Cunhill 50 Pack Dessert Cups with Dome Lids Disposable Plastic Cups with Lids Clear Pet (No Hole), Sporks and Stickers for Plastic Fruit, Cake and Mini Snack Bowls(9 oz,Simple Cup)",
+        "brand": "Cunhill",
+        "price": "$00",
+        "rating": "4.5",
+        "review_count": "157",
+        "bullets": [
+          "Products include: you will receive 50 packs of crystal PET dessert cups and 50 sporks, 50 pieces individually packaged sporks and 60 pieces stickers with [handmade] words, an amount large enough to accommodate all of your family and friends",
+          "Large capacity: our single use transparent dessert cups come with the proper size, with a non perforated dome lid that is enough to help preserve dessert integrity and effectively and keep dessert from frosting",
+          "Quality and reliable material: the disposable transparent PET dessert cups are made of quality PET plastic material, no bad smell, tasteless, thickened, not easy to break, safe to use, can be applied for cold drinks and food",
+          "Transparent design: the simple and clear design makes these transparent plastic cups with lids suitable for storing and displaying homemade drinks, adding a touch of refinement and class to the contents and making your drinks look tasty and inviting",
+          "Wide applications: suitable for various kinds of desserts such as cupcakes, yogurt, ice cream, mousse, fruit, snacks, sundaes, salads, etc.; It also helps keep drinks and desserts in the fridge so guests can take them home to enjoy after a party"
+        ],
+        "specs": {
+          "Number of Pieces": "50",
+          "Brand Name": "Cunhill",
+          "Specific Uses For Product": "Dessert, Ice Cream",
+          "Recommended Uses For Product": "Fruit, Cake, Dessert, Snacks",
+          "Unit Count": "1.0 Count",
+          "Manufacturer": "Cunhill",
+          "Best Sellers Rank": "#141,391 in Kitchen & Dining ( See Top 100 in Kitchen & Dining ) #543 in Dessert Bowls #2,123 in Disposable Cups",
+          "ASIN": "B09SW2NT6J",
+          "Capacity": "9 ounces",
+          "Item Dimensions W x H": "7.87\"W x 3.94\"H",
+          "Size": "9 oz",
+          "Color": "Simple Cup",
+          "Shape": "Dome",
+          "Theme": "Fruit",
+          "Pattern": "Transparent",
+          "Bowl Material": "Plastic",
+          "Product Care Instructions": "Hand Wash Only",
+          "Is the item dishwasher safe?": "No",
+          "Is the item microwaveable?": "No",
+          "Material Type": "Plastic",
+          "Other Special Features of the Product": "Transparent"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/81WfHJvxryL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 0,
+        "units7d": 0,
+        "profitRate": -0.2361,
+        "sellableDays": 999,
+        "adSpend7d": 2.3600000000000003,
+        "adOrders7d": 0,
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap"
+      },
+      "identityAudit": {
+        "identity": "dessert cups / fruit cake mini snack bowls",
+        "primary": [
+          "Food/dessert cups"
+        ],
+        "secondary": [
+          "Generic party"
+        ],
+        "alignment": "weak_or_mismatch",
+        "correction": "Wedding/Nurse mapping is weak; do not expand as wedding or nurse.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "HUA6645",
+      "asin": "B0GDXPLX6B",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Suhine 9 Pcs Lace Mrs Bridal Panties Set, Wedding Bride Underwear, White Size L for Bride and Bridesmaids, Bachelorette Favors Party Gift, Bridal Gift for Her",
+        "brand": "Suhine",
+        "price": null,
+        "rating": "5.0",
+        "review_count": "2",
+        "bullets": [],
+        "specs": {
+          "Brand Name": "Suhine",
+          "Age Range Description": "Adult",
+          "Unit Count": "9 Count",
+          "Number of Items": "9",
+          "Style Number": "HUA-Suhine-6645",
+          "Manufacturer Part Number": "HUA-Suhine-6645",
+          "Item Weight": "7.84 ounces",
+          "Best Sellers Rank": "#9,857,314 in Clothing, Shoes & Jewelry ( See Top 100 in Clothing, Shoes & Jewelry ) #615 in Women's Novelty Underwear Briefs #6,619,151 in Women's Fashion",
+          "ASIN": "B0GDXPLX6B",
+          "Color": "White",
+          "Rise Style": "Low",
+          "Bottom Style": "Boxers",
+          "Material Type": "95%cotton 5%spandex",
+          "Fabric Type": "95% Cotton, 5% Spandex",
+          "Size": "One Size"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/61q1eeRzEML._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 0,
+        "units7d": 0,
+        "profitRate": 0.1165,
+        "sellableDays": 999,
+        "adSpend7d": 1.05,
+        "adOrders7d": 0,
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap"
+      },
+      "identityAudit": {
+        "identity": "bridal panties / bride underwear / bachelorette favors",
+        "primary": [
+          "Wedding",
+          "Bachelorette",
+          "Bride gift"
+        ],
+        "secondary": [],
+        "alignment": "supported",
+        "correction": "Wedding valid; Nurse not supported. Route still hold/clearance due ad ineligible and no orders.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "LEM6585",
+      "asin": "B0FXVB2SYG",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "LemonRoad 6 Sets Wedding Centerpieces for Tables Include Galvanized Flower Bucket Metal Vases with Artificial Flowers Bridal Shower Decorations Wedding Party Favors for Guests (Blue)",
+        "brand": "LemonRoad",
+        "price": null,
+        "rating": "4.3",
+        "review_count": "",
+        "bullets": [
+          "Elegant Design Meets Vintage Charm: experience timeless elegance with our wedding metal vases, accentuated by their classic French country style for wedding; The graceful silver hue and hemp rope handles create a vintage aesthetic that effortlessly enhances any setting, making them the perfect decorative touch for those who appreciate understated beauty",
+          "Robust Craftsmanship for Longevity: crafted from galvanized material, these wedding centerpieces for tables offer unmatched durability; Strong and robust, they resist deformation, ensuring your investment maintains its elegance for years to come; Ideal for busy venues like restaurants and wedding spaces, they stand the test of time",
+          "Suitable Size for Versatile Styling: measuring about 14.96x5.91x5.12 inches, these wedding vases centerpieces are designed for versatility in decoration; Whether gracing a grand dining table or adding charm to a cozy nook, they boast an ideal size that accommodates various arrangements and scenarios, from farmhouse kitchens to elegant weddings",
+          "Comprehensive Decorative Set: each wedding decoration includes a curated set of 6 artificial peonies and 18 baby's breath, alongside 6 galvanized flower buckets; This complete ensemble allows for instant transformation of your wedding, offering convenience and elegance without the hassle of sourcing individual components",
+          "Captivating Centerpieces for Any Occasion: turn ordinary gatherings into elegant affairs with these wedding vases with flower as your signature centerpieces; Their French country style adds an enchanting touch, captivating guests whether in a bustling restaurant or a serene wedding venue, and ensuring your event is one to remember"
+        ],
+        "specs": {
+          "Brand Name": "LemonRoad",
+          "Recommended Uses For Product": "Wedding",
+          "Number of Pieces": "6",
+          "Manufacturer": "LemonRoad",
+          "Model Number": "LEM-LemonRoad-6585",
+          "Manufacturer Part Number": "LEM-LemonRoad-6585",
+          "Unit Count": "6.0 Count",
+          "Best Sellers Rank": "#736,416 in Home & Kitchen ( See Top 100 in Home & Kitchen ) #753 in Decorative Jars",
+          "ASIN": "B0FXVB2SYG",
+          "Color": "Blue",
+          "Shape": "Round",
+          "Product Style": "Fashion",
+          "Pattern": "Floral",
+          "Theme": "Wedding",
+          "Material Type": "Metal",
+          "Finish Types": "Galvanized",
+          "Item Dimensions L x W x H": "15.75\"L x 8.46\"W x 5.31\"H",
+          "Item Weight": "3.45 Pounds"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/71meh7ti78L._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 0,
+        "units7d": 0,
+        "profitRate": -0.1469,
+        "sellableDays": 999,
+        "adSpend7d": 1.23,
+        "adOrders7d": 0,
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap"
+      },
+      "identityAudit": {
+        "identity": "wedding centerpieces / galvanized flower bucket vases",
+        "primary": [
+          "Wedding centerpieces"
+        ],
+        "secondary": [
+          "Reception decor"
+        ],
+        "alignment": "supported_narrow",
+        "correction": "Wedding valid; use centerpiece/vase terms only.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "HEL3107",
+      "asin": "B0FVFJBZBW",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Huquary 32 Sets Football Senior Night Gifts Positive Gnome Keychains with Thank You Cards and Opp Bags Acrylic Bulk Keychain Gifts for Team Players Tailgate Football Birthday Party Favors",
+        "brand": "Huquary",
+        "price": null,
+        "rating": "5.0",
+        "review_count": "2",
+        "bullets": [],
+        "specs": {
+          "Included Components": "32 × acrylic keychains",
+          "Brand Name": "Huquary",
+          "Number of Pieces": "32",
+          "Age Range Description": "Adult",
+          "Manufacturer Part Number": "HEL-Huquary-3107",
+          "Style Number": "HEL-Huquary-3107",
+          "Unit Count": "32 Count",
+          "Manufacturer": "Huquary",
+          "Best Sellers Rank": "#4,994,456 in Home & Kitchen ( See Top 100 in Home & Kitchen ) #3,862 in Keyring Party Favor Packs",
+          "ASIN": "B0FVFJBZBW",
+          "Color": "Multicolor",
+          "Theme": "Sports",
+          "Pattern": "Football Gnome",
+          "Product Style": "Novelty",
+          "Additional Features": "Scratch Resistant, Lightweight",
+          "Closure Type": "Lobster Clasp",
+          "Fit to Size Sentiment": "one_size_fits_all",
+          "Material Type": "acrylic, double-sided print",
+          "Item Dimensions": "5.91 x 5.91 x 2.17 inches",
+          "Garment Size Country": "United States",
+          "Size": "2 inches"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/81Kd8oH3NGL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 0,
+        "units7d": 0,
+        "profitRate": -0.2882,
+        "sellableDays": 999,
+        "adSpend7d": 0.8900000000000001,
+        "adOrders7d": 0,
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_low_budget_season_structure_gap"
+      },
+      "identityAudit": {
+        "identity": "football senior night keychain gifts for team players",
+        "primary": [
+          "Football Senior Night",
+          "Team gifts"
+        ],
+        "secondary": [
+          "Tailgate/Birthday party favors"
+        ],
+        "alignment": "partial",
+        "correction": "Senior Night valid; generic Graduation downgraded; Nurse not supported.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "TAN2986",
+      "asin": "B0FYDRZ1ZC",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Quelay 24 Set 2026 Nurse Week Gift Anesthetist Appreciation Bracelet Gifts Bulk Colorful Clay Beaded Stretch Bracelet Thank You Gifts for Crna Nurse Anesthesiologists Birthday Medical Professional",
+        "brand": "Quelay",
+        "price": null,
+        "rating": "5.0",
+        "review_count": "2",
+        "bullets": [],
+        "specs": {
+          "Size": "17 cm / 6.7 in",
+          "Item Weight": "0.14 Kilograms",
+          "Item Length": "6.7 Inches",
+          "Chain Length": "17 Centimeters",
+          "Unit Count": "24 Count",
+          "Ring Size": "17 cm / 6.7 in",
+          "Brand Name": "Quelay",
+          "Age Range Description": "Adult",
+          "Manufacturer": "Quelay",
+          "Item Type Name": "bracelet",
+          "Best Sellers Rank": "#2,654,341 in Clothing, Shoes & Jewelry ( See Top 100 in Clothing, Shoes & Jewelry ) #10,577 in Women's Stretch Bracelets",
+          "ASIN": "B0FYDRZ1ZC",
+          "Color": "12 assorted colors",
+          "Style": "Beaded",
+          "Bracelet Form": "Strand",
+          "Stone Color": "12 assorted colors",
+          "Clasp Type": "No Clasp",
+          "Chain Type": "Bead Chain",
+          "Material": "polymer clay beads",
+          "Metal Type": "No Metal Type",
+          "Gem Type": "no gemstone"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/81xpHOKa0KL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 2,
+        "units7d": 0,
+        "profitRate": 0.1031,
+        "sellableDays": 2565,
+        "adSpend7d": 6.4399999999999995,
+        "adOrders7d": 0,
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_stale_inventory_sell_through_plan"
+      },
+      "identityAudit": {
+        "identity": "Nurse Week / CRNA / anesthetist appreciation bracelet",
+        "primary": [
+          "Nurse/CRNA appreciation"
+        ],
+        "secondary": [
+          "Medical professional gift"
+        ],
+        "alignment": "tail_or_partial",
+        "correction": "Nurse valid but tail; Graduation not supported.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "UY1624",
+      "asin": "B0BKG9LWYR",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Unittype 12 Pcs Patriotic Disposable Tablecloths 4th of July Red White Blue Plastic Rectangle Tablecloths 54 x 108 Inch Table Cover for Memorial Day Patriotic Gradation Party Decoration Supplies",
+        "brand": "Unittype",
+        "price": "$00",
+        "rating": "4.1",
+        "review_count": "2",
+        "bullets": [
+          "Package Including: the package includes 12 pieces of table cloths for parties in the package in total, red, dark blue, white, each color for 4 pieces, which is a large amount that can meet various use needs and replace requirements",
+          "Reasonable Size: each plastic table cover measures about 137 x 274 cm/ 54 x 108 inches, suitable for most folding buffet tables, outdoor picnic tables, kitchen and dining tables, giving you a comfortable use experience",
+          "Quality Material: the disposable tablecloths for rectangle tables are formed by quality plastic material, not easy to break or tear, sturdy and reusable, keep your table away from stains or oil, so you can use them with confidence",
+          "Easy to Use: this disposable tablecloth can keep your table away from cakes, juices, condiments, etc., good for family gatherings or family dinners; Because it is disposable, you don't even have to worry about cleaning up, the tablecloth can simply be thrown in the trash after use, providing you with a lot of convenience",
+          "Wide Occasions: with classic colors, this party table cover is widely applied for picnics, barbecues, parties, wedding receptions, daily life; It easily matches your tableware, flowers, candles or seasonal decorations, adding an elegant dining atmosphere to make your family and guests happy and enjoyable"
+        ],
+        "specs": {
+          "Color": "Red White Blue",
+          "Shape": "Oblong",
+          "Pattern": "Solid",
+          "Style Name": "/",
+          "Occasion": "/",
+          "Seasons": "All-Season",
+          "Corner Style": "Pleated",
+          "Item Dimensions L x W": "14.17\"L x 7.87\"W",
+          "Size": "14.2\" x 7.9\" (Oblong)",
+          "Number of Sets": "1",
+          "Number of Items": "1",
+          "Additional Features": "Lightweight",
+          "Brand Name": "Unittype",
+          "Included Components": "12 Pieces of table cloths",
+          "Manufacturer": "Unittype",
+          "Best Sellers Rank": "#2,530,418 in Home & Kitchen ( See Top 100 in Home & Kitchen ) #4,894 in Party Tablecovers",
+          "ASIN": "B0BKG9LWYR",
+          "Material Type": "Plastic",
+          "Weave Type": "Plain Weave",
+          "Product Care Instructions": "Dispose of after use",
+          "Fabric Type": "Plastic"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/612kQPGwGlL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 0,
+        "units7d": 0,
+        "profitRate": -0.0321,
+        "sellableDays": 999,
+        "adSpend7d": 0,
+        "adOrders7d": 0,
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_stale_inventory_sell_through_plan"
+      },
+      "identityAudit": {
+        "identity": "patriotic disposable tablecloths for Memorial Day / 4th of July",
+        "primary": [
+          "Patriotic",
+          "Memorial Day",
+          "4th of July"
+        ],
+        "secondary": [
+          "Party table cover"
+        ],
+        "alignment": "supported",
+        "correction": "Patriotic valid; Nurse not supported.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "GUF3129",
+      "asin": "B0GWD724Y8",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "12 Pcs Patriotic Bucket Hat Set for Men Women, 4 Styles American Flag Fisherman Caps for Patriotic Events",
+        "brand": "Bunnycool",
+        "price": null,
+        "rating": "4.5",
+        "review_count": "",
+        "bullets": [],
+        "specs": {
+          "Color": "Multicolor",
+          "Style Name": "Coastal Mix",
+          "Brand Name": "Bunnycool",
+          "Seasons": "All",
+          "Style Number": "GUF-Bunnycool-3129",
+          "Age Range Description": "Adult",
+          "Number of Items": "12",
+          "Manufacturer Part Number": "GUF-Bunnycool-3129",
+          "Unit Count": "12 Count",
+          "Item Weight": "2.05 Pounds",
+          "ASIN": "B0GWD724Y8",
+          "Item Dimensions": "7.87 x 7.87 x 5.31 inches",
+          "Product Care Instructions": "Hand Wash Only",
+          "Fabric Type": "100% Polyester"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/918Feeb1Y3L._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 0,
+        "units7d": 0,
+        "profitRate": 0.171,
+        "sellableDays": 999,
+        "adSpend7d": 0,
+        "adOrders7d": 0,
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_stale_inventory_sell_through_plan"
+      },
+      "identityAudit": {
+        "identity": "patriotic bucket hat / American flag event hat",
+        "primary": [
+          "Patriotic",
+          "Memorial Day",
+          "4th of July"
+        ],
+        "secondary": [
+          "Event hat"
+        ],
+        "alignment": "supported",
+        "correction": "Patriotic valid; use low-budget precise validation.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "GUF3133",
+      "asin": "B0GWCK7H94",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "12 Pcs Patriotic Bucket Hat Set for Men Women, 4 Styles American Flag Fisherman Caps for Patriotic Events",
+        "brand": "Bunnycool",
+        "price": null,
+        "rating": "4.4",
+        "review_count": "",
+        "bullets": [],
+        "specs": {
+          "Color": "Multicolor",
+          "Style Name": "Classic Mix",
+          "Brand Name": "Bunnycool",
+          "Seasons": "All",
+          "Style Number": "GUF-Bunnycool-3133",
+          "Age Range Description": "Adult",
+          "Number of Items": "12",
+          "Manufacturer Part Number": "GUF-Bunnycool-3133",
+          "Unit Count": "12 Count",
+          "Item Weight": "2.06 Pounds",
+          "ASIN": "B0GWCK7H94",
+          "Item Dimensions": "12.6 x 8.66 x 3.35 inches",
+          "Product Care Instructions": "Hand Wash Only",
+          "Fabric Type": "100% Polyester"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/91WwrOE3JDL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 0,
+        "units7d": 0,
+        "profitRate": 0.1732,
+        "sellableDays": 999,
+        "adSpend7d": 0,
+        "adOrders7d": 0,
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_stale_inventory_sell_through_plan"
+      },
+      "identityAudit": {
+        "identity": "patriotic bucket hat / American flag event hat",
+        "primary": [
+          "Patriotic",
+          "Memorial Day",
+          "4th of July"
+        ],
+        "secondary": [
+          "Event hat"
+        ],
+        "alignment": "supported",
+        "correction": "Same parent as GUF3129; transfer terms only, not spend level.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "YUT4458",
+      "asin": "B0D1VMCWXL",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens Summer Product Season",
+        "brand": "HyDren",
+        "price": "$00",
+        "rating": "4.1",
+        "review_count": "26",
+        "bullets": [
+          "Package Included: our package includes 2 inflatable pool number in 48 inch and 1 bundle of fishing line; This bundle ensures you have everything required at your disposal, making the decoration process smooth and hassle less. Tip: The shape of the number [3] is curved, you need to fill it with as much gas as possible to fully expand it to 48 inches",
+          "Material and Design: our pool floating numbers are made from PVC vinyl, and it won't easily fade or tear; We also add 3 or 4 small holes on both sides of the number floats to make it easier for you to use; Use fishing lines to pass through these holes to connect the 2 numbers so that they can exist in sets throughout the event, keeps it beautiful and will not be easily washed away, allowing you to enjoy more fun in the swimming pool",
+          "Convenient Usage Method: using these inflatable number is a breeze; Simply open the valve, inflate each number with a hand pump, air pump, or your mouth, close the valve, and use the fishing line to connect the digits; Please note that our product does not include an air pump or hand pump",
+          "Birthday Decoration: this inflatable pool numbers set serves as the nice prop for summer pool birthday parties, beach parties, and similar settings; They will enhance the celebratory ambiance while also serving as nice photo props for creating memorable birthdays with your friend and family",
+          "Versatile Applications: each inflatable pool float is filled with confetti, bringing a visual experience and enhanced beauty; Apart from being a nice party decor, these inflatable numbers also serve as nice additions to your swimming pool; You can utilize them in various celebrations involving your family, and friend, making the events unforgettable"
+        ],
+        "specs": {
+          "Brand Name": "HyDren",
+          "Item Form": "inflatable numbers",
+          "Manufacturer": "HyDren",
+          "Manufacturer Part Number": "MF-HyDren-03",
+          "Model Number": "MF2992",
+          "Included Components": "Pool floating numbers，Fishing line",
+          "Item Type Name": "Pool Rafts & Inflatable Ride-ons",
+          "Warranty Description": "/",
+          "Unit Count": "2.0 Count",
+          "Best Sellers Rank": "#38,549 in Toys & Games ( See Top 100 in Toys & Games ) #604 in Pool Rafts & Inflatable Ride-ons",
+          "ASIN": "B0D1VMCWXL",
+          "Size": "Red",
+          "Item Dimensions L x W": "8.07\"L x 6.69\"W",
+          "Item Weight": "1.84 Pounds",
+          "Weight Capacity Maximum": "0.57 Kilograms",
+          "Color": "Red and Clear",
+          "Material Type": "Polyvinyl Chloride"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/81HOJqkwnUL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "metrics": {
+        "units30d": 2,
+        "units7d": 2,
+        "profitRate": 0.104,
+        "sellableDays": 1155,
+        "adSpend7d": 11.97,
+        "adOrders7d": 0,
+        "riskType": "critical_stale_season",
+        "suggestedAction": "review_stale_inventory_sell_through_plan"
+      },
+      "identityAudit": {
+        "identity": "inflatable number pool float / birthday pool party decoration",
+        "primary": [
+          "Pool float",
+          "Summer",
+          "Birthday pool party"
+        ],
+        "secondary": [],
+        "alignment": "supported",
+        "correction": "Summer/pool valid; do not broaden to generic summer party supplies.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "STA2610",
+      "asin": "B0FND7GY4V",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Thenshop 20 Pcs Pastor Father's Day Christian Church Gifts for Men, Leather Prayer Journal Notebooks with Bible Verse Pens, Religious Bible Study for Pastor Church Events (Dark Brown)",
+        "brand": "Thenshop",
+        "price": null,
+        "rating": "4.4",
+        "review_count": "4",
+        "bullets": [
+          "Complete Pastor Gift Set: includes 10 leather pastor notebooks and 10 Bible verse pens, individually packed in OPP bags for a clean and professional presentation; Ideal for sharing with multiple pastors, ministry workers, or seminary students",
+          "Express Gratitude and Faith: each notebook and pen is embossed with gold Scripture and Pastor theme designs, serving as a constant reminder of encouragement and appreciation; A thoughtful way to show respect not only during Pastor Appreciation Month, but throughout the year",
+          "Ideal for Year-round Occasions: a versatile Christian gift for pastors, clergy, ministers, elders, bishops, or seminary graduates; Suitable for Clergy Appreciation Day, Christmas, Easter, Holy Week, Communion, Father's Day, birthdays, or church anniversaries, making it a meaningful gift for any season",
+          "Practical Leather Notebook: Measuring 6.1 x 3.74 inches (A6 size), each notebook features 80 lined pages for prayer notes, sermon outlines, weekly Bible study, or daily planning. Compact and portable, it helps pastors and believers stay organized and spiritually focused wherever they go",
+          "Inspirational Bible Verse Pens: metal pens (approx. 5.28 inches) with smooth black ink, engraved with uplifting Scripture such as “May the Lord bless you and protect you. ” Comfortable to hold, reliable for everyday writing, and meaningful as a faith-based office supply or church gift"
+        ],
+        "specs": {
+          "Brand Name": "Thenshop",
+          "Unit Count": "20.0 Count",
+          "Manufacturer": "Thenshop",
+          "Best Sellers Rank": "#195,227 in Office Products ( See Top 100 in Office Products ) #2,480 in Hardcover Executive Notebooks",
+          "ASIN": "B0FND7GY4V",
+          "Item Dimensions L x W x Thickness": "15.75\"L x 6.3\"W x 2.36\"Th",
+          "Number of Items": "20",
+          "Item Dimensions L x W": "15.75\"L x 6.3\"W",
+          "Color": "Dark Brown",
+          "Binding": "Unknown Binding"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/81SjWEDbSwL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        }
+      ],
+      "metrics": {
+        "units30d": 3,
+        "units7d": 2,
+        "profitRate": -0.3496,
+        "sellableDays": 1810,
+        "adSpend7d": 3.9400000000000004,
+        "adOrders7d": 0,
+        "riskType": "season_stale_watch",
+        "suggestedAction": "review_low_budget_season_structure_gap"
+      },
+      "identityAudit": {
+        "identity": "Pastor Fathers Day Christian church gift set",
+        "primary": [
+          "Pastor/Christian",
+          "Fathers Day"
+        ],
+        "secondary": [
+          "Appreciation gift"
+        ],
+        "alignment": "supported",
+        "correction": "Fathers/Pastor supported; exact/phrase only due margin risk.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "EY5555",
+      "asin": "B0DX1Q6H4C",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Sureio 36 Pcs Bible Mothers Day Keychains Gifts Bulk, Christian Keychain Set with Scripture Quotes, Religious Keychains Fathers Day Gift for Church Favors, Baptism, Christian Gifts Bulk",
+        "brand": "Sureio",
+        "price": "$9.99",
+        "rating": "5.0",
+        "review_count": "5",
+        "bullets": [],
+        "specs": {
+          "Brand Name": "Sureio",
+          "Number of Pieces": "36",
+          "Item Weight": "1.47 Pounds",
+          "Age Range Description": "TEEN",
+          "Manufacturer Part Number": "EY-Sureio-5555",
+          "Style Number": "EY-Sureio-5555",
+          "Unit Count": "36 Count",
+          "Manufacturer": "Sureio",
+          "Best Sellers Rank": "#1,753,317 in Clothing, Shoes & Jewelry ( See Top 100 in Clothing, Shoes & Jewelry ) #11,538 in Men's Keyrings & Keychains #22,688 in Women's Keyrings & Keychains",
+          "ASIN": "B0DX1Q6H4C",
+          "Color": "Antique Bronze",
+          "Pattern": "Letter Print",
+          "Material Type": "alloy, Transparent Resin",
+          "Item Dimensions": "6.1 x 4.02 x 2.05 inches",
+          "Garment Size Country": "China",
+          "Size": "Keychain diameter: 3 cm / 1.18 inches"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/81oxV5qTTdL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 4,
+        "units7d": 0,
+        "profitRate": 0.1811,
+        "sellableDays": 608,
+        "adSpend7d": 4.85,
+        "adOrders7d": 0,
+        "riskType": "season_structure_stale_risk",
+        "suggestedAction": "review_low_budget_season_structure_gap"
+      },
+      "identityAudit": {
+        "identity": "Bible Mothers/Fathers Day Christian keychains",
+        "primary": [
+          "Christian church gift",
+          "Mothers Day",
+          "Fathers Day"
+        ],
+        "secondary": [
+          "Baptism/church favors"
+        ],
+        "alignment": "mismatch",
+        "correction": "Graduation/Nurse not supported; move to Christian/Mother/Father route.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "MF6292",
+      "asin": "B0GMNCFTF2",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens Summer Product Season",
+        "brand": "HyDren",
+        "price": "$00",
+        "rating": "4.1",
+        "review_count": "26",
+        "bullets": [
+          "Package Included: our package includes 2 inflatable pool numbers (style “20”), each about 48 inch tall, plus 1 bundle of clear fishing line; This bundle ensures you have everything required at your disposal, making the decoration process smooth and hassle free",
+          "Material and Design: our pool floating numbers are made from PVC vinyl, and it won't easily fade or tear; Each number features small holes along the edges, making it easier to pass the fishing line through for hanging, tying, or securing the numbers together; The gold finish with a clear side and confetti inside adds extra sparkle for photos",
+          "Convenient Usage Method: using these inflatable numbers is a breeze; Simply open the valve, inflate each number with a hand pump, air pump, or your mouth, close the valve, and use the fishing line to connect or fix the digits; Please note that our product does not include an air pump or hand pump",
+          "Birthday Decoration: this inflatable number pool float set serves as a nice prop for summer pool birthday parties, beach parties, and similar settings; They enhance the celebration ambience while also serving as eye-catching photo props for creating memorable moments with friends and family",
+          "Versatile Applications: each inflatable pool float is filled with confetti, bringing a shiny visual effect and enhanced beauty; Apart from party decoration, the numbers also work as fun pool floating props and can be used across various celebrations, making the events unforgettable"
+        ],
+        "specs": {
+          "Brand Name": "HyDren",
+          "Item Form": "spherical",
+          "Manufacturer": "HyDren",
+          "Manufacturer Part Number": "MF-HyDren-6292",
+          "Model Number": "MF-HyDren-6292",
+          "Included Components": "Pool floating numbers (style “20”),Fishing line",
+          "Unit Count": "2.0 Count",
+          "Best Sellers Rank": "#38,549 in Toys & Games ( See Top 100 in Toys & Games ) #604 in Pool Rafts & Inflatable Ride-ons",
+          "ASIN": "B0GMNCFTF2",
+          "Size": "Gold",
+          "Item Dimensions L x W": "11.02\"L x 7.87\"W",
+          "Weight Capacity Maximum": "1.44 Pounds",
+          "Color": "Gold",
+          "Material Type": "Polyvinyl Chloride"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/81KPsDTuzeL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        },
+        {
+          "key": "mothers_day",
+          "label": "Mother's Day",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 5,
+        "units7d": 1,
+        "profitRate": 0.1085,
+        "sellableDays": 558,
+        "adSpend7d": 15.650000000000002,
+        "adOrders7d": 1,
+        "riskType": "season_stale_watch",
+        "suggestedAction": "review_low_budget_season_structure_gap"
+      },
+      "identityAudit": {
+        "identity": "inflatable number pool float / birthday pool party decoration",
+        "primary": [
+          "Pool float",
+          "Summer",
+          "Birthday pool party"
+        ],
+        "secondary": [],
+        "alignment": "supported",
+        "correction": "Summer/pool valid; Mothers Day is not current route.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "QUN5204",
+      "asin": "B0GTTQX894",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Hahafelt Bouquet Sash with Name Custom Prom Bouquet Ribbon Personalized Ribbon DIY Iron-on Letters Included, Custom Name Year for Senior Night, Weddings, Recitals(red Letter)",
+        "brand": "Hahafelt",
+        "price": null,
+        "rating": "3.8",
+        "review_count": "20",
+        "bullets": [
+          "Gifting & Memories Bouquet Sash: you will receive 1 red double-layer satin bouquet sash, measuring 4.25 x 35 inches, along with 3 heat transfer letter sticker sheets; You can customize it with initials, graduation year, or event names to decorate bouquets for prom, senior night, recitals, weddings, and other memorable celebrations",
+          "Versatile Design: our sticker set includes a variety of words like HS, PROM, HOCO, allowing you to prepare for different graduation-related occasions; The generous quantity of stickers lets you personalize both ends of the ribbon—place initials on one side and the year or event name on the other; Any extra letters can be used for additional DIY decorations",
+          "Easy to Apply: simply cut out the desired letters, position them on the ribbon, set your iron to 150-160°C, and press firmly for 6-8 seconds; Peel off the protective film to reveal your custom sash; You can tie a charming bow with trailing ends or wrap the bouquet and secure it with a simple knot, elegantly displaying your personalized design",
+          "Elegant Floral Decoration: this beautiful sash enhances your graduation bouquet, serves as a stylish photo prop, or can even be tied to your seat for added decoration; The ribbon and stickers add a touch of sophistication to your prom or graduation look, making it a standout accessory for your special event",
+          "Memorable Keepsake: a personalized sash with custom lettering makes a stylish addition to your prom night attire and a meaningful keepsake to commemorate your graduation; Keep this custom ribbon as a memento of your special day and cherish the memories for years to come"
+        ],
+        "specs": {
+          "Brand Name": "Hahafelt",
+          "Number of Pieces": "1",
+          "Manufacturer": "Hahafelt",
+          "Model Number": "QUN-Hahafelt-5204",
+          "Manufacturer Part Number": "QUN-Hahafelt-5204",
+          "Item Weight": "3.2 ounces",
+          "Best Sellers Rank": "#52,666 in Arts, Crafts & Sewing ( See Top 100 in Arts, Crafts & Sewing ) #793 in Iron-on Transfers",
+          "ASIN": "B0GTTQX894",
+          "Item Dimensions L x W": "13.98\"L x 10.43\"W",
+          "Color": "red"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/81bKX9mbhNL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        }
+      ],
+      "metrics": {
+        "units30d": 3,
+        "units7d": 3,
+        "profitRate": 0.3316,
+        "sellableDays": 980,
+        "adSpend7d": 8.78,
+        "adOrders7d": 1,
+        "riskType": "season_stale_watch",
+        "suggestedAction": "review_stale_inventory_sell_through_plan"
+      },
+      "identityAudit": {
+        "identity": "custom bouquet sash / prom ribbon",
+        "primary": [
+          "Senior Night",
+          "Prom",
+          "HOCO/Homecoming",
+          "Graduation"
+        ],
+        "secondary": [
+          "Wedding"
+        ],
+        "alignment": "partial_supported",
+        "correction": "Primary route is Senior Night/Prom/HOCO/Graduation; Wedding is secondary.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "SAN1225",
+      "asin": "B0FGD832QJ",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Zhanmai 12 Pcs Cowboy Hat & Bandana Set Western Costume Accessories for Cowboy Party Bulk Favors for Theme Party",
+        "brand": "Zhanmai",
+        "price": null,
+        "rating": "4.5",
+        "review_count": "188",
+        "bullets": [],
+        "specs": {
+          "Brand Name": "Zhanmai",
+          "Style Number": "SAN-Zhanmai-1225",
+          "Costume Headwear Type": "Costume Hat",
+          "Unit Count": "12 Count",
+          "Age Range Description": "Adult",
+          "Part Number": "SAN-Zhanmai-1225",
+          "Manufacturer": "Zhanmai",
+          "Best Sellers Rank": "#320,955 in Clothing, Shoes & Jewelry ( See Top 100 in Clothing, Shoes & Jewelry ) #243 in Men's Costume Hats",
+          "ASIN": "B0FGD832QJ",
+          "Theme": "Cowboy",
+          "Occasion": "Birthday, Christmas, Cowboy Party, Halloween, Theme Party, Wedding",
+          "character": "Cowboy",
+          "Color": "Magenta",
+          "Style Name": "Western Cowboy Hats",
+          "Pattern": "solid",
+          "Size": "One Size",
+          "Item Dimensions": "14.96 x 9.25 x 7.09 inches",
+          "Material": "Polyester",
+          "Product Care Instructions": "Hand Wash Only",
+          "Apparel Fabric Weight Class": "Lightweight",
+          "Apparel Fabric Stretch": "No Stretch",
+          "Fabric Type": "100% Polyester"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/81fnRMwnp-L._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "metrics": {
+        "units30d": 4,
+        "units7d": 1,
+        "profitRate": -0.5568,
+        "sellableDays": 128,
+        "adSpend7d": 0.16,
+        "adOrders7d": 0,
+        "riskType": "season_stale_watch",
+        "suggestedAction": "review_low_budget_season_structure_gap"
+      },
+      "identityAudit": {
+        "identity": "cowboy hat and bandana western/cowboy party accessories",
+        "primary": [
+          "Cowboy/Western party"
+        ],
+        "secondary": [
+          "Generic party"
+        ],
+        "alignment": "mismatch",
+        "correction": "Wedding mapping is weak; do not expand as wedding season.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "LEM6577",
+      "asin": "B0FXGN8CXZ",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "LemonRoad 6 Sets Wedding Centerpieces for Tables Include Galvanized Flower Bucket Metal Vases with Artificial Flowers Bridal Shower Decorations Wedding Party Favors for Guests (White)",
+        "brand": "LemonRoad",
+        "price": null,
+        "rating": "4.5",
+        "review_count": "",
+        "bullets": [
+          "Elegant Design Meets Charm: experience timeless elegance with our wedding metal vases, accentuated by their classic French country style for wedding; The graceful silver hue and hemp rope handles create a vintage aesthetic that effortlessly enhances any setting, making them the perfect decorative touch for those who appreciate understated beauty",
+          "Robust Craftsmanship for Longevity: crafted from galvanized material, these wedding centerpieces for tables offer unmatched durability; Strong and robust, they resist deformation, ensuring your investment maintains its elegance for years to come; Ideal for busy venues like restaurants and wedding spaces, they stand the test of time",
+          "Suitable Size for Versatile Styling: measuring about 14.96x5.91x5.12 inches, these wedding vases centerpieces are designed for versatility in decoration; Whether gracing a grand dining table or adding charm to a cozy nook, they boast an ideal size that accommodates various arrangements and scenarios, from farmhouse kitchens to elegant weddings",
+          "Comprehensive Decorative Set: each wedding decoration includes a curated set of 6 artificial peonies and 18 baby's breath, alongside 6 galvanized flower buckets; This complete ensemble allows for instant transformation of your wedding, offering convenience and elegance without the hassle of sourcing individual components",
+          "Captivating Centerpieces for Any Occasion: turn ordinary gatherings into elegant affairs with these wedding vases with flower as your signature centerpieces; Their French country style adds an enchanting touch, captivating guests whether in a bustling restaurant or a serene wedding venue, and ensuring your event is one to remember"
+        ],
+        "specs": {
+          "Brand Name": "LemonRoad",
+          "Recommended Uses For Product": "Decorations",
+          "Number of Pieces": "6",
+          "Manufacturer": "LemonRoad",
+          "Model Number": "LEM-LemonRoad-6577",
+          "Manufacturer Part Number": "LEM-LemonRoad-6577",
+          "Unit Count": "6.0 Count",
+          "Best Sellers Rank": "#736,554 in Home & Kitchen ( See Top 100 in Home & Kitchen ) #753 in Decorative Jars",
+          "ASIN": "B0FXGN8CXZ",
+          "Color": "White",
+          "Shape": "Round",
+          "Product Style": "Fashion",
+          "Pattern": "Floral",
+          "Theme": "Wedding",
+          "Material Type": "Metal",
+          "Finish Types": "Galvanized",
+          "Item Dimensions L x W x H": "15.75\"L x 8.27\"W x 5.31\"H",
+          "Item Weight": "3.43 Pounds"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/710JH2ToSbL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 5,
+        "units7d": 0,
+        "profitRate": -0.1399,
+        "sellableDays": 192,
+        "adSpend7d": 0.31,
+        "adOrders7d": 0,
+        "riskType": "season_stale_watch",
+        "suggestedAction": "review_low_budget_season_structure_gap"
+      },
+      "identityAudit": {
+        "identity": "wedding centerpieces / galvanized flower bucket vases",
+        "primary": [
+          "Wedding centerpieces"
+        ],
+        "secondary": [
+          "Reception decor"
+        ],
+        "alignment": "supported_narrow",
+        "correction": "Wedding valid; use centerpiece/vase terms only.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "QA3275",
+      "asin": "B0CT331WGQ",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Fumete Wedding Favors for Guests 50 Pcs Wedding Fans and 1 Pc Table Sign Portable Paper Fan with Wooden Handle Hand Fan for Bridal Shower Party Favor Appreciation Gift(Boho)",
+        "brand": "",
+        "price": null,
+        "rating": "4.6",
+        "review_count": "108",
+        "bullets": [
+          "Value Package: you are provided with 1 piece of wooden wedding table sign and 50 pieces of wedding hand fans, 51 pieces in total, this combination is nice to meet your wedding party decoration needs, you can also share them with others",
+          "Reliable and Sturdy: the wedding signs for reception are made of wood material, the handheld fans for weddings are made of paper with wooden handle, reliable and solid, will not easy to break or fade, which can serve you for a long time, you can use with confidence",
+          "Appropriate Sizes: the hand fans for wedding party favors are about 7.09 x 7.09 inches/ 18 x 18 cm, and the wooden handle is about 8.07 inches/ 20.5 cm in total length, portable and lightweight, easy to hold in hands; The wedding table decor sign is about 5.12 x 7.87 x 0.2 inches/ 13 x 20 x 0.5 cm, and the back is designed with a stand, can stand on the table stably",
+          "Meaningful Gifts: the hand fans for women can be served as meaningful gifts to share with your friends, neighbors, relatives or colleagues, people will be delighted after receiving; And the wedding decorative table sign will make your wedding beautiful and romantic",
+          "Elegant Weeding Them Design: our wedding fans for guests and wedding signs are printed with green leaves and warm words, look elegant and attractive, will leave a deeper impression on your guests"
+        ],
+        "specs": {
+          "Product Dimensions": "12.8 x 12.2 x 3.35 inches",
+          "Item Weight": "2.7 pounds",
+          "Manufacturer": "Fumete",
+          "ASIN": "B0CT331WGQ",
+          "Item model number": "QA-Fumete-3275",
+          "Best Sellers Rank": "#430,754 in Home & Kitchen ( See Top 100 in Home & Kitchen ) #518 in Decorative Folding Fans",
+          "Batteries required": "No",
+          "Included Components": "1 x Wooden wedding sign 50 x Paper fans"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/81rXODqnz8L._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "metrics": {
+        "units30d": 4,
+        "units7d": 2,
+        "profitRate": -0.1101,
+        "sellableDays": 180,
+        "adSpend7d": 1.8199999999999998,
+        "adOrders7d": 0,
+        "riskType": "season_stale_watch",
+        "suggestedAction": "review_stale_inventory_sell_through_plan"
+      },
+      "identityAudit": {
+        "identity": "wedding fans / bridal shower party favors",
+        "primary": [
+          "Wedding fans",
+          "Bridal shower"
+        ],
+        "secondary": [
+          "Guest favors"
+        ],
+        "alignment": "supported_narrow",
+        "correction": "Wedding valid but narrow; no broad scale due margin/order weakness.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "WOO0174",
+      "asin": "B0CDLR134G",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Zhanmai 30 Pieces Mini Notebooks Bulk, Inspirational Motivational Notepads, Bulk Thank You Gift for Women Employee Appreciation Favors for Teachers Cna Nurses Volunteers Office Staff Graduation Gift",
+        "brand": "Zhanmai",
+        "price": "$00",
+        "rating": "4.7",
+        "review_count": "42",
+        "bullets": [
+          "Package Contents: our package comes with 30 pieces motivational notebooks in 10 styles, 3 pieces for each style, looking beautiful and attractive; The abundant quantities and diverse styles can meet your use and replacement needs in your daily life, and you can apply them as appreciation gifts for coworkers",
+          "Meaningful Presents: you can use our inspirational notepads feature inspirational words, meaningful and positive, with a combination of bright colors, easy to get others' attention; The colorful and inspiring styles spark creativity and brighten your writing, sketching, or brainstorming activities",
+          "Show Your Appreciation and Encouragement: these bulk notepads are ideal for expressing your appreciation and encouragement, love and concern to others; You can use them as thank you gifts, coworker gifts, employees appreciation gifts for teachers, nurses, doctors, writers, coworkers, volunteers, helping them cultivate a good and positive attitude",
+          "Size and Material: our inspirational journal measures approx. 3.15 x 5 inches/ 8 x 12.5 cm, featuring 16 sheets, 32 pages for each journal; Our notebooks are made quality paper material, durable and not easy to tear or break; You can use most pens to write, such as ballpoint pens, pencils, markers and so on; Besides, these journals are lightweight and portable, convenient for you to carry around and store in your bags or pockets when you go out or go on a trip",
+          "Wide Scenarios of Applications: notebooks bulk can be implemented for various settings, such as home, school, office, party, goodie bag favor, indoor and outdoor use, which can be applied as journals, travel notebooks, business notebooks, study notebooks, ideal for you to take note, do daily planning and so on"
+        ],
+        "specs": {
+          "Brand Name": "Zhanmai",
+          "Unit Count": "30.0 Count",
+          "Manufacturer": "Zhanmai",
+          "Best Sellers Rank": "#110,569 in Office Products ( See Top 100 in Office Products ) #782 in Memo & Scratch Pads",
+          "ASIN": "B0CDLR134G",
+          "Ruling Type": "Plain",
+          "Special Features": "Soft Cover",
+          "Specific Uses For Product": "Home, School, Office, Party, Goodie Bag Favor, Indoor, Outdoor",
+          "Binding": "Unknown Binding",
+          "Item Dimensions L x W x Thickness": "4.92\"L x 3.15\"W x 0.12\"Th",
+          "Number of Items": "30",
+          "Item Dimensions L x W": "4.92\"L x 3.15\"W",
+          "Color": "Multicolor",
+          "Theme": "Book",
+          "Style": "Portable",
+          "Cover Material": "Cardboard"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/81fPnj8eHaL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 74,
+        "units7d": 0,
+        "profitRate": 0.0686,
+        "sellableDays": 7,
+        "adSpend7d": 0,
+        "adOrders7d": 0,
+        "riskType": "inventory_tight_no_scale",
+        "suggestedAction": "hold_scale_and_check_replenishment"
+      },
+      "identityAudit": {
+        "identity": "mini notebooks for employee appreciation, teachers, CNA/nurses, volunteers, office staff, graduation",
+        "primary": [
+          "Appreciation gifts",
+          "CNA/Nurse",
+          "Graduation"
+        ],
+        "secondary": [
+          "Teacher/Volunteer/Office staff"
+        ],
+        "alignment": "supported_but_inventory_blocked",
+        "correction": "Graduation/Nurse supported, but inventory blocks scale.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "WOO0173",
+      "asin": "B0CDLQJTFN",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Zhanmai 120 Pieces Mini Notebooks Bulk, Inspirational Motivational Notepads, Bulk Thank You Gift for Women Employee Appreciation Favors for Teachers Cna Nurses Volunteers Office Staff Graduation Gift",
+        "brand": "Zhanmai",
+        "price": "$00",
+        "rating": "4.7",
+        "review_count": "42",
+        "bullets": [
+          "Package Contents: our package comes with 120 pieces motivational notebooks in 10 styles, 12 pieces for each style, looking beautiful and attractive; The abundant quantities and diverse styles can meet your use and replacement needs in your daily life, and you can apply them as appreciation gifts for coworkers",
+          "Meaningful Presents: you can use our inspirational notepads feature inspirational words, meaningful and positive, with a combination of bright colors, easy to get others' attention; The colorful and inspiring styles spark creativity and brighten your writing, sketching, or brainstorming activities",
+          "Show Your Appreciation and Encouragement: these bulk notepads are ideal for expressing your appreciation and encouragement, love and concern to others; You can use them as thank you gifts, coworker gifts, employees appreciation gifts for teachers, nurses, doctors, writers, coworkers, volunteers, helping them cultivate a good and positive attitude",
+          "Size and Material: our inspirational journal measures approx. 3.15 x 5 inches/ 8 x 12.5 cm, featuring 16 sheets, 32 pages for each journal; Our notebooks are made quality paper material, durable and not easy to tear or break; You can use most pens to write, such as ballpoint pens, pencils, markers and so on; Besides, these journals are lightweight and portable, convenient for you to carry around and store in your bags or pockets when you go out or go on a trip",
+          "Wide Scenarios of Applications: notebooks bulk can be implemented for various settings, such as home, school, office, party, goodie bag favor, indoor and outdoor use, which can be applied as journals, travel notebooks, business notebooks, study notebooks, ideal for you to take note, do daily planning and so on"
+        ],
+        "specs": {
+          "Brand Name": "Zhanmai",
+          "Unit Count": "1.0 Count",
+          "Manufacturer": "Zhanmai",
+          "Best Sellers Rank": "#110,569 in Office Products ( See Top 100 in Office Products ) #782 in Memo & Scratch Pads",
+          "ASIN": "B0CDLQJTFN",
+          "Ruling Type": "Ruled",
+          "Special Features": "Soft Cover",
+          "Specific Uses For Product": "Journals, Travel, Business, Study, Note Taking, Daily Planning",
+          "Binding": "Unknown Binding",
+          "Pages": "32 Pages",
+          "Item Dimensions L x W x Thickness": "4.72\"L x 3.31\"W x 0.12\"Th",
+          "Number of Items": "120",
+          "Item Dimensions L x W": "4.72\"L x 3.31\"W",
+          "Color": "Multicolor",
+          "Theme": "Book",
+          "Style": "Portable",
+          "Pattern": "Printed",
+          "Cover Material": "Paper"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/81ZJwZJNYvL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 25,
+        "units7d": 4,
+        "profitRate": -0.0553,
+        "sellableDays": 17,
+        "adSpend7d": 2.69,
+        "adOrders7d": 1,
+        "riskType": "inventory_tight_no_scale",
+        "suggestedAction": "hold_scale_and_check_replenishment"
+      },
+      "identityAudit": {
+        "identity": "mini notebooks for employee appreciation, teachers, CNA/nurses, volunteers, office staff, graduation",
+        "primary": [
+          "Appreciation gifts",
+          "CNA/Nurse",
+          "Graduation"
+        ],
+        "secondary": [
+          "Teacher/Volunteer/Office staff"
+        ],
+        "alignment": "supported_but_inventory_blocked",
+        "correction": "Graduation/Nurse supported, but inventory blocks scale.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "QAA4200",
+      "asin": "B0FM3ZN2BK",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Tondiamo Crown Brooch Pins Bulk Gifts for Mother Inspirational Gifts for Women Employee Appreciation with Inspirational Cards",
+        "brand": "",
+        "price": "$18.99",
+        "rating": "4.4",
+        "review_count": "26",
+        "bullets": [],
+        "specs": {
+          "Brand, Seller, or Collection Name": "Tondiamo",
+          "Material": "metal, coated paper, OPP",
+          "Gem Type": "no gemstone",
+          "Item Length": "5.91 inches",
+          "Clasp": "Butterfly",
+          "Model number": "QAA-Tondiamo-4200",
+          "Metal": "NA",
+          "Metal stamp": "NA",
+          "Minimum color": "NA",
+          "Minimum clarity": "NA",
+          "Stone shape": "NA",
+          "Cut": "NA",
+          "Stone Creation Method": "NA",
+          "Stone Treatment Method": "NA"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/81muZtoERHL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 43,
+        "units7d": 6,
+        "profitRate": 0.4198,
+        "sellableDays": 17,
+        "adSpend7d": 10.36,
+        "adOrders7d": 4,
+        "riskType": "inventory_tight_no_scale",
+        "suggestedAction": "hold_scale_and_check_replenishment"
+      },
+      "identityAudit": {
+        "identity": "crown brooch pins for mother/women/employee appreciation",
+        "primary": [
+          "Mother/Women",
+          "Employee appreciation"
+        ],
+        "secondary": [],
+        "alignment": "mismatch",
+        "correction": "Wedding/Nurse not supported; handle by inventory and real appreciation route.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "OCE1413",
+      "asin": "B0FHK5GS4F",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Engrowtic Wedding Officiant Book Personalized Linen Hardcover Journal with Name Sticker, 160 Lined Pages, 5.31 x 8.27 in A5 Notebook, Pastor Minister Sermon Officiant Gift for Wedding Ceremony",
+        "brand": "",
+        "price": "$00",
+        "rating": "4.8",
+        "review_count": "6",
+        "bullets": [
+          "PERSONALIZE YOUR OFFICIANT BOOK – Linen hardcover wedding officiant book arrives with a black transfer name sticker so you can add the couple's names, wedding date or your title; Create a custom officiant notebook that makes the ceremony, rehearsal and photos uniquely yours",
+          "LINEN HARD COVER WITH GOLD DETAIL – Durable cream linen journal with stamped gold and finished with gilded page edges; An elegant wedding officiant journal that complements rustic, boho or classic decor on the altar, podium or reception table",
+          "IDEAL A5 SIZE 160 RULED PAGES – Compact 5.31 × 8.27 in A5 notebook balances portability and capacity; 160 lined 8 mm pages offer ample room for ceremony scripts, vows, guest signatures, sermon outlines and rehearsal notes without adding bulk to your folio or tote",
+          "SMOOTH 80 GSM ACID-FREE PAPER – Thick, bleed-resistant sheets let pastors, ministers and celebrants write with fountain, gel or ballpoint pens; Every vow, prayer and reading stays crisp for years, preserving the memory in this sermon notes journal",
+          "THOUGHTFUL GIFT FOR OFFICIANTS MINISTERS – A meaningful wedding officiant gift that also suits pastors, clergy or chaplains; Doubles as a vow-renewal or anniversary keepsake, ensuring heartfelt memories remain long"
+        ],
+        "specs": {
+          "Product Dimensions": "9.84 x 5.91 x 0.63 inches",
+          "Item Weight": "13.4 ounces",
+          "Manufacturer": "Engrowtic",
+          "ASIN": "B0FHK5GS4F",
+          "Item model number": "OCE-Engrowtic-1413",
+          "Best Sellers Rank": "#217,628 in Home & Kitchen ( See Top 100 in Home & Kitchen ) #309 in Guestbooks",
+          "Batteries required": "No"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/7143Guue5QL._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "metrics": {
+        "units30d": 137,
+        "units7d": 29,
+        "profitRate": 0.1254,
+        "sellableDays": 13,
+        "adSpend7d": 14.77,
+        "adOrders7d": 7,
+        "riskType": "inventory_tight_no_scale",
+        "suggestedAction": "hold_scale_and_check_replenishment"
+      },
+      "identityAudit": {
+        "identity": "wedding officiant book / pastor minister ceremony journal",
+        "primary": [
+          "Wedding officiant",
+          "Wedding ceremony"
+        ],
+        "secondary": [
+          "Pastor/Minister"
+        ],
+        "alignment": "supported_narrow",
+        "correction": "Wedding valid as officiant/ceremony book, not general Christian/Father gift.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "RHO1540",
+      "asin": "B0GLPCPFK9",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Personalized Will You Be My Bridesmaid Sticker with Name Pearl Decal Vinyl Proposal Decal Custom Name Decals DTF Transfer for Bridesmaids Box Bridal Shower Wedding Bachelorette Party (Gold)",
+        "brand": "YooNotee",
+        "price": "$00",
+        "rating": "4.7",
+        "review_count": "13",
+        "bullets": [
+          "What's in the Package: you'll receive 4 low-tack transfer decal sheets and 2 pearl sticker sheets: 6 “Will you be my bridesmaid? ” decals, 1 “Will you be my maid of honor? ” decal, 1 “Will you be my matron of honor? ” decal, plus lowercase alphabet letters for names; This all-in-one bridesmaid proposal box decorations set is ideal for DIY bridesmaid proposal and proposal gifts",
+          "Size Guide for Proposal Boxes: each “Will you be my bridesmaid? ” phrase measures about 6.26 × 1.81 inches (15.9 × 4.6 cm); A typical name built with the cursive alphabet letters (e. g. , Michael) is about 1.06 × 3.98 inches; Designed to fit 8–10 inches proposal boxes, gift boxes, and cardstock without crowding",
+          "Names Roles Made Easy: the set includes decals + alphabet letter transfers + pearl stickers, so you can place the question inside the proposal box, add the bridesmaid's name on the opposite panel, and finish with cream pearl stickers for an elegant, personalized look; Great for bridesmaid box decor, and keepsakes",
+          "How to Apply: cut the element you need, peel from the backing, position on a clean, dry surface, press firmly, then remove the protective film; Pro tip: wipe dust off the box first; While peeling the backing and top film, press repeatedly to help the design fully transfer; No water required—fast, beginner-friendly DIY wedding decals",
+          "Wide Use for Wedding Crafts: adheres well to paper gift boxes, gift bags, and cardstock; Use the decals and pearls to customize bridesmaid proposal boxes, favor bags, thank-you notes, and bridal shower paper decor—an easy way to elevate your wedding craft supplies and create a memorable proposal keepsake"
+        ],
+        "specs": {
+          "Color": "Gold",
+          "Theme": "Wedding",
+          "Subject Character": "Bridesmaid Proposal - Gold",
+          "Product Style": "Classic",
+          "Item Form": "Sheet",
+          "Pattern": "Letter Print",
+          "Item Dimensions": "12.01 x 10.04 x 0.59 inches",
+          "Number of Pieces": "8",
+          "Unit Count": "8.0 Count",
+          "Number of Items": "8",
+          "Item Dimensions L x W": "12.01\"L x 10.04\"W",
+          "Size": "10.04 inches x 12.01 inches x 0.59 inches",
+          "Material Type": "Resin, Vinyl",
+          "Brand Name": "YooNotee",
+          "Target Audience": "Individuals planning or involved in weddings, specifically those proposing to their bridesmaids",
+          "Set Name": "YooNotee Bridesmaid Proposal Decal Set (8 Piece)",
+          "Manufacturer Part Number": "RHO-YooNotee-1540",
+          "Model Number": "RHO-YooNotee-1540",
+          "Manufacturer": "YooNotee",
+          "Best Sellers Rank": "#38,284 in Arts, Crafts & Sewing ( See Top 100 in Arts, Crafts & Sewing ) #298 in Craft Adhesive Vinyl",
+          "ASIN": "B0GLPCPFK9",
+          "Surface Recommendation": "Paper, Glass",
+          "Recommended Uses For Product": "Scrapbook, Paper, Glass",
+          "Indoor Outdoor Usage": "Indoor"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/718wF+JwD7L._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        }
+      ],
+      "metrics": {
+        "units30d": 71,
+        "units7d": 7,
+        "profitRate": 0.2243,
+        "sellableDays": 11,
+        "adSpend7d": 4.5200000000000005,
+        "adOrders7d": 1,
+        "riskType": "inventory_tight_no_scale",
+        "suggestedAction": "hold_scale_and_check_replenishment"
+      },
+      "identityAudit": {
+        "identity": "bridesmaid proposal sticker / bridal shower wedding bachelorette decal",
+        "primary": [
+          "Bridesmaid proposal",
+          "Wedding",
+          "Bachelorette"
+        ],
+        "secondary": [
+          "Bridal shower"
+        ],
+        "alignment": "supported",
+        "correction": "Wedding valid; inventory tight blocks scale.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    },
+    {
+      "sku": "OB4139",
+      "asin": "B0GJRV1TCQ",
+      "scrapeOk": true,
+      "scrapeError": null,
+      "listing": {
+        "title": "Lewtemi Mexican Duck Piñata for Birthday Party Cinco de Mayo Fiesta Decorations with Piñata Stick Blindfold Confetti Set",
+        "brand": "Lewtemi",
+        "price": "$27.99",
+        "rating": "4.2",
+        "review_count": "193",
+        "bullets": [
+          "Fiesta Party Supplies Set (All-in-One): Includes 1 duck piñata, 1 blindfold, 1 piñata stick, and 1 bag of colorful confetti; An easy Mexican fiesta party kit for Cinco de Mayo decorations, taco party supplies, birthday party games, and photo booth props—set it up fast and start playing",
+          "Duck Piñata Decor + Candy Holder: duck-shaped piñata adds instant Mexican theme decor to your table, wall, or party backdrop; Also works as a candy holder and surprise gift container—fill with candy, toys, chocolates, confetti, or small party favors for guests",
+          "Classic Piñata Game for Groups: Great interactive party game for family gatherings night—put on the blindfold, take turns swinging the piñata bat/stick, and enjoy the big reveal when treats fall out; Perfect for fiesta games, Cinco de Mayo party activities, and birthday party entertainment",
+          "Sturdy Cardboard + Hanging Loop: Made of thick corrugated cardboard with strong adhesive and double-sided printing; Designed to hold fillers and stand up to party play; Built-in hanging loop on top makes it easy to hang from a tree, ceiling hook, or doorway for indoor/outdoor fiesta decorations",
+          "For Many Occasions (Mexican Theme): Ideal for Cinco de Mayo party decor, Mexican fiesta decorations, taco Tuesday party, carnival theme party, western fiesta, and birthday celebrations—also a fun gift idea for anyone who loves Mexican party supplies and festive decorations"
+        ],
+        "specs": {
+          "Brand Name": "Lewtemi",
+          "Manufacturer Minimum Age (MONTHS)": "144",
+          "Occasion": "birthday celebrations",
+          "Model Number": "OB-Lewtemi-4139",
+          "Part Number": "OB-Lewtemi-4139",
+          "Manufacturer": "Lewtemi",
+          "Included Components": "1 × Bag of confetti, 1 × Blindfold, 1 × Donkey piñata, 1 × Piñata stick",
+          "Unit Count": "4.0 Count",
+          "Best Sellers Rank": "#20,591 in Toys & Games ( See Top 100 in Toys & Games ) #21 in Piñatas",
+          "ASIN": "B0GJRV1TCQ",
+          "Item Dimensions L x W x H": "16.54\"L x 13.39\"W x 3.15\"H"
+        },
+        "main_image": "https://m.media-amazon.com/images/I/71mVqTB1U2L._AC_SL1500_.jpg"
+      },
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30d": 81,
+        "units7d": 10,
+        "profitRate": -0.1579,
+        "sellableDays": 6,
+        "adSpend7d": 20.98,
+        "adOrders7d": 8,
+        "riskType": "inventory_tight_no_scale",
+        "suggestedAction": "hold_scale_and_check_replenishment"
+      },
+      "identityAudit": {
+        "identity": "Mexican duck pinata for Cinco de Mayo / fiesta / birthday party",
+        "primary": [
+          "Mexican fiesta",
+          "Cinco de Mayo",
+          "Birthday party"
+        ],
+        "secondary": [],
+        "alignment": "mismatch",
+        "correction": "Wedding/Nurse not supported; handle by fiesta/pinata and inventory/profit.",
+        "source": "manual listing review after live Amazon scrape on 2026-05-20"
+      }
+    }
+  ]
+}

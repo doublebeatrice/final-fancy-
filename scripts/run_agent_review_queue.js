@@ -32,9 +32,9 @@ function parseArgs(argv) {
   };
 }
 
-function defaultLedgerFile(today) {
+function defaultLedgerFile(today, outDir = DEFAULT_OUT_DIR) {
   const ymd = today || new Date().toISOString().slice(0, 10);
-  return path.join(DEFAULT_OUT_DIR, `agent_ledger_${ymd}.json`);
+  return path.join(outDir, `agent_ledger_${ymd}.json`);
 }
 
 function defaultOutFile(today) {
@@ -42,10 +42,51 @@ function defaultOutFile(today) {
   return path.join(DEFAULT_OUT_DIR, `review_queue_${ymd}.json`);
 }
 
+function mergeLedgerTasks(ledgers = [], today = '') {
+  const taskMap = new Map();
+  for (const ledger of ledgers) {
+    const tasks = Array.isArray(ledger?.nextOpenTasks) ? ledger.nextOpenTasks : (ledger?.tasks || []);
+    for (const task of tasks) {
+      if (today && task.businessDate && task.businessDate > today) continue;
+      const key = task.taskId || `${task.source || ''}:${task.kind || ''}:${task.dueDate || ''}:${task.subject?.sku || task.subject?.entityId || ''}`;
+      if (!key) continue;
+      taskMap.set(key, task);
+    }
+  }
+  return {
+    generatedAt: new Date().toISOString(),
+    businessDate: today,
+    nextOpenTasks: [...taskMap.values()],
+  };
+}
+
+function readDefaultLedgerCollection(today, outDir = DEFAULT_OUT_DIR) {
+  const currentFile = defaultLedgerFile(today, outDir);
+  const ledgers = [];
+  if (fs.existsSync(currentFile)) {
+    ledgers.push(readJson(currentFile, {}));
+  }
+  try {
+    for (const name of fs.readdirSync(outDir)) {
+      if (!/^agent_ledger_\d{4}-\d{2}-\d{2}\.json$/.test(name)) continue;
+      const file = path.join(outDir, name);
+      if (path.resolve(file) === path.resolve(currentFile)) continue;
+      const ledger = readJson(file, {});
+      if (!ledger.businessDate || ledger.businessDate > today) continue;
+      ledgers.push(ledger);
+    }
+  } catch (error) {
+    // Keep the current-day fallback behavior when the agent directory is absent.
+  }
+  return mergeLedgerTasks(ledgers, today);
+}
+
 function runAgentReviewQueue(options = {}) {
   const today = options.today || new Date().toISOString().slice(0, 10);
-  const ledgerFile = options.ledgerFile || defaultLedgerFile(today);
-  const ledger = options.ledger || readJson(ledgerFile, {});
+  const ledgerFile = options.ledgerFile || '';
+  const ledger = options.ledger || (ledgerFile
+    ? readJson(ledgerFile, {})
+    : readDefaultLedgerCollection(today, options.outDir || DEFAULT_OUT_DIR));
   const queue = buildDueReviewQueue(ledger, { today });
   const outFile = options.outFile || defaultOutFile(today);
   writeJson(outFile, queue);
@@ -74,6 +115,8 @@ if (require.main === module) {
 }
 
 module.exports = {
+  mergeLedgerTasks,
   parseArgs,
+  readDefaultLedgerCollection,
   runAgentReviewQueue,
 };

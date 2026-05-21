@@ -18,7 +18,22 @@ const timeContext = {
   const parsed = parseNpmRunCommand('npm run ops:selection:keyword-conversion -- --keywords "nurse gifts"');
   assert.strictEqual(parsed.ok, true);
   assert.strictEqual(parsed.script, 'ops:selection:keyword-conversion');
-  assert.deepStrictEqual(parsed.args.slice(0, 5), ['run', 'ops:selection:keyword-conversion', '--', '--keywords', 'nurse gifts']);
+  assert.strictEqual(parsed.bin, process.execPath);
+  assert.ok(parsed.args[0].endsWith(path.join('scripts', 'execute', 'fetch_selection_keyword_conversion_rate.js')));
+  assert.deepStrictEqual(parsed.args.slice(1, 3), ['--keywords', 'nurse gifts']);
+  assert.deepStrictEqual(parsed.originalArgs.slice(0, 5), ['run', 'ops:selection:keyword-conversion', '--', '--keywords', 'nurse gifts']);
+
+  const keywordResearch = parseNpmRunCommand('npm run ops:selection:keyword-research -- --sku DEC1234 --terms "patriotic table decorations"');
+  assert.strictEqual(keywordResearch.ok, true);
+  assert.strictEqual(keywordResearch.script, 'ops:selection:keyword-research');
+  assert.ok(keywordResearch.args[0].endsWith(path.join('scripts', 'execute', 'fetch_selection_keyword_research.js')));
+  assert.deepStrictEqual(keywordResearch.args.slice(1, 5), ['--sku', 'DEC1234', '--terms', 'patriotic table decorations']);
+
+  const seasonality = parseNpmRunCommand('npm run ops:selection:keyword-seasonality -- --search-terms "cowboy hat" --u-time 2026-04-30');
+  assert.strictEqual(seasonality.ok, true);
+  assert.strictEqual(seasonality.script, 'ops:selection:keyword-seasonality');
+  assert.ok(seasonality.args[0].endsWith(path.join('scripts', 'execute', 'fetch_selection_keyword_seasonality.js')));
+  assert.deepStrictEqual(seasonality.args.slice(1, 5), ['--search-terms', 'cowboy hat', '--u-time', '2026-04-30']);
 
   const denied = parseNpmRunCommand('npm run ops:today -- --execute');
   assert.strictEqual(denied.ok, false);
@@ -70,6 +85,38 @@ const timeContext = {
 }
 
 {
+  const hub = {
+    todayQueue: [{
+      taskId: 'review-1',
+      executionPlan: {
+        safeToAutoRun: true,
+        commands: [{
+          label: 'review',
+          command: 'npm run ops:agent:review-effect -- --queue data\\agent\\review_queue_2026-05-20.json --today 2026-05-20 --out data\\agent\\effect_review_2026-05-20.json',
+          output: 'data\\agent\\effect_review_2026-05-20.json',
+          riskLevel: 'read_only',
+        }],
+      },
+    }, {
+      taskId: 'review-2',
+      executionPlan: {
+        safeToAutoRun: true,
+        commands: [{
+          label: 'review',
+          command: 'npm run ops:agent:review-effect -- --queue data\\agent\\review_queue_2026-05-20.json --today 2026-05-20 --out data\\agent\\effect_review_2026-05-20.json',
+          output: 'data\\agent\\effect_review_2026-05-20.json',
+          riskLevel: 'read_only',
+        }],
+      },
+    }],
+  };
+  const collected = collectRunnableCommands(hub);
+  assert.strictEqual(collected.runnable.length, 1);
+  assert.strictEqual(collected.skipped.length, 1);
+  assert.strictEqual(collected.skipped[0].reason, 'duplicate_command');
+}
+
+{
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-command-runner-'));
   const outFile = path.join(tmpDir, 'command_results.json');
   const hub = {
@@ -105,7 +152,8 @@ const timeContext = {
   assert.strictEqual(result.summary.executed, 1);
   assert.strictEqual(result.summary.failed, 0);
   assert.strictEqual(calls.length, 1);
-  assert.ok(calls[0].args.includes('ops:selection:keyword-conversion'));
+  assert.strictEqual(calls[0].bin, process.execPath);
+  assert.ok(calls[0].args[0].endsWith(path.join('scripts', 'execute', 'fetch_selection_keyword_conversion_rate.js')));
   assert.strictEqual(result.results[0].taskId, 'ext-1');
   assert.strictEqual(result.results[0].ok, true);
   assert.ok(result.results[0].outputFiles.some(file => file.includes('selection_keyword_conversion_rate_2026-05-19.json')));

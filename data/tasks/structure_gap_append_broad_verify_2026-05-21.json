@@ -1,0 +1,114 @@
+{
+  "generatedAt": "2026-05-21T07:41:20.956Z",
+  "executionFile": "data/snapshots/structure_gap_append_broad_execution_2026-05-21.json",
+  "bySku": [
+    {
+      "sku": "YUT3184",
+      "apiSuccess": 5,
+      "readBackUnion": 5,
+      "missingReadBack": 0,
+      "missing": [],
+      "broad": [
+        {
+          "keywordId": "65542703690856",
+          "keywordText": "soccer gifts for kids",
+          "matchType": 3,
+          "bid": "0.34",
+          "state": 1,
+          "createdAt": "2026-05-21 15:39:54",
+          "sourceFile": "data/snapshots/ad_group_rows_YUT3184_phrase_after_broad_append_2026-05-21.json"
+        },
+        {
+          "keywordId": "65785319408367",
+          "keywordText": "soccer ball party favors",
+          "matchType": 3,
+          "bid": "0.36",
+          "state": 1,
+          "createdAt": "2026-05-21 15:39:54",
+          "sourceFile": "data/snapshots/ad_group_rows_YUT3184_phrase_after_broad_append_2026-05-21.json"
+        },
+        {
+          "keywordId": "228118716545349",
+          "keywordText": "soccer balls bulk",
+          "matchType": 3,
+          "bid": "0.34",
+          "state": 1,
+          "createdAt": "2026-05-21 15:39:54",
+          "sourceFile": "data/snapshots/ad_group_rows_YUT3184_phrase_after_broad_append_2026-05-21.json"
+        },
+        {
+          "keywordId": "126620346611494",
+          "keywordText": "soccer party favors",
+          "matchType": 3,
+          "bid": "0.36",
+          "state": 1,
+          "createdAt": "2026-05-21 15:39:54",
+          "sourceFile": "data/snapshots/ad_group_rows_YUT3184_phrase_after_broad_append_2026-05-21.json"
+        },
+        {
+          "keywordId": "240176052999769",
+          "keywordText": "mini soccer balls",
+          "matchType": 3,
+          "bid": "0.34",
+          "state": 1,
+          "createdAt": "2026-05-21 15:39:54",
+          "sourceFile": "data/snapshots/ad_group_rows_YUT3184_phrase_after_broad_append_today_2026-05-21.json"
+        }
+      ]
+    },
+    {
+      "sku": "GT3811",
+      "apiSuccess": 5,
+      "readBackUnion": 5,
+      "missingReadBack": 0,
+      "missing": [],
+      "broad": [
+        {
+          "keywordId": "215838104309319",
+          "keywordText": "yellow funeral ribbons",
+          "matchType": 3,
+          "bid": "0.30",
+          "state": 1,
+          "createdAt": "2026-05-21 15:39:56",
+          "sourceFile": "data/snapshots/ad_group_rows_GT3811_phrase_after_broad_append_2026-05-21.json"
+        },
+        {
+          "keywordId": "7456212687003",
+          "keywordText": "memorial ribbons",
+          "matchType": 3,
+          "bid": "0.30",
+          "state": 1,
+          "createdAt": "2026-05-21 15:39:56",
+          "sourceFile": "data/snapshots/ad_group_rows_GT3811_phrase_after_broad_append_2026-05-21.json"
+        },
+        {
+          "keywordId": "127850753030543",
+          "keywordText": "memorial ribbon pins",
+          "matchType": 3,
+          "bid": "0.28",
+          "state": 1,
+          "createdAt": "2026-05-21 15:39:56",
+          "sourceFile": "data/snapshots/ad_group_rows_GT3811_phrase_after_broad_append_2026-05-21.json"
+        },
+        {
+          "keywordId": "134609632205158",
+          "keywordText": "funeral ribbons",
+          "matchType": 3,
+          "bid": "0.30",
+          "state": 1,
+          "createdAt": "2026-05-21 15:39:56",
+          "sourceFile": "data/snapshots/ad_group_rows_GT3811_phrase_after_broad_append_2026-05-21.json"
+        },
+        {
+          "keywordId": "134458673922053",
+          "keywordText": "remembrance ribbons",
+          "matchType": 3,
+          "bid": "0.28",
+          "state": 1,
+          "createdAt": "2026-05-21 15:39:56",
+          "sourceFile": "data/snapshots/ad_group_rows_GT3811_phrase_after_broad_append_today_2026-05-21.json"
+        }
+      ]
+    }
+  ]
+}

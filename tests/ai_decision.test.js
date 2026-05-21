@@ -450,6 +450,63 @@ const codexApproval = {
 }
 
 {
+  const context = { products: buildProductContexts([
+    {
+      ...cards[0],
+      createContext: {
+        accountId: 1,
+        siteId: 4,
+        recommendedDailyBudget: 3,
+        recommendedDefaultBid: 0.25,
+      },
+      campaigns: [{
+        campaignId: 'c-broad',
+        adGroupId: 'g-broad',
+        campaignState: 'enabled',
+        groupState: 'enabled',
+        name: 'legacy broad coverage',
+        keywords: [{
+          id: 'kw-broad',
+          text: 'nurse gifts',
+          matchType: 'BROAD',
+          bid: 0.25,
+          state: 'enabled',
+        }],
+      }],
+    },
+  ], {
+    ...rowsByType,
+    keyword: [{ sku: 'SKU-1', keywordId: 'kw-broad', campaignId: 'c-broad', adGroupId: 'g-broad', accountId: 1, siteId: 4 }],
+  }, [], [], []).products };
+  const validated = validateAndNormalizePlan([
+    {
+      sku: 'SKU-1',
+      summary: 'duplicate broad create test',
+      actions: [
+        {
+          actionType: 'create',
+          mode: 'keywordTarget',
+          matchType: 'BROAD',
+          coreTerm: 'nurse appreciation',
+          keywords: ['nurse appreciation gifts'],
+          dailyBudget: 3,
+          defaultBid: 0.25,
+          reason: 'traffic coverage',
+          evidence: ['inventory ready'],
+          confidence: 0.85,
+          riskLevel: 'low_budget_create',
+          ...codexApproval,
+        },
+      ],
+    },
+  ], context);
+
+  assert.strictEqual(validated.plan[0].actions.length, 0);
+  assert.strictEqual(validated.review.length, 1);
+  assert.match(validated.review[0].action.reason, /reuse_existing_ad_group:lane=keyword:broad/);
+}
+
+{
   const context = { products: buildProductContexts(cards, rowsByType, [], [], []).products };
   const validated = validateAndNormalizePlan([
     {

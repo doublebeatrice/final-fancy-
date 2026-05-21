@@ -5,6 +5,7 @@ const path = require('path');
 const {
   applyCommandResultToTask,
   applyCommandResultsToHub,
+  expandResultsWithOutputReports,
 } = require('../src/agent_execution_feedback');
 const { runAgentExecutionFeedback } = require('../scripts/run_agent_execution_feedback');
 
@@ -51,8 +52,11 @@ const timeContext = {
   const updated = applyCommandResultToTask({
     taskId: 'review-1',
     lane: 'effect_review',
+    workType: 'due_effect_review',
+    autonomyMode: 'run_review',
     status: 'waiting_review',
     title: 'SE5608 效果复查',
+    nextStep: '拉取最新广告证据。',
     subject: { sku: 'SE5608' },
   }, {
     taskId: 'review-1',
@@ -66,6 +70,9 @@ const timeContext = {
   }, timeContext);
 
   assert.strictEqual(updated.status, 'closed');
+  assert.strictEqual(updated.workType, 'due_effect_review');
+  assert.strictEqual(updated.autonomyMode, 'run_review');
+  assert.strictEqual(updated.nextStep, '拉取最新广告证据。');
   assert.strictEqual(updated.conclusion, '记录为有效动作，关闭本次复查。');
   assert.strictEqual(updated.history[0].type, 'close');
 }
@@ -88,6 +95,32 @@ const timeContext = {
   assert.strictEqual(updated.status, 'blocked');
   assert.strictEqual(updated.history[0].type, 'command_failed');
   assert.ok(updated.lastCommandResult.error.includes('missing current ad data'));
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-feedback-expand-'));
+  const reportFile = path.join(tmpDir, 'effect_review.json');
+  fs.writeFileSync(reportFile, JSON.stringify({
+    results: [{
+      taskId: 'review-1',
+      verdict: 'continue_watch',
+      nextStep: '继续观察。',
+    }, {
+      taskId: 'review-2',
+      verdict: 'continue_watch',
+      nextStep: '继续观察。',
+    }],
+  }), 'utf8');
+  const expanded = expandResultsWithOutputReports([{
+    taskId: 'review-1',
+    ok: true,
+    exitCode: 0,
+    outputFiles: [reportFile],
+    summary: 'aggregate command',
+  }]);
+  assert.strictEqual(expanded.length, 2);
+  assert.strictEqual(expanded[1].taskId, 'review-2');
+  assert.strictEqual(expanded[1].report.verdict, 'continue_watch');
 }
 
 {

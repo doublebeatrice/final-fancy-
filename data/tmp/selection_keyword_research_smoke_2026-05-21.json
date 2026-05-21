@@ -1,0 +1,288 @@
+{
+  "source": "selection_keyword_research",
+  "generatedAt": "2026-05-21T04:43:25.351Z",
+  "exportedAt": "2026-05-21T04:43:25.351Z",
+  "input": {
+    "sku": "GUF3129",
+    "asin": "B0GWD724Y8",
+    "title": "nurse gift basket",
+    "description": "爱国未推待改",
+    "terms": [
+      "patriotic bucket hat"
+    ],
+    "ownAsins": [
+      "B0GWD724Y8"
+    ],
+    "productProfile": {
+      "version": 1,
+      "sku": "GUF3129",
+      "asin": "B0GWD724Y8",
+      "signature": "d5e50bab495260b6b25f03e1bb99f66886486242",
+      "source": "rules",
+      "generatedAt": "2026-05-21T01:22:10.617Z",
+      "stale": false,
+      "productType": "gift basket",
+      "productTypes": [
+        "gift basket",
+        "apparel"
+      ],
+      "targetAudience": [
+        "nurse"
+      ],
+      "occasion": [],
+      "seasonality": [],
+      "visualTheme": [
+        "nurse"
+      ],
+      "positioning": "nurse gift basket",
+      "listingTitle": "",
+      "categoryPath": "",
+      "hasImages": false,
+      "imageCount": 0,
+      "mainImageUrl": "",
+      "confidence": 0.65,
+      "needsImageUnderstanding": false,
+      "imageUnderstandingAt": null,
+      "notes": []
+    }
+  },
+  "seedTerms": [
+    {
+      "term": "patriotic bucket hat",
+      "source": "operator_terms"
+    }
+  ],
+  "searchTermsUsed": [
+    "patriotic bucket hat"
+  ],
+  "directCompetitorAsins": [
+    {
+      "asin": "B0BSGZ3CJH",
+      "title": "American Bucket Packable Fisherman Patriotic",
+      "searchTerm": "patriotic bucket hat",
+      "price": 43.99,
+      "rating": 4.05,
+      "reviewCount": 12,
+      "position": 4,
+      "sponsored": true,
+      "categoryPath": "",
+      "url": "https://www.amazon.com/sspa/click?ie=UTF8&spc=MTo1MjY3MzA2NzI0OTIzNjc2OjE3NzkzMzg2MDI6c3BfYXRmOjIwMDE1MzI1NDY0NTU5ODo6MDo6&url=%2FAmerican-Bucket-Packable-Fisherman-Patriotic%2Fdp%2FB0BSGZ3CJH%2Fref%3Dsr_1_4_sspa%3Fdib%3DeyJ2IjoiMSJ9.-M-_H8FJwzKUxm4WcXqlFPoWZMiVLxbbAej-fLE5_K8TkVL0clGSqQhCt9tKQ_g05LoByQNK31i6B3xminHDvD-lTvSDsH71y7_kW0GvmErktKhJwDbFPn7XsViyl4RDstA9rqgPFE7rwc0_9fWttgFrJ6Qk3W3510R_fh8m-1rKTd_cXT9fpTmPNN4-DVRI0mRx-xrQjkUMeifo5okxcV4R6viZwN6UBKGYV1-HB7V2i65gvCdfx2M6RjMU-xRRvLQlVn5L0xQDlt7Q04cx7K0St3dA-uBVHHD1nBPgQ_w.25nMdcmJGabC0F_oYUfOR9ohZighhIQwL_ZVK8TmxYE%26dib_tag%3Dse%26keywords%3Dpatriotic%2Bbucket%2Bhat%26qid%3D1779338602%26sr%3D8-4-spons%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1",
+      "imageUrl": "https://m.media-amazon.com/images/I/912S7T8GB2L._AC_UL320_.jpg",
+      "matchedTokens": [
+        "bucket"
+      ],
+      "evidenceNotes": [
+        "front_search_term=patriotic bucket hat",
+        "front_position=4",
+        "front_result_is_sponsored",
+        "product_intent_tokens=bucket",
+        "scene_tokens=bucket",
+        "review_count=12"
+      ]
+    }
+  ],
+  "sceneCompetitorAsins": [],
+  "trafficBridgeAsins": [
+    {
+      "asin": "B0GFW54QYG",
+      "title": "Frienda American Bucket Patriotic Independence",
+      "searchTerm": "patriotic bucket hat",
+      "price": 40.99,
+      "rating": 0,
+      "reviewCount": 0,
+      "position": 1,
+      "sponsored": true,
+      "categoryPath": "",
+      "url": "https://www.amazon.com/sspa/click?ie=UTF8&spc=MTo1MjY3MzA2NzI0OTIzNjc2OjE3NzkzMzg2MDI6c3BfYXRmOjMwMTI0NDkzNDcyNDUwMjo6MDo6&url=%2FFrienda-American-Bucket-Patriotic-Independence%2Fdp%2FB0GFW54QYG%2Fref%3Dsr_1_1_sspa%3Fdib%3DeyJ2IjoiMSJ9.-M-_H8FJwzKUxm4WcXqlFPoWZMiVLxbbAej-fLE5_K8TkVL0clGSqQhCt9tKQ_g05LoByQNK31i6B3xminHDvD-lTvSDsH71y7_kW0GvmErktKhJwDbFPn7XsViyl4RDstA9rqgPFE7rwc0_9fWttgFrJ6Qk3W3510R_fh8m-1rKTd_cXT9fpTmPNN4-DVRI0mRx-xrQjkUMeifo5okxcV4R6viZwN6UBKGYV1-HB7V2i65gvCdfx2M6RjMU-xRRvLQlVn5L0xQDlt7Q04cx7K0St3dA-uBVHHD1nBPgQ_w.25nMdcmJGabC0F_oYUfOR9ohZighhIQwL_ZVK8TmxYE%26dib_tag%3Dse%26keywords%3Dpatriotic%2Bbucket%2Bhat%26qid%3D1779338602%26sr%3D8-1-spons%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1",
+      "imageUrl": "https://m.media-amazon.com/images/I/81ZOAhmUI-L._AC_UL320_.jpg",
+      "matchedTokens": [
+        "bucket"
+      ],
+      "evidenceNotes": [
+        "front_search_term=patriotic bucket hat",
+        "front_position=1",
+        "front_result_is_sponsored",
+        "product_intent_tokens=bucket",
+        "scene_tokens=bucket"
+      ]
+    },
+    {
+      "asin": "B0GTLP11HQ",
+      "title": "Durio American Flag Bucket Women",
+      "searchTerm": "patriotic bucket hat",
+      "price": 18.99,
+      "rating": 4.45,
+      "reviewCount": 868,
+      "position": 5,
+      "sponsored": false,
+      "categoryPath": "",
+      "url": "https://www.amazon.com/Durio-American-Flag-Bucket-Women/dp/B0GTLP11HQ/ref=sr_1_5?dib=eyJ2IjoiMSJ9.-M-_H8FJwzKUxm4WcXqlFPoWZMiVLxbbAej-fLE5_K8TkVL0clGSqQhCt9tKQ_g05LoByQNK31i6B3xminHDvD-lTvSDsH71y7_kW0GvmErktKhJwDbFPn7XsViyl4RDstA9rqgPFE7rwc0_9fWttgFrJ6Qk3W3510R_fh8m-1rKTd_cXT9fpTmPNN4-DVRI0mRx-xrQjkUMeifo5okxcV4R6viZwN6UBKGYV1-HB7V2i65gvCdfx2M6RjMU-xRRvLQlVn5L0xQDlt7Q04cx7K0St3dA-uBVHHD1nBPgQ_w.25nMdcmJGabC0F_oYUfOR9ohZighhIQwL_ZVK8TmxYE&dib_tag=se&keywords=patriotic+bucket+hat&qid=1779338602&sr=8-5",
+      "imageUrl": "https://m.media-amazon.com/images/I/719FvPpfxuL._AC_UL320_.jpg",
+      "matchedTokens": [
+        "bucket"
+      ],
+      "evidenceNotes": [
+        "front_search_term=patriotic bucket hat",
+        "front_position=5",
+        "front_result_is_organic_or_unknown",
+        "product_intent_tokens=bucket",
+        "scene_tokens=bucket",
+        "review_count=868"
+      ]
+    }
+  ],
+  "excludedAsins": [
+    {
+      "asin": "B0GTZ2LT4N",
+      "title": "Unittype Patriotic Decoration Fisherman Independence",
+      "searchTerm": "patriotic bucket hat",
+      "excludeReason": "node_only_without_product_intent",
+      "matchedTokens": [],
+      "nodeMatches": [
+        "patriotic"
+      ]
+    },
+    {
+      "asin": "B0BXXPCD7M",
+      "title": "Handepo Patriotic Fishermen Reversible American",
+      "searchTerm": "patriotic bucket hat",
+      "excludeReason": "node_only_without_product_intent",
+      "matchedTokens": [],
+      "nodeMatches": [
+        "patriotic"
+      ]
+    }
+  ],
+  "candidateKeywords": [
+    {
+      "term": "patriotic bucket hat",
+      "source": "operator_terms",
+      "evidence": [
+        "seed_source=operator_terms",
+        "front_competitor_matches=3"
+      ],
+      "nextCheck": [
+        "aba_search_terms",
+        "keyword_conversion",
+        "sku_listing_fit"
+      ]
+    }
+  ],
+  "operatorSummary": {
+    "summary": {
+      "totalSearchResults": 5,
+      "directCompetitors": 1,
+      "sceneCompetitors": 0,
+      "trafficBridgeCompetitors": 2,
+      "excluded": 2
+    },
+    "dataFirstBoundary": "Every direction is a hypothesis until front-search, ABA, keyword conversion, and SKU fit evidence support it.",
+    "recommendedNextStep": "Run ABA and keyword conversion validation before any ad action."
+  },
+  "crossValidationPlan": [
+    "selection_aba_search_terms",
+    "selection_keyword_conversion_rate",
+    "ad_backend_customer_search_terms",
+    "listing_price_inventory_fit"
+  ],
+  "opsReadiness": {
+    "readyForDecisionSupport": true,
+    "readyForAutoAction": false,
+    "reason": "keyword research is evidence generation only; ad actions require normal schema, dry-run, execution, and landing verification"
+  },
+  "ok": true,
+  "rowCount": 5,
+  "amazonFrontSearch": {
+    "mode": "injected",
+    "searchUrls": [
+      "https://www.amazon.com/s?k=patriotic+bucket+hat"
+    ],
+    "resultCount": 5
+  },
+  "nextValidationCommands": [
+    {
+      "label": "validate keyword research ABA demand",
+      "command": "npm run ops:selection:aba-search-terms -- --search-terms \"patriotic bucket hat\"",
+      "riskLevel": "read_only",
+      "purpose": "confirm demand, concentration, and supply pressure for keyword research candidates"
+    },
+    {
+      "label": "validate keyword research conversion economics",
+      "command": "npm run ops:selection:keyword-conversion -- --keywords \"patriotic bucket hat\"",
+      "riskLevel": "read_only",
+      "purpose": "confirm purchase proof and CPC/CPA/ACOS ranges before spend changes"
+    }
+  ],
+  "rawFrontSearchResults": [
+    {
+      "asin": "B0GFW54QYG",
+      "searchTerm": "patriotic bucket hat",
+      "title": "Frienda American Bucket Patriotic Independence",
+      "url": "https://www.amazon.com/sspa/click?ie=UTF8&spc=MTo1MjY3MzA2NzI0OTIzNjc2OjE3NzkzMzg2MDI6c3BfYXRmOjMwMTI0NDkzNDcyNDUwMjo6MDo6&url=%2FFrienda-American-Bucket-Patriotic-Independence%2Fdp%2FB0GFW54QYG%2Fref%3Dsr_1_1_sspa%3Fdib%3DeyJ2IjoiMSJ9.-M-_H8FJwzKUxm4WcXqlFPoWZMiVLxbbAej-fLE5_K8TkVL0clGSqQhCt9tKQ_g05LoByQNK31i6B3xminHDvD-lTvSDsH71y7_kW0GvmErktKhJwDbFPn7XsViyl4RDstA9rqgPFE7rwc0_9fWttgFrJ6Qk3W3510R_fh8m-1rKTd_cXT9fpTmPNN4-DVRI0mRx-xrQjkUMeifo5okxcV4R6viZwN6UBKGYV1-HB7V2i65gvCdfx2M6RjMU-xRRvLQlVn5L0xQDlt7Q04cx7K0St3dA-uBVHHD1nBPgQ_w.25nMdcmJGabC0F_oYUfOR9ohZighhIQwL_ZVK8TmxYE%26dib_tag%3Dse%26keywords%3Dpatriotic%2Bbucket%2Bhat%26qid%3D1779338602%26sr%3D8-1-spons%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1",
+      "imageUrl": "https://m.media-amazon.com/images/I/81ZOAhmUI-L._AC_UL320_.jpg",
+      "price": 40.99,
+      "rating": 0,
+      "reviewCount": 0,
+      "position": 1,
+      "sponsored": true,
+      "categoryPath": "",
+      "titleSource": "amazon_url_slug"
+    },
+    {
+      "asin": "B0GTZ2LT4N",
+      "searchTerm": "patriotic bucket hat",
+      "title": "Unittype Patriotic Decoration Fisherman Independence",
+      "url": "https://www.amazon.com/sspa/click?ie=UTF8&spc=MTo1MjY3MzA2NzI0OTIzNjc2OjE3NzkzMzg2MDI6c3BfYXRmOjMwMTI2ODgzMTgyMTYwMjo6MDo6&url=%2FUnittype-Patriotic-Decoration-Fisherman-Independence%2Fdp%2FB0GTZ2LT4N%2Fref%3Dsr_1_2_sspa%3Fdib%3DeyJ2IjoiMSJ9.-M-_H8FJwzKUxm4WcXqlFPoWZMiVLxbbAej-fLE5_K8TkVL0clGSqQhCt9tKQ_g05LoByQNK31i6B3xminHDvD-lTvSDsH71y7_kW0GvmErktKhJwDbFPn7XsViyl4RDstA9rqgPFE7rwc0_9fWttgFrJ6Qk3W3510R_fh8m-1rKTd_cXT9fpTmPNN4-DVRI0mRx-xrQjkUMeifo5okxcV4R6viZwN6UBKGYV1-HB7V2i65gvCdfx2M6RjMU-xRRvLQlVn5L0xQDlt7Q04cx7K0St3dA-uBVHHD1nBPgQ_w.25nMdcmJGabC0F_oYUfOR9ohZighhIQwL_ZVK8TmxYE%26dib_tag%3Dse%26keywords%3Dpatriotic%2Bbucket%2Bhat%26qid%3D1779338602%26sr%3D8-2-spons%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1",
+      "imageUrl": "https://m.media-amazon.com/images/I/71Yrwt6gytL._AC_UL320_.jpg",
+      "price": 13.99,
+      "rating": 0,
+      "reviewCount": 0,
+      "position": 2,
+      "sponsored": true,
+      "categoryPath": "",
+      "titleSource": "amazon_url_slug"
+    },
+    {
+      "asin": "B0BXXPCD7M",
+      "searchTerm": "patriotic bucket hat",
+      "title": "Handepo Patriotic Fishermen Reversible American",
+      "url": "https://www.amazon.com/sspa/click?ie=UTF8&spc=MTo1MjY3MzA2NzI0OTIzNjc2OjE3NzkzMzg2MDI6c3BfYXRmOjIwMDE3OTU5NTIzODE5ODo6MDo6&url=%2FHandepo-Patriotic-Fishermen-Reversible-American%2Fdp%2FB0BXXPCD7M%2Fref%3Dsr_1_3_sspa%3Fdib%3DeyJ2IjoiMSJ9.-M-_H8FJwzKUxm4WcXqlFPoWZMiVLxbbAej-fLE5_K8TkVL0clGSqQhCt9tKQ_g05LoByQNK31i6B3xminHDvD-lTvSDsH71y7_kW0GvmErktKhJwDbFPn7XsViyl4RDstA9rqgPFE7rwc0_9fWttgFrJ6Qk3W3510R_fh8m-1rKTd_cXT9fpTmPNN4-DVRI0mRx-xrQjkUMeifo5okxcV4R6viZwN6UBKGYV1-HB7V2i65gvCdfx2M6RjMU-xRRvLQlVn5L0xQDlt7Q04cx7K0St3dA-uBVHHD1nBPgQ_w.25nMdcmJGabC0F_oYUfOR9ohZighhIQwL_ZVK8TmxYE%26dib_tag%3Dse%26keywords%3Dpatriotic%2Bbucket%2Bhat%26qid%3D1779338602%26sr%3D8-3-spons%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1",
+      "imageUrl": "https://m.media-amazon.com/images/I/81nMwJD43uL._AC_UL320_.jpg",
+      "price": 24.99,
+      "rating": 4.05,
+      "reviewCount": 15,
+      "position": 3,
+      "sponsored": true,
+      "categoryPath": "",
+      "titleSource": "amazon_url_slug"
+    },
+    {
+      "asin": "B0BSGZ3CJH",
+      "searchTerm": "patriotic bucket hat",
+      "title": "American Bucket Packable Fisherman Patriotic",
+      "url": "https://www.amazon.com/sspa/click?ie=UTF8&spc=MTo1MjY3MzA2NzI0OTIzNjc2OjE3NzkzMzg2MDI6c3BfYXRmOjIwMDE1MzI1NDY0NTU5ODo6MDo6&url=%2FAmerican-Bucket-Packable-Fisherman-Patriotic%2Fdp%2FB0BSGZ3CJH%2Fref%3Dsr_1_4_sspa%3Fdib%3DeyJ2IjoiMSJ9.-M-_H8FJwzKUxm4WcXqlFPoWZMiVLxbbAej-fLE5_K8TkVL0clGSqQhCt9tKQ_g05LoByQNK31i6B3xminHDvD-lTvSDsH71y7_kW0GvmErktKhJwDbFPn7XsViyl4RDstA9rqgPFE7rwc0_9fWttgFrJ6Qk3W3510R_fh8m-1rKTd_cXT9fpTmPNN4-DVRI0mRx-xrQjkUMeifo5okxcV4R6viZwN6UBKGYV1-HB7V2i65gvCdfx2M6RjMU-xRRvLQlVn5L0xQDlt7Q04cx7K0St3dA-uBVHHD1nBPgQ_w.25nMdcmJGabC0F_oYUfOR9ohZighhIQwL_ZVK8TmxYE%26dib_tag%3Dse%26keywords%3Dpatriotic%2Bbucket%2Bhat%26qid%3D1779338602%26sr%3D8-4-spons%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1",
+      "imageUrl": "https://m.media-amazon.com/images/I/912S7T8GB2L._AC_UL320_.jpg",
+      "price": 43.99,
+      "rating": 4.05,
+      "reviewCount": 12,
+      "position": 4,
+      "sponsored": true,
+      "categoryPath": "",
+      "titleSource": "amazon_url_slug"
+    },
+    {
+      "asin": "B0GTLP11HQ",
+      "searchTerm": "patriotic bucket hat",
+      "title": "Durio American Flag Bucket Women",
+      "url": "https://www.amazon.com/Durio-American-Flag-Bucket-Women/dp/B0GTLP11HQ/ref=sr_1_5?dib=eyJ2IjoiMSJ9.-M-_H8FJwzKUxm4WcXqlFPoWZMiVLxbbAej-fLE5_K8TkVL0clGSqQhCt9tKQ_g05LoByQNK31i6B3xminHDvD-lTvSDsH71y7_kW0GvmErktKhJwDbFPn7XsViyl4RDstA9rqgPFE7rwc0_9fWttgFrJ6Qk3W3510R_fh8m-1rKTd_cXT9fpTmPNN4-DVRI0mRx-xrQjkUMeifo5okxcV4R6viZwN6UBKGYV1-HB7V2i65gvCdfx2M6RjMU-xRRvLQlVn5L0xQDlt7Q04cx7K0St3dA-uBVHHD1nBPgQ_w.25nMdcmJGabC0F_oYUfOR9ohZighhIQwL_ZVK8TmxYE&dib_tag=se&keywords=patriotic+bucket+hat&qid=1779338602&sr=8-5",
+      "imageUrl": "https://m.media-amazon.com/images/I/719FvPpfxuL._AC_UL320_.jpg",
+      "price": 18.99,
+      "rating": 4.45,
+      "reviewCount": 868,
+      "position": 5,
+      "sponsored": false,
+      "categoryPath": "",
+      "titleSource": "amazon_url_slug"
+    }
+  ]
+}

@@ -114,6 +114,35 @@ function readAdjustmentLog(options = {}) {
   return readJson(file, []);
 }
 
+function stableValue(value) {
+  if (value === null || value === undefined) return '';
+  if (typeof value === 'object') {
+    try {
+      return JSON.stringify(value);
+    } catch (_) {
+      return String(value);
+    }
+  }
+  return String(value);
+}
+
+function adjustmentDedupeKey(record = {}) {
+  const base = [
+    record.businessDate,
+    record.dryRun === true ? 'dry' : 'live',
+    record.sku,
+    record.asin,
+    record.actionType,
+    record.entityType,
+    record.entityId,
+    stableValue(record.beforeValue),
+    stableValue(record.afterValue),
+    record.outcome,
+  ].map(stableValue);
+  if (record.dryRun !== true) base.push(stableValue(record.sourceRunId));
+  return base.join('\u001f');
+}
+
 function appendAdjustmentRecords(records = [], options = {}) {
   const normalized = records
     .map(record => normalizeAdjustmentRecord(record, options.timeContext || {}))
@@ -121,8 +150,41 @@ function appendAdjustmentRecords(records = [], options = {}) {
   if (!normalized.length) return { file: '', count: 0, records: [] };
   const file = options.file || dailyLogFile(normalized[0].businessDate, options.dir || ADJUSTMENT_DIR);
   const current = readJson(file, []);
-  writeJson(file, [...current, ...normalized]);
-  return { file, count: normalized.length, records: normalized };
+  const seen = new Set(current.map(record => adjustmentDedupeKey(normalizeAdjustmentRecord(record))));
+  const unique = [];
+  for (const record of normalized) {
+    const key = adjustmentDedupeKey(record);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    unique.push(record);
+  }
+  if (!unique.length) return { file, count: 0, records: [] };
+  writeJson(file, [...current, ...unique]);
+  return { file, count: unique.length, records: unique };
+}
+
+function dedupeAdjustmentRecords(records = []) {
+  const seen = new Set();
+  const unique = [];
+  let dryRunRemoved = 0;
+  let liveRemoved = 0;
+  for (const record of records || []) {
+    const normalized = normalizeAdjustmentRecord(record);
+    const key = adjustmentDedupeKey(normalized);
+    if (seen.has(key)) {
+      if (normalized.dryRun === true) dryRunRemoved += 1;
+      else liveRemoved += 1;
+      continue;
+    }
+    seen.add(key);
+    unique.push(record);
+  }
+  return {
+    records: unique,
+    removed: dryRunRemoved + liveRemoved,
+    dryRunRemoved,
+    liveRemoved,
+  };
 }
 
 function recordsFromPlan(plan = [], timeContext = {}, options = {}) {
@@ -177,7 +239,9 @@ function daysBetween(fromIso, toIso) {
 module.exports = {
   ADJUSTMENT_DIR,
   appendAdjustmentRecords,
+  adjustmentDedupeKey,
   dailyLogFile,
+  dedupeAdjustmentRecords,
   daysBetween,
   findLastAdjustment,
   localDateFromRunAt,

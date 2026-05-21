@@ -457,7 +457,7 @@ function generateReport(options = {}) {
   const snapshot = loadJson(selectedInputFile, null);
   if (!snapshot) throw new Error(`Snapshot not found: ${selectedInputFile}`);
   const board = loadJson(selectedTaskFile, {});
-  const date = dateFromSnapshot(snapshot);
+  const date = options.date || dateFromSnapshot(snapshot);
   const salesRows = snapshot.sellerSalesRows || [];
   const core = findCoreRows(salesRows);
   const total = core.total || {};
@@ -876,7 +876,25 @@ function generateReport(options = {}) {
 }
 
 function main() {
-  console.log(generateReport());
+  const args = process.argv.slice(2);
+  const positional = [];
+  for (let i = 0; i < args.length; i += 1) {
+    if (String(args[i]).startsWith('--')) {
+      if (args[i + 1] && !String(args[i + 1]).startsWith('--')) i += 1;
+    } else {
+      positional.push(args[i]);
+    }
+  }
+  const get = name => {
+    const index = args.indexOf(name);
+    return index >= 0 ? args[index + 1] : '';
+  };
+  console.log(generateReport({
+    inputFile: get('--snapshot') || positional[0] || inputFile,
+    taskFile: get('--tasks') || positional[1] || taskFile,
+    outDir: get('--out-dir') || positional[2] || outDir,
+    date: get('--date') || '',
+  }));
 }
 
 if (require.main === module) {

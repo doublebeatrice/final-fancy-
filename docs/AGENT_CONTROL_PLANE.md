@@ -114,7 +114,7 @@ npm run ops:agent:review-effect -- --queue data\agent\review_queue_2026-05-19.js
 如果复查时已经有库存、利润或选品报告，可以一并传入，复查器会把它们合并成同一份证据：
 
 ```powershell
-npm run ops:agent:review-effect -- --queue data\agent\review_queue_2026-05-19.json --collect-evidence --inventory-report data\snapshots\inventory_review_2026-05-19.json --profit-report data\snapshots\profit_review_2026-05-19.json --keyword-conversion-report data\snapshots\selection_keyword_conversion_rate_2026-05-19.json --aba-report data\snapshots\selection_aba_search_terms_2026-05-19.json --today 2026-05-19 --out data\agent\effect_review_2026-05-19.json
+npm run ops:agent:review-effect -- --queue data\agent\review_queue_2026-05-19.json --collect-evidence --inventory-report data\snapshots\inventory_review_2026-05-19.json --profit-report data\snapshots\profit_review_2026-05-19.json --keyword-conversion-report data\snapshots\selection_keyword_conversion_rate_2026-05-19.json --aba-report data\snapshots\selection_aba_search_terms_2026-05-19.json --seasonality-report data\snapshots\selection_keyword_seasonality_2026-05-19.json --today 2026-05-19 --out data\agent\effect_review_2026-05-19.json
 ```
 
 也可以只采集证据，不做判断：
@@ -168,6 +168,7 @@ npm run ops:agent:capabilities -- --file data\agent\capabilities_2026-05-19.json
 - 广告 SKU 摘要证据。
 - 选品关键词转化。
 - 选品 ABA 搜索词。
+- 选品关键词季节性。
 - sellerinventory listing 原始数据读取。
 - sellerinventory listing 修改提交。
 - 复查证据采集。
@@ -225,8 +226,8 @@ npm run ops:agent:hub -- --ledger data\agent\agent_ledger_2026-05-19.json --inbo
 
 每条队列项会带：
 
-- `requiredCapabilities`：本任务需要调用的能力，例如选品关键词转化、ABA、复查证据采集。
-- `executionPlan.commands`：下一步建议运行的命令。例如到期复查会生成 `npm run ops:agent:review-effect -- --collect-evidence ...`；外部选品问题会生成关键词转化和 ABA 证据命令。
+- `requiredCapabilities`：本任务需要调用的能力，例如选品关键词转化、ABA、关键词季节性、复查证据采集。
+- `executionPlan.commands`：下一步建议运行的命令。例如到期复查会生成 `npm run ops:agent:review-effect -- --collect-evidence ...`；外部选品问题会生成关键词转化、ABA 和关键词季节性证据命令。
 - `executionPlan.requiredInputs`：还缺的输入，例如没有关键词时会写出“关键词或搜索词”。
 - `executionPlan.safeToAutoRun`：当前命令是否都是只读证据采集。中枢不会因此绕过 schema、预演、授权边界或写后回查。
 
@@ -242,13 +243,29 @@ npm run ops:agent:run-commands -- --hub data\agent\operating_hub_2026-05-19.json
 
 - 队列项 `executionPlan.safeToAutoRun=true`。
 - 命令 `riskLevel=read_only`。
-- 命令必须是白名单里的 `npm run` 入口，例如效果复查、复查证据采集、选品关键词转化、选品 ABA、能力注册。
+- 命令必须是白名单里的 `npm run` 入口，例如效果复查、复查证据采集、选品关键词转化、选品 ABA、选品关键词季节性、能力注册。
 - 命令里不能有 `<关键词或搜索词>` 这类占位符。
 - 命令字符串不能带 shell 串联符号。
 
 输出写到 `data\agent\command_results_<date>.json`，后续由执行结果回填入口写回任务状态和历史。
 
 如果命令退出成功但没有生成声明的输出文件，执行器会把该条结果标为失败。这样后续回填会进入阻塞状态，而不是把“没拿到证据”的任务误记成已执行。
+
+### 低风险写入编排
+
+低风险写入动作不放进只读命令执行器。它们走单独的受限编排器：
+
+```powershell
+npm run ops:agent:write-actions -- --ledger data\agent\agent_ledger_2026-05-19.json --actions data\snapshots\action_schema_2026-05-19_codex.json --snapshot data\snapshots\latest_snapshot.json --out data\agent\write_execution_2026-05-19.json
+```
+
+默认只跑预演。编排器会先读取台账动作授权，只有写入动作全部属于 `auto_execute`，且没有高影响、缺批准、候选生成器等阻塞，才允许进入真实写入。真实执行必须显式加 `--execute`：
+
+```powershell
+npm run ops:agent:write-actions -- --ledger data\agent\agent_ledger_2026-05-19.json --actions data\snapshots\action_schema_2026-05-19_codex.json --snapshot data\snapshots\latest_snapshot.json --execute --out data\agent\write_execution_2026-05-19.json
+```
+
+真实执行会复用现有 `scripts\execute\run_actions.js`，仍然经过 `action schema` 校验、预演、后台写入、落地回查和调整日志。编排器只负责把这些阶段串成代理可读的 `data\agent\write_execution_<date>.json`，并输出可被回填入口消费的 `results`。
 
 ### 执行结果回填
 
@@ -281,6 +298,38 @@ npm run ops:agent:feedback -- --hub data\agent\operating_hub_2026-05-19.json --r
 - 效果复查返回 `continue_watch`：继续保留为待复查。
 - 效果复查返回 `rollback_review` 或 `needs_data`：任务进入阻塞，等待二次处理。
 
+### 中文交接摘要
+
+每天最后可以把中枢、命令结果、写入编排和效果复查压成一份中文早间交接：
+
+```powershell
+npm run ops:agent:handoff -- --hub data\agent\operating_hub_2026-05-19.json --results data\agent\command_results_2026-05-19.json --write-execution data\agent\write_execution_2026-05-19.json --effect-review data\agent\effect_review_2026-05-19.json --out data\agent\agent_handoff_2026-05-19.md
+```
+
+摘要会保留四块最重要的信息：今日优先任务、自动证据结果、阻塞和需确认项、复查结论、写入链路状态。它面向早上检查，不替代底层 JSON 证据。
+
+### 总编排闭环
+
+如果要让智能代理一次串完整体流程，用总编排入口：
+
+```powershell
+npm run ops:agent:closed-loop -- --ledger data\agent\agent_ledger_2026-05-19.json --inbox data\agent\external_inbox_2026-05-19.json --reviews data\agent\review_queue_2026-05-19.json --capabilities data\agent\capability_registry_2026-05-19.json --actions data\snapshots\action_schema_2026-05-19_codex.json --snapshot data\snapshots\latest_snapshot.json --out-dir data\agent
+```
+
+它会按顺序完成：
+
+- 生成或读取自主运营中枢。
+- 跑可自动执行的只读证据命令。
+- 对低风险写入动作跑受限编排，默认只预演；显式 `--execute` 才真实写入。
+- 把命令结果回填到任务状态和历史。
+- 生成中文交接摘要。
+
+可控闭环自测不会调用真实后台：
+
+```powershell
+npm run ops:agent:closed-loop -- --self-test
+```
+
 ## 当前边界
 
 - 这层不直接生成广告策略。
@@ -290,6 +339,6 @@ npm run ops:agent:feedback -- --hub data\agent\operating_hub_2026-05-19.json --r
 
 ## 下一步接入方向
 
-- 把低风险写入动作接成“预演、执行、落地回查、日志、复查承诺”的受限自动执行链。
+- 把总编排入口接入每日自动化，让早上直接产出交接摘要。
 - 让更多运行路径从能力目录自动选择证据来源，而不是在脚本里手写路径。
-- 把每日运行结果、只读命令结果和效果复查结论合成一份更短的中文交接摘要。
+- 把外部任务的运营回复生成接入交接摘要，形成更短的可转发回复块。

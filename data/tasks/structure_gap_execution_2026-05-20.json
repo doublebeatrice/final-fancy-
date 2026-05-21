@@ -1,0 +1,1072 @@
+{
+  "generatedAt": "2026-05-20T01:37:03.812Z",
+  "localDate": "2026-05-20",
+  "sourceSchemas": [
+    "data/snapshots/action_schema_high_price_structure_gap_2026-05-20.json",
+    "data/snapshots/action_schema_high_inventory_structure_gap_wave2_2026-05-20.json"
+  ],
+  "verificationFiles": [
+    "data/snapshots/structure_gap_post_create_target_readback_2026-05-20.json",
+    "data/snapshots/structure_gap_wave2_post_create_target_readback_2026-05-20.json",
+    "data/snapshots/ad_group_rows_GT3811_keywordTarget_PHRASE_280094312330124_post_wave2_retry_2026-05-20.json"
+  ],
+  "summary": {
+    "skus": 6,
+    "campaigns": 16,
+    "totalBudget": 102,
+    "allTargetsReadBack": true,
+    "targetRows": 86
+  },
+  "bySku": [
+    {
+      "sku": "YUT3184",
+      "campaigns": 3,
+      "budget": 19,
+      "targetRows": 15,
+      "items": [
+        {
+          "sku": "YUT3184",
+          "campaignName": "ai_kw exact_soccer party_yut3184",
+          "mode": "keywordTarget",
+          "match": "EXACT",
+          "campaignId": "108127909742443",
+          "adGroupId": "22122889325938",
+          "budget": 8,
+          "bid": 0.62,
+          "ok": true,
+          "targetRowCount": 6,
+          "sample": [
+            {
+              "text": "soccer party favors",
+              "bid": "0.62",
+              "state": 1,
+              "matchType": 1
+            },
+            {
+              "text": "soccer gifts for kids",
+              "bid": "0.62",
+              "state": 1,
+              "matchType": 1
+            },
+            {
+              "text": "soccer balls bulk",
+              "bid": "0.62",
+              "state": 1,
+              "matchType": 1
+            }
+          ]
+        },
+        {
+          "sku": "YUT3184",
+          "campaignName": "ai_kw phrase_soccer party_yut3184",
+          "mode": "keywordTarget",
+          "match": "PHRASE",
+          "campaignId": "150059712181143",
+          "adGroupId": "221651028406362",
+          "budget": 6,
+          "bid": 0.48,
+          "ok": true,
+          "targetRowCount": 5,
+          "sample": [
+            {
+              "text": "soccer ball party favors",
+              "bid": "0.48",
+              "state": 1,
+              "matchType": 2
+            },
+            {
+              "text": "soccer ball decorations",
+              "bid": "0.48",
+              "state": 1,
+              "matchType": 2
+            },
+            {
+              "text": "soccer party favors",
+              "bid": "0.48",
+              "state": 1,
+              "matchType": 2
+            }
+          ]
+        },
+        {
+          "sku": "YUT3184",
+          "campaignName": "ai_auto_soccer controlled_yut3184",
+          "mode": "auto",
+          "match": "",
+          "campaignId": "187237083572295",
+          "adGroupId": "382215447000210",
+          "budget": 5,
+          "bid": 0.36,
+          "ok": true,
+          "targetRowCount": 4,
+          "sample": [
+            {
+              "text": "queryBroadRelMatches",
+              "bid": "0.36",
+              "state": 1
+            },
+            {
+              "text": "asinAccessoryRelated",
+              "bid": "0.36",
+              "state": 1
+            },
+            {
+              "text": "queryHighRelMatches",
+              "bid": "0.36",
+              "state": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "MED1970",
+      "campaigns": 4,
+      "budget": 34,
+      "targetRows": 23,
+      "items": [
+        {
+          "sku": "MED1970",
+          "campaignName": "ai_kw exact_steam table pans_med1970",
+          "mode": "keywordTarget",
+          "match": "EXACT",
+          "campaignId": "121515497954895",
+          "adGroupId": "114971011652075",
+          "budget": 12,
+          "bid": 0.85,
+          "ok": true,
+          "targetRowCount": 7,
+          "sample": [
+            {
+              "text": "steam table pans full size",
+              "bid": "0.85",
+              "state": 1,
+              "matchType": 1
+            },
+            {
+              "text": "full size steam table pan",
+              "bid": "0.85",
+              "state": 1,
+              "matchType": 1
+            },
+            {
+              "text": "hotel steam table pans",
+              "bid": "0.85",
+              "state": 1,
+              "matchType": 1
+            }
+          ]
+        },
+        {
+          "sku": "MED1970",
+          "campaignName": "ai_kw phrase_steam table pans_med1970",
+          "mode": "keywordTarget",
+          "match": "PHRASE",
+          "campaignId": "226603950007371",
+          "adGroupId": "1891883235024",
+          "budget": 8,
+          "bid": 0.65,
+          "ok": true,
+          "targetRowCount": 6,
+          "sample": [
+            {
+              "text": "hotel steam table pans",
+              "bid": "0.65",
+              "state": 1,
+              "matchType": 2
+            },
+            {
+              "text": "food warmer pans",
+              "bid": "0.65",
+              "state": 1,
+              "matchType": 2
+            },
+            {
+              "text": "steam table pans full size",
+              "bid": "0.65",
+              "state": 1,
+              "matchType": 2
+            }
+          ]
+        },
+        {
+          "sku": "MED1970",
+          "campaignName": "ai_auto_steam table pans_med1970",
+          "mode": "auto",
+          "match": "",
+          "campaignId": "147480840129883",
+          "adGroupId": "514851458909470",
+          "budget": 8,
+          "bid": 0.45,
+          "ok": true,
+          "targetRowCount": 4,
+          "sample": [
+            {
+              "text": "queryBroadRelMatches",
+              "bid": "0.45",
+              "state": 1
+            },
+            {
+              "text": "asinSubstituteRelated",
+              "bid": "0.45",
+              "state": 1
+            },
+            {
+              "text": "queryHighRelMatches",
+              "bid": "0.45",
+              "state": 1
+            }
+          ]
+        },
+        {
+          "sku": "MED1970",
+          "campaignName": "ai_asin_steam table pans_med1970",
+          "mode": "productTarget",
+          "match": "ASIN_SAME_AS",
+          "campaignId": "140173886011552",
+          "adGroupId": "112501083762821",
+          "budget": 6,
+          "bid": 0.55,
+          "ok": true,
+          "targetRowCount": 6,
+          "sample": [
+            {
+              "text": "asin=B07QGTHV9H",
+              "bid": "0.55",
+              "state": 1
+            },
+            {
+              "text": "asin=B001VZ8PTG",
+              "bid": "0.55",
+              "state": 1
+            },
+            {
+              "text": "asin=B09Z3T5W2Y",
+              "bid": "0.55",
+              "state": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "SII0421",
+      "campaigns": 3,
+      "budget": 19,
+      "targetRows": 17,
+      "items": [
+        {
+          "sku": "SII0421",
+          "campaignName": "ai_kw exact_bridal shower games_sii0421",
+          "mode": "keywordTarget",
+          "match": "EXACT",
+          "campaignId": "69810126519742",
+          "adGroupId": "225191222591398",
+          "budget": 8,
+          "bid": 0.42,
+          "ok": true,
+          "targetRowCount": 6,
+          "sample": [
+            {
+              "text": "bridal shower game",
+              "bid": "0.42",
+              "state": 1,
+              "matchType": 1
+            },
+            {
+              "text": "bridal shower games for guests",
+              "bid": "0.42",
+              "state": 1,
+              "matchType": 1
+            },
+            {
+              "text": "bridal shower activity cards",
+              "bid": "0.42",
+              "state": 1,
+              "matchType": 1
+            }
+          ]
+        },
+        {
+          "sku": "SII0421",
+          "campaignName": "ai_kw phrase_bridal shower games_sii0421",
+          "mode": "keywordTarget",
+          "match": "PHRASE",
+          "campaignId": "223120381632352",
+          "adGroupId": "130409681174647",
+          "budget": 6,
+          "bid": 0.35,
+          "ok": true,
+          "targetRowCount": 5,
+          "sample": [
+            {
+              "text": "bridal shower cards game",
+              "bid": "0.35",
+              "state": 1,
+              "matchType": 2
+            },
+            {
+              "text": "guess the dress bridal shower game",
+              "bid": "0.35",
+              "state": 1,
+              "matchType": 2
+            },
+            {
+              "text": "bridal shower games",
+              "bid": "0.35",
+              "state": 1,
+              "matchType": 2
+            }
+          ]
+        },
+        {
+          "sku": "SII0421",
+          "campaignName": "ai_asin_bridal shower games_sii0421",
+          "mode": "productTarget",
+          "match": "ASIN_SAME_AS",
+          "campaignId": "90041286762916",
+          "adGroupId": "26488646401819",
+          "budget": 5,
+          "bid": 0.35,
+          "ok": true,
+          "targetRowCount": 6,
+          "sample": [
+            {
+              "text": "asin=B08BZQ2LS4",
+              "bid": "0.35",
+              "state": 1
+            },
+            {
+              "text": "asin=B0BG474GS5",
+              "bid": "0.35",
+              "state": 1
+            },
+            {
+              "text": "asin=B0CHBD7QZ1",
+              "bid": "0.35",
+              "state": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "NAY0963",
+      "campaigns": 2,
+      "budget": 9,
+      "targetRows": 10,
+      "items": [
+        {
+          "sku": "NAY0963",
+          "campaignName": "ai_kw exact_wedding pens_nay0963",
+          "mode": "keywordTarget",
+          "match": "EXACT",
+          "campaignId": "120283281923019",
+          "adGroupId": "271598228678715",
+          "budget": 5,
+          "bid": 0.42,
+          "ok": true,
+          "targetRowCount": 5,
+          "sample": [
+            {
+              "text": "guest book pens wedding",
+              "bid": "0.42",
+              "state": 1,
+              "matchType": 1
+            },
+            {
+              "text": "bridal shower pens",
+              "bid": "0.42",
+              "state": 1,
+              "matchType": 1
+            },
+            {
+              "text": "wedding pens for guest book",
+              "bid": "0.42",
+              "state": 1,
+              "matchType": 1
+            }
+          ]
+        },
+        {
+          "sku": "NAY0963",
+          "campaignName": "ai_kw phrase_wedding pens_nay0963",
+          "mode": "keywordTarget",
+          "match": "PHRASE",
+          "campaignId": "261293232122319",
+          "adGroupId": "226840625205864",
+          "budget": 4,
+          "bid": 0.34,
+          "ok": true,
+          "targetRowCount": 5,
+          "sample": [
+            {
+              "text": "pens for wedding guest book",
+              "bid": "0.34",
+              "state": 1,
+              "matchType": 2
+            },
+            {
+              "text": "thank you pens wedding",
+              "bid": "0.34",
+              "state": 1,
+              "matchType": 2
+            },
+            {
+              "text": "wedding pens",
+              "bid": "0.34",
+              "state": 1,
+              "matchType": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "EU0867",
+      "campaigns": 2,
+      "budget": 12,
+      "targetRows": 11,
+      "items": [
+        {
+          "sku": "EU0867",
+          "campaignName": "ai_kw exact_opossum plush_eu0867",
+          "mode": "keywordTarget",
+          "match": "EXACT",
+          "campaignId": "213926145142060",
+          "adGroupId": "60229055361161",
+          "budget": 7,
+          "bid": 0.38,
+          "ok": true,
+          "targetRowCount": 6,
+          "sample": [
+            {
+              "text": "plush possum",
+              "bid": "0.38",
+              "state": 1,
+              "matchType": 1
+            },
+            {
+              "text": "opossum toy",
+              "bid": "0.38",
+              "state": 1,
+              "matchType": 1
+            },
+            {
+              "text": "possum plush",
+              "bid": "0.38",
+              "state": 1,
+              "matchType": 1
+            }
+          ]
+        },
+        {
+          "sku": "EU0867",
+          "campaignName": "ai_kw phrase_opossum plush_eu0867",
+          "mode": "keywordTarget",
+          "match": "PHRASE",
+          "campaignId": "240712106417859",
+          "adGroupId": "205759319319949",
+          "budget": 5,
+          "bid": 0.3,
+          "ok": true,
+          "targetRowCount": 5,
+          "sample": [
+            {
+              "text": "possum stuffed animal",
+              "bid": "0.30",
+              "state": 1,
+              "matchType": 2
+            },
+            {
+              "text": "opossum stuffed animal",
+              "bid": "0.30",
+              "state": 1,
+              "matchType": 2
+            },
+            {
+              "text": "opossum plush",
+              "bid": "0.30",
+              "state": 1,
+              "matchType": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "GT3811",
+      "campaigns": 2,
+      "budget": 9,
+      "targetRows": 10,
+      "items": [
+        {
+          "sku": "GT3811",
+          "campaignName": "ai_kw exact_yellow funeral ribbons_gt3811",
+          "mode": "keywordTarget",
+          "match": "EXACT",
+          "campaignId": "142761418371109",
+          "adGroupId": "266313961692530",
+          "budget": 5,
+          "bid": 0.42,
+          "ok": true,
+          "targetRowCount": 5,
+          "sample": [
+            {
+              "text": "remembrance ribbons",
+              "bid": "0.42",
+              "state": 1,
+              "matchType": 1
+            },
+            {
+              "text": "funeral ribbons",
+              "bid": "0.42",
+              "state": 1,
+              "matchType": 1
+            },
+            {
+              "text": "memorial ribbons",
+              "bid": "0.42",
+              "state": 1,
+              "matchType": 1
+            }
+          ]
+        },
+        {
+          "sku": "GT3811",
+          "campaignName": "ai_kw phrase_yellow funeral ribbons_gt3811",
+          "mode": "keywordTarget",
+          "match": "PHRASE",
+          "campaignId": "280094312330124",
+          "adGroupId": "36122599404620",
+          "budget": 4,
+          "bid": 0.34,
+          "ok": true,
+          "targetRowCount": 5,
+          "sample": [
+            {
+              "text": "memorial ribbons",
+              "bid": "0.34",
+              "state": 1,
+              "matchType": 2
+            },
+            {
+              "text": "yellow funeral ribbons",
+              "bid": "0.34",
+              "state": 1,
+              "matchType": 2
+            },
+            {
+              "text": "funeral ribbons",
+              "bid": "0.34",
+              "state": 1,
+              "matchType": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "sku": "YUT3184",
+      "campaignName": "ai_kw exact_soccer party_yut3184",
+      "mode": "keywordTarget",
+      "match": "EXACT",
+      "campaignId": "108127909742443",
+      "adGroupId": "22122889325938",
+      "budget": 8,
+      "bid": 0.62,
+      "ok": true,
+      "targetRowCount": 6,
+      "sample": [
+        {
+          "text": "soccer party favors",
+          "bid": "0.62",
+          "state": 1,
+          "matchType": 1
+        },
+        {
+          "text": "soccer gifts for kids",
+          "bid": "0.62",
+          "state": 1,
+          "matchType": 1
+        },
+        {
+          "text": "soccer balls bulk",
+          "bid": "0.62",
+          "state": 1,
+          "matchType": 1
+        }
+      ]
+    },
+    {
+      "sku": "YUT3184",
+      "campaignName": "ai_kw phrase_soccer party_yut3184",
+      "mode": "keywordTarget",
+      "match": "PHRASE",
+      "campaignId": "150059712181143",
+      "adGroupId": "221651028406362",
+      "budget": 6,
+      "bid": 0.48,
+      "ok": true,
+      "targetRowCount": 5,
+      "sample": [
+        {
+          "text": "soccer ball party favors",
+          "bid": "0.48",
+          "state": 1,
+          "matchType": 2
+        },
+        {
+          "text": "soccer ball decorations",
+          "bid": "0.48",
+          "state": 1,
+          "matchType": 2
+        },
+        {
+          "text": "soccer party favors",
+          "bid": "0.48",
+          "state": 1,
+          "matchType": 2
+        }
+      ]
+    },
+    {
+      "sku": "YUT3184",
+      "campaignName": "ai_auto_soccer controlled_yut3184",
+      "mode": "auto",
+      "match": "",
+      "campaignId": "187237083572295",
+      "adGroupId": "382215447000210",
+      "budget": 5,
+      "bid": 0.36,
+      "ok": true,
+      "targetRowCount": 4,
+      "sample": [
+        {
+          "text": "queryBroadRelMatches",
+          "bid": "0.36",
+          "state": 1
+        },
+        {
+          "text": "asinAccessoryRelated",
+          "bid": "0.36",
+          "state": 1
+        },
+        {
+          "text": "queryHighRelMatches",
+          "bid": "0.36",
+          "state": 1
+        }
+      ]
+    },
+    {
+      "sku": "MED1970",
+      "campaignName": "ai_kw exact_steam table pans_med1970",
+      "mode": "keywordTarget",
+      "match": "EXACT",
+      "campaignId": "121515497954895",
+      "adGroupId": "114971011652075",
+      "budget": 12,
+      "bid": 0.85,
+      "ok": true,
+      "targetRowCount": 7,
+      "sample": [
+        {
+          "text": "steam table pans full size",
+          "bid": "0.85",
+          "state": 1,
+          "matchType": 1
+        },
+        {
+          "text": "full size steam table pan",
+          "bid": "0.85",
+          "state": 1,
+          "matchType": 1
+        },
+        {
+          "text": "hotel steam table pans",
+          "bid": "0.85",
+          "state": 1,
+          "matchType": 1
+        }
+      ]
+    },
+    {
+      "sku": "MED1970",
+      "campaignName": "ai_kw phrase_steam table pans_med1970",
+      "mode": "keywordTarget",
+      "match": "PHRASE",
+      "campaignId": "226603950007371",
+      "adGroupId": "1891883235024",
+      "budget": 8,
+      "bid": 0.65,
+      "ok": true,
+      "targetRowCount": 6,
+      "sample": [
+        {
+          "text": "hotel steam table pans",
+          "bid": "0.65",
+          "state": 1,
+          "matchType": 2
+        },
+        {
+          "text": "food warmer pans",
+          "bid": "0.65",
+          "state": 1,
+          "matchType": 2
+        },
+        {
+          "text": "steam table pans full size",
+          "bid": "0.65",
+          "state": 1,
+          "matchType": 2
+        }
+      ]
+    },
+    {
+      "sku": "MED1970",
+      "campaignName": "ai_auto_steam table pans_med1970",
+      "mode": "auto",
+      "match": "",
+      "campaignId": "147480840129883",
+      "adGroupId": "514851458909470",
+      "budget": 8,
+      "bid": 0.45,
+      "ok": true,
+      "targetRowCount": 4,
+      "sample": [
+        {
+          "text": "queryBroadRelMatches",
+          "bid": "0.45",
+          "state": 1
+        },
+        {
+          "text": "asinSubstituteRelated",
+          "bid": "0.45",
+          "state": 1
+        },
+        {
+          "text": "queryHighRelMatches",
+          "bid": "0.45",
+          "state": 1
+        }
+      ]
+    },
+    {
+      "sku": "MED1970",
+      "campaignName": "ai_asin_steam table pans_med1970",
+      "mode": "productTarget",
+      "match": "ASIN_SAME_AS",
+      "campaignId": "140173886011552",
+      "adGroupId": "112501083762821",
+      "budget": 6,
+      "bid": 0.55,
+      "ok": true,
+      "targetRowCount": 6,
+      "sample": [
+        {
+          "text": "asin=B07QGTHV9H",
+          "bid": "0.55",
+          "state": 1
+        },
+        {
+          "text": "asin=B001VZ8PTG",
+          "bid": "0.55",
+          "state": 1
+        },
+        {
+          "text": "asin=B09Z3T5W2Y",
+          "bid": "0.55",
+          "state": 1
+        }
+      ]
+    },
+    {
+      "sku": "SII0421",
+      "campaignName": "ai_kw exact_bridal shower games_sii0421",
+      "mode": "keywordTarget",
+      "match": "EXACT",
+      "campaignId": "69810126519742",
+      "adGroupId": "225191222591398",
+      "budget": 8,
+      "bid": 0.42,
+      "ok": true,
+      "targetRowCount": 6,
+      "sample": [
+        {
+          "text": "bridal shower game",
+          "bid": "0.42",
+          "state": 1,
+          "matchType": 1
+        },
+        {
+          "text": "bridal shower games for guests",
+          "bid": "0.42",
+          "state": 1,
+          "matchType": 1
+        },
+        {
+          "text": "bridal shower activity cards",
+          "bid": "0.42",
+          "state": 1,
+          "matchType": 1
+        }
+      ]
+    },
+    {
+      "sku": "SII0421",
+      "campaignName": "ai_kw phrase_bridal shower games_sii0421",
+      "mode": "keywordTarget",
+      "match": "PHRASE",
+      "campaignId": "223120381632352",
+      "adGroupId": "130409681174647",
+      "budget": 6,
+      "bid": 0.35,
+      "ok": true,
+      "targetRowCount": 5,
+      "sample": [
+        {
+          "text": "bridal shower cards game",
+          "bid": "0.35",
+          "state": 1,
+          "matchType": 2
+        },
+        {
+          "text": "guess the dress bridal shower game",
+          "bid": "0.35",
+          "state": 1,
+          "matchType": 2
+        },
+        {
+          "text": "bridal shower games",
+          "bid": "0.35",
+          "state": 1,
+          "matchType": 2
+        }
+      ]
+    },
+    {
+      "sku": "SII0421",
+      "campaignName": "ai_asin_bridal shower games_sii0421",
+      "mode": "productTarget",
+      "match": "ASIN_SAME_AS",
+      "campaignId": "90041286762916",
+      "adGroupId": "26488646401819",
+      "budget": 5,
+      "bid": 0.35,
+      "ok": true,
+      "targetRowCount": 6,
+      "sample": [
+        {
+          "text": "asin=B08BZQ2LS4",
+          "bid": "0.35",
+          "state": 1
+        },
+        {
+          "text": "asin=B0BG474GS5",
+          "bid": "0.35",
+          "state": 1
+        },
+        {
+          "text": "asin=B0CHBD7QZ1",
+          "bid": "0.35",
+          "state": 1
+        }
+      ]
+    },
+    {
+      "sku": "NAY0963",
+      "campaignName": "ai_kw exact_wedding pens_nay0963",
+      "mode": "keywordTarget",
+      "match": "EXACT",
+      "campaignId": "120283281923019",
+      "adGroupId": "271598228678715",
+      "budget": 5,
+      "bid": 0.42,
+      "ok": true,
+      "targetRowCount": 5,
+      "sample": [
+        {
+          "text": "guest book pens wedding",
+          "bid": "0.42",
+          "state": 1,
+          "matchType": 1
+        },
+        {
+          "text": "bridal shower pens",
+          "bid": "0.42",
+          "state": 1,
+          "matchType": 1
+        },
+        {
+          "text": "wedding pens for guest book",
+          "bid": "0.42",
+          "state": 1,
+          "matchType": 1
+        }
+      ]
+    },
+    {
+      "sku": "NAY0963",
+      "campaignName": "ai_kw phrase_wedding pens_nay0963",
+      "mode": "keywordTarget",
+      "match": "PHRASE",
+      "campaignId": "261293232122319",
+      "adGroupId": "226840625205864",
+      "budget": 4,
+      "bid": 0.34,
+      "ok": true,
+      "targetRowCount": 5,
+      "sample": [
+        {
+          "text": "pens for wedding guest book",
+          "bid": "0.34",
+          "state": 1,
+          "matchType": 2
+        },
+        {
+          "text": "thank you pens wedding",
+          "bid": "0.34",
+          "state": 1,
+          "matchType": 2
+        },
+        {
+          "text": "wedding pens",
+          "bid": "0.34",
+          "state": 1,
+          "matchType": 2
+        }
+      ]
+    },
+    {
+      "sku": "EU0867",
+      "campaignName": "ai_kw exact_opossum plush_eu0867",
+      "mode": "keywordTarget",
+      "match": "EXACT",
+      "campaignId": "213926145142060",
+      "adGroupId": "60229055361161",
+      "budget": 7,
+      "bid": 0.38,
+      "ok": true,
+      "targetRowCount": 6,
+      "sample": [
+        {
+          "text": "plush possum",
+          "bid": "0.38",
+          "state": 1,
+          "matchType": 1
+        },
+        {
+          "text": "opossum toy",
+          "bid": "0.38",
+          "state": 1,
+          "matchType": 1
+        },
+        {
+          "text": "possum plush",
+          "bid": "0.38",
+          "state": 1,
+          "matchType": 1
+        }
+      ]
+    },
+    {
+      "sku": "EU0867",
+      "campaignName": "ai_kw phrase_opossum plush_eu0867",
+      "mode": "keywordTarget",
+      "match": "PHRASE",
+      "campaignId": "240712106417859",
+      "adGroupId": "205759319319949",
+      "budget": 5,
+      "bid": 0.3,
+      "ok": true,
+      "targetRowCount": 5,
+      "sample": [
+        {
+          "text": "possum stuffed animal",
+          "bid": "0.30",
+          "state": 1,
+          "matchType": 2
+        },
+        {
+          "text": "opossum stuffed animal",
+          "bid": "0.30",
+          "state": 1,
+          "matchType": 2
+        },
+        {
+          "text": "opossum plush",
+          "bid": "0.30",
+          "state": 1,
+          "matchType": 2
+        }
+      ]
+    },
+    {
+      "sku": "GT3811",
+      "campaignName": "ai_kw exact_yellow funeral ribbons_gt3811",
+      "mode": "keywordTarget",
+      "match": "EXACT",
+      "campaignId": "142761418371109",
+      "adGroupId": "266313961692530",
+      "budget": 5,
+      "bid": 0.42,
+      "ok": true,
+      "targetRowCount": 5,
+      "sample": [
+        {
+          "text": "remembrance ribbons",
+          "bid": "0.42",
+          "state": 1,
+          "matchType": 1
+        },
+        {
+          "text": "funeral ribbons",
+          "bid": "0.42",
+          "state": 1,
+          "matchType": 1
+        },
+        {
+          "text": "memorial ribbons",
+          "bid": "0.42",
+          "state": 1,
+          "matchType": 1
+        }
+      ]
+    },
+    {
+      "sku": "GT3811",
+      "campaignName": "ai_kw phrase_yellow funeral ribbons_gt3811",
+      "mode": "keywordTarget",
+      "match": "PHRASE",
+      "campaignId": "280094312330124",
+      "adGroupId": "36122599404620",
+      "budget": 4,
+      "bid": 0.34,
+      "ok": true,
+      "targetRowCount": 5,
+      "sample": [
+        {
+          "text": "memorial ribbons",
+          "bid": "0.34",
+          "state": 1,
+          "matchType": 2
+        },
+        {
+          "text": "yellow funeral ribbons",
+          "bid": "0.34",
+          "state": 1,
+          "matchType": 2
+        },
+        {
+          "text": "funeral ribbons",
+          "bid": "0.34",
+          "state": 1,
+          "matchType": 2
+        }
+      ]
+    }
+  ]
+}

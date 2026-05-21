@@ -1,0 +1,165 @@
+{
+  "generatedAt": "2026-05-20T01:54:04.509Z",
+  "localDate": "2026-05-20",
+  "correctionReason": "Operator corrected that urgent display/click recovery should prioritize broad match and expanded product targeting, not high exact bids.",
+  "execution": {
+    "broadExpanded": {
+      "dryRunValidationErrors": 0,
+      "createdCampaigns": 11,
+      "apiSuccess": 11,
+      "newDailyBudget": 67,
+      "targetRowsReadBack": 52,
+      "allTargetsReadBack": true
+    },
+    "bidMixControl": {
+      "dryRunValidationErrors": 0,
+      "actions": 28,
+      "apiSuccess": 28,
+      "notLanded": 0,
+      "failed": 0,
+      "budgetEvent": {
+        "sku": "NAY0963",
+        "campaignId": "540127990345088",
+        "currentBudget": 3,
+        "suggestedBudget": 6,
+        "success": true
+      }
+    }
+  },
+  "bySku": [
+    {
+      "sku": "YUT3184",
+      "newCampaigns": 2,
+      "newBudget": 14,
+      "targetRows": 12,
+      "layers": [
+        "BROAD: $8/bid 0.34",
+        "ASIN_EXPANDED_FROM: $6/bid 0.32"
+      ],
+      "bidControl": [
+        "keyword 0.62->0.47",
+        "keyword 0.62->0.47",
+        "keyword 0.62->0.47",
+        "keyword 0.62->0.47",
+        "keyword 0.62->0.47",
+        "keyword 0.62->0.47",
+        "keyword 0.48->0.38",
+        "keyword 0.48->0.38",
+        "keyword 0.48->0.38",
+        "keyword 0.48->0.38",
+        "keyword 0.48->0.38"
+      ],
+      "bidControlSummary": [
+        "keyword 0.62->0.47 x6",
+        "keyword 0.48->0.38 x5"
+      ]
+    },
+    {
+      "sku": "MED1970",
+      "newCampaigns": 2,
+      "newBudget": 18,
+      "targetRows": 12,
+      "layers": [
+        "BROAD: $10/bid 0.5",
+        "ASIN_EXPANDED_FROM: $8/bid 0.45"
+      ],
+      "bidControl": [
+        "keyword 0.85->0.68",
+        "keyword 0.85->0.68",
+        "keyword 0.85->0.68",
+        "keyword 0.85->0.68",
+        "keyword 0.85->0.68",
+        "keyword 0.85->0.68",
+        "keyword 0.85->0.68",
+        "keyword 0.65->0.52",
+        "keyword 0.65->0.52",
+        "keyword 0.65->0.52",
+        "keyword 0.65->0.52",
+        "keyword 0.65->0.52",
+        "keyword 0.65->0.52"
+      ],
+      "bidControlSummary": [
+        "keyword 0.85->0.68 x7",
+        "keyword 0.65->0.52 x6"
+      ]
+    },
+    {
+      "sku": "SII0421",
+      "newCampaigns": 2,
+      "newBudget": 11,
+      "targetRows": 11,
+      "layers": [
+        "BROAD: $6/bid 0.28",
+        "ASIN_EXPANDED_FROM: $5/bid 0.25"
+      ],
+      "bidControl": [],
+      "bidControlSummary": []
+    },
+    {
+      "sku": "NAY0963",
+      "newCampaigns": 1,
+      "newBudget": 5,
+      "targetRows": 4,
+      "layers": [
+        "ASIN_EXPANDED_FROM: $5/bid 0.24"
+      ],
+      "bidControl": [
+        "budget 3->6",
+        "keyword 0.15->0.19",
+        "keyword 0.15->0.19",
+        "keyword 0.17->0.2"
+      ],
+      "bidControlSummary": [
+        "budget 3->6",
+        "keyword 0.15->0.19 x2",
+        "keyword 0.17->0.2"
+      ]
+    },
+    {
+      "sku": "EU0867",
+      "newCampaigns": 2,
+      "newBudget": 10,
+      "targetRows": 7,
+      "layers": [
+        "BROAD: $6/bid 0.26",
+        "ASIN_EXPANDED_FROM: $4/bid 0.23"
+      ],
+      "bidControl": [],
+      "bidControlSummary": []
+    },
+    {
+      "sku": "GT3811",
+      "newCampaigns": 2,
+      "newBudget": 9,
+      "targetRows": 6,
+      "layers": [
+        "BROAD: $5/bid 0.24",
+        "ASIN_EXPANDED_FROM: $4/bid 0.22"
+      ],
+      "bidControl": [],
+      "bidControlSummary": []
+    }
+  ],
+  "readbackFiles": {
+    "create": "data/snapshots/structure_gap_broad_expand_post_create_readback_2026-05-20.json",
+    "bid": "data/snapshots/structure_gap_bid_mix_control_readback_2026-05-20.json"
+  },
+  "nextRecheck": {
+    "sameDay": "2026-05-20 15:30 Asia/Shanghai",
+    "nextDay": "2026-05-21 15:30 Asia/Shanghai",
+    "metrics": [
+      "impressions",
+      "clicks",
+      "spend",
+      "orders",
+      "CTR",
+      "CPC"
+    ],
+    "focus": [
+      "new BROAD layers",
+      "new ASIN_EXPANDED_FROM layers",
+      "NAY0963 existing broad after budget/bid lift",
+      "YUT3184/MED1970 exact/phrase caps"
+    ]
+  }
+}

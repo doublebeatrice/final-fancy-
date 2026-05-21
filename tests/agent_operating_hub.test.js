@@ -28,11 +28,15 @@ const timeContext = {
   }, { today: '2026-05-19' });
 
   assert.strictEqual(item.autonomyMode, 'gather_evidence');
+  assert.ok(item.requiredCapabilities.includes('selection::market_evidence::keyword-research::read'));
   assert.ok(item.requiredCapabilities.includes('selection::market_evidence::keyword-conversion::read'));
   assert.ok(item.requiredCapabilities.includes('selection::market_evidence::aba-search-terms::read'));
+  assert.ok(item.requiredCapabilities.includes('selection::market_evidence::keyword-seasonality::read'));
   assert.ok(item.nextStep.includes('选品'));
+  assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:keyword-research')));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:keyword-conversion')));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:aba-search-terms')));
+  assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:keyword-seasonality')));
 }
 
 {
@@ -60,6 +64,7 @@ const timeContext = {
   assert.ok(plan.commands[0].command.includes('--profit-report'));
   assert.ok(plan.commands[0].command.includes('--keyword-conversion-report'));
   assert.ok(plan.commands[0].command.includes('--aba-report'));
+  assert.ok(plan.commands[0].command.includes('--seasonality-report'));
 }
 
 {

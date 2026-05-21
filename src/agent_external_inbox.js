@@ -62,12 +62,12 @@ function classify(raw) {
 function evidenceForKind(kind) {
   const common = ['recent_action_history'];
   const byKind = {
-    developer_product_inquiry: ['ad_backend_sku_summary', 'inventory_health', 'selection_market_evidence', 'product_market_profile', 'operator_ready_reply'],
-    keyword_question: ['selection_keyword_conversion', 'selection_aba_search_terms', 'sku_ad_proof', 'listing_keyword_fit', 'inventory_health'],
+    developer_product_inquiry: ['ad_backend_sku_summary', 'inventory_health', 'selection_keyword_research', 'selection_keyword_seasonality', 'selection_market_evidence', 'product_market_profile', 'operator_ready_reply'],
+    keyword_question: ['selection_keyword_research', 'selection_keyword_seasonality', 'selection_keyword_conversion', 'selection_aba_search_terms', 'sku_ad_proof', 'listing_keyword_fit', 'inventory_health'],
     listing_copy_review: ['amazon_listing_front', 'sellerinventory_origin_data', 'season_or_event_evidence', 'listing_copy_boundary'],
     price_review: ['sellerinventory_price_baseline', 'ful_res_sellable_days', 'profit_and_inventory_check', 'price_execution_boundary'],
     inventory_review: ['inventory_health', 'sales_velocity', 'stagnant_inventory_rules', 'ad_spend_dependency'],
-    product_market_review: ['amazon_listing_front', 'selection_aba_search_terms', 'selection_keyword_conversion', 'product_market_profile'],
+    product_market_review: ['amazon_listing_front', 'selection_keyword_research', 'selection_keyword_seasonality', 'selection_aba_search_terms', 'selection_keyword_conversion', 'product_market_profile'],
     kpi_or_sales_drop_review: ['sales_core_total_row', 'latest_snapshot', 'ad_cost_pressure', 'inventory_and_refund_context'],
     external_general: ['classify_request', 'identify_subject', 'choose_minimal_read_path'],
   };
@@ -161,17 +161,36 @@ function reviewChecklist(task = {}) {
   return checklist;
 }
 
+function reviewTaskKey(task = {}) {
+  return text(task.taskId) ||
+    [task.source, task.lane, task.kind, task.dueDate, task.subject?.sku, task.subject?.entityId, task.title]
+      .map(text)
+      .join('|');
+}
+
+function dedupeReviewTasks(tasks = []) {
+  const seen = new Set();
+  const out = [];
+  for (const task of tasks) {
+    const key = reviewTaskKey(task);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(task);
+  }
+  return out;
+}
+
 function buildDueReviewQueue(ledger = {}, options = {}) {
   const today = dateOnly(options.today || options.businessDate || new Date().toISOString());
   const source = Array.isArray(ledger.nextOpenTasks) ? ledger.nextOpenTasks : (ledger.tasks || []);
-  const reviews = source
+  const reviews = dedupeReviewTasks(source
     .filter(task => task.status === 'waiting_review')
     .filter(task => task.lane === 'effect_review' || task.source === 'effect_review' || task.kind === 'effect_review')
     .map(task => ({
       ...task,
       checklist: reviewChecklist(task),
       rollbackIf: text(task.reviewPlan?.rollbackIf || ''),
-    }));
+    })));
   const due = reviews.filter(task => compareDate(task.dueDate, today) <= 0);
   const upcoming = reviews.filter(task => compareDate(task.dueDate, today) > 0);
   return {
@@ -190,5 +209,6 @@ function buildDueReviewQueue(ledger = {}, options = {}) {
 module.exports = {
   buildDueReviewQueue,
   buildExternalInbox,
+  dedupeReviewTasks,
   parseExternalRequest,
 };

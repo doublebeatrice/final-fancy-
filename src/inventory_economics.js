@@ -13,6 +13,222 @@ function cleanText(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();
 }
 
+function moneyValue(value) {
+  if (value === undefined || value === null || value === '') return null;
+  const n = Number(String(value).replace(/[$,\s]/g, ''));
+  return Number.isFinite(n) ? n : null;
+}
+
+function isPlainObject(value) {
+  return value && typeof value === 'object' && !Array.isArray(value);
+}
+
+const REMOVAL_ECONOMICS_KEYS = [
+  'profit',
+  'currentSaleRecovery',
+  'current_sale_recovery',
+  'offline_payment_collection',
+  'offlineServiceProviderRecovery',
+  'offline_service_provider_recovery',
+  'batch_clearance_payment_collection',
+  'batchClearanceRecovery',
+  'batch_clearance_recovery',
+  'liquidationRecovery',
+  'abandoned_collection',
+  'disposalRecovery',
+  'disposal_recovery',
+  'handle_suggest',
+  'handleSuggest',
+  'suggestion',
+];
+
+function looksLikeRemovalEconomicsSource(source = {}) {
+  if (!isPlainObject(source)) return false;
+  if (Array.isArray(source.readOnlyValues) || Array.isArray(source.fields)) return true;
+  return REMOVAL_ECONOMICS_KEYS.some(key => source[key] !== undefined && source[key] !== null && source[key] !== '');
+}
+
+function collectRemovalEconomicsValues(input = {}) {
+  const sources = [];
+  if (looksLikeRemovalEconomicsSource(input)) sources.push(input);
+  for (const key of [
+    'removalEconomics',
+    'removalInventoryEconomics',
+    'removalInventoryAddView',
+    'removalAddView',
+    'removalInventory',
+  ]) {
+    if (looksLikeRemovalEconomicsSource(input[key])) sources.push(input[key]);
+  }
+
+  const values = {};
+  const warnings = [];
+  const boundary = [];
+  let compute = {};
+
+  for (const source of sources) {
+    for (const key of REMOVAL_ECONOMICS_KEYS) {
+      if (source[key] !== undefined && source[key] !== null && source[key] !== '') values[key] = source[key];
+    }
+    for (const item of source.readOnlyValues || []) {
+      const key = cleanText(item.name || item.id || item.label);
+      if (key) values[key] = item.value;
+    }
+    for (const item of source.fields || []) {
+      if (item.readonly !== true && item.readOnly !== true) continue;
+      const key = cleanText(item.name || item.id || item.label);
+      if (key) values[key] = item.value;
+    }
+    if (isPlainObject(source.compute)) compute = { ...compute, ...source.compute };
+    if (Array.isArray(source.warnings)) warnings.push(...source.warnings);
+    if (Array.isArray(source.boundary)) boundary.push(...source.boundary);
+  }
+
+  return { values, compute, warnings, boundary };
+}
+
+function firstMoney(values = {}, aliases = []) {
+  for (const alias of aliases) {
+    const value = moneyValue(values[alias]);
+    if (value !== null) return value;
+  }
+  return null;
+}
+
+function firstText(values = {}, aliases = []) {
+  for (const alias of aliases) {
+    const value = cleanText(values[alias]);
+    if (value) return value;
+  }
+  return '';
+}
+
+function assessRemovalInventoryEconomics(card = {}, options = {}) {
+  const collected = collectRemovalEconomicsValues(card);
+  const values = collected.values;
+  const currentSaleRecovery = firstMoney(values, ['currentSaleRecovery', 'current_sale_recovery', 'profit']);
+  const offlineServiceProviderRecovery = firstMoney(values, [
+    'offlineServiceProviderRecovery',
+    'offline_service_provider_recovery',
+    'offline_payment_collection',
+  ]);
+  const batchClearanceRecovery = firstMoney(values, [
+    'batchClearanceRecovery',
+    'batch_clearance_recovery',
+    'batch_clearance_payment_collection',
+    'liquidationRecovery',
+  ]);
+  const disposalRecovery = firstMoney(values, ['disposalRecovery', 'disposal_recovery', 'abandoned_collection']);
+  const sellerinventorySuggestion = firstText(values, ['handleSuggest', 'handle_suggest', 'suggestion']);
+  const invAgeSum = firstMoney({ ...values, ...collected.compute }, ['inv_age_sum', 'invAgeSum']);
+
+  const recoveries = [
+    { path: 'current_sale', label: 'current sale / discount sell-through', value: currentSaleRecovery, priority: 0 },
+    { path: 'batch_clearance', label: 'batch clearance', value: batchClearanceRecovery, priority: 1 },
+    { path: 'offline_service_provider', label: 'offline service provider', value: offlineServiceProviderRecovery, priority: 2 },
+    { path: 'disposal', label: 'dispose / abandon', value: disposalRecovery, priority: 3 },
+  ].filter(item => item.value !== null);
+
+  const formulas = {
+    currentSale: 'currentSaleRecovery=price-commission-fbaFee-otherFees-monthlyStorage-longTermStorage-adSpendPerUnit',
+    offlineServiceProvider: 'offlineServiceProviderRecovery=costPrice*20%/siteRate',
+    batchClearance: 'batchClearanceRecovery=averagePrice*7.5%-handlingFee-averagePrice*7.5%*15%',
+    disposal: 'disposalRecovery=0-disposalFee',
+  };
+
+  if (!recoveries.length) {
+    return {
+      status: 'not_available',
+      sku: cleanText(card.sku),
+      bestRecoveryPath: 'unknown',
+      recommendation: 'fetch_removal_inventory_add_view_readonly',
+      requiredAction: 'fetch_removal_inventory_add_view_readonly',
+      shouldSubmitRemoval: false,
+      manualReviewRequired: true,
+      readOnly: true,
+      evidence: [
+        'removalEconomics=not_available',
+        'requiredProbe=npm run ops:removal-inventory:add-view -- --sku <SKU>',
+      ],
+      formulas,
+    };
+  }
+
+  recoveries.sort((a, b) => b.value - a.value || a.priority - b.priority);
+  const best = recoveries[0];
+  const staleOrAged = !!options.staleRisk || num(card.invDays) >= 120 || num(card.unitsSold_30d) <= 3 || (invAgeSum !== null && invAgeSum > 0);
+
+  const byPath = {
+    current_sale: {
+      recommendation: staleOrAged ? 'discount_or_sell_through' : 'discount_or_sell_through',
+      requiredAction: 'discount_or_sell_through_before_removal',
+      adGuardrail: 'preserve_only_verified_efficient_traffic',
+      priceGuardrail: 'run_price_or_discount_simulation_before_removal',
+      operatingMeaning: 'Current sale or controlled discount has the highest recovery; do not remove before sell-through economics are reviewed.',
+    },
+    batch_clearance: {
+      recommendation: 'batch_clearance_candidate',
+      requiredAction: 'review_batch_clearance_plan',
+      adGuardrail: 'do_not_expand_ads_until_clearance_decision',
+      priceGuardrail: 'compare_discount_floor_against_batch_clearance_recovery',
+      operatingMeaning: 'Batch clearance beats current sale recovery; move to manual clearance review before more ad spend.',
+    },
+    offline_service_provider: {
+      recommendation: 'service_provider_candidate',
+      requiredAction: 'review_offline_service_provider',
+      adGuardrail: 'do_not_expand_ads_until_service_provider_decision',
+      priceGuardrail: 'compare_discount_floor_against_service_provider_recovery',
+      operatingMeaning: 'Offline service provider recovery is best; review service-provider path instead of assuming discount ads solve it.',
+    },
+    disposal: {
+      recommendation: 'disposal_or_destroy_review',
+      requiredAction: 'manual_disposal_review',
+      adGuardrail: 'stop_unproven_spend_and_require_manual_review',
+      priceGuardrail: 'do_not_price_cut_without_manual_loss_review',
+      operatingMeaning: 'Disposal is the best or least bad path; require manual review before any removal application.',
+    },
+  }[best.path];
+
+  const evidence = [
+    `currentSaleRecoveryUsd=${currentSaleRecovery === null ? 'missing' : currentSaleRecovery}`,
+    `offlineServiceProviderRecoveryUsd=${offlineServiceProviderRecovery === null ? 'missing' : offlineServiceProviderRecovery}`,
+    `batchClearanceRecoveryUsd=${batchClearanceRecovery === null ? 'missing' : batchClearanceRecovery}`,
+    `disposalRecoveryUsd=${disposalRecovery === null ? 'missing' : disposalRecovery}`,
+    `bestRecoveryPath=${best.path}`,
+    `sellerinventoryHandleSuggest=${sellerinventorySuggestion || 'missing'}`,
+    `invAgeSum=${invAgeSum === null ? 'missing' : invAgeSum}`,
+    `formula.currentSale=${formulas.currentSale}`,
+    `formula.offlineServiceProvider=${formulas.offlineServiceProvider}`,
+    `formula.batchClearance=${formulas.batchClearance}`,
+    `formula.disposal=${formulas.disposal}`,
+    `readOnlyBoundary=${[...new Set(collected.boundary)].join('|') || 'read_only'}`,
+  ];
+  if (collected.warnings.length) evidence.push(`warnings=${[...new Set(collected.warnings)].join('|')}`);
+
+  return {
+    status: 'available',
+    sku: cleanText(card.sku),
+    currentSaleRecoveryUsd: currentSaleRecovery,
+    offlineServiceProviderRecoveryUsd: offlineServiceProviderRecovery,
+    batchClearanceRecoveryUsd: batchClearanceRecovery,
+    disposalRecoveryUsd: disposalRecovery,
+    sellerinventorySuggestion,
+    invAgeSum,
+    bestRecoveryPath: best.path,
+    bestRecoveryValueUsd: best.value,
+    recommendation: byPath.recommendation,
+    requiredAction: byPath.requiredAction,
+    adGuardrail: byPath.adGuardrail,
+    priceGuardrail: byPath.priceGuardrail,
+    operatingMeaning: byPath.operatingMeaning,
+    shouldSubmitRemoval: false,
+    manualReviewRequired: best.path !== 'current_sale',
+    readOnly: true,
+    formulas,
+    evidence,
+  };
+}
+
 function combinedAdStats(card = {}, key = '30d') {
   const sp = card.adStats?.[key] || {};
   const sb = card.sbStats?.[key] || {};
@@ -350,6 +566,7 @@ function assessInventoryResponsibility(card = {}, options = {}) {
   else if (highInventoryPressure && season.nearTail) strategy = 'sell_through_clearance_ads';
   else if (allowHighAcosSellThrough) strategy = 'sell_through_ads';
   else if (staleRisk) strategy = 'stale_watch';
+  const removalEconomics = assessRemovalInventoryEconomics(card, { staleRisk });
 
   return {
     fbaUnits: units,
@@ -379,6 +596,7 @@ function assessInventoryResponsibility(card = {}, options = {}) {
     restrictScaleUp,
     pressureLevel,
     strategy,
+    removalEconomics,
   };
 }
 
@@ -395,6 +613,9 @@ function inventoryEvidence(assessment = {}) {
     `clearanceLossRate=${assessment.liquidationLossRate.toFixed(4)}`,
     `continueAdBeatsClearance=${assessment.continueAdBeatsClearance}`,
     `inventoryStrategy=${assessment.strategy}`,
+    `removalEconomicsStatus=${assessment.removalEconomics?.status || 'not_available'}`,
+    `removalBestPath=${assessment.removalEconomics?.bestRecoveryPath || 'unknown'}`,
+    `removalRequiredAction=${assessment.removalEconomics?.requiredAction || 'unknown'}`,
   ];
 }
 
@@ -714,6 +935,7 @@ function assessAdOperatingContext(card = {}, options = {}) {
   if (readiness.recommendation === '清货对比') finalAction = 'clearance_economic_compare';
   return {
     inventory,
+    removalEconomics: inventory.removalEconomics,
     listing,
     history,
     readiness,
@@ -729,6 +951,7 @@ module.exports = {
   assessSkuSalesHistory,
   assessInventoryResponsibility,
   assessListingSeasonFit,
+  assessRemovalInventoryEconomics,
   combinedAdStats,
   fbaUnits,
   formatInventoryJudgement,

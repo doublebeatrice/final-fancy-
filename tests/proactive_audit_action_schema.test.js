@@ -120,4 +120,55 @@ const {
   ]);
 }
 
+{
+  const audit = {
+    newProductLaunch: {
+      items: [{
+        sku: 'REUSE1',
+        issue: 'new_product_missing_basic_ad_structure',
+        ageDays: 5,
+        invDays: 90,
+        units7d: 0,
+        spend7d: 0,
+      }],
+    },
+  };
+  const products = new Map([['REUSE1', {
+    sku: 'REUSE1',
+    asin: 'B0TESTREUSE',
+    createContext: {
+      accountId: 339,
+      siteId: 4,
+      coverage: {
+        hasSpAuto: true,
+        hasSpKeyword: false,
+        hasSpManual: true,
+      },
+      keywordSeeds: [
+        'teacher appreciation gifts',
+        'teacher week gifts',
+        'thank you teacher gifts',
+      ],
+    },
+    campaigns: [{
+      campaignId: 'c-phrase',
+      adGroupId: 'g-phrase',
+      campaignState: 'enabled',
+      groupState: 'enabled',
+      keywords: [{ id: 'kw-phrase', matchType: 'PHRASE', state: 'enabled' }],
+    }],
+  }]]);
+
+  const plans = buildNewProductLaunchActions(audit, products, 10);
+  const keywordCreates = plans
+    .flatMap(plan => plan.actions || [])
+    .filter(action => action.actionType === 'create' && action.createInput?.mode === 'keywordTarget');
+
+  assert.strictEqual(
+    keywordCreates.length,
+    0,
+    'should reuse an existing phrase ad group instead of creating a duplicate keyword campaign'
+  );
+}
+
 console.log('proactive_audit_action_schema tests passed');

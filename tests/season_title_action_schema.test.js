@@ -91,4 +91,18 @@ const reportItem = {
   assert.strictEqual(schema.length, 0);
 }
 
+{
+  const action = createActionFromSeasonAd({
+    ...reportItem,
+    adActions: [{
+      ...reportItem.adActions[0],
+      keywords: ['christian gifts', 'mom unknown', 'christian gifts unknown', 'bible verse cards'],
+    }],
+  }, {
+    ...reportItem.adActions[0],
+    keywords: ['christian gifts', 'mom unknown', 'christian gifts unknown', 'bible verse cards'],
+  }, product);
+  assert.deepStrictEqual(action.createInput.keywords, ['christian gifts', 'bible verse cards']);
+}
+
 console.log('season title action schema tests passed');

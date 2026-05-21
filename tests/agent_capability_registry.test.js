@@ -21,9 +21,13 @@ const timeContext = {
   const defaults = defaultAgentCapabilities();
   const ids = defaults.map(item => normalizeCapability(item, timeContext).capabilityId);
   assert.ok(ids.includes('adv::ad_backend::ad-sku-summary::read'));
+  assert.ok(ids.includes('selection::market_evidence::keyword-research::read'));
   assert.ok(ids.includes('selection::market_evidence::keyword-conversion::read'));
   assert.ok(ids.includes('selection::market_evidence::aba-search-terms::read'));
+  assert.ok(ids.includes('selection::market_evidence::keyword-seasonality::read'));
   assert.ok(ids.includes('sellerinventory::listing::listing-edit-submit::write'));
+  assert.ok(ids.includes('sellerinventory::inventory_removal::removal-inventory-fields::read'));
+  assert.ok(ids.includes('sellerinventory::inventory_removal::removal-inventory-add-view::read'));
   assert.ok(ids.includes('agent::effect_review::review-evidence-collector::read'));
 }
 
@@ -44,7 +48,7 @@ const timeContext = {
 
   assert.ok(registry.summary.total > 5);
   assert.strictEqual(registry.summary.bySourceSystem.custom, 1);
-  assert.ok(registry.summary.bySourceSystem.selection >= 2);
+  assert.ok(registry.summary.bySourceSystem.selection >= 3);
   assert.ok(registry.capabilities.some(item => item.capabilityId === 'agent::effect_review::review-evidence-collector::read'));
 }
 

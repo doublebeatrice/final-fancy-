@@ -1,0 +1,67 @@
+{
+  "generatedAt": "2026-05-21T01:24:01.602Z",
+  "outputDate": "2026-05-21",
+  "evaluatedBusinessDate": "2026-05-20",
+  "dataDate": "2026-05-19",
+  "status": "fail",
+  "target": {
+    "businessDate": "2026-05-20",
+    "salesTarget": 541080.88,
+    "unitsTarget": 3754,
+    "netProfitRateMin": 0.1947,
+    "acosMax": 0.1977,
+    "refundRateMax": 0.0528,
+    "adCostShareMax": 0.108,
+    "estimatedNetProfitTarget": null
+  },
+  "actual": {
+    "sales": 516741.99,
+    "units": 3582,
+    "netProfitRate": 0.1933,
+    "acos": 0.1978,
+    "refundRate": 0.057,
+    "adCostShare": 0.1016,
+    "estimatedNetProfit": 99886.23
+  },
+  "gate": {
+    "status": "fail",
+    "targetBusinessDate": "2026-05-20",
+    "evaluatedBusinessDate": "2026-05-20",
+    "target": {
+      "salesTarget": 541080.88,
+      "unitsTarget": 3754,
+      "netProfitRateMin": 0.1947,
+      "acosMax": 0.1977,
+      "refundRateMax": 0.0528,
+      "adCostShareMax": 0.108,
+      "estimatedNetProfitTarget": null
+    },
+    "actual": {
+      "sales": 516741.99,
+      "units": 3582,
+      "netProfitRate": 0.1933,
+      "acos": 0.1978,
+      "refundRate": 0.057,
+      "adCostShare": 0.1016,
+      "estimatedNetProfit": 99886.23
+    },
+    "gap": {
+      "salesGap": 24338.89,
+      "unitsGap": 172,
+      "netProfitRateGap": 0.0014,
+      "acosGap": 0.0001,
+      "refundRateGap": 0.0042,
+      "adCostShareGap": 0,
+      "estimatedNetProfitGap": null
+    }
+  },
+  "warnings": [
+    "recovery_gate_failed",
+    "data_date_lags_business_date"
+  ],
+  "sourceFiles": {
+    "handoffFile": "D:\\ad-ops-workbench\\data\\agent\\agent_handoff_2026-05-21.json",
+    "closedLoopFile": "D:\\ad-ops-workbench\\data\\agent\\agent_closed_loop_2026-05-21.json",
+    "snapshotFile": "D:\\ad-ops-workbench\\data\\snapshots\\latest_snapshot.json"
+  }
+}

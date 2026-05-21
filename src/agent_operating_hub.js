@@ -43,14 +43,17 @@ function capabilityHintsForTask(task = {}) {
     item.includes('selection') ||
     item.includes('market') ||
     item.includes('aba') ||
-    item.includes('keyword_conversion')
+    item.includes('keyword_conversion') ||
+    item.includes('keyword_research')
   );
   const wantsInventory = [...requirements, ...metrics].some(item => item.includes('inventory') || item.includes('库存'));
   const wantsProfit = [...requirements, ...metrics].some(item => item.includes('profit') || item.includes('利润'));
 
   if (wantsSelection) {
+    hints.push('selection::market_evidence::keyword-research::read');
     hints.push('selection::market_evidence::keyword-conversion::read');
     hints.push('selection::market_evidence::aba-search-terms::read');
+    hints.push('selection::market_evidence::keyword-seasonality::read');
   }
   if (wantsInventory) hints.push('sellerinventory::listing::origin-data::read');
   if (wantsProfit) hints.push('agent::effect_review::review-evidence-collector::read');
@@ -66,6 +69,20 @@ function marketTermsForTask(task = {}) {
     task.subject?.keyword,
   ];
   return [...new Set(values.map(text).filter(Boolean))];
+}
+
+function keywordResearchSubjectArgs(task = {}) {
+  const subject = task.subject || {};
+  const terms = marketTermsForTask(task);
+  const parts = [];
+  if (text(subject.sku)) parts.push('--sku', quoteArg(subject.sku));
+  if (text(subject.asin)) parts.push('--asin', quoteArg(subject.asin));
+  if (text(subject.keyword)) {
+    parts.push('--terms', quoteArg(subject.keyword));
+  } else if (terms.length) {
+    parts.push('--terms', quoteArg(terms.join(', ')));
+  }
+  return parts;
 }
 
 function defaultAgentFile(prefix, today) {
@@ -106,7 +123,7 @@ function buildExecutionPlan(task = {}, options = {}) {
 
   if (classified.workType === 'due_effect_review') {
     const reviewFile = options.reviewFile || defaultAgentFile('review_queue', today);
-    const outFile = defaultAgentFile('effect_review', today);
+    const outFile = options.effectReviewFile || defaultAgentFile('effect_review', today);
     const evidenceFile = defaultAgentFile('review_evidence', today);
     const parts = [
       'npm run ops:agent:review-effect --',
@@ -136,6 +153,11 @@ function buildExecutionPlan(task = {}, options = {}) {
       parts.push('--aba-report', abaFile);
       requiredInputs.push(abaFile);
     }
+    if (hasCapability(requiredCapabilities, 'selection::market_evidence::keyword-seasonality::read')) {
+      const seasonalityFile = defaultSnapshotFile('selection_keyword_seasonality', today);
+      parts.push('--seasonality-report', seasonalityFile);
+      requiredInputs.push(seasonalityFile);
+    }
     commands.push(commandItem('采集证据并执行效果复查', parts.join(' '), {
       purpose: '拉取当前证据，对比执行前基线并输出关闭、继续观察或回滚复核判断。',
       output: outFile,
@@ -143,6 +165,15 @@ function buildExecutionPlan(task = {}, options = {}) {
     expectedOutputs.push(evidenceFile, outFile);
   } else if (classified.workType === 'external_request' || classified.autonomyMode === 'gather_evidence') {
     const terms = marketTermsForTask(task);
+    if (hasCapability(requiredCapabilities, 'selection::market_evidence::keyword-research::read')) {
+      const keywordResearchArgs = keywordResearchSubjectArgs(task);
+      commands.push(commandItem('拉选品关键词调研证据', `npm run ops:selection:keyword-research -- ${keywordResearchArgs.length ? keywordResearchArgs.join(' ') : '--terms <关键词或搜索词>'}`, {
+        purpose: '先从 Amazon 前台和产品证据找可承接的新流量方向，只生成候选和复核清单，不直接执行广告动作。',
+        output: defaultSnapshotFile('selection_keyword_research', today),
+      }));
+      expectedOutputs.push(defaultSnapshotFile('selection_keyword_research', today));
+      if (!keywordResearchArgs.length) requiredInputs.push('关键词、SKU、ASIN 或产品描述');
+    }
     const termArg = terms.length ? terms.join(', ') : '<关键词或搜索词>';
     if (hasCapability(requiredCapabilities, 'selection::market_evidence::keyword-conversion::read')) {
       commands.push(commandItem('拉选品关键词转化证据', `npm run ops:selection:keyword-conversion -- --keywords ${quoteArg(termArg)}`, {
@@ -158,6 +189,14 @@ function buildExecutionPlan(task = {}, options = {}) {
         output: defaultSnapshotFile('selection_aba_search_terms', today),
       }));
       expectedOutputs.push(defaultSnapshotFile('selection_aba_search_terms', today));
+      if (!terms.length) requiredInputs.push('关键词或搜索词');
+    }
+    if (hasCapability(requiredCapabilities, 'selection::market_evidence::keyword-seasonality::read')) {
+      commands.push(commandItem('拉选品关键词季节性证据', `npm run ops:selection:keyword-seasonality -- --search-terms ${quoteArg(termArg)}`, {
+        purpose: '确认关键词 Google 趋势、市场规模、竞品门槛、品牌集中和买家扩展词，只作为市场判断证据。',
+        output: defaultSnapshotFile('selection_keyword_seasonality', today),
+      }));
+      expectedOutputs.push(defaultSnapshotFile('selection_keyword_seasonality', today));
       if (!terms.length) requiredInputs.push('关键词或搜索词');
     }
   } else if (classified.workType === 'daily_ops') {

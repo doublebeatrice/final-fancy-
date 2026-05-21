@@ -58,7 +58,7 @@ Do not treat HTML as the only database. HTML is the human-readable view; JSON/CS
 
 Check for the daily raw input set before generating conclusions:
 
-1. Sales core spreadsheet: usually `table-export*.xlsx` or date-named `.xlsx`.
+1. Sales core raw export: usually `table-export*.xlsx`, date-named `.xlsx`, or `seller_sales_core_*d_<YYYY-MM-DD>.csv` recovered from `/pm/sale/getBySeller`.
 2. Inventory export: usually `inv_auto_filtered_*.csv`.
 3. Ad full export: usually the Chinese-named ad full export CSV with `30d` or near-30-day wording in the filename.
 4. Seller success rate response: `seller_success_rate_HJ17_<YYYY-MM-DD>.json` and `.csv`, fetched from the logged-in inventory browser session.
@@ -96,6 +96,7 @@ This migrates missing dates to canonical names and deletes the legacy auto-named
 Before daily decisions or daily retrospective work, read the latest durable lessons:
 
 - `memory.md`
+- `docs\SKU_LESSON_SYSTEM.md`
 - `data\learning\operations_retrospective_2026-05-06_to_2026-05-14.md` when present
 - the latest `data\learning\daily_learning_<date>.md` and `.json`
 
@@ -104,6 +105,8 @@ For total-account, sales-core, or core trend questions, do not derive a metric f
 The 2026-05-14 rule is mandatory: do not run daily operations as "first round / second round / third round" and wait for the user to push. Run the full loop directly: data health, total-result diagnosis, risk-first action pool, old-product repair pool, opportunity pool, execution, landing verification, and follow-up learning.
 
 Daily planning must include overbudget, high refund, high ACOS/no-order waste, low profit, old-product decline, and evidence-backed opportunity recovery. Overbudget rows must be classified as hard stop, budget shift, or watch-only. Refund pressure is a hard traffic gate. Repeat pushes on the same SKU/entity require recent-history review and new evidence.
+
+Daily planning must also include full SKU operating review. This is not a metric checklist: classify every eligible SKU by product identity, lifecycle/node stage, operating route, stage target, target status, evidence, action boundary, and follow-up. Produce or verify `data\tasks\all_sku_operating_review_<YYYY-MM-DD>.json/html` or an equivalent full-SKU review before calling the day complete. When the review produces a reusable lesson, write it under `data\learning\sku_lessons\` with the scope and conflict rules from `docs\SKU_LESSON_SYSTEM.md`. A single SKU or variant result must not be generalized to a whole parent group, product type, keyword family, or node without fresh supporting evidence.
 
 Daily planning must also run the proactive operating audit before claiming the loop is complete:
 
@@ -116,6 +119,30 @@ The generated `data\tasks\proactive_operating_audit_<YYYY-MM-DD>.json/html` is m
 For the user's stocking/listing-heavy model, do not wait for natural orders on new products. New or recently arrived SKUs with inventory need basic SP auto, SP keyword, and SP manual/targeting coverage. Existing structure without delivery is still a launch failure and must be repaired with bid, budget, keyword, product-ad state, or structure rebuild.
 
 After season nodes pass or enter tail, enabled Teacher Appreciation, Nurse Week, Mother's Day, Cinco de Mayo, Easter, Lab Week, and similar keywords must justify themselves with recent efficient orders. Rising ACOS or falling net profit after a node is evidence that cleanup failed, not a harmless seasonal decline.
+
+### Execution And Ledger Guardrails
+
+Use explicit execution modes for every action schema:
+
+```powershell
+node scripts\execute\run_actions.js <schema.json> --snapshot data\snapshots\latest_snapshot.json --dry-run
+node scripts\execute\run_actions.js <schema.json> --snapshot data\snapshots\latest_snapshot.json --execute
+```
+
+Do not rely on environment variables or an omitted flag to express intent. The CLI defaults to dry-run, and live writes require `--execute`.
+
+Do not repeatedly run dry-runs just to refresh status when no input changed. Dry-run rows are planned evidence, not landed KPI actions. The adjustment ledger dedupes same-day dry-run repeats, while preserving separate live `sourceRunId` attempts for auditability.
+
+When judging landed work, use live rows only: `dryRun !== true` and success-like outcomes such as `success` or `api_success`. Dry-run rows, skipped rows, and manual-review rows must not be counted as KPI recovery actions.
+
+If adjustment logs look inflated by repeated dry-runs, inspect first and only write after confirming the summary:
+
+```powershell
+npm run ops:adjustments:dedupe -- data\adjustments\adjustments_<YYYY-MM-DD>.json
+npm run ops:adjustments:dedupe -- data\adjustments\adjustments_<YYYY-MM-DD>.json --write
+```
+
+The write mode creates a timestamped `.bak` copy before rewriting the log. It must remove only duplicate dry-run rows or duplicate rows inside the same live `sourceRunId`; it must not collapse distinct live execution attempts.
 
 ### 1. Inspect Existing Deposit State
 
@@ -147,6 +174,7 @@ npm run chrome:debug
 
 The operator must be logged into:
 
+- `https://selection.yswg.com.cn/`
 - `https://adv.yswg.com.cn/`
 - `https://sellerinventory.yswg.com.cn/`
 
@@ -155,10 +183,11 @@ Never ask the user to paste JWT, CSRF, Inventory-Token, XSRF, cookies, or reques
 Do not mark the run blocked on the first bad backend response. First perform an active recovery pass:
 
 1. Run `npm run chrome:debug` to start or reuse the fixed-profile debug Chrome and let `ensure_backend_login.js` click the WeCom browser-access continuation buttons.
-2. Recheck Chrome remote debugging on `127.0.0.1:9222` and confirm the adv, sellerinventory, and extension panel tabs exist.
+2. Recheck Chrome remote debugging on `127.0.0.1:9222` and confirm the selection, adv, sellerinventory, and extension panel tabs exist.
 3. If adv returns HTML, `419`, `Page Expired`, or a login page while the visible page looks logged in, reload or reopen `https://adv.yswg.com.cn/vue/KeywordManage?tabId=<timestamp>`, wait for `SP关键词` / `您的关键词`, and rerun the preflight.
 4. If sellerinventory returns HTML while the visible page looks logged in, reopen the sellerinventory home page, reopen the `/pm/formal/list` frame through the existing script path, and rerun the preflight.
-5. Only after the recovery pass still fails should the run be reported as blocked, with the exact backend state that must be restored.
+5. If selection is visibly logged in but preflight hangs or times out, reload `https://selection.yswg.com.cn/dashboard/analysis` and rerun `node scripts\execute\ensure_backend_login.js`; a stuck selection `Runtime.evaluate` should be recovered before treating the day as blocked.
+6. Only after the recovery pass still fails should the run be reported as blocked, with the exact backend state that must be restored.
 
 ### 3. Capture Or Refresh Structured Data
 
@@ -168,8 +197,12 @@ Prefer existing repo commands and browser-session bridges:
 node scripts\execute\export_snapshot.js data\snapshots\latest_snapshot.json
 node scripts\execute\generate_personal_trend_report.js data\snapshots\latest_snapshot.json
 node scripts\execute\fetch_seller_success_rate.js HJ17
+npm run ops:deposit:recover-raw -- --date <YYYY-MM-DD>
 node scripts\run_today_tasks.js --snapshot data\snapshots\latest_snapshot.json
 node scripts\execute\normalize_daily_report_names.js
+npm run ops:kpi:gate -- --date <YYYY-MM-DD>
+npm run ops:kpi:checkpoint -- --date <YYYY-MM-DD>
+node scripts\execute\audit_landed_action_conflicts.js --date <YYYY-MM-DD>
 ```
 
 For a fuller closed-loop run, use:
@@ -181,6 +214,56 @@ node scripts\run_today_ops.js --mode full-snapshot
 Use these only after confirming both backends are logged in. If a command fails due to login/session state, report it as a precondition failure, not as an empty-data day.
 
 `export_snapshot.js` refuses to write an empty daily snapshot. If it reports `0 productCards`, reopen the extension panel, verify adv/inventory login state, and rerun. Do not continue report generation from an empty snapshot.
+
+If the raw daily archive is missing the sales core export, ad full export, or inventory export, recover them from the logged-in browser session before asking the user to redownload. Prefer the orchestrated command:
+
+```powershell
+npm run ops:deposit:recover-raw -- --date <YYYY-MM-DD>
+```
+
+It inspects the current deposit state, recovers missing auto-recoverable classes, and reruns deposit status. Under the hood:
+
+- `recover_sales_core_raw.js` fetches `/pm/sale/getBySeller` from the ready sellerinventory tab and writes `seller_sales_core_7d_<YYYY-MM-DD>.csv/json` into the daily raw folder.
+- `recover_ad_sku_summary_raw.js` fetches `/product/adSkuSummary` from the ready adv tab and writes `ad_sku_summary_30d_<YYYY-MM-DD>.csv` into the daily raw folder.
+- `recover_inventory_raw_from_list.js` captures the active sellerinventory `/pm/formal/list` query from the list frame, fetches all pages, and writes `inv_auto_filtered_<timestamp>.csv` into the daily raw folder.
+
+These recovered files count as raw API exports, not snapshot-derived fallbacks. They must only be run after backend preflight passes. Do not log or ask the user for tokens; use the active debug Chrome session.
+
+Suspicious raw originals are recovery blockers too, even when the file class is technically present. A `seller_sales_core_*_<date>.csv` whose selected-summary row is all zero, or an inventory export that is clearly tiny, must keep deposit status partial, open `raw_recovery_queue_<date>.json/md`, and trigger `npm run ops:deposit:recover-raw -- --date <YYYY-MM-DD>` when the relevant backend session is ready. Do not report `rawRecoveryQueue=clear` while deposit has a raw-file suspicious item.
+
+Run the KPI gate checker after the handoff or closed-loop artifacts exist. It writes `data\tasks\kpi_recovery_gate_<YYYY-MM-DD>.json` and separates these states:
+
+- `target_set_actual_pending`: the next business-day target exists, but the corresponding business-day actuals are not available yet.
+- `pass` / `fail`: actuals for the target business date are available and can be judged.
+- `missing_target`: the KPI trajectory or handoff target is missing and the gate cannot be evaluated.
+
+Run the KPI recovery checkpoint after deposit status, KPI gate, closure verification, and review/action artifacts exist. It writes both `data\tasks\kpi_recovery_checkpoint_<YYYY-MM-DD>.json` and `data\tasks\kpi_recovery_operator_checkpoint_<YYYY-MM-DD>.md`. The JSON is the machine-readable next-check database; the Markdown is the human-readable operator handoff. Both must show raw-data gaps, KPI gate state, next recovery target, low-efficiency/effect-review/write-action pools, landed-action evidence, and KPI recovery dry-run candidates. Dry-run candidates must be labeled as not landed actions.
+
+When the KPI gate is `target_set_actual_pending`, do not assume the target business date already has action-log evidence. Resolve KPI recovery dry-run rows from the first date among target business date, evaluated business date, current business date, and output date that actually contains high-efficiency dry-run rows. This prevents tomorrow's target line from hiding today's validated recovery candidates.
+
+The KPI recovery visibility chain is part of the daily contract. `kpi_recovery_checkpoint_<date>.json`, `kpi_recovery_dryrun_decisions_<date>.json/md`, `kpi_recovery_next_actions_<date>.md`, `kpi_approval_review_<date>.json/md`, the agent handoff, and the dashboard must agree on high-efficiency dry-run counts, approval-review counts, and landed-action totals. If any of those artifacts disagree, fix the generator or rerun the closed loop before reporting the day ready.
+
+After any live action run, rerun the closed loop and checkpoint with the same adjustment log that contains that run. The newest closed-loop summary and the current adjustment log take precedence over a stale `daily_closure_verify_<date>.json`; do not let yesterday or an earlier same-day verifier overwrite landed-action totals. If live low-efficiency execution lands `483/3`, the checkpoint, closure verifier, handoff, dashboard, and monthly digest must not still show a stale `758/20` total.
+
+After live actions land, run the landed action conflict audit:
+
+```powershell
+node scripts\execute\audit_landed_action_conflicts.js --date <YYYY-MM-DD> --adjustments data\adjustments\adjustments_<YYYY-MM-DD>.json
+```
+
+The audit writes `data\tasks\landed_action_conflict_audit_<YYYY-MM-DD>.json/md`. Treat `sameEntityReverseCount > 0` as a blocking action-quality failure. Treat `sameNameReverseDifferentEntityCount > 0` as a required 1d/3d review queue because the same SKU/entity name had mixed bid directions across different backend entity IDs; do not assume it is wrong, but do not let it disappear from the KPI follow-up.
+
+When live actions were written to an explicit `adjustments_<YYYY-MM-DD>.json`, the landed-action conflict audit date is that adjustment-log date, even if the report's sales-core `businessDate` is one day behind. Closed-loop files, closure verification, handoff, and dashboard should point to the same audit date as the live adjustment log.
+
+If the current gate has already evaluated as `pass` / `fail` and the handoff contains a later `nextBusinessDayTarget`, the checkpoint must preserve that later line as `nextRecoveryTarget` instead of overwriting the evaluated gate. This keeps "today failed or passed" and "tomorrow's recovery line" separately queryable.
+
+After the checkpoint is generated, run:
+
+```powershell
+npm run ops:closure:verify -- --date <YYYY-MM-DD>
+```
+
+The verifier checks the closed-loop JSON, handoff Markdown, dashboard HTML, KPI gate JSON, KPI checkpoint JSON, and operator checkpoint Markdown. If the operator checkpoint is stale, missing, or inconsistent with the current gate/deposit/dry-run state, do not report the day as closed.
 
 ### 4. Generate Detailed HTML As A Database View
 

@@ -1,0 +1,49 @@
+{
+  "counts": {
+    "aggressive": 0,
+    "controlled": 20,
+    "seasonal": 0,
+    "autoPause": 20,
+    "lowerLayer": 20,
+    "review": 10,
+    "skuDedupedDemoted": 1,
+    "accountCapDemoted": 4,
+    "total": 70,
+    "coreBidPaired": 0
+  },
+  "bucketCounts": {
+    "aggressive_budget_expansion": 61,
+    "controlled_budget_up": 225,
+    "seasonal_sell_through": 43,
+    "lower_layer_cost_control": 525,
+    "review": 4174
+  },
+  "filtered": {
+    "rows": 8340,
+    "notSp": 2,
+    "notEnabled": 0,
+    "noCampaign": 0,
+    "notAllowedSku": 17,
+    "onCooldownSku": 0,
+    "onCooldownCampaign": 0
+  },
+  "campaignsClassified": 5028,
+  "autoPauseStats": {
+    "rows": 8340,
+    "notSp": 2,
+    "notEnabled": 0,
+    "notAllowedSku": 17,
+    "onCooldownAd": 0,
+    "insufficientSignal": 8211,
+    "invTooTight": 22,
+    "clearanceProtect": 28,
+    "duplicate": 0,
+    "kept": 20
+  },
+  "autoPauseCandidateCount": 60,
+  "accountCap": {
+    "cap": 80,
+    "totalLiftRequested": 94.99,
+    "totalLiftApproved": 79.82
+  }
+}

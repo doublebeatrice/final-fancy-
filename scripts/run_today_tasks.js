@@ -325,6 +325,7 @@ function main() {
       newProductLaunch: proactiveAudit.newProductLaunch.summary.total,
       arrivalAdRecovery: proactiveAudit.arrivalAdRecovery.summary.total,
       priceActions: proactiveAudit.priceActions.summary.total,
+      removalEconomics: proactiveAudit.removalEconomics.summary.total,
       expiredSeasonKeywordWaste: proactiveAudit.expiredSeasonKeywordWaste.summary.totalEnabledRows,
       listingRepair: proactiveAudit.listingRepair.summary.total,
     },

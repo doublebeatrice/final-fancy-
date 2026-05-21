@@ -65,6 +65,7 @@ function runAgentOperatingHub(options = {}) {
       ledgerFile,
       inboxFile,
       reviewFile,
+      effectReviewFile: options.effectReviewFile || '',
       capabilityFile,
     },
   });

@@ -53,10 +53,52 @@ function arrayFromJson(value) {
     }
     return value;
   }
+  if (Array.isArray(value?.candidateContexts)) return dailyTaskPoolToAgentTasks(value);
+  if (Array.isArray(value?.tasks) && value.tasks.some(isDailyTaskContext)) return dailyTaskPoolToAgentTasks(value);
   if (Array.isArray(value?.tasks)) return value.tasks;
   if (Array.isArray(value?.actions)) return value.actions;
   if (Array.isArray(value?.plan)) return value.plan.flatMap(item => (item.actions || []).map(action => ({ ...action, sku: action.sku || item.sku, asin: action.asin || item.asin })));
   return [];
+}
+
+function isDailyTaskContext(item = {}) {
+  return Array.isArray(item.possibleSignals) || !!item.contextId || !!item.deterministicPriorityHint || !!item.facts;
+}
+
+function priorityFromHint(hint) {
+  const value = Number(hint || 0);
+  if (value >= 90) return 'P0';
+  if (value >= 70) return 'P1';
+  return 'P2';
+}
+
+function dailyTaskPoolToAgentTasks(pool = {}) {
+  const contexts = pool.candidateContexts || pool.tasks || [];
+  return contexts.map(context => {
+    const signals = Array.isArray(context.possibleSignals) ? context.possibleSignals : [];
+    const primarySignal = signals[0]?.type || context.primaryTaskType || context.category || 'daily_ops_review';
+    const evidence = [
+      ...signals.map(signal => signal.reason).filter(Boolean),
+      ...(context.dataMissing || []).map(item => `missing: ${item}`),
+    ];
+    return {
+      source: 'daily_ops',
+      kind: primarySignal,
+      title: `${context.sku || context.asin || context.groupKey || 'unnamed'} ${primarySignal}`,
+      description: evidence.join(' | '),
+      subject: {
+        sku: context.sku,
+        asin: context.asin,
+        campaignId: context.campaignId,
+        entityId: context.entityId,
+      },
+      priority: context.priority || priorityFromHint(context.deterministicPriorityHint),
+      evidence,
+      sourceRunId: context.sourceRunId || pool.time?.sourceRunId || '',
+      businessDate: context.businessDate || pool.time?.businessDate || '',
+      dataDate: context.dataDate || pool.time?.dataDate || '',
+    };
+  });
 }
 
 function runAgentControlPlane(options = {}) {
@@ -100,6 +142,7 @@ if (require.main === module) {
 
 module.exports = {
   arrayFromJson,
+  dailyTaskPoolToAgentTasks,
   parseArgs,
   runAgentControlPlane,
 };

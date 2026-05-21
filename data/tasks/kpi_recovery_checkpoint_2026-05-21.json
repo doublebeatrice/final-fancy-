@@ -1,0 +1,165 @@
+{
+  "date": "2026-05-21",
+  "generatedAt": "2026-05-21T07:16:40.766Z",
+  "businessDate": "2026-05-20",
+  "dataDate": "2026-05-19",
+  "status": "needs_recovery",
+  "completion": {
+    "closedLoop": true,
+    "dailyClosureStatus": "needs_recovery",
+    "dailyComplete": false,
+    "reasons": [
+      "kpi_off_track",
+      "recovery_gate_failed",
+      "operating_needs_recovery"
+    ]
+  },
+  "kpiGate": {
+    "status": "fail",
+    "targetBusinessDate": "2026-05-20",
+    "evaluatedBusinessDate": "2026-05-20",
+    "dataDate": "2026-05-19",
+    "target": {
+      "sales": 541080.88,
+      "units": 3754,
+      "netProfitRateMin": 0.1947,
+      "acosMax": 0.1977,
+      "refundRateMax": 0.0528,
+      "adCostShareMax": 0.108
+    },
+    "actual": {
+      "sales": 516741.99,
+      "units": 3582,
+      "netProfitRate": 0.1933,
+      "acos": 0.1978,
+      "refundRate": 0.057,
+      "adCostShare": 0.1016,
+      "estimatedNetProfit": 99886.23
+    },
+    "blockedUntil": ""
+  },
+  "nextRecoveryTarget": {
+    "businessDate": "2026-05-21",
+    "sales": 536451.66,
+    "units": 3702,
+    "netProfitRateMin": 0.1941,
+    "acosMax": 0.1957,
+    "refundRateMax": 0.0545,
+    "adCostShareMax": 0.108,
+    "estimatedNetProfitTarget": null,
+    "relationshipToGate": "next_recovery_after_failed_gate"
+  },
+  "deposit": {
+    "status": "complete",
+    "missing": [],
+    "suspicious": [],
+    "archivedCandidates": 0,
+    "rawCandidateSearch": {
+      "cutoffDate": "",
+      "rootsSearched": [],
+      "total": 0,
+      "sameDateTotal": 0,
+      "staleTotal": 0,
+      "byMissingClass": {}
+    },
+    "nextAction": "raw archive is complete; continue KPI recovery and effect review"
+  },
+  "actionPools": {
+    "lowEfficiency": {
+      "actionable": 2,
+      "rawActionable": 2,
+      "currentExecutable": 0,
+      "hold": 20,
+      "skip": 650,
+      "decision": "raw low-efficiency pool still has candidates, but current agent write chain has no eligible low-risk action; do not treat raw pool count as pending live writes",
+      "evidence": "raw pool scanner does not deduct today landed writes or write-chain guardrails"
+    },
+    "effectReview": {
+      "total": 47,
+      "continueWatch": 47,
+      "needsAction": 0,
+      "blocked": 0,
+      "decision": "continue watch until the next 3-day or 7-day review window"
+    },
+    "writeExecution": {
+      "mode": "dry-run",
+      "eligibleActions": 0,
+      "blockedActions": 0,
+      "executedStages": 0,
+      "failedStages": 0,
+      "decision": "no low-risk write action is pending in the agent write chain"
+    },
+    "recoveryDryRun": {
+      "totalDryRuns": 2,
+      "totalHighEfficiencyBidUps": 0,
+      "highEfficiencyBidUps": 0,
+      "skuCount": 0,
+      "latestRunId": "",
+      "latestRunAt": "",
+      "latestRunCount": 0,
+      "byDecision": {},
+      "byEntityType": {},
+      "sample": [],
+      "decision": "no high-efficiency dry-run recovery candidates recorded"
+    },
+    "approvalReview": {
+      "ready": true,
+      "total": 1,
+      "skuCount": 1,
+      "recommendApprove": 1,
+      "approvalNeeded": 0,
+      "hold": 0,
+      "blocked": 0,
+      "jsonFile": "D:\\ad-ops-workbench\\data\\tasks\\kpi_approval_review_2026-05-21.json",
+      "markdownFile": "D:\\ad-ops-workbench\\data\\tasks\\kpi_approval_review_2026-05-21.md",
+      "markdownName": "kpi_approval_review_2026-05-21.md",
+      "decision": "review recommend_approve and approval_needed items before any human-authorized live write"
+    }
+  },
+  "landedEvidence": {
+    "landedActionSuccess": 515,
+    "landedActionManualReview": 0,
+    "landedActionFailed": 3,
+    "feedbackApplied": 47
+  },
+  "nextChecks": [
+    {
+      "name": "refresh_deposit_status",
+      "command": "npm run ops:deposit:status -- --date 2026-05-21 --json",
+      "successCondition": "status=complete and missing=[]"
+    },
+    {
+      "name": "refresh_kpi_gate",
+      "command": "npm run ops:kpi:gate -- --date 2026-05-21",
+      "successCondition": "status is pass or fail after evaluatedBusinessDate=2026-05-20"
+    },
+    {
+      "name": "track_next_recovery_target",
+      "command": "npm run ops:kpi:gate -- --date 2026-05-21",
+      "successCondition": "evaluatedBusinessDate=2026-05-21 and status is pass or fail"
+    },
+    {
+      "name": "verify_closure",
+      "command": "npm run ops:closure:verify -- --date 2026-05-21",
+      "successCondition": "ok=true with explicit deposit missing/suspicious details if still partial"
+    },
+    {
+      "name": "effect_review_next_window",
+      "command": "npm run ops:agent:review-effect -- --queue data\\agent\\review_queue_2026-05-21.json --collect-evidence --today 2026-05-21 --evidence-out data\\agent\\review_evidence_2026-05-21.json --out data\\agent\\effect_review_2026-05-21.json --profit-report data\\snapshots\\profit_review_2026-05-21.json",
+      "successCondition": "needsAction=0 or concrete rollback/secondary action candidates are produced"
+    }
+  ],
+  "files": {
+    "closureVerify": "D:\\ad-ops-workbench\\data\\agent\\daily_closure_verify_2026-05-21.json",
+    "kpiGate": "D:\\ad-ops-workbench\\data\\tasks\\kpi_recovery_gate_2026-05-21.json",
+    "depositStatus": "D:\\ad-ops-workbench\\?????????\\???\\????\\5-21\\daily_deposit_status_2026-05-21.json",
+    "lowEfficiency": "D:\\ad-ops-workbench\\data\\tasks\\low_efficiency_pools_2026-05-21.json",
+    "effectReview": "D:\\ad-ops-workbench\\data\\agent\\effect_review_2026-05-21.json",
+    "writeExecution": "D:\\ad-ops-workbench\\data\\agent\\write_execution_2026-05-21.json",
+    "kpiApprovalReview": "D:\\ad-ops-workbench\\data\\tasks\\kpi_approval_review_2026-05-21.json",
+    "kpiApprovalReviewMarkdown": "D:\\ad-ops-workbench\\data\\tasks\\kpi_approval_review_2026-05-21.md",
+    "closedLoop": "D:\\ad-ops-workbench\\data\\agent\\agent_closed_loop_2026-05-21.json",
+    "adjustmentLog": "D:\\ad-ops-workbench\\data\\adjustments\\adjustments_2026-05-21.json",
+    "adjustmentBusinessDate": "2026-05-21"
+  }
+}

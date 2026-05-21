@@ -76,6 +76,15 @@
   - Sellerinventory application `4461056` submitted successfully and is pending editor review; execution file: `data/snapshots/xul2303_ems_first_responder_title_execution_2026-05-19.json`.
   - Verification query found `4461056` in the application list with `backstage_status=0`, next handler `陈紫云`, and `send_to_editor_time=2026-05-19 11:20:40`.
   - Verified submitted `edit_content.product_description` retains newline-separated `</br>` lines instead of being squeezed into one line; verification file: `data/snapshots/xul2303_listing_copy_apply_query_after_resubmit_2026-05-19.json`.
+- 2026-05-21 10:00 check:
+  - Ran `npm run chrome:ready`; adv, sellerinventory, and selection sessions all returned ready.
+  - Original application `4449788` is not in the current XUL2303 application list because it was withdrawn on 2026-05-19. The active replacement application is `4461056`.
+  - Sellerinventory application `4461056` is still pending: `status=0`, `backstage_status=0`, next handler `张婷婷`, `send_to_editor_time=2026-05-19 11:20:40`, no `backstage_time`.
+  - Sellerinventory origin title and public Amazon title still remain: `Sherr 8 Pcs Funny Dumpster Fire Response Team Desk Gift for Nurse Week, Teacher Week, First Responders Month, with Wooden Pencil Holder, A6 Notebook, Sticky Notes Pad and 5 Ballpoint Pens`. The repaired `EMS First Responder 911 Dispatcher` title is not live yet.
+  - Refreshed ad data through 2026-05-20: SKU 7d = 1611 impressions, 23 clicks, spend 4.62, 1 order, sales 17.99, ACOS 25.68%; 30d = 16092 impressions, 247 clicks, spend 57.94, 10 orders, sales 157.89, ACOS 36.70%.
+  - `kw_may_xul2303` 7d = 1002 impressions, 12 clicks, spend 3.04, 1 order. The order came from `nurse week appreciation gift` with 207 impressions / 2 clicks / 1 order / spend 0.64, not from EMS or dispatcher wording.
+  - EMS/first-responder terms are visible but have not lifted: `first responder appreciation gift` 61 impressions / 0 clicks, `first responders month gift` 31 impressions / 0 clicks. No explicit `EMS` or `EMS Week` keyword row is present.
+  - `auto_911 dispatcher_xul2303` 7d = 609 impressions, 11 clicks, spend 1.58, 0 orders. Dispatcher auto exposure is slightly higher than the prior comparable window, but it has not converted.
 
 ## Reply Draft
 

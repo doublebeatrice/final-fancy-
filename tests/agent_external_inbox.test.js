@@ -29,6 +29,7 @@ const timeContext = {
   assert.strictEqual(task.replyExpectation, 'operator_ready_reply');
   assert.ok(task.evidenceRequirements.includes('ad_backend_sku_summary'));
   assert.ok(task.evidenceRequirements.includes('inventory_health'));
+  assert.ok(task.evidenceRequirements.includes('selection_keyword_seasonality'));
   assert.ok(task.evidenceRequirements.includes('selection_market_evidence'));
   assert.ok(task.nextCheckpoint.includes('2026-05-20'));
 }
@@ -38,6 +39,8 @@ const timeContext = {
 
   assert.strictEqual(task.kind, 'keyword_question');
   assert.strictEqual(task.subject.keyword, 'nurse gifts for women');
+  assert.ok(task.evidenceRequirements.includes('selection_keyword_research'));
+  assert.ok(task.evidenceRequirements.includes('selection_keyword_seasonality'));
   assert.ok(task.evidenceRequirements.includes('selection_keyword_conversion'));
   assert.ok(task.evidenceRequirements.includes('selection_aba_search_terms'));
   assert.ok(task.evidenceRequirements.includes('sku_ad_proof'));
@@ -146,6 +149,76 @@ const timeContext = {
 
   const queue = runAgentReviewQueue({ ledgerFile, outFile, today: '2026-05-19' });
   assert.strictEqual(queue.summary.due, 1);
+  assert.ok(fs.existsSync(outFile));
+}
+
+{
+  const queue = buildDueReviewQueue({
+    nextOpenTasks: [{
+      taskId: 'review-dup',
+      source: 'effect_review',
+      lane: 'effect_review',
+      kind: 'effect_review',
+      title: 'DUP1 1日效果复查',
+      status: 'waiting_review',
+      dueDate: '2026-05-19',
+      subject: { sku: 'DUP1' },
+      reviewPlan: { metrics: ['orders'] },
+    }, {
+      taskId: 'review-dup',
+      source: 'effect_review',
+      lane: 'effect_review',
+      kind: 'effect_review',
+      title: 'DUP1 1日效果复查',
+      status: 'waiting_review',
+      dueDate: '2026-05-19',
+      subject: { sku: 'DUP1' },
+      reviewPlan: { metrics: ['orders'] },
+    }],
+  }, { today: '2026-05-19' });
+  assert.strictEqual(queue.summary.totalWaitingReview, 1);
+  assert.strictEqual(queue.summary.due, 1);
+  assert.strictEqual(queue.due.length, 1);
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'review-queue-history-'));
+  const oldLedgerFile = path.join(tmpDir, 'agent_ledger_2026-05-19.json');
+  const todayLedgerFile = path.join(tmpDir, 'agent_ledger_2026-05-20.json');
+  const outFile = path.join(tmpDir, 'review_queue_2026-05-20.json');
+  fs.writeFileSync(oldLedgerFile, JSON.stringify({
+    businessDate: '2026-05-19',
+    nextOpenTasks: [{
+      taskId: 'review-old',
+      source: 'effect_review',
+      lane: 'effect_review',
+      kind: 'effect_review',
+      title: 'SE6599 1日效果复查',
+      status: 'waiting_review',
+      dueDate: '2026-05-20',
+      subject: { sku: 'SE6599' },
+      reviewPlan: { metrics: ['orders', 'spend', 'acos'] },
+    }],
+  }, null, 2), 'utf8');
+  fs.writeFileSync(todayLedgerFile, JSON.stringify({
+    businessDate: '2026-05-20',
+    nextOpenTasks: [{
+      taskId: 'review-today',
+      source: 'effect_review',
+      lane: 'effect_review',
+      kind: 'effect_review',
+      title: 'OB3296 3日效果复查',
+      status: 'waiting_review',
+      dueDate: '2026-05-22',
+      subject: { sku: 'OB3296' },
+      reviewPlan: { metrics: ['orders'] },
+    }],
+  }, null, 2), 'utf8');
+
+  const queue = runAgentReviewQueue({ outFile, outDir: tmpDir, today: '2026-05-20' });
+  assert.strictEqual(queue.summary.due, 1);
+  assert.strictEqual(queue.summary.upcoming, 1);
+  assert.strictEqual(queue.due[0].subject.sku, 'SE6599');
   assert.ok(fs.existsSync(outFile));
 }
 

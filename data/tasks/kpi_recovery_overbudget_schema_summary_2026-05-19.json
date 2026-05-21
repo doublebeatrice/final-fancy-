@@ -1,0 +1,79 @@
+{
+  "counts": {
+    "aggressive": 0,
+    "controlled": 20,
+    "seasonal": 0,
+    "autoPause": 20,
+    "lowerLayer": 20,
+    "review": 10,
+    "skuDedupedDemoted": 1,
+    "accountCapDemoted": 6,
+    "total": 70,
+    "coreBidPaired": 0
+  },
+  "bucketCounts": {
+    "aggressive_budget_expansion": 61,
+    "controlled_budget_up": 226,
+    "seasonal_sell_through": 43,
+    "lower_layer_cost_control": 524,
+    "review": 4235
+  },
+  "filtered": {
+    "rows": 8357,
+    "notSp": 4,
+    "notEnabled": 0,
+    "noCampaign": 0,
+    "notAllowedSku": 21,
+    "onCooldownSku": 0,
+    "onCooldownCampaign": 0
+  },
+  "campaignsClassified": 5089,
+  "autoPauseStats": {
+    "rows": 8357,
+    "notSp": 4,
+    "notEnabled": 0,
+    "notAllowedSku": 21,
+    "onCooldownAd": 0,
+    "insufficientSignal": 8222,
+    "invTooTight": 22,
+    "clearanceProtect": 28,
+    "duplicate": 0,
+    "kept": 20
+  },
+  "autoPauseCandidateCount": 60,
+  "accountCap": {
+    "cap": 80,
+    "totalLiftRequested": 108.46,
+    "totalLiftApproved": 77.98
+  },
+  "plannedSkus": 63,
+  "plannedActions": 70,
+  "coverage": {
+    "snapshotRows": 8357,
+    "filtered": {
+      "rows": 8357,
+      "notSp": 4,
+      "notEnabled": 0,
+      "noCampaign": 0,
+      "notAllowedSku": 21,
+      "onCooldownSku": 0,
+      "onCooldownCampaign": 0
+    },
+    "counts": {
+      "aggressive_budget_expansion": 61,
+      "controlled_budget_up": 226,
+      "seasonal_sell_through": 43,
+      "lower_layer_cost_control": 524,
+      "review": 4235
+    },
+    "eligibleCampaigns": 5089,
+    "actionableCampaigns": 854,
+    "matchedActionCount": 70,
+    "matchedCampaignCount": 70,
+    "warning": ""
+  },
+  "schemaFile": "D:\\ad-ops-workbench\\data\\snapshots\\kpi_recovery_overbudget_schema_2026-05-19.json",
+  "sourceSnapshotFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-05-20T03-00-26-756Z\\snapshot_2026-05-20.json",
+  "businessDate": "2026-05-19",
+  "dataDate": "2026-05-18"
+}

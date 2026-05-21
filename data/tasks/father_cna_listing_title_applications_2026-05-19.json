@@ -1,0 +1,534 @@
+{
+  "generatedAt": "2026-05-19T10:04:58.965Z",
+  "businessDate": "2026-05-19",
+  "type": "father_cna_listing_title_applications",
+  "dryRunDefault": true,
+  "note": "Image/product form + title term + ad display/click evidence reviewed. Successful execution means sellerinventory application submitted, not Amazon front-end landed.",
+  "summary": {
+    "total": 5,
+    "valid": 5,
+    "invalid": 0
+  },
+  "validations": [
+    {
+      "sku": "ZHW0104",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "oldLength": 191,
+      "newLength": 154,
+      "oldTitle": "Hicarer Grave Decorations for Cemetery Double Sided Metal Dad Grave Markers Robin Memorial Stakes Mother's Father's Day Cemetery Sympathy Outdoors Decorations for Garden Yard, 11.8 x 6.8 Inch",
+      "newTitle": "Hicarer Father's Day Dad Grave Marker for Cemetery, Double Sided Robin Memorial Stake, Sympathy Outdoor Grave Decorations for Garden Yard, 11.8 x 6.8 Inch"
+    },
+    {
+      "sku": "PIR4617",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "oldLength": 198,
+      "newLength": 181,
+      "oldTitle": "Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass, Engraved Coaster, Stainless Steel Ice Cubes, Cotton Socks and Candle - Sentimental Gift from Daughter or Son(Groom)",
+      "newTitle": "Reallnaive Father's Day Wedding Gift Box for Father of the Bride or Groom, 10oz Whiskey Glass, Engraved Coaster, Ice Cubes, Cotton Socks and Candle, Gift from Daughter or Son(Groom)"
+    },
+    {
+      "sku": "PIR4610",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "oldLength": 199,
+      "newLength": 182,
+      "oldTitle": "Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass, Engraved Coaster, Stainless Steel Ice Cubes, Cotton Socks and Candle - Sentimental Gift from Daughter or Son (Bride)",
+      "newTitle": "Reallnaive Father's Day Wedding Gift Box for Father of the Bride or Groom, 10oz Whiskey Glass, Engraved Coaster, Ice Cubes, Cotton Socks and Candle, Gift from Daughter or Son (Bride)"
+    },
+    {
+      "sku": "YAN3229",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "oldLength": 162,
+      "newLength": 167,
+      "oldTitle": "Roowest Flower Memorial Picture Frame Sympathy Gifts for Loss of Loved One Passed Away Acrylic Magnetic Photo Frames Bereavement for Mom, Dad, Family, 7 x 10 Inch",
+      "newTitle": "Roowest Flower Memorial Picture Frame, Father's Day Memorial Gifts for Loss of Dad, Acrylic Magnetic Sympathy Bereavement Photo Frame for Mom, Dad, Family, 7 x 10 Inch"
+    },
+    {
+      "sku": "HEL0319",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "oldLength": 200,
+      "newLength": 145,
+      "oldTitle": "Huquary 30 Pcs Employee Appreciation Gift Inspirational Keychains Bulk Sometimes You Forget You're Awesome Motivational Gift for Nurse Employee Teacher Nurse Thank You Coworker Volunteers Party Favors",
+      "newTitle": "Huquary 30 Pcs Nurse Appreciation Gifts Bulk, Inspirational Motivational Keychains for Employees Teachers Coworkers Volunteers Staff Party Favors"
+    }
+  ],
+  "items": [
+    {
+      "sku": "ZHW0104",
+      "asin": "B0CF9V3J2Y",
+      "summary": "??? Dad ?????????? Dad/Father's Day ???????? 8215 ??/120 ???? Father's Day ???",
+      "vertical": "father_vertical",
+      "placement": "front",
+      "actions": [
+        {
+          "entityType": "listing",
+          "actionType": "copy_edit",
+          "id": "listing::1750531::ZHW0104::father_cna_title",
+          "productId": "1750531",
+          "sku": "ZHW0104",
+          "asin": "B0CF9V3J2Y",
+          "filedType": "A",
+          "toEditorFlag": 1,
+          "variantStatus": 2,
+          "beforeStatus": 0,
+          "languageType": "us,uk,ca",
+          "synchronizeFields": [],
+          "synchronizeVariantSkus": [],
+          "remark": "2026-05-19 Father's Day/CNA title placement: front",
+          "reason": "??? Dad ?????????? Dad/Father's Day ???????? 8215 ??/120 ???? Father's Day ???",
+          "original": {
+            "parentTitle": "Hicarer Grave Decorations for Cemetery Double Sided Metal Dad Grave Markers Robin Memorial Stakes Mother's Father's Day Cemetery Sympathy Outdoors Decorations for Garden Yard, 11.8 x 6.8 Inch",
+            "bulletPoints": [],
+            "productDescription": "",
+            "searchCoreKeywords": "dad memorial stakes fathers day cemetery decorations humans plaque monuments people gravesite outdoors site yard moments christmas gift robin double sided metal sympathy reliable iron long lasting durability visual appeal remember"
+          },
+          "now": {
+            "parentTitle": "Hicarer Father's Day Dad Grave Marker for Cemetery, Double Sided Robin Memorial Stake, Sympathy Outdoor Grave Decorations for Garden Yard, 11.8 x 6.8 Inch",
+            "bulletPoints": [],
+            "productDescription": "",
+            "searchCoreKeywords": "dad memorial stakes fathers day cemetery decorations humans plaque monuments people gravesite outdoors site yard moments christmas gift robin double sided metal sympathy reliable iron long lasting durability visual appeal remember"
+          },
+          "phraseFrequencyText": "",
+          "productCompliance": {
+            "productLabel": "非儿童产品",
+            "isChildrenProduct": false,
+            "isNonChildrenProduct": true
+          },
+          "productContext": {
+            "listingTitle": "",
+            "productType": "unknown",
+            "productTypes": [],
+            "targetAudience": [
+              "nurse"
+            ],
+            "occasion": [],
+            "visualTheme": [
+              "nurse"
+            ],
+            "positioning": "nurse",
+            "categoryPath": ""
+          },
+          "titleMaxLength": 200,
+          "hypothesis": "??? Dad ?????????? Dad/Father's Day ???????? 8215 ??/120 ???? Father's Day ???",
+          "expectedEffect": {
+            "sessions": "watch",
+            "conversionRate": "watch",
+            "orders": "watch",
+            "acos": "watch"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7,
+              14
+            ],
+            "metrics": [
+              "sessions",
+              "clicks",
+              "orders",
+              "conversion",
+              "acos"
+            ]
+          },
+          "riskLevel": "seasonal_title_image_and_traffic_reviewed",
+          "confidence": 0.82,
+          "decisionStage": "ai_approved",
+          "approvedBy": "codex",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "source": "father_cna_title_review_2026-05-19"
+        }
+      ]
+    },
+    {
+      "sku": "PIR4617",
+      "asin": "B0F3XFYKZP",
+      "summary": "??????? Father of the Groom ?????????? 7505 ??/73 ???? Father's Day ????",
+      "vertical": "father_vertical",
+      "placement": "front_after_brand",
+      "actions": [
+        {
+          "entityType": "listing",
+          "actionType": "copy_edit",
+          "id": "listing::2410271::PIR4617::father_cna_title",
+          "productId": "2410271",
+          "sku": "PIR4617",
+          "asin": "B0F3XFYKZP",
+          "filedType": "A",
+          "toEditorFlag": 1,
+          "variantStatus": 2,
+          "beforeStatus": 0,
+          "languageType": "us,uk,ca",
+          "synchronizeFields": [],
+          "synchronizeVariantSkus": [],
+          "remark": "2026-05-19 Father's Day/CNA title placement: front_after_brand",
+          "reason": "??????? Father of the Groom ?????????? 7505 ??/73 ???? Father's Day ????",
+          "original": {
+            "parentTitle": "Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass, Engraved Coaster, Stainless Steel Ice Cubes, Cotton Socks and Candle - Sentimental Gift from Daughter or Son(Groom)",
+            "bulletPoints": [],
+            "productDescription": "",
+            "searchCoreKeywords": "father of bride gift wedding dad from to bridal shower box glass engraved coaster socks reusable stones lavender candle sentimental keepsake present thank you father whiskey day groom's keepsake father set personalized groom you rustic daughter"
+          },
+          "now": {
+            "parentTitle": "Reallnaive Father's Day Wedding Gift Box for Father of the Bride or Groom, 10oz Whiskey Glass, Engraved Coaster, Ice Cubes, Cotton Socks and Candle, Gift from Daughter or Son(Groom)",
+            "bulletPoints": [],
+            "productDescription": "",
+            "searchCoreKeywords": "father of bride gift wedding dad from to bridal shower box glass engraved coaster socks reusable stones lavender candle sentimental keepsake present thank you father whiskey day groom's keepsake father set personalized groom you rustic daughter"
+          },
+          "phraseFrequencyText": "Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass, Engraved Coaster, Stainless Steel Ice Cubes, Cotton Socks and Candle - Sentimental Gift from Daughter or Son(Groom) Complete Father of the Groom gift set wedding gift for dad box includes a 10oz whiskey glass, engraved coaster, reusable stainless steel ice cubes (6 pcs), cotton socks, and a lavender-scented soy candle - a sentimental keepsake slate coaster food-grade stainless steel stones soy wax candle ''Father of the groom'' socks, Wedding Gift elegant keepsake box ideal bridal shower gift thoughtful ''Father of the groom'' gift set gift box Ready to Gift with No Extra Wrapping Needed black foldable box 10oz whiskey glass Slate coaster Stainless steel stones Lavender soy wax candle",
+          "productCompliance": {
+            "productLabel": "其他食品接触类&成人服装",
+            "isChildrenProduct": false,
+            "isNonChildrenProduct": false
+          },
+          "productContext": {
+            "listingTitle": "",
+            "productType": "unknown",
+            "productTypes": [],
+            "targetAudience": [],
+            "occasion": [],
+            "visualTheme": [],
+            "positioning": "",
+            "categoryPath": ""
+          },
+          "titleMaxLength": 200,
+          "hypothesis": "??????? Father of the Groom ?????????? 7505 ??/73 ???? Father's Day ????",
+          "expectedEffect": {
+            "sessions": "watch",
+            "conversionRate": "watch",
+            "orders": "watch",
+            "acos": "watch"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7,
+              14
+            ],
+            "metrics": [
+              "sessions",
+              "clicks",
+              "orders",
+              "conversion",
+              "acos"
+            ]
+          },
+          "riskLevel": "seasonal_title_image_and_traffic_reviewed",
+          "confidence": 0.82,
+          "decisionStage": "ai_approved",
+          "approvedBy": "codex",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "source": "father_cna_title_review_2026-05-19"
+        }
+      ]
+    },
+    {
+      "sku": "PIR4610",
+      "asin": "B0F3XHZVDT",
+      "summary": "PIR4617 ?? Bride ?????/??? Father of the Bride ?????? Father's Day ??????????",
+      "vertical": "father_vertical_variant",
+      "placement": "front_after_brand",
+      "actions": [
+        {
+          "entityType": "listing",
+          "actionType": "copy_edit",
+          "id": "listing::2410270::PIR4610::father_cna_title",
+          "productId": "2410270",
+          "sku": "PIR4610",
+          "asin": "B0F3XHZVDT",
+          "filedType": "A",
+          "toEditorFlag": 1,
+          "variantStatus": 2,
+          "beforeStatus": 0,
+          "languageType": "us,uk,ca",
+          "synchronizeFields": [],
+          "synchronizeVariantSkus": [],
+          "remark": "2026-05-19 Father's Day/CNA title placement: front_after_brand",
+          "reason": "PIR4617 ?? Bride ?????/??? Father of the Bride ?????? Father's Day ??????????",
+          "original": {
+            "parentTitle": "Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass, Engraved Coaster, Stainless Steel Ice Cubes, Cotton Socks and Candle - Sentimental Gift from Daughter or Son (Bride)",
+            "bulletPoints": [],
+            "productDescription": "",
+            "searchCoreKeywords": "father of bride gift wedding dad from to bridal shower box glass engraved coaster socks reusable stones lavender candle sentimental keepsake present thank you father whiskey day groom's keepsake father set personalized groom you rustic daughter"
+          },
+          "now": {
+            "parentTitle": "Reallnaive Father's Day Wedding Gift Box for Father of the Bride or Groom, 10oz Whiskey Glass, Engraved Coaster, Ice Cubes, Cotton Socks and Candle, Gift from Daughter or Son (Bride)",
+            "bulletPoints": [],
+            "productDescription": "",
+            "searchCoreKeywords": "father of bride gift wedding dad from to bridal shower box glass engraved coaster socks reusable stones lavender candle sentimental keepsake present thank you father whiskey day groom's keepsake father set personalized groom you rustic daughter"
+          },
+          "phraseFrequencyText": "Complete Father of the Bride gift set  \nwedding gift for dad  \n box includes a 10oz whiskey glass, engraved coaster, reusable stainless steel ice cubes (6 pcs), cotton socks, and a lavender-scented soy candle - a sentimental keepsake\n slate coaster\nfood-grade stainless steel stones \nsoy wax candle\n''Father of the Bride'' socks,\nWedding Gift \nelegant keepsake box \nideal bridal shower gift \nthoughtful ''Father of the Bride'' gift set\ngift box\nReady to Gift with No Extra Wrapping Needed\n black foldable box\n10oz whiskey glass\n Slate coaster\n Stainless steel stones\n  Lavender soy wax candle",
+          "productCompliance": {
+            "productLabel": "其他食品接触类&成人服装",
+            "isChildrenProduct": false,
+            "isNonChildrenProduct": false
+          },
+          "productContext": {
+            "listingTitle": "",
+            "productType": "unknown",
+            "productTypes": [],
+            "targetAudience": [],
+            "occasion": [],
+            "visualTheme": [],
+            "positioning": "",
+            "categoryPath": ""
+          },
+          "titleMaxLength": 200,
+          "hypothesis": "PIR4617 ?? Bride ?????/??? Father of the Bride ?????? Father's Day ??????????",
+          "expectedEffect": {
+            "sessions": "watch",
+            "conversionRate": "watch",
+            "orders": "watch",
+            "acos": "watch"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7,
+              14
+            ],
+            "metrics": [
+              "sessions",
+              "clicks",
+              "orders",
+              "conversion",
+              "acos"
+            ]
+          },
+          "riskLevel": "seasonal_title_image_and_traffic_reviewed",
+          "confidence": 0.82,
+          "decisionStage": "ai_approved",
+          "approvedBy": "codex",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "source": "father_cna_title_review_2026-05-19"
+        }
+      ]
+    },
+    {
+      "sku": "YAN3229",
+      "asin": "B0D5L7RDZQ",
+      "summary": "??/????????? Dad???????? 4912 ??/85 ????????????Father's Day ???????????",
+      "vertical": "father_adjacent_memorial",
+      "placement": "mid_after_product_type",
+      "actions": [
+        {
+          "entityType": "listing",
+          "actionType": "copy_edit",
+          "id": "listing::2138063::YAN3229::father_cna_title",
+          "productId": "2138063",
+          "sku": "YAN3229",
+          "asin": "B0D5L7RDZQ",
+          "filedType": "A",
+          "toEditorFlag": 1,
+          "variantStatus": 2,
+          "beforeStatus": 0,
+          "languageType": "us,uk,ca",
+          "synchronizeFields": [],
+          "synchronizeVariantSkus": [],
+          "remark": "2026-05-19 Father's Day/CNA title placement: mid_after_product_type",
+          "reason": "??/????????? Dad???????? 4912 ??/85 ????????????Father's Day ???????????",
+          "original": {
+            "parentTitle": "Roowest Flower Memorial Picture Frame Sympathy Gifts for Loss of Loved One Passed Away Acrylic Magnetic Photo Frames Bereavement for Mom, Dad, Family, 7 x 10 Inch",
+            "bulletPoints": [],
+            "productDescription": "",
+            "searchCoreKeywords": "mom memorial gifts acrylic picture frames funeral loved one photo grief sympathy loss life decorations magnetic remembrance dad man album desk aunt heaven sign friend away grandfather grandma grandmother grandparents loving memory miss goodbye"
+          },
+          "now": {
+            "parentTitle": "Roowest Flower Memorial Picture Frame, Father's Day Memorial Gifts for Loss of Dad, Acrylic Magnetic Sympathy Bereavement Photo Frame for Mom, Dad, Family, 7 x 10 Inch",
+            "bulletPoints": [],
+            "productDescription": "",
+            "searchCoreKeywords": "mom memorial gifts acrylic picture frames funeral loved one photo grief sympathy loss life decorations magnetic remembrance dad man album desk aunt heaven sign friend away grandfather grandma grandmother grandparents loving memory miss goodbye"
+          },
+          "phraseFrequencyText": "forget-me-not flower",
+          "productCompliance": {
+            "productLabel": "非儿童产品",
+            "isChildrenProduct": false,
+            "isNonChildrenProduct": true
+          },
+          "productContext": {
+            "listingTitle": "",
+            "productType": "apparel",
+            "productTypes": [
+              "apparel"
+            ],
+            "targetAudience": [
+              "nurse",
+              "mom",
+              "dad",
+              "women"
+            ],
+            "occasion": [
+              "fathers day"
+            ],
+            "visualTheme": [
+              "nurse",
+              "mom",
+              "dad",
+              "women",
+              "fathers day"
+            ],
+            "positioning": "nurse fathers day apparel",
+            "categoryPath": ""
+          },
+          "titleMaxLength": 200,
+          "hypothesis": "??/????????? Dad???????? 4912 ??/85 ????????????Father's Day ???????????",
+          "expectedEffect": {
+            "sessions": "watch",
+            "conversionRate": "watch",
+            "orders": "watch",
+            "acos": "watch"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7,
+              14
+            ],
+            "metrics": [
+              "sessions",
+              "clicks",
+              "orders",
+              "conversion",
+              "acos"
+            ]
+          },
+          "riskLevel": "seasonal_title_image_and_traffic_reviewed",
+          "confidence": 0.72,
+          "decisionStage": "ai_approved",
+          "approvedBy": "codex",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "source": "father_cna_title_review_2026-05-19"
+        }
+      ]
+    },
+    {
+      "sku": "HEL0319",
+      "asin": "B0C6TSBBDK",
+      "summary": "??????????CNA ????? Nurse/Appreciation ????? 52374 ??/408 ????? Nurse Appreciation???? CNA?",
+      "vertical": "cna_adjacent_nurse_appreciation",
+      "placement": "front_nurse_not_cna",
+      "actions": [
+        {
+          "entityType": "listing",
+          "actionType": "copy_edit",
+          "id": "listing::1630014::HEL0319::father_cna_title",
+          "productId": "1630014",
+          "sku": "HEL0319",
+          "asin": "B0C6TSBBDK",
+          "filedType": "A",
+          "toEditorFlag": 1,
+          "variantStatus": 2,
+          "beforeStatus": 0,
+          "languageType": "us,uk,ca",
+          "synchronizeFields": [],
+          "synchronizeVariantSkus": [],
+          "remark": "2026-05-19 Father's Day/CNA title placement: front_nurse_not_cna",
+          "reason": "??????????CNA ????? Nurse/Appreciation ????? 52374 ??/408 ????? Nurse Appreciation???? CNA?",
+          "original": {
+            "parentTitle": "Huquary 30 Pcs Employee Appreciation Gift Inspirational Keychains Bulk Sometimes You Forget You're Awesome Motivational Gift for Nurse Employee Teacher Nurse Thank You Coworker Volunteers Party Favors",
+            "bulletPoints": [],
+            "productDescription": "",
+            "searchCoreKeywords": "inspirational keychains bulk sometimes you forget you're awesome motivational gifts emergency nurse employee appreciation week coworkers volunteers case management customer service party favors thank women adult staff medical assistant team teacher"
+          },
+          "now": {
+            "parentTitle": "Huquary 30 Pcs Nurse Appreciation Gifts Bulk, Inspirational Motivational Keychains for Employees Teachers Coworkers Volunteers Staff Party Favors",
+            "bulletPoints": [],
+            "productDescription": "",
+            "searchCoreKeywords": "inspirational keychains bulk sometimes you forget you're awesome motivational gifts emergency nurse employee appreciation week coworkers volunteers case management customer service party favors thank women adult staff medical assistant team teacher"
+          },
+          "phraseFrequencyText": "Huquary 30 Pcs Inspirational Keychains Bulk – “you're Awesome” Motivational Gifts for Employee Appreciation, Coworkers, Teachers, Volunteers & Party Favors Appreciation Keychains",
+          "productCompliance": {
+            "productLabel": "非儿童产品",
+            "isChildrenProduct": false,
+            "isNonChildrenProduct": true
+          },
+          "productContext": {
+            "listingTitle": "",
+            "productType": "unknown",
+            "productTypes": [],
+            "targetAudience": [
+              "nurse",
+              "teacher",
+              "women"
+            ],
+            "occasion": [
+              "nurse week",
+              "teacher appreciation",
+              "fiesta",
+              "christian inspirational",
+              "thank you"
+            ],
+            "visualTheme": [
+              "nurse",
+              "teacher",
+              "women",
+              "nurse week",
+              "teacher appreciation",
+              "fiesta",
+              "christian inspirational",
+              "thank you"
+            ],
+            "positioning": "nurse nurse week",
+            "categoryPath": ""
+          },
+          "titleMaxLength": 200,
+          "hypothesis": "??????????CNA ????? Nurse/Appreciation ????? 52374 ??/408 ????? Nurse Appreciation???? CNA?",
+          "expectedEffect": {
+            "sessions": "watch",
+            "conversionRate": "watch",
+            "orders": "watch",
+            "acos": "watch"
+          },
+          "reviewPlan": {
+            "windows": [
+              3,
+              7,
+              14
+            ],
+            "metrics": [
+              "sessions",
+              "clicks",
+              "orders",
+              "conversion",
+              "acos"
+            ]
+          },
+          "riskLevel": "seasonal_title_image_and_traffic_reviewed",
+          "confidence": 0.72,
+          "decisionStage": "ai_approved",
+          "approvedBy": "codex",
+          "actionSource": [
+            "codex"
+          ],
+          "requiresAiDecision": false,
+          "canAutoExecute": true,
+          "source": "father_cna_title_review_2026-05-19"
+        }
+      ]
+    }
+  ]
+}

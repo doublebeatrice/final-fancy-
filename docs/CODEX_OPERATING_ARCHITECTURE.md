@@ -8,7 +8,7 @@ tags:
   - ad-ops
   - architecture
   - obsidian
-updated: 2026-05-19
+updated: 2026-05-21
 ---
 
 # Codex Operating Architecture
@@ -29,6 +29,7 @@ updated: 2026-05-19
 - 季节标题规则：[[SEASONAL_LISTING_COPY_RULES]]
 - 关键词转化率证据：[[SELECTION_KEYWORD_CONVERSION_RATE]]
 - ABA 搜索词证据：[[SELECTION_ABA_SEARCH_TERMS]]
+- 关键词季节性证据：[[SELECTION_KEYWORD_SEASONALITY]]
 
 ## 总体分层
 
@@ -39,7 +40,7 @@ flowchart TD
   C --> B["浏览器与登录态<br/>adv / sellerinventory / selection / debug Chrome"]
   B --> P["探针确认<br/>不能只看页面像已登录"]
   P --> D["数据层<br/>snapshot / sales core / ad rows / inventory / listing / reports"]
-  D --> E["证据层<br/>总盘 KPI / SKU 广告 / ABA / 关键词转化 / 页面与价格 / 库存经济性"]
+  D --> E["证据层<br/>总盘 KPI / SKU 广告 / ABA / 关键词季节性 / 关键词转化 / 页面与价格 / 库存经济性"]
   E --> J["Codex 决策层<br/>判断 action / review / no-action"]
   J --> S["Action schema<br/>approvedBy=codex<br/>decisionStage=ai_approved"]
   S --> R["dry-run 校验<br/>schema / 利润 / 上下文 / 风险门槛"]
@@ -143,6 +144,7 @@ Codex 做判断时按证据强弱分层：
 | listing/价格/评价 | 判断产品承接能力 | 页面弱时优先 page-hold，不自动加花费 |
 | selection 关键词转化 | 市场经济性和词机会 | 只读证据，不能单独触发 spend |
 | selection ABA 搜索词 | 需求、集中度、供需压力 | 高 ABA rank 不能单独创建关键词或提预算 |
+| selection 关键词季节性 | 季节窗口、旺淡季、清货和补货风险 | 只读证据，不能单独触发广告、价格、listing 或库存动作 |
 | 历史 action/learning | 防重复、防震荡、看效果 | cooldown 是防抖，不是持续浪费的保护伞 |
 
 ## 决策边界

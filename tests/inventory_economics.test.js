@@ -6,6 +6,7 @@ const {
   assessLifecycleSeasonStrategy,
   assessInventoryResponsibility,
   assessListingSeasonFit,
+  assessRemovalInventoryEconomics,
   formatInventoryJudgement,
 } = require('../src/inventory_economics');
 
@@ -68,6 +69,63 @@ const {
   assert.strictEqual(strategy.seasonPhase, 'offseason_or_wait');
   assert.strictEqual(strategy.aiDecisionFrame, 'old_offseason_clearance_compare');
   assert.strictEqual(strategy.spendWithoutLearning, true);
+}
+
+{
+  const economics = assessRemovalInventoryEconomics({
+    sku: 'KZ6722',
+    invDays: 180,
+    fulFillable: 120,
+    unitsSold_30d: 3,
+    removalInventoryAddView: {
+      readOnlyValues: [
+        { name: 'profit', value: '3.33' },
+        { name: 'offline_payment_collection', value: '0.33' },
+        { name: 'batch_clearance_payment_collection', value: '0.5' },
+        { name: 'abandoned_collection', value: '-0.84' },
+        { name: 'handle_suggest', value: '降价处理' },
+      ],
+      warnings: ['write_endpoint_detected_but_not_called'],
+    },
+  });
+  assert.strictEqual(economics.status, 'available');
+  assert.strictEqual(economics.bestRecoveryPath, 'current_sale');
+  assert.strictEqual(economics.recommendation, 'discount_or_sell_through');
+  assert.strictEqual(economics.requiredAction, 'discount_or_sell_through_before_removal');
+  assert.strictEqual(economics.shouldSubmitRemoval, false);
+  assert(economics.evidence.some(line => line === 'currentSaleRecoveryUsd=3.33'));
+  assert(economics.evidence.some(line => line.includes('formula.batchClearance')));
+}
+
+{
+  const economics = assessRemovalInventoryEconomics({
+    sku: 'BATCH1',
+    removalEconomics: {
+      currentSaleRecovery: -0.1,
+      offlineServiceProviderRecovery: 0.33,
+      batchClearanceRecovery: 1.25,
+      disposalRecovery: -0.84,
+      handleSuggest: '批量清货',
+    },
+  });
+  assert.strictEqual(economics.bestRecoveryPath, 'batch_clearance');
+  assert.strictEqual(economics.recommendation, 'batch_clearance_candidate');
+  assert.strictEqual(economics.requiredAction, 'review_batch_clearance_plan');
+}
+
+{
+  const economics = assessRemovalInventoryEconomics({
+    sku: 'OFFLINE1',
+    removalEconomics: {
+      profit: -0.2,
+      offline_payment_collection: 1.1,
+      batch_clearance_payment_collection: 0.2,
+      abandoned_collection: -0.6,
+    },
+  });
+  assert.strictEqual(economics.bestRecoveryPath, 'offline_service_provider');
+  assert.strictEqual(economics.recommendation, 'service_provider_candidate');
+  assert.strictEqual(economics.requiredAction, 'review_offline_service_provider');
 }
 
 {

@@ -1,0 +1,43 @@
+{
+  "date": "2026-05-21",
+  "generatedAt": "2026-05-21T07:17:17.175Z",
+  "adjustmentsFile": "D:\\ad-ops-workbench\\data\\adjustments\\adjustments_2026-05-21.json",
+  "summary": {
+    "liveRows": 515,
+    "latestRunId": "ops_2026-05-21T07-14-46-991Z",
+    "latestRunRows": 1,
+    "sameEntityMultiCount": 0,
+    "sameEntityReverseCount": 0,
+    "sameNameReverseDifferentEntityCount": 0,
+    "latestRunMixedSkuCount": 0,
+    "status": "clear"
+  },
+  "sameEntityReverse": [],
+  "sameNameReverseDifferentEntity": [],
+  "latestRunBySku": [
+    {
+      "sku": "AE1101",
+      "count": 1,
+      "up": 1,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "AE1101",
+          "actionType": "bid",
+          "entityType": "manualTarget",
+          "entityId": "464203745974334",
+          "entityName": "asin_coachgifts_ae1101",
+          "beforeValue": 0.44,
+          "afterValue": 0.48,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-21T07-14-46-991Z",
+          "runAt": "2026-05-21T07:14:46.991Z"
+        }
+      ]
+    }
+  ],
+  "decision": "No landed action conflict found."
+}

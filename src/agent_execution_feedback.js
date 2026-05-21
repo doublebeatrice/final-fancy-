@@ -1,4 +1,8 @@
+const fs = require('fs');
+const path = require('path');
 const { normalizeAgentTask, transitionAgentTask } = require('./agent_control_plane');
+
+const ROOT = path.join(__dirname, '..');
 
 function text(value) {
   return String(value ?? '').trim();
@@ -132,6 +136,7 @@ function applyCommandResultToTask(task = {}, rawResult = {}, timeContext = {}) {
   ];
 
   return {
+    ...task,
     ...transitioned,
     history: enrichedHistory,
     artifacts: appendArtifacts(task, result),
@@ -146,8 +151,40 @@ function resultsFromInput(input = {}) {
   return [];
 }
 
+function readJson(file, fallback = null) {
+  try {
+    const raw = fs.readFileSync(path.isAbsolute(file) ? file : path.join(ROOT, file), 'utf8');
+    return JSON.parse(raw.replace(/^\uFEFF/, ''));
+  } catch (error) {
+    return fallback;
+  }
+}
+
+function expandResultsWithOutputReports(results = []) {
+  const expanded = [...results];
+  const seen = new Set(results.map(result => text(result.taskId)).filter(Boolean));
+  for (const result of results) {
+    for (const file of list(result.outputFiles || result.outputFile)) {
+      const parsed = readJson(file, null);
+      if (!parsed || !Array.isArray(parsed.results)) continue;
+      for (const report of parsed.results) {
+        const taskId = text(report.taskId);
+        if (!taskId || seen.has(taskId)) continue;
+        seen.add(taskId);
+        expanded.push({
+          ...result,
+          taskId,
+          report,
+          summary: text(report.nextStep || report.summary || result.summary),
+        });
+      }
+    }
+  }
+  return expanded;
+}
+
 function applyCommandResultsToHub(hub = {}, resultInput = {}, timeContext = {}) {
-  const results = resultsFromInput(resultInput);
+  const results = expandResultsWithOutputReports(resultsFromInput(resultInput));
   const byTaskId = new Map(results.map(result => [text(result.taskId), result]).filter(([taskId]) => taskId));
   let applied = 0;
   const todayQueue = (hub.todayQueue || []).map(task => {
@@ -180,5 +217,6 @@ function applyCommandResultsToHub(hub = {}, resultInput = {}, timeContext = {}) 
 module.exports = {
   applyCommandResultToTask,
   applyCommandResultsToHub,
+  expandResultsWithOutputReports,
   normalizeCommandResult,
 };

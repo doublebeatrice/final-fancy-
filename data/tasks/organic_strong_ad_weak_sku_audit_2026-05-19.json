@@ -1,0 +1,5287 @@
+{
+  "generatedAt": "2026-05-19T13:07:43.722Z",
+  "businessDate": null,
+  "dataDate": null,
+  "snapshotExportedAt": "2026-05-19T10:17:16.465Z",
+  "source": "data\\snapshots\\latest_snapshot.json",
+  "scanRules": {
+    "base": "Amazon.com normal-sale SKUs with 7d units>=3, sessions>=15, conversion>=7%",
+    "A": "organic ratio>=75%, 7d ad orders=0, ad clicks<=5 or spend<3 or impressions<600, inventory and margin support push",
+    "B": "7d units>=10 and ad support far below natural demand; not exactly zero-support pattern",
+    "C": "organic/ad anomaly exists but margin, window, inventory, or volume needs caution",
+    "ad7": "orders/spend from productCards adStats+sbStats; clicks/impressions maxed with explicit 7-day adSkuSummary fields; no fallback to 30-day cost/orders"
+  },
+  "summary": {
+    "checked": 1285,
+    "totalCandidates": 48,
+    "A": 12,
+    "B": 31,
+    "C": 5
+  },
+  "items": [
+    {
+      "bucket": "A_confirmed_same_pattern",
+      "sku": "LAY2384",
+      "asin": "B0DWFPQFFM",
+      "theme": "阵亡将士纪念日(4-5月)",
+      "metrics": {
+        "units7": 23,
+        "units3": 4,
+        "organicUnits7": 23,
+        "organicRatio": 1,
+        "sessions7": 91,
+        "conv7": 27.47,
+        "ad7": {
+          "spend": 0.15,
+          "orders": 0,
+          "clicks": 3,
+          "impressions": 247,
+          "sources": {
+            "productCard": {
+              "spend": 0,
+              "orders": 0,
+              "clicks": 0,
+              "impressions": 0
+            },
+            "adSkuSummary": {
+              "clicks": 3,
+              "impressions": 247,
+              "inferredSpend": 0.15
+            }
+          }
+        },
+        "invDays": 47,
+        "stockTotal": 166,
+        "profitRate": 0.1642,
+        "busyNetProfit": 0.2523,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 7,
+        "enabledCampaigns": 1,
+        "totalBudget": 29,
+        "pausedBudget": 29,
+        "kwTargets": 0,
+        "autoTargets": 0,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=23, estOrganic=23, sessions=91, conv=27.47%",
+        "7d ad orders=0, clicks=3, spend?$0.15, impr=247",
+        "inventoryDays=47, stockTotal=166, profitRate=16.4%, busyNet=25.2%",
+        "structure campaigns=7, enabled=1, budget=$29"
+      ],
+      "campaigns": [
+        {
+          "name": "sbv_american flag bracelets_lay2384",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 26
+        },
+        {
+          "name": "auto_bracelet kit_lay2384",
+          "budget": 2,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw broad_bracelet kit_lay2384",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto2_american flag bracelets_lay2384",
+          "budget": 15,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_american flag bracelets_lay2384",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_american flag bracelets_lay2384",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "asin_american flag bracelets_lay2384",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "live_verify_structure_then_add/raise SP exact+phrase+auto/product-target budget if product fit is current"
+    },
+    {
+      "bucket": "A_confirmed_same_pattern",
+      "sku": "YUT4466",
+      "asin": "B0DX5XVDZJ",
+      "theme": "夏季产品(3-10月)",
+      "metrics": {
+        "units7": 17,
+        "units3": 8,
+        "organicUnits7": 17,
+        "organicRatio": 1,
+        "sessions7": 97,
+        "conv7": 13.4,
+        "ad7": {
+          "spend": 1.92,
+          "orders": 0,
+          "clicks": 7,
+          "impressions": 500,
+          "sources": {
+            "productCard": {
+              "spend": 1.45,
+              "orders": 0,
+              "clicks": 5,
+              "impressions": 420
+            },
+            "adSkuSummary": {
+              "clicks": 7,
+              "impressions": 500,
+              "inferredSpend": 1.92
+            }
+          }
+        },
+        "invDays": 112,
+        "stockTotal": 152,
+        "profitRate": 0.2398,
+        "busyNetProfit": 0.3798,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 5,
+        "enabledCampaigns": 5,
+        "totalBudget": 25.05,
+        "pausedBudget": 0,
+        "kwTargets": 58,
+        "autoTargets": 4,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=17, estOrganic=17, sessions=97, conv=13.4%",
+        "7d ad orders=0, clicks=7, spend?$1.92, impr=500",
+        "inventoryDays=112, stockTotal=152, profitRate=24.0%, busyNet=38.0%",
+        "structure campaigns=5, enabled=5, budget=$25.05"
+      ],
+      "campaigns": [
+        {
+          "name": "pool party decorations for kids birthday-yut4466-system-keyword",
+          "budget": 12,
+          "state": 1,
+          "kw": 43,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_q2 profit yut4466 phrase_yut4466",
+          "budget": 3,
+          "state": 1,
+          "kw": 6,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_q2 profit yut4466 broad_yut4466",
+          "budget": 3,
+          "state": 1,
+          "kw": 6,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "broad_summer_party_supplies_yut4466",
+          "budget": 3,
+          "state": 1,
+          "kw": 7,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "pool party decorations for kids birthday-yut4466-system-a",
+          "budget": 4.05,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "live_verify_structure_then_add/raise SP exact+phrase+auto/product-target budget if product fit is current"
+    },
+    {
+      "bucket": "A_confirmed_same_pattern",
+      "sku": "SEV0979",
+      "asin": "B0BWJ8N8DT",
+      "theme": "夏季产品(平时可卖)",
+      "metrics": {
+        "units7": 13,
+        "units3": 5,
+        "organicUnits7": 13,
+        "organicRatio": 1,
+        "sessions7": 107,
+        "conv7": 9.35,
+        "ad7": {
+          "spend": 0.64,
+          "orders": 0,
+          "clicks": 13,
+          "impressions": 7828,
+          "sources": {
+            "productCard": {
+              "spend": 0.54,
+              "orders": 0,
+              "clicks": 11,
+              "impressions": 7112
+            },
+            "adSkuSummary": {
+              "clicks": 13,
+              "impressions": 7828,
+              "inferredSpend": 0.64
+            }
+          }
+        },
+        "invDays": 102,
+        "stockTotal": 217,
+        "profitRate": 0.1782,
+        "busyNetProfit": 0.2994,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 8,
+        "enabledCampaigns": 1,
+        "totalBudget": 36.27,
+        "pausedBudget": 28,
+        "kwTargets": 0,
+        "autoTargets": 2,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=13, estOrganic=13, sessions=107, conv=9.35%",
+        "7d ad orders=0, clicks=13, spend?$0.64, impr=7828",
+        "inventoryDays=102, stockTotal=217, profitRate=17.8%, busyNet=29.9%",
+        "structure campaigns=8, enabled=1, budget=$36.27"
+      ],
+      "campaigns": [
+        {
+          "name": "auto_bee baby shower_sev0979",
+          "budget": 8.27,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_bee baby shower_sev0979",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "baby shower cards sev0979-a3",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "baby shower cards sev0979-cs",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_bee baby shower_sev0979",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "baby shower cards sev0979-pt2",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "baby shower cards sev0979-system",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "baby shower cards sev0979-2",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "live_verify_structure_then_add/raise SP exact+phrase+auto/product-target budget if product fit is current"
+    },
+    {
+      "bucket": "A_confirmed_same_pattern",
+      "sku": "SII0421",
+      "asin": "B0D2DHVJFZ",
+      "theme": "夏季产品(平时可卖)",
+      "metrics": {
+        "units7": 9,
+        "units3": 4,
+        "organicUnits7": 9,
+        "organicRatio": 1,
+        "sessions7": 100,
+        "conv7": 9,
+        "ad7": {
+          "spend": 0.92,
+          "orders": 0,
+          "clicks": 12,
+          "impressions": 1035,
+          "sources": {
+            "productCard": {
+              "spend": 0.66,
+              "orders": 0,
+              "clicks": 9,
+              "impressions": 769
+            },
+            "adSkuSummary": {
+              "clicks": 12,
+              "impressions": 1035,
+              "inferredSpend": 0.92
+            }
+          }
+        },
+        "invDays": 61,
+        "stockTotal": 116,
+        "profitRate": 0.2595,
+        "busyNetProfit": 0.3197,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 6,
+        "enabledCampaigns": 2,
+        "totalBudget": 19.56,
+        "pausedBudget": 12,
+        "kwTargets": 0,
+        "autoTargets": 6,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=9, estOrganic=9, sessions=100, conv=9%",
+        "7d ad orders=0, clicks=12, spend?$0.92, impr=1035",
+        "inventoryDays=61, stockTotal=116, profitRate=25.9%, busyNet=32.0%",
+        "structure campaigns=6, enabled=2, budget=$19.56"
+      ],
+      "campaigns": [
+        {
+          "name": "auto_bridal shower game_sii0421",
+          "budget": 2,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin expanded_bridal shower game_sii0421",
+          "budget": 5.56,
+          "state": 1,
+          "kw": 0,
+          "auto": 5,
+          "sb": 0
+        },
+        {
+          "name": "kw broad_bridal shower game_sii0421",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "bridal shower cards-sii0421-cs",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "bridal shower cards-sii0421-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "bridal shower game sii0421-pt",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "live_verify_structure_then_add/raise SP exact+phrase+auto/product-target budget if product fit is current"
+    },
+    {
+      "bucket": "A_confirmed_same_pattern",
+      "sku": "UAN3257",
+      "asin": "B0D25ZY7LC",
+      "theme": "秋季返校季/开学季(平时可卖)",
+      "metrics": {
+        "units7": 9,
+        "units3": 4,
+        "organicUnits7": 9,
+        "organicRatio": 1,
+        "sessions7": 79,
+        "conv7": 10.13,
+        "ad7": {
+          "spend": 1.49,
+          "orders": 0,
+          "clicks": 7,
+          "impressions": 602,
+          "sources": {
+            "productCard": {
+              "spend": 1.19,
+              "orders": 0,
+              "clicks": 6,
+              "impressions": 384
+            },
+            "adSkuSummary": {
+              "clicks": 7,
+              "impressions": 602,
+              "inferredSpend": 1.49
+            }
+          }
+        },
+        "invDays": 33,
+        "stockTotal": 139,
+        "profitRate": 0.0456,
+        "busyNetProfit": 0.2744,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 12,
+        "enabledCampaigns": 5,
+        "totalBudget": 44.4,
+        "pausedBudget": 21,
+        "kwTargets": 8,
+        "autoTargets": 14,
+        "sbTargets": 3
+      },
+      "evidence": [
+        "7d units=9, estOrganic=9, sessions=79, conv=10.13%",
+        "7d ad orders=0, clicks=7, spend?$1.49, impr=602",
+        "inventoryDays=33, stockTotal=139, profitRate=4.6%, busyNet=27.4%",
+        "structure campaigns=12, enabled=5, budget=$44.4"
+      ],
+      "campaigns": [
+        {
+          "name": "b2b kw broad_mini journals bulk_uan3257",
+          "budget": 3,
+          "state": 1,
+          "kw": 8,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "journals in bulk-uan3257-system-a",
+          "budget": 14.4,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "b2b auto_mini journals bulk_uan3257",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_expand_inspirational_journal_uan3257",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 8,
+          "sb": 0
+        },
+        {
+          "name": "sbvkw_multicolor notebooks_uan3257",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 18
+        },
+        {
+          "name": "journals in bulk-uan3257",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "journals in bulk-uan3257-2",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_phrase_inspirational_journal_uan3257",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "live_verify_structure_then_add/raise SP exact+phrase+auto/product-target budget if product fit is current"
+    },
+    {
+      "bucket": "A_confirmed_same_pattern",
+      "sku": "MED1970",
+      "asin": "B0FJB9LC2X",
+      "theme": "常规产品",
+      "metrics": {
+        "units7": 9,
+        "units3": 3,
+        "organicUnits7": 9,
+        "organicRatio": 1,
+        "sessions7": 49,
+        "conv7": 14.29,
+        "ad7": {
+          "spend": 0.23,
+          "orders": 0,
+          "clicks": 4,
+          "impressions": 249,
+          "sources": {
+            "productCard": {
+              "spend": 0,
+              "orders": 0,
+              "clicks": 0,
+              "impressions": 63
+            },
+            "adSkuSummary": {
+              "clicks": 4,
+              "impressions": 249,
+              "inferredSpend": 0.23
+            }
+          }
+        },
+        "invDays": 54,
+        "stockTotal": 75,
+        "profitRate": 0.1077,
+        "busyNetProfit": 0.2126,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 4,
+        "enabledCampaigns": 1,
+        "totalBudget": 38,
+        "pausedBudget": 38,
+        "kwTargets": 0,
+        "autoTargets": 0,
+        "sbTargets": 3
+      },
+      "evidence": [
+        "7d units=9, estOrganic=9, sessions=49, conv=14.29%",
+        "7d ad orders=0, clicks=4, spend?$0.23, impr=249",
+        "inventoryDays=54, stockTotal=75, profitRate=10.8%, busyNet=21.3%",
+        "structure campaigns=4, enabled=1, budget=$38"
+      ],
+      "campaigns": [
+        {
+          "name": "sbvkw_hotel steam table pans_med1970",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 6
+        },
+        {
+          "name": "asin_hotel steam table pans_med1970",
+          "budget": 15,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_hotel steam table pans_med1970",
+          "budget": 20,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_hotel steam table pans_med1970",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "live_verify_structure_then_add/raise SP exact+phrase+auto/product-target budget if product fit is current"
+    },
+    {
+      "bucket": "A_confirmed_same_pattern",
+      "sku": "EU0867",
+      "asin": "B0CNW5WV9P",
+      "theme": "万圣节(平时可卖)",
+      "metrics": {
+        "units7": 7,
+        "units3": 3,
+        "organicUnits7": 7,
+        "organicRatio": 1,
+        "sessions7": 18,
+        "conv7": 38.89,
+        "ad7": {
+          "spend": 1.66,
+          "orders": 0,
+          "clicks": 8,
+          "impressions": 2006,
+          "sources": {
+            "productCard": {
+              "spend": 1.2000000000000002,
+              "orders": 0,
+              "clicks": 6,
+              "impressions": 1737
+            },
+            "adSkuSummary": {
+              "clicks": 8,
+              "impressions": 2006,
+              "inferredSpend": 1.66
+            }
+          }
+        },
+        "invDays": 55,
+        "stockTotal": 82,
+        "profitRate": 0.2125,
+        "busyNetProfit": 0.2495,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 11,
+        "enabledCampaigns": 4,
+        "totalBudget": 37.1,
+        "pausedBudget": 26,
+        "kwTargets": 4,
+        "autoTargets": 5,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=7, estOrganic=7, sessions=18, conv=38.89%",
+        "7d ad orders=0, clicks=8, spend?$1.66, impr=2006",
+        "inventoryDays=55, stockTotal=82, profitRate=21.3%, busyNet=24.9%",
+        "structure campaigns=11, enabled=4, budget=$37.1"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_q2 profit eu0867 broad_eu0867",
+          "budget": 3,
+          "state": 1,
+          "kw": 3,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_q2 profit eu0867 phrase_eu0867",
+          "budget": 0,
+          "state": 1,
+          "kw": 1,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_q2 profit eu0867 auto_eu0867",
+          "budget": 4.05,
+          "state": 1,
+          "kw": 0,
+          "auto": 3,
+          "sb": 0
+        },
+        {
+          "name": "auto_opossum stuffed animal_eu0867",
+          "budget": 4.05,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "kw_opossum stuffed animal_eu0867",
+          "budget": 8,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "plush possum eu0867-pt",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "plush possum eu0867-a 0.2",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "plush possum eu0867-pt2",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "live_verify_structure_then_add/raise SP exact+phrase+auto/product-target budget if product fit is current"
+    },
+    {
+      "bucket": "A_confirmed_same_pattern",
+      "sku": "GT3811",
+      "asin": "B0CYPQPKZJ",
+      "theme": "常规产品",
+      "metrics": {
+        "units7": 6,
+        "units3": 1,
+        "organicUnits7": 6,
+        "organicRatio": 1,
+        "sessions7": 56,
+        "conv7": 10.71,
+        "ad7": {
+          "spend": 2.87,
+          "orders": 0,
+          "clicks": 9,
+          "impressions": 1730,
+          "sources": {
+            "productCard": {
+              "spend": 2.45,
+              "orders": 0,
+              "clicks": 8,
+              "impressions": 1432
+            },
+            "adSkuSummary": {
+              "clicks": 9,
+              "impressions": 1730,
+              "inferredSpend": 2.87
+            }
+          }
+        },
+        "invDays": 63,
+        "stockTotal": 107,
+        "profitRate": 0.2985,
+        "busyNetProfit": 0.2576,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 7,
+        "enabledCampaigns": 2,
+        "totalBudget": 37,
+        "pausedBudget": 22,
+        "kwTargets": 0,
+        "autoTargets": 5,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=6, estOrganic=6, sessions=56, conv=10.71%",
+        "7d ad orders=0, clicks=9, spend?$2.87, impr=1730",
+        "inventoryDays=63, stockTotal=107, profitRate=29.8%, busyNet=25.8%",
+        "structure campaigns=7, enabled=2, budget=$37"
+      ],
+      "campaigns": [
+        {
+          "name": "auto_yellow funeral ribbons_gt3811",
+          "budget": 5,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "pin me cheer ribbon-gt3811-system-a",
+          "budget": 10,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "pin me cheer ribbon-gt3811-cs",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "pin me cheer ribbon-gt3811-pt",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_yellow funeral ribbons_gt3811",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "pin me cheer ribbon-gt3811-system-keyword",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "pin me cheer ribbon-gt3811-a2",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "live_verify_structure_then_add/raise SP exact+phrase+auto/product-target budget if product fit is current"
+    },
+    {
+      "bucket": "A_confirmed_same_pattern",
+      "sku": "BOY3381",
+      "asin": "B0F6711T8J",
+      "theme": "夏季Party类产品(平时可卖)",
+      "metrics": {
+        "units7": 6,
+        "units3": 1,
+        "organicUnits7": 6,
+        "organicRatio": 1,
+        "sessions7": 42,
+        "conv7": 14.29,
+        "ad7": {
+          "spend": 1.53,
+          "orders": 0,
+          "clicks": 19,
+          "impressions": 1310,
+          "sources": {
+            "productCard": {
+              "spend": 1.26,
+              "orders": 0,
+              "clicks": 16,
+              "impressions": 1160
+            },
+            "adSkuSummary": {
+              "clicks": 19,
+              "impressions": 1310,
+              "inferredSpend": 1.53
+            }
+          }
+        },
+        "invDays": 32,
+        "stockTotal": 82,
+        "profitRate": 0.0353,
+        "busyNetProfit": 0.1637,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 4,
+        "enabledCampaigns": 2,
+        "totalBudget": 15.81,
+        "pausedBudget": 6,
+        "kwTargets": 0,
+        "autoTargets": 2,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=6, estOrganic=6, sessions=42, conv=14.29%",
+        "7d ad orders=0, clicks=19, spend?$1.53, impr=1310",
+        "inventoryDays=32, stockTotal=82, profitRate=3.5%, busyNet=16.4%",
+        "structure campaigns=4, enabled=2, budget=$15.81"
+      ],
+      "campaigns": [
+        {
+          "name": "auto_baby shower party orange_boy3381",
+          "budget": 5.56,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "kw_babyshowerbags_boy3171",
+          "budget": 4.25,
+          "state": 1,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_baby shower party orange_boy3381",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "20250618-boy3381-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "live_verify_structure_then_add/raise SP exact+phrase+auto/product-target budget if product fit is current"
+    },
+    {
+      "bucket": "A_confirmed_same_pattern",
+      "sku": "YUT3184",
+      "asin": "B0D3PQSZP2",
+      "theme": "夏季产品(平时可卖)",
+      "metrics": {
+        "units7": 6,
+        "units3": 3,
+        "organicUnits7": 6,
+        "organicRatio": 1,
+        "sessions7": 20,
+        "conv7": 15,
+        "ad7": {
+          "spend": 0,
+          "orders": 0,
+          "clicks": 0,
+          "impressions": 0,
+          "sources": {
+            "productCard": {
+              "spend": 0,
+              "orders": 0,
+              "clicks": 0,
+              "impressions": 0
+            },
+            "adSkuSummary": {
+              "clicks": 0,
+              "impressions": 0,
+              "inferredSpend": 0
+            }
+          }
+        },
+        "invDays": 64,
+        "stockTotal": 95,
+        "profitRate": 0.069,
+        "busyNetProfit": 0.2764,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 4,
+        "enabledCampaigns": 0,
+        "totalBudget": 12,
+        "pausedBudget": 12,
+        "kwTargets": 0,
+        "autoTargets": 0,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=6, estOrganic=6, sessions=20, conv=15%",
+        "7d ad orders=0, clicks=0, spend?$0.00, impr=0",
+        "inventoryDays=64, stockTotal=95, profitRate=6.9%, busyNet=27.6%",
+        "structure campaigns=4, enabled=0, budget=$12"
+      ],
+      "campaigns": [
+        {
+          "name": "asin _soccer ball_yut3184",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_soccer ball_yut3184",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw broad_soccer ball_yut3184",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "soccer balls-yut3184-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "live_verify_structure_then_add/raise SP exact+phrase+auto/product-target budget if product fit is current"
+    },
+    {
+      "bucket": "A_confirmed_same_pattern",
+      "sku": "NAY0963",
+      "asin": "B0DLWFLBDJ",
+      "theme": "婚礼季(平时可卖)",
+      "metrics": {
+        "units7": 5,
+        "units3": 2,
+        "organicUnits7": 5,
+        "organicRatio": 1,
+        "sessions7": 46,
+        "conv7": 13.04,
+        "ad7": {
+          "spend": 0.52,
+          "orders": 0,
+          "clicks": 3,
+          "impressions": 194,
+          "sources": {
+            "productCard": {
+              "spend": 0.39,
+              "orders": 0,
+              "clicks": 2,
+              "impressions": 154
+            },
+            "adSkuSummary": {
+              "clicks": 3,
+              "impressions": 194,
+              "inferredSpend": 0.52
+            }
+          }
+        },
+        "invDays": 45,
+        "stockTotal": 132,
+        "profitRate": 0.1311,
+        "busyNetProfit": 0.2586,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 4,
+        "enabledCampaigns": 3,
+        "totalBudget": 19,
+        "pausedBudget": 10,
+        "kwTargets": 4,
+        "autoTargets": 3,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=5, estOrganic=5, sessions=46, conv=13.04%",
+        "7d ad orders=0, clicks=3, spend?$0.52, impr=194",
+        "inventoryDays=45, stockTotal=132, profitRate=13.1%, busyNet=25.9%",
+        "structure campaigns=4, enabled=3, budget=$19"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_ballpoint pen_nay0963",
+          "budget": 3,
+          "state": 1,
+          "kw": 9,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_ballpoint pen_nay0963",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_ballpoint pen_nay0963",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 11,
+          "sb": 0
+        },
+        {
+          "name": "ballpoint pen-nay0963-system-keyword",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "live_verify_structure_then_add/raise SP exact+phrase+auto/product-target budget if product fit is current"
+    },
+    {
+      "bucket": "A_confirmed_same_pattern",
+      "sku": "QA4103",
+      "asin": "B0FF9F1HRK",
+      "theme": "夏季Party类产品(3-10月)",
+      "metrics": {
+        "units7": 4,
+        "units3": 2,
+        "organicUnits7": 4,
+        "organicRatio": 1,
+        "sessions7": 21,
+        "conv7": 14.29,
+        "ad7": {
+          "spend": 2.1,
+          "orders": 0,
+          "clicks": 7,
+          "impressions": 1734,
+          "sources": {
+            "productCard": {
+              "spend": 1.73,
+              "orders": 0,
+              "clicks": 5,
+              "impressions": 1351
+            },
+            "adSkuSummary": {
+              "clicks": 7,
+              "impressions": 1734,
+              "inferredSpend": 2.1
+            }
+          }
+        },
+        "invDays": 66,
+        "stockTotal": 60,
+        "profitRate": 0.2449,
+        "busyNetProfit": 0.2393,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 4,
+        "enabledCampaigns": 3,
+        "totalBudget": 14.47,
+        "pausedBudget": 3,
+        "kwTargets": 11,
+        "autoTargets": 11,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=4, estOrganic=4, sessions=21, conv=14.29%",
+        "7d ad orders=0, clicks=7, spend?$2.10, impr=1734",
+        "inventoryDays=66, stockTotal=60, profitRate=24.5%, busyNet=23.9%",
+        "structure campaigns=4, enabled=3, budget=$14.47"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_death to my 30s_qa4103",
+          "budget": 5.47,
+          "state": 1,
+          "kw": 17,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_death to my 30s_qa4103",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_death to my 30s_qa4103",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 7,
+          "sb": 0
+        },
+        {
+          "name": "death to my 20s decorations-qa4103-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "live_verify_structure_then_add/raise SP exact+phrase+auto/product-target budget if product fit is current"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "XIX0903",
+      "asin": "B0DN6PMH1D",
+      "theme": "夏季Party类产品(平时可卖)",
+      "metrics": {
+        "units7": 93,
+        "units3": 32,
+        "organicUnits7": 81,
+        "organicRatio": 0.87,
+        "sessions7": 585,
+        "conv7": 14.36,
+        "ad7": {
+          "spend": 81.75,
+          "orders": 12,
+          "clicks": 269,
+          "impressions": 115362,
+          "sources": {
+            "productCard": {
+              "spend": 49,
+              "orders": 12,
+              "clicks": 138,
+              "impressions": 25895
+            },
+            "adSkuSummary": {
+              "clicks": 269,
+              "impressions": 115362,
+              "inferredSpend": 81.75
+            }
+          }
+        },
+        "invDays": 49,
+        "stockTotal": 928,
+        "profitRate": 0.2308,
+        "busyNetProfit": 0.2357,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 8,
+        "enabledCampaigns": 8,
+        "totalBudget": 71.45,
+        "pausedBudget": 0,
+        "kwTargets": 16,
+        "autoTargets": 32,
+        "sbTargets": 20
+      },
+      "evidence": [
+        "7d units=93, estOrganic=81, sessions=585, conv=14.36%",
+        "7d ad orders=12, clicks=269, spend?$81.75, impr=115362",
+        "inventoryDays=49, stockTotal=928, profitRate=23.1%, busyNet=23.6%",
+        "structure campaigns=8, enabled=8, budget=$71.45"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_letterstencils_xix0903",
+          "budget": 3,
+          "state": 1,
+          "kw": 10,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw business_letterstencils_xix0903",
+          "budget": 3,
+          "state": 1,
+          "kw": 5,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw2_letterstencils_xix0903",
+          "budget": 3,
+          "state": 1,
+          "kw": 7,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_letterstencils_xix0903",
+          "budget": 28.8,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto business_letterstencils_xix0903",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin exact_letterstencils_xix0903",
+          "budget": 27.65,
+          "state": 1,
+          "kw": 0,
+          "auto": 16,
+          "sb": 0
+        },
+        {
+          "name": "asin board_letterstencils_xix0903",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 14,
+          "sb": 0
+        },
+        {
+          "name": "sbv_letterstencils_xix0903",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 38
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "SE5608",
+      "asin": "B09VPGDT93",
+      "theme": "常规产品",
+      "metrics": {
+        "units7": 83,
+        "units3": 28,
+        "organicUnits7": 63,
+        "organicRatio": 0.76,
+        "sessions7": 317,
+        "conv7": 23.66,
+        "ad7": {
+          "spend": 73.2,
+          "orders": 20,
+          "clicks": 211,
+          "impressions": 20799,
+          "sources": {
+            "productCard": {
+              "spend": 63.98,
+              "orders": 20,
+              "clicks": 184,
+              "impressions": 17508
+            },
+            "adSkuSummary": {
+              "clicks": 211,
+              "impressions": 20799,
+              "inferredSpend": 73.2
+            }
+          }
+        },
+        "invDays": 25,
+        "stockTotal": 568,
+        "profitRate": 0.3457,
+        "busyNetProfit": 0.2575,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 15,
+        "enabledCampaigns": 7,
+        "totalBudget": 177.72,
+        "pausedBudget": 92,
+        "kwTargets": 28,
+        "autoTargets": 17,
+        "sbTargets": 4
+      },
+      "evidence": [
+        "7d units=83, estOrganic=63, sessions=317, conv=23.66%",
+        "7d ad orders=20, clicks=211, spend?$73.20, impr=20799",
+        "inventoryDays=25, stockTotal=568, profitRate=34.6%, busyNet=25.8%",
+        "structure campaigns=15, enabled=7, budget=$177.72"
+      ],
+      "campaigns": [
+        {
+          "name": "bear shirts se5608-down only-placement",
+          "budget": 24.89,
+          "state": 1,
+          "kw": 36,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw2_bear clothes basic_se5608",
+          "budget": 3,
+          "state": 1,
+          "kw": 5,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto2_bear clothes basic_se5608",
+          "budget": 25.92,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "autob2b_bear clothes basic_se5608",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "bear shirts se5608-pt",
+          "budget": 13.91,
+          "state": 1,
+          "kw": 0,
+          "auto": 28,
+          "sb": 0
+        },
+        {
+          "name": "asin_bear clothes basic_se5608",
+          "budget": 15,
+          "state": 1,
+          "kw": 0,
+          "auto": 6,
+          "sb": 0
+        },
+        {
+          "name": "sbvasin_bear clothes basic_se5608",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 8
+        },
+        {
+          "name": "bear shirts se5608-category",
+          "budget": 5,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "QQ1764",
+      "asin": "B0C1NF986W",
+      "theme": "同志节(平时可卖)",
+      "metrics": {
+        "units7": 45,
+        "units3": 18,
+        "organicUnits7": 36,
+        "organicRatio": 0.8,
+        "sessions7": 102,
+        "conv7": 33.33,
+        "ad7": {
+          "spend": 18.22,
+          "orders": 9,
+          "clicks": 41,
+          "impressions": 5691,
+          "sources": {
+            "productCard": {
+              "spend": 16.509999999999998,
+              "orders": 9,
+              "clicks": 37,
+              "impressions": 4368
+            },
+            "adSkuSummary": {
+              "clicks": 41,
+              "impressions": 5691,
+              "inferredSpend": 18.22
+            }
+          }
+        },
+        "invDays": 204,
+        "stockTotal": 979,
+        "profitRate": 0.0869,
+        "busyNetProfit": 0.1057,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 15,
+        "enabledCampaigns": 11,
+        "totalBudget": 67.5,
+        "pausedBudget": 33,
+        "kwTargets": 23,
+        "autoTargets": 19,
+        "sbTargets": 36
+      },
+      "evidence": [
+        "7d units=45, estOrganic=36, sessions=102, conv=33.33%",
+        "7d ad orders=9, clicks=41, spend?$18.22, impr=5691",
+        "inventoryDays=204, stockTotal=979, profitRate=8.7%, busyNet=10.6%",
+        "structure campaigns=15, enabled=11, budget=$67.5"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_rainbow table cloths_qq1764",
+          "budget": 6,
+          "state": 1,
+          "kw": 24,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_q2 profit qq1764 phrase_qq1764",
+          "budget": 3,
+          "state": 1,
+          "kw": 7,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_q2 profit qq1764 broad_qq1764",
+          "budget": 3,
+          "state": 1,
+          "kw": 7,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw b2b_rainbow table cloths_qq1764_phrase",
+          "budget": 0,
+          "state": 1,
+          "kw": 4,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "qq1764_colorful_tablecloth_exact_20260518",
+          "budget": 3,
+          "state": 1,
+          "kw": 1,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_rainbow table cloths_qq1764",
+          "budget": 13.5,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto b2b_rainbow table cloths_qq1764",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_rainbow table cloths_qq1764",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 11,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "WAR1276",
+      "asin": "B0DTK9P63Q",
+      "theme": "夏季Party类产品(平时可卖)",
+      "metrics": {
+        "units7": 34,
+        "units3": 13,
+        "organicUnits7": 30,
+        "organicRatio": 0.88,
+        "sessions7": 365,
+        "conv7": 7.4,
+        "ad7": {
+          "spend": 32.56,
+          "orders": 4,
+          "clicks": 127,
+          "impressions": 27292,
+          "sources": {
+            "productCard": {
+              "spend": 25.139999999999997,
+              "orders": 4,
+              "clicks": 98,
+              "impressions": 25521
+            },
+            "adSkuSummary": {
+              "clicks": 127,
+              "impressions": 27292,
+              "inferredSpend": 32.56
+            }
+          }
+        },
+        "invDays": 34,
+        "stockTotal": 515,
+        "profitRate": 0.1446,
+        "busyNetProfit": 0.2143,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 5,
+        "enabledCampaigns": 5,
+        "totalBudget": 52.1,
+        "pausedBudget": 0,
+        "kwTargets": 4,
+        "autoTargets": 15,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=34, estOrganic=30, sessions=365, conv=7.4%",
+        "7d ad orders=4, clicks=127, spend?$32.56, impr=27292",
+        "inventoryDays=34, stockTotal=515, profitRate=14.5%, busyNet=21.4%",
+        "structure campaigns=5, enabled=5, budget=$52.1"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_rainbow party-war1276",
+          "budget": 3,
+          "state": 1,
+          "kw": 10,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_rainbow party-war1276",
+          "budget": 40.66,
+          "state": 1,
+          "kw": 0,
+          "auto": 8,
+          "sb": 0
+        },
+        {
+          "name": "autob2b_rainbow party-war1276",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_rainbow party-war1276",
+          "budget": 5.44,
+          "state": 1,
+          "kw": 0,
+          "auto": 10,
+          "sb": 0
+        },
+        {
+          "name": "sbv2_rainbow party-war1276",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 17
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "SAN0149",
+      "asin": "B0B8HH4JMS",
+      "theme": "万圣节(平时可卖)",
+      "metrics": {
+        "units7": 33,
+        "units3": 15,
+        "organicUnits7": 27,
+        "organicRatio": 0.82,
+        "sessions7": 171,
+        "conv7": 13.45,
+        "ad7": {
+          "spend": 16.38,
+          "orders": 6,
+          "clicks": 61,
+          "impressions": 6632,
+          "sources": {
+            "productCard": {
+              "spend": 14.08,
+              "orders": 6,
+              "clicks": 51,
+              "impressions": 5459
+            },
+            "adSkuSummary": {
+              "clicks": 61,
+              "impressions": 6632,
+              "inferredSpend": 16.38
+            }
+          }
+        },
+        "invDays": 29,
+        "stockTotal": 326,
+        "profitRate": -0.2213,
+        "busyNetProfit": 0.2056,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 7,
+        "enabledCampaigns": 1,
+        "totalBudget": 90.36,
+        "pausedBudget": 51,
+        "kwTargets": 0,
+        "autoTargets": 3,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=33, estOrganic=27, sessions=171, conv=13.45%",
+        "7d ad orders=6, clicks=61, spend?$16.38, impr=6632",
+        "inventoryDays=29, stockTotal=326, profitRate=-22.1%, busyNet=20.6%",
+        "structure campaigns=7, enabled=1, budget=$90.36"
+      ],
+      "campaigns": [
+        {
+          "name": "bandana san0149-a",
+          "budget": 39.36,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "kw_cowboy hat _san0149",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_cowboy hat _san0149",
+          "budget": 6,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "bandana san0149",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto-CustomerTerm-san0149-system-pt",
+          "budget": 5,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "bandana san0149-a2",
+          "budget": 12,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "bandana san0149-ud",
+          "budget": 15,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "QA0828",
+      "asin": "B0B8NG2YW8",
+      "theme": "万圣节(平时可卖)",
+      "metrics": {
+        "units7": 33,
+        "units3": 13,
+        "organicUnits7": 27,
+        "organicRatio": 0.82,
+        "sessions7": 118,
+        "conv7": 23.73,
+        "ad7": {
+          "spend": 29.73,
+          "orders": 6,
+          "clicks": 55,
+          "impressions": 5757,
+          "sources": {
+            "productCard": {
+              "spend": 24.990000000000002,
+              "orders": 6,
+              "clicks": 45,
+              "impressions": 3919
+            },
+            "adSkuSummary": {
+              "clicks": 55,
+              "impressions": 5757,
+              "inferredSpend": 29.73
+            }
+          }
+        },
+        "invDays": 68,
+        "stockTotal": 386,
+        "profitRate": 0.2889,
+        "busyNetProfit": 0.204,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 16,
+        "enabledCampaigns": 6,
+        "totalBudget": 65.6,
+        "pausedBudget": 47.9,
+        "kwTargets": 109,
+        "autoTargets": 4,
+        "sbTargets": 18
+      },
+      "evidence": [
+        "7d units=33, estOrganic=27, sessions=118, conv=23.73%",
+        "7d ad orders=6, clicks=55, spend?$29.73, impr=5757",
+        "inventoryDays=68, stockTotal=386, profitRate=28.9%, busyNet=20.4%",
+        "structure campaigns=16, enabled=6, budget=$65.6"
+      ],
+      "campaigns": [
+        {
+          "name": "kw2_death to my 20s decorations_qa0828",
+          "budget": 3.5,
+          "state": 1,
+          "kw": 82,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "death to my 20s decorations qa0828-system",
+          "budget": 8.2,
+          "state": 1,
+          "kw": 66,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_death to my 20s decorations_qa0828",
+          "budget": 3,
+          "state": 1,
+          "kw": 12,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_death to my 20s decorations_qa0828",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "death to my 20s decorations qa0828-sbv-s-old",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 32
+        },
+        {
+          "name": "sbvasin_death to my 20s decorations_qa0828",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 11
+        },
+        {
+          "name": "death to my 20s decorations qa0828-pt2",
+          "budget": 6.9,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "death to my 20s decorations qa08280-cs",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "DN1656",
+      "asin": "B0CBM3H9QS",
+      "theme": "夏季产品(平时可卖)",
+      "metrics": {
+        "units7": 30,
+        "units3": 7,
+        "organicUnits7": 28,
+        "organicRatio": 0.93,
+        "sessions7": 332,
+        "conv7": 10.24,
+        "ad7": {
+          "spend": 24.63,
+          "orders": 2,
+          "clicks": 38,
+          "impressions": 12180,
+          "sources": {
+            "productCard": {
+              "spend": 18.25,
+              "orders": 2,
+              "clicks": 29,
+              "impressions": 9499
+            },
+            "adSkuSummary": {
+              "clicks": 38,
+              "impressions": 12180,
+              "inferredSpend": 24.63
+            }
+          }
+        },
+        "invDays": 27,
+        "stockTotal": 239,
+        "profitRate": -0.2513,
+        "busyNetProfit": 0.2406,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 9,
+        "enabledCampaigns": 5,
+        "totalBudget": 72.65,
+        "pausedBudget": 32,
+        "kwTargets": 17,
+        "autoTargets": 7,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=30, estOrganic=28, sessions=332, conv=10.24%",
+        "7d ad orders=2, clicks=38, spend?$24.63, impr=12180",
+        "inventoryDays=27, stockTotal=239, profitRate=-25.1%, busyNet=24.1%",
+        "structure campaigns=9, enabled=5, budget=$72.65"
+      ],
+      "campaigns": [
+        {
+          "name": "galvanized flower bucket dn1656",
+          "budget": 24.6,
+          "state": 1,
+          "kw": 9,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_galvanized flower bucket_dn1656",
+          "budget": 3,
+          "state": 1,
+          "kw": 4,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_may push dn1656 phrase_dn1656",
+          "budget": 6,
+          "state": 1,
+          "kw": 8,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "white galvanized flower bucket dn1656-system-a",
+          "budget": 4.05,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto_galvanized flower bucket_dn1656",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto_may push dn1656 auto_dn1656",
+          "budget": 6,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "galvanized flower bucket dn1656-ud",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "galvanized flower bucket dn1656-a ud",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "SE6685",
+      "asin": "B0F2N99L63",
+      "theme": "常规产品",
+      "metrics": {
+        "units7": 29,
+        "units3": 12,
+        "organicUnits7": 24,
+        "organicRatio": 0.83,
+        "sessions7": 190,
+        "conv7": 15.26,
+        "ad7": {
+          "spend": 31.46,
+          "orders": 5,
+          "clicks": 152,
+          "impressions": 70148,
+          "sources": {
+            "productCard": {
+              "spend": 21.47,
+              "orders": 5,
+              "clicks": 93,
+              "impressions": 10922
+            },
+            "adSkuSummary": {
+              "clicks": 152,
+              "impressions": 70148,
+              "inferredSpend": 31.46
+            }
+          }
+        },
+        "invDays": 59,
+        "stockTotal": 201,
+        "profitRate": 0.307,
+        "busyNetProfit": 0.2035,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 6,
+        "enabledCampaigns": 5,
+        "totalBudget": 76.06,
+        "pausedBudget": 15,
+        "kwTargets": 4,
+        "autoTargets": 5,
+        "sbTargets": 5
+      },
+      "evidence": [
+        "7d units=29, estOrganic=24, sessions=190, conv=15.26%",
+        "7d ad orders=5, clicks=152, spend?$31.46, impr=70148",
+        "inventoryDays=59, stockTotal=201, profitRate=30.7%, busyNet=20.3%",
+        "structure campaigns=6, enabled=5, budget=$76.06"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_q2 profit se6685 broad_se6685",
+          "budget": 3,
+          "state": 1,
+          "kw": 3,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_q2 profit se6685 phrase_se6685",
+          "budget": 0,
+          "state": 1,
+          "kw": 1,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_bear clothes basic_se6685",
+          "budget": 37.32,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_bear clothes basic_se6685",
+          "budget": 20.74,
+          "state": 1,
+          "kw": 0,
+          "auto": 5,
+          "sb": 0
+        },
+        {
+          "name": "sbvkw_bear clothes basic_se6685",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 7
+        },
+        {
+          "name": "kw_bear clothes basic_se5608",
+          "budget": 15,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "SE5942",
+      "asin": "B09YRQ8PHL",
+      "theme": "常规产品",
+      "metrics": {
+        "units7": 29,
+        "units3": 7,
+        "organicUnits7": 23,
+        "organicRatio": 0.79,
+        "sessions7": 190,
+        "conv7": 11.58,
+        "ad7": {
+          "spend": 12.64,
+          "orders": 6,
+          "clicks": 99,
+          "impressions": 8837,
+          "sources": {
+            "productCard": {
+              "spend": 10.26,
+              "orders": 6,
+              "clicks": 79,
+              "impressions": 7516
+            },
+            "adSkuSummary": {
+              "clicks": 99,
+              "impressions": 8837,
+              "inferredSpend": 12.64
+            }
+          }
+        },
+        "invDays": 57,
+        "stockTotal": 266,
+        "profitRate": 0.3244,
+        "busyNetProfit": 0.2313,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 13,
+        "enabledCampaigns": 7,
+        "totalBudget": 88.74,
+        "pausedBudget": 51,
+        "kwTargets": 8,
+        "autoTargets": 9,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=29, estOrganic=23, sessions=190, conv=11.58%",
+        "7d ad orders=6, clicks=99, spend?$12.64, impr=8837",
+        "inventoryDays=57, stockTotal=266, profitRate=32.4%, busyNet=23.1%",
+        "structure campaigns=13, enabled=7, budget=$88.74"
+      ],
+      "campaigns": [
+        {
+          "name": "kw broad_school counselor desk accessories_se5942",
+          "budget": 3,
+          "state": 1,
+          "kw": 3,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw phrase_school counselor desk accessories_se5942",
+          "budget": 3,
+          "state": 1,
+          "kw": 4,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_teacher appreciation q2 test_se5942",
+          "budget": 0,
+          "state": 1,
+          "kw": 1,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_school counselor desk accessories_se5942",
+          "budget": 9.05,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin expanded_school counselor desk accessories_se5942",
+          "budget": 4.05,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_bear shirts_se5942",
+          "budget": 4.73,
+          "state": 1,
+          "kw": 0,
+          "auto": 6,
+          "sb": 0
+        },
+        {
+          "name": "auto_bear shirts_se5942",
+          "budget": 15,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "bear shirts se5608-pt",
+          "budget": 13.91,
+          "state": 1,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "LRU1537",
+      "asin": "B0C5XPGJH9",
+      "theme": "常规产品",
+      "metrics": {
+        "units7": 29,
+        "units3": 12,
+        "organicUnits7": 22,
+        "organicRatio": 0.76,
+        "sessions7": 176,
+        "conv7": 10.8,
+        "ad7": {
+          "spend": 45.15,
+          "orders": 7,
+          "clicks": 154,
+          "impressions": 14578,
+          "sources": {
+            "productCard": {
+              "spend": 36.190000000000005,
+              "orders": 7,
+              "clicks": 124,
+              "impressions": 12222
+            },
+            "adSkuSummary": {
+              "clicks": 154,
+              "impressions": 14578,
+              "inferredSpend": 45.15
+            }
+          }
+        },
+        "invDays": 76,
+        "stockTotal": 329,
+        "profitRate": -0.095,
+        "busyNetProfit": 0.0909,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 14,
+        "enabledCampaigns": 6,
+        "totalBudget": 97.4,
+        "pausedBudget": 62,
+        "kwTargets": 17,
+        "autoTargets": 13,
+        "sbTargets": 27
+      },
+      "evidence": [
+        "7d units=29, estOrganic=22, sessions=176, conv=10.8%",
+        "7d ad orders=7, clicks=154, spend?$45.15, impr=14578",
+        "inventoryDays=76, stockTotal=329, profitRate=-9.5%, busyNet=9.1%",
+        "structure campaigns=14, enabled=6, budget=$97.4"
+      ],
+      "campaigns": [
+        {
+          "name": "kw board_bear paper plates napkins_lru1537",
+          "budget": 3,
+          "state": 1,
+          "kw": 15,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "bear plates lru1537",
+          "budget": 15,
+          "state": 1,
+          "kw": 39,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto1_bear paper plates napkins_lru1537",
+          "budget": 16.4,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_bear paper plates napkins_lru1537",
+          "budget": 1,
+          "state": 1,
+          "kw": 0,
+          "auto": 11,
+          "sb": 0
+        },
+        {
+          "name": "bear plates lru1537 sbv-s-old",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 11
+        },
+        {
+          "name": "sbvkw_bear paper plates napkins_lru1537",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 16
+        },
+        {
+          "name": "bear plates lru1537-a2",
+          "budget": 8,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "bear plates lru1537-pt",
+          "budget": 5,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "RHO0122",
+      "asin": "B0FQJCXCT4",
+      "theme": "婚礼季(3-6月/8-10月)",
+      "metrics": {
+        "units7": 28,
+        "units3": 13,
+        "organicUnits7": 21,
+        "organicRatio": 0.75,
+        "sessions7": 218,
+        "conv7": 12.39,
+        "ad7": {
+          "spend": 23.69,
+          "orders": 7,
+          "clicks": 105,
+          "impressions": 7935,
+          "sources": {
+            "productCard": {
+              "spend": 19.87,
+              "orders": 7,
+              "clicks": 88,
+              "impressions": 6525
+            },
+            "adSkuSummary": {
+              "clicks": 105,
+              "impressions": 7935,
+              "inferredSpend": 23.69
+            }
+          }
+        },
+        "invDays": 87,
+        "stockTotal": 395,
+        "profitRate": 0.0748,
+        "busyNetProfit": 0.0508,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 5,
+        "enabledCampaigns": 5,
+        "totalBudget": 51,
+        "pausedBudget": 0,
+        "kwTargets": 33,
+        "autoTargets": 32,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=28, estOrganic=21, sessions=218, conv=12.39%",
+        "7d ad orders=7, clicks=105, spend?$23.69, impr=7935",
+        "inventoryDays=87, stockTotal=395, profitRate=7.5%, busyNet=5.1%",
+        "structure campaigns=5, enabled=5, budget=$51"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_will you be my bridesmaid_rho0122",
+          "budget": 15,
+          "state": 1,
+          "kw": 34,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "will you be my bridesmaid-rho0122-system-a",
+          "budget": 15,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto_will you be my bridesmaid_rho0122",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto b2b_will you be my bridesmaid_rho0122",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_will you be my bridesmaid_rho0122",
+          "budget": 15,
+          "state": 1,
+          "kw": 0,
+          "auto": 24,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "SH0424",
+      "asin": "B07S34528G",
+      "theme": "夏季产品(平时可卖)",
+      "metrics": {
+        "units7": 28,
+        "units3": 8,
+        "organicUnits7": 22,
+        "organicRatio": 0.79,
+        "sessions7": 112,
+        "conv7": 27.68,
+        "ad7": {
+          "spend": 34.79,
+          "orders": 6,
+          "clicks": 93,
+          "impressions": 13849,
+          "sources": {
+            "productCard": {
+              "spend": 29.54,
+              "orders": 6,
+              "clicks": 77,
+              "impressions": 11687
+            },
+            "adSkuSummary": {
+              "clicks": 93,
+              "impressions": 13849,
+              "inferredSpend": 34.79
+            }
+          }
+        },
+        "invDays": 68,
+        "stockTotal": 191,
+        "profitRate": 0.0327,
+        "busyNetProfit": 0.0462,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 21,
+        "enabledCampaigns": 16,
+        "totalBudget": 121.81,
+        "pausedBudget": 25,
+        "kwTargets": 55,
+        "autoTargets": 46,
+        "sbTargets": 13
+      },
+      "evidence": [
+        "7d units=28, estOrganic=22, sessions=112, conv=27.68%",
+        "7d ad orders=6, clicks=93, spend?$34.79, impr=13849",
+        "inventoryDays=68, stockTotal=191, profitRate=3.3%, busyNet=4.6%",
+        "structure campaigns=21, enabled=16, budget=$121.81"
+      ],
+      "campaigns": [
+        {
+          "name": "umbrella hat sh0424-kw1",
+          "budget": 12,
+          "state": 1,
+          "kw": 8,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw broad_umbrella hat_sh0424",
+          "budget": 3,
+          "state": 1,
+          "kw": 11,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "umbrella hat sh0424 sh0422 sh0423",
+          "budget": 5.81,
+          "state": 1,
+          "kw": 87,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw exact_umbrella hat_sh0424",
+          "budget": 3,
+          "state": 1,
+          "kw": 4,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw phrase_umbrella hat_sh0424",
+          "budget": 3,
+          "state": 1,
+          "kw": 8,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_rainbow umbrella _sh0424",
+          "budget": 0,
+          "state": 1,
+          "kw": 12,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "umbrella hat sh0424-a",
+          "budget": 10,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto_umbrella hat_sh0424",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "XIX1523",
+      "asin": "B0F3XBSHR9",
+      "theme": "夏季Party类产品(平时可卖)",
+      "metrics": {
+        "units7": 26,
+        "units3": 10,
+        "organicUnits7": 20,
+        "organicRatio": 0.77,
+        "sessions7": 193,
+        "conv7": 10.36,
+        "ad7": {
+          "spend": 77.64,
+          "orders": 6,
+          "clicks": 288,
+          "impressions": 214929,
+          "sources": {
+            "productCard": {
+              "spend": 22.15,
+              "orders": 6,
+              "clicks": 45,
+              "impressions": 16256
+            },
+            "adSkuSummary": {
+              "clicks": 288,
+              "impressions": 214929,
+              "inferredSpend": 77.64
+            }
+          }
+        },
+        "invDays": 47,
+        "stockTotal": 220,
+        "profitRate": 0.1687,
+        "busyNetProfit": 0.1748,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 7,
+        "enabledCampaigns": 7,
+        "totalBudget": 31.85,
+        "pausedBudget": 0,
+        "kwTargets": 25,
+        "autoTargets": 25,
+        "sbTargets": 34
+      },
+      "evidence": [
+        "7d units=26, estOrganic=20, sessions=193, conv=10.36%",
+        "7d ad orders=6, clicks=288, spend?$77.64, impr=214929",
+        "inventoryDays=47, stockTotal=220, profitRate=16.9%, busyNet=17.5%",
+        "structure campaigns=7, enabled=7, budget=$31.85"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_letterstencils_xix1523",
+          "budget": 14.4,
+          "state": 1,
+          "kw": 15,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw phrase_letterstencils_xix1523",
+          "budget": 3,
+          "state": 1,
+          "kw": 12,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto 2_letterstencils_xix1523",
+          "budget": 6.89,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto_letterstencils_xix1523",
+          "budget": 2,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_letterstencils_xix1523",
+          "budget": 5.56,
+          "state": 1,
+          "kw": 0,
+          "auto": 20,
+          "sb": 0
+        },
+        {
+          "name": "sbvkw_letterstencils_xix1523",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 42
+        },
+        {
+          "name": "sbvkw 精细_letterstencils_xix1523",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 5
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "UAN3644",
+      "asin": "B0DH1ZVTKH",
+      "theme": "秋季返校季/开学季(平时可卖)",
+      "metrics": {
+        "units7": 26,
+        "units3": 7,
+        "organicUnits7": 24,
+        "organicRatio": 0.92,
+        "sessions7": 106,
+        "conv7": 19.81,
+        "ad7": {
+          "spend": 9.22,
+          "orders": 2,
+          "clicks": 27,
+          "impressions": 1585,
+          "sources": {
+            "productCard": {
+              "spend": 7.470000000000001,
+              "orders": 2,
+              "clicks": 21,
+              "impressions": 1261
+            },
+            "adSkuSummary": {
+              "clicks": 27,
+              "impressions": 1585,
+              "inferredSpend": 9.22
+            }
+          }
+        },
+        "invDays": 29,
+        "stockTotal": 157,
+        "profitRate": -0.0458,
+        "busyNetProfit": 0.2156,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 14,
+        "enabledCampaigns": 6,
+        "totalBudget": 66.3,
+        "pausedBudget": 36,
+        "kwTargets": 17,
+        "autoTargets": 16,
+        "sbTargets": 10
+      },
+      "evidence": [
+        "7d units=26, estOrganic=24, sessions=106, conv=19.81%",
+        "7d ad orders=2, clicks=27, spend?$9.22, impr=1585",
+        "inventoryDays=29, stockTotal=157, profitRate=-4.6%, busyNet=21.6%",
+        "structure campaigns=14, enabled=6, budget=$66.3"
+      ],
+      "campaigns": [
+        {
+          "name": "b2b kw broad_mini journals bulk_uan3644",
+          "budget": 3,
+          "state": 1,
+          "kw": 10,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_mininb_ uan3644",
+          "budget": 3,
+          "state": 1,
+          "kw": 8,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "b2b auto_mini journals bulk_uan3644",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_mininb_ uan3644",
+          "budget": 12.3,
+          "state": 1,
+          "kw": 0,
+          "auto": 22,
+          "sb": 0
+        },
+        {
+          "name": "sbv_mininb_ uan3644",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 11
+        },
+        {
+          "name": "auto_mininb_ uan3644",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_mininb_ uan3645",
+          "budget": 9,
+          "state": 1,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_ mini inspirational notebooks_uan3644",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "GM3068",
+      "asin": "B0FZTT66W8",
+      "theme": "夏季Party类产品(平时可卖)",
+      "metrics": {
+        "units7": 20,
+        "units3": 5,
+        "organicUnits7": 18,
+        "organicRatio": 0.9,
+        "sessions7": 57,
+        "conv7": 29.82,
+        "ad7": {
+          "spend": 5.08,
+          "orders": 2,
+          "clicks": 22,
+          "impressions": 4116,
+          "sources": {
+            "productCard": {
+              "spend": 4.73,
+              "orders": 2,
+              "clicks": 20,
+              "impressions": 3735
+            },
+            "adSkuSummary": {
+              "clicks": 22,
+              "impressions": 4116,
+              "inferredSpend": 5.08
+            }
+          }
+        },
+        "invDays": 36,
+        "stockTotal": 109,
+        "profitRate": 0.2357,
+        "busyNetProfit": 0.1928,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 7,
+        "enabledCampaigns": 3,
+        "totalBudget": 43.92,
+        "pausedBudget": 24,
+        "kwTargets": 4,
+        "autoTargets": 7,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=20, estOrganic=18, sessions=57, conv=29.82%",
+        "7d ad orders=2, clicks=22, spend?$5.08, impr=4116",
+        "inventoryDays=36, stockTotal=109, profitRate=23.6%, busyNet=19.3%",
+        "structure campaigns=7, enabled=3, budget=$43.92"
+      ],
+      "campaigns": [
+        {
+          "name": "broad_christian_gifts_gm3068",
+          "budget": 3,
+          "state": 1,
+          "kw": 4,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto2_dentist appreciation gifts _gm3068",
+          "budget": 4.92,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto _dentist appreciation gifts _gm3068",
+          "budget": 12,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "kw exact_dentist appreciation gifts _gm3068",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "asin _dentist appreciation gifts _gm3068",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "20251126-gm3068-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw _dentist appreciation gifts _gm3068",
+          "budget": 15,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "NEW0005",
+      "asin": "B0BN8G94M6",
+      "theme": "情人节(平时可卖)",
+      "metrics": {
+        "units7": 19,
+        "units3": 6,
+        "organicUnits7": 18,
+        "organicRatio": 0.95,
+        "sessions7": 99,
+        "conv7": 17.17,
+        "ad7": {
+          "spend": 4.51,
+          "orders": 1,
+          "clicks": 47,
+          "impressions": 6845,
+          "sources": {
+            "productCard": {
+              "spend": 0.49,
+              "orders": 1,
+              "clicks": 6,
+              "impressions": 1010
+            },
+            "adSkuSummary": {
+              "clicks": 47,
+              "impressions": 6845,
+              "inferredSpend": 4.51
+            }
+          }
+        },
+        "invDays": 22,
+        "stockTotal": 199,
+        "profitRate": 0.1768,
+        "busyNetProfit": 0.2716,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 11,
+        "enabledCampaigns": 3,
+        "totalBudget": 52.08,
+        "pausedBudget": 36,
+        "kwTargets": 0,
+        "autoTargets": 7,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=19, estOrganic=18, sessions=99, conv=17.17%",
+        "7d ad orders=1, clicks=47, spend?$4.51, impr=6845",
+        "inventoryDays=22, stockTotal=199, profitRate=17.7%, busyNet=27.2%",
+        "structure campaigns=11, enabled=3, budget=$52.08"
+      ],
+      "campaigns": [
+        {
+          "name": "auto3_wooden love sign_new0005",
+          "budget": 10.08,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "wedding welcome sign new0005-a 0.13",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto_wooden love sign_new0005",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "wedding welcome sign new0005-system",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "wedding welcome sign new0005-system-a",
+          "budget": 7,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "wedding welcome sign new0005-pt",
+          "budget": 4,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_wooden love sign_new0005",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw2_wooden love sign_new0005",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "ST2078",
+      "asin": "B0BPH8WHH8",
+      "theme": "夏季产品(平时可卖)",
+      "metrics": {
+        "units7": 19,
+        "units3": 10,
+        "organicUnits7": 15,
+        "organicRatio": 0.79,
+        "sessions7": 95,
+        "conv7": 13.68,
+        "ad7": {
+          "spend": 11.99,
+          "orders": 4,
+          "clicks": 62,
+          "impressions": 5935,
+          "sources": {
+            "productCard": {
+              "spend": 10.540000000000001,
+              "orders": 4,
+              "clicks": 55,
+              "impressions": 4632
+            },
+            "adSkuSummary": {
+              "clicks": 62,
+              "impressions": 5935,
+              "inferredSpend": 11.99
+            }
+          }
+        },
+        "invDays": 34,
+        "stockTotal": 203,
+        "profitRate": 0.161,
+        "busyNetProfit": 0.1466,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 12,
+        "enabledCampaigns": 4,
+        "totalBudget": 49.56,
+        "pausedBudget": 40,
+        "kwTargets": 18,
+        "autoTargets": 5,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=19, estOrganic=15, sessions=95, conv=13.68%",
+        "7d ad orders=4, clicks=62, spend?$11.99, impr=5935",
+        "inventoryDays=34, stockTotal=203, profitRate=16.1%, busyNet=14.7%",
+        "structure campaigns=12, enabled=4, budget=$49.56"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_strawberry keychains_st2078",
+          "budget": 2,
+          "state": 1,
+          "kw": 29,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_strawberry keychains_st2078",
+          "budget": 6.56,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_strawberry keychains_st2078",
+          "budget": 1,
+          "state": 1,
+          "kw": 0,
+          "auto": 10,
+          "sb": 0
+        },
+        {
+          "name": "brown thank you tags st2078-sbv-f-old",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 16
+        },
+        {
+          "name": "brown thank you tags st2078-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "brown thank you tags st2078-system",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "brown thank you tags st2078-system-phrase",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "brown thank you tags st2078-a2",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "GT4431",
+      "asin": "B0G2LY9D4X",
+      "theme": "夏季产品(平时可卖)",
+      "metrics": {
+        "units7": 18,
+        "units3": 8,
+        "organicUnits7": 14,
+        "organicRatio": 0.78,
+        "sessions7": 85,
+        "conv7": 17.65,
+        "ad7": {
+          "spend": 4.26,
+          "orders": 4,
+          "clicks": 18,
+          "impressions": 1150,
+          "sources": {
+            "productCard": {
+              "spend": 3.8500000000000005,
+              "orders": 4,
+              "clicks": 16,
+              "impressions": 1019
+            },
+            "adSkuSummary": {
+              "clicks": 18,
+              "impressions": 1150,
+              "inferredSpend": 4.26
+            }
+          }
+        },
+        "invDays": 49,
+        "stockTotal": 128,
+        "profitRate": 0.2741,
+        "busyNetProfit": 0.2178,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 4,
+        "enabledCampaigns": 4,
+        "totalBudget": 18.32,
+        "pausedBudget": 0,
+        "kwTargets": 19,
+        "autoTargets": 6,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=18, estOrganic=14, sessions=85, conv=17.65%",
+        "7d ad orders=4, clicks=18, spend?$4.26, impr=1150",
+        "inventoryDays=49, stockTotal=128, profitRate=27.4%, busyNet=21.8%",
+        "structure campaigns=4, enabled=4, budget=$18.32"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_funeralribbon_gt4431",
+          "budget": 4.05,
+          "state": 1,
+          "kw": 6,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw board _funeralribbon_gt4431",
+          "budget": 3,
+          "state": 1,
+          "kw": 7,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "broad_mental_health_awareness_month_gifts_gt4431",
+          "budget": 3,
+          "state": 1,
+          "kw": 8,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "asin_funeralribbon_gt4431",
+          "budget": 8.27,
+          "state": 1,
+          "kw": 0,
+          "auto": 6,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "QAA3143",
+      "asin": "B0F4R4S12D",
+      "theme": "夏季产品(平时可卖)",
+      "metrics": {
+        "units7": 17,
+        "units3": 6,
+        "organicUnits7": 14,
+        "organicRatio": 0.82,
+        "sessions7": 178,
+        "conv7": 9.55,
+        "ad7": {
+          "spend": 28.42,
+          "orders": 3,
+          "clicks": 128,
+          "impressions": 44507,
+          "sources": {
+            "productCard": {
+              "spend": 17.52,
+              "orders": 3,
+              "clicks": 81,
+              "impressions": 13757
+            },
+            "adSkuSummary": {
+              "clicks": 128,
+              "impressions": 44507,
+              "inferredSpend": 28.42
+            }
+          }
+        },
+        "invDays": 35,
+        "stockTotal": 176,
+        "profitRate": 0.3911,
+        "busyNetProfit": 0.2825,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 8,
+        "enabledCampaigns": 5,
+        "totalBudget": 55.92,
+        "pausedBudget": 21,
+        "kwTargets": 10,
+        "autoTargets": 5,
+        "sbTargets": 5
+      },
+      "evidence": [
+        "7d units=17, estOrganic=14, sessions=178, conv=9.55%",
+        "7d ad orders=3, clicks=128, spend?$28.42, impr=44507",
+        "inventoryDays=35, stockTotal=176, profitRate=39.1%, busyNet=28.2%",
+        "structure campaigns=8, enabled=5, budget=$55.92"
+      ],
+      "campaigns": [
+        {
+          "name": "kw2_ crown brooch pins _qaa3143",
+          "budget": 3,
+          "state": 1,
+          "kw": 4,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_ crown brooch pins _qaa3143",
+          "budget": 3,
+          "state": 1,
+          "kw": 20,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_ crown brooch pins _qaa3143",
+          "budget": 25.92,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_ crown brooch pins _qaa3143",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 9,
+          "sb": 0
+        },
+        {
+          "name": "sbvkw_ crown brooch pins _qaa3143",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 14
+        },
+        {
+          "name": "kw broad_international womens day gifts_qaa3143",
+          "budget": 15,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_ crown brooch pins valentine  _qaa3143 qaa4200",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "crown pin-qaa3143-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "YAN2061",
+      "asin": "B0BXX8VRJ6",
+      "theme": "夏季产品(3-10月)",
+      "metrics": {
+        "units7": 17,
+        "units3": 6,
+        "organicUnits7": 16,
+        "organicRatio": 0.94,
+        "sessions7": 131,
+        "conv7": 9.92,
+        "ad7": {
+          "spend": 5.18,
+          "orders": 1,
+          "clicks": 37,
+          "impressions": 2060,
+          "sources": {
+            "productCard": {
+              "spend": 4.7299999999999995,
+              "orders": 1,
+              "clicks": 33,
+              "impressions": 1842
+            },
+            "adSkuSummary": {
+              "clicks": 37,
+              "impressions": 2060,
+              "inferredSpend": 5.18
+            }
+          }
+        },
+        "invDays": 44,
+        "stockTotal": 115,
+        "profitRate": 0.1222,
+        "busyNetProfit": 0.1498,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 9,
+        "enabledCampaigns": 3,
+        "totalBudget": 61.7,
+        "pausedBudget": 32,
+        "kwTargets": 3,
+        "autoTargets": 3,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=17, estOrganic=16, sessions=131, conv=9.92%",
+        "7d ad orders=1, clicks=37, spend?$5.18, impr=2060",
+        "inventoryDays=44, stockTotal=115, profitRate=12.2%, busyNet=15.0%",
+        "structure campaigns=9, enabled=3, budget=$61.7"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_dirty diaper baby shower_yan2061",
+          "budget": 8.1,
+          "state": 1,
+          "kw": 7,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_dirty diaper baby shower_yan2061",
+          "budget": 21.6,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "sbvkw_dirty diaper baby shower_yan2061",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 6
+        },
+        {
+          "name": "baby shower games boy yan2061-a2",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "baby shower games boy yan2061-system",
+          "budget": 15,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "baby shower games boy yan2061-2",
+          "budget": 4,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "baby shower games boy yan2061-pt2",
+          "budget": 4,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "baby shower games boy yan2061-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "LUO1006",
+      "asin": "B0FHHRWSF2",
+      "theme": "夏季产品(3-10月)",
+      "metrics": {
+        "units7": 16,
+        "units3": 5,
+        "organicUnits7": 13,
+        "organicRatio": 0.81,
+        "sessions7": 122,
+        "conv7": 10.66,
+        "ad7": {
+          "spend": 74.89,
+          "orders": 3,
+          "clicks": 157,
+          "impressions": 33069,
+          "sources": {
+            "productCard": {
+              "spend": 48.209999999999994,
+              "orders": 3,
+              "clicks": 99,
+              "impressions": 9557
+            },
+            "adSkuSummary": {
+              "clicks": 157,
+              "impressions": 33069,
+              "inferredSpend": 74.89
+            }
+          }
+        },
+        "invDays": 67,
+        "stockTotal": 150,
+        "profitRate": -0.1999,
+        "busyNetProfit": -0.0226,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 9,
+        "enabledCampaigns": 7,
+        "totalBudget": 27.01,
+        "pausedBudget": 6,
+        "kwTargets": 18,
+        "autoTargets": 10,
+        "sbTargets": 10
+      },
+      "evidence": [
+        "7d units=16, estOrganic=13, sessions=122, conv=10.66%",
+        "7d ad orders=3, clicks=157, spend?$74.89, impr=33069",
+        "inventoryDays=67, stockTotal=150, profitRate=-20.0%, busyNet=-2.3%",
+        "structure campaigns=9, enabled=7, budget=$27.01"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_bottle chug_luo1006",
+          "budget": 3,
+          "state": 1,
+          "kw": 15,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw  exact_bottle chug_luo1006",
+          "budget": 5.81,
+          "state": 1,
+          "kw": 8,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_bottle chug_luo1006",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "b2b auto_LUO1006",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_bottle chug_luo1006",
+          "budget": 6.2,
+          "state": 1,
+          "kw": 0,
+          "auto": 11,
+          "sb": 0
+        },
+        {
+          "name": "sbvkw_bottle chug_luo1006",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 16
+        },
+        {
+          "name": "sbvasin_bottle chug_luo1006  sbv-pt 定位测试",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 5
+        },
+        {
+          "name": "20250827-luo1006-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "KZ6074",
+      "asin": "B0D479Z4QQ",
+      "theme": "常规产品",
+      "metrics": {
+        "units7": 16,
+        "units3": 6,
+        "organicUnits7": 13,
+        "organicRatio": 0.81,
+        "sessions7": 61,
+        "conv7": 18.03,
+        "ad7": {
+          "spend": 8.21,
+          "orders": 3,
+          "clicks": 33,
+          "impressions": 16849,
+          "sources": {
+            "productCard": {
+              "spend": 3.92,
+              "orders": 3,
+              "clicks": 15,
+              "impressions": 4772
+            },
+            "adSkuSummary": {
+              "clicks": 33,
+              "impressions": 16849,
+              "inferredSpend": 8.21
+            }
+          }
+        },
+        "invDays": 29,
+        "stockTotal": 83,
+        "profitRate": 0.1686,
+        "busyNetProfit": 0.1627,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 7,
+        "enabledCampaigns": 3,
+        "totalBudget": 27.05,
+        "pausedBudget": 19,
+        "kwTargets": 7,
+        "autoTargets": 6,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=16, estOrganic=13, sessions=61, conv=18.03%",
+        "7d ad orders=3, clicks=33, spend?$8.21, impr=16849",
+        "inventoryDays=29, stockTotal=83, profitRate=16.9%, busyNet=16.3%",
+        "structure campaigns=7, enabled=3, budget=$27.05"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_vip party_kz6074",
+          "budget": 1,
+          "state": 1,
+          "kw": 7,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_vip party_kz6074",
+          "budget": 4.05,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_vip party_kz6074",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 3,
+          "sb": 0
+        },
+        {
+          "name": "art deco numbers kz5816-system-phrase",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "art deco numbers kz5816-system-exact",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "art deco numbers kz6074",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "art deco numbers kz6074-pt",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "TUR5292",
+      "asin": "B0GFV4TN5L",
+      "theme": "常规产品",
+      "metrics": {
+        "units7": 15,
+        "units3": 3,
+        "organicUnits7": 12,
+        "organicRatio": 0.8,
+        "sessions7": 168,
+        "conv7": 8.93,
+        "ad7": {
+          "spend": 11.27,
+          "orders": 3,
+          "clicks": 37,
+          "impressions": 1993,
+          "sources": {
+            "productCard": {
+              "spend": 8.76,
+              "orders": 3,
+              "clicks": 24,
+              "impressions": 1483
+            },
+            "adSkuSummary": {
+              "clicks": 37,
+              "impressions": 1993,
+              "inferredSpend": 11.27
+            }
+          }
+        },
+        "invDays": 32,
+        "stockTotal": 133,
+        "profitRate": 0.2456,
+        "busyNetProfit": 0.2712,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 7,
+        "enabledCampaigns": 3,
+        "totalBudget": 33,
+        "pausedBudget": 21,
+        "kwTargets": 2,
+        "autoTargets": 8,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=15, estOrganic=12, sessions=168, conv=8.93%",
+        "7d ad orders=3, clicks=37, spend?$11.27, impr=1993",
+        "inventoryDays=32, stockTotal=133, profitRate=24.6%, busyNet=27.1%",
+        "structure campaigns=7, enabled=3, budget=$33"
+      ],
+      "campaigns": [
+        {
+          "name": "ai_kw_prayer_scripture_cards_exact_tur5292",
+          "budget": 0,
+          "state": 1,
+          "kw": 2,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "christian gift set-tur5292-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "b2b auto_christian gifts bulk_tur5292",
+          "budget": 6,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin expand_christian gifts bulk_tur5292",
+          "budget": 6,
+          "state": 1,
+          "kw": 0,
+          "auto": 5,
+          "sb": 0
+        },
+        {
+          "name": "christian gift set-tur5292-system-keyword",
+          "budget": 12,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw broad_christian gifts bulk_tur5292",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_christian gifts bulk_tur5292",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "TIN2239",
+      "asin": "B0CNR36NZQ",
+      "theme": "夏季产品(平时可卖)",
+      "metrics": {
+        "units7": 14,
+        "units3": 1,
+        "organicUnits7": 11,
+        "organicRatio": 0.79,
+        "sessions7": 163,
+        "conv7": 7.98,
+        "ad7": {
+          "spend": 29.2,
+          "orders": 3,
+          "clicks": 91,
+          "impressions": 7211,
+          "sources": {
+            "productCard": {
+              "spend": 18.16,
+              "orders": 3,
+              "clicks": 52,
+              "impressions": 5804
+            },
+            "adSkuSummary": {
+              "clicks": 91,
+              "impressions": 7211,
+              "inferredSpend": 29.2
+            }
+          }
+        },
+        "invDays": 83,
+        "stockTotal": 230,
+        "profitRate": 0.1052,
+        "busyNetProfit": 0.08,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 5,
+        "enabledCampaigns": 4,
+        "totalBudget": 21.81,
+        "pausedBudget": 10,
+        "kwTargets": 7,
+        "autoTargets": 5,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=14, estOrganic=11, sessions=163, conv=7.98%",
+        "7d ad orders=3, clicks=91, spend?$29.20, impr=7211",
+        "inventoryDays=83, stockTotal=230, profitRate=10.5%, busyNet=8.0%",
+        "structure campaigns=5, enabled=4, budget=$21.81"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_duck tags_tin2239",
+          "budget": 5.81,
+          "state": 1,
+          "kw": 7,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_duck tags_tin2239",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "duck tags for cruise ducking-tin2239-system-a",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "duck tags for cruise ducking-tin2239-sbv-s-new",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 8
+        },
+        {
+          "name": "duck tags for cruise ducking-tin2239-system-keyword",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "SIJ2012",
+      "asin": "B0CHDSG76N",
+      "theme": "常规产品",
+      "metrics": {
+        "units7": 14,
+        "units3": 4,
+        "organicUnits7": 11,
+        "organicRatio": 0.79,
+        "sessions7": 132,
+        "conv7": 11.36,
+        "ad7": {
+          "spend": 25.68,
+          "orders": 3,
+          "clicks": 72,
+          "impressions": 7067,
+          "sources": {
+            "productCard": {
+              "spend": 15.96,
+              "orders": 3,
+              "clicks": 41,
+              "impressions": 5368
+            },
+            "adSkuSummary": {
+              "clicks": 72,
+              "impressions": 7067,
+              "inferredSpend": 25.68
+            }
+          }
+        },
+        "invDays": 26,
+        "stockTotal": 56,
+        "profitRate": -0.4507,
+        "busyNetProfit": 0.1461,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 6,
+        "enabledCampaigns": 4,
+        "totalBudget": 75,
+        "pausedBudget": 6,
+        "kwTargets": 2,
+        "autoTargets": 6,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=14, estOrganic=11, sessions=132, conv=11.36%",
+        "7d ad orders=3, clicks=72, spend?$25.68, impr=7067",
+        "inventoryDays=26, stockTotal=56, profitRate=-45.1%, busyNet=14.6%",
+        "structure campaigns=6, enabled=4, budget=$75"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_food storage box_sij2012",
+          "budget": 2,
+          "state": 1,
+          "kw": 3,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "storage bins-sij2012-system-a",
+          "budget": 45,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto_food storage box_sij2012",
+          "budget": 15,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "storage bins-sij2012-pt",
+          "budget": 7,
+          "state": 1,
+          "kw": 0,
+          "auto": 9,
+          "sb": 0
+        },
+        {
+          "name": "storage bins-sij2012-a2",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "storage bins-sij2012-category",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "AE2139",
+      "asin": "B0BKZNTVSS",
+      "theme": "常规产品",
+      "metrics": {
+        "units7": 14,
+        "units3": 2,
+        "organicUnits7": 12,
+        "organicRatio": 0.86,
+        "sessions7": 97,
+        "conv7": 13.4,
+        "ad7": {
+          "spend": 42.49,
+          "orders": 2,
+          "clicks": 86,
+          "impressions": 9376,
+          "sources": {
+            "productCard": {
+              "spend": 37.1,
+              "orders": 2,
+              "clicks": 75,
+              "impressions": 8011
+            },
+            "adSkuSummary": {
+              "clicks": 86,
+              "impressions": 9376,
+              "inferredSpend": 42.49
+            }
+          }
+        },
+        "invDays": 21,
+        "stockTotal": 136,
+        "profitRate": -0.0669,
+        "busyNetProfit": 0.2179,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 11,
+        "enabledCampaigns": 6,
+        "totalBudget": 129.85,
+        "pausedBudget": 76,
+        "kwTargets": 17,
+        "autoTargets": 15,
+        "sbTargets": 10
+      },
+      "evidence": [
+        "7d units=14, estOrganic=12, sessions=97, conv=13.4%",
+        "7d ad orders=2, clicks=86, spend?$42.49, impr=9376",
+        "inventoryDays=21, stockTotal=136, profitRate=-6.7%, busyNet=21.8%",
+        "structure campaigns=11, enabled=6, budget=$129.85"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_1q clearstorage_ae2139",
+          "budget": 18.45,
+          "state": 1,
+          "kw": 31,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto ud_1q clearstorage_ae2139",
+          "budget": 16.4,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto_amazon business_ae2139",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto_clearstorage_ae2139",
+          "budget": 15,
+          "state": 1,
+          "kw": 0,
+          "auto": 8,
+          "sb": 0
+        },
+        {
+          "name": "asin_1q clearstorage_ae2139",
+          "budget": 1,
+          "state": 1,
+          "kw": 0,
+          "auto": 20,
+          "sb": 0
+        },
+        {
+          "name": "sbv kw_1q clearstorage_ae2139",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 11
+        },
+        {
+          "name": "storage containers with lids ae213category",
+          "budget": 15,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "storage containers with lid ae2139",
+          "budget": 30,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "HAY1932",
+      "asin": "B0CT4N1XGL",
+      "theme": "夏季产品(平时可卖)",
+      "metrics": {
+        "units7": 13,
+        "units3": 4,
+        "organicUnits7": 10,
+        "organicRatio": 0.77,
+        "sessions7": 158,
+        "conv7": 7.59,
+        "ad7": {
+          "spend": 23.84,
+          "orders": 3,
+          "clicks": 82,
+          "impressions": 12374,
+          "sources": {
+            "productCard": {
+              "spend": 19.16,
+              "orders": 3,
+              "clicks": 67,
+              "impressions": 11122
+            },
+            "adSkuSummary": {
+              "clicks": 82,
+              "impressions": 12374,
+              "inferredSpend": 23.84
+            }
+          }
+        },
+        "invDays": 24,
+        "stockTotal": 158,
+        "profitRate": 0.1702,
+        "busyNetProfit": 0.2151,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 10,
+        "enabledCampaigns": 5,
+        "totalBudget": 83,
+        "pausedBudget": 30,
+        "kwTargets": 7,
+        "autoTargets": 11,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=13, estOrganic=10, sessions=158, conv=7.59%",
+        "7d ad orders=3, clicks=82, spend?$23.84, impr=12374",
+        "inventoryDays=24, stockTotal=158, profitRate=17.0%, busyNet=21.5%",
+        "structure campaigns=10, enabled=5, budget=$83"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_ rubber duck_hay1932",
+          "budget": 15,
+          "state": 1,
+          "kw": 9,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_ rubber duck_hay1932",
+          "budget": 15,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_ rubber duck_hay1932",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 7,
+          "sb": 0
+        },
+        {
+          "name": "cruise ship ducks-hay1932-sbv-s-new2",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 2
+        },
+        {
+          "name": "cruise ship ducks-hay0218-system-keyword-phrase",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "cruise ship ducks-hay1932-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "cruise ship ducks-hay1932",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "cruise ship ducks-hay1932-category",
+          "budget": 7,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "XIH2672",
+      "asin": "B0FJR6KCR1",
+      "theme": "母亲节(平时可卖)",
+      "metrics": {
+        "units7": 12,
+        "units3": 2,
+        "organicUnits7": 11,
+        "organicRatio": 0.92,
+        "sessions7": 57,
+        "conv7": 17.54,
+        "ad7": {
+          "spend": 9.58,
+          "orders": 1,
+          "clicks": 38,
+          "impressions": 6631,
+          "sources": {
+            "productCard": {
+              "spend": 6.22,
+              "orders": 1,
+              "clicks": 24,
+              "impressions": 2477
+            },
+            "adSkuSummary": {
+              "clicks": 38,
+              "impressions": 6631,
+              "inferredSpend": 9.58
+            }
+          }
+        },
+        "invDays": 32,
+        "stockTotal": 34,
+        "profitRate": -0.2273,
+        "busyNetProfit": 0.1652,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 5,
+        "enabledCampaigns": 3,
+        "totalBudget": 19.12,
+        "pausedBudget": 6,
+        "kwTargets": 2,
+        "autoTargets": 4,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=12, estOrganic=11, sessions=57, conv=17.54%",
+        "7d ad orders=1, clicks=38, spend?$9.58, impr=6631",
+        "inventoryDays=32, stockTotal=34, profitRate=-22.7%, busyNet=16.5%",
+        "structure campaigns=5, enabled=3, budget=$19.12"
+      ],
+      "campaigns": [
+        {
+          "name": "kw broad_mothers day gifts for mom_xih2672",
+          "budget": 6.13,
+          "state": 1,
+          "kw": 10,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_fathers_day_christian_gifts_xih2672",
+          "budget": 1,
+          "state": 1,
+          "kw": 1,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_christian bow_xih2672",
+          "budget": 5.99,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "20250828-xih2672-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kwgalentines_christian bow_xih2672",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "QA2074",
+      "asin": "B0BVBDVPNP",
+      "theme": "婚礼季(3-6月/8-10月)",
+      "metrics": {
+        "units7": 11,
+        "units3": 8,
+        "organicUnits7": 11,
+        "organicRatio": 1,
+        "sessions7": 96,
+        "conv7": 15.63,
+        "ad7": {
+          "spend": 0.95,
+          "orders": 0,
+          "clicks": 7,
+          "impressions": 1545,
+          "sources": {
+            "productCard": {
+              "spend": 0.51,
+              "orders": 0,
+              "clicks": 4,
+              "impressions": 1029
+            },
+            "adSkuSummary": {
+              "clicks": 7,
+              "impressions": 1545,
+              "inferredSpend": 0.95
+            }
+          }
+        },
+        "invDays": 97,
+        "stockTotal": 104,
+        "profitRate": -0.1064,
+        "busyNetProfit": 0.0643,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 13,
+        "enabledCampaigns": 4,
+        "totalBudget": 107,
+        "pausedBudget": 101,
+        "kwTargets": 4,
+        "autoTargets": 5,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=11, estOrganic=11, sessions=96, conv=15.63%",
+        "7d ad orders=0, clicks=7, spend?$0.95, impr=1545",
+        "inventoryDays=97, stockTotal=104, profitRate=-10.6%, busyNet=6.4%",
+        "structure campaigns=13, enabled=4, budget=$107"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_q2 profit qa2074 phrase_qa2074",
+          "budget": 1,
+          "state": 1,
+          "kw": 2,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_q2 profit qa2074 broad_qa2074",
+          "budget": 1,
+          "state": 1,
+          "kw": 2,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_q2 profit qa2074 auto_qa2074",
+          "budget": 1,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "wedding signs qa2074-a4",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "wedding signs qa2074-pt4",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "wedding signs qa2074-pt",
+          "budget": 5,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "wedding signs qa2074-system-phrase",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "wedding signs qa2074-system-a",
+          "budget": 9,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "BOY3355",
+      "asin": "B0F3CQ55M3",
+      "theme": "夏季Party类产品(平时可卖)",
+      "metrics": {
+        "units7": 11,
+        "units3": 6,
+        "organicUnits7": 10,
+        "organicRatio": 0.91,
+        "sessions7": 43,
+        "conv7": 13.95,
+        "ad7": {
+          "spend": 7.87,
+          "orders": 1,
+          "clicks": 30,
+          "impressions": 795,
+          "sources": {
+            "productCard": {
+              "spend": 6.73,
+              "orders": 1,
+              "clicks": 25,
+              "impressions": 636
+            },
+            "adSkuSummary": {
+              "clicks": 30,
+              "impressions": 795,
+              "inferredSpend": 7.87
+            }
+          }
+        },
+        "invDays": 38,
+        "stockTotal": 66,
+        "profitRate": -0.0427,
+        "busyNetProfit": -0.014,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 7,
+        "enabledCampaigns": 4,
+        "totalBudget": 15.25,
+        "pausedBudget": 7,
+        "kwTargets": 2,
+        "autoTargets": 4,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=11, estOrganic=10, sessions=43, conv=13.95%",
+        "7d ad orders=1, clicks=30, spend?$7.87, impr=795",
+        "inventoryDays=38, stockTotal=66, profitRate=-4.3%, busyNet=-1.4%",
+        "structure campaigns=7, enabled=4, budget=$15.25"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_baby shower gifts bag_boy3355",
+          "budget": 3,
+          "state": 1,
+          "kw": 6,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "ai_auto_auto_boy3355_coverage_boy3355",
+          "budget": 1,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "sbvkw_baby shower gifts bag_boy3355",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 9
+        },
+        {
+          "name": "auto_auto boy3355 coverage_boy3355",
+          "budget": 1,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "20250517-boy3355-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw_babyshowerbags_boy3171",
+          "budget": 4.25,
+          "state": 1,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "asin_baby shower gifts bag_boy3355",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "B_under_scaled_watch",
+      "sku": "QQ2235",
+      "asin": "B0C782CPFL",
+      "theme": "同志节(平时可卖)",
+      "metrics": {
+        "units7": 10,
+        "units3": 4,
+        "organicUnits7": 8,
+        "organicRatio": 0.8,
+        "sessions7": 42,
+        "conv7": 21.43,
+        "ad7": {
+          "spend": 13.53,
+          "orders": 2,
+          "clicks": 30,
+          "impressions": 3096,
+          "sources": {
+            "productCard": {
+              "spend": 9.579999999999998,
+              "orders": 2,
+              "clicks": 22,
+              "impressions": 2418
+            },
+            "adSkuSummary": {
+              "clicks": 30,
+              "impressions": 3096,
+              "inferredSpend": 13.53
+            }
+          }
+        },
+        "invDays": 181,
+        "stockTotal": 211,
+        "profitRate": 0.032,
+        "busyNetProfit": 0.0548,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 10,
+        "enabledCampaigns": 6,
+        "totalBudget": 27.25,
+        "pausedBudget": 14,
+        "kwTargets": 7,
+        "autoTargets": 17,
+        "sbTargets": 29
+      },
+      "evidence": [
+        "7d units=10, estOrganic=8, sessions=42, conv=21.43%",
+        "7d ad orders=2, clicks=30, spend?$13.53, impr=3096",
+        "inventoryDays=181, stockTotal=211, profitRate=3.2%, busyNet=5.5%",
+        "structure campaigns=10, enabled=6, budget=$27.25"
+      ],
+      "campaigns": [
+        {
+          "name": "rainbow table cloths qq2235-2",
+          "budget": 3,
+          "state": 1,
+          "kw": 7,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "rainbow table cloths qq2235-a",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto_rainbow table cloths_qq2235",
+          "budget": 4.25,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_rainbow table cloths_qq2235",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 9,
+          "sb": 0
+        },
+        {
+          "name": "rainbow table cloths QQ2235 SBV-S-NEW",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 7
+        },
+        {
+          "name": "sbv high-quality_rainbow tablecloth_qq2235",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 22
+        },
+        {
+          "name": "rainbow table cloths qq2235-a2",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "rainbow table cloths qq2235",
+          "budget": 5,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "check live budget and traffic share; expand only if market/product fit holds"
+    },
+    {
+      "bucket": "C_hold_or_small_test",
+      "sku": "LNE1322",
+      "asin": "B0DSZD4VV5",
+      "theme": "圣诞节(平时可卖)",
+      "metrics": {
+        "units7": 10,
+        "units3": 5,
+        "organicUnits7": 10,
+        "organicRatio": 1,
+        "sessions7": 37,
+        "conv7": 21.62,
+        "ad7": {
+          "spend": 0.71,
+          "orders": 0,
+          "clicks": 2,
+          "impressions": 869,
+          "sources": {
+            "productCard": {
+              "spend": 0,
+              "orders": 0,
+              "clicks": 0,
+              "impressions": 590
+            },
+            "adSkuSummary": {
+              "clicks": 2,
+              "impressions": 869,
+              "inferredSpend": 0.71
+            }
+          }
+        },
+        "invDays": 10,
+        "stockTotal": 17,
+        "profitRate": 0.2115,
+        "busyNetProfit": 0.3095,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 7,
+        "enabledCampaigns": 5,
+        "totalBudget": 38.4,
+        "pausedBudget": 13,
+        "kwTargets": 19,
+        "autoTargets": 7,
+        "sbTargets": 15
+      },
+      "evidence": [
+        "7d units=10, estOrganic=10, sessions=37, conv=21.62%",
+        "7d ad orders=0, clicks=2, spend?$0.71, impr=869",
+        "inventoryDays=10, stockTotal=17, profitRate=21.1%, busyNet=30.9%",
+        "structure campaigns=7, enabled=5, budget=$38.4"
+      ],
+      "campaigns": [
+        {
+          "name": "kw_cosmetic bags_lne1322",
+          "budget": 16.4,
+          "state": 1,
+          "kw": 20,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw broad_international womens day gifts_lne1322",
+          "budget": 3,
+          "state": 1,
+          "kw": 8,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_christian cosmetic bags_lne1322",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "auto_cosmetic bags_lne1322",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "sbvkw_cosmetic bags_lne1322",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 15
+        },
+        {
+          "name": "asin_christian cosmetic bags_lne1322",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "inspirational keychains-lne1322-system-keyword",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "do not broad-push before margin/window check; consider price/listing or small test only"
+    },
+    {
+      "bucket": "C_hold_or_small_test",
+      "sku": "YUN2646",
+      "asin": "B0F191MR54",
+      "theme": "母亲节(平时可卖)",
+      "metrics": {
+        "units7": 7,
+        "units3": 0,
+        "organicUnits7": 7,
+        "organicRatio": 1,
+        "sessions7": 35,
+        "conv7": 22.86,
+        "ad7": {
+          "spend": 1.2,
+          "orders": 0,
+          "clicks": 6,
+          "impressions": 587,
+          "sources": {
+            "productCard": {
+              "spend": 1.2,
+              "orders": 0,
+              "clicks": 6,
+              "impressions": 547
+            },
+            "adSkuSummary": {
+              "clicks": 6,
+              "impressions": 587,
+              "inferredSpend": 1.2
+            }
+          }
+        },
+        "invDays": 13,
+        "stockTotal": 44,
+        "profitRate": 0.2187,
+        "busyNetProfit": 0.249,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 6,
+        "enabledCampaigns": 2,
+        "totalBudget": 40,
+        "pausedBudget": 36,
+        "kwTargets": 0,
+        "autoTargets": 3,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=7, estOrganic=7, sessions=35, conv=22.86%",
+        "7d ad orders=0, clicks=6, spend?$1.20, impr=587",
+        "inventoryDays=13, stockTotal=44, profitRate=21.9%, busyNet=24.9%",
+        "structure campaigns=6, enabled=2, budget=$40"
+      ],
+      "campaigns": [
+        {
+          "name": "auto_sister in christ gift_yun2646",
+          "budget": 1,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_sister in christ gift_yun2646",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 2,
+          "sb": 0
+        },
+        {
+          "name": "kw_sister in christ gift_yun2646",
+          "budget": 20,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "sister in christ gifts for women -yun2646-system-keyword",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw2_sister in christ gift_yun2646",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "sister in christ gifts for women-yun2646-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "do not broad-push before margin/window check; consider price/listing or small test only"
+    },
+    {
+      "bucket": "C_hold_or_small_test",
+      "sku": "SAN1084",
+      "asin": "B0F4VV16FQ",
+      "theme": "万圣节(平时可卖)",
+      "metrics": {
+        "units7": 7,
+        "units3": 2,
+        "organicUnits7": 7,
+        "organicRatio": 1,
+        "sessions7": 28,
+        "conv7": 25,
+        "ad7": {
+          "spend": 0.64,
+          "orders": 0,
+          "clicks": 2,
+          "impressions": 342,
+          "sources": {
+            "productCard": {
+              "spend": 0.32,
+              "orders": 0,
+              "clicks": 1,
+              "impressions": 296
+            },
+            "adSkuSummary": {
+              "clicks": 2,
+              "impressions": 342,
+              "inferredSpend": 0.64
+            }
+          }
+        },
+        "invDays": 106,
+        "stockTotal": 53,
+        "profitRate": -0.3644,
+        "busyNetProfit": 0.0029,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 4,
+        "enabledCampaigns": 2,
+        "totalBudget": 12,
+        "pausedBudget": 6,
+        "kwTargets": 0,
+        "autoTargets": 1,
+        "sbTargets": 9
+      },
+      "evidence": [
+        "7d units=7, estOrganic=7, sessions=28, conv=25%",
+        "7d ad orders=0, clicks=2, spend?$0.64, impr=342",
+        "inventoryDays=106, stockTotal=53, profitRate=-36.4%, busyNet=0.3%",
+        "structure campaigns=4, enabled=2, budget=$12"
+      ],
+      "campaigns": [
+        {
+          "name": "auto_black cowboy hat_san1084",
+          "budget": 6,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "sbvkw_black cowboy hat_san1084",
+          "budget": 0,
+          "state": "ENABLED",
+          "kw": 0,
+          "auto": 0,
+          "sb": 13
+        },
+        {
+          "name": "kw_black cowboy hat_san1084",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "asin_black cowboy hat_san1084",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "do not broad-push before margin/window check; consider price/listing or small test only"
+    },
+    {
+      "bucket": "C_hold_or_small_test",
+      "sku": "YUT3185",
+      "asin": "B0D3PVD8QN",
+      "theme": "夏季产品(平时可卖)",
+      "metrics": {
+        "units7": 6,
+        "units3": 4,
+        "organicUnits7": 6,
+        "organicRatio": 1,
+        "sessions7": 26,
+        "conv7": 11.54,
+        "ad7": {
+          "spend": 3.11,
+          "orders": 0,
+          "clicks": 4,
+          "impressions": 647,
+          "sources": {
+            "productCard": {
+              "spend": 3.11,
+              "orders": 0,
+              "clicks": 4,
+              "impressions": 417
+            },
+            "adSkuSummary": {
+              "clicks": 4,
+              "impressions": 647,
+              "inferredSpend": 3.11
+            }
+          }
+        },
+        "invDays": 19,
+        "stockTotal": 70,
+        "profitRate": -0.0484,
+        "busyNetProfit": 0.2588,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 6,
+        "enabledCampaigns": 3,
+        "totalBudget": 25,
+        "pausedBudget": 16,
+        "kwTargets": 14,
+        "autoTargets": 9,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=6, estOrganic=6, sessions=26, conv=11.54%",
+        "7d ad orders=0, clicks=4, spend?$3.11, impr=647",
+        "inventoryDays=19, stockTotal=70, profitRate=-4.8%, busyNet=25.9%",
+        "structure campaigns=6, enabled=3, budget=$25"
+      ],
+      "campaigns": [
+        {
+          "name": "kw phrase_soccer balls bulk_yut3185",
+          "budget": 3,
+          "state": 1,
+          "kw": 14,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_soccer balls bulk_yut3185",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 4,
+          "sb": 0
+        },
+        {
+          "name": "asin_soccer balls bulk_yut3185",
+          "budget": 3,
+          "state": 1,
+          "kw": 0,
+          "auto": 5,
+          "sb": 0
+        },
+        {
+          "name": "kw broad_soccer balls bulk_yut3185",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "soccer balls-yut3185-system-a",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "soccer balls-yut3185-system-keyword",
+          "budget": 10,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "do not broad-push before margin/window check; consider price/listing or small test only"
+    },
+    {
+      "bucket": "C_hold_or_small_test",
+      "sku": "TH2870",
+      "asin": "B0D4QWFQ23",
+      "theme": "常规产品",
+      "metrics": {
+        "units7": 5,
+        "units3": 1,
+        "organicUnits7": 5,
+        "organicRatio": 1,
+        "sessions7": 29,
+        "conv7": 13.79,
+        "ad7": {
+          "spend": 0,
+          "orders": 0,
+          "clicks": 0,
+          "impressions": 0,
+          "sources": {
+            "productCard": {
+              "spend": 0,
+              "orders": 0,
+              "clicks": 0,
+              "impressions": 0
+            },
+            "adSkuSummary": {
+              "clicks": 0,
+              "impressions": 0,
+              "inferredSpend": 0
+            }
+          }
+        },
+        "invDays": 8,
+        "stockTotal": 62,
+        "profitRate": 0.3024,
+        "busyNetProfit": 0.1958,
+        "adDependency": 0
+      },
+      "structure": {
+        "campaignCount": 9,
+        "enabledCampaigns": 3,
+        "totalBudget": 84.56,
+        "pausedBudget": 30,
+        "kwTargets": 0,
+        "autoTargets": 0,
+        "sbTargets": 0
+      },
+      "evidence": [
+        "7d units=5, estOrganic=5, sessions=29, conv=13.79%",
+        "7d ad orders=0, clicks=0, spend?$0.00, impr=0",
+        "inventoryDays=8, stockTotal=62, profitRate=30.2%, busyNet=19.6%",
+        "structure campaigns=9, enabled=3, budget=$84.56"
+      ],
+      "campaigns": [
+        {
+          "name": "auto_ful full loop th2870 auto_th2870",
+          "budget": 15,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "silicone cable ties-th2869-system-keyword",
+          "budget": 34.56,
+          "state": 1,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_amazon business_th2870",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "auto_wire ties for cords_th2870",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "kw broad_wire ties for cords_th2870",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "asin expanded_wire ties for cords_th2870",
+          "budget": 3,
+          "state": 2,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "silicone cable ties-th2869-system-keyword-exact",
+          "budget": 10,
+          "state": 1,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        },
+        {
+          "name": "silicone cable ties-th2869-system-keyword-phrase",
+          "budget": 10,
+          "state": 1,
+          "kw": 0,
+          "auto": 0,
+          "sb": 0
+        }
+      ],
+      "recommendedNext": "do not broad-push before margin/window check; consider price/listing or small test only"
+    }
+  ]
+}

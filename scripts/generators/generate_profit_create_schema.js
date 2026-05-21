@@ -12,6 +12,7 @@ const {
   listingSeasonEvidence,
   salesHistoryEvidence,
 } = require('../../src/inventory_economics');
+const { hasReusableSpLane } = require('../../src/ad_structure_reuse');
 
 function num(value) {
   const n = Number(value);
@@ -27,19 +28,36 @@ function cleanTerm(value) {
 }
 
 function adNamePart(value, fallback = 'ad') {
+  const text = String(value || '')
+    .normalize('NFKD')
+    .replace(/[^\x00-\x7F]/g, ' ')
+    .toLowerCase()
+    .replace(/[\\'"`]+/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return text || fallback;
+}
+
+function skuNamePart(value, fallback = 'sku') {
   const slug = String(value || '')
     .normalize('NFKD')
     .replace(/[^\x00-\x7F]/g, ' ')
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '_')
-    .replace(/^_+|_+$/g, '')
-    .replace(/_+/g, '_');
+    .replace(/[^a-z0-9]+/g, '')
+    .trim();
   return slug || fallback;
 }
 
-function aiCreateName(mode, coreTerm, sku) {
-  const prefix = mode === 'auto' ? 'auto' : mode === 'productTarget' ? 'asin' : 'kw';
-  return `ai_${prefix}_${adNamePart(coreTerm, 'target')}_${adNamePart(sku, 'sku')}`
+function aiCreateName(mode, coreTerm, sku, matchType = '', targetType = '') {
+  const match = String(matchType || '').trim().toLowerCase();
+  const target = String(targetType || '').trim().toLowerCase();
+  const prefix = mode === 'auto'
+    ? 'auto'
+    : mode === 'productTarget'
+      ? (/expand/i.test(target) ? 'asin expanded' : 'asin')
+      : `kw ${match || 'phrase'}`;
+  return `ai_${prefix}_${adNamePart(coreTerm, 'target')}_${skuNamePart(sku, 'sku')}`
     .slice(0, 90)
     .replace(/_+$/g, '');
 }
@@ -366,6 +384,10 @@ function existingCampaignNames(card) {
   return new Set((card.campaigns || []).map(c => String(c.name || '').toLowerCase()));
 }
 
+function hasReusableCreateLane(card, mode, matchType = '') {
+  return hasReusableSpLane(card, { mode, matchType }).reusable;
+}
+
 function roundBid(value) {
   return Number(Math.max(0.05, value).toFixed(2));
 }
@@ -423,7 +445,7 @@ function estimateInitialBid(card, themeInfo, mode, stagnantOpportunity = false) 
 
 function createAction(card, mode, coreTerm, matchType, bid, keywords, reason, evidence, options = {}) {
   const ctx = card.createContext || {};
-  const campaignName = aiCreateName(mode, coreTerm, card.sku);
+  const campaignName = aiCreateName(mode, coreTerm, card.sku, matchType, options.targetType);
   return {
     ...candidateMeta('create', ['profit_create_candidate', mode, matchType || 'auto'].filter(Boolean)),
     id: `create::${card.sku}::${mode}::${matchType || 'auto'}::${coreTerm}`,
@@ -495,6 +517,8 @@ function loadSkipCreatedSkus() {
 
 function generatePlans(snapshot = {}, options = {}) {
   const limit = Number(options.limit || process.env.CREATE_ACTION_LIMIT || 40);
+  const perSkuCreateLimitRaw = options.perSkuCreateLimit ?? process.env.CREATE_ACTION_MAX_PER_SKU ?? 1;
+  const perSkuCreateLimit = Number(perSkuCreateLimitRaw) > 0 ? Number(perSkuCreateLimitRaw) : Infinity;
   const currentDate = parseCurrentDate(options.currentDate);
   const cards = snapshot.productCards || [];
   const imageReviewBudget = options.imageReviewBudget != null
@@ -661,23 +685,27 @@ function generatePlans(snapshot = {}, options = {}) {
     evidence.push(`estimatedPhraseBid=${phraseBid}`);
     evidence.push(`estimatedBroadBid=${broadBid}`);
     evidence.push(`estimatedAutoBid=${autoBid}`);
+    let skuCreateCount = 0;
 
     const phraseCore = `q2 profit ${card.sku.toLowerCase()} phrase`;
-    if (actionCount < limit && !names.has(`kw_${phraseCore}_${String(card.sku).toLowerCase()}`)) {
+    if (actionCount < limit && skuCreateCount < perSkuCreateLimit && !hasReusableCreateLane(card, 'keywordTarget', 'PHRASE') && !names.has(`kw_${phraseCore}_${String(card.sku).toLowerCase()}`)) {
       actions.push(createAction(card, 'keywordTarget', phraseCore, 'PHRASE', phraseBid, terms.slice(0, 12), reason, evidence, createOptions));
       actionCount += 1;
+      skuCreateCount += 1;
     }
 
     const broadCore = `q2 profit ${card.sku.toLowerCase()} broad`;
-    if (actionCount < limit && lowCoverage && !names.has(`kw_${broadCore}_${String(card.sku).toLowerCase()}`)) {
+    if (actionCount < limit && skuCreateCount < perSkuCreateLimit && lowCoverage && !hasReusableCreateLane(card, 'keywordTarget', 'BROAD') && !names.has(`kw_${broadCore}_${String(card.sku).toLowerCase()}`)) {
       actions.push(createAction(card, 'keywordTarget', broadCore, 'BROAD', broadBid, terms.slice(0, 10), reason, evidence, createOptions));
       actionCount += 1;
+      skuCreateCount += 1;
     }
 
     const autoCore = `q2 profit ${card.sku.toLowerCase()} auto`;
-    if (actionCount < limit && (!card.createContext?.coverage?.hasSpAuto || (lowCoverage && stuckRisk)) && !names.has(`auto_${autoCore}_${String(card.sku).toLowerCase()}`)) {
+    if (actionCount < limit && skuCreateCount < perSkuCreateLimit && (!card.createContext?.coverage?.hasSpAuto || (lowCoverage && stuckRisk)) && !hasReusableCreateLane(card, 'auto') && !names.has(`auto_${autoCore}_${String(card.sku).toLowerCase()}`)) {
       actions.push(createAction(card, 'auto', autoCore, '', autoBid, [], reason, evidence, createOptions));
       actionCount += 1;
+      skuCreateCount += 1;
     }
 
     if (actions.length) plans.push({ sku: card.sku, asin: card.asin, summary, actions });

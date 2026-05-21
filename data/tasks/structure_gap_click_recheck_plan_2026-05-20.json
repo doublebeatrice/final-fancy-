@@ -1,0 +1,233 @@
+{
+  "generatedAt": "2026-05-20T01:38:42.635Z",
+  "localDate": "2026-05-20",
+  "purpose": "Recheck impressions/clicks after structure-gap campaign creation.",
+  "automation": {
+    "id": "automation-2",
+    "name": "??????????",
+    "checkpoints": [
+      "2026-05-20 15:30 Asia/Shanghai",
+      "2026-05-21 15:30 Asia/Shanghai"
+    ]
+  },
+  "thresholds": {
+    "sameDay": "By same-day afternoon: flag campaigns with impressions=0 or clicks=0 as not started; do not judge ACOS yet.",
+    "nextDay": "By next-day afternoon: check impressions, clicks, spend, orders, and search terms; if spend/clicks are meaningful but no orders, isolate weak phrase/auto/product-target layers before raising more budget."
+  },
+  "skus": [
+    {
+      "sku": "YUT3184",
+      "campaigns": 3,
+      "budget": 19,
+      "targetRows": 15
+    },
+    {
+      "sku": "MED1970",
+      "campaigns": 4,
+      "budget": 34,
+      "targetRows": 23
+    },
+    {
+      "sku": "SII0421",
+      "campaigns": 3,
+      "budget": 19,
+      "targetRows": 17
+    },
+    {
+      "sku": "NAY0963",
+      "campaigns": 2,
+      "budget": 9,
+      "targetRows": 10
+    },
+    {
+      "sku": "EU0867",
+      "campaigns": 2,
+      "budget": 12,
+      "targetRows": 11
+    },
+    {
+      "sku": "GT3811",
+      "campaigns": 2,
+      "budget": 9,
+      "targetRows": 10
+    }
+  ],
+  "campaigns": [
+    {
+      "sku": "YUT3184",
+      "campaignName": "ai_kw exact_soccer party_yut3184",
+      "campaignId": "108127909742443",
+      "adGroupId": "22122889325938",
+      "mode": "keywordTarget",
+      "match": "EXACT",
+      "budget": 8,
+      "bid": 0.62,
+      "targetRows": 6
+    },
+    {
+      "sku": "YUT3184",
+      "campaignName": "ai_kw phrase_soccer party_yut3184",
+      "campaignId": "150059712181143",
+      "adGroupId": "221651028406362",
+      "mode": "keywordTarget",
+      "match": "PHRASE",
+      "budget": 6,
+      "bid": 0.48,
+      "targetRows": 5
+    },
+    {
+      "sku": "YUT3184",
+      "campaignName": "ai_auto_soccer controlled_yut3184",
+      "campaignId": "187237083572295",
+      "adGroupId": "382215447000210",
+      "mode": "auto",
+      "match": "",
+      "budget": 5,
+      "bid": 0.36,
+      "targetRows": 4
+    },
+    {
+      "sku": "MED1970",
+      "campaignName": "ai_kw exact_steam table pans_med1970",
+      "campaignId": "121515497954895",
+      "adGroupId": "114971011652075",
+      "mode": "keywordTarget",
+      "match": "EXACT",
+      "budget": 12,
+      "bid": 0.85,
+      "targetRows": 7
+    },
+    {
+      "sku": "MED1970",
+      "campaignName": "ai_kw phrase_steam table pans_med1970",
+      "campaignId": "226603950007371",
+      "adGroupId": "1891883235024",
+      "mode": "keywordTarget",
+      "match": "PHRASE",
+      "budget": 8,
+      "bid": 0.65,
+      "targetRows": 6
+    },
+    {
+      "sku": "MED1970",
+      "campaignName": "ai_auto_steam table pans_med1970",
+      "campaignId": "147480840129883",
+      "adGroupId": "514851458909470",
+      "mode": "auto",
+      "match": "",
+      "budget": 8,
+      "bid": 0.45,
+      "targetRows": 4
+    },
+    {
+      "sku": "MED1970",
+      "campaignName": "ai_asin_steam table pans_med1970",
+      "campaignId": "140173886011552",
+      "adGroupId": "112501083762821",
+      "mode": "productTarget",
+      "match": "ASIN_SAME_AS",
+      "budget": 6,
+      "bid": 0.55,
+      "targetRows": 6
+    },
+    {
+      "sku": "SII0421",
+      "campaignName": "ai_kw exact_bridal shower games_sii0421",
+      "campaignId": "69810126519742",
+      "adGroupId": "225191222591398",
+      "mode": "keywordTarget",
+      "match": "EXACT",
+      "budget": 8,
+      "bid": 0.42,
+      "targetRows": 6
+    },
+    {
+      "sku": "SII0421",
+      "campaignName": "ai_kw phrase_bridal shower games_sii0421",
+      "campaignId": "223120381632352",
+      "adGroupId": "130409681174647",
+      "mode": "keywordTarget",
+      "match": "PHRASE",
+      "budget": 6,
+      "bid": 0.35,
+      "targetRows": 5
+    },
+    {
+      "sku": "SII0421",
+      "campaignName": "ai_asin_bridal shower games_sii0421",
+      "campaignId": "90041286762916",
+      "adGroupId": "26488646401819",
+      "mode": "productTarget",
+      "match": "ASIN_SAME_AS",
+      "budget": 5,
+      "bid": 0.35,
+      "targetRows": 6
+    },
+    {
+      "sku": "NAY0963",
+      "campaignName": "ai_kw exact_wedding pens_nay0963",
+      "campaignId": "120283281923019",
+      "adGroupId": "271598228678715",
+      "mode": "keywordTarget",
+      "match": "EXACT",
+      "budget": 5,
+      "bid": 0.42,
+      "targetRows": 5
+    },
+    {
+      "sku": "NAY0963",
+      "campaignName": "ai_kw phrase_wedding pens_nay0963",
+      "campaignId": "261293232122319",
+      "adGroupId": "226840625205864",
+      "mode": "keywordTarget",
+      "match": "PHRASE",
+      "budget": 4,
+      "bid": 0.34,
+      "targetRows": 5
+    },
+    {
+      "sku": "EU0867",
+      "campaignName": "ai_kw exact_opossum plush_eu0867",
+      "campaignId": "213926145142060",
+      "adGroupId": "60229055361161",
+      "mode": "keywordTarget",
+      "match": "EXACT",
+      "budget": 7,
+      "bid": 0.38,
+      "targetRows": 6
+    },
+    {
+      "sku": "EU0867",
+      "campaignName": "ai_kw phrase_opossum plush_eu0867",
+      "campaignId": "240712106417859",
+      "adGroupId": "205759319319949",
+      "mode": "keywordTarget",
+      "match": "PHRASE",
+      "budget": 5,
+      "bid": 0.3,
+      "targetRows": 5
+    },
+    {
+      "sku": "GT3811",
+      "campaignName": "ai_kw exact_yellow funeral ribbons_gt3811",
+      "campaignId": "142761418371109",
+      "adGroupId": "266313961692530",
+      "mode": "keywordTarget",
+      "match": "EXACT",
+      "budget": 5,
+      "bid": 0.42,
+      "targetRows": 5
+    },
+    {
+      "sku": "GT3811",
+      "campaignName": "ai_kw phrase_yellow funeral ribbons_gt3811",
+      "campaignId": "280094312330124",
+      "adGroupId": "36122599404620",
+      "mode": "keywordTarget",
+      "match": "PHRASE",
+      "budget": 4,
+      "bid": 0.34,
+      "targetRows": 5
+    }
+  ]
+}

@@ -12,6 +12,7 @@ const {
   normalizeLowEfficiencyRow,
   decideLowEfficiencyAction,
 } = require('./low_efficiency_decision');
+const { hasReusableSpLane } = require('./ad_structure_reuse');
 
 const EXECUTABLE_ACTION_SOURCES = new Set(['codex', 'claude', 'manual']);
 const ACCEPTED_ACTION_SOURCES = new Set([
@@ -1149,6 +1150,15 @@ function gateRisk(product, entity, action) {
       gated.reason = `${gated.reason || ''} [risk_gate:create_missing:${missing.join(',')}] Need these create fields before automation can execute: ${missing.join(', ')}.`.trim();
       return gated;
     }
+    const reuse = hasReusableSpLane(product, createInput);
+    if (reuse.reusable && gated.allowDuplicateStructureCreate !== true && !forceExecute) {
+      const match = reuse.matches[0] || {};
+      gated.actionType = 'review';
+      gated.canAutoExecute = false;
+      gated.riskLevel = 'duplicate_structure_reuse';
+      gated.reason = `${gated.reason || ''} [risk_gate:reuse_existing_ad_group:lane=${reuse.lane},campaignId=${match.campaignId || 'unknown'},adGroupId=${match.adGroupId || 'unknown'}] Existing SP lane is reusable; add targets/budget/bid there instead of creating another campaign/ad group.`.trim();
+      return gated;
+    }
     gated.canAutoExecute = true;
     gated.riskLevel = gated.riskLevel || 'low_budget_create';
     return gated;
@@ -1317,6 +1327,7 @@ function validateAndNormalizePlan(rawPlan, context) {
         allowLargeBidChange: rawAction.allowLargeBidChange === true,
         allowLargeBudgetChange: rawAction.allowLargeBudgetChange === true,
         allowLargePlacementChange: rawAction.allowLargePlacementChange === true,
+        allowDuplicateStructureCreate: rawAction.allowDuplicateStructureCreate === true,
         currentBid: toNum(rawAction.currentBid ?? entity.currentBid),
         suggestedBid: toNum(rawAction.suggestedBid),
         currentBudget: toNum(rawAction.currentBudget ?? entity.currentBudget),

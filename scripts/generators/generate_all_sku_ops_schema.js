@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { analyzeAllowedOperationScope } = require('../../src/operation_scope');
 const { assessAdOperatingContext } = require('../../src/inventory_economics');
+const { hasReusableSpLane } = require('../../src/ad_structure_reuse');
 
 function num(value) {
   const n = Number(value);
@@ -13,19 +14,36 @@ function roundBid(value, min = 0.05) {
 }
 
 function adNamePart(value, fallback = 'ad') {
+  const text = String(value || '')
+    .normalize('NFKD')
+    .replace(/[^\x00-\x7F]/g, ' ')
+    .toLowerCase()
+    .replace(/[\\'"`]+/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return text || fallback;
+}
+
+function skuNamePart(value, fallback = 'sku') {
   const slug = String(value || '')
     .normalize('NFKD')
     .replace(/[^\x00-\x7F]/g, ' ')
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '_')
-    .replace(/^_+|_+$/g, '')
-    .replace(/_+/g, '_');
+    .replace(/[^a-z0-9]+/g, '')
+    .trim();
   return slug || fallback;
 }
 
-function aiCreateName(mode, coreTerm, sku) {
-  const prefix = mode === 'auto' ? 'auto' : mode === 'productTarget' ? 'asin' : 'kw';
-  return `ai_${prefix}_${adNamePart(coreTerm, 'target')}_${adNamePart(sku, 'sku')}`
+function aiCreateName(mode, coreTerm, sku, matchType = '', targetType = '') {
+  const match = String(matchType || '').trim().toLowerCase();
+  const target = String(targetType || '').trim().toLowerCase();
+  const prefix = mode === 'auto'
+    ? 'auto'
+    : mode === 'productTarget'
+      ? (/expand/i.test(target) ? 'asin expanded' : 'asin')
+      : `kw ${match || 'phrase'}`;
+  return `ai_${prefix}_${adNamePart(coreTerm, 'target')}_${skuNamePart(sku, 'sku')}`
     .slice(0, 90)
     .replace(/_+$/g, '');
 }
@@ -222,7 +240,7 @@ function makeBudgetAction(card, row, suggestedBudget, reason, evidence, riskLeve
 
 function makeCreateAction(card, mode, coreTerm, matchType, bid, keywords, dailyBudget, reason, evidence, riskLevel) {
   const ctx = card.createContext || {};
-  const campaignName = aiCreateName(mode, coreTerm, card.sku);
+  const campaignName = aiCreateName(mode, coreTerm, card.sku, matchType);
   return {
     ...candidateMeta('create', ['all_sku_ops', riskLevel, mode].filter(Boolean)),
     id: `create::${card.sku}::${mode}::${matchType || 'auto'}::${coreTerm}`,
@@ -305,6 +323,11 @@ function extractTermSeeds(card) {
 
 function hasAdType(entities, type) {
   return entities.some(row => row.entityType === type && isEnabled(row.state));
+}
+
+function hasReusableKeywordCoverage(card) {
+  return hasReusableSpLane(card, { mode: 'keywordTarget', matchType: 'PHRASE' }).reusable ||
+    hasReusableSpLane(card, { mode: 'keywordTarget', matchType: 'BROAD' }).reusable;
 }
 
 function campaignStatsFromChildren(campaignId, rows, price) {
@@ -442,7 +465,7 @@ function generatePlans(snapshot, options = {}) {
         `SKU ${card.sku}: traffic is thin at 30d ${sku.impressions30.toFixed(0)} impressions / ${sku.clicks30.toFixed(0)} clicks, sellable days 3/7/30 ${sellableDays3.toFixed(0)}/${sellableDays7.toFixed(0)}/${invDays.toFixed(0)}, units 3/7/30 ${sold3.toFixed(0)}/${sold7.toFixed(0)}/${sold30.toFixed(0)}, fulfillable ${fulfillable.toFixed(0)}, profit rate ${(profitRate * 100).toFixed(1)}%`,
         `Operating judgement: ${operating.finalAction || 'unknown'}`,
       ];
-      if (!hasAdType(entitiesAll, 'autoTarget') && card.createContext?.accountId) {
+      if (!hasAdType(entitiesAll, 'autoTarget') && !hasReusableSpLane(card, { mode: 'auto' }).reusable && card.createContext?.accountId) {
         rowCandidates.push({
           score: 95 + invDays / 10,
           action: makeCreateAction(
@@ -459,7 +482,7 @@ function generatePlans(snapshot, options = {}) {
           ),
         });
       }
-      if (terms.length >= 3 && !hasAdType(entitiesAll, 'keyword') && card.createContext?.accountId) {
+      if (terms.length >= 3 && !hasAdType(entitiesAll, 'keyword') && !hasReusableKeywordCoverage(card) && card.createContext?.accountId) {
         rowCandidates.push({
           score: 92 + invDays / 12,
           action: makeCreateAction(

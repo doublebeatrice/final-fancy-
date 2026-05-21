@@ -4116,6 +4116,69 @@ function parseListing(html, asin) {
 // ============================================================
 // 阶段 3：构建产品画像
 // ============================================================
+function readPresentNumField(row, keys, fallback = 0) {
+  for (const key of keys) {
+    if (!Object.prototype.hasOwnProperty.call(row || {}, key)) continue;
+    const value = row?.[key];
+    if (value === undefined || value === null || String(value).trim() === '') continue;
+    const n = Number(value);
+    if (Number.isFinite(n)) return n;
+  }
+  return fallback;
+}
+
+function normalizeLocalShipmentDate(value) {
+  const text = String(value || '').trim();
+  const match = text.match(/^(\d{4}-\d{2}-\d{2})/);
+  return match ? match[1] : '';
+}
+
+function readLocalInventoryFields(row) {
+  row = row || {};
+  const purchasedTotal = readPresentNumField(row, ['shipping_amount'], 0);
+  const goodStock = readPresentNumField(row, ['inventory_amount'], 0);
+  const lastShipmentTime = String(row.last_shipment_time || '').trim();
+  const fbaPlanAir = readPresentNumField(row, ['fbaPlan'], 0);
+  const fbaPlanSea = readPresentNumField(row, ['fba_plan_sea'], 0);
+  const fbaPlanTotalAir = readPresentNumField(row, ['fba_plan_total'], 0);
+  const fbaPlanTotalSea = readPresentNumField(row, ['fba_plan_total_sea'], 0);
+  return {
+    shipmentRecord: {
+      lastShipmentTime,
+      lastShipmentDate: normalizeLocalShipmentDate(lastShipmentTime),
+      lastShipmentQuantity: readPresentNumField(row, ['last_shipment_quantity'], 0),
+    },
+    purchasedTotal,
+    goodStock,
+    pendingAndTestStock: Math.max(0, purchasedTotal - goodStock),
+    testWarehouseStock: readPresentNumField(row, ['unstock_in_amount'], 0),
+    availableForPlan: readPresentNumField(row, ['available_inventory'], 0),
+    todayMadePlan: readPresentNumField(row, ['today_made_plan'], 0),
+    storeQtyNewPurchase: readPresentNumField(row, ['storeQtyNew_purchase'], 0),
+    purchasePlan: readPresentNumField(row, ['purchasePlan'], 0),
+    fbaPlan: fbaPlanAir + fbaPlanSea,
+    fbaPlanAir,
+    fbaPlanSea,
+    fbaPlanTotal: fbaPlanTotalAir + fbaPlanTotalSea,
+    fbaPlanTotalAir,
+    fbaPlanTotalSea,
+    orderAmount: readPresentNumField(row, ['order_amount'], 0),
+    sourceFields: {
+      shipmentRecord: 'last_shipment_time,last_shipment_quantity',
+      purchasedTotal: 'shipping_amount',
+      goodStock: 'inventory_amount',
+      pendingAndTestStock: 'shipping_amount-inventory_amount',
+      testWarehouseStock: 'unstock_in_amount',
+      availableForPlan: 'available_inventory',
+      todayMadePlan: 'today_made_plan',
+      fbaPlanAir: 'fbaPlan',
+      fbaPlanSea: 'fba_plan_sea',
+      fbaPlanTotalAir: 'fba_plan_total',
+      fbaPlanTotalSea: 'fba_plan_total_sea',
+    },
+  };
+}
+
 function buildInvMap(rows) {
   const map = {};
   if (rows[0]) {
@@ -4136,6 +4199,7 @@ function buildInvMap(rows) {
     const stockInbAir = readNumField(r, ['inbound_cal', 'inbound_cal_no_reserve', 'inb_air', 'inbound_air', 'air_inbound', 'unstock_in_amount'], 0);
     const stockInb = readNumField(r, ['inbound', 'inbound_reserve'], 0);
     const stockPlan = readNumField(r, ['fba_plan_total', 'fbaPlan', 'purchasePlan', 'fba_plan_urgent'], 0);
+    const localInventory = readLocalInventoryFields(r);
     const sellableAirFulRes = {
       '3d': readSellableDaysByScope(r, 3, 'first', stockInbAir + stockFul + stockRes),
       '7d': readSellableDaysByScope(r, 7, 'first', stockInbAir + stockFul + stockRes),
@@ -4194,6 +4258,23 @@ function buildInvMap(rows) {
       stockFul,
       stockRes,
       stockPlan,
+      localInventory,
+      localPurchasedTotal: localInventory.purchasedTotal,
+      localGoodStock: localInventory.goodStock,
+      localPendingAndTestStock: localInventory.pendingAndTestStock,
+      localTestWarehouseStock: localInventory.testWarehouseStock,
+      localAvailableForPlan: localInventory.availableForPlan,
+      localTodayMadePlan: localInventory.todayMadePlan,
+      localLastShipmentTime: localInventory.shipmentRecord.lastShipmentTime,
+      localLastShipmentDate: localInventory.shipmentRecord.lastShipmentDate,
+      localLastShipmentQuantity: localInventory.shipmentRecord.lastShipmentQuantity,
+      localFbaPlanAir: localInventory.fbaPlanAir,
+      localFbaPlanSea: localInventory.fbaPlanSea,
+      localFbaPlanTotalAir: localInventory.fbaPlanTotalAir,
+      localFbaPlanTotalSea: localInventory.fbaPlanTotalSea,
+      localFbaPlan: localInventory.fbaPlan,
+      localFbaPlanTotal: localInventory.fbaPlanTotal,
+      localOrderAmount: localInventory.orderAmount,
       unitsSold_30d:  parseFloat(r.qty_30 || 0),
       unitsSold_7d:   parseFloat(r.qty_7  || 0),
       unitsSold_3d:   parseFloat(r.qty_3  || 0),
@@ -4477,6 +4558,23 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
         stockFul:      inv.stockFul       || inv.fulFillable || 0,
         stockRes:      inv.stockRes       || inv.reserved || 0,
         stockPlan:     inv.stockPlan      || 0,
+        localInventory: inv.localInventory || null,
+        localPurchasedTotal: inv.localPurchasedTotal || 0,
+        localGoodStock: inv.localGoodStock || 0,
+        localPendingAndTestStock: inv.localPendingAndTestStock || 0,
+        localTestWarehouseStock: inv.localTestWarehouseStock || 0,
+        localAvailableForPlan: inv.localAvailableForPlan || 0,
+        localTodayMadePlan: inv.localTodayMadePlan || 0,
+        localLastShipmentTime: inv.localLastShipmentTime || '',
+        localLastShipmentDate: inv.localLastShipmentDate || '',
+        localLastShipmentQuantity: inv.localLastShipmentQuantity || 0,
+        localFbaPlanAir: inv.localFbaPlanAir || 0,
+        localFbaPlanSea: inv.localFbaPlanSea || 0,
+        localFbaPlanTotalAir: inv.localFbaPlanTotalAir || 0,
+        localFbaPlanTotalSea: inv.localFbaPlanTotalSea || 0,
+        localFbaPlan: inv.localFbaPlan || 0,
+        localFbaPlanTotal: inv.localFbaPlanTotal || 0,
+        localOrderAmount: inv.localOrderAmount || 0,
         fbaRemoteFlag: inv.fbaRemoteFlag  || '否',
         listingSessions: {
           lastWeek: inv.session_7 || 0,

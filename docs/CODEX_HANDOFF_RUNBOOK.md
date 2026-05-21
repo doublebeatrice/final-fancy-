@@ -32,8 +32,10 @@ That means a new Codex account can run the workflow if the same machine has the 
 5. `docs/Q2_AD_OPS_PLAYBOOK.md`
 6. `docs/CODEX_MINIMAL_CLOSED_LOOP.md`
 7. `docs/PRODUCT_MARKET_EVIDENCE_STACK.md`
-8. `docs/SELECTION_KEYWORD_CONVERSION_RATE.md`
-9. `docs/SELECTION_ABA_SEARCH_TERMS.md`
+8. `docs/SELECTION_KEYWORD_RESEARCH.md`
+9. `docs/SELECTION_KEYWORD_CONVERSION_RATE.md`
+10. `docs/SELECTION_ABA_SEARCH_TERMS.md`
+11. `docs/SELECTION_KEYWORD_SEASONALITY.md`
 
 ## Start Browser Session
 
@@ -91,8 +93,11 @@ Do not use full snapshot export as the default for a named SKU. Choose the small
 - Specific SP ad group internals: `node scripts\execute\fetch_sp_group_detail.js <campaignId> <adGroupId> <accountId> <siteId> <days|startYmd> [endYmd]`; this calls `/advTarget/findManualProductTarget` for ASIN/manual product targets and `/customerSearch/targetFindAll` for customer search terms.
 - Customer search terms from `/customerSearch/targetFindAll` are useful for SP auto/manual groups. SB and some SP keyword groups may return only an empty aggregate placeholder.
 - Product/keyword market profile: for a keyword, SKU, ASIN, product direction, developer request, traffic recovery, keyword creation, or "can this product be pushed" question, use `docs/PRODUCT_MARKET_EVIDENCE_STACK.md` as the default read path. Combine market demand, keyword conversion economics, SKU ad proof, listing/price fit, inventory/economics, and action history instead of judging only from ad or inventory rows.
+- Keyword research precheck: `npm run ops:selection:keyword-research -- --sku "<SKU>" --terms "<term1, term2>"`; this searches Amazon front-end result pages, builds direct competitor / scene competitor / traffic-bridge ASIN pools, excludes unrelated intent, and outputs candidate keywords plus ABA and keyword-conversion validation commands. Different category is not an exclusion by itself; buyer intent and product carry fit are the boundary. This is read-only evidence only.
+- Potential-product replenishment review: when telling development what to do, distinguish actionability. `stockFul/stockRes` are Amazon sellable pressure, `stockInb` is Amazon inbound, `localGoodStock/localAvailableForPlan` are local good/available stock, `localPendingAndTestStock` is pending/test pipeline, and `localFbaPlanAir/localFbaPlanSea` plus `localFbaPlanTotalAir/localFbaPlanTotalSea` are existing FBAPlan air/sea quantities. Only local good/available stock with no existing FBAPlan supports "arrange FBA"; inbound, pending/unarrived stock, and existing plans should not be turned into "催" or duplicate developer requests. For seasonal replenishment, product node and MOQ are hard gates: Mexican / Cinco de Mayo / Fiesta / Pinata products are peak-before-May-5 items, so after May 5 do not recommend a fresh order from 30-day peak sales unless MOQ can be consumed in the remaining tail window.
 - Market keyword conversion precheck: `npm run ops:selection:keyword-conversion -- --keywords "<term1, term2>"`; this calls the internal selection system through the logged-in browser tab and returns market search volume, purchase volume, click-purchase ratio, CPC/CPA/ACOS strategy ranges, missing-keyword coverage, freshness, and cross-validation requirements. It is decision support only; do not create keywords, raise bids, or raise budgets from this source without SKU-level ad, listing, inventory, and product-fit evidence.
 - ABA market demand precheck: `npm run ops:selection:aba-search-terms -- --search-terms "<term1, term2>"`; this calls the internal selection system through the logged-in browser tab and returns ABA rank, search volume, estimated orders, top-ASIN concentration, category fit, monopoly, supply-demand pressure, missing exact-term coverage, freshness, and cross-validation requirements. It is decision support only; do not create keywords, raise bids, or raise budgets from this source without SKU-level ad, keyword-conversion, listing, inventory, and product-fit evidence.
+- Keyword seasonality precheck: `npm run ops:selection:keyword-seasonality -- --search-terms "<term1, term2>"`; this calls the internal selection system through the logged-in browser tab and returns Google trend, market rank/search volume, ASIN count, competitor price/review/rating threshold, brand concentration, buyer-search expansion, and market-window risk. It is decision support only; do not change ads, price, listing, replenishment, or clearance actions from this source without SKU-level and economics cross-checks.
 - Selection AI ASIN keyword pipeline: use the WebSocket pipeline at `wss://selection.yswg.com.cn/soundasia_selection/ws/pipeline` from the logged-in selection session when a SKU needs competitor-driven keyword or ASIN discovery. Seed it with many relevant external ASINs, including same-product, same-theme, price-band, pack-size, and high-traffic adjacent comparables. Do not seed only the new SKU's own ASIN, and do not treat the seed ASIN list as the final execution list. First build a broad candidate pool, then filter it into the keyword group and ASIN targeting group.
 - Full abnormal pool, daily down pool, eligible SKU discovery, or cross-SKU prioritization: export a full snapshot.
 
@@ -108,6 +113,8 @@ Use `/product/chart` before deciding strong push vs strong cut in these cases:
 Minimum judgment rule:
 
 - If season is active, inventory is sufficient, and `/product/chart` shows impressions/clicks absolute values falling, treat `traffic recovery / push` as a live candidate.
+- When recovering seasonal traffic, start expansion from verified order directions first: same root terms, same buyer scenario, same audience, and comparable competitor ASINs. Generic terms are only small tests.
+- Seasonal product review is a product decision first, not a note-writing step: check active window, inventory pressure, verified order direction, core traffic coverage, new-traffic path, and listing/price/image conversion support before deciding.
 - Do not rely only on old note history such as previous `downbid` records to decide today's action.
 - Historical note actions are context only; current-season traffic trend has higher priority.
 
@@ -115,7 +122,11 @@ Never save pasted `x-xsrf-token` values. These read scripts run inside the logge
 
 New SP campaigns can take a short backend indexing delay before child rows are visible through `/keyword/findAllNew`. If `/campaign/createOneTime` returns `campaignId` and `adGroupId` but verification is empty, wait 30-60 seconds and retry the same-day window. For manual ASIN targets, prefer `fetch_sp_group_detail.js` because it verifies `/advTarget/findManualProductTarget` directly.
 
+SP create and rename actions must keep `campaignName` and `groupName` identical and use the operator-facing AI naming format. Use `ai_auto_<core term>_<sku>`, `ai_kw exact|phrase|broad_<core term>_<sku>`, `ai_asin_<core term>_<sku>`, or `ai_asin expanded_<core term>_<sku>`. Keep spaces inside the core term, such as `ai_auto_dessert cups_mh1806`; do not slug the whole name to underscores, and do not leave mode words, target words, or date stamps inside the core term.
+
 SP budget and SP placement writes are automatic-execution capable after schema validation. Budget uses action schema `entityType=campaign`, `actionType=budget`, `suggestedBudget` and writes through `PATCH /campaign/batchCampaign`. Placement uses `entityType=campaign`, `actionType=placement`, `placementKey`, `suggestedPlacementPercent` and writes through `PATCH /campaign/editCampaignColumn`.
+
+SP structure recovery is reuse-first. Before emitting a new SP `create`, check whether the SKU already has an enabled or paused same-lane ad group that can carry the test. Same lane means keyword `BROAD`/`PHRASE`/`EXACT`, `auto`, or product targeting such as `ASIN_SAME_AS` / `ASIN_EXPANDED_FROM`. Existing same-lane structures should receive bid/budget/placement/enable changes or appended targets first; keyword append must also stay in the same match lane, so a `PHRASE` ad group must not receive `BROAD` keywords. Duplicate create actions require a deliberate override and reason. Backend append payloads are known for SP keywords (`/keyword/createKeywordNew`) and SP product targets (`/advTarget/storeManualTarget`), but automatic append execution should remain gated until post-write row verification is wired into the normal run.
 
 Inventory listing performance is part of the AI context: `session_7/14/21` are last-week / two-weeks-ago / three-weeks-ago sessions, and `percentage_7/14/21` are the matching listing conversion rates.
 
@@ -130,6 +141,7 @@ Operating correction from 2026-05-14: do not run daily operations in small round
 Every daily plan must include:
 
 - Overbudget classification: hard stop, budget shift, or watch-only.
+- Proactive audit closure: new-product launch and arrival-ad-recovery rows must be converted into the proactive recovery candidate schema and included in the primary daily schema unless an explicit operator schema was selected; audit-only is not closed.
 - Refund gate: high-refund low-profit SKUs do not receive more traffic without evidence that refund risk is isolated or improving.
 - Opportunity proof: bid-up/budget-up only when conversion, inventory, profit/refund, and season/node evidence support it.
 - Same-SKU cooldown: no repeat push without recent-history review and new evidence.
@@ -168,22 +180,66 @@ Known technical blocker: SP campaign `enable` returned API success but did not l
 ## Dry Run
 
 ```powershell
-$env:DRY_RUN='1'
-node scripts\execute\run_actions.js data\snapshots\action_schema.json --snapshot data\snapshots\latest_snapshot.json
+node scripts\execute\run_actions.js data\snapshots\action_schema.json --snapshot data\snapshots\latest_snapshot.json --dry-run
 ```
 
-Dry-run must show validation errors as structured failures. Do not execute if schema validation is not clean.
+Dry-run must show validation errors as structured failures. Do not execute if schema validation is not clean. Do not rely on omitted flags or environment variables to express execution intent; `run_actions.js` defaults to dry-run and live writes require `--execute`.
 
 For listing copy execution, a clean dry-run is not enough if the plan was generated earlier. `run_listing_copy_edits.js` must re-fetch sellerinventory origin data and refuse live submission when the live parent title no longer matches the planned original title. Treat this as a stale-plan stop, not as a retryable backend failure.
 
 ## Execute
 
 ```powershell
-Remove-Item Env:\DRY_RUN -ErrorAction SilentlyContinue
-node scripts\execute\run_actions.js data\snapshots\action_schema.json --snapshot data\snapshots\latest_snapshot.json
+node scripts\execute\run_actions.js data\snapshots\action_schema.json --snapshot data\snapshots\latest_snapshot.json --execute
 ```
 
 Expected outputs are written under `data/snapshots/`, including verification and execution summary files.
+
+Adjustment ledger rules:
+
+- Dry-run records are planned evidence and must not be counted as landed KPI actions.
+- Same-day duplicate dry-run records are deduped by action/entity/outcome to keep the long-term database clean.
+- Separate live `sourceRunId` attempts are preserved for auditability, but duplicate writes inside the same live run are ignored.
+
+Use the standard dedupe entrypoint before committing a cleaned adjustment ledger:
+
+```powershell
+npm run ops:adjustments:dedupe -- data\adjustments\adjustments_<YYYY-MM-DD>.json
+npm run ops:adjustments:dedupe -- data\adjustments\adjustments_<YYYY-MM-DD>.json --write
+```
+
+The first command is report-only. The write command creates a timestamped `.bak` file before rewriting.
+
+## KPI Gate
+
+After the handoff or closed-loop artifacts exist, write the explicit KPI recovery gate file:
+
+```powershell
+npm run ops:kpi:gate -- --date <YYYY-MM-DD>
+```
+
+The output is `data\tasks\kpi_recovery_gate_<YYYY-MM-DD>.json`. Treat `target_set_actual_pending` as an intentional partial state: the next business-day target exists, but actual sales-core data for that business date has not arrived yet. Only `pass` or `fail` should be used to judge whether the gate was hit.
+
+After the KPI gate, write the recovery checkpoint:
+
+```powershell
+npm run ops:kpi:checkpoint -- --date <YYYY-MM-DD>
+```
+
+This writes two artifacts:
+
+- `data\tasks\kpi_recovery_checkpoint_<YYYY-MM-DD>.json`: machine-readable gate, deposit, action-pool, dry-run, and next-check state.
+- `data\tasks\kpi_recovery_operator_checkpoint_<YYYY-MM-DD>.md`: human-readable operator checkpoint for the next handoff.
+
+The operator checkpoint must not be maintained by hand as a separate truth source. Regenerate it from `ops:kpi:checkpoint` whenever the gate, deposit status, action pools, or closure verification changes.
+
+Run the closure artifact verifier after the dashboard, handoff, KPI gate, and KPI checkpoint exist:
+
+```powershell
+npm run ops:closure:verify -- --date <YYYY-MM-DD>
+```
+
+The verifier checks the closed-loop JSON, handoff Markdown, dashboard HTML, KPI gate JSON, KPI checkpoint JSON, and operator checkpoint Markdown. A stale or missing operator checkpoint means the day is not artifact-closed even when the machine JSON exists.
 
 ## Completion Check
 
@@ -194,6 +250,7 @@ Do not report the day as closed from a report file alone. Confirm the final inte
 - Landing verification success for every executable action.
 - Inventory notes and adjustment logs written.
 - `execution_summary_<date>.json`, `execution_verify_<date>.json`, the report, and daily learning pointing to the same final run/sourceRunId.
+- `kpi_recovery_checkpoint_<date>.json`, `kpi_recovery_operator_checkpoint_<date>.md`, and `daily_closure_verify_<date>.json` agree on gate status, next recovery target, deposit missing/suspicious items, and dry-run recovery candidates.
 
 When same-day retries or dry-runs exist, use daily learning `decisions.finalRunLanding` for the completion verdict. All-day adjustment aggregates preserve history and can include failed attempts from earlier retries.
 

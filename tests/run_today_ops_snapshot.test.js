@@ -5,11 +5,15 @@ const path = require('path');
 const {
   buildActionQuality,
   buildFetchOptions,
+  buildKpiRecoveryOverBudgetSchema,
+  buildProactiveRecoveryActionSchema,
   buildRunQuality,
   buildRunSummary,
   buildSnapshotDataQuality,
+  countSchemaActions,
   dailyTaskPoolToAgentTasks,
   getSnapshotStepPlan,
+  mergeActionSchemas,
   parseArgs,
   validateSnapshotFile,
   writeTextFileWithRetry,
@@ -141,6 +145,173 @@ const {
   assert.strictEqual(tasks[0].kind, 'profit_bleeding');
   assert.strictEqual(tasks[0].subject.sku, 'AGENT1');
   assert.ok(tasks[0].evidence.includes('7d spend with zero orders'));
+}
+
+{
+  const audit = {
+    newProductLaunch: {
+      summary: { total: 1 },
+      items: [{
+        sku: 'ARRIVE1',
+        asin: 'B0ARRIVE001',
+        issue: 'new_product_existing_structure_low_delivery',
+        ageDays: 3,
+        invDays: 120,
+        units7d: 0,
+        spend7d: 0,
+      }],
+    },
+    arrivalAdRecovery: {
+      summary: { total: 1 },
+      items: [{
+        sku: 'ARRIVE1',
+        asin: 'B0ARRIVE001',
+        issue: 'arrived_inventory_ads_have_no_effective_delivery',
+        requiredAction: 'reopen_or_scale_existing_ads',
+      }],
+    },
+  };
+  const snapshot = {
+    productCards: [{
+      sku: 'ARRIVE1',
+      asin: 'B0ARRIVE001',
+      campaigns: [{
+        campaignId: 'camp-1',
+        adGroupId: 'group-1',
+        campaignState: 'enabled',
+        groupState: 'enabled',
+        keywords: [{
+          id: 'kw-1',
+          bid: 0.3,
+          state: 'enabled',
+          text: 'arrival term',
+          stats7d: { impressions: 5, clicks: 0, spend: 0, orders: 0 },
+        }],
+      }],
+    }],
+  };
+
+  const proactiveSchema = buildProactiveRecoveryActionSchema(audit, snapshot, { reviewLimit: 10 });
+  const counts = countSchemaActions(proactiveSchema);
+  assert.strictEqual(counts.skus, 1);
+  assert.ok(counts.actions >= 2, 'arrival recovery must not remain audit-only');
+  assert.ok(
+    proactiveSchema[0].actions.some(action => action.riskLevel === 'new_product_low_delivery_bid_up'),
+    'low-delivery arrival items should generate a controlled bid repair when a reusable row exists'
+  );
+  assert.ok(
+    proactiveSchema[0].actions.some(action => action.id === 'review::ARRIVE1::arrival_ad_recovery'),
+    'arrival recovery should also stay explicit as a repair item'
+  );
+}
+
+{
+  const merged = mergeActionSchemas([
+    [{ sku: 'SKU1', asin: 'B000000001', actions: [{ id: 'a', actionType: 'bid' }] }],
+    [{ sku: 'SKU1', asin: 'B000000001', actions: [{ id: 'b', actionType: 'review' }] }],
+  ]);
+  assert.strictEqual(merged.length, 1);
+  assert.strictEqual(merged[0].actions.length, 2);
+  assert.deepStrictEqual(countSchemaActions(merged), {
+    skus: 1,
+    actions: 2,
+    executableActions: 1,
+    reviewActions: 1,
+  });
+}
+
+{
+  const audit = {
+    newProductLaunch: {
+      summary: { total: 1 },
+      items: [{
+        sku: 'ROWBACK1',
+        asin: 'B0ROWBACK1',
+        issue: 'new_product_existing_structure_low_delivery',
+        ageDays: 4,
+        invDays: 99,
+        units7d: 0,
+        spend7d: 0,
+      }],
+    },
+    arrivalAdRecovery: { summary: { total: 0 }, items: [] },
+  };
+  const snapshot = {
+    productCards: [{ sku: 'ROWBACK1', asin: 'B0ROWBACK1' }],
+    productAdRows: [{
+      sku: 'ROWBACK1',
+      campaignId: 'camp-row',
+      adGroupId: 'group-row',
+    }],
+    kwRows: [{
+      campaignId: 'camp-row',
+      adGroupId: 'group-row',
+      campaignName: 'rowback phrase',
+      groupName: 'rowback phrase',
+      campaignState: 1,
+      groupState: 1,
+      keywordId: 'kw-row',
+      keywordText: 'rowback arrival term',
+      state: 1,
+      bid: 0.3,
+      Impressions: '4',
+      Clicks: '0',
+      Spend: '0.00',
+      Orders: '0',
+    }],
+  };
+  const schema = buildProactiveRecoveryActionSchema(audit, snapshot, { reviewLimit: 10 });
+  const actions = schema.flatMap(item => item.actions || []);
+  assert.ok(
+    actions.some(action => action.id === 'kw-row' && action.riskLevel === 'new_product_low_delivery_bid_up'),
+    'proactive action builder should use snapshot kwRows when productCards do not embed campaigns'
+  );
+}
+
+{
+  const snapshot = {
+    productCards: [{
+      sku: 'KPI1',
+      asin: 'B0KPI1',
+      profitRate: 0.22,
+      invDays: 60,
+      unitsSold_7d: 12,
+      unitsSold_30d: 60,
+      fulFillable: 300,
+      stockFul: 300,
+      stockRes: 0,
+    }],
+    overBudgetRows: [{
+      __overBudgetSource: 'SP',
+      sku: 'KPI1',
+      asin: 'B0KPI1',
+      campaignId: 'campaign-kpi-1',
+      campaignName: 'kw_kpi_recovery',
+      adGroupId: 'adgroup-kpi-1',
+      adId: 'ad-kpi-1',
+      state: 1,
+      campaignState: 1,
+      groupState: 1,
+      dailyBudget: 10,
+      Spend: 8,
+      Sales: 80,
+      Orders: 4,
+      Clicks: 40,
+      positionType: 'productAd',
+    }],
+  };
+  const result = buildKpiRecoveryOverBudgetSchema(snapshot, {
+    actor: 'codex',
+    currentDate: new Date('2026-05-19'),
+    limit: { aggressive: 0, controlled: 2, seasonal: 0, lowerLayer: 0, review: 0, autoPause: 0 },
+    maxDailyBudgetIncreaseUsd: 80,
+  });
+  assert.strictEqual(result.schema.length, 1);
+  assert.strictEqual(result.summary.plannedActions, 1);
+  assert.strictEqual(result.summary.coverage.warning, '');
+  assert.strictEqual(result.summary.coverage.matchedActionCount, 1);
+  assert.strictEqual(result.schema[0].actions[0].approvedBy, 'codex');
+  assert.strictEqual(result.schema[0].actions[0].riskLevel, 'over_budget_controlled_budget_up');
 }
 
 {

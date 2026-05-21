@@ -70,10 +70,18 @@ Do not only write advertising metrics such as impressions, clicks, orders, ACOS,
    - Price/replenishment/node feature: use the execution lag and business window; do not force ad-style checkpoints.
    - When real future reminders are needed, create or update a Codex automation/heartbeat for the next checkpoint and record the next action in the response.
 
-5. Draft a human operator reply after every node.
-   - Provide a short internal summary for the operator.
-   - Then provide a separate "可直接转发" reply that sounds like the operator, not like AI.
-   - Every reply must include product judgement, action/status, and next follow-up point.
+5. 过节日产品并写便签。
+   - 先过产品，不是先写便签：看窗口是否还在、库存是否要走、已验证出单方向是什么、核心流量是否被压、新流量从哪里找、listing/价格/主图能不能承接。
+   - 不限开发诉求。日常巡检、低效、超预算、季节窗口、单 SKU 复查，只要过到具体产品并形成动作、保留、不动或复查判断，就要留痕。
+   - 能安全写库存便签或调整日志时，写短便签；不能写时，写入对应记录并说明原因。
+   - 便签只写：来源、判断、处理、回看、止损/继续条件。
+   - 窗口内且库存要走时，不能把点击弱直接写成降投理由；先判断是曝光不足、点击率弱还是转化弱，优先修相关流量和承接，只收弱泛流量。
+   - 同时要找新流量。优先从已验证出单方向外扩：同词根、同场景、同人群、同竞品 ASIN；泛词只做小额试探。
+
+6. 写可转发回复。
+   - 先给运营内部结论。
+   - 再给一段“可直接转发”回复，口吻像运营本人。
+   - 回复只保留产品判断、处理状态、下次复查点。
 
 ## Product Diagnosis Checklist
 
@@ -102,6 +110,9 @@ When handling a concrete forwarded request, answer the operator in this shape:
 跟进节点：
 <specific next check date/time or relative window, with what to inspect>
 
+便签/记录：
+<已写库存便签/已写记录/未写及原因>
+
 可直接转发：
 <natural reply text for the developer/product person>
 ```
@@ -117,6 +128,8 @@ When actually processing a request that needs future follow-up, create or update
 - follow-up checkpoints
 - reply drafts already sent
 - next checkpoint status
+
+能安全写 SKU 便签时，开发记录不能替代库存便签；需要时两边都写。
 
 ## Human Reply Style
 
@@ -183,7 +196,7 @@ Better reply:
 ```text
 我看了下，这款更像是复活节节点产品，不是全年稳定跑量的常青款。现在曝光低不能只按广告没跑起来判断，要先看复活节相关流量有没有到预热窗口。
 
-目前从产品主题和节点节奏看，它还处在偏早的测试阶段，直接大幅加预算容易买到泛流量。我今天先没有硬拉预算，只保留和复活节主题最贴的词做小步曝光测试，泛的 gift/decor 先不扩。
+目前从产品主题和节点节奏看，它还处在偏早的测试阶段，不能直接大预算买泛流量。我今天先稳住最贴复活节主题的出单方向，再沿同词根、同场景和相近 ASIN 小步找新流量。
 
 我这边两三天后回看一次，如果曝光开始起来但点击质量正常，就继续沿节点词小幅放；如果有点击没转化，就先回到主图、标题和价格承接上处理。
 ```
@@ -193,7 +206,7 @@ Better reply:
 ```text
 我今天回看了下，这款复活节方向还没有明显起量，曝光低更像是节点流量还没到，不是单纯广告没推。
 
-所以今天没有继续硬加预算，只保留低成本测试位，避免提前烧费。等相关词开始有自然曝光或点击反应后，再加会更划算。现在重点是先把标题、主图和核心词埋好，等窗口起来再推。
+所以今天不盲目硬加预算，但会保留核心相关流量，并沿同场景补低成本入口。等相关词开始有曝光或点击反应后，再按已验证方向加量。
 ```
 
 ### Follow-Up: Traffic Active But Conversion Weak
@@ -209,7 +222,7 @@ Better reply:
 ```text
 这轮看下来方向是成立的，复活节相关流量起来后已经开始带订单，当前 ACOS 还在可接受范围内。
 
-我今天没有扩太多新词，先把已经有效的那一层稳住。后面可以继续小步放量，但不建议一下子拉太大，先把稳定出单的流量沉下来。
+我今天先稳住已经有效的那一层，同时沿同词根、同场景和相近 ASIN 小步扩新流量。后面继续看点击质量和订单承接，再决定加量还是收泛词。
 ```
 
 ## Common Mistakes

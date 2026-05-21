@@ -1,0 +1,15 @@
+{
+  "date": "2026-05-21",
+  "generatedAt": "2026-05-21T01:22:41.832Z",
+  "status": "clear",
+  "rawDir": "D:\\ad-ops-workbench\\黄成喆个人数据趋势\\原数据\\原日数据\\5-21",
+  "items": [],
+  "summary": {
+    "rawRecoveryItems": 0,
+    "missingRawOriginals": 0,
+    "suspiciousRawOriginals": 0,
+    "sameDateCandidates": 0,
+    "staleCandidates": 0,
+    "needsRedownload": 0
+  }
+}

@@ -68,6 +68,21 @@ function defaultAgentCapabilities() {
       },
     },
     {
+      name: 'selection keyword research',
+      sourceSystem: 'selection',
+      surface: 'market_evidence',
+      operationType: 'read',
+      endpoint: { method: 'FRONT_SEARCH_AND_REPORT', path: 'amazon.com/s + selection evidence report' },
+      contract: {
+        params: ['sku', 'terms', 'asin', 'title'],
+        responseFields: ['directCompetitorAsins', 'sceneCompetitorAsins', 'trafficBridgeAsins', 'candidateKeywords', 'crossValidationPlan'],
+        freshness: 'same_day',
+      },
+      verification: {
+        probeCommand: 'npm run ops:selection:keyword-research -- --sku <SKU> --terms "<term>"',
+      },
+    },
+    {
       name: 'selection ABA search terms',
       sourceSystem: 'selection',
       surface: 'market_evidence',
@@ -83,6 +98,21 @@ function defaultAgentCapabilities() {
       },
     },
     {
+      name: 'selection keyword seasonality',
+      sourceSystem: 'selection',
+      surface: 'market_evidence',
+      operationType: 'read',
+      endpoint: { method: 'MIXED', path: '/soundasia_selection/searchTerm/analysis/*' },
+      contract: {
+        params: ['searchTerms', 'uTime'],
+        responseFields: ['googleTrend', 'rank', 'searchVolume', 'asinCount', 'competitorSummary', 'buyerSearchTerms'],
+        freshness: 'same_day',
+      },
+      verification: {
+        probeCommand: 'npm run ops:selection:keyword-seasonality -- --search-terms "<term>"',
+      },
+    },
+    {
       name: 'sellerinventory origin data',
       sourceSystem: 'sellerinventory',
       surface: 'listing',
@@ -95,6 +125,36 @@ function defaultAgentCapabilities() {
       },
       verification: {
         probeCommand: 'node scripts/execute/run_listing_copy_edits.js --dry-run',
+      },
+    },
+    {
+      name: 'removal inventory fields',
+      sourceSystem: 'sellerinventory',
+      surface: 'inventory_removal',
+      operationType: 'read',
+      endpoint: { method: 'GET', path: '/internalControl/inventory/index' },
+      contract: {
+        params: ['activeBrowserSession'],
+        responseFields: ['filters', 'actions', 'table.columns', 'table.previewRows', 'summaryFields', 'endpointHints'],
+        freshness: 'live_backend',
+      },
+      verification: {
+        probeCommand: 'npm run ops:removal-inventory:fields',
+      },
+    },
+    {
+      name: 'removal inventory add view',
+      sourceSystem: 'sellerinventory',
+      surface: 'inventory_removal',
+      operationType: 'read',
+      endpoint: { method: 'GET', path: '/internalControl/internal_control_inventory_add_view' },
+      contract: {
+        params: ['activeBrowserSession', 'sku'],
+        responseFields: ['writableFields', 'readOnlyValues', 'actions', 'endpointHints'],
+        freshness: 'live_backend',
+      },
+      verification: {
+        probeCommand: 'npm run ops:removal-inventory:add-view -- --sku <SKU>',
       },
     },
     {

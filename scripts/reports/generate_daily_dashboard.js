@@ -257,6 +257,7 @@ function auditSamples(audit) {
   const item = (value) => Array.isArray(value?.items) ? value.items : [];
   return {
     newProducts: item(audit.newProductLaunch).slice(0, 8),
+    removal: item(audit.removalEconomics).slice(0, 8),
     expired: item(audit.expiredSeasonKeywordWaste).slice(0, 8),
     listing: item(audit.listingRepair).slice(0, 8),
   };
@@ -269,8 +270,23 @@ function latestExecutionSummary(date) {
   return readJson(file, {});
 }
 
+function agentClosedLoopSummary(date, businessDate = date) {
+  const direct = path.join(ROOT, 'data', 'agent', `agent_closed_loop_${date}.json`);
+  if (fs.existsSync(direct)) return readJson(direct, {});
+  const byBusinessDate = path.join(ROOT, 'data', 'agent', `agent_closed_loop_${businessDate}.json`);
+  if (fs.existsSync(byBusinessDate)) return readJson(byBusinessDate, {});
+  return {};
+}
+
+function statusTone(status = '') {
+  if (status === 'complete' || status === 'closed' || status === 'pass') return 'good';
+  if (status === 'blocked' || status === 'failed' || status === 'fail') return 'bad';
+  if (status === 'partial' || status === 'warning' || status === 'needs_recovery' || status === 'pending' || status === 'target_set' || status === 'target_set_actual_pending') return 'warn';
+  return '';
+}
+
 function dashboardHtml(model) {
-  const { summary, snapshot, history, audit, tasks, lowEfficiency, successRate, execution, outputDate, reportPaths } = model;
+  const { summary, snapshot, history, audit, tasks, lowEfficiency, successRate, execution, agentClosedLoop = {}, allSkuReview = {}, kpiDryRunDecisions = {}, kpiApprovalReview = {}, outputDate, reportPaths } = model;
   const current = history[history.length - 1] || {};
   const salesDelta = metricDelta(history, 'sales');
   const unitsDelta = metricDelta(history, 'units');
@@ -281,12 +297,11 @@ function dashboardHtml(model) {
   const new5Delta = metricDelta(history, 'new5Sales');
   const taskSummary = tasks.summary || summary.dailyTaskPool || {};
   const auditKpi = audit.kpi || {};
-  const nextGap = auditKpi.nextCheckpoint || {};
-  const finalGap = auditKpi.finalTarget || {};
   const modules = [
     { label: '新品启动', value: num(audit.newProductLaunch?.summary?.total ?? summary.proactiveOperatingAudit?.newProductLaunch) },
     { label: '到货广告恢复', value: num(audit.arrivalAdRecovery?.summary?.total ?? summary.proactiveOperatingAudit?.arrivalAdRecovery) },
     { label: '价格动作', value: num(audit.priceActions?.summary?.total ?? summary.proactiveOperatingAudit?.priceActions), tone: 'warn' },
+    { label: '移除经济性', value: num(audit.removalEconomics?.summary?.total ?? summary.proactiveOperatingAudit?.removalEconomics), tone: 'warn' },
     { label: '过季词浪费', value: num(audit.expiredSeasonKeywordWaste?.summary?.totalEnabledRows ?? summary.proactiveOperatingAudit?.expiredSeasonKeywordWaste), tone: 'bad' },
     { label: 'Listing修复', value: num(audit.listingRepair?.summary?.total ?? summary.proactiveOperatingAudit?.listingRepair), tone: 'bad' },
   ];
@@ -294,8 +309,135 @@ function dashboardHtml(model) {
   const dev = developerRows(snapshot.sellerSalesRows || []);
   const risks = skuRiskRows(snapshot);
   const samples = auditSamples(audit);
-  const sourceTime = summary.time || audit.time || {};
+  const allSkuSummary = allSkuReview.summary || summary.allSkuOperatingReview || {};
+  const allSkuRows = Array.isArray(allSkuReview.rows) ? allSkuReview.rows : [];
+  const allSkuMarketSummary = allSkuSummary.marketAnalysis || {};
+  const allSkuVerdictRows = Object.entries(allSkuSummary.byVerdict || {})
+    .map(([label, value]) => ({
+      label,
+      value,
+      tone: /stop|repair|recovery|deep|launch/.test(label) ? 'warn' : (/protect/.test(label) ? 'bad' : ''),
+    }));
+  const allSkuLifecycleRows = Object.entries(allSkuSummary.byLifecycle || {})
+    .map(([label, value]) => ({ label, value }));
+  const allSkuMarketRows = Object.entries(allSkuMarketSummary.statusCounts || {})
+    .map(([label, value]) => ({
+      label,
+      value,
+      tone: /missing/.test(label) ? 'bad' : 'good',
+    }));
+  const sourceTime = {
+    ...(summary.time || audit.time || {}),
+    localDate: agentClosedLoop.localDate || summary.time?.localDate || audit.time?.localDate || outputDate,
+    businessDate: agentClosedLoop.businessDate || summary.time?.businessDate || audit.time?.businessDate || '',
+    dataDate: agentClosedLoop.dataDate || summary.time?.dataDate || audit.time?.dataDate || '',
+  };
+  const agentSummary = agentClosedLoop.summary || {};
   const rawOutputs = readJson(reportPaths.depositManifest, {})?.outputs || [];
+  const depositStatusFromFile = readJson(reportPaths.depositStatus, {});
+  const depositStatus = depositStatusFromFile.status
+    ? depositStatusFromFile
+    : (agentClosedLoop.handoff?.depositStatus || {
+        status: agentSummary.depositStatus || '',
+        missing: agentSummary.depositMissing || [],
+        suspicious: agentSummary.depositSuspicious || [],
+      });
+  const rawDownloadCandidates = depositStatus.rawDownloadCandidates || {};
+  const rawCandidateRoots = Array.isArray(rawDownloadCandidates.rootsSearched) ? rawDownloadCandidates.rootsSearched : [];
+  const rawCandidateTotal = Number(rawDownloadCandidates.total || 0);
+  const rawSameDateTotal = Number(rawDownloadCandidates.sameDateTotal || 0);
+  const rawStaleTotal = Number(rawDownloadCandidates.staleTotal || 0);
+  const rawCandidateSamples = Object.values(rawDownloadCandidates.byMissingClass || {})
+    .flat()
+    .map(item => path.basename(item.name || item.file || ''))
+    .filter(Boolean)
+    .slice(0, 6);
+  const operatingClosureStatus = agentSummary.operatingClosureStatus || agentClosedLoop.handoff?.operatingStatus?.status || 'unknown';
+  const operatingWarnings = agentSummary.operatingClosureWarnings || agentClosedLoop.handoff?.operatingStatus?.warnings || [];
+  const closedLoopOk = agentClosedLoop.closedLoop === true || agentSummary.closedLoop === true;
+  const dailyClosureStatus = agentSummary.dailyClosureStatus || agentClosedLoop.dailyClosureStatus || agentClosedLoop.handoff?.summary?.dailyClosureStatus || 'unknown';
+  const dailyComplete = agentSummary.dailyComplete ?? agentClosedLoop.dailyComplete ?? agentClosedLoop.handoff?.summary?.dailyComplete ?? false;
+  const dailyClosureReasons = agentSummary.dailyClosureReasons || agentClosedLoop.dailyClosureReasons || agentClosedLoop.handoff?.summary?.dailyClosureReasons || [];
+  const artifactVerificationKnown = agentSummary.artifactVerificationOk !== undefined || agentClosedLoop.closureVerification?.ok !== undefined;
+  const artifactVerificationOk = agentSummary.artifactVerificationOk ?? agentClosedLoop.closureVerification?.ok ?? null;
+  const artifactVerificationErrors = agentSummary.artifactVerificationErrors || agentClosedLoop.closureVerification?.errors || [];
+  const agentKpiStatus = agentSummary.kpiStatus || agentClosedLoop.handoff?.kpiSummary?.status || auditKpi.status || 'unknown';
+  const kpiCheckpoint = agentClosedLoop.kpiRecoveryCheckpoint || readJson(reportPaths.kpiCheckpoint, {});
+  const landedEvidence = kpiCheckpoint.landedEvidence || {};
+  const agentActionSuccess = Math.max(num(agentSummary.landedActionSuccess), num(landedEvidence.landedActionSuccess));
+  const agentActionFailed = Math.max(num(agentSummary.landedActionFailed), num(landedEvidence.landedActionFailed));
+  const agentActionManualReview = Math.max(num(agentSummary.landedActionManualReview), num(landedEvidence.landedActionManualReview));
+  const agentDataLag = agentSummary.dataLagDays ?? agentClosedLoop.handoff?.dataFreshness?.dataLagDays ?? '';
+  const effectReviewDue = Math.max(
+    num(agentSummary.dueReviews),
+    num(agentSummary.effectReviewDue),
+    num(agentClosedLoop.handoff?.summary?.effectReviewDue)
+  );
+  const reviewQueueDue = Math.max(
+    num(agentSummary.reviewQueueDue),
+    num(agentClosedLoop.handoff?.summary?.reviewQueueDue),
+    effectReviewDue
+  );
+  const effectReviewTotal = Math.max(
+    num(agentSummary.effectReviewTotal),
+    num(agentClosedLoop.handoff?.summary?.effectReviewTotal)
+  );
+  const effectReviewFeedbackApplied = Math.max(
+    num(agentSummary.feedbackApplied),
+    num(agentSummary.effectReviewFeedbackApplied),
+    num(agentClosedLoop.handoff?.summary?.effectReviewFeedbackApplied)
+  );
+  const effectReviewNeedsAction = Math.max(
+    num(agentSummary.effectReviewNeedsAction),
+    num(agentClosedLoop.handoff?.summary?.effectReviewNeedsAction)
+  );
+  const effectReviewBlocked = Math.max(
+    num(agentSummary.effectReviewBlocked),
+    num(agentClosedLoop.handoff?.summary?.effectReviewBlocked)
+  );
+  const effectReviewContinueWatch = Math.max(
+    num(agentSummary.effectReviewContinueWatch),
+    num(agentClosedLoop.handoff?.summary?.effectReviewContinueWatch)
+  );
+  const handoffKpi = agentClosedLoop.handoff?.kpiSummary || {};
+  const missedGap = handoffKpi.missedCheckpoint || auditKpi.missedCheckpoint || {};
+  const nextGap = handoffKpi.nextCheckpoint || auditKpi.nextCheckpoint || {};
+  const finalGap = handoffKpi.finalTarget || auditKpi.finalTarget || {};
+  const nextGapDate = nextGap.date || nextGap.target?.date || '';
+  const missedGapDate = missedGap.date || missedGap.target?.date || '';
+  const recoveryPace = handoffKpi.recoveryPace || {};
+  const nextPace = recoveryPace.nextCheckpoint || {};
+  const finalPace = recoveryPace.finalTarget || {};
+  const nextDayTarget = recoveryPace.nextBusinessDayTarget || {};
+  const nextDayGate = recoveryPace.nextBusinessDayGate || {};
+  const kpiGate = agentClosedLoop.kpiRecoveryGate || {};
+  const kpiGateStatus = agentSummary.kpiGateStatus || kpiGate.status || nextDayGate.status || (nextDayTarget.businessDate ? 'target_set' : 'missing');
+  const kpiGateEvaluatedBusinessDate = agentSummary.kpiGateEvaluatedBusinessDate || kpiGate.evaluatedBusinessDate || '';
+  const kpiGateDataDate = agentSummary.kpiGateDataDate || kpiGate.dataDate || '';
+  const kpiGateTargetBusinessDate = (
+    kpiGate.target?.businessDate ||
+    nextDayGate.targetBusinessDate ||
+    (['target_set_actual_pending', 'pending', 'target_set'].includes(kpiGateStatus) ? nextDayTarget.businessDate : '') ||
+    ''
+  );
+  const recoveryDryRun = kpiCheckpoint.actionPools?.recoveryDryRun || {};
+  const dryRunDecisionSummary = kpiDryRunDecisions.summary || {};
+  const dryRunByDecision = dryRunDecisionSummary.byDecision || {};
+  const recoveryNextActionsSummary = dryRunDecisionSummary.nextActions || {};
+  const approvalReviewSummary = kpiApprovalReview.summary || {};
+  const nextActionsAlreadyLanded = recoveryNextActionsSummary.alreadyLanded ?? dryRunByDecision.executed;
+  const nextActionsWatch = recoveryNextActionsSummary.watch ?? (num(dryRunByDecision.autonomous_recommendation) + num(dryRunByDecision.watch_only));
+  const nextActionsBlocked = recoveryNextActionsSummary.blocked ?? dryRunByDecision.blocked;
+  const nextActionsApprovalNeeded = recoveryNextActionsSummary.approvalNeeded ?? dryRunByDecision.approval_needed;
+  const kpiRecoveryNextActionsFile = reportPaths.kpiRecoveryNextActions || agentClosedLoop.files?.kpiRecoveryNextActionsFile || '';
+  const monthKpiDigestFile = reportPaths.monthKpiDigest || agentClosedLoop.files?.monthKpiDigestMarkdownFile || '';
+  const recoveryDryRunRows = (Array.isArray(recoveryDryRun.sample) ? recoveryDryRun.sample : [])
+    .slice(0, 6)
+    .map(item => `<tr>
+      <td>${esc(item.sku)}</td><td>${esc(item.entityType)}</td><td>${esc(item.entityName)}</td>
+      <td>${esc(item.beforeValue ?? '')} -> ${esc(item.afterValue ?? '')}</td>
+      <td>${esc(item.reasonCode)}</td><td>${int(item.orders7)}</td><td>${pct(item.acos7, 2)}</td><td>${int(item.invDays)}</td>
+    </tr>`);
 
   const cards = [
     { label: '总销售', value: money(current.sales, 2), sub: salesDelta ? `${signedMoney(salesDelta.absolute, 0)} / ${signedPct(salesDelta.ratio, 1)}` : '无对比', cls: statusClass(salesDelta?.absolute ?? 0) },
@@ -329,6 +471,20 @@ function dashboardHtml(model) {
   </tr>`);
   const listingRows = samples.listing.map(item => `<tr>
     <td>${esc(item.sku)}</td><td>${esc(item.issue)}</td><td>${int(item.clicks7d)}</td><td>${int(item.units7d)}</td><td>${esc(item.requiredAction)}</td>
+  </tr>`);
+  const allSkuTopRows = allSkuRows.slice(0, 18).map(row => `<tr>
+    <td>${esc(row.sku)}</td>
+    <td>${esc(row.lifecycleLabel)}${row.ageDays !== null && row.ageDays !== undefined ? ` / ${int(row.ageDays)}d` : ''}</td>
+    <td>${esc(row.nodePlan?.label || '-')} ${esc(row.nodePlan?.phase || '')}</td>
+    <td>${int(row.units3d)} / ${int(row.units7d)} / ${int(row.units30d)}</td>
+    <td>${row.yoyUnitsPct === null || row.yoyUnitsPct === undefined ? '-' : pct(row.yoyUnitsPct, 1)}</td>
+    <td>${pct(row.profitRate, 1)}</td>
+    <td>${int(row.invDays)}</td>
+    <td>${money(row.ad7?.spend, 2)} / ${int(row.ad7?.orders)} / ${pct(row.ad7?.acos, 1)}</td>
+    <td>${row.nodePlan?.target ? `${int(row.nodePlan.target.weeklyClicks)} 点击 / ${int(row.nodePlan.target.weeklyOrders)} 单` : '-'}</td>
+    <td>${esc(row.action)}</td>
+    <td>${esc(row.marketAnalysis?.status || 'missing_market_analysis')}</td>
+    <td>${esc((row.reasons || []).join('；'))}</td>
   </tr>`);
   const staleRows = risks.stale.map(card => `<tr>
     <td>${esc(card.sku)}</td><td>${esc(card.asin)}</td><td>${int(card.invDays)}</td>
@@ -384,6 +540,21 @@ function dashboardHtml(model) {
     .stamp { text-align: right; color: var(--muted); line-height: 1.8; white-space: nowrap; }
     .grid { display: grid; gap: 14px; }
     .grid > *, header > * { min-width: 0; }
+    .status-strip { grid-template-columns: repeat(8, minmax(140px, 1fr)); margin-bottom: 14px; }
+    .status-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--blue);
+      border-radius: 8px;
+      padding: 12px;
+      min-height: 82px;
+    }
+    .status-card.good { border-left-color: var(--green); }
+    .status-card.warn { border-left-color: var(--amber); }
+    .status-card.bad { border-left-color: var(--red); }
+    .status-label { color: var(--muted); font-size: 12px; }
+    .status-value { font-size: 20px; font-weight: 760; margin-top: 8px; overflow-wrap: anywhere; }
+    .status-note { color: var(--muted); font-size: 12px; margin-top: 6px; line-height: 1.45; overflow-wrap: anywhere; }
     .kpis { grid-template-columns: repeat(6, minmax(150px, 1fr)); }
     .two { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
     .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -409,6 +580,7 @@ function dashboardHtml(model) {
       line-height: 1.7;
       overflow-wrap: anywhere;
     }
+    .warn-callout { border-left-color: var(--amber); background: #fff8e6; }
     .bad-callout { border-left-color: var(--red); background: #fbf1ef; }
     .good-text { color: var(--green); font-weight: 700; }
     .bad-text { color: var(--red); font-weight: 700; }
@@ -447,6 +619,7 @@ function dashboardHtml(model) {
     .source-list { display: grid; gap: 8px; color: var(--muted); font-size: 12px; line-height: 1.5; }
     @media (max-width: 1100px) {
       .kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .status-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .two, .three { grid-template-columns: 1fr; }
       header { grid-template-columns: 1fr; }
       .stamp { text-align: left; }
@@ -454,6 +627,7 @@ function dashboardHtml(model) {
     @media (max-width: 680px) {
       .page { padding: 14px; max-width: 390px; margin: 0; }
       .kpis { grid-template-columns: 1fr; }
+      .status-strip { grid-template-columns: 1fr; }
       .stamp { white-space: normal; overflow-wrap: anywhere; }
       .meta-line { max-width: calc(100vw - 28px); word-break: break-all; }
       .bar-row { grid-template-columns: 96px minmax(80px, 1fr) 64px; }
@@ -469,7 +643,7 @@ function dashboardHtml(model) {
         <h1>每日经营 Dashboard</h1>
         <div class="meta">
           <span class="meta-line">本地日期 ${esc(sourceTime.localDate || outputDate)}</span>
-          <span class="meta-line">businessDate ${esc(sourceTime.businessDate || '')} · dataDate ${esc(sourceTime.dataDate || '')}</span>
+          <span class="meta-line">localDate ${esc(sourceTime.localDate || outputDate)} · businessDate ${esc(sourceTime.businessDate || '')} · dataDate ${esc(sourceTime.dataDate || '')}</span>
           <span class="meta-line">口径：总账号所选编号汇总优先，SKU/广告池用于解释和行动排序。</span>
         </div>
       </div>
@@ -478,6 +652,61 @@ function dashboardHtml(model) {
         快照 ${esc(path.basename(reportPaths.snapshot || 'latest_snapshot.json'))}
       </div>
     </header>
+
+    <section class="grid status-strip">
+      <div class="status-card ${esc(statusTone(operatingClosureStatus))}">
+        <div class="status-label">运营闭环</div>
+        <div class="status-value">${esc(operatingClosureStatus)}</div>
+        <div class="status-note">${esc(operatingWarnings.join(';') || 'no warnings')}</div>
+      </div>
+      <div class="status-card ${closedLoopOk && dailyComplete ? 'good' : esc(statusTone(dailyClosureStatus))}">
+        <div class="status-label">自动链路</div>
+        <div class="status-value">dailyClosureStatus: ${esc(dailyClosureStatus)}</div>
+        <div class="status-note">${closedLoopOk ? 'closedLoop=true' : 'closedLoop=false'} | dailyComplete=${dailyComplete === true ? 'true' : 'false'} | command ${int(agentSummary.commandExecuted)} / failed ${int(agentSummary.commandFailed)}</div>
+        ${dailyClosureReasons.length ? `<div class="status-note">${esc(dailyClosureReasons.join(', '))}</div>` : ''}
+      </div>
+      <div class="status-card ${artifactVerificationKnown ? (artifactVerificationOk ? 'good' : 'bad') : 'warn'}">
+        <div class="status-label">产物校验</div>
+        <div class="status-value">artifactVerificationOk=${artifactVerificationOk === true ? 'true' : (artifactVerificationOk === false ? 'false' : 'unknown')}</div>
+        <div class="status-note">errors ${int(artifactVerificationErrors.length || 0)}</div>
+      </div>
+      <div class="status-card ${esc(statusTone(agentKpiStatus === 'off_track' ? 'needs_recovery' : agentKpiStatus))}">
+        <div class="status-label">KPI 状态</div>
+        <div class="status-value">${esc(agentKpiStatus)}</div>
+        <div class="status-note">${esc(agentSummary.kpiRequiredMode || agentClosedLoop.handoff?.kpiSummary?.requiredMode || '')}</div>
+      </div>
+      <div class="status-card ${esc(statusTone(kpiGateStatus))}">
+        <div class="status-label">KPI gate</div>
+        <div class="status-value">${esc(kpiGateStatus)}</div>
+        <div class="status-note">target ${esc(kpiGateTargetBusinessDate)} | actual ${esc(kpiGateEvaluatedBusinessDate || 'pending')}</div>
+      </div>
+      <div class="status-card ${agentSummary.snapshotStale ? 'warn' : 'good'}">
+        <div class="status-label">数据时效</div>
+        <div class="status-value">${esc(agentSummary.dataFreshnessStatus || 'unknown')}</div>
+        <div class="status-note">data lag ${esc(agentDataLag)} day(s)</div>
+      </div>
+      <div class="status-card ${effectReviewDue > 0 && effectReviewTotal >= effectReviewDue && effectReviewFeedbackApplied >= effectReviewDue ? 'good' : 'warn'}">
+        <div class="status-label">Effect review coverage</div>
+        <div class="status-value">${int(effectReviewTotal)} / ${int(effectReviewDue)}</div>
+        <div class="status-note">dueReviews ${int(effectReviewDue)} | reviewQueueDue ${int(reviewQueueDue)} | effectReviewTotal ${int(effectReviewTotal)} | feedbackApplied ${int(effectReviewFeedbackApplied)}</div>
+        <div class="status-note">needsAction ${int(effectReviewNeedsAction)} | blocked ${int(effectReviewBlocked)} | continueWatch ${int(effectReviewContinueWatch)}</div>
+      </div>
+      <div class="status-card ${agentActionSuccess > 0 ? 'good' : 'warn'}">
+        <div class="status-label">已落地动作</div>
+        <div class="status-value">${int(agentActionSuccess)}</div>
+        <div class="status-note">failed ${int(agentActionFailed)} / manual ${int(agentActionManualReview)}</div>
+      </div>
+      <div class="status-card ${num(recoveryDryRun.highEfficiencyBidUps) > 0 ? 'warn' : ''}">
+        <div class="status-label">KPI recovery dry-run</div>
+        <div class="status-value">${int(recoveryDryRun.highEfficiencyBidUps)}</div>
+        <div class="status-note">SKUs ${int(recoveryDryRun.skuCount)} | latest ${esc(recoveryDryRun.latestRunId || 'none')}</div>
+      </div>
+      <div class="status-card ${esc(statusTone(depositStatus.status || 'unknown'))}">
+        <div class="status-label">沉淀状态</div>
+        <div class="status-value">${esc(depositStatus.status || 'unknown')}</div>
+        <div class="status-note">missing ${int(depositStatus.missing?.length || 0)} / suspicious ${int(depositStatus.suspicious?.length || 0)}</div>
+      </div>
+    </section>
 
     <section class="grid kpis">
       ${cards.map(card => `<div class="metric ${esc(card.cls)}"><div class="label">${esc(card.label)}</div><div class="value">${esc(card.value)}</div><div class="sub">${esc(card.sub)}</div></div>`).join('')}
@@ -490,8 +719,13 @@ function dashboardHtml(model) {
           今天是修复型好转：销售 ${salesDelta ? esc(signedMoney(salesDelta.absolute, 0)) : '无对比'}，净利率 ${netDelta ? esc(signedPp(netDelta.absolute, 2)) : '无对比'}，ACOS ${acosDelta ? esc(signedPp(acosDelta.absolute, 2)) : '无对比'}。广告费下降但销售回升，说明控费没有明显压掉订单。
         </div>
         <div class="callout bad-callout" style="margin-top:10px">
-          KPI 仍未闭环：到 5-19 检查点销售还差 ${money(nextGap.salesGap, 0)}，销量还差 ${int(nextGap.unitsGap)}，ACOS 还差 ${signedPp(nextGap.acosGap, 2).replace('+', '')}，退款率还差 ${signedPp(nextGap.refundRateGap, 2).replace('+', '')}。
+          KPI 仍未闭环：已错过 ${esc(missedGapDate || '当前')} 检查点，销售还差 ${money(missedGap.salesGap, 0)}，销量还差 ${int(missedGap.unitsGap)}，ACOS 还差 ${signedPp(missedGap.acosGap, 2).replace('+', '')}，退款率还差 ${signedPp(missedGap.refundRateGap, 2).replace('+', '')}。
         </div>
+        ${nextGapDate ? `<div class="callout bad-callout" style="margin-top:10px">下一检查点 ${esc(nextGapDate)}：销售还差 ${money(nextGap.salesGap, 0)}，销量还差 ${int(nextGap.unitsGap)}，ACOS 还差 ${signedPp(nextGap.acosGap, 2).replace('+', '')}，退款率还差 ${signedPp(nextGap.refundRateGap, 2).replace('+', '')}。</div>` : ''}
+        ${nextPace.targetDate ? `<div class="callout warn-callout" style="margin-top:10px">阶段追回速度：到 ${esc(nextPace.targetDate)} 还剩 ${int(nextPace.remainingDays)} 天，需日均销售 ${money(nextPace.salesPerDay, 2)}、日均 ${num(nextPace.unitsPerDay).toFixed(1)} 件。</div>` : ''}
+        ${nextDayTarget.businessDate ? `<div class="callout warn-callout" style="margin-top:10px">下一业务日验收线 ${esc(nextDayTarget.businessDate)}：总销售至少 ${money(nextDayTarget.salesTarget, 2)}、件数至少 ${int(nextDayTarget.unitsTarget)}、净利率至少 ${pct(nextDayTarget.netProfitRateMin, 2)}、ACOS 不高于 ${pct(nextDayTarget.acosMax, 2)}、退款率不高于 ${pct(nextDayTarget.refundRateMax, 2)}、广告费率不高于 ${pct(nextDayTarget.adCostShareMax, 2)}。</div>` : ''}
+        ${nextDayGate.status ? `<div class="callout ${nextDayGate.status === 'pass' ? '' : 'bad-callout'}" style="margin-top:10px">上一验收线回查 ${esc(nextDayGate.targetBusinessDate)}：${esc(nextDayGate.status)}；销售差 ${money(nextDayGate.gap?.salesGap, 2)}，件数差 ${int(nextDayGate.gap?.unitsGap)}，净利率差 ${signedPp(nextDayGate.gap?.netProfitRateGap, 2).replace('+', '')}，ACOS 差 ${signedPp(nextDayGate.gap?.acosGap, 2).replace('+', '')}，退款率差 ${signedPp(nextDayGate.gap?.refundRateGap, 2).replace('+', '')}，广告费率差 ${signedPp(nextDayGate.gap?.adCostShareGap, 2).replace('+', '')}。</div>` : ''}
+        ${finalPace.targetDate ? `<div class="callout warn-callout" style="margin-top:10px">月终速度线：到 ${esc(finalPace.targetDate)} 还剩 ${int(finalPace.remainingDays)} 天，需日均销售 ${money(finalPace.salesPerDay, 2)}、日均 ${num(finalPace.unitsPerDay).toFixed(1)} 件、日均净利润 ${money(finalPace.estimatedNetProfitPerDay, 2)}。</div>` : ''}
       </div>
       <div class="panel">
         <h2>数据健康</h2>
@@ -500,10 +734,24 @@ function dashboardHtml(model) {
           <span class="pill">productCards ${int(summary.totalProductCards || snapshot.productCards?.length)}</span>
           <span class="pill">allowed SKUs ${int(summary.allowedScopeSkuCount)}</span>
           <span class="pill ${summary.warnings?.length ? 'warn' : 'good'}">warnings ${int(summary.warnings?.length || 0)}</span>
+          <span class="pill ${esc(statusTone(operatingClosureStatus))}">closure ${esc(operatingClosureStatus)}</span>
+          <span class="pill ${esc(statusTone(kpiGateStatus))}">KPI gate ${esc(kpiGateStatus)}</span>
+          <span class="pill ${agentSummary.snapshotStale ? 'warn' : 'good'}">data lag ${esc(agentDataLag)}</span>
           <span class="pill ${execution.finalCounts?.success ? 'good' : 'warn'}">今日执行 ${int(execution.finalCounts?.success || 0)}</span>
           <span class="pill">HJ17成功率 ${esc(successRate.successRatePercent || '-')}</span>
         </div>
         <div class="source-list" style="margin-top:12px">
+          <div>deposit status: ${esc(depositStatus.status || 'unknown')} · missing ${int(depositStatus.missing?.length || 0)} · suspicious ${int(depositStatus.suspicious?.length || 0)}</div>
+          ${depositStatus.missing?.length ? `<div>missing raw: ${esc(depositStatus.missing.join(', '))}</div>` : ''}
+          ${depositStatus.suspicious?.length ? `<div>suspicious: ${esc(depositStatus.suspicious.map(item => item.type || item).join(', '))}</div>` : ''}
+          ${rawCandidateTotal > 0 ? `<div>raw download candidates: ${int(rawCandidateTotal)}; same-day ${int(rawSameDateTotal)}; stale ${int(rawStaleTotal)}; roots: ${esc(rawCandidateRoots.join(', '))}</div>` : ''}
+          ${rawCandidateSamples.length ? `<div>candidate samples: ${esc(rawCandidateSamples.join(', '))}</div>` : ''}
+          <div>KPI recovery dry-run: highEfficiencyBidUps ${int(recoveryDryRun.highEfficiencyBidUps)}; SKUs ${int(recoveryDryRun.skuCount)}; latest ${esc(recoveryDryRun.latestRunId || 'none')}</div>
+          <div>dry-run note: ${esc(recoveryDryRun.decision || 'no dry-run recovery candidates recorded')}; not landed actions.</div>
+          ${Number(dryRunDecisionSummary.total || 0) > 0 ? `<div>KPI dry-run decision split: total ${int(dryRunDecisionSummary.total)}; executed ${int(dryRunByDecision.executed)}; autonomous ${int(dryRunByDecision.autonomous_recommendation)}; watch ${int(dryRunByDecision.watch_only)}; blocked ${int(dryRunByDecision.blocked)}; approvalNeeded ${int(dryRunByDecision.approval_needed)}; file ${esc(path.basename(reportPaths.kpiDryRunDecisions || ''))}</div>` : ''}
+          ${kpiRecoveryNextActionsFile ? `<div>KPI recovery next actions: file ${esc(path.basename(kpiRecoveryNextActionsFile))}; alreadyLanded ${int(nextActionsAlreadyLanded)}; watch ${int(nextActionsWatch)}; blocked ${int(nextActionsBlocked)}; approvalNeeded ${int(nextActionsApprovalNeeded)}</div>` : ''}
+          ${Number(approvalReviewSummary.total || 0) > 0 ? `<div>KPI approval review: file ${esc(path.basename(reportPaths.kpiApprovalReview || ''))}; recommendApprove ${int(approvalReviewSummary.recommendApprove)}; approvalNeeded ${int(approvalReviewSummary.approvalNeeded)}; hold ${int(approvalReviewSummary.hold)}; blocked ${int(approvalReviewSummary.blocked)}</div>` : ''}
+          ${monthKpiDigestFile ? `<div>Month KPI digest: file ${esc(path.basename(monthKpiDigestFile))}</div>` : ''}
           ${rawOutputs.map(item => `<div>${esc(path.basename(item.file || ''))}: ${int(item.rows)} rows · ${(num(item.bytes) / 1024).toFixed(1)} KB</div>`).join('') || '<div>未找到 raw deposit manifest</div>'}
         </div>
       </div>
@@ -532,6 +780,44 @@ function dashboardHtml(model) {
       <div class="panel">
         <h2>任务池</h2>
         ${barList(Object.entries(taskSummary.bySignal || {}).map(([label, value]) => ({ label, value, tone: /profit|tail|stale|tight/.test(label) ? 'warn' : '' })), Math.max(...Object.values(taskSummary.bySignal || { x: 1 }).map(num), 1))}
+      </div>
+    </section>
+
+    <section class="section grid two">
+      <div class="panel">
+        <h2>全 SKU 经营复盘</h2>
+        <div class="pill-row">
+          <span class="pill">总 SKU ${int(allSkuSummary.totalSkus)}</span>
+          <span class="pill warn">必复查 ${int(allSkuSummary.mustReview)}</span>
+          <span class="pill warn">老品同比下滑 ${int(allSkuSummary.oldProductYoyDown)}</span>
+          <span class="pill warn">新品启动修复 ${int(allSkuSummary.newLaunchRepair)}</span>
+          <span class="pill warn">节点点击缺口 ${int(allSkuSummary.nodeTrafficGap)}</span>
+          <span class="pill warn">节点转化缺口 ${int(allSkuSummary.nodeConversionGap)}</span>
+          <span class="pill bad">止血 ${int(allSkuSummary.stopLoss)}</span>
+          <span class="pill ${int(allSkuMarketSummary.requiredMissing) ? 'bad' : 'good'}">market evidence ready ${int(allSkuMarketSummary.readyForDecisionSupport)}</span>
+          <span class="pill ${int(allSkuMarketSummary.requiredMissing) ? 'bad' : 'good'}">market missing ${int(allSkuMarketSummary.requiredMissing)}</span>
+          <span class="pill ${int(allSkuMarketSummary.mismatchMissing) ? 'bad' : 'good'}">mismatch market missing ${int(allSkuMarketSummary.mismatchMissing)}</span>
+        </div>
+        <div style="margin-top:12px">
+          ${barList(allSkuVerdictRows, Math.max(...allSkuVerdictRows.map(item => num(item.value)), 1))}
+          ${allSkuMarketRows.length ? barList(allSkuMarketRows, Math.max(...allSkuMarketRows.map(item => num(item.value)), 1)) : ''}
+        </div>
+      </div>
+      <div class="panel">
+        <h2>生命周期分层</h2>
+        ${barList(allSkuLifecycleRows, Math.max(...allSkuLifecycleRows.map(item => num(item.value)), 1))}
+        <div class="source-list" style="margin-top:12px">
+          <div>全 SKU 表必须带新品/老品、开售年龄、3/7/30日销量、同比、库存、利润、广告成本、节点阶段和量化目标。</div>
+          <div>SKU market analysis is required; missing selection market evidence keeps the SKU layer open.</div>
+          <div>明细：${esc(path.basename(reportPaths.allSkuReview || 'all_sku_operating_review.json'))}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="panel">
+        <h2>SKU 必过结论 Top</h2>
+        <div class="table-wrap">${table(['SKU', '生命周期', '节点阶段', '销量 3/7/30', '同比', '利润率', '库存天数', '7日广告 花费/单/ACOS', '阶段目标', '结论', 'market', '原因'], allSkuTopRows)}</div>
       </div>
     </section>
 
@@ -601,15 +887,19 @@ function dashboardHtml(model) {
         <div class="table-wrap">${table(['SKU', 'ASIN', '可售天数', '7日销量', '净利', '状态'], tightRows)}</div>
       </div>
       <div class="panel">
-        <h2>明天检查点</h2>
+        <h2>下一检查点</h2>
         <div class="callout">
-          先看总销售是否接近 ${money(nextGap.target?.sales, 0)}、销量是否接近 ${int(nextGap.target?.units)}；再看 ACOS 是否继续低于今天的 ${pct(current.acos, 2)}，退款率是否从 ${pct(current.refund, 2)} 回落。
+          先看 ${esc(nextGapDate || '下一阶段')} 总销售是否接近 ${money(nextGap.target?.sales, 0)}、销量是否接近 ${int(nextGap.target?.units)}；再看 ACOS 是否继续低于今天的 ${pct(current.acos, 2)}，退款率是否从 ${pct(current.refund, 2)} 回落。
         </div>
         <div class="source-list" style="margin-top:12px">
           <div>最终 KPI 销售缺口：${money(finalGap.salesGap, 0)}</div>
           <div>最终 KPI 净利润额缺口：${money(finalGap.estimatedNetProfitGap, 0)}</div>
           <div>最终 KPI ACOS 缺口：${signedPp(finalGap.acosGap, 2).replace('+', '')}</div>
           <div>最终 KPI 退款率缺口：${signedPp(finalGap.refundRateGap, 2).replace('+', '')}</div>
+          ${nextPace.targetDate ? `<div>阶段日均销售追回：${money(nextPace.salesPerDay, 2)} / ${num(nextPace.unitsPerDay).toFixed(1)} 件</div>` : ''}
+          ${nextDayTarget.businessDate ? `<div>下一业务日验收线：${esc(nextDayTarget.businessDate)} 销售 ${money(nextDayTarget.salesTarget, 2)} / ${int(nextDayTarget.unitsTarget)} 件 / 净利 ${pct(nextDayTarget.netProfitRateMin, 2)} / ACOS ${pct(nextDayTarget.acosMax, 2)} / 退款 ${pct(nextDayTarget.refundRateMax, 2)} / 广告费率 ${pct(nextDayTarget.adCostShareMax, 2)}</div>` : ''}
+          ${nextDayGate.status ? `<div>上一验收线回查：${esc(nextDayGate.targetBusinessDate)} ${esc(nextDayGate.status)} / 销售差 ${money(nextDayGate.gap?.salesGap, 2)} / 件数差 ${int(nextDayGate.gap?.unitsGap)} / 净利率差 ${signedPp(nextDayGate.gap?.netProfitRateGap, 2).replace('+', '')} / 广告费率差 ${signedPp(nextDayGate.gap?.adCostShareGap, 2).replace('+', '')}</div>` : ''}
+          ${finalPace.targetDate ? `<div>月终日均净利润追回：${money(finalPace.estimatedNetProfitPerDay, 2)}</div>` : ''}
         </div>
       </div>
     </section>
@@ -618,13 +908,13 @@ function dashboardHtml(model) {
 </html>`;
 }
 
-function main() {
-  const latestSummaryFile = process.argv[2] || findLatestRunSummary();
-  const summary = readJson(latestSummaryFile, {});
+function buildDashboardModel(options = {}) {
+  const latestSummaryFile = options.summaryFile || findLatestRunSummary();
+  const summary = options.summary || readJson(latestSummaryFile, {});
   const snapshotFile = summary.outputFiles?.snapshotFile || path.join(ROOT, 'data', 'snapshots', 'latest_snapshot.json');
   const snapshot = readJson(snapshotFile, readJson(path.join(ROOT, 'data', 'snapshots', 'latest_snapshot.json'), {}));
-  const outputDate = summary.time?.localDate || new Date().toISOString().slice(0, 10);
-  const businessDate = summary.time?.businessDate || outputDate;
+  const outputDate = options.outputDate || summary.time?.localDate || new Date().toISOString().slice(0, 10);
+  const businessDate = options.businessDate || summary.time?.businessDate || outputDate;
   const trendRoot = findTrendRoot();
   const history = historyRows(trendRoot).slice(-7);
   if (!history.length && snapshot.sellerSalesRows) {
@@ -647,33 +937,90 @@ function main() {
 
   const auditFile = summary.outputFiles?.proactiveOperatingAuditJson || path.join(ROOT, 'data', 'tasks', `proactive_operating_audit_${businessDate}.json`);
   const tasksFile = summary.outputFiles?.dailyTaskPoolJson || path.join(ROOT, 'data', 'tasks', `daily_tasks_${businessDate}.json`);
+  const allSkuReviewFile = summary.outputFiles?.allSkuOperatingReviewJson || path.join(ROOT, 'data', 'tasks', `all_sku_operating_review_${businessDate}.json`);
   const lowEfficiencyFile = summary.outputFiles?.lowEfficiencyPoolsJson || path.join(ROOT, 'data', 'tasks', `low_efficiency_pools_${businessDate}.json`);
   const successRateFile = path.join(ROOT, 'data', 'snapshots', `seller_success_rate_HJ17_${outputDate}.json`);
   const depositManifest = trendRoot ? findLatestByPattern(trendRoot, new RegExp(`^daily_deposit_manifest_${outputDate}\\.json$`)) : '';
+  const depositStatus = trendRoot ? findLatestByPattern(trendRoot, new RegExp(`^daily_deposit_status_${outputDate}\\.json$`)) : '';
   const execution = latestExecutionSummary(outputDate);
+  const agentClosedLoop = options.agentClosedLoop || agentClosedLoopSummary(outputDate, businessDate);
+  const kpiGateFile = agentClosedLoop.files?.kpiGateFile || path.join(ROOT, 'data', 'tasks', `kpi_recovery_gate_${outputDate}.json`);
+  const kpiCheckpointFile = agentClosedLoop.files?.kpiCheckpointFile || path.join(ROOT, 'data', 'tasks', `kpi_recovery_checkpoint_${outputDate}.json`);
+  const kpiDryRunDecisionFile = agentClosedLoop.files?.kpiDryRunDecisionFile || path.join(ROOT, 'data', 'tasks', `kpi_recovery_dryrun_decisions_${outputDate}.json`);
+  const kpiRecoveryNextActionsFile = agentClosedLoop.files?.kpiRecoveryNextActionsFile || path.join(ROOT, 'data', 'tasks', `kpi_recovery_next_actions_${outputDate}.md`);
+  const kpiApprovalReviewFile = agentClosedLoop.files?.kpiApprovalReviewFile || path.join(ROOT, 'data', 'tasks', `kpi_approval_review_${outputDate}.json`);
+  const monthKpiDigestFile = agentClosedLoop.files?.monthKpiDigestMarkdownFile || path.join(ROOT, 'data', 'tasks', `month_kpi_operator_digest_${outputDate}.md`);
+  if (!agentClosedLoop.kpiRecoveryGate && fs.existsSync(kpiGateFile)) {
+    agentClosedLoop.kpiRecoveryGate = readJson(kpiGateFile, {});
+  }
+  if (fs.existsSync(kpiCheckpointFile)) {
+    const currentCheckpoint = agentClosedLoop.kpiRecoveryCheckpoint || {};
+    const latestCheckpoint = readJson(kpiCheckpointFile, {});
+    const currentLanded = num(currentCheckpoint.landedEvidence?.landedActionSuccess);
+    const latestLanded = num(latestCheckpoint.landedEvidence?.landedActionSuccess);
+    const currentDryRun = num(currentCheckpoint.actionPools?.recoveryDryRun?.highEfficiencyBidUps);
+    const latestDryRun = num(latestCheckpoint.actionPools?.recoveryDryRun?.highEfficiencyBidUps);
+    if (!currentCheckpoint.actionPools?.recoveryDryRun || latestLanded > currentLanded || latestDryRun > currentDryRun) {
+      agentClosedLoop.kpiRecoveryCheckpoint = latestCheckpoint;
+    }
+  }
 
-  const model = {
+  return {
     summary,
     snapshot,
     history,
     audit: readJson(auditFile, {}),
     tasks: readJson(tasksFile, {}),
+    allSkuReview: readJson(allSkuReviewFile, {}),
+    kpiDryRunDecisions: readJson(kpiDryRunDecisionFile, {}),
+    kpiApprovalReview: readJson(kpiApprovalReviewFile, {}),
     lowEfficiency: readJson(lowEfficiencyFile, {}),
     successRate: readJson(successRateFile, {}),
     execution,
+    agentClosedLoop,
     outputDate,
     reportPaths: {
       snapshot: snapshotFile,
       depositManifest,
+      depositStatus,
+      allSkuReview: allSkuReviewFile,
+      kpiGate: kpiGateFile,
+      kpiCheckpoint: kpiCheckpointFile,
+      kpiDryRunDecisions: kpiDryRunDecisionFile,
+      kpiRecoveryNextActions: kpiRecoveryNextActionsFile,
+      kpiApprovalReview: kpiApprovalReviewFile,
+      monthKpiDigest: monthKpiDigestFile,
     },
   };
+}
 
-  fs.mkdirSync(OUT_DIR, { recursive: true });
-  const outFile = path.join(OUT_DIR, `daily_dashboard_${outputDate}.html`);
+function generateDailyDashboard(options = {}) {
+  const model = buildDashboardModel(options);
+  const outputDate = options.outputDate || model.outputDate;
+  const outDir = options.outDir || OUT_DIR;
+  fs.mkdirSync(outDir, { recursive: true });
+  const outFile = options.outFile || path.join(outDir, `daily_dashboard_${outputDate}.html`);
   fs.writeFileSync(outFile, dashboardHtml(model), 'utf8');
-  console.log(outFile);
+  return {
+    outFile,
+    outputDate,
+    businessDate: model.summary.time?.businessDate || outputDate,
+  };
+}
+
+function main() {
+  const result = generateDailyDashboard({ summaryFile: process.argv[2] || '' });
+  console.log(result.outFile);
 }
 
 if (require.main === module) {
   main();
 }
+
+module.exports = {
+  agentClosedLoopSummary,
+  buildDashboardModel,
+  dashboardHtml,
+  generateDailyDashboard,
+  statusTone,
+};

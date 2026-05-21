@@ -1,0 +1,158 @@
+{
+  "summary": {
+    "date": "2026-05-21",
+    "businessDate": "2026-05-21",
+    "generatedAt": "2026-05-20T20:59:29.970Z",
+    "total": 9,
+    "blockedValidation": 1,
+    "blockedOutOfScope": 8,
+    "needsFreshValidation": 0,
+    "sourceDryRun": "ops_2026-05-20T20-57-06-963Z"
+  },
+  "items": [
+    {
+      "sku": "OB3296",
+      "actionType": "pause",
+      "entityType": "keyword",
+      "id": "122062455586903",
+      "boundary": "blocked_validation_error",
+      "reason": "entity id not found in context",
+      "evidence": [
+        "theme=cinco_de_mayo",
+        "spend3=0.3",
+        "orders3=0",
+        "spend7=0.3",
+        "orders7=0"
+      ],
+      "actionReason": "Expired/tail season keyword waste: Cinco de Mayo expired \"cinco de mayo\" spend3=0.3, orders3=0, ACOS3=none."
+    },
+    {
+      "sku": "MH2355",
+      "actionType": "pause",
+      "entityType": "keyword",
+      "id": "129190313209398",
+      "boundary": "blocked_out_of_operation_scope",
+      "reason": "sku_not_in_allowed_operation_scope",
+      "evidence": [
+        "theme=nurse_week",
+        "spend3=0.4",
+        "orders3=0",
+        "spend7=0.8",
+        "orders7=0"
+      ],
+      "actionReason": "Expired/tail season keyword waste: Nurse Week tail/expired \"nurse appreciation gifts\" spend3=0.4, orders3=0, ACOS3=none."
+    },
+    {
+      "sku": "MH2355",
+      "actionType": "pause",
+      "entityType": "keyword",
+      "id": "268853697808740",
+      "boundary": "blocked_out_of_operation_scope",
+      "reason": "sku_not_in_allowed_operation_scope",
+      "evidence": [
+        "theme=nurse_week",
+        "spend3=0.4",
+        "orders3=0",
+        "spend7=0.8",
+        "orders7=0"
+      ],
+      "actionReason": "Expired/tail season keyword waste: Nurse Week tail/expired \"nurse ornaments\" spend3=0.4, orders3=0, ACOS3=none."
+    },
+    {
+      "sku": "MH2355",
+      "actionType": "pause",
+      "entityType": "keyword",
+      "id": "145853959137715",
+      "boundary": "blocked_out_of_operation_scope",
+      "reason": "sku_not_in_allowed_operation_scope",
+      "evidence": [
+        "theme=nurse_week",
+        "spend3=0.4",
+        "orders3=0",
+        "spend7=0.4",
+        "orders7=0"
+      ],
+      "actionReason": "Expired/tail season keyword waste: Nurse Week tail/expired \"bulk nurse gifts\" spend3=0.4, orders3=0, ACOS3=none."
+    },
+    {
+      "sku": "MH2355",
+      "actionType": "pause",
+      "entityType": "keyword",
+      "id": "277746857241874",
+      "boundary": "blocked_out_of_operation_scope",
+      "reason": "sku_not_in_allowed_operation_scope",
+      "evidence": [
+        "theme=nurse_week",
+        "spend3=0.4",
+        "orders3=0",
+        "spend7=0.4",
+        "orders7=0"
+      ],
+      "actionReason": "Expired/tail season keyword waste: Nurse Week tail/expired \"nurse gifts for women\" spend3=0.4, orders3=0, ACOS3=none."
+    },
+    {
+      "sku": "MH2355",
+      "actionType": "pause",
+      "entityType": "keyword",
+      "id": "210523075101870",
+      "boundary": "blocked_out_of_operation_scope",
+      "reason": "sku_not_in_allowed_operation_scope",
+      "evidence": [
+        "theme=nurse_week",
+        "spend3=0.38",
+        "orders3=0",
+        "spend7=0.38",
+        "orders7=0"
+      ],
+      "actionReason": "Expired/tail season keyword waste: Nurse Week tail/expired \"nurse week gifts\" spend3=0.38, orders3=0, ACOS3=none."
+    },
+    {
+      "sku": "MH2711",
+      "actionType": "pause",
+      "entityType": "keyword",
+      "id": "48947332097867",
+      "boundary": "blocked_out_of_operation_scope",
+      "reason": "sku_not_in_allowed_operation_scope",
+      "evidence": [
+        "theme=nurse_week",
+        "spend3=0.4",
+        "orders3=0",
+        "spend7=0.4",
+        "orders7=0"
+      ],
+      "actionReason": "Expired/tail season keyword waste: Nurse Week tail/expired \"bulk nurse gifts\" spend3=0.4, orders3=0, ACOS3=none."
+    },
+    {
+      "sku": "MH2711",
+      "actionType": "pause",
+      "entityType": "keyword",
+      "id": "226506195166403",
+      "boundary": "blocked_out_of_operation_scope",
+      "reason": "sku_not_in_allowed_operation_scope",
+      "evidence": [
+        "theme=nurse_week",
+        "spend3=0.4",
+        "orders3=0",
+        "spend7=0.4",
+        "orders7=0"
+      ],
+      "actionReason": "Expired/tail season keyword waste: Nurse Week tail/expired \"nurse appreciation gifts\" spend3=0.4, orders3=0, ACOS3=none."
+    },
+    {
+      "sku": "MH2711",
+      "actionType": "pause",
+      "entityType": "keyword",
+      "id": "63974424277802",
+      "boundary": "blocked_out_of_operation_scope",
+      "reason": "sku_not_in_allowed_operation_scope",
+      "evidence": [
+        "theme=nurse_week",
+        "spend3=0.4",
+        "orders3=0",
+        "spend7=0.4",
+        "orders7=0"
+      ],
+      "actionReason": "Expired/tail season keyword waste: Nurse Week tail/expired \"nurse gifts for women\" spend3=0.4, orders3=0, ACOS3=none."
+    }
+  ]
+}

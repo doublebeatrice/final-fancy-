@@ -1,0 +1,374 @@
+{
+  "generatedAt": "2026-05-20T12:05:51.791Z",
+  "source": "data/tasks/season_gap_systemic_self_audit_2026-05-20.json",
+  "count": 11,
+  "results": [
+    {
+      "sku": "LEM5778",
+      "asin": "B0GBXVH5Z8",
+      "ok": true,
+      "title": "LemonRoad 48 Pcs Bulk Pencils with Individual Tube Cases 24 HB Triangular Pencils with Erasers and 24 Matching Cases Assorted Colors Stationery Favors Teacher Appreciation Gifts Party Favor Fillers",
+      "bullets": [
+        "48-piece Pencil Favor Set: includes 24 HB triangular pencils with erasers and 24 matching plastic tube cases, giving you a ready-to-share stationery set for appreciation gifts, party favor bags, reward prizes, office sharing, and daily writing needs",
+        "Individual Tube Case for Each Pencil: each pencil comes with its own protective tube case to help keep it clean, organized, and easy to carry; The matching case design also makes each pencil feel more giftable than ordinary loose bulk pencils",
+        "Easy to Hand out and Store: the slim tube cases fit neatly in bags, desk drawers, supply bins, gift bags, and travel pouches, making this set convenient for group giveaways, event favors, team rewards, and everyday stationery storage"
+      ],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30": 6,
+        "units7": 1,
+        "sellableDays": 460,
+        "profitRate": -0.142,
+        "adSpend7": 6.640000000000001,
+        "adOrders7": 1
+      },
+      "watchReasons": [
+        "stale_threshold_edge: sellableDays>=120 and units30d 6-8"
+      ]
+    },
+    {
+      "sku": "GRA5177",
+      "asin": "B0F2MZ74S2",
+      "ok": true,
+      "title": "Seajan Guess the Dress Bridal Shower Game Acrylic Sign Fun Table Sign 50 Guessing Cards 20 White Acrylic Pens for Guests Wedding Party (Floral)",
+      "bullets": [
+        "Comprehensive Game Package: you will get 1 piece of acrylic game table sign with base, 50 pieces of small guessing cards, and 20 pieces of white acrylic pens, everything you need for a fun and engaging game, makes planning the bridal party convenient and funny",
+        "Quality Material and Elegant Design: the guess the dress game sign is made of acrylic material, clear and exquisite, adding a beautiful touch to wedding party; The guessing cards are made of paper, come in black gold color, a classy and elegant addition to bridal shower setup; The white acrylic pens contribute to the complete look of the wedding game set; Note: Please tear off the protective film before use",
+        "Detailed Sizes: the bridal shower sign measures 5.12 x 7.87 x 0.1 inches/ 13 x 20 x 0.25 cm, making it is easy to read but does not take up unnecessary space; The guessing cards measure 3.94 x 5.91 inches/ 10 x 15 cm, large enough for guests to draw their imagined wedding dress with ease"
+      ],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30": 8,
+        "units7": 2,
+        "sellableDays": 353,
+        "profitRate": 0.1855,
+        "adSpend7": 5.0600000000000005,
+        "adOrders7": 0
+      },
+      "watchReasons": [
+        "stale_threshold_edge: sellableDays>=120 and units30d 6-8"
+      ]
+    },
+    {
+      "sku": "YEO1463",
+      "asin": "B0GHXLR9YP",
+      "ok": true,
+      "title": "4 Pack Boonie Safari Hats for Men Women, Wide Brim Sun Hats with Chin Strap for Fishing Hiking Lightweight",
+      "bullets": [],
+      "seasonWindows": [
+        {
+          "key": "summer",
+          "label": "Summer",
+          "phase": "preheat"
+        }
+      ],
+      "metrics": {
+        "units30": 8,
+        "units7": 2,
+        "sellableDays": 323,
+        "profitRate": 0.0144,
+        "adSpend7": 9.32,
+        "adOrders7": 1
+      },
+      "watchReasons": [
+        "stale_threshold_edge: sellableDays>=120 and units30d 6-8",
+        "structure_gap_watch: sellableDays>=90, units30d<=10, structure gap"
+      ]
+    },
+    {
+      "sku": "KZ6722",
+      "asin": "B0GV48BQ52",
+      "ok": true,
+      "title": "Blulu 3 Purple 3 Purple VIP Party Decorations Roaring 20s Movie Night Banner VIP Porch Sign Movie Theater Now Showing Hanging Porch Sign 1920s Party Supplies (47.2 x 11.8 in) (47.2 x 11.8 in)",
+      "bullets": [
+        "Concert Party Decorations: the concert porch sign set includes 1 piece kpop \"welcome\" banner, 1 piece \"VIP entrance\" banner and 1 piece \"born to shine\" kpop Banners, kpop backdrops banner designed in a bright purple stage style that easily stands out and adds fun to your party entrance",
+        "Kpop party decorations Design: these kpop hanging signs feature purple and blue tones with disco ball, crown, stars and neon style elements, creating a lively concert and dance floor atmosphere, suitable for music themed parties and prom decorations for graduations",
+        "Easy to Hang kpop theme decorations: each Kpop porch sign banner comes with a rod and hanging string on the top, and 2 grommet holes at the bottom to help keep it straight and reduce swaying in the wind; kpop decors are suitable for hanging on porches, doors, walls, windows and kpop party decor"
+      ],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30": 8,
+        "units7": 2,
+        "sellableDays": 285,
+        "profitRate": 0.1219,
+        "adSpend7": 6.43,
+        "adOrders7": 2
+      },
+      "watchReasons": [
+        "stale_threshold_edge: sellableDays>=120 and units30d 6-8"
+      ]
+    },
+    {
+      "sku": "MF3043",
+      "asin": "B0DMW4GC1S",
+      "ok": true,
+      "title": "54 Pcs Fun Wedding Guest Book Alternative Set Four in a Row Game for Reception, with Mr & Mrs Wooden Heart Sign Guest Book for Wedding Party Games Ideas, Bridal Shower, Engagement, Anniversary Unique",
+      "bullets": [
+        "You Will Receive: 1x Engraved \" Mr. & Mrs.\" Game Board ( 8.19x10.7\" ) 54x Wooden Tokens ( 27 bride + 27 groom designs) 2x Signature pens ( 1 gold and 1 white) 1x Storage Board for Tokens 1x Instruction Card; Not just for weddings! Use as: baby Showers, Birthdays: friends leave funny memories, Anniversaries, Gift Idea etc; Please note that some accessories require self-assembly, so please allow time for setup",
+        "Wood Material: made of high quality poplar wood with precision laser cut edges, smooth and flat; After the wedding, the four letter game board also serves as chic home decor - place it on a shelf or wall and relive your big day! The durable design ensures it will last for years, not just one event",
+        "Funny Wedding Guest Book Game : turn your wedding autograph ceremony into a fun game! Inspired by the classic four-in-a-row, this game set allows guests to sign 27 \" Bride\" and 27 \" Groom\" tuxedo/ tuxedo shaped wooden tokens ( blank on the back for signatures) ; After signing, they could toss the tokens into the game board to create a four-peat! Add laughter to the ceremony and have fun while preserving memories"
+      ],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30": 7,
+        "units7": 1,
+        "sellableDays": 133,
+        "profitRate": 0.0995,
+        "adSpend7": 0,
+        "adOrders7": 0
+      },
+      "watchReasons": [
+        "stale_threshold_edge: sellableDays>=120 and units30d 6-8",
+        "structure_gap_watch: sellableDays>=90, units30d<=10, structure gap"
+      ]
+    },
+    {
+      "sku": "FE3232",
+      "asin": "B0F23LD73K",
+      "ok": true,
+      "title": "Kosiz 10 Sets Fathers Day Christian Prayer Journals Bulk for Women, Leather Bible Verse Notebooks with Pens, Church Bible Study Gifts for Fathers Day, Ministry and Retreat Events(Spanish)",
+      "bullets": [
+        "Religious Gift Set – Christian Bulk Gifts for Women: you will receive 10 Christian Notebooks Bulk with Bible verse covers and 10 gel pens printed with inspirational words; An ideal combination for women’s bible study groups, church ladies’ gatherings, and group prayer sessions",
+        "Inspirational Prayer Journals for Women: These prayer journals for women feature different bible verses to motivate positivity, strengthen faith, and guide daily devotion; A thoughtful way to inspire spiritual growth and reflection",
+        "Proper Size & Portable: our inspirational A5 leather Christian notebooks bulk measure about 8.27 x 5.51 inches/ 21 x 14 cm, offering ample space for notes and prayers; The 5.31-inch/13.5 cm pens are easy to hold and write smoothly, portable enough to carry in handbags for bible study, church, or travel"
+      ],
+      "seasonWindows": [
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "fathers_day",
+          "label": "Father's Day",
+          "phase": "preheat"
+        }
+      ],
+      "metrics": {
+        "units30": 5,
+        "units7": 0,
+        "sellableDays": 90,
+        "profitRate": -0.2621,
+        "adSpend7": 1.15,
+        "adOrders7": 0
+      },
+      "watchReasons": [
+        "structure_gap_watch: sellableDays>=90, units30d<=10, structure gap"
+      ]
+    },
+    {
+      "sku": "SC3420",
+      "asin": "B0C2HKSG2X",
+      "ok": true,
+      "title": "Inbagi Memorial Cardinal Sign Pins Set Include Bird Funeral Pocket Token Red Cardinal Pin Organza Bags and Remember Me Poem Cards Cardinal Charms Funeral Favors for Guests Gift (30 Sets)",
+      "bullets": [
+        "Enough Funeral Favors: you will receive 30 sets of funeral favors, including 30 pieces of cards, 30 pieces of cardinal pins and 30 pieces of white organza bags, nice combination can be applied as consolation gifts at funerals, memorial services and more",
+        "Warm and Delicate: the sympathy gifts for loss of grandmother are designed with cardinal theme, the red cardinal shape pins are elegant, and the cards are printed with warm words, can be applied to express your miss to the deceased as if they were still with you, meaningful and warm",
+        "Decorative Effects: the memorial cardinal sign pins are exquisite and delicate, and they can match well with your clothes and accessories such as scarf, shawl, shirt, dress, sweater, coat, bag and more to add more charms to your appearance"
+      ],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        }
+      ],
+      "metrics": {
+        "units30": 54,
+        "units7": 17,
+        "sellableDays": 30,
+        "profitRate": 0.3713,
+        "adSpend7": 27.049999999999997,
+        "adOrders7": 5
+      },
+      "watchReasons": [
+        "inventory_tight_edge: sellableDays 21-30 and units30d>=20"
+      ]
+    },
+    {
+      "sku": "QUN1382",
+      "asin": "B0GPVPXWBX",
+      "ok": true,
+      "title": "Hahafelt Bouquet Sash with Custom Name, Prom Bouquet Ribbon Kit with DIY Iron-on Letters, Personalized Ribbon for Year, Senior Night, Weddings, Recitals, Holidays & Keepsake",
+      "bullets": [
+        "Custom Bouquet Sash Ribbon Kit: You will receive 1 white ribbed bouquet sash ribbon (2.99\" × 31.5\") plus 2 black heat-transfer letter sheets for personalization. Create a custom sash with initials, a graduation year, or an event name to dress up your bouquet or decor. Note: flowers are not included",
+        "Letters for Multiple Occasions: The letter sheets include graduation-themed options like HS, PROM, and HOCO, making it easy to prep for different celebration moments. With plenty of letters, you can personalize both ends—add initials on one side and the year or event on the other. Extra letters are great for additional DIY decorations",
+        "Easy to Apply: simply cut out the desired letters, position them on the ribbon, set your iron to 150-160°C, and press firmly for 10-15 seconds, Peel off the protective film to reveal your custom sash; You can tie a charming bow with trailing ends or wrap the bouquet and secure it with a simple knot, elegantly displaying your personalized design"
+      ],
+      "seasonWindows": [
+        {
+          "key": "wedding",
+          "label": "Wedding Season",
+          "phase": "peak"
+        },
+        {
+          "key": "graduation",
+          "label": "Graduation",
+          "phase": "peak"
+        },
+        {
+          "key": "mothers_day",
+          "label": "Mother's Day",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30": 165,
+        "units7": 6,
+        "sellableDays": 28,
+        "profitRate": 0.3273,
+        "adSpend7": 29.19,
+        "adOrders7": 7
+      },
+      "watchReasons": [
+        "inventory_tight_edge: sellableDays 21-30 and units30d>=20"
+      ]
+    },
+    {
+      "sku": "YAN0087",
+      "asin": "B0BC8FT8MJ",
+      "ok": true,
+      "title": "Roowest 1 Pcs Cardinal Memorial Picture Frame Acrylic Magnetic Photo Frames, 7 x 10 Inch, Sympathy Gifts for Loss of Loved One Passed Away Gifts Memorial Bereavement for Mom, Dad, Family Home Decor",
+      "bullets": [
+        "Memorial Photo Frame: our acrylic photo frame is designed with comforting message which contains sincere expressions of grief, mourning and remembrance for the passed people and loved ones, nice tribute to cherish the memory of a lost family member or friend",
+        "Material and Size: our remembrance gifts for friends are made of acrylic material with UV print, bright and not easily break or yellow, easy to display your loved photos; The photo frame measure approx. 25 x 17 cm/ 10 x 7 inches, suitable for the photos of 4 x 6 inches",
+        "Magnet Attachment Design: the acrylic picture frame is combined by 2 clear acrylic sheets of 2.8 mm with magnet attachment at the top, stable and sturdy, which can securely hold the clear acrylic blocks together, not easy to loose, simple to replace photos"
+      ],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        },
+        {
+          "key": "mothers_day",
+          "label": "Mother's Day",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30": 100,
+        "units7": 37,
+        "sellableDays": 27,
+        "profitRate": 0.2222,
+        "adSpend7": 53.17999999999999,
+        "adOrders7": 10
+      },
+      "watchReasons": [
+        "inventory_tight_edge: sellableDays 21-30 and units30d>=20"
+      ]
+    },
+    {
+      "sku": "GT3308",
+      "asin": "B0C1GPJBXQ",
+      "ok": true,
+      "title": "Geosar 100 Pcs Dove Funeral Memorial Ribbons Pins Memorial Service Respect Funeral Personalized Ribbon Bow with Safety Pins and White Dove for Mourning Mental Health Awareness Month Gifts(Black)",
+      "bullets": [
+        "Rich Numbers for Sharing and Mourning: a total of 100 black funeral ribbons with pins are provided for you, and decorated with white doves to make them classic and elegant; Sufficient quantity to easily meet your demands for decoration and replacement; You can also share them with family and friends",
+        "Right Size to Wear: the mourning ribbon measures about 9.06 x 0.51 inches/ 23 x 1.3 cm and is the right size to attache well on your clothes, pockets, backpacks or handbags, lightweight for easy carrying and use",
+        "Reliable and Serviceable: mainly made of quality polyester material, our memorial ribbons are safe and reliable, soft and smooth, comfortable to touch, not easy to fade, wrinkle, tear or break, can be trusted to serve you for a long time"
+      ],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30": 101,
+        "units7": 20,
+        "sellableDays": 26,
+        "profitRate": 0.2647,
+        "adSpend7": 56.86,
+        "adOrders7": 10
+      },
+      "watchReasons": [
+        "inventory_tight_edge: sellableDays 21-30 and units30d>=20"
+      ]
+    },
+    {
+      "sku": "SC3527",
+      "asin": "B0CGV7S8V9",
+      "ok": true,
+      "title": "Inbagi Memorial Cardinal Sign Pins Set Include Bird Funeral Pocket Token Red Cardinal Pin Organza Bags and Remember Me Poem Cards Charms Funeral Favors for Guests Gift (60 Sets)",
+      "bullets": [
+        "Enough Funeral Favors: you will receive 60 sets of funeral favors, including 60 pieces of cards, 60 pieces of cardinal pins and 60 pieces of white organza bags, nice combination can be applied as consolation gifts at funerals, memorial services and more",
+        "Warm and Delicate: the sympathy gifts for loss of grandmother are designed with cardinal theme, the red cardinal shape pins are elegant, and the cards are printed with warm words, can be applied to express your miss to the deceased as if they were still with you, meaningful and warm",
+        "Decorative Effects: the memorial cardinal sign pins are exquisite and delicate, and they can match well with your clothes and accessories such as scarf, shawl, shirt, dress, sweater, coat, bag and more to add more charms to your appearance"
+      ],
+      "seasonWindows": [
+        {
+          "key": "memorial_day",
+          "label": "Memorial Day",
+          "phase": "peak"
+        },
+        {
+          "key": "nurse_week",
+          "label": "Nurse Week",
+          "phase": "tail"
+        }
+      ],
+      "metrics": {
+        "units30": 25,
+        "units7": 4,
+        "sellableDays": 21,
+        "profitRate": 0.338,
+        "adSpend7": 12.100000000000001,
+        "adOrders7": 1
+      },
+      "watchReasons": [
+        "inventory_tight_edge: sellableDays 21-30 and units30d>=20"
+      ]
+    }
+  ]
+}

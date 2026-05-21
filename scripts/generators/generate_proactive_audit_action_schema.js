@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { hasReusableSpLane } = require('../../src/ad_structure_reuse');
 
 const ROOT = path.join(__dirname, '..', '..');
 
@@ -53,7 +54,91 @@ function findLatestAuditFile() {
 function productMap(snapshot = {}) {
   const map = new Map();
   for (const card of snapshot.productCards || []) {
-    if (card.sku) map.set(String(card.sku).toUpperCase(), card);
+    if (card.sku) {
+      const sku = String(card.sku).toUpperCase();
+      map.set(sku, {
+        ...card,
+        campaigns: Array.isArray(card.campaigns) ? [...card.campaigns] : [],
+      });
+    }
+  }
+  const skuByCampaignGroup = new Map();
+  for (const row of snapshot.productAdRows || []) {
+    const sku = String(row.sku || row.productAdSku || '').toUpperCase();
+    const campaignId = String(row.campaignId || '');
+    const adGroupId = String(row.adGroupId || '');
+    if (sku && campaignId && adGroupId) skuByCampaignGroup.set(`${campaignId}::${adGroupId}`, sku);
+  }
+  const ensureProduct = row => {
+    const campaignId = String(row.campaignId || '');
+    const adGroupId = String(row.adGroupId || '');
+    const sku = String(row.sku || row.productAdSku || skuByCampaignGroup.get(`${campaignId}::${adGroupId}`) || '').toUpperCase();
+    if (!sku) return null;
+    if (!map.has(sku)) map.set(sku, { sku, asin: row.asin || '', campaigns: [] });
+    return map.get(sku);
+  };
+  const ensureCampaign = (product, row) => {
+    const campaignId = String(row.campaignId || '');
+    const adGroupId = String(row.adGroupId || '');
+    if (!campaignId || !adGroupId) return null;
+    product.campaigns = product.campaigns || [];
+    let campaign = product.campaigns.find(item =>
+      String(item.campaignId || '') === campaignId && String(item.adGroupId || '') === adGroupId
+    );
+    if (!campaign) {
+      campaign = {
+        campaignId,
+        adGroupId,
+        campaignName: row.campaignName || row.name || '',
+        groupName: row.groupName || row.adGroupName || '',
+        campaignState: row.campaignState ?? row.state,
+        groupState: row.groupState,
+        keywords: [],
+        autoTargets: [],
+      };
+      product.campaigns.push(campaign);
+    }
+    campaign.keywords = campaign.keywords || [];
+    campaign.autoTargets = campaign.autoTargets || [];
+    return campaign;
+  };
+  const stats7d = row => ({
+    impressions: num(row.Impressions ?? row['7_Impressions'] ?? 0),
+    clicks: num(row.Clicks ?? row['7_Clicks'] ?? 0),
+    spend: num(row.Spend ?? row['7_Spend'] ?? 0),
+    orders: num(row.Orders ?? row['7_Orders'] ?? 0),
+    sales: num(row.Sales ?? row['7_Sales'] ?? 0),
+  });
+  for (const row of snapshot.kwRows || []) {
+    const product = ensureProduct(row);
+    const campaign = product && ensureCampaign(product, row);
+    const id = row.keywordId || row.id;
+    if (campaign && id && !campaign.keywords.some(item => String(item.id) === String(id))) {
+      campaign.keywords.push({
+        id: String(id),
+        bid: row.bid,
+        state: row.state,
+        text: row.keywordText || row.text || '',
+        matchType: row.matchType,
+        stats7d: stats7d(row),
+      });
+    }
+  }
+  const targetRows = new Set(snapshot.targetRows || []);
+  for (const row of [...(snapshot.autoRows || []), ...(snapshot.targetRows || [])]) {
+    const product = ensureProduct(row);
+    const campaign = product && ensureCampaign(product, row);
+    const id = row.targetId || row.id;
+    if (campaign && id && !campaign.autoTargets.some(item => String(item.id) === String(id))) {
+      campaign.autoTargets.push({
+        id: String(id),
+        bid: row.bid,
+        state: row.state,
+        targetType: row.targetType || (targetRows.has(row) ? 'manual' : 'auto'),
+        text: row.keywordText || row.text || row.targetingText || row.targetMark || '',
+        stats7d: stats7d(row),
+      });
+    }
   }
   return map;
 }
@@ -260,14 +345,16 @@ function qualifiedLaunchKeywordSeeds(seeds = []) {
 
 function createCampaignName(prefix, coreTerm, sku) {
   const term = cleanTerm(coreTerm).replace(/\s+/g, ' ').slice(0, 45);
-  return `proactive ${prefix}_${term}_${String(sku || '').toLowerCase()}`.slice(0, 120);
+  const skuPart = String(sku || '').toLowerCase().replace(/[^a-z0-9]+/g, '') || 'sku';
+  return `ai_${prefix}_${term}_${skuPart}`.slice(0, 90);
 }
 
 function createSpAction(product = {}, mode, coreTerm, options = {}) {
   const ctx = product.createContext || {};
   const bid = round(options.defaultBid ?? ctx.recommendedDefaultBid ?? 0.3);
   const dailyBudget = round(options.dailyBudget ?? Math.min(3, num(ctx.recommendedDailyBudget) || 3));
-  const campaignName = createCampaignName(mode === 'auto' ? 'auto' : 'kw', coreTerm, product.sku);
+  const prefix = mode === 'auto' ? 'auto' : `kw ${String(options.matchType || 'phrase').toLowerCase()}`;
+  const campaignName = createCampaignName(prefix, coreTerm, product.sku);
   const reason = options.reason || `New product launch coverage: create ${mode} for ${product.sku}.`;
   return {
     ...createActionBase(reason),
@@ -294,6 +381,13 @@ function createSpAction(product = {}, mode, coreTerm, options = {}) {
     riskLevel: options.riskLevel || 'new_product_low_budget_create',
     evidence: options.evidence || [],
   };
+}
+
+function pushCreateIfNoReusableLane(actions, product, action) {
+  const reuse = hasReusableSpLane(product, action.createInput || {});
+  if (reuse.reusable) return false;
+  actions.push(action);
+  return true;
 }
 
 function rowStats(row = {}, key = '7d') {
@@ -361,7 +455,7 @@ function buildNewProductLaunchActions(audit = {}, products = new Map(), limit = 
     if (item.issue === 'new_product_missing_basic_ad_structure' && product.sku && product.asin && ctx.accountId) {
       const autoCore = seeds[0] || `new product ${String(product.sku).toLowerCase()} auto`;
       if (!coverage.hasSpAuto && actionCount + actions.length < limit) {
-        actions.push(createSpAction(product, 'auto', autoCore, {
+        pushCreateIfNoReusableLane(actions, product, createSpAction(product, 'auto', autoCore, {
           reason: 'New product has inventory but no SP auto coverage. Build low-budget auto now instead of waiting for natural orders.',
           evidence,
         }));
@@ -369,7 +463,7 @@ function buildNewProductLaunchActions(audit = {}, products = new Map(), limit = 
       const qualifiedKeywordSeeds = qualifiedLaunchKeywordSeeds(seeds);
       if (!coverage.hasSpKeyword && qualifiedKeywordSeeds.length >= 3 && actionCount + actions.length < limit) {
         const coreTerm = qualifiedKeywordSeeds[0];
-        actions.push(createSpAction(product, 'keywordTarget', coreTerm, {
+        pushCreateIfNoReusableLane(actions, product, createSpAction(product, 'keywordTarget', coreTerm, {
           matchType: 'PHRASE',
           keywords: qualifiedKeywordSeeds.slice(0, 8),
           reason: 'New product has inventory but no SP keyword coverage. Build low-budget phrase coverage from product keyword seeds.',
@@ -533,6 +627,7 @@ function buildReviewItems(audit = {}, products = new Map(), limit = 80) {
     ...(audit.newProductLaunch?.items || []).map(item => ({ item, kind: 'new_product_launch', reason: 'New or recently arrived product must not wait for natural orders; build or repair basic ad launch.' })),
     ...(audit.arrivalAdRecovery?.items || []).map(item => ({ item, kind: 'arrival_ad_recovery', reason: 'Arrived inventory has no effective ad delivery; reopen, scale, or build ads.' })),
     ...(audit.priceActions?.items || []).map(item => ({ item, kind: 'price_action', reason: 'Daily price gate: review raise/recovery for tight inventory or low-profit active sales.' })),
+    ...(audit.removalEconomics?.items || []).map(item => ({ item, kind: 'removal_economics', reason: 'Read-only removal economics must decide discount sell-through, service provider, batch clearance, or disposal before any removal application.' })),
     ...(audit.listingRepair?.items || []).map(item => ({ item, kind: 'listing_repair', reason: 'Traffic or spend indicates listing, offer, review, price, or search-term fit repair before scaling.' })),
   ].filter(entry => entry.item?.sku).slice(0, limit);
   const bySku = new Map();

@@ -24,6 +24,8 @@ This changes the default operating stance:
 - For Q2 or holiday-relevant products, if current `adv /product/chart` shows impressions and clicks absolute values trending down inside the active selling window, prefer traffic recovery / push analysis before mechanical ACOS compression.
 - Keep ACOS and ad share under control, but do not cut traffic mechanically when the SKU needs display volume to protect old-product profit recovery.
 - Build missing ad structure when it is the practical way to create profitable reach. Creation must be traceable, low-budget first, and verified after launch.
+- Build missing SP structure with a reuse-first rule: if the SKU already has a reusable same-lane SP ad group, add traffic there through bid/budget/placement/enable or target append instead of creating another campaign/ad group. Same lane means keyword `BROAD`/`PHRASE`/`EXACT`, `auto`, or product targeting such as `ASIN_SAME_AS` / `ASIN_EXPANDED_FROM`; keyword append cannot cross lanes, so `BROAD` terms do not go into a `PHRASE` ad group.
+- New SP create actions must use identical campaign/ad-group names in the `ai_` format: `ai_auto_<term>_<sku>`, `ai_kw exact|phrase|broad_<term>_<sku>`, `ai_asin_<term>_<sku>`, or `ai_asin expanded_<term>_<sku>`. Preserve spaces inside buyer-facing terms and keep mode/date tokens out of the term body.
 - The operator has released SP ad creation from review-only mode. When evidence supports it, Codex should build rather than only recommend.
 - SP keyword creation is allowed only after product-theme isolation. Do not create phrase groups from raw product-profile fragments, naked category/audience words, or internal labels. If fewer than three specific buyer-facing search phrases survive filtering, send the SKU to review instead of creating a keyword group.
 - SB is currently adjusted only. Do not create SB campaigns until the real SB creation interface is captured and verified.
@@ -59,6 +61,7 @@ Ads and budget:
 - For old products in a cooling period, prefer lower bid and wider coverage instead of only cutting traffic.
 - Use selection keyword conversion data as a pre-spend keyword quality check. Strong market keyword evidence can support exact/phrase candidates, but the action still requires SKU-level ad backend proof, product-theme fit, listing/price readiness, inventory support, and cross-validation with ABA or reverse-search tools.
 - Use selection ABA search-term data as a market demand/concentration check before product-selection or keyword-expansion decisions. High ABA demand can justify deeper SKU-fit review, but it must not create ads or raise spend without keyword conversion cost proof and SKU-level performance proof.
+- Use selection keyword seasonality data as a market-window check before seasonal product, replenishment, clearance, or keyword-window decisions. Strong seasonality can justify preheat or tail-risk review, but it must not create ads, raise spend, change price, or trigger replenishment without SKU-level fit, inventory, profit, ABA, and keyword-conversion proof.
 
 Inventory:
 
@@ -152,6 +155,8 @@ Codex may auto-execute:
 - Low-budget SP ad creation when the operator has explicitly released creation for testing or rollout and the SKU has inventory, margin, and Q2 or old-product recovery rationale.
 - Budget, placement, bid, create, pause, or other supported advertising experiments with explicit Codex approval.
 - Higher-risk supported ad actions when marked `forceExecute: true` and accompanied by hypothesis, expected effect, measurement window, and rollback condition.
+
+SP `create` is not the first answer when urgent display/click recovery is needed. Prefer broad match, auto, and expanded ASIN discovery lanes for exposure recovery; exact-match pushes are for proven converting terms and should not consume the main recovery budget by default. If an existing same-lane ad group is available, reuse it before creating another structure, but do not mix keyword match types inside a differently named lane. Duplicate structures require an explicit override and reason.
 
 Codex must send these to review:
 

@@ -82,6 +82,7 @@ function evaluateReviewTask(task = {}, evidence = {}) {
   const ordersBefore = num(baseline.orders);
   const ordersAfter = num(current.orders);
   const rollbackIf = text(task.reviewPlan?.rollbackIf).toLowerCase();
+  const reviewDay = num(task.reviewPlan?.checkAfterDay, 0);
 
   if (rollbackIf.includes('spend rises without orders') && spendAfter > spendBefore && ordersAfter <= ordersBefore) {
     reasons.push('spend_rises_without_orders');
@@ -95,6 +96,21 @@ function evaluateReviewTask(task = {}, evidence = {}) {
       baseline,
       current,
       nextStep: '进入回滚或二次控制复核，不要继续放大该动作。',
+      }, evidence);
+  }
+
+  if (reviewDay > 0 && reviewDay < 3) {
+    reasons.push('early_review_window');
+    return enrichResult({
+      taskId: task.taskId || '',
+      key,
+      title: task.title || '',
+      verdict: 'continue_watch',
+      status: 'waiting_review',
+      reasons,
+      baseline,
+      current,
+      nextStep: '1日窗口只做早期回查，不关闭动作；继续观察到3日窗口再判断保留、回滚或二次动作。',
     }, evidence);
   }
 

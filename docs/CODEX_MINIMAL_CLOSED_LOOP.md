@@ -31,6 +31,18 @@ Daily work is not closed just because a report exists. A day is closed only when
 
 When same-day retries or dry-runs exist, use daily learning `decisions.finalRunLanding` as the completion lens. All-day aggregate adjustment counts can preserve failed history, but they are not the final completion verdict.
 
+## 节日产品过品规则
+
+过节日产品不是只写便签。先判断窗口、库存、已验证出单方向、核心流量、新流量和 listing/价格/主图承接，再决定动作。
+
+便签是留痕结果。日常过到具体 SKU/ASIN，并形成动作、保留、不动或复查判断时，能安全写库存便签就写。
+
+便签保持短中文：来源、判断、处理、回看、止损/继续条件。不能写库存便签时，写入对应学习、台账、调整日志或开发记录，并说明原因。
+
+窗口内且库存要走时，点击弱不是默认降投理由。先拆曝光不足、点击率弱、转化弱：该补量补量，该修图/标题/价格就修承接，只收弱泛流量，不能把核心流量一路压没。
+
+窗口内还要找新流量。优先沿已验证出单方向外扩：同词根、同场景、同人群、同竞品 ASIN；泛词只小额试探，不替代主推方向。
+
 ## Daily Operating Doctrine
 
 The 2026-05-14 retrospective is now part of the closed loop: `data/learning/operations_retrospective_2026-05-06_to_2026-05-14.md`.

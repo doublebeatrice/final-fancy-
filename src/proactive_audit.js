@@ -17,6 +17,8 @@ const KPI_TRAJECTORY = [
   { date: '2026-06-12', sales: 680000, units: 4600, netProfitRate: 0.205, adCostShare: 0.105, acos: 0.18, refundRate: 0.038 },
 ];
 
+const { assessRemovalInventoryEconomics } = require('./inventory_economics');
+
 const EXPIRED_SEASON_PATTERNS = [
   {
     key: 'teacher_appreciation',
@@ -366,6 +368,73 @@ function buildPriceActionsAudit(snapshot = {}) {
   };
 }
 
+function hasRemovalEconomicsPressure(card = {}, timeContext = {}) {
+  const invDays = num(card.sellableDays_30d || card.invDays);
+  const units30 = num(card.unitsSold_30d);
+  const available = fulResUnits(card);
+  const ageDays = recentDays(card, timeContext.businessDate);
+  const matureEnough = ageDays === null || ageDays > 60;
+  if (!matureEnough) return false;
+  return (invDays >= 120 && units30 <= 3) || (available >= 70 && invDays >= 90 && units30 <= 3);
+}
+
+function removalEconomicsIssue(economics = {}) {
+  if (economics.status !== 'available') return 'removal_economics_missing_for_inventory_pressure';
+  if (economics.bestRecoveryPath === 'current_sale') return 'current_sale_recovery_beats_removal_paths';
+  if (economics.bestRecoveryPath === 'batch_clearance') return 'batch_clearance_recovery_beats_current_sale';
+  if (economics.bestRecoveryPath === 'offline_service_provider') return 'offline_service_provider_recovery_beats_current_sale';
+  if (economics.bestRecoveryPath === 'disposal') return 'disposal_or_destroy_recovery_best';
+  return 'removal_economics_manual_review';
+}
+
+function buildRemovalEconomicsAudit(snapshot = {}, timeContext = {}) {
+  const items = [];
+  for (const card of snapshot.productCards || []) {
+    const economics = assessRemovalInventoryEconomics(card);
+    const hasEconomics = economics.status === 'available';
+    const pressure = hasRemovalEconomicsPressure(card, timeContext);
+    if (!hasEconomics && !pressure) continue;
+    const sku = text(card.sku);
+    const item = {
+      sku,
+      asin: text(card.asin),
+      issue: removalEconomicsIssue(economics),
+      invDays: num(card.sellableDays_30d || card.invDays),
+      fulResUnits: fulResUnits(card),
+      units30d: num(card.unitsSold_30d),
+      currentSaleRecoveryUsd: economics.currentSaleRecoveryUsd,
+      offlineServiceProviderRecoveryUsd: economics.offlineServiceProviderRecoveryUsd,
+      batchClearanceRecoveryUsd: economics.batchClearanceRecoveryUsd,
+      disposalRecoveryUsd: economics.disposalRecoveryUsd,
+      bestRecoveryPath: economics.bestRecoveryPath,
+      sellerinventorySuggestion: economics.sellerinventorySuggestion || '',
+      recommendation: economics.recommendation,
+      requiredAction: economics.requiredAction,
+      readOnlyProbeCommand: economics.status === 'available' ? '' : `npm run ops:removal-inventory:add-view -- --sku ${sku}`,
+      why: economics.status === 'available'
+        ? economics.operatingMeaning
+        : 'High or stale inventory needs sellerinventory add-view read-only recovery values before choosing discount, service provider, batch clearance, or disposal.',
+    };
+    items.push(item);
+  }
+  const summary = {
+    total: items.length,
+    missingEconomics: items.filter(item => item.requiredAction === 'fetch_removal_inventory_add_view_readonly').length,
+    discountOrSellThrough: items.filter(item => item.requiredAction === 'discount_or_sell_through_before_removal').length,
+    serviceProviderCandidates: items.filter(item => item.requiredAction === 'review_offline_service_provider').length,
+    batchClearanceCandidates: items.filter(item => item.requiredAction === 'review_batch_clearance_plan').length,
+    disposalReview: items.filter(item => item.requiredAction === 'manual_disposal_review').length,
+  };
+  return {
+    summary,
+    items: items.sort((a, b) => {
+      const aMissing = a.requiredAction === 'fetch_removal_inventory_add_view_readonly' ? 1 : 0;
+      const bMissing = b.requiredAction === 'fetch_removal_inventory_add_view_readonly' ? 1 : 0;
+      return aMissing - bMissing || b.invDays - a.invDays || b.fulResUnits - a.fulResUnits;
+    }),
+  };
+}
+
 function buildListingRepairAudit(snapshot = {}) {
   const items = [];
   for (const card of snapshot.productCards || []) {
@@ -482,6 +551,7 @@ function buildProactiveOperatingAudit(input = {}) {
   const newProductLaunch = buildNewProductLaunchAudit(snapshot, timeContext);
   const arrivalAdRecovery = buildArrivalAdRecoveryAudit(snapshot, timeContext);
   const priceActions = buildPriceActionsAudit(snapshot);
+  const removalEconomics = buildRemovalEconomicsAudit(snapshot, timeContext);
   const expiredSeasonKeywordWaste = buildExpiredSeasonKeywordWasteAudit(snapshot);
   const listingRepair = buildListingRepairAudit(snapshot);
   const requiredModules = [
@@ -489,6 +559,7 @@ function buildProactiveOperatingAudit(input = {}) {
     ['newProductLaunch', newProductLaunch.summary.total],
     ['arrivalAdRecovery', arrivalAdRecovery.summary.total],
     ['priceActions', priceActions.summary.total],
+    ['removalEconomics', removalEconomics.summary.total],
     ['expiredSeasonKeywordWaste', expiredSeasonKeywordWaste.summary.totalEnabledRows],
     ['listingRepair', listingRepair.summary.total],
   ].map(([name, result]) => ({ name, status: 'checked', result }));
@@ -501,6 +572,7 @@ function buildProactiveOperatingAudit(input = {}) {
     newProductLaunch,
     arrivalAdRecovery,
     priceActions,
+    removalEconomics,
     expiredSeasonKeywordWaste,
     listingRepair,
     closureGate: {
@@ -557,6 +629,9 @@ function renderProactiveOperatingAuditHtml(audit = {}) {
   ${renderItemsTable(audit.arrivalAdRecovery?.items || [], ['sku', 'asin', 'issue', 'ageDays', 'invDays', 'fulfillable', 'impressions7d', 'clicks7d', 'requiredAction'])}
   <h2>Price Actions</h2>
   ${renderItemsTable(audit.priceActions?.items || [], ['sku', 'asin', 'issue', 'invDays', 'units7d', 'profitRate', 'price', 'requiredAction'])}
+  <h2>Removal Economics</h2>
+  <div class="note">Read-only sellerinventory recovery values compare current sale, offline service provider, batch clearance, and disposal before any removal application.</div>
+  ${renderItemsTable(audit.removalEconomics?.items || [], ['sku', 'asin', 'issue', 'invDays', 'fulResUnits', 'units30d', 'currentSaleRecoveryUsd', 'offlineServiceProviderRecoveryUsd', 'batchClearanceRecoveryUsd', 'disposalRecoveryUsd', 'bestRecoveryPath', 'requiredAction'])}
   <h2>Expired Season Keyword Waste</h2>
   <div class="note">Rows are enabled season-tail or expired keywords with recent waste or high ACOS.</div>
   ${renderItemsTable(audit.expiredSeasonKeywordWaste?.items || [], ['theme', 'source', 'sku', 'keywordText', 'campaignName', 'bid', 'spend3', 'orders3', 'sales3', 'acos3', 'spend7', 'orders7', 'sales7', 'requiredAction'])}
@@ -576,6 +651,7 @@ module.exports = {
   buildListingRepairAudit,
   buildNewProductLaunchAudit,
   buildPriceActionsAudit,
+  buildRemovalEconomicsAudit,
   buildProactiveOperatingAudit,
   renderProactiveOperatingAuditHtml,
 };

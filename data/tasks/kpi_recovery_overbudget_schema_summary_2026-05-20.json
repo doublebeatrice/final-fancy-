@@ -1,0 +1,87 @@
+{
+  "counts": {
+    "aggressive": 0,
+    "controlled": 20,
+    "seasonal": 0,
+    "autoPause": 20,
+    "lowerLayer": 20,
+    "review": 10,
+    "skuDedupedDemoted": 1,
+    "accountCapDemoted": 4,
+    "total": 70,
+    "coreBidPaired": 0
+  },
+  "bucketCounts": {
+    "aggressive_budget_expansion": 57,
+    "controlled_budget_up": 227,
+    "seasonal_sell_through": 42,
+    "lower_layer_cost_control": 537,
+    "review": 4050
+  },
+  "filtered": {
+    "rows": 8355,
+    "notSp": 0,
+    "notEnabled": 0,
+    "noCampaign": 0,
+    "notAllowedSku": 11,
+    "onCooldownSku": 0,
+    "onCooldownCampaign": 0
+  },
+  "campaignsClassified": 4913,
+  "autoPauseStats": {
+    "rows": 8355,
+    "notSp": 0,
+    "notEnabled": 0,
+    "notAllowedSku": 11,
+    "onCooldownAd": 0,
+    "insufficientSignal": 8236,
+    "invTooTight": 19,
+    "clearanceProtect": 27,
+    "duplicate": 0,
+    "kept": 20
+  },
+  "autoPauseCandidateCount": 62,
+  "accountCap": {
+    "cap": 80,
+    "totalLiftRequested": 97.96,
+    "totalLiftApproved": 79.6
+  },
+  "plannedSkus": 64,
+  "plannedActions": 70,
+  "coverage": {
+    "snapshotRows": 8355,
+    "filtered": {
+      "rows": 8355,
+      "notSp": 0,
+      "notEnabled": 0,
+      "noCampaign": 0,
+      "notAllowedSku": 11,
+      "onCooldownSku": 0,
+      "onCooldownCampaign": 0
+    },
+    "counts": {
+      "aggressive_budget_expansion": 57,
+      "controlled_budget_up": 228,
+      "seasonal_sell_through": 32,
+      "lower_layer_cost_control": 539,
+      "review": 4057
+    },
+    "eligibleCampaigns": 4913,
+    "actionableCampaigns": 856,
+    "matchedActionCount": 70,
+    "matchedCampaignCount": 70,
+    "warning": ""
+  },
+  "schemaFile": "D:\\ad-ops-workbench\\data\\snapshots\\kpi_recovery_overbudget_schema_2026-05-20.json",
+  "proactiveSchemaFile": "D:\\ad-ops-workbench\\data\\snapshots\\action_schema_2026-05-20_proactive_recovery_candidate.json",
+  "combinedSchemaFile": "D:\\ad-ops-workbench\\data\\snapshots\\action_schema_2026-05-20_daily_recovery_combined.json",
+  "combined": {
+    "skus": 140,
+    "actions": 193,
+    "executableActions": 69,
+    "reviewActions": 124
+  },
+  "sourceSnapshotFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-05-20T22-37-01-714Z\\snapshot_2026-05-20.json",
+  "businessDate": "2026-05-20",
+  "dataDate": "2026-05-19"
+}

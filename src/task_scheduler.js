@@ -2,6 +2,7 @@ const { assessAdOperatingContext } = require('./inventory_economics');
 const { daysBetween, findLastAdjustment } = require('./adjustment_log');
 const { getSeasonWindows, matchProductSeason } = require('./season_calendar');
 const { buildProductProfile } = require('./product_profile');
+const { localInventoryQuantity } = require('./local_inventory');
 
 const SIGNAL_PRIORITY_HINT = {
   profit_bleeding: 95,
@@ -103,7 +104,7 @@ function inventorySignals(card = {}) {
     ful: num(card.fulFillable ?? card.fulfillable ?? inv.ful ?? inv.fulfillable ?? inv.fulFillable),
     res: num(card.reservedQty ?? inv.res ?? inv.reserved),
     inb: num(card.inboundQty ?? inv.inb ?? inv.inbound),
-    local: num(card.localInventory ?? inv.local ?? inv.localInventory),
+    local: localInventoryQuantity(card, inv),
     sellableDays: num(card.invDays),
     staleRisk: num(card.invDays) >= 90 && num(card.unitsSold_30d) <= 3,
   };

@@ -109,6 +109,7 @@ Per-term fields:
 Before spend or product-selection changes, validate against:
 
 - `selection_keyword_conversion_rate`: keyword search/click/purchase proof and CPC/CPA/ACOS ranges.
+- `selection_keyword_seasonality`: Google Trend, market overview, competitor ASIN pressure, buyer search-term expansion, and market-window risk.
 - `ad_backend`: our SKU CTR, CVR, CPC, ACOS, orders, and recent trend.
 - `reverse_search_terms`: whether the term belongs to the target ASIN/product class.
 - `listing_price_review`: whether our price, image, rating, reviews, or listing copy can convert the traffic.

@@ -87,10 +87,55 @@ const { runAgentReviewEvidence } = require('../scripts/run_agent_review_evidence
         searchVolume: 1800,
       }],
     },
+    keywordSeasonality: {
+      source: 'selection_keyword_seasonality',
+      rows: [{
+        searchTerm: 'american flag bucket hat',
+        seasonalityType: 'strong_seasonal',
+        peakQuarter: 'q2',
+        quarterRatio: 2.4,
+      }],
+    },
   });
 
   assert.strictEqual(market.keywordConversion.rows['american flag bucket hat'].marketQuality, 'weak');
   assert.strictEqual(market.abaSearchTerms.rows['american flag bucket hat'].competitionTier, 'high');
+  assert.strictEqual(market.keywordSeasonality.rows['american flag bucket hat'].peakQuarter, 'q2');
+}
+
+{
+  const market = normalizeSelectionMarketReport({
+    keywordSeasonality: {
+      source: 'selection_keyword_seasonality',
+      rows: [{
+        searchTerm: 'sun hats for women',
+        rank: 2393,
+        searchVolume: 196759,
+        asinCount: 170,
+        demandTier: 'high',
+        competitionTier: 'high',
+        googleTrend: {
+          latestValue: 94,
+          maxValue: 100,
+          direction: 'mixed_or_flat',
+        },
+        competitorSummary: {
+          asinCount: 10,
+          priceAvg: 15.6,
+          reviewAvg: 7533.1,
+          brandCount: 5,
+        },
+      }],
+    },
+  });
+
+  const row = market.keywordSeasonality.rows['sun hats for women'];
+  assert.strictEqual(row.rank, 2393);
+  assert.strictEqual(row.searchVolume, 196759);
+  assert.strictEqual(row.asinCount, 170);
+  assert.strictEqual(row.googleTrend.direction, 'mixed_or_flat');
+  assert.strictEqual(row.competitorSummary.priceAvg, 15.6);
+  assert.strictEqual(row.competitionTier, 'high');
 }
 
 {
@@ -205,16 +250,23 @@ const { runAgentReviewEvidence } = require('../scripts/run_agent_review_evidence
         source: 'selection_aba_search_terms',
         rows: [{ searchTerm: 'american flag bucket hat', demandTier: 'low', competitionTier: 'high' }],
       },
+      keywordSeasonality: {
+        source: 'selection_keyword_seasonality',
+        rows: [{ searchTerm: 'american flag bucket hat', seasonalityType: 'strong_seasonal', peakQuarter: 'q2', quarterRatio: 2.4 }],
+      },
     },
   });
 
   assert.strictEqual(evidence.SE5608.market.terms[0].term, 'american flag bucket hat');
   assert.strictEqual(evidence.SE5608.market.coverage.keywordConversionMatched, 1);
   assert.strictEqual(evidence.SE5608.market.coverage.abaMatched, 1);
+  assert.strictEqual(evidence.SE5608.market.coverage.seasonalityMatched, 1);
   assert.ok(evidence.SE5608.riskSignals.includes('market_conversion_weak'));
   assert.ok(evidence.SE5608.riskSignals.includes('market_competition_high'));
+  assert.ok(evidence.SE5608.riskSignals.includes('market_strong_seasonality'));
   assert.ok(evidence.SE5608.sources.some(item => item.source === 'selection_keyword_conversion_rate'));
   assert.ok(evidence.SE5608.sources.some(item => item.source === 'selection_aba_search_terms'));
+  assert.ok(evidence.SE5608.sources.some(item => item.source === 'selection_keyword_seasonality'));
 }
 
 {

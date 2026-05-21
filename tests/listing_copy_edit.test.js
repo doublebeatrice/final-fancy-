@@ -111,6 +111,34 @@ const action = {
 {
   const validation = validateCopyEditAction({
     ...action,
+    original: {
+      parentTitle: 'Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass - Sentimental Gift from Daughter or Son(Groom)',
+    },
+    now: {
+      parentTitle: "Reallnaive Father's Day Wedding Gift Box for Dad, 10oz Whiskey Glass, Sentimental Gift from Daughter or Son",
+    },
+  });
+  assert.strictEqual(validation.ok, false);
+  assert.ok(validation.errors.includes('parent_title_variant_specific_term_removed:bride'));
+  assert.ok(validation.errors.includes('parent_title_variant_specific_term_removed:groom'));
+}
+
+{
+  const validation = validateCopyEditAction({
+    ...action,
+    original: {
+      parentTitle: 'Reallnaive Wedding Gift Box for Father of the Bride or Groom - 10oz Whiskey Glass - Sentimental Gift from Daughter or Son(Groom)',
+    },
+    now: {
+      parentTitle: "Reallnaive Father's Day Wedding Gift Box for Father of the Bride or Groom, 10oz Whiskey Glass, Sentimental Gift from Daughter or Son",
+    },
+  });
+  assert.strictEqual(validation.ok, true);
+}
+
+{
+  const validation = validateCopyEditAction({
+    ...action,
     now: { parentTitle: 'Brand Baby Shower Gift Set' },
     productCompliance: { productLabel: '\u975e\u513f\u7ae5\u4ea7\u54c1' },
   });

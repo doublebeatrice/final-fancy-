@@ -1,4 +1,4 @@
 interface:
   display_name: "Developer Product Inquiry"
-  short_description: "Handle forwarded developer/product requests with product diagnosis, follow-up, and human-ready replies."
-  default_prompt: "Use $developer-product-inquiry to analyze a forwarded developer request, decide the product-level action, set follow-up checkpoints, and draft a reply I can send."
+  short_description: "处理转发的开发/产品诉求，给出产品判断、便签、复查点和可转发回复。"
+  default_prompt: "用 $developer-product-inquiry 分析转发的开发诉求，判断产品动作，写必要便签或记录，设复查点，并给我可转发回复。"

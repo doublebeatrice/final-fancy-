@@ -20,6 +20,15 @@ function writeJson(file, value) {
   fs.writeFileSync(file, JSON.stringify(value, null, 2), 'utf8');
 }
 
+function loadQueue(options = {}) {
+  if (options.queue) return options.queue;
+  if (!options.queueFile) return {};
+  if (!fs.existsSync(options.queueFile)) {
+    throw new Error(`review queue file not found: ${options.queueFile}`);
+  }
+  return readJson(options.queueFile, {});
+}
+
 function parseArgs(argv) {
   const args = argv.slice(2);
   const get = name => {
@@ -36,6 +45,7 @@ function parseArgs(argv) {
     profitReportFile: get('--profit-report') || process.env.AGENT_REVIEW_PROFIT_REPORT || '',
     keywordConversionReportFile: get('--keyword-conversion-report') || process.env.AGENT_REVIEW_KEYWORD_CONVERSION_REPORT || '',
     abaSearchTermReportFile: get('--aba-report') || process.env.AGENT_REVIEW_ABA_REPORT || '',
+    keywordSeasonalityReportFile: get('--seasonality-report') || process.env.AGENT_REVIEW_KEYWORD_SEASONALITY_REPORT || '',
     siteId: get('--site-id') || process.env.SITE_ID || '4',
     day: get('--day') || process.env.DAY || '7',
     outFile: get('--out') || process.env.AGENT_EFFECT_REVIEW_OUT || '',
@@ -50,7 +60,7 @@ function defaultOutFile(today) {
 
 function runAgentEffectReview(options = {}) {
   const today = options.today || new Date().toISOString().slice(0, 10);
-  const queue = options.queue || readJson(options.queueFile, {});
+  const queue = loadQueue(options);
   let evidence = options.evidence || readJson(options.evidenceFile, {});
   let evidenceFile = options.evidenceFile || '';
   if (options.collectEvidence) {
@@ -63,6 +73,7 @@ function runAgentEffectReview(options = {}) {
       profitReportFile: options.profitReportFile,
       keywordConversionReportFile: options.keywordConversionReportFile,
       abaSearchTermReportFile: options.abaSearchTermReportFile,
+      keywordSeasonalityReportFile: options.keywordSeasonalityReportFile,
       inventoryReports: options.inventoryReports,
       profitReports: options.profitReports,
       selectionReports: options.selectionReports,
@@ -106,6 +117,7 @@ if (require.main === module) {
 }
 
 module.exports = {
+  loadQueue,
   parseArgs,
   runAgentEffectReview,
 };

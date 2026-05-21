@@ -1,0 +1,2094 @@
+{
+  "generatedAt": "2026-05-21T03:45:12.707Z",
+  "businessDate": "2026-05-20",
+  "dataDate": "2026-05-19",
+  "outputDate": "2026-05-21",
+  "summary": {
+    "totalSkus": 1286,
+    "totalTerms": 204,
+    "mismatchTerms": 200
+  },
+  "terms": [
+    {
+      "term": "fiesta",
+      "skuCount": 242,
+      "mismatchSkuCount": 189,
+      "sampleSkus": [
+        "KV0324",
+        "CL4170",
+        "EY1448",
+        "OCE1413",
+        "CL3650",
+        "XIX2353",
+        "HAY1931",
+        "JUU1053"
+      ]
+    },
+    {
+      "term": "fiesta gifts",
+      "skuCount": 218,
+      "mismatchSkuCount": 169,
+      "sampleSkus": [
+        "KV0324",
+        "CL4170",
+        "EY1448",
+        "CL3650",
+        "XIX2353",
+        "HAY1931",
+        "JUU1053",
+        "DN2683"
+      ]
+    },
+    {
+      "term": "nurse",
+      "skuCount": 115,
+      "mismatchSkuCount": 94,
+      "sampleSkus": [
+        "EY1448",
+        "COO1855",
+        "OB4139",
+        "AE3311",
+        "SHQ0554",
+        "WEN1029",
+        "JOY0900",
+        "QAA4200"
+      ]
+    },
+    {
+      "term": "nurse gifts",
+      "skuCount": 93,
+      "mismatchSkuCount": 73,
+      "sampleSkus": [
+        "EY1448",
+        "COO1855",
+        "AE3311",
+        "SHQ0554",
+        "WEN1029",
+        "JOY0900",
+        "QAA4200",
+        "YYW2629"
+      ]
+    },
+    {
+      "term": "jewelry",
+      "skuCount": 35,
+      "mismatchSkuCount": 28,
+      "sampleSkus": [
+        "OB3296",
+        "YUN2646",
+        "QA1157",
+        "DN2108",
+        "KEN1043",
+        "DUN1394",
+        "NO5155",
+        "DN3482"
+      ]
+    },
+    {
+      "term": "fiesta nurse gifts",
+      "skuCount": 32,
+      "mismatchSkuCount": 27,
+      "sampleSkus": [
+        "EY1448",
+        "AE3311",
+        "SHQ0554",
+        "WEN1029",
+        "QAA4200",
+        "QA1157",
+        "CL1976",
+        "YAN2008"
+      ]
+    },
+    {
+      "term": "decor",
+      "skuCount": 26,
+      "mismatchSkuCount": 21,
+      "sampleSkus": [
+        "SHQ3949",
+        "YMF0656",
+        "MF6280",
+        "YUT2946",
+        "QQ1764",
+        "QA0828",
+        "KA1589",
+        "KZ6074"
+      ]
+    },
+    {
+      "term": "nurse fiesta",
+      "skuCount": 25,
+      "mismatchSkuCount": 21,
+      "sampleSkus": [
+        "EY1448",
+        "AE3311",
+        "WEN1029",
+        "QAA4200",
+        "CL1976",
+        "YAN2008",
+        "YAN1353",
+        "IF1738"
+      ]
+    },
+    {
+      "term": "thank you",
+      "skuCount": 21,
+      "mismatchSkuCount": 20,
+      "sampleSkus": [
+        "QAA3142",
+        "QA3874",
+        "TAN2986",
+        "CEE0467",
+        "HEL3107",
+        "UAN2600",
+        "JOY0431",
+        "HEL0319"
+      ]
+    },
+    {
+      "term": "christian inspirational",
+      "skuCount": 22,
+      "mismatchSkuCount": 17,
+      "sampleSkus": [
+        "SAW1720",
+        "STA2610",
+        "STA2604",
+        "STA2607",
+        "HEL0606",
+        "LNE1321",
+        "UAN2600",
+        "ZO0892"
+      ]
+    },
+    {
+      "term": "wedding",
+      "skuCount": 17,
+      "mismatchSkuCount": 17,
+      "sampleSkus": [
+        "OCE1413",
+        "OB4139",
+        "RHO1540",
+        "SHU2552",
+        "SII0421",
+        "GRA4861",
+        "JIN1883",
+        "GRA5177"
+      ]
+    },
+    {
+      "term": "gift basket",
+      "skuCount": 19,
+      "mismatchSkuCount": 15,
+      "sampleSkus": [
+        "OB4139",
+        "YUT3183",
+        "BIO0027",
+        "XUE2224",
+        "SHU2552",
+        "LE8173",
+        "HUQ0699",
+        "GUF3129"
+      ]
+    },
+    {
+      "term": "apparel",
+      "skuCount": 18,
+      "mismatchSkuCount": 15,
+      "sampleSkus": [
+        "QA3874",
+        "SAN1050",
+        "YEO0766",
+        "SAN1219",
+        "HI3876",
+        "UAN2600",
+        "SAN0113",
+        "EY2727"
+      ]
+    },
+    {
+      "term": "christian",
+      "skuCount": 18,
+      "mismatchSkuCount": 14,
+      "sampleSkus": [
+        "SAW1720",
+        "STA2610",
+        "STA2604",
+        "STA2607",
+        "LNE1321",
+        "ZO0892",
+        "ZO0891",
+        "YUN2187"
+      ]
+    },
+    {
+      "term": "wedding gifts",
+      "skuCount": 14,
+      "mismatchSkuCount": 14,
+      "sampleSkus": [
+        "OCE1413",
+        "OB4139",
+        "RHO1540",
+        "SHU2552",
+        "SII0421",
+        "GRA4861",
+        "JIN1883",
+        "GRA5177"
+      ]
+    },
+    {
+      "term": "mom",
+      "skuCount": 16,
+      "mismatchSkuCount": 12,
+      "sampleSkus": [
+        "QAA3142",
+        "SHU2552",
+        "SAW1720",
+        "LNE1321",
+        "ZO0891",
+        "YUN2187",
+        "YAN3229",
+        "GM4172"
+      ]
+    },
+    {
+      "term": "party supplies",
+      "skuCount": 14,
+      "mismatchSkuCount": 12,
+      "sampleSkus": [
+        "CL3650",
+        "LEM6577",
+        "MF3043",
+        "TAN2986",
+        "CEE0467",
+        "HEL3107",
+        "HUA6645",
+        "LEM6585"
+      ]
+    },
+    {
+      "term": "bride",
+      "skuCount": 12,
+      "mismatchSkuCount": 12,
+      "sampleSkus": [
+        "OB4139",
+        "RHO1540",
+        "SHU2552",
+        "GRA4861",
+        "GRA5177",
+        "LEM6577",
+        "CEE0467",
+        "HUA6645"
+      ]
+    },
+    {
+      "term": "summer",
+      "skuCount": 14,
+      "mismatchSkuCount": 11,
+      "sampleSkus": [
+        "MF6280",
+        "YUT2946",
+        "HEL0606",
+        "EY2727",
+        "DH2685",
+        "MF6294",
+        "YUT4462",
+        "YEO1451"
+      ]
+    },
+    {
+      "term": "summer gifts",
+      "skuCount": 14,
+      "mismatchSkuCount": 11,
+      "sampleSkus": [
+        "MF6280",
+        "YUT2946",
+        "HEL0606",
+        "EY2727",
+        "DH2685",
+        "MF6294",
+        "YUT4462",
+        "YEO1451"
+      ]
+    },
+    {
+      "term": "teacher",
+      "skuCount": 11,
+      "mismatchSkuCount": 11,
+      "sampleSkus": [
+        "QAA3142",
+        "LED3942",
+        "QA3874",
+        "JOY0431",
+        "HEL0319",
+        "HOS0946",
+        "KOU1439",
+        "QA4115"
+      ]
+    },
+    {
+      "term": "baby",
+      "skuCount": 17,
+      "mismatchSkuCount": 10,
+      "sampleSkus": [
+        "SHQ3949",
+        "NO5155",
+        "YMF0656",
+        "BOY3171",
+        "DEA2064",
+        "MF6294",
+        "YAN4858",
+        "SHQ3834"
+      ]
+    },
+    {
+      "term": "mothers day",
+      "skuCount": 14,
+      "mismatchSkuCount": 10,
+      "sampleSkus": [
+        "QAA3142",
+        "SAW1720",
+        "LNE1321",
+        "ZO0891",
+        "YUN2187",
+        "GM4172",
+        "GM2620",
+        "GM2628"
+      ]
+    },
+    {
+      "term": "baby shower",
+      "skuCount": 16,
+      "mismatchSkuCount": 9,
+      "sampleSkus": [
+        "SHQ3949",
+        "NO5155",
+        "YMF0656",
+        "BOY3171",
+        "DEA2064",
+        "YAN4858",
+        "SHQ3834",
+        "SHQ3950"
+      ]
+    },
+    {
+      "term": "nurse party supplies",
+      "skuCount": 10,
+      "mismatchSkuCount": 9,
+      "sampleSkus": [
+        "LEM6577",
+        "MF3043",
+        "TAN2986",
+        "CEE0467",
+        "HEL3107",
+        "LEM6585",
+        "SC3527",
+        "QA4115"
+      ]
+    },
+    {
+      "term": "teacher appreciation",
+      "skuCount": 9,
+      "mismatchSkuCount": 9,
+      "sampleSkus": [
+        "QAA3142",
+        "QA3874",
+        "JOY0431",
+        "HEL0319",
+        "KOU1439",
+        "QA4115",
+        "DAY2984",
+        "OCE2575"
+      ]
+    },
+    {
+      "term": "baby gifts",
+      "skuCount": 13,
+      "mismatchSkuCount": 7,
+      "sampleSkus": [
+        "SHQ3949",
+        "DEA2064",
+        "MF6294",
+        "YAN4858",
+        "SHQ3834",
+        "SHQ3950",
+        "SHQ3955",
+        "LRU1537"
+      ]
+    },
+    {
+      "term": "bag",
+      "skuCount": 9,
+      "mismatchSkuCount": 7,
+      "sampleSkus": [
+        "SHQ0554",
+        "SSU4939",
+        "LNE1321",
+        "JOY0431",
+        "BOY3171",
+        "HEL2083",
+        "DH2685",
+        "DH2686"
+      ]
+    },
+    {
+      "term": "fiesta decor",
+      "skuCount": 8,
+      "mismatchSkuCount": 7,
+      "sampleSkus": [
+        "QA0828",
+        "KA1589",
+        "KZ6074",
+        "QQ2806",
+        "KL2977",
+        "KUR1793",
+        "SHQ3834",
+        "ZUN0779"
+      ]
+    },
+    {
+      "term": "wedding season party supplies",
+      "skuCount": 7,
+      "mismatchSkuCount": 7,
+      "sampleSkus": [
+        "LEM6577",
+        "MF3043",
+        "CEE0467",
+        "HUA6645",
+        "LEM6585",
+        "QA4115",
+        "MH1806"
+      ]
+    },
+    {
+      "term": "baby shower gifts",
+      "skuCount": 10,
+      "mismatchSkuCount": 6,
+      "sampleSkus": [
+        "SHQ3949",
+        "NO5155",
+        "YMF0656",
+        "YAN4858",
+        "SHQ3950",
+        "SHQ3955",
+        "STY6101",
+        "STY2115"
+      ]
+    },
+    {
+      "term": "mothers day gifts",
+      "skuCount": 10,
+      "mismatchSkuCount": 6,
+      "sampleSkus": [
+        "SAW1720",
+        "GM4172",
+        "GM2620",
+        "GM2628",
+        "GM2616",
+        "GM2634",
+        "GM3940",
+        "LO3817"
+      ]
+    },
+    {
+      "term": "summer decor",
+      "skuCount": 8,
+      "mismatchSkuCount": 6,
+      "sampleSkus": [
+        "MF6280",
+        "YUT2946",
+        "MF6294",
+        "YUT4462",
+        "MF6328",
+        "MF6292",
+        "MF2992",
+        "MF2998"
+      ]
+    },
+    {
+      "term": "fiesta apparel",
+      "skuCount": 7,
+      "mismatchSkuCount": 6,
+      "sampleSkus": [
+        "SAN1050",
+        "SAN1219",
+        "UAN2600",
+        "SAN0113",
+        "HAY0218",
+        "GT3811",
+        "OA1024"
+      ]
+    },
+    {
+      "term": "women apparel",
+      "skuCount": 7,
+      "mismatchSkuCount": 6,
+      "sampleSkus": [
+        "YEO0766",
+        "EY2727",
+        "SH0423",
+        "HAY0218",
+        "GT3811",
+        "YEO1463",
+        "ZK1469"
+      ]
+    },
+    {
+      "term": "graduate",
+      "skuCount": 6,
+      "mismatchSkuCount": 6,
+      "sampleSkus": [
+        "LE8173",
+        "LE8150",
+        "SAW1720",
+        "TAN2986",
+        "HEL3107",
+        "UY0879"
+      ]
+    },
+    {
+      "term": "nurse jewelry",
+      "skuCount": 6,
+      "mismatchSkuCount": 6,
+      "sampleSkus": [
+        "QA1157",
+        "NO5155",
+        "MH2355",
+        "AE2521",
+        "UAN1375",
+        "CEE0611"
+      ]
+    },
+    {
+      "term": "nurse week jewelry",
+      "skuCount": 6,
+      "mismatchSkuCount": 6,
+      "sampleSkus": [
+        "QA1157",
+        "NO5155",
+        "MH2355",
+        "AE2521",
+        "UAN1375",
+        "CEE0611"
+      ]
+    },
+    {
+      "term": "teacher appreciation gifts",
+      "skuCount": 6,
+      "mismatchSkuCount": 6,
+      "sampleSkus": [
+        "QAA3142",
+        "QA3874",
+        "JOY0431",
+        "KOU1439",
+        "DAY2984",
+        "OCE2575"
+      ]
+    },
+    {
+      "term": "wedding nurse gifts",
+      "skuCount": 6,
+      "mismatchSkuCount": 6,
+      "sampleSkus": [
+        "OB4139",
+        "GRA5177",
+        "LEM6577",
+        "MF3043",
+        "LEM6585",
+        "HUQ0699"
+      ]
+    },
+    {
+      "term": "fiesta gift basket",
+      "skuCount": 8,
+      "mismatchSkuCount": 5,
+      "sampleSkus": [
+        "YUT3183",
+        "BIO0027",
+        "XUE2224",
+        "GGN2452",
+        "WE3925",
+        "SAN1213",
+        "KEJ1748",
+        "MF3544"
+      ]
+    },
+    {
+      "term": "fiesta jewelry",
+      "skuCount": 6,
+      "mismatchSkuCount": 5,
+      "sampleSkus": [
+        "OB3296",
+        "QA1157",
+        "KEN1043",
+        "SC3077",
+        "GM2851",
+        "TI2216"
+      ]
+    },
+    {
+      "term": "graduation",
+      "skuCount": 5,
+      "mismatchSkuCount": 5,
+      "sampleSkus": [
+        "LE8173",
+        "LE8150",
+        "TAN2986",
+        "HEL3107",
+        "UY0879"
+      ]
+    },
+    {
+      "term": "nurse gift basket",
+      "skuCount": 5,
+      "mismatchSkuCount": 5,
+      "sampleSkus": [
+        "OB4139",
+        "HUQ0699",
+        "GUF3129",
+        "WE3925",
+        "XUL2303"
+      ]
+    },
+    {
+      "term": "nurse week",
+      "skuCount": 5,
+      "mismatchSkuCount": 5,
+      "sampleSkus": [
+        "TAN2986",
+        "CEE0467",
+        "HEL0319",
+        "MH1806",
+        "XUL2303"
+      ]
+    },
+    {
+      "term": "baby shower baby gifts",
+      "skuCount": 7,
+      "mismatchSkuCount": 4,
+      "sampleSkus": [
+        "SHQ3949",
+        "YAN4858",
+        "SHQ3950",
+        "SHQ3955",
+        "STY6101",
+        "STY2115",
+        "LUO1051"
+      ]
+    },
+    {
+      "term": "nurse decor",
+      "skuCount": 6,
+      "mismatchSkuCount": 4,
+      "sampleSkus": [
+        "YMF0656",
+        "UY0879",
+        "QQ2806",
+        "KL2977",
+        "ZUN0779",
+        "STY2760"
+      ]
+    },
+    {
+      "term": "baby decor",
+      "skuCount": 5,
+      "mismatchSkuCount": 4,
+      "sampleSkus": [
+        "SHQ3949",
+        "MF6294",
+        "SHQ3834",
+        "SHQ3950",
+        "STY6101"
+      ]
+    },
+    {
+      "term": "bride gifts",
+      "skuCount": 4,
+      "mismatchSkuCount": 4,
+      "sampleSkus": [
+        "RHO1540",
+        "GRA4861",
+        "HUA6645",
+        "RHO0122"
+      ]
+    },
+    {
+      "term": "dad",
+      "skuCount": 4,
+      "mismatchSkuCount": 4,
+      "sampleSkus": [
+        "STA2610",
+        "STA2604",
+        "STA2607",
+        "YAN3229"
+      ]
+    },
+    {
+      "term": "fathers day",
+      "skuCount": 4,
+      "mismatchSkuCount": 4,
+      "sampleSkus": [
+        "STA2610",
+        "STA2604",
+        "STA2607",
+        "YAN3229"
+      ]
+    },
+    {
+      "term": "fathers day gifts",
+      "skuCount": 4,
+      "mismatchSkuCount": 4,
+      "sampleSkus": [
+        "STA2610",
+        "STA2604",
+        "STA2607",
+        "YAN3229"
+      ]
+    },
+    {
+      "term": "graduation gifts",
+      "skuCount": 4,
+      "mismatchSkuCount": 4,
+      "sampleSkus": [
+        "LE8173",
+        "LE8150",
+        "HEL3107",
+        "UY0879"
+      ]
+    },
+    {
+      "term": "nurse apparel",
+      "skuCount": 4,
+      "mismatchSkuCount": 4,
+      "sampleSkus": [
+        "QA3874",
+        "UAN2600",
+        "YAN3229",
+        "LNY3024"
+      ]
+    },
+    {
+      "term": "nurse bag",
+      "skuCount": 4,
+      "mismatchSkuCount": 4,
+      "sampleSkus": [
+        "SHQ0554",
+        "JOY0431",
+        "HEL2083",
+        "DH2685"
+      ]
+    },
+    {
+      "term": "wedding bride gifts",
+      "skuCount": 4,
+      "mismatchSkuCount": 4,
+      "sampleSkus": [
+        "RHO1540",
+        "GRA4861",
+        "HUA6645",
+        "RHO0122"
+      ]
+    },
+    {
+      "term": "wedding party supplies",
+      "skuCount": 4,
+      "mismatchSkuCount": 4,
+      "sampleSkus": [
+        "LEM6577",
+        "MF3043",
+        "HUA6645",
+        "LEM6585"
+      ]
+    },
+    {
+      "term": "fiesta baby gifts",
+      "skuCount": 6,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "BOY3171",
+        "DEA2064",
+        "SHQ3834",
+        "LRU1537",
+        "LUO1006",
+        "LUO1012"
+      ]
+    },
+    {
+      "term": "baby shower decor",
+      "skuCount": 5,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "SHQ3949",
+        "YMF0656",
+        "SHQ3950",
+        "STY6101",
+        "STY2760"
+      ]
+    },
+    {
+      "term": "fiesta bag",
+      "skuCount": 5,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "SHQ0554",
+        "BOY3171",
+        "HEL2083",
+        "DH2686",
+        "SSU3909"
+      ]
+    },
+    {
+      "term": "nurse week decor",
+      "skuCount": 5,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "YMF0656",
+        "QQ2806",
+        "KL2977",
+        "ZUN0779",
+        "STY2760"
+      ]
+    },
+    {
+      "term": "mothers day nurse gifts",
+      "skuCount": 4,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "GM2628",
+        "GM2616",
+        "GM2634",
+        "XIH2677"
+      ]
+    },
+    {
+      "term": "nurse mothers day",
+      "skuCount": 4,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "GM2628",
+        "GM2616",
+        "GM2634",
+        "XIH2677"
+      ]
+    },
+    {
+      "term": "tumbler",
+      "skuCount": 4,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "TH1516",
+        "ZO0891",
+        "YUN2187",
+        "LRU1537"
+      ]
+    },
+    {
+      "term": "women jewelry",
+      "skuCount": 4,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "HEL0606",
+        "SC3077",
+        "SHQ3955",
+        "TI2216"
+      ]
+    },
+    {
+      "term": "bride wedding",
+      "skuCount": 3,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "RHO1540",
+        "GRA4861",
+        "RHO0122"
+      ]
+    },
+    {
+      "term": "nurse nurse week party supplies",
+      "skuCount": 3,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "TAN2986",
+        "CEE0467",
+        "MH1806"
+      ]
+    },
+    {
+      "term": "nurse wedding party supplies",
+      "skuCount": 3,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "LEM6577",
+        "MF3043",
+        "LEM6585"
+      ]
+    },
+    {
+      "term": "nurse week gift basket",
+      "skuCount": 3,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "GUF3129",
+        "WE3925",
+        "XUL2303"
+      ]
+    },
+    {
+      "term": "nurse week party supplies",
+      "skuCount": 3,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "TAN2986",
+        "CEE0467",
+        "MH1806"
+      ]
+    },
+    {
+      "term": "teacher appreciation nurse gifts",
+      "skuCount": 3,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "QA3874",
+        "KOU1439",
+        "OCE2575"
+      ]
+    },
+    {
+      "term": "thank you gifts",
+      "skuCount": 3,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "HEL2084",
+        "SIJ0236",
+        "SIJ0237"
+      ]
+    },
+    {
+      "term": "wedding gift basket",
+      "skuCount": 3,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "OB4139",
+        "SHU2552",
+        "HUQ0699"
+      ]
+    },
+    {
+      "term": "wedding season gift basket",
+      "skuCount": 3,
+      "mismatchSkuCount": 3,
+      "sampleSkus": [
+        "OB4139",
+        "SHU2552",
+        "HUQ0699"
+      ]
+    },
+    {
+      "term": "mom gifts",
+      "skuCount": 4,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "SAW1720",
+        "GM4172",
+        "LO3817",
+        "XIH2672"
+      ]
+    },
+    {
+      "term": "mom mothers day",
+      "skuCount": 4,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "SAW1720",
+        "GM4172",
+        "LO3817",
+        "XIH2672"
+      ]
+    },
+    {
+      "term": "mothers day mom gifts",
+      "skuCount": 4,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "SAW1720",
+        "GM4172",
+        "LO3817",
+        "XIH2672"
+      ]
+    },
+    {
+      "term": "baby baby shower decor",
+      "skuCount": 3,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "SHQ3949",
+        "SHQ3950",
+        "STY6101"
+      ]
+    },
+    {
+      "term": "baby shower jewelry",
+      "skuCount": 3,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "NO5155",
+        "SHQ3955",
+        "LUO1051"
+      ]
+    },
+    {
+      "term": "baby shower nurse gifts",
+      "skuCount": 3,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "NO5155",
+        "YMF0656",
+        "STY2760"
+      ]
+    },
+    {
+      "term": "fiesta party supplies",
+      "skuCount": 3,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "CL3650",
+        "EY0793",
+        "OB1169"
+      ]
+    },
+    {
+      "term": "memorial",
+      "skuCount": 3,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "HAN0044",
+        "SC3527",
+        "TI2209"
+      ]
+    },
+    {
+      "term": "memorial gifts",
+      "skuCount": 3,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "HAN0044",
+        "SC3527",
+        "TI2209"
+      ]
+    },
+    {
+      "term": "memorial nurse gifts",
+      "skuCount": 3,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "HAN0044",
+        "SC3527",
+        "TI2209"
+      ]
+    },
+    {
+      "term": "men fiesta party supplies",
+      "skuCount": 3,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "CL3650",
+        "EY0793",
+        "OB1169"
+      ]
+    },
+    {
+      "term": "men party supplies",
+      "skuCount": 3,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "CL3650",
+        "EY0793",
+        "OB1169"
+      ]
+    },
+    {
+      "term": "nurse fiesta decor",
+      "skuCount": 3,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "QQ2806",
+        "KL2977",
+        "ZUN0779"
+      ]
+    },
+    {
+      "term": "women fiesta",
+      "skuCount": 3,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "KV0324",
+        "KV4231",
+        "GM3061"
+      ]
+    },
+    {
+      "term": "christian gifts",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "ZO0892",
+        "TUR8821"
+      ]
+    },
+    {
+      "term": "christian inspirational christian gifts",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "ZO0892",
+        "TUR8821"
+      ]
+    },
+    {
+      "term": "christian inspirational gifts",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "ZO0892",
+        "TUR8821"
+      ]
+    },
+    {
+      "term": "dad fathers day",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "STA2610",
+        "STA2604"
+      ]
+    },
+    {
+      "term": "dad gifts",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "STA2610",
+        "STA2604"
+      ]
+    },
+    {
+      "term": "fathers day dad gifts",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "STA2610",
+        "STA2604"
+      ]
+    },
+    {
+      "term": "graduate gifts",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "LE8173",
+        "LE8150"
+      ]
+    },
+    {
+      "term": "graduation graduate gifts",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "LE8173",
+        "LE8150"
+      ]
+    },
+    {
+      "term": "graduation nurse gifts",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "HEL3107",
+        "UY0879"
+      ]
+    },
+    {
+      "term": "mothers day tumbler",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "ZO0891",
+        "YUN2187"
+      ]
+    },
+    {
+      "term": "nurse fiesta bag",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "SHQ0554",
+        "HEL2083"
+      ]
+    },
+    {
+      "term": "nurse mothers day tumbler",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "ZO0891",
+        "YUN2187"
+      ]
+    },
+    {
+      "term": "nurse teacher appreciation",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "KOU1439",
+        "OCE2575"
+      ]
+    },
+    {
+      "term": "nurse tumbler",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "ZO0891",
+        "YUN2187"
+      ]
+    },
+    {
+      "term": "nurse wedding gift basket",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "OB4139",
+        "HUQ0699"
+      ]
+    },
+    {
+      "term": "nurse week apparel",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "UAN2600",
+        "LNY3024"
+      ]
+    },
+    {
+      "term": "nurse week bag",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "SHQ0554",
+        "HEL2083"
+      ]
+    },
+    {
+      "term": "teacher appreciation apparel",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "QA3874",
+        "DAY2984"
+      ]
+    },
+    {
+      "term": "teacher appreciation teacher gifts",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "QAA3142",
+        "DAY2984"
+      ]
+    },
+    {
+      "term": "teacher gifts",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "QAA3142",
+        "LED3942"
+      ]
+    },
+    {
+      "term": "women decor",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "MF6280",
+        "QA0828"
+      ]
+    },
+    {
+      "term": "women fiesta apparel",
+      "skuCount": 2,
+      "mismatchSkuCount": 2,
+      "sampleSkus": [
+        "HAY0218",
+        "GT3811"
+      ]
+    },
+    {
+      "term": "baby fiesta",
+      "skuCount": 3,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "DEA2064",
+        "LUO1006",
+        "LUO1012"
+      ]
+    },
+    {
+      "term": "baby baby shower",
+      "skuCount": 2,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "YAN4858",
+        "STY2115"
+      ]
+    },
+    {
+      "term": "baby jewelry",
+      "skuCount": 2,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "SHQ3955",
+        "LUO1051"
+      ]
+    },
+    {
+      "term": "fiesta tumbler",
+      "skuCount": 2,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "TH1516",
+        "LRU1537"
+      ]
+    },
+    {
+      "term": "memorial day party supplies",
+      "skuCount": 2,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "SC3527",
+        "TI2209"
+      ]
+    },
+    {
+      "term": "memorial party supplies",
+      "skuCount": 2,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "SC3527",
+        "TI2209"
+      ]
+    },
+    {
+      "term": "men bag",
+      "skuCount": 2,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "SSU4939",
+        "SSU3909"
+      ]
+    },
+    {
+      "term": "mom jewelry",
+      "skuCount": 2,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "GM2620",
+        "GM3940"
+      ]
+    },
+    {
+      "term": "mom mothers day jewelry",
+      "skuCount": 2,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "GM2620",
+        "GM3940"
+      ]
+    },
+    {
+      "term": "mother's day jewelry",
+      "skuCount": 2,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "GM2620",
+        "GM3940"
+      ]
+    },
+    {
+      "term": "mothers day jewelry",
+      "skuCount": 2,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "GM2620",
+        "GM3940"
+      ]
+    },
+    {
+      "term": "nurse baby shower decor",
+      "skuCount": 2,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "YMF0656",
+        "STY2760"
+      ]
+    },
+    {
+      "term": "nurse memorial party supplies",
+      "skuCount": 2,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "SC3527",
+        "TI2209"
+      ]
+    },
+    {
+      "term": "women fiesta jewelry",
+      "skuCount": 2,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "SC3077",
+        "TI2216"
+      ]
+    },
+    {
+      "term": "women gift basket",
+      "skuCount": 2,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "YEO1451",
+        "HUA0319"
+      ]
+    },
+    {
+      "term": "baby bag",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "BOY3171"
+      ]
+    },
+    {
+      "term": "baby fiesta decor",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "SHQ3834"
+      ]
+    },
+    {
+      "term": "baby summer decor",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "MF6294"
+      ]
+    },
+    {
+      "term": "birthday party",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QQ1764"
+      ]
+    },
+    {
+      "term": "bride party supplies",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "HUA6645"
+      ]
+    },
+    {
+      "term": "bride wedding party supplies",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "HUA6645"
+      ]
+    },
+    {
+      "term": "christian christian inspirational",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "TUR8821"
+      ]
+    },
+    {
+      "term": "christian christian inspirational gift basket",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "ZO0892"
+      ]
+    },
+    {
+      "term": "christian gift basket",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "ZO0892"
+      ]
+    },
+    {
+      "term": "christian inspirational gift basket",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "ZO0892"
+      ]
+    },
+    {
+      "term": "father's day apparel",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "YAN3229"
+      ]
+    },
+    {
+      "term": "fathers day apparel",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "YAN3229"
+      ]
+    },
+    {
+      "term": "fathers day nurse gifts",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "STA2607"
+      ]
+    },
+    {
+      "term": "fiesta teacher gifts",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "LED3942"
+      ]
+    },
+    {
+      "term": "graduate gift basket",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "LE8173"
+      ]
+    },
+    {
+      "term": "graduate graduation",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "LE8150"
+      ]
+    },
+    {
+      "term": "graduate graduation gift basket",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "LE8173"
+      ]
+    },
+    {
+      "term": "graduation decor",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "UY0879"
+      ]
+    },
+    {
+      "term": "graduation gift basket",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "LE8173"
+      ]
+    },
+    {
+      "term": "graduation party supplies",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "HEL3107"
+      ]
+    },
+    {
+      "term": "lgbt",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QQ1764"
+      ]
+    },
+    {
+      "term": "men thank you",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "HEL2084"
+      ]
+    },
+    {
+      "term": "mom bag",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "LNE1321"
+      ]
+    },
+    {
+      "term": "mom gift basket",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "SHU2552"
+      ]
+    },
+    {
+      "term": "mom mothers day bag",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "LNE1321"
+      ]
+    },
+    {
+      "term": "mom wedding gift basket",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "SHU2552"
+      ]
+    },
+    {
+      "term": "mother's day bag",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "LNE1321"
+      ]
+    },
+    {
+      "term": "mother's day tumbler",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "ZO0891"
+      ]
+    },
+    {
+      "term": "mothers day bag",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "LNE1321"
+      ]
+    },
+    {
+      "term": "nurse baby shower jewelry",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "NO5155"
+      ]
+    },
+    {
+      "term": "nurse fathers day",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "STA2607"
+      ]
+    },
+    {
+      "term": "nurse fathers day apparel",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "YAN3229"
+      ]
+    },
+    {
+      "term": "nurse fiesta apparel",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "UAN2600"
+      ]
+    },
+    {
+      "term": "nurse fiesta gift basket",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "WE3925"
+      ]
+    },
+    {
+      "term": "nurse fiesta jewelry",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QA1157"
+      ]
+    },
+    {
+      "term": "nurse graduation decor",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "UY0879"
+      ]
+    },
+    {
+      "term": "nurse graduation party supplies",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "HEL3107"
+      ]
+    },
+    {
+      "term": "nurse memorial",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "HAN0044"
+      ]
+    },
+    {
+      "term": "nurse nurse week",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "HEL0319"
+      ]
+    },
+    {
+      "term": "nurse nurse week gift basket",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "XUL2303"
+      ]
+    },
+    {
+      "term": "nurse summer bag",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "DH2685"
+      ]
+    },
+    {
+      "term": "nurse teacher appreciation apparel",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QA3874"
+      ]
+    },
+    {
+      "term": "nurse teacher appreciation bag",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "JOY0431"
+      ]
+    },
+    {
+      "term": "nurse teacher appreciation party supplies",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QA4115"
+      ]
+    },
+    {
+      "term": "nurse wedding",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "GRA5177"
+      ]
+    },
+    {
+      "term": "nurse week gifts",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "HEL0319"
+      ]
+    },
+    {
+      "term": "nurse week nurse gifts",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "HEL0319"
+      ]
+    },
+    {
+      "term": "party",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QQ1764"
+      ]
+    },
+    {
+      "term": "pride",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QQ1764"
+      ]
+    },
+    {
+      "term": "pride decor",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QQ1764"
+      ]
+    },
+    {
+      "term": "pride gifts",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QQ1764"
+      ]
+    },
+    {
+      "term": "rainbow",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QQ1764"
+      ]
+    },
+    {
+      "term": "rainbow party",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QQ1764"
+      ]
+    },
+    {
+      "term": "rainbow pride party tablecover",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QQ1764"
+      ]
+    },
+    {
+      "term": "summer apparel",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "EY2727"
+      ]
+    },
+    {
+      "term": "summer baby gifts",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "MF6294"
+      ]
+    },
+    {
+      "term": "summer bag",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "DH2685"
+      ]
+    },
+    {
+      "term": "summer gift basket",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "YEO1451"
+      ]
+    },
+    {
+      "term": "summer jewelry",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "HEL0606"
+      ]
+    },
+    {
+      "term": "summer nurse gifts",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "DH2685"
+      ]
+    },
+    {
+      "term": "teacher apparel",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "DAY2984"
+      ]
+    },
+    {
+      "term": "teacher appreciation bag",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "JOY0431"
+      ]
+    },
+    {
+      "term": "teacher appreciation party supplies",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QA4115"
+      ]
+    },
+    {
+      "term": "teacher fiesta",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "LED3942"
+      ]
+    },
+    {
+      "term": "teacher teacher appreciation",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QAA3142"
+      ]
+    },
+    {
+      "term": "teacher teacher appreciation apparel",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "DAY2984"
+      ]
+    },
+    {
+      "term": "women baby shower jewelry",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "SHQ3955"
+      ]
+    },
+    {
+      "term": "women bag",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "BOY3171"
+      ]
+    },
+    {
+      "term": "women fiesta bag",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "BOY3171"
+      ]
+    },
+    {
+      "term": "women fiesta decor",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "QA0828"
+      ]
+    },
+    {
+      "term": "women summer apparel",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "EY2727"
+      ]
+    },
+    {
+      "term": "women summer decor",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "MF6280"
+      ]
+    },
+    {
+      "term": "women summer gift basket",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "YEO1451"
+      ]
+    },
+    {
+      "term": "women summer jewelry",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "HEL0606"
+      ]
+    },
+    {
+      "term": "women wedding",
+      "skuCount": 1,
+      "mismatchSkuCount": 1,
+      "sampleSkus": [
+        "OCE1413"
+      ]
+    },
+    {
+      "term": "baby baby shower jewelry",
+      "skuCount": 1,
+      "mismatchSkuCount": 0,
+      "sampleSkus": [
+        "LUO1051"
+      ]
+    },
+    {
+      "term": "baby fiesta tumbler",
+      "skuCount": 1,
+      "mismatchSkuCount": 0,
+      "sampleSkus": [
+        "LRU1537"
+      ]
+    },
+    {
+      "term": "baby tumbler",
+      "skuCount": 1,
+      "mismatchSkuCount": 0,
+      "sampleSkus": [
+        "LRU1537"
+      ]
+    },
+    {
+      "term": "men fiesta bag",
+      "skuCount": 1,
+      "mismatchSkuCount": 0,
+      "sampleSkus": [
+        "SSU3909"
+      ]
+    }
+  ]
+}

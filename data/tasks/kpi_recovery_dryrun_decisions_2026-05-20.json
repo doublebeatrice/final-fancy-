@@ -1,0 +1,799 @@
+{
+  "date": "2026-05-20",
+  "generatedAt": "2026-05-20T12:24:21.337Z",
+  "runId": "ops_2026-05-20T07-34-48-533Z",
+  "sourceFiles": {
+    "adjustments": "D:\\ad-ops-workbench\\data\\adjustments\\adjustments_2026-05-20.json",
+    "conflicts": "D:\\ad-ops-workbench\\data\\tasks\\landed_action_conflict_audit_2026-05-20.json",
+    "kpiCheckpoint": "D:\\ad-ops-workbench\\data\\tasks\\kpi_recovery_checkpoint_2026-05-20.json"
+  },
+  "summary": {
+    "total": 37,
+    "skuCount": 31,
+    "byDecision": {
+      "executed": 3,
+      "approval_needed": 3,
+      "blocked": 12,
+      "watch_only": 19
+    }
+  },
+  "items": [
+    {
+      "sku": "YUT4464",
+      "asin": "B0DX5T5D86",
+      "entityType": "keyword",
+      "entityId": "135979510911067",
+      "entityName": "pool party decorations for kids birthday-yut4464-system-keyword",
+      "beforeValue": 0.33,
+      "afterValue": 0.36,
+      "decision": "executed",
+      "reason": "same entity already has a successful live write today",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0512,
+        "invDays": 107,
+        "netProfit": 0.2509,
+        "busyNetProfit": 0.2357,
+        "changePct": 0.09090909090909081
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "YUT4464",
+      "asin": "B0DX5T5D86",
+      "entityType": "keyword",
+      "entityId": "268209263128251",
+      "entityName": "pool party decorations for kids birthday-yut4464-system-keyword",
+      "beforeValue": 0.5,
+      "afterValue": 0.53,
+      "decision": "approval_needed",
+      "reason": "same_name_mixed_direction_review",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.1301,
+        "invDays": 107,
+        "netProfit": 0.2509,
+        "busyNetProfit": 0.2357,
+        "changePct": 0.06000000000000005
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "AE2139",
+      "asin": "B0BKZNTVSS",
+      "entityType": "keyword",
+      "entityId": "447811543332573",
+      "entityName": "kw_1q clearstorage_ae2139",
+      "beforeValue": 0.42,
+      "afterValue": 0.45,
+      "decision": "blocked",
+      "reason": "inventory_under_30_days",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0458,
+        "invDays": 20,
+        "netProfit": 0.234,
+        "busyNetProfit": 0.2173,
+        "changePct": 0.0714285714285715
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "AE2139",
+      "asin": "B0BKZNTVSS",
+      "entityType": "keyword",
+      "entityId": "287014857201205",
+      "entityName": "kw_1q clearstorage_ae2139",
+      "beforeValue": 0.35,
+      "afterValue": 0.38,
+      "decision": "blocked",
+      "reason": "inventory_under_30_days",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.084,
+        "invDays": 20,
+        "netProfit": 0.234,
+        "busyNetProfit": 0.2173,
+        "changePct": 0.0857142857142858
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "TUR5292",
+      "asin": "B0GFV4TN5L",
+      "entityType": "keyword",
+      "entityId": "100460335351329",
+      "entityName": "ai_kw exact_prayer scripture cards_tur5292",
+      "beforeValue": 0.42,
+      "afterValue": 0.45,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0205,
+        "invDays": 35,
+        "netProfit": 0.2793,
+        "busyNetProfit": 0.2711,
+        "changePct": 0.0714285714285715
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "TUR5292",
+      "asin": "B0GFV4TN5L",
+      "entityType": "keyword",
+      "entityId": "199669272503898",
+      "entityName": "ai_kw exact_prayer scripture cards_tur5292",
+      "beforeValue": 0.42,
+      "afterValue": 0.45,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0637,
+        "invDays": 35,
+        "netProfit": 0.2793,
+        "busyNetProfit": 0.2711,
+        "changePct": 0.0714285714285715
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "NO3390",
+      "asin": "B0CZDXJ81G",
+      "entityType": "keyword",
+      "entityId": "272454594659175",
+      "entityName": "kw2_butterfly baby shower_no3390",
+      "beforeValue": 0.15,
+      "afterValue": 0.18,
+      "decision": "executed",
+      "reason": "same entity already has a successful live write today",
+      "metrics": {
+        "orders7": 3,
+        "acos7": 0.0258,
+        "invDays": 84,
+        "netProfit": 0.1075,
+        "busyNetProfit": 0.0797,
+        "changePct": 0.2
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "SAN1213",
+      "asin": "B0FGD7FQZ5",
+      "entityType": "keyword",
+      "entityId": "495395149659381",
+      "entityName": "kw_cowboyhat_san1213",
+      "beforeValue": 0.3,
+      "afterValue": 0.33,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0398,
+        "invDays": 56,
+        "netProfit": 0.1693,
+        "busyNetProfit": 0.116,
+        "changePct": 0.10000000000000009
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "YB0698",
+      "asin": "B0B1J2FZRJ",
+      "entityType": "manualTarget",
+      "entityId": "308737225185190",
+      "entityName": "asin_bear_yb0698",
+      "beforeValue": 0.27,
+      "afterValue": 0.3,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0348,
+        "invDays": 92,
+        "netProfit": 0.1929,
+        "busyNetProfit": 0.1656,
+        "changePct": 0.111111111111111
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "MF6328",
+      "asin": "B0GMN2PCWN",
+      "entityType": "sbKeyword",
+      "entityId": "277497138716196",
+      "entityName": "sbkw_pool floats_mf6328 mf6292 mf6280",
+      "beforeValue": 0.3,
+      "afterValue": 0.33,
+      "decision": "approval_needed",
+      "reason": "same_name_mixed_direction_review",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0463,
+        "invDays": 310,
+        "netProfit": 0.2109,
+        "busyNetProfit": 0.1518,
+        "changePct": 0.10000000000000009
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "IF1738",
+      "asin": "B0CZ3Y98DM",
+      "entityType": "keyword",
+      "entityId": "258432641483845",
+      "entityName": "kw_q2 profit if1738 broad_if1738",
+      "beforeValue": 0.2,
+      "afterValue": 0.22,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0024,
+        "invDays": 54,
+        "netProfit": 0.2578,
+        "busyNetProfit": 0.2404,
+        "changePct": 0.09999999999999995
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "YUT2946",
+      "asin": "B0D1VJWGXN",
+      "entityType": "keyword",
+      "entityId": "220425662240268",
+      "entityName": "kw broad_21 pool float_yut2946",
+      "beforeValue": 0.27,
+      "afterValue": 0.3,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0257,
+        "invDays": 334,
+        "netProfit": 0.1534,
+        "busyNetProfit": 0.0729,
+        "changePct": 0.111111111111111
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "YUT2946",
+      "asin": "B0D1VJWGXN",
+      "entityType": "autoTarget",
+      "entityId": "299806885847262",
+      "entityName": "auto_21 pool float_yut2946",
+      "beforeValue": 0.3,
+      "afterValue": 0.33,
+      "decision": "executed",
+      "reason": "same entity already has a successful live write today",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.1044,
+        "invDays": 334,
+        "netProfit": 0.1534,
+        "busyNetProfit": 0.0729,
+        "changePct": 0.10000000000000009
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "LRU1537",
+      "asin": "B0C5XPGJH9",
+      "entityType": "keyword",
+      "entityId": "209784210652924",
+      "entityName": "kw board_bear paper plates napkins_lru1537",
+      "beforeValue": 0.31,
+      "afterValue": 0.34,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0136,
+        "invDays": 76,
+        "netProfit": 0.1427,
+        "busyNetProfit": 0.0991,
+        "changePct": 0.09677419354838718
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "YUT2927",
+      "asin": "B0D1C7Q59K",
+      "entityType": "autoTarget",
+      "entityId": "331962985496335",
+      "entityName": "ai_auto_birthday pool float_yut2927",
+      "beforeValue": 0.27,
+      "afterValue": 0.3,
+      "decision": "approval_needed",
+      "reason": "same_name_mixed_direction_review",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.1301,
+        "invDays": 158,
+        "netProfit": 0.1735,
+        "busyNetProfit": 0.1393,
+        "changePct": 0.111111111111111
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "WAR1276",
+      "asin": "B0DTK9P63Q",
+      "entityType": "autoTarget",
+      "entityId": "298774280178167",
+      "entityName": "auto_rainbow party-war1276",
+      "beforeValue": 0.19,
+      "afterValue": 0.21,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0835,
+        "invDays": 35,
+        "netProfit": 0.2259,
+        "busyNetProfit": 0.2143,
+        "changePct": 0.1052631578947368
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "SE7586",
+      "asin": "B0FNQ9RFR1",
+      "entityType": "sbKeyword",
+      "entityId": "526797988578559",
+      "entityName": "sbvkw_bear clothes basic tee_se7586",
+      "beforeValue": 0.27,
+      "afterValue": 0.3,
+      "decision": "blocked",
+      "reason": "inventory_under_30_days",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0153,
+        "invDays": 25,
+        "netProfit": 0.0892,
+        "busyNetProfit": 0.0866,
+        "changePct": 0.111111111111111
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "YCL1246",
+      "asin": "B0CJVGFHY2",
+      "entityType": "autoTarget",
+      "entityId": "528839678582919",
+      "entityName": "auto_crylic crystal picks _ycl1246",
+      "beforeValue": 0.14,
+      "afterValue": 0.15,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0548,
+        "invDays": 57,
+        "netProfit": 0.1847,
+        "busyNetProfit": 0.1745,
+        "changePct": 0.07142857142857129
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "KZ6074",
+      "asin": "B0D479Z4QQ",
+      "entityType": "autoTarget",
+      "entityId": "477434230935075",
+      "entityName": "auto_vip party_kz6074",
+      "beforeValue": 0.28,
+      "afterValue": 0.31,
+      "decision": "blocked",
+      "reason": "inventory_under_30_days",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.1246,
+        "invDays": 26,
+        "netProfit": 0.1851,
+        "busyNetProfit": 0.1768,
+        "changePct": 0.10714285714285703
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "YAN0087",
+      "asin": "B0BC8FT8MJ",
+      "entityType": "autoTarget",
+      "entityId": "191087225259884",
+      "entityName": "acrylic photo frame yan0087-system-a",
+      "beforeValue": 0.18,
+      "afterValue": 0.2,
+      "decision": "blocked",
+      "reason": "inventory_under_30_days",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.1041,
+        "invDays": 27,
+        "netProfit": 0.239,
+        "busyNetProfit": 0.2328,
+        "changePct": 0.11111111111111122
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "YAN0656",
+      "asin": "B0B9N9PZG9",
+      "entityType": "autoTarget",
+      "entityId": "466327729716362",
+      "entityName": "auto_drysunf_yan0656",
+      "beforeValue": 0.22,
+      "afterValue": 0.24,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0851,
+        "invDays": 71,
+        "netProfit": 0.2839,
+        "busyNetProfit": 0.2805,
+        "changePct": 0.09090909090909087
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "QUN1025",
+      "asin": "B0F28RL2HQ",
+      "entityType": "autoTarget",
+      "entityId": "510573553951459",
+      "entityName": "auto_graduation bouquet _qun1025",
+      "beforeValue": 0.09,
+      "afterValue": 0.1,
+      "decision": "blocked",
+      "reason": "inventory_under_30_days; net_profit_guard_weak; busy_profit_guard_weak",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0821,
+        "invDays": 21,
+        "netProfit": 0.0402,
+        "busyNetProfit": 0.0373,
+        "changePct": 0.11111111111111122
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "SHQ3950",
+      "asin": "B0GT3G8TG6",
+      "entityType": "autoTarget",
+      "entityId": "409510228115011",
+      "entityName": "auto_baby shower games_SHQ3950",
+      "beforeValue": 0.26,
+      "afterValue": 0.29,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.023,
+        "invDays": 79,
+        "netProfit": 0.2142,
+        "busyNetProfit": 0.2077,
+        "changePct": 0.11538461538461527
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "QQ2806",
+      "asin": "B0D9QFQHN9",
+      "entityType": "autoTarget",
+      "entityId": "540456141375985",
+      "entityName": "auto_rainbow_qq2806",
+      "beforeValue": 0.17,
+      "afterValue": 0.19,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0393,
+        "invDays": 30,
+        "netProfit": 0.2742,
+        "busyNetProfit": 0.2709,
+        "changePct": 0.11764705882352934
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "QQ2806",
+      "asin": "B0D9QFQHN9",
+      "entityType": "sbKeyword",
+      "entityId": "44505447802145",
+      "entityName": "sbv kw_rainbow_qq2806",
+      "beforeValue": 0.3,
+      "afterValue": 0.33,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0531,
+        "invDays": 30,
+        "netProfit": 0.2742,
+        "busyNetProfit": 0.2709,
+        "changePct": 0.10000000000000009
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "KZ5816",
+      "asin": "B0BNHHNB2Q",
+      "entityType": "sbKeyword",
+      "entityId": "195379938934356",
+      "entityName": "sbvkw_vip party_kz5816",
+      "beforeValue": 0.29,
+      "afterValue": 0.32,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0412,
+        "invDays": 31,
+        "netProfit": 0.2583,
+        "busyNetProfit": 0.2544,
+        "changePct": 0.10344827586206906
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "UY0879",
+      "asin": "B0BDLT56DH",
+      "entityType": "autoTarget",
+      "entityId": "327170091784722",
+      "entityName": "b2b auto_therapy office decor_uy0879",
+      "beforeValue": 0.25,
+      "afterValue": 0.28,
+      "decision": "blocked",
+      "reason": "net_profit_guard_weak",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0101,
+        "invDays": 53,
+        "netProfit": 0.0781,
+        "busyNetProfit": 0.0699,
+        "changePct": 0.1200000000000001
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "NEW0005",
+      "asin": "B0BN8G94M6",
+      "entityType": "autoTarget",
+      "entityId": "555235920485851",
+      "entityName": "auto3_wooden love sign_new0005",
+      "beforeValue": 0.08,
+      "afterValue": 0.09,
+      "decision": "blocked",
+      "reason": "inventory_under_30_days",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0222,
+        "invDays": 27,
+        "netProfit": 0.282,
+        "busyNetProfit": 0.2727,
+        "changePct": 0.12499999999999993
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "QA3169",
+      "asin": "B0CP28LC4S",
+      "entityType": "autoTarget",
+      "entityId": "535601651078787",
+      "entityName": "auto_softball senior night gifts_qa3169",
+      "beforeValue": 0.19,
+      "afterValue": 0.21,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0106,
+        "invDays": 34,
+        "netProfit": 0.111,
+        "busyNetProfit": 0.1064,
+        "changePct": 0.1052631578947368
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "ZO0892",
+      "asin": "B0DW931ZLZ",
+      "entityType": "autoTarget",
+      "entityId": "316661546011554",
+      "entityName": "auto_christian gifts for women_zo0892",
+      "beforeValue": 0.17,
+      "afterValue": 0.19,
+      "decision": "blocked",
+      "reason": "busy_profit_guard_weak",
+      "metrics": {
+        "orders7": 2,
+        "acos7": 0.0033,
+        "invDays": 54,
+        "netProfit": 0.0955,
+        "busyNetProfit": 0.0271,
+        "changePct": 0.11764705882352934
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "XIX2353",
+      "asin": "B0GH7R7T65",
+      "entityType": "sbKeyword",
+      "entityId": "173754706313057",
+      "entityName": "sbv kw broad_letter stencils_xix2353",
+      "beforeValue": 0.29,
+      "afterValue": 0.32,
+      "decision": "blocked",
+      "reason": "inventory_under_30_days",
+      "metrics": {
+        "orders7": 2,
+        "acos7": 0.0637,
+        "invDays": 22,
+        "netProfit": 0.116,
+        "busyNetProfit": 0.1137,
+        "changePct": 0.10344827586206906
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "XIX2353",
+      "asin": "B0GH7R7T65",
+      "entityType": "sbKeyword",
+      "entityId": "88779666596200",
+      "entityName": "sbv kw broad_letter stencils_xix2353",
+      "beforeValue": 0.3,
+      "afterValue": 0.33,
+      "decision": "blocked",
+      "reason": "inventory_under_30_days",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0432,
+        "invDays": 22,
+        "netProfit": 0.116,
+        "busyNetProfit": 0.1137,
+        "changePct": 0.10000000000000009
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "EY2727",
+      "asin": "B0BX9M82QW",
+      "entityType": "sbKeyword",
+      "entityId": "397334467555874",
+      "entityName": "sbvkw1_straw sun hats for women_ey2727",
+      "beforeValue": 0.27,
+      "afterValue": 0.3,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 2,
+        "acos7": 0.0249,
+        "invDays": 40,
+        "netProfit": 0.0884,
+        "busyNetProfit": 0.0621,
+        "changePct": 0.111111111111111
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "SE6685",
+      "asin": "B0F2N99L63",
+      "entityType": "sbKeyword",
+      "entityId": "338917052934957",
+      "entityName": "sbvkw_bear clothes basic_se6685",
+      "beforeValue": 0.25,
+      "afterValue": 0.28,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.1471,
+        "invDays": 59,
+        "netProfit": 0.21,
+        "busyNetProfit": 0.2051,
+        "changePct": 0.1200000000000001
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "FE3235",
+      "asin": "B0F23LCF6M",
+      "entityType": "sbKeyword",
+      "entityId": "426041904442265",
+      "entityName": "sbvkw1_christian gift set_fe3235",
+      "beforeValue": 0.3,
+      "afterValue": 0.33,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0278,
+        "invDays": 112,
+        "netProfit": 0.2316,
+        "busyNetProfit": 0.179,
+        "changePct": 0.10000000000000009
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "KZ6722",
+      "asin": "B0GV48BQ52",
+      "entityType": "sbKeyword",
+      "entityId": "153028564146075",
+      "entityName": "sb kw_vip party_kz6722 kz6074 kz5816",
+      "beforeValue": 0.21,
+      "afterValue": 0.23,
+      "decision": "blocked",
+      "reason": "net_profit_guard_weak; busy_profit_guard_weak",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0601,
+        "invDays": 285,
+        "netProfit": 0.0598,
+        "busyNetProfit": 0.0451,
+        "changePct": 0.09523809523809533
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    },
+    {
+      "sku": "DUI0086",
+      "asin": "B0CL4QKQJ2",
+      "entityType": "sbKeyword",
+      "entityId": "555879391170113",
+      "entityName": "large wooden cutting board-dui0086-sbv-s-new",
+      "beforeValue": 0.25,
+      "afterValue": 0.28,
+      "decision": "watch_only",
+      "reason": "positive signal but one-order, thinner profit, or needs next 1d/3d confirmation",
+      "metrics": {
+        "orders7": 1,
+        "acos7": 0.0063,
+        "invDays": 60,
+        "netProfit": 0.2081,
+        "busyNetProfit": 0.1715,
+        "changePct": 0.1200000000000001
+      },
+      "sourceRunId": "ops_2026-05-20T07-34-48-533Z",
+      "dryRun": true
+    }
+  ]
+}

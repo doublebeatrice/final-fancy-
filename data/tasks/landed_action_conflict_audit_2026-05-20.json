@@ -1,0 +1,2058 @@
+{
+  "date": "2026-05-20",
+  "generatedAt": "2026-05-20T23:28:43.610Z",
+  "adjustmentsFile": "data\\adjustments\\adjustments_2026-05-20.json",
+  "summary": {
+    "liveRows": 758,
+    "latestRunId": "low_efficiency_2026-05-20_1779319618209",
+    "latestRunRows": 68,
+    "sameEntityMultiCount": 18,
+    "sameEntityReverseCount": 0,
+    "sameNameReverseDifferentEntityCount": 6,
+    "latestRunMixedSkuCount": 0,
+    "status": "review_needed"
+  },
+  "sameEntityReverse": [],
+  "sameNameReverseDifferentEntity": [
+    {
+      "key": "YUT2927|keyword|kw broad_16 pool float_yut2927",
+      "count": 4,
+      "sku": "YUT2927",
+      "entityType": "keyword",
+      "entityName": "kw broad_16 pool float_yut2927",
+      "entityIds": [
+        "138594796554263",
+        "127280675443042",
+        "102451283479665",
+        "219208008014073"
+      ],
+      "directions": [
+        "unknown",
+        "up",
+        "down"
+      ],
+      "sourceRunIds": [
+        "ops_2026-05-20T10-28-28-826Z"
+      ],
+      "rows": [
+        {
+          "sku": "YUT2927",
+          "actionType": "enable",
+          "entityType": "keyword",
+          "entityId": "138594796554263",
+          "entityName": "kw broad_16 pool float_yut2927",
+          "beforeValue": "paused",
+          "afterValue": "enabled",
+          "direction": "unknown",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "YUT2927",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "127280675443042",
+          "entityName": "kw broad_16 pool float_yut2927",
+          "beforeValue": 0.27,
+          "afterValue": 0.31,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "YUT2927",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "102451283479665",
+          "entityName": "kw broad_16 pool float_yut2927",
+          "beforeValue": 0.27,
+          "afterValue": 0.3,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "YUT2927",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "219208008014073",
+          "entityName": "kw broad_16 pool float_yut2927",
+          "beforeValue": 0.24,
+          "afterValue": 0.19,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        }
+      ]
+    },
+    {
+      "key": "YUT4464|keyword|pool party decorations for kids birthday-yut4464-system-keyword",
+      "count": 3,
+      "sku": "YUT4464",
+      "entityType": "keyword",
+      "entityName": "pool party decorations for kids birthday-yut4464-system-keyword",
+      "entityIds": [
+        "161211464447894",
+        "135979510911067",
+        "245667608210673"
+      ],
+      "directions": [
+        "up",
+        "down"
+      ],
+      "sourceRunIds": [
+        "ops_2026-05-20T10-28-28-826Z"
+      ],
+      "rows": [
+        {
+          "sku": "YUT4464",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "161211464447894",
+          "entityName": "pool party decorations for kids birthday-yut4464-system-keyword",
+          "beforeValue": 0.38,
+          "afterValue": 0.42,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "YUT4464",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "135979510911067",
+          "entityName": "pool party decorations for kids birthday-yut4464-system-keyword",
+          "beforeValue": 0.33,
+          "afterValue": 0.37,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "YUT4464",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "245667608210673",
+          "entityName": "pool party decorations for kids birthday-yut4464-system-keyword",
+          "beforeValue": 0.36,
+          "afterValue": 0.32,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        }
+      ]
+    },
+    {
+      "key": "YUT4460|keyword|pool party decorations for kids birthday-yut4460-system-keyword",
+      "count": 4,
+      "sku": "YUT4460",
+      "entityType": "keyword",
+      "entityName": "pool party decorations for kids birthday-yut4460-system-keyword",
+      "entityIds": [
+        "268181870349994",
+        "20218617105757",
+        "259541782770524",
+        "73166453573721"
+      ],
+      "directions": [
+        "up",
+        "down"
+      ],
+      "sourceRunIds": [
+        "ops_2026-05-20T10-28-28-826Z"
+      ],
+      "rows": [
+        {
+          "sku": "YUT4460",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "268181870349994",
+          "entityName": "pool party decorations for kids birthday-yut4460-system-keyword",
+          "beforeValue": 0.4,
+          "afterValue": 0.44,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "YUT4460",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "20218617105757",
+          "entityName": "pool party decorations for kids birthday-yut4460-system-keyword",
+          "beforeValue": 0.21,
+          "afterValue": 0.25,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "YUT4460",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "259541782770524",
+          "entityName": "pool party decorations for kids birthday-yut4460-system-keyword",
+          "beforeValue": 0.37,
+          "afterValue": 0.31,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "YUT4460",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "73166453573721",
+          "entityName": "pool party decorations for kids birthday-yut4460-system-keyword",
+          "beforeValue": 0.36,
+          "afterValue": 0.3,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        }
+      ]
+    },
+    {
+      "key": "YUT4458|keyword|kw broad_30th birthday pool float_yut4458",
+      "count": 6,
+      "sku": "YUT4458",
+      "entityType": "keyword",
+      "entityName": "kw broad_30th birthday pool float_yut4458",
+      "entityIds": [
+        "115900319442382",
+        "115062246149929",
+        "94977594474789",
+        "258703140262258",
+        "119374587496884",
+        "100753208056861"
+      ],
+      "directions": [
+        "down",
+        "up"
+      ],
+      "sourceRunIds": [
+        "ops_2026-05-20T10-28-28-826Z"
+      ],
+      "rows": [
+        {
+          "sku": "YUT4458",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "115900319442382",
+          "entityName": "kw broad_30th birthday pool float_yut4458",
+          "beforeValue": 0.18,
+          "afterValue": 0.15,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "YUT4458",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "115062246149929",
+          "entityName": "kw broad_30th birthday pool float_yut4458",
+          "beforeValue": 0.35,
+          "afterValue": 0.29,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "YUT4458",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "94977594474789",
+          "entityName": "kw broad_30th birthday pool float_yut4458",
+          "beforeValue": 0.28,
+          "afterValue": 0.23,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "YUT4458",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "258703140262258",
+          "entityName": "kw broad_30th birthday pool float_yut4458",
+          "beforeValue": 0.33,
+          "afterValue": 0.27,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "YUT4458",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "119374587496884",
+          "entityName": "kw broad_30th birthday pool float_yut4458",
+          "beforeValue": 0.3,
+          "afterValue": 0.24,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "YUT4458",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "100753208056861",
+          "entityName": "kw broad_30th birthday pool float_yut4458",
+          "beforeValue": 0.06,
+          "afterValue": 0.08,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        }
+      ]
+    },
+    {
+      "key": "MF6292|keyword|kw broad_inflatable number pool float_mf6292",
+      "count": 5,
+      "sku": "MF6292",
+      "entityType": "keyword",
+      "entityName": "kw broad_inflatable number pool float_mf6292",
+      "entityIds": [
+        "51705430186096",
+        "232032363417922",
+        "50223193954992",
+        "1761028229458",
+        "242433198647052"
+      ],
+      "directions": [
+        "up",
+        "down"
+      ],
+      "sourceRunIds": [
+        "ops_2026-05-20T10-28-28-826Z"
+      ],
+      "rows": [
+        {
+          "sku": "MF6292",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "51705430186096",
+          "entityName": "kw broad_inflatable number pool float_mf6292",
+          "beforeValue": 0.38,
+          "afterValue": 0.42,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "MF6292",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "232032363417922",
+          "entityName": "kw broad_inflatable number pool float_mf6292",
+          "beforeValue": 0.36,
+          "afterValue": 0.39,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "MF6292",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "50223193954992",
+          "entityName": "kw broad_inflatable number pool float_mf6292",
+          "beforeValue": 0.29,
+          "afterValue": 0.23,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "MF6292",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "1761028229458",
+          "entityName": "kw broad_inflatable number pool float_mf6292",
+          "beforeValue": 0.29,
+          "afterValue": 0.23,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "MF6292",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "242433198647052",
+          "entityName": "kw broad_inflatable number pool float_mf6292",
+          "beforeValue": 0.29,
+          "afterValue": 0.23,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        }
+      ]
+    },
+    {
+      "key": "MF6328|keyword|kw broad_pool floats_mf6328",
+      "count": 4,
+      "sku": "MF6328",
+      "entityType": "keyword",
+      "entityName": "kw broad_pool floats_mf6328",
+      "entityIds": [
+        "12975316656082",
+        "187967699562",
+        "148637997241552",
+        "34261613473129"
+      ],
+      "directions": [
+        "up",
+        "down"
+      ],
+      "sourceRunIds": [
+        "ops_2026-05-20T10-28-28-826Z"
+      ],
+      "rows": [
+        {
+          "sku": "MF6328",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "12975316656082",
+          "entityName": "kw broad_pool floats_mf6328",
+          "beforeValue": 0.36,
+          "afterValue": 0.39,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "MF6328",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "187967699562",
+          "entityName": "kw broad_pool floats_mf6328",
+          "beforeValue": 0.36,
+          "afterValue": 0.4,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "MF6328",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "148637997241552",
+          "entityName": "kw broad_pool floats_mf6328",
+          "beforeValue": 0.36,
+          "afterValue": 0.4,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        },
+        {
+          "sku": "MF6328",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "34261613473129",
+          "entityName": "kw broad_pool floats_mf6328",
+          "beforeValue": 0.34,
+          "afterValue": 0.29,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-20T10-28-28-826Z",
+          "runAt": "2026-05-20T10:28:28.826Z"
+        }
+      ]
+    }
+  ],
+  "latestRunBySku": [
+    {
+      "sku": "LOWEFF::AUTO::284776649453452",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::284776649453452",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "284776649453452",
+          "entityName": "asinSubstituteRelated",
+          "beforeValue": 0.22,
+          "afterValue": 0.19,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::298921624495138",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::298921624495138",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "298921624495138",
+          "entityName": "asinAccessoryRelated",
+          "beforeValue": 0.11,
+          "afterValue": 0.09,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::305650950055114",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::305650950055114",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "305650950055114",
+          "entityName": "queryHighRelMatches",
+          "beforeValue": 0.15,
+          "afterValue": 0.13,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::307402535066762",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::307402535066762",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "307402535066762",
+          "entityName": "asinSubstituteRelated",
+          "beforeValue": 0.45,
+          "afterValue": 0.42,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::313597582910415",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::313597582910415",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "313597582910415",
+          "entityName": "asinSubstituteRelated",
+          "beforeValue": 0.27,
+          "afterValue": 0.24,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::346920755948337",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::346920755948337",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "346920755948337",
+          "entityName": "queryBroadRelMatches",
+          "beforeValue": 0.22,
+          "afterValue": 0.19,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::347218705099138",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::347218705099138",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "347218705099138",
+          "entityName": "asinAccessoryRelated",
+          "beforeValue": 0.14,
+          "afterValue": 0.12,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::349960594904547",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::349960594904547",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "349960594904547",
+          "entityName": "queryBroadRelMatches",
+          "beforeValue": 0.19,
+          "afterValue": 0.17,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::35226555995864",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::35226555995864",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "35226555995864",
+          "entityName": "queryHighRelMatches",
+          "beforeValue": 0.38,
+          "afterValue": 0.35,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::360407958020485",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::360407958020485",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "360407958020485",
+          "entityName": "queryBroadRelMatches",
+          "beforeValue": 0.24,
+          "afterValue": 0.21,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::375583073899419",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::375583073899419",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "375583073899419",
+          "entityName": "asinAccessoryRelated",
+          "beforeValue": 0.25,
+          "afterValue": 0.22,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::393690439314982",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::393690439314982",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "393690439314982",
+          "entityName": "asinSubstituteRelated",
+          "beforeValue": 0.33,
+          "afterValue": 0.3,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::400579495906263",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::400579495906263",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "400579495906263",
+          "entityName": "queryHighRelMatches",
+          "beforeValue": 0.44,
+          "afterValue": 0.41,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::401200180266450",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::401200180266450",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "401200180266450",
+          "entityName": "asinSubstituteRelated",
+          "beforeValue": 0.36,
+          "afterValue": 0.33,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::403859324003310",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::403859324003310",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "403859324003310",
+          "entityName": "asinSubstituteRelated",
+          "beforeValue": 0.36,
+          "afterValue": 0.33,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::415394823532663",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::415394823532663",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "415394823532663",
+          "entityName": "queryBroadRelMatches",
+          "beforeValue": 0.1,
+          "afterValue": 0.08,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::420159376690771",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::420159376690771",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "420159376690771",
+          "entityName": "queryHighRelMatches",
+          "beforeValue": 0.05,
+          "afterValue": 0.03,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::423561675491929",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::423561675491929",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "423561675491929",
+          "entityName": "queryBroadRelMatches",
+          "beforeValue": 0.33,
+          "afterValue": 0.3,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::444090082488722",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::444090082488722",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "444090082488722",
+          "entityName": "asinSubstituteRelated",
+          "beforeValue": 0.17,
+          "afterValue": 0.15,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::450615005737833",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::450615005737833",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "450615005737833",
+          "entityName": "queryBroadRelMatches",
+          "beforeValue": 0.23,
+          "afterValue": 0.2,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::454666411706159",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::454666411706159",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "454666411706159",
+          "entityName": "queryBroadRelMatches",
+          "beforeValue": 0.34,
+          "afterValue": 0.31,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::469025257316669",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::469025257316669",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "469025257316669",
+          "entityName": "queryBroadRelMatches",
+          "beforeValue": 0.24,
+          "afterValue": 0.21,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::470682153089906",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::470682153089906",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "470682153089906",
+          "entityName": "queryBroadRelMatches",
+          "beforeValue": 0.23,
+          "afterValue": 0.2,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::496382826827216",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::496382826827216",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "496382826827216",
+          "entityName": "queryBroadRelMatches",
+          "beforeValue": 0.94,
+          "afterValue": 0.85,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::497166322179011",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::497166322179011",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "497166322179011",
+          "entityName": "asinSubstituteRelated",
+          "beforeValue": 0.25,
+          "afterValue": 0.22,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::498301196372131",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::498301196372131",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "498301196372131",
+          "entityName": "queryHighRelMatches",
+          "beforeValue": 0.18,
+          "afterValue": 0.16,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::511424711740139",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::511424711740139",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "511424711740139",
+          "entityName": "queryHighRelMatches",
+          "beforeValue": 0.46,
+          "afterValue": 0.43,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::520269996240244",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::520269996240244",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "520269996240244",
+          "entityName": "queryBroadRelMatches",
+          "beforeValue": 0.36,
+          "afterValue": 0.33,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::537935530040723",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::537935530040723",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "537935530040723",
+          "entityName": "queryBroadRelMatches",
+          "beforeValue": 0.12,
+          "afterValue": 0.1,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::557917385468147",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::557917385468147",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "557917385468147",
+          "entityName": "asinSubstituteRelated",
+          "beforeValue": 0.17,
+          "afterValue": 0.15,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::AUTO::561571383244109",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::auto::561571383244109",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "561571383244109",
+          "entityName": "asinSubstituteRelated",
+          "beforeValue": 0.11,
+          "afterValue": 0.09,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::135905380900431",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::135905380900431",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "135905380900431",
+          "entityName": "good luck charms bulk",
+          "beforeValue": 0.09,
+          "afterValue": 0.07,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::140361117758001",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::140361117758001",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "140361117758001",
+          "entityName": "christian crafts",
+          "beforeValue": 0.34,
+          "afterValue": 0.31,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::153007452386220",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::153007452386220",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "153007452386220",
+          "entityName": "+soccer +ball",
+          "beforeValue": 0.75,
+          "afterValue": 0.7,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::157316487731134",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::157316487731134",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "157316487731134",
+          "entityName": "wedding fans for guests",
+          "beforeValue": 0.66,
+          "afterValue": 0.6,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::16214346372981",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::16214346372981",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "16214346372981",
+          "entityName": "ducks for cruise ship",
+          "beforeValue": 0.3,
+          "afterValue": 0.27,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::222880433138299",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::222880433138299",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "222880433138299",
+          "entityName": "baby shower game",
+          "beforeValue": 0.45,
+          "afterValue": 0.42,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::238965708114006",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::238965708114006",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "238965708114006",
+          "entityName": "grave decorations for cemetery",
+          "beforeValue": 0.23,
+          "afterValue": 0.2,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::257180852538053",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::257180852538053",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "257180852538053",
+          "entityName": "fans for wedding",
+          "beforeValue": 0.7,
+          "afterValue": 0.6,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::289567377576093",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::289567377576093",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "289567377576093",
+          "entityName": "ducks for cruise ship",
+          "beforeValue": 0.29,
+          "afterValue": 0.26,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::301570522156891",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::301570522156891",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "301570522156891",
+          "entityName": "mat with spikes",
+          "beforeValue": 0.69,
+          "afterValue": 0.6,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::310835715474506",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::310835715474506",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "310835715474506",
+          "entityName": "peace sign magnet",
+          "beforeValue": 0.32,
+          "afterValue": 0.29,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::333220320067229",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::333220320067229",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "333220320067229",
+          "entityName": "mini journals bulk",
+          "beforeValue": 0.21,
+          "afterValue": 0.18,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::350284123751783",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::350284123751783",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "350284123751783",
+          "entityName": "cruise rubber ducks with tags",
+          "beforeValue": 0.53,
+          "afterValue": 0.48,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::371638395398521",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::371638395398521",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "371638395398521",
+          "entityName": "big baby bottle for shower game",
+          "beforeValue": 0.45,
+          "afterValue": 0.42,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::386295667600977",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::386295667600977",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "386295667600977",
+          "entityName": "flamingo pillow",
+          "beforeValue": 0.65,
+          "afterValue": 0.6,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::408995944670676",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::408995944670676",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "408995944670676",
+          "entityName": "30th birthday for men",
+          "beforeValue": 0.36,
+          "afterValue": 0.33,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::416868220752665",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::416868220752665",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "416868220752665",
+          "entityName": "rainbow goodie bags",
+          "beforeValue": 0.28,
+          "afterValue": 0.25,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::474464648340866",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::474464648340866",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "474464648340866",
+          "entityName": "christian mug",
+          "beforeValue": 0.23,
+          "afterValue": 0.2,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::501186852243102",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::501186852243102",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "501186852243102",
+          "entityName": "thank you retirement labels",
+          "beforeValue": 0.3,
+          "afterValue": 0.27,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::504178681966686",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::504178681966686",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "504178681966686",
+          "entityName": "cowboy hat",
+          "beforeValue": 0.35,
+          "afterValue": 0.32,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::514155197311157",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::514155197311157",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "514155197311157",
+          "entityName": "pride tablecloths",
+          "beforeValue": 0.31,
+          "afterValue": 0.28,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::521343971987311",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::521343971987311",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "521343971987311",
+          "entityName": "bridesmaid cards",
+          "beforeValue": 0.24,
+          "afterValue": 0.21,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::542845868902305",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::542845868902305",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "542845868902305",
+          "entityName": "guess the dress bridal shower game",
+          "beforeValue": 0.33,
+          "afterValue": 0.3,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::554640230711669",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::554640230711669",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "554640230711669",
+          "entityName": "cord organizer",
+          "beforeValue": 0.57,
+          "afterValue": 0.5,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::KW::75749506574229",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::kw::75749506574229",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "75749506574229",
+          "entityName": "head umbrella",
+          "beforeValue": 0.38,
+          "afterValue": 0.35,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::MANUAL::18302718239665",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::manual::18302718239665",
+          "actionType": "bid",
+          "entityType": "manualTarget",
+          "entityId": "18302718239665",
+          "entityName": "asinExpandedFrom=B09F3CHXGT",
+          "beforeValue": 0.35,
+          "afterValue": 0.32,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::MANUAL::20688609145232",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::manual::20688609145232",
+          "actionType": "bid",
+          "entityType": "manualTarget",
+          "entityId": "20688609145232",
+          "entityName": "asin=B07FD8X2RN",
+          "beforeValue": 0.35,
+          "afterValue": 0.32,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::MANUAL::213591216064210",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::manual::213591216064210",
+          "actionType": "bid",
+          "entityType": "manualTarget",
+          "entityId": "213591216064210",
+          "entityName": "asinExpandedFrom=B0B21BBG8P",
+          "beforeValue": 0.35,
+          "afterValue": 0.32,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::MANUAL::277412350704331",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::manual::277412350704331",
+          "actionType": "bid",
+          "entityType": "manualTarget",
+          "entityId": "277412350704331",
+          "entityName": "asinExpandedFrom=B0FY65S61Z",
+          "beforeValue": 0.37,
+          "afterValue": 0.34,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::MANUAL::385307744260508",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::manual::385307744260508",
+          "actionType": "bid",
+          "entityType": "manualTarget",
+          "entityId": "385307744260508",
+          "entityName": "category=Stuffed Animal Clothing",
+          "beforeValue": 0.18,
+          "afterValue": 0.16,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::SBKW::139817713231451",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::sbKw::139817713231451",
+          "actionType": "bid",
+          "entityType": "sbKeyword",
+          "entityId": "139817713231451",
+          "entityName": "stencils for painting",
+          "beforeValue": 0.4,
+          "afterValue": 0.37,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::SBKW::186785681317797",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::sbKw::186785681317797",
+          "actionType": "bid",
+          "entityType": "sbKeyword",
+          "entityId": "186785681317797",
+          "entityName": "plastic food storage containers",
+          "beforeValue": 0.37,
+          "afterValue": 0.34,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::SBKW::394426913348524",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::sbKw::394426913348524",
+          "actionType": "bid",
+          "entityType": "sbKeyword",
+          "entityId": "394426913348524",
+          "entityName": "cat deterrent mat for cats",
+          "beforeValue": 0.42,
+          "afterValue": 0.39,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::SBKW::455711078071575",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::sbKw::455711078071575",
+          "actionType": "bid",
+          "entityType": "sbKeyword",
+          "entityId": "455711078071575",
+          "entityName": "pride table cloths",
+          "beforeValue": 0.39,
+          "afterValue": 0.36,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::SBKW::51215172205436",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::sbKw::51215172205436",
+          "actionType": "bid",
+          "entityType": "sbKeyword",
+          "entityId": "51215172205436",
+          "entityName": "plastic food storage containers",
+          "beforeValue": 0.35,
+          "afterValue": 0.32,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::SBKW::54844648448860",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::sbKw::54844648448860",
+          "actionType": "bid",
+          "entityType": "sbKeyword",
+          "entityId": "54844648448860",
+          "entityName": "cute number stencils",
+          "beforeValue": 0.33,
+          "afterValue": 0.3,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    },
+    {
+      "sku": "LOWEFF::SBKW::6112583397482",
+      "count": 1,
+      "up": 0,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "lowEff::sbKw::6112583397482",
+          "actionType": "bid",
+          "entityType": "sbKeyword",
+          "entityId": "6112583397482",
+          "entityName": "food storage containers",
+          "beforeValue": 0.4,
+          "afterValue": 0.37,
+          "direction": "unknown",
+          "outcome": "api_success",
+          "sourceRunId": "low_efficiency_2026-05-20_1779319618209",
+          "runAt": "2026-05-20T23:26:58.209Z"
+        }
+      ]
+    }
+  ],
+  "decision": "No same entity reverse conflict found; mixed same-name rows need 1d/3d effect review by entity layer."
+}

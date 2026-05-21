@@ -96,6 +96,23 @@ const { runAgentEffectReview } = require('../scripts/run_agent_effect_review');
 
 {
   const task = {
+    taskId: 'review-early',
+    title: 'SE6599 1日效果复查',
+    subject: { sku: 'SE6599' },
+    reviewPlan: { metrics: ['orders', 'acos'], checkAfterDay: 1 },
+  };
+  const result = evaluateReviewTask(task, {
+    baseline: { spend: 12, orders: 1, acos: 0.42 },
+    current: { spend: 15, orders: 3, acos: 0.31 },
+  });
+
+  assert.strictEqual(result.verdict, 'continue_watch');
+  assert.strictEqual(result.status, 'waiting_review');
+  assert.ok(result.reasons.includes('early_review_window'));
+}
+
+{
+  const task = {
     taskId: 'review-3',
     title: 'HAY0218 1日效果复查',
     subject: { sku: 'HAY0218' },
@@ -157,6 +174,18 @@ const { runAgentEffectReview } = require('../scripts/run_agent_effect_review');
   const report = runAgentEffectReview({ queueFile, evidenceFile, outFile, today: '2026-05-19' });
   assert.strictEqual(report.summary.byVerdict.rollback_review, 1);
   assert.ok(fs.existsSync(outFile));
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-effect-review-missing-queue-'));
+  assert.throws(
+    () => runAgentEffectReview({
+      queueFile: path.join(tmpDir, 'missing_queue.json'),
+      outFile: path.join(tmpDir, 'review_report.json'),
+      today: '2026-05-19',
+    }),
+    /review queue file not found/
+  );
 }
 
 {

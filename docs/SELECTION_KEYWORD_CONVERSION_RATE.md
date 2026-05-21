@@ -52,11 +52,20 @@ The related endpoint below is not part of the data path because it only records 
 POST /soundasia_selection/userFilter/inOrUpItemHis?site=1
 ```
 
-## AI ASIN Keyword Pipeline
+## Keyword Research
 
-The keyword conversion report starts from known keywords. When a new SKU needs competitor-driven keyword discovery, use the selection AI ASIN pipeline instead.
+The keyword conversion report starts from known keywords. When a new SKU needs competitor-driven keyword discovery, use keyword research before conversion checks.
 
-Current browser WebSocket path:
+Current agent command:
+
+```powershell
+npm run ops:selection:keyword-research -- --sku <SKU> --terms "<front-search seed terms>"
+```
+
+See `docs/SELECTION_KEYWORD_RESEARCH.md`.
+
+The older manually discovered backend pipeline used this browser WebSocket path:
+
 
 ```text
 wss://selection.yswg.com.cn/soundasia_selection/ws/pipeline
@@ -120,6 +129,7 @@ Before spend changes, validate against:
 
 - `ad_backend`: our SKU CTR, CVR, CPC, ACOS, orders, and recent trend.
 - `aba_search_terms`: demand rank, search volume, top-ASIN concentration, category fit, monopoly, and supply-demand pressure. Use `npm run ops:selection:aba-search-terms -- --search-terms "<term1, term2>"`.
+- `keyword_seasonality`: Google Trend, market overview, competitor ASIN pressure, buyer search-term expansion, and market-window risk. Use `npm run ops:selection:keyword-seasonality -- --search-terms "<term1, term2>"`.
 - `reverse_search_terms`: whether the keyword belongs to the target ASIN/product class.
 - `listing_price_review`: whether our price, image, rating, reviews, or listing copy can convert the traffic.
 

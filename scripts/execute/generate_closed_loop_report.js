@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { localInventoryQuantity } = require('../../src/local_inventory');
 
 const ROOT = path.join(__dirname, '..', '..');
 const snapshotFile = process.argv[2]
@@ -175,6 +176,15 @@ function buildInventoryRecommendations(snapshot) {
     const sold30 = num(card.unitsSold_30d);
     const invDays = num(card.invDays);
     const profit = num(card.profitRate);
+    const localInventory = card.localInventory || {};
+    const localAvailable = localInventoryQuantity(card);
+    const localPurchased = num(localInventory.purchasedTotal ?? card.localPurchasedTotal);
+    const localPending = num(localInventory.pendingAndTestStock ?? card.localPendingAndTestStock);
+    const localGood = num(localInventory.goodStock ?? card.localGoodStock);
+    const fbaPlanAir = num(localInventory.fbaPlanAir ?? card.localFbaPlanAir);
+    const fbaPlanSea = num(localInventory.fbaPlanSea ?? card.localFbaPlanSea);
+    const fbaPlanTotalAir = num(localInventory.fbaPlanTotalAir ?? card.localFbaPlanTotalAir);
+    const fbaPlanTotalSea = num(localInventory.fbaPlanTotalSea ?? card.localFbaPlanTotalSea);
     if (sold30 >= 50 && invDays >= 30 && invDays <= 90) {
       rows.push({
         sku: card.sku,
@@ -183,6 +193,14 @@ function buildInventoryRecommendations(snapshot) {
         sold30,
         invDays,
         profit,
+        localAvailable,
+        localPurchased,
+        localPending,
+        localGood,
+        fbaPlanAir,
+        fbaPlanSea,
+        fbaPlanTotalAir,
+        fbaPlanTotalSea,
       });
     } else if (sold30 >= 20 && invDays >= 180 && profit >= 0.2) {
       rows.push({
@@ -192,6 +210,14 @@ function buildInventoryRecommendations(snapshot) {
         sold30,
         invDays,
         profit,
+        localAvailable,
+        localPurchased,
+        localPending,
+        localGood,
+        fbaPlanAir,
+        fbaPlanSea,
+        fbaPlanTotalAir,
+        fbaPlanTotalSea,
       });
     }
   }
@@ -354,7 +380,7 @@ const html = `<!doctype html>
           <td><b>${esc(row.sku)}</b></td>
           <td>${esc(row.kind)}</td>
           <td>${esc(row.reason)}</td>
-          <td>30天销量 ${esc(row.sold30)}｜库存 ${esc(row.invDays)}天｜利润 ${pct(row.profit)}</td>
+          <td>30天销量 ${esc(row.sold30)}｜库存 ${esc(row.invDays)}天｜利润 ${pct(row.profit)}｜本地可用 ${esc(row.localAvailable)}｜本地正品 ${esc(row.localGood)}｜本地末/未到 ${esc(row.localPending)}｜本地已采购 ${esc(row.localPurchased)}｜FBAPlan空/海 ${esc(row.fbaPlanAir)}/${esc(row.fbaPlanSea)}｜已有值空/海 ${esc(row.fbaPlanTotalAir)}/${esc(row.fbaPlanTotalSea)}</td>
         </tr>`).join('')}
       </tbody>
     </table>

@@ -117,6 +117,14 @@ For supported ad actions, use explicit approval plus `forceExecute: true` when o
 - `expectedEffect`
 - `reviewPlan` or measurement windows and rollback condition
 
+SP structure expansion is reuse-first. Missing traffic coverage does not automatically justify a new campaign or ad group. Before any SP `create`, the schema validator and generators must check whether the SKU already has a reusable same-lane structure:
+
+- `keywordTarget` with `BROAD`, `PHRASE`, or `EXACT` match type.
+- `auto`.
+- `productTarget` with `ASIN_SAME_AS`, `ASIN_EXPANDED_FROM`, or category targeting.
+
+If a reusable lane exists, prefer bid, budget, placement, enable, or target append into the existing ad group. Keyword append must also stay in the same lane: a `PHRASE` ad group only receives `PHRASE` keywords, a `BROAD` ad group only receives `BROAD` keywords, and an `EXACT` ad group only receives `EXACT` keywords. Do not put broad recovery terms into an existing phrase group just because the backend accepts it; that breaks manual review and later effect attribution. A duplicate new structure needs an explicit override such as `allowDuplicateStructureCreate: true` plus a concrete reason. The backend append surfaces are known for SP keyword and product targeting (`/keyword/createKeywordNew` and `/advTarget/storeManualTarget`), but they are not yet part of the default automated action schema until execution and post-write row verification are wired end to end.
+
 Price execution has one verified non-advertising path: sellerinventory price applications generated from the Ful+Res shortage rule. The SKU must be normal-sale, 7d Ful+Res sellable days must be below 30, the target must be normalized to a `.99` ending, dry-run must pass, and the run must include post-write verification. If `fulResUnits <= 7` or `sellableDays7d <= 7`, the schema must pause enabled SKU ad delivery first at the productAd/SB row level where available. Sellerinventory success is a backend application marker, not Amazon-front-end propagation.
 
 These remain review-only or blocked because they are outside the current verified execution surfaces:

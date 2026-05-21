@@ -1,0 +1,143 @@
+{
+  "generatedAt": "2026-05-21T07:45:23.890Z",
+  "pauseFile": "data/snapshots/structure_gap_mixed_broad_pause_2026-05-21.json",
+  "bySku": [
+    {
+      "sku": "YUT3184",
+      "pausedBroad": 4,
+      "activeBroad": 0,
+      "activePhrase": 5,
+      "broad": [
+        {
+          "keywordId": "228118716545349",
+          "keywordText": "soccer balls bulk",
+          "matchType": 3,
+          "state": 2,
+          "updatedAt": "2026-05-21 15:44:54"
+        },
+        {
+          "keywordId": "240176052999769",
+          "keywordText": "mini soccer balls",
+          "matchType": 3,
+          "state": 2,
+          "updatedAt": "2026-05-21 15:44:55"
+        },
+        {
+          "keywordId": "126620346611494",
+          "keywordText": "soccer party favors",
+          "matchType": 3,
+          "state": 2,
+          "updatedAt": "2026-05-21 15:44:54"
+        },
+        {
+          "keywordId": "65542703690856",
+          "keywordText": "soccer gifts for kids",
+          "matchType": 3,
+          "state": 2,
+          "updatedAt": "2026-05-21 15:44:52"
+        }
+      ],
+      "phraseSample": [
+        {
+          "keywordId": "165473446995036",
+          "keywordText": "mini soccer balls",
+          "matchType": 2,
+          "state": 1
+        },
+        {
+          "keywordId": "221286825770836",
+          "keywordText": "soccer balls bulk",
+          "matchType": 2,
+          "state": 1
+        },
+        {
+          "keywordId": "106116998136052",
+          "keywordText": "soccer ball decorations",
+          "matchType": 2,
+          "state": 1
+        },
+        {
+          "keywordId": "5038045151847",
+          "keywordText": "soccer ball party favors",
+          "matchType": 2,
+          "state": 1
+        },
+        {
+          "keywordId": "199179748536757",
+          "keywordText": "soccer party favors",
+          "matchType": 2,
+          "state": 1
+        }
+      ]
+    },
+    {
+      "sku": "GT3811",
+      "pausedBroad": 5,
+      "activeBroad": 0,
+      "activePhrase": 4,
+      "broad": [
+        {
+          "keywordId": "7456212687003",
+          "keywordText": "memorial ribbons",
+          "matchType": 3,
+          "state": 2,
+          "updatedAt": "2026-05-21 15:44:56"
+        },
+        {
+          "keywordId": "215838104309319",
+          "keywordText": "yellow funeral ribbons",
+          "matchType": 3,
+          "state": 2,
+          "updatedAt": "2026-05-21 15:44:56"
+        },
+        {
+          "keywordId": "127850753030543",
+          "keywordText": "memorial ribbon pins",
+          "matchType": 3,
+          "state": 2,
+          "updatedAt": "2026-05-21 15:44:57"
+        },
+        {
+          "keywordId": "134609632205158",
+          "keywordText": "funeral ribbons",
+          "matchType": 3,
+          "state": 2,
+          "updatedAt": "2026-05-21 15:44:59"
+        },
+        {
+          "keywordId": "134458673922053",
+          "keywordText": "remembrance ribbons",
+          "matchType": 3,
+          "state": 2,
+          "updatedAt": "2026-05-21 15:44:59"
+        }
+      ],
+      "phraseSample": [
+        {
+          "keywordId": "124905546991234",
+          "keywordText": "funeral ribbons",
+          "matchType": 2,
+          "state": 1
+        },
+        {
+          "keywordId": "36895602815124",
+          "keywordText": "yellow funeral ribbons",
+          "matchType": 2,
+          "state": 1
+        },
+        {
+          "keywordId": "8562861523093",
+          "keywordText": "remembrance ribbons",
+          "matchType": 2,
+          "state": 1
+        },
+        {
+          "keywordId": "44460329263933",
+          "keywordText": "memorial ribbons",
+          "matchType": 2,
+          "state": 1
+        }
+      ]
+    }
+  ]
+}
