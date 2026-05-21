@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.2.1 - 2026-05-21 选品证据与闭环运营增强
+
+- Added the read-only `ops:selection:keyword-research` capability for Amazon front-search keyword research. It builds direct competitor, scene competitor, traffic-bridge, excluded-ASIN, candidate-keyword, and next-validation evidence before ABA and keyword-conversion checks.
+- Registered `selection::market_evidence::keyword-research::read` in the agent capability registry, command-runner allowlist, external inbox evidence requirements, operating hub task plan, README, handoff runbook, and product-market evidence stack.
+- Clarified the boundary: keyword research is not the AI ASIN pipeline, different category is not an automatic exclusion, unrelated buyer intent is excluded, and the report cannot directly create ads, raise bids, raise budgets, or change listing/price/inventory.
+- Added the read-only `ops:selection:keyword-seasonality` capability for Google Trend, market overview, competitor ASIN pressure, buyer search-term expansion, and market-window risk.
+- Registered `selection::market_evidence::keyword-seasonality::read` in capability registry, operating hub, command runner, review evidence, SKU operating review, README, AGENT, handoff runbook, control-plane docs, and architecture docs.
+- Clarified that keyword seasonality is market-window evidence only and cannot directly trigger ads, price, listing, replenishment, or clearance actions.
+
 ## v1.2.0 - 2026-05-19 智能代理化运营中枢
 
 - 新增智能代理台账：把每日运营任务、外部临时诉求、动作授权、效果复查承诺统一登记到 `data/agent/agent_ledger_<date>.json`。
@@ -8,7 +17,10 @@
 - 新增自主运营中枢：合并每日台账、外部任务、到期复查队列和能力补齐任务，输出当天优先级、所需能力和下一步命令计划。
 - 新增复查证据与效果复查链路：支持广告、库存、利润、选品关键词转化、ABA 搜索词证据合并，避免只看广告数据就过早关闭任务。
 - 新增只读命令执行器：只运行中枢标记为可自动执行的白名单证据命令，并在输出文件缺失时按失败回填，避免假闭环。
+- 新增低风险写入编排器：默认只预演，显式 `--execute` 且台账动作全部通过授权后，才串联真实写入、落地回查和调整日志。
 - 新增命令结果回填：把证据命令、复查判断、失败原因、输出文件写回任务状态和历史。
+- 新增中文交接摘要：把今日队列、自动证据、阻塞项、复查结论和写入链路压成早上可直接检查的 Markdown。
+- 新增智能代理总编排入口：一次串联中枢、只读证据、低风险写入编排、结果回填和中文交接，并提供不触碰真实后台的闭环自测。
 - 同步 README、智能代理控制面文档、根目录文件地图和测试入口，覆盖任务状态、授权边界、效果复查、能力补齐、只读自动执行和后续扩展边界。
 
 ## 2026-05-19

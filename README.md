@@ -1,5 +1,7 @@
 # 广告运营工作台
 
+当前版本：v1.2.1（2026-05-21）
+
 这是一个亚马逊广告 + 库存的日常运营工具集。流程分两层：**数据/执行**留给代码和浏览器扩展做（稳定、可重放），**策略决定**留给 AI 会话做（Codex CLI 或 Claude Code CLI，两者对等）。扩展面板和脚本里没有 AI，也不调任何模型 API。
 
 ## 为什么这样分
@@ -29,7 +31,10 @@ scripts/run_agent_effect_review.js  效果复查执行器，基于证据判断�
 scripts/run_agent_capability_registry.js  能力注册中心，把新接口登记成可复用能力
 scripts/run_agent_operating_hub.js   自主运营中枢，把每日、外部、复查、能力任务合成今日队列
 scripts/run_agent_command_runner.js  只读命令执行器，只跑中枢计划里的白名单证据命令
+scripts/run_agent_write_execution.js  低风险写入编排器，先预演，显式授权后执行并回查
 scripts/run_agent_execution_feedback.js  命令执行回填入口，把命令结果写回任务状态和历史
+scripts/run_agent_handoff_summary.js  中文交接摘要，压缩今日队列、证据、复查和写入状态
+scripts/run_agent_closed_loop.js  智能代理总编排入口，把中枢、证据、写入、回填、交接串成闭环
 scripts/generators/        候选 schema 生成器（输出都是 candidate，必须 AI 重写才可执行）
 scripts/diagnostics/       诊断类只读脚本（watch、scope scan、cross-AI review）
 scripts/analytics/         历史效果归因
@@ -54,6 +59,16 @@ Products with sales status `保留页面` are listing-copy protected. Preserve t
 
 Price changes are no longer blanket review-only, but the executable path is narrow: Ful+Res shortage pricing for normal-sale SKUs with 7d Ful+Res sellable days below 30. The approved schema must normalize every target to a `.99` ending, pass dry-run, submit through sellerinventory, verify the backend application marker, and write adjustment logs. When `fulResUnits <= 7` or `sellableDays7d <= 7`, pause enabled SKU ad delivery first at the productAd/SB row level where available. Sellerinventory success is not Amazon-front-end propagation; keep the 1/3/7-day follow-up.
 
+## Selection Keyword Research
+
+Use keyword research before opening new traffic for a SKU, product direction, developer request, or keyword expansion. It searches Amazon front-end results, builds competitor/scene/traffic-bridge evidence, and returns candidate keywords plus ABA and conversion validation commands. Category is not a hard boundary; buyer intent and product carry fit are the boundary.
+
+```powershell
+npm run ops:selection:keyword-research -- --sku GUF3129 --terms "patriotic bucket hat, 4th of july bucket hat"
+```
+
+The report writes to `data/snapshots/selection_keyword_research_<YYYY-MM-DD>.json` by default. It is read-only evidence and cannot directly create keywords, raise bids, raise budgets, or change listing/price/inventory. See `docs/SELECTION_KEYWORD_RESEARCH.md`.
+
 ## Selection Keyword Conversion Rate
 
 Use the selection-system keyword conversion source before creating or expanding keyword traffic. It is read-only market evidence and must be cross-checked before spend changes.
@@ -74,11 +89,25 @@ npm run ops:selection:aba-search-terms -- --search-terms "cowboy hat, nurse gift
 
 The script splits comma-separated terms into separate ABA requests and merges them into one report. The report writes to `data/snapshots/selection_aba_search_terms_<YYYY-MM-DD>.json` by default and includes missing exact terms, data freshness, demand tier, competition tier, recommended use, top ASINs, and cross-validation requirements. See `docs/SELECTION_ABA_SEARCH_TERMS.md`.
 
+Use the selection-system keyword seasonality source to check Google Trend, market overview, competitor ASIN pressure, buyer search-term expansion, and market-window risk before seasonal SKU, keyword, replenishment, or clearance judgement. It is read-only evidence and cannot directly trigger spend, price, listing, or inventory actions.
+
+```powershell
+npm run ops:selection:keyword-seasonality -- --search-terms "cowboy hat, hat organizer"
+```
+
+The report writes to `data/snapshots/selection_keyword_seasonality_<YYYY-MM-DD>.json` by default. See `docs/SELECTION_KEYWORD_SEASONALITY.md`.
+
 ## Product Market Evidence Stack
 
 For any keyword, SKU, ASIN, product direction, developer request, traffic recovery, keyword creation, or "can this product be pushed" question, build a product market profile instead of judging only from ad rows or inventory rows.
 
 Use `docs/PRODUCT_MARKET_EVIDENCE_STACK.md` as the default read path: ABA demand/concentration, keyword conversion economics, SKU ad proof, listing/price fit, inventory/economics, and recent action history. Selection-system evidence is still read-only; executable ad actions require the normal schema, dry-run, execution, and landing verification flow.
+
+## SKU Lesson System
+
+Daily SKU review is an operating-route review, not a flat metric checklist. For every eligible SKU, preserve product identity, lifecycle/node stage, stage target, target result, route, evidence, action boundary, and follow-up. Reusable lessons belong in `data/learning/sku_lessons/` and follow `docs/SKU_LESSON_SYSTEM.md`.
+
+Lessons must include scope and transfer limits. A single SKU or variant result is not a parent-group rule unless fresh variant-level evidence supports the transfer. Conflicting lessons should be marked and reconciled instead of silently overwritten.
 
 ## 智能代理底座
 
@@ -121,7 +150,7 @@ npm run ops:agent:review-effect -- --queue data\agent\review_queue_<date>.json -
 有库存、利润或选品报告时一并传入，复查器会把广告、库存、利润、选品放到同一份证据里。订单改善但库存偏紧、利润不支持、市场转化弱或竞争过高时，不会直接建议关闭：
 
 ```powershell
-npm run ops:agent:review-effect -- --queue data\agent\review_queue_<date>.json --collect-evidence --inventory-report data\snapshots\inventory_review_<date>.json --profit-report data\snapshots\profit_review_<date>.json --keyword-conversion-report data\snapshots\selection_keyword_conversion_rate_<date>.json --aba-report data\snapshots\selection_aba_search_terms_<date>.json --today <date>
+npm run ops:agent:review-effect -- --queue data\agent\review_queue_<date>.json --collect-evidence --inventory-report data\snapshots\inventory_review_<date>.json --profit-report data\snapshots\profit_review_<date>.json --keyword-conversion-report data\snapshots\selection_keyword_conversion_rate_<date>.json --aba-report data\snapshots\selection_aba_search_terms_<date>.json --seasonality-report data\snapshots\selection_keyword_seasonality_<date>.json --today <date>
 ```
 
 也可以单独采集证据：
@@ -136,7 +165,7 @@ npm run ops:agent:review-evidence -- --queue data\agent\review_queue_<date>.json
 npm run ops:agent:capabilities -- --file data\agent\capabilities_<date>.json --out data\agent\capability_registry_<date>.json
 ```
 
-这个命令默认会合并内置能力目录，包含广告复查证据、选品关键词转化、选品 ABA、sellerinventory 读取/提交、复查证据采集和效果复查判断；只检查临时能力文件时加 `--no-defaults`。
+这个命令默认会合并内置能力目录，包含广告复查证据、选品关键词转化、选品 ABA、选品关键词季节性、sellerinventory 读取/提交、复查证据采集和效果复查判断；只检查临时能力文件时加 `--no-defaults`。
 
 最后用自主运营中枢合成今天的工作队列：
 
@@ -144,7 +173,7 @@ npm run ops:agent:capabilities -- --file data\agent\capabilities_<date>.json --o
 npm run ops:agent:hub -- --ledger data\agent\agent_ledger_<date>.json --inbox data\agent\external_inbox_<date>.json --reviews data\agent\review_queue_<date>.json --capabilities data\agent\capability_registry_<date>.json --today <date>
 ```
 
-中枢输出的每条任务会带 `requiredCapabilities` 和 `executionPlan.commands`。它会把“该跑哪条只读证据命令”列出来，比如到期复查、选品关键词转化、ABA 搜索词证据；但不会绕过 schema、预演、授权边界或写后回查。
+中枢输出的每条任务会带 `requiredCapabilities` 和 `executionPlan.commands`。它会把“该跑哪条只读证据命令”列出来，比如到期复查、选品关键词转化、ABA 搜索词、关键词季节性证据；但不会绕过 schema、预演、授权边界或写后回查。
 
 只读证据命令可以交给受限执行器跑，它只接受中枢标记为 `safeToAutoRun=true` 且命令风险为 `read_only` 的白名单命令：
 
@@ -154,6 +183,18 @@ npm run ops:agent:run-commands -- --hub data\agent\operating_hub_<date>.json --o
 
 如果命令退出成功但没有生成声明的输出文件，会按失败处理，避免任务被误标为已执行。
 
+低风险写入动作走单独的受限编排器。默认只做预演；只有显式加 `--execute`，且台账里的写入动作都属于低风险已授权，才进入真实写入、落地回查和日志阶段：
+
+```powershell
+npm run ops:agent:write-actions -- --ledger data\agent\agent_ledger_<date>.json --actions data\snapshots\action_schema_<date>_codex.json --snapshot data\snapshots\latest_snapshot.json --out data\agent\write_execution_<date>.json
+```
+
+确认执行时：
+
+```powershell
+npm run ops:agent:write-actions -- --ledger data\agent\agent_ledger_<date>.json --actions data\snapshots\action_schema_<date>_codex.json --snapshot data\snapshots\latest_snapshot.json --execute --out data\agent\write_execution_<date>.json
+```
+
 命令跑完后，把命令结果回填到任务状态和历史：
 
 ```powershell
@@ -161,6 +202,24 @@ npm run ops:agent:feedback -- --hub data\agent\operating_hub_<date>.json --resul
 ```
 
 结果文件支持 `{ "results": [...] }`，每条至少带 `taskId`、`ok`、`exitCode`，可附带 `command`、`summary`、`outputFiles`、`report.verdict`。成功的只读证据任务会标为已执行，失败会标为已阻塞，复查报告里的关闭/继续观察/回滚结论会写入任务历史。
+
+最后生成早上可读的中文交接摘要：
+
+```powershell
+npm run ops:agent:handoff -- --hub data\agent\operating_hub_<date>.json --results data\agent\command_results_<date>.json --write-execution data\agent\write_execution_<date>.json --effect-review data\agent\effect_review_<date>.json --out data\agent\agent_handoff_<date>.md
+```
+
+也可以用总编排入口一次串完中枢、只读证据、低风险写入预演、结果回填和交接摘要：
+
+```powershell
+npm run ops:agent:closed-loop -- --ledger data\agent\agent_ledger_<date>.json --inbox data\agent\external_inbox_<date>.json --reviews data\agent\review_queue_<date>.json --capabilities data\agent\capability_registry_<date>.json --actions data\snapshots\action_schema_<date>_codex.json --snapshot data\snapshots\latest_snapshot.json --out-dir data\agent
+```
+
+闭环自测不会调用真实后台，可用于验证这条链路是否能从任务到交接摘要跑通：
+
+```powershell
+npm run ops:agent:closed-loop -- --self-test
+```
 
 ## 每日闭环（一次完整运行）
 
@@ -187,6 +246,7 @@ npm run ops:today -- --execute --mode full-snapshot --actor codex
 ```
 
 `--execute` controls whether writes land; it must not change snapshot scope. Full-snapshot listing fetch has no default 120-item cap. If `AD_OPS_LISTING_FETCH_LIMIT` is set, that is an intentional cap and the run quality should show listing coverage warnings when coverage is low.
+During the daily orchestrator run, proactive audit recovery is part of the execution plan. `run_today_ops.js` writes `data/snapshots/action_schema_<date>_proactive_recovery_candidate.json`; when no explicit schema is passed, it merges that with KPI/overbudget recovery into `data/snapshots/action_schema_<date>_daily_recovery_combined.json` and uses the combined schema as the primary action file. If an explicit schema is passed while arrival gaps exist, the run should warn that arrival recovery is not closed by the selected schema.
 产出 1200+ 产品卡，8000+ 关键词，2400+ 自动广告目标等。
 
 ### 2. 给 SKU 附加产品画像（profile）
@@ -203,6 +263,7 @@ node scripts\execute\fetch_unsellable_seller.js HJ17,HJ171,HJ172
 node scripts\execute\fetch_seller_success_rate.js HJ17
 npm run ops:selection:keyword-conversion -- --keywords "<term1, term2>"
 npm run ops:selection:aba-search-terms -- --search-terms "<term1, term2>"
+npm run ops:selection:keyword-seasonality -- --search-terms "<term1, term2>"
 ```
 
 ### 4. AI 全量扫描、写 schema
@@ -211,7 +272,10 @@ AI 会话读快照 + 看 memory + 跑 `claude_scope_scan.js` / `cross-AI review`
 - **review** — 明确原因等待人工或下轮数据（紧库存、负利润、marginal、季节缺口、数据不全）
 - **no-action** — 稳态，明确理由不动
 
+This classification must be an operating-route review, not a metric checklist. Preserve each SKU's product identity, lifecycle/node stage, stage target, target result, route, evidence, action boundary, and follow-up. Reusable lessons go to `data/learning/sku_lessons/` and must include scope plus transfer limits; conflicting lessons are marked and reconciled instead of silently overwritten.
+
 产出 `data/snapshots/action_schema_<YYYY-MM-DD>_<codex|claude>.json`。每条 action 必须带 `approvedBy`（codex/claude/manual）、`decisionStage=ai_approved`、`hypothesis`、`expectedEffect`、`reviewPlan`。
+到货广告/新品启动不能只停留在 `proactive_operating_audit` 报告里。每日 schema 必须把这些行落到 action、manual repair with reason、或 no-action with evidence；如果冷却期挡住自动加价，也要留下明确复查/人工修复项。
 
 ### 5. dry-run + 执行
 ```powershell
@@ -295,6 +359,7 @@ node scripts\diagnostics\review_recent_decisions.js --by codex --days 7
 - `docs/CODEX_HANDOFF_RUNBOOK.md` — 运营交接手册
 - `docs/Q2_AD_OPS_PLAYBOOK.md` — Q2 决策上下文
 - `docs/STAGNANT_INVENTORY_RULES.md` — 滞销库存决策规则（清 / 留 / 减仓 / 继续推广告）
+- `docs/SKU_LESSON_SYSTEM.md` — SKU 经验教训、迁移边界和冲突处理规则
 - `data/learning/operations_retrospective_2026-05-06_to_2026-05-14.md` — 5/14 运营复盘和后续每日闭环硬规则
 
 ## 几个最容易翻车的点
