@@ -29316,5 +29316,1362 @@
         }
       }
     }
+  },
+  {
+    "sku": "QAA3142",
+    "asin": "B0F4R59VVV",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "QAA3142",
+    "entityName": "",
+    "beforeValue": 17.99,
+    "afterValue": 18.99,
+    "reason": "QAA3142重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:00:09.653Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-00-09-653Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.4119",
+      "profit_raw_sea": "0.4605",
+      "profit_apply": "0.4619",
+      "profit_apply_sea": "0.5105",
+      "float_price": "0.0556",
+      "price_apply_time": "2026-05-22 18:56:20",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "2385086",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "WOO0173",
+    "asin": "B0CDLQJTFN",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "WOO0173",
+    "entityName": "",
+    "beforeValue": 29.39,
+    "afterValue": 30.99,
+    "reason": "WOO0173重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:00:09.653Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-00-09-653Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "-0.0553",
+      "profit_raw_sea": "0.3274",
+      "profit_apply": "-0.0063",
+      "profit_apply_sea": "0.3764",
+      "float_price": "0.0544",
+      "price_apply_time": "2026-05-22 18:56:27",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1238565",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "DUN1128",
+    "asin": "B0CH8SB9DJ",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "DUN1128",
+    "entityName": "",
+    "beforeValue": 39.99,
+    "afterValue": 41.99,
+    "reason": "DUN1128重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:00:09.653Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-00-09-653Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "-0.4468",
+      "profit_raw_sea": "0.282",
+      "profit_apply": "-0.4018",
+      "profit_apply_sea": "0.327",
+      "float_price": "0.0500",
+      "price_apply_time": "2026-05-22 18:56:34",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1434910",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "KV0324",
+    "asin": "B0B27MJTJT",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "KV0324",
+    "entityName": "",
+    "beforeValue": 16.99,
+    "afterValue": 17.99,
+    "reason": "KV0324重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:00:09.653Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-00-09-653Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.14",
+      "profit_raw_sea": "0.3284",
+      "profit_apply": "0.193",
+      "profit_apply_sea": "0.3814",
+      "float_price": "0.0589",
+      "price_apply_time": "2026-05-22 18:56:44",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "621251",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "LIC8799",
+    "asin": "B0FVFNY5VJ",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "LIC8799",
+    "entityName": "",
+    "beforeValue": 15.99,
+    "afterValue": 16.99,
+    "reason": "LIC8799重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:00:09.653Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-00-09-653Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.2738",
+      "profit_raw_sea": "0.3119",
+      "profit_apply": "0.3301",
+      "profit_apply_sea": "0.3682",
+      "float_price": "0.0625",
+      "price_apply_time": "2026-05-22 18:56:51",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "3061582",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "QA3169",
+    "asin": "B0CP28LC4S",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "QA3169",
+    "entityName": "",
+    "beforeValue": 17.99,
+    "afterValue": 18.99,
+    "reason": "QA3169重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:00:09.653Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-00-09-653Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.232",
+      "profit_raw_sea": "0.3117",
+      "profit_apply": "0.282",
+      "profit_apply_sea": "0.3617",
+      "float_price": "0.0556",
+      "price_apply_time": "2026-05-22 18:56:57",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1573614",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "GT3814",
+    "asin": "B0CYPWR9J8",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "GT3814",
+    "entityName": "",
+    "beforeValue": 15.99,
+    "afterValue": 16.99,
+    "reason": "GT3814重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:00:09.653Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-00-09-653Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.2985",
+      "profit_raw_sea": "0.3539",
+      "profit_apply": "0.3548",
+      "profit_apply_sea": "0.4102",
+      "float_price": "0.0625",
+      "price_apply_time": "2026-05-22 18:57:03",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1752127",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "QA3173",
+    "asin": "B0CP2948QH",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "QA3173",
+    "entityName": "",
+    "beforeValue": 18.99,
+    "afterValue": 19.99,
+    "reason": "QA3173重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:00:09.653Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-00-09-653Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.3512",
+      "profit_raw_sea": "0.4512",
+      "profit_apply": "0.3986",
+      "profit_apply_sea": "0.4986",
+      "float_price": "0.0527",
+      "price_apply_time": "2026-05-22 18:57:09",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1574104",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SH0423",
+    "asin": "B07S22D2CS",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "SH0423",
+    "entityName": "",
+    "beforeValue": 12.99,
+    "afterValue": 13.99,
+    "reason": "SH0423重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:00:09.653Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-00-09-653Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.1064",
+      "profit_raw_sea": "0.2923",
+      "profit_apply": "0.1757",
+      "profit_apply_sea": "0.3616",
+      "float_price": "0.0770",
+      "price_apply_time": "2026-05-22 18:57:16",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "48102",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "GGN2452",
+    "asin": "B0CJJRTLFL",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "GGN2452",
+    "entityName": "",
+    "beforeValue": 61.99,
+    "afterValue": 64.99,
+    "reason": "GGN2452重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:00:09.653Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-00-09-653Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "-0.444",
+      "profit_raw_sea": "0.2412",
+      "profit_apply": "-0.4004",
+      "profit_apply_sea": "0.2848",
+      "float_price": "0.0484",
+      "price_apply_time": "2026-05-22 18:57:23",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1340818",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "QQ2806",
+    "asin": "B0D9QFQHN9",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "QQ2806",
+    "entityName": "",
+    "beforeValue": 12.99,
+    "afterValue": 13.99,
+    "reason": "QQ2806重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:01:29.419Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-01-29-419Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.237",
+      "profit_raw_sea": "0.3887",
+      "profit_apply": "0.3063",
+      "profit_apply_sea": "0.458",
+      "float_price": "0.0770",
+      "price_apply_time": "2026-05-22 18:57:29",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1899051",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SH0424",
+    "asin": "B07S34528G",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "SH0424",
+    "entityName": "",
+    "beforeValue": 11.99,
+    "afterValue": 12.99,
+    "reason": "SH0424重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:01:29.419Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-01-29-419Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.0327",
+      "profit_raw_sea": "0.2497",
+      "profit_apply": "0.1078",
+      "profit_apply_sea": "0.3248",
+      "float_price": "0.0834",
+      "price_apply_time": "2026-05-22 18:57:36",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "48101",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "CLO0344",
+    "asin": "B0D2L2HGD4",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "CLO0344",
+    "entityName": "",
+    "beforeValue": 26.24,
+    "afterValue": 27.99,
+    "reason": "CLO0344重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:01:29.419Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-01-29-419Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "-0.026",
+      "profit_raw_sea": "0.3482",
+      "profit_apply": "0.034",
+      "profit_apply_sea": "0.4082",
+      "float_price": "0.0667",
+      "price_apply_time": "2026-05-22 18:57:43",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1431558",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "KEJ0561",
+    "asin": "B0D8L4LSWB",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "KEJ0561",
+    "entityName": "",
+    "beforeValue": 37.99,
+    "afterValue": 39.99,
+    "reason": "KEJ0561重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:01:29.419Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-01-29-419Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.0058",
+      "profit_raw_sea": "0.3392",
+      "profit_apply": "0.0532",
+      "profit_apply_sea": "0.3866",
+      "float_price": "0.0526",
+      "price_apply_time": "2026-05-22 18:57:49",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1808739",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "DUN1392",
+    "asin": "B0CJ53ZB7Y",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "DUN1392",
+    "entityName": "",
+    "beforeValue": 60.99,
+    "afterValue": 63.99,
+    "reason": "DUN1392重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:01:29.419Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-01-29-419Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "-0.2014",
+      "profit_raw_sea": "0.3985",
+      "profit_apply": "-0.1571",
+      "profit_apply_sea": "0.4428",
+      "float_price": "0.0492",
+      "price_apply_time": "2026-05-22 18:57:56",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1462226",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "BQ3410",
+    "asin": "B07V4DBMLT",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "BQ3410",
+    "entityName": "",
+    "beforeValue": 7.99,
+    "afterValue": 8.99,
+    "reason": "{\n    \"message\": \"Server Error\"\n}",
+    "runAt": "2026-05-22T11:01:29.419Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-01-29-419Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.1593",
+      "profit_raw_sea": "0.4016",
+      "profit_apply": "0.2393",
+      "profit_apply_sea": "0.4816",
+      "float_price": "0.1252",
+      "price_apply_time": "2025-11-06 22:17:53",
+      "today_price_apply": "",
+      "priceApplyId": "347837",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "HL4017",
+    "asin": "B0CTG3VYGH",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "HL4017",
+    "entityName": "",
+    "beforeValue": 16.99,
+    "afterValue": 17.99,
+    "reason": "HL4017重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:01:29.419Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-01-29-419Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.313",
+      "profit_raw_sea": "0.4205",
+      "profit_apply": "0.366",
+      "profit_apply_sea": "0.4735",
+      "float_price": "0.0589",
+      "price_apply_time": "2026-05-22 18:58:10",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1691174",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2844",
+    "asin": "B0BDRFT6F4",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "YUT2844",
+    "entityName": "",
+    "beforeValue": 43.99,
+    "afterValue": 45.99,
+    "reason": "YUT2844重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:01:29.419Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-01-29-419Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "-0.0861",
+      "profit_raw_sea": "0.3329",
+      "profit_apply": "-0.0452",
+      "profit_apply_sea": "0.3738",
+      "float_price": "0.0455",
+      "price_apply_time": "2026-05-22 18:58:17",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "3038217",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "HL4004",
+    "asin": "B0CG5T4XJQ",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "HL4004",
+    "entityName": "",
+    "beforeValue": 19.99,
+    "afterValue": 20.99,
+    "reason": "HL4004重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:01:29.419Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-01-29-419Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.3943",
+      "profit_raw_sea": "0.4874",
+      "profit_apply": "0.4393",
+      "profit_apply_sea": "0.5324",
+      "float_price": "0.0500",
+      "price_apply_time": "2026-05-22 18:58:26",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1390126",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "RT3172",
+    "asin": "B0F8NTC523",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "RT3172",
+    "entityName": "",
+    "beforeValue": 15.99,
+    "afterValue": 16.99,
+    "reason": "RT3172重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:01:29.419Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-01-29-419Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.2764",
+      "profit_raw_sea": "0.3579",
+      "profit_apply": "0.3327",
+      "profit_apply_sea": "0.4142",
+      "float_price": "0.0625",
+      "price_apply_time": "2026-05-22 18:58:32",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "2512485",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "YAN3229",
+    "asin": "B0D5L7RDZQ",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "YAN3229",
+    "entityName": "",
+    "beforeValue": 9.99,
+    "afterValue": 10.99,
+    "reason": "YAN3229重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:02:44.405Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-02-44-405Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.0097",
+      "profit_raw_sea": "0.2413",
+      "profit_apply": "0.0897",
+      "profit_apply_sea": "0.3213",
+      "float_price": "0.1001",
+      "price_apply_time": "2026-05-22 18:58:39",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1838026",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SC3527",
+    "asin": "B0CGV7S8V9",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "SC3527",
+    "entityName": "",
+    "beforeValue": 26.99,
+    "afterValue": 28.99,
+    "reason": "SC3527重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:02:44.405Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-02-44-405Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "0.338",
+      "profit_raw_sea": "0.4264",
+      "profit_apply": "0.4047",
+      "profit_apply_sea": "0.4931",
+      "float_price": "0.0741",
+      "price_apply_time": "2026-05-22 18:58:46",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1926535",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
+  },
+  {
+    "sku": "DUN1394",
+    "asin": "B0CJ514RH8",
+    "site": "Amazon.com",
+    "actionType": "price",
+    "entityType": "sku",
+    "entityId": "DUN1394",
+    "entityName": "",
+    "beforeValue": 75.99,
+    "afterValue": 79.99,
+    "reason": "DUN1394重复申请,该价格正在处理中!",
+    "runAt": "2026-05-22T11:02:44.405Z",
+    "businessDate": "2026-05-22",
+    "localDate": "2026-05-22",
+    "dataDate": "2026-05-21",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-22T11-02-44-405Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "failed",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "endpoint": "/pm/formal/applyPrice",
+      "profit_raw": "-0.5315",
+      "profit_raw_sea": "0.3597",
+      "profit_apply": "-0.4841",
+      "profit_apply_sea": "0.4071",
+      "float_price": "0.0526",
+      "price_apply_time": "2026-05-22 18:58:53",
+      "today_price_apply": "style='color: red'",
+      "priceApplyId": "1462231",
+      "apiStatus": "failed",
+      "finalStatus": "failed",
+      "expectation": {
+        "hypothesis": "A controlled price application should harvest margin while inventory is short; Amazon front-end effect is measured after the 1-3 day application lag.",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "grossMargin": "up",
+          "units": "watch",
+          "conversionRate": "watch",
+          "adSpend": "down_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7,
+            14
+          ],
+          "rollbackIf": "1d/3d application marker missing or 7d units/conversion drop sharply after price becomes active"
+        }
+      }
+    }
   }
 ]
