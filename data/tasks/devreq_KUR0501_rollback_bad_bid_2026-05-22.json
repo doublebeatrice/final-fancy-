@@ -1,0 +1,49 @@
+[
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "operatorRequested": true,
+    "summary": "Rollback incorrect bid lift on historical keyword; user correction says main work should be new traffic discovery, not +0.02 bid-up.",
+    "actions": [
+      {
+        "id": "391719833749255",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.18,
+        "suggestedBid": 0.16,
+        "text": "magnetic car decals",
+        "campaignId": "506462874274728",
+        "adGroupId": "500182209065264",
+        "campaignName": "kw_hippie flower car magnet_kur0501",
+        "groupName": "kw_hippie flower car magnet_kur0501",
+        "reason": "Rollback our prior +0.02 bid-up because the correct request logic is to mine new traffic from historically converting directions, not to treat one historical/converting term as the main optimization.",
+        "evidence": [
+          "Operator corrected that adding bid by 0.02 is insufficient/wrong for this request.",
+          "Current readback before rollback: magnetic car decals bid=0.18; original bid before our action=0.16.",
+          "30d current has only 1 order on keyword lane; bid-up does not solve YoY flow decline or new traffic gap."
+        ],
+        "confidence": 0.95,
+        "riskLevel": "controlled_efficiency_trim",
+        "forceExecute": true,
+        "forceReason": "Rollback of Codex-applied bid lift after operator correction; restores previous bid baseline.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "Restore the baseline bid and keep future optimization focused on validated new-traffic testing.",
+        "expectedEffect": {
+          "window": "same_day",
+          "metric": "bid landed",
+          "target": "keyword bid returns to 0.16"
+        },
+        "reviewPlan": {
+          "same_day": "verify bid readback is 0.16",
+          "3d": "evaluate new-traffic test candidates instead of this rollback as a growth lever"
+        }
+      }
+    ]
+  }
+]

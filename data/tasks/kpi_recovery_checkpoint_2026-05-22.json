@@ -1,0 +1,212 @@
+{
+  "date": "2026-05-22",
+  "generatedAt": "2026-05-22T03:18:12.083Z",
+  "businessDate": "2026-05-21",
+  "dataDate": "2026-05-20",
+  "status": "blocked",
+  "completion": {
+    "closedLoop": true,
+    "dailyClosureStatus": "blocked",
+    "dailyComplete": false,
+    "reasons": [
+      "deposit_blocked",
+      "deposit_missing_raw",
+      "kpi_off_track",
+      "recovery_gate_failed",
+      "operating_needs_recovery"
+    ]
+  },
+  "kpiGate": {
+    "status": "fail",
+    "targetBusinessDate": "2026-05-21",
+    "evaluatedBusinessDate": "2026-05-21",
+    "dataDate": "2026-05-20",
+    "target": {
+      "sales": 536451.66,
+      "units": 3702,
+      "netProfitRateMin": 0.1941,
+      "acosMax": 0.1957,
+      "refundRateMax": 0.0545,
+      "adCostShareMax": 0.108
+    },
+    "actual": {
+      "sales": 516741.99,
+      "units": 3582,
+      "netProfitRate": 0.1933,
+      "acos": 0.1978,
+      "refundRate": 0.057,
+      "adCostShare": 0.1016,
+      "estimatedNetProfit": 99886.23
+    },
+    "blockedUntil": ""
+  },
+  "nextRecoveryTarget": {
+    "businessDate": "2026-05-22",
+    "sales": 540393.59,
+    "units": 3726,
+    "netProfitRateMin": 0.1942,
+    "acosMax": 0.1952,
+    "refundRateMax": 0.054,
+    "adCostShareMax": 0.108,
+    "estimatedNetProfitTarget": null,
+    "relationshipToGate": "next_recovery_after_failed_gate"
+  },
+  "deposit": {
+    "status": "blocked",
+    "missing": [
+      "sales_core_original_xlsx",
+      "inventory_original_csv",
+      "ad_full_original_csv",
+      "seller_success_rate_json",
+      "seller_success_rate_csv",
+      "daily_html",
+      "daily_deposit_manifest"
+    ],
+    "suspicious": [],
+    "archivedCandidates": 0,
+    "rawCandidateSearch": {
+      "cutoffDate": "2026-05-15",
+      "rootsSearched": [
+        "C:\\Users\\Administrator\\Desktop",
+        "D:\\chrome dl",
+        "D:\\Backup\\Downloads",
+        "D:\\Backup\\Documents\\Downloads"
+      ],
+      "total": 2,
+      "sameDateTotal": 0,
+      "staleTotal": 2,
+      "byMissingClass": {
+        "sales_core_original_xlsx": {
+          "total": 0,
+          "sameDate": 0,
+          "stale": 0,
+          "latest": null
+        },
+        "inventory_original_csv": {
+          "total": 1,
+          "sameDate": 0,
+          "stale": 1,
+          "latest": {
+            "name": "inv_auto_filtered_2026-05-16-09-24-30.csv",
+            "file": "D:\\chrome dl\\inv_auto_filtered_2026-05-16-09-24-30.csv",
+            "candidateDate": "2026-05-16",
+            "ageDays": 6,
+            "sameDate": false,
+            "action": "reference_only_stale"
+          }
+        },
+        "ad_full_original_csv": {
+          "total": 1,
+          "sameDate": 0,
+          "stale": 1,
+          "latest": {
+            "name": "广告全盘导出_近30天_2026-05-16_17-26-21.csv",
+            "file": "D:\\chrome dl\\广告全盘导出_近30天_2026-05-16_17-26-21.csv",
+            "candidateDate": "2026-05-16",
+            "ageDays": 6,
+            "sameDate": false,
+            "action": "reference_only_stale"
+          }
+        }
+      }
+    },
+    "nextAction": "restore or redownload the same-date original raw files; no same-date candidates were found"
+  },
+  "actionPools": {
+    "lowEfficiency": {
+      "actionable": 0,
+      "rawActionable": 0,
+      "currentExecutable": 0,
+      "hold": 0,
+      "skip": 0,
+      "decision": "no new low-efficiency live write justified",
+      "evidence": "no raw low-efficiency candidate remains"
+    },
+    "effectReview": {
+      "total": 101,
+      "continueWatch": 91,
+      "needsAction": 0,
+      "blocked": 0,
+      "decision": "continue watch until the next 3-day or 7-day review window"
+    },
+    "writeExecution": {
+      "mode": "skipped",
+      "eligibleActions": 0,
+      "blockedActions": 0,
+      "executedStages": 0,
+      "failedStages": 0,
+      "decision": "no low-risk write action is pending in the agent write chain"
+    },
+    "recoveryDryRun": {
+      "totalDryRuns": 0,
+      "totalHighEfficiencyBidUps": 0,
+      "highEfficiencyBidUps": 0,
+      "skuCount": 0,
+      "latestRunId": "",
+      "latestRunAt": "",
+      "latestRunCount": 0,
+      "byDecision": {},
+      "byEntityType": {},
+      "sample": [],
+      "decision": "no high-efficiency dry-run recovery candidates recorded"
+    },
+    "approvalReview": {
+      "ready": false,
+      "total": 0,
+      "skuCount": 0,
+      "recommendApprove": 0,
+      "approvalNeeded": 0,
+      "hold": 0,
+      "blocked": 0,
+      "jsonFile": "D:\\ad-ops-workbench\\data\\tasks\\kpi_approval_review_2026-05-22.json",
+      "markdownFile": "D:\\ad-ops-workbench\\data\\tasks\\kpi_approval_review_2026-05-22.md",
+      "markdownName": "kpi_approval_review_2026-05-22.md",
+      "decision": "no approval-needed write review is currently required"
+    }
+  },
+  "landedEvidence": {
+    "landedActionSuccess": 1204,
+    "landedActionManualReview": 38,
+    "landedActionFailed": 3,
+    "feedbackApplied": 101
+  },
+  "nextChecks": [
+    {
+      "name": "refresh_deposit_status",
+      "command": "npm run ops:deposit:status -- --date 2026-05-22 --json",
+      "successCondition": "status=complete and missing=[]"
+    },
+    {
+      "name": "refresh_kpi_gate",
+      "command": "npm run ops:kpi:gate -- --date 2026-05-22",
+      "successCondition": "status is pass or fail after evaluatedBusinessDate=2026-05-21"
+    },
+    {
+      "name": "track_next_recovery_target",
+      "command": "npm run ops:kpi:gate -- --date 2026-05-22",
+      "successCondition": "evaluatedBusinessDate=2026-05-22 and status is pass or fail"
+    },
+    {
+      "name": "verify_closure",
+      "command": "npm run ops:closure:verify -- --date 2026-05-22",
+      "successCondition": "ok=true with explicit deposit missing/suspicious details if still partial"
+    },
+    {
+      "name": "effect_review_next_window",
+      "command": "npm run ops:agent:review-effect -- --queue data\\agent\\review_queue_2026-05-22.json --collect-evidence --today 2026-05-22 --evidence-out data\\agent\\review_evidence_2026-05-22.json --out data\\agent\\effect_review_2026-05-22.json --profit-report data\\snapshots\\profit_review_2026-05-22.json",
+      "successCondition": "needsAction=0 or concrete rollback/secondary action candidates are produced"
+    }
+  ],
+  "files": {
+    "closureVerify": "D:\\ad-ops-workbench\\data\\agent\\daily_closure_verify_2026-05-22.json",
+    "kpiGate": "D:\\ad-ops-workbench\\data\\tasks\\kpi_recovery_gate_2026-05-22.json",
+    "depositStatus": "D:\\ad-ops-workbench\\黄成喆个人数据趋势\\原数据\\原日数据\\5-22\\daily_deposit_status_2026-05-22.json",
+    "lowEfficiency": "D:\\ad-ops-workbench\\data\\tasks\\low_efficiency_pools_2026-05-22.json",
+    "effectReview": "D:\\ad-ops-workbench\\data\\agent\\effect_review_2026-05-22.json",
+    "writeExecution": "D:\\ad-ops-workbench\\data\\agent\\write_execution_2026-05-22.json",
+    "kpiApprovalReview": "D:\\ad-ops-workbench\\data\\tasks\\kpi_approval_review_2026-05-22.json",
+    "kpiApprovalReviewMarkdown": "D:\\ad-ops-workbench\\data\\tasks\\kpi_approval_review_2026-05-22.md",
+    "closedLoop": "D:\\ad-ops-workbench\\data\\agent\\agent_closed_loop_2026-05-22.json",
+    "adjustmentLog": "D:\\ad-ops-workbench\\data\\adjustments\\adjustments_2026-05-22.json"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "date": "2026-05-22",
+  "generatedAt": "2026-05-22T03:18:12.034Z",
+  "businessDate": "2026-05-21",
+  "dataDate": "2026-05-20",
+  "sourceFiles": {
+    "writeExecution": "D:\\ad-ops-workbench\\data\\agent\\write_execution_2026-05-22.json",
+    "actionSchema": "",
+    "snapshot": "D:\\ad-ops-workbench\\data\\snapshots\\latest_snapshot.json",
+    "kpiCheckpoint": "D:\\ad-ops-workbench\\data\\tasks\\kpi_recovery_checkpoint_2026-05-22.json"
+  },
+  "summary": {
+    "total": 0,
+    "byDecision": {},
+    "skuCount": 0,
+    "recommendApprove": 0,
+    "approvalNeeded": 0,
+    "hold": 0,
+    "blocked": 0
+  },
+  "items": []
+}

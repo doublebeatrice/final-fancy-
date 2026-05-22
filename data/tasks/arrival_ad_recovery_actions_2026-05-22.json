@@ -1,0 +1,211 @@
+[
+  {
+    "sku": "GUF3129",
+    "asin": "B0GWD724Y8",
+    "summary": "Arrival ad recovery: inventory arrived 2026-05-17 and existing SP lanes are live but underdelivering. Restore only specific bucket-hat traffic with small bid lifts; no new campaign and no budget increase.",
+    "actions": [
+      {
+        "id": "245118645017129",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.45,
+        "suggestedBid": 0.52,
+        "text": "patriotic bucket hat",
+        "label": "patriotic bucket hat",
+        "campaignId": "3639919596660",
+        "adGroupId": "216066672328994",
+        "campaignName": "patriotic bucket hat-guf3129-system-keyword",
+        "groupName": "patriotic bucket hat-guf3129-system-keyword",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "2026-05-22 arrived inventory recovery: live keyword has only 4 impressions, 0 clicks, 0 spend after arrival; small reversible bid-up, no budget change.",
+        "confidence": 0.72,
+        "riskLevel": "arrival_recovery_small_bid_up",
+        "reason": "GUF3129 arrived 2026-05-17, fulfillable 8, profit rate 17.1%; existing basic SP structure is live but 7d delivery is only 16 impressions / 1 click. Raise the specific bucket-hat phrase lane one step to test delivery.",
+        "evidence": [
+          "proactive audit 2026-05-22: arrived_inventory_ads_have_no_effective_delivery",
+          "SKU 7d: impressions=16 clicks=1 spend=0.35 orders=0; units7d=1",
+          "keyword patriotic bucket hat: impressions=4 clicks=0 spend=0 bid=0.45"
+        ],
+        "hypothesis": "A small lift on the most specific bucket-hat term should recover impressions/clicks while daily budget remains capped.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "watch",
+          "spend": "up_controlled",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [1, 3, 7],
+          "rollbackIf": "3d spend starts without relevant clicks/orders or search term fit is weak"
+        }
+      },
+      {
+        "id": "161739157302110",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.45,
+        "suggestedBid": 0.52,
+        "text": "patriotic bucket hat set",
+        "label": "patriotic bucket hat set",
+        "campaignId": "3639919596660",
+        "adGroupId": "216066672328994",
+        "campaignName": "patriotic bucket hat-guf3129-system-keyword",
+        "groupName": "patriotic bucket hat-guf3129-system-keyword",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "2026-05-22 arrived inventory recovery: live keyword has only 3 impressions, 0 clicks, 0 spend after arrival; small reversible bid-up, no budget change.",
+        "confidence": 0.72,
+        "riskLevel": "arrival_recovery_small_bid_up",
+        "reason": "GUF3129 is a set-style patriotic bucket hat product; existing phrase keyword is live but barely serving. Raise one step rather than creating duplicate structure.",
+        "evidence": [
+          "proactive audit 2026-05-22: GUF3129 reopen_or_scale_existing_ads",
+          "keyword patriotic bucket hat set: impressions=3 clicks=0 spend=0 bid=0.45",
+          "same SKU has live auto/keyword/manual coverage, so reuse-first applies"
+        ],
+        "hypothesis": "The set-specific phrase should pick up arrival-window traffic if auction position improves modestly.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "watch",
+          "spend": "up_controlled",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [1, 3, 7],
+          "rollbackIf": "clicks accumulate without orders or query fit is poor"
+        }
+      },
+      {
+        "id": "356333038583614",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.38,
+        "suggestedBid": 0.44,
+        "text": "queryHighRelMatches",
+        "label": "queryHighRelMatches",
+        "campaignId": "220700427290590",
+        "adGroupId": "519852050903722",
+        "campaignName": "patriotic bucket hat-guf3129-system-a",
+        "groupName": "patriotic bucket hat-guf3129-system-a",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "2026-05-22 arrived inventory recovery: live auto high-relevance target has only 7 impressions and no spend; small bid-up with $3 budget cap.",
+        "confidence": 0.7,
+        "riskLevel": "arrival_recovery_small_bid_up",
+        "reason": "Use existing auto high-relevance lane to restore discovery after arrival; no budget increase and no duplicate campaign.",
+        "evidence": [
+          "auto queryHighRelMatches: impressions=7 clicks=0 spend=0 bid=0.38",
+          "campaign live, ad group live, dailyBudget=3.00",
+          "arrival audit requires reopen_or_scale_existing_ads"
+        ],
+        "hypothesis": "High-relevance auto target can recover low-cost impressions/clicks under the existing budget cap.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "watch",
+          "spend": "up_controlled",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [1, 3, 7],
+          "rollbackIf": "search terms are unrelated or spend rises without clicks/orders"
+        }
+      }
+    ]
+  },
+  {
+    "sku": "GUF3133",
+    "asin": "B0GWCK7H94",
+    "summary": "Arrival ad recovery: inventory arrived 2026-05-17 and live SP lanes are not producing clicks. Restore core bucket-hat traffic with small bid lifts only.",
+    "actions": [
+      {
+        "id": "276749269111606",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.48,
+        "suggestedBid": 0.55,
+        "text": "american flag bucket hat",
+        "label": "american flag bucket hat",
+        "campaignId": "265977555350429",
+        "adGroupId": "273735857152682",
+        "campaignName": "guf3133_patriotic_bucket_hat_broad_20260518",
+        "groupName": "guf3133_patriotic_bucket_hat_broad_20260518",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "2026-05-22 arrived inventory recovery: broad core term has 51 impressions but 0 clicks/spend; small bid-up, no budget change.",
+        "confidence": 0.68,
+        "riskLevel": "arrival_recovery_small_bid_up",
+        "reason": "GUF3133 arrived 2026-05-17, fulfillable 5, profit rate 17.32%; core American flag bucket hat term is live but not converting impressions into clicks. Raise one step to test placement quality.",
+        "evidence": [
+          "proactive audit 2026-05-22: arrived_inventory_ads_have_no_effective_delivery",
+          "SKU 7d: impressions=64 clicks=0 spend=0 orders=0",
+          "keyword american flag bucket hat: impressions=51 clicks=0 spend=0 bid=0.48"
+        ],
+        "hypothesis": "A small bid lift on the core buyer-facing term should improve placement enough to test clicks while budget remains capped.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "watch",
+          "spend": "up_controlled",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [1, 3, 7],
+          "rollbackIf": "impressions rise but CTR stays near zero or search term fit is poor"
+        }
+      },
+      {
+        "id": "371866248752899",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.29,
+        "suggestedBid": 0.34,
+        "text": "queryHighRelMatches",
+        "label": "queryHighRelMatches",
+        "campaignId": "270029357449807",
+        "adGroupId": "321854421937615",
+        "campaignName": "guf3133_patriotic_bucket_hat_auto_20260518",
+        "groupName": "guf3133_patriotic_bucket_hat_auto_20260518",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "2026-05-22 arrived inventory recovery: high-relevance auto target has 0 impressions/spend; small bid-up under $3 budget.",
+        "confidence": 0.68,
+        "riskLevel": "arrival_recovery_small_bid_up",
+        "reason": "Existing auto high-relevance target is live but not serving. Raise one controlled step instead of creating duplicate traffic.",
+        "evidence": [
+          "auto queryHighRelMatches: impressions=0 clicks=0 spend=0 bid=0.29",
+          "campaign live, ad group live, dailyBudget=3.00",
+          "GUF3133 has no 7d clicks after arrival"
+        ],
+        "hypothesis": "Auto high-relevance lane can provide query discovery once the bid clears more auctions.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "watch",
+          "spend": "up_controlled",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [1, 3, 7],
+          "rollbackIf": "search terms are weak or spend starts without clicks/orders"
+        }
+      }
+    ]
+  }
+]

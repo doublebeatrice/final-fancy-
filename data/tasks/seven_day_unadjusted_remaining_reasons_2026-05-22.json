@@ -1,0 +1,1007 @@
+{
+  "generatedAt": "2026-05-22T06:30:15.210Z",
+  "sourceSnapshot": "data\\snapshots\\seven_day_untouched_live_current_2026-05-22.json",
+  "counts": {
+    "sp": 68,
+    "sb": 360
+  },
+  "allowedSkuCount": 592,
+  "byReason": {
+    "sp": {
+      "lower_entity_not_enabled": 30,
+      "no_lower_entity_mapped": 7,
+      "sku_out_of_allowed_operation_scope": 9,
+      "active_lower_entity_remaining_manual_review": 19,
+      "candidate_already_adjusted_but_still_in_pool": 2,
+      "lower_entity_at_bid_floor": 1
+    },
+    "sb": {
+      "sku_out_of_allowed_operation_scope": 310,
+      "lower_entity_not_enabled": 26,
+      "lower_entity_at_bid_floor": 3,
+      "lower_entity_on_cooldown": 1,
+      "campaign_not_mapped_to_product_card": 19,
+      "active_sb_lower_entity_remaining_manual_review": 1
+    }
+  },
+  "blockTotals": {
+    "sp": {
+      "lower_entity_not_enabled": 301,
+      "executable": 90,
+      "lower_entity_at_bid_floor": 2
+    },
+    "sb": {
+      "lower_entity_not_enabled": 330,
+      "lower_entity_at_bid_floor": 7,
+      "lower_entity_on_cooldown": 5,
+      "executable": 1
+    }
+  },
+  "samplesByReason": {
+    "sp": {
+      "lower_entity_not_enabled": [
+        {
+          "sku": "AE3311",
+          "campaignId": "246573025792858",
+          "adGroupId": "260179139983869",
+          "name": "kw_godmother mothers day broad ae3311_ae3311",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 8
+          },
+          "manualAdjustTheTime": "2026-05-13 11:37:01",
+          "updated": "2026-05-13 11:37:01"
+        },
+        {
+          "sku": "GM2627",
+          "campaignId": "17526069772439",
+          "adGroupId": "126506246041421",
+          "name": "kw broad_christian mothers day gifts_gm2627",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 4
+          },
+          "manualAdjustTheTime": "2026-05-13 11:37:01",
+          "updated": "2026-05-13 11:37:01"
+        },
+        {
+          "sku": "AE3311",
+          "campaignId": "358373926726375",
+          "adGroupId": "342732778566927",
+          "name": "god mother gifts for women-ae3311-system-keyword",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 53
+          },
+          "manualAdjustTheTime": "2026-05-13 11:37:02",
+          "updated": "2026-05-13 11:37:01"
+        },
+        {
+          "sku": "GM4172",
+          "campaignId": "2338349789249",
+          "adGroupId": "71774298586643",
+          "name": "kw broad_christian mothers day gifts_gm4172",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 4
+          },
+          "manualAdjustTheTime": "2026-05-13 11:37:01",
+          "updated": "2026-05-13 11:37:01"
+        },
+        {
+          "sku": "YUN2188",
+          "campaignId": "329219452662972",
+          "adGroupId": "459698382526556",
+          "name": "auto_christian tumblers_yun2188",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 4
+          },
+          "manualAdjustTheTime": "2026-05-09 10:47:00",
+          "updated": "2026-05-08 11:36:36"
+        },
+        {
+          "sku": "LED3942",
+          "campaignId": "18269913988943",
+          "adGroupId": "457295095159757",
+          "name": "auto_teacher pens bulk_led3942",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 4
+          },
+          "manualAdjustTheTime": "2026-05-09 10:38:14",
+          "updated": "2026-05-02 08:21:54"
+        },
+        {
+          "sku": "GM2389",
+          "campaignId": "39639594619841",
+          "adGroupId": "9564271048403",
+          "name": "kw broad_christian mothers day gifts_gm2389",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 4
+          },
+          "manualAdjustTheTime": "2026-05-13 11:37:01",
+          "updated": "2026-05-13 11:37:01"
+        },
+        {
+          "sku": "AE3311",
+          "campaignId": "56780359678706",
+          "adGroupId": "253600925674805",
+          "name": "kw_godmother mothers day exact ae3311_ae3311",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 9
+          },
+          "manualAdjustTheTime": "2026-05-13 11:37:02",
+          "updated": "2026-05-13 11:37:01"
+        },
+        {
+          "sku": "XUE2224",
+          "campaignId": "99005602260307",
+          "adGroupId": "503412079063966",
+          "name": "auto_hanging metal basket_xue2224",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 4
+          },
+          "manualAdjustTheTime": "2026-05-09 14:59:30",
+          "updated": "2026-05-09 14:59:30"
+        },
+        {
+          "sku": "GM2634",
+          "campaignId": "146020838163325",
+          "adGroupId": "269206603169762",
+          "name": "kw broad_christian mothers day gifts_gm2634",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 4
+          },
+          "manualAdjustTheTime": "2026-05-13 11:37:01",
+          "updated": "2026-05-13 11:37:01"
+        },
+        {
+          "sku": "GM2634",
+          "campaignId": "177638976412925",
+          "adGroupId": "182508229382597",
+          "name": "kw_q2 profit gm2634 phrase_gm2634",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 9
+          },
+          "manualAdjustTheTime": "2026-05-13 11:37:02",
+          "updated": "2026-05-13 11:37:01"
+        },
+        {
+          "sku": "YAN3187",
+          "campaignId": "537008566483065",
+          "adGroupId": "360270572294396",
+          "name": "auto_wizard disposable cups_yan3187",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 4
+          },
+          "manualAdjustTheTime": "2026-05-03 09:39:40",
+          "updated": "2026-05-03 09:39:39"
+        }
+      ],
+      "no_lower_entity_mapped": [
+        {
+          "sku": "YUN2187",
+          "campaignId": "397757748648532",
+          "adGroupId": "358941348577083",
+          "name": "kw2_christian tumblers_yun2188",
+          "reason": "no_lower_entity_mapped",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-13 11:37:01",
+          "updated": "2026-05-13 11:37:01"
+        },
+        {
+          "sku": "TH2618",
+          "campaignId": "110050796718075",
+          "adGroupId": "137787230247251",
+          "name": "silicone cable ties th2619-system-a",
+          "reason": "no_lower_entity_mapped",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-11 11:39:17",
+          "updated": "2026-05-07 09:42:46"
+        },
+        {
+          "sku": "FE3232",
+          "campaignId": "417131207068454",
+          "adGroupId": "454811766878116",
+          "name": "auto_christian gift set_fe3235",
+          "reason": "no_lower_entity_mapped",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-08 20:04:03",
+          "updated": "2026-05-08 20:04:03"
+        },
+        {
+          "sku": "ZO0891",
+          "campaignId": "5704107592430",
+          "adGroupId": "201388614890549",
+          "name": "asin exact_christian mothers day gifts_zo0891",
+          "reason": "no_lower_entity_mapped",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-07 20:38:33",
+          "updated": "2026-05-07 20:38:32"
+        },
+        {
+          "sku": "MF6292",
+          "campaignId": "160379676127887",
+          "adGroupId": "67811823614515",
+          "name": "asin expanded_inflatable number pool float_mf6292",
+          "reason": "no_lower_entity_mapped",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-06 20:11:00",
+          "updated": "2026-05-06 20:11:00"
+        },
+        {
+          "sku": "QA3169",
+          "campaignId": "167230243802278",
+          "adGroupId": "55646825436167",
+          "name": "asin expanded_softball senior night gifts_qa3169",
+          "reason": "no_lower_entity_mapped",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-04-23 20:18:20",
+          "updated": "2026-04-23 20:18:19"
+        },
+        {
+          "sku": "ZO0892",
+          "campaignId": "33817926440059",
+          "adGroupId": "139473121327195",
+          "name": "asin exact_christian mothers day gifts_zo0892",
+          "reason": "no_lower_entity_mapped",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-07 20:38:31",
+          "updated": "2026-05-07 20:38:30"
+        }
+      ],
+      "sku_out_of_allowed_operation_scope": [
+        {
+          "sku": "MH2355",
+          "campaignId": "134905321029891",
+          "adGroupId": "161166079535289",
+          "name": "kw broad_nurse ornaments_mh2355",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-08 21:19:03",
+          "updated": "2026-05-08 21:19:05"
+        },
+        {
+          "sku": "MH2711",
+          "campaignId": "145654887787227",
+          "adGroupId": "261541418920261",
+          "name": "kw broad_nurse ornaments_mh2711",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-08 21:19:07",
+          "updated": "2026-05-08 21:19:09"
+        },
+        {
+          "sku": "MH2355",
+          "campaignId": "273553038706059",
+          "adGroupId": "212619884366843",
+          "name": "asin expand_nurse ornaments_mh2355",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-08 21:19:03",
+          "updated": "2026-05-08 21:19:05"
+        },
+        {
+          "sku": "MH0525",
+          "campaignId": "556090361754544",
+          "adGroupId": "409870229214968",
+          "name": "kw_ dessert cups_mh0525",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-12 21:25:00",
+          "updated": "2026-05-12 21:24:59"
+        },
+        {
+          "sku": "MH2711",
+          "campaignId": "100424516131543",
+          "adGroupId": "220330797105458",
+          "name": "asin expand_nurse ornaments_mh2711",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-08 21:19:07",
+          "updated": "2026-05-08 21:19:09"
+        },
+        {
+          "sku": "MH2711",
+          "campaignId": "21027050999351",
+          "adGroupId": "321568252024009",
+          "name": "b2b auto_nurse ornaments_mh2711",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-08 21:19:09",
+          "updated": "2026-05-08 21:19:10"
+        },
+        {
+          "sku": "MH2711",
+          "campaignId": "88122892637100",
+          "adGroupId": "47447910538110",
+          "name": "b2b kw broad_nurse ornaments_mh2711",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-08 21:19:07",
+          "updated": "2026-05-08 21:19:09"
+        },
+        {
+          "sku": "MH2355",
+          "campaignId": "153448710889602",
+          "adGroupId": "491448966434733",
+          "name": "b2b auto_nurse ornaments_mh2355",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-08 21:19:03",
+          "updated": "2026-05-08 21:19:05"
+        },
+        {
+          "sku": "MH2355",
+          "campaignId": "54249806344527",
+          "adGroupId": "245499636855223",
+          "name": "b2b kw broad_nurse ornaments_mh2355",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-08 21:19:03",
+          "updated": "2026-05-08 21:19:05"
+        }
+      ],
+      "active_lower_entity_remaining_manual_review": [
+        {
+          "sku": "HU3765",
+          "campaignId": "393960756213298",
+          "adGroupId": "511191879627779",
+          "name": "auto_halloween apothecary stickers_hu3765",
+          "reason": "active_lower_entity_remaining_manual_review",
+          "blocks": {
+            "executable": 4,
+            "lower_entity_not_enabled": 2
+          },
+          "manualAdjustTheTime": "2026-05-09 11:03:19",
+          "updated": "2026-04-27 20:50:53"
+        },
+        {
+          "sku": "YCL1247",
+          "campaignId": "466231490023006",
+          "adGroupId": "360680075571168",
+          "name": "blue floral picks ycl1247-pt",
+          "reason": "active_lower_entity_remaining_manual_review",
+          "blocks": {
+            "executable": 4,
+            "lower_entity_not_enabled": 2
+          },
+          "manualAdjustTheTime": "2026-05-08 16:48:58",
+          "updated": "2026-05-08 16:48:58"
+        },
+        {
+          "sku": "OCE2575",
+          "campaignId": "113716731088153",
+          "adGroupId": "547976461346992",
+          "name": "auto b2b _teacher appreciation gifts bulk_oce2575",
+          "reason": "active_lower_entity_remaining_manual_review",
+          "blocks": {
+            "executable": 3
+          },
+          "manualAdjustTheTime": "2026-05-07 19:54:20",
+          "updated": "2026-05-07 19:54:22"
+        },
+        {
+          "sku": "WAR1276",
+          "campaignId": "426417782044372",
+          "adGroupId": "436351991429738",
+          "name": "asin_rainbow party-war1276",
+          "reason": "active_lower_entity_remaining_manual_review",
+          "blocks": {
+            "executable": 4,
+            "lower_entity_not_enabled": 6
+          },
+          "manualAdjustTheTime": "2026-05-14 15:33:16",
+          "updated": "2026-05-07 19:17:11"
+        },
+        {
+          "sku": "GM2628",
+          "campaignId": "267849836590040",
+          "adGroupId": "46830233328695",
+          "name": "kw_b2b_christian gifts for women_GM2628",
+          "reason": "active_lower_entity_remaining_manual_review",
+          "blocks": {
+            "lower_entity_not_enabled": 3,
+            "executable": 3
+          },
+          "manualAdjustTheTime": "2026-05-13 11:37:02",
+          "updated": "2026-05-13 11:37:01"
+        },
+        {
+          "sku": "YUN2187",
+          "campaignId": "130646127928910",
+          "adGroupId": "116041769022289",
+          "name": "asin expanded_mothers day gifts bulk cups_yun2187",
+          "reason": "active_lower_entity_remaining_manual_review",
+          "blocks": {
+            "executable": 1
+          },
+          "manualAdjustTheTime": "2026-05-07 20:40:46",
+          "updated": "2026-05-07 20:40:48"
+        },
+        {
+          "sku": "GM3065",
+          "campaignId": "394294629665777",
+          "adGroupId": "355370441646960",
+          "name": "asin_dentist appreciation gifts _gm3065",
+          "reason": "active_lower_entity_remaining_manual_review",
+          "blocks": {
+            "executable": 4
+          },
+          "manualAdjustTheTime": "2026-05-08 16:54:55",
+          "updated": "2026-05-08 16:54:54"
+        },
+        {
+          "sku": "GM4172",
+          "campaignId": "74976615092186",
+          "adGroupId": "13555196720495",
+          "name": "kw_b2b_christian gifts for women_GM4172",
+          "reason": "active_lower_entity_remaining_manual_review",
+          "blocks": {
+            "executable": 4,
+            "lower_entity_not_enabled": 1
+          },
+          "manualAdjustTheTime": "2026-05-13 11:37:02",
+          "updated": "2026-05-13 11:37:01"
+        },
+        {
+          "sku": "SHQ3834",
+          "campaignId": "271702344459048",
+          "adGroupId": "17924166393539",
+          "name": "asin broad_baby shower_shq3834",
+          "reason": "active_lower_entity_remaining_manual_review",
+          "blocks": {
+            "executable": 6
+          },
+          "manualAdjustTheTime": "2026-05-12 21:04:57",
+          "updated": "2026-05-12 21:04:57"
+        },
+        {
+          "sku": "TH2869",
+          "campaignId": "160311939705795",
+          "adGroupId": "110619452812964",
+          "name": "asin expanded_wire ties for cords_th2869",
+          "reason": "active_lower_entity_remaining_manual_review",
+          "blocks": {
+            "executable": 12
+          },
+          "manualAdjustTheTime": "2026-05-08 16:54:53",
+          "updated": "2026-05-08 16:54:53"
+        },
+        {
+          "sku": "SE6685",
+          "campaignId": "385459720565540",
+          "adGroupId": "522749230461154",
+          "name": "asin_bear clothes basic_se6685",
+          "reason": "active_lower_entity_remaining_manual_review",
+          "blocks": {
+            "executable": 2,
+            "lower_entity_not_enabled": 3
+          },
+          "manualAdjustTheTime": "2026-05-09 10:01:04",
+          "updated": "2026-05-07 19:11:53"
+        },
+        {
+          "sku": "TH2869",
+          "campaignId": "77740454083379",
+          "adGroupId": "2013483842500",
+          "name": "kw broad_wire ties for cords_th2869",
+          "reason": "active_lower_entity_remaining_manual_review",
+          "blocks": {
+            "executable": 9
+          },
+          "manualAdjustTheTime": "2026-05-08 16:53:27",
+          "updated": "2026-05-08 16:53:27"
+        }
+      ],
+      "candidate_already_adjusted_but_still_in_pool": [
+        {
+          "sku": "KZ6722",
+          "campaignId": "122742289179190",
+          "adGroupId": "347608865738091",
+          "name": "auto_vip decor_kz6722",
+          "reason": "candidate_already_adjusted_but_still_in_pool",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-21 23:21:57",
+          "updated": "2026-05-12 14:26:46"
+        },
+        {
+          "sku": "YMF1073",
+          "campaignId": "532866261322279",
+          "adGroupId": "520192474138518",
+          "name": "auto_baby shower packet favors_ymf1073",
+          "reason": "candidate_already_adjusted_but_still_in_pool",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-21 23:23:16",
+          "updated": "2026-05-08 16:54:16"
+        }
+      ],
+      "lower_entity_at_bid_floor": [
+        {
+          "sku": "HOD0826",
+          "campaignId": "96337612660572",
+          "adGroupId": "208378188514055",
+          "name": "auto_ wall painting_hod0826",
+          "reason": "lower_entity_at_bid_floor",
+          "blocks": {
+            "lower_entity_at_bid_floor": 2,
+            "lower_entity_not_enabled": 2
+          },
+          "manualAdjustTheTime": "2026-04-27 17:45:42",
+          "updated": "2026-04-27 17:45:42"
+        }
+      ]
+    },
+    "sb": {
+      "sku_out_of_allowed_operation_scope": [
+        {
+          "sku": "",
+          "campaignId": "530528828666466",
+          "adGroupId": "",
+          "name": "duck tags tin0401 SBV-S-NEW",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-04-27 20:48:16",
+          "updated": "2026-05-03 15:34:24"
+        },
+        {
+          "sku": "",
+          "campaignId": "422605914989457",
+          "adGroupId": "",
+          "name": "cruise ship ducks-hay1932-sbv-s-new",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-06 10:35:02",
+          "updated": "2026-05-06 13:33:37"
+        },
+        {
+          "sku": "",
+          "campaignId": "113981761046829",
+          "adGroupId": "",
+          "name": "kw broad_duck pinata_ob4139 sbv-s-new",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-06 15:14:00",
+          "updated": "2026-05-07 12:05:09"
+        },
+        {
+          "sku": "",
+          "campaignId": "386830291093659",
+          "adGroupId": "",
+          "name": "flower bucket dn2685 sbv-s-new",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-04-27 20:48:16",
+          "updated": "2026-04-30 07:30:52"
+        },
+        {
+          "sku": "",
+          "campaignId": "12445962415257",
+          "adGroupId": "",
+          "name": "sbv kw broad_science pins_gm3207",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-06 10:10:45",
+          "updated": "2026-05-07 07:33:11"
+        },
+        {
+          "sku": "",
+          "campaignId": "1200532521311",
+          "adGroupId": "",
+          "name": "sbkw_pinata_cl3650 cl3563 cl4170",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-04-27 15:12:29",
+          "updated": "2026-05-03 13:33:00"
+        },
+        {
+          "sku": "",
+          "campaignId": "248153783626975",
+          "adGroupId": "",
+          "name": "sb kw broad_social worker_le5294 le8150 le8163",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-04-29 00:27:44",
+          "updated": "2026-05-07 13:32:00"
+        },
+        {
+          "sku": "",
+          "campaignId": "153104126944450",
+          "adGroupId": "",
+          "name": "sbkw_godmother mothers day",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-05-07 20:43:45",
+          "updated": "2026-05-11 13:31:02"
+        },
+        {
+          "sku": "",
+          "campaignId": "97375280920576",
+          "adGroupId": "",
+          "name": "ob4139 ob3296 cl4199 cl4170 cl3650 cl3563",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-04-28 11:08:57",
+          "updated": "2026-05-03 13:33:00"
+        },
+        {
+          "sku": "",
+          "campaignId": "287598987831831",
+          "adGroupId": "",
+          "name": "sbv_pinata_cl4170",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-04-27 15:12:59",
+          "updated": "2026-05-06 13:32:39"
+        },
+        {
+          "sku": "",
+          "campaignId": "550154280975778",
+          "adGroupId": "",
+          "name": "sbvkw_ elephant charm _xia3242",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-04-27 17:18:29",
+          "updated": "2026-04-30 07:32:00"
+        },
+        {
+          "sku": "",
+          "campaignId": "535768460217856",
+          "adGroupId": "",
+          "name": "sbv_pinata_cl3563",
+          "reason": "sku_out_of_allowed_operation_scope",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-04-30 18:25:09",
+          "updated": "2026-05-03 15:33:24"
+        }
+      ],
+      "lower_entity_not_enabled": [
+        {
+          "sku": "",
+          "campaignId": "457262681580195",
+          "adGroupId": "",
+          "name": "duck tags for cruise ducking-tin2239-sbv-s-new",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 10
+          },
+          "manualAdjustTheTime": "2026-05-14 14:35:32",
+          "updated": "2026-05-14 14:35:32"
+        },
+        {
+          "sku": "",
+          "campaignId": "174886095847679",
+          "adGroupId": "",
+          "name": "sb kw broad_boho baby shower decor_sty6101 sty2760 sty2115",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 9
+          },
+          "manualAdjustTheTime": "2026-05-14 15:16:15",
+          "updated": "2026-05-14 15:16:15"
+        },
+        {
+          "sku": "",
+          "campaignId": "422409487003555",
+          "adGroupId": "",
+          "name": "sbvkw_sweet 16_yun2686",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 9
+          },
+          "manualAdjustTheTime": "2026-04-27 17:17:50",
+          "updated": "2026-04-27 17:17:50"
+        },
+        {
+          "sku": "",
+          "campaignId": "450972493614096",
+          "adGroupId": "",
+          "name": "sbvkw_ crown brooch pins _qaa4200",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 10
+          },
+          "manualAdjustTheTime": "2026-04-27 20:48:14",
+          "updated": "2026-04-27 20:48:14"
+        },
+        {
+          "sku": "",
+          "campaignId": "306999631354391",
+          "adGroupId": "",
+          "name": "sbv2_rainbow party-war1276",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 18
+          },
+          "manualAdjustTheTime": "2026-05-09 15:07:08",
+          "updated": "2026-05-09 15:07:08"
+        },
+        {
+          "sku": "",
+          "campaignId": "427691348439445",
+          "adGroupId": "",
+          "name": "cruise ship ducks-hay1932-sbv-s-new2",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 2
+          },
+          "manualAdjustTheTime": "2026-04-20 21:53:42",
+          "updated": "2026-04-20 21:53:42"
+        },
+        {
+          "sku": "",
+          "campaignId": "475899404107335",
+          "adGroupId": "",
+          "name": "sbv_bee gift bags_no5155",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 7
+          },
+          "manualAdjustTheTime": "2026-04-30 15:42:52",
+          "updated": "2026-04-30 15:42:52"
+        },
+        {
+          "sku": "",
+          "campaignId": "336610769023786",
+          "adGroupId": "",
+          "name": "sbv_mothers day gifts bulk_qaa2627",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 20
+          },
+          "manualAdjustTheTime": "2026-05-07 20:27:23",
+          "updated": "2026-05-09 15:35:02"
+        },
+        {
+          "sku": "",
+          "campaignId": "340873401431219",
+          "adGroupId": "",
+          "name": "ballpoint pen-nay0239-sbv-s-new",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 7
+          },
+          "manualAdjustTheTime": "2026-04-21 20:47:31",
+          "updated": "2026-04-21 20:47:31"
+        },
+        {
+          "sku": "",
+          "campaignId": "134604173009555",
+          "adGroupId": "",
+          "name": "sbvkw_deli containers with lids_bio0026",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 6
+          },
+          "manualAdjustTheTime": "2026-04-21 20:45:40",
+          "updated": "2026-04-21 20:45:40"
+        },
+        {
+          "sku": "",
+          "campaignId": "423696330825690",
+          "adGroupId": "",
+          "name": "rose wall painting ky1342-sbv-f-old",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 5
+          },
+          "manualAdjustTheTime": "2026-04-21 09:15:16",
+          "updated": "2026-04-21 09:20:10"
+        },
+        {
+          "sku": "",
+          "campaignId": "364150358950041",
+          "adGroupId": "",
+          "name": "sbv kw_christian keychain bulk_lic0168",
+          "reason": "lower_entity_not_enabled",
+          "blocks": {
+            "lower_entity_not_enabled": 13
+          },
+          "manualAdjustTheTime": "2026-04-21 09:15:14",
+          "updated": "2026-04-21 09:20:28"
+        }
+      ],
+      "lower_entity_at_bid_floor": [
+        {
+          "sku": "",
+          "campaignId": "813357028884",
+          "adGroupId": "",
+          "name": "sbv kw broad_cakesicle stand_juu1053",
+          "reason": "lower_entity_at_bid_floor",
+          "blocks": {
+            "lower_entity_at_bid_floor": 1,
+            "lower_entity_not_enabled": 5
+          },
+          "manualAdjustTheTime": "2026-05-09 15:06:59",
+          "updated": "2026-05-09 15:06:59"
+        },
+        {
+          "sku": "",
+          "campaignId": "396417859520346",
+          "adGroupId": "",
+          "name": "sbv_first holy yard sign_qa3975",
+          "reason": "lower_entity_at_bid_floor",
+          "blocks": {
+            "lower_entity_not_enabled": 31,
+            "lower_entity_at_bid_floor": 1
+          },
+          "manualAdjustTheTime": "2026-05-06 10:10:00",
+          "updated": "2026-05-06 10:10:00"
+        },
+        {
+          "sku": "",
+          "campaignId": "382274463602728",
+          "adGroupId": "",
+          "name": "large wooden cutting board-dui0086-sbv-s-new",
+          "reason": "lower_entity_at_bid_floor",
+          "blocks": {
+            "lower_entity_at_bid_floor": 3,
+            "lower_entity_not_enabled": 26
+          },
+          "manualAdjustTheTime": "2026-04-21 08:21:39",
+          "updated": "2026-04-21 08:21:39"
+        }
+      ],
+      "lower_entity_on_cooldown": [
+        {
+          "sku": "",
+          "campaignId": "456274529854033",
+          "adGroupId": "",
+          "name": "sbvkw_star keychain_coo1855",
+          "reason": "lower_entity_on_cooldown",
+          "blocks": {
+            "lower_entity_at_bid_floor": 2,
+            "lower_entity_on_cooldown": 5,
+            "lower_entity_not_enabled": 4
+          },
+          "manualAdjustTheTime": "2026-04-23 15:44:27",
+          "updated": "2026-04-23 15:44:27"
+        }
+      ],
+      "campaign_not_mapped_to_product_card": [
+        {
+          "sku": "",
+          "campaignId": "308072155325168",
+          "adGroupId": "",
+          "name": "soccer balls mf3545-sbv-s-new",
+          "reason": "campaign_not_mapped_to_product_card",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-02-05 19:00:23",
+          "updated": "2026-04-01 15:07:05"
+        },
+        {
+          "sku": "",
+          "campaignId": "477334623764173",
+          "adGroupId": "",
+          "name": "cat spikes hl2535-sb2",
+          "reason": "campaign_not_mapped_to_product_card",
+          "blocks": {},
+          "manualAdjustTheTime": "2025-08-07 19:49:29",
+          "updated": "2025-08-16 07:30:08"
+        },
+        {
+          "sku": "",
+          "campaignId": "326215583462945",
+          "adGroupId": "",
+          "name": "nurese ornament mh2355 sb2",
+          "reason": "campaign_not_mapped_to_product_card",
+          "blocks": {},
+          "manualAdjustTheTime": "2023-12-12 10:47:37",
+          "updated": "2024-10-28 20:26:00"
+        },
+        {
+          "sku": "",
+          "campaignId": "307050430470101",
+          "adGroupId": "",
+          "name": "flower buckets dn1655 dn1656 dn2685-sb",
+          "reason": "campaign_not_mapped_to_product_card",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-01-06 19:47:13",
+          "updated": "2026-04-27 16:20:08"
+        },
+        {
+          "sku": "",
+          "campaignId": "434944130022167",
+          "adGroupId": "",
+          "name": "sbvkw_motivational party favor_hay1706",
+          "reason": "campaign_not_mapped_to_product_card",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-02-03 17:57:11",
+          "updated": "2026-04-01 15:06:58"
+        },
+        {
+          "sku": "",
+          "campaignId": "450055871119784",
+          "adGroupId": "",
+          "name": "sbvkw_wedding gift box for father_pir4617",
+          "reason": "campaign_not_mapped_to_product_card",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-02-09 14:11:53",
+          "updated": "2026-04-01 15:06:59"
+        },
+        {
+          "sku": "",
+          "campaignId": "285802052780445",
+          "adGroupId": "",
+          "name": "sbvasin_halloween breast_rt3296 sbv-pt 定位测试",
+          "reason": "campaign_not_mapped_to_product_card",
+          "blocks": {},
+          "manualAdjustTheTime": "2025-10-13 11:12:36",
+          "updated": "2025-10-17 07:31:38"
+        },
+        {
+          "sku": "",
+          "campaignId": "550329303292989",
+          "adGroupId": "",
+          "name": "sbvkw_diy miniature fence_dea3176",
+          "reason": "campaign_not_mapped_to_product_card",
+          "blocks": {},
+          "manualAdjustTheTime": "2025-11-10 11:52:37",
+          "updated": "2026-04-01 15:07:28"
+        },
+        {
+          "sku": "",
+          "campaignId": "416802246177459",
+          "adGroupId": "",
+          "name": "baby shower games boy yan2284-sbv-s-old",
+          "reason": "campaign_not_mapped_to_product_card",
+          "blocks": {},
+          "manualAdjustTheTime": "2026-01-06 11:49:38",
+          "updated": "2026-04-01 15:06:54"
+        },
+        {
+          "sku": "",
+          "campaignId": "317702891314586",
+          "adGroupId": "",
+          "name": "inspirational pens-uan1379-sbv-s-new",
+          "reason": "campaign_not_mapped_to_product_card",
+          "blocks": {},
+          "manualAdjustTheTime": "2025-05-13 18:42:41",
+          "updated": "2025-05-14 07:34:50"
+        },
+        {
+          "sku": "",
+          "campaignId": "418201117048038",
+          "adGroupId": "",
+          "name": "sbvkw3_diy miniature fence_dea3172",
+          "reason": "campaign_not_mapped_to_product_card",
+          "blocks": {},
+          "manualAdjustTheTime": "2025-11-07 18:04:15",
+          "updated": "2026-04-01 15:06:55"
+        },
+        {
+          "sku": "",
+          "campaignId": "393114881238499",
+          "adGroupId": "",
+          "name": "sbv_avocadopen_weg0980",
+          "reason": "campaign_not_mapped_to_product_card",
+          "blocks": {},
+          "manualAdjustTheTime": "2025-03-26 18:52:10",
+          "updated": "2025-03-26 19:07:47"
+        }
+      ],
+      "active_sb_lower_entity_remaining_manual_review": [
+        {
+          "sku": "",
+          "campaignId": "335746998628707",
+          "adGroupId": "",
+          "name": "sbvkw_baby shower  berry sweet_boy3356",
+          "reason": "active_sb_lower_entity_remaining_manual_review",
+          "blocks": {
+            "lower_entity_not_enabled": 7,
+            "executable": 1
+          },
+          "manualAdjustTheTime": "2026-05-08 16:53:46",
+          "updated": "2026-05-08 16:53:46"
+        }
+      ]
+    }
+  }
+}

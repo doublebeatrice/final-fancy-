@@ -35,6 +35,12 @@ const timeContext = {
   assert.ok(seasonality.args[0].endsWith(path.join('scripts', 'execute', 'fetch_selection_keyword_seasonality.js')));
   assert.deepStrictEqual(seasonality.args.slice(1, 5), ['--search-terms', 'cowboy hat', '--u-time', '2026-04-30']);
 
+  const productTimeMachine = parseNpmRunCommand('npm run ops:selection:product-time-machine -- --search-keywords "cowboy hat"');
+  assert.strictEqual(productTimeMachine.ok, true);
+  assert.strictEqual(productTimeMachine.script, 'ops:selection:product-time-machine');
+  assert.ok(productTimeMachine.args[0].endsWith(path.join('scripts', 'execute', 'fetch_selection_product_time_machine.js')));
+  assert.deepStrictEqual(productTimeMachine.args.slice(1, 3), ['--search-keywords', 'cowboy hat']);
+
   const denied = parseNpmRunCommand('npm run ops:today -- --execute');
   assert.strictEqual(denied.ok, false);
   assert.ok(denied.reason.includes('not_allowlisted'));

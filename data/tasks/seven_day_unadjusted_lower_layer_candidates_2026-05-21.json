@@ -1,0 +1,378 @@
+{
+  "generatedAt": "2026-05-21T13:54:35.800Z",
+  "sourceSnapshot": "data/snapshots/latest_snapshot.json",
+  "businessDate": "2026-05-21",
+  "dataDate": "2026-05-20",
+  "totalActions": 12,
+  "byType": {
+    "sbKeyword": 10,
+    "autoTarget": 1,
+    "keyword": 1
+  },
+  "byReason": {
+    "sb_seven_day_no_order_waste": 10,
+    "seven_day_no_order_waste": 2
+  },
+  "candidates": [
+    {
+      "sku": "XIX2353",
+      "entityType": "sbKeyword",
+      "id": "54844648448860",
+      "currentBid": 0.3,
+      "suggestedBid": 0.27,
+      "reason": "sb_seven_day_no_order_waste",
+      "score": 211.8,
+      "campaignId": "83588397549815",
+      "adGroupId": "403326210426725",
+      "campaignName": "sbv kw broad_letter stencils_xix2353",
+      "groupName": "sbv kw broad_letter stencils_xix2353",
+      "label": "cute number stencils",
+      "s7": {
+        "spend": 4.3,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 15,
+        "impressions": 502,
+        "acos": 99
+      },
+      "s30": {
+        "spend": 9.94,
+        "orders": 2,
+        "sales": 55.97,
+        "clicks": 35,
+        "impressions": 2057,
+        "acos": 0.17759514025370735
+      }
+    },
+    {
+      "sku": "KEN1043",
+      "entityType": "autoTarget",
+      "id": "390752551563675",
+      "currentBid": 0.19,
+      "suggestedBid": 0.17,
+      "reason": "seven_day_no_order_waste",
+      "score": 211.66,
+      "campaignId": "355494122953639",
+      "adGroupId": "401562664913901",
+      "campaignName": "auto_40thbirthdaybags_ken1043",
+      "groupName": "auto_normal",
+      "label": "queryHighRelMatches",
+      "s7": {
+        "spend": 3.16,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 17,
+        "impressions": 540,
+        "acos": 99
+      },
+      "s30": {
+        "spend": 4.56,
+        "orders": 1,
+        "sales": 16.99,
+        "clicks": 25,
+        "impressions": 1186,
+        "acos": 0.26839317245438493
+      }
+    },
+    {
+      "sku": "XIX0903",
+      "entityType": "sbKeyword",
+      "id": "139817713231451",
+      "currentBid": 0.37,
+      "suggestedBid": 0.33,
+      "reason": "sb_seven_day_no_order_waste",
+      "score": 208.86,
+      "campaignId": "471599180932062",
+      "adGroupId": "449330019033297",
+      "campaignName": "sbv_letterstencils_xix0903",
+      "groupName": "sbv_letterstencils_xix0903",
+      "label": "stencils for painting",
+      "s7": {
+        "spend": 3.86,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 10,
+        "impressions": 1044,
+        "acos": 99
+      },
+      "s30": {
+        "spend": 9.13,
+        "orders": 4,
+        "sales": 82.96,
+        "clicks": 25,
+        "impressions": 2356,
+        "acos": 0.11005303760848603
+      }
+    },
+    {
+      "sku": "HL2535",
+      "entityType": "sbKeyword",
+      "id": "394426913348524",
+      "currentBid": 0.39,
+      "suggestedBid": 0.35,
+      "reason": "sb_seven_day_no_order_waste",
+      "score": 207.78,
+      "campaignId": "423590788469772",
+      "adGroupId": "301601828288181",
+      "campaignName": "sbv kw 2_spikes mat_hl2535",
+      "groupName": "spikes mat hl2535-sbv3",
+      "label": "cat deterrent mat for cats",
+      "s7": {
+        "spend": 3.28,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 9,
+        "impressions": 246,
+        "acos": 99
+      },
+      "s30": {
+        "spend": 7.62,
+        "orders": 1,
+        "sales": 24.95,
+        "clicks": 21,
+        "impressions": 802,
+        "acos": 0.3054108216432866
+      }
+    },
+    {
+      "sku": "XIX0903",
+      "entityType": "sbKeyword",
+      "id": "193749934436060",
+      "currentBid": 0.4,
+      "suggestedBid": 0.36,
+      "reason": "sb_seven_day_no_order_waste",
+      "score": 207.37,
+      "campaignId": "471599180932062",
+      "adGroupId": "449330019033297",
+      "campaignName": "sbv_letterstencils_xix0903",
+      "groupName": "sbv_letterstencils_xix0903",
+      "label": "letter templates",
+      "s7": {
+        "spend": 2.87,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 9,
+        "impressions": 549,
+        "acos": 99
+      },
+      "s30": {
+        "spend": 8.27,
+        "orders": 2,
+        "sales": 37.98,
+        "clicks": 24,
+        "impressions": 1390,
+        "acos": 0.21774618220115852
+      }
+    },
+    {
+      "sku": "DUN1391",
+      "entityType": "sbKeyword",
+      "id": "6112583397482",
+      "currentBid": 0.37,
+      "suggestedBid": 0.33,
+      "reason": "sb_seven_day_no_order_waste",
+      "score": 207.06,
+      "campaignId": "209927858454800",
+      "adGroupId": "538577544752442",
+      "campaignName": "sbkw_commercial food storage_dun1391 dun1394 dun1392",
+      "groupName": "kw_commercial food storage_dun1391 dun1394 dun1392",
+      "label": "food storage containers",
+      "s7": {
+        "spend": 3.06,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 8,
+        "impressions": 819,
+        "acos": 99
+      },
+      "s30": {
+        "spend": 3.06,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 8,
+        "impressions": 905,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "DUN1391",
+      "entityType": "sbKeyword",
+      "id": "51215172205436",
+      "currentBid": 0.32,
+      "suggestedBid": 0.29,
+      "reason": "sb_seven_day_no_order_waste",
+      "score": 206.95,
+      "campaignId": "209927858454800",
+      "adGroupId": "538577544752442",
+      "campaignName": "sbkw_commercial food storage_dun1391 dun1394 dun1392",
+      "groupName": "kw_commercial food storage_dun1391 dun1394 dun1392",
+      "label": "plastic food storage containers",
+      "s7": {
+        "spend": 2.95,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 8,
+        "impressions": 593,
+        "acos": 99
+      },
+      "s30": {
+        "spend": 3.35,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 9,
+        "impressions": 661,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "GT3815",
+      "entityType": "sbKeyword",
+      "id": "470276025574773",
+      "currentBid": 0.33,
+      "suggestedBid": 0.3,
+      "reason": "sb_seven_day_no_order_waste",
+      "score": 206.86,
+      "campaignId": "529056409771535",
+      "adGroupId": "454734486643446",
+      "campaignName": "pin me cheer ribbon-gt3815-sbv-s-new",
+      "groupName": "pin me cheer ribbon-gt3815-sbv-s-new",
+      "label": "memorial pins for funeral",
+      "s7": {
+        "spend": 2.86,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 8,
+        "impressions": 205,
+        "acos": 99
+      },
+      "s30": {
+        "spend": 9.56,
+        "orders": 2,
+        "sales": 37.97,
+        "clicks": 25,
+        "impressions": 1182,
+        "acos": 0.2517777192520411
+      }
+    },
+    {
+      "sku": "STA2604",
+      "entityType": "keyword",
+      "id": "98598547664428",
+      "currentBid": 0.35,
+      "suggestedBid": 0.32,
+      "reason": "seven_day_no_order_waste",
+      "score": 206.75,
+      "campaignId": "181275801650644",
+      "adGroupId": "17213326201266",
+      "campaignName": "kw broad_pastor gifts_sta2604",
+      "groupName": "kw broad_pastor gifts_sta2604",
+      "label": "christian gifts for men",
+      "s7": {
+        "spend": 2.75,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 8,
+        "impressions": 480,
+        "acos": 99
+      },
+      "s30": {
+        "spend": 3.38,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 10,
+        "impressions": 558,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "DN1655",
+      "entityType": "sbKeyword",
+      "id": "416576652920970",
+      "currentBid": 0.26,
+      "suggestedBid": 0.25,
+      "reason": "sb_seven_day_no_order_waste",
+      "score": 206.75,
+      "campaignId": "352172386118311",
+      "adGroupId": "302175967290275",
+      "campaignName": "sbv kw_galvanized flower bucket_dn1655",
+      "groupName": "galvanized flower bucket dn1655 SBV-S-NEW",
+      "label": "galvanized buckets for flowers",
+      "s7": {
+        "spend": 2.75,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 8,
+        "impressions": 604,
+        "acos": 99
+      },
+      "s30": {
+        "spend": 2.75,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 8,
+        "impressions": 604,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "XIX2353",
+      "entityType": "sbKeyword",
+      "id": "5060254331584",
+      "currentBid": 0.32,
+      "suggestedBid": 0.29,
+      "reason": "sb_seven_day_no_order_waste",
+      "score": 206.53,
+      "campaignId": "54095962121074",
+      "adGroupId": "551036711661677",
+      "campaignName": "sbkw broad_letter stencils_xix2353",
+      "groupName": "sbkw broad_letter stencils_xix2353",
+      "label": "metal letter stencils",
+      "s7": {
+        "spend": 2.53,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 8,
+        "impressions": 11921,
+        "acos": 99
+      },
+      "s30": {
+        "spend": 2.53,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 8,
+        "impressions": 11921,
+        "acos": 99
+      }
+    },
+    {
+      "sku": "DUN1128",
+      "entityType": "sbKeyword",
+      "id": "41825483464170",
+      "currentBid": 0.35,
+      "suggestedBid": 0.32,
+      "reason": "sb_seven_day_no_order_waste",
+      "score": 206.14,
+      "campaignId": "75290483351021",
+      "adGroupId": "455224521394646",
+      "campaignName": "sbvkw_baskets_dun1128",
+      "groupName": "sbvkw_baskets_dun1128",
+      "label": "bread basket with lid",
+      "s7": {
+        "spend": 2.64,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 7,
+        "impressions": 587,
+        "acos": 99
+      },
+      "s30": {
+        "spend": 2.99,
+        "orders": 0,
+        "sales": 0,
+        "clicks": 8,
+        "impressions": 684,
+        "acos": 99
+      }
+    }
+  ]
+}

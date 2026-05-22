@@ -1,0 +1,240 @@
+{
+  "date": "2026-05-22",
+  "generatedAt": "2026-05-22T10:38:59.233Z",
+  "adjustmentsFile": "D:\\ad-ops-workbench\\data\\adjustments\\adjustments_2026-05-22.json",
+  "summary": {
+    "liveRows": 39,
+    "latestRunId": "ops_2026-05-22T10-38-11-981Z",
+    "latestRunRows": 5,
+    "sameEntityMultiCount": 2,
+    "sameEntityReverseCount": 2,
+    "sameNameReverseDifferentEntityCount": 0,
+    "latestRunMixedSkuCount": 0,
+    "status": "blocked_conflict"
+  },
+  "sameEntityReverse": [
+    {
+      "key": "keyword|391719833749255",
+      "count": 4,
+      "sku": "KUR0501",
+      "entityType": "keyword",
+      "entityName": "kw_hippie flower car magnet_kur0501",
+      "entityIds": [
+        "391719833749255"
+      ],
+      "directions": [
+        "up",
+        "down"
+      ],
+      "sourceRunIds": [
+        "ops_2026-05-22T07-09-30-467Z",
+        "ops_2026-05-22T07-37-48-842Z",
+        "ops_2026-05-22T07-45-40-267Z",
+        "ops_2026-05-22T07-49-23-897Z"
+      ],
+      "rows": [
+        {
+          "sku": "KUR0501",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "391719833749255",
+          "entityName": "kw_hippie flower car magnet_kur0501",
+          "beforeValue": 0.16,
+          "afterValue": 0.18,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-22T07-09-30-467Z",
+          "runAt": "2026-05-22T07:09:30.467Z"
+        },
+        {
+          "sku": "KUR0501",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "391719833749255",
+          "entityName": "kw_hippie flower car magnet_kur0501",
+          "beforeValue": 0.18,
+          "afterValue": 0.16,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-22T07-37-48-842Z",
+          "runAt": "2026-05-22T07:37:48.842Z"
+        },
+        {
+          "sku": "KUR0501",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "391719833749255",
+          "entityName": "kw_hippie flower car magnet_kur0501",
+          "beforeValue": 0.16,
+          "afterValue": 0.18,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-22T07-45-40-267Z",
+          "runAt": "2026-05-22T07:45:40.267Z"
+        },
+        {
+          "sku": "KUR0501",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "391719833749255",
+          "entityName": "kw_hippie flower car magnet_kur0501",
+          "beforeValue": 0.18,
+          "afterValue": 0.2,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-22T07-49-23-897Z",
+          "runAt": "2026-05-22T07:49:23.897Z"
+        }
+      ]
+    },
+    {
+      "key": "autoTarget|376105176803937",
+      "count": 3,
+      "sku": "KUR0501",
+      "entityType": "autoTarget",
+      "entityName": "auto2_hippie flower car magnet_kur0501",
+      "entityIds": [
+        "376105176803937"
+      ],
+      "directions": [
+        "down",
+        "up"
+      ],
+      "sourceRunIds": [
+        "ops_2026-05-22T07-09-30-467Z",
+        "ops_2026-05-22T07-49-23-897Z",
+        "ops_2026-05-22T07-53-18-707Z"
+      ],
+      "rows": [
+        {
+          "sku": "KUR0501",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "376105176803937",
+          "entityName": "auto2_hippie flower car magnet_kur0501",
+          "beforeValue": 0.08,
+          "afterValue": 0.07,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-22T07-09-30-467Z",
+          "runAt": "2026-05-22T07:09:30.467Z"
+        },
+        {
+          "sku": "KUR0501",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "376105176803937",
+          "entityName": "auto2_hippie flower car magnet_kur0501",
+          "beforeValue": 0.07,
+          "afterValue": 0.1,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-22T07-49-23-897Z",
+          "runAt": "2026-05-22T07:49:23.897Z"
+        },
+        {
+          "sku": "KUR0501",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "376105176803937",
+          "entityName": "auto2_hippie flower car magnet_kur0501",
+          "beforeValue": 0.1,
+          "afterValue": 0.12,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-22T07-53-18-707Z",
+          "runAt": "2026-05-22T07:53:18.707Z"
+        }
+      ]
+    }
+  ],
+  "sameNameReverseDifferentEntity": [],
+  "latestRunBySku": [
+    {
+      "sku": "GUF3129",
+      "count": 3,
+      "up": 3,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "GUF3129",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "245118645017129",
+          "entityName": "patriotic bucket hat-guf3129-system-keyword",
+          "beforeValue": 0.45,
+          "afterValue": 0.52,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-22T10-38-11-981Z",
+          "runAt": "2026-05-22T10:38:11.981Z"
+        },
+        {
+          "sku": "GUF3129",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "161739157302110",
+          "entityName": "patriotic bucket hat-guf3129-system-keyword",
+          "beforeValue": 0.45,
+          "afterValue": 0.52,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-22T10-38-11-981Z",
+          "runAt": "2026-05-22T10:38:11.981Z"
+        },
+        {
+          "sku": "GUF3129",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "356333038583614",
+          "entityName": "patriotic bucket hat-guf3129-system-a",
+          "beforeValue": 0.38,
+          "afterValue": 0.44,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-22T10-38-11-981Z",
+          "runAt": "2026-05-22T10:38:11.981Z"
+        }
+      ]
+    },
+    {
+      "sku": "GUF3133",
+      "count": 2,
+      "up": 2,
+      "down": 0,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "GUF3133",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "276749269111606",
+          "entityName": "guf3133_patriotic_bucket_hat_broad_20260518",
+          "beforeValue": 0.48,
+          "afterValue": 0.55,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-22T10-38-11-981Z",
+          "runAt": "2026-05-22T10:38:11.981Z"
+        },
+        {
+          "sku": "GUF3133",
+          "actionType": "bid",
+          "entityType": "autoTarget",
+          "entityId": "371866248752899",
+          "entityName": "guf3133_patriotic_bucket_hat_auto_20260518",
+          "beforeValue": 0.29,
+          "afterValue": 0.34,
+          "direction": "up",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-22T10-38-11-981Z",
+          "runAt": "2026-05-22T10:38:11.981Z"
+        }
+      ]
+    }
+  ],
+  "decision": "Do not continue live writes until same entity reverse actions are explained."
+}

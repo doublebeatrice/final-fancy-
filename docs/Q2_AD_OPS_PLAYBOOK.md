@@ -135,6 +135,21 @@ Priority rule:
 
 This means a seasonal SKU with sufficient inventory and falling impressions/clicks may deserve a stronger push even if historical notes contain earlier downbid actions.
 
+## Window-Stage SKU Ad Scale Loop
+
+When a named SKU is in an active season, event, or traffic window and inventory/profit can carry demand, Codex should complete the traffic-building loop instead of returning isolated bid suggestions.
+
+1. Compare current vs prior evidence: business date, data date, sales/unit trend, impressions/clicks, ACOS, ad share, CPC, inventory days, profit room, refund pressure, and recent action history.
+2. Read the live structure: SKU summary, `/product/chart`, SKU ad-product breakdown, relevant ad-group rows, SP group detail, and customer-search terms. Treat auto/customer-search rows as discovery and manual SP/SB rows as controlled capture.
+3. Convert evidence into lanes:
+   - Core product and attribute terms go into exact first, then phrase or broad only when evidence supports wider capture.
+   - Event or seasonal terms should be isolated into their own SP exact, phrase, and broad lanes instead of being mixed into old core groups.
+   - Broad and generic event terms are allowed, but only in separate low-bid, small-budget exploration lanes with next-cycle search-term review.
+4. Add customer-search terms when the term is product-relevant: converting terms should be added or restored into manual exact, clicked relevant terms can be low-bid exact tests, and generic no-order terms should usually stay out unless the hypothesis explicitly needs exploration.
+5. Balance bids from evidence: raise true high-efficiency rows with recent orders, low ACOS, product relevance, and no same-day opposite adjustment; lower or hold cost-heavy rows; avoid same-day reversals unless new evidence justifies them.
+6. Add budget only to capped winners. If the campaign is not budget-capped, repair bid, match type, structure, or missing traffic capture before increasing budget.
+7. Finish with action schema or controlled append payload, dry-run where supported, execution, live landed-row refetch, and landed-action conflict audit. The handoff should list changed entities, evidence, artifact files, and the next checkpoint.
+
 Inventory:
 
 - Potential products should be discussed early for sea-shipping replenishment.

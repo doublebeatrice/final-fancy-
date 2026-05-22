@@ -1,0 +1,66 @@
+{
+  "date": "2026-05-22",
+  "generatedAt": "2026-05-22T03:16:45.501Z",
+  "status": "open",
+  "rawDir": "D:\\ad-ops-workbench\\黄成喆个人数据趋势\\原数据\\原日数据\\5-22",
+  "items": [
+    {
+      "missingClass": "sales_core_original_xlsx",
+      "issueTypes": [],
+      "suspiciousFiles": [],
+      "label": "Sales core raw export",
+      "expectedPattern": "table-export*.xlsx, same-date .xlsx, or seller_sales_core_*d_<date>.csv",
+      "state": "needs_redownload",
+      "candidate": null,
+      "nextAction": "redownload_same_date_original_file",
+      "operatorAction": "Download all selected rows from the sales core data page, or run the seller sales core API raw recovery.",
+      "completionCondition": "A valid matching original file exists in D:\\ad-ops-workbench\\黄成喆个人数据趋势\\原数据\\原日数据\\5-22 and ops:deposit:status no longer lists sales_core_original_xlsx as missing or suspicious."
+    },
+    {
+      "missingClass": "inventory_original_csv",
+      "issueTypes": [],
+      "suspiciousFiles": [],
+      "label": "Inventory original CSV",
+      "expectedPattern": "inv_auto_filtered_*.csv",
+      "state": "stale_candidate_review",
+      "candidate": {
+        "name": "inv_auto_filtered_2026-05-16-09-24-30.csv",
+        "file": "D:\\chrome dl\\inv_auto_filtered_2026-05-16-09-24-30.csv",
+        "candidateDate": "2026-05-16",
+        "ageDays": 6,
+        "sameDate": false,
+        "action": "reference_only_stale"
+      },
+      "nextAction": "review_stale_candidate_or_redownload_same_date_file",
+      "operatorAction": "Run the sellerinventory export bookmarklet or equivalent full inventory export.",
+      "completionCondition": "A valid matching original file exists in D:\\ad-ops-workbench\\黄成喆个人数据趋势\\原数据\\原日数据\\5-22 and ops:deposit:status no longer lists inventory_original_csv as missing or suspicious."
+    },
+    {
+      "missingClass": "ad_full_original_csv",
+      "issueTypes": [],
+      "suspiciousFiles": [],
+      "label": "Ad full export CSV",
+      "expectedPattern": "广告全盘导出_近30天_*.csv or ad_sku_summary_30d_*.csv",
+      "state": "stale_candidate_review",
+      "candidate": {
+        "name": "广告全盘导出_近30天_2026-05-16_17-26-21.csv",
+        "file": "D:\\chrome dl\\广告全盘导出_近30天_2026-05-16_17-26-21.csv",
+        "candidateDate": "2026-05-16",
+        "ageDays": 6,
+        "sameDate": false,
+        "action": "reference_only_stale"
+      },
+      "nextAction": "review_stale_candidate_or_redownload_same_date_file",
+      "operatorAction": "Run the ad SKU summary full export bookmarklet or equivalent 30-day ad export.",
+      "completionCondition": "A valid matching original file exists in D:\\ad-ops-workbench\\黄成喆个人数据趋势\\原数据\\原日数据\\5-22 and ops:deposit:status no longer lists ad_full_original_csv as missing or suspicious."
+    }
+  ],
+  "summary": {
+    "rawRecoveryItems": 3,
+    "missingRawOriginals": 3,
+    "suspiciousRawOriginals": 0,
+    "sameDateCandidates": 0,
+    "staleCandidates": 2,
+    "needsRedownload": 3
+  }
+}

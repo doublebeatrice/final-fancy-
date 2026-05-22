@@ -1,0 +1,86 @@
+[
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "operatorRequested": true,
+    "summary": "Developer request: KUR0501 has dropped sharply versus last year; protect currently converting magnet/car-decal traffic and lightly trim the historical auto substitute lane that has stopped converting.",
+    "actions": [
+      {
+        "id": "391719833749255",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.16,
+        "suggestedBid": 0.18,
+        "text": "magnetic car decals",
+        "campaignId": "506462874274728",
+        "adGroupId": "500182209065264",
+        "campaignName": "kw_hippie flower car magnet_kur0501",
+        "groupName": "kw_hippie flower car magnet_kur0501",
+        "reason": "Current 30d still converts: 10 clicks / 1 order / ACOS 17.6%; prior 30d also converted. Small bid lift restores proven car-decal traffic without budget-up.",
+        "evidence": [
+          "2026-04-22..2026-05-21 keyword magnetic car decals: clicks=10 orders=1 ACOS=0.1758",
+          "2026-03-23..2026-04-21 keyword magnetic car decals: clicks=9 orders=1 ACOS=0.2380",
+          "SKU 7d has 1 ad order at ACOS 12.7%, inventory and margin support controlled test"
+        ],
+        "confidence": 0.72,
+        "riskLevel": "traffic_recovery_small_bid",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "Recover a small amount of traffic on the only currently converting keyword lane while avoiding broad budget expansion.",
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions/clicks/order continuity",
+          "target": "more impressions on magnetic car decals while ACOS stays under 35%"
+        },
+        "reviewPlan": {
+          "1d": "verify bid landed and no abnormal spend spike",
+          "3d": "check clicks and CPC",
+          "7d": "keep if orders/ACOS hold, roll back if clicks spend without orders"
+        }
+      },
+      {
+        "id": "376105176803937",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.08,
+        "suggestedBid": 0.07,
+        "text": "asinSubstituteRelated",
+        "campaignId": "341283780324260",
+        "adGroupId": "430545249445395",
+        "campaignName": "auto2_hippie flower car magnet_kur0501",
+        "groupName": "auto2_hippie flower car magnet_kur0501",
+        "reason": "Historical auto substitute lane converted very well, but current 30d has 26 clicks / 0 orders after prior 49 clicks / 8 orders. Trim one cent to control drift while leaving discovery on.",
+        "evidence": [
+          "2026-04-22..2026-05-21 auto asinSubstituteRelated: clicks=26 orders=0 spend=3.02",
+          "2026-03-23..2026-04-21 same target: clicks=49 orders=8 ACOS=0.0664",
+          "Last updated 2026-05-21; using forceExecute only because this is a small reversible down-bid under a forwarded developer optimization request, not an automatic low-efficiency cycle"
+        ],
+        "confidence": 0.68,
+        "riskLevel": "controlled_efficiency_trim",
+        "forceExecute": true,
+        "forceReason": "Small reversible bid-down after current 30d 26 clicks/0 orders; protects spend while keeping historically proven auto lane enabled.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "Reduce wasted clicks from substitute traffic without shutting off a historically converting discovery lane.",
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "auto target spend and order recovery",
+          "target": "spend slows; if no orders continue, hold or trim again after observation"
+        },
+        "reviewPlan": {
+          "1d": "verify bid landed",
+          "3d": "watch spend/click quality",
+          "7d": "if still no order, consider further trim or query-level cleanup"
+        }
+      }
+    ]
+  }
+]

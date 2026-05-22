@@ -1,6 +1,6 @@
 # 广告运营工作台
 
-当前版本：v1.2.1（2026-05-21）
+当前版本：v1.2.2（2026-05-22）
 
 这是一个亚马逊广告 + 库存的日常运营工具集。流程分两层：**数据/执行**留给代码和浏览器扩展做（稳定、可重放），**策略决定**留给 AI 会话做（Codex CLI 或 Claude Code CLI，两者对等）。扩展面板和脚本里没有 AI，也不调任何模型 API。
 
@@ -96,6 +96,16 @@ npm run ops:selection:keyword-seasonality -- --search-terms "cowboy hat, hat org
 ```
 
 The report writes to `data/snapshots/selection_keyword_seasonality_<YYYY-MM-DD>.json` by default. See `docs/SELECTION_KEYWORD_SEASONALITY.md`.
+
+## Selection Product Time Machine
+
+Use the selection-system Product Time Machine to map a keyword to winning ASINs, bought-in-past-month, monthly bought history, organic rank history, natural/SP/SB/SBV/AC traffic word counts, organic flow share, AO value, and keyword history trend. In the network panel, `timemachine/pageQuery` is the useful main table; the nearby `sif/forward` request is the auxiliary SIF keyword history curve.
+
+```powershell
+npm run ops:selection:product-time-machine -- --search-keywords "cowboy hat, nurse gifts"
+```
+
+The report writes to `data/snapshots/selection_product_time_machine_<YYYY-MM-DD>.json` by default. It is read-only evidence and cannot directly create keywords, raise bids, raise budgets, or change listing/price/inventory. See `docs/SELECTION_PRODUCT_TIME_MACHINE.md`.
 
 ## Product Market Evidence Stack
 

@@ -85,6 +85,16 @@
   - `kw_may_xul2303` 7d = 1002 impressions, 12 clicks, spend 3.04, 1 order. The order came from `nurse week appreciation gift` with 207 impressions / 2 clicks / 1 order / spend 0.64, not from EMS or dispatcher wording.
   - EMS/first-responder terms are visible but have not lifted: `first responder appreciation gift` 61 impressions / 0 clicks, `first responders month gift` 31 impressions / 0 clicks. No explicit `EMS` or `EMS Week` keyword row is present.
   - `auto_911 dispatcher_xul2303` 7d = 609 impressions, 11 clicks, spend 1.58, 0 orders. Dispatcher auto exposure is slightly higher than the prior comparable window, but it has not converted.
+- 2026-05-22 10:00 check:
+  - Ran `npm run chrome:ready`; adv, sellerinventory, and selection sessions all returned ready.
+  - Sellerinventory application `4461056` has moved forward: `status=100`, `backstage_status=1`, copywriting checker `张婷婷`, `backstage_time=2026-05-21`, `updated_at=2026-05-21 18:41:13`.
+  - Sellerinventory origin title still remains the old Nurse Week / Teacher Week / First Responders Month title with `updated_at=2026-05-15 15:26:29`.
+  - Public Amazon title checked through Chrome DevTools still remains: `Sherr 8 Pcs Funny Dumpster Fire Response Team Desk Gift for Nurse Week, Teacher Week, First Responders Month, with Wooden Pencil Holder, A6 Notebook, Sticky Notes Pad and 5 Ballpoint Pens`. The repaired `EMS First Responder 911 Dispatcher` title is not visible yet.
+  - The Amazon scrape helper failed with local browser connection refused, so the front-end conclusion uses the live Chrome DevTools page read, not the failed helper.
+  - Refreshed ad data through 2026-05-21: SKU 7d = 1490 impressions, 21 clicks, spend 4.04, 1 order, sales 17.99, ACOS 22.46%; 30d = 16014 impressions, 247 clicks, spend 57.93, 10 orders, sales 157.89, ACOS 36.69%.
+  - `kw_may_xul2303` 7d = 884 impressions, 10 clicks, spend 2.46, 1 order. The order is still from `nurse week appreciation gift` with 216 impressions / 2 clicks / 1 order / spend 0.64.
+  - EMS/first-responder terms are visible but still not lifting: `first responder appreciation gift` 59 impressions / 0 clicks, `first responders month gift` 21 impressions / 0 clicks. No explicit `EMS` keyword row is present.
+  - `auto_911 dispatcher_xul2303` 7d = 606 impressions, 11 clicks, spend 1.58, 0 orders. Dispatcher auto exposure is up versus the previous comparable 450 impressions / 9 clicks window, but still no order.
 
 ## Reply Draft
 

@@ -1,0 +1,57 @@
+[
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "operatorRequested": true,
+    "summary": "New-traffic discovery correction for YoY decline: create a capped PHRASE test from historically converting flower/car-magnet direction plus adjacent fridge/70s party scenes; do not raise old keyword bid.",
+    "actions": [
+      {
+        "actionType": "create",
+        "mode": "keywordTarget",
+        "matchType": "PHRASE",
+        "coreTerm": "flower magnets",
+        "keywords": [
+          "flower car magnets",
+          "flower fridge magnets",
+          "refrigerator flower magnets",
+          "flower magnets",
+          "70s party decorations"
+        ],
+        "dailyBudget": 1,
+        "defaultBid": 0.12,
+        "entityType": "skuCandidate",
+        "id": "create::KUR0501::phrase_flower_magnets_newtraffic_2026-05-22",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "riskLevel": "low_budget_create",
+        "confidence": 0.73,
+        "forceExecute": true,
+        "forceReason": "Operator correction requires new-flow discovery; test is capped at $1/day and $0.12 phrase bid, using read-only selection evidence and SKU fit.",
+        "reason": "KUR0501 YoY decline is not solved by lifting an old keyword. Build a capped PHRASE discovery lane from direct flower-car-magnet demand, rising flower/fridge magnet signals, and one 70s party-scene bridge that the listing can carry.",
+        "evidence": [
+          "Existing KUR0501 broad keyword lane has only matchType=3/BROAD; no PHRASE lane in snapshot, so this is not duplicate broad scaling.",
+          "Rollback completed first: magnetic car decals bid restored from 0.18 to 0.16 after operator correction.",
+          "ABA 2026-04-30: flower car magnets searchVolume=2222, estimatedOrders=820, low demand/high competition; use only capped low-bid test.",
+          "ABA 2026-04-30: 70s party decorations has conversion economics row with searchVolume=2347, purchaseVolume=35, clickPurchaseRatio=6.62%; use as scene bridge, not main scale.",
+          "Product Time Machine: flower magnets latestSearchVolume=1131 rising/improving; flower fridge magnets latestSearchVolume=323 rising/improving.",
+          "Front search: direct competitors repeatedly include car/home/door/fridge/refrigerator flower magnets, matching our pack/use case."
+        ],
+        "hypothesis": "A low-cost phrase lane can expose new adjacent buyer searches without turning broad car-decal traffic into uncontrolled spend.",
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "new phrase impressions, CTR, CPC, first-order signal",
+          "target": "get measurable impressions/clicks from adjacent magnet/70s scene terms while daily spend remains capped"
+        },
+        "reviewPlan": {
+          "1d": "verify campaign/ad group/keywords landed and spend cap is respected",
+          "3d": "keep only terms with impressions and acceptable CPC/CTR; pause if irrelevant clicks appear",
+          "7d": "continue or split winners only if orders or strong search-term relevance appear"
+        }
+      }
+    ]
+  }
+]

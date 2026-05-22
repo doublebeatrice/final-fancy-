@@ -1,0 +1,2119 @@
+{
+  "generatedAt": "2026-05-21T15:33:04.566Z",
+  "businessDate": "2026-05-21",
+  "dataDate": "2026-05-20",
+  "sources": {
+    "finalPool": "data/snapshots/seven_day_untouched_live_final_2026-05-21.json",
+    "snapshot": "data/snapshots/latest_snapshot.json"
+  },
+  "counts": {
+    "initialAfterFirstWave": {
+      "sp": 525,
+      "sb": 624
+    },
+    "afterWave2": {
+      "sp": 80,
+      "sb": 624
+    },
+    "final": {
+      "sp": 72,
+      "sb": 624
+    }
+  },
+  "executed": {
+    "wave2": {
+      "actions": 598,
+      "manualReview": 19
+    },
+    "wave3": {
+      "actions": 10,
+      "manualReview": 19
+    },
+    "totalAdditionalLanded": 608
+  },
+  "residualSummary": {
+    "sp": {
+      "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today": 30,
+      "no_lower_entity_mapped": 12,
+      "sku_out_of_allowed_operation_scope": 9,
+      "active_lower_entity_remaining_but_not_executed": 19,
+      "candidate_already_adjusted_today": 2
+    },
+    "sb": {
+      "campaign_already_adjusted_today_but_still_in_sb_campaign_pool": 218,
+      "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows": 350,
+      "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today": 48,
+      "sb_campaign_level_pool_not_cleared_by_lower_layer_touch": 8
+    }
+  },
+  "spResidual": [
+    {
+      "sku": "AE3311",
+      "campaignId": "246573025792858",
+      "adGroupId": "260179139983869",
+      "campaignName": "kw_godmother mothers day broad ae3311_ae3311",
+      "manualAdjustTheTime": "2026-05-13 11:37:01",
+      "lastAdvUpdatedDate": "2026-05-13 11:37:01",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "GM2627",
+      "campaignId": "17526069772439",
+      "adGroupId": "126506246041421",
+      "campaignName": "kw broad_christian mothers day gifts_gm2627",
+      "manualAdjustTheTime": "2026-05-13 11:37:01",
+      "lastAdvUpdatedDate": "2026-05-13 11:37:01",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "AE3311",
+      "campaignId": "358373926726375",
+      "adGroupId": "342732778566927",
+      "campaignName": "god mother gifts for women-ae3311-system-keyword",
+      "manualAdjustTheTime": "2026-05-13 11:37:02",
+      "lastAdvUpdatedDate": "2026-05-13 11:37:01",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "GM4172",
+      "campaignId": "2338349789249",
+      "adGroupId": "71774298586643",
+      "campaignName": "kw broad_christian mothers day gifts_gm4172",
+      "manualAdjustTheTime": "2026-05-13 11:37:01",
+      "lastAdvUpdatedDate": "2026-05-13 11:37:01",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "YUN2188",
+      "campaignId": "329219452662972",
+      "adGroupId": "459698382526556",
+      "campaignName": "auto_christian tumblers_yun2188",
+      "manualAdjustTheTime": "2026-05-09 10:47:00",
+      "lastAdvUpdatedDate": "2026-05-08 11:36:36",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "YUN2187",
+      "campaignId": "397757748648532",
+      "adGroupId": "358941348577083",
+      "campaignName": "kw2_christian tumblers_yun2188",
+      "manualAdjustTheTime": "2026-05-13 11:37:01",
+      "lastAdvUpdatedDate": "2026-05-13 11:37:01",
+      "reason": "no_lower_entity_mapped"
+    },
+    {
+      "sku": "LED3942",
+      "campaignId": "18269913988943",
+      "adGroupId": "457295095159757",
+      "campaignName": "auto_teacher pens bulk_led3942",
+      "manualAdjustTheTime": "2026-05-09 10:38:14",
+      "lastAdvUpdatedDate": "2026-05-02 08:21:54",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "GM2389",
+      "campaignId": "39639594619841",
+      "adGroupId": "9564271048403",
+      "campaignName": "kw broad_christian mothers day gifts_gm2389",
+      "manualAdjustTheTime": "2026-05-13 11:37:01",
+      "lastAdvUpdatedDate": "2026-05-13 11:37:01",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "AE3311",
+      "campaignId": "56780359678706",
+      "adGroupId": "253600925674805",
+      "campaignName": "kw_godmother mothers day exact ae3311_ae3311",
+      "manualAdjustTheTime": "2026-05-13 11:37:02",
+      "lastAdvUpdatedDate": "2026-05-13 11:37:01",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "GM2634",
+      "campaignId": "146020838163325",
+      "adGroupId": "269206603169762",
+      "campaignName": "kw broad_christian mothers day gifts_gm2634",
+      "manualAdjustTheTime": "2026-05-13 11:37:01",
+      "lastAdvUpdatedDate": "2026-05-13 11:37:01",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "XUE2224",
+      "campaignId": "99005602260307",
+      "adGroupId": "503412079063966",
+      "campaignName": "auto_hanging metal basket_xue2224",
+      "manualAdjustTheTime": "2026-05-09 14:59:30",
+      "lastAdvUpdatedDate": "2026-05-09 14:59:30",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "MH2355",
+      "campaignId": "134905321029891",
+      "adGroupId": "161166079535289",
+      "campaignName": "kw broad_nurse ornaments_mh2355",
+      "manualAdjustTheTime": "2026-05-08 21:19:03",
+      "lastAdvUpdatedDate": "2026-05-08 21:19:05",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "sku": "GM2634",
+      "campaignId": "177638976412925",
+      "adGroupId": "182508229382597",
+      "campaignName": "kw_q2 profit gm2634 phrase_gm2634",
+      "manualAdjustTheTime": "2026-05-13 11:37:02",
+      "lastAdvUpdatedDate": "2026-05-13 11:37:01",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "HU3765",
+      "campaignId": "393960756213298",
+      "adGroupId": "511191879627779",
+      "campaignName": "auto_halloween apothecary stickers_hu3765",
+      "manualAdjustTheTime": "2026-05-09 11:03:19",
+      "lastAdvUpdatedDate": "2026-04-27 20:50:53",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "YAN3187",
+      "campaignId": "537008566483065",
+      "adGroupId": "360270572294396",
+      "campaignName": "auto_wizard disposable cups_yan3187",
+      "manualAdjustTheTime": "2026-05-03 09:39:40",
+      "lastAdvUpdatedDate": "2026-05-03 09:39:39",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "YCL1247",
+      "campaignId": "466231490023006",
+      "adGroupId": "360680075571168",
+      "campaignName": "blue floral picks ycl1247-pt",
+      "manualAdjustTheTime": "2026-05-08 16:48:58",
+      "lastAdvUpdatedDate": "2026-05-08 16:48:58",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "MH2711",
+      "campaignId": "145654887787227",
+      "adGroupId": "261541418920261",
+      "campaignName": "kw broad_nurse ornaments_mh2711",
+      "manualAdjustTheTime": "2026-05-08 21:19:07",
+      "lastAdvUpdatedDate": "2026-05-08 21:19:09",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "sku": "KZ6722",
+      "campaignId": "122742289179190",
+      "adGroupId": "347608865738091",
+      "campaignName": "auto_vip decor_kz6722",
+      "manualAdjustTheTime": "2026-05-21 23:21:57",
+      "lastAdvUpdatedDate": "2026-05-12 14:26:46",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "sku": "WAR1276",
+      "campaignId": "426417782044372",
+      "adGroupId": "436351991429738",
+      "campaignName": "asin_rainbow party-war1276",
+      "manualAdjustTheTime": "2026-05-14 15:33:16",
+      "lastAdvUpdatedDate": "2026-05-07 19:17:11",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "OCE2575",
+      "campaignId": "113716731088153",
+      "adGroupId": "547976461346992",
+      "campaignName": "auto b2b _teacher appreciation gifts bulk_oce2575",
+      "manualAdjustTheTime": "2026-05-07 19:54:20",
+      "lastAdvUpdatedDate": "2026-05-07 19:54:22",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "GM2634",
+      "campaignId": "72240446388650",
+      "adGroupId": "68160850849738",
+      "campaignName": "kw_q2 profit gm2634 broad_gm2634",
+      "manualAdjustTheTime": "2026-05-13 11:37:02",
+      "lastAdvUpdatedDate": "2026-05-13 11:37:01",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "GM2628",
+      "campaignId": "267849836590040",
+      "adGroupId": "46830233328695",
+      "campaignName": "kw_b2b_christian gifts for women_GM2628",
+      "manualAdjustTheTime": "2026-05-13 11:37:02",
+      "lastAdvUpdatedDate": "2026-05-13 11:37:01",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "MH2355",
+      "campaignId": "273553038706059",
+      "adGroupId": "212619884366843",
+      "campaignName": "asin expand_nurse ornaments_mh2355",
+      "manualAdjustTheTime": "2026-05-08 21:19:03",
+      "lastAdvUpdatedDate": "2026-05-08 21:19:05",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "sku": "MH0525",
+      "campaignId": "556090361754544",
+      "adGroupId": "409870229214968",
+      "campaignName": "kw_ dessert cups_mh0525",
+      "manualAdjustTheTime": "2026-05-12 21:25:00",
+      "lastAdvUpdatedDate": "2026-05-12 21:24:59",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "sku": "MH2711",
+      "campaignId": "100424516131543",
+      "adGroupId": "220330797105458",
+      "campaignName": "asin expand_nurse ornaments_mh2711",
+      "manualAdjustTheTime": "2026-05-08 21:19:07",
+      "lastAdvUpdatedDate": "2026-05-08 21:19:09",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "sku": "YUN2187",
+      "campaignId": "130646127928910",
+      "adGroupId": "116041769022289",
+      "campaignName": "asin expanded_mothers day gifts bulk cups_yun2187",
+      "manualAdjustTheTime": "2026-05-07 20:40:46",
+      "lastAdvUpdatedDate": "2026-05-07 20:40:48",
+      "reason": "no_lower_entity_mapped"
+    },
+    {
+      "sku": "GM3065",
+      "campaignId": "394294629665777",
+      "adGroupId": "355370441646960",
+      "campaignName": "asin_dentist appreciation gifts _gm3065",
+      "manualAdjustTheTime": "2026-05-08 16:54:55",
+      "lastAdvUpdatedDate": "2026-05-08 16:54:54",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "HOD0826",
+      "campaignId": "96337612660572",
+      "adGroupId": "208378188514055",
+      "campaignName": "auto_ wall painting_hod0826",
+      "manualAdjustTheTime": "2026-04-27 17:45:42",
+      "lastAdvUpdatedDate": "2026-04-27 17:45:42",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "SHQ3834",
+      "campaignId": "271702344459048",
+      "adGroupId": "17924166393539",
+      "campaignName": "asin broad_baby shower_shq3834",
+      "manualAdjustTheTime": "2026-05-12 21:04:57",
+      "lastAdvUpdatedDate": "2026-05-12 21:04:57",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "TH2618",
+      "campaignId": "110050796718075",
+      "adGroupId": "137787230247251",
+      "campaignName": "silicone cable ties th2619-system-a",
+      "manualAdjustTheTime": "2026-05-11 11:39:17",
+      "lastAdvUpdatedDate": "2026-05-07 09:42:46",
+      "reason": "no_lower_entity_mapped"
+    },
+    {
+      "sku": "TH3004",
+      "campaignId": "49600854850019",
+      "adGroupId": "561407588302006",
+      "campaignName": "silicone cable ties-th2869-system-keyword-phrase",
+      "manualAdjustTheTime": "2026-05-04 16:22:20",
+      "lastAdvUpdatedDate": "2026-04-22 04:53:46",
+      "reason": "no_lower_entity_mapped"
+    },
+    {
+      "sku": "AE2140",
+      "campaignId": "136854064413821",
+      "adGroupId": "292416752948303",
+      "campaignName": "auto_amazon business_ae2140",
+      "manualAdjustTheTime": "2026-04-24 16:20:30",
+      "lastAdvUpdatedDate": "2026-04-27 08:16:07",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "SAN0148",
+      "campaignId": "120249868549726",
+      "adGroupId": "370846357268705",
+      "campaignName": "kw exact_1920s accessories_san0148",
+      "manualAdjustTheTime": "2026-04-30 17:18:27",
+      "lastAdvUpdatedDate": "2026-04-30 17:18:26",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "LED3942",
+      "campaignId": "401340971779546",
+      "adGroupId": "356378646917326",
+      "campaignName": "auto2_appreciationballpoint_led3942",
+      "manualAdjustTheTime": "2026-04-21 21:13:59",
+      "lastAdvUpdatedDate": "2026-04-21 21:13:59",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "SE6685",
+      "campaignId": "385459720565540",
+      "adGroupId": "522749230461154",
+      "campaignName": "asin_bear clothes basic_se6685",
+      "manualAdjustTheTime": "2026-05-09 10:01:04",
+      "lastAdvUpdatedDate": "2026-05-07 19:11:53",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "SE5942",
+      "campaignId": "296956790860793",
+      "adGroupId": "297336627448295",
+      "campaignName": "asin_bear shirts_se5942",
+      "manualAdjustTheTime": "2026-05-09 11:03:26",
+      "lastAdvUpdatedDate": "2026-04-21 20:59:32",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "MH2711",
+      "campaignId": "21027050999351",
+      "adGroupId": "321568252024009",
+      "campaignName": "b2b auto_nurse ornaments_mh2711",
+      "manualAdjustTheTime": "2026-05-08 21:19:09",
+      "lastAdvUpdatedDate": "2026-05-08 21:19:10",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "sku": "GM4172",
+      "campaignId": "33836474376684",
+      "adGroupId": "297235897770002",
+      "campaignName": "auto_b2b_GM4172",
+      "manualAdjustTheTime": "2026-05-07 20:21:05",
+      "lastAdvUpdatedDate": "2026-05-07 20:21:07",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "GM4172",
+      "campaignId": "74976615092186",
+      "adGroupId": "13555196720495",
+      "campaignName": "kw_b2b_christian gifts for women_GM4172",
+      "manualAdjustTheTime": "2026-05-13 11:37:02",
+      "lastAdvUpdatedDate": "2026-05-13 11:37:01",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "QUN5204",
+      "campaignId": "84406849824880",
+      "adGroupId": "1782830098766",
+      "campaignName": "asin expanded_bouquet sash_qun5204",
+      "manualAdjustTheTime": "2026-05-08 19:41:32",
+      "lastAdvUpdatedDate": "2026-05-08 19:41:34",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "TH2869",
+      "campaignId": "160311939705795",
+      "adGroupId": "110619452812964",
+      "campaignName": "asin expanded_wire ties for cords_th2869",
+      "manualAdjustTheTime": "2026-05-08 16:54:53",
+      "lastAdvUpdatedDate": "2026-05-08 16:54:53",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "GT3814",
+      "campaignId": "309692455945018",
+      "adGroupId": "410477281691479",
+      "campaignName": "pt_redcheer ribbon_gt3814",
+      "manualAdjustTheTime": "2026-05-03 09:41:49",
+      "lastAdvUpdatedDate": "2026-05-03 09:41:49",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "MH2355",
+      "campaignId": "153448710889602",
+      "adGroupId": "491448966434733",
+      "campaignName": "b2b auto_nurse ornaments_mh2355",
+      "manualAdjustTheTime": "2026-05-08 21:19:03",
+      "lastAdvUpdatedDate": "2026-05-08 21:19:05",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "sku": "HEL0319",
+      "campaignId": "148350285929042",
+      "adGroupId": "138542906154399",
+      "campaignName": "b2b kw broad_nurse appreciation gifts bulk_hel0319",
+      "manualAdjustTheTime": "2026-05-08 20:50:11",
+      "lastAdvUpdatedDate": "2026-05-08 20:50:13",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "MH2711",
+      "campaignId": "88122892637100",
+      "adGroupId": "47447910538110",
+      "campaignName": "b2b kw broad_nurse ornaments_mh2711",
+      "manualAdjustTheTime": "2026-05-08 21:19:07",
+      "lastAdvUpdatedDate": "2026-05-08 21:19:09",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "sku": "YMF1073",
+      "campaignId": "532866261322279",
+      "adGroupId": "520192474138518",
+      "campaignName": "auto_baby shower packet favors_ymf1073",
+      "manualAdjustTheTime": "2026-05-21 23:23:16",
+      "lastAdvUpdatedDate": "2026-05-08 16:54:16",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "sku": "TH2869",
+      "campaignId": "77740454083379",
+      "adGroupId": "2013483842500",
+      "campaignName": "kw broad_wire ties for cords_th2869",
+      "manualAdjustTheTime": "2026-05-08 16:53:27",
+      "lastAdvUpdatedDate": "2026-05-08 16:53:27",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "QUN5204",
+      "campaignId": "89886981119192",
+      "adGroupId": "314074207289646",
+      "campaignName": "20260508-qun5204-system-a",
+      "manualAdjustTheTime": "",
+      "lastAdvUpdatedDate": "2026-05-08 08:36:01",
+      "reason": "active_lower_entity_remaining_but_not_executed"
+    },
+    {
+      "sku": "TH3004",
+      "campaignId": "404602503834036",
+      "adGroupId": "316925397433659",
+      "campaignName": "cable organizer straps th2527-system-exact",
+      "manualAdjustTheTime": "2026-04-13 18:39:47",
+      "lastAdvUpdatedDate": "2026-04-13 18:39:47",
+      "reason": "no_lower_entity_mapped"
+    },
+    {
+      "sku": "QA3169",
+      "campaignId": "167230243802278",
+      "adGroupId": "55646825436167",
+      "campaignName": "asin expanded_softball senior night gifts_qa3169",
+      "manualAdjustTheTime": "2026-04-23 20:18:20",
+      "lastAdvUpdatedDate": "2026-04-23 20:18:19",
+      "reason": "no_lower_entity_mapped"
+    },
+    {
+      "sku": "FLO2960",
+      "campaignId": "519944493621396",
+      "adGroupId": "355231142139784",
+      "campaignName": "kw_round plastic bucket_flo2960",
+      "manualAdjustTheTime": "2026-04-27 17:52:37",
+      "lastAdvUpdatedDate": "2026-04-27 17:52:37",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "HOD0826",
+      "campaignId": "286344769777175",
+      "adGroupId": "457729444629575",
+      "campaignName": "asin_ wall painting_hod0826",
+      "manualAdjustTheTime": "2026-04-27 17:45:40",
+      "lastAdvUpdatedDate": "2026-04-27 17:45:40",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "GOO1089",
+      "campaignId": "530489174613980",
+      "adGroupId": "428883741982617",
+      "campaignName": "candle glass jars-goo1089-system-a",
+      "manualAdjustTheTime": "2026-04-27 17:51:31",
+      "lastAdvUpdatedDate": "2026-04-27 17:51:31",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "ZO0891",
+      "campaignId": "5704107592430",
+      "adGroupId": "201388614890549",
+      "campaignName": "asin exact_christian mothers day gifts_zo0891",
+      "manualAdjustTheTime": "2026-05-07 20:38:33",
+      "lastAdvUpdatedDate": "2026-05-07 20:38:32",
+      "reason": "no_lower_entity_mapped"
+    },
+    {
+      "sku": "TH3004",
+      "campaignId": "212255601735958",
+      "adGroupId": "315610411790568",
+      "campaignName": "silicone cable ties-th2869-system-keyword-exact",
+      "manualAdjustTheTime": "2026-05-04 16:22:20",
+      "lastAdvUpdatedDate": "2026-04-22 04:53:49",
+      "reason": "no_lower_entity_mapped"
+    },
+    {
+      "sku": "MF6292",
+      "campaignId": "160379676127887",
+      "adGroupId": "67811823614515",
+      "campaignName": "asin expanded_inflatable number pool float_mf6292",
+      "manualAdjustTheTime": "2026-05-06 20:11:00",
+      "lastAdvUpdatedDate": "2026-05-06 20:11:00",
+      "reason": "no_lower_entity_mapped"
+    },
+    {
+      "sku": "GOO1089",
+      "campaignId": "370905788917796",
+      "adGroupId": "387958929748313",
+      "campaignName": "candle glass jars-goo1089-system-keyword",
+      "manualAdjustTheTime": "2026-04-27 17:51:32",
+      "lastAdvUpdatedDate": "2026-04-27 17:51:32",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "YAN2281",
+      "campaignId": "419654119330116",
+      "adGroupId": "361063304587266",
+      "campaignName": "auto_tie your shoe_yan2281",
+      "manualAdjustTheTime": "2026-04-21 20:46:07",
+      "lastAdvUpdatedDate": "2026-04-21 20:46:07",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "DEA0023",
+      "campaignId": "366390029202845",
+      "adGroupId": "537943522343784",
+      "campaignName": "auto_honeycomb_dea0023",
+      "manualAdjustTheTime": "2026-04-20 21:53:10",
+      "lastAdvUpdatedDate": "2026-04-20 21:53:10",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "YAN3832",
+      "campaignId": "504108106331388",
+      "adGroupId": "369187031295784",
+      "campaignName": "auto_brown tie your shoe_yan3832",
+      "manualAdjustTheTime": "2026-04-21 17:32:19",
+      "lastAdvUpdatedDate": "2026-04-21 17:32:18",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "XIA1681",
+      "campaignId": "550810753439714",
+      "adGroupId": "407297923310868",
+      "campaignName": "kw_ elephant charm _xia1681",
+      "manualAdjustTheTime": "2026-04-15 15:02:04",
+      "lastAdvUpdatedDate": "2026-04-15 15:02:04",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "MF3043",
+      "campaignId": "295733559169169",
+      "adGroupId": "376467065984378",
+      "campaignName": "kw_wedding guest book_mf3043",
+      "manualAdjustTheTime": "2026-04-27 17:53:21",
+      "lastAdvUpdatedDate": "2026-04-27 17:53:21",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "TH3004",
+      "campaignId": "408567400420124",
+      "adGroupId": "465226353131609",
+      "campaignName": "cable organizer straps th2527-system-phrase",
+      "manualAdjustTheTime": "2026-04-20 19:27:03",
+      "lastAdvUpdatedDate": "2026-04-20 19:27:03",
+      "reason": "no_lower_entity_mapped"
+    },
+    {
+      "sku": "OYH0784",
+      "campaignId": "345473519149110",
+      "adGroupId": "504750958858228",
+      "campaignName": "asin_bridalcork_oyh0784",
+      "manualAdjustTheTime": "2026-04-22 19:34:33",
+      "lastAdvUpdatedDate": "2026-04-22 19:34:33",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "ZO0892",
+      "campaignId": "33817926440059",
+      "adGroupId": "139473121327195",
+      "campaignName": "asin exact_christian mothers day gifts_zo0892",
+      "manualAdjustTheTime": "2026-05-07 20:38:31",
+      "lastAdvUpdatedDate": "2026-05-07 20:38:30",
+      "reason": "no_lower_entity_mapped"
+    },
+    {
+      "sku": "DN2108",
+      "campaignId": "373562347474207",
+      "adGroupId": "505818097283009",
+      "campaignName": "galvanized flower bucket dn2108-category",
+      "manualAdjustTheTime": "2026-04-24 20:02:07",
+      "lastAdvUpdatedDate": "2026-04-24 20:02:07",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "DUN1393",
+      "campaignId": "501635313578047",
+      "adGroupId": "557349260062944",
+      "campaignName": "food storage buckets with lids-dun1393-system-a",
+      "manualAdjustTheTime": "2026-04-27 17:48:48",
+      "lastAdvUpdatedDate": "2026-04-27 17:48:48",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "QA3278",
+      "campaignId": "545117737727383",
+      "adGroupId": "445493123076069",
+      "campaignName": "wedding signs-qa3278-system-keyword",
+      "manualAdjustTheTime": "2026-05-19 20:41:52",
+      "lastAdvUpdatedDate": "2026-04-28 20:29:18",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "SHU2552",
+      "campaignId": "528171400410093",
+      "adGroupId": "454829136069915",
+      "campaignName": "bridesmaid gifts shu2552",
+      "manualAdjustTheTime": "2026-04-29 20:29:47",
+      "lastAdvUpdatedDate": "2026-04-29 20:29:47",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "FE3232",
+      "campaignId": "417131207068454",
+      "adGroupId": "454811766878116",
+      "campaignName": "auto_christian gift set_fe3235",
+      "manualAdjustTheTime": "2026-05-08 20:04:03",
+      "lastAdvUpdatedDate": "2026-05-08 20:04:03",
+      "reason": "no_lower_entity_mapped"
+    },
+    {
+      "sku": "YCL1247",
+      "campaignId": "446797741497276",
+      "adGroupId": "468284836285181",
+      "campaignName": "auto_blcrysspray_ycl1247",
+      "manualAdjustTheTime": "2026-04-27 17:50:21",
+      "lastAdvUpdatedDate": "2026-04-27 17:50:21",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "sku": "MH2355",
+      "campaignId": "54249806344527",
+      "adGroupId": "245499636855223",
+      "campaignName": "b2b kw broad_nurse ornaments_mh2355",
+      "manualAdjustTheTime": "2026-05-08 21:19:03",
+      "lastAdvUpdatedDate": "2026-05-08 21:19:05",
+      "reason": "sku_out_of_allowed_operation_scope"
+    }
+  ],
+  "sbResidualSample": [
+    {
+      "campaignId": "249590599435576",
+      "name": "sbv kw broad_small jewelry tray_sc3077",
+      "manualAdjustTheTime": "2026-05-21 23:20:02",
+      "updated_at": "2026-05-21 23:20:02",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "413551916830566",
+      "name": "sbvkw_galvanized flower bucket_dn2683",
+      "manualAdjustTheTime": "2026-05-21 23:20:00",
+      "updated_at": "2026-05-21 23:20:00",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "83588397549815",
+      "name": "sbv kw broad_letter stencils_xix2353",
+      "manualAdjustTheTime": "2026-05-21 21:56:25",
+      "updated_at": "2026-05-21 21:56:25",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "530528828666466",
+      "name": "duck tags tin0401 SBV-S-NEW",
+      "manualAdjustTheTime": "2026-04-27 20:48:16",
+      "updated_at": "2026-05-03 15:34:24",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "430234151739525",
+      "name": "sb _galvanized flower bucket_dn1655 dn2683 dn2684",
+      "manualAdjustTheTime": "2026-05-21 08:50:16",
+      "updated_at": "2026-05-21 08:50:16",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "458731213109360",
+      "name": "cruise ship ducks-hay0219 sbv-s-new",
+      "manualAdjustTheTime": "2026-05-21 23:20:36",
+      "updated_at": "2026-05-21 23:20:36",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "43286630938837",
+      "name": "sbv kw_spikes mat_hl2535 hl4004 hl4017",
+      "manualAdjustTheTime": "2026-05-21 23:20:01",
+      "updated_at": "2026-05-21 23:20:01",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "457262681580195",
+      "name": "duck tags for cruise ducking-tin2239-sbv-s-new",
+      "manualAdjustTheTime": "2026-05-14 14:35:32",
+      "updated_at": "2026-05-14 14:35:32",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "244346490371189",
+      "name": "sbv kw_spikes mat_hl2535",
+      "manualAdjustTheTime": "2026-05-21 08:50:15",
+      "updated_at": "2026-05-21 08:50:15",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "396044057570738",
+      "name": "sbvkw_red chili_cl3650",
+      "manualAdjustTheTime": "2026-05-21 08:50:09",
+      "updated_at": "2026-05-21 08:50:09",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "434355121770922",
+      "name": "sbvkw_appreciationballpoint_led3942",
+      "manualAdjustTheTime": "2026-05-21 04:50:04",
+      "updated_at": "2026-05-21 04:50:04",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "471599180932062",
+      "name": "sbv_letterstencils_xix0903",
+      "manualAdjustTheTime": "2026-05-21 21:56:25",
+      "updated_at": "2026-05-21 21:56:25",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "358914454090362",
+      "name": "sbv_mother s day necklace_gm2389",
+      "manualAdjustTheTime": "2026-05-21 23:20:14",
+      "updated_at": "2026-05-21 23:20:14",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "503216486378656",
+      "name": "sbv kw_spikes mat_hl4004",
+      "manualAdjustTheTime": "2026-05-21 08:50:16",
+      "updated_at": "2026-05-21 08:50:16",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "521638180086609",
+      "name": "sbvkw_affirmdecor_uy0879",
+      "manualAdjustTheTime": "2026-05-20 10:33:35",
+      "updated_at": "2026-05-21 15:33:27",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "422605914989457",
+      "name": "cruise ship ducks-hay1932-sbv-s-new",
+      "manualAdjustTheTime": "2026-05-06 10:35:02",
+      "updated_at": "2026-05-06 13:33:37",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "281353676924292",
+      "name": "sbv kw broad_christian mothers day gifts_lo3817",
+      "manualAdjustTheTime": "2026-05-21 23:20:29",
+      "updated_at": "2026-05-21 23:20:29",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "54095962121074",
+      "name": "sbkw broad_letter stencils_xix2353",
+      "manualAdjustTheTime": "2026-05-21 21:56:26",
+      "updated_at": "2026-05-21 21:56:26",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "444925234615127",
+      "name": "sbv_awesomegiftset_wen1029",
+      "manualAdjustTheTime": "2026-05-19 10:07:52",
+      "updated_at": "2026-05-19 10:07:52",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "474785550620129",
+      "name": "ducks for cruise ship hay1931 sbv-s-new2",
+      "manualAdjustTheTime": "2026-05-21 23:21:03",
+      "updated_at": "2026-05-21 23:21:03",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "174886095847679",
+      "name": "sb kw broad_boho baby shower decor_sty6101 sty2760 sty2115",
+      "manualAdjustTheTime": "2026-05-14 15:16:15",
+      "updated_at": "2026-05-14 15:16:15",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "97297500123394",
+      "name": "sbkw_letterstencils_xix1523 xix0903xix2011",
+      "manualAdjustTheTime": "2026-05-21 23:20:47",
+      "updated_at": "2026-05-21 23:20:47",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "454870175097454",
+      "name": "sb_ crown brooch pins _qaa3142",
+      "manualAdjustTheTime": "2026-05-20 10:33:31",
+      "updated_at": "2026-05-20 10:33:31",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "502087077364912",
+      "name": "mini notebooks uan2599-sbv-s-new",
+      "manualAdjustTheTime": "2026-05-21 08:50:12",
+      "updated_at": "2026-05-21 08:50:12",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "446264023525930",
+      "name": "white bunny pr2214-sbv-s-old",
+      "manualAdjustTheTime": "2026-05-18 10:43:24",
+      "updated_at": "2026-05-18 10:43:24",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "113085735722491",
+      "name": "sb kw_wooden cars to paint_shq2216 shq3375 shq3834",
+      "manualAdjustTheTime": "2026-05-21 15:12:50",
+      "updated_at": "2026-05-21 15:12:50",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "442839372634481",
+      "name": "sbvkw_ crown brooch pins _qaa3142",
+      "manualAdjustTheTime": "2026-05-20 13:44:30",
+      "updated_at": "2026-05-20 13:44:30",
+      "reason": "sb_campaign_level_pool_not_cleared_by_lower_layer_touch"
+    },
+    {
+      "campaignId": "352172386118311",
+      "name": "sbv kw_galvanized flower bucket_dn1655",
+      "manualAdjustTheTime": "2026-05-21 21:56:21",
+      "updated_at": "2026-05-21 21:56:21",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "434781799097428",
+      "name": "kw_vip party_kz5816-sbv-f-old",
+      "manualAdjustTheTime": "2026-05-21 15:12:51",
+      "updated_at": "2026-05-21 15:12:51",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "9515777105873",
+      "name": "sbv kw broad_women empowerment gifts_gm2627",
+      "manualAdjustTheTime": "2026-05-21 08:50:16",
+      "updated_at": "2026-05-21 08:50:16",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "53565773971182",
+      "name": "sbkw _ pinata_ob4139 ob3296 cl4170",
+      "manualAdjustTheTime": "2026-05-21 04:50:05",
+      "updated_at": "2026-05-21 04:50:05",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "494033869454602",
+      "name": "cruise ship ducks hay1931-sbv-s-new",
+      "manualAdjustTheTime": "2026-05-21 23:21:03",
+      "updated_at": "2026-05-21 23:21:03",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "135430556082686",
+      "name": "sb kw_fishing sun hats_yeo0766 yeo1463 yeo1452",
+      "manualAdjustTheTime": "2026-05-21 08:50:16",
+      "updated_at": "2026-05-21 08:50:16",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "309939648900588",
+      "name": "thank you keychains HEL0319 SBV-S-NEW",
+      "manualAdjustTheTime": "2026-05-21 04:50:08",
+      "updated_at": "2026-05-21 04:50:08",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "113981761046829",
+      "name": "kw broad_duck pinata_ob4139 sbv-s-new",
+      "manualAdjustTheTime": "2026-05-06 15:14:00",
+      "updated_at": "2026-05-07 12:05:09",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "152489709616720",
+      "name": "sbv kw broad_teacher appreciation gifts bulk_oce2575",
+      "manualAdjustTheTime": "2026-05-19 10:29:20",
+      "updated_at": "2026-05-19 10:29:20",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "547986247203494",
+      "name": "sbvkw_bear clothes basic_se6685",
+      "manualAdjustTheTime": "2026-05-21 08:50:05",
+      "updated_at": "2026-05-21 08:50:05",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "423590788469772",
+      "name": "sbv kw 2_spikes mat_hl2535",
+      "manualAdjustTheTime": "2026-05-21 21:56:24",
+      "updated_at": "2026-05-21 21:56:24",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "306593922866926",
+      "name": "sbvkw_ christian necklace_gm2634",
+      "manualAdjustTheTime": "2026-05-21 08:50:15",
+      "updated_at": "2026-05-21 08:50:15",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "813357028884",
+      "name": "sbv kw broad_cakesicle stand_juu1053",
+      "manualAdjustTheTime": "2026-05-09 15:06:59",
+      "updated_at": "2026-05-09 15:06:59",
+      "reason": "sb_campaign_level_pool_not_cleared_by_lower_layer_touch"
+    },
+    {
+      "campaignId": "446908420042416",
+      "name": "sbvkw_wooden cars to paint_shq3375",
+      "manualAdjustTheTime": "2026-05-21 08:50:06",
+      "updated_at": "2026-05-21 08:50:06",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "529056409771535",
+      "name": "pin me cheer ribbon-gt3815-sbv-s-new",
+      "manualAdjustTheTime": "2026-05-21 21:56:23",
+      "updated_at": "2026-05-21 21:56:23",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "474251335074877",
+      "name": "mini notebooks uan0188 sbv-s-new2",
+      "manualAdjustTheTime": "2026-05-21 23:20:23",
+      "updated_at": "2026-05-21 23:20:23",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "138794492424759",
+      "name": "sbv kw broad_christian mothers day gifts_lo3821",
+      "manualAdjustTheTime": "2026-05-21 08:50:13",
+      "updated_at": "2026-05-21 08:50:13",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "366818325563226",
+      "name": "turtle keychain HEL0606 SBV-S-NEW",
+      "manualAdjustTheTime": "2026-05-21 23:21:04",
+      "updated_at": "2026-05-21 23:21:04",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "447676699651651",
+      "name": "sbvkw_ crown brooch pins _qaa3143",
+      "manualAdjustTheTime": "2026-05-21 23:20:59",
+      "updated_at": "2026-05-21 23:20:59",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "221252904263804",
+      "name": "sbv kw_rainbow_qq2806",
+      "manualAdjustTheTime": "2026-05-21 23:20:19",
+      "updated_at": "2026-05-21 23:20:19",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "502824190322524",
+      "name": "sbv_pinata_cl4199",
+      "manualAdjustTheTime": "2026-05-21 23:21:05",
+      "updated_at": "2026-05-21 23:21:05",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "274082837405343",
+      "name": "sbkw_christian necklace gifts_gm4172 gm3940 gm2628 gm2627 gm2620 gm2616 gm2389",
+      "manualAdjustTheTime": "2026-05-21 04:50:08",
+      "updated_at": "2026-05-21 04:50:08",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "446241241901254",
+      "name": "sbv_bearshirts_se6621",
+      "manualAdjustTheTime": "2026-05-21 23:21:05",
+      "updated_at": "2026-05-21 23:21:05",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "354914592283703",
+      "name": "sbvkw_tie your shoe_yan2278",
+      "manualAdjustTheTime": "2026-05-19 10:28:16",
+      "updated_at": "2026-05-19 10:28:16",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "386830291093659",
+      "name": "flower bucket dn2685 sbv-s-new",
+      "manualAdjustTheTime": "2026-04-27 20:48:16",
+      "updated_at": "2026-04-30 07:30:52",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "378545692913402",
+      "name": "teddy bear kv0324-sbv-s-old2",
+      "manualAdjustTheTime": "2026-05-21 23:21:06",
+      "updated_at": "2026-05-21 23:21:06",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "12445962415257",
+      "name": "sbv kw broad_science pins_gm3207",
+      "manualAdjustTheTime": "2026-05-06 10:10:45",
+      "updated_at": "2026-05-07 07:33:11",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "19711896623409",
+      "name": "sbv kw broad_social worker_le8173",
+      "manualAdjustTheTime": "2026-05-21 08:50:16",
+      "updated_at": "2026-05-21 08:50:16",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "422409487003555",
+      "name": "sbvkw_sweet 16_yun2686",
+      "manualAdjustTheTime": "2026-04-27 17:17:50",
+      "updated_at": "2026-04-27 17:17:50",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "561180316183578",
+      "name": "sbvkw_giant puppy dog_yut2590",
+      "manualAdjustTheTime": "2026-05-18 09:51:25",
+      "updated_at": "2026-05-18 09:51:25",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "450972493614096",
+      "name": "sbvkw_ crown brooch pins _qaa4200",
+      "manualAdjustTheTime": "2026-04-27 20:48:14",
+      "updated_at": "2026-04-27 20:48:14",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "419105829260095",
+      "name": "memorial picture frames yan0087-sbv-f-old",
+      "manualAdjustTheTime": "2026-05-21 23:21:07",
+      "updated_at": "2026-05-21 23:21:07",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "549373219878462",
+      "name": "sbvkw_cute crochet bear keychain _hel2829",
+      "manualAdjustTheTime": "2026-05-21 08:50:07",
+      "updated_at": "2026-05-21 08:50:07",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "561019219612174",
+      "name": "sbvasin_bear clothes basic_se5608",
+      "manualAdjustTheTime": "2026-05-20 10:33:42",
+      "updated_at": "2026-05-20 10:33:42",
+      "reason": "sb_campaign_level_pool_not_cleared_by_lower_layer_touch"
+    },
+    {
+      "campaignId": "69718518356320",
+      "name": "sb kw broad_wall mount wire basket_kej1748 kej0562 kej0561",
+      "manualAdjustTheTime": "2026-05-21 08:50:11",
+      "updated_at": "2026-05-21 15:36:34",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "490842124061465",
+      "name": "sbvkw_21st birthday party shot_ks0788",
+      "manualAdjustTheTime": "2026-05-21 08:50:12",
+      "updated_at": "2026-05-21 08:50:12",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "112812529534861",
+      "name": "sbvkw_cosmetic bags_lne1321",
+      "manualAdjustTheTime": "2026-05-21 23:20:44",
+      "updated_at": "2026-05-21 23:20:44",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "26638821841248",
+      "name": "sbkw_babyshower_yan4858 yan3832 yan1353",
+      "manualAdjustTheTime": "2026-05-19 19:57:19",
+      "updated_at": "2026-05-19 19:57:19",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "21598962397311",
+      "name": "sb _soccer balls bulk_yut2847 yut2840 yut2844",
+      "manualAdjustTheTime": "2026-05-21 08:50:14",
+      "updated_at": "2026-05-21 08:50:14",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "259918767941012",
+      "name": "sbvkw_commercial food storage_dun1392",
+      "manualAdjustTheTime": "2026-05-21 07:26:58",
+      "updated_at": "2026-05-21 15:35:20",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "433971852250064",
+      "name": "sbvkw1_straw sun hats for women_ey2727",
+      "manualAdjustTheTime": "2026-05-21 23:20:52",
+      "updated_at": "2026-05-21 23:20:52",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "209927858454800",
+      "name": "sbkw_commercial food storage_dun1391 dun1394 dun1392",
+      "manualAdjustTheTime": "2026-05-21 21:56:23",
+      "updated_at": "2026-05-21 21:56:23",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "166107369095130",
+      "name": "sbvkw_donkey pinata_ob3296",
+      "manualAdjustTheTime": "2026-05-21 04:50:03",
+      "updated_at": "2026-05-21 04:50:03",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "350742159797251",
+      "name": "sbv_spanish christian church gifts_saw1720",
+      "manualAdjustTheTime": "2026-05-21 04:50:07",
+      "updated_at": "2026-05-21 04:50:07",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "496624831143847",
+      "name": "sbkw_ wedding centerpieces_lem6577 lem6581 lem6585",
+      "manualAdjustTheTime": "2026-05-21 23:20:38",
+      "updated_at": "2026-05-21 23:20:38",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "223361437612180",
+      "name": "sbkw_christian necklace gifts_gm4172 gm3940 gm2628",
+      "manualAdjustTheTime": "2026-05-21 08:50:16",
+      "updated_at": "2026-05-21 08:50:16",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "524288051886050",
+      "name": "teddy bear kv0324-sbv-s-old",
+      "manualAdjustTheTime": "2026-05-21 23:21:06",
+      "updated_at": "2026-05-21 23:21:06",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "476743730770144",
+      "name": "sbv_mininb_ uan3644",
+      "manualAdjustTheTime": "2026-05-21 08:50:14",
+      "updated_at": "2026-05-21 08:50:14",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "327706785396391",
+      "name": "sbvkw_school counselor _le5044",
+      "manualAdjustTheTime": "2026-05-21 23:21:08",
+      "updated_at": "2026-05-21 23:21:08",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "174928842476206",
+      "name": "sbv kw_1q clearstorage_ae2139",
+      "manualAdjustTheTime": "2026-05-21 23:20:14",
+      "updated_at": "2026-05-21 23:20:14",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "291616463323216",
+      "name": "sbvkw_positive taco_sy4371",
+      "manualAdjustTheTime": "2026-05-20 13:44:41",
+      "updated_at": "2026-05-20 13:44:41",
+      "reason": "sb_campaign_level_pool_not_cleared_by_lower_layer_touch"
+    },
+    {
+      "campaignId": "324608794873208",
+      "name": "sbvkw_wedding favors_nay1449",
+      "manualAdjustTheTime": "2026-05-21 23:20:47",
+      "updated_at": "2026-05-21 23:20:47",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "388765228826251",
+      "name": "sbvkw_ mexican keychain_ey1448",
+      "manualAdjustTheTime": "2026-05-20 18:04:03",
+      "updated_at": "2026-05-21 07:30:41",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "15309750359683",
+      "name": "rainbow table cloths qq1764 SBV-S-NEW",
+      "manualAdjustTheTime": "2026-05-21 08:50:15",
+      "updated_at": "2026-05-21 08:50:15",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "527659780014398",
+      "name": "cute pen holders yh2554-sb",
+      "manualAdjustTheTime": "2026-05-21 04:50:03",
+      "updated_at": "2026-05-21 04:50:03",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "514864507188578",
+      "name": "sbvkw_bear clothes basic tee_se7586",
+      "manualAdjustTheTime": "2026-05-21 23:21:08",
+      "updated_at": "2026-05-21 23:21:08",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "357742247201365",
+      "name": "sbvkw_drysunf_yan0656",
+      "manualAdjustTheTime": "2026-05-21 08:50:13",
+      "updated_at": "2026-05-21 08:50:13",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "200659595040115",
+      "name": "sbkw_rotating bracelet display stand_clo0344 clo0341 clo0343",
+      "manualAdjustTheTime": "2026-05-21 23:21:10",
+      "updated_at": "2026-05-21 23:21:10",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "87192228041341",
+      "name": "sbv kw_mini colored pencils_qa1157",
+      "manualAdjustTheTime": "2026-05-21 08:50:16",
+      "updated_at": "2026-05-21 08:50:16",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "222900325634337",
+      "name": "sb kw broad_social worker_le8156 le8173 le8168",
+      "manualAdjustTheTime": "2026-05-21 23:20:03",
+      "updated_at": "2026-05-21 23:20:03",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "359590546676185",
+      "name": "bear plates lru1537 sbv-s-old",
+      "manualAdjustTheTime": "2026-05-21 23:21:11",
+      "updated_at": "2026-05-21 23:21:11",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "357257900689107",
+      "name": "bridesmaid gifts-shu2557-sb",
+      "manualAdjustTheTime": "2026-05-21 08:50:16",
+      "updated_at": "2026-05-21 08:50:16",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "59619435449521",
+      "name": "sbvkw_appreciationballpoint_led3945",
+      "manualAdjustTheTime": "2026-05-21 23:20:45",
+      "updated_at": "2026-05-21 23:20:45",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "1200532521311",
+      "name": "sbkw_pinata_cl3650 cl3563 cl4170",
+      "manualAdjustTheTime": "2026-04-27 15:12:29",
+      "updated_at": "2026-05-03 13:33:00",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "493485071051531",
+      "name": "sbv_garment bag_ssu1756",
+      "manualAdjustTheTime": "2026-05-21 08:50:11",
+      "updated_at": "2026-05-21 08:50:11",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "396417859520346",
+      "name": "sbv_first holy yard sign_qa3975",
+      "manualAdjustTheTime": "2026-05-06 10:10:00",
+      "updated_at": "2026-05-06 10:10:00",
+      "reason": "sb_campaign_level_pool_not_cleared_by_lower_layer_touch"
+    },
+    {
+      "campaignId": "140006771406561",
+      "name": "sbkw_bottle chug_luo1051 luo1012 luo1006",
+      "manualAdjustTheTime": "2026-05-18 11:16:26",
+      "updated_at": "2026-05-18 15:36:19",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "459336073175822",
+      "name": "sb_ pastor gift_sta2610 sta2607 sta2604",
+      "manualAdjustTheTime": "2026-05-21 08:50:14",
+      "updated_at": "2026-05-21 08:50:14",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "559223967003908",
+      "name": "sbv_cowboy hats_san1050",
+      "manualAdjustTheTime": "2026-05-21 23:21:12",
+      "updated_at": "2026-05-21 23:21:12",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "201078880263108",
+      "name": "sbv kw board_dental assistant week_ru2411",
+      "manualAdjustTheTime": "2026-05-21 23:20:34",
+      "updated_at": "2026-05-21 23:20:34",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "516154391645004",
+      "name": "sbvkw_letterstencils_xix1523",
+      "manualAdjustTheTime": "2026-05-21 23:20:11",
+      "updated_at": "2026-05-21 23:20:11",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "295193443924888",
+      "name": "sbvkw_peg board shelves_if1232",
+      "manualAdjustTheTime": "2026-05-21 23:20:21",
+      "updated_at": "2026-05-21 23:20:21",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "514131394658037",
+      "name": "sbv_rainbow umbrella_sh0423",
+      "manualAdjustTheTime": "2026-05-21 23:20:52",
+      "updated_at": "2026-05-21 23:20:52",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "485631448645047",
+      "name": "sbv_wooddiycars_shq2216",
+      "manualAdjustTheTime": "2026-05-21 23:21:13",
+      "updated_at": "2026-05-21 23:21:13",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "266121276953677",
+      "name": "sbv kw_pegboard baskets_kej1748",
+      "manualAdjustTheTime": "2026-05-21 08:50:10",
+      "updated_at": "2026-05-21 08:50:10",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "499627433054715",
+      "name": "sbkw_bear clothes basic_se6599 se6685 se7586",
+      "manualAdjustTheTime": "2026-05-21 23:21:09",
+      "updated_at": "2026-05-21 23:21:09",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "306999631354391",
+      "name": "sbv2_rainbow party-war1276",
+      "manualAdjustTheTime": "2026-05-09 15:07:08",
+      "updated_at": "2026-05-09 15:07:08",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "372662473637820",
+      "name": "retirement party favors-lny3024-sbv-s-new",
+      "manualAdjustTheTime": "2026-05-21 23:20:43",
+      "updated_at": "2026-05-21 23:20:43",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "88016410758535",
+      "name": "sb",
+      "manualAdjustTheTime": "2026-05-19 12:10:39",
+      "updated_at": "2026-05-19 12:10:39",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "431340941794838",
+      "name": "sbvkw_bottle chug_luo1051",
+      "manualAdjustTheTime": "2026-05-21 08:50:06",
+      "updated_at": "2026-05-21 08:50:06",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "434065971477206",
+      "name": "hotel pans-med1033-sbv-s-new",
+      "manualAdjustTheTime": "2026-05-21 23:21:13",
+      "updated_at": "2026-05-21 23:21:13",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "412863864899719",
+      "name": "loved one gifts yan3229 sbv-f-new",
+      "manualAdjustTheTime": "2026-05-21 23:21:01",
+      "updated_at": "2026-05-21 23:21:01",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "456834474090559",
+      "name": "sbvkw_pegboard baskets metal_kej0562",
+      "manualAdjustTheTime": "2026-05-21 08:50:12",
+      "updated_at": "2026-05-21 08:50:12",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "69271563432832",
+      "name": "sbvkw_babyshower_yan4858",
+      "manualAdjustTheTime": "2026-05-21 23:21:14",
+      "updated_at": "2026-05-21 23:21:14",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "60466237634924",
+      "name": "sbv kw_moon themed baby shower_ru2391",
+      "manualAdjustTheTime": "2026-05-21 23:20:16",
+      "updated_at": "2026-05-21 23:20:16",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "272213410885381",
+      "name": "sbkw_pool floats_mf6328 mf6292 mf6280",
+      "manualAdjustTheTime": "2026-05-21 23:20:58",
+      "updated_at": "2026-05-21 23:20:58",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "46012006236710",
+      "name": "sb kw_vip party_kz6722 kz6074 kz5816",
+      "manualAdjustTheTime": "2026-05-21 23:20:15",
+      "updated_at": "2026-05-21 23:20:15",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "116547456288944",
+      "name": "sbv kw_hanging metal basket_xue2224",
+      "manualAdjustTheTime": "2026-05-21 23:21:15",
+      "updated_at": "2026-05-21 23:21:15",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "248153783626975",
+      "name": "sb kw broad_social worker_le5294 le8150 le8163",
+      "manualAdjustTheTime": "2026-04-29 00:27:44",
+      "updated_at": "2026-05-07 13:32:00",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "464774264303841",
+      "name": "food storage buckets with lids-dun1391-sbv-s-new",
+      "manualAdjustTheTime": "2026-05-15 17:30:26",
+      "updated_at": "2026-05-15 17:36:28",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "43670119699010",
+      "name": "sbvkw_christian necklace gifts_gm4172",
+      "manualAdjustTheTime": "2026-05-21 08:50:12",
+      "updated_at": "2026-05-21 08:50:12",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "300720307034698",
+      "name": "sbvkw_medical assistant gifts_gm2827",
+      "manualAdjustTheTime": "2026-05-21 23:21:15",
+      "updated_at": "2026-05-21 23:21:15",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "551872289614022",
+      "name": "sbvasin_death to my 20s decorations_qa0828",
+      "manualAdjustTheTime": "2026-05-21 08:50:17",
+      "updated_at": "2026-05-21 08:50:17",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "452019101321671",
+      "name": "sbvkw_vip party_kz5816",
+      "manualAdjustTheTime": "2026-05-21 23:20:28",
+      "updated_at": "2026-05-21 23:20:28",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "427691348439445",
+      "name": "cruise ship ducks-hay1932-sbv-s-new2",
+      "manualAdjustTheTime": "2026-04-20 21:53:42",
+      "updated_at": "2026-04-20 21:53:42",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "34122180322406",
+      "name": "sbv high-quality_rainbow tablecloth_qq1764",
+      "manualAdjustTheTime": "2026-05-21 20:09:43",
+      "updated_at": "2026-05-21 20:09:43",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "473215708211253",
+      "name": "sb_brown tie your shoe_yan3832",
+      "manualAdjustTheTime": "2026-05-21 23:20:55",
+      "updated_at": "2026-05-21 23:20:55",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "424368167870954",
+      "name": "sbvkw_ christian necklace_gm2616",
+      "manualAdjustTheTime": "2026-05-21 23:20:10",
+      "updated_at": "2026-05-21 23:20:10",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "408671517050099",
+      "name": "sbvkw_felt mushroom ornaments_hai4870",
+      "manualAdjustTheTime": "2026-05-21 04:50:06",
+      "updated_at": "2026-05-21 04:50:06",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "153104126944450",
+      "name": "sbkw_godmother mothers day",
+      "manualAdjustTheTime": "2026-05-07 20:43:45",
+      "updated_at": "2026-05-11 13:31:02",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "458819536609816",
+      "name": "sbv_christian keychains_ey5555",
+      "manualAdjustTheTime": "2026-05-21 08:50:12",
+      "updated_at": "2026-05-21 08:50:12",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "422061390459658",
+      "name": "sbvkw_bottle chug_luo1012",
+      "manualAdjustTheTime": "2026-05-18 11:16:27",
+      "updated_at": "2026-05-18 11:16:27",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "176664787445697",
+      "name": "sbv kw_inspirational_journal_uan3248",
+      "manualAdjustTheTime": "2026-05-21 08:50:17",
+      "updated_at": "2026-05-21 08:50:17",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "241581305765148",
+      "name": "sbvkw_storage containers_yy4568",
+      "manualAdjustTheTime": "2026-05-21 23:20:27",
+      "updated_at": "2026-05-21 23:20:27",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "430193676468777",
+      "name": "sbvkw_get well soon gifts _kv4232",
+      "manualAdjustTheTime": "2026-05-21 23:20:13",
+      "updated_at": "2026-05-21 23:20:13",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "287598987831831",
+      "name": "sbv_pinata_cl4170",
+      "manualAdjustTheTime": "2026-04-27 15:12:59",
+      "updated_at": "2026-05-06 13:32:39",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "518063213751837",
+      "name": "sbv_40thbirthdaybags_ken1043",
+      "manualAdjustTheTime": "2026-05-21 04:50:06",
+      "updated_at": "2026-05-21 04:50:06",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "97375280920576",
+      "name": "ob4139 ob3296 cl4199 cl4170 cl3650 cl3563",
+      "manualAdjustTheTime": "2026-04-28 11:08:57",
+      "updated_at": "2026-05-03 13:33:00",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "31162966242041",
+      "name": "sbvkw_pegboardorganizer_kej0561",
+      "manualAdjustTheTime": "2026-05-21 15:12:50",
+      "updated_at": "2026-05-21 15:12:50",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "558291630379161",
+      "name": "sbvkw_highland cow print_hos1152",
+      "manualAdjustTheTime": "2026-05-21 23:21:16",
+      "updated_at": "2026-05-21 23:21:16",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "207690910445880",
+      "name": "sb kw_inflatable number_yut4460 yut2946 yut2927",
+      "manualAdjustTheTime": "2026-05-21 23:21:16",
+      "updated_at": "2026-05-21 23:21:16",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "169070092205723",
+      "name": "sbvkw_flamingo_ duc4152",
+      "manualAdjustTheTime": "2026-05-19 20:07:17",
+      "updated_at": "2026-05-21 15:36:09",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "119819572465016",
+      "name": "kw _crna week appreciation gift _tm2897",
+      "manualAdjustTheTime": "2026-05-21 08:50:13",
+      "updated_at": "2026-05-21 08:50:13",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "75290483351021",
+      "name": "sbvkw_baskets_dun1128",
+      "manualAdjustTheTime": "2026-05-21 21:56:22",
+      "updated_at": "2026-05-21 21:56:22",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "2603010623414",
+      "name": "sbvkw_wood pacifier clips_th1516",
+      "manualAdjustTheTime": "2026-05-21 15:12:50",
+      "updated_at": "2026-05-21 15:12:50",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "455752620519072",
+      "name": "hotel pans-med1032-sbv-s-new",
+      "manualAdjustTheTime": "2026-05-21 23:21:17",
+      "updated_at": "2026-05-21 23:21:17",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "550154280975778",
+      "name": "sbvkw_ elephant charm _xia3242",
+      "manualAdjustTheTime": "2026-04-27 17:18:29",
+      "updated_at": "2026-04-30 07:32:00",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "403697255305566",
+      "name": "sb_dun1127dun1128dun1150",
+      "manualAdjustTheTime": "2026-05-19 12:10:41",
+      "updated_at": "2026-05-19 12:10:41",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "535597545815296",
+      "name": "kv3640 bear",
+      "manualAdjustTheTime": "2026-05-21 23:21:18",
+      "updated_at": "2026-05-21 23:21:18",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "32508318633794",
+      "name": "sbv _cowhat&band_san0383",
+      "manualAdjustTheTime": "2026-05-21 08:50:14",
+      "updated_at": "2026-05-21 08:50:14",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "484990097857688",
+      "name": "rainbow table cloths QQ2235 SBV-S-NEW",
+      "manualAdjustTheTime": "2026-05-21 23:20:50",
+      "updated_at": "2026-05-21 23:20:50",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "167317611610656",
+      "name": "sbkw _umbrella hat_sh0424 sh0423 sh0422",
+      "manualAdjustTheTime": "2026-05-21 23:20:40",
+      "updated_at": "2026-05-21 23:20:40",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "266070153687479",
+      "name": "sbv high-quality_rainbow tablecloth_qq2235",
+      "manualAdjustTheTime": "2026-05-21 23:20:50",
+      "updated_at": "2026-05-21 23:20:50",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "342203156077875",
+      "name": "sbvkw_ bread basket_dun1127",
+      "manualAdjustTheTime": "2026-05-21 23:21:19",
+      "updated_at": "2026-05-21 23:21:19",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "535768460217856",
+      "name": "sbv_pinata_cl3563",
+      "manualAdjustTheTime": "2026-04-30 18:25:09",
+      "updated_at": "2026-05-03 15:33:24",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "398634697897265",
+      "name": "white acrylic pens-gra4861-sbv-s-new",
+      "manualAdjustTheTime": "2026-05-21 23:20:33",
+      "updated_at": "2026-05-21 23:20:33",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "348391968296514",
+      "name": "sbvkw_crna week appreciation bracelet_tan2986",
+      "manualAdjustTheTime": "2026-05-21 08:50:17",
+      "updated_at": "2026-05-21 08:50:17",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "336677015688209",
+      "name": "sbv_babyshowerbags_boy3171",
+      "manualAdjustTheTime": "2026-05-21 23:20:04",
+      "updated_at": "2026-05-21 23:20:04",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "540965186546016",
+      "name": "sbvkw_cowboy hats_san1041",
+      "manualAdjustTheTime": "2026-05-03 10:49:30",
+      "updated_at": "2026-05-03 15:34:19",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "226685947866297",
+      "name": "sbv kw broad_lab week_gm3213",
+      "manualAdjustTheTime": "2026-04-21 20:47:33",
+      "updated_at": "2026-05-04 17:32:40",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "229822096446181",
+      "name": "sbvkw_baskets_dun1150",
+      "manualAdjustTheTime": "2026-05-15 17:40:54",
+      "updated_at": "2026-05-15 17:40:54",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "326797614661972",
+      "name": "sbkw_vet tech appreciation gifts_day2990 day2987 day2984",
+      "manualAdjustTheTime": "2026-05-21 23:20:25",
+      "updated_at": "2026-05-21 23:20:25",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "189331516179804",
+      "name": "sbv kw_umbrella hat_sh0422",
+      "manualAdjustTheTime": "2026-05-21 23:20:04",
+      "updated_at": "2026-05-21 23:20:04",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "226026935021274",
+      "name": "sbv kw broad_lab week_gm3149",
+      "manualAdjustTheTime": "2026-05-21 23:21:19",
+      "updated_at": "2026-05-21 23:21:19",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "475899404107335",
+      "name": "sbv_bee gift bags_no5155",
+      "manualAdjustTheTime": "2026-04-30 15:42:52",
+      "updated_at": "2026-04-30 15:42:52",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "361885933569856",
+      "name": "kwsbv_coquette pink_led6372",
+      "manualAdjustTheTime": "2026-05-21 23:21:20",
+      "updated_at": "2026-05-21 23:21:20",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "262266492872476",
+      "name": "sbv kw_hanging metal basket_xue0890",
+      "manualAdjustTheTime": "2026-04-21 20:47:32",
+      "updated_at": "2026-04-30 07:35:32",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "46105532251164",
+      "name": "sbkw_unfinished wooden car_shq3950 shq3955 shq2216",
+      "manualAdjustTheTime": "2026-05-21 23:20:48",
+      "updated_at": "2026-05-21 23:20:48",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "423339988604360",
+      "name": "sbvkw_fishing sun hats_yeo0766",
+      "manualAdjustTheTime": "2026-05-21 23:21:21",
+      "updated_at": "2026-05-21 23:21:21",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "340873401431219",
+      "name": "ballpoint pen-nay0239-sbv-s-new",
+      "manualAdjustTheTime": "2026-04-21 20:47:31",
+      "updated_at": "2026-04-21 20:47:31",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "26056126712201",
+      "name": "sbvkw_acrylic shelves_if1738",
+      "manualAdjustTheTime": "2026-05-21 23:20:16",
+      "updated_at": "2026-05-21 23:20:16",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "336610769023786",
+      "name": "sbv_mothers day gifts bulk_qaa2627",
+      "manualAdjustTheTime": "2026-05-07 20:27:23",
+      "updated_at": "2026-05-09 15:35:02",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "411949328062119",
+      "name": "sbvkw_bottle chug_luo0914",
+      "manualAdjustTheTime": "2026-05-18 11:16:28",
+      "updated_at": "2026-05-18 11:16:28",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "412579795468606",
+      "name": "big teddy bear yb0698-sbv-s-old",
+      "manualAdjustTheTime": "2026-05-21 23:20:02",
+      "updated_at": "2026-05-21 23:20:02",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "258353584625621",
+      "name": "sb kw_boonie hats_yeo1463 yeo1452 yeo1451",
+      "manualAdjustTheTime": "2026-05-21 23:20:08",
+      "updated_at": "2026-05-21 23:20:08",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "349174959480081",
+      "name": "sb kw_cowhat&band_san0383 san0113 san0384",
+      "manualAdjustTheTime": "2026-05-21 23:20:10",
+      "updated_at": "2026-05-21 23:20:10",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "343897893946374",
+      "name": "death to my 20s decorations qa0828-sbv-s-old",
+      "manualAdjustTheTime": "2026-05-21 23:20:34",
+      "updated_at": "2026-05-21 23:20:34",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "311634836493814",
+      "name": "sb_pinata_cl4199  cl4170 cl3563",
+      "manualAdjustTheTime": "2026-05-03 09:42:40",
+      "updated_at": "2026-05-03 13:33:03",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "428893974756301",
+      "name": "uy3674 uy3437 uy1623-sb",
+      "manualAdjustTheTime": "2026-05-21 18:37:54",
+      "updated_at": "2026-05-21 18:37:54",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "49025439558147",
+      "name": "sbvkw_rotating bracelet display stand_clo0341",
+      "manualAdjustTheTime": "2026-05-21 23:20:18",
+      "updated_at": "2026-05-21 23:20:18",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "394613783655920",
+      "name": "sbvkw_christian gift set_fe3232",
+      "manualAdjustTheTime": "2026-05-21 23:21:21",
+      "updated_at": "2026-05-21 23:21:21",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "389606960390387",
+      "name": "deli containers bio0027 SBV-S-NEW",
+      "manualAdjustTheTime": "2026-05-21 23:21:22",
+      "updated_at": "2026-05-21 23:21:22",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "327049567885804",
+      "name": "rainbow table covering qq1764 sbv-s-old",
+      "manualAdjustTheTime": "2026-05-21 20:09:44",
+      "updated_at": "2026-05-21 20:09:44",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "219143533775112",
+      "name": "sbv kw broad_baby shower_shq3834",
+      "manualAdjustTheTime": "2026-05-21 23:20:57",
+      "updated_at": "2026-05-21 23:20:57",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "343177649476412",
+      "name": "sbv_mininb_ uan3646",
+      "manualAdjustTheTime": "2026-05-21 23:20:58",
+      "updated_at": "2026-05-21 23:20:58",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "533296836430773",
+      "name": "sbvkw_teacher appreciation gifts_hay2767",
+      "manualAdjustTheTime": "2026-04-21 08:21:45",
+      "updated_at": "2026-04-30 15:34:31",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "482175547602171",
+      "name": "sbvkw_cowboyhat_san1200",
+      "manualAdjustTheTime": "2026-05-21 08:50:15",
+      "updated_at": "2026-05-21 08:50:15",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "468141637445099",
+      "name": "sbvkw_black history month cupcake toppers_cas4030",
+      "manualAdjustTheTime": "2026-05-21 23:20:26",
+      "updated_at": "2026-05-21 23:20:26",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "444552566651112",
+      "name": "sbvkw_veterinary week gifts_qaa1779",
+      "manualAdjustTheTime": "2026-05-06 10:30:39",
+      "updated_at": "2026-05-08 07:35:11",
+      "reason": "campaign_not_mapped_to_product_card_or_no_visible_sb_lower_rows"
+    },
+    {
+      "campaignId": "104116848890442",
+      "name": "sbvkw_rotating bracelet display stand_clo0343",
+      "manualAdjustTheTime": "2026-05-21 23:20:17",
+      "updated_at": "2026-05-21 23:20:17",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "492388094058523",
+      "name": "sbkw_bow notebook_xih2559 xih2672 xih2677",
+      "manualAdjustTheTime": "2026-05-19 20:21:38",
+      "updated_at": "2026-05-19 20:21:38",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "329935156976924",
+      "name": "mini journals uan0188 sb2",
+      "manualAdjustTheTime": "2026-05-21 23:20:24",
+      "updated_at": "2026-05-21 23:20:24",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "433688963038350",
+      "name": "sbvkw_1.5q clearstorage_ae2140",
+      "manualAdjustTheTime": "2026-05-21 23:20:26",
+      "updated_at": "2026-05-21 23:20:26",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "474210459642170",
+      "name": "sbkw_get well soon gifts_kv0324 kv3640 kv4231",
+      "manualAdjustTheTime": "2026-05-21 08:50:14",
+      "updated_at": "2026-05-21 08:50:14",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "327693028915431",
+      "name": "sbvkw_bottle chug_luo1006",
+      "manualAdjustTheTime": "2026-05-15 17:51:51",
+      "updated_at": "2026-05-15 17:51:51",
+      "reason": "no_active_sb_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "campaignId": "309271717620835",
+      "name": "sbvkw_nurse appreciation ornaments_cee0611",
+      "manualAdjustTheTime": "2026-05-21 04:50:07",
+      "updated_at": "2026-05-21 04:50:07",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "84493960070990",
+      "name": "sbv kw broad_social worker_le5294",
+      "manualAdjustTheTime": "2026-05-21 23:20:06",
+      "updated_at": "2026-05-21 23:20:06",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "370160695731490",
+      "name": "pin me cheer ribbon gt3814 sbv-s-new",
+      "manualAdjustTheTime": "2026-05-21 23:21:00",
+      "updated_at": "2026-05-21 23:21:00",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "442957417131324",
+      "name": "sbvkw_ christian necklace_gm2620",
+      "manualAdjustTheTime": "2026-05-21 23:20:01",
+      "updated_at": "2026-05-21 23:20:01",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "387308264746417",
+      "name": "sbvkw_christian tumblers_yun2187",
+      "manualAdjustTheTime": "2026-05-21 23:20:53",
+      "updated_at": "2026-05-21 23:20:53",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "483350635753513",
+      "name": "sbvkw_bridal shower game_gra5177",
+      "manualAdjustTheTime": "2026-05-21 23:20:06",
+      "updated_at": "2026-05-21 23:20:06",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "365766827094975",
+      "name": "sbkw_christian necklace gifts_gm2389 gm2634 gm2616",
+      "manualAdjustTheTime": "2026-05-21 23:20:11",
+      "updated_at": "2026-05-21 23:20:11",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    },
+    {
+      "campaignId": "532094304571650",
+      "name": "whistle wd0559-sb",
+      "manualAdjustTheTime": "2026-05-21 23:20:39",
+      "updated_at": "2026-05-21 23:20:39",
+      "reason": "campaign_already_adjusted_today_but_still_in_sb_campaign_pool"
+    }
+  ],
+  "sbResidualTotal": 624,
+  "generatorReports": {
+    "wave2": {
+      "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today": 96,
+      "sku_out_of_allowed_operation_scope": 9,
+      "duplicate_lower_entity_already_planned": 4,
+      "candidate_already_adjusted_today": 66,
+      "campaign_not_mapped_to_product_card": 348,
+      "no_safe_bid_move_at_lower_layer_or_duplicate": 9
+    },
+    "wave3": {
+      "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today": 89,
+      "sku_out_of_allowed_operation_scope": 9,
+      "candidate_already_adjusted_today": 223,
+      "campaign_not_mapped_to_product_card": 346,
+      "no_safe_bid_move_at_lower_layer_or_duplicate": 8
+    }
+  }
+}

@@ -21,7 +21,8 @@ Before running or changing the workflow, read:
 13. `docs/SELECTION_KEYWORD_CONVERSION_RATE.md`
 14. `docs/SELECTION_ABA_SEARCH_TERMS.md`
 15. `docs/SELECTION_KEYWORD_SEASONALITY.md`
-16. `data/learning/operations_retrospective_2026-05-06_to_2026-05-14.md` if present
+16. `docs/PERFORMANCE_HYGIENE.md`
+17. `data/learning/operations_retrospective_2026-05-06_to_2026-05-14.md` if present
 
 ## Architecture Boundary
 
@@ -76,6 +77,7 @@ Do not add an OpenAI-compatible provider or AI runtime inside the panel. Do not 
 - Selection ABA search-term data is market demand/concentration evidence, not an executable decision. Use `npm run ops:selection:aba-search-terms -- --search-terms "<terms>"` to get ABA rank, search volume, estimated orders, top-ASIN click/conversion share, category fit, monopoly, supply-demand pressure, missing exact-term coverage, freshness, and cross-check requirements. A high ABA rank alone must not create keywords, raise bids, or raise budgets.
 - Selection keyword research is the Amazon front-search competitor seed and traffic-entrance evidence layer, not the AI ASIN pipeline. Use `npm run ops:selection:keyword-research -- --sku "<SKU>" --terms "<terms>"` before ABA/conversion checks when finding new traffic. Different category is not an exclusion by itself; exclude unrelated buyer intent, node-only matches, own ASINs, and same-store ASINs. This source is read-only and cannot directly create ads, raise bids, raise budgets, or change listing/price/inventory.
 - Selection keyword seasonality data is market-window evidence, not an executable decision. Use `npm run ops:selection:keyword-seasonality -- --search-terms "<terms>"` to get Google trend, market rank/search volume, ASIN count, competitor price/review/rating threshold, brand concentration, buyer-search expansion, and cross-check requirements. It may support season-window, replenishment, clearance, or keyword hypotheses only after SKU-level ad backend, product fit, listing/price, inventory, ABA, keyword conversion, and profit evidence agree.
+- Selection Product Time Machine data is competitor traffic-map evidence, not an executable decision. Use `npm run ops:selection:product-time-machine -- --search-keywords "<terms>"` to get winning ASINs, bought-in-past-month, monthly bought history, organic rank history, natural/SP/SB/SBV/AC traffic word counts, organic flow share, AO value, and keyword history trend. In the network panel, `/soundasia_selection/sif/timemachine/pageQuery` is the useful main table; `/soundasia_selection/sif/forward` is only the auxiliary keyword history curve.
 - Product and keyword judgement must use the product market evidence stack in `docs/PRODUCT_MARKET_EVIDENCE_STACK.md` when the question depends on demand, product fit, keyword expansion, traffic recovery, or developer/product requests. Do not wait for the operator to explicitly name ABA, keyword conversion, or keyword seasonality. Build the profile from market demand, market window, keyword economics, SKU ad proof, listing/price fit, inventory/economics, and recent action history.
 - New products must be researched before or while their first ad structure is built, not only after ads fail. Use inventory open/arrival dates to identify new SKUs, then inspect Amazon front listing, images/video status, product use case, buyer persona, season/window, 3-15 core buyer-facing terms, 3-15 target ASINs, competitor listings, price/profit, reviews, and whether the listing actually contains the traffic terms.
 - Keyword research must include product theme/person/use-case terms, functional/style terms, color/style audience splits, historical converting terms, SIF/selection reverse terms, customer-review language, competitor missing traffic, broader parent-market terms when exact terms are too narrow, and SBV/customer-search discoveries. Developer-supplied direction is only a hypothesis; market evidence and listing fit decide the final keyword set.
@@ -175,6 +177,7 @@ Do not default to full snapshot export for every question. Pick the smallest int
 - Market keyword conversion precheck: `npm run ops:selection:keyword-conversion -- --keywords "<term1, term2>"` using the logged-in selection browser tab. Treat `coverage.missingKeywords` as missing evidence, check `period.freshness`, and never execute ad changes from this report alone.
 - ABA market demand precheck: `npm run ops:selection:aba-search-terms -- --search-terms "<term1, term2>"` using the logged-in selection browser tab. Treat `coverage.missingSearchTerms` as missing exact evidence, check `period.freshness`, and never execute ad changes from this report alone.
 - Keyword seasonality precheck: `npm run ops:selection:keyword-seasonality -- --search-terms "<term1, term2>"` using the logged-in selection browser tab. Treat `coverage.missingSearchTerms` as missing evidence, check `period.freshness`, and never execute ad, price, listing, replenishment, or clearance changes from this report alone.
+- Product Time Machine precheck: `npm run ops:selection:product-time-machine -- --search-keywords "<term1, term2>"` using the logged-in selection browser tab. Treat `coverage.missingKeywords` as missing evidence, use it to read competitor ASIN ownership and traffic mix, and never execute ad, price, listing, replenishment, or clearance changes from this report alone.
 - Full abnormal pool, daily down pool, eligible SKU discovery, or cross-SKU prioritization: export a full snapshot.
 - Daily learning discipline: before operational decisions, read today's freshest interface/snapshot data and persist the day's snapshot, action plan, execution verification, and learning/impact records. If today's data cannot be fetched, mark the baseline as incomplete instead of silently reusing old data.
 - Execution: generate schema only after the read path above, dry-run first, then execute.
@@ -205,6 +208,22 @@ node scripts\execute\generate_personal_trend_report.js data\snapshots\latest_sna
 The generated HTML belongs under `黄成喆个人数据趋势/每日 近七天 数据趋势/` and is a decision archive. Use it to find abnormal seller/developer lines before deciding SKU-level ad actions.
 
 ## Normal Command Flow
+
+If Codex or git feels sluggish, run the performance hygiene checks before opening more browser or MCP sessions:
+
+```powershell
+npm run perf:report
+npm run perf:stop-mcp
+```
+
+Archive old runtime snapshots after full-snapshot or daily deposit runs when `data/snapshots/` grows too large:
+
+```powershell
+npm run perf:archive -- --keep-days 3
+npm run perf:archive -- --keep-days 3 --execute
+```
+
+Do not bulk-archive `data/tasks/` or `data/learning/`; those directories contain tracked operating evidence.
 
 Start debug Chrome and run backend login readiness:
 

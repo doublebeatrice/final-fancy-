@@ -113,6 +113,21 @@ function defaultAgentCapabilities() {
       },
     },
     {
+      name: 'selection product time machine',
+      sourceSystem: 'selection',
+      surface: 'market_evidence',
+      operationType: 'read',
+      endpoint: { method: 'POST', path: '/soundasia_selection/sif/timemachine/pageQuery + /soundasia_selection/sif/forward' },
+      contract: {
+        params: ['searchKeywords', 'timePieceType', 'timePieceValue'],
+        responseFields: ['asin', 'title', 'boughtInPastMonth', 'boughtHistory', 'trafficTerms', 'rankHistory', 'keywordHistory'],
+        freshness: 'same_day',
+      },
+      verification: {
+        probeCommand: 'npm run ops:selection:product-time-machine -- --search-keywords "<term>"',
+      },
+    },
+    {
       name: 'sellerinventory origin data',
       sourceSystem: 'sellerinventory',
       surface: 'listing',

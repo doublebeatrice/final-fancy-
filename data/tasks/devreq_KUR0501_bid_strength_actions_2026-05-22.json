@@ -1,0 +1,87 @@
+[
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "operatorRequested": true,
+    "summary": "Correct too-conservative bid strength so historical traffic can actually receive impressions/clicks while new-created rows wait for keywordId visibility.",
+    "actions": [
+      {
+        "id": "391719833749255",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.18,
+        "suggestedBid": 0.2,
+        "text": "magnetic car decals",
+        "campaignId": "506462874274728",
+        "adGroupId": "500182209065264",
+        "campaignName": "kw_hippie flower car magnet_kur0501",
+        "groupName": "kw_hippie flower car magnet_kur0501",
+        "reason": "0.18 is only a small repair above recent CPC 0.158. For a YoY recovery request, raise to 0.20 so the proven row has enough auction headroom to keep delivery.",
+        "evidence": [
+          "Current 30d magnetic car decals CPC=0.158, 10 clicks / 1 order / ACOS 17.6%.",
+          "Current bid readback before this correction=0.18.",
+          "Operator challenged whether +0.02 is enough to generate display/clicks."
+        ],
+        "confidence": 0.78,
+        "riskLevel": "traffic_recovery_bid_strength",
+        "forceExecute": true,
+        "forceReason": "Small reversible bid-strength correction on current converting keyword after operator correction.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "0.20 gives enough headroom for continued display while keeping CPC/ACOS reviewable.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "impressions, clicks, CPC, orders",
+          "target": "maintain/increase delivery without uncontrolled CPC"
+        },
+        "reviewPlan": {
+          "1d": "confirm bid landed and impressions continue",
+          "3d": "check CPC and clicks; roll back if spend rises without relevance/order"
+        }
+      },
+      {
+        "id": "376105176803937",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.07,
+        "suggestedBid": 0.1,
+        "text": "asinSubstituteRelated",
+        "campaignId": "341283780324260",
+        "adGroupId": "430545249445395",
+        "campaignName": "auto2_hippie flower car magnet_kur0501",
+        "groupName": "auto2_hippie flower car magnet_kur0501",
+        "reason": "0.07 is too defensive for a historical auto lane that drove 8 orders in the previous 30d and 19 orders last-year same window. Restore to a click-capable but still controlled 0.10 instead of starving the lane.",
+        "evidence": [
+          "Current 30d: asinSubstituteRelated 6636 impressions / 26 clicks / 0 orders / CPC 0.116.",
+          "Previous 30d: same target 49 clicks / 8 orders / ACOS 6.64%.",
+          "Last-year same-window auto2 drove 19 orders; operator wants multi-prong recovery, not starving historical auto."
+        ],
+        "confidence": 0.72,
+        "riskLevel": "historical_auto_recovery_controlled",
+        "forceExecute": true,
+        "forceReason": "Controlled bid restoration on historical converting auto lane after operator correction; still below aggressive scale.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "0.10 restores enough auto substitute delivery to test whether historical auto traffic can recover without the old 0.07 starvation.",
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "auto impressions, clicks, spend, orders",
+          "target": "recover clicks while capping review at 3d if no order"
+        },
+        "reviewPlan": {
+          "1d": "confirm bid landed and delivery resumes",
+          "3d": "if clicks continue without order, inspect search/ASIN traffic and trim; if order returns, hold",
+          "7d": "keep only if ACOS/order signal supports it"
+        }
+      }
+    ]
+  }
+]

@@ -44,6 +44,20 @@ Softball Coach Gifts Coach Appreciation Gift Set Include 20 oz Baseball Tumbler,
 
 ## Follow-Up
 
+- Recheck 2026-05-22 09:45 CST, businessDate 2026-05-21:
+  - `asin_coachgifts_ae1101` is still live. Proven ASIN `asinExpandedFrom=B0BJZ28TRW` remains visible at `bid=0.48`; 1d result: `47 impressions / 1 click / $0.48 spend / 0 orders`. Campaign-level SKU ad product row: `53 impressions / 1 click / $0.48 spend / 0 orders`; 3d `412 impressions / 8 clicks / $3.39 / 0 orders`; 7d `1175 impressions / 22 clicks / $9.31 / 2 orders / $59.96 sales`.
+  - `ai_kw exact_softball coach gifts_ae1101` is live in SKU ad product data with `68 impressions / 0 clicks / $0 spend / 0 orders`. Current keyword detail shows `softball coach gifts` and `baseball coach gift`, both `bid=0.45`; `coach gifts for men` was not visible in this recheck.
+  - `ai_asin_coach tumbler gifts_ae1101` is now visible and live: 5 ASIN targets are present at `bid=0.32` (`B0CXJ93JFN`, `B0BJZK5J63`, `B0FLHZ8L67`, `B0BRMFC69V`, `B0D9XQZXTH`), but no impressions/clicks/spend yet.
+  - `ai_kw exact_coach whistle_ae1101` is now visible in SKU ad product data but only one lower-layer keyword row is visible: `coach whistle`, `bid=0.25`; no impressions/clicks/spend yet. `whistle for coaches` and `coach whistle with lanyard` remain not visible in keyword detail.
+  - Inventory/listing data from SKU ad product row: price `13.99`, sale status `正常销售`, sellable-day string `120 / 47 / 134`, ad serving `ELIGIBLE`.
+  - Decision: no immediate rollback or pause. The new layers have mostly just become visible and have not spent; the only spent line is the proven ASIN lane with one click, which is not enough to judge failure. Next hard decision remains the 3d check: if spend accumulates without orders, roll ASIN back to `0.44` and pause/trim the no-conversion exact or ASIN tests.
+- Operator follow-up 2026-05-22 10:08 CST: because same-day rows were still not serving, executed an exposure-repair bid-up without raising campaign budgets. Dry-run passed with 12 executable actions, then execute returned 12/12 success and live readback confirmed landed bids:
+  - Exact gift keywords in `ai_kw exact_softball coach gifts_ae1101`: `baseball coach gift`, `softball coach gifts`, and `coach gifts for men` all `0.45 -> 0.55`, `updatedAt=2026-05-22 10:08:40`.
+  - Whistle exact keywords in `ai_kw exact_coach whistle_ae1101`: `whistle for coaches`, `coach whistle with lanyard`, and `coach whistle` all `0.25 -> 0.35`, `updatedAt=2026-05-22 10:08:41`.
+  - Same-scenario ASIN test `ai_asin_coach tumbler gifts_ae1101`: all 5 ASIN targets `0.32 -> 0.40`, `updatedAt=2026-05-22 10:08:42`.
+  - Proven ASIN target `asinExpandedFrom=B0BJZ28TRW` in `asin_coachgifts_ae1101`: `0.48 -> 0.55`, `updatedAt=2026-05-22 10:08:43`.
+  - Budgets were left capped: exact gift `$3`, same-scenario ASIN `$2`, whistle exact `$2`, existing ASIN group `$3`.
+  - Next checkpoint: check same-day/next-day impressions first. If bids now create impressions but clicks/spend do not produce orders by the 3d window, roll back the new bid layer rather than adding more budget.
 - Check front listing title and price landing first.
 - Codex heartbeat reminder created: `ae1101`, daily at 09:30 for 7 checks starting after 2026-05-21, covering the 1d/3d/7d bid-push review.
 - Review 3d/7d after the price change is live: sessions/clicks, conversion, orders, and whether ad clicks shift from low-efficiency terms to coach-intent traffic.

@@ -44,7 +44,10 @@ function capabilityHintsForTask(task = {}) {
     item.includes('market') ||
     item.includes('aba') ||
     item.includes('keyword_conversion') ||
-    item.includes('keyword_research')
+    item.includes('keyword_research') ||
+    item.includes('product_time_machine') ||
+    item.includes('time_machine') ||
+    item.includes('时光机')
   );
   const wantsInventory = [...requirements, ...metrics].some(item => item.includes('inventory') || item.includes('库存'));
   const wantsProfit = [...requirements, ...metrics].some(item => item.includes('profit') || item.includes('利润'));
@@ -54,6 +57,7 @@ function capabilityHintsForTask(task = {}) {
     hints.push('selection::market_evidence::keyword-conversion::read');
     hints.push('selection::market_evidence::aba-search-terms::read');
     hints.push('selection::market_evidence::keyword-seasonality::read');
+    hints.push('selection::market_evidence::product-time-machine::read');
   }
   if (wantsInventory) hints.push('sellerinventory::listing::origin-data::read');
   if (wantsProfit) hints.push('agent::effect_review::review-evidence-collector::read');
@@ -158,6 +162,11 @@ function buildExecutionPlan(task = {}, options = {}) {
       parts.push('--seasonality-report', seasonalityFile);
       requiredInputs.push(seasonalityFile);
     }
+    if (hasCapability(requiredCapabilities, 'selection::market_evidence::product-time-machine::read')) {
+      const productTimeMachineFile = defaultSnapshotFile('selection_product_time_machine', today);
+      parts.push('--product-time-machine-report', productTimeMachineFile);
+      requiredInputs.push(productTimeMachineFile);
+    }
     commands.push(commandItem('采集证据并执行效果复查', parts.join(' '), {
       purpose: '拉取当前证据，对比执行前基线并输出关闭、继续观察或回滚复核判断。',
       output: outFile,
@@ -197,6 +206,14 @@ function buildExecutionPlan(task = {}, options = {}) {
         output: defaultSnapshotFile('selection_keyword_seasonality', today),
       }));
       expectedOutputs.push(defaultSnapshotFile('selection_keyword_seasonality', today));
+      if (!terms.length) requiredInputs.push('关键词或搜索词');
+    }
+    if (hasCapability(requiredCapabilities, 'selection::market_evidence::product-time-machine::read')) {
+      commands.push(commandItem('拉选品产品时光机证据', `npm run ops:selection:product-time-machine -- --search-keywords ${quoteArg(termArg)}`, {
+        purpose: '确认关键词下竞品 ASIN、近月购买量、历史购买趋势、自然/广告流量词结构、自然排名和关键词历史曲线，只作为市场与竞品证据。',
+        output: defaultSnapshotFile('selection_product_time_machine', today),
+      }));
+      expectedOutputs.push(defaultSnapshotFile('selection_product_time_machine', today));
       if (!terms.length) requiredInputs.push('关键词或搜索词');
     }
   } else if (classified.workType === 'daily_ops') {

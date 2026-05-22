@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.2 - 2026-05-22 架构审查交接快照
+
+- Bumped the workbench version for a GitHub handoff snapshot before architecture review and refactor planning.
+- Included the current local code, docs, operating outputs, market-evidence tooling, agent command updates, and daily operating artifacts so the review can inspect the real current architecture state.
+
 ## v1.2.1 - 2026-05-21 选品证据与闭环运营增强
 
 - Added the read-only `ops:selection:keyword-research` capability for Amazon front-search keyword research. It builds direct competitor, scene competitor, traffic-bridge, excluded-ASIN, candidate-keyword, and next-validation evidence before ABA and keyword-conversion checks.

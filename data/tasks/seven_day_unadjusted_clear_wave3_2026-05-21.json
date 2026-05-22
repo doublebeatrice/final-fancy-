@@ -1,0 +1,5853 @@
+{
+  "generatedAt": "2026-05-21T15:30:44.783Z",
+  "sourceSnapshot": "data\\snapshots\\latest_snapshot.json",
+  "businessDate": "2026-05-21",
+  "snapshotExportedAt": "2026-05-21T15:30:21.663Z",
+  "inputCounts": {
+    "sp": 80,
+    "sb": 624
+  },
+  "planned": [
+    {
+      "sku": "HU3765",
+      "entityType": "autoTarget",
+      "id": "437845542104848",
+      "campaignId": "393960756213298",
+      "adGroupId": "511191879627779",
+      "currentBid": 0.04,
+      "suggestedBid": 0.05,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_small_demand_touch",
+      "expectationClass": "repair_visibility",
+      "label": "auto",
+      "campaignName": "auto_halloween apothecary stickers_hu3765"
+    },
+    {
+      "sku": "YCL1247",
+      "entityType": "manualTarget",
+      "id": "405305668413671",
+      "campaignId": "466231490023006",
+      "adGroupId": "360680075571168",
+      "currentBid": 0.24,
+      "suggestedBid": 0.25,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_small_demand_touch",
+      "expectationClass": "repair_visibility",
+      "label": "manual",
+      "campaignName": "blue floral picks ycl1247-pt"
+    },
+    {
+      "sku": "WAR1276",
+      "entityType": "manualTarget",
+      "id": "456656183405042",
+      "campaignId": "426417782044372",
+      "adGroupId": "436351991429738",
+      "currentBid": 0.06,
+      "suggestedBid": 0.05,
+      "direction": "down",
+      "riskLevel": "ui_7day_lower_neutral_hygiene_touch",
+      "expectationClass": "control_waste",
+      "label": "manual",
+      "campaignName": "asin_rainbow party-war1276"
+    },
+    {
+      "sku": "HEL2083",
+      "entityType": "keyword",
+      "id": "89791281681986",
+      "campaignId": "229326726425651",
+      "adGroupId": "98332153694447",
+      "currentBid": 0.28,
+      "suggestedBid": 0.27,
+      "direction": "down",
+      "riskLevel": "ui_7day_lower_minimal_waste_touch",
+      "expectationClass": "control_waste",
+      "label": "fiesta party supplies",
+      "campaignName": "kw_q2 profit hel2083 phrase_hel2083"
+    },
+    {
+      "sku": "OCE2575",
+      "entityType": "autoTarget",
+      "id": "492294228996604",
+      "campaignId": "113716731088153",
+      "adGroupId": "547976461346992",
+      "currentBid": 0.4,
+      "suggestedBid": 0.41,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_small_demand_touch",
+      "expectationClass": "repair_visibility",
+      "label": "auto",
+      "campaignName": "auto b2b _teacher appreciation gifts bulk_oce2575"
+    },
+    {
+      "sku": "GM2628",
+      "entityType": "keyword",
+      "id": "249749403071096",
+      "campaignId": "267849836590040",
+      "adGroupId": "46830233328695",
+      "currentBid": 0.4,
+      "suggestedBid": 0.41,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_minimal_visibility_touch",
+      "expectationClass": "repair_visibility",
+      "label": "christian gifts for women bulk",
+      "campaignName": "kw_b2b_christian gifts for women_GM2628"
+    },
+    {
+      "sku": "MF6292",
+      "entityType": "keyword",
+      "id": "156639128647352",
+      "campaignId": "63373035754101",
+      "adGroupId": "7872399319632",
+      "currentBid": 0.32,
+      "suggestedBid": 0.31,
+      "direction": "down",
+      "riskLevel": "ui_7day_lower_neutral_hygiene_touch",
+      "expectationClass": "control_waste",
+      "label": "women and men",
+      "campaignName": "ai_kw phrase_coverage_mf6292"
+    },
+    {
+      "sku": "GM3065",
+      "entityType": "manualTarget",
+      "id": "417351403274620",
+      "campaignId": "394294629665777",
+      "adGroupId": "355370441646960",
+      "currentBid": 0.05,
+      "suggestedBid": 0.04,
+      "direction": "down",
+      "riskLevel": "ui_7day_lower_neutral_hygiene_touch",
+      "expectationClass": "control_waste",
+      "label": "manual",
+      "campaignName": "asin_dentist appreciation gifts _gm3065"
+    },
+    {
+      "sku": "HOD0826",
+      "entityType": "autoTarget",
+      "id": "247332303627582",
+      "campaignId": "96337612660572",
+      "adGroupId": "208378188514055",
+      "currentBid": 0.02,
+      "suggestedBid": 0.03,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_minimal_visibility_touch",
+      "expectationClass": "repair_visibility",
+      "label": "auto",
+      "campaignName": "auto_ wall painting_hod0826"
+    },
+    {
+      "sku": "QUN5204",
+      "entityType": "manualTarget",
+      "id": "97265734276215",
+      "campaignId": "84406849824880",
+      "adGroupId": "1782830098766",
+      "currentBid": 0.25,
+      "suggestedBid": 0.26,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_minimal_visibility_touch",
+      "expectationClass": "repair_visibility",
+      "label": "manual",
+      "campaignName": "asin expanded_bouquet sash_qun5204"
+    },
+    {
+      "sku": "TH2869",
+      "entityType": "keyword",
+      "id": "247138499747899",
+      "campaignId": "77740454083379",
+      "adGroupId": "2013483842500",
+      "currentBid": 0.3,
+      "suggestedBid": 0.31,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_minimal_visibility_touch",
+      "expectationClass": "repair_visibility",
+      "label": "cord organizer ties",
+      "campaignName": "kw broad_wire ties for cords_th2869"
+    },
+    {
+      "sku": "HEL0319",
+      "entityType": "keyword",
+      "id": "212584114133461",
+      "campaignId": "148350285929042",
+      "adGroupId": "138542906154399",
+      "currentBid": 0.32,
+      "suggestedBid": 0.33,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_minimal_visibility_touch",
+      "expectationClass": "repair_visibility",
+      "label": "healthcare worker appreciation gifts",
+      "campaignName": "b2b kw broad_nurse appreciation gifts bulk_hel0319"
+    },
+    {
+      "sku": "QUN5204",
+      "entityType": "autoTarget",
+      "id": "452751894173964",
+      "campaignId": "89886981119192",
+      "adGroupId": "314074207289646",
+      "currentBid": 0.1,
+      "suggestedBid": 0.11,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_minimal_visibility_touch",
+      "expectationClass": "repair_visibility",
+      "label": "auto",
+      "campaignName": "20260508-qun5204-system-a"
+    },
+    {
+      "sku": "TH2869",
+      "entityType": "manualTarget",
+      "id": "71020076036929",
+      "campaignId": "160311939705795",
+      "adGroupId": "110619452812964",
+      "currentBid": 0.3,
+      "suggestedBid": 0.31,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_minimal_visibility_touch",
+      "expectationClass": "repair_visibility",
+      "label": "manual",
+      "campaignName": "asin expanded_wire ties for cords_th2869"
+    },
+    {
+      "sku": "SHQ3834",
+      "entityType": "manualTarget",
+      "id": "119946844803218",
+      "campaignId": "271702344459048",
+      "adGroupId": "17924166393539",
+      "currentBid": 0.3,
+      "suggestedBid": 0.31,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_minimal_visibility_touch",
+      "expectationClass": "repair_visibility",
+      "label": "manual",
+      "campaignName": "asin broad_baby shower_shq3834"
+    },
+    {
+      "sku": "SE5942",
+      "entityType": "manualTarget",
+      "id": "354491576104987",
+      "campaignId": "296956790860793",
+      "adGroupId": "297336627448295",
+      "currentBid": 0.06,
+      "suggestedBid": 0.07,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_minimal_visibility_touch",
+      "expectationClass": "repair_visibility",
+      "label": "manual",
+      "campaignName": "asin_bear shirts_se5942"
+    },
+    {
+      "sku": "SE6685",
+      "entityType": "manualTarget",
+      "id": "470437396106082",
+      "campaignId": "385459720565540",
+      "adGroupId": "522749230461154",
+      "currentBid": 0.05,
+      "suggestedBid": 0.06,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_minimal_visibility_touch",
+      "expectationClass": "repair_visibility",
+      "label": "manual",
+      "campaignName": "asin_bear clothes basic_se6685"
+    },
+    {
+      "sku": "GM4172",
+      "entityType": "keyword",
+      "id": "198833361570235",
+      "campaignId": "74976615092186",
+      "adGroupId": "13555196720495",
+      "currentBid": 0.4,
+      "suggestedBid": 0.41,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_minimal_visibility_touch",
+      "expectationClass": "repair_visibility",
+      "label": "necklace in bulk wholesale",
+      "campaignName": "kw_b2b_christian gifts for women_GM4172"
+    },
+    {
+      "sku": "GM4172",
+      "entityType": "autoTarget",
+      "id": "506873961154525",
+      "campaignId": "33836474376684",
+      "adGroupId": "297235897770002",
+      "currentBid": 0.4,
+      "suggestedBid": 0.41,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_minimal_visibility_touch",
+      "expectationClass": "repair_visibility",
+      "label": "auto",
+      "campaignName": "auto_b2b_GM4172"
+    },
+    {
+      "sku": "SAN0148",
+      "entityType": "keyword",
+      "id": "485964929034817",
+      "campaignId": "120249868549726",
+      "adGroupId": "370846357268705",
+      "currentBid": 0.04,
+      "suggestedBid": 0.05,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_minimal_visibility_touch",
+      "expectationClass": "repair_visibility",
+      "label": "1920s accessories for women",
+      "campaignName": "kw exact_1920s accessories_san0148"
+    },
+    {
+      "sku": "GT3814",
+      "entityType": "manualTarget",
+      "id": "470456930444322",
+      "campaignId": "309692455945018",
+      "adGroupId": "410477281691479",
+      "currentBid": 0.06,
+      "suggestedBid": 0.05,
+      "direction": "down",
+      "riskLevel": "ui_7day_lower_neutral_hygiene_touch",
+      "expectationClass": "control_waste",
+      "label": "manual",
+      "campaignName": "pt_redcheer ribbon_gt3814"
+    },
+    {
+      "sku": "CL3650",
+      "entityType": "keyword",
+      "id": "107143901115378",
+      "campaignId": "273167737770922",
+      "adGroupId": "69993545248422",
+      "currentBid": 0.15,
+      "suggestedBid": 0.14,
+      "direction": "down",
+      "riskLevel": "ui_7day_lower_small_inventory_touch",
+      "expectationClass": "cool_inventory_demand",
+      "label": "pinata set",
+      "campaignName": "adult pinata-cl3650-system-keyword-exact"
+    },
+    {
+      "sku": "HAI4870",
+      "entityType": "keyword",
+      "id": "24968290461741",
+      "campaignId": "78108427620546",
+      "adGroupId": "37840724347923",
+      "currentBid": 0.25,
+      "suggestedBid": 0.26,
+      "direction": "up",
+      "riskLevel": "ui_7day_lower_minimal_visibility_touch",
+      "expectationClass": "repair_visibility",
+      "label": "cinco de mayo decorations",
+      "campaignName": "kw_q2 profit hai4870 phrase_hai4870"
+    },
+    {
+      "sku": "CEE0747",
+      "entityType": "keyword",
+      "id": "1099461531985",
+      "campaignId": "94517196268045",
+      "adGroupId": "177287373645691",
+      "currentBid": 0.2,
+      "suggestedBid": 0.19,
+      "direction": "down",
+      "riskLevel": "ui_7day_lower_small_inventory_touch",
+      "expectationClass": "cool_inventory_demand",
+      "label": "healthcare worker gifts",
+      "campaignName": "kw_q2 profit cee0747 broad_cee0747"
+    },
+    {
+      "sku": "MH2710",
+      "entityType": "keyword",
+      "id": "35057483364761",
+      "campaignId": "206061207537475",
+      "adGroupId": "37416287009886",
+      "currentBid": 0.4,
+      "suggestedBid": 0.39,
+      "direction": "down",
+      "riskLevel": "ui_7day_lower_small_inventory_touch",
+      "expectationClass": "cool_inventory_demand",
+      "label": "nurses day gifts",
+      "campaignName": "b2b kw broad_nurse ornaments_mh2710"
+    },
+    {
+      "sku": "TAN2986",
+      "entityType": "keyword",
+      "id": "74470984446424",
+      "campaignId": "63671995903278",
+      "adGroupId": "182348611497112",
+      "currentBid": 0.3,
+      "suggestedBid": 0.29,
+      "direction": "down",
+      "riskLevel": "ui_7day_lower_neutral_hygiene_touch",
+      "expectationClass": "control_waste",
+      "label": "crna week gifts",
+      "campaignName": "b2b kw broad_crna gifts_tan2986"
+    },
+    {
+      "sku": "SH0424",
+      "entityType": "keyword",
+      "id": "406309026689106",
+      "campaignId": "308510747991326",
+      "adGroupId": "287757426975652",
+      "currentBid": 0.16,
+      "suggestedBid": 0.15,
+      "direction": "down",
+      "riskLevel": "ui_7day_lower_neutral_hygiene_touch",
+      "expectationClass": "control_waste",
+      "label": "umbrella hats for adults",
+      "campaignName": "kw_rainbow umbrella _sh0424"
+    },
+    {
+      "sku": "UY3213",
+      "entityType": "sbKeyword",
+      "id": "324578949558574",
+      "campaignId": "384228996997088",
+      "adGroupId": "356915442072856",
+      "currentBid": 0.3,
+      "suggestedBid": 0.29,
+      "direction": "down",
+      "riskLevel": "ui_7day_lower_neutral_hygiene_touch",
+      "expectationClass": "control_waste",
+      "label": "karate ornament boy",
+      "campaignName": "sbvkw_karate ornament_uy3213"
+    },
+    {
+      "sku": "HI3877",
+      "entityType": "sbKeyword",
+      "id": "394292884168163",
+      "campaignId": "381731879886959",
+      "adGroupId": "467191217145145",
+      "currentBid": 0.33,
+      "suggestedBid": 0.32,
+      "direction": "down",
+      "riskLevel": "ui_7day_lower_neutral_hygiene_touch",
+      "expectationClass": "control_waste",
+      "label": "16th birthday shot bottles empty",
+      "campaignName": "sbvkw_sweet 16 party favors_hi3877"
+    }
+  ],
+  "skipped": [
+    {
+      "channel": "SP",
+      "sku": "AE3311",
+      "campaignId": "246573025792858",
+      "adGroupId": "260179139983869",
+      "campaignName": "kw_godmother mothers day broad ae3311_ae3311",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "GM2627",
+      "campaignId": "17526069772439",
+      "adGroupId": "126506246041421",
+      "campaignName": "kw broad_christian mothers day gifts_gm2627",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "AE3311",
+      "campaignId": "358373926726375",
+      "adGroupId": "342732778566927",
+      "campaignName": "god mother gifts for women-ae3311-system-keyword",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "GM4172",
+      "campaignId": "2338349789249",
+      "adGroupId": "71774298586643",
+      "campaignName": "kw broad_christian mothers day gifts_gm4172",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "YUN2188",
+      "campaignId": "329219452662972",
+      "adGroupId": "459698382526556",
+      "campaignName": "auto_christian tumblers_yun2188",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "YUN2187",
+      "campaignId": "397757748648532",
+      "adGroupId": "358941348577083",
+      "campaignName": "kw2_christian tumblers_yun2188",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "LED3942",
+      "campaignId": "18269913988943",
+      "adGroupId": "457295095159757",
+      "campaignName": "auto_teacher pens bulk_led3942",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "GM2389",
+      "campaignId": "39639594619841",
+      "adGroupId": "9564271048403",
+      "campaignName": "kw broad_christian mothers day gifts_gm2389",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "AE3311",
+      "campaignId": "56780359678706",
+      "adGroupId": "253600925674805",
+      "campaignName": "kw_godmother mothers day exact ae3311_ae3311",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "GM2634",
+      "campaignId": "146020838163325",
+      "adGroupId": "269206603169762",
+      "campaignName": "kw broad_christian mothers day gifts_gm2634",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "XUE2224",
+      "campaignId": "99005602260307",
+      "adGroupId": "503412079063966",
+      "campaignName": "auto_hanging metal basket_xue2224",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "MH2355",
+      "campaignId": "134905321029891",
+      "adGroupId": "161166079535289",
+      "campaignName": "kw broad_nurse ornaments_mh2355",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "channel": "SP",
+      "sku": "GM2634",
+      "campaignId": "177638976412925",
+      "adGroupId": "182508229382597",
+      "campaignName": "kw_q2 profit gm2634 phrase_gm2634",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "YAN3187",
+      "campaignId": "537008566483065",
+      "adGroupId": "360270572294396",
+      "campaignName": "auto_wizard disposable cups_yan3187",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "MH2711",
+      "campaignId": "145654887787227",
+      "adGroupId": "261541418920261",
+      "campaignName": "kw broad_nurse ornaments_mh2711",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "channel": "SP",
+      "sku": "KZ6722",
+      "campaignId": "122742289179190",
+      "adGroupId": "347608865738091",
+      "campaignName": "auto_vip decor_kz6722",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "GM2634",
+      "campaignId": "72240446388650",
+      "adGroupId": "68160850849738",
+      "campaignName": "kw_q2 profit gm2634 broad_gm2634",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "MH2355",
+      "campaignId": "273553038706059",
+      "adGroupId": "212619884366843",
+      "campaignName": "asin expand_nurse ornaments_mh2355",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "channel": "SP",
+      "sku": "MH0525",
+      "campaignId": "556090361754544",
+      "adGroupId": "409870229214968",
+      "campaignName": "kw_ dessert cups_mh0525",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "channel": "SP",
+      "sku": "YUN2187",
+      "campaignId": "130646127928910",
+      "adGroupId": "116041769022289",
+      "campaignName": "asin expanded_mothers day gifts bulk cups_yun2187",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "MH2711",
+      "campaignId": "100424516131543",
+      "adGroupId": "220330797105458",
+      "campaignName": "asin expand_nurse ornaments_mh2711",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "channel": "SP",
+      "sku": "YMF1073",
+      "campaignId": "532866261322279",
+      "adGroupId": "520192474138518",
+      "campaignName": "auto_baby shower packet favors_ymf1073",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "TH2618",
+      "campaignId": "110050796718075",
+      "adGroupId": "137787230247251",
+      "campaignName": "silicone cable ties th2619-system-a",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "MH2711",
+      "campaignId": "21027050999351",
+      "adGroupId": "321568252024009",
+      "campaignName": "b2b auto_nurse ornaments_mh2711",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "channel": "SP",
+      "sku": "TH3004",
+      "campaignId": "49600854850019",
+      "adGroupId": "561407588302006",
+      "campaignName": "silicone cable ties-th2869-system-keyword-phrase",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "MH2711",
+      "campaignId": "88122892637100",
+      "adGroupId": "47447910538110",
+      "campaignName": "b2b kw broad_nurse ornaments_mh2711",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "channel": "SP",
+      "sku": "LED3942",
+      "campaignId": "401340971779546",
+      "adGroupId": "356378646917326",
+      "campaignName": "auto2_appreciationballpoint_led3942",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "AE2140",
+      "campaignId": "136854064413821",
+      "adGroupId": "292416752948303",
+      "campaignName": "auto_amazon business_ae2140",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "MH2355",
+      "campaignId": "153448710889602",
+      "adGroupId": "491448966434733",
+      "campaignName": "b2b auto_nurse ornaments_mh2355",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "channel": "SP",
+      "sku": "DUN1393",
+      "campaignId": "501635313578047",
+      "adGroupId": "557349260062944",
+      "campaignName": "food storage buckets with lids-dun1393-system-a",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "TH3004",
+      "campaignId": "212255601735958",
+      "adGroupId": "315610411790568",
+      "campaignName": "silicone cable ties-th2869-system-keyword-exact",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "MF3043",
+      "campaignId": "295733559169169",
+      "adGroupId": "376467065984378",
+      "campaignName": "kw_wedding guest book_mf3043",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "GOO1089",
+      "campaignId": "530489174613980",
+      "adGroupId": "428883741982617",
+      "campaignName": "candle glass jars-goo1089-system-a",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "YAN2281",
+      "campaignId": "419654119330116",
+      "adGroupId": "361063304587266",
+      "campaignName": "auto_tie your shoe_yan2281",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "MH2355",
+      "campaignId": "54249806344527",
+      "adGroupId": "245499636855223",
+      "campaignName": "b2b kw broad_nurse ornaments_mh2355",
+      "reason": "sku_out_of_allowed_operation_scope"
+    },
+    {
+      "channel": "SP",
+      "sku": "XIA1681",
+      "campaignId": "550810753439714",
+      "adGroupId": "407297923310868",
+      "campaignName": "kw_ elephant charm _xia1681",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "FLO2960",
+      "campaignId": "519944493621396",
+      "adGroupId": "355231142139784",
+      "campaignName": "kw_round plastic bucket_flo2960",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "QA3278",
+      "campaignId": "545117737727383",
+      "adGroupId": "445493123076069",
+      "campaignName": "wedding signs-qa3278-system-keyword",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "YAN3832",
+      "campaignId": "504108106331388",
+      "adGroupId": "369187031295784",
+      "campaignName": "auto_brown tie your shoe_yan3832",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "ZO0892",
+      "campaignId": "33817926440059",
+      "adGroupId": "139473121327195",
+      "campaignName": "asin exact_christian mothers day gifts_zo0892",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "YCL1247",
+      "campaignId": "446797741497276",
+      "adGroupId": "468284836285181",
+      "campaignName": "auto_blcrysspray_ycl1247",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "ZO0891",
+      "campaignId": "5704107592430",
+      "adGroupId": "201388614890549",
+      "campaignName": "asin exact_christian mothers day gifts_zo0891",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "MF6292",
+      "campaignId": "160379676127887",
+      "adGroupId": "67811823614515",
+      "campaignName": "asin expanded_inflatable number pool float_mf6292",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "FE3232",
+      "campaignId": "417131207068454",
+      "adGroupId": "454811766878116",
+      "campaignName": "auto_christian gift set_fe3235",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "DEA0023",
+      "campaignId": "366390029202845",
+      "adGroupId": "537943522343784",
+      "campaignName": "auto_honeycomb_dea0023",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "HOD0826",
+      "campaignId": "286344769777175",
+      "adGroupId": "457729444629575",
+      "campaignName": "asin_ wall painting_hod0826",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "TH3004",
+      "campaignId": "408567400420124",
+      "adGroupId": "465226353131609",
+      "campaignName": "cable organizer straps th2527-system-phrase",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "DN2108",
+      "campaignId": "373562347474207",
+      "adGroupId": "505818097283009",
+      "campaignName": "galvanized flower bucket dn2108-category",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "GOO1089",
+      "campaignId": "370905788917796",
+      "adGroupId": "387958929748313",
+      "campaignName": "candle glass jars-goo1089-system-keyword",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "OYH0784",
+      "campaignId": "345473519149110",
+      "adGroupId": "504750958858228",
+      "campaignName": "asin_bridalcork_oyh0784",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "QA3169",
+      "campaignId": "167230243802278",
+      "adGroupId": "55646825436167",
+      "campaignName": "asin expanded_softball senior night gifts_qa3169",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "SHU2552",
+      "campaignId": "528171400410093",
+      "adGroupId": "454829136069915",
+      "campaignName": "bridesmaid gifts shu2552",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SP",
+      "sku": "TH3004",
+      "campaignId": "404602503834036",
+      "adGroupId": "316925397433659",
+      "campaignName": "cable organizer straps th2527-system-exact",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "249590599435576",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_small jewelry tray_sc3077",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "413551916830566",
+      "adGroupId": "",
+      "campaignName": "sbvkw_galvanized flower bucket_dn2683",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "83588397549815",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_letter stencils_xix2353",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "530528828666466",
+      "adGroupId": "",
+      "campaignName": "duck tags tin0401 SBV-S-NEW",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "430234151739525",
+      "adGroupId": "",
+      "campaignName": "sb _galvanized flower bucket_dn1655 dn2683 dn2684",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "458731213109360",
+      "adGroupId": "",
+      "campaignName": "cruise ship ducks-hay0219 sbv-s-new",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "43286630938837",
+      "adGroupId": "",
+      "campaignName": "sbv kw_spikes mat_hl2535 hl4004 hl4017",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "457262681580195",
+      "adGroupId": "",
+      "campaignName": "duck tags for cruise ducking-tin2239-sbv-s-new",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "244346490371189",
+      "adGroupId": "",
+      "campaignName": "sbv kw_spikes mat_hl2535",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "396044057570738",
+      "adGroupId": "",
+      "campaignName": "sbvkw_red chili_cl3650",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "434355121770922",
+      "adGroupId": "",
+      "campaignName": "sbvkw_appreciationballpoint_led3942",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "471599180932062",
+      "adGroupId": "",
+      "campaignName": "sbv_letterstencils_xix0903",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "358914454090362",
+      "adGroupId": "",
+      "campaignName": "sbv_mother s day necklace_gm2389",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "503216486378656",
+      "adGroupId": "",
+      "campaignName": "sbv kw_spikes mat_hl4004",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "521638180086609",
+      "adGroupId": "",
+      "campaignName": "sbvkw_affirmdecor_uy0879",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "422605914989457",
+      "adGroupId": "",
+      "campaignName": "cruise ship ducks-hay1932-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "281353676924292",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_christian mothers day gifts_lo3817",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "54095962121074",
+      "adGroupId": "",
+      "campaignName": "sbkw broad_letter stencils_xix2353",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "444925234615127",
+      "adGroupId": "",
+      "campaignName": "sbv_awesomegiftset_wen1029",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "474785550620129",
+      "adGroupId": "",
+      "campaignName": "ducks for cruise ship hay1931 sbv-s-new2",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "174886095847679",
+      "adGroupId": "",
+      "campaignName": "sb kw broad_boho baby shower decor_sty6101 sty2760 sty2115",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "97297500123394",
+      "adGroupId": "",
+      "campaignName": "sbkw_letterstencils_xix1523 xix0903xix2011",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "454870175097454",
+      "adGroupId": "",
+      "campaignName": "sb_ crown brooch pins _qaa3142",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "502087077364912",
+      "adGroupId": "",
+      "campaignName": "mini notebooks uan2599-sbv-s-new",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "446264023525930",
+      "adGroupId": "",
+      "campaignName": "white bunny pr2214-sbv-s-old",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "113085735722491",
+      "adGroupId": "",
+      "campaignName": "sb kw_wooden cars to paint_shq2216 shq3375 shq3834",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "442839372634481",
+      "adGroupId": "",
+      "campaignName": "sbvkw_ crown brooch pins _qaa3142",
+      "reason": "no_safe_bid_move_at_lower_layer_or_duplicate"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "352172386118311",
+      "adGroupId": "",
+      "campaignName": "sbv kw_galvanized flower bucket_dn1655",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "434781799097428",
+      "adGroupId": "",
+      "campaignName": "kw_vip party_kz5816-sbv-f-old",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "9515777105873",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_women empowerment gifts_gm2627",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "53565773971182",
+      "adGroupId": "",
+      "campaignName": "sbkw _ pinata_ob4139 ob3296 cl4170",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "494033869454602",
+      "adGroupId": "",
+      "campaignName": "cruise ship ducks hay1931-sbv-s-new",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "135430556082686",
+      "adGroupId": "",
+      "campaignName": "sb kw_fishing sun hats_yeo0766 yeo1463 yeo1452",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "309939648900588",
+      "adGroupId": "",
+      "campaignName": "thank you keychains HEL0319 SBV-S-NEW",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "113981761046829",
+      "adGroupId": "",
+      "campaignName": "kw broad_duck pinata_ob4139 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "152489709616720",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_teacher appreciation gifts bulk_oce2575",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "547986247203494",
+      "adGroupId": "",
+      "campaignName": "sbvkw_bear clothes basic_se6685",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "423590788469772",
+      "adGroupId": "",
+      "campaignName": "sbv kw 2_spikes mat_hl2535",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "306593922866926",
+      "adGroupId": "",
+      "campaignName": "sbvkw_ christian necklace_gm2634",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "813357028884",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_cakesicle stand_juu1053",
+      "reason": "no_safe_bid_move_at_lower_layer_or_duplicate"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "446908420042416",
+      "adGroupId": "",
+      "campaignName": "sbvkw_wooden cars to paint_shq3375",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "529056409771535",
+      "adGroupId": "",
+      "campaignName": "pin me cheer ribbon-gt3815-sbv-s-new",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "474251335074877",
+      "adGroupId": "",
+      "campaignName": "mini notebooks uan0188 sbv-s-new2",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "138794492424759",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_christian mothers day gifts_lo3821",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "366818325563226",
+      "adGroupId": "",
+      "campaignName": "turtle keychain HEL0606 SBV-S-NEW",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "447676699651651",
+      "adGroupId": "",
+      "campaignName": "sbvkw_ crown brooch pins _qaa3143",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "221252904263804",
+      "adGroupId": "",
+      "campaignName": "sbv kw_rainbow_qq2806",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "502824190322524",
+      "adGroupId": "",
+      "campaignName": "sbv_pinata_cl4199",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "274082837405343",
+      "adGroupId": "",
+      "campaignName": "sbkw_christian necklace gifts_gm4172 gm3940 gm2628 gm2627 gm2620 gm2616 gm2389",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "446241241901254",
+      "adGroupId": "",
+      "campaignName": "sbv_bearshirts_se6621",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "354914592283703",
+      "adGroupId": "",
+      "campaignName": "sbvkw_tie your shoe_yan2278",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "386830291093659",
+      "adGroupId": "",
+      "campaignName": "flower bucket dn2685 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "378545692913402",
+      "adGroupId": "",
+      "campaignName": "teddy bear kv0324-sbv-s-old2",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "12445962415257",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_science pins_gm3207",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "19711896623409",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_social worker_le8173",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "422409487003555",
+      "adGroupId": "",
+      "campaignName": "sbvkw_sweet 16_yun2686",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "561180316183578",
+      "adGroupId": "",
+      "campaignName": "sbvkw_giant puppy dog_yut2590",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "450972493614096",
+      "adGroupId": "",
+      "campaignName": "sbvkw_ crown brooch pins _qaa4200",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "419105829260095",
+      "adGroupId": "",
+      "campaignName": "memorial picture frames yan0087-sbv-f-old",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "549373219878462",
+      "adGroupId": "",
+      "campaignName": "sbvkw_cute crochet bear keychain _hel2829",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "561019219612174",
+      "adGroupId": "",
+      "campaignName": "sbvasin_bear clothes basic_se5608",
+      "reason": "no_safe_bid_move_at_lower_layer_or_duplicate"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "69718518356320",
+      "adGroupId": "",
+      "campaignName": "sb kw broad_wall mount wire basket_kej1748 kej0562 kej0561",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "490842124061465",
+      "adGroupId": "",
+      "campaignName": "sbvkw_21st birthday party shot_ks0788",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "112812529534861",
+      "adGroupId": "",
+      "campaignName": "sbvkw_cosmetic bags_lne1321",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "26638821841248",
+      "adGroupId": "",
+      "campaignName": "sbkw_babyshower_yan4858 yan3832 yan1353",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "21598962397311",
+      "adGroupId": "",
+      "campaignName": "sb _soccer balls bulk_yut2847 yut2840 yut2844",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "259918767941012",
+      "adGroupId": "",
+      "campaignName": "sbvkw_commercial food storage_dun1392",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "433971852250064",
+      "adGroupId": "",
+      "campaignName": "sbvkw1_straw sun hats for women_ey2727",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "209927858454800",
+      "adGroupId": "",
+      "campaignName": "sbkw_commercial food storage_dun1391 dun1394 dun1392",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "166107369095130",
+      "adGroupId": "",
+      "campaignName": "sbvkw_donkey pinata_ob3296",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "350742159797251",
+      "adGroupId": "",
+      "campaignName": "sbv_spanish christian church gifts_saw1720",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "496624831143847",
+      "adGroupId": "",
+      "campaignName": "sbkw_ wedding centerpieces_lem6577 lem6581 lem6585",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "223361437612180",
+      "adGroupId": "",
+      "campaignName": "sbkw_christian necklace gifts_gm4172 gm3940 gm2628",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "524288051886050",
+      "adGroupId": "",
+      "campaignName": "teddy bear kv0324-sbv-s-old",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "476743730770144",
+      "adGroupId": "",
+      "campaignName": "sbv_mininb_ uan3644",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "174928842476206",
+      "adGroupId": "",
+      "campaignName": "sbv kw_1q clearstorage_ae2139",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "327706785396391",
+      "adGroupId": "",
+      "campaignName": "sbvkw_school counselor _le5044",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "291616463323216",
+      "adGroupId": "",
+      "campaignName": "sbvkw_positive taco_sy4371",
+      "reason": "no_safe_bid_move_at_lower_layer_or_duplicate"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "324608794873208",
+      "adGroupId": "",
+      "campaignName": "sbvkw_wedding favors_nay1449",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "388765228826251",
+      "adGroupId": "",
+      "campaignName": "sbvkw_ mexican keychain_ey1448",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "15309750359683",
+      "adGroupId": "",
+      "campaignName": "rainbow table cloths qq1764 SBV-S-NEW",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "527659780014398",
+      "adGroupId": "",
+      "campaignName": "cute pen holders yh2554-sb",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "514864507188578",
+      "adGroupId": "",
+      "campaignName": "sbvkw_bear clothes basic tee_se7586",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "357742247201365",
+      "adGroupId": "",
+      "campaignName": "sbvkw_drysunf_yan0656",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "200659595040115",
+      "adGroupId": "",
+      "campaignName": "sbkw_rotating bracelet display stand_clo0344 clo0341 clo0343",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "87192228041341",
+      "adGroupId": "",
+      "campaignName": "sbv kw_mini colored pencils_qa1157",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "222900325634337",
+      "adGroupId": "",
+      "campaignName": "sb kw broad_social worker_le8156 le8173 le8168",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "359590546676185",
+      "adGroupId": "",
+      "campaignName": "bear plates lru1537 sbv-s-old",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "357257900689107",
+      "adGroupId": "",
+      "campaignName": "bridesmaid gifts-shu2557-sb",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "59619435449521",
+      "adGroupId": "",
+      "campaignName": "sbvkw_appreciationballpoint_led3945",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "1200532521311",
+      "adGroupId": "",
+      "campaignName": "sbkw_pinata_cl3650 cl3563 cl4170",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "493485071051531",
+      "adGroupId": "",
+      "campaignName": "sbv_garment bag_ssu1756",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "396417859520346",
+      "adGroupId": "",
+      "campaignName": "sbv_first holy yard sign_qa3975",
+      "reason": "no_safe_bid_move_at_lower_layer_or_duplicate"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "140006771406561",
+      "adGroupId": "",
+      "campaignName": "sbkw_bottle chug_luo1051 luo1012 luo1006",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "459336073175822",
+      "adGroupId": "",
+      "campaignName": "sb_ pastor gift_sta2610 sta2607 sta2604",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "559223967003908",
+      "adGroupId": "",
+      "campaignName": "sbv_cowboy hats_san1050",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "201078880263108",
+      "adGroupId": "",
+      "campaignName": "sbv kw board_dental assistant week_ru2411",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "516154391645004",
+      "adGroupId": "",
+      "campaignName": "sbvkw_letterstencils_xix1523",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "295193443924888",
+      "adGroupId": "",
+      "campaignName": "sbvkw_peg board shelves_if1232",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "514131394658037",
+      "adGroupId": "",
+      "campaignName": "sbv_rainbow umbrella_sh0423",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "485631448645047",
+      "adGroupId": "",
+      "campaignName": "sbv_wooddiycars_shq2216",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "266121276953677",
+      "adGroupId": "",
+      "campaignName": "sbv kw_pegboard baskets_kej1748",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "499627433054715",
+      "adGroupId": "",
+      "campaignName": "sbkw_bear clothes basic_se6599 se6685 se7586",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "306999631354391",
+      "adGroupId": "",
+      "campaignName": "sbv2_rainbow party-war1276",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "372662473637820",
+      "adGroupId": "",
+      "campaignName": "retirement party favors-lny3024-sbv-s-new",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "88016410758535",
+      "adGroupId": "",
+      "campaignName": "sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "431340941794838",
+      "adGroupId": "",
+      "campaignName": "sbvkw_bottle chug_luo1051",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "434065971477206",
+      "adGroupId": "",
+      "campaignName": "hotel pans-med1033-sbv-s-new",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "412863864899719",
+      "adGroupId": "",
+      "campaignName": "loved one gifts yan3229 sbv-f-new",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "456834474090559",
+      "adGroupId": "",
+      "campaignName": "sbvkw_pegboard baskets metal_kej0562",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "69271563432832",
+      "adGroupId": "",
+      "campaignName": "sbvkw_babyshower_yan4858",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "60466237634924",
+      "adGroupId": "",
+      "campaignName": "sbv kw_moon themed baby shower_ru2391",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "272213410885381",
+      "adGroupId": "",
+      "campaignName": "sbkw_pool floats_mf6328 mf6292 mf6280",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "46012006236710",
+      "adGroupId": "",
+      "campaignName": "sb kw_vip party_kz6722 kz6074 kz5816",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "116547456288944",
+      "adGroupId": "",
+      "campaignName": "sbv kw_hanging metal basket_xue2224",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "248153783626975",
+      "adGroupId": "",
+      "campaignName": "sb kw broad_social worker_le5294 le8150 le8163",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "464774264303841",
+      "adGroupId": "",
+      "campaignName": "food storage buckets with lids-dun1391-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "43670119699010",
+      "adGroupId": "",
+      "campaignName": "sbvkw_christian necklace gifts_gm4172",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "300720307034698",
+      "adGroupId": "",
+      "campaignName": "sbvkw_medical assistant gifts_gm2827",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "551872289614022",
+      "adGroupId": "",
+      "campaignName": "sbvasin_death to my 20s decorations_qa0828",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "452019101321671",
+      "adGroupId": "",
+      "campaignName": "sbvkw_vip party_kz5816",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "427691348439445",
+      "adGroupId": "",
+      "campaignName": "cruise ship ducks-hay1932-sbv-s-new2",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "34122180322406",
+      "adGroupId": "",
+      "campaignName": "sbv high-quality_rainbow tablecloth_qq1764",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "473215708211253",
+      "adGroupId": "",
+      "campaignName": "sb_brown tie your shoe_yan3832",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "424368167870954",
+      "adGroupId": "",
+      "campaignName": "sbvkw_ christian necklace_gm2616",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "408671517050099",
+      "adGroupId": "",
+      "campaignName": "sbvkw_felt mushroom ornaments_hai4870",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "153104126944450",
+      "adGroupId": "",
+      "campaignName": "sbkw_godmother mothers day",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "458819536609816",
+      "adGroupId": "",
+      "campaignName": "sbv_christian keychains_ey5555",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "422061390459658",
+      "adGroupId": "",
+      "campaignName": "sbvkw_bottle chug_luo1012",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "176664787445697",
+      "adGroupId": "",
+      "campaignName": "sbv kw_inspirational_journal_uan3248",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "241581305765148",
+      "adGroupId": "",
+      "campaignName": "sbvkw_storage containers_yy4568",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "430193676468777",
+      "adGroupId": "",
+      "campaignName": "sbvkw_get well soon gifts _kv4232",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "287598987831831",
+      "adGroupId": "",
+      "campaignName": "sbv_pinata_cl4170",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "518063213751837",
+      "adGroupId": "",
+      "campaignName": "sbv_40thbirthdaybags_ken1043",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "97375280920576",
+      "adGroupId": "",
+      "campaignName": "ob4139 ob3296 cl4199 cl4170 cl3650 cl3563",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "31162966242041",
+      "adGroupId": "",
+      "campaignName": "sbvkw_pegboardorganizer_kej0561",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "558291630379161",
+      "adGroupId": "",
+      "campaignName": "sbvkw_highland cow print_hos1152",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "207690910445880",
+      "adGroupId": "",
+      "campaignName": "sb kw_inflatable number_yut4460 yut2946 yut2927",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "169070092205723",
+      "adGroupId": "",
+      "campaignName": "sbvkw_flamingo_ duc4152",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "119819572465016",
+      "adGroupId": "",
+      "campaignName": "kw _crna week appreciation gift _tm2897",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "75290483351021",
+      "adGroupId": "",
+      "campaignName": "sbvkw_baskets_dun1128",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "2603010623414",
+      "adGroupId": "",
+      "campaignName": "sbvkw_wood pacifier clips_th1516",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "455752620519072",
+      "adGroupId": "",
+      "campaignName": "hotel pans-med1032-sbv-s-new",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "550154280975778",
+      "adGroupId": "",
+      "campaignName": "sbvkw_ elephant charm _xia3242",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "403697255305566",
+      "adGroupId": "",
+      "campaignName": "sb_dun1127dun1128dun1150",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "535597545815296",
+      "adGroupId": "",
+      "campaignName": "kv3640 bear",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "32508318633794",
+      "adGroupId": "",
+      "campaignName": "sbv _cowhat&band_san0383",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "484990097857688",
+      "adGroupId": "",
+      "campaignName": "rainbow table cloths QQ2235 SBV-S-NEW",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "167317611610656",
+      "adGroupId": "",
+      "campaignName": "sbkw _umbrella hat_sh0424 sh0423 sh0422",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "266070153687479",
+      "adGroupId": "",
+      "campaignName": "sbv high-quality_rainbow tablecloth_qq2235",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "342203156077875",
+      "adGroupId": "",
+      "campaignName": "sbvkw_ bread basket_dun1127",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "535768460217856",
+      "adGroupId": "",
+      "campaignName": "sbv_pinata_cl3563",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "398634697897265",
+      "adGroupId": "",
+      "campaignName": "white acrylic pens-gra4861-sbv-s-new",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "348391968296514",
+      "adGroupId": "",
+      "campaignName": "sbvkw_crna week appreciation bracelet_tan2986",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "336677015688209",
+      "adGroupId": "",
+      "campaignName": "sbv_babyshowerbags_boy3171",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "540965186546016",
+      "adGroupId": "",
+      "campaignName": "sbvkw_cowboy hats_san1041",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "226685947866297",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_lab week_gm3213",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "229822096446181",
+      "adGroupId": "",
+      "campaignName": "sbvkw_baskets_dun1150",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "326797614661972",
+      "adGroupId": "",
+      "campaignName": "sbkw_vet tech appreciation gifts_day2990 day2987 day2984",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "189331516179804",
+      "adGroupId": "",
+      "campaignName": "sbv kw_umbrella hat_sh0422",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "226026935021274",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_lab week_gm3149",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "475899404107335",
+      "adGroupId": "",
+      "campaignName": "sbv_bee gift bags_no5155",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "361885933569856",
+      "adGroupId": "",
+      "campaignName": "kwsbv_coquette pink_led6372",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "262266492872476",
+      "adGroupId": "",
+      "campaignName": "sbv kw_hanging metal basket_xue0890",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "46105532251164",
+      "adGroupId": "",
+      "campaignName": "sbkw_unfinished wooden car_shq3950 shq3955 shq2216",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "423339988604360",
+      "adGroupId": "",
+      "campaignName": "sbvkw_fishing sun hats_yeo0766",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "340873401431219",
+      "adGroupId": "",
+      "campaignName": "ballpoint pen-nay0239-sbv-s-new",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "26056126712201",
+      "adGroupId": "",
+      "campaignName": "sbvkw_acrylic shelves_if1738",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "336610769023786",
+      "adGroupId": "",
+      "campaignName": "sbv_mothers day gifts bulk_qaa2627",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "411949328062119",
+      "adGroupId": "",
+      "campaignName": "sbvkw_bottle chug_luo0914",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "412579795468606",
+      "adGroupId": "",
+      "campaignName": "big teddy bear yb0698-sbv-s-old",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "258353584625621",
+      "adGroupId": "",
+      "campaignName": "sb kw_boonie hats_yeo1463 yeo1452 yeo1451",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "349174959480081",
+      "adGroupId": "",
+      "campaignName": "sb kw_cowhat&band_san0383 san0113 san0384",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "343897893946374",
+      "adGroupId": "",
+      "campaignName": "death to my 20s decorations qa0828-sbv-s-old",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "311634836493814",
+      "adGroupId": "",
+      "campaignName": "sb_pinata_cl4199  cl4170 cl3563",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "428893974756301",
+      "adGroupId": "",
+      "campaignName": "uy3674 uy3437 uy1623-sb",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "49025439558147",
+      "adGroupId": "",
+      "campaignName": "sbvkw_rotating bracelet display stand_clo0341",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "394613783655920",
+      "adGroupId": "",
+      "campaignName": "sbvkw_christian gift set_fe3232",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "389606960390387",
+      "adGroupId": "",
+      "campaignName": "deli containers bio0027 SBV-S-NEW",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "327049567885804",
+      "adGroupId": "",
+      "campaignName": "rainbow table covering qq1764 sbv-s-old",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "219143533775112",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_baby shower_shq3834",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "343177649476412",
+      "adGroupId": "",
+      "campaignName": "sbv_mininb_ uan3646",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "533296836430773",
+      "adGroupId": "",
+      "campaignName": "sbvkw_teacher appreciation gifts_hay2767",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "482175547602171",
+      "adGroupId": "",
+      "campaignName": "sbvkw_cowboyhat_san1200",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "468141637445099",
+      "adGroupId": "",
+      "campaignName": "sbvkw_black history month cupcake toppers_cas4030",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "444552566651112",
+      "adGroupId": "",
+      "campaignName": "sbvkw_veterinary week gifts_qaa1779",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "104116848890442",
+      "adGroupId": "",
+      "campaignName": "sbvkw_rotating bracelet display stand_clo0343",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "492388094058523",
+      "adGroupId": "",
+      "campaignName": "sbkw_bow notebook_xih2559 xih2672 xih2677",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "329935156976924",
+      "adGroupId": "",
+      "campaignName": "mini journals uan0188 sb2",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "433688963038350",
+      "adGroupId": "",
+      "campaignName": "sbvkw_1.5q clearstorage_ae2140",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "474210459642170",
+      "adGroupId": "",
+      "campaignName": "sbkw_get well soon gifts_kv0324 kv3640 kv4231",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "327693028915431",
+      "adGroupId": "",
+      "campaignName": "sbvkw_bottle chug_luo1006",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "309271717620835",
+      "adGroupId": "",
+      "campaignName": "sbvkw_nurse appreciation ornaments_cee0611",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "84493960070990",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_social worker_le5294",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "370160695731490",
+      "adGroupId": "",
+      "campaignName": "pin me cheer ribbon gt3814 sbv-s-new",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "442957417131324",
+      "adGroupId": "",
+      "campaignName": "sbvkw_ christian necklace_gm2620",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "387308264746417",
+      "adGroupId": "",
+      "campaignName": "sbvkw_christian tumblers_yun2187",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "483350635753513",
+      "adGroupId": "",
+      "campaignName": "sbvkw_bridal shower game_gra5177",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "365766827094975",
+      "adGroupId": "",
+      "campaignName": "sbkw_christian necklace gifts_gm2389 gm2634 gm2616",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "532094304571650",
+      "adGroupId": "",
+      "campaignName": "whistle wd0559-sb",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "346593764769836",
+      "adGroupId": "",
+      "campaignName": "sbvkw_cowboyhat_san1213",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "375326561273357",
+      "adGroupId": "",
+      "campaignName": "sbvkw_multicolor notebooks_uan3257",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "449197525913025",
+      "adGroupId": "",
+      "campaignName": "sbvkw_vet tech appreciation gifts_day2987",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "399561133453547",
+      "adGroupId": "",
+      "campaignName": "sbvasin1_1/6 size food pan_ae3519",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "482913289165778",
+      "adGroupId": "",
+      "campaignName": "sbvkw_jonah and the whale felt kit_lic1392",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "191078690708878",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_baby shower crafts_shq3950",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "469845996298652",
+      "adGroupId": "",
+      "campaignName": "sbv_tablenum_jin1883",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "44607910230058",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_boonie hats_yeo1452",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "516106640342407",
+      "adGroupId": "",
+      "campaignName": "sbvkw_ dog rope toys _kei1148",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "483655543346160",
+      "adGroupId": "",
+      "campaignName": "sbv_american flag bracelets_lay2384",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "235499945975899",
+      "adGroupId": "",
+      "campaignName": "sbvkw 精细_letterstencils_xix1523",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "241633827482106",
+      "adGroupId": "",
+      "campaignName": "sb_social workergifts_le8173 le8168 le8163 le8156 le8150 le5294",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "52059251440586",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_boonie hats_yeo1451",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "285007396622246",
+      "adGroupId": "",
+      "campaignName": "sbvkw_vet tech appreciation gifts_day2984",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "29290097214985",
+      "adGroupId": "",
+      "campaignName": "sbkw_clear garment bag_ssu4939 ssu3909 ssu1756",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "405411922808539",
+      "adGroupId": "",
+      "campaignName": "sbvkw_cowboyhat_san1096",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "412986258529265",
+      "adGroupId": "",
+      "campaignName": "sbvasin_bottle chug_luo1006  sbv-pt 定位测试",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "68330753621331",
+      "adGroupId": "",
+      "campaignName": "kwsbv_black history month centerpieces_ru2438",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "379489444443390",
+      "adGroupId": "",
+      "campaignName": "sbvkw_valentine bear_yut3587",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "306318623471529",
+      "adGroupId": "",
+      "campaignName": "sbvkw_ white cowboy hats_san1081",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "134604173009555",
+      "adGroupId": "",
+      "campaignName": "sbvkw_deli containers with lids_bio0026",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "141696733555077",
+      "adGroupId": "",
+      "campaignName": "kw broad_lab week_gm3213 gm3210 gm3207",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "145959246938704",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_bride underwear_hua6645",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "397194262182034",
+      "adGroupId": "",
+      "campaignName": "sbvkw_black cowboy hat_san1084",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "161604960730880",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_boonie hats_yeo1463",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "554053260439973",
+      "adGroupId": "",
+      "campaignName": "sbvkw1_christian gift set_fe3235",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "409104678830763",
+      "adGroupId": "",
+      "campaignName": "sbvkw_flapper accessories_san1320",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "455353417744228",
+      "adGroupId": "",
+      "campaignName": "sbkw_expandable braided cable_isi1111",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "339825760967109",
+      "adGroupId": "",
+      "campaignName": "sbvkw_expandable braided cable_isi1111",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "429987129080108",
+      "adGroupId": "",
+      "campaignName": "sbv_christian mirror_mel1299",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "190530026043365",
+      "adGroupId": "",
+      "campaignName": "sbvkw_dentist appreciation gifts _gm3065",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "103060951758264",
+      "adGroupId": "",
+      "campaignName": "sbvkw_flamingo_duc0055",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "456274529854033",
+      "adGroupId": "",
+      "campaignName": "sbvkw_star keychain_coo1855",
+      "reason": "no_safe_bid_move_at_lower_layer_or_duplicate"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "479460267704563",
+      "adGroupId": "",
+      "campaignName": "sbvkw_hotel steam table pans_med1970",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "534377427541883",
+      "adGroupId": "",
+      "campaignName": "cruise duck tags tin2239-sb2",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "194559201737563",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_social worker_le8150",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "553739734263100",
+      "adGroupId": "",
+      "campaignName": "sbvkw_friendship gifts_coo5293",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "510906577601481",
+      "adGroupId": "",
+      "campaignName": "sb_bottle chug_luo0914 luo1012 luo1006",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "150691683189423",
+      "adGroupId": "",
+      "campaignName": "sbvkw_bear paper plates napkins_lru1537",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "460007210206124",
+      "adGroupId": "",
+      "campaignName": "sbvkw_cowboyhat_san1203",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "454272770805206",
+      "adGroupId": "",
+      "campaignName": "sbvkw_2 q clearstorage_ae2138",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "382274463602728",
+      "adGroupId": "",
+      "campaignName": "large wooden cutting board-dui0086-sbv-s-new",
+      "reason": "no_safe_bid_move_at_lower_layer_or_duplicate"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "147110986718868",
+      "adGroupId": "",
+      "campaignName": "sb kw_fishing sun hats_yeo0766 yeo1451 yeo1452",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "418842502073834",
+      "adGroupId": "",
+      "campaignName": "sbkw_weddingsign_new0005 new1817 new1818",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "480237993675961",
+      "adGroupId": "",
+      "campaignName": "bridesmaid gifts shu2552 sbv-s-new",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "475538372022757",
+      "adGroupId": "",
+      "campaignName": "food prep containers ae3519 sbv-f-old",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "511758307632245",
+      "adGroupId": "",
+      "campaignName": "sbvkw_pastor appreciation gifts _sta2607",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "347513286003128",
+      "adGroupId": "",
+      "campaignName": "sbvkw_safari goodie bag_dh2685",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "146287346276314",
+      "adGroupId": "",
+      "campaignName": "sb _soccer balls bulk_yut3183 yut3185 yut3184",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "338708088016829",
+      "adGroupId": "",
+      "campaignName": "sbvkw_ christmas football_hel3107",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "398243071013435",
+      "adGroupId": "",
+      "campaignName": "sbvkw_expandable braided cable_isi1140",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "128342178517617",
+      "adGroupId": "",
+      "campaignName": "sb kw broad_lab week_gm3210 gm3207 gm3201",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "94462691487074",
+      "adGroupId": "",
+      "campaignName": "silicone cable ties th2781",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "75215905650162",
+      "adGroupId": "",
+      "campaignName": "sbvkw_rotating bracelet display stand_clo0344",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "308795364945408",
+      "adGroupId": "",
+      "campaignName": "sbvkw_cowboyhat_san1222",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "496088307336020",
+      "adGroupId": "",
+      "campaignName": "sb kw_storage containers_ae2139 ae2140 ae0942",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "542253387384717",
+      "adGroupId": "",
+      "campaignName": "cable organizer straps th2824 SBV-S-NEW",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "357748469541996",
+      "adGroupId": "",
+      "campaignName": "sbv_staffappreciation_hel2083",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "275137189544520",
+      "adGroupId": "",
+      "campaignName": "sb kw_cable organizer straps_th2619 th2618 th2599",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "554141865804773",
+      "adGroupId": "",
+      "campaignName": "sbvkw_pastor appreciation gifts_sta2604",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "108401150220147",
+      "adGroupId": "",
+      "campaignName": "sbvkw broad_soccer ball_yut3184",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "416949699542454",
+      "adGroupId": "",
+      "campaignName": "sbvkw_book lovers gift_led3343",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "452416047029645",
+      "adGroupId": "",
+      "campaignName": "rubber ducks cruise hay0218 sb",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "495061809945860",
+      "adGroupId": "",
+      "campaignName": "whistles bulk WD0559 SB",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "354956484404310",
+      "adGroupId": "",
+      "campaignName": "godmother gifts ae3329 sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "61823803112416",
+      "adGroupId": "",
+      "campaignName": "sbv broad_baby shower crafts_shq3949",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "402429222179350",
+      "adGroupId": "",
+      "campaignName": "cable organizer straps th2796-sbv",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "300078525015330",
+      "adGroupId": "",
+      "campaignName": "sbvkw_fishers of men craft_cot2347",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "177842756856337",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_social worker_le8156",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "109108559672104",
+      "adGroupId": "",
+      "campaignName": "kw_sbv_inspirational_journal_uan2599",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "157179566483031",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_baby shower crafts_shq3955",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "188359622757609",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_dispatcher gifts_gm3061",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "522499950762184",
+      "adGroupId": "",
+      "campaignName": "sbkw_pastor appreciation gifts _sta2610 sta2607 sta2604",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "377450755164901",
+      "adGroupId": "",
+      "campaignName": "duck teacher led8000 led8006 led3942-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "449116880221747",
+      "adGroupId": "",
+      "campaignName": "sbvkw_team christmas ornaments _dui3067",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "520011951703424",
+      "adGroupId": "",
+      "campaignName": "food storage buckets with lids-dun1393-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "419990094372798",
+      "adGroupId": "",
+      "campaignName": "uy3437 uy1624 uy1623-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "437045720512909",
+      "adGroupId": "",
+      "campaignName": "pin me cheer ribbon-gt3801-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "435263640176781",
+      "adGroupId": "",
+      "campaignName": "sbvkw_mini charcuterie boards_do0446",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "445648157629757",
+      "adGroupId": "",
+      "campaignName": "hanging metal basket-xue0890-sbv-s-new2",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "368965021372815",
+      "adGroupId": "",
+      "campaignName": "sbvkw_nurse ornament_mh2710",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "419127236268173",
+      "adGroupId": "",
+      "campaignName": "adult pinata OB1999 sbv-F-OLD",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "301999331351197",
+      "adGroupId": "",
+      "campaignName": "sbvkw_christmas handprint kit_xan0735",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "328413569313735",
+      "adGroupId": "",
+      "campaignName": "sbv asin_american flag mug_us2516",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "453659163975809",
+      "adGroupId": "",
+      "campaignName": "sbkw_halloween martian_mk5043 mk0522 mk5042",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "404385440521290",
+      "adGroupId": "",
+      "campaignName": "hanging metal basket-xue0890-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "522632977719357",
+      "adGroupId": "",
+      "campaignName": "sbvasin_valentine bear_yut3587",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "315747874592668",
+      "adGroupId": "",
+      "campaignName": "sbvkw_letters patches_lic8799",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "521040118033593",
+      "adGroupId": "",
+      "campaignName": "adult pinata ob1812-sbv-f-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "338948524189218",
+      "adGroupId": "",
+      "campaignName": "inspirational tote bags KOU1439 SBV-S-NEW",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "530987676019961",
+      "adGroupId": "",
+      "campaignName": "sbkw_baby shower game _yan3832 yan2281 yan2008",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "455077530375888",
+      "adGroupId": "",
+      "campaignName": "sbvkw_wooden love sign_new1817",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "329185464550891",
+      "adGroupId": "",
+      "campaignName": "sbvkwexact_galentine s day greeting cards_fe4601",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "442872680456315",
+      "adGroupId": "",
+      "campaignName": "sbv_passover seder_qir2676",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "335746998628707",
+      "adGroupId": "",
+      "campaignName": "sbvkw_baby shower  berry sweet_boy3356",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "547351727154995",
+      "adGroupId": "",
+      "campaignName": "campfire plush keychain-shq0554-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "331125180060742",
+      "adGroupId": "",
+      "campaignName": "mini notepads bulk uan2600-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "505177452623639",
+      "adGroupId": "",
+      "campaignName": "sbvasin_karateorna_uy3214",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "437333511624098",
+      "adGroupId": "",
+      "campaignName": "sbvasin_halloween breast_rt3297 sbv-pt 定位测试",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "514032304596879",
+      "adGroupId": "",
+      "campaignName": "sbvkw2_diy miniature fence_dea3176",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "504506506066064",
+      "adGroupId": "",
+      "campaignName": "nurse ornament mh2708 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "419163395022155",
+      "adGroupId": "",
+      "campaignName": "sb_sportorna_uy0533uy3242uy3211",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "502441201875900",
+      "adGroupId": "",
+      "campaignName": "sbvkw_table numbers_jin3992",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "506799192425287",
+      "adGroupId": "",
+      "campaignName": "flower buckets-dn2684-sbv-s-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "521620676179605",
+      "adGroupId": "",
+      "campaignName": "sbvkw_flower bucket _dn3049",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "537757088895740",
+      "adGroupId": "",
+      "campaignName": "sbvkw2_ wedding centerpieces_lem6585",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "439265959060179",
+      "adGroupId": "",
+      "campaignName": "bible verse pens uan1392",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "512073375591193",
+      "adGroupId": "",
+      "campaignName": "cruise ship ducks-hay0218 SBV-S-NEW",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "447328967897429",
+      "adGroupId": "",
+      "campaignName": "sbkw_weddingsign_new0005 new0006 new1816",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "541358682343796",
+      "adGroupId": "",
+      "campaignName": "sbvkw_veterinary week gifts_qaa1787",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "460198164316543",
+      "adGroupId": "",
+      "campaignName": "sbvkw_jonah and the whale felt kit_lic1393",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "351340310083272",
+      "adGroupId": "",
+      "campaignName": "swimming ornament-uy3242-sbv-s-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "508151599360297",
+      "adGroupId": "",
+      "campaignName": "wedding signs-qa3281-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "464693611249775",
+      "adGroupId": "",
+      "campaignName": "christmas gift for teacher-joy0431-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "288537743920125",
+      "adGroupId": "",
+      "campaignName": "softball keychain-QA3169-sbv-s-new2",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "401414937261262",
+      "adGroupId": "",
+      "campaignName": "sbvkw_valentine day gifts_rho0473",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "423696330825690",
+      "adGroupId": "",
+      "campaignName": "rose wall painting ky1342-sbv-f-old",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "398782653009098",
+      "adGroupId": "",
+      "campaignName": "sbvasin_butterfly photo frame_ad1718   sbv-pt 定位测试",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "459389871823661",
+      "adGroupId": "",
+      "campaignName": "pregnancy bear-dea2061-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "326091956920703",
+      "adGroupId": "",
+      "campaignName": "sbvkw_friendsgiving teaspoons_kej1629",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "373549007691757",
+      "adGroupId": "",
+      "campaignName": "sbkw_halloween martian alien_mk0522",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "283229159404159",
+      "adGroupId": "",
+      "campaignName": "sbvkw_pastor appreciation gifts _sta2610",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "557796200473265",
+      "adGroupId": "",
+      "campaignName": "weighted animal-duc0913-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "334262061807320",
+      "adGroupId": "",
+      "campaignName": "plastic bucket-flo2960 -S-NEW",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "345801393488948",
+      "adGroupId": "",
+      "campaignName": "38 storage containers with lid ae2138-sbv-s-f-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "391033692405617",
+      "adGroupId": "",
+      "campaignName": "sbkw_blue pompom_ro2133 ro2044 ro2351",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "441180648562899",
+      "adGroupId": "",
+      "campaignName": "sbvkw_penguin mini gift boxes_tiy2613",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "547236738470079",
+      "adGroupId": "",
+      "campaignName": "sbvasin_church gift keychain_jaf0832",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "335642476774216",
+      "adGroupId": "",
+      "campaignName": "house decorations living room uy0879-sbv-s-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "416436763134316",
+      "adGroupId": "",
+      "campaignName": "ultrasound picture frames dea0023-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "555824751344561",
+      "adGroupId": "",
+      "campaignName": "jesus stuffed doll-shn1038-sbv-s-new",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "12160142573733",
+      "adGroupId": "",
+      "campaignName": "sbvkw exact_bottle chug_luo1051",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "410183445043713",
+      "adGroupId": "",
+      "campaignName": "sbvkw_penguin mini gift boxes_tiy2618",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "551227681986994",
+      "adGroupId": "",
+      "campaignName": "sbvkw_christian tumblers_yun2187",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "351818264146267",
+      "adGroupId": "",
+      "campaignName": "heart spoons-kej0518-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "23566682873883",
+      "adGroupId": "",
+      "campaignName": "sbvkw exact_valentine bear_yut3587",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "314466494806731",
+      "adGroupId": "",
+      "campaignName": "restaurant food containers ae2138-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "558310242623050",
+      "adGroupId": "",
+      "campaignName": "pin me cheer ribbon-gt3811-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "515410651576969",
+      "adGroupId": "",
+      "campaignName": "rubber ducks for cruise ships hay1900 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "408173585797320",
+      "adGroupId": "",
+      "campaignName": "sbvkw_wooden love sign_new1816",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "325701204171395",
+      "adGroupId": "",
+      "campaignName": "galvanized flower bucket dn1655 sbv-f-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "306698032699589",
+      "adGroupId": "",
+      "campaignName": "sb_pomspoms_iv1964iv1967iv1966",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "410770368174820",
+      "adGroupId": "",
+      "campaignName": "sbvkw_stuffed animal dogs_mf0400",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "296041619046437",
+      "adGroupId": "",
+      "campaignName": "bottle opener retirement -lny3098-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "404707118516952",
+      "adGroupId": "",
+      "campaignName": "sb_flowerpot_gt3712 gt2432 gt3713",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "316533438389871",
+      "adGroupId": "",
+      "campaignName": "Silicone Cable Ties TH2599",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "421159494869663",
+      "adGroupId": "",
+      "campaignName": "flamingo toys duc0055 sbv-s-new3",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "391648974831284",
+      "adGroupId": "",
+      "campaignName": "soccer balls mf3544 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "417493556817493",
+      "adGroupId": "",
+      "campaignName": "sbvasin_diy miniature fence_dea3176",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "460521285412342",
+      "adGroupId": "",
+      "campaignName": "food storage buckets with lids-dun1394 sbv-s-new",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "308072155325168",
+      "adGroupId": "",
+      "campaignName": "soccer balls mf3545-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "375743245365958",
+      "adGroupId": "",
+      "campaignName": "sbvkw_galentine s day greeting cards_fe4601",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "549934392742692",
+      "adGroupId": "",
+      "campaignName": "sbvasin_gymnastics-uy3212",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "361953173417994",
+      "adGroupId": "",
+      "campaignName": "sbvkw_blue floralbags_qa3896",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "143148845165619",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_dispatcher gifts_gm3054",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "336070918463534",
+      "adGroupId": "",
+      "campaignName": "bear shirts se5608-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "477963669886058",
+      "adGroupId": "",
+      "campaignName": "sbvkw_duck tag cruise_tin2259",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "292607281493696",
+      "adGroupId": "",
+      "campaignName": "sbv_mom cemetery_jax0130",
+      "reason": "no_safe_bid_move_at_lower_layer_or_duplicate"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "519526767033613",
+      "adGroupId": "",
+      "campaignName": "sbvkw_christmas stress balls_hai4968",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "485061048096103",
+      "adGroupId": "",
+      "campaignName": "sbv_target_ireland flag_zk1469",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "434944130022167",
+      "adGroupId": "",
+      "campaignName": "sbvkw_motivational party favor_hay1706",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "298576100780966",
+      "adGroupId": "",
+      "campaignName": "wedding fans for guests qa2074-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "341422201107237",
+      "adGroupId": "",
+      "campaignName": "bible verse pen uan1392 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "148176718522898",
+      "adGroupId": "",
+      "campaignName": "sbvkw_swim goggles for kids_boy1281",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "332658986007711",
+      "adGroupId": "",
+      "campaignName": "sbvasin_swimornament-uy3242",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "342545673735204",
+      "adGroupId": "",
+      "campaignName": "keychain display stand -clo0344-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "527523583057239",
+      "adGroupId": "",
+      "campaignName": "sbvasin_bottle chug_luo0914 sbv-pt 定位测试",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "325647608446749",
+      "adGroupId": "",
+      "campaignName": "cute pencil holder-gra3377 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "430419772387541",
+      "adGroupId": "",
+      "campaignName": "sbvkw_diy miniature fence_dea3172",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "495407998668132",
+      "adGroupId": "",
+      "campaignName": "galvanized flower bucket dn1656 sbv-f-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "522408642659506",
+      "adGroupId": "",
+      "campaignName": "nurse gifts mh2712 sbv-s-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "66662849590575",
+      "adGroupId": "",
+      "campaignName": "sb kw_hanging metal basket_xue0890xue2224",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "493246359864774",
+      "adGroupId": "",
+      "campaignName": "back to school gifts for teachers joy0900 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "296767905529290",
+      "adGroupId": "",
+      "campaignName": "grizzly bear hay0889 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "557911616457697",
+      "adGroupId": "",
+      "campaignName": "cat spikes hl2535 sbv-f-old duan",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "190715307946924",
+      "adGroupId": "",
+      "campaignName": "kpop photocard holder oc1858-SBV",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "285802052780445",
+      "adGroupId": "",
+      "campaignName": "sbvasin_halloween breast_rt3296 sbv-pt 定位测试",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "364150358950041",
+      "adGroupId": "",
+      "campaignName": "sbv kw_christian keychain bulk_lic0168",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "445794732844182",
+      "adGroupId": "",
+      "campaignName": "floral picks-ycl1248 sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "236395966732173",
+      "adGroupId": "",
+      "campaignName": "cable organizer straps TH2618-sbv",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "326215583462945",
+      "adGroupId": "",
+      "campaignName": "nurese ornament mh2355 sb2",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "480739587605600",
+      "adGroupId": "",
+      "campaignName": "sbvkw_thanksgiving maple keychains_hel2800",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "156847806822698",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_religious easter eggs_yuh4846",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "444051175280428",
+      "adGroupId": "",
+      "campaignName": "sbv_volleyorna_uy3211",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "552143222762428",
+      "adGroupId": "",
+      "campaignName": "ssbvkw_honeycomb_dea0023",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "236564623391291",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_religious easter crafts_cot3013",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "392025784208379",
+      "adGroupId": "",
+      "campaignName": "sbvasin_christmas cheerleader ornament_uy3235",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "317702891314586",
+      "adGroupId": "",
+      "campaignName": "inspirational pens-uan1379-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "382407841528829",
+      "adGroupId": "",
+      "campaignName": "sbv_staffappreciation_hel2084 2",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "481902276778713",
+      "adGroupId": "",
+      "campaignName": "mini journals uan0188 sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "469979557083484",
+      "adGroupId": "",
+      "campaignName": "uy3235 sbv christmas cheer leader ornament",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "442840365992966",
+      "adGroupId": "",
+      "campaignName": "sbvkw_wedding gift box for father_pir4610",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "369871700468504",
+      "adGroupId": "",
+      "campaignName": "sbvkw_halloween breast_rt3297",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "142374310691400",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_social worker_le8168",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "371846845138276",
+      "adGroupId": "",
+      "campaignName": "cable organizer straps th2837 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "337861255234508",
+      "adGroupId": "",
+      "campaignName": "butterfly gift box-no3390-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "550329303292989",
+      "adGroupId": "",
+      "campaignName": "sbvkw_diy miniature fence_dea3176",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "454011240201650",
+      "adGroupId": "",
+      "campaignName": "bread basket with lid-dun1128 sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "485505688046586",
+      "adGroupId": "",
+      "campaignName": "halloween labels b097n4qfcl-sbv pt",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "452150514868543",
+      "adGroupId": "",
+      "campaignName": "ninja stress balls ian2548-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "354784108491560",
+      "adGroupId": "",
+      "campaignName": "sbvkw_christian tumblers_yun2188",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "365422648185415",
+      "adGroupId": "",
+      "campaignName": "baby shower games boy yan2287-sbv-s-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "305054778549093",
+      "adGroupId": "",
+      "campaignName": "soccer balls mf1388-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "17050500454360",
+      "adGroupId": "",
+      "campaignName": "sbvkw phrase_patrick s day dolls_se1015",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "299387690485009",
+      "adGroupId": "",
+      "campaignName": "inspirational pens-uan1388-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "421441478279630",
+      "adGroupId": "",
+      "campaignName": "kw_nurse ornament_mh2710",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "188541309524655",
+      "adGroupId": "",
+      "campaignName": "sbvkw phrase_school counselor _le5044",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "340946515612851",
+      "adGroupId": "",
+      "campaignName": "sbvkw2_bear clothes basic tee shirt_se5942",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "500780376208005",
+      "adGroupId": "",
+      "campaignName": "kwsbv_bee baby shower_sev0979",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "144344712110648763",
+      "adGroupId": "",
+      "campaignName": "kpop photocard holder oc1858-SB",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "342697723556461",
+      "adGroupId": "",
+      "campaignName": "pin me cheer ribbon gt3812 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "533656412454786",
+      "adGroupId": "",
+      "campaignName": "sbvkw_wooden keychain blanks_qa2082",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "387173676577661",
+      "adGroupId": "",
+      "campaignName": "sbvkw_halloween breast_rt3296",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "238256874802034",
+      "adGroupId": "",
+      "campaignName": "sbvkw  exact_bottle chug_luo1006",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "374337710997898",
+      "adGroupId": "",
+      "campaignName": "mf2992 mf2954 mf2862 mf2859 mf2768-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "367306617347067",
+      "adGroupId": "",
+      "campaignName": "sbv_tayler_zun0779",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "311552970925699",
+      "adGroupId": "",
+      "campaignName": "sbvkw_christmas mini gift card_woo3840",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "478132261012050",
+      "adGroupId": "",
+      "campaignName": "flower bucket dn1655-sb3",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "561820609135680",
+      "adGroupId": "",
+      "campaignName": "deli containers BIO0026 SBV-S-NEW",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "540495330635638",
+      "adGroupId": "",
+      "campaignName": "umbrella hat SH0424 SB",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "194056317986534",
+      "adGroupId": "",
+      "campaignName": "sbvkw_halloween apothecary stickers_hu3765",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "400911541363350",
+      "adGroupId": "",
+      "campaignName": "bridal shower prizes-oyh0257-sbv-s-new2",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "489174054639615",
+      "adGroupId": "",
+      "campaignName": "soccer keychain-qa3173-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "293084184101560",
+      "adGroupId": "",
+      "campaignName": "skull skull pinata ob2000 SBV-S-NEW",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "377890731009871",
+      "adGroupId": "",
+      "campaignName": "sbv kw_108 pcs mexican keychain _ey0793",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "309728462372258",
+      "adGroupId": "",
+      "campaignName": "sbvkw_daisy groovy car magnet_kur1793",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "387450613581369",
+      "adGroupId": "",
+      "campaignName": "storage containers with lid ae2138 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "382659743205624",
+      "adGroupId": "",
+      "campaignName": "sbvkw_nurse ornament_mh2711",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "551034682456536",
+      "adGroupId": "",
+      "campaignName": "wedding signs-qa3278-sbv-s-new2",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "367360024188187",
+      "adGroupId": "",
+      "campaignName": "flip flops HUA0165 SBV-S-NEW",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "393114881238499",
+      "adGroupId": "",
+      "campaignName": "sbv_avocadopen_weg0980",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "131732900698173",
+      "adGroupId": "",
+      "campaignName": "sbv kw_team appreciation_oli2213",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "559962115719674",
+      "adGroupId": "",
+      "campaignName": "yan2008 tie your shoe sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "561088168639956",
+      "adGroupId": "",
+      "campaignName": "employee appreciation mirror sij0236",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "416802246177459",
+      "adGroupId": "",
+      "campaignName": "baby shower games boy yan2284-sbv-s-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "337186207088182",
+      "adGroupId": "",
+      "campaignName": "sbv_bearshirt_se6599",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "509544090772817",
+      "adGroupId": "",
+      "campaignName": "church gifts in bulk-jaf0832-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "395756515589586",
+      "adGroupId": "",
+      "campaignName": "floral picks-ycl1247 sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "400564135418559",
+      "adGroupId": "",
+      "campaignName": "sbvkw_valentine day gifts_rho0477",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "389079312051296",
+      "adGroupId": "",
+      "campaignName": "sbvkw_galvanized flower bucket _dn2437",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "122179142989986",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_religious easter crafts_lem8356",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "461447908892011",
+      "adGroupId": "",
+      "campaignName": "sbvkw_christmas  garage  decorations_rux1630",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "404453045931989",
+      "adGroupId": "",
+      "campaignName": "sbvkw_butterfly photo frame_ad1718",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "43699645471811",
+      "adGroupId": "",
+      "campaignName": "sbkw_galvanized flower bucket_dn1656",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "521382566966899",
+      "adGroupId": "",
+      "campaignName": "sbkw_ pom pom _ro2044 ro2132 ro2134",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "393047872267969",
+      "adGroupId": "",
+      "campaignName": "baby shower pink-med0961-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "426114656207858",
+      "adGroupId": "",
+      "campaignName": "storage bins-sij2011-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "21488449577964",
+      "adGroupId": "",
+      "campaignName": "brow scissors B093WHT1PW SB",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "467661726536537",
+      "adGroupId": "",
+      "campaignName": "christmas gift for teacher-joy0431-sbv-s-new2",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "18733973814464",
+      "adGroupId": "",
+      "campaignName": "sbvkw_walkingstickbear_kv3640",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "395363908662304",
+      "adGroupId": "",
+      "campaignName": "sbvkw_storage containers_ae0942",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "519945040603289",
+      "adGroupId": "",
+      "campaignName": "cat spikes hl2535-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "387579516148260",
+      "adGroupId": "",
+      "campaignName": "adult pinata ob1169 sbv-F-OLD",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "320854580846744",
+      "adGroupId": "",
+      "campaignName": "baby shower games boy yan2008-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "558834791654733",
+      "adGroupId": "",
+      "campaignName": "chip and dip tray-tg0839-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "525228448936458",
+      "adGroupId": "",
+      "campaignName": "sbvkw2_christmas table decor_mp0021",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "25204649477886",
+      "adGroupId": "",
+      "campaignName": "sbv kw broad_religious easter eggs_yuh4842",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "396128774938301",
+      "adGroupId": "",
+      "campaignName": "sbv_resin figurines_qa3874",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "418201117048038",
+      "adGroupId": "",
+      "campaignName": "sbvkw3_diy miniature fence_dea3172",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "381962435122797",
+      "adGroupId": "",
+      "campaignName": "motivational notebooks woo0174-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "310272046035434",
+      "adGroupId": "",
+      "campaignName": "sbvkw_santa gym weightlifter_ry3639",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "388694496566053",
+      "adGroupId": "",
+      "campaignName": "nurese ornament mh2355 sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "375227841094672",
+      "adGroupId": "",
+      "campaignName": "pin me cheer ribbon gt3801-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "355217813857658",
+      "adGroupId": "",
+      "campaignName": "sbvkw_gymnastics-uy3212",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "187882104886551",
+      "adGroupId": "",
+      "campaignName": "silicone cable ties th2781 SB pt",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "305956450714991",
+      "adGroupId": "",
+      "campaignName": "sbv_rainbow party-war1276",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "371402566973755",
+      "adGroupId": "",
+      "campaignName": "cable organizer straps th2796-sb-asin",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "390295757362959",
+      "adGroupId": "",
+      "campaignName": "pegboard if1427 if1232 if1738-sb-key",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "528820195060120",
+      "adGroupId": "",
+      "campaignName": "sbvkw_yellow pom pom_ro2134",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "328167478808501",
+      "adGroupId": "",
+      "campaignName": "sbv_karateorna_uy3214",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "358633628353572",
+      "adGroupId": "",
+      "campaignName": "sbvkw_dirty diaper baby shower_yan2061",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "219990150982189",
+      "adGroupId": "",
+      "campaignName": "sbvkw exact_expandable braided cable_isi1111",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "521423325674262",
+      "adGroupId": "",
+      "campaignName": "sbkw_halloween martian alien_mk0522 mk5042 mk5044",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "412691492745537",
+      "adGroupId": "",
+      "campaignName": "sbkw_flapper accessories_san1320 san1317 san0148",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "307050430470101",
+      "adGroupId": "",
+      "campaignName": "flower buckets dn1655 dn1656 dn2685-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "429961080436624",
+      "adGroupId": "",
+      "campaignName": "burlap bows kl2977-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "258475070523141",
+      "adGroupId": "",
+      "campaignName": "sb kw broad_religious easter eggs_yuh4890 yuh4846 yuh4842",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "483887404844964",
+      "adGroupId": "",
+      "campaignName": "inspirational pens-uan1375 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "191476366775941",
+      "adGroupId": "",
+      "campaignName": "kw _crna week appreciation gift _tm2900",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "337079862322214",
+      "adGroupId": "",
+      "campaignName": "sbvkw_ christmas advent calendar _we3925",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "516464564734709",
+      "adGroupId": "",
+      "campaignName": "sbvkw_cow boy_san1106",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "515771296187315",
+      "adGroupId": "",
+      "campaignName": "soccer balls mf1452 sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "465555985235978",
+      "adGroupId": "",
+      "campaignName": "sbvkw_black pom pom_ro2132",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "227466154184054",
+      "adGroupId": "",
+      "campaignName": "sbvkw phrase_babyshower bear_sty2760",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "501410413468570",
+      "adGroupId": "",
+      "campaignName": "sbvasin_christmas stress balls_hai4968",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "296159817184425",
+      "adGroupId": "",
+      "campaignName": "sbvkw_baby shower gifts bag_boy3355",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "359526700134997",
+      "adGroupId": "",
+      "campaignName": "sbv kw exact_babyshower bear_sty2115",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "507031063519507",
+      "adGroupId": "",
+      "campaignName": "sbvkw_flapper accessories_san1317",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "380562309699198",
+      "adGroupId": "",
+      "campaignName": "sbv_christian glass cups_yun1572",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "310909203066675",
+      "adGroupId": "",
+      "campaignName": "cruise ship ducks-hay0221sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "358833697398229",
+      "adGroupId": "",
+      "campaignName": "sbvkw exact_babyshower bear_sty2115",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "290226352819982",
+      "adGroupId": "",
+      "campaignName": "wood circles qa1950-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "474671208918780",
+      "adGroupId": "",
+      "campaignName": "wedding signs-qa3278-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "453181167802346",
+      "adGroupId": "",
+      "campaignName": "sbvasin_diy miniature fence_dea3172",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "371860047536797",
+      "adGroupId": "",
+      "campaignName": "sbkw_ pom pom _ro2132 ro2133 ro2134",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "445477673239917",
+      "adGroupId": "",
+      "campaignName": "sbvkw_galentines gift bags_tm2214",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "138492653953482",
+      "adGroupId": "",
+      "campaignName": "Wooden Keychain Blanks QA2082-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "441917762104278",
+      "adGroupId": "",
+      "campaignName": "spikes mat-hl4004-sbv-s-old2",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "437770824442576",
+      "adGroupId": "",
+      "campaignName": "plush possum eu0867 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "533527607925107",
+      "adGroupId": "",
+      "campaignName": "cat spikes hl2535 sbv-f-old chang",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "190890082088391",
+      "adGroupId": "",
+      "campaignName": "sbvkw_leprechaun_trap_duc4780",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "302168488705478",
+      "adGroupId": "",
+      "campaignName": "soccer keychain-qa3173-sbv-s-new2",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "322193056854875",
+      "adGroupId": "",
+      "campaignName": "kids pencil qa1157-sbv-f-old2",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "219990150982189",
+      "adGroupId": "",
+      "campaignName": "sbvkw exact_expandable braided cable_isi1111",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "380562309699198",
+      "adGroupId": "",
+      "campaignName": "sbv_christian glass cups_yun1572",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "504480689031952",
+      "adGroupId": "",
+      "campaignName": "galvanized flower bucket dn1655 sb4",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "468680251884121",
+      "adGroupId": "",
+      "campaignName": "sbvkw_halloween martian_mk5042",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "43699645471811",
+      "adGroupId": "",
+      "campaignName": "sbkw_galvanized flower bucket_dn1656",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "528820195060120",
+      "adGroupId": "",
+      "campaignName": "sbvkw_yellow pom pom_ro2134",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "328167478808501",
+      "adGroupId": "",
+      "campaignName": "sbv_karateorna_uy3214",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "324198147054159",
+      "adGroupId": "",
+      "campaignName": "sbvasin2_diy miniature fence_dea3172",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "337186207088182",
+      "adGroupId": "",
+      "campaignName": "sbv_bearshirt_se6599",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "65541950089354",
+      "adGroupId": "",
+      "campaignName": "silicone cable ties TH2619-sbv-F-OLD",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "342697723556461",
+      "adGroupId": "",
+      "campaignName": "pin me cheer ribbon gt3812 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "465555985235978",
+      "adGroupId": "",
+      "campaignName": "sbvkw_black pom pom_ro2132",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "370482856016889",
+      "adGroupId": "",
+      "campaignName": "galvanized flower bucket dn1655 SB",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "258475070523141",
+      "adGroupId": "",
+      "campaignName": "sb kw broad_religious easter eggs_yuh4890 yuh4846 yuh4842",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "483887404844964",
+      "adGroupId": "",
+      "campaignName": "inspirational pens-uan1375 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "75865517930060",
+      "adGroupId": "",
+      "campaignName": "kw_sbv_inspirational_journal_uan2600",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "541123680810745",
+      "adGroupId": "",
+      "campaignName": "inspirational pens-uan1383-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "264284098744608",
+      "adGroupId": "",
+      "campaignName": "cable organizer straps th2781-sbv--F-OLD",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "515771296187315",
+      "adGroupId": "",
+      "campaignName": "soccer balls mf1452 sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "338614140210456",
+      "adGroupId": "",
+      "campaignName": "kids pencil qa1157 sbv-f-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "390295757362959",
+      "adGroupId": "",
+      "campaignName": "pegboard if1427 if1232 if1738-sb-key",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "538186464855747",
+      "adGroupId": "",
+      "campaignName": "sbvkw_get well soon gifts _kv4231",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "167068884333751",
+      "adGroupId": "",
+      "campaignName": "sbv exact_cowhat&band_san0383",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "422485249690855",
+      "adGroupId": "",
+      "campaignName": "safari baby shower-wne0355-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "337079862322214",
+      "adGroupId": "",
+      "campaignName": "sbvkw_ christmas advent calendar _we3925",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "562925123911573",
+      "adGroupId": "",
+      "campaignName": "sbvkw1_nurse ornament_mh2709",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "464981090663144",
+      "adGroupId": "",
+      "campaignName": "sbvkw_team christmas ornaments _dui3069",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "509116528006254",
+      "adGroupId": "",
+      "campaignName": "acrylic photo frame yan0087-SBV-S-OLD",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "290226352819982",
+      "adGroupId": "",
+      "campaignName": "wood circles qa1950-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "306869659599439",
+      "adGroupId": "",
+      "campaignName": "wedding signs qa20743-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "393047872267969",
+      "adGroupId": "",
+      "campaignName": "baby shower pink-med0961-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "473780038922266",
+      "adGroupId": "",
+      "campaignName": "storage containers with lid ae3519-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "315684613815679",
+      "adGroupId": "",
+      "campaignName": "bible pens uan1375 sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "378929529623514",
+      "adGroupId": "",
+      "campaignName": "bottle opener retirement favors-lny3103-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "375792227418535",
+      "adGroupId": "",
+      "campaignName": "brown thank you tags st2078-sbv-f-old",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "428472978445525",
+      "adGroupId": "",
+      "campaignName": "sbv_staffappreciation_hel2084",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "501190084194996",
+      "adGroupId": "",
+      "campaignName": "sbvkw_expandable braided cable_isi1137",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "355217813857658",
+      "adGroupId": "",
+      "campaignName": "sbvkw_gymnastics-uy3212",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "371860047536797",
+      "adGroupId": "",
+      "campaignName": "sbkw_ pom pom _ro2132 ro2133 ro2134",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "498550719885856",
+      "adGroupId": "",
+      "campaignName": "sbvkw_wooden love sign_new1818",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "360056249573578",
+      "adGroupId": "",
+      "campaignName": "sbvkw2_wooden love sign_new0005",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "90874475048224",
+      "adGroupId": "",
+      "campaignName": "sbvkw phrase_crna week appreciation bracelet_tan2986",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "295843115616751",
+      "adGroupId": "",
+      "campaignName": "candle glass jars-goo1089-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "466664733861835",
+      "adGroupId": "",
+      "campaignName": "sb_opener_lny3103lny3098 lny3103 lny3024",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "320956887544850",
+      "adGroupId": "",
+      "campaignName": "kwsbv_swimornament-uy3242",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "538270130759019",
+      "adGroupId": "",
+      "campaignName": "cruise ship ducks tin2239-sb2",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "152239196826010",
+      "adGroupId": "",
+      "campaignName": "wooden cutting board do0446 SB",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "437770824442576",
+      "adGroupId": "",
+      "campaignName": "plush possum eu0867 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "315048241100514",
+      "adGroupId": "",
+      "campaignName": "sbvkw_book lovers gift_led3339",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "70059056913924",
+      "adGroupId": "",
+      "campaignName": "sbvkw2_galentine s day greeting cards_fe4601",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "358833697398229",
+      "adGroupId": "",
+      "campaignName": "sbvkw exact_babyshower bear_sty2115",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "460316763635658",
+      "adGroupId": "",
+      "campaignName": "sbvkw_wedding fanswildflower_qa4115",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "429961080436624",
+      "adGroupId": "",
+      "campaignName": "burlap bows kl2977-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "404321404085346",
+      "adGroupId": "",
+      "campaignName": "glitter dessert cups yun0331 SBV-S-NEW",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "407778453949174",
+      "adGroupId": "",
+      "campaignName": "sbvkw_patrick s day dolls_se1015",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "370813276900391",
+      "adGroupId": "",
+      "campaignName": "round container dun1392-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "318563163628353",
+      "adGroupId": "",
+      "campaignName": "sbvkw2_penguin mini gift boxes_tiy2613",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "373934017947965",
+      "adGroupId": "",
+      "campaignName": "funny compact mirror sij0237 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "384396300758617",
+      "adGroupId": "",
+      "campaignName": "baby shower games boy yan2293-sbv-s-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "473565338350939",
+      "adGroupId": "",
+      "campaignName": "sbvasin_volleyorna_uy3211",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "531845421119643",
+      "adGroupId": "",
+      "campaignName": "sbv_heartbear_mf4966",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "306207438602723",
+      "adGroupId": "",
+      "campaignName": "storage bins with lids-war0229-sb",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "405779409731623",
+      "adGroupId": "",
+      "campaignName": "tote bag kou1439 sbv-s-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "528344337116487",
+      "adGroupId": "",
+      "campaignName": "sbvkw_dumpster fire_xul2303",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "337347536172188",
+      "adGroupId": "",
+      "campaignName": "sbvkw_sweet 16 party favors_hi3876",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "410165438478125",
+      "adGroupId": "",
+      "campaignName": "sb_nurseorna_mh2711mh2709mh2355",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "544128686414089",
+      "adGroupId": "",
+      "campaignName": "charcuterie box-yan1238-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "520991166834418",
+      "adGroupId": "",
+      "campaignName": "sbvkw_nurse ornament_cee0747",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "492426969101827",
+      "adGroupId": "",
+      "campaignName": "kwsbv_instornament _zj3563",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "390097629272894",
+      "adGroupId": "",
+      "campaignName": "sbvbasin_redgreen pom pom _ro2044",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "371349822617234",
+      "adGroupId": "",
+      "campaignName": "sbvkwexact_galentine s day greeting cards_fe4598",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "551382155230927",
+      "adGroupId": "",
+      "campaignName": "make up brushes-huq0699-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "295074892637429",
+      "adGroupId": "",
+      "campaignName": "pregnancy butterfly-dea2064-sbv-s-new",
+      "reason": "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "371575902754484",
+      "adGroupId": "",
+      "campaignName": "grizzly bear hay0888 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "412138626233824",
+      "adGroupId": "",
+      "campaignName": "spikes mat hl2535-sbv3",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "396991555391100",
+      "adGroupId": "",
+      "campaignName": "sbvasin_mama gift in spanish_pir3420",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "410860140209786",
+      "adGroupId": "",
+      "campaignName": "softball keychain-qa3169-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "477969197567575",
+      "adGroupId": "",
+      "campaignName": "galvanized flower bucket dn3049 sbv-f-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "419636691465839",
+      "adGroupId": "",
+      "campaignName": "sbvkw_halloween martian_mk5043",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "433640760525496",
+      "adGroupId": "",
+      "campaignName": "sbvkw_baby shower party orange_boy3381",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "547076913250251",
+      "adGroupId": "",
+      "campaignName": "kwsbv2_instornament _zj3563",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "399365285407834",
+      "adGroupId": "",
+      "campaignName": "sbvbkw_redgreen pom pom _ro2044",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "28181798139891",
+      "adGroupId": "",
+      "campaignName": "sbv kw_galvanized bucket_dn3482",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "450414777353826",
+      "adGroupId": "",
+      "campaignName": "sbvkw_cowboyhat_san1216",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "366656242535182",
+      "adGroupId": "",
+      "campaignName": "sbkw_ christmas advent calendar _we3925",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "8400994092946",
+      "adGroupId": "",
+      "campaignName": "wooden cutting board do0446",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "551557272938919",
+      "adGroupId": "",
+      "campaignName": "taco pinata-ob1999-sbv-s-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "307497436486462",
+      "adGroupId": "",
+      "campaignName": "mini drawstring bags-xia2327-sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "544498907722846",
+      "adGroupId": "",
+      "campaignName": "weighted animal-duc0055-sbv-s-new2",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "547217202766239",
+      "adGroupId": "",
+      "campaignName": "umbrella hat sh0424 sbv-F-OLD",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "522194547163961",
+      "adGroupId": "",
+      "campaignName": "sbvasin_spanish christian church gifts_saw1720",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "251489172896118",
+      "adGroupId": "",
+      "campaignName": "sbvkw exact_patrick s day dolls_se1015",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "376989351107274",
+      "adGroupId": "",
+      "campaignName": "sbvkw_bear clothes basic_se5608",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "447654920714544",
+      "adGroupId": "",
+      "campaignName": "sbvkw_bee themed gifts_yoa0625",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "459444319742286",
+      "adGroupId": "",
+      "campaignName": "sbv_yellowpom_iv1966",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "399450302020822",
+      "adGroupId": "",
+      "campaignName": "mini notebooks UAN0188 SBV-S-NEW",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "97080596032517",
+      "adGroupId": "",
+      "campaignName": "sbvkw_cosmetic bags_lne1322",
+      "reason": "candidate_already_adjusted_today"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "444872098703267",
+      "adGroupId": "",
+      "campaignName": "sbvkw_cowboy hat_san0113",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "373152480528897",
+      "adGroupId": "",
+      "campaignName": "sbvasin_expandable braided cable_isi1137",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "17780934027273",
+      "adGroupId": "",
+      "campaignName": "sbvkw exact_valentine day gifts_rho0473",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "493509272706086",
+      "adGroupId": "",
+      "campaignName": "sbv iv1392 pompoms",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "370253630090586",
+      "adGroupId": "",
+      "campaignName": "sbvkw_wooden love sign_new0006",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "281383337328990",
+      "adGroupId": "",
+      "campaignName": "sbv kw_slingshot chicken finger_pr2460",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "367268702587889",
+      "adGroupId": "",
+      "campaignName": "sbvkw_wooden love sign_new0005",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "473018869049240",
+      "adGroupId": "",
+      "campaignName": "sbv_american flag mug_us2516",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "479443876734770",
+      "adGroupId": "",
+      "campaignName": "sbvkw_mama gift in spanish_pir3420",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "437383005800107",
+      "adGroupId": "",
+      "campaignName": "sb_crysspray_ycl1246 1248 1249",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "413816067491012",
+      "adGroupId": "",
+      "campaignName": "kwsbv_wedding gift box for father_pir4617",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "303895661629081",
+      "adGroupId": "",
+      "campaignName": "sbvkw_thanksgiving maple keychains_hel2807",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "486632395991008",
+      "adGroupId": "",
+      "campaignName": "sbvkw_grandparents day photo frame craft kit_cot2360",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "508426345723817",
+      "adGroupId": "",
+      "campaignName": "cardinal gifts for women han0044-sbv-s-old",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "435536701733974",
+      "adGroupId": "",
+      "campaignName": "sbvkw_galentines gift bags_tm2215",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "365099512945849",
+      "adGroupId": "",
+      "campaignName": "nurses week gifts mh2708 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "350166815634654",
+      "adGroupId": "",
+      "campaignName": "sbv_thankscraft_eg3285",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "144377750103204506",
+      "adGroupId": "",
+      "campaignName": "kpop photocard holder oc1858-SB2",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "292298282023088",
+      "adGroupId": "",
+      "campaignName": "journals in bulk-uan2600-sb3",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "287665549117391",
+      "adGroupId": "",
+      "campaignName": "cruise ducks for hiding hay0221 sbv-s-new2",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "22348502082173",
+      "adGroupId": "",
+      "campaignName": "brow scissors B093WHT1PW-SBV",
+      "reason": "campaign_not_mapped_to_product_card"
+    },
+    {
+      "channel": "SB",
+      "sku": "",
+      "campaignId": "459926570505525",
+      "adGroupId": "",
+      "campaignName": "tote bag kou1438 sbv-s-new",
+      "reason": "campaign_not_mapped_to_product_card"
+    }
+  ],
+  "summary": {
+    "actions": 29,
+    "skus": 26,
+    "byType": {
+      "autoTarget": 5,
+      "manualTarget": 9,
+      "keyword": 13,
+      "sbKeyword": 2
+    },
+    "byDirection": {
+      "up": 17,
+      "down": 12
+    },
+    "byRisk": {
+      "ui_7day_lower_small_demand_touch": 3,
+      "ui_7day_lower_neutral_hygiene_touch": 8,
+      "ui_7day_lower_minimal_waste_touch": 1,
+      "ui_7day_lower_minimal_visibility_touch": 14,
+      "ui_7day_lower_small_inventory_touch": 3
+    },
+    "byExpectation": {
+      "repair_visibility": 17,
+      "control_waste": 9,
+      "cool_inventory_demand": 3
+    }
+  },
+  "skippedSummary": {
+    "no_active_lower_entity_or_all_on_cooldown_or_adjusted_today": 89,
+    "sku_out_of_allowed_operation_scope": 9,
+    "candidate_already_adjusted_today": 223,
+    "campaign_not_mapped_to_product_card": 346,
+    "no_safe_bid_move_at_lower_layer_or_duplicate": 8
+  }
+}

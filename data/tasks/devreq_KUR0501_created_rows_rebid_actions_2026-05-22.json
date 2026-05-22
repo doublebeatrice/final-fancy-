@@ -1,0 +1,360 @@
+[
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "operatorRequested": true,
+    "summary": "Rebid newly-created exact/phrase rows and auto to click-capable levels after independent visibility check.",
+    "actions": [
+      {
+        "id": "187451881212204",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.11,
+        "suggestedBid": 0.2,
+        "text": "car magnets",
+        "campaignId": "12052372755200",
+        "adGroupId": "242186513112195",
+        "campaignName": "ai_kw exact_car magnets_kur0501",
+        "groupName": "ai_kw exact_car magnets_kur0501",
+        "reason": "Historical exact recovery at 0.11 is unlikely to acquire clicks. Raise to 0.20 so exact historical winners can actually enter auctions.",
+        "evidence": [
+          "createdAt=2026-05-22 15:45:47",
+          "currentBid=0.11",
+          "matchType=1",
+          "campaign=ai_kw exact_car magnets_kur0501"
+        ],
+        "confidence": 0.78,
+        "riskLevel": "initial_bid_strength_correction",
+        "forceExecute": true,
+        "forceReason": "Newly-created keyword IDs are visible; initial bid was too low for display/click acquisition.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "Raise newly-created keyword bid to a click-capable level while daily budget remains capped at 1.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "impressions, clicks, CPC, query relevance",
+          "target": "get measurable delivery without uncapped spend"
+        },
+        "reviewPlan": {
+          "1d": "check impressions and spend cap",
+          "3d": "keep terms with relevant clicks; lower/pause terms with irrelevant spend"
+        }
+      },
+      {
+        "id": "192671889262601",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.11,
+        "suggestedBid": 0.2,
+        "text": "magnetic car decals",
+        "campaignId": "12052372755200",
+        "adGroupId": "242186513112195",
+        "campaignName": "ai_kw exact_car magnets_kur0501",
+        "groupName": "ai_kw exact_car magnets_kur0501",
+        "reason": "Historical exact recovery at 0.11 is unlikely to acquire clicks. Raise to 0.20 so exact historical winners can actually enter auctions.",
+        "evidence": [
+          "createdAt=2026-05-22 15:45:47",
+          "currentBid=0.11",
+          "matchType=1",
+          "campaign=ai_kw exact_car magnets_kur0501"
+        ],
+        "confidence": 0.78,
+        "riskLevel": "initial_bid_strength_correction",
+        "forceExecute": true,
+        "forceReason": "Newly-created keyword IDs are visible; initial bid was too low for display/click acquisition.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "Raise newly-created keyword bid to a click-capable level while daily budget remains capped at 1.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "impressions, clicks, CPC, query relevance",
+          "target": "get measurable delivery without uncapped spend"
+        },
+        "reviewPlan": {
+          "1d": "check impressions and spend cap",
+          "3d": "keep terms with relevant clicks; lower/pause terms with irrelevant spend"
+        }
+      },
+      {
+        "id": "234404094589708",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.11,
+        "suggestedBid": 0.2,
+        "text": "funny car magnets",
+        "campaignId": "12052372755200",
+        "adGroupId": "242186513112195",
+        "campaignName": "ai_kw exact_car magnets_kur0501",
+        "groupName": "ai_kw exact_car magnets_kur0501",
+        "reason": "Historical exact recovery at 0.11 is unlikely to acquire clicks. Raise to 0.20 so exact historical winners can actually enter auctions.",
+        "evidence": [
+          "createdAt=2026-05-22 15:45:47",
+          "currentBid=0.11",
+          "matchType=1",
+          "campaign=ai_kw exact_car magnets_kur0501"
+        ],
+        "confidence": 0.78,
+        "riskLevel": "initial_bid_strength_correction",
+        "forceExecute": true,
+        "forceReason": "Newly-created keyword IDs are visible; initial bid was too low for display/click acquisition.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "Raise newly-created keyword bid to a click-capable level while daily budget remains capped at 1.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "impressions, clicks, CPC, query relevance",
+          "target": "get measurable delivery without uncapped spend"
+        },
+        "reviewPlan": {
+          "1d": "check impressions and spend cap",
+          "3d": "keep terms with relevant clicks; lower/pause terms with irrelevant spend"
+        }
+      },
+      {
+        "id": "5940483468512",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.12,
+        "suggestedBid": 0.2,
+        "text": "flower fridge magnets",
+        "campaignId": "195454623715979",
+        "adGroupId": "10863034573384",
+        "campaignName": "ai_kw phrase_flower magnets_kur0501",
+        "groupName": "ai_kw phrase_flower magnets_kur0501",
+        "reason": "New traffic phrase test at 0.12 is too conservative for discovery. Raise to 0.20 with daily budget still capped at 1.",
+        "evidence": [
+          "createdAt=2026-05-22 15:41:36",
+          "currentBid=0.12",
+          "matchType=2",
+          "campaign=ai_kw phrase_flower magnets_kur0501"
+        ],
+        "confidence": 0.78,
+        "riskLevel": "initial_bid_strength_correction",
+        "forceExecute": true,
+        "forceReason": "Newly-created keyword IDs are visible; initial bid was too low for display/click acquisition.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "Raise newly-created keyword bid to a click-capable level while daily budget remains capped at 1.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "impressions, clicks, CPC, query relevance",
+          "target": "get measurable delivery without uncapped spend"
+        },
+        "reviewPlan": {
+          "1d": "check impressions and spend cap",
+          "3d": "keep terms with relevant clicks; lower/pause terms with irrelevant spend"
+        }
+      },
+      {
+        "id": "154841744312054",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.12,
+        "suggestedBid": 0.2,
+        "text": "flower magnets",
+        "campaignId": "195454623715979",
+        "adGroupId": "10863034573384",
+        "campaignName": "ai_kw phrase_flower magnets_kur0501",
+        "groupName": "ai_kw phrase_flower magnets_kur0501",
+        "reason": "New traffic phrase test at 0.12 is too conservative for discovery. Raise to 0.20 with daily budget still capped at 1.",
+        "evidence": [
+          "createdAt=2026-05-22 15:41:36",
+          "currentBid=0.12",
+          "matchType=2",
+          "campaign=ai_kw phrase_flower magnets_kur0501"
+        ],
+        "confidence": 0.78,
+        "riskLevel": "initial_bid_strength_correction",
+        "forceExecute": true,
+        "forceReason": "Newly-created keyword IDs are visible; initial bid was too low for display/click acquisition.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "Raise newly-created keyword bid to a click-capable level while daily budget remains capped at 1.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "impressions, clicks, CPC, query relevance",
+          "target": "get measurable delivery without uncapped spend"
+        },
+        "reviewPlan": {
+          "1d": "check impressions and spend cap",
+          "3d": "keep terms with relevant clicks; lower/pause terms with irrelevant spend"
+        }
+      },
+      {
+        "id": "215880384486389",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.12,
+        "suggestedBid": 0.2,
+        "text": "flower car magnets",
+        "campaignId": "195454623715979",
+        "adGroupId": "10863034573384",
+        "campaignName": "ai_kw phrase_flower magnets_kur0501",
+        "groupName": "ai_kw phrase_flower magnets_kur0501",
+        "reason": "New traffic phrase test at 0.12 is too conservative for discovery. Raise to 0.20 with daily budget still capped at 1.",
+        "evidence": [
+          "createdAt=2026-05-22 15:41:36",
+          "currentBid=0.12",
+          "matchType=2",
+          "campaign=ai_kw phrase_flower magnets_kur0501"
+        ],
+        "confidence": 0.78,
+        "riskLevel": "initial_bid_strength_correction",
+        "forceExecute": true,
+        "forceReason": "Newly-created keyword IDs are visible; initial bid was too low for display/click acquisition.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "Raise newly-created keyword bid to a click-capable level while daily budget remains capped at 1.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "impressions, clicks, CPC, query relevance",
+          "target": "get measurable delivery without uncapped spend"
+        },
+        "reviewPlan": {
+          "1d": "check impressions and spend cap",
+          "3d": "keep terms with relevant clicks; lower/pause terms with irrelevant spend"
+        }
+      },
+      {
+        "id": "116383465766750",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.12,
+        "suggestedBid": 0.2,
+        "text": "70s party decorations",
+        "campaignId": "195454623715979",
+        "adGroupId": "10863034573384",
+        "campaignName": "ai_kw phrase_flower magnets_kur0501",
+        "groupName": "ai_kw phrase_flower magnets_kur0501",
+        "reason": "New traffic phrase test at 0.12 is too conservative for discovery. Raise to 0.20 with daily budget still capped at 1.",
+        "evidence": [
+          "createdAt=2026-05-22 15:41:36",
+          "currentBid=0.12",
+          "matchType=2",
+          "campaign=ai_kw phrase_flower magnets_kur0501"
+        ],
+        "confidence": 0.78,
+        "riskLevel": "initial_bid_strength_correction",
+        "forceExecute": true,
+        "forceReason": "Newly-created keyword IDs are visible; initial bid was too low for display/click acquisition.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "Raise newly-created keyword bid to a click-capable level while daily budget remains capped at 1.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "impressions, clicks, CPC, query relevance",
+          "target": "get measurable delivery without uncapped spend"
+        },
+        "reviewPlan": {
+          "1d": "check impressions and spend cap",
+          "3d": "keep terms with relevant clicks; lower/pause terms with irrelevant spend"
+        }
+      },
+      {
+        "id": "50156299097922",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.12,
+        "suggestedBid": 0.2,
+        "text": "refrigerator flower magnets",
+        "campaignId": "195454623715979",
+        "adGroupId": "10863034573384",
+        "campaignName": "ai_kw phrase_flower magnets_kur0501",
+        "groupName": "ai_kw phrase_flower magnets_kur0501",
+        "reason": "New traffic phrase test at 0.12 is too conservative for discovery. Raise to 0.20 with daily budget still capped at 1.",
+        "evidence": [
+          "createdAt=2026-05-22 15:41:36",
+          "currentBid=0.12",
+          "matchType=2",
+          "campaign=ai_kw phrase_flower magnets_kur0501"
+        ],
+        "confidence": 0.78,
+        "riskLevel": "initial_bid_strength_correction",
+        "forceExecute": true,
+        "forceReason": "Newly-created keyword IDs are visible; initial bid was too low for display/click acquisition.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "Raise newly-created keyword bid to a click-capable level while daily budget remains capped at 1.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "impressions, clicks, CPC, query relevance",
+          "target": "get measurable delivery without uncapped spend"
+        },
+        "reviewPlan": {
+          "1d": "check impressions and spend cap",
+          "3d": "keep terms with relevant clicks; lower/pause terms with irrelevant spend"
+        }
+      },
+      {
+        "id": "376105176803937",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.1,
+        "suggestedBid": 0.12,
+        "text": "asinSubstituteRelated",
+        "campaignId": "341283780324260",
+        "adGroupId": "430545249445395",
+        "campaignName": "auto2_hippie flower car magnet_kur0501",
+        "groupName": "auto2_hippie flower car magnet_kur0501",
+        "reason": "0.10 is still below the current-window average CPC 0.116 for this historical auto lane. Raise to 0.12 to make the lane click-capable while keeping it controlled.",
+        "evidence": [
+          "Current 30d CPC=0.116, clicks=26, orders=0.",
+          "Previous 30d same target: 49 clicks / 8 orders / ACOS 6.64%.",
+          "Daily/product economics support controlled recovery but not uncapped scale."
+        ],
+        "confidence": 0.72,
+        "riskLevel": "historical_auto_recovery_controlled",
+        "forceExecute": true,
+        "forceReason": "Bring auto target bid near observed CPC after initial 0.10 still looks underpowered.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "0.12 gives auto substitute enough headroom to test recovery without aggressive scale.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "impressions, clicks, CPC, orders",
+          "target": "regain delivery; trim if clicks continue with no order"
+        },
+        "reviewPlan": {
+          "1d": "confirm bid landed and traffic resumes",
+          "3d": "trim if spend/clicks continue without order or relevance"
+        }
+      }
+    ]
+  }
+]

@@ -32,11 +32,13 @@ const timeContext = {
   assert.ok(item.requiredCapabilities.includes('selection::market_evidence::keyword-conversion::read'));
   assert.ok(item.requiredCapabilities.includes('selection::market_evidence::aba-search-terms::read'));
   assert.ok(item.requiredCapabilities.includes('selection::market_evidence::keyword-seasonality::read'));
+  assert.ok(item.requiredCapabilities.includes('selection::market_evidence::product-time-machine::read'));
   assert.ok(item.nextStep.includes('选品'));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:keyword-research')));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:keyword-conversion')));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:aba-search-terms')));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:keyword-seasonality')));
+  assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:product-time-machine')));
 }
 
 {
@@ -65,6 +67,7 @@ const timeContext = {
   assert.ok(plan.commands[0].command.includes('--keyword-conversion-report'));
   assert.ok(plan.commands[0].command.includes('--aba-report'));
   assert.ok(plan.commands[0].command.includes('--seasonality-report'));
+  assert.ok(plan.commands[0].command.includes('--product-time-machine-report'));
 }
 
 {

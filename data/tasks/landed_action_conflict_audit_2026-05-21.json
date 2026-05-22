@@ -1,12 +1,12 @@
 {
   "date": "2026-05-21",
-  "generatedAt": "2026-05-21T07:17:17.175Z",
+  "generatedAt": "2026-05-21T15:32:00.005Z",
   "adjustmentsFile": "D:\\ad-ops-workbench\\data\\adjustments\\adjustments_2026-05-21.json",
   "summary": {
-    "liveRows": 515,
-    "latestRunId": "ops_2026-05-21T07-14-46-991Z",
-    "latestRunRows": 1,
-    "sameEntityMultiCount": 0,
+    "liveRows": 1160,
+    "latestRunId": "ops_2026-05-21T15-31-34-332Z",
+    "latestRunRows": 10,
+    "sameEntityMultiCount": 3,
     "sameEntityReverseCount": 0,
     "sameNameReverseDifferentEntityCount": 0,
     "latestRunMixedSkuCount": 0,
@@ -16,7 +16,53 @@
   "sameNameReverseDifferentEntity": [],
   "latestRunBySku": [
     {
-      "sku": "AE1101",
+      "sku": "CEE0747",
+      "count": 1,
+      "up": 0,
+      "down": 1,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "CEE0747",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "1099461531985",
+          "entityName": "kw_q2 profit cee0747 broad_cee0747",
+          "beforeValue": 0.2,
+          "afterValue": 0.19,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-21T15-31-34-332Z",
+          "runAt": "2026-05-21T15:31:34.332Z"
+        }
+      ]
+    },
+    {
+      "sku": "CL3650",
+      "count": 1,
+      "up": 0,
+      "down": 1,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "CL3650",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "107143901115378",
+          "entityName": "adult pinata-cl3650-system-keyword-exact",
+          "beforeValue": 0.15,
+          "afterValue": 0.14,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-21T15-31-34-332Z",
+          "runAt": "2026-05-21T15:31:34.332Z"
+        }
+      ]
+    },
+    {
+      "sku": "HAI4870",
       "count": 1,
       "up": 1,
       "down": 0,
@@ -24,17 +70,178 @@
       "mixedDirection": false,
       "rows": [
         {
-          "sku": "AE1101",
+          "sku": "HAI4870",
           "actionType": "bid",
-          "entityType": "manualTarget",
-          "entityId": "464203745974334",
-          "entityName": "asin_coachgifts_ae1101",
-          "beforeValue": 0.44,
-          "afterValue": 0.48,
+          "entityType": "keyword",
+          "entityId": "24968290461741",
+          "entityName": "kw_q2 profit hai4870 phrase_hai4870",
+          "beforeValue": 0.25,
+          "afterValue": 0.26,
           "direction": "up",
           "outcome": "success",
-          "sourceRunId": "ops_2026-05-21T07-14-46-991Z",
-          "runAt": "2026-05-21T07:14:46.991Z"
+          "sourceRunId": "ops_2026-05-21T15-31-34-332Z",
+          "runAt": "2026-05-21T15:31:34.332Z"
+        }
+      ]
+    },
+    {
+      "sku": "HEL2083",
+      "count": 1,
+      "up": 0,
+      "down": 1,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "HEL2083",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "89791281681986",
+          "entityName": "kw_q2 profit hel2083 phrase_hel2083",
+          "beforeValue": 0.28,
+          "afterValue": 0.27,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-21T15-31-34-332Z",
+          "runAt": "2026-05-21T15:31:34.332Z"
+        }
+      ]
+    },
+    {
+      "sku": "HI3877",
+      "count": 1,
+      "up": 0,
+      "down": 1,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "HI3877",
+          "actionType": "bid",
+          "entityType": "sbKeyword",
+          "entityId": "394292884168163",
+          "entityName": "sbvkw_sweet 16 party favors_hi3877",
+          "beforeValue": 0.33,
+          "afterValue": 0.32,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-21T15-31-34-332Z",
+          "runAt": "2026-05-21T15:31:34.332Z"
+        }
+      ]
+    },
+    {
+      "sku": "MF6292",
+      "count": 1,
+      "up": 0,
+      "down": 1,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "MF6292",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "156639128647352",
+          "entityName": "ai_kw phrase_coverage_mf6292",
+          "beforeValue": 0.32,
+          "afterValue": 0.31,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-21T15-31-34-332Z",
+          "runAt": "2026-05-21T15:31:34.332Z"
+        }
+      ]
+    },
+    {
+      "sku": "MH2710",
+      "count": 1,
+      "up": 0,
+      "down": 1,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "MH2710",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "35057483364761",
+          "entityName": "b2b kw broad_nurse ornaments_mh2710",
+          "beforeValue": 0.4,
+          "afterValue": 0.39,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-21T15-31-34-332Z",
+          "runAt": "2026-05-21T15:31:34.332Z"
+        }
+      ]
+    },
+    {
+      "sku": "SH0424",
+      "count": 1,
+      "up": 0,
+      "down": 1,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "SH0424",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "406309026689106",
+          "entityName": "kw_rainbow umbrella _sh0424",
+          "beforeValue": 0.16,
+          "afterValue": 0.15,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-21T15-31-34-332Z",
+          "runAt": "2026-05-21T15:31:34.332Z"
+        }
+      ]
+    },
+    {
+      "sku": "TAN2986",
+      "count": 1,
+      "up": 0,
+      "down": 1,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "TAN2986",
+          "actionType": "bid",
+          "entityType": "keyword",
+          "entityId": "74470984446424",
+          "entityName": "b2b kw broad_crna gifts_tan2986",
+          "beforeValue": 0.3,
+          "afterValue": 0.29,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-21T15-31-34-332Z",
+          "runAt": "2026-05-21T15:31:34.332Z"
+        }
+      ]
+    },
+    {
+      "sku": "UY3213",
+      "count": 1,
+      "up": 0,
+      "down": 1,
+      "enable": 0,
+      "mixedDirection": false,
+      "rows": [
+        {
+          "sku": "UY3213",
+          "actionType": "bid",
+          "entityType": "sbKeyword",
+          "entityId": "324578949558574",
+          "entityName": "sbvkw_karate ornament_uy3213",
+          "beforeValue": 0.3,
+          "afterValue": 0.29,
+          "direction": "down",
+          "outcome": "success",
+          "sourceRunId": "ops_2026-05-21T15-31-34-332Z",
+          "runAt": "2026-05-21T15:31:34.332Z"
         }
       ]
     }

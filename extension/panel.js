@@ -2231,7 +2231,7 @@ function makeSevenDaySbPayload() {
     limit: 500,
     field: 'Spend',
     order: 'desc',
-    filterForm: { OutOfBudget: false },
+    filterForm: { OutOfBudget: false, updateWeekday: '2' },
     source: 'new',
   };
 }

@@ -1,0 +1,346 @@
+#!/usr/bin/env node
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const { execFileSync } = require('child_process');
+
+const ROOT = path.resolve(__dirname, '..', '..');
+const DEFAULT_ARCHIVE_ROOT = path.resolve(ROOT, '..', 'ad-ops-workbench-archive');
+const RUNTIME_DIRS = [
+  path.join(ROOT, 'data', 'snapshots'),
+  path.join(ROOT, 'data', 'attribution'),
+];
+const REPORT_DIRS = [
+  path.join(ROOT, 'data', 'snapshots'),
+  path.join(ROOT, 'data', 'attribution'),
+  path.join(ROOT, 'data', 'tasks'),
+  path.join(ROOT, 'data', 'learning'),
+  path.join(ROOT, '.git'),
+];
+const KEEP_BASENAMES = new Set([
+  'latest_snapshot.json',
+  'latest_snapshot_profiled.json',
+]);
+
+function parseArgs(argv) {
+  const args = { _: [] };
+  for (let i = 0; i < argv.length; i += 1) {
+    const arg = argv[i];
+    if (!arg.startsWith('--')) {
+      args._.push(arg);
+      continue;
+    }
+    const key = arg.slice(2);
+    if (key === 'execute' || key === 'json') {
+      args[key] = true;
+      continue;
+    }
+    const next = argv[i + 1];
+    if (next === undefined || next.startsWith('--')) {
+      args[key] = true;
+      continue;
+    }
+    args[key] = next;
+    i += 1;
+  }
+  return args;
+}
+
+function formatBytes(bytes) {
+  const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+  let value = Number(bytes || 0);
+  let unit = 0;
+  while (value >= 1024 && unit < units.length - 1) {
+    value /= 1024;
+    unit += 1;
+  }
+  return `${value.toFixed(unit === 0 ? 0 : 2)} ${units[unit]}`;
+}
+
+function rel(file) {
+  return path.relative(ROOT, file).replace(/\\/g, '/');
+}
+
+function walkFiles(dir) {
+  const files = [];
+  if (!fs.existsSync(dir)) return files;
+  const stack = [dir];
+  while (stack.length) {
+    const current = stack.pop();
+    for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
+      const full = path.join(current, entry.name);
+      if (entry.isDirectory()) {
+        stack.push(full);
+      } else if (entry.isFile()) {
+        files.push(full);
+      }
+    }
+  }
+  return files;
+}
+
+function dirStats(dir) {
+  const files = walkFiles(dir);
+  let bytes = 0;
+  let newest = 0;
+  let oldest = Number.MAX_SAFE_INTEGER;
+  for (const file of files) {
+    const stat = fs.statSync(file);
+    bytes += stat.size;
+    newest = Math.max(newest, stat.mtimeMs);
+    oldest = Math.min(oldest, stat.mtimeMs);
+  }
+  return {
+    path: rel(dir),
+    files: files.length,
+    bytes,
+    size: formatBytes(bytes),
+    newest: newest ? new Date(newest).toISOString() : null,
+    oldest: oldest === Number.MAX_SAFE_INTEGER ? null : new Date(oldest).toISOString(),
+  };
+}
+
+function git(args, options = {}) {
+  return execFileSync('git', args, {
+    cwd: ROOT,
+    encoding: 'utf8',
+    stdio: options.stdio || ['ignore', 'pipe', 'pipe'],
+  });
+}
+
+function timedGitStatus() {
+  const start = Date.now();
+  const output = git(['status', '--short']);
+  const ms = Date.now() - start;
+  const lines = output.split(/\r?\n/).filter(Boolean);
+  return {
+    ms,
+    changed: lines.length,
+    untracked: lines.filter(line => line.startsWith('?? ')).length,
+  };
+}
+
+function listMcpProcesses() {
+  if (process.platform !== 'win32') {
+    return [];
+  }
+  const script = [
+    "$items = Get-CimInstance Win32_Process | Where-Object {",
+    "  ($_.Name -in @('node.exe','cmd.exe')) -and ($_.CommandLine -like '*chrome-devtools-mcp*')",
+    '} | Select-Object ProcessId,ParentProcessId,Name,WorkingSetSize,CommandLine',
+    'if ($items) { $items | ConvertTo-Json -Depth 3 }',
+  ].join('\n');
+  const output = execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', script], {
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+  }).trim();
+  if (!output) return [];
+  const parsed = JSON.parse(output);
+  return Array.isArray(parsed) ? parsed : [parsed];
+}
+
+function stopMcpProcesses() {
+  if (process.platform !== 'win32') {
+    throw new Error('stop-mcp currently supports Windows PowerShell only.');
+  }
+  const before = listMcpProcesses();
+  if (!before.length) {
+    return { stopped: 0, remaining: 0, before };
+  }
+  const ids = before.map(item => Number(item.ProcessId)).filter(Boolean);
+  const script = [
+    `$ids = @(${ids.join(',')})`,
+    'if ($ids.Count -gt 0) { Stop-Process -Id $ids -Force }',
+    'Start-Sleep -Milliseconds 500',
+  ].join('\n');
+  execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', script], {
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+  return { stopped: ids.length, remaining: listMcpProcesses().length, before };
+}
+
+function assertRuntimeDirsUntracked() {
+  const tracked = git(['ls-files', '--', ...RUNTIME_DIRS.map(dir => rel(dir))])
+    .split(/\r?\n/)
+    .filter(Boolean);
+  if (tracked.length) {
+    throw new Error(`Refusing to archive tracked runtime files: ${tracked.slice(0, 10).join(', ')}`);
+  }
+}
+
+function shouldArchive(file, cutoffMs) {
+  const stat = fs.statSync(file);
+  const base = path.basename(file);
+  if (KEEP_BASENAMES.has(base)) return false;
+  return stat.mtimeMs < cutoffMs;
+}
+
+function ensureInside(parent, target) {
+  const relative = path.relative(parent, target);
+  if (relative.startsWith('..') || path.isAbsolute(relative)) {
+    throw new Error(`Path escaped expected root: ${target}`);
+  }
+}
+
+function moveFile(source, dest) {
+  fs.mkdirSync(path.dirname(dest), { recursive: true });
+  try {
+    fs.renameSync(source, dest);
+  } catch (err) {
+    if (err && err.code === 'EXDEV') {
+      fs.copyFileSync(source, dest);
+      fs.unlinkSync(source);
+      return;
+    }
+    throw err;
+  }
+}
+
+function removeEmptyDirs(dir) {
+  if (!fs.existsSync(dir)) return 0;
+  let removed = 0;
+  const dirs = [];
+  const stack = [dir];
+  while (stack.length) {
+    const current = stack.pop();
+    for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
+      if (entry.isDirectory()) {
+        const full = path.join(current, entry.name);
+        dirs.push(full);
+        stack.push(full);
+      }
+    }
+  }
+  dirs.sort((a, b) => b.length - a.length);
+  for (const current of dirs) {
+    try {
+      fs.rmdirSync(current);
+      removed += 1;
+    } catch (_) {
+      // Non-empty directories stay in place.
+    }
+  }
+  return removed;
+}
+
+function archiveRuntime(args) {
+  assertRuntimeDirsUntracked();
+  const keepDays = Number(args['keep-days'] || 3);
+  if (!Number.isFinite(keepDays) || keepDays < 0) {
+    throw new Error('--keep-days must be a non-negative number');
+  }
+  const archiveRoot = path.resolve(args['archive-root'] || DEFAULT_ARCHIVE_ROOT);
+  const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const archiveDir = path.join(archiveRoot, stamp);
+  const cutoffMs = Date.now() - keepDays * 24 * 60 * 60 * 1000;
+  const candidates = [];
+  for (const dir of RUNTIME_DIRS) {
+    ensureInside(ROOT, dir);
+    for (const file of walkFiles(dir)) {
+      if (shouldArchive(file, cutoffMs)) {
+        const stat = fs.statSync(file);
+        candidates.push({
+          source: file,
+          dest: path.join(archiveDir, rel(file)),
+          bytes: stat.size,
+          mtime: new Date(stat.mtimeMs).toISOString(),
+        });
+      }
+    }
+  }
+  candidates.sort((a, b) => b.bytes - a.bytes);
+  const totalBytes = candidates.reduce((sum, item) => sum + item.bytes, 0);
+  const summary = {
+    execute: Boolean(args.execute),
+    keepDays,
+    archiveDir,
+    files: candidates.length,
+    bytes: totalBytes,
+    size: formatBytes(totalBytes),
+    topFiles: candidates.slice(0, 20).map(item => ({
+      path: rel(item.source),
+      size: formatBytes(item.bytes),
+      mtime: item.mtime,
+    })),
+  };
+  if (!args.execute) {
+    return summary;
+  }
+  for (const item of candidates) {
+    moveFile(item.source, item.dest);
+  }
+  const removedDirs = RUNTIME_DIRS.reduce((sum, dir) => sum + removeEmptyDirs(dir), 0);
+  const manifest = {
+    createdAt: new Date().toISOString(),
+    root: ROOT,
+    keepDays,
+    files: candidates.map(item => ({
+      source: rel(item.source),
+      archivedTo: path.relative(archiveRoot, item.dest).replace(/\\/g, '/'),
+      bytes: item.bytes,
+      mtime: item.mtime,
+    })),
+  };
+  fs.mkdirSync(archiveDir, { recursive: true });
+  fs.writeFileSync(path.join(archiveDir, 'archive_manifest.json'), JSON.stringify(manifest, null, 2), 'utf8');
+  return { ...summary, removedEmptyDirs: removedDirs };
+}
+
+function largestFiles(limit = 15) {
+  return walkFiles(path.join(ROOT, 'data'))
+    .map(file => {
+      const stat = fs.statSync(file);
+      return { path: rel(file), bytes: stat.size, size: formatBytes(stat.size), mtime: stat.mtime.toISOString() };
+    })
+    .sort((a, b) => b.bytes - a.bytes)
+    .slice(0, limit);
+}
+
+function report() {
+  const mcp = listMcpProcesses();
+  const mcpBytes = mcp.reduce((sum, item) => sum + Number(item.WorkingSetSize || 0), 0);
+  return {
+    root: ROOT,
+    gitStatus: timedGitStatus(),
+    chromeDevtoolsMcp: {
+      processes: mcp.length,
+      memory: formatBytes(mcpBytes),
+    },
+    directories: REPORT_DIRS.map(dirStats),
+    largestFiles: largestFiles(),
+  };
+}
+
+function print(value, asJson = false) {
+  if (asJson) {
+    process.stdout.write(`${JSON.stringify(value, null, 2)}\n`);
+    return;
+  }
+  process.stdout.write(`${JSON.stringify(value, null, 2)}\n`);
+}
+
+function main() {
+  const args = parseArgs(process.argv.slice(2));
+  const command = args._[0] || 'report';
+  if (command === 'report') {
+    print(report(), args.json);
+    return;
+  }
+  if (command === 'stop-mcp') {
+    print(stopMcpProcesses(), args.json);
+    return;
+  }
+  if (command === 'archive') {
+    print(archiveRuntime(args), args.json);
+    return;
+  }
+  throw new Error(`Unknown command: ${command}`);
+}
+
+try {
+  main();
+} catch (err) {
+  process.stderr.write(`${err.stack || err.message}\n`);
+  process.exit(1);
+}

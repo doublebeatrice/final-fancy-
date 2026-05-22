@@ -12,6 +12,7 @@ const ALLOWED_NPM_SCRIPTS = new Set([
   'ops:selection:keyword-conversion',
   'ops:selection:aba-search-terms',
   'ops:selection:keyword-seasonality',
+  'ops:selection:product-time-machine',
   'ops:agent:capabilities',
 ]);
 const SCRIPT_ENTRYPOINTS = {
@@ -21,6 +22,7 @@ const SCRIPT_ENTRYPOINTS = {
   'ops:selection:keyword-conversion': path.join(ROOT, 'scripts', 'execute', 'fetch_selection_keyword_conversion_rate.js'),
   'ops:selection:aba-search-terms': path.join(ROOT, 'scripts', 'execute', 'fetch_selection_aba_search_terms.js'),
   'ops:selection:keyword-seasonality': path.join(ROOT, 'scripts', 'execute', 'fetch_selection_keyword_seasonality.js'),
+  'ops:selection:product-time-machine': path.join(ROOT, 'scripts', 'execute', 'fetch_selection_product_time_machine.js'),
   'ops:agent:capabilities': path.join(ROOT, 'scripts', 'run_agent_capability_registry.js'),
 };
 

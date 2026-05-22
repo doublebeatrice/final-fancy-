@@ -1,0 +1,400 @@
+{
+  "businessDate": "2026-05-21",
+  "reason": "season_title_candidates_missing_current_listing_title",
+  "skus": [
+    "STY2760",
+    "TAN2986",
+    "LEM6585",
+    "LEM6577",
+    "HEL3107",
+    "YUT2946",
+    "GM2628",
+    "GM2620",
+    "GM2616",
+    "WE3925",
+    "STA2610",
+    "STA2607",
+    "STA2604",
+    "GM2634",
+    "XIH2677",
+    "XIH2672",
+    "DH2686",
+    "DH2685",
+    "HI3876",
+    "QA4115",
+    "NO5155",
+    "SAW1720",
+    "ZO0892",
+    "ZO0891",
+    "YUN2187",
+    "ZUN0779",
+    "LNE1321",
+    "BOY3171",
+    "MF3043",
+    "CEE0467",
+    "CL3650",
+    "UAN3644",
+    "SC3527",
+    "LNY3024",
+    "SHQ0554",
+    "YMF0656",
+    "KZ6074",
+    "HUQ0699",
+    "UAN2600",
+    "HEL0606",
+    "HEL0319",
+    "EY2727",
+    "QA1157",
+    "UY0879",
+    "EY0793",
+    "MH1806",
+    "OB1169",
+    "MF2992",
+    "TI2209"
+  ],
+  "items": [
+    {
+      "sku": "STY2760",
+      "asin": "B0G3PBLJ62",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "TAN2986",
+      "asin": "B0FYDRZ1ZC",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "LEM6585",
+      "asin": "B0FXVB2SYG",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "LEM6577",
+      "asin": "B0FXGN8CXZ",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "HEL3107",
+      "asin": "B0FVFJBZBW",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "YUT2946",
+      "asin": "B0D1VJWGXN",
+      "selectedEvent": "Summer",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "GM2628",
+      "asin": "B0FR4KYWZY",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "GM2620",
+      "asin": "B0FR4V8KJL",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "GM2616",
+      "asin": "B0FR46GZMN",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "WE3925",
+      "asin": "B0FPQ86F1C",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "STA2610",
+      "asin": "B0FND7GY4V",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "STA2607",
+      "asin": "B0FND9XC4Y",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "STA2604",
+      "asin": "B0FN7P88D4",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "GM2634",
+      "asin": "B0FMJJ88NR",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "XIH2677",
+      "asin": "B0FJR7VWH1",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "XIH2672",
+      "asin": "B0FJR6KCR1",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "DH2686",
+      "asin": "B0FDQQYZ89",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "DH2685",
+      "asin": "B0FDQTG22G",
+      "selectedEvent": "Summer",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "HI3876",
+      "asin": "B0F5PR57TX",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "QA4115",
+      "asin": "B0F2F67Z2X",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "NO5155",
+      "asin": "B0F1CGBYL3",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "SAW1720",
+      "asin": "B0DZ22MK2F",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "ZO0892",
+      "asin": "B0DW931ZLZ",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "ZO0891",
+      "asin": "B0DW8ZQX13",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "YUN2187",
+      "asin": "B0DV47QV16",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "ZUN0779",
+      "asin": "B0DTX9LKW7",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "LNE1321",
+      "asin": "B0DSYX54TP",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "BOY3171",
+      "asin": "B0DSFS5BVF",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "MF3043",
+      "asin": "B0DMW4GC1S",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "CEE0467",
+      "asin": "B09SW2NT6J",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "CL3650",
+      "asin": "B0B9Y2ZG9G",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "UAN3644",
+      "asin": "B0DH1ZVTKH",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "SC3527",
+      "asin": "B0CGV7S8V9",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "LNY3024",
+      "asin": "B0D7YR38F7",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "SHQ0554",
+      "asin": "B0D73SYRYR",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "YMF0656",
+      "asin": "B0D59P9C7X",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "KZ6074",
+      "asin": "B0D479Z4QQ",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "HUQ0699",
+      "asin": "B0CZRTJ7N4",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "UAN2600",
+      "asin": "B0CHRT58V7",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "HEL0606",
+      "asin": "B0C7KGV5MT",
+      "selectedEvent": "Summer",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "HEL0319",
+      "asin": "B0C6TSBBDK",
+      "selectedEvent": "VBS / Vacation Bible School",
+      "selectedStatus": "high_frequency",
+      "adActions": 0
+    },
+    {
+      "sku": "EY2727",
+      "asin": "B0BX9M82QW",
+      "selectedEvent": "Summer",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "QA1157",
+      "asin": "B0BQ325P4G",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "UY0879",
+      "asin": "B0BDLT56DH",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "EY0793",
+      "asin": "B09P55WGV7",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "MH1806",
+      "asin": "B09SW2NT6J",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "OB1169",
+      "asin": "B0B9Y2ZG9G",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "MF2992",
+      "asin": "B0D1VJWGXN",
+      "selectedEvent": "Summer",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    },
+    {
+      "sku": "TI2209",
+      "asin": "B0CGV7S8V9",
+      "selectedEvent": "Wedding Season",
+      "selectedStatus": "node_active",
+      "adActions": 0
+    }
+  ]
+}

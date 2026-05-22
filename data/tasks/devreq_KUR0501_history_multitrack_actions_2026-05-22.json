@@ -1,0 +1,92 @@
+[
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "operatorRequested": true,
+    "summary": "Multi-prong correction: historical proven traffic repair plus exact historical test, alongside already-created new traffic phrase test.",
+    "actions": [
+      {
+        "id": "391719833749255",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.16,
+        "suggestedBid": 0.18,
+        "text": "magnetic car decals",
+        "campaignId": "506462874274728",
+        "adGroupId": "500182209065264",
+        "campaignName": "kw_hippie flower car magnet_kur0501",
+        "groupName": "kw_hippie flower car magnet_kur0501",
+        "reason": "Historical and current proven row should be protected as part of the multi-prong repair. This is not the whole answer; it restores bid support for the only current converting keyword while new traffic is tested separately.",
+        "evidence": [
+          "Current 2026-04-22..2026-05-21: magnetic car decals 10 clicks / 1 order / ACOS 17.6%.",
+          "Previous 2026-03-23..2026-04-21: magnetic car decals 9 clicks / 1 order / ACOS 23.8%.",
+          "Operator correction: historical effective traffic and new traffic should both be handled, not either/or."
+        ],
+        "confidence": 0.78,
+        "riskLevel": "traffic_recovery_small_bid",
+        "forceExecute": true,
+        "forceReason": "Operator correction clarified multi-prong handling; small reversible bid repair on a current+historical converting row.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "Give the current converting historical keyword enough bid support while keeping the increase small and reversible.",
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "impressions, CPC, orders, ACOS",
+          "target": "increase exposure without letting ACOS exceed historical controlled range"
+        },
+        "reviewPlan": {
+          "1d": "confirm bid landed and CPC not abnormal",
+          "3d": "check clicks/search terms and first conversion signal",
+          "7d": "hold only if ACOS/orders remain acceptable; rollback if clicks spend without orders"
+        }
+      },
+      {
+        "id": "create::KUR0501::exact_history_winners_2026-05-22",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "mode": "keywordTarget",
+        "matchType": "EXACT",
+        "coreTerm": "car magnets",
+        "keywords": [
+          "magnetic car decals",
+          "funny car magnets",
+          "car magnets"
+        ],
+        "dailyBudget": 1,
+        "defaultBid": 0.11,
+        "reason": "Historical winners should not only stay in broad. Add a capped EXACT lane for the historical buyer-facing terms that had order proof, so we can separate exact recovery from broad drift.",
+        "evidence": [
+          "Existing KUR0501 keyword rows are matchType=3/BROAD; no exact lane appears in the snapshot.",
+          "magnetic car decals: current 10 clicks / 1 order and previous 9 clicks / 1 order.",
+          "funny car magnets: previous 22 clicks / 5 orders / ACOS 13.0%, but current broad row is 10 clicks / 0 orders, so exact low-bid isolation is safer than pushing broad.",
+          "car magnets: previous 24 clicks / 2 orders; current broad row has low bid and low current traffic, so exact low-bid test is capped."
+        ],
+        "confidence": 0.74,
+        "riskLevel": "low_budget_create",
+        "forceExecute": true,
+        "forceReason": "Operator correction clarified historical proven traffic needs active handling; daily budget capped at 1 and bid at 0.11.",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "hypothesis": "Exact lane recovers historical buyer intent with cleaner control than broad-only bid increases.",
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "exact impressions/clicks/orders and query cleanliness",
+          "target": "recover exact historical intent while limiting spend to 1/day"
+        },
+        "reviewPlan": {
+          "1d": "verify create landed and no abnormal spend",
+          "3d": "check exact clicks/CPC and whether funny/car magnet terms still convert",
+          "7d": "keep winners, pause exact terms with irrelevant clicks or no relevance"
+        }
+      }
+    ]
+  }
+]

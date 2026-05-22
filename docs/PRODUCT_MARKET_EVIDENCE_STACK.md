@@ -33,27 +33,33 @@ For holiday/seasonal products, review the product before writing the note: activ
    - Read Google trend timeline, market rank, search volume, ASIN count, competitor price/review/rating threshold, brand concentration, and buyer search-term expansion.
    - Treat this as market-window evidence only. It can support preheat, active-window, tail, and clearance judgement, but it cannot directly trigger ad spend, price, listing, or replenishment actions.
 
-4. Keyword conversion economics
+4. Product Time Machine and competitor traffic map
+   - Use `npm run ops:selection:product-time-machine -- --search-keywords "<terms>"`.
+   - Read keyword-level winning ASINs, bought-in-past-month, monthly bought history, organic rank history, natural/SP/SB/SBV/AC traffic word counts, organic flow share, AO value, and keyword history trend.
+   - Treat `POST /soundasia_selection/sif/timemachine/pageQuery` as the useful main table. Treat the nearby `POST /soundasia_selection/sif/forward` keyword history request as an auxiliary trend curve.
+   - This source explains competitor demand and traffic structure, but it is still read-only evidence and cannot directly trigger ad spend, listing, price, inventory, or replenishment actions.
+
+5. Keyword conversion economics
    - Use `npm run ops:selection:keyword-conversion -- --keywords "<terms>"`.
    - Read search volume, click volume, purchase volume, click-purchase rate, CPC/CPA/ACOS strategy ranges, missing keywords, and freshness.
 
-5. Product and listing fit
+6. Product and listing fit
    - Use listing title, bullets, images, product profile, category, price, rating, reviews, return risk, and product theme.
    - Confirm that the keyword or market actually belongs to the product, not only to an adjacent market.
 
-6. SKU-level ad backend proof
+7. SKU-level ad backend proof
    - Use the smallest ad read path: SKU summary, SKU ad product rows, ad group rows, campaign placement, or customer-search terms.
    - Read CTR, CVR, CPC, ACOS, spend, sales, orders, impressions/click trend, campaign budget/state, and recent action history.
 
-7. Inventory and economics
+8. Inventory and economics
    - Check inventory days, stuck-stock risk, net profit or usable margin fields, refund pressure, active season window, and replenishment/clearance context.
    - Split stock into FBA fulfillable/reserved, Amazon inbound, local good/available stock, local pending/test stock, and FBAPlan air/sea quantities. Do not treat them as one pool.
    - For developer-facing replenishment, only local good/available stock with no existing FBAPlan supports "arrange FBA". Amazon inbound, pending/unarrived local stock, test warehouse stock, and existing FBAPlan air/sea quantities are pipeline evidence, not a request to development to chase or repeat.
    - Before recommending purchase or replenishment, read product season/node and MOQ/minimum-order economics. For Mexican / Cinco de Mayo / Fiesta / Pinata products, the main U.S. traffic window is preheat through May 5; after May 5 treat replenishment as tail/off-season unless current market evidence proves otherwise. Do not extrapolate the last 30 days across the node peak into a fresh MOQ purchase.
    - If MOQ is missing from the current export, mark replenishment as blocked for MOQ confirmation instead of assuming the SKU can absorb a small purchase. If MOQ exists, compare MOQ against recent daily unit velocity and the active-season window; hold replenishment when the MOQ cannot be consumed before the node tails off.
 
-8. Decision and execution boundary
-   - Keyword research, ABA, keyword seasonality, and keyword conversion are evidence only. They can support a hypothesis, but cannot directly create keywords, raise bids, raise budgets, or change listing/price/inventory.
+9. Decision and execution boundary
+   - Keyword research, ABA, keyword seasonality, Product Time Machine, and keyword conversion are evidence only. They can support a hypothesis, but cannot directly create keywords, raise bids, raise budgets, or change listing/price/inventory.
    - Supported ad actions still require dry-run, execution, landing verification, notes/logs, and follow-up.
 
 ## When This Stack Is Mandatory
@@ -92,6 +98,7 @@ For product or keyword judgement, include:
 - Product/keyword identity and intended buyer/use case.
 - Market evidence from ABA if demand or competition matters.
 - Seasonality evidence when timing, replenishment, clearance, or window risk matters.
+- Product Time Machine evidence when competitor ASIN ownership, traffic mix, organic rank movement, or bought-history matters.
 - Keyword conversion economics if spend or keyword expansion matters.
 - SKU/listing/inventory evidence.
 - Replenishment actionability: whether local good/available stock exists, whether FBAPlan air/sea already exists, whether MOQ and node window support consumption, and whether the developer has a real next action.
