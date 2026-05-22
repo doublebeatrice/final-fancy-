@@ -1,0 +1,849 @@
+{
+  "generatedAt": "2026-05-22T11:04:08.691Z",
+  "priceStatus": {
+    "pending_duplicate_marker": 89,
+    "success_or_submitted": 3,
+    "timeout_only_uncertain": 1
+  },
+  "pauseRecords": 0,
+  "pauseStatus": {},
+  "rows": [
+    {
+      "sku": "GM3210",
+      "final": "pending_duplicate_marker",
+      "reason": "GM3210重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 13.99,
+      "after": 14.99
+    },
+    {
+      "sku": "SHQ0554",
+      "final": "pending_duplicate_marker",
+      "reason": "SHQ0554重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 28.99,
+      "after": 30.99
+    },
+    {
+      "sku": "HAY1931",
+      "final": "pending_duplicate_marker",
+      "reason": "HAY1931重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 24.99,
+      "after": 26.99
+    },
+    {
+      "sku": "TH2824",
+      "final": "pending_duplicate_marker",
+      "reason": "TH2824重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 20.99,
+      "after": 22.99
+    },
+    {
+      "sku": "PIR4617",
+      "final": "pending_duplicate_marker",
+      "reason": "PIR4617重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 28.99,
+      "after": 30.99
+    },
+    {
+      "sku": "SE6621",
+      "final": "pending_duplicate_marker",
+      "reason": "SE6621重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 18.99,
+      "after": 19.99
+    },
+    {
+      "sku": "WEN1029",
+      "final": "pending_duplicate_marker",
+      "reason": "WEN1029重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 17.99,
+      "after": 18.99
+    },
+    {
+      "sku": "YYW2629",
+      "final": "pending_duplicate_marker",
+      "reason": "YYW2629重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 57.99,
+      "after": 60.99
+    },
+    {
+      "sku": "MK0522",
+      "final": "pending_duplicate_marker",
+      "reason": "MK0522重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 12.99,
+      "after": 13.99
+    },
+    {
+      "sku": "LE8163",
+      "final": "pending_duplicate_marker",
+      "reason": "LE8163重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 30.99,
+      "after": 32.99
+    },
+    {
+      "sku": "AE2138",
+      "final": "pending_duplicate_marker",
+      "reason": "AE2138重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 46.99,
+      "after": 49.99
+    },
+    {
+      "sku": "GT2432",
+      "final": "pending_duplicate_marker",
+      "reason": "GT2432重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 36.99,
+      "after": 38.99
+    },
+    {
+      "sku": "XIA1681",
+      "final": "pending_duplicate_marker",
+      "reason": "XIA1681重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 14.99,
+      "after": 15.99
+    },
+    {
+      "sku": "TH2599",
+      "final": "pending_duplicate_marker",
+      "reason": "TH2599重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 15.99,
+      "after": 16.99
+    },
+    {
+      "sku": "COO1855",
+      "final": "pending_duplicate_marker",
+      "reason": "COO1855重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 17.99,
+      "after": 18.99
+    },
+    {
+      "sku": "SHQ3949",
+      "final": "pending_duplicate_marker",
+      "reason": "SHQ3949重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 31.99,
+      "after": 33.99
+    },
+    {
+      "sku": "YUT3185",
+      "final": "pending_duplicate_marker",
+      "reason": "YUT3185重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 45.99,
+      "after": 48.99
+    },
+    {
+      "sku": "XIA3242",
+      "final": "pending_duplicate_marker",
+      "reason": "XIA3242重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 19.99,
+      "after": 20.99
+    },
+    {
+      "sku": "HAY1900",
+      "final": "pending_duplicate_marker",
+      "reason": "HAY1900重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 51.44,
+      "after": 54.99
+    },
+    {
+      "sku": "OB4139",
+      "final": "pending_duplicate_marker",
+      "reason": "OB4139重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 31.49,
+      "after": 33.99
+    },
+    {
+      "sku": "GM3213",
+      "final": "pending_duplicate_marker",
+      "reason": "GM3213重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 8.99,
+      "after": 9.99
+    },
+    {
+      "sku": "LNE1322",
+      "final": "pending_duplicate_marker",
+      "reason": "LNE1322重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 33.99,
+      "after": 35.99
+    },
+    {
+      "sku": "IF0653",
+      "final": "pending_duplicate_marker",
+      "reason": "IF0653重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 23.99,
+      "after": 25.99
+    },
+    {
+      "sku": "OCE1413",
+      "final": "pending_duplicate_marker",
+      "reason": "OCE1413重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 13.99,
+      "after": 14.99
+    },
+    {
+      "sku": "SIJ2012",
+      "final": "pending_duplicate_marker",
+      "reason": "SIJ2012重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 54.99,
+      "after": 57.99
+    },
+    {
+      "sku": "UAN3248",
+      "final": "pending_duplicate_marker",
+      "reason": "UAN3248重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 26.24,
+      "after": 27.99
+    },
+    {
+      "sku": "YUT2590",
+      "final": "pending_duplicate_marker",
+      "reason": "YUT2590重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 73.49,
+      "after": 77.99
+    },
+    {
+      "sku": "YUT2840",
+      "final": "pending_duplicate_marker",
+      "reason": "YUT2840重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 40.99,
+      "after": 43.99
+    },
+    {
+      "sku": "QA2082",
+      "final": "pending_duplicate_marker",
+      "reason": "QA2082重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 30.99,
+      "after": 32.99
+    },
+    {
+      "sku": "CEE0304",
+      "final": "pending_duplicate_marker",
+      "reason": "CEE0304重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 20.99,
+      "after": 22.99
+    },
+    {
+      "sku": "QA2085",
+      "final": "pending_duplicate_marker",
+      "reason": "QA2085重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 37.99,
+      "after": 39.99
+    },
+    {
+      "sku": "PIR4610",
+      "final": "pending_duplicate_marker",
+      "reason": "PIR4610重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 22.99,
+      "after": 24.99
+    },
+    {
+      "sku": "YUT3183",
+      "final": "success_or_submitted",
+      "reason": "申请成功.",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 39.99,
+      "after": 41.99
+    },
+    {
+      "sku": "AE2139",
+      "final": "pending_duplicate_marker",
+      "reason": "AE2139重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 37.99,
+      "after": 39.99
+    },
+    {
+      "sku": "DN3049",
+      "final": "pending_duplicate_marker",
+      "reason": "DN3049重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 70.99,
+      "after": 74.99
+    },
+    {
+      "sku": "BOY3355",
+      "final": "pending_duplicate_marker",
+      "reason": "BOY3355重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 15.99,
+      "after": 16.99
+    },
+    {
+      "sku": "SC3077",
+      "final": "pending_duplicate_marker",
+      "reason": "SC3077重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 23.99,
+      "after": 25.99
+    },
+    {
+      "sku": "TH2870",
+      "final": "success_or_submitted",
+      "reason": "申请成功.",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 20.99,
+      "after": 22.99
+    },
+    {
+      "sku": "JIN1883",
+      "final": "pending_duplicate_marker",
+      "reason": "JIN1883重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 72.99,
+      "after": 76.99
+    },
+    {
+      "sku": "QAA4200",
+      "final": "pending_duplicate_marker",
+      "reason": "QAA4200重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 34.99,
+      "after": 36.99
+    },
+    {
+      "sku": "LAY2384",
+      "final": "pending_duplicate_marker",
+      "reason": "LAY2384重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 15.99,
+      "after": 16.99
+    },
+    {
+      "sku": "DUN1391",
+      "final": "pending_duplicate_marker",
+      "reason": "DUN1391重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 47.99,
+      "after": 50.99
+    },
+    {
+      "sku": "DAY2984",
+      "final": "pending_duplicate_marker",
+      "reason": "DAY2984重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 9.99,
+      "after": 10.99
+    },
+    {
+      "sku": "QA1950",
+      "final": "pending_duplicate_marker",
+      "reason": "QA1950重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 17.99,
+      "after": 18.99
+    },
+    {
+      "sku": "XIH2672",
+      "final": "success_or_submitted",
+      "reason": "申请成功.",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 39.99,
+      "after": 41.99
+    },
+    {
+      "sku": "LEM6581",
+      "final": "pending_duplicate_marker",
+      "reason": "LEM6581重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 37.99,
+      "after": 39.99
+    },
+    {
+      "sku": "DUN1127",
+      "final": "pending_duplicate_marker",
+      "reason": "DUN1127重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 39.99,
+      "after": 41.99
+    },
+    {
+      "sku": "YAN0087",
+      "final": "pending_duplicate_marker",
+      "reason": "YAN0087重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 11.99,
+      "after": 12.99
+    },
+    {
+      "sku": "YY4568",
+      "final": "pending_duplicate_marker",
+      "reason": "YY4568重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 41.99,
+      "after": 44.99
+    },
+    {
+      "sku": "PR2460",
+      "final": "pending_duplicate_marker",
+      "reason": "PR2460重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 27.99,
+      "after": 29.99
+    },
+    {
+      "sku": "LED3942",
+      "final": "pending_duplicate_marker",
+      "reason": "LED3942重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 13.99,
+      "after": 14.99
+    },
+    {
+      "sku": "GT4431",
+      "final": "pending_duplicate_marker",
+      "reason": "GT4431重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 14.99,
+      "after": 15.99
+    },
+    {
+      "sku": "IF1831",
+      "final": "pending_duplicate_marker",
+      "reason": "IF1831重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 26.99,
+      "after": 28.99
+    },
+    {
+      "sku": "SAN0149",
+      "final": "pending_duplicate_marker",
+      "reason": "SAN0149重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 39.99,
+      "after": 41.99
+    },
+    {
+      "sku": "SE5608",
+      "final": "pending_duplicate_marker",
+      "reason": "SE5608重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 15.99,
+      "after": 16.99
+    },
+    {
+      "sku": "GM3068",
+      "final": "pending_duplicate_marker",
+      "reason": "GM3068重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 12.99,
+      "after": 13.99
+    },
+    {
+      "sku": "SE7586",
+      "final": "pending_duplicate_marker",
+      "reason": "SE7586重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 18.99,
+      "after": 19.99
+    },
+    {
+      "sku": "AE2140",
+      "final": "pending_duplicate_marker",
+      "reason": "AE2140重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 40.99,
+      "after": 43.99
+    },
+    {
+      "sku": "HAY0219",
+      "final": "pending_duplicate_marker",
+      "reason": "HAY0219重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 28.99,
+      "after": 30.99
+    },
+    {
+      "sku": "KZ6074",
+      "final": "pending_duplicate_marker",
+      "reason": "KZ6074重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 7.99,
+      "after": 8.99
+    },
+    {
+      "sku": "EY0793",
+      "final": "pending_duplicate_marker",
+      "reason": "EY0793重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 21.99,
+      "after": 22.99
+    },
+    {
+      "sku": "YUN2188",
+      "final": "pending_duplicate_marker",
+      "reason": "YUN2188重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 21.99,
+      "after": 22.99
+    },
+    {
+      "sku": "SH0422",
+      "final": "pending_duplicate_marker",
+      "reason": "SH0422重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 11.99,
+      "after": 12.99
+    },
+    {
+      "sku": "YUN2686",
+      "final": "pending_duplicate_marker",
+      "reason": "YUN2686重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 18.47,
+      "after": 19.99
+    },
+    {
+      "sku": "YUT3184",
+      "final": "pending_duplicate_marker",
+      "reason": "YUT3184重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 42.99,
+      "after": 44.99
+    },
+    {
+      "sku": "RHO1540",
+      "final": "pending_duplicate_marker",
+      "reason": "RHO1540重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 12.99,
+      "after": 13.99
+    },
+    {
+      "sku": "UAN3644",
+      "final": "pending_duplicate_marker",
+      "reason": "UAN3644重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 25.99,
+      "after": 27.99
+    },
+    {
+      "sku": "YMF1073",
+      "final": "pending_duplicate_marker",
+      "reason": "YMF1073重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 9.99,
+      "after": 10.99
+    },
+    {
+      "sku": "IF1427",
+      "final": "pending_duplicate_marker",
+      "reason": "IF1427重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 29.99,
+      "after": 31.99
+    },
+    {
+      "sku": "XIX2353",
+      "final": "pending_duplicate_marker",
+      "reason": "XIX2353重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 19.99,
+      "after": 20.99
+    },
+    {
+      "sku": "QAA3142",
+      "final": "pending_duplicate_marker",
+      "reason": "QAA3142重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 17.99,
+      "after": 18.99
+    },
+    {
+      "sku": "WOO0173",
+      "final": "pending_duplicate_marker",
+      "reason": "WOO0173重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 29.39,
+      "after": 30.99
+    },
+    {
+      "sku": "DUN1128",
+      "final": "pending_duplicate_marker",
+      "reason": "DUN1128重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 39.99,
+      "after": 41.99
+    },
+    {
+      "sku": "KV0324",
+      "final": "pending_duplicate_marker",
+      "reason": "KV0324重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 16.99,
+      "after": 17.99
+    },
+    {
+      "sku": "LIC8799",
+      "final": "pending_duplicate_marker",
+      "reason": "LIC8799重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 15.99,
+      "after": 16.99
+    },
+    {
+      "sku": "QA3169",
+      "final": "pending_duplicate_marker",
+      "reason": "QA3169重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 17.99,
+      "after": 18.99
+    },
+    {
+      "sku": "GT3814",
+      "final": "pending_duplicate_marker",
+      "reason": "GT3814重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 15.99,
+      "after": 16.99
+    },
+    {
+      "sku": "QA3173",
+      "final": "pending_duplicate_marker",
+      "reason": "QA3173重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 18.99,
+      "after": 19.99
+    },
+    {
+      "sku": "SH0423",
+      "final": "pending_duplicate_marker",
+      "reason": "SH0423重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 12.99,
+      "after": 13.99
+    },
+    {
+      "sku": "GGN2452",
+      "final": "pending_duplicate_marker",
+      "reason": "GGN2452重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 61.99,
+      "after": 64.99
+    },
+    {
+      "sku": "QQ2806",
+      "final": "pending_duplicate_marker",
+      "reason": "QQ2806重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 12.99,
+      "after": 13.99
+    },
+    {
+      "sku": "SH0424",
+      "final": "pending_duplicate_marker",
+      "reason": "SH0424重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 11.99,
+      "after": 12.99
+    },
+    {
+      "sku": "CLO0344",
+      "final": "pending_duplicate_marker",
+      "reason": "CLO0344重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 26.24,
+      "after": 27.99
+    },
+    {
+      "sku": "KEJ0561",
+      "final": "pending_duplicate_marker",
+      "reason": "KEJ0561重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 37.99,
+      "after": 39.99
+    },
+    {
+      "sku": "DUN1392",
+      "final": "pending_duplicate_marker",
+      "reason": "DUN1392重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 60.99,
+      "after": 63.99
+    },
+    {
+      "sku": "BQ3410",
+      "final": "timeout_only_uncertain",
+      "reason": "timeout_only",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 7.99,
+      "after": 8.99
+    },
+    {
+      "sku": "HL4017",
+      "final": "pending_duplicate_marker",
+      "reason": "HL4017重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 16.99,
+      "after": 17.99
+    },
+    {
+      "sku": "YUT2844",
+      "final": "pending_duplicate_marker",
+      "reason": "YUT2844重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 43.99,
+      "after": 45.99
+    },
+    {
+      "sku": "HL4004",
+      "final": "pending_duplicate_marker",
+      "reason": "HL4004重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 19.99,
+      "after": 20.99
+    },
+    {
+      "sku": "RT3172",
+      "final": "pending_duplicate_marker",
+      "reason": "RT3172重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 15.99,
+      "after": 16.99
+    },
+    {
+      "sku": "YAN3229",
+      "final": "pending_duplicate_marker",
+      "reason": "YAN3229重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 9.99,
+      "after": 10.99
+    },
+    {
+      "sku": "SC3527",
+      "final": "pending_duplicate_marker",
+      "reason": "SC3527重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 26.99,
+      "after": 28.99
+    },
+    {
+      "sku": "DUN1394",
+      "final": "pending_duplicate_marker",
+      "reason": "DUN1394重复申请,该价格正在处理中!",
+      "liveCount": 2,
+      "dryCount": 1,
+      "before": 75.99,
+      "after": 79.99
+    }
+  ]
+}
