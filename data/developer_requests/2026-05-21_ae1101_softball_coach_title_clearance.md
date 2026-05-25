@@ -58,6 +58,14 @@ Softball Coach Gifts Coach Appreciation Gift Set Include 20 oz Baseball Tumbler,
   - Proven ASIN target `asinExpandedFrom=B0BJZ28TRW` in `asin_coachgifts_ae1101`: `0.48 -> 0.55`, `updatedAt=2026-05-22 10:08:43`.
   - Budgets were left capped: exact gift `$3`, same-scenario ASIN `$2`, whistle exact `$2`, existing ASIN group `$3`.
   - Next checkpoint: check same-day/next-day impressions first. If bids now create impressions but clicks/spend do not produce orders by the 3d window, roll back the new bid layer rather than adding more budget.
+- Recheck/action 2026-05-23 09:43 CST, businessDate 2026-05-22:
+  - 5/22 bid-up did repair some exposure: exact gift row now has `245 impressions / 1 click / $0.55 / 0 orders`; proven ASIN group has `51 impressions / 1 click / $0.55 / 0 orders`.
+  - New lanes still underexposed before today's action: same-scenario ASIN only `1 impression / 0 clicks / $0`; whistle exact only `3 impressions / 0 clicks / $0`.
+  - Executed second exposure repair only on the still-underexposed lanes, budgets unchanged. Dry-run passed `8` actions; execute returned `8/8 success`.
+  - Whistle exact keywords `whistle for coaches`, `coach whistle with lanyard`, and `coach whistle`: `0.35 -> 0.45`, live readback `updatedAt=2026-05-23 09:43:10`.
+  - Same-scenario ASIN targets `B0D9XQZXTH`, `B0BJZK5J63`, `B0BRMFC69V`, `B0FLHZ8L67`, and `B0CXJ93JFN`: `0.40 -> 0.50`, live readback `updatedAt=2026-05-23 09:43:11`.
+  - Exact gift and proven ASIN were not raised again because they already started showing; next action for those lanes should be based on click/order quality, not more blind bid-up.
+  - SKU ad product inventory/listing fields now show price `6.99`, sale status `正常销售`, sellable-day string `999 / 140 / 134`, and ad serving `ELIGIBLE`. Treat this as a clearance-price warning: clicks need tight monitoring because order economics are thinner at this price.
 - Check front listing title and price landing first.
 - Codex heartbeat reminder created: `ae1101`, daily at 09:30 for 7 checks starting after 2026-05-21, covering the 1d/3d/7d bid-push review.
 - Review 3d/7d after the price change is live: sessions/clicks, conversion, orders, and whether ad clicks shift from low-efficiency terms to coach-intent traffic.

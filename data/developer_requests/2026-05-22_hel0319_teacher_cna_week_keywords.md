@@ -61,6 +61,26 @@ Landed keyword readback:
 - 2026-05-25: 3d review for CTR, CPC, first orders, and whether teacher terms are still in the school-year window.
 - 2026-05-29: CNA Week preheat review. Continue only if clicks are clean or first orders appear; otherwise keep the low bid or pause weak CNA terms.
 
+### 2026-05-23 10:10 First Landing Check
+
+- Ran `npm run chrome:ready`; adv, inventory, and selection sessions all returned ready.
+- Re-fetched 2026-05-22 lower-layer rows for the two append lanes:
+  - `kw broad_teacher appreciation keychains bulk_hel0319`: `data/snapshots/hel0319_teacher_kw_group_2026-05-22_day_after_2026-05-23.json`.
+  - `b2b kw broad_nurse appreciation gifts bulk_hel0319`: `data/snapshots/hel0319_b2b_nurse_kw_group_2026-05-22_day_after_2026-05-23.json`.
+- All four appended keywords are still visible, enabled, broad, and bid `0.25`.
+- First-day activity for all four keywords is still `0 impressions / 0 clicks / $0.00 spend / 0 orders`.
+- Judgement: no abnormal consumption and no early traffic yet. Keep low-bid test unchanged; wait for 2026-05-25 3d effect review before changing bid or pausing.
+
+### 2026-05-24 10:02 Second Landing Check
+
+- Ran `npm run chrome:ready`; adv, inventory, and selection sessions all returned ready.
+- Re-fetched 2026-05-23 lower-layer rows and created-window readbacks for both append lanes:
+  - `kw broad_teacher appreciation keychains bulk_hel0319`: `data/snapshots/hel0319_teacher_kw_group_2026-05-23_day_after_2026-05-24.json`; created-window readback `data/snapshots/hel0319_teacher_kw_group_created_window_2026-05-24.json`.
+  - `b2b kw broad_nurse appreciation gifts bulk_hel0319`: `data/snapshots/hel0319_b2b_nurse_kw_group_2026-05-23_day_after_2026-05-24.json`; created-window readback `data/snapshots/hel0319_b2b_nurse_kw_group_created_window_2026-05-24.json`.
+- Fresh readback still confirms all four appended keywords are enabled, broad, and bid `0.25`: `teacher end of the year gifts`, `end of school year teacher gifts`, `cna week gifts`, `cna appreciation gifts`.
+- 2026-05-23 activity remains `0 impressions / 0 clicks / $0.00 spend / 0 orders` for the returned rows. The reporting endpoint filters some zero-activity new terms inconsistently by date window, so absence from one zero-data table is not treated as a paused/deleted signal when another fresh readback still shows enabled state.
+- Judgement: no abnormal consumption and no traffic start yet. Keep the low-bid test unchanged; no bid-up, bid-down, pause, or budget change before the 2026-05-25 3d review.
+
 ## Operator Reply Draft
 
 HEL0319 我看了下，这款本身是 30 件装感谢/激励钥匙扣，Teacher 年末礼和 CNA Week 都能承接，但 CNA 词成本信号偏高，所以我没有加预算，也没有重建广告，直接复用现有 SP 关键词组低价补词。

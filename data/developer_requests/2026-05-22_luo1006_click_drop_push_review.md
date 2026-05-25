@@ -1,5 +1,18 @@
 # 2026-05-22 LUO1006 click drop / add-spend review
 
+## 2026-05-23 checkpoint
+
+- Backend readiness: adv, sellerinventory, and selection ready on 2026-05-23 Asia/Shanghai.
+- Latest live ad reads cover `2026-05-16` to `2026-05-22`; product chart covers through `2026-05-22`.
+- SKU chart recovered from the 2026-05-21 low point: 2026-05-21 had 463 impressions, 2 clicks, 0 orders, spend 0.71; 2026-05-22 had 238 impressions, 3 clicks, 1 order, spend 1.34, sales 22.99, ACOS 5.83%.
+- SKU 7d summary: 15,039 impressions, 96 clicks, spend 42.30, 5 orders, sales 114.95, ACOS 36.80%; previous 7d was 98 clicks, 9 orders, ACOS 24.13%. Clicks are not absent, but order efficiency is still weaker than prior week.
+- Protected core keyword lane is live and still converting:
+  - `bottle chug` keywordId `324424760692027`: bid 0.48, 2,652 impressions, 29 clicks, spend 16.01, 2 orders, sales 45.98, ACOS 34.82%.
+  - `baby shower bottle chug game` keywordId `330498703748224`: bid 0.38, 24 impressions, 1 click, spend 0.38, 1 order, sales 22.99, ACOS 1.65%.
+  - Exact lane `chug game baby shower` keywordId `341621043967617`: bid 0.47, 361 impressions, 4 clicks, spend 1.45, 0 orders in the latest 7d window; keep watching because the 30d baseline had efficient orders.
+- ASIN/product-target lane still shows 7d waste in lookback: main ASIN targets show 42 clicks and 16.84 spend with 0 orders. The two larger waste receivers are already paused/constrained; active remaining ASIN spend is low. Do not add bid or budget there.
+- Decision: no new bid repair today. The three 2026-05-22 keyword repairs are live; current evidence supports hold/watch for 1-3 days rather than stacking another same-day bid-up.
+
 ## Source
 
 - Forwarded developer request: `LUO1006 这两天点击率又没有啦，可以加投看看吗`

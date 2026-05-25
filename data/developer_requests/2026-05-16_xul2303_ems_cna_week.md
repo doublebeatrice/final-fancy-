@@ -95,6 +95,16 @@
   - `kw_may_xul2303` 7d = 884 impressions, 10 clicks, spend 2.46, 1 order. The order is still from `nurse week appreciation gift` with 216 impressions / 2 clicks / 1 order / spend 0.64.
   - EMS/first-responder terms are visible but still not lifting: `first responder appreciation gift` 59 impressions / 0 clicks, `first responders month gift` 21 impressions / 0 clicks. No explicit `EMS` keyword row is present.
   - `auto_911 dispatcher_xul2303` 7d = 606 impressions, 11 clicks, spend 1.58, 0 orders. Dispatcher auto exposure is up versus the previous comparable 450 impressions / 9 clicks window, but still no order.
+- 2026-05-23 10:00 final EMS Week check:
+  - `npm run chrome:ready` was blocked by the PowerShell `npm.ps1` execution policy, so the same script was run through `npm.cmd run chrome:ready`; adv, sellerinventory, and selection sessions all returned ready.
+  - Sellerinventory application `4461056` remains approved/processed: `status=100`, `backstage_status=1`, copywriting checker `张婷婷`, `backstage_time=2026-05-21`, `updated_at=2026-05-21 18:41:13`.
+  - Sellerinventory origin title still remains the old Nurse Week / Teacher Week / First Responders Month title with `updated_at=2026-05-15 15:26:29`.
+  - Public Amazon title from both `scrape-product.py` and Chrome DevTools still remains: `Sherr 8 Pcs Funny Dumpster Fire Response Team Desk Gift for Nurse Week, Teacher Week, First Responders Month, with Wooden Pencil Holder, A6 Notebook, Sticky Notes Pad and 5 Ballpoint Pens`. The repaired `EMS First Responder 911 Dispatcher` title did not land during the EMS Week window.
+  - Refreshed ad data through 2026-05-22: SKU 7d = 1245 impressions, 18 clicks, spend 3.31, 1 order, sales 17.99, ACOS 18.40%; 30d = 15845 impressions, 243 clicks, spend 57.18, 10 orders, sales 157.89, ACOS 36.22%.
+  - `kw_may_xul2303` 7d = 695 impressions, 8 clicks, spend 1.90, 1 order. The order is still from `nurse week appreciation gift` with 191 impressions / 1 click / 1 order / spend 0.32.
+  - EMS/first-responder terms did not lift: `first responder appreciation gift` 48 impressions / 0 clicks, `first responders month gift` 15 impressions / 0 clicks. No explicit `EMS` keyword row is present.
+  - `auto_911 dispatcher_xul2303` 7d = 550 impressions, 10 clicks, spend 1.41, 0 orders. Dispatcher auto exposure is up versus the previous comparable 404 impressions / 6 clicks window, but still no order.
+  - Operator judgement: EMS Week ends 2026-05-23; the listing title did not land in time, and ad proof did not show EMS/dispatcher conversion. Close the EMS Week follow-up. Reassess CNA Week separately from 2026-05-28 only if listing/image fit is still worth testing.
 
 ## Reply Draft
 

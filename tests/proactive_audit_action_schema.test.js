@@ -1,5 +1,6 @@
 const assert = require('assert');
 const {
+  buildExpiredSeasonActions,
   buildNewProductLaunchActions,
 } = require('../scripts/generators/generate_proactive_audit_action_schema');
 
@@ -64,6 +65,134 @@ const {
     actions.some(action => action.actionType === 'review' && /keyword seeds/i.test(action.reason)),
     'should surface a review item explaining that keyword seeds are too broad'
   );
+}
+
+{
+  const audit = {
+    expiredSeasonKeywordWaste: {
+      items: [{
+        sku: 'SAN0383',
+        asin: 'B09MK757X9',
+        source: 'SB',
+        entityId: '509516833949076',
+        keywordText: 'western decorations party',
+        theme: 'nurse_week_tail',
+        themeLabel: 'Nurse Week tail/expired',
+        spend3: 0.28,
+        orders3: 0,
+        spend7: 0.28,
+        orders7: 0,
+      }],
+    },
+  };
+  const products = new Map([['SAN0383', { sku: 'SAN0383', asin: 'B09MK757X9' }]]);
+  const plans = buildExpiredSeasonActions(audit, products, 10, {
+    rowsByType: { sbKeyword: [] },
+    snapshot: { sbRows: [] },
+  });
+  const actions = plans.flatMap(plan => plan.actions || []);
+
+  assert.ok(!actions.some(action =>
+    action.entityType === 'sbKeyword' &&
+    action.actionType === 'pause' &&
+    String(action.id) === '509516833949076'
+  ), 'missing SB keyword id must not produce an executable pause');
+  const review = actions.find(action => action.actionType === 'review' && action.missing_entity_id === '509516833949076');
+  assert.ok(review, 'missing entity must be downgraded to a review action');
+  assert.strictEqual(review.entityType, 'skuCandidate');
+  assert.ok(review.reason.includes('missing_entity_id:sbKeyword:509516833949076'));
+}
+
+{
+  const audit = {
+    expiredSeasonKeywordWaste: {
+      items: [{
+        sku: 'SAN0383',
+        source: 'SB',
+        entityId: '509516833949076',
+        keywordText: 'western decorations party',
+        theme: 'nurse_week_tail',
+        themeLabel: 'Nurse Week tail/expired',
+        spend3: 0.28,
+        orders3: 0,
+        spend7: 0.28,
+        orders7: 0,
+      }],
+    },
+  };
+  const products = new Map([['SAN0383', { sku: 'SAN0383' }]]);
+  const plans = buildExpiredSeasonActions(audit, products, 10, {
+    snapshot: {
+      sbRows: [{
+        __adProperty: '4',
+        keywordId: '509516833949076',
+      }],
+    },
+  });
+  const actions = plans.flatMap(plan => plan.actions || []);
+  assert.ok(actions.some(action =>
+    action.entityType === 'sbKeyword' &&
+    action.actionType === 'pause' &&
+    String(action.id) === '509516833949076'
+  ), 'existing SB keyword id can still produce the original executable pause');
+}
+
+{
+  const audit = {
+    expiredSeasonKeywordWaste: {
+      items: [{
+        sku: 'SAN0383',
+        source: 'SB',
+        entityId: '509516833949076',
+        keywordText: 'western decorations party',
+        theme: 'nurse_week_tail',
+        spend3: 0.28,
+        orders3: 0,
+        spend7: 0.28,
+        orders7: 0,
+      }],
+    },
+  };
+  const products = new Map([['SAN0383', { sku: 'SAN0383', campaigns: [] }]]);
+  const plans = buildExpiredSeasonActions(audit, products, 10, {
+    rowsByType: { sbKeyword: [{ keywordId: '509516833949076' }] },
+    snapshot: { sbRows: [{ __adProperty: '4', keywordId: '509516833949076' }] },
+  });
+  const review = plans.flatMap(plan => plan.actions || []).find(action => action.actionType === 'review');
+  assert.ok(review, 'row-only SB keyword must be downgraded when product context cannot execute it');
+  assert.strictEqual(review.missing_entity_id, '509516833949076');
+  assert.ok(review.reason.includes('product context'));
+}
+
+{
+  const audit = {
+    expiredSeasonKeywordWaste: {
+      items: [{
+        sku: 'SAN0383',
+        source: 'SB',
+        entityId: '509516833949076',
+        keywordText: 'western decorations party',
+        theme: 'nurse_week_tail',
+        spend3: 0.28,
+        orders3: 0,
+        spend7: 0.28,
+        orders7: 0,
+      }],
+    },
+  };
+  const products = new Map([['SAN0383', {
+    sku: 'SAN0383',
+    campaigns: [{ sponsoredBrands: [{ id: '509516833949076', entityType: 'sbKeyword' }] }],
+  }]]);
+  const plans = buildExpiredSeasonActions(audit, products, 10, {
+    rowsByType: { sbKeyword: [{ keywordId: '509516833949076' }] },
+    snapshot: { sbRows: [{ __adProperty: '4', keywordId: '509516833949076' }] },
+  });
+  assert.ok(plans.flatMap(plan => plan.actions || []).some(action =>
+    action.entityType === 'sbKeyword' &&
+    action.actionType === 'pause' &&
+    action.id === '509516833949076'
+  ), 'SB keyword remains executable when both row data and product context contain the entity');
 }
 
 {

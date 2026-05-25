@@ -7,6 +7,7 @@ const { analyzeAllowedOperationScope, applyAllowedOperationScope } = require('..
 const { appendAdjustmentRecords, recordsFromExecutionEvents, recordsFromPlan } = require('../src/adjustment_log');
 const { buildOpsTimeContext } = require('../src/ops_time');
 const { buildDailyTaskPool } = require('../src/task_scheduler');
+const { buildDailyTaskBoard } = require('../src/task_board');
 const { persistDailyLearning } = require('../src/daily_learning');
 const { buildAgentLedger } = require('../src/agent_control_plane');
 const { buildProactiveOperatingAudit, renderProactiveOperatingAuditHtml } = require('../src/proactive_audit');
@@ -20,6 +21,12 @@ const { buildOverBudgetPlanItems } = require('../src/over_budget_to_actions');
 const { updateHistoryFromSnapshot, annotateCapSince } = require('../src/over_budget_history');
 const { scanLowEfficiencyCandidates, scanLowEfficiencyPools } = require('../src/low_efficiency_decision');
 const { auditAdStructureOpportunities } = require('../src/ad_structure_opportunity');
+const { createStageRegistry } = require('../src/pipeline/stage_registry');
+const { createRunContext } = require('../src/pipeline/run_context');
+const { runStage } = require('../src/pipeline/run_stage');
+const { writeTaskCards } = require('../src/briefs/build_task_cards');
+const { writeAiDecisionBrief } = require('../src/briefs/build_ai_decision_brief');
+const { assertActionTerminology } = require('../src/capabilities/orchestrator/permission_gate');
 const {
   buildExpiredSeasonActions,
   buildNewProductLaunchActions,
@@ -666,6 +673,29 @@ function summarizeValidation(validation) {
   };
 }
 
+function validateActionTerminology(validation = {}) {
+  const actions = [
+    ...(validation.plan || []).flatMap(item => (item.actions || []).map(action => ({ ...action, sku: item.sku, asin: item.asin }))),
+    ...(validation.review || []).map(item => ({ ...(item.action || {}), sku: item.sku, asin: item.asin })),
+    ...(validation.skipped || []).map(item => ({ ...(item.action || {}), sku: item.sku, asin: item.asin })),
+  ].filter(action => action.actionType || action.entityType);
+  const failures = actions
+    .map(action => ({ action, terminology: assertActionTerminology(action) }))
+    .filter(item => !item.terminology.ok);
+  return {
+    ok: failures.length === 0,
+    checkedActions: actions.length,
+    failures: failures.map(item => ({
+      sku: item.action.sku || '',
+      entityType: item.action.entityType || '',
+      actionType: item.action.actionType || '',
+      actionKind: item.terminology.actionKind,
+      capabilityId: item.terminology.route?.capabilityId || '',
+      reason: item.terminology.reason,
+    })),
+  };
+}
+
 function buildProductMap(snapshot = {}) {
   const map = new Map();
   for (const card of snapshot.productCards || []) {
@@ -778,9 +808,10 @@ function mergeActionSchemas(parts = []) {
 
 function buildProactiveRecoveryActionSchema(audit = {}, snapshot = {}, options = {}) {
   const products = buildProductMap(snapshot);
+  const rowsByType = options.rowsByType || buildRowsByType(snapshot);
   const reviewLimit = Number(options.reviewLimit || 80);
   return mergePlans([
-    buildExpiredSeasonActions(audit, products, Number(options.expiredLimit || 80)),
+    buildExpiredSeasonActions(audit, products, Number(options.expiredLimit || 80), { snapshot, rowsByType }),
     buildNewProductLaunchActions(audit, products, Math.min(reviewLimit, 40)),
     buildReviewItems(audit, products, reviewLimit),
   ]);
@@ -883,8 +914,12 @@ function buildRunSummary(manifest) {
   const steps = manifest.steps.map(step => ({
     name: step.name,
     status: step.status,
+    inputs: step.inputs || [],
     durationMs: step.durationMs || 0,
     outputs: step.outputs || {},
+    blocked_reason: step.blocked_reason || '',
+    missing_data: step.missing_data || [],
+    next_retry_at: step.next_retry_at || '',
     error: step.error || '',
   }));
   const schemaSummary = manifest.schemaValidation || {};
@@ -934,6 +969,10 @@ function buildRunSummary(manifest) {
     kpiRecoveryOverBudgetSchema: manifest.kpiRecoveryOverBudgetSchema || null,
     agentLedger: manifest.agentLedger || null,
     dailyLearning: manifest.dailyLearning || null,
+    dailyTaskBoard: manifest.dailyTaskBoard || null,
+    taskCards: manifest.taskCards || null,
+    aiDecisionBrief: manifest.aiDecisionBrief || null,
+    actionTerminology: manifest.actionTerminology || null,
   };
 }
 
@@ -1091,34 +1130,16 @@ async function main() {
     overBudgetCapture: buildOverBudgetCaptureMeta(),
   };
 
-  function persist() {
-    writeJson(manifestFile, manifest);
-    writeJson(summaryFile, buildRunSummary(manifest));
-  }
-
-  async function runStep(name, fn, { allowSkip = false } = {}) {
-    const step = { name, status: 'in_progress', startedAt: new Date().toISOString() };
-    manifest.steps.push(step);
-    persist();
-    try {
-      const result = await fn();
-      step.status = result?.skipped ? 'skipped' : 'success';
-      step.finishedAt = new Date().toISOString();
-      step.durationMs = new Date(step.finishedAt).getTime() - new Date(step.startedAt).getTime();
-      if (result?.outputs) step.outputs = result.outputs;
-      if (result?.details) step.details = result.details;
-      persist();
-      return result;
-    } catch (error) {
-      step.status = allowSkip ? 'skipped' : 'failed';
-      step.finishedAt = new Date().toISOString();
-      step.durationMs = new Date(step.finishedAt).getTime() - new Date(step.startedAt).getTime();
-      step.error = error.message;
-      persist();
-      if (!allowSkip) throw error;
-      return { skipped: true, reason: error.message };
-    }
-  }
+  const stageRegistry = createStageRegistry();
+  const runContext = createRunContext({
+    manifest,
+    manifestFile,
+    summaryFile,
+    buildSummary: buildRunSummary,
+    writeJson,
+  });
+  const persist = runContext.persist;
+  const runStep = (name, fn, options = {}) => runStage(runContext, stageRegistry.get(name), fn, options);
 
   try {
     await runStep('preflight', async () => {
@@ -1189,18 +1210,49 @@ async function main() {
       const taskDir = path.join(ROOT, 'data', 'tasks');
       const jsonFile = path.join(taskDir, `daily_tasks_${timeContext.businessDate}.json`);
       const htmlFile = path.join(taskDir, `daily_tasks_${timeContext.businessDate}.html`);
+      const boardJsonFile = path.join(taskDir, `daily_task_board_${timeContext.businessDate}.json`);
+      const taskCardsFile = path.join(taskDir, `task_cards_${timeContext.businessDate}.json`);
+      const aiDecisionBriefFile = path.join(taskDir, `ai_decision_brief_${timeContext.businessDate}.json`);
+      const latestTaskCardsFile = path.join(taskDir, 'task_cards.json');
+      const latestAiDecisionBriefFile = path.join(taskDir, 'ai_decision_brief.json');
+      const board = buildDailyTaskBoard(pool);
+      board.snapshotFile = snapshotFile;
       writeJson(jsonFile, pool);
       writeTextFileWithRetry(htmlFile, renderTaskPoolHtml(pool));
+      writeJson(boardJsonFile, board);
+      const taskCards = writeTaskCards(board, taskCardsFile);
+      writeJson(latestTaskCardsFile, taskCards);
+      const aiDecisionBrief = writeAiDecisionBrief(taskCards, aiDecisionBriefFile);
+      writeJson(latestAiDecisionBriefFile, aiDecisionBrief);
       manifest.outputFiles.dailyTaskPoolJson = jsonFile;
       manifest.outputFiles.dailyTaskPoolHtml = htmlFile;
+      manifest.outputFiles.dailyTaskBoardJson = boardJsonFile;
+      manifest.outputFiles.taskCardsJson = taskCardsFile;
+      manifest.outputFiles.taskCardsLatestJson = latestTaskCardsFile;
+      manifest.outputFiles.aiDecisionBriefJson = aiDecisionBriefFile;
+      manifest.outputFiles.aiDecisionBriefLatestJson = latestAiDecisionBriefFile;
       manifest.dailyTaskPool = pool.summary;
+      manifest.dailyTaskBoard = board.summary;
+      manifest.taskCards = taskCards.summary;
+      manifest.aiDecisionBrief = aiDecisionBrief.summary;
       return {
-        outputs: { dailyTaskPoolJson: jsonFile, dailyTaskPoolHtml: htmlFile },
-        details: pool.summary,
+        outputs: {
+          dailyTaskPoolJson: jsonFile,
+          dailyTaskPoolHtml: htmlFile,
+          dailyTaskBoardJson: boardJsonFile,
+          taskCardsJson: taskCardsFile,
+          aiDecisionBriefJson: aiDecisionBriefFile,
+        },
+        details: {
+          pool: pool.summary,
+          board: board.summary,
+          taskCards: taskCards.summary,
+          aiDecisionBrief: aiDecisionBrief.summary,
+        },
       };
     });
 
-    await runStep('all_sku_operating_review', async () => {
+    async function runAllSkuOperatingReviewStage() {
       const taskDir = path.join(ROOT, 'data', 'tasks');
       const review = buildAllSkuOperatingReview({ snapshot, timeContext });
       review.snapshotFile = snapshotFile;
@@ -1215,9 +1267,10 @@ async function main() {
         outputs: { allSkuOperatingReviewJson: jsonFile, allSkuOperatingReviewHtml: htmlFile },
         details: review.summary,
       };
-    });
+    }
 
     await runStep('proactive_operating_audit', async () => {
+      const allSkuReviewResult = await runAllSkuOperatingReviewStage();
       proactiveAudit = buildProactiveOperatingAudit({ snapshot, timeContext });
       proactiveAudit.snapshotFile = snapshotFile;
       const taskDir = path.join(ROOT, 'data', 'tasks');
@@ -1236,13 +1289,6 @@ async function main() {
         expiredSeasonKeywordWaste: proactiveAudit.expiredSeasonKeywordWaste.summary.totalEnabledRows,
         listingRepair: proactiveAudit.listingRepair.summary.total,
       };
-      return {
-        outputs: { proactiveOperatingAuditJson: jsonFile, proactiveOperatingAuditHtml: htmlFile },
-        details: manifest.proactiveOperatingAudit,
-      };
-    });
-
-    await runStep('proactive_recovery_action_schema', async () => {
       const schemaFile = path.join(SNAPSHOT_DATA_DIR, `action_schema_${timeContext.businessDate}_proactive_recovery_candidate.json`);
       const schema = buildProactiveRecoveryActionSchema(proactiveAudit, snapshot);
       writeJson(schemaFile, schema);
@@ -1254,8 +1300,16 @@ async function main() {
         newProductLaunch: proactiveAudit?.newProductLaunch?.summary?.total || 0,
       };
       return {
-        outputs: { proactiveRecoveryActionSchemaJson: schemaFile },
-        details: manifest.proactiveRecoveryActionSchema,
+        outputs: {
+          ...allSkuReviewResult.outputs,
+          proactiveOperatingAuditJson: jsonFile,
+          proactiveOperatingAuditHtml: htmlFile,
+          proactiveRecoveryActionSchemaJson: schemaFile,
+        },
+        details: {
+          proactiveOperatingAudit: manifest.proactiveOperatingAudit,
+          proactiveRecoveryActionSchema: manifest.proactiveRecoveryActionSchema,
+        },
       };
     });
 
@@ -1362,7 +1416,9 @@ async function main() {
       };
     });
 
-    await runStep('kpi_recovery_overbudget_schema', async () => {
+    await runStep('sku_ad_form_summary', async () => {
+      const kpiOutputs = {};
+      const kpiDetails = {};
       if (options.explicitActionSchemaRequested) {
         const proactiveCounts = manifest.proactiveRecoveryActionSchema || {};
         if (Number(proactiveCounts.arrivalAdRecovery || 0) > 0) {
@@ -1371,68 +1427,61 @@ async function main() {
             detail: `arrivalAdRecovery=${proactiveCounts.arrivalAdRecovery}; proactive schema generated but not selected as primary execution schema`,
           }];
         }
-        return {
-          skipped: true,
-          outputs: {},
-          details: {
-            reason: 'explicit action schema requested; keeping provided schema',
-            actionSchemaFile: path.resolve(options.actionSchemaFile),
-            proactiveRecoveryActionSchemaJson: manifest.outputFiles.proactiveRecoveryActionSchemaJson || '',
-            proactiveRecoveryActionSchema: proactiveCounts,
-          },
+        kpiDetails.kpiRecoveryOverBudgetSchema = {
+          status: 'skipped',
+          reason: 'explicit action schema requested; keeping provided schema',
+          actionSchemaFile: path.resolve(options.actionSchemaFile),
+          proactiveRecoveryActionSchemaJson: manifest.outputFiles.proactiveRecoveryActionSchemaJson || '',
+          proactiveRecoveryActionSchema: proactiveCounts,
         };
-      }
-      const schemaFile = path.join(SNAPSHOT_DATA_DIR, `kpi_recovery_overbudget_schema_${timeContext.businessDate}.json`);
-      const summaryFile = path.join(ROOT, 'data', 'tasks', `kpi_recovery_overbudget_schema_summary_${timeContext.businessDate}.json`);
-      const combinedSchemaFile = path.join(SNAPSHOT_DATA_DIR, `action_schema_${timeContext.businessDate}_daily_recovery_combined.json`);
-      const { schema, summary } = buildKpiRecoveryOverBudgetSchema(snapshot, {
-        actor: options.actor,
-        currentDate: new Date(timeContext.siteLocalTime || timeContext.runAt || Date.now()),
-      });
-      const proactiveSchema = readJson(manifest.outputFiles.proactiveRecoveryActionSchemaJson || '', []);
-      const combinedSchema = mergeActionSchemas([schema, proactiveSchema]);
-      writeJson(schemaFile, schema);
-      writeJson(combinedSchemaFile, combinedSchema);
-      writeJson(summaryFile, {
-        ...summary,
-        schemaFile,
-        proactiveSchemaFile: manifest.outputFiles.proactiveRecoveryActionSchemaJson || '',
-        combinedSchemaFile,
-        combined: countSchemaActions(combinedSchema),
-        sourceSnapshotFile: snapshotFile,
-        businessDate: timeContext.businessDate,
-        dataDate: timeContext.dataDate,
-      });
-      options.actionSchemaFile = combinedSchemaFile;
-      manifest.actionSchemaFile = path.resolve(combinedSchemaFile);
-      manifest.outputFiles.kpiRecoveryOverBudgetSchemaJson = schemaFile;
-      manifest.outputFiles.dailyRecoveryCombinedSchemaJson = combinedSchemaFile;
-      manifest.outputFiles.kpiRecoveryOverBudgetSchemaSummaryJson = summaryFile;
-      manifest.kpiRecoveryOverBudgetSchema = {
-        plannedSkus: summary.plannedSkus,
-        plannedActions: summary.plannedActions,
-        matchedActionCount: summary.coverage?.matchedActionCount || 0,
-        matchedCampaignCount: summary.coverage?.matchedCampaignCount || 0,
-        actionableCampaigns: summary.coverage?.actionableCampaigns || 0,
-        accountCap: summary.accountCap,
-        counts: summary.counts,
-      };
-      manifest.dailyRecoveryCombinedSchema = countSchemaActions(combinedSchema);
-      return {
-        outputs: {
+      } else {
+        const schemaFile = path.join(SNAPSHOT_DATA_DIR, `kpi_recovery_overbudget_schema_${timeContext.businessDate}.json`);
+        const summaryFile = path.join(ROOT, 'data', 'tasks', `kpi_recovery_overbudget_schema_summary_${timeContext.businessDate}.json`);
+        const combinedSchemaFile = path.join(SNAPSHOT_DATA_DIR, `action_schema_${timeContext.businessDate}_daily_recovery_combined.json`);
+        const { schema, summary } = buildKpiRecoveryOverBudgetSchema(snapshot, {
+          actor: options.actor,
+          currentDate: new Date(timeContext.siteLocalTime || timeContext.runAt || Date.now()),
+        });
+        const proactiveSchema = readJson(manifest.outputFiles.proactiveRecoveryActionSchemaJson || '', []);
+        const combinedSchema = mergeActionSchemas([schema, proactiveSchema]);
+        writeJson(schemaFile, schema);
+        writeJson(combinedSchemaFile, combinedSchema);
+        writeJson(summaryFile, {
+          ...summary,
+          schemaFile,
+          proactiveSchemaFile: manifest.outputFiles.proactiveRecoveryActionSchemaJson || '',
+          combinedSchemaFile,
+          combined: countSchemaActions(combinedSchema),
+          sourceSnapshotFile: snapshotFile,
+          businessDate: timeContext.businessDate,
+          dataDate: timeContext.dataDate,
+        });
+        options.actionSchemaFile = combinedSchemaFile;
+        manifest.actionSchemaFile = path.resolve(combinedSchemaFile);
+        manifest.outputFiles.kpiRecoveryOverBudgetSchemaJson = schemaFile;
+        manifest.outputFiles.dailyRecoveryCombinedSchemaJson = combinedSchemaFile;
+        manifest.outputFiles.kpiRecoveryOverBudgetSchemaSummaryJson = summaryFile;
+        manifest.kpiRecoveryOverBudgetSchema = {
+          plannedSkus: summary.plannedSkus,
+          plannedActions: summary.plannedActions,
+          matchedActionCount: summary.coverage?.matchedActionCount || 0,
+          matchedCampaignCount: summary.coverage?.matchedCampaignCount || 0,
+          actionableCampaigns: summary.coverage?.actionableCampaigns || 0,
+          accountCap: summary.accountCap,
+          counts: summary.counts,
+        };
+        manifest.dailyRecoveryCombinedSchema = countSchemaActions(combinedSchema);
+        Object.assign(kpiOutputs, {
           kpiRecoveryOverBudgetSchemaJson: schemaFile,
           dailyRecoveryCombinedSchemaJson: combinedSchemaFile,
           kpiRecoveryOverBudgetSchemaSummaryJson: summaryFile,
-        },
-        details: {
+        });
+        kpiDetails.kpiRecoveryOverBudgetSchema = {
           ...manifest.kpiRecoveryOverBudgetSchema,
           combined: manifest.dailyRecoveryCombinedSchema,
           proactiveRecoveryActionSchema: manifest.proactiveRecoveryActionSchema,
-        },
-      };
-    });
-
-    await runStep('sku_ad_form_summary', async () => {
+        };
+      }
       const summaryScript = path.join(ROOT, 'scripts', 'reports', 'generate_sku_ad_form_summary.js');
       const schemaSkus = extractSchemaSkuList(options.actionSchemaFile);
       const outFile = path.join(SNAPSHOT_DATA_DIR, `sku_ad_form_summary_${today}.json`);
@@ -1452,8 +1501,9 @@ async function main() {
       const parsed = readJson(outFile, {});
       manifest.outputFiles.skuAdFormSummaryFile = outFile;
       return {
-        outputs: { skuAdFormSummaryFile: outFile },
+        outputs: { ...kpiOutputs, skuAdFormSummaryFile: outFile },
         details: {
+          ...kpiDetails,
           requestedSkus: schemaSkus,
           skuCount: parsed.skuCount || 0,
           stdout: stdout.trim(),
@@ -1478,6 +1528,11 @@ async function main() {
       });
       const scoped = applyAllowedOperationScope(loaded, scopeAnalysis);
       const summary = summarizeValidation(scoped);
+      const terminology = validateActionTerminology(scoped);
+      if (!terminology.ok) {
+        summary.errorCount += terminology.failures.length;
+        summary.terminologyFailures = terminology.failures;
+      }
       const executableActions = (loaded.plan || [])
         .flatMap(item => (item.actions || []).map(action => ({
           ...action,
@@ -1497,6 +1552,10 @@ async function main() {
       agentPlanActions = planActions;
       const overBudgetCoverage = summarizeOverBudgetCoverage(snapshot, planActions);
       manifest.schemaValidation = summary;
+      manifest.actionTerminology = {
+        checkedActions: terminology.checkedActions,
+        failures: terminology.failures,
+      };
       manifest.overBudgetCoverage = overBudgetCoverage;
       if (overBudgetCoverage.warning) {
         manifest.warnings = [...(manifest.warnings || []), {
@@ -1508,15 +1567,23 @@ async function main() {
       manifest.operatingClosure = buildOperatingClosure(manifest);
       manifest.actionQuality = buildActionQuality(manifest, options);
       manifest.outputFiles.validatedPlanFile = path.join(SNAPSHOTS_DIR, 'ai_decision_validated_plan.json');
+      if (terminology.failures.length) {
+        manifest.warnings = [...(manifest.warnings || []), {
+          code: 'action_terminology_boundary_failed',
+          detail: `${terminology.failures.length} action(s) violate price/bid/budget/placement/listing/inventory/review boundaries`,
+        }];
+      }
       if (summary.errorCount > 0 && options.execute) {
         throw new Error(`schema validation failed: ${summary.errorCount} errors`);
       }
       return {
+        status: summary.errorCount > 0 ? 'partial' : 'success',
         outputs: {
           actionSchemaFile,
           validatedPlanFile: manifest.outputFiles.validatedPlanFile,
         },
-        details: { ...summary, overBudgetCoverage },
+        blocked_reason: summary.errorCount > 0 ? `schema validation has ${summary.errorCount} error(s); execute remains blocked until fixed` : '',
+        details: { ...summary, overBudgetCoverage, terminology },
       };
     });
 
@@ -1541,8 +1608,8 @@ async function main() {
     });
 
     let executeResult = null;
-    if (options.execute) {
-      executeResult = await runStep('execute_verify_note', async () => {
+    await runStep('execute_verify_note', async () => {
+      if (options.execute) {
         const result = await run({
           actionSchemaFile: path.resolve(options.actionSchemaFile),
           snapshotFile,
@@ -1559,7 +1626,7 @@ async function main() {
         );
         manifest.outputFiles.executeAdjustmentLogFile = executionLogResult.file;
         manifest.actionQuality = buildActionQuality(manifest, options);
-        return {
+        executeResult = {
           outputs: { ...(result?.files || {}), executeAdjustmentLogFile: executionLogResult.file },
           details: {
             report: result?.report || {},
@@ -1567,18 +1634,38 @@ async function main() {
             adjustmentLogCount: executionLogResult.count,
           },
         };
+        return executeResult;
+      }
+      const agentDir = path.join(ROOT, 'data', 'agent');
+      const ledgerFile = path.join(agentDir, `agent_ledger_${timeContext.businessDate}.json`);
+      const ledger = buildAgentLedger({
+        timeContext,
+        tasks: dailyTaskPoolToAgentTasks(dailyTaskPool || {}),
+        actions: agentPlanActions,
       });
-    } else {
-      await runStep('execute_verify_note', async () => ({
-        skipped: true,
-        outputs: {},
-        details: { reason: 'dry-run mode; execute step skipped' },
-      }));
-    }
+      writeJson(ledgerFile, ledger);
+      manifest.outputFiles.agentLedgerJson = ledgerFile;
+      manifest.agentLedger = ledger.summary;
+      return {
+        status: 'skipped',
+        outputs: { agentLedgerJson: ledgerFile },
+        blocked_reason: 'dry-run mode; execute step skipped',
+        details: {
+          reason: 'dry-run mode; execute step skipped',
+          agentLedger: ledger.summary,
+        },
+      };
+    });
     manifest.actionQuality = buildActionQuality(manifest, options);
     manifest.runQuality = buildRunQuality(manifest, options);
 
-    await runStep('agent_control_ledger', async () => {
+    async function ensureAgentLedger() {
+      if (manifest.outputFiles.agentLedgerJson) {
+        return {
+          outputs: { agentLedgerJson: manifest.outputFiles.agentLedgerJson },
+          details: manifest.agentLedger || {},
+        };
+      }
       const agentDir = path.join(ROOT, 'data', 'agent');
       const ledgerFile = path.join(agentDir, `agent_ledger_${timeContext.businessDate}.json`);
       const ledger = buildAgentLedger({
@@ -1593,9 +1680,10 @@ async function main() {
         outputs: { agentLedgerJson: ledgerFile },
         details: ledger.summary,
       };
-    });
+    }
 
     await runStep('daily_learning', async () => {
+      const ledgerResult = await ensureAgentLedger();
       const adjustmentLogFile = manifest.outputFiles.executeAdjustmentLogFile || manifest.outputFiles.dryRunAdjustmentLogFile || '';
       const adjustmentRecords = readJson(adjustmentLogFile, []);
       const result = persistDailyLearning({
@@ -1618,8 +1706,8 @@ async function main() {
         runQuality: result.record.decisions.runQuality?.status || '',
       };
       return {
-        outputs: { dailyLearningJson: result.jsonFile, dailyLearningMarkdown: result.mdFile },
-        details: manifest.dailyLearning,
+        outputs: { ...ledgerResult.outputs, dailyLearningJson: result.jsonFile, dailyLearningMarkdown: result.mdFile },
+        details: { dailyLearning: manifest.dailyLearning, agentLedger: ledgerResult.details },
       };
     });
 
@@ -1696,6 +1784,7 @@ module.exports = {
   mergeActionSchemas,
   parseArgs,
   summarizeKpiRecoveryOverBudgetSchema,
+  validateActionTerminology,
   validateSnapshotFile,
   writeTextFileWithRetry,
 };

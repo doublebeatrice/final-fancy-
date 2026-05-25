@@ -1,8 +1,8 @@
 # Landed action conflict audit - 2026-05-22
 
 - Status: blocked_conflict
-- Live rows: 39
-- Latest run: ops_2026-05-22T10-38-11-981Z (5 rows)
+- Live rows: 165
+- Latest run: ops_2026-05-22T10-56-26-964Z (1 rows)
 - Same entity reverse conflicts: 2
 - Same-name mixed direction groups: 0
 - Latest-run mixed SKU count: 0
@@ -17,5 +17,4 @@
 
 | SKU | Rows | Up | Down | Enable | Review |
 | --- | ---: | ---: | ---: | ---: | --- |
-| GUF3129 | 3 | 3 | 0 | 0 | normal |
-| GUF3133 | 2 | 2 | 0 | 0 | normal |
+| XIH2672 | 1 | 1 | 0 | 0 | normal |

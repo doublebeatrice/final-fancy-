@@ -1,29 +1,29 @@
 {
   "version": 1,
-  "generatedAt": "2026-05-22T03:16:20.273Z",
+  "generatedAt": "2026-05-22T11:58:53.397Z",
   "time": {
-    "runAt": "2026-05-22T03:12:19.396Z",
-    "businessDate": "2026-05-21",
+    "runAt": "2026-05-22T11:58:37.556Z",
+    "businessDate": "2026-05-22",
     "localDate": "2026-05-22",
-    "dataDate": "2026-05-20",
+    "dataDate": "2026-05-21",
     "siteTimezone": "America/Los_Angeles",
     "localTimezone": "Asia/Shanghai",
-    "sourceRunId": "today_ops_2026-05-22T03-12-19-396Z"
+    "sourceRunId": "today_ops_2026-05-22T11-58-37-556Z"
   },
   "sources": {
-    "snapshotFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-05-22T03-12-19-396Z\\snapshot_2026-05-22.json",
-    "taskPoolFile": "D:\\ad-ops-workbench\\data\\tasks\\daily_tasks_2026-05-21.json",
-    "actionSchemaFile": "D:\\ad-ops-workbench\\data\\snapshots\\action_schema_2026-05-21_daily_recovery_combined.json",
+    "snapshotFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-05-22T11-27-31-600Z\\snapshot_2026-05-22.json",
+    "taskPoolFile": "D:\\ad-ops-workbench\\data\\tasks\\daily_tasks_2026-05-22.json",
+    "actionSchemaFile": "D:\\ad-ops-workbench\\data\\snapshots\\action_schema_2026-05-22_daily_recovery_combined.json",
     "dryRunFile": "D:\\ad-ops-workbench\\data\\snapshots\\execution_dry_run_2026-05-22.json",
     "verifyFile": "",
-    "adjustmentLogFile": "D:\\ad-ops-workbench\\data\\adjustments\\adjustments_2026-05-21.json",
-    "proactiveOperatingAuditJson": "D:\\ad-ops-workbench\\data\\tasks\\proactive_operating_audit_2026-05-21.json",
-    "manifestFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-05-22T03-12-19-396Z\\manifest.json"
+    "adjustmentLogFile": "D:\\ad-ops-workbench\\data\\adjustments\\adjustments_2026-05-22.json",
+    "proactiveOperatingAuditJson": "D:\\ad-ops-workbench\\data\\tasks\\proactive_operating_audit_2026-05-22.json",
+    "manifestFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-05-22T11-58-37-556Z\\manifest.json"
   },
   "dataQuality": {
-    "baselineQuality": "warning",
-    "productCards": 1276,
-    "adRowsTotal": 24594,
+    "baselineQuality": "complete",
+    "productCards": 1286,
+    "adRowsTotal": 24336,
     "sellerSalesRows": 183,
     "listingFetchAttempted": 0,
     "listingFetchSuccess": 0,
@@ -33,196 +33,180 @@
     "dataMissing": 0,
     "overBudgetStatus": "complete",
     "warnings": [
-      "listing_fetch_missing",
-      "listing_coverage_low",
-      "execution_skipped",
-      "schema_validation_errors"
+      "execution_skipped"
     ]
   },
   "observedPressure": {
     "snapshotMetrics": {
-      "productCards": 1276,
-      "units7d": 3492,
-      "units30d": 16706,
-      "adSpend7d": 5760.0599999999995,
+      "productCards": 1286,
+      "units7d": 3553,
+      "units30d": 16767,
+      "adSpend7d": 6188.860000000003,
       "adSales7d": 0,
       "adSales7dAvailable": false,
-      "adOrders7d": 1083,
+      "adOrders7d": 1170,
       "inventoryTight": 72,
-      "staleInventory": 101,
-      "lowProfit": 141,
+      "staleInventory": 100,
+      "lowProfit": 144,
       "adAcos7d": null
     },
     "topSignals": [
       {
-        "signal": "ad_structure_missing",
-        "count": 464
+        "signal": "seven_day_unadjusted",
+        "count": 513
       },
       {
-        "signal": "seven_day_unadjusted",
-        "count": 369
+        "signal": "ad_structure_missing",
+        "count": 470
       },
       {
         "signal": "season_tail",
-        "count": 183
+        "count": 181
       },
       {
         "signal": "stale_inventory_risk",
         "count": 122
       },
       {
-        "signal": "season_peak",
-        "count": 72
-      },
-      {
         "signal": "inventory_tight",
         "count": 63
       },
       {
+        "signal": "season_peak",
+        "count": 63
+      },
+      {
         "signal": "season_preheat",
-        "count": 27
+        "count": 26
       },
       {
         "signal": "profit_bleeding",
-        "count": 24
+        "count": 25
       }
     ],
     "taskSummary": {
-      "total": 660,
+      "total": 661,
       "bySignal": {
         "stale_inventory_risk": 122,
-        "season_peak": 72,
-        "season_tail": 183,
-        "seven_day_unadjusted": 369,
-        "ad_structure_missing": 464,
-        "profit_bleeding": 24,
-        "season_preheat": 27,
-        "inventory_tight": 63
+        "season_tail": 181,
+        "seven_day_unadjusted": 513,
+        "ad_structure_missing": 470,
+        "profit_bleeding": 25,
+        "season_preheat": 26,
+        "inventory_tight": 63,
+        "season_peak": 63
       },
       "withDataMissing": 0,
       "dataMissing": 0,
       "reservedPageBlocked": 0,
-      "skippedAdEntityCards": 616
+      "skippedAdEntityCards": 625
     },
     "proactiveOperatingAudit": {
       "kpiStatus": "off_track",
-      "newProductLaunch": 11,
-      "arrivalAdRecovery": 3,
-      "priceActions": 100,
+      "newProductLaunch": 10,
+      "arrivalAdRecovery": 4,
+      "priceActions": 101,
       "removalEconomics": 94,
-      "expiredSeasonKeywordWaste": 98,
-      "listingRepair": 303
+      "expiredSeasonKeywordWaste": 108,
+      "listingRepair": 307
     }
   },
   "decisions": {
-    "schemaSkuCount": 141,
-    "plannedSkus": 33,
-    "executableSkus": 33,
-    "reviewSkus": 10,
-    "plannedActions": 48,
+    "schemaSkuCount": 149,
+    "plannedSkus": 38,
+    "executableSkus": 38,
+    "reviewSkus": 11,
+    "plannedActions": 57,
     "actionQuality": {
-      "status": "blocked",
-      "plannedActions": 48,
-      "executableSkus": 33,
-      "errorCount": 1,
+      "status": "dry_run_only",
+      "plannedActions": 57,
+      "executableSkus": 38,
+      "errorCount": 0,
       "operatingClosure": {
         "status": "primary_plan_ready",
-        "primaryPlanActions": 48,
-        "generatedCandidateActions": 888,
-        "proactiveGaps": 609,
-        "seasonTitleAdActions": 13,
+        "primaryPlanActions": 57,
+        "generatedCandidateActions": 908,
+        "proactiveGaps": 624,
+        "seasonTitleAdActions": 14,
         "listingApplications": 7,
-        "overBudgetActionableCampaigns": 868,
+        "overBudgetActionableCampaigns": 887,
         "lowEfficiencyActionable": 0,
         "warnings": []
       },
       "warnings": [
-        "schema_validation_errors",
         "execution_skipped"
       ]
     },
     "runQuality": {
-      "status": "blocked",
-      "dataQuality": "warning",
-      "actionQuality": "blocked",
+      "status": "needs_attention",
+      "dataQuality": "complete",
+      "actionQuality": "dry_run_only",
       "warnings": [
-        "listing_fetch_missing",
-        "listing_coverage_low",
-        "schema_validation_errors",
         "execution_skipped"
       ]
     },
     "operatingClosure": {
       "status": "primary_plan_ready",
-      "primaryPlanActions": 48,
-      "generatedCandidateActions": 888,
-      "proactiveGaps": 609,
-      "seasonTitleAdActions": 13,
+      "primaryPlanActions": 57,
+      "generatedCandidateActions": 908,
+      "proactiveGaps": 624,
+      "seasonTitleAdActions": 14,
       "listingApplications": 7,
-      "overBudgetActionableCampaigns": 868,
+      "overBudgetActionableCampaigns": 887,
       "lowEfficiencyActionable": 0,
       "warnings": []
     },
     "actionBreakdown": {
       "byAction": {
-        "keyword:bid": 683,
-        "autoTarget:bid": 455,
-        "manualTarget:bid": 326,
-        "sbKeyword:bid": 405,
-        "sbTarget:bid": 5,
-        "campaign:budget": 13,
-        "skuCandidate:create": 8,
-        "keyword:append_target": 10,
-        "keyword:create": 2,
-        "manualTarget:create": 3,
-        "keyword:pause": 25,
-        "keyword:enable": 2,
-        "keyword:review": 10,
-        "autoTarget:review": 10,
-        "manualTarget:review": 18,
-        "sbKeyword:pause": 13,
-        "productAd:pause": 2
+        "keyword:create": 4,
+        "keyword:bid": 41,
+        "autoTarget:bid": 16,
+        "skuCandidate:create": 5,
+        "manualTarget:bid": 14,
+        "sbKeyword:bid": 4,
+        "autoTarget:review": 1,
+        "manualTarget:review": 3,
+        "keyword:review": 1,
+        "sku:price": 280,
+        "sbKeyword:pause": 128,
+        "keyword:pause": 125,
+        "productAd:pause": 16,
+        "autoTarget:pause": 16,
+        "skuCandidate:review": 1,
+        "skuCandidate:skip": 5,
+        "campaign:budget": 11
       },
       "byDirection": {
-        "unknown": 581,
-        "up": 285,
-        "down": 1124
+        "unknown": 300,
+        "up": 328,
+        "down": 43
       },
       "landed": {
-        "success": 1219,
-        "failed": 3,
-        "planned": 730,
-        "manualReview": 38,
-        "skipped": 0,
+        "success": 165,
+        "failed": 184,
+        "planned": 311,
+        "manualReview": 6,
+        "skipped": 5,
         "unknown": 0
       }
     },
     "decisionAttribution": {
-      "claude": {
-        "plannedActions": 516,
-        "landedSuccess": 513,
-        "landedFailed": 3,
-        "dryRunPlanned": 0,
-        "manualReview": 0,
-        "skipped": 0,
-        "unknown": 0
-      },
       "codex": {
-        "plannedActions": 1474,
-        "landedSuccess": 706,
-        "landedFailed": 0,
-        "dryRunPlanned": 730,
-        "manualReview": 38,
-        "skipped": 0,
+        "plannedActions": 671,
+        "landedSuccess": 165,
+        "landedFailed": 184,
+        "dryRunPlanned": 311,
+        "manualReview": 6,
+        "skipped": 5,
         "unknown": 0
       }
     },
     "finalRunLanding": {
-      "sourceRunId": "today_ops_2026-05-22T03-12-19-396Z",
-      "total": 48,
+      "sourceRunId": "today_ops_2026-05-22T11-58-37-556Z",
+      "total": 0,
       "success": 0,
       "failed": 0,
-      "planned": 48,
+      "planned": 0,
       "manualReview": 0,
       "skipped": 0,
       "unknown": 0
@@ -230,16 +214,16 @@
     "allDayLanding": {
       "businessDate": "2026-05-22",
       "dateMode": "localDate",
-      "total": 136,
-      "runs": 7,
-      "success": 44,
-      "failed": 0,
-      "planned": 92,
-      "manualReview": 0,
-      "skipped": 0,
+      "total": 671,
+      "runs": 34,
+      "success": 165,
+      "failed": 184,
+      "planned": 311,
+      "manualReview": 6,
+      "skipped": 5,
       "unknown": 0,
-      "bestRunId": "ops_2026-05-22T01-33-41-895Z",
-      "bestRunSuccess": 30
+      "bestRunId": "ops_2026-05-22T10-47-15-041Z",
+      "bestRunSuccess": 123
     }
   },
   "carryForward": {

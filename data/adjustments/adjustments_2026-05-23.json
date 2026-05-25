@@ -1,0 +1,2160 @@
+[
+  {
+    "sku": "DN3049",
+    "asin": "B0D8B4Q956",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "397627294006978",
+    "entityName": "auto_flower bucket _dn3049",
+    "beforeValue": 120,
+    "afterValue": 138,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 120 -> 138 (15%). Orders 25, ACOS 18.5%, profit 22.2%, invDays 17.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL3650",
+    "asin": "B0B9Y2ZG9G",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "537937014054474",
+    "entityName": "kw_red chili_cl3650",
+    "beforeValue": 1,
+    "afterValue": 3,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 1 -> 3 (200%). Orders 20, ACOS 8.7%, profit 25.3%, invDays 11.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL3650",
+    "asin": "B0B9Y2ZG9G",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "50808209152692",
+    "entityName": "adult pinata-cl3650-system-keyword",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"cinco de mayo basket\" spend3=0.49, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"cinco de mayo basket\" spend3=0.49, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL3650",
+    "asin": "B0B9Y2ZG9G",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "1158446875154",
+    "entityName": "kw broad_chili pepper pinata_cl3650",
+    "beforeValue": 0.43,
+    "afterValue": 0.34,
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"pepper pinata\" spend3=0.43, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"pepper pinata\" spend3=0.43, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL3650",
+    "asin": "B0B9Y2ZG9G",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "365761574714838",
+    "entityName": "kw_red chili_cl3650",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"adult pinata\" spend3=0.3, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"adult pinata\" spend3=0.3, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL3650",
+    "asin": "B0B9Y2ZG9G",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "98117290132550",
+    "entityName": "sbvkw_red chili_cl3650",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"red chili pinata\" spend3=0.27, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"red chili pinata\" spend3=0.27, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "STY6101",
+    "asin": "B0GQMGB44G",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "27982724113110",
+    "entityName": "kw broad_boho baby shower decor_sty6101",
+    "beforeValue": 8.86,
+    "afterValue": 11.07,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 8.86 -> 11.07 (25%). Orders 18, ACOS 9.0%, profit 12.0%, invDays 41.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+        }
+      }
+    }
+  },
+  {
+    "sku": "QUN1025",
+    "asin": "B0F28RL2HQ",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "479423866592532",
+    "entityName": "auto_graduation bouquet _qun1025",
+    "beforeValue": 12,
+    "afterValue": 15,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 12 -> 15 (25%). Orders 59, ACOS 5.8%, profit 13.1%, invDays 27.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3183",
+    "asin": "B0D3PKTJWT",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "410374365859192",
+    "entityName": "kw_soccer balls-yut3183",
+    "beforeValue": 42,
+    "afterValue": 50.4,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 42 -> 50.4 (20%). Orders 24, ACOS 10.5%, profit 21.3%, invDays 21.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+        }
+      }
+    }
+  },
+  {
+    "sku": "MED1033",
+    "asin": "B0CGDM1J27",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "109803372450337",
+    "entityName": "ai_auto_coverage_med1033",
+    "beforeValue": 12,
+    "afterValue": 15,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 12 -> 15 (25%). Orders 21, ACOS 8.2%, profit 13.6%, invDays 33.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+        }
+      }
+    }
+  },
+  {
+    "sku": "SE6599",
+    "asin": "B0DJSQFBD1",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "284336084748973",
+    "entityName": "kw_bearshirt_se6599",
+    "beforeValue": 17.27,
+    "afterValue": 21.59,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 17.27 -> 21.59 (25%). Orders 45, ACOS 18.2%, profit 16.9%, invDays 74.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+        }
+      }
+    }
+  },
+  {
+    "sku": "SIJ2012",
+    "asin": "B0CHDSG76N",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "360520582788860",
+    "entityName": "storage bins-sij2012-system-a",
+    "beforeValue": 54,
+    "afterValue": 64.8,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 54 -> 64.8 (20%). Orders 15, ACOS 10.0%, profit 20.0%, invDays 21.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+        }
+      }
+    }
+  },
+  {
+    "sku": "SC3420",
+    "asin": "B0C2HKSG2X",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "428072125021660",
+    "entityName": "kw_30redbirdmemory_sc3420",
+    "beforeValue": 33.75,
+    "afterValue": 40.5,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 33.75 -> 40.5 (20%). Orders 26, ACOS 20.4%, profit 14.2%, invDays 34.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+        }
+      }
+    }
+  },
+  {
+    "sku": "HAY0218",
+    "asin": "B0CGDV947H",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "141757450678292",
+    "entityName": "kw_hay0218_20260420_175558",
+    "beforeValue": 15.19,
+    "afterValue": 18.99,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 15.19 -> 18.99 (25%). Orders 26, ACOS 8.0%, profit 12.7%, invDays 42.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+        }
+      }
+    }
+  },
+  {
+    "sku": "TIN2259",
+    "asin": "B0CNR3VGJ2",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "469755247048381",
+    "entityName": "duck tags for cruise ducking-tin2259-a2",
+    "beforeValue": 48,
+    "afterValue": 57.6,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 48 -> 57.6 (20%). Orders 17, ACOS 17.0%, profit 19.9%, invDays 91.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+        }
+      }
+    }
+  },
+  {
+    "sku": "QA3173",
+    "asin": "B0CP2948QH",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "560414799365003",
+    "entityName": "kw_soccerkeychain_qa3173",
+    "beforeValue": 18.75,
+    "afterValue": 23.44,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 18.75 -> 23.44 (25%). Orders 24, ACOS 25.0%, profit 32.4%, invDays 16.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+        }
+      }
+    }
+  },
+  {
+    "sku": "COO1855",
+    "asin": "B0D9LKYKWV",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "159436999766996",
+    "entityName": "auto_q2 profit coo1855 auto_coo1855",
+    "beforeValue": 3.6,
+    "afterValue": 4.6,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 3.6 -> 4.6 (28%). Orders 23, ACOS 16.7%, profit 27.7%, invDays 10.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget."
+        }
+      }
+    }
+  },
+  {
+    "sku": "TUR8821",
+    "asin": "B0GVT9WTG2",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "productAd",
+    "entityId": "463111597845855",
+    "entityName": "ai_auto_nurse christian inspirational gift basket_tur8821",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Over-budget productAd has 0 orders, 51 clicks, $14.58 spend. SKU profit 26.3%, invDays 170. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders_same_sku": "flat_or_up_via_other_paths"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "sku_units7",
+            "campaign_orders",
+            "campaign_acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+        }
+      }
+    }
+  },
+  {
+    "sku": "BEU0541",
+    "asin": "B099281V52",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "productAd",
+    "entityId": "450647672433036",
+    "entityName": "auto_retirement gifts for women_beu0541",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Over-budget productAd has 0 orders, 32 clicks, $9.37 spend. SKU profit -0.1%, invDays 60. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders_same_sku": "flat_or_up_via_other_paths"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "sku_units7",
+            "campaign_orders",
+            "campaign_acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused."
+        }
+      }
+    }
+  },
+  {
+    "sku": "BEU0541",
+    "asin": "B099281V52",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "357789254391899",
+    "entityName": "kw_retirement gifts for women_beu0541",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"teacher retirement gifts for women\" spend3=0.3, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"teacher retirement gifts for women\" spend3=0.3, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "PR2214",
+    "asin": "B0BYJGTQLJ",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "476888194463174",
+    "entityName": "kw_easter bunny stuffed_pr2214",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Easter expired \"bunny goodie bags\" spend3=1.3, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Easter expired \"bunny goodie bags\" spend3=1.3, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL4199",
+    "asin": "B0C84SXWG7",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "358490325772525",
+    "entityName": "sbv_pinata_cl4199",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"piñata\" spend3=2.55, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"piñata\" spend3=2.55, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL4199",
+    "asin": "B0C84SXWG7",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "26695621097473",
+    "entityName": "kw_taco piñata_cl4199",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"large pinata\" spend3=0.34, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"large pinata\" spend3=0.34, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL4199",
+    "asin": "B0C84SXWG7",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "sbKeyword",
+    "entityId": "487693196262871",
+    "entityName": "sbv_pinata_cl4199",
+    "beforeValue": 0.37,
+    "afterValue": 0.3,
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"mini pinata\" spend3=0.31, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"mini pinata\" spend3=0.31, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "OCE2575",
+    "asin": "B0GN55FC6F",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "234669112449244",
+    "entityName": "sbv kw broad_teacher appreciation gifts bulk_oce2575",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"diamond art bookmark\" spend3=2.43, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"diamond art bookmark\" spend3=2.43, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY0879",
+    "asin": "B0BDLT56DH",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "58623773606989",
+    "entityName": "sbvkw_affirmdecor_uy0879",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"school office decorations for wall\" spend3=0.95, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"school office decorations for wall\" spend3=0.95, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "OB3296",
+    "asin": "B0GJRF57B5",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "261964464139367",
+    "entityName": "broad_bridal_party_gifts_ob3296",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"donkey pinata large\" spend3=0.9, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"donkey pinata large\" spend3=0.9, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "OB3296",
+    "asin": "B0GJRF57B5",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "139880403393321",
+    "entityName": "sbvkw_donkey pinata_ob3296",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"fiesta party decorations\" spend3=0.63, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"fiesta party decorations\" spend3=0.63, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "OB3296",
+    "asin": "B0GJRF57B5",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "104686808826653",
+    "entityName": "kw broad_donkey pinata_ob3296",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"rainbow donkey pinata\" spend3=0.62, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"rainbow donkey pinata\" spend3=0.62, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "OB3296",
+    "asin": "B0GJRF57B5",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "33697562424652",
+    "entityName": "kw broad_donkey pinata_ob3296",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"cinco de mayo\" spend3=0.3, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"cinco de mayo\" spend3=0.3, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "OB4139",
+    "asin": "B0GJRV1TCQ",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "40330371753706",
+    "entityName": "sbkw _ pinata_ob4139 ob3296 cl4170",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"fiesta party decorations\" spend3=0.71, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"fiesta party decorations\" spend3=0.71, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "ZO0891",
+    "asin": "B0DW8ZQX13",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "58928391757897",
+    "entityName": "kw broad_christian mothers day gifts_zo0891",
+    "beforeValue": 0.35,
+    "afterValue": 0.28,
+    "reason": "Expired/tail season keyword waste: Mother's Day tail/expired \"tumblers for women\" spend3=0.7, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Mother's Day tail/expired \"tumblers for women\" spend3=0.7, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "ZO0891",
+    "asin": "B0DW8ZQX13",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "193624372332204",
+    "entityName": "kw broad_christian mothers day gifts_zo0891",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Mother's Day tail/expired \"bible study gifts\" spend3=0.35, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Mother's Day tail/expired \"bible study gifts\" spend3=0.35, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUN2188",
+    "asin": "B0DV48NW74",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "178461337156824",
+    "entityName": "kw broad_mothers day gifts bulk cups_yun2188",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Mother's Day tail/expired \"christian gifts for women\" spend3=0.7, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Mother's Day tail/expired \"christian gifts for women\" spend3=0.7, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUN2188",
+    "asin": "B0DV48NW74",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "11960060277428",
+    "entityName": "kw broad_mothers day gifts bulk cups_yun2188",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Mother's Day tail/expired \"religious gifts for women\" spend3=0.35, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Mother's Day tail/expired \"religious gifts for women\" spend3=0.35, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "LED3942",
+    "asin": "B0DT3VC3SP",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "194991859322649",
+    "entityName": "sbvkw_appreciationballpoint_led3942",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"teacher appreciation week gifts\" spend3=0.64, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"teacher appreciation week gifts\" spend3=0.64, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "EY1448",
+    "asin": "B09W9F82GK",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "474866018058532",
+    "entityName": "sbvkw_ mexican keychain_ey1448",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"mexican keychain fiesta party favors\" spend3=0.5, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"mexican keychain fiesta party favors\" spend3=0.5, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "HEL0319",
+    "asin": "B0C6TSBBDK",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "542149406583244",
+    "entityName": "thank you keychains HEL0319 SBV-S-NEW",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Nurse Week tail/expired \"nurse appreciation gifts\" spend3=0.37, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Nurse Week tail/expired \"nurse appreciation gifts\" spend3=0.37, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "HEL2829",
+    "asin": "B0FGX9BJJG",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "155871914174826",
+    "entityName": "kw exact_end of year student gifts from teacher_hel2829",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"graduation party favors bulk\" spend3=0.36, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"graduation party favors bulk\" spend3=0.36, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "QAA2627",
+    "asin": "B0DXK8GDFS",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "167645078087719",
+    "entityName": "kw2_mothers day gifts bulk_qaa2627",
+    "beforeValue": 0.32,
+    "afterValue": 0.26,
+    "reason": "Expired/tail season keyword waste: Mother's Day tail/expired \"religious gifts for women in bulk\" spend3=0.32, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Mother's Day tail/expired \"religious gifts for women in bulk\" spend3=0.32, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SY4371",
+    "asin": "B0FWQF947V",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "465821539662910",
+    "entityName": "sbvkw_positive taco_sy4371",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"taco gifts\" spend3=0.29, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"taco gifts\" spend3=0.29, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SAN1103",
+    "asin": "B0FGD8YQ8B",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "423959986749972",
+    "entityName": "kw_cowboyhat_san1103",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Nurse Week tail/expired \"western accessories\" spend3=0.24, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Nurse Week tail/expired \"western accessories\" spend3=0.24, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "JOY0431",
+    "asin": "B0CQJTRCZX",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "230355489419697",
+    "entityName": "kw_q2 profit joy0431 broad_joy0431",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"thank you teacher gifts\" spend3=0.16, orders3=0, ACOS3=none.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"thank you teacher gifts\" spend3=0.16, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve"
+        }
+      }
+    }
+  },
+  {
+    "sku": "QUN5204",
+    "asin": "B0GTTQX894",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::QUN5204::auto::auto::unknown",
+    "entityName": "ai_auto_unknown_qun5204",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "auto",
+      "sku": "QUN5204",
+      "asin": "B0GTTQX894",
+      "accountId": 798,
+      "siteId": 4,
+      "dailyBudget": 3,
+      "defaultBid": 0.3,
+      "coreTerm": "unknown",
+      "matchType": "",
+      "keywords": [],
+      "campaignName": "ai_auto_unknown_qun5204",
+      "groupName": "ai_auto_unknown_qun5204",
+      "targetType": "",
+      "targetAsins": [],
+      "siteRestriction": ""
+    },
+    "reason": "New product has inventory but no SP auto coverage. Build low-budget auto now instead of waiting for natural orders.",
+    "runAt": "2026-05-24T01:16:49.468Z",
+    "businessDate": "2026-05-23",
+    "localDate": "2026-05-24",
+    "dataDate": "2026-05-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-05-24T01-16-49-468Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "New product has inventory but no SP auto coverage. Build low-budget auto now instead of waiting for natural orders.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up_controlled",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "spend rises without impressions/clicks/orders or listing readiness blocks conversion"
+        }
+      }
+    }
+  }
+]

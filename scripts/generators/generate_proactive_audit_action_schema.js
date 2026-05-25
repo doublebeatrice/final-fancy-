@@ -42,6 +42,109 @@ function round(value, digits = 2) {
   return Math.round((num(value) + Number.EPSILON) * factor) / factor;
 }
 
+function rowIdForEntity(row = {}, entityType = '') {
+  if (entityType === 'keyword' || entityType === 'sbKeyword') {
+    return String(row.keywordId || row.keyword_id || row.id || '').trim();
+  }
+  if (entityType === 'autoTarget' || entityType === 'manualTarget' || entityType === 'sbTarget') {
+    return String(row.targetId || row.target_id || row.id || '').trim();
+  }
+  if (entityType === 'productAd') return String(row.adId || row.ad_id || row.id || '').trim();
+  if (entityType === 'campaign' || entityType === 'sbCampaign') {
+    return String(row.campaignId || row.campaign_id || row.id || '').trim();
+  }
+  return String(row.id || '').trim();
+}
+
+function rowsByTypeFromSnapshot(snapshot = {}) {
+  const sbRows = snapshot.sbRows || [];
+  return {
+    keyword: snapshot.kwRows || [],
+    autoTarget: snapshot.autoRows || [],
+    manualTarget: snapshot.targetRows || [],
+    productAd: snapshot.productAdRows || [],
+    sbKeyword: sbRows.filter(row => String(row.__adProperty || row.entityType || '') === '4' || String(row.entityType || '') === 'sbKeyword'),
+    sbTarget: sbRows.filter(row => String(row.__adProperty || row.entityType || '') === '6' || String(row.entityType || '') === 'sbTarget'),
+    sbCampaign: snapshot.sbCampaignRows || [],
+    campaign: [
+      ...(snapshot.kwRows || []),
+      ...(snapshot.autoRows || []),
+      ...(snapshot.targetRows || []),
+      ...(snapshot.productAdRows || []),
+    ],
+  };
+}
+
+function snapshotHasEntityRows(snapshot = {}, entityType = '') {
+  if (!snapshot || typeof snapshot !== 'object') return false;
+  if (entityType === 'keyword') return Array.isArray(snapshot.kwRows);
+  if (entityType === 'autoTarget') return Array.isArray(snapshot.autoRows);
+  if (entityType === 'manualTarget') return Array.isArray(snapshot.targetRows);
+  if (entityType === 'productAd') return Array.isArray(snapshot.productAdRows);
+  if (entityType === 'sbKeyword' || entityType === 'sbTarget') return Array.isArray(snapshot.sbRows);
+  if (entityType === 'sbCampaign') return Array.isArray(snapshot.sbCampaignRows);
+  if (entityType === 'campaign') {
+    return ['kwRows', 'autoRows', 'targetRows', 'productAdRows'].some(key => Array.isArray(snapshot[key]));
+  }
+  return false;
+}
+
+function entityRowsForValidation(entityType = '', options = {}) {
+  const rows = [];
+  let hasContext = false;
+  if (Array.isArray(options.rowsByType?.[entityType])) {
+    rows.push(...options.rowsByType[entityType]);
+    hasContext = true;
+  }
+  if (snapshotHasEntityRows(options.snapshot, entityType)) {
+    const snapshotRows = rowsByTypeFromSnapshot(options.snapshot || {});
+    rows.push(...snapshotRows[entityType]);
+    hasContext = true;
+  }
+  return { rows, hasContext };
+}
+
+function checkEntityExists(entityType = '', id = '', options = {}) {
+  const entityId = String(id || '').trim();
+  if (!entityId) return { checked: false, exists: false, missing_entity_id: entityId };
+  const { rows, hasContext } = entityRowsForValidation(entityType, options);
+  if (!hasContext) return { checked: false, exists: true, missing_entity_id: '' };
+  return {
+    checked: true,
+    exists: rows.some(row => rowIdForEntity(row, entityType) === entityId),
+    missing_entity_id: entityId,
+  };
+}
+
+function productEntityRows(product = {}, entityType = '') {
+  const rows = [];
+  for (const campaign of product.campaigns || []) {
+    if (entityType === 'keyword') rows.push(...(campaign.keywords || []));
+    if (entityType === 'autoTarget' || entityType === 'manualTarget') rows.push(...(campaign.autoTargets || []));
+    if (entityType === 'productAd') rows.push(...(campaign.productAds || []));
+    if (entityType === 'sbKeyword' || entityType === 'sbTarget') {
+      rows.push(...(campaign.sponsoredBrands || []).filter(row => {
+        const rowType = row.entityType === 'sbTarget' ? 'sbTarget' : 'sbKeyword';
+        return rowType === entityType;
+      }));
+    }
+    if (entityType === 'sbCampaign' && campaign.sbCampaign) rows.push(campaign.sbCampaign);
+    if (entityType === 'campaign') rows.push(campaign);
+  }
+  return rows;
+}
+
+function checkProductEntityContext(product = {}, entityType = '', id = '') {
+  if (!Array.isArray(product.campaigns)) return { checked: false, exists: true, missing_entity_id: '' };
+  const entityId = String(id || '').trim();
+  const rows = productEntityRows(product, entityType);
+  return {
+    checked: true,
+    exists: rows.some(row => String(row.id || row.keywordId || row.targetId || row.adId || row.campaignId || '') === entityId),
+    missing_entity_id: entityId,
+  };
+}
+
 function findLatestAuditFile() {
   const taskDir = path.join(ROOT, 'data', 'tasks');
   if (!fs.existsSync(taskDir)) return '';
@@ -529,7 +632,37 @@ function buildNewProductLaunchActions(audit = {}, products = new Map(), limit = 
   return plans;
 }
 
-function buildExpiredSeasonActions(audit = {}, products = new Map(), limit = 80) {
+function buildMissingEntityReviewAction(item = {}, action = {}, check = {}) {
+  const sku = String(item.sku || '').toUpperCase();
+  const missingId = check.missing_entity_id || action.id || item.entityId || '';
+  const missingSource = check.source || 'rowsByType/snapshot';
+  return {
+    ...reviewAction(
+      item,
+      `missing_entity_id::${action.entityType || 'unknown'}::${missingId}`,
+      `${action.reason || 'Executable season waste action cannot be built.'} [missing_entity_id:${action.entityType || 'unknown'}:${missingId}] Current ${missingSource} does not contain this executable entity id; downgraded from executable ${action.actionType || 'unknown'} to review.`
+    ),
+    id: `review::${sku}::missing_entity_id::${action.entityType || 'unknown'}::${missingId}`,
+    missing_entity_id: missingId,
+    missingEntity: {
+      entityType: action.entityType || '',
+      id: String(missingId || ''),
+      originalActionType: action.actionType || '',
+    },
+    candidateActionType: action.actionType || '',
+    candidateEntityType: action.entityType || '',
+    candidateEntityId: String(missingId || ''),
+    evidence: [
+      ...(action.evidence || []),
+      `missing_entity_id=${missingId}`,
+      `missingSource=${missingSource}`,
+      `candidateEntityType=${action.entityType || ''}`,
+      `candidateActionType=${action.actionType || ''}`,
+    ],
+  };
+}
+
+function buildExpiredSeasonActions(audit = {}, products = new Map(), limit = 80, options = {}) {
   const rows = (audit.expiredSeasonKeywordWaste?.items || [])
     .filter(item => item.sku && item.entityId && item.spend3 > 0)
     .sort((a, b) => (b.spend3 || 0) - (a.spend3 || 0))
@@ -588,6 +721,16 @@ function buildExpiredSeasonActions(audit = {}, products = new Map(), limit = 80)
           `orders7=${item.orders7}`,
         ],
       };
+    }
+    const entityCheck = checkEntityExists(action.entityType, action.id, options);
+    const productCheck = checkProductEntityContext(product, action.entityType, action.id);
+    const missingCheck = entityCheck.checked && !entityCheck.exists
+      ? { ...entityCheck, source: 'rowsByType/snapshot' }
+      : productCheck.checked && !productCheck.exists
+        ? { ...productCheck, source: 'product context' }
+        : null;
+    if (missingCheck) {
+      action = buildMissingEntityReviewAction(item, action, missingCheck);
     }
     if (!bySku.has(sku)) {
       bySku.set(sku, {
@@ -672,7 +815,7 @@ function main() {
   if (!snapshot) throw new Error(`cannot read snapshot JSON: ${snapshotFile}`);
   const products = productMap(snapshot);
   const plan = mergePlans([
-    buildExpiredSeasonActions(audit, products, options.expiredLimit),
+    buildExpiredSeasonActions(audit, products, options.expiredLimit, { snapshot }),
     buildNewProductLaunchActions(audit, products, Math.min(options.reviewLimit, 40)),
     buildReviewItems(audit, products, options.reviewLimit),
   ]);
@@ -696,6 +839,8 @@ module.exports = {
   buildExpiredSeasonActions,
   buildNewProductLaunchActions,
   buildReviewItems,
+  checkEntityExists,
   qualifiedLaunchKeywordSeeds,
   mergePlans,
+  rowsByTypeFromSnapshot,
 };

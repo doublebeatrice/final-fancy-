@@ -1,0 +1,263 @@
+[
+  {
+    "capabilityId": "adv.keyword.update_bid",
+    "domain": "adv",
+    "type": "write",
+    "riskLevel": "medium",
+    "supportsDryRun": true,
+    "requiresApproval": true,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["sku", "entityType", "id", "currentBid", "suggestedBid"],
+      "properties": {
+        "entityType": "keyword",
+        "actionKind": "bid_action"
+      }
+    },
+    "outputSchema": {
+      "required": ["apiStatus", "finalStatus", "verifySource", "verifyField"]
+    },
+    "verifyMethod": "readback kwRows bid by keywordId",
+    "cooldownDays": 7,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "adv.auto_target.update_bid",
+    "domain": "adv",
+    "type": "write",
+    "riskLevel": "medium",
+    "supportsDryRun": true,
+    "requiresApproval": true,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["sku", "entityType", "id", "currentBid", "suggestedBid"],
+      "properties": {
+        "entityType": "autoTarget",
+        "actionKind": "bid_action"
+      }
+    },
+    "outputSchema": {
+      "required": ["apiStatus", "finalStatus", "verifySource", "verifyField"]
+    },
+    "verifyMethod": "readback autoRows bid by targetId",
+    "cooldownDays": 7,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "adv.manual_target.update_bid",
+    "domain": "adv",
+    "type": "write",
+    "riskLevel": "medium",
+    "supportsDryRun": true,
+    "requiresApproval": true,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["sku", "entityType", "id", "currentBid", "suggestedBid"],
+      "properties": {
+        "entityType": "manualTarget",
+        "actionKind": "bid_action"
+      }
+    },
+    "outputSchema": {
+      "required": ["apiStatus", "finalStatus", "verifySource", "verifyField"]
+    },
+    "verifyMethod": "readback targetRows bid by targetId",
+    "cooldownDays": 7,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "adv.sb_keyword.update_bid",
+    "domain": "adv",
+    "type": "write",
+    "riskLevel": "medium",
+    "supportsDryRun": true,
+    "requiresApproval": true,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["sku", "entityType", "id", "currentBid", "suggestedBid"],
+      "properties": {
+        "entityType": "sbKeyword",
+        "actionKind": "bid_action"
+      }
+    },
+    "outputSchema": {
+      "required": ["apiStatus", "finalStatus", "verifySource", "verifyField"]
+    },
+    "verifyMethod": "readback sbRows bid by keywordId",
+    "cooldownDays": 7,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "adv.sb_target.update_bid",
+    "domain": "adv",
+    "type": "write",
+    "riskLevel": "medium",
+    "supportsDryRun": true,
+    "requiresApproval": true,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["sku", "entityType", "id", "currentBid", "suggestedBid"],
+      "properties": {
+        "entityType": "sbTarget",
+        "actionKind": "bid_action"
+      }
+    },
+    "outputSchema": {
+      "required": ["apiStatus", "finalStatus", "verifySource", "verifyField"]
+    },
+    "verifyMethod": "readback sbRows bid by targetId",
+    "cooldownDays": 7,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "adv.campaign.update_budget",
+    "domain": "adv",
+    "type": "write",
+    "riskLevel": "high",
+    "supportsDryRun": true,
+    "requiresApproval": true,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["sku", "entityType", "id", "currentBudget", "suggestedBudget"],
+      "properties": {
+        "entityType": "campaign",
+        "actionKind": "budget_action"
+      }
+    },
+    "outputSchema": {
+      "required": ["apiStatus", "finalStatus", "verifySource", "verifyField"]
+    },
+    "verifyMethod": "readback campaignRows budget by campaignId",
+    "cooldownDays": 7,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "adv.campaign.update_placement",
+    "domain": "adv",
+    "type": "write",
+    "riskLevel": "high",
+    "supportsDryRun": true,
+    "requiresApproval": true,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["sku", "entityType", "id", "placementKey", "suggestedPlacementPercent"],
+      "properties": {
+        "entityType": "campaign",
+        "actionKind": "placement_action"
+      }
+    },
+    "outputSchema": {
+      "required": ["apiStatus", "finalStatus", "verifySource", "verifyField"]
+    },
+    "verifyMethod": "readback placementRows by campaignId and placementKey",
+    "cooldownDays": 7,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "adv.sp_campaign.create",
+    "domain": "adv",
+    "type": "write",
+    "riskLevel": "high",
+    "supportsDryRun": true,
+    "requiresApproval": true,
+    "autoExecutable": false,
+    "inputSchema": {
+      "required": ["sku", "asin", "createInput"],
+      "properties": {
+        "actionType": "create",
+        "actionKind": "bid_action"
+      }
+    },
+    "outputSchema": {
+      "required": ["apiStatus", "finalStatus", "createdCampaignId"]
+    },
+    "verifyMethod": "readback created campaign/ad group visibility",
+    "cooldownDays": 14,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "inventory.price.submit_application",
+    "domain": "inventory",
+    "type": "write",
+    "riskLevel": "high",
+    "supportsDryRun": true,
+    "requiresApproval": true,
+    "autoExecutable": false,
+    "inputSchema": {
+      "required": ["sku", "currentPrice", "suggestedPrice", "priceIntent"],
+      "properties": {
+        "entityType": "sku",
+        "actionKind": "price_action"
+      }
+    },
+    "outputSchema": {
+      "required": ["apiStatus", "finalStatus", "applicationId"]
+    },
+    "verifyMethod": "sellerinventory price application query",
+    "cooldownDays": 7,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "inventory.note.append",
+    "domain": "inventory",
+    "type": "write",
+    "riskLevel": "low",
+    "supportsDryRun": false,
+    "requiresApproval": false,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["sku", "note"],
+      "properties": {
+        "actionKind": "inventory_action"
+      }
+    },
+    "outputSchema": {
+      "required": ["ok", "sku"]
+    },
+    "verifyMethod": "appendInventoryOperationNotes response",
+    "cooldownDays": 0,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "report.daily_learning.write",
+    "domain": "report",
+    "type": "report",
+    "riskLevel": "low",
+    "supportsDryRun": true,
+    "requiresApproval": false,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["timeContext", "manifest"],
+      "properties": {
+        "actionKind": "review_action"
+      }
+    },
+    "outputSchema": {
+      "required": ["jsonFile", "mdFile"]
+    },
+    "verifyMethod": "file exists and parses",
+    "cooldownDays": 0,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "review.landing_verify",
+    "domain": "review",
+    "type": "verify",
+    "riskLevel": "low",
+    "supportsDryRun": true,
+    "requiresApproval": false,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["executionEvents", "snapshotFile"],
+      "properties": {
+        "actionKind": "review_action"
+      }
+    },
+    "outputSchema": {
+      "required": ["finalCounts", "events"]
+    },
+    "verifyMethod": "post-write readback comparison",
+    "cooldownDays": 0,
+    "logRequired": true
+  }
+]

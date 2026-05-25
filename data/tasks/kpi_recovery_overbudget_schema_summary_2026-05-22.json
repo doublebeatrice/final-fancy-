@@ -1,0 +1,87 @@
+{
+  "counts": {
+    "aggressive": 0,
+    "controlled": 20,
+    "seasonal": 0,
+    "autoPause": 20,
+    "lowerLayer": 20,
+    "review": 10,
+    "skuDedupedDemoted": 3,
+    "accountCapDemoted": 6,
+    "total": 70,
+    "coreBidPaired": 0
+  },
+  "bucketCounts": {
+    "aggressive_budget_expansion": 56,
+    "controlled_budget_up": 231,
+    "seasonal_sell_through": 32,
+    "lower_layer_cost_control": 570,
+    "review": 4092
+  },
+  "filtered": {
+    "rows": 8374,
+    "notSp": 6,
+    "notEnabled": 0,
+    "noCampaign": 0,
+    "notAllowedSku": 7,
+    "onCooldownSku": 0,
+    "onCooldownCampaign": 0
+  },
+  "campaignsClassified": 4981,
+  "autoPauseStats": {
+    "rows": 8374,
+    "notSp": 6,
+    "notEnabled": 0,
+    "notAllowedSku": 7,
+    "onCooldownAd": 0,
+    "insufficientSignal": 8245,
+    "invTooTight": 19,
+    "clearanceProtect": 33,
+    "duplicate": 0,
+    "kept": 20
+  },
+  "autoPauseCandidateCount": 64,
+  "accountCap": {
+    "cap": 80,
+    "totalLiftRequested": 116.66,
+    "totalLiftApproved": 79.67
+  },
+  "plannedSkus": 62,
+  "plannedActions": 70,
+  "coverage": {
+    "snapshotRows": 8374,
+    "filtered": {
+      "rows": 8374,
+      "notSp": 6,
+      "notEnabled": 0,
+      "noCampaign": 0,
+      "notAllowedSku": 7,
+      "onCooldownSku": 0,
+      "onCooldownCampaign": 0
+    },
+    "counts": {
+      "aggressive_budget_expansion": 56,
+      "controlled_budget_up": 231,
+      "seasonal_sell_through": 32,
+      "lower_layer_cost_control": 570,
+      "review": 4092
+    },
+    "eligibleCampaigns": 4981,
+    "actionableCampaigns": 889,
+    "matchedActionCount": 70,
+    "matchedCampaignCount": 70,
+    "warning": ""
+  },
+  "schemaFile": "D:\\ad-ops-workbench\\data\\snapshots\\kpi_recovery_overbudget_schema_2026-05-22.json",
+  "proactiveSchemaFile": "D:\\ad-ops-workbench\\data\\snapshots\\action_schema_2026-05-22_proactive_recovery_candidate.json",
+  "combinedSchemaFile": "D:\\ad-ops-workbench\\data\\snapshots\\action_schema_2026-05-22_daily_recovery_combined.json",
+  "combined": {
+    "skus": 139,
+    "actions": 193,
+    "executableActions": 65,
+    "reviewActions": 128
+  },
+  "sourceSnapshotFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-05-23T01-17-11-910Z\\snapshot_2026-05-23.json",
+  "businessDate": "2026-05-22",
+  "dataDate": "2026-05-21"
+}

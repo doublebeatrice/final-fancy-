@@ -1,0 +1,5631 @@
+{
+  "generatedAt": "2026-05-23T01:25:57.079Z",
+  "businessDate": "2026-05-22",
+  "horizonDays": 60,
+  "summary": {
+    "productsScanned": 1279,
+    "eventsLoaded": 129,
+    "items": 101,
+    "highSalesReminders": 4,
+    "autoExecutable": 28,
+    "missingTitleReview": 44,
+    "protectedListingHolds": 6,
+    "autoAdCandidates": 40
+  },
+  "items": [
+    {
+      "sku": "GUF3129",
+      "asin": "B0GWD724Y8",
+      "highSales": false,
+      "currentTitle": "12 Pcs Patriotic Bucket Hat Set for Men Women, 4 Styles American Flag Fisherman Caps for Patriotic Events",
+      "selectedEvent": {
+        "key": "memorial_day",
+        "name": "Memorial Day",
+        "zhName": "阵亡将士纪念日",
+        "description": "美国联邦假日，纪念为国牺牲军人，也是夏季消费和爱国主题预热节点。",
+        "dateText": "2026-05-25",
+        "dateNote": "每年变动",
+        "productDirection": "patriotic gifts、USA旗帜元素、veteran/military remembrance、户外/BBQ小物",
+        "coreTerm": "patriotic gifts",
+        "titleTerms": [
+          "Memorial Day",
+          "patriotic gifts",
+          "veteran",
+          "military remembrance"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-05-25",
+        "firstStart": "2026-01-25",
+        "firstEnd": "2026-02-24",
+        "secondStart": "2026-03-26",
+        "secondEnd": "2026-04-10",
+        "highFrequencyStart": "2026-05-04",
+        "highFrequencyEnd": "2026-05-28",
+        "sourceRow": 67
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "patriotic"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "12 Pcs Patriotic Bucket Hat Set for Men Women, 4 Styles American Flag Fisherman Caps for Patriotic Events Patriotic Gifts",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - patriotic gifts - GUF3129",
+          "groupName": "broad - patriotic gifts - GUF3129",
+          "dailyBudget": 3,
+          "defaultBid": 0.3,
+          "keywords": [
+            "patriotic gifts",
+            "patriotic gifts for nurse",
+            "patriotic gifts gift",
+            "patriotic gifts gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "patriotic gifts gift basket",
+            "patriotic gift hat",
+            "patriotic bucket hat set",
+            "memorial day gift"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "GUF3133",
+      "asin": "B0GWCK7H94",
+      "highSales": false,
+      "currentTitle": "12 Pcs Patriotic Bucket Hat Set for Men Women, 4 Styles American Flag Fisherman Caps for Patriotic Events",
+      "selectedEvent": {
+        "key": "memorial_day",
+        "name": "Memorial Day",
+        "zhName": "阵亡将士纪念日",
+        "description": "美国联邦假日，纪念为国牺牲军人，也是夏季消费和爱国主题预热节点。",
+        "dateText": "2026-05-25",
+        "dateNote": "每年变动",
+        "productDirection": "patriotic gifts、USA旗帜元素、veteran/military remembrance、户外/BBQ小物",
+        "coreTerm": "patriotic gifts",
+        "titleTerms": [
+          "Memorial Day",
+          "patriotic gifts",
+          "veteran",
+          "military remembrance"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-05-25",
+        "firstStart": "2026-01-25",
+        "firstEnd": "2026-02-24",
+        "secondStart": "2026-03-26",
+        "secondEnd": "2026-04-10",
+        "highFrequencyStart": "2026-05-04",
+        "highFrequencyEnd": "2026-05-28",
+        "sourceRow": 67
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "patriotic"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "12 Pcs Patriotic Bucket Hat Set for Men Women, 4 Styles American Flag Fisherman Caps for Patriotic Events Patriotic Gifts",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - patriotic gifts - GUF3133",
+          "groupName": "broad - patriotic gifts - GUF3133",
+          "dailyBudget": 3,
+          "defaultBid": 0.3,
+          "keywords": [
+            "patriotic gifts",
+            "patriotic gifts for nurse",
+            "patriotic gifts gift",
+            "patriotic gifts gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "patriotic gifts gift basket",
+            "american flag bucket hat",
+            "american flag bucket hat set",
+            "patriotic bucket hat set"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "TUR8821",
+      "asin": "B0GVT9WTG2",
+      "highSales": false,
+      "currentTitle": "32 Pcs Christian Gift Tin Boxes with Prayer Cards Scripture Bible Verse Cards Inspirational Encouragement Religious Valentines Gifts for Women Sister Girlfriend (Floral)",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.6,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "32 Pcs Christian Gift Tin Boxes with Prayer Cards Scripture Bible Verse Cards Inspirational Encouragement Religious Valentines Gifts for Women Sister Girlfriend (Floral)",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - christian gifts - TUR8821",
+          "groupName": "broad - christian gifts - TUR8821",
+          "dailyBudget": 3,
+          "defaultBid": 0.26,
+          "keywords": [
+            "christian gifts",
+            "christian gifts for christian",
+            "christian gifts gift",
+            "christian gifts gifts",
+            "scripture gifts",
+            "bible verse cards",
+            "faith gifts"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "SHQ3949",
+      "asin": "B0GT3G8ZL7",
+      "highSales": false,
+      "currentTitle": "WinnerWhy Baby Shower Game Sign Kit Includes 32 Unfinished Wooden Car Blocks, 12 Markers, and a Prize Decoration Sign for Baby Shower(Blue Bear)",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "WinnerWhy Baby Shower Game Sign Kit Includes 32 Unfinished Wooden Car Blocks, 12 Markers, and a Prize Decoration Sign for Baby Shower(Blue Bear) Bridal Party Gifts",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - bridal party gifts - SHQ3949",
+          "groupName": "broad - bridal party gifts - SHQ3949",
+          "dailyBudget": 3,
+          "defaultBid": 0.31,
+          "keywords": [
+            "bridal party gifts",
+            "bridal party gifts for mom",
+            "bridal party gifts gift",
+            "bridal party gifts gifts",
+            "mom gifts",
+            "mom gift basket",
+            "bridal party gifts gift basket",
+            "baby shower game",
+            "baby shower crafts",
+            "baby shower activities"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "STY6101",
+      "asin": "B0GQMGB44G",
+      "highSales": false,
+      "currentTitle": "6 Set Baby Shower Bear Centerpieces for Tables Mason-Style Glass Jars with Artificial Peonies and Baby's Breath Rustic Table Decor for Gender Reveal Party Wedding (Brown)",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "6 Set Baby Shower Bear Centerpieces for Tables Mason-Style Glass Jars with Artificial Peonies and Baby's Breath Rustic Table Decor for Gender Reveal Party Wedding (Brown) Wedding Season",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - bridal party gifts - STY6101",
+          "groupName": "broad - bridal party gifts - STY6101",
+          "dailyBudget": 3,
+          "defaultBid": 0.25,
+          "keywords": [
+            "bridal party gifts",
+            "bridal party gifts for nurse",
+            "wedding season gift",
+            "wedding season gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "bridal party gifts gift basket",
+            "teddy bear centerpieces for baby shower",
+            "teddy bear party decorations",
+            "artificial flower centerpieces for tables"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "GM4172",
+      "asin": "B0GN6L39XH",
+      "highSales": false,
+      "currentTitle": "Kenning Christian Gifts for Mother, Bible Verse Necklaces Bulk for Women, Inspirational Religious Pendant Necklaces",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.6,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Kenning Christian Gifts for Mother, Bible Verse Necklaces Bulk for Women, Inspirational Religious Pendant Necklaces",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - christian gifts - GM4172",
+          "groupName": "broad - christian gifts - GM4172",
+          "dailyBudget": 3,
+          "defaultBid": 0.27,
+          "keywords": [
+            "christian gifts",
+            "christian gifts for mom",
+            "christian gifts gift",
+            "christian gifts gifts",
+            "mom gifts",
+            "christian mothers day gifts",
+            "bulk mothers day gifts for church",
+            "mothers day gifts for church women",
+            "religious mothers day gifts for women",
+            "mothers day gifts bulk"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "MF6328",
+      "asin": "B0GMN2PCWN",
+      "highSales": false,
+      "currentTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.6,
+        "level": "medium",
+        "matched": [
+          "summer"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - summer party supplies - MF6328",
+          "groupName": "broad - summer party supplies - MF6328",
+          "dailyBudget": 3,
+          "defaultBid": 0.3,
+          "keywords": [
+            "summer party supplies",
+            "summer gift",
+            "summer gifts",
+            "summer party supplies decor",
+            "pool floats",
+            "birthday pool float",
+            "birthday pool decorations",
+            "number pool float",
+            "inflatable number pool float"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "MF6292",
+      "asin": "B0GMNCFTF2",
+      "highSales": false,
+      "currentTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens Summer Product Season",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.9,
+        "level": "high",
+        "matched": [
+          "summer",
+          "party",
+          "supplies"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens Summer Product Season",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - summer party supplies - MF6292",
+          "groupName": "broad - summer party supplies - MF6292",
+          "dailyBudget": 3,
+          "defaultBid": 0.28,
+          "keywords": [
+            "summer party supplies",
+            "summer party supplies for mom",
+            "summer gift",
+            "summer gifts",
+            "mom gifts",
+            "mom gift basket",
+            "summer party supplies gift basket",
+            "number pool float",
+            "pool birthday decorations",
+            "birthday pool float"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "MF6280",
+      "asin": "B0GMN29W7J",
+      "highSales": false,
+      "currentTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens Summer Product Season",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.9,
+        "level": "high",
+        "matched": [
+          "summer",
+          "party",
+          "supplies"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens Summer Product Season",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - summer party supplies - MF6280",
+          "groupName": "broad - summer party supplies - MF6280",
+          "dailyBudget": 3,
+          "defaultBid": 0.3,
+          "keywords": [
+            "summer party supplies",
+            "summer party supplies for mom",
+            "summer gift",
+            "summer gifts",
+            "mom gifts",
+            "mom gift basket",
+            "summer party supplies gift basket",
+            "adults",
+            "women and men",
+            "large inflatable photo prop for teens"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "GM3940",
+      "asin": "B0GMNWKS7S",
+      "highSales": false,
+      "currentTitle": "Kenning Christian Gifts for Mother, Bible Verse Necklaces Bulk for Women, Inspirational Religious Pendant Necklaces",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.6,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Kenning Christian Gifts for Mother, Bible Verse Necklaces Bulk for Women, Inspirational Religious Pendant Necklaces",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - christian gifts - GM3940",
+          "groupName": "broad - christian gifts - GM3940",
+          "dailyBudget": 3,
+          "defaultBid": 0.3,
+          "keywords": [
+            "christian gifts",
+            "christian gifts for mom",
+            "christian gifts gift",
+            "christian gifts gifts",
+            "mom gifts",
+            "mom jewelry",
+            "christian gifts jewelry",
+            "vbs vacation bible school gift",
+            "vbs vacation bible school gifts"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "MF6294",
+      "asin": "B0GMH7Q46X",
+      "highSales": false,
+      "currentTitle": "HyDren 48 Inch Inflatable Baby Pool Float Letter– Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.9,
+        "level": "high",
+        "matched": [
+          "summer",
+          "party",
+          "supplies"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "HyDren 48 Inch Inflatable Baby Pool Float Letter– Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - summer party supplies - MF6294",
+          "groupName": "broad - summer party supplies - MF6294",
+          "dailyBudget": 3,
+          "defaultBid": 0.31,
+          "keywords": [
+            "summer party supplies",
+            "summer party supplies for baby",
+            "summer gift",
+            "summer gifts",
+            "baby gifts",
+            "baby decor",
+            "summer party supplies decor",
+            "inflatable letters pool decoration",
+            "floating foam letters for pool",
+            "baby inflatable letters"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "RHO1540",
+      "asin": "B0GLPCPFK9",
+      "highSales": false,
+      "currentTitle": "Personalized Will You Be My Bridesmaid Sticker with Name Pearl Decal Vinyl Proposal Decal Custom Name Decals DTF Transfer for Bridesmaids Box Bridal Shower Wedding Bachelorette Party (Gold)",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.56,
+        "level": "medium",
+        "matched": [
+          "bridal",
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Personalized Will You Be My Bridesmaid Sticker with Name Pearl Decal Vinyl Proposal Decal Custom Name Decals DTF Transfer for Bridesmaids Box Bridal Shower Wedding Bachelorette Party Wedding Season",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - bridal party gifts - RHO1540",
+          "groupName": "broad - bridal party gifts - RHO1540",
+          "dailyBudget": 3,
+          "defaultBid": 0.19,
+          "keywords": [
+            "bridal party gifts",
+            "bridal party gifts for bride",
+            "wedding season gift",
+            "wedding season gifts",
+            "bride gifts",
+            "bride gift basket",
+            "bridal party gifts gift basket",
+            "bridesmaid stickers labels",
+            "will you be my bridesmaid stickers",
+            "bridesmaid stickers for box"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "OB4139",
+      "asin": "B0GJRV1TCQ",
+      "highSales": false,
+      "currentTitle": "Lewtemi Mexican Duck Piñata for Birthday Party Cinco de Mayo Fiesta Decorations with Piñata Stick Blindfold Confetti Set",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [
+        {
+          "key": "cinco_de_mayo",
+          "name": "Cinco de Mayo",
+          "zhName": "五月五日节/普埃布拉战役纪念日",
+          "description": "纪念墨西哥军队1862年普埃布拉战役胜利，在美国常用于墨西哥文化与派对场景。",
+          "dateText": "2026-05-05",
+          "dateNote": "固定日期",
+          "productDirection": "墨西哥风party favors、彩色装饰、西语祝福卡",
+          "coreTerm": "party favors",
+          "titleTerms": [
+            "Cinco de Mayo",
+            "party favors"
+          ],
+          "nodeStart": "2026-05-05",
+          "nodeEnd": "2026-05-05",
+          "firstStart": "2026-02-04",
+          "firstEnd": "2026-02-19",
+          "secondStart": "2026-03-21",
+          "secondEnd": "2026-03-31",
+          "highFrequencyStart": "2026-04-21",
+          "highFrequencyEnd": "2026-04-28",
+          "sourceRow": 55
+        }
+      ],
+      "suggestedTitle": "Lewtemi Mexican Duck Piñata for Birthday Party Wedding Season Fiesta Decorations with Piñata Stick Blindfold Confetti Set",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - bridal party gifts - OB4139",
+          "groupName": "broad - bridal party gifts - OB4139",
+          "dailyBudget": 3,
+          "defaultBid": 0.29,
+          "keywords": [
+            "bridal party gifts",
+            "bridal party gifts for nurse",
+            "wedding season gift",
+            "wedding season gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "bridal party gifts gift basket"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "OB3296",
+      "asin": "B0GJRF57B5",
+      "highSales": false,
+      "currentTitle": "Lewtemi Mexican Donkey Piñata for Birthday Party Cinco de Mayo Fiesta Decorations with Piñata Stick Blindfold Confetti Set",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [
+        {
+          "key": "cinco_de_mayo",
+          "name": "Cinco de Mayo",
+          "zhName": "五月五日节/普埃布拉战役纪念日",
+          "description": "纪念墨西哥军队1862年普埃布拉战役胜利，在美国常用于墨西哥文化与派对场景。",
+          "dateText": "2026-05-05",
+          "dateNote": "固定日期",
+          "productDirection": "墨西哥风party favors、彩色装饰、西语祝福卡",
+          "coreTerm": "party favors",
+          "titleTerms": [
+            "Cinco de Mayo",
+            "party favors"
+          ],
+          "nodeStart": "2026-05-05",
+          "nodeEnd": "2026-05-05",
+          "firstStart": "2026-02-04",
+          "firstEnd": "2026-02-19",
+          "secondStart": "2026-03-21",
+          "secondEnd": "2026-03-31",
+          "highFrequencyStart": "2026-04-21",
+          "highFrequencyEnd": "2026-04-28",
+          "sourceRow": 55
+        }
+      ],
+      "suggestedTitle": "Lewtemi Mexican Donkey Piñata for Birthday Party Wedding Season Fiesta Decorations with Piñata Stick Blindfold Confetti Set",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - bridal party gifts - OB3296",
+          "groupName": "broad - bridal party gifts - OB3296",
+          "dailyBudget": 3,
+          "defaultBid": 0.29,
+          "keywords": [
+            "bridal party gifts",
+            "bridal party gifts for nurse",
+            "wedding season gift",
+            "wedding season gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "bridal party gifts gift basket",
+            "donkey pinata large",
+            "pinata",
+            "cinco de mayo"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "YEO1451",
+      "asin": "B0GHXTYSHP",
+      "highSales": false,
+      "currentTitle": "4 Pack Boonie Safari Hats for Men Women, Wide Brim Sun Hats with Chin Strap for Fishing Hiking Lightweight",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.75,
+        "level": "high",
+        "matched": [
+          "summer",
+          "party",
+          "supplies"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "4 Pack Boonie Safari Hats for Men Women, Wide Brim Sun Hats with Chin Strap for Fishing Hiking Lightweight Summer Party Supplies",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - summer party supplies - YEO1451",
+          "groupName": "broad - summer party supplies - YEO1451",
+          "dailyBudget": 3,
+          "defaultBid": 0.27,
+          "keywords": [
+            "summer party supplies",
+            "summer party supplies for women",
+            "summer party supplies gift",
+            "summer party supplies gifts",
+            "women gifts",
+            "women gift basket",
+            "summer party supplies gift basket",
+            "summer product season gift"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "YUH4890",
+      "asin": "B0GH7B281D",
+      "highSales": false,
+      "currentTitle": "VioraWhite 24 Set Jesus Loves You Easter Eggs Prefilled with Mini Jesus Stress Balls Religious Easter Egg Fillers with John 3:16 Cards, Christian Basket Stuffers Party Favors (Special)",
+      "selectedEvent": null,
+      "selectedStatus": "",
+      "relevance": null,
+      "expiredTitleEvents": [
+        {
+          "key": "easter",
+          "name": "Easter",
+          "zhName": "复活节",
+          "description": "美国春季核心节日，带动宗教、兔子、彩蛋、篮子、教堂礼品等需求。",
+          "dateText": "2026-04-05",
+          "dateNote": "每年变动",
+          "productDirection": "Easter basket fillers、Christian Easter gifts、兔子/鸡蛋装饰、教会礼品",
+          "coreTerm": "easter basket fillers",
+          "titleTerms": [
+            "Easter",
+            "easter basket fillers",
+            "christian easter gifts"
+          ],
+          "nodeStart": "2026-04-05",
+          "nodeEnd": "2026-04-05",
+          "firstStart": "2025-12-06",
+          "firstEnd": "2026-01-05",
+          "secondStart": "2026-02-04",
+          "secondEnd": "2026-02-19",
+          "highFrequencyStart": "2026-03-15",
+          "highFrequencyEnd": "2026-04-08",
+          "sourceRow": 46
+        }
+      ],
+      "suggestedTitle": "VioraWhite 24 Set Jesus Loves You Easter Eggs Prefilled with Mini Jesus Stress Balls Religious Easter Egg Fillers with John 3:16 Cards, Christian Basket Stuffers Party Favors (Special)",
+      "titleDecision": "protected_listing_hold",
+      "adDecision": "no_action",
+      "listingProtection": {
+        "sku": "YUH4890",
+        "scope": "listing",
+        "reason": "saleStatus is reserved page; preserve current product page and do not change listing copy",
+        "source": "saleStatus"
+      },
+      "adActions": []
+    },
+    {
+      "sku": "YUH4846",
+      "asin": "B0GH795Y8Q",
+      "highSales": false,
+      "currentTitle": "VioraWhite 30 Set Jesus Loves You Easter Eggs Prefilled with Mini Jesus Stress Balls Religious Easter Egg Fillers with John 3:16 Cards, Christian Basket Stuffers Party Favors (Stylish)",
+      "selectedEvent": null,
+      "selectedStatus": "",
+      "relevance": null,
+      "expiredTitleEvents": [
+        {
+          "key": "easter",
+          "name": "Easter",
+          "zhName": "复活节",
+          "description": "美国春季核心节日，带动宗教、兔子、彩蛋、篮子、教堂礼品等需求。",
+          "dateText": "2026-04-05",
+          "dateNote": "每年变动",
+          "productDirection": "Easter basket fillers、Christian Easter gifts、兔子/鸡蛋装饰、教会礼品",
+          "coreTerm": "easter basket fillers",
+          "titleTerms": [
+            "Easter",
+            "easter basket fillers",
+            "christian easter gifts"
+          ],
+          "nodeStart": "2026-04-05",
+          "nodeEnd": "2026-04-05",
+          "firstStart": "2025-12-06",
+          "firstEnd": "2026-01-05",
+          "secondStart": "2026-02-04",
+          "secondEnd": "2026-02-19",
+          "highFrequencyStart": "2026-03-15",
+          "highFrequencyEnd": "2026-04-08",
+          "sourceRow": 46
+        }
+      ],
+      "suggestedTitle": "VioraWhite 30 Set Jesus Loves You Easter Eggs Prefilled with Mini Jesus Stress Balls Religious Easter Egg Fillers with John 3:16 Cards, Christian Basket Stuffers Party Favors (Stylish)",
+      "titleDecision": "protected_listing_hold",
+      "adDecision": "no_action",
+      "listingProtection": {
+        "sku": "YUH4846",
+        "scope": "listing",
+        "reason": "saleStatus is reserved page; preserve current product page and do not change listing copy",
+        "source": "saleStatus"
+      },
+      "adActions": []
+    },
+    {
+      "sku": "YUH4842",
+      "asin": "B0GH73QSR2",
+      "highSales": false,
+      "currentTitle": "VioraWhite 30 Set Jesus Loves You Easter Eggs Prefilled with Mini Jesus Stress Balls Religious Easter Egg Fillers with John 3:16 Cards, Christian Basket Stuffers Party Favors (Traditional)",
+      "selectedEvent": null,
+      "selectedStatus": "",
+      "relevance": null,
+      "expiredTitleEvents": [
+        {
+          "key": "easter",
+          "name": "Easter",
+          "zhName": "复活节",
+          "description": "美国春季核心节日，带动宗教、兔子、彩蛋、篮子、教堂礼品等需求。",
+          "dateText": "2026-04-05",
+          "dateNote": "每年变动",
+          "productDirection": "Easter basket fillers、Christian Easter gifts、兔子/鸡蛋装饰、教会礼品",
+          "coreTerm": "easter basket fillers",
+          "titleTerms": [
+            "Easter",
+            "easter basket fillers",
+            "christian easter gifts"
+          ],
+          "nodeStart": "2026-04-05",
+          "nodeEnd": "2026-04-05",
+          "firstStart": "2025-12-06",
+          "firstEnd": "2026-01-05",
+          "secondStart": "2026-02-04",
+          "secondEnd": "2026-02-19",
+          "highFrequencyStart": "2026-03-15",
+          "highFrequencyEnd": "2026-04-08",
+          "sourceRow": 46
+        }
+      ],
+      "suggestedTitle": "VioraWhite 30 Set Jesus Loves You Easter Eggs Prefilled with Mini Jesus Stress Balls Religious Easter Egg Fillers with John 3:16 Cards, Christian Basket Stuffers Party Favors (Traditional)",
+      "titleDecision": "protected_listing_hold",
+      "adDecision": "no_action",
+      "listingProtection": {
+        "sku": "YUH4842",
+        "scope": "listing",
+        "reason": "saleStatus is reserved page; preserve current product page and do not change listing copy",
+        "source": "saleStatus"
+      },
+      "adActions": []
+    },
+    {
+      "sku": "GM3213",
+      "asin": "B0GGZR3ZFV",
+      "highSales": false,
+      "currentTitle": "Kenning Lab Week Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists",
+      "selectedEvent": null,
+      "selectedStatus": "",
+      "relevance": null,
+      "expiredTitleEvents": [
+        {
+          "key": "medical_laboratory_professionals_week_lab_week",
+          "name": "Medical Laboratory Professionals Week / Lab Week",
+          "zhName": "医学检验专业人员周/实验室周",
+          "description": "表彰实验室、病理、医学检验人员，适合lab tech主题礼品。",
+          "dateText": "2026-04-19 ~ 2026-04-25",
+          "dateNote": "每年变动",
+          "productDirection": "lab tech gifts、medical laboratory gifts、显微镜/试管元素小礼",
+          "coreTerm": "lab tech gifts",
+          "titleTerms": [
+            "Medical Laboratory Professionals Week / Lab Week",
+            "lab tech gifts",
+            "medical laboratory gifts"
+          ],
+          "nodeStart": "2026-04-19",
+          "nodeEnd": "2026-04-25",
+          "firstStart": "2026-02-03",
+          "firstEnd": "2026-02-18",
+          "secondStart": "2026-03-10",
+          "secondEnd": "2026-03-20",
+          "highFrequencyStart": "2026-04-05",
+          "highFrequencyEnd": "2026-04-25",
+          "sourceRow": 40
+        }
+      ],
+      "suggestedTitle": "Kenning Lab Tech Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists",
+      "titleDecision": "auto_execute",
+      "adDecision": "no_action",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "GM3210",
+      "asin": "B0GGZYQ8TH",
+      "highSales": false,
+      "currentTitle": "Kenning Lab Week Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists",
+      "selectedEvent": null,
+      "selectedStatus": "",
+      "relevance": null,
+      "expiredTitleEvents": [
+        {
+          "key": "medical_laboratory_professionals_week_lab_week",
+          "name": "Medical Laboratory Professionals Week / Lab Week",
+          "zhName": "医学检验专业人员周/实验室周",
+          "description": "表彰实验室、病理、医学检验人员，适合lab tech主题礼品。",
+          "dateText": "2026-04-19 ~ 2026-04-25",
+          "dateNote": "每年变动",
+          "productDirection": "lab tech gifts、medical laboratory gifts、显微镜/试管元素小礼",
+          "coreTerm": "lab tech gifts",
+          "titleTerms": [
+            "Medical Laboratory Professionals Week / Lab Week",
+            "lab tech gifts",
+            "medical laboratory gifts"
+          ],
+          "nodeStart": "2026-04-19",
+          "nodeEnd": "2026-04-25",
+          "firstStart": "2026-02-03",
+          "firstEnd": "2026-02-18",
+          "secondStart": "2026-03-10",
+          "secondEnd": "2026-03-20",
+          "highFrequencyStart": "2026-04-05",
+          "highFrequencyEnd": "2026-04-25",
+          "sourceRow": 40
+        }
+      ],
+      "suggestedTitle": "Kenning Lab Tech Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists",
+      "titleDecision": "auto_execute",
+      "adDecision": "no_action",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "GM3207",
+      "asin": "B0GGRZB5D1",
+      "highSales": false,
+      "currentTitle": "Kenning Lab Week Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists",
+      "selectedEvent": null,
+      "selectedStatus": "",
+      "relevance": null,
+      "expiredTitleEvents": [
+        {
+          "key": "medical_laboratory_professionals_week_lab_week",
+          "name": "Medical Laboratory Professionals Week / Lab Week",
+          "zhName": "医学检验专业人员周/实验室周",
+          "description": "表彰实验室、病理、医学检验人员，适合lab tech主题礼品。",
+          "dateText": "2026-04-19 ~ 2026-04-25",
+          "dateNote": "每年变动",
+          "productDirection": "lab tech gifts、medical laboratory gifts、显微镜/试管元素小礼",
+          "coreTerm": "lab tech gifts",
+          "titleTerms": [
+            "Medical Laboratory Professionals Week / Lab Week",
+            "lab tech gifts",
+            "medical laboratory gifts"
+          ],
+          "nodeStart": "2026-04-19",
+          "nodeEnd": "2026-04-25",
+          "firstStart": "2026-02-03",
+          "firstEnd": "2026-02-18",
+          "secondStart": "2026-03-10",
+          "secondEnd": "2026-03-20",
+          "highFrequencyStart": "2026-04-05",
+          "highFrequencyEnd": "2026-04-25",
+          "sourceRow": 40
+        }
+      ],
+      "suggestedTitle": "Kenning Lab Tech Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists",
+      "titleDecision": "auto_execute",
+      "adDecision": "no_action",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "GM3149",
+      "asin": "B0GGRG6SDV",
+      "highSales": false,
+      "currentTitle": "Kenning 20 Pcs Orthodontic Health Day Appreciation Gifts Bulk Smile Keychains with Card Gifts for Hygienist Staff, Dentist",
+      "selectedEvent": {
+        "key": "mental_health_awareness_month",
+        "name": "Mental Health Awareness Month",
+        "zhName": "心理健康意识月",
+        "description": "关注心理健康与情绪支持，适合支持类礼品、affirmation、comfort主题。",
+        "dateText": "2026-05-01 ~ 2026-05-31",
+        "dateNote": "固定月份",
+        "productDirection": "意识/支持类产品：丝带、手链、鼓励卡、贴纸；敏感节点商业化要克制",
+        "coreTerm": "mental health awareness month gifts",
+        "titleTerms": [
+          "Mental Health Awareness Month",
+          "mental health awareness month gifts"
+        ],
+        "nodeStart": "2026-05-01",
+        "nodeEnd": "2026-05-31",
+        "firstStart": "2026-01-31",
+        "firstEnd": "2026-02-15",
+        "secondStart": "2026-03-17",
+        "secondEnd": "2026-03-27",
+        "highFrequencyStart": "2026-04-17",
+        "highFrequencyEnd": "2026-05-16",
+        "sourceRow": 50
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.53,
+        "level": "medium",
+        "matched": [
+          "health"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Kenning 20 Pcs Orthodontic Health Day Appreciation Gifts Bulk Smile Keychains with Card Gifts for Hygienist Staff, Dentist Mental Health Awareness Month Gifts",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - mental health awareness month gifts - GM3149",
+          "groupName": "broad - mental health awareness month gifts - GM3149",
+          "dailyBudget": 3,
+          "defaultBid": 0.22,
+          "keywords": [
+            "mental health awareness month gifts",
+            "mental health awareness month gifts for nurse",
+            "mental health awareness month gifts gift",
+            "mental health awareness month gifts gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "mental health awareness month gifts gift basket",
+            "mental health awareness month gift"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "GM3201",
+      "asin": "B0GGNQXLVR",
+      "highSales": false,
+      "currentTitle": "Kenning Lab Week Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists",
+      "selectedEvent": null,
+      "selectedStatus": "",
+      "relevance": null,
+      "expiredTitleEvents": [
+        {
+          "key": "medical_laboratory_professionals_week_lab_week",
+          "name": "Medical Laboratory Professionals Week / Lab Week",
+          "zhName": "医学检验专业人员周/实验室周",
+          "description": "表彰实验室、病理、医学检验人员，适合lab tech主题礼品。",
+          "dateText": "2026-04-19 ~ 2026-04-25",
+          "dateNote": "每年变动",
+          "productDirection": "lab tech gifts、medical laboratory gifts、显微镜/试管元素小礼",
+          "coreTerm": "lab tech gifts",
+          "titleTerms": [
+            "Medical Laboratory Professionals Week / Lab Week",
+            "lab tech gifts",
+            "medical laboratory gifts"
+          ],
+          "nodeStart": "2026-04-19",
+          "nodeEnd": "2026-04-25",
+          "firstStart": "2026-02-03",
+          "firstEnd": "2026-02-18",
+          "secondStart": "2026-03-10",
+          "secondEnd": "2026-03-20",
+          "highFrequencyStart": "2026-04-05",
+          "highFrequencyEnd": "2026-04-25",
+          "sourceRow": 40
+        }
+      ],
+      "suggestedTitle": "Kenning Lab Tech Gifts for Medical Laboratory Professionals, Science Enamel Pins with Thank You Cards and Bags, Medical Laboratory Scientist Gifts for Lab Technicians, Phlebotomists",
+      "titleDecision": "auto_execute",
+      "adDecision": "no_action",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "TUR5292",
+      "asin": "B0GFV4TN5L",
+      "highSales": true,
+      "currentTitle": "24 Set Christian Gift Tin Boxes with 120 Pcs Prayer Cards Scripture Bible Verse Cards Inspirational Encouragement Religious Valentines Gifts for Women Sister Girlfriend",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.68,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "24 Set Christian Gift Tin Boxes with 120 Pcs Prayer Cards Scripture Bible Verse Cards Inspirational Encouragement Religious Valentines Gifts for Women Sister Girlfriend",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "operator_approval_required",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "HUA6645",
+      "asin": "B0GDXPLX6B",
+      "highSales": false,
+      "currentTitle": "Suhine 9 Pcs Lace Mrs Bridal Panties Set, Wedding Bride Underwear, White Size L for Bride and Bridesmaids, Bachelorette Favors Party Gift, Bridal Gift for Her",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Suhine 9 Pcs Lace Mrs Bridal Panties Set, Wedding Bride Underwear, White Size L for Bride and Bridesmaids, Bachelorette Favors Party Gift, Bridal Gift for Her Wedding Season",
+      "titleDecision": "review_low_relevance_title_change",
+      "adDecision": "review_low_relevance",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "LEM8356",
+      "asin": "B0GDTG4MW9",
+      "highSales": false,
+      "currentTitle": "LemonRoad 172 Pcs/24 Sets Easter Craft Kit, DIY Bunny Easter Candy Containers, Fillable Plastic Light Bulb Candy Jar Kit Lightbulb Ornaments for Party Favors Home Activities Spring Gift",
+      "selectedEvent": null,
+      "selectedStatus": "",
+      "relevance": null,
+      "expiredTitleEvents": [
+        {
+          "key": "easter",
+          "name": "Easter",
+          "zhName": "复活节",
+          "description": "美国春季核心节日，带动宗教、兔子、彩蛋、篮子、教堂礼品等需求。",
+          "dateText": "2026-04-05",
+          "dateNote": "每年变动",
+          "productDirection": "Easter basket fillers、Christian Easter gifts、兔子/鸡蛋装饰、教会礼品",
+          "coreTerm": "easter basket fillers",
+          "titleTerms": [
+            "Easter",
+            "easter basket fillers",
+            "christian easter gifts"
+          ],
+          "nodeStart": "2026-04-05",
+          "nodeEnd": "2026-04-05",
+          "firstStart": "2025-12-06",
+          "firstEnd": "2026-01-05",
+          "secondStart": "2026-02-04",
+          "secondEnd": "2026-02-19",
+          "highFrequencyStart": "2026-03-15",
+          "highFrequencyEnd": "2026-04-08",
+          "sourceRow": 46
+        }
+      ],
+      "suggestedTitle": "LemonRoad 172 Pcs/24 Sets Easter Craft Kit, DIY Bunny Easter Candy Containers, Fillable Plastic Light Bulb Candy Jar Kit Lightbulb Ornaments for Party Favors Home Activities Spring Gift",
+      "titleDecision": "protected_listing_hold",
+      "adDecision": "no_action",
+      "listingProtection": {
+        "sku": "LEM8356",
+        "scope": "listing",
+        "reason": "saleStatus is reserved page; preserve current product page and do not change listing copy",
+        "source": "saleStatus"
+      },
+      "adActions": []
+    },
+    {
+      "sku": "COT3013",
+      "asin": "B0GCMSFKQD",
+      "highSales": false,
+      "currentTitle": "Motipuns 24 Pcs Religious Easter Crafts Holy Week Craft Kit Easter Scene Cross Cards with Jesus Stickers for Christian Sunday Activities Church Decor Holy Week Hanging Ornament",
+      "selectedEvent": null,
+      "selectedStatus": "",
+      "relevance": null,
+      "expiredTitleEvents": [
+        {
+          "key": "easter",
+          "name": "Easter",
+          "zhName": "复活节",
+          "description": "美国春季核心节日，带动宗教、兔子、彩蛋、篮子、教堂礼品等需求。",
+          "dateText": "2026-04-05",
+          "dateNote": "每年变动",
+          "productDirection": "Easter basket fillers、Christian Easter gifts、兔子/鸡蛋装饰、教会礼品",
+          "coreTerm": "easter basket fillers",
+          "titleTerms": [
+            "Easter",
+            "easter basket fillers",
+            "christian easter gifts"
+          ],
+          "nodeStart": "2026-04-05",
+          "nodeEnd": "2026-04-05",
+          "firstStart": "2025-12-06",
+          "firstEnd": "2026-01-05",
+          "secondStart": "2026-02-04",
+          "secondEnd": "2026-02-19",
+          "highFrequencyStart": "2026-03-15",
+          "highFrequencyEnd": "2026-04-08",
+          "sourceRow": 46
+        }
+      ],
+      "suggestedTitle": "Motipuns 24 Pcs Religious Easter Crafts Holy Week Craft Kit Easter Scene Cross Cards with Jesus Stickers for Christian Sunday Activities Church Decor Holy Week Hanging Ornament",
+      "titleDecision": "protected_listing_hold",
+      "adDecision": "no_action",
+      "listingProtection": {
+        "sku": "COT3013",
+        "scope": "listing",
+        "reason": "saleStatus is reserved page; preserve current product page and do not change listing copy",
+        "source": "saleStatus"
+      },
+      "adActions": []
+    },
+    {
+      "sku": "LEM7532",
+      "asin": "B0G65LXMY8",
+      "highSales": false,
+      "currentTitle": "LemonRoad 24 Sets Leprechaun Hat Crafts Kit, St. Patrick's Day Leprechaun Craft Kit DIY Plastic Light Bulb Bottles Fillable Mini Drink Containers for St Patrick's Day Party Decorations",
+      "selectedEvent": null,
+      "selectedStatus": "",
+      "relevance": null,
+      "expiredTitleEvents": [
+        {
+          "key": "st_patrick_s_day",
+          "name": "St. Patrick's Day",
+          "zhName": "圣帕特里克节",
+          "description": "爱尔兰文化与绿色幸运主题节日，适合幸运、三叶草、派对、小礼品和装饰。",
+          "dateText": "2026-03-17",
+          "dateNote": "固定日期",
+          "productDirection": "shamrock三叶草、绿色幸运礼品、party favors、Irish主题装饰",
+          "coreTerm": "shamrock",
+          "titleTerms": [
+            "St. Patrick's Day",
+            "shamrock",
+            "party favors",
+            "irish"
+          ],
+          "nodeStart": "2026-03-17",
+          "nodeEnd": "2026-03-17",
+          "firstStart": "2025-11-17",
+          "firstEnd": "2025-12-17",
+          "secondStart": "2026-01-16",
+          "secondEnd": "2026-01-31",
+          "highFrequencyStart": "2026-02-24",
+          "highFrequencyEnd": "2026-03-20",
+          "sourceRow": 23
+        }
+      ],
+      "suggestedTitle": "LemonRoad 24 Sets Leprechaun Hat Crafts Kit, St. Patrick's Day Leprechaun Craft Kit DIY Plastic Light Bulb Bottles Fillable Mini Drink Containers for St Patrick's Day Party Decorations",
+      "titleDecision": "protected_listing_hold",
+      "adDecision": "no_action",
+      "listingProtection": {
+        "sku": "LEM7532",
+        "scope": "listing",
+        "reason": "saleStatus is reserved page; preserve current product page and do not change listing copy",
+        "source": "saleStatus"
+      },
+      "adActions": []
+    },
+    {
+      "sku": "RU2411",
+      "asin": "B0G5NJRVN9",
+      "highSales": false,
+      "currentTitle": "Spiareal 9 Pack Dental Graduation Decorations, Table Centerpieces with Boxes, Tooth Toothbrush and Toothpaste Cutouts Toppers for Dental Assistant Graduation Party Decor",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Spiareal 9 Pack Dental Graduation Decorations, Table Centerpieces with Boxes, Tooth Toothbrush and Toothpaste Cutouts Toppers for Dental Assistant Graduation Party Decor Wedding Season",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - bridal party gifts - RU2411",
+          "groupName": "broad - bridal party gifts - RU2411",
+          "dailyBudget": 3,
+          "defaultBid": 0.2,
+          "keywords": [
+            "bridal party gifts",
+            "bridal party gifts for graduate",
+            "wedding season gift",
+            "wedding season gifts",
+            "graduate gifts",
+            "graduate gift basket",
+            "bridal party gifts gift basket"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "LO3821",
+      "asin": "B0G4R6JZD5",
+      "highSales": false,
+      "currentTitle": "Meanplan Christian Mothers Day Compact Mirrors with Bible Verses Religious Gifts for Women Mothers Day Church Favors (54 Set)",
+      "selectedEvent": null,
+      "selectedStatus": "",
+      "relevance": null,
+      "expiredTitleEvents": [
+        {
+          "key": "mother_s_day",
+          "name": "Mother's Day",
+          "zhName": "母亲节",
+          "description": "美国上半年最强礼品节点之一，适合mom、grandma、wife、Christian mom等礼品。",
+          "dateText": "2026-05-10",
+          "dateNote": "每年变动",
+          "productDirection": "mom gifts、christian mom gifts、首饰/手链、感谢卡、家居小礼",
+          "coreTerm": "mom gifts",
+          "titleTerms": [
+            "Mother's Day",
+            "mom gifts",
+            "christian mom gifts"
+          ],
+          "nodeStart": "2026-05-10",
+          "nodeEnd": "2026-05-10",
+          "firstStart": "2026-01-10",
+          "firstEnd": "2026-02-09",
+          "secondStart": "2026-03-11",
+          "secondEnd": "2026-03-26",
+          "highFrequencyStart": "2026-04-19",
+          "highFrequencyEnd": "2026-05-13",
+          "sourceRow": 61
+        }
+      ],
+      "suggestedTitle": "Meanplan Christian Mothers Day Compact Mirrors with Bible Verses Religious Gifts for Women Mothers Day Church Favors (54 Set)",
+      "titleDecision": "review_expired_title_no_replacement",
+      "adDecision": "no_action",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "LO3817",
+      "asin": "B0G4R61LRM",
+      "highSales": false,
+      "currentTitle": "Meanplan Christian Mothers Day Compact Mirrors with Bible Verses Religious Gifts for Women Mothers Day Church Favors(36 Set)",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.68,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [
+        {
+          "key": "mother_s_day",
+          "name": "Mother's Day",
+          "zhName": "母亲节",
+          "description": "美国上半年最强礼品节点之一，适合mom、grandma、wife、Christian mom等礼品。",
+          "dateText": "2026-05-10",
+          "dateNote": "每年变动",
+          "productDirection": "mom gifts、christian mom gifts、首饰/手链、感谢卡、家居小礼",
+          "coreTerm": "mom gifts",
+          "titleTerms": [
+            "Mother's Day",
+            "mom gifts",
+            "christian mom gifts"
+          ],
+          "nodeStart": "2026-05-10",
+          "nodeEnd": "2026-05-10",
+          "firstStart": "2026-01-10",
+          "firstEnd": "2026-02-09",
+          "secondStart": "2026-03-11",
+          "secondEnd": "2026-03-26",
+          "highFrequencyStart": "2026-04-19",
+          "highFrequencyEnd": "2026-05-13",
+          "sourceRow": 61
+        }
+      ],
+      "suggestedTitle": "Meanplan Christian Mothers Day Compact Mirrors with Bible Verses Religious Gifts for Women Mothers Day Church Favors(36 Set)",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - christian gifts - LO3817",
+          "groupName": "broad - christian gifts - LO3817",
+          "dailyBudget": 3,
+          "defaultBid": 0.27,
+          "keywords": [
+            "christian gifts",
+            "christian gifts for mom",
+            "christian gifts gift",
+            "christian gifts gifts",
+            "mom gifts",
+            "mom gift basket",
+            "christian gifts gift basket",
+            "bulk compact mirrors",
+            "bulk mothers day church gifts",
+            "compact mirror bulk"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "YUT4464",
+      "asin": "B0DX5T5D86",
+      "highSales": false,
+      "currentTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.9,
+        "level": "high",
+        "matched": [
+          "summer",
+          "party",
+          "supplies"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - summer party supplies - YUT4464",
+          "groupName": "broad - summer party supplies - YUT4464",
+          "dailyBudget": 3,
+          "defaultBid": 0.33,
+          "keywords": [
+            "summer party supplies",
+            "summer party supplies for nurse",
+            "summer gift",
+            "summer gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "summer party supplies gift basket",
+            "floating pool decorations",
+            "number pool float",
+            "50th birthday decorations"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "YUT4462",
+      "asin": "B0DX5Y7RZ9",
+      "highSales": false,
+      "currentTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.9,
+        "level": "high",
+        "matched": [
+          "summer",
+          "party",
+          "supplies"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - summer party supplies - YUT4462",
+          "groupName": "broad - summer party supplies - YUT4462",
+          "dailyBudget": 3,
+          "defaultBid": 0.3,
+          "keywords": [
+            "summer party supplies",
+            "summer gift",
+            "summer gifts",
+            "summer party supplies decor",
+            "70 number pool float",
+            "birthday pool float",
+            "birthday decorations for women",
+            "birthday party supplies",
+            "number pool float"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "YUT4460",
+      "asin": "B0DX13SR8F",
+      "highSales": false,
+      "currentTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.6,
+        "level": "medium",
+        "matched": [
+          "summer"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - summer party supplies - YUT4460",
+          "groupName": "broad - summer party supplies - YUT4460",
+          "dailyBudget": 3,
+          "defaultBid": 0.24,
+          "keywords": [
+            "summer party supplies",
+            "summer gift",
+            "summer gifts",
+            "60 number pool float",
+            "60th birthday pool float",
+            "float pool",
+            "gold number pool float",
+            "inflatable numbers"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "STY2760",
+      "asin": "B0G3PBLJ62",
+      "highSales": false,
+      "currentTitle": "Pink 6 Set Baby Shower Bear Centerpieces for Tables Mason-Style Glass Jars with Artificial Peonies and Baby's Breath Rustic Table Decor for Gender Reveal Party Wedding",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Pink 6 Set Baby Shower Bear Centerpieces for Tables Mason-Style Glass Jars with Artificial Peonies and Baby's Breath Rustic Table Decor for Gender Reveal Party Wedding Wedding Season",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - bridal party gifts - STY2760",
+          "groupName": "broad - bridal party gifts - STY2760",
+          "dailyBudget": 3,
+          "defaultBid": 0.12,
+          "keywords": [
+            "bridal party gifts",
+            "bridal party gifts for nurse",
+            "wedding season gift",
+            "wedding season gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "bridal party gifts gift basket",
+            "baby shower decorations",
+            "baby shower favors",
+            "gender reveal party supplies"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "GT4431",
+      "asin": "B0G2LY9D4X",
+      "highSales": false,
+      "currentTitle": "Geosar 100 Pcs Dove Funeral Memorial Ribbons Pins Memorial Service Respect Funeral Personalized Ribbon Bow with Safety Pins and White Dove for Mourning Remembrance Day Event (Pink)",
+      "selectedEvent": {
+        "key": "mental_health_awareness_month",
+        "name": "Mental Health Awareness Month",
+        "zhName": "心理健康意识月",
+        "description": "关注心理健康与情绪支持，适合支持类礼品、affirmation、comfort主题。",
+        "dateText": "2026-05-01 ~ 2026-05-31",
+        "dateNote": "固定月份",
+        "productDirection": "意识/支持类产品：丝带、手链、鼓励卡、贴纸；敏感节点商业化要克制",
+        "coreTerm": "mental health awareness month gifts",
+        "titleTerms": [
+          "Mental Health Awareness Month",
+          "mental health awareness month gifts"
+        ],
+        "nodeStart": "2026-05-01",
+        "nodeEnd": "2026-05-31",
+        "firstStart": "2026-01-31",
+        "firstEnd": "2026-02-15",
+        "secondStart": "2026-03-17",
+        "secondEnd": "2026-03-27",
+        "highFrequencyStart": "2026-04-17",
+        "highFrequencyEnd": "2026-05-16",
+        "sourceRow": 50
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.53,
+        "level": "medium",
+        "matched": [
+          "health"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Geosar 100 Pcs Dove Funeral Memorial Ribbons Pins Memorial Service Respect Funeral Personalized Ribbon Bow with Safety Pins and White Dove for Mourning Mental Health Awareness Month Gifts",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - mental health awareness month gifts - GT4431",
+          "groupName": "broad - mental health awareness month gifts - GT4431",
+          "dailyBudget": 3,
+          "defaultBid": 0.23,
+          "keywords": [
+            "mental health awareness month gifts",
+            "mental health awareness month gifts for nurse",
+            "mental health awareness month gifts gift",
+            "mental health awareness month gifts gifts",
+            "nurse gifts",
+            "nurse bag",
+            "mental health awareness month gifts bag",
+            "memorial pins for funeral",
+            "funeral ribbon",
+            "memorial ribbons for funeral"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "CAS4030",
+      "asin": "B0FZSSJL2H",
+      "highSales": false,
+      "currentTitle": "Bucherry Black History Cupcake Toppers Black History Month Decorations Mini Round Acrylic DIY Charms for Party Supplies Reusable Non-edible Cake Decorations(24 Pcs)",
+      "selectedEvent": null,
+      "selectedStatus": "",
+      "relevance": null,
+      "expiredTitleEvents": [
+        {
+          "key": "black_history_month",
+          "name": "Black History Month",
+          "zhName": "黑人历史月",
+          "description": "纪念和学习非裔美国人的历史、贡献与文化，适合教育、文化、平权主题内容，商业化表达要克制。",
+          "dateText": "2026-02-01 ~ 2026-02-28",
+          "dateNote": "固定月份",
+          "productDirection": "意识/支持类产品：丝带、手链、鼓励卡、贴纸；敏感节点商业化要克制",
+          "coreTerm": "black history month gifts",
+          "titleTerms": [
+            "Black History Month",
+            "black history month gifts"
+          ],
+          "nodeStart": "2026-02-01",
+          "nodeEnd": "2026-02-28",
+          "firstStart": "2025-11-03",
+          "firstEnd": "2025-11-18",
+          "secondStart": "2025-12-18",
+          "secondEnd": "2025-12-28",
+          "highFrequencyStart": "2026-01-18",
+          "highFrequencyEnd": "2026-02-14",
+          "sourceRow": 5
+        }
+      ],
+      "suggestedTitle": "Bucherry Black History Cupcake Toppers Black History Month Decorations Mini Round Acrylic DIY Charms for Party Supplies Reusable Non-edible Cake Decorations(24 Pcs)",
+      "titleDecision": "review_expired_title_no_replacement",
+      "adDecision": "no_action",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "TAN2986",
+      "asin": "B0FYDRZ1ZC",
+      "highSales": false,
+      "currentTitle": "Quelay 24 Set CNA Week Gift Anesthetist Appreciation Bracelet Gifts Bulk Colorful Clay Beaded Stretch Bracelet Thank You Gifts for Crna Nurse Anesthesiologists Birthday Medical Professional Graduation",
+      "selectedEvent": {
+        "key": "cna_week_national_nursing_assistants_week",
+        "name": "CNA Week / National Nursing Assistants Week",
+        "zhName": "CNA护理助理周/护理助理周",
+        "description": "表彰Certified Nursing Assistant等一线护理助理岗位。",
+        "dateText": "2026-06-11 ~ 2026-06-17",
+        "dateNote": "每年变动",
+        "productDirection": "CNA gifts、nursing assistant感谢礼、badge reel、钥匙扣",
+        "coreTerm": "cna gifts",
+        "titleTerms": [
+          "CNA Week / National Nursing Assistants Week",
+          "cna gifts",
+          "nursing assistant",
+          "badge reel"
+        ],
+        "nodeStart": "2026-06-11",
+        "nodeEnd": "2026-06-17",
+        "firstStart": "2026-03-28",
+        "firstEnd": "2026-04-12",
+        "secondStart": "2026-05-02",
+        "secondEnd": "2026-05-12",
+        "highFrequencyStart": "2026-05-28",
+        "highFrequencyEnd": "2026-06-17",
+        "sourceRow": 74
+      },
+      "selectedStatus": "upcoming",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "cna"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Quelay 24 Set CNA Week Gift Anesthetist Appreciation Bracelet Gifts Bulk Colorful Clay Beaded Stretch Bracelet Thank You Gifts for Crna Nurse Anesthesiologists Birthday Medical Cna Gifts",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - cna gifts - TAN2986",
+          "groupName": "broad - cna gifts - TAN2986",
+          "dailyBudget": 3,
+          "defaultBid": 0.29,
+          "keywords": [
+            "cna gifts",
+            "cna gifts for nurse",
+            "cna gifts gift",
+            "cna gifts gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "cna gifts gift basket",
+            "bulk thank you gifts for nurses",
+            "crna gifts bulk",
+            "nurse appreciation gifts bulk"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "LEM6585",
+      "asin": "B0FXVB2SYG",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "LEM6581",
+      "asin": "B0FXVC4W6W",
+      "highSales": false,
+      "currentTitle": "LemonRoad 6 Sets Wedding Centerpieces for Tables Include Galvanized Flower Bucket Metal Vases with Artificial Flowers Bridal Shower Decorations Wedding Party Favors for Guests(Pink)",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.56,
+        "level": "medium",
+        "matched": [
+          "bridal",
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "LemonRoad 6 Sets Wedding Centerpieces for Tables Include Galvanized Flower Bucket Metal Vases with Artificial Flowers Bridal Shower Decorations Wedding Party Favors for Guests(Pink) Wedding Season",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - bridal party gifts - LEM6581",
+          "groupName": "broad - bridal party gifts - LEM6581",
+          "dailyBudget": 3,
+          "defaultBid": 0.36,
+          "keywords": [
+            "bridal party gifts",
+            "bridal party gifts for nurse",
+            "wedding season gift",
+            "wedding season gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "bridal party gifts gift basket"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "LEM6577",
+      "asin": "B0FXGN8CXZ",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "SY4371",
+      "asin": "B0FWQF947V",
+      "highSales": false,
+      "currentTitle": "Skylety 20 Sets Taco Plush Keychains with Inspirational Quote Cards, Taco Party Favors for Kids Students Coworkers, Cinco de Mayo Fiesta Gifts, Appreciation Gifts Bulk",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [
+        {
+          "key": "cinco_de_mayo",
+          "name": "Cinco de Mayo",
+          "zhName": "五月五日节/普埃布拉战役纪念日",
+          "description": "纪念墨西哥军队1862年普埃布拉战役胜利，在美国常用于墨西哥文化与派对场景。",
+          "dateText": "2026-05-05",
+          "dateNote": "固定日期",
+          "productDirection": "墨西哥风party favors、彩色装饰、西语祝福卡",
+          "coreTerm": "party favors",
+          "titleTerms": [
+            "Cinco de Mayo",
+            "party favors"
+          ],
+          "nodeStart": "2026-05-05",
+          "nodeEnd": "2026-05-05",
+          "firstStart": "2026-02-04",
+          "firstEnd": "2026-02-19",
+          "secondStart": "2026-03-21",
+          "secondEnd": "2026-03-31",
+          "highFrequencyStart": "2026-04-21",
+          "highFrequencyEnd": "2026-04-28",
+          "sourceRow": 55
+        }
+      ],
+      "suggestedTitle": "Skylety 20 Sets Taco Plush Keychains with Inspirational Quote Cards, Taco Wedding Season for Kids Students Coworkers, Wedding Season Fiesta Gifts, Appreciation Gifts Bulk",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - bridal party gifts - SY4371",
+          "groupName": "broad - bridal party gifts - SY4371",
+          "dailyBudget": 3,
+          "defaultBid": 0.25,
+          "keywords": [
+            "bridal party gifts",
+            "bridal party gifts for men",
+            "wedding season gift",
+            "wedding season gifts",
+            "men gifts",
+            "men gift basket",
+            "bridal party gifts gift basket",
+            "cinco de mayo party favors",
+            "taco party favors",
+            "taco keychain party favors"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "HEL3107",
+      "asin": "B0FVFJBZBW",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "YUT3185",
+      "asin": "B0D3PVD8QN",
+      "highSales": false,
+      "currentTitle": "HyDren 6 Pack Soccer Balls Bulk with Pump, Colorful Practice Soccer Balls for Kids & Youth, Indoor Outdoor Training, Games Back to School",
+      "selectedEvent": {
+        "key": "back_to_school_season",
+        "name": "Back-to-School Season",
+        "zhName": "返校季/开学季",
+        "description": "美国学校用品、教师用品、宿舍用品和收纳产品大窗口。",
+        "dateText": "2026-07-20 ~ 2026-09-10",
+        "dateNote": "区间变动：按地区开学时间取常用销售窗口",
+        "productDirection": "文具、书签、收纳、宿舍装饰、老师/学生礼、课堂用品",
+        "coreTerm": "back-to-school season",
+        "titleTerms": [
+          "Back-to-School Season",
+          "back-to-school season"
+        ],
+        "nodeStart": "2026-07-20",
+        "nodeEnd": "2026-09-10",
+        "firstStart": "2026-04-21",
+        "firstEnd": "2026-05-05",
+        "secondStart": "2026-06-05",
+        "secondEnd": "2026-06-19",
+        "highFrequencyStart": "2026-07-06",
+        "highFrequencyEnd": "2026-08-15",
+        "sourceRow": 78
+      },
+      "selectedStatus": "upcoming",
+      "relevance": {
+        "score": 0.48,
+        "level": "medium",
+        "matched": [
+          "back",
+          "school"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "HyDren 6 Pack Soccer Balls Bulk with Pump, Colorful Practice Soccer Balls for Kids & Youth, Indoor Outdoor Training, Games Back to School Back-to-school Season",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - back-to-school season - YUT3185",
+          "groupName": "broad - back-to-school season - YUT3185",
+          "dailyBudget": 3,
+          "defaultBid": 0.71,
+          "keywords": [
+            "back-to-school season",
+            "back-to-school season for women",
+            "back-to-school season gift",
+            "back-to-school season gifts",
+            "women gifts",
+            "women jewelry",
+            "back-to-school season jewelry",
+            "soccer balls with pump",
+            "bulk soccer balls with pump",
+            "kids soccer balls bulk"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "YUT3183",
+      "asin": "B0D3PKTJWT",
+      "highSales": false,
+      "currentTitle": "HyDren 6 Pack Soccer Balls Bulk with Pump, Colorful Practice Soccer Balls for Kids & Youth, Indoor Outdoor Training, Games Back to School",
+      "selectedEvent": {
+        "key": "back_to_school_season",
+        "name": "Back-to-School Season",
+        "zhName": "返校季/开学季",
+        "description": "美国学校用品、教师用品、宿舍用品和收纳产品大窗口。",
+        "dateText": "2026-07-20 ~ 2026-09-10",
+        "dateNote": "区间变动：按地区开学时间取常用销售窗口",
+        "productDirection": "文具、书签、收纳、宿舍装饰、老师/学生礼、课堂用品",
+        "coreTerm": "back-to-school season",
+        "titleTerms": [
+          "Back-to-School Season",
+          "back-to-school season"
+        ],
+        "nodeStart": "2026-07-20",
+        "nodeEnd": "2026-09-10",
+        "firstStart": "2026-04-21",
+        "firstEnd": "2026-05-05",
+        "secondStart": "2026-06-05",
+        "secondEnd": "2026-06-19",
+        "highFrequencyStart": "2026-07-06",
+        "highFrequencyEnd": "2026-08-15",
+        "sourceRow": 78
+      },
+      "selectedStatus": "upcoming",
+      "relevance": {
+        "score": 0.48,
+        "level": "medium",
+        "matched": [
+          "back",
+          "school"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "HyDren 6 Pack Soccer Balls Bulk with Pump, Colorful Practice Soccer Balls for Kids & Youth, Indoor Outdoor Training, Games Back to School Back-to-school Season",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - back-to-school season - YUT3183",
+          "groupName": "broad - back-to-school season - YUT3183",
+          "dailyBudget": 3,
+          "defaultBid": 0.56,
+          "keywords": [
+            "back-to-school season",
+            "back-to-school season for women",
+            "back-to-school season gift",
+            "back-to-school season gifts",
+            "women gifts",
+            "women gift basket",
+            "back-to-school season gift basket",
+            "soccer ball",
+            "soccer ball and pump",
+            "6 pack soccer balls"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "YUT2946",
+      "asin": "B0D1VJWGXN",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.45,
+        "level": "medium",
+        "matched": [
+          "summer"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Summer Party Supplies",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "YUT2840",
+      "asin": "B0BDRJ2D98",
+      "highSales": false,
+      "currentTitle": "HyDren 6 Pack Soccer Balls Bulk with Pump, Colorful Practice Soccer Balls for Kids & Youth, Indoor Outdoor Training, Games Back to School",
+      "selectedEvent": {
+        "key": "back_to_school_season",
+        "name": "Back-to-School Season",
+        "zhName": "返校季/开学季",
+        "description": "美国学校用品、教师用品、宿舍用品和收纳产品大窗口。",
+        "dateText": "2026-07-20 ~ 2026-09-10",
+        "dateNote": "区间变动：按地区开学时间取常用销售窗口",
+        "productDirection": "文具、书签、收纳、宿舍装饰、老师/学生礼、课堂用品",
+        "coreTerm": "back-to-school season",
+        "titleTerms": [
+          "Back-to-School Season",
+          "back-to-school season"
+        ],
+        "nodeStart": "2026-07-20",
+        "nodeEnd": "2026-09-10",
+        "firstStart": "2026-04-21",
+        "firstEnd": "2026-05-05",
+        "secondStart": "2026-06-05",
+        "secondEnd": "2026-06-19",
+        "highFrequencyStart": "2026-07-06",
+        "highFrequencyEnd": "2026-08-15",
+        "sourceRow": 78
+      },
+      "selectedStatus": "upcoming",
+      "relevance": {
+        "score": 0.48,
+        "level": "medium",
+        "matched": [
+          "back",
+          "school"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "HyDren 6 Pack Soccer Balls Bulk with Pump, Colorful Practice Soccer Balls for Kids & Youth, Indoor Outdoor Training, Games Back to School Back-to-school Season",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - back-to-school season - YUT2840",
+          "groupName": "broad - back-to-school season - YUT2840",
+          "dailyBudget": 3,
+          "defaultBid": 0.77,
+          "keywords": [
+            "back-to-school season",
+            "back-to-school season for women",
+            "back-to-school season gift",
+            "back-to-school season gifts",
+            "women gifts",
+            "women jewelry",
+            "back-to-school season jewelry"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "GM2628",
+      "asin": "B0FR4KYWZY",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.45,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Christian Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "GM2620",
+      "asin": "B0FR4V8KJL",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.45,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Christian Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "GM2616",
+      "asin": "B0FR46GZMN",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.45,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Christian Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "DUC4152",
+      "asin": "B0FQCFWQ8H",
+      "highSales": false,
+      "currentTitle": "Hollowfly Large Flamingo Pillow Plush - Giant Cuddly for Summer Lounging, Nap & Travel, Home & Travel Companion(35 Inch)",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.9,
+        "level": "high",
+        "matched": [
+          "summer",
+          "party",
+          "supplies"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Hollowfly Large Flamingo Pillow Plush - Giant Cuddly for Summer Lounging, Nap & Travel, Home & Travel Companion(35 Inch)",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - summer party supplies - DUC4152",
+          "groupName": "broad - summer party supplies - DUC4152",
+          "dailyBudget": 3,
+          "defaultBid": 0.29,
+          "keywords": [
+            "summer party supplies",
+            "summer party supplies for nurse",
+            "summer party supplies gift",
+            "summer party supplies gifts",
+            "nurse gifts",
+            "nurse jewelry",
+            "summer party supplies jewelry",
+            "plush flamingo",
+            "flamingo toys",
+            "flamingo pillows for kids"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "WE3925",
+      "asin": "B0FPQ86F1C",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "STA2610",
+      "asin": "B0FND7GY4V",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.45,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Christian Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "STA2607",
+      "asin": "B0FND9XC4Y",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.45,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Christian Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "STA2604",
+      "asin": "B0FN7P88D4",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.45,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Christian Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "YYW2629",
+      "asin": "B0FMRNLGTW",
+      "highSales": false,
+      "currentTitle": "Simgoing 10 Pcs Baby Shower Bear Bulk 10 Inch Soft Plush Teddy Bears with Bow and Shirt, Stuffed Party Favors for Gender Reveal, Nursery & Baby Shower Decorations (Girl,Pink)",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Simgoing 10 Pcs Baby Shower Bear Bulk 10 Inch Soft Plush Teddy Bears with Bow and Shirt, Stuffed Party Favors for Gender Reveal, Nursery & Baby Shower Decorations (Girl,Pink) Wedding Season",
+      "titleDecision": "review_low_relevance_title_change",
+      "adDecision": "review_low_relevance",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "GM2634",
+      "asin": "B0FMJJ88NR",
+      "highSales": false,
+      "currentTitle": "Kenning Christian Gifts Bible Verse Necklaces Bulk for Women, Inspirational Religious Pendant Necklaces",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.68,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Kenning Christian Gifts Bible Verse Necklaces Bulk for Women, Inspirational Religious Pendant Necklaces",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - christian gifts - GM2634",
+          "groupName": "broad - christian gifts - GM2634",
+          "dailyBudget": 3,
+          "defaultBid": 0.24,
+          "keywords": [
+            "christian gifts",
+            "christian gifts for nurse",
+            "christian gifts gift",
+            "christian gifts gifts",
+            "nurse gifts",
+            "nurse jewelry",
+            "christian gifts jewelry",
+            "religious mothers day gifts for women",
+            "christian mothers day gifts",
+            "bulk mothers day gifts for church"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "QAA4200",
+      "asin": "B0FM3ZN2BK",
+      "highSales": false,
+      "currentTitle": "Tondiamo Crown Brooch Pins Bulk Gifts for Mother Inspirational Gifts for Women Employee Appreciation with Inspirational Cards",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Tondiamo Crown Brooch Pins Bulk Gifts for Mother Inspirational Gifts for Women Employee Appreciation with Inspirational Cards Bridal Party Gifts",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - bridal party gifts - QAA4200",
+          "groupName": "broad - bridal party gifts - QAA4200",
+          "dailyBudget": 3,
+          "defaultBid": 0.18,
+          "keywords": [
+            "bridal party gifts",
+            "bridal party gifts for nurse",
+            "bridal party gifts gift",
+            "bridal party gifts gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "bridal party gifts gift basket",
+            "mexican party favors",
+            "fiesta party supplies",
+            "bridal shower favors"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "XIH2677",
+      "asin": "B0FJR7VWH1",
+      "highSales": false,
+      "currentTitle": "Resurhang 10 Set Christ Bow Spiral Notebook, Dios Dice Que Eres Christian Journal Set with Pens, Pink Bow Spiral Lined Notebooks 5.5 x 8.3 in, Bible Study Party Favors",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.53,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Resurhang 10 Set Christ Bow Spiral Notebook, Dios Dice Que Eres Christian Journal Set with Pens, Pink Bow Spiral Lined Notebooks 5.5 x 8.3 in, Bible Study Party Favors Christian Gifts",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - christian gifts - XIH2677",
+          "groupName": "broad - christian gifts - XIH2677",
+          "dailyBudget": 3,
+          "defaultBid": 0.19,
+          "keywords": [
+            "christian gifts",
+            "christian gifts for nurse",
+            "christian gifts gift",
+            "christian gifts gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "christian gifts gift basket",
+            "regalos cristianos para mujeres",
+            "christian gifts for mom",
+            "regalos para mama cristianos"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "XIH2672",
+      "asin": "B0FJR6KCR1",
+      "highSales": false,
+      "currentTitle": "Resurhang 20 Set Christ Bow Spiral Notebook for Women, Dios Dice Que Eres Christian Journal Set with Pens, Pink Bow Spiral Lined Notebooks 5.5 x 8.3 in, Bible Study Party Favors",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.53,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Resurhang 20 Set Christ Bow Spiral Notebook for Women, Dios Dice Que Eres Christian Journal Set with Pens, Pink Bow Spiral Lined Notebooks 5.5 x 8.3 in, Bible Study Party Favors Christian Gifts",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - christian gifts - XIH2672",
+          "groupName": "broad - christian gifts - XIH2672",
+          "dailyBudget": 3,
+          "defaultBid": 0.19,
+          "keywords": [
+            "christian gifts",
+            "christian gifts for nurse",
+            "christian gifts gift",
+            "christian gifts gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "christian gifts gift basket",
+            "christian gifts for mom",
+            "regalos cristianos para mujeres",
+            "mothers day gifts for church"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "XIA3242",
+      "asin": "B0FHQ32H5R",
+      "highSales": false,
+      "currentTitle": "Lincia 50 Sets Good Luck Gifts Little Elephant Tokens, 24 Little Elephant Figurines with Meaning Cards and Organza Bags, Gifts for Encouragement for Coworkers, Office Handouts, Party Favors",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Lincia 50 Sets Good Luck Gifts Little Elephant Tokens, 24 Little Elephant Figurines with Meaning Cards and Organza Bags, Gifts for Encouragement for Coworkers, Office Handouts, Party Wedding Season",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - bridal party gifts - XIA3242",
+          "groupName": "broad - bridal party gifts - XIA3242",
+          "dailyBudget": 3,
+          "defaultBid": 0.17,
+          "keywords": [
+            "bridal party gifts",
+            "bridal party gifts for women",
+            "wedding season gift",
+            "wedding season gifts",
+            "women gifts",
+            "women gift basket",
+            "bridal party gifts gift basket"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "OCE1413",
+      "asin": "B0FHK5GS4F",
+      "highSales": true,
+      "currentTitle": "Engrowtic Wedding Officiant Book Personalized Linen Hardcover Journal with Name Sticker, 160 Lined Pages, 5.31 x 8.27 in A5 Notebook, Pastor Minister Sermon Officiant Gift for Wedding Ceremony",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.53,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Engrowtic Wedding Officiant Book Personalized Linen Hardcover Journal with Name Sticker, 160 Lined Pages, 5.31 x 8.27 in A5 Notebook, Pastor Minister Sermon Officiant Gift for Christian Gifts",
+      "titleDecision": "operator_approval_required",
+      "adDecision": "operator_approval_required",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "SAN1213",
+      "asin": "B0FGD7FQZ5",
+      "highSales": false,
+      "currentTitle": "Zhanmai 12 Pcs Cowboy Hat & Bandana Set Western Costume Accessories for Cowboy Party Bulk Favors for Theme Party",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Zhanmai 12 Pcs Cowboy Hat & Bandana Set Western Costume Accessories for Cowboy Party Bulk Favors for Theme Party Wedding Season",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - bridal party gifts - SAN1213",
+          "groupName": "broad - bridal party gifts - SAN1213",
+          "dailyBudget": 3,
+          "defaultBid": 0.29,
+          "keywords": [
+            "bridal party gifts",
+            "bridal party gifts for nurse",
+            "wedding season gift",
+            "wedding season gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "bridal party gifts gift basket",
+            "felt cowgirl hat",
+            "tan cowgirl hat",
+            "cowboy hat and bandana set"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "DH2686",
+      "asin": "B0FDQQYZ89",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "DH2685",
+      "asin": "B0FDQTG22G",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.75,
+        "level": "high",
+        "matched": [
+          "summer",
+          "party",
+          "supplies"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Summer Party Supplies",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "HI3876",
+      "asin": "B0F5PR57TX",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "QA4115",
+      "asin": "B0F2F67Z2X",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "NO5155",
+      "asin": "B0F1CGBYL3",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "SAW1720",
+      "asin": "B0DZ22MK2F",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.45,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Christian Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "ZO0892",
+      "asin": "B0DW931ZLZ",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.53,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Christian Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "ZO0891",
+      "asin": "B0DW8ZQX13",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.45,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Christian Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "YUN2187",
+      "asin": "B0DV47QV16",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.45,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Christian Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "ZUN0779",
+      "asin": "B0DTX9LKW7",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "LNE1321",
+      "asin": "B0DSYX54TP",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.45,
+        "level": "medium",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Christian Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "BOY3171",
+      "asin": "B0DSFS5BVF",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "MF3043",
+      "asin": "B0DMW4GC1S",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "CEE0467",
+      "asin": "B09SW2NT6J",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "CL3650",
+      "asin": "B0B9Y2ZG9G",
+      "highSales": true,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "UAN3644",
+      "asin": "B0DH1ZVTKH",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Christian Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "SC3527",
+      "asin": "B0CGV7S8V9",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "LNY3024",
+      "asin": "B0D7YR38F7",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "SHQ0554",
+      "asin": "B0D73SYRYR",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "YMF0656",
+      "asin": "B0D59P9C7X",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "KZ6074",
+      "asin": "B0D479Z4QQ",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "HUQ0699",
+      "asin": "B0CZRTJ7N4",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.41,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "UAN2600",
+      "asin": "B0CHRT58V7",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Christian Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "HEL0606",
+      "asin": "B0C7KGV5MT",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.45,
+        "level": "medium",
+        "matched": [
+          "summer"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Summer Party Supplies",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "HEL0319",
+      "asin": "B0C6TSBBDK",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "vbs_vacation_bible_school",
+        "name": "VBS / Vacation Bible School",
+        "zhName": "暑期圣经学校",
+        "description": "美国教会儿童暑期活动季，适合基督教小礼品、贴纸、crafts、bulk gifts。",
+        "dateText": "2026-05-25 ~ 2026-07-31",
+        "dateNote": "区间变动：按教会活动季取常用窗口",
+        "productDirection": "Christian gifts、Bible verse书签/卡片、教会活动礼、pocket hug",
+        "coreTerm": "christian gifts",
+        "titleTerms": [
+          "VBS / Vacation Bible School",
+          "christian gifts",
+          "bible verse",
+          "pocket hug"
+        ],
+        "nodeStart": "2026-05-25",
+        "nodeEnd": "2026-07-31",
+        "firstStart": "2026-02-24",
+        "firstEnd": "2026-03-10",
+        "secondStart": "2026-04-10",
+        "secondEnd": "2026-04-24",
+        "highFrequencyStart": "2026-05-11",
+        "highFrequencyEnd": "2026-06-27",
+        "sourceRow": 64
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "christian"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Christian Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "QQ1764",
+      "asin": "B0C1NF986W",
+      "highSales": true,
+      "currentTitle": "Tudomro Plastic Rainbow Tablecloth 54 x 108 Inch Disposable Colorful Rainbow Printed Table Covers for Birthday Party Decorations",
+      "selectedEvent": {
+        "key": "pride_month",
+        "name": "Pride Month",
+        "zhName": "骄傲月/LGBTQ+骄傲月",
+        "description": "彩虹、平权、身份表达与社群礼品节点，适合Pride主题视觉与关键词。",
+        "dateText": "2026-06-01 ~ 2026-06-30",
+        "dateNote": "固定月份",
+        "productDirection": "意识/支持类产品：丝带、手链、鼓励卡、贴纸；敏感节点商业化要克制",
+        "coreTerm": "pride month gifts",
+        "titleTerms": [
+          "Pride Month",
+          "pride month gifts"
+        ],
+        "nodeStart": "2026-06-01",
+        "nodeEnd": "2026-06-30",
+        "firstStart": "2026-03-03",
+        "firstEnd": "2026-03-18",
+        "secondStart": "2026-04-17",
+        "secondEnd": "2026-04-27",
+        "highFrequencyStart": "2026-05-18",
+        "highFrequencyEnd": "2026-06-15",
+        "sourceRow": 70
+      },
+      "selectedStatus": "high_frequency",
+      "relevance": {
+        "score": 0.57,
+        "level": "medium",
+        "matched": [
+          "pride"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Tudomro Plastic Rainbow Tablecloth 54 x 108 Inch Disposable Colorful Rainbow Printed Table Covers for Birthday Party Decorations Pride Month Gifts",
+      "titleDecision": "operator_approval_required",
+      "adDecision": "operator_approval_required",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "EY2727",
+      "asin": "B0BX9M82QW",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.45,
+        "level": "medium",
+        "matched": [
+          "summer"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Summer Party Supplies",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "QA1157",
+      "asin": "B0BQ325P4G",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "UY0879",
+      "asin": "B0BDLT56DH",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "EY0793",
+      "asin": "B09P55WGV7",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "MH1806",
+      "asin": "B09SW2NT6J",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "OB1169",
+      "asin": "B0B9Y2ZG9G",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "MF3001",
+      "asin": "B0DX5T5D86",
+      "highSales": false,
+      "currentTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.9,
+        "level": "high",
+        "matched": [
+          "summer",
+          "party",
+          "supplies"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - summer party supplies - MF3001",
+          "groupName": "broad - summer party supplies - MF3001",
+          "dailyBudget": 3,
+          "defaultBid": 0.25,
+          "keywords": [
+            "summer party supplies",
+            "summer party supplies for nurse",
+            "summer gift",
+            "summer gifts",
+            "nurse gifts",
+            "nurse gift basket",
+            "summer party supplies gift basket"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "MF2992",
+      "asin": "B0D1VJWGXN",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.45,
+        "level": "medium",
+        "matched": [
+          "summer"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Summer Party Supplies",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "MF3544",
+      "asin": "B0D3PKTJWT",
+      "highSales": false,
+      "currentTitle": "HyDren 6 Pack Soccer Balls Bulk with Pump, Colorful Practice Soccer Balls for Kids & Youth, Indoor Outdoor Training, Games Back to School",
+      "selectedEvent": {
+        "key": "back_to_school_season",
+        "name": "Back-to-School Season",
+        "zhName": "返校季/开学季",
+        "description": "美国学校用品、教师用品、宿舍用品和收纳产品大窗口。",
+        "dateText": "2026-07-20 ~ 2026-09-10",
+        "dateNote": "区间变动：按地区开学时间取常用销售窗口",
+        "productDirection": "文具、书签、收纳、宿舍装饰、老师/学生礼、课堂用品",
+        "coreTerm": "back-to-school season",
+        "titleTerms": [
+          "Back-to-School Season",
+          "back-to-school season"
+        ],
+        "nodeStart": "2026-07-20",
+        "nodeEnd": "2026-09-10",
+        "firstStart": "2026-04-21",
+        "firstEnd": "2026-05-05",
+        "secondStart": "2026-06-05",
+        "secondEnd": "2026-06-19",
+        "highFrequencyStart": "2026-07-06",
+        "highFrequencyEnd": "2026-08-15",
+        "sourceRow": 78
+      },
+      "selectedStatus": "upcoming",
+      "relevance": {
+        "score": 0.48,
+        "level": "medium",
+        "matched": [
+          "back",
+          "school"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "HyDren 6 Pack Soccer Balls Bulk with Pump, Colorful Practice Soccer Balls for Kids & Youth, Indoor Outdoor Training, Games Back to School Back-to-school Season",
+      "titleDecision": "auto_execute",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "auto",
+          "campaignName": "auto - back-to-school season - MF3544",
+          "groupName": "auto - back-to-school season - MF3544",
+          "dailyBudget": 3,
+          "defaultBid": 0.25,
+          "keywords": []
+        },
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - back-to-school season - MF3544",
+          "groupName": "broad - back-to-school season - MF3544",
+          "dailyBudget": 3,
+          "defaultBid": 0.25,
+          "keywords": [
+            "back-to-school season",
+            "back-to-school season for women",
+            "back-to-school season gift",
+            "back-to-school season gifts",
+            "women gifts",
+            "women gift basket",
+            "back-to-school season gift basket"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "TI2209",
+      "asin": "B0CGV7S8V9",
+      "highSales": false,
+      "currentTitle": "",
+      "selectedEvent": {
+        "key": "wedding_season",
+        "name": "Wedding Season",
+        "zhName": "婚礼季",
+        "description": "婚礼、bridal shower、伴娘礼、婚宴装饰需求窗口。",
+        "dateText": "2026-03-01 ~ 2026-10-31",
+        "dateNote": "区间变动：5-8月更热，取全年婚礼季销售窗口",
+        "productDirection": "婚礼伴手礼、bridal party gifts、guest favors、祝福卡",
+        "coreTerm": "bridal party gifts",
+        "titleTerms": [
+          "Wedding Season",
+          "bridal party gifts",
+          "guest favors",
+          "wedding favor gifts",
+          "bridal shower gifts",
+          "wedding gifts"
+        ],
+        "nodeStart": "2026-03-01",
+        "nodeEnd": "2026-10-31",
+        "firstStart": "2025-12-01",
+        "firstEnd": "2025-12-15",
+        "secondStart": "2026-01-15",
+        "secondEnd": "2026-01-29",
+        "highFrequencyStart": "2026-02-15",
+        "highFrequencyEnd": "2026-07-01",
+        "sourceRow": 68
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.33,
+        "level": "low",
+        "matched": [
+          "party"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "Bridal Party Gifts",
+      "titleDecision": "review_missing_current_title",
+      "adDecision": "review_missing_current_title",
+      "listingProtection": null,
+      "adActions": []
+    },
+    {
+      "sku": "MF2998",
+      "asin": "B0DX5Y7RZ9",
+      "highSales": false,
+      "currentTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.9,
+        "level": "high",
+        "matched": [
+          "summer",
+          "party",
+          "supplies"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - summer party supplies - MF2998",
+          "groupName": "broad - summer party supplies - MF2998",
+          "dailyBudget": 3,
+          "defaultBid": 0.25,
+          "keywords": [
+            "summer party supplies",
+            "summer gift",
+            "summer gifts",
+            "summer party supplies decor"
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "MF2995",
+      "asin": "B0DX13SR8F",
+      "highSales": false,
+      "currentTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "selectedEvent": {
+        "key": "summer_product_season",
+        "name": "Summer",
+        "zhName": "夏季产品季",
+        "description": "户外、饮品、派对、旅行、防晒、清凉用品需求窗口。",
+        "dateText": "2026-03-15 ~ 2026-09-30",
+        "dateNote": "区间变动：按夏季品类常用窗口",
+        "productDirection": "夏季户外、旅行、露营、泳池、降温、太阳花/海滩主题产品",
+        "coreTerm": "summer party supplies",
+        "titleTerms": [
+          "summer party supplies",
+          "pool party decorations",
+          "summer outdoor party decorations",
+          "summer pool party",
+          "Summer"
+        ],
+        "nodeStart": "2026-03-15",
+        "nodeEnd": "2026-09-30",
+        "firstStart": "2025-12-15",
+        "firstEnd": "2025-12-29",
+        "secondStart": "2026-01-29",
+        "secondEnd": "2026-02-12",
+        "highFrequencyStart": "2026-03-01",
+        "highFrequencyEnd": "2026-06-22",
+        "sourceRow": 69
+      },
+      "selectedStatus": "node_active",
+      "relevance": {
+        "score": 0.6,
+        "level": "medium",
+        "matched": [
+          "summer"
+        ],
+        "conflicts": []
+      },
+      "expiredTitleEvents": [],
+      "suggestedTitle": "HyDren 48 Inch Inflatable Number Pool Float – Giant Balloon Style Birthday Pool Party Decoration, Summer Outdoor Floating Fun, Large Inflatable Photo Prop for Teens, Adults, Women and Men",
+      "titleDecision": "no_title_change_required",
+      "adDecision": "auto_execute",
+      "listingProtection": null,
+      "adActions": [
+        {
+          "mode": "broad",
+          "matchType": "BROAD",
+          "campaignName": "broad - summer party supplies - MF2995",
+          "groupName": "broad - summer party supplies - MF2995",
+          "dailyBudget": 3,
+          "defaultBid": 0.25,
+          "keywords": [
+            "summer party supplies",
+            "summer gift",
+            "summer gifts"
+          ]
+        }
+      ]
+    }
+  ],
+  "snapshotFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-05-23T01-17-11-910Z\\snapshot_2026-05-23.json",
+  "eventsFile": "D:\\ad-ops-workbench\\data\\season_events_2026.json",
+  "listingCacheFile": "D:\\ad-ops-workbench\\data\\listing_cache.json",
+  "protectedListingSkusFile": "D:\\ad-ops-workbench\\data\\listing_copy_protected_skus.json"
+}

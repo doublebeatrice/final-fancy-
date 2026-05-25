@@ -1,11 +1,11 @@
 {
   "date": "2026-05-22",
-  "generatedAt": "2026-05-22T10:38:59.233Z",
+  "generatedAt": "2026-05-22T11:06:34.077Z",
   "adjustmentsFile": "D:\\ad-ops-workbench\\data\\adjustments\\adjustments_2026-05-22.json",
   "summary": {
-    "liveRows": 39,
-    "latestRunId": "ops_2026-05-22T10-38-11-981Z",
-    "latestRunRows": 5,
+    "liveRows": 165,
+    "latestRunId": "ops_2026-05-22T10-56-26-964Z",
+    "latestRunRows": 1,
     "sameEntityMultiCount": 2,
     "sameEntityReverseCount": 2,
     "sameNameReverseDifferentEntityCount": 0,
@@ -151,87 +151,25 @@
   "sameNameReverseDifferentEntity": [],
   "latestRunBySku": [
     {
-      "sku": "GUF3129",
-      "count": 3,
-      "up": 3,
+      "sku": "XIH2672",
+      "count": 1,
+      "up": 1,
       "down": 0,
       "enable": 0,
       "mixedDirection": false,
       "rows": [
         {
-          "sku": "GUF3129",
-          "actionType": "bid",
-          "entityType": "keyword",
-          "entityId": "245118645017129",
-          "entityName": "patriotic bucket hat-guf3129-system-keyword",
-          "beforeValue": 0.45,
-          "afterValue": 0.52,
+          "sku": "XIH2672",
+          "actionType": "price",
+          "entityType": "sku",
+          "entityId": "XIH2672",
+          "entityName": "",
+          "beforeValue": 39.99,
+          "afterValue": 41.99,
           "direction": "up",
           "outcome": "success",
-          "sourceRunId": "ops_2026-05-22T10-38-11-981Z",
-          "runAt": "2026-05-22T10:38:11.981Z"
-        },
-        {
-          "sku": "GUF3129",
-          "actionType": "bid",
-          "entityType": "keyword",
-          "entityId": "161739157302110",
-          "entityName": "patriotic bucket hat-guf3129-system-keyword",
-          "beforeValue": 0.45,
-          "afterValue": 0.52,
-          "direction": "up",
-          "outcome": "success",
-          "sourceRunId": "ops_2026-05-22T10-38-11-981Z",
-          "runAt": "2026-05-22T10:38:11.981Z"
-        },
-        {
-          "sku": "GUF3129",
-          "actionType": "bid",
-          "entityType": "autoTarget",
-          "entityId": "356333038583614",
-          "entityName": "patriotic bucket hat-guf3129-system-a",
-          "beforeValue": 0.38,
-          "afterValue": 0.44,
-          "direction": "up",
-          "outcome": "success",
-          "sourceRunId": "ops_2026-05-22T10-38-11-981Z",
-          "runAt": "2026-05-22T10:38:11.981Z"
-        }
-      ]
-    },
-    {
-      "sku": "GUF3133",
-      "count": 2,
-      "up": 2,
-      "down": 0,
-      "enable": 0,
-      "mixedDirection": false,
-      "rows": [
-        {
-          "sku": "GUF3133",
-          "actionType": "bid",
-          "entityType": "keyword",
-          "entityId": "276749269111606",
-          "entityName": "guf3133_patriotic_bucket_hat_broad_20260518",
-          "beforeValue": 0.48,
-          "afterValue": 0.55,
-          "direction": "up",
-          "outcome": "success",
-          "sourceRunId": "ops_2026-05-22T10-38-11-981Z",
-          "runAt": "2026-05-22T10:38:11.981Z"
-        },
-        {
-          "sku": "GUF3133",
-          "actionType": "bid",
-          "entityType": "autoTarget",
-          "entityId": "371866248752899",
-          "entityName": "guf3133_patriotic_bucket_hat_auto_20260518",
-          "beforeValue": 0.29,
-          "afterValue": 0.34,
-          "direction": "up",
-          "outcome": "success",
-          "sourceRunId": "ops_2026-05-22T10-38-11-981Z",
-          "runAt": "2026-05-22T10:38:11.981Z"
+          "sourceRunId": "ops_2026-05-22T10-56-26-964Z",
+          "runAt": "2026-05-22T10:56:26.964Z"
         }
       ]
     }
