@@ -219,6 +219,233 @@
     "logRequired": true
   },
   {
+    "capabilityId": "agent.correction_risk.audit",
+    "domain": "agent",
+    "type": "report",
+    "riskLevel": "low",
+    "supportsDryRun": true,
+    "requiresApproval": false,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["text"],
+      "properties": {
+        "actionKind": "review_action",
+        "source": "operator_correction"
+      }
+    },
+    "outputSchema": {
+      "required": ["correction", "audit", "tasks", "learningPatch"]
+    },
+    "verifyMethod": "correction risk report and learning patch files exist and parse",
+    "cooldownDays": 0,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "agent.autonomy.audit",
+    "domain": "agent",
+    "type": "report",
+    "riskLevel": "low",
+    "supportsDryRun": true,
+    "requiresApproval": false,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["closedLoopFile"],
+      "properties": {
+        "actionKind": "review_action",
+        "source": "agent_closed_loop"
+      }
+    },
+    "outputSchema": {
+      "required": ["status", "score", "checks", "tasks"]
+    },
+    "verifyMethod": "autonomy audit report and markdown files exist and parse",
+    "cooldownDays": 0,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "agent.learning_memory.index",
+    "domain": "agent",
+    "type": "report",
+    "riskLevel": "low",
+    "supportsDryRun": true,
+    "requiresApproval": false,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["learningFile", "autonomyAuditFile"],
+      "properties": {
+        "actionKind": "review_action",
+        "source": "daily_learning"
+      }
+    },
+    "outputSchema": {
+      "required": ["nextRunBrief", "constraints", "tasks"]
+    },
+    "verifyMethod": "learning memory report and markdown files exist and parse",
+    "cooldownDays": 0,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "agent.unattended_execute.gate",
+    "domain": "agent",
+    "type": "verify",
+    "riskLevel": "low",
+    "supportsDryRun": true,
+    "requiresApproval": false,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["closedLoopFile", "autonomyAuditFile", "learningMemoryFile", "writeExecutionFile"],
+      "properties": {
+        "actionKind": "review_action",
+        "source": "agent_closed_loop"
+      }
+    },
+    "outputSchema": {
+      "required": ["decision", "canAutoExecute", "issues", "executeCommand"]
+    },
+    "verifyMethod": "unattended gate report and markdown files exist and parse",
+    "cooldownDays": 0,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "agent.unattended_supervisor.run",
+    "domain": "agent",
+    "type": "orchestrate",
+    "riskLevel": "medium",
+    "supportsDryRun": true,
+    "requiresApproval": false,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["priorLearningMemoryFile"],
+      "properties": {
+        "actionKind": "review_action",
+        "source": "scheduler",
+        "executeIfReadyRequiresExecute": true
+      }
+    },
+    "outputSchema": {
+      "required": ["status", "ok", "closedLoop", "priorLearning", "issues"]
+    },
+    "verifyMethod": "unattended supervisor heartbeat JSON and markdown exist and parse",
+    "cooldownDays": 0,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "agent.unattended_schedule.plan",
+    "domain": "agent",
+    "type": "plan",
+    "riskLevel": "low",
+    "supportsDryRun": true,
+    "requiresApproval": false,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["taskName", "startTime"],
+      "properties": {
+        "actionKind": "review_action",
+        "source": "scheduler",
+        "entrypoint": "ops:agent:unattended-supervisor"
+      }
+    },
+    "outputSchema": {
+      "required": ["status", "ok", "schedule", "commands", "scheduler", "issues"]
+    },
+    "verifyMethod": "unattended schedule plan JSON and markdown exist and parse",
+    "cooldownDays": 0,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "agent.unattended_schedule.install",
+    "domain": "agent",
+    "type": "orchestrate",
+    "riskLevel": "medium",
+    "supportsDryRun": true,
+    "requiresApproval": true,
+    "autoExecutable": false,
+    "inputSchema": {
+      "required": ["schedulePlan"],
+      "properties": {
+        "actionKind": "review_action",
+        "source": "scheduler",
+        "defaultMode": "dry_run",
+        "installRequiresFlag": "--install"
+      }
+    },
+    "outputSchema": {
+      "required": ["status", "ok", "plan", "installedTask", "issues"]
+    },
+    "verifyMethod": "unattended schedule install report exists and installed task action matches supervisor plan",
+    "cooldownDays": 0,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "agent.unattended_scheduler.audit",
+    "domain": "agent",
+    "type": "verify",
+    "riskLevel": "low",
+    "supportsDryRun": true,
+    "requiresApproval": false,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["heartbeatDir"],
+      "properties": {
+        "actionKind": "review_action",
+        "source": "scheduler",
+        "checks": ["heartbeat_freshness", "supervisor_entrypoint", "consecutive_failures", "prior_learning"]
+      }
+    },
+    "outputSchema": {
+      "required": ["status", "ok", "summary", "issues", "tasks"]
+    },
+    "verifyMethod": "unattended scheduler audit JSON and markdown exist and parse",
+    "cooldownDays": 0,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "agent.readiness.audit",
+    "domain": "agent",
+    "type": "verify",
+    "riskLevel": "low",
+    "supportsDryRun": true,
+    "requiresApproval": false,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["supervisorFile", "schedulerAuditFile", "learningMemoryFile"],
+      "properties": {
+        "actionKind": "review_action",
+        "source": "agent_readiness",
+        "checks": ["closed_loop", "live_schedule", "unattended_gate", "learning_memory", "correction_risk"]
+      }
+    },
+    "outputSchema": {
+      "required": ["status", "ok", "summary", "checks"]
+    },
+    "verifyMethod": "agent readiness audit JSON and markdown exist and parse",
+    "cooldownDays": 0,
+    "logRequired": true
+  },
+  {
+    "capabilityId": "agent.completion.audit",
+    "domain": "agent",
+    "type": "verify",
+    "riskLevel": "low",
+    "supportsDryRun": true,
+    "requiresApproval": false,
+    "autoExecutable": true,
+    "inputSchema": {
+      "required": ["heartbeatDir", "scheduleInstallFile"],
+      "properties": {
+        "actionKind": "review_action",
+        "source": "agent_completion",
+        "checks": ["strict_scheduler_audit", "strict_readiness_audit", "natural_scheduled_trigger"]
+      }
+    },
+    "outputSchema": {
+      "required": ["status", "ok", "summary", "scheduler", "readiness"]
+    },
+    "verifyMethod": "agent completion audit JSON plus strict scheduler/readiness audit files exist and parse",
+    "cooldownDays": 0,
+    "logRequired": true
+  },
+  {
     "capabilityId": "report.daily_learning.write",
     "domain": "report",
     "type": "report",

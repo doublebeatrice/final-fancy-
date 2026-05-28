@@ -47,8 +47,18 @@ function extractKeyword(raw) {
   return '';
 }
 
+function isRiskAsInactionCorrection(raw = '') {
+  const value = text(raw).toLowerCase();
+  const mentionsRisk = /risk|\u98ce\u9669/.test(value);
+  const mentionsInactionExcuse = /excuse|do[-\s]?nothing|not\s+act|avoid(?:ing)?\s+(?:the\s+)?(?:work|action)|should\s+have\s+done|only\s+low[-\s]?risk|failed\s+to\s+act|\u501f\u53e3|\u4e0d\u5e94\u8be5|\u4e0d\u505a|\u6ca1\u6709\u505a|\u53ea\u505a|\u4f4e\u98ce\u9669|\u5e94\u8be5\u505a|\u8be5\u505a|\u8fd0\u8425\u8be5\u505a|\u8fd0\u8425\u52a8\u4f5c|\u63a8\u8fdb/.test(value);
+  return mentionsRisk && mentionsInactionExcuse;
+}
+
 function classify(raw) {
   const value = text(raw).toLowerCase();
+  if (isRiskAsInactionCorrection(raw)) return 'operator_correction';
+  if (/agent\s*化|agentization|无人值守|自驱|自主运营|autonomy|unattended|self[-\s]?driv/.test(value)) return 'agent_autonomy_review';
+  if (/纠错|不对|错了|错判|修正|更正|不是这样|系统性风险|correction|wrong|mistake|bad decision|fix this decision/.test(value)) return 'operator_correction';
   if (/老板|kpi|销售掉|销量掉|销售为什么|趋势|总盘/.test(value)) return 'kpi_or_sales_drop_review';
   if (/开发|新品|能不能推|没流量|曝光|产品诉求|开发诉求/.test(value)) return 'developer_product_inquiry';
   if (/标题|listing|文案|五点|search term|卖点/.test(value)) return 'listing_copy_review';
@@ -62,6 +72,8 @@ function classify(raw) {
 function evidenceForKind(kind) {
   const common = ['recent_action_history'];
   const byKind = {
+    operator_correction: ['correction_risk_audit', 'latest_snapshot_freshness', 'execution_verify', 'adjustment_log_history', 'same_rule_recent_scan', 'daily_learning_history', 'rollback_or_secondary_action_boundary', 'supported_action_execution_path_review'],
+    agent_autonomy_review: ['agent_autonomy_audit', 'latest_closed_loop_report', 'artifact_verification', 'write_execution_gate', 'daily_learning_history', 'correction_risk_capability'],
     developer_product_inquiry: ['ad_backend_sku_summary', 'inventory_health', 'selection_keyword_research', 'selection_keyword_seasonality', 'selection_market_evidence', 'product_market_profile', 'operator_ready_reply'],
     keyword_question: ['selection_keyword_research', 'selection_keyword_seasonality', 'selection_keyword_conversion', 'selection_aba_search_terms', 'sku_ad_proof', 'listing_keyword_fit', 'inventory_health'],
     listing_copy_review: ['amazon_listing_front', 'sellerinventory_origin_data', 'season_or_event_evidence', 'listing_copy_boundary'],
@@ -75,6 +87,8 @@ function evidenceForKind(kind) {
 }
 
 function authorizationHintForKind(kind) {
+  if (kind === 'operator_correction') return ['operator_correction_is_authoritative_feedback', 'freeze_same_rule_auto_execute_until_audit_closes', 'risk_audit_required_before_reuse', 'risk_is_routing_not_refusal'];
+  if (kind === 'agent_autonomy_review') return ['autonomy_audit_is_read_only', 'not_ready_creates_agent_gap_tasks', 'writes_still_require_schema_and_landing_verification'];
   if (kind === 'listing_copy_review') return ['listing_copy_boundary', 'top50_or_protected_sku_requires_boundary_release'];
   if (kind === 'price_review') return ['price_execution_boundary', 'sellerinventory_application_verification_required'];
   if (kind === 'keyword_question') return ['selection_evidence_is_read_only', 'ad_action_requires_schema_dry_run_verification'];
@@ -84,6 +98,9 @@ function authorizationHintForKind(kind) {
 
 function priorityForKind(kind, raw) {
   const value = text(raw).toLowerCase();
+  if (kind === 'agent_autonomy_review') return 'P1';
+  if (kind === 'operator_correction' && isRiskAsInactionCorrection(raw)) return 'P0';
+  if (kind === 'operator_correction') return /已经执行|落地|关错|调错|预算|价格|listing|critical|executed|landed/i.test(value) ? 'P0' : 'P1';
   if (/老板|kpi|紧急|马上|今天/.test(value)) return 'P0';
   if (['developer_product_inquiry', 'keyword_question', 'listing_copy_review', 'price_review', 'inventory_review', 'kpi_or_sales_drop_review'].includes(kind)) return 'P1';
   return 'P2';

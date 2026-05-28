@@ -18,6 +18,12 @@ const timeContext = {
   sourceRunId: 'external-inbox-test',
 };
 
+const riskExcuseCorrectionText = [
+  '\u98ce\u9669\u4e0d\u5e94\u8be5\u6210\u4e3a\u501f\u53e3',
+  '\u4e0d\u80fd\u56e0\u4e3a\u98ce\u9669\u5c31\u4e0d\u505a\u8be5\u505a\u7684\u8fd0\u8425\u52a8\u4f5c',
+  '\u4e0d\u80fd\u53ea\u505a\u4f4e\u98ce\u9669\u7684\u4e8b\u60c5',
+].join('\uff0c');
+
 {
   const task = parseExternalRequest('开发问 HAY0218 为什么没流量，能不能推，下午给个运营口径回复', timeContext);
 
@@ -32,6 +38,16 @@ const timeContext = {
   assert.ok(task.evidenceRequirements.includes('selection_keyword_seasonality'));
   assert.ok(task.evidenceRequirements.includes('selection_market_evidence'));
   assert.ok(task.nextCheckpoint.includes('2026-05-20'));
+}
+
+{
+  const task = parseExternalRequest(riskExcuseCorrectionText, timeContext);
+
+  assert.strictEqual(task.kind, 'operator_correction');
+  assert.strictEqual(task.priority, 'P0');
+  assert.ok(task.evidenceRequirements.includes('correction_risk_audit'));
+  assert.ok(task.evidenceRequirements.includes('supported_action_execution_path_review'));
+  assert.ok(task.authorizationHint.includes('risk_is_routing_not_refusal'));
 }
 
 {

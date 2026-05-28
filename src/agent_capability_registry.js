@@ -128,6 +128,21 @@ function defaultAgentCapabilities() {
       },
     },
     {
+      name: 'selection operating intelligence',
+      sourceSystem: 'selection',
+      surface: 'market_evidence',
+      operationType: 'read',
+      endpoint: { method: 'LOCAL', path: 'scripts/execute/fetch_selection_operating_intelligence.js' },
+      contract: {
+        params: ['terms', 'selectionReports', 'productProfile', 'card', 'sample'],
+        responseFields: ['capabilityId', 'decisionQuality', 'recommendedOperatingUse', 'sourceCoverage', 'opportunityModels', 'riskSignals', 'missingEvidence', 'capabilitySummary'],
+        freshness: 'same_day',
+      },
+      verification: {
+        probeCommand: 'npm run ops:selection:operating-intelligence -- --sample',
+      },
+    },
+    {
       name: 'sellerinventory origin data',
       sourceSystem: 'sellerinventory',
       surface: 'listing',
