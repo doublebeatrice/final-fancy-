@@ -1,14 +1,33 @@
 node_modules/
+
+# data/ 可重生产物（每日跑一次就有，不入库）
 data/snapshots/
 data/attribution/
 data/agent/
 data/runtime/
 data/tmp/
+data/tmp_*/
+data/tmp_*.js
+data/tmp_tests/
+data/tasks/
+data/analysis/
+data/desktop_reminder/
+data/decision_schemas/
+data/developer_requests/
+data/daily_manifests/
+data/listing_briefs/
+data/core_sales/
+data/exports/
+data/reports/
+data/logs/
 data/adjustment_history.json
 data/listing_cache.json
+data/over_budget_history.json
 data/product_profiles.json
-data/reports/
-data/tmp_tests/
+data/a8070a0f-*.png
+data/inv_auto_filtered_*.csv
+# data/learning/ 和 data/adjustments/ 是真正的"记忆"沉淀，入库
+
 archive/reports/
 archive/runtime/
 snapshots/
