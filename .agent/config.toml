@@ -1,0 +1,9 @@
+version = 1
+name = "ad-ops-workbench-agent-context"
+
+[[instruction_refs]]
+path = "D:/ad-ops-workbench/docs/CODEX_RETROSPECTIVE_EXPERIENCE_PROFILE.md"
+scope = "all-codex-sessions"
+load = "always"
+reason = "Reusable lessons from Codex conversations, execution logs, rollout retrospectives, and user preference signals."
+
