@@ -1,0 +1,62 @@
+{
+  "lessonId": "lesson_correction_2026-05-25_c2d6d1915046",
+  "type": "operator_correction",
+  "status": "active_correction",
+  "severity": "high",
+  "subject": "general",
+  "surface": "agent_operating_behavior",
+  "scope": {
+    "sku": "",
+    "asin": "",
+    "keyword": "",
+    "entityId": "",
+    "appliesTo": [
+      "agent_operating_behavior",
+      "risk_as_inaction_excuse",
+      "repeated_pattern_risk"
+    ]
+  },
+  "doNotApplyWhen": [
+    "latest snapshot or backend readback is missing",
+    "decision evidence cannot be tied to the current businessDate/dataDate",
+    "same rule has an unresolved correction audit",
+    "landing verification for the previous write is missing or contradictory",
+    "risk level is the only reason to skip a supported operating action",
+    "a supported operating action has not been routed to evidence, boundary, dry-run, execution, or an explicit unsupported gap"
+  ],
+  "requiredEvidenceBeforeReuse": [
+    "read_latest_daily_learning_and_final_run_landing",
+    "verify_latest_snapshot_businessDate_dataDate_sourceRunId",
+    "inspect_related_action_schema_and_execution_verify",
+    "inspect_adjustment_log_for_same_sku_or_same_entity",
+    "scan_last_7_to_30_days_for_same_rule_or_same_reason_actions",
+    "classify_risk_as_execution_design_not_stop_reason",
+    "route_supported_operating_action_to_evidence_boundary_dry_run_execute_or_explicit_blocker",
+    "create_capability_or_escalation_task_when_action_is_not_yet_supported"
+  ],
+  "immediateControls": [
+    "record_operator_correction_as_authoritative_feedback",
+    "require_human_visible_summary_before_next_same_surface_write",
+    "scan_recent_batch_actions_before_treating_this_as_one_off",
+    "risk_level_must_not_be_used_as_do_nothing_reason",
+    "supported_operating_actions_must_route_to_execution_path",
+    "unsupported_actions_must_create_capability_or_escalation_task"
+  ],
+  "operatingPrinciple": "Risk is routing, not refusal: it changes evidence, boundary, batch size, approval path, and follow-up, but it cannot be used to skip supported operating work.",
+  "nextValidation": {
+    "dueDate": "2026-05-26",
+    "checks": [
+      "confirm all generated risk tasks have owner and status",
+      "confirm same-rule scan found zero unresolved high-risk repeats or generated follow-up tasks",
+      "confirm future daily decisions read this correction lesson before same-surface actions",
+      "confirm future supported operating actions route to execute path or explicit unsupported-gap task instead of no-op"
+    ]
+  },
+  "sourceCorrection": {
+    "correctionId": "correction_2026-05-25_c2d6d1915046",
+    "rawText": "用户纠错：我经常把风险作为不做该做运营动作的借口。风险不应该成为借口；风险只能决定证据、边界、执行路径和复查，不应阻止该做的运营动作。以后该做的运营动作必须推进，不能只做低风险的事情。",
+    "sourceRunId": "user-correction-risk-routing-2026-05-25",
+    "businessDate": "2026-05-25",
+    "dataDate": "2026-05-23"
+  }
+}

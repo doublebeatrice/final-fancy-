@@ -1,0 +1,51 @@
+# Operator Correction Risk Audit - correction_2026-05-25_3bb7c84cb2e6
+
+- businessDate: 2026-05-25
+- dataDate: 2026-05-24
+- severity: high
+- surface: agent_operating_behavior
+- subject: general
+- sourceRunId: correction_risk_1779702788348
+
+## Correction
+- 我发现你经常风险这个词语，但是风险不应该成为借口。看到你没有做一个应该做的事情，但你说这个风险有点大，我不认可。你应该做运营该做的事情，而不应该只做低风险的事情。
+
+## Risk Categories
+- systemic_rule_risk
+- operating_underreach_risk
+
+## Immediate Controls
+- record_operator_correction_as_authoritative_feedback
+- require_human_visible_summary_before_next_same_surface_write
+- scan_recent_batch_actions_before_treating_this_as_one_off
+- risk_level_must_not_be_used_as_do_nothing_reason
+- supported_operating_actions_must_route_to_execution_path
+- unsupported_actions_must_create_capability_or_escalation_task
+
+## Required Checks
+- read_latest_daily_learning_and_final_run_landing
+- verify_latest_snapshot_businessDate_dataDate_sourceRunId
+- inspect_related_action_schema_and_execution_verify
+- inspect_adjustment_log_for_same_sku_or_same_entity
+- scan_last_7_to_30_days_for_same_rule_or_same_reason_actions
+- classify_risk_as_execution_design_not_stop_reason
+- route_supported_operating_action_to_evidence_boundary_dry_run_execute_or_explicit_blocker
+- create_capability_or_escalation_task_when_action_is_not_yet_supported
+
+## Follow-Up Tasks
+- P1 operator_correction_risk_audit: general operator correction risk audit due 2026-05-25
+- P1 same_rule_scan: general same-rule recent action scan due 2026-05-25
+- P1 learning_patch: general correction learning patch due 2026-05-26
+- P1 execution_path_repair: general risk-as-inaction execution path repair due 2026-05-25
+
+## Long-Term Learning Patch
+- lessonId: lesson_correction_2026-05-25_3bb7c84cb2e6
+- status: active_correction
+- operatingPrinciple: Risk is routing, not refusal: it changes evidence, boundary, batch size, approval path, and follow-up, but it cannot be used to skip supported operating work.
+- doNotApplyWhen:
+  - latest snapshot or backend readback is missing
+  - decision evidence cannot be tied to the current businessDate/dataDate
+  - same rule has an unresolved correction audit
+  - landing verification for the previous write is missing or contradictory
+  - risk level is the only reason to skip a supported operating action
+  - a supported operating action has not been routed to evidence, boundary, dry-run, execution, or an explicit unsupported gap
