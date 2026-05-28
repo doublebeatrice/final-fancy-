@@ -9,7 +9,9 @@ const {
   normalizeResearchInput,
 } = require('../../src/selection_keyword_research');
 const {
+  closeTab,
   evaluate,
+  navigate,
   openTab,
 } = require('../../discovery/lib/cdp');
 
@@ -183,12 +185,19 @@ async function fetchAmazonSearchResults(seedTerms = [], options = {}) {
   const perTermLimit = Number(options.perTermLimit || options.limit || 24);
   const waitMs = Number(options.waitMs || 2500);
   const results = [];
-  for (const seed of seedTerms) {
-    const term = seed.term || seed;
-    const tab = await openTab(buildAmazonSearchUrl(term));
-    await new Promise(resolve => setTimeout(resolve, waitMs));
-    const rows = await evaluate(tab, amazonSearchEval(term, perTermLimit), false);
-    for (const row of rows || []) results.push({ ...row, price: parsePrice(row.price) });
+  const keepTabOpen = options.keepTabOpen === true || options.keepTabOpen === '1';
+  const background = options.background !== false && options.background !== '0';
+  const workerTab = await openTab('about:blank', undefined, { background });
+  try {
+    for (const seed of seedTerms) {
+      const term = seed.term || seed;
+      await navigate(workerTab, buildAmazonSearchUrl(term));
+      await new Promise(resolve => setTimeout(resolve, waitMs));
+      const rows = await evaluate(workerTab, amazonSearchEval(term, perTermLimit), false);
+      for (const row of rows || []) results.push({ ...row, price: parsePrice(row.price) });
+    }
+  } finally {
+    if (!keepTabOpen) await closeTab(workerTab);
   }
   return results;
 }
@@ -239,6 +248,8 @@ async function runLive(options = {}) {
   const frontSearchResults = options.frontSearchResults || await fetchAmazonSearchResults(seedTerms, {
     perTermLimit: options.perTermLimit || options['per-term-limit'] || options.limit,
     waitMs: options.waitMs || options['wait-ms'],
+    keepTabOpen: options.keepTabOpen || options['keep-tab-open'],
+    background: options.background,
   });
   return run({ ...options, frontSearchResults });
 }
@@ -259,6 +270,8 @@ async function main() {
     snapshotFile: options.snapshot || options['snapshot-file'],
     seedLimit: options.seedLimit || options['seed-limit'],
     perTermLimit: options.perTermLimit || options['per-term-limit'] || options.limit,
+    keepTabOpen: options.keepTabOpen || options['keep-tab-open'],
+    background: options.background === '0' ? false : options.background,
     out: options.out,
   });
   console.log(JSON.stringify({
