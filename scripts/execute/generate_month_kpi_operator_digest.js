@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { buildSelectionKpiEvidence } = require('../../src/selection_kpi_evidence');
 
 const ROOT = path.join(__dirname, '..', '..');
 
@@ -68,6 +69,7 @@ function parseArgs(argv = process.argv.slice(2)) {
     date,
     closedLoopFile: text(options.closedLoop || options['closed-loop'] || path.join(ROOT, 'data', 'agent', `agent_closed_loop_${date}.json`)),
     approvalReviewFile: text(options.approvalReview || options['approval-review'] || path.join(ROOT, 'data', 'tasks', `kpi_approval_review_${date}.json`)),
+    extendedSelectionReportFile: text(options.extendedSelectionReport || options['extended-selection-report'] || options.selectionReport || options['selection-report'] || ''),
     outFile: text(options.out || path.join(ROOT, 'data', 'tasks', `month_kpi_operator_digest_${date}.json`)),
     markdownFile: text(options.md || path.join(ROOT, 'data', 'tasks', `month_kpi_operator_digest_${date}.md`)),
   };
@@ -79,6 +81,7 @@ function normalizeOptions(options = {}) {
     date,
     closedLoopFile: text(options.closedLoopFile || options.closedLoop || options['closed-loop'] || path.join(ROOT, 'data', 'agent', `agent_closed_loop_${date}.json`)),
     approvalReviewFile: text(options.approvalReviewFile || options.approvalReview || options['approval-review'] || path.join(ROOT, 'data', 'tasks', `kpi_approval_review_${date}.json`)),
+    extendedSelectionReportFile: text(options.extendedSelectionReportFile || options.extendedSelectionReport || options['extended-selection-report'] || options.selectionReport || options['selection-report'] || ''),
     outFile: text(options.outFile || options.out || path.join(ROOT, 'data', 'tasks', `month_kpi_operator_digest_${date}.json`)),
     markdownFile: text(options.markdownFile || options.md || path.join(ROOT, 'data', 'tasks', `month_kpi_operator_digest_${date}.md`)),
   };
@@ -112,6 +115,7 @@ function buildDigest(input = {}) {
   const date = text(input.date);
   const closedLoop = input.closedLoop || {};
   const approvalReview = input.approvalReview || {};
+  const selectionKpiEvidence = buildSelectionKpiEvidence(input.selectionReports || {});
   const summary = closedLoop.summary || {};
   const kpi = closedLoop.handoff?.kpiSummary || {};
   const current = kpi.current || {};
@@ -167,11 +171,13 @@ function buildDigest(input = {}) {
       finalTarget,
     },
     actions,
+    selectionKpiEvidence,
     files: {
       dashboardFile: text(closedLoop.files?.dashboardFile || ''),
       kpiRecoveryNextActionsFile: text(closedLoop.files?.kpiRecoveryNextActionsFile || ''),
       closedLoopFile: text(input.closedLoopFile || ''),
       approvalReviewFile: text(input.approvalReviewFile || ''),
+      extendedSelectionReportFile: text(input.extendedSelectionReportFile || ''),
     },
   };
 }
@@ -183,6 +189,11 @@ function renderMarkdown(digest = {}) {
   const gate = kpi.lastGate || {};
   const next = kpi.nextTarget || {};
   const finalTarget = kpi.finalTarget || {};
+  const selectionKpi = digest.selectionKpiEvidence || {};
+  const selectionCoverage = selectionKpi.coverage || {};
+  const selectionStore = selectionKpi.storeFeedback?.list || {};
+  const selectionFlow = selectionKpi.flowTheme?.main || {};
+  const selectionLine = `- Selection KPI evidence: ready=${selectionKpi.readyForDecisionSupport === true ? 'true' : 'false'}; dailyRanks=${(selectionCoverage.dailyRankLists || []).join('/') || 'none'}; category=${selectionCoverage.categoryAnalysis === true ? 'true' : 'false'}; flowThemeRows=${int(selectionFlow.rowCount)}; storeFeedbackRows=${int(selectionStore.rowCount)}. Read-only evidence, not auto-write permission.`;
   return [
     `# 月 KPI 运营摘要 - ${s.date}`,
     '',
@@ -194,6 +205,7 @@ function renderMarkdown(digest = {}) {
     `- 下一业务日验收线 ${next.businessDate || '-'}：销售至少 ${money(next.salesTarget)}；件数至少 ${int(next.unitsTarget)}；净利率至少 ${pct(next.netProfitRateMin)}；ACOS 不高于 ${pct(next.acosMax)}；退款率不高于 ${pct(next.refundRateMax)}；广告费率不高于 ${pct(next.adCostShareMax)}。`,
     `- 月终缺口：销售 ${money(finalTarget.salesGap)}；件数 ${int(finalTarget.unitsGap)}；净利润约 ${money(finalTarget.estimatedNetProfitGap)}；ACOS 差 ${pp(finalTarget.acosGap)}；退款率差 ${pp(finalTarget.refundRateGap)}。`,
     `- 已落地动作 ${s.landedActionSuccess}；写入需确认 ${s.writeApprovalNeeded}；写入阻塞 ${s.writeBlocked}；复查覆盖：dueReviews ${s.dueReviews}；effectReviewTotal ${s.effectReviewTotal}；feedbackApplied ${s.feedbackApplied}。`,
+    selectionLine,
     '',
     ...actionSection('推荐批准', digest.actions?.recommendApprove || [], '暂无推荐批准项。'),
     ...actionSection('真正需要确认', digest.actions?.trueApprovalNeeded || [], '暂无真正需要确认项。'),
@@ -217,12 +229,15 @@ function run(options = {}) {
   const normalized = normalizeOptions(options);
   const closedLoop = readJson(normalized.closedLoopFile, {});
   const approvalReview = readJson(normalized.approvalReviewFile, {});
+  const extendedSelection = normalized.extendedSelectionReportFile ? readJson(normalized.extendedSelectionReportFile, {}) : {};
   const digest = buildDigest({
     date: normalized.date,
     closedLoop,
     approvalReview,
+    selectionReports: { extendedSelection },
     closedLoopFile: normalized.closedLoopFile,
     approvalReviewFile: normalized.approvalReviewFile,
+    extendedSelectionReportFile: normalized.extendedSelectionReportFile,
   });
   digest.markdown = renderMarkdown(digest);
   writeJson(normalized.outFile, digest);

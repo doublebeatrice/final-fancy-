@@ -358,8 +358,9 @@ function buildVerificationSpec(action) {
   }
 
   if (actionType === 'create') {
+    const advType = String(action?.createInput?.advType || action?.advType || 'SP').toUpperCase();
     return {
-      verifySource: 'campaignRows',
+      verifySource: advType === 'SB' ? 'sbRows' : 'campaignRows',
       verifyField: 'campaignId',
       expected: {
         type: 'created_entity',
@@ -1135,14 +1136,26 @@ function gateRisk(product, entity, action) {
     const createInput = gated.createInput || {};
     const mode = String(createInput.mode || '').trim();
     const advType = String(createInput.advType || 'SP').toUpperCase();
+    const adFormat = String(createInput.adFormat || '').trim().toLowerCase();
     const missing = [];
-    if (advType !== 'SP') missing.push('supported SP create only');
-    if (!['auto', 'productTarget', 'keywordTarget'].includes(mode)) missing.push('mode');
+    const isSpCreate = advType === 'SP';
+    const isSbvCreate = advType === 'SB' && adFormat === 'video';
+    if (!isSpCreate && !isSbvCreate) missing.push('supported SP create or SB video create only');
+    if (isSpCreate && !['auto', 'productTarget', 'keywordTarget'].includes(mode)) missing.push('mode');
+    if (isSbvCreate && mode !== 'keywordTarget') missing.push('mode=keywordTarget');
     for (const field of ['sku', 'asin', 'accountId', 'siteId', 'dailyBudget', 'defaultBid', 'coreTerm']) {
       if (createInput[field] === undefined || createInput[field] === null || createInput[field] === '') missing.push(field);
     }
     if (mode === 'keywordTarget' && !(Array.isArray(createInput.keywords) && createInput.keywords.length)) missing.push('keywords');
-    if (mode === 'productTarget' && !(Array.isArray(createInput.targetAsins) && createInput.targetAsins.length)) missing.push('targetAsins');
+    if (isSpCreate && mode === 'productTarget' && !(Array.isArray(createInput.targetAsins) && createInput.targetAsins.length)) missing.push('targetAsins');
+    if (isSbvCreate) {
+      if (!String(createInput.brandName || '').trim()) missing.push('brandName');
+      if (!String(createInput.brand || createInput.brandEntityId || '').trim()) missing.push('brand/brandEntityId');
+      const videoAssetIds = Array.isArray(createInput.videoAssetIds)
+        ? createInput.videoAssetIds
+        : (createInput.videoAssetId ? [createInput.videoAssetId] : []);
+      if (!videoAssetIds.filter(Boolean).length) missing.push('videoAssetIds');
+    }
     if (missing.length) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
@@ -1150,8 +1163,8 @@ function gateRisk(product, entity, action) {
       gated.reason = `${gated.reason || ''} [risk_gate:create_missing:${missing.join(',')}] Need these create fields before automation can execute: ${missing.join(', ')}.`.trim();
       return gated;
     }
-    const reuse = hasReusableSpLane(product, createInput);
-    if (reuse.reusable && gated.allowDuplicateStructureCreate !== true && !forceExecute) {
+    const reuse = isSpCreate ? hasReusableSpLane(product, createInput) : { reusable: false, matches: [], lane: '' };
+    if (isSpCreate && reuse.reusable && gated.allowDuplicateStructureCreate !== true && !forceExecute) {
       const match = reuse.matches[0] || {};
       gated.actionType = 'review';
       gated.canAutoExecute = false;
@@ -1160,7 +1173,7 @@ function gateRisk(product, entity, action) {
       return gated;
     }
     gated.canAutoExecute = true;
-    gated.riskLevel = gated.riskLevel || 'low_budget_create';
+    gated.riskLevel = gated.riskLevel || (isSbvCreate ? 'sbv_low_budget_create' : 'low_budget_create');
     return gated;
   }
 
@@ -1387,9 +1400,11 @@ function validateAndNormalizePlan(rawPlan, context) {
 
       if (actionType === 'create') {
         const createContext = product.createContext || {};
+        const rawAdvType = rawCreateInput.advType || rawAction.advType || 'SP';
+        const rawTargetType = rawCreateInput.targetType || rawAction.targetType || '';
         normalized.createInput = {
           ...(rawCreateInput || {}),
-          mode: rawCreateInput.mode || rawAction.mode || '',
+          mode: rawCreateInput.mode || rawAction.mode || (/keyword/i.test(rawTargetType) ? 'keywordTarget' : ''),
           sku: rawCreateInput.sku || sku,
           asin: rawCreateInput.asin || product.asin || '',
           accountId: rawCreateInput.accountId ?? rawAction.accountId ?? createContext.accountId,
@@ -1401,7 +1416,19 @@ function validateAndNormalizePlan(rawPlan, context) {
           targetAsins: rawCreateInput.targetAsins || rawAction.targetAsins || [],
           matchType: rawCreateInput.matchType || rawAction.matchType || '',
           keywords: rawCreateInput.keywords || rawAction.keywords || [],
-          advType: rawCreateInput.advType || rawAction.advType || 'SP',
+          advType: rawAdvType,
+          adFormat: rawCreateInput.adFormat || rawAction.adFormat || '',
+          brandName: rawCreateInput.brandName || rawAction.brandName || '',
+          brand: rawCreateInput.brand || rawCreateInput.brandEntityId || rawAction.brand || rawAction.brandEntityId || '',
+          videoAssetIds: rawCreateInput.videoAssetIds || rawAction.videoAssetIds || (rawCreateInput.videoAssetId || rawAction.videoAssetId ? [rawCreateInput.videoAssetId || rawAction.videoAssetId] : []),
+          campaignName: rawCreateInput.campaignName || rawAction.campaignName || '',
+          groupName: rawCreateInput.groupName || rawAction.groupName || '',
+          startDate: rawCreateInput.startDate || rawAction.startDate || '',
+          goal: rawCreateInput.goal || rawAction.goal || '',
+          costType: rawCreateInput.costType || rawAction.costType || '',
+          landingType: rawCreateInput.landingType ?? rawAction.landingType,
+          landingPageUrl: rawCreateInput.landingPageUrl || rawAction.landingPageUrl || '',
+          videoType: rawCreateInput.videoType || rawAction.videoType || '',
           siteRestriction: rawCreateInput.siteRestriction || rawAction.siteRestriction || '',
           siteAmazonBusiness: rawCreateInput.siteAmazonBusiness ?? rawAction.siteAmazonBusiness,
           offAmazonBudgetControlStrategy: rawCreateInput.offAmazonBudgetControlStrategy ?? rawAction.offAmazonBudgetControlStrategy,

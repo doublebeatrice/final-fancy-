@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { buildSelectionKpiEvidence } = require('../../src/selection_kpi_evidence');
 
 const ROOT = path.join(__dirname, '..', '..');
 
@@ -297,6 +298,7 @@ function buildCheckpoint({
   kpiApprovalReview = {},
   closedLoop = {},
   adjustmentLog = [],
+  selectionReports = {},
   files = {},
 } = {}) {
   const outputDate = dateOnly(date || closureVerify.date || kpiGate.outputDate || closedLoop.outputDate || new Date());
@@ -326,6 +328,7 @@ function buildCheckpoint({
   const recoveryDryRun = summarizeRecoveryDryRuns(adjustmentLog, adjustmentBusinessDate);
   const approvalReview = summarizeApprovalReview(kpiApprovalReview, files);
   const landedFromAdjustments = summarizeLandedActions(adjustmentLog, adjustmentBusinessDate);
+  const selectionKpiEvidence = buildSelectionKpiEvidence(selectionReports);
   const gateStatus = text(kpiGate.status || closureSummary.kpiGateStatus || 'unknown');
   const gateTargetBusinessDate = text(gateTarget.businessDate || closureSummary.nextBusinessDayTarget || closureSummary.recoveryGateTargetBusinessDate);
   const recoveryPace = getRecoveryPace(closedLoop);
@@ -362,6 +365,13 @@ function buildCheckpoint({
       command: `npm run ops:agent:review-effect -- --queue data\\agent\\review_queue_${outputDate}.json --collect-evidence --today ${outputDate} --evidence-out data\\agent\\review_evidence_${outputDate}.json --out data\\agent\\effect_review_${outputDate}.json --profit-report data\\snapshots\\profit_review_${outputDate}.json`,
       successCondition: 'needsAction=0 or concrete rollback/secondary action candidates are produced',
     },
+    selectionKpiEvidence.readyForDecisionSupport
+      ? null
+      : {
+          name: 'refresh_selection_kpi_evidence',
+          command: `npm run ops:selection:extended -- --preset "bsr-list new-releases flow-theme-tags store-feedback" --date-info ${outputDate.slice(0, 7)} --rank-page-size 20 --flow-theme-page-size 20 --feedback-page-size 20 --out data\\snapshots\\selection_kpi_evidence_${outputDate}.json`,
+          successCondition: 'report ok=true, then rerun KPI checkpoint with --extended-selection-report data\\snapshots\\selection_kpi_evidence_' + `${outputDate}.json`,
+        },
   ].filter(Boolean);
 
   return {
@@ -461,6 +471,7 @@ function buildCheckpoint({
       landedActionFailed: Math.max(num(closureSummary.landedActionFailed, 0), landedFromAdjustments.failed),
       feedbackApplied: num(closureSummary.feedbackApplied, 0),
     },
+    selectionKpiEvidence,
     nextChecks,
     files,
   };
@@ -594,6 +605,23 @@ function buildOperatorCheckpointMarkdown(checkpoint = {}) {
   lines.push(`- landedActionFailed: ${integer(landed.landedActionFailed)}`);
   lines.push(`- feedbackApplied: ${integer(landed.feedbackApplied)}`);
   lines.push('');
+  lines.push('## Selection KPI evidence');
+  lines.push('');
+  const selectionKpi = checkpoint.selectionKpiEvidence || {};
+  const coverage = selectionKpi.coverage || {};
+  const storeList = selectionKpi.storeFeedback?.list || {};
+  const flowMain = selectionKpi.flowTheme?.main || {};
+  const category = selectionKpi.category || {};
+  lines.push(`- Ready for KPI decision support: ${selectionKpi.readyForDecisionSupport === true ? 'true' : 'false'}; autoAction=false.`);
+  lines.push(`- Daily rank coverage: ${(coverage.dailyRankLists || []).join(', ') || 'none'}; categoryAnalysis=${coverage.categoryAnalysis === true ? 'true' : 'false'}; flowThemeTags=${coverage.flowThemeTags === true ? 'true' : 'false'}; storeFeedback=${coverage.storeFeedback === true ? 'true' : 'false'}.`);
+  lines.push(`- Category rows: ${integer(category.rowCount)}${category.category ? ` for ${category.category}` : ''}.`);
+  lines.push(`- Flow theme rows: ${integer(flowMain.rowCount)}; total ${flowMain.total == null ? '-' : integer(flowMain.total)}.`);
+  lines.push(`- Store feedback rows: ${integer(storeList.rowCount)}; total ${storeList.total == null ? '-' : integer(storeList.total)}.`);
+  lines.push('- Boundary: selection evidence supports KPI diagnosis and guardrails; it does not authorize automatic writes.');
+  if ((selectionKpi.nextChecks || []).length) {
+    lines.push(`- Missing selection checks: ${selectionKpi.nextChecks.join('; ')}.`);
+  }
+  lines.push('');
   lines.push('## Recovery dry-run candidates');
   lines.push('');
   lines.push(`- Latest run: ${dryRun.latestRunId || 'none'}.`);
@@ -658,6 +686,7 @@ function parseArgs(argv = process.argv) {
     kpiApprovalReviewMarkdownFile: get('--kpi-approval-review-md') || path.join(ROOT, 'data', 'tasks', `kpi_approval_review_${date}.md`),
     closedLoopFile: get('--closed-loop') || path.join(ROOT, 'data', 'agent', `agent_closed_loop_${date}.json`),
     adjustmentLogFile: get('--adjustments') || path.join(ROOT, 'data', 'adjustments', `adjustments_${date}.json`),
+    extendedSelectionReportFile: get('--extended-selection-report') || get('--selection-report') || get('--selection-kpi-report') || '',
     outFile: get('--out') || path.join(ROOT, 'data', 'tasks', `kpi_recovery_checkpoint_${date}.json`),
     operatorOutFile: noOperatorMarkdown
       ? ''
@@ -677,6 +706,9 @@ function run(options = {}) {
     kpiApprovalReview: readJson(options.kpiApprovalReviewFile, {}),
     closedLoop: readJson(options.closedLoopFile, {}),
     adjustmentLog: readJson(options.adjustmentLogFile, []),
+    selectionReports: {
+      extendedSelection: options.extendedSelectionReportFile ? readJson(options.extendedSelectionReportFile, {}) : {},
+    },
     files: {
       closureVerify: options.closureVerifyFile,
       kpiGate: options.kpiGateFile,
@@ -688,6 +720,7 @@ function run(options = {}) {
       kpiApprovalReviewMarkdown: options.kpiApprovalReviewMarkdownFile,
       closedLoop: options.closedLoopFile,
       adjustmentLog: options.adjustmentLogFile,
+      extendedSelectionReport: options.extendedSelectionReportFile || '',
     },
   });
   writeJson(options.outFile, checkpoint);

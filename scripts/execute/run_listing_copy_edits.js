@@ -171,6 +171,7 @@ function browserExecutorSource() {
       const data = origin?.data || origin?.result || origin || {};
       return {
         parentTitle: normalizeText(data.parent_title || data.parentTitle || data.title || data.title_en || ''),
+        titleEn: normalizeText(data.title_en || data.titleEn || ''),
         bulletPoints: asList(data.bullet_points || data.bulletPoints),
         productDescription: normalizeDescriptionText(data.product_description || data.productDescription || ''),
         searchCoreKeywords: normalizeText(data.search_core_keywords || data.searchCoreKeywords || ''),
@@ -180,8 +181,11 @@ function browserExecutorSource() {
     const originTitleMatchesPlan = (input, originCopy) => {
       const plannedTitle = normalizeText(input.original?.parentTitle || input.original?.parent_title || '').toLowerCase();
       const originTitle = normalizeText(originCopy.parentTitle || originCopy.parent_title || originCopy.title || '').toLowerCase();
-      if (!plannedTitle || !originTitle) return { ok: true, plannedTitle, originTitle };
-      return { ok: plannedTitle === originTitle, plannedTitle, originTitle };
+      if (plannedTitle && originTitle && plannedTitle !== originTitle) return { ok: false, plannedTitle, originTitle, field: 'parent_title' };
+      const plannedTitleEn = normalizeText(input.original?.titleEn || input.original?.title_en || '').toLowerCase();
+      const originTitleEn = normalizeText(originCopy.titleEn || originCopy.title_en || '').toLowerCase();
+      if (plannedTitleEn && originTitleEn && plannedTitleEn !== originTitleEn) return { ok: false, plannedTitle: plannedTitleEn, originTitle: originTitleEn, field: 'title_en' };
+      return { ok: true, plannedTitle, originTitle, field: '' };
     };
     const buildBody = action => {
       const original = action.original || {};
@@ -203,11 +207,13 @@ function browserExecutorSource() {
       params.set('synchronizeSkus', syncSkus.join(','));
       params.set('remark', normalizeText(action.remark));
       params.set('reason', normalizeText(action.reason));
-      params.set('original[parent_title]', normalizeText(original.parentTitle));
+      if (action.omitParentTitle !== true) params.set('original[parent_title]', normalizeText(original.parentTitle));
+      params.set('original[title_en]', normalizeText(original.titleEn));
       appendAll(params, 'original[bullet_points][]', asList(original.bulletPoints));
       params.set('original[product_description]', normalizeDescriptionText(original.productDescription));
       params.set('original[search_core_keywords]', normalizeText(original.searchCoreKeywords));
-      params.set('now[parent_title]', normalizeText(now.parentTitle));
+      if (action.omitParentTitle !== true) params.set('now[parent_title]', normalizeText(now.parentTitle));
+      params.set('now[title_en]', normalizeText(now.titleEn));
       appendAll(params, 'now[bullet_points][]', asList(now.bulletPoints));
       params.set('now[product_description]', normalizeDescriptionText(now.productDescription));
       params.set('now[search_core_keywords]', normalizeText(now.searchCoreKeywords));
@@ -292,9 +298,11 @@ function browserExecutorSource() {
           productId: input.productId,
           response: {
             code: 0,
-            msg: 'origin_parent_title_mismatch',
+            msg: originMatch.field === 'title_en' ? 'origin_title_en_mismatch' : 'origin_parent_title_mismatch',
             plannedOriginalTitle: input.original?.parentTitle || '',
             liveOriginTitle: originCopy.parentTitle || '',
+            plannedOriginalTitleEn: input.original?.titleEn || input.original?.title_en || '',
+            liveOriginTitleEn: originCopy.titleEn || '',
           },
           submittedTitle: '',
           autoRepairs: [],
@@ -311,6 +319,7 @@ function browserExecutorSource() {
         original: {
           ...(input.original || {}),
           parentTitle: normalizeText(originCopy.parentTitle || input.original?.parentTitle),
+          titleEn: normalizeText(originCopy.titleEn || input.original?.titleEn || input.original?.title_en),
           bulletPoints: originBullets.length ? originBullets : asList(input.original?.bulletPoints),
           productDescription: normalizeDescriptionText(originCopy.productDescription || input.original?.productDescription),
           searchCoreKeywords: normalizeText(originCopy.searchCoreKeywords || input.original?.searchCoreKeywords),
@@ -318,11 +327,12 @@ function browserExecutorSource() {
         now: {
           ...inputNow,
           parentTitle: normalizeText(inputNow.parentTitle || originCopy.parentTitle || input.original?.parentTitle),
+          titleEn: normalizeText(inputNow.titleEn || inputNow.title_en || originCopy.titleEn || input.original?.titleEn || input.original?.title_en),
           bulletPoints: inputNowBullets.length ? inputNowBullets : originBullets,
           productDescription: normalizeDescriptionText(inputNow.productDescription || originCopy.productDescription || input.original?.productDescription),
           searchCoreKeywords: normalizeText(inputNow.searchCoreKeywords || originCopy.searchCoreKeywords || input.original?.searchCoreKeywords),
         },
-        phraseFrequencyText: normalizeText(originCopy.phraseFrequencyText || input.phraseFrequencyText),
+        phraseFrequencyText: normalizeText(input.phraseFrequencyText || originCopy.phraseFrequencyText),
       };
       try {
         let response = await postAction(action);
@@ -339,7 +349,7 @@ function browserExecutorSource() {
           sku: action.sku,
           productId: action.productId,
           response,
-          submittedTitle: action.now?.parentTitle || '',
+          submittedTitle: action.now?.titleEn || action.now?.parentTitle || '',
           autoRepairs,
           originFetched: Number(origin?.code) === 200 || !!originCopy.parentTitle,
           tokenState: { hasCsrf: !!csrf, referrerHasInventoryToken: iframeSrc.includes('Inventory-Token=') },

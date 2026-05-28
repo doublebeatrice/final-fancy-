@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { buildSpCreatePayload } = require('../auto_adjust');
+const { buildSpCreatePayload, buildSbvCreatePayload } = require('../auto_adjust');
 const { createActionFromSeasonAd } = require('../scripts/generators/generate_season_title_action_schema');
 
 function baseInput(overrides = {}) {
@@ -78,6 +78,65 @@ function baseInput(overrides = {}) {
   }, product);
   assert.strictEqual(action.campaignName, 'ai_kw broad_fathers day gifts_dad001');
   assert.strictEqual(action.groupName, 'ai_kw broad_fathers day gifts_dad001');
+}
+
+{
+  const built = buildSbvCreatePayload({
+    advType: 'SB',
+    mode: 'keywordTarget',
+    targetType: 'keyword',
+    sku: 'UTE4258',
+    asin: 'B0GRG9ZXZJ',
+    accountId: 468,
+    siteId: 4,
+    brandName: 'Wesiti',
+    brand: 'ENTITY3EK98Y2AIA3TP',
+    campaignName: 'sbvkw_baby shower game_ute4258',
+    groupName: 'sbvkw_baby shower game_ute4258',
+    startDate: '2026-05-26',
+    coreTerm: 'baby shower game',
+    dailyBudget: 3,
+    defaultBid: 0.35,
+    adFormat: 'video',
+    videoAssetIds: ['amzn1.assetlibrary.asset1.a65386b5a2a828fee9c4427e37b3cc79'],
+    keywords: [
+      'ready to pop baby shower',
+      { keywordText: "she's ready to pop baby shower", matchType: 'BROAD', bid: 0.35 },
+    ],
+  });
+  assert.strictEqual(built.ok, true);
+  assert.strictEqual(built.requestUrl, '/campaignSb/createCampaignBeta');
+  assert.strictEqual(built.requestBody.advType, 'SB');
+  assert.strictEqual(built.requestBody.adFormat, 'video');
+  assert.strictEqual(built.requestBody.campaignName, 'sbvkw_baby shower game_ute4258');
+  assert.strictEqual(built.requestBody.fieldArray.campaigns[0].brandEntityId, 'ENTITY3EK98Y2AIA3TP');
+  assert.deepStrictEqual(built.requestBody.fieldArray.ads[0].creative.asins, ['B0GRG9ZXZJ']);
+  assert.deepStrictEqual(built.requestBody.fieldArray.ads[0].creative.videoAssetIds, ['amzn1.assetlibrary.asset1.a65386b5a2a828fee9c4427e37b3cc79']);
+  assert.deepStrictEqual(built.requestBody.fieldArray.keyword.map(row => row.keywordText), [
+    'ready to pop baby shower',
+    "she's ready to pop baby shower",
+  ]);
+}
+
+{
+  const built = buildSbvCreatePayload({
+    advType: 'SB',
+    mode: 'keywordTarget',
+    targetType: 'keyword',
+    sku: 'UTE4258',
+    asin: 'B0GRG9ZXZJ',
+    accountId: 468,
+    siteId: 4,
+    brandName: 'Wesiti',
+    brand: 'ENTITY3EK98Y2AIA3TP',
+    coreTerm: 'baby shower game',
+    dailyBudget: 3,
+    defaultBid: 0.35,
+    adFormat: 'video',
+    keywords: ['ready to pop baby shower'],
+  });
+  assert.strictEqual(built.ok, false);
+  assert.ok(built.errors.includes('videoAssetIds is required'));
 }
 
 console.log('ad create naming tests passed');

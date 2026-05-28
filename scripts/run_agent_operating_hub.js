@@ -31,6 +31,7 @@ function parseArgs(argv) {
     inboxFile: get('--inbox') || process.env.AGENT_INBOX_FILE || '',
     reviewFile: get('--reviews') || process.env.AGENT_REVIEW_QUEUE_FILE || '',
     capabilityFile: get('--capabilities') || process.env.AGENT_CAPABILITY_REGISTRY_FILE || '',
+    learningMemoryFile: get('--learning-memory') || get('--prior-learning-memory') || process.env.AGENT_PRIOR_LEARNING_MEMORY_FILE || '',
     outFile: get('--out') || process.env.AGENT_OPERATING_HUB_OUT || '',
     today: get('--today') || process.env.AGENT_TODAY || '',
     site: get('--site') || process.env.AD_OPS_SITE || 'Amazon.com',
@@ -41,6 +42,12 @@ function parseArgs(argv) {
 
 function defaultFile(prefix, today) {
   return path.join(DEFAULT_OUT_DIR, `${prefix}_${today}.json`);
+}
+
+function addDays(ymd, days) {
+  const date = new Date(`${ymd}T00:00:00.000Z`);
+  date.setUTCDate(date.getUTCDate() + Number(days || 0));
+  return date.toISOString().slice(0, 10);
 }
 
 function runAgentOperatingHub(options = {}) {
@@ -54,6 +61,7 @@ function runAgentOperatingHub(options = {}) {
   const inboxFile = options.inboxFile || defaultFile('external_inbox', today);
   const reviewFile = options.reviewFile || defaultFile('review_queue', today);
   const capabilityFile = options.capabilityFile || defaultFile('capability_registry', today);
+  const learningMemoryFile = options.learningMemoryFile || defaultFile('learning_memory', addDays(today, -1));
   const hub = buildOperatingHub({
     timeContext,
     today,
@@ -61,12 +69,14 @@ function runAgentOperatingHub(options = {}) {
     externalInbox: options.externalInbox || readJson(inboxFile, {}),
     reviewQueue: options.reviewQueue || readJson(reviewFile, {}),
     capabilityRegistry: options.capabilityRegistry || readJson(capabilityFile, {}),
+    learningMemory: options.learningMemory || readJson(learningMemoryFile, {}),
     sourceFiles: {
       ledgerFile,
       inboxFile,
       reviewFile,
       effectReviewFile: options.effectReviewFile || '',
       capabilityFile,
+      learningMemoryFile,
     },
   });
   const outFile = options.outFile || defaultFile('operating_hub', today);

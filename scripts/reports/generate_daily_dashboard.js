@@ -399,6 +399,11 @@ function dashboardHtml(model) {
     num(agentSummary.effectReviewContinueWatch),
     num(agentClosedLoop.handoff?.summary?.effectReviewContinueWatch)
   );
+  const dailyWorkflow = agentSummary.dailyOperatingWorkflow || agentClosedLoop.handoff?.summary?.dailyOperatingWorkflow || {};
+  const dailyWorkflowAllSku = dailyWorkflow.allSku || {};
+  const dailyWorkflowSeason = dailyWorkflow.season || {};
+  const dailyWorkflowEffect = dailyWorkflow.effectReview || {};
+  const dailyWorkflowBlockers = Array.isArray(dailyWorkflow.blockers) ? dailyWorkflow.blockers : [];
   const handoffKpi = agentClosedLoop.handoff?.kpiSummary || {};
   const missedGap = handoffKpi.missedCheckpoint || auditKpi.missedCheckpoint || {};
   const nextGap = handoffKpi.nextCheckpoint || auditKpi.nextCheckpoint || {};
@@ -748,6 +753,7 @@ function dashboardHtml(model) {
           ${rawCandidateSamples.length ? `<div>candidate samples: ${esc(rawCandidateSamples.join(', '))}</div>` : ''}
           <div>KPI recovery dry-run: highEfficiencyBidUps ${int(recoveryDryRun.highEfficiencyBidUps)}; SKUs ${int(recoveryDryRun.skuCount)}; latest ${esc(recoveryDryRun.latestRunId || 'none')}</div>
           <div>dry-run note: ${esc(recoveryDryRun.decision || 'no dry-run recovery candidates recorded')}; not landed actions.</div>
+          ${dailyWorkflow.status && dailyWorkflow.status !== 'not_required' ? `<div>每日经营工作流: status ${esc(dailyWorkflow.status)}; 全体SKU ${esc(dailyWorkflowAllSku.status || 'unknown')} totalSkus ${int(dailyWorkflowAllSku.totalSkus)} mustReview ${int(dailyWorkflowAllSku.mustReview)}; 节日线 ${esc(dailyWorkflowSeason.status || 'unknown')} dryRunItems ${int(dailyWorkflowSeason.dryRunItems)} activeSeasonTasks ${int(dailyWorkflowSeason.activeSeasonTasks)}; 等生效 ${esc(dailyWorkflowEffect.status || 'unknown')} dueReviews ${int(dailyWorkflowEffect.dueReviews)} effectReviewTotal ${int(dailyWorkflowEffect.effectReviewTotal)} feedbackApplied ${int(dailyWorkflowEffect.feedbackApplied)}; blockers ${esc(dailyWorkflowBlockers.join(', ') || 'none')}</div>` : ''}
           ${Number(dryRunDecisionSummary.total || 0) > 0 ? `<div>KPI dry-run decision split: total ${int(dryRunDecisionSummary.total)}; executed ${int(dryRunByDecision.executed)}; autonomous ${int(dryRunByDecision.autonomous_recommendation)}; watch ${int(dryRunByDecision.watch_only)}; blocked ${int(dryRunByDecision.blocked)}; approvalNeeded ${int(dryRunByDecision.approval_needed)}; file ${esc(path.basename(reportPaths.kpiDryRunDecisions || ''))}</div>` : ''}
           ${kpiRecoveryNextActionsFile ? `<div>KPI recovery next actions: file ${esc(path.basename(kpiRecoveryNextActionsFile))}; alreadyLanded ${int(nextActionsAlreadyLanded)}; watch ${int(nextActionsWatch)}; blocked ${int(nextActionsBlocked)}; approvalNeeded ${int(nextActionsApprovalNeeded)}</div>` : ''}
           ${Number(approvalReviewSummary.total || 0) > 0 ? `<div>KPI approval review: file ${esc(path.basename(reportPaths.kpiApprovalReview || ''))}; recommendApprove ${int(approvalReviewSummary.recommendApprove)}; approvalNeeded ${int(approvalReviewSummary.approvalNeeded)}; hold ${int(approvalReviewSummary.hold)}; blocked ${int(approvalReviewSummary.blocked)}</div>` : ''}

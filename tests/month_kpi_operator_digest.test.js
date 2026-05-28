@@ -13,6 +13,7 @@ function writeJson(file, value) {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'month-kpi-digest-'));
   const closedLoopFile = path.join(tmpDir, 'agent_closed_loop_2026-05-21.json');
   const approvalReviewFile = path.join(tmpDir, 'kpi_approval_review_2026-05-21.json');
+  const extendedSelectionReportFile = path.join(tmpDir, 'selection_kpi_evidence_2026-05-21.json');
   const outFile = path.join(tmpDir, 'month_kpi_operator_digest_2026-05-21.json');
   const markdownFile = path.join(tmpDir, 'month_kpi_operator_digest_2026-05-21.md');
 
@@ -138,11 +139,22 @@ function writeJson(file, value) {
       metrics: { orders: 0, profitRate: 0.199, invDays: 20, units7: 0 },
     }],
   });
+  writeJson(extendedSelectionReportFile, {
+    ok: true,
+    results: [{
+      request: { key: 'flowThemeMain', body: { uTime: '2026-04', dateType: 2 } },
+      api: { ok: true, code: 200, result: { records: [{ patternSt: 'christmas towel' }], total: 1 } },
+    }, {
+      request: { key: 'storeFeedbackList', query: { uTime: '2026-04-01', myCollection: 0 } },
+      api: { ok: true, code: 200, result: { records: [{ accountName: 'Pattern.', count30Day: 5027 }], total: 1 } },
+    }],
+  });
 
   const result = run({
     date: '2026-05-21',
     closedLoopFile,
     approvalReviewFile,
+    extendedSelectionReportFile,
     outFile,
     markdownFile,
   });
@@ -160,6 +172,8 @@ function writeJson(file, value) {
   assert.strictEqual(json.actions.trueApprovalNeeded[0].sku, 'HL4017');
   assert.strictEqual(json.actions.hold[0].sku, 'CL3650');
   assert.strictEqual(json.actions.blocked[0].sku, 'GM3940');
+  assert.strictEqual(json.selectionKpiEvidence.flowTheme.main.rowCount, 1);
+  assert.strictEqual(json.selectionKpiEvidence.storeFeedback.list.rowCount, 1);
 
   const markdown = fs.readFileSync(markdownFile, 'utf8');
   assert.ok(markdown.includes('# 月 KPI 运营摘要 - 2026-05-21'));
@@ -175,6 +189,8 @@ function writeJson(file, value) {
   assert.ok(markdown.includes('CL3650'));
   assert.ok(markdown.includes('## 阻塞'));
   assert.ok(markdown.includes('GM3940'));
+  assert.ok(markdown.includes('Selection KPI evidence: ready=true'));
+  assert.ok(markdown.includes('flowThemeRows=1; storeFeedbackRows=1'));
   assert.ok(markdown.includes('复查覆盖：dueReviews 41；effectReviewTotal 41；feedbackApplied 41'));
 }
 

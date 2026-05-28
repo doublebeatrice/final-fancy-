@@ -23,6 +23,16 @@ function approvalBlock(actor = 'claude') {
   };
 }
 
+function reviewBlock(actor = 'claude') {
+  return {
+    approvedBy: actor,
+    decisionStage: 'review_required',
+    actionSource: [actor],
+    requiresAiDecision: true,
+    canAutoExecute: false,
+  };
+}
+
 function isEnabledStateRow(value) {
   const text = String(value ?? '').toLowerCase();
   return text === '1' || text === '2' || text === 'enabled' || text === 'enable' || text === 'active';
@@ -264,6 +274,76 @@ function buildLowerLayerReview(entry, actor) {
   };
 }
 
+function receiverRowText(row = {}, type = '') {
+  if (type === 'keyword') return row.keywordText || row.keyword || row.text || '';
+  if (type === 'autoTarget') return row.type || row.expressionType || row.targetingType || row.targetText || 'auto';
+  if (type === 'manualTarget') return row.expressionValue || row.expressionType || row.targetText || row.targetingExpression || 'target';
+  return row.text || row.label || '';
+}
+
+function collectReceiverRows(snapshot = {}, candidate = {}) {
+  const campaignId = String(candidate.campaignId || '');
+  const adGroupId = String(candidate.adGroupId || '');
+  const sameBudgetPool = row => {
+    if (String(row.campaignId || '') !== campaignId) return false;
+    if (adGroupId && String(row.adGroupId || '') !== adGroupId) return false;
+    return true;
+  };
+  const normalize = (row, entityType) => {
+    const clicks = num(row.clicks7 ?? row.Clicks);
+    const spend = num(row.spend7 ?? row.Spend);
+    const orders = num(row.orders7 ?? row.Orders);
+    return {
+      entityType,
+      id: String(row.keywordId || row.targetId || row.id || ''),
+      text: receiverRowText(row, entityType),
+      state: row.state,
+      bid: num(row.bid),
+      clicks,
+      spend,
+      orders,
+      sales: num(row.sales7 ?? row.Sales),
+    };
+  };
+
+  return [
+    ...(snapshot.kwRows || []).filter(sameBudgetPool).map(row => normalize(row, 'keyword')),
+    ...(snapshot.autoRows || []).filter(sameBudgetPool).map(row => normalize(row, 'autoTarget')),
+    ...(snapshot.targetRows || []).filter(sameBudgetPool).map(row => normalize(row, 'manualTarget')),
+  ].sort((a, b) => b.clicks - a.clicks || b.spend - a.spend);
+}
+
+function diagnoseReceiverLayer(snapshot = {}, candidate = {}) {
+  const rows = collectReceiverRows(snapshot, candidate);
+  const totals = rows.reduce((acc, row) => {
+    acc.clicks += row.clicks;
+    acc.spend += row.spend;
+    acc.orders += row.orders;
+    return acc;
+  }, { clicks: 0, spend: 0, orders: 0 });
+  totals.spend = Number(totals.spend.toFixed(2));
+
+  const converters = rows.filter(row => row.orders > 0);
+  const zeroOrderSpend = rows.filter(row => row.orders === 0 && (row.clicks >= 5 || row.spend >= 2));
+  const topRows = rows.slice(0, 5).map(row => (
+    `${row.entityType}:${row.text || row.id || 'unknown'} clicks=${row.clicks} spend=${row.spend.toFixed(2)} orders=${row.orders} state=${row.state}`
+  ));
+
+  let status = 'receiver_layer_review_required';
+  if (!rows.length) status = 'receiver_layer_missing';
+  else if (converters.length) status = 'protect_converting_receiver';
+  else if (zeroOrderSpend.length) status = 'narrower_zero_order_receiver_available';
+
+  return {
+    status,
+    rowCount: rows.length,
+    totals,
+    converters: converters.slice(0, 3),
+    zeroOrderSpend: zeroOrderSpend.slice(0, 5),
+    topRows,
+  };
+}
+
 function buildAutoPauseActions(snapshot = {}, options = {}) {
   const actor = options.actor || 'claude';
   const cooldownAdIds = options.cooldownAdIds instanceof Set
@@ -285,6 +365,9 @@ function buildAutoPauseActions(snapshot = {}, options = {}) {
     invTooTight: 0,
     clearanceProtect: 0,
     duplicate: 0,
+    receiverLayerMissing: 0,
+    narrowerReceiverReview: 0,
+    convertingReceiverProtected: 0,
     kept: 0,
   };
 
@@ -327,6 +410,10 @@ function buildAutoPauseActions(snapshot = {}, options = {}) {
       clicks,
       spend,
       sales: num(row.Sales),
+      receiverDiagnosis: diagnoseReceiverLayer(snapshot, {
+        campaignId: String(row.campaignId || ''),
+        adGroupId: String(row.adGroupId || ''),
+      }),
       score: spend + clicks * 0.2 + (Number.isFinite(profitRate) && profitRate < 0 ? 5 : 0),
     });
   }
@@ -336,34 +423,39 @@ function buildAutoPauseActions(snapshot = {}, options = {}) {
 
   const items = selected.map(c => {
     stats.kept++;
+    if (c.receiverDiagnosis.status === 'receiver_layer_missing') stats.receiverLayerMissing++;
+    if (c.receiverDiagnosis.status === 'protect_converting_receiver') stats.convertingReceiverProtected++;
+    if (c.receiverDiagnosis.status === 'narrower_zero_order_receiver_available') stats.narrowerReceiverReview++;
     return {
       sku: c.sku,
       asin: c.asin,
-      summary: `[over_budget:auto_pause] productAd ${c.adId} | ${c.campaignName || c.campaignId} | ${c.clicks} clicks / 0 orders / $${c.spend.toFixed(2)}`,
+      summary: `[over_budget:auto_pause_review] productAd ${c.adId} | ${c.campaignName || c.campaignId} | ${c.clicks} clicks / 0 orders / $${c.spend.toFixed(2)} requires receiver-layer review`,
       actions: [{
-        entityType: 'productAd',
-        actionType: 'pause',
-        id: c.adId,
+        entityType: 'skuCandidate',
+        actionType: 'review',
+        id: `over_budget_productad_receiver_review::${c.adId}`,
+        adId: c.adId,
         campaignId: c.campaignId,
         adGroupId: c.adGroupId,
         campaignName: c.campaignName,
         groupName: c.groupName,
-        riskLevel: 'over_budget_no_order_pause',
-        confidence: 0.82,
-        ...approvalBlock(actor),
-        reason: `Over-budget productAd has 0 orders, ${c.clicks} clicks, $${c.spend.toFixed(2)} spend. SKU profit ${fmtProfit(c.profitRate)}, invDays ${c.invDays}. Pausing this product ad keeps capped budget for converters in the same campaign. SKU is not in clearance (profit ≥ -5%) and inventory is not tight (invDays ≥ 30).`,
-        hypothesis: 'Pausing a zero-order, click-burning productAd inside an over-budget campaign frees capped spend for converting entities in the same campaign without harming SKU sales.',
-        expectedEffect: { impressions: 'down', clicks: 'down', spend: 'down', orders_same_sku: 'flat_or_up_via_other_paths' },
+        riskLevel: 'overbudget_receiver_layer_review_required',
+        confidence: 0.62,
+        ...reviewBlock(actor),
+        reason: `ProductAd aggregate has 0 orders, ${c.clicks} clicks, $${c.spend.toFixed(2)} spend, but ProductAd pause is blocked until receiver-layer evidence proves no narrower bad keyword, auto bucket, ASIN target, or search-term cluster should be handled first. Receiver status: ${c.receiverDiagnosis.status}.`,
+        hypothesis: 'Over-budget zero-order spend should be controlled at the narrowest receiver layer that consumed the budget; protect any converting sibling receiver before considering ProductAd pause.',
+        expectedEffect: { decision: 'manual_receiver_layer_review_before_pause' },
         reviewPlan: {
           windows: [3, 7],
-          metrics: ['sku_units7', 'campaign_orders', 'campaign_acos', 'spend'],
-          escalationPlan: 'if 7d SKU units drop without compensating non-ad sales, re-enable; otherwise leave paused.',
+          metrics: ['keyword_or_target_clicks', 'keyword_or_target_orders', 'customer_search_terms', 'productAd_orders', 'spend'],
+          escalationPlan: 'act on the narrowest zero-order receiver; pause ProductAd only if spend is dispersed or lower-layer evidence is unavailable and no converting receiver needs protection.',
         },
         evidence: [
           `over_budget productAd=${c.adId} campaign=${c.campaignId}`,
-          `7d clicks=${c.clicks} orders=${c.orders} spend=${c.spend.toFixed(2)} sales=${c.sales.toFixed(2)}`,
+          `aggregate clicks=${c.clicks} orders=${c.orders} spend=${c.spend.toFixed(2)} sales=${c.sales.toFixed(2)}`,
           `sku profitRate=${fmtProfit(c.profitRate)} invDays=${c.invDays} units7=${c.units7} units30=${c.units30}`,
-          `safety_gates_passed=zero_order|enough_clicks|enough_spend|inv_not_tight|profit_above_clearance`,
+          `receiver_status=${c.receiverDiagnosis.status} receiver_rows=${c.receiverDiagnosis.rowCount} receiver_clicks=${c.receiverDiagnosis.totals.clicks} receiver_spend=${c.receiverDiagnosis.totals.spend.toFixed(2)} receiver_orders=${c.receiverDiagnosis.totals.orders}`,
+          ...c.receiverDiagnosis.topRows,
         ],
       }],
     };
@@ -654,7 +746,9 @@ function buildOverBudgetPlanItems(snapshot = {}, options = {}) {
       })
     : { items: [], stats: null, candidateCount: 0 };
   const autoPauseCampaignIds = new Set(
-    autoPauseResult.items.flatMap(item => (item.actions || []).map(a => String(a.campaignId || '')))
+    autoPauseResult.items.flatMap(item => (item.actions || [])
+      .filter(a => a.entityType === 'productAd' && a.actionType === 'pause' && a.canAutoExecute !== false)
+      .map(a => String(a.campaignId || '')))
   );
 
   function take(lane, max, builder, pairBid = false) {

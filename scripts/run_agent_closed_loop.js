@@ -6,6 +6,9 @@ const { runAgentCommandRunner } = require('./run_agent_command_runner');
 const { runAgentWriteExecution } = require('./run_agent_write_execution');
 const { runAgentExecutionFeedback } = require('./run_agent_execution_feedback');
 const { runAgentHandoffSummary } = require('./run_agent_handoff_summary');
+const { runAgentAutonomyAudit } = require('./run_agent_autonomy_audit');
+const { runAgentLearningMemory } = require('./run_agent_learning_memory');
+const { runAgentUnattendedGate } = require('./run_agent_unattended_gate');
 const { generateDailyDashboard } = require('./reports/generate_daily_dashboard');
 const {
   archiveSameDateRawCandidates,
@@ -20,6 +23,7 @@ const { run: runKpiRecoveryCheckpoint } = require('./execute/generate_kpi_recove
 const { run: runKpiDryRunDecisions } = require('./execute/generate_kpi_recovery_dryrun_decisions');
 const { run: runKpiApprovalReview } = require('./execute/generate_kpi_approval_review');
 const { run: runMonthKpiOperatorDigest } = require('./execute/generate_month_kpi_operator_digest');
+const { auditLandedActionConflicts, markdownReport: landedActionConflictMarkdown } = require('./execute/audit_landed_action_conflicts');
 const { verifyDailyClosureArtifacts } = require('./execute/verify_daily_closure_artifacts');
 const { buildOpsTimeContext } = require('../src/ops_time');
 
@@ -110,6 +114,11 @@ function normalizeKpiSnapshotOptions(options = {}) {
 function writeJson(file, value) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, JSON.stringify(value, null, 2), 'utf8');
+}
+
+function writeText(file, value) {
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, value, 'utf8');
 }
 
 function ensureDir(dir) {
@@ -350,6 +359,25 @@ function closedLoopSummary({ commandResults = {}, writeExecution = {}, feedback 
     handoffReady: !!handoff.markdown,
     kpiRecoveryNextActionsReady: handoff.summary?.kpiRecoveryNextActionsReady === true,
     monthKpiDigestReady: handoff.summary?.monthKpiDigestReady === true,
+    dailyOperatingWorkflowStatus: text(handoff.summary?.dailyOperatingWorkflowStatus || ''),
+    dailyOperatingWorkflowBlockers: Array.isArray(handoff.summary?.dailyOperatingWorkflowBlockers)
+      ? handoff.summary.dailyOperatingWorkflowBlockers
+      : [],
+    dailyOperatingWorkflow: handoff.summary?.dailyOperatingWorkflow || null,
+  };
+}
+
+function withPriorLearningSummary(summary = {}, context = {}) {
+  return {
+    ...summary,
+    priorLearningMemoryApplied: context.applied === true,
+    priorLearningMemoryStatus: text(context.status || ''),
+    priorLearningConstraintTasks: Number(context.taskCount || 0),
+    priorLearningBlockers: Number(context.blockers || 0),
+    priorLearningWarnings: Number(context.warnings || 0),
+    priorLearningMustReadCount: Array.isArray(context.mustReadBeforeDecision) ? context.mustReadBeforeDecision.length : 0,
+    priorLearningDoNotApplyCount: Array.isArray(context.doNotApplyWhen) ? context.doNotApplyWhen.length : 0,
+    priorLearningEvidenceBeforeReuseCount: Array.isArray(context.evidenceBeforeReuse) ? context.evidenceBeforeReuse.length : 0,
   };
 }
 
@@ -373,6 +401,13 @@ function runAgentClosedLoop(options = {}) {
   const handoffOutFile = options.handoffOutFile || fileFor(outDir, 'agent_handoff', today, 'md');
   const handoffJsonFile = options.handoffJsonOutFile || fileFor(outDir, 'agent_handoff', today, 'json');
   const closedLoopFile = options.outFile || fileFor(outDir, 'agent_closed_loop', today);
+  const autonomyAuditFile = options.autonomyAuditOutFile || fileFor(outDir, 'autonomy_audit', today);
+  const autonomyAuditMarkdownFile = options.autonomyAuditMarkdownOutFile || fileFor(outDir, 'autonomy_audit', today, 'md');
+  const learningMemoryFile = options.learningMemoryOutFile || fileFor(outDir, 'learning_memory', today);
+  const learningMemoryMarkdownFile = options.learningMemoryMarkdownOutFile || fileFor(outDir, 'learning_memory', today, 'md');
+  const priorLearningMemoryFile = options.priorLearningMemoryFile || options.learningMemoryInputFile || '';
+  const unattendedGateFile = options.unattendedGateOutFile || fileFor(outDir, 'unattended_gate', today);
+  const unattendedGateMarkdownFile = options.unattendedGateMarkdownOutFile || fileFor(outDir, 'unattended_gate', today, 'md');
   const closureVerificationFile = options.closureVerificationOutFile || fileFor(outDir, 'daily_closure_verify', today);
   const kpiGateFile = options.kpiGateOutFile || (
     options.outDir
@@ -528,6 +563,26 @@ function runAgentClosedLoop(options = {}) {
       report.summary.kpiApprovalReviewError = text(error.message || error);
     }
     try {
+      const conflictAudit = (options.landedActionConflictAuditFile || options.landedActionConflictAuditMarkdownFile)
+        ? readJson(landedActionConflictAuditFile, {})
+        : auditLandedActionConflicts({
+            date: landedActionConflictAuditDate,
+            adjustmentsFile: options.adjustmentsFile || path.join(ROOT, 'data', 'adjustments', `adjustments_${today}.json`),
+          });
+      if (!options.landedActionConflictAuditFile && !options.landedActionConflictAuditMarkdownFile) {
+        writeJson(landedActionConflictAuditFile, conflictAudit);
+        writeText(landedActionConflictAuditMarkdownFile, landedActionConflictMarkdown(conflictAudit));
+      }
+      report.files.landedActionConflictAuditFile = landedActionConflictAuditFile;
+      report.files.landedActionConflictAuditMarkdownFile = landedActionConflictAuditMarkdownFile;
+      report.summary.landedActionConflictStatus = conflictAudit.summary?.status || '';
+      report.summary.landedActionSameEntityReverseCount = Number(conflictAudit.summary?.sameEntityReverseCount || 0);
+      report.summary.landedActionSameNameMixedCount = Number(conflictAudit.summary?.sameNameReverseDifferentEntityCount || 0);
+      report.summary.landedActionLatestRunMixedSkuCount = Number(conflictAudit.summary?.latestRunMixedSkuCount || 0);
+    } catch (error) {
+      report.summary.landedActionConflictAuditError = text(error.message || error);
+    }
+    try {
       const dryRunDecisions = runKpiDryRunDecisions({
         date: outputDate,
         adjustmentFile: options.adjustmentsFile || path.join(ROOT, 'data', 'adjustments', `adjustments_${today}.json`),
@@ -592,10 +647,12 @@ function runAgentClosedLoop(options = {}) {
       reviewFile: reviewQueueFile,
       effectReviewFile,
       reviewQueue,
+      learningMemoryFile: priorLearningMemoryFile,
       outFile: hubFile,
       today,
     });
   writeJson(hubFile, hub);
+  const priorLearningContext = hub.learningContext || {};
 
   const commandResults = runAgentCommandRunner({
     ...options,
@@ -608,6 +665,7 @@ function runAgentClosedLoop(options = {}) {
   const writeExecution = shouldRunWriteExecution(options)
     ? runAgentWriteExecution({
       ...options,
+      execute: false,
       timeContext,
       outFile: writeExecutionFile,
       today,
@@ -646,7 +704,7 @@ function runAgentClosedLoop(options = {}) {
     today,
   });
 
-  let summary = closedLoopSummary({ commandResults, writeExecution, feedback, handoff });
+  let summary = withPriorLearningSummary(closedLoopSummary({ commandResults, writeExecution, feedback, handoff }), priorLearningContext);
   const report = {
     generatedAt: text(timeContext.runAt || new Date().toISOString()),
     outputDate,
@@ -666,6 +724,7 @@ function runAgentClosedLoop(options = {}) {
       handoffOutFile,
       handoffJsonFile,
       closedLoopFile,
+      priorLearningMemoryFile: priorLearningContext.sourceFile || priorLearningMemoryFile,
       depositStatusFile: depositStatusResult.outFile,
       rawRecoveryQueueFile,
       rawRecoveryMarkdownFile,
@@ -676,6 +735,7 @@ function runAgentClosedLoop(options = {}) {
       landedActionConflictAuditMarkdownFile,
     },
     hub,
+    priorLearningContext,
     commandResults,
     writeExecution,
     feedback,
@@ -706,7 +766,7 @@ function runAgentClosedLoop(options = {}) {
         today,
       });
       report.handoff = handoff;
-      summary = closedLoopSummary({ commandResults, writeExecution, feedback, handoff });
+      summary = withPriorLearningSummary(closedLoopSummary({ commandResults, writeExecution, feedback, handoff }), priorLearningContext);
       report.summary = summary;
       report.closedLoop = summary.closedLoop;
       report.files.dashboardFile = dashboard.outFile;
@@ -777,7 +837,7 @@ function runAgentClosedLoop(options = {}) {
       today,
     });
     report.handoff = handoff;
-    summary = closedLoopSummary({ commandResults, writeExecution, feedback, handoff });
+    summary = withPriorLearningSummary(closedLoopSummary({ commandResults, writeExecution, feedback, handoff }), priorLearningContext);
     report.summary = {
       ...summary,
       dashboardReady: true,
@@ -825,7 +885,7 @@ function runAgentClosedLoop(options = {}) {
       today,
     });
     report.handoff = handoff;
-    summary = closedLoopSummary({ commandResults, writeExecution, feedback, handoff });
+    summary = withPriorLearningSummary(closedLoopSummary({ commandResults, writeExecution, feedback, handoff }), priorLearningContext);
     report.summary = {
       ...summary,
       dashboardReady: true,
@@ -886,7 +946,7 @@ function runAgentClosedLoop(options = {}) {
       today,
     });
     report.handoff = handoff;
-    summary = closedLoopSummary({ commandResults, writeExecution, feedback, handoff });
+    summary = withPriorLearningSummary(closedLoopSummary({ commandResults, writeExecution, feedback, handoff }), priorLearningContext);
     report.summary = {
       ...summary,
       dashboardReady: true,
@@ -964,7 +1024,7 @@ function runAgentClosedLoop(options = {}) {
       today,
     });
     report.handoff = handoff;
-    summary = closedLoopSummary({ commandResults, writeExecution, feedback, handoff });
+    summary = withPriorLearningSummary(closedLoopSummary({ commandResults, writeExecution, feedback, handoff }), priorLearningContext);
     report.summary = {
       ...report.summary,
       ...summary,
@@ -1027,7 +1087,7 @@ function runAgentClosedLoop(options = {}) {
       today,
     });
     report.handoff = handoff;
-    summary = closedLoopSummary({ commandResults, writeExecution, feedback, handoff });
+    summary = withPriorLearningSummary(closedLoopSummary({ commandResults, writeExecution, feedback, handoff }), priorLearningContext);
     report.summary = {
       ...report.summary,
       ...summary,
@@ -1123,6 +1183,94 @@ function runAgentClosedLoop(options = {}) {
     report.files.effectiveSnapshotFile = snapshotInput.effectiveSnapshotFile;
     writeJson(closedLoopFile, report);
   }
+  if (options.generateAutonomyAudit !== false) {
+    writeJson(closedLoopFile, report);
+    const preliminaryAutonomyAudit = runAgentAutonomyAudit({
+      ...options,
+      timeContext: evidenceTimeContext,
+      businessDate: evidenceTimeContext.businessDate,
+      dataDate: evidenceTimeContext.dataDate,
+      closedLoopFile,
+      handoffFile: handoffOutFile,
+      commandResultsFile,
+      writeExecutionFile,
+      learningFile: options.learningFile || '',
+      outFile: autonomyAuditFile,
+      markdownFile: autonomyAuditMarkdownFile,
+      today: evidenceTimeContext.businessDate,
+    });
+    const learningMemory = runAgentLearningMemory({
+      ...options,
+      timeContext: evidenceTimeContext,
+      businessDate: evidenceTimeContext.businessDate,
+      dataDate: evidenceTimeContext.dataDate,
+      learningFile: options.learningFile || '',
+      autonomyAuditFile: preliminaryAutonomyAudit.files.outFile,
+      outFile: learningMemoryFile,
+      markdownFile: learningMemoryMarkdownFile,
+      today: evidenceTimeContext.businessDate,
+    });
+    const autonomyAudit = runAgentAutonomyAudit({
+      ...options,
+      timeContext: evidenceTimeContext,
+      businessDate: evidenceTimeContext.businessDate,
+      dataDate: evidenceTimeContext.dataDate,
+      closedLoopFile,
+      handoffFile: handoffOutFile,
+      commandResultsFile,
+      writeExecutionFile,
+      learningFile: options.learningFile || '',
+      learningMemoryFile: learningMemory.files.outFile,
+      outFile: autonomyAuditFile,
+      markdownFile: autonomyAuditMarkdownFile,
+      today: evidenceTimeContext.businessDate,
+    });
+    report.files.autonomyAuditFile = autonomyAudit.files.outFile;
+    report.files.autonomyAuditMarkdownFile = autonomyAudit.files.markdownFile;
+    report.files.learningMemoryFile = learningMemory.files.outFile;
+    report.files.learningMemoryMarkdownFile = learningMemory.files.markdownFile;
+    report.autonomyAudit = autonomyAudit;
+    report.learningMemory = learningMemory;
+    report.summary.autonomyStatus = autonomyAudit.status;
+    report.summary.autonomyScore = autonomyAudit.score;
+    report.summary.autonomousReady = autonomyAudit.summary.autonomousReady === true;
+    report.summary.autonomyTaskCount = autonomyAudit.summary.taskCount;
+    report.summary.autonomyBlockerCount = autonomyAudit.summary.blockerCount;
+    report.summary.learningMemoryReady = !!learningMemory.nextRunBrief;
+    report.summary.learningMemoryStatus = learningMemory.status;
+    report.summary.learningMemoryConstraintCount = learningMemory.summary.constraints;
+    const unattendedGate = runAgentUnattendedGate({
+      ...options,
+      timeContext: evidenceTimeContext,
+      businessDate: evidenceTimeContext.businessDate,
+      dataDate: evidenceTimeContext.dataDate,
+      closedLoopFile,
+      autonomyAuditFile: autonomyAudit.files.outFile,
+      learningMemoryFile: learningMemory.files.outFile,
+      writeExecutionFile,
+      executionOutFile: options.unattendedExecutionOutFile || fileFor(outDir, 'unattended_write_execution', today),
+      executeIfReady: options.execute === true && options.executeIfReady === true,
+      outFile: unattendedGateFile,
+      markdownFile: unattendedGateMarkdownFile,
+      today: evidenceTimeContext.businessDate,
+    });
+    report.files.unattendedGateFile = unattendedGate.files.outFile;
+    report.files.unattendedGateMarkdownFile = unattendedGate.files.markdownFile;
+    report.unattendedGate = unattendedGate;
+    report.summary.unattendedGateDecision = unattendedGate.decision;
+    report.summary.unattendedExecuteAllowed = unattendedGate.canAutoExecute === true;
+    report.summary.unattendedGateBlockerCount = unattendedGate.summary.blockers;
+    report.summary.executeRequested = options.execute === true;
+    report.summary.executeIfReadyRequested = options.executeIfReady === true;
+    report.summary.executeIfReady = options.execute === true && options.executeIfReady === true;
+    report.summary.unattendedExecuted = !!unattendedGate.execution;
+    if (unattendedGate.execution) {
+      report.files.unattendedExecutionFile = unattendedGate.execution.files?.outFile || options.unattendedExecutionOutFile || fileFor(outDir, 'unattended_write_execution', today);
+      report.summary.unattendedExecutionFailedStages = unattendedGate.execution.summary?.failedStages || 0;
+      report.summary.unattendedExecutionBlockedActions = unattendedGate.execution.summary?.blockedActions || 0;
+    }
+    writeJson(closedLoopFile, report);
+  }
   return report;
 }
 
@@ -1162,6 +1310,15 @@ function parseArgs(argv) {
     landedActionConflictAuditDate: get('--landed-action-conflict-date') || process.env.AGENT_LANDED_ACTION_CONFLICT_DATE || '',
     landedActionConflictAuditFile: get('--landed-action-conflict-audit') || process.env.AGENT_LANDED_ACTION_CONFLICT_AUDIT_FILE || '',
     landedActionConflictAuditMarkdownFile: get('--landed-action-conflict-md') || process.env.AGENT_LANDED_ACTION_CONFLICT_AUDIT_MD || '',
+    autonomyAuditOutFile: get('--autonomy-audit-out') || process.env.AGENT_AUTONOMY_AUDIT_OUT || '',
+    autonomyAuditMarkdownOutFile: get('--autonomy-audit-md-out') || process.env.AGENT_AUTONOMY_AUDIT_MD_OUT || '',
+    learningMemoryOutFile: get('--learning-memory-out') || process.env.AGENT_LEARNING_MEMORY_OUT || '',
+    learningMemoryMarkdownOutFile: get('--learning-memory-md-out') || process.env.AGENT_LEARNING_MEMORY_MD_OUT || '',
+    priorLearningMemoryFile: get('--prior-learning-memory') || get('--learning-memory-in') || process.env.AGENT_PRIOR_LEARNING_MEMORY_FILE || '',
+    unattendedGateOutFile: get('--unattended-gate-out') || process.env.AGENT_UNATTENDED_GATE_OUT || '',
+    unattendedGateMarkdownOutFile: get('--unattended-gate-md-out') || process.env.AGENT_UNATTENDED_GATE_MD_OUT || '',
+    unattendedExecutionOutFile: get('--unattended-execution-out') || process.env.AGENT_UNATTENDED_EXECUTION_OUT || '',
+    learningFile: get('--learning') || process.env.AGENT_DAILY_LEARNING_FILE || '',
     depositTrendRoot: get('--deposit-trend-root') || process.env.AGENT_DEPOSIT_TREND_ROOT || '',
     depositRawRoot: get('--deposit-raw-root') || process.env.AGENT_DEPOSIT_RAW_ROOT || '',
     archiveDepositCandidates: args.includes('--archive-deposit-candidates') ||
@@ -1178,7 +1335,10 @@ function parseArgs(argv) {
     site: get('--site') || process.env.AD_OPS_SITE || 'Amazon.com',
     sourceRunId: get('--source-run-id') || process.env.SOURCE_RUN_ID || '',
     execute: args.includes('--execute') || process.env.AGENT_WRITE_EXECUTE === '1',
+    executeIfReady: args.includes('--execute-if-ready') || process.env.AGENT_EXECUTE_IF_READY === '1',
     generateDashboard: !args.includes('--skip-dashboard') && process.env.AGENT_SKIP_DASHBOARD !== '1',
+    generateAutonomyAudit: !args.includes('--skip-autonomy-audit') && process.env.AGENT_SKIP_AUTONOMY_AUDIT !== '1',
+    requireDailyWorkflow: !args.includes('--skip-daily-workflow') && process.env.AGENT_SKIP_DAILY_WORKFLOW !== '1',
     selfTest: args.includes('--self-test'),
   };
 }
@@ -1232,6 +1392,48 @@ function buildSelfTestOptions(options = {}) {
     actionSchemaFile,
     snapshotFile,
     snapshot: selfTestSnapshot,
+    allSkuReview: {
+      summary: {
+        totalSkus: 1,
+        mustReview: 1,
+        marketAnalysis: {
+          requiredSkus: 1,
+          readyForDecisionSupport: 1,
+          requiredMissing: 0,
+        },
+      },
+      rows: [{ sku: 'SELFTEST1', action: 'self_test_review' }],
+    },
+    dailyOperatingWorkflow: {
+      date: today,
+      required: options.requireDailyWorkflow === true,
+      status: 'ready',
+      blockers: [],
+      allSku: {
+        status: 'ready',
+        file: path.join(outDir, `all_sku_operating_review_${today}.json`),
+        totalSkus: 1,
+        mustReview: 1,
+        marketMissing: 0,
+      },
+      season: {
+        status: 'ready',
+        files: {},
+        dryRunItems: 1,
+        autoAdCandidates: 1,
+        activeSeasonTasks: 1,
+        riskItems: 0,
+        listingQueueSkus: 0,
+        actionRows: 1,
+        listingApplicationRows: 0,
+      },
+      effectReview: {
+        status: 'ready',
+        dueReviews: 0,
+        effectReviewTotal: 0,
+        feedbackApplied: 0,
+      },
+    },
     generateDepositStatus: options.generateDepositStatus === true && !!options.depositRawRoot,
     hub: {
       businessDate: today,

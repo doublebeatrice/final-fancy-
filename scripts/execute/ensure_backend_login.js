@@ -284,7 +284,21 @@ async function checkAdHealth(tab) {
   })()`, true);
 }
 
-async function checkInventoryHealth(panelTab) {
+async function checkInventoryHealth(panelTab, inventoryTab) {
+  async function runDirectPageCheck(tab) {
+    if (!tab) return { ok: false, error: 'inventory tab missing for direct health fallback' };
+    const state = await readPageState(tab);
+    const classified = classifyWithState(TARGETS.inventory, state);
+    return {
+      ok: classified.status === 'ready',
+      status: classified.status,
+      reason: classified.reason,
+      href: classified.href,
+      title: classified.title,
+      fallback: 'inventory_page_state',
+    };
+  }
+
   async function runCheck(tab) {
     return evaluate(tab, `(async () => {
       try {
@@ -298,11 +312,19 @@ async function checkInventoryHealth(panelTab) {
   }
 
   let result = await runCheck(panelTab);
-  if (result?.ok || !String(result?.error || '').includes('ensureInventoryListPage')) return result;
+  if (result?.ok) return result;
+  const panelError = String(result?.error || '');
+  if (!panelError.includes('ensureInventoryListPage') && !panelError.includes('findTab')) return result;
 
   await withSession(panelTab, session => session.send('Page.reload', { ignoreCache: true }));
   await sleep(2500);
-  return runCheck(panelTab);
+  result = await runCheck(panelTab);
+  if (result?.ok) return result;
+  const retryError = String(result?.error || '');
+  if (retryError.includes('ensureInventoryListPage') || retryError.includes('findTab')) {
+    return runDirectPageCheck(inventoryTab);
+  }
+  return result;
 }
 
 async function checkSelectionHealth(tab) {
@@ -394,7 +416,7 @@ async function ensureBackendsReady() {
 
   const health = {
     adv: statuses.adv.status === 'ready' ? await checkAdHealth(tabs.adv) : { ok: false, skipped: statuses.adv.status },
-    inventory: statuses.inventory.status === 'ready' ? await checkInventoryHealth(tabs.panel) : { ok: false, skipped: statuses.inventory.status },
+    inventory: statuses.inventory.status === 'ready' ? await checkInventoryHealth(tabs.panel, tabs.inventory) : { ok: false, skipped: statuses.inventory.status },
     selection: statuses.selection.status === 'ready' ? await checkSelectionHealth(tabs.selection) : {
       ok: false,
       status: null,

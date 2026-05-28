@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execFileSync: defaultExecFileSync } = require('child_process');
+const { buildSelectionOperatingIntelligence } = require('./selection_operating_intelligence');
 
 const ROOT = path.join(__dirname, '..');
 
@@ -190,6 +191,25 @@ function normalizeAbaSearchTermReport(report = {}) {
       totalClickShare: num(row.totalClickShare || row.total_click_share),
       totalConversionShare: num(row.totalConversionShare || row.total_conversion_share),
       topAsinCount: Array.isArray(row.topAsins) ? row.topAsins.length : num(row.topAsinCount),
+      aoValue: num(row.aoValue ?? row.aoVal ?? row.ao),
+      brandMonopoly: num(row.brandMonopoly ?? row.brandMonopolyRate ?? row.brandMonopolyCoefficient),
+      sellerMonopoly: num(row.sellerMonopoly ?? row.sellerMonopolyRate ?? row.sellerMonopolyCoefficient),
+      supplyDemand: num(row.supplyDemand ?? row.supplyDemandIndex ?? row.supplyDemandRatio),
+      productCount: num(row.productCount ?? row.sellingProductCount ?? row.totalProducts ?? row.asinCount),
+      newProductShare: num(row.newProductShare ?? row.newAsinShare),
+      newProductSalesShare: num(row.newProductSalesShare ?? row.newProductSalesRatio),
+      titleDensity: num(row.titleDensity ?? row.titleShare ?? row.titleRate),
+      adTitleDensity: num(row.adTitleDensity ?? row.adTitleShare ?? row.adTitleRate),
+      avgPrice: num(row.avgPrice ?? row.averagePrice ?? row.productAveragePrice),
+      avgRating: num(row.avgRating ?? row.averageRating),
+      avgReviewCount: num(row.avgReviewCount ?? row.averageReviewCount ?? row.reviewAvg),
+      aPlusRate: num(row.aPlusRate ?? row.aPlusShare),
+      videoRate: num(row.videoRate ?? row.videoShare),
+      fbmShare: num(row.fbmShare ?? row.fbmRate),
+      chinaSellerShare: num(row.chinaSellerShare ?? row.cnSellerShare),
+      amazonSelfShare: num(row.amazonSelfShare ?? row.amazonShare),
+      keywordType: text(row.keywordType || row.type),
+      marketCycle: text(row.marketCycle || row.market_cycle),
     };
   }
   const byQuery = {};
@@ -208,6 +228,25 @@ function normalizeAbaSearchTermReport(report = {}) {
       totalClickShare: num(row.totalClickShare || row.total_click_share),
       totalConversionShare: num(row.totalConversionShare || row.total_conversion_share),
       topAsinCount: Array.isArray(row.topAsins) ? row.topAsins.length : num(row.topAsinCount),
+      aoValue: num(row.aoValue ?? row.aoVal ?? row.ao),
+      brandMonopoly: num(row.brandMonopoly ?? row.brandMonopolyRate ?? row.brandMonopolyCoefficient),
+      sellerMonopoly: num(row.sellerMonopoly ?? row.sellerMonopolyRate ?? row.sellerMonopolyCoefficient),
+      supplyDemand: num(row.supplyDemand ?? row.supplyDemandIndex ?? row.supplyDemandRatio),
+      productCount: num(row.productCount ?? row.sellingProductCount ?? row.totalProducts ?? row.asinCount),
+      newProductShare: num(row.newProductShare ?? row.newAsinShare),
+      newProductSalesShare: num(row.newProductSalesShare ?? row.newProductSalesRatio),
+      titleDensity: num(row.titleDensity ?? row.titleShare ?? row.titleRate),
+      adTitleDensity: num(row.adTitleDensity ?? row.adTitleShare ?? row.adTitleRate),
+      avgPrice: num(row.avgPrice ?? row.averagePrice ?? row.productAveragePrice),
+      avgRating: num(row.avgRating ?? row.averageRating),
+      avgReviewCount: num(row.avgReviewCount ?? row.averageReviewCount ?? row.reviewAvg),
+      aPlusRate: num(row.aPlusRate ?? row.aPlusShare),
+      videoRate: num(row.videoRate ?? row.videoShare),
+      fbmShare: num(row.fbmShare ?? row.fbmRate),
+      chinaSellerShare: num(row.chinaSellerShare ?? row.cnSellerShare),
+      amazonSelfShare: num(row.amazonSelfShare ?? row.amazonShare),
+      keywordType: text(row.keywordType || row.type),
+      marketCycle: text(row.marketCycle || row.market_cycle),
       returnedRows: num(row.returnedRows),
       total: num(row.total),
     };
@@ -290,8 +329,461 @@ function normalizeKeywordSeasonalityReport(report = {}) {
   };
 }
 
+function normalizeKeywordResearchReport(report = {}) {
+  const candidates = Array.isArray(report.candidateKeywords) ? report.candidateKeywords : [];
+  const direct = Array.isArray(report.directCompetitorAsins) ? report.directCompetitorAsins : [];
+  const scene = Array.isArray(report.sceneCompetitorAsins) ? report.sceneCompetitorAsins : [];
+  const bridge = Array.isArray(report.trafficBridgeAsins) ? report.trafficBridgeAsins : [];
+  const excluded = Array.isArray(report.excludedAsins) ? report.excludedAsins : [];
+  const byTerm = {};
+  const ensure = term => {
+    const key = termKey(term);
+    if (!key) return null;
+    if (!byTerm[key]) {
+      byTerm[key] = {
+        term: key,
+        directCompetitors: 0,
+        sceneCompetitors: 0,
+        trafficBridgeCompetitors: 0,
+        excluded: 0,
+        candidate: null,
+        readyForDecisionSupport: false,
+        evidenceNotes: [],
+      };
+    }
+    return byTerm[key];
+  };
+  for (const candidate of candidates) {
+    const row = ensure(candidate.term || candidate.keyword || candidate.searchTerm);
+    if (!row) continue;
+    row.candidate = {
+      term: row.term,
+      source: text(candidate.source),
+      nextCheck: Array.isArray(candidate.nextCheck) ? candidate.nextCheck.map(text).filter(Boolean) : [],
+    };
+    row.evidenceNotes.push(...(Array.isArray(candidate.evidence) ? candidate.evidence.map(text).filter(Boolean) : []));
+  }
+  for (const item of direct) {
+    const row = ensure(item.searchTerm || item.term || item.keyword);
+    if (row) row.directCompetitors += 1;
+  }
+  for (const item of scene) {
+    const row = ensure(item.searchTerm || item.term || item.keyword);
+    if (row) row.sceneCompetitors += 1;
+  }
+  for (const item of bridge) {
+    const row = ensure(item.searchTerm || item.term || item.keyword);
+    if (row) row.trafficBridgeCompetitors += 1;
+  }
+  for (const item of excluded) {
+    const row = ensure(item.searchTerm || item.term || item.keyword);
+    if (row) row.excluded += 1;
+  }
+  for (const row of Object.values(byTerm)) {
+    row.readyForDecisionSupport = row.directCompetitors + row.sceneCompetitors + row.trafficBridgeCompetitors > 0;
+    row.evidenceNotes = [...new Set(row.evidenceNotes)];
+  }
+  return {
+    ok: report.ok !== false,
+    source: report.source || 'selection_keyword_research',
+    exportedAt: report.generatedAt || report.exportedAt || '',
+    rowCount: Object.keys(byTerm).length,
+    rows: byTerm,
+    summary: report.operatorSummary?.summary || report.summary || {},
+    operatorSummary: report.operatorSummary || {},
+  };
+}
+
+function normalizeProductTimeMachineReport(report = {}) {
+  const rows = Array.isArray(report.rows) ? report.rows : [];
+  const byTerm = {};
+  for (const row of rows) {
+    const keyword = termKey(row.searchKeyword || row.keyword || row.searchTerm || row.term);
+    if (!keyword) continue;
+    if (!byTerm[keyword]) byTerm[keyword] = [];
+    byTerm[keyword].push({
+      asin: text(row.asin),
+      searchKeyword: keyword,
+      title: text(row.title),
+      price: num(row.price),
+      rating: num(row.rating ?? row.star),
+      reviewCount: num(row.reviewCount),
+      boughtInPastMonthLowerBound: num(row.boughtInPastMonthLowerBound),
+      demandTier: text(row.demandTier),
+      trafficMix: text(row.trafficMix),
+      trafficTerms: row.trafficTerms || {},
+      organicFlowShare: num(row.organicFlowShare),
+      aoVal: num(row.aoVal),
+      recommendedUse: text(row.recommendedUse),
+      rankHistory: row.rankHistory || {},
+    });
+  }
+  return {
+    ok: report.ok !== false,
+    source: report.source || 'selection_product_time_machine',
+    exportedAt: report.generatedAt || report.exportedAt || '',
+    rowCount: rows.length,
+    rows: byTerm,
+    coverage: report.coverage || {},
+    operatorSummary: report.operatorSummary || {},
+    keywordHistory: Array.isArray(report.keywordHistory) ? report.keywordHistory : [],
+  };
+}
+
+function normalizeExtendedSelectionReport(report = {}) {
+  const rows = {};
+  const summaries = Array.isArray(report.summaries) ? report.summaries : [];
+  const missingEvidence = Array.isArray(report.missingEvidence) ? report.missingEvidence : [];
+  const pendingPresets = Array.isArray(report.pendingPresets) ? report.pendingPresets : [];
+  const dailyRanks = {
+    bsrList: null,
+    bsrOverview: null,
+    newReleasesList: null,
+    newReleasesOverview: null,
+  };
+  let categoryAnalysis = null;
+  const flowThemeTags = {
+    main: null,
+    dimensions: null,
+    matchWords: null,
+  };
+  const storeFeedback = {
+    list: null,
+    accountNum: null,
+    sites: null,
+    accounts: {},
+  };
+  const COMMENT_KEYS = new Set(['commentCount', 'commentAnalysis', 'commentGptData', 'commentRating', 'commentType', 'commentList']);
+  const DAILY_RANK_LIST_KEYS = new Set(['bsrList', 'newReleasesList']);
+  const DAILY_RANK_OVERVIEW_KEYS = new Set(['bsrOverview', 'newReleasesOverview']);
+  const asinInfoValues = result => {
+    if (Array.isArray(result)) return result;
+    if (!result || typeof result !== 'object') return [];
+    if (result.asin || result.ASIN || result.parentAsin) return [result];
+    return Object.values(result).filter(value => value && typeof value === 'object');
+  };
+  const splitAsins = value => text(value).split(/[,，\s]+/).map(item => item.toUpperCase()).filter(Boolean);
+  const requestedAsinsFor = request => [
+    ...splitAsins(request.query?.asin),
+    ...splitAsins(request.query?.asins),
+    ...(Array.isArray(request.body?.asinList) ? request.body.asinList.map(item => text(item).toUpperCase()).filter(Boolean) : []),
+  ].filter(Boolean);
+  const pagedRecords = value => {
+    if (Array.isArray(value)) return value;
+    if (!value || typeof value !== 'object') return [];
+    for (const key of ['records', 'rows', 'list', 'data', 'content', 'items']) {
+      if (Array.isArray(value[key])) return value[key];
+    }
+    return [];
+  };
+  const nullableNum = value => (value === null || value === undefined || text(value) === '' ? null : num(value, null));
+  const normalizeDailyRankRow = (value = {}, request = {}) => ({
+    list: request.key === 'newReleasesList' ? 'newReleases' : 'bsr',
+    rankDate: text(request.query?.uTime),
+    categoryType: text(request.query?.categoryType),
+    asin: text(value.asin || value.ASIN).toUpperCase(),
+    title: text(value.title),
+    brandName: text(value.brandName),
+    categoryId: text(value.categoryId),
+    categoryName: text(value.categoryName),
+    bsrRank: nullableNum(value.bsrRank ?? value.bsr_rank ?? value.rank),
+    firstCategoryRank: nullableNum(value.firstCategoryRank),
+    price: nullableNum(value.price),
+    rating: nullableNum(value.rating),
+    totalComments: nullableNum(value.totalComments ?? value.reviewCount),
+    bsrOrders: nullableNum(value.bsrOrders),
+    bsrOrdersChange: nullableNum(value.bsrOrdersChange),
+    aoVal: nullableNum(value.aoVal),
+    launchTime: text(value.launchTime),
+    isNewAsin: !!(value.isAsinNew || value.isAsinBsrNew),
+    sourceRow: value,
+  });
+  const addAsin = (asin, patch = {}) => {
+    const key = text(asin).toUpperCase();
+    if (!key) return null;
+    if (!rows[key]) {
+      rows[key] = {
+        asin: key,
+        asinInfo: null,
+        associationFlow: [],
+        adPlacement: [],
+        trafficDetail: [],
+        commentCount: null,
+        commentAnalysis: null,
+        commentGptData: null,
+        commentRating: null,
+        commentType: null,
+        commentList: null,
+        commentAsinStats: [],
+        dailyRanks: [],
+        storeFeedbackTopAsins: [],
+        storeFeedbackNewAsins: [],
+        sourceKeys: [],
+      };
+    }
+    if (patch.asinInfo) rows[key].asinInfo = patch.asinInfo;
+    if (Array.isArray(patch.associationFlow)) rows[key].associationFlow.push(...patch.associationFlow);
+    if (Array.isArray(patch.adPlacement)) rows[key].adPlacement.push(...patch.adPlacement);
+    if (Array.isArray(patch.trafficDetail)) rows[key].trafficDetail.push(...patch.trafficDetail);
+    for (const commentKey of COMMENT_KEYS) {
+      if (Object.prototype.hasOwnProperty.call(patch, commentKey)) rows[key][commentKey] = patch[commentKey];
+    }
+    if (Array.isArray(patch.commentAsinStats)) rows[key].commentAsinStats.push(...patch.commentAsinStats);
+    if (Array.isArray(patch.dailyRanks)) rows[key].dailyRanks.push(...patch.dailyRanks);
+    if (Array.isArray(patch.storeFeedbackTopAsins)) rows[key].storeFeedbackTopAsins.push(...patch.storeFeedbackTopAsins);
+    if (Array.isArray(patch.storeFeedbackNewAsins)) rows[key].storeFeedbackNewAsins.push(...patch.storeFeedbackNewAsins);
+    if (patch.sourceKey) rows[key].sourceKeys.push(patch.sourceKey);
+    rows[key].sourceKeys = [...new Set(rows[key].sourceKeys)];
+    return rows[key];
+  };
+  const accountKeyFor = request => text(request.query?.accountId || request.query?.accountName || 'selected_account');
+  const ensureStoreAccount = request => {
+    const key = accountKeyFor(request);
+    if (!storeFeedback.accounts[key]) {
+      storeFeedback.accounts[key] = {
+        accountId: text(request.query?.accountId),
+        accountName: text(request.query?.accountName),
+        category: null,
+        indicator: null,
+        topAsins: null,
+        categoryNum: null,
+        newAsins: null,
+        trend: null,
+        asinNum: null,
+      };
+    }
+    return storeFeedback.accounts[key];
+  };
+
+  for (const item of report.results || []) {
+    const request = item.request || {};
+    const result = item.api?.result ?? item.api?.json?.result ?? item.api?.json?.data ?? null;
+    if (request.key === 'asinInfo') {
+      const values = asinInfoValues(result);
+      const requestedAsins = text(request.query?.asins).split(/[,，\s]+/).map(item => item.toUpperCase()).filter(Boolean);
+      if (values.length) {
+        for (const value of values) {
+          const asin = value?.asin || value?.ASIN || value?.parentAsin || requestedAsins[0];
+          addAsin(asin, { asinInfo: value, sourceKey: request.key });
+        }
+      } else {
+        for (const asin of requestedAsins) addAsin(asin, { asinInfo: result || {}, sourceKey: request.key });
+      }
+    }
+    if (request.key === 'associationFlow' || request.key === 'adPlacement') {
+      const values = Array.isArray(result) ? result : [];
+      const requestedAsins = Array.isArray(request.body?.asinList) ? request.body.asinList.map(item => text(item).toUpperCase()).filter(Boolean) : [];
+      const evidenceKey = request.key === 'adPlacement' ? 'adPlacement' : 'associationFlow';
+      for (const value of values) {
+        const asin = value.relatedAsin || value.asin || value.relatedDetailVo?.asin;
+        addAsin(asin, { [evidenceKey]: [value], sourceKey: request.key });
+        if (value.relatedDetailVo?.isSelfAsin || requestedAsins.includes(text(asin).toUpperCase())) {
+          addAsin(asin, { asinInfo: value.relatedDetailVo, sourceKey: request.key });
+        }
+      }
+      for (const asin of requestedAsins) addAsin(asin, { sourceKey: request.key });
+    }
+    if (COMMENT_KEYS.has(request.key)) {
+      const requestedAsins = requestedAsinsFor(request);
+      for (const asin of requestedAsins) addAsin(asin, { [request.key]: result, sourceKey: request.key });
+      if (request.key === 'commentAnalysis' && result && typeof result === 'object') {
+        const stats = [
+          ...(Array.isArray(result.haveComments) ? result.haveComments : []),
+          ...(Array.isArray(result.noComments) ? result.noComments : []),
+        ];
+        for (const value of stats) {
+          const asin = value.asin || value.ASIN || value.parentAsin;
+          addAsin(asin, { commentAnalysis: result, commentAsinStats: [value], sourceKey: request.key });
+        }
+      }
+    }
+    if (request.key === 'trafficDetail') {
+      const requestedAsins = requestedAsinsFor(request);
+      const values = Array.isArray(result) ? result : [];
+      const valuesWithAsin = values.filter(value => value.asin || value.ASIN || value.parentAsin);
+      if (!valuesWithAsin.length) {
+        for (const asin of requestedAsins) addAsin(asin, { trafficDetail: values, sourceKey: request.key });
+      }
+      for (const value of values) {
+        const asin = value.asin || value.ASIN || value.parentAsin;
+        if (asin) addAsin(asin, { trafficDetail: [value], sourceKey: request.key });
+      }
+      for (const asin of requestedAsins) addAsin(asin, { sourceKey: request.key });
+    }
+    if (DAILY_RANK_LIST_KEYS.has(request.key)) {
+      const values = pagedRecords(result);
+      dailyRanks[request.key] = {
+        query: request.query || {},
+        rowCount: values.length,
+        total: num(result?.total, null),
+        rows: values,
+      };
+      for (const value of values) {
+        const rankRow = normalizeDailyRankRow(value, request);
+        if (rankRow.asin) addAsin(rankRow.asin, { dailyRanks: [rankRow], sourceKey: request.key });
+      }
+    }
+    if (DAILY_RANK_OVERVIEW_KEYS.has(request.key)) {
+      dailyRanks[request.key] = {
+        query: request.query || {},
+        metrics: result && typeof result === 'object' ? result : {},
+      };
+    }
+    if (request.key === 'categoryAnalysis') {
+      const values = pagedRecords(result);
+      categoryAnalysis = {
+        query: request.query || {},
+        category: text(request.body?.advancedSearch?.category || request.body?.category),
+        rowCount: values.length,
+        total: num(result?.total, null),
+        rows: values,
+      };
+    }
+    if (request.key === 'flowThemeMain') {
+      const values = pagedRecords(result);
+      flowThemeTags.main = {
+        query: request.query || {},
+        body: request.body || {},
+        rowCount: values.length,
+        total: num(result?.total, null),
+        rows: values,
+      };
+    }
+    if (request.key === 'flowThemeHistory') {
+      const values = Array.isArray(result) ? result : pagedRecords(result);
+      flowThemeTags.dimensions = {
+        query: request.query || {},
+        rowCount: values.length,
+        rows: values,
+      };
+    }
+    if (request.key === 'flowThemeMatchWord') {
+      const values = pagedRecords(result);
+      flowThemeTags.matchWords = {
+        query: request.query || {},
+        rowCount: values.length,
+        total: num(result?.total, null),
+        rows: values,
+      };
+    }
+    if (request.key === 'storeFeedbackList') {
+      const values = pagedRecords(result);
+      storeFeedback.list = {
+        query: request.query || {},
+        rowCount: values.length,
+        total: num(result?.total, null),
+        rows: values,
+      };
+    }
+    if (request.key === 'storeFeedbackAccountNum') {
+      storeFeedback.accountNum = {
+        query: request.query || {},
+        metrics: result && typeof result === 'object' ? result : {},
+      };
+    }
+    if (request.key === 'storeFeedbackSite') {
+      const values = Array.isArray(result) ? result : pagedRecords(result);
+      storeFeedback.sites = {
+        query: request.query || {},
+        rowCount: values.length,
+        rows: values,
+      };
+    }
+    if (request.key === 'storeFeedbackCategory') {
+      const account = ensureStoreAccount(request);
+      const values = Array.isArray(result) ? result : pagedRecords(result);
+      account.category = {
+        query: request.query || {},
+        rowCount: values.length,
+        rows: values,
+      };
+    }
+    if (request.key === 'storeFeedbackIndicator') {
+      const account = ensureStoreAccount(request);
+      account.indicator = {
+        query: request.query || {},
+        metrics: result && typeof result === 'object' ? result : {},
+      };
+    }
+    if (request.key === 'storeFeedbackTopAsin') {
+      const account = ensureStoreAccount(request);
+      const values = Array.isArray(result) ? result : pagedRecords(result);
+      account.topAsins = {
+        query: request.query || {},
+        rowCount: values.length,
+        rows: values,
+      };
+      for (const value of values) {
+        const asin = value.asin || value.ASIN || value.parentAsin;
+        if (asin) addAsin(asin, { storeFeedbackTopAsins: [value], sourceKey: request.key });
+      }
+    }
+    if (request.key === 'storeFeedbackCategoryNum') {
+      const account = ensureStoreAccount(request);
+      const values = Array.isArray(result) ? result : pagedRecords(result);
+      account.categoryNum = {
+        query: request.query || {},
+        rowCount: values.length,
+        rows: values,
+      };
+    }
+    if (request.key === 'storeFeedbackNewAsin') {
+      const account = ensureStoreAccount(request);
+      const values = pagedRecords(result);
+      account.newAsins = {
+        query: request.query || {},
+        rowCount: values.length,
+        total: num(result?.total, null),
+        rows: values,
+      };
+      for (const value of values) {
+        const asin = value.asin || value.ASIN || value.parent_asin || value.parentAsin;
+        if (asin) addAsin(asin, { storeFeedbackNewAsins: [value], sourceKey: request.key });
+      }
+    }
+    if (request.key === 'storeFeedbackTrend') {
+      const account = ensureStoreAccount(request);
+      const values = Array.isArray(result) ? result : pagedRecords(result);
+      account.trend = {
+        query: request.query || {},
+        rowCount: values.length,
+        rows: values,
+      };
+    }
+    if (request.key === 'storeFeedbackAsinNum') {
+      const account = ensureStoreAccount(request);
+      const values = Array.isArray(result) ? result : pagedRecords(result);
+      account.asinNum = {
+        query: request.query || {},
+        rowCount: values.length,
+        rows: values,
+      };
+    }
+  }
+
+  return {
+    ok: report.ok === true,
+    source: report.source || 'selection_extended_evidence',
+    exportedAt: report.generatedAt || report.exportedAt || '',
+    rowCount: Object.keys(rows).length,
+    rows,
+    dailyRanks,
+    categoryAnalysis,
+    flowThemeTags,
+    storeFeedback,
+    summaries,
+    pendingPresets,
+    missingEvidence,
+    evidenceBoundary: report.evidenceBoundary || 'selection_read_only_market_evidence',
+    readyForAutoAction: false,
+  };
+}
+
 function normalizeSelectionMarketReport(report = {}) {
   return {
+    keywordResearch: normalizeKeywordResearchReport(
+      report.keywordResearch || report.keywordResearchReport || report.research || {}
+    ),
     keywordConversion: normalizeKeywordConversionReport(
       report.keywordConversion || report.keywordConversionReport || report.conversion || {}
     ),
@@ -300,6 +792,12 @@ function normalizeSelectionMarketReport(report = {}) {
     ),
     keywordSeasonality: normalizeKeywordSeasonalityReport(
       report.keywordSeasonality || report.keywordSeasonalityReport || report.seasonality || {}
+    ),
+    productTimeMachine: normalizeProductTimeMachineReport(
+      report.productTimeMachine || report.productTimeMachineReport || report.timeMachine || {}
+    ),
+    extendedSelection: normalizeExtendedSelectionReport(
+      report.extendedSelection || report.extendedSelectionReport || report.extended || {}
     ),
   };
 }
@@ -358,34 +856,93 @@ function sourceEntry(report = {}, fallbackSource = '') {
   };
 }
 
+function nestedRowCount(value) {
+  if (Array.isArray(value)) return value.length;
+  if (!value || typeof value !== 'object') return 0;
+  for (const key of ['records', 'rows', 'list', 'data', 'content', 'items', 'result']) {
+    if (Array.isArray(value[key])) return value[key].length;
+    const nested = nestedRowCount(value[key]);
+    if (nested) return nested;
+  }
+  return 0;
+}
+
 function marketEvidenceForTask(task = {}, selection = {}) {
   const terms = marketTermsForTask(task);
   if (!terms.length) return null;
+  const keywordResearch = selection.keywordResearch || {};
   const keywordConversion = selection.keywordConversion || {};
   const abaSearchTerms = selection.abaSearchTerms || {};
   const keywordSeasonality = selection.keywordSeasonality || {};
+  const productTimeMachine = selection.productTimeMachine || {};
   const rows = terms.map(term => ({
     term,
+    keywordResearch: keywordResearch.rows?.[term] || null,
     keywordConversion: keywordConversion.rows?.[term] || null,
     abaSearchTerm: abaSearchTerms.rows?.[term] || null,
     keywordSeasonality: keywordSeasonality.rows?.[term] || null,
+    productTimeMachine: productTimeMachine.rows?.[term] || [],
   }));
+  const operatingIntelligence = buildSelectionOperatingIntelligence({ evidenceRows: rows });
   return {
     terms: rows,
     coverage: {
       requested: terms.length,
+      keywordResearchMatched: rows.filter(row => row.keywordResearch).length,
       keywordConversionMatched: rows.filter(row => row.keywordConversion).length,
       abaMatched: rows.filter(row => row.abaSearchTerm).length,
       seasonalityMatched: rows.filter(row => row.keywordSeasonality).length,
+      productTimeMachineMatched: rows.filter(row => row.productTimeMachine?.length).length,
     },
-    readyForDecisionSupport: rows.some(row => row.keywordConversion || row.abaSearchTerm || row.keywordSeasonality),
+    readyForDecisionSupport: operatingIntelligence.readyForDecisionSupport,
     readyForAutoAction: false,
+    operatingIntelligence,
+    riskSignals: operatingIntelligence.riskSignals,
+  };
+}
+
+function productSelectionEvidenceForTask(task = {}, selection = {}) {
+  const asin = text(task.subject?.asin || task.asin).toUpperCase();
+  if (!asin) return null;
+  const extended = selection.extendedSelection || {};
+  const row = extended.rows?.[asin] || null;
+  if (!row) return null;
+  return {
+    asin,
+    readyForDecisionSupport: true,
+    readyForAutoAction: false,
+    asinInfo: row.asinInfo,
+    associationFlowCount: row.associationFlow?.length || 0,
+    adPlacementCount: row.adPlacement?.length || 0,
+    trafficDetailCount: row.trafficDetail?.length || 0,
+    commentListCount: nestedRowCount(row.commentList),
+    dailyRankCount: row.dailyRanks?.length || 0,
+    commentAsinStats: row.commentAsinStats || [],
+    commentEvidence: {
+      count: row.commentCount || null,
+      analysis: row.commentAnalysis || null,
+      gptData: row.commentGptData || null,
+      rating: row.commentRating || null,
+      type: row.commentType || null,
+    },
+    storeFeedbackTopAsinCount: row.storeFeedbackTopAsins?.length || 0,
+    storeFeedbackNewAsinCount: row.storeFeedbackNewAsins?.length || 0,
+    storeFeedbackEvidence: {
+      topAsins: (row.storeFeedbackTopAsins || []).slice(0, 20),
+      newAsins: (row.storeFeedbackNewAsins || []).slice(0, 20),
+    },
+    associationFlow: (row.associationFlow || []).slice(0, 20),
+    adPlacement: (row.adPlacement || []).slice(0, 20),
+    trafficDetail: (row.trafficDetail || []).slice(0, 50),
+    dailyRanks: (row.dailyRanks || []).slice(0, 20),
+    sourceKeys: row.sourceKeys || [],
+    evidenceBoundary: extended.evidenceBoundary || 'selection_read_only_market_evidence',
   };
 }
 
 function marketRiskSignals(market = null) {
   if (!market) return [];
-  const signals = [];
+  const signals = [...(market.riskSignals || []), ...(market.operatingIntelligence?.riskSignals || [])];
   if (market.coverage?.requested > 0 && !market.readyForDecisionSupport) signals.push('market_evidence_missing');
   for (const row of market.terms || []) {
     const conversion = row.keywordConversion || {};
@@ -399,6 +956,8 @@ function marketRiskSignals(market = null) {
     if (seasonality.demandTier === 'low') signals.push('market_demand_low');
     if (seasonality.competitionTier === 'high') signals.push('market_competition_high');
     if (seasonality.googleTrend?.direction === 'declining') signals.push('market_trend_declining');
+    if (row.productTimeMachine?.some(item => item.trafficMix === 'ad_led')) signals.push('competitor_ad_pressure_high');
+    if (row.keywordResearch && !row.keywordResearch.readyForDecisionSupport) signals.push('front_search_competitor_weak');
   }
   return signals;
 }
@@ -438,6 +997,7 @@ function buildReviewEvidence({ queue = {}, adReports = {}, inventoryReports = {}
     const inventory = inventoryReport.rows?.[key] || null;
     const profit = profitReport.rows?.[key] || null;
     const market = marketEvidenceForTask(task, normalizedSelectionReports);
+    const productSelection = productSelectionEvidenceForTask(task, normalizedSelectionReports);
     const baseline = baselineForTask(task);
     const metrics = requestedMetrics(task);
     const warnings = [];
@@ -446,6 +1006,7 @@ function buildReviewEvidence({ queue = {}, adReports = {}, inventoryReports = {}
     if (metrics.includes('inventory') && !inventory) warnings.push('missing_current_inventory_metrics');
     if (metrics.includes('profit') && !profit) warnings.push('missing_current_profit_metrics');
     if ((metrics.includes('market') || metrics.includes('selection')) && !market?.readyForDecisionSupport) warnings.push('missing_current_selection_market');
+    if ((metrics.includes('product') || metrics.includes('asin') || metrics.includes('extended_selection')) && !productSelection?.readyForDecisionSupport) warnings.push('missing_current_extended_selection');
     const riskSignals = riskSignalsForEvidence(current, inventory, profit, market);
     evidence[key] = {
       baseline,
@@ -453,6 +1014,7 @@ function buildReviewEvidence({ queue = {}, adReports = {}, inventoryReports = {}
       inventory,
       profit,
       market,
+      productSelection,
       riskSignals,
       warnings,
       taskId: task.taskId || '',
@@ -460,9 +1022,12 @@ function buildReviewEvidence({ queue = {}, adReports = {}, inventoryReports = {}
         sourceEntry(adReport, '/product/adSkuSummary'),
         ...(inventory ? [sourceEntry(inventoryReport, 'inventory')] : []),
         ...(profit ? [sourceEntry(profitReport, 'profit')] : []),
+        ...(market?.coverage?.keywordResearchMatched ? [sourceEntry(normalizedSelectionReports.keywordResearch, 'selection_keyword_research')] : []),
         ...(market?.coverage?.keywordConversionMatched ? [sourceEntry(normalizedSelectionReports.keywordConversion, 'selection_keyword_conversion_rate')] : []),
         ...(market?.coverage?.abaMatched ? [sourceEntry(normalizedSelectionReports.abaSearchTerms, 'selection_aba_search_terms')] : []),
         ...(market?.coverage?.seasonalityMatched ? [sourceEntry(normalizedSelectionReports.keywordSeasonality, 'selection_keyword_seasonality')] : []),
+        ...(market?.coverage?.productTimeMachineMatched ? [sourceEntry(normalizedSelectionReports.productTimeMachine, 'selection_product_time_machine')] : []),
+        ...(productSelection ? [sourceEntry(normalizedSelectionReports.extendedSelection, 'selection_extended_evidence')] : []),
       ],
     };
   }
@@ -514,9 +1079,12 @@ function collectAdSkuReviewEvidence(options = {}) {
     inventoryReports: options.inventoryReports || readJson(options.inventoryReportFile, {}),
     profitReports: options.profitReports || readJson(options.profitReportFile, {}),
     selectionReports: options.selectionReports || {
+      keywordResearch: readJson(options.keywordResearchReportFile, {}),
       keywordConversion: readJson(options.keywordConversionReportFile, {}),
       abaSearchTerms: readJson(options.abaSearchTermReportFile, {}),
       keywordSeasonality: readJson(options.keywordSeasonalityReportFile, {}),
+      productTimeMachine: readJson(options.productTimeMachineReportFile, {}),
+      extendedSelection: readJson(options.extendedSelectionReportFile, {}),
     },
   });
   const evidenceFile = options.outFile || path.join(ROOT, 'data', 'agent', `review_evidence_${today}.json`);
@@ -530,6 +1098,7 @@ function collectAdSkuReviewEvidence(options = {}) {
       inventoryCollected: Object.values(evidence).filter(item => item.inventory).length,
       profitCollected: Object.values(evidence).filter(item => item.profit).length,
       selectionCollected: Object.values(evidence).filter(item => item.market?.readyForDecisionSupport).length,
+      extendedSelectionCollected: Object.values(evidence).filter(item => item.productSelection?.readyForDecisionSupport).length,
       missingBaseline: Object.values(evidence).filter(item => item.warnings.includes('missing_baseline_metrics')).length,
       errors,
     },
@@ -542,6 +1111,9 @@ module.exports = {
   normalizeAdSkuSummaryReport,
   normalizeInventoryReport,
   normalizeProfitReport,
+  normalizeKeywordResearchReport,
+  normalizeProductTimeMachineReport,
+  normalizeExtendedSelectionReport,
   normalizeSelectionMarketReport,
   reviewSubjectKeys,
 };

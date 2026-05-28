@@ -88,6 +88,11 @@ const VARIANT_SPECIFIC_TITLE_TERMS = [
   { id: 'godmother', source: /\bgodmother\b/i, target: /\bgodmother\b/i },
 ];
 
+const SEARCH_CORE_KEYWORDS_MAX_LENGTH = 250;
+const CLOTHING_CATEGORY_TITLE_MAX_LENGTH = 125;
+const US_ASSOCIATION_TERMS = new Set(['america', 'american', 'usa', 'us', 'united', 'states']);
+const ANNIVERSARY_250_TERMS = new Set(['250', '250th']);
+
 function termPattern(term) {
   return new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
 }
@@ -106,14 +111,14 @@ function productLabelInfo(input = {}) {
 function normalizeProductContext(input = {}) {
   const source = input.productContext || input.product_context || {};
   return {
-    listingTitle: text(source.listingTitle || source.listing_title),
-    productType: text(source.productType || source.product_type),
+    listingTitle: text(source.listingTitle || source.listing_title || input.listingTitle || input.listing_title),
+    productType: text(source.productType || source.product_type || input.productType || input.product_type || input.titleProductType || input.title_product_type),
     productTypes: list(source.productTypes || source.product_types),
     targetAudience: list(source.targetAudience || source.target_audience),
     occasion: list(source.occasion),
     visualTheme: list(source.visualTheme || source.visual_theme),
     positioning: text(source.positioning),
-    categoryPath: text(source.categoryPath || source.category_path),
+    categoryPath: text(source.categoryPath || source.category_path || input.categoryPath || input.category_path || input.categoryPathName || input.category_path_name),
   };
 }
 
@@ -192,6 +197,36 @@ function auditVariantTitleSpecificity(title, options = {}) {
   return errors;
 }
 
+function isClothingCategoryContext(context = {}) {
+  const combined = text([
+    context.categoryPath,
+    context.productType,
+    ...(context.productTypes || []),
+  ].join(' ')).toLowerCase();
+  return /\bclothes?\b|\bclothing\b|\bapparel\b|服装/.test(combined);
+}
+
+function audit250thUsTermSpacing(value, field = 'copy') {
+  const tokens = String(value || '').toLowerCase().match(/[a-z0-9]+/g) || [];
+  const errors = [];
+  const anniversaryIndexes = [];
+  const usIndexes = [];
+  tokens.forEach((token, index) => {
+    if (ANNIVERSARY_250_TERMS.has(token)) anniversaryIndexes.push(index);
+    if (US_ASSOCIATION_TERMS.has(token)) usIndexes.push(index);
+  });
+  for (const anniversaryIndex of anniversaryIndexes) {
+    for (const usIndex of usIndexes) {
+      const wordsBetween = Math.abs(anniversaryIndex - usIndex) - 1;
+      if (wordsBetween >= 0 && wordsBetween < 3) {
+        errors.push(`${field}_250th_us_term_spacing_lt_3`);
+        return errors;
+      }
+    }
+  }
+  return errors;
+}
+
 function normalizeCopyEditPayload(input = {}) {
   const original = input.original || {};
   const now = input.now || {};
@@ -213,16 +248,19 @@ function normalizeCopyEditPayload(input = {}) {
     synchronizeFields: synchronizeVariantSkus.length ? rawSyncFields : [],
     requestedSynchronizeFields: rawSyncFields,
     synchronizeVariantSkus,
+    omitParentTitle: input.omitParentTitle === true || input.omit_parent_title === true,
     remark: text(input.remark),
     reason: text(input.reason),
     original: {
       parentTitle: text(original.parentTitle || original.parent_title),
+      titleEn: text(original.titleEn || original.title_en),
       bulletPoints: list(original.bulletPoints || original.bullet_points),
       productDescription: normalizeProductDescriptionText(original.productDescription || original.product_description),
       searchCoreKeywords: text(original.searchCoreKeywords || original.search_core_keywords),
     },
     now: {
       parentTitle: text(now.parentTitle || now.parent_title),
+      titleEn: text(now.titleEn || now.title_en),
       bulletPoints: list(now.bulletPoints || now.bullet_points),
       productDescription: normalizeProductDescriptionText(now.productDescription || now.product_description),
       searchCoreKeywords: text(now.searchCoreKeywords || now.search_core_keywords),
@@ -252,7 +290,7 @@ function validateCopyEditAction(input = {}) {
   if (!payload.productId) errors.push('missing_productId');
   if (!payload.sku) errors.push('missing_sku');
   if (!payload.reason) errors.push('missing_reason');
-  if (!payload.now.parentTitle && !payload.now.bulletPoints.length && !payload.now.productDescription && !payload.now.searchCoreKeywords) {
+  if (!payload.now.parentTitle && !payload.now.titleEn && !payload.now.bulletPoints.length && !payload.now.productDescription && !payload.now.searchCoreKeywords) {
     errors.push('missing_now_copy');
   }
   if (!['ai_approved', 'manual_approved'].includes(payload.decisionStage)) errors.push('decisionStage_not_approved');
@@ -262,12 +300,29 @@ function validateCopyEditAction(input = {}) {
   if (payload.canAutoExecute === false) errors.push('canAutoExecute_false');
   if (payload.requestedSynchronizeFields.length && !payload.synchronizeVariantSkus.length) warnings.push('sync_fields_omitted_without_variant_skus');
   if (!payload.original.parentTitle && payload.now.parentTitle) warnings.push('missing_original_parent_title');
+  if (payload.now.searchCoreKeywords.length > SEARCH_CORE_KEYWORDS_MAX_LENGTH) errors.push('search_core_keywords_over_250');
+  const clothingTitleLimit = isClothingCategoryContext(payload.productContext) ? CLOTHING_CATEGORY_TITLE_MAX_LENGTH : 0;
   if (payload.titleMaxLength <= 125 && payload.now.parentTitle.length > 125) errors.push('parent_title_over_125_conservative_limit');
+  if (clothingTitleLimit && payload.now.parentTitle.length > clothingTitleLimit) errors.push('parent_title_over_125_clothing_category_limit');
   if (payload.now.parentTitle.length > 200) errors.push('parent_title_too_long');
+  errors.push(...audit250thUsTermSpacing(payload.now.parentTitle, 'parent_title'));
   errors.push(...auditParentTitlePolicy(payload.now.parentTitle, { originalTitle: payload.original.parentTitle }));
   errors.push(...auditVariantTitleSpecificity(payload.now.parentTitle, { originalTitle: payload.original.parentTitle }));
   warnings.push(...auditChildTitleTerms(payload.now.parentTitle, { originalTitle: payload.original.parentTitle, productCompliance: payload.productCompliance, productContext: payload.productContext }));
+  if (!payload.original.titleEn && payload.now.titleEn) warnings.push('missing_original_title_en');
+  if (payload.titleMaxLength <= 125 && payload.now.titleEn.length > 125) errors.push('title_en_over_125_conservative_limit');
+  if (clothingTitleLimit && payload.now.titleEn.length > clothingTitleLimit) errors.push('title_en_over_125_clothing_category_limit');
+  if (payload.now.titleEn.length > 200) errors.push('title_en_too_long');
+  errors.push(...audit250thUsTermSpacing(payload.now.titleEn, 'title_en'));
+  errors.push(...auditParentTitlePolicy(payload.now.titleEn, { originalTitle: payload.original.titleEn }).map(item => item.replace(/^parent_title_/, 'title_en_')));
+  errors.push(...auditVariantTitleSpecificity(payload.now.titleEn, { originalTitle: payload.original.titleEn }).map(item => item.replace(/^parent_title_/, 'title_en_')));
+  warnings.push(...auditChildTitleTerms(payload.now.titleEn, { originalTitle: payload.original.titleEn, productCompliance: payload.productCompliance, productContext: payload.productContext }).map(item => item.replace(/^parent_title_/, 'title_en_')));
   if (payload.now.bulletPoints.length > 5) warnings.push('too_many_bullets');
+  payload.now.bulletPoints.forEach((bullet, index) => {
+    errors.push(...audit250thUsTermSpacing(bullet, `bullet_${index + 1}`));
+  });
+  errors.push(...audit250thUsTermSpacing(payload.now.productDescription, 'product_description'));
+  errors.push(...audit250thUsTermSpacing(payload.now.searchCoreKeywords, 'search_core_keywords'));
   return { ok: errors.length === 0, errors, warnings, payload };
 }
 
@@ -340,6 +395,7 @@ function mergeOriginCopyForSubmission(input = {}, originCopy = {}) {
   const originBullets = list(originCopy.bulletPoints || originCopy.bullet_points);
   const original = {
     parentTitle: text(originCopy.parentTitle || originCopy.parent_title || payload.original.parentTitle),
+    titleEn: text(originCopy.titleEn || originCopy.title_en || payload.original.titleEn),
     bulletPoints: originBullets.length ? originBullets : payload.original.bulletPoints,
     productDescription: normalizeProductDescriptionText(originCopy.productDescription || originCopy.product_description || payload.original.productDescription),
     searchCoreKeywords: text(originCopy.searchCoreKeywords || originCopy.search_core_keywords || payload.original.searchCoreKeywords),
@@ -349,6 +405,7 @@ function mergeOriginCopyForSubmission(input = {}, originCopy = {}) {
     original,
     now: {
       parentTitle: payload.now.parentTitle || original.parentTitle,
+      titleEn: payload.now.titleEn || original.titleEn,
       bulletPoints: payload.now.bulletPoints.length ? payload.now.bulletPoints : original.bulletPoints,
       productDescription: payload.now.productDescription || original.productDescription,
       searchCoreKeywords: payload.now.searchCoreKeywords || original.searchCoreKeywords,
@@ -395,11 +452,13 @@ function buildListingCopyEditForm(input = {}) {
   params.set('synchronizeSkus', payload.synchronizeVariantSkus.join(','));
   params.set('remark', payload.remark);
   params.set('reason', payload.reason);
-  params.set('original[parent_title]', payload.original.parentTitle);
+  if (!payload.omitParentTitle) params.set('original[parent_title]', payload.original.parentTitle);
+  params.set('original[title_en]', payload.original.titleEn);
   appendAll(params, 'original[bullet_points][]', payload.original.bulletPoints);
   params.set('original[product_description]', payload.original.productDescription);
   params.set('original[search_core_keywords]', payload.original.searchCoreKeywords);
-  params.set('now[parent_title]', payload.now.parentTitle);
+  if (!payload.omitParentTitle) params.set('now[parent_title]', payload.now.parentTitle);
+  params.set('now[title_en]', payload.now.titleEn);
   appendAll(params, 'now[bullet_points][]', payload.now.bulletPoints);
   params.set('now[product_description]', payload.now.productDescription);
   params.set('now[search_core_keywords]', payload.now.searchCoreKeywords);

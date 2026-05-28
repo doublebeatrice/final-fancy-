@@ -33,12 +33,14 @@ const timeContext = {
   assert.ok(item.requiredCapabilities.includes('selection::market_evidence::aba-search-terms::read'));
   assert.ok(item.requiredCapabilities.includes('selection::market_evidence::keyword-seasonality::read'));
   assert.ok(item.requiredCapabilities.includes('selection::market_evidence::product-time-machine::read'));
+  assert.ok(item.requiredCapabilities.includes('selection::market_evidence::operating-intelligence::read'));
   assert.ok(item.nextStep.includes('选品'));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:keyword-research')));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:keyword-conversion')));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:aba-search-terms')));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:keyword-seasonality')));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:product-time-machine')));
+  assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:operating-intelligence')));
 }
 
 {
@@ -58,16 +60,38 @@ const timeContext = {
   });
 
   assert.strictEqual(plan.mode, 'run_review');
-  assert.strictEqual(plan.commands.length, 1);
+  assert.strictEqual(plan.commands.length, 2);
   assert.ok(plan.commands[0].command.includes('npm run ops:agent:review-effect'));
   assert.ok(plan.commands[0].command.includes('--queue data\\agent\\review_queue_2026-05-19.json'));
   assert.ok(plan.commands[0].command.includes('--collect-evidence'));
   assert.ok(plan.commands[0].command.includes('--inventory-report'));
   assert.ok(plan.commands[0].command.includes('--profit-report'));
+  assert.ok(plan.commands[0].command.includes('--keyword-research-report'));
   assert.ok(plan.commands[0].command.includes('--keyword-conversion-report'));
   assert.ok(plan.commands[0].command.includes('--aba-report'));
   assert.ok(plan.commands[0].command.includes('--seasonality-report'));
   assert.ok(plan.commands[0].command.includes('--product-time-machine-report'));
+  assert.ok(plan.commands.some(command => command.command.includes('ops:selection:operating-intelligence')));
+}
+
+{
+  const item = classifyWorkItem({
+    lane: 'external_inbox',
+    kind: 'agent_autonomy_review',
+    status: 'new',
+    priority: 'P1',
+    title: '现在 agent 化够不够自驱，能不能无人值守',
+    evidenceRequirements: ['agent_autonomy_audit', 'unattended_scheduler_audit'],
+  }, { today: '2026-05-19' });
+
+  assert.strictEqual(item.workType, 'external_request');
+  assert.ok(item.requiredCapabilities.includes('agent::autonomy::audit::read'));
+  assert.ok(item.requiredCapabilities.includes('agent::readiness::audit::read'));
+  assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:agent:autonomy-audit')));
+  assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:agent:readiness-audit')));
+  const readiness = item.executionPlan.commands.find(command => command.command.includes('ops:agent:readiness-audit'));
+  assert.ok(readiness.command.includes('--require-correction-lesson'));
+  assert.ok(readiness.command.includes('--require-risk-routing-lesson'));
 }
 
 {
@@ -165,31 +189,81 @@ const timeContext = {
 }
 
 {
+  const hub = buildOperatingHub({
+    timeContext,
+    learningMemory: {
+      status: 'blocked_constraints',
+      summary: { constraints: 2, blockers: 1, warnings: 1 },
+      nextRunBrief: {
+        mustReadBeforeDecision: ['data/learning/corrections/lesson_1.json'],
+        doNotApplyWhen: ['same rule has an unresolved correction audit'],
+        evidenceBeforeReuse: ['same-rule scan', 'fresh snapshot'],
+        openFollowUps: ['confirm same-surface actions read this correction'],
+      },
+      tasks: [{
+        taskId: 'learning-1',
+        lane: 'learning_memory',
+        source: 'learning_memory',
+        kind: 'learning_constraint',
+        status: 'new',
+        priority: 'P0',
+        title: 'same rule has an unresolved correction audit',
+        evidenceRequirements: ['same-rule scan', 'fresh snapshot'],
+      }],
+    },
+    sourceFiles: {
+      learningMemoryFile: 'data\\agent\\learning_memory_2026-05-18.json',
+    },
+  });
+
+  assert.strictEqual(hub.summary.total, 1);
+  assert.strictEqual(hub.summary.learningMemoryApplied, true);
+  assert.strictEqual(hub.summary.learningConstraintTasks, 1);
+  assert.strictEqual(hub.summary.learningMustReadCount, 1);
+  assert.strictEqual(hub.learningContext.doNotApplyWhen[0], 'same rule has an unresolved correction audit');
+  assert.strictEqual(hub.todayQueue[0].workType, 'learning_constraint');
+  assert.strictEqual(hub.todayQueue[0].autonomyMode, 'gather_learning_evidence');
+  assert.ok(hub.todayQueue[0].requiredCapabilities.includes('agent::correction_risk::audit::read'));
+  assert.ok(hub.todayQueue[0].executionPlan.commands.some(command => command.command.includes('ops:agent:correction-risk')));
+}
+
+{
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-hub-'));
   const ledgerFile = path.join(tmpDir, 'ledger.json');
   const inboxFile = path.join(tmpDir, 'inbox.json');
   const reviewFile = path.join(tmpDir, 'reviews.json');
   const capabilityFile = path.join(tmpDir, 'capabilities.json');
+  const learningMemoryFile = path.join(tmpDir, 'learning_memory.json');
   const outFile = path.join(tmpDir, 'hub.json');
   fs.writeFileSync(ledgerFile, JSON.stringify({ nextOpenTasks: [{ taskId: 'daily-1', lane: 'daily_ops', status: 'new', priority: 'P0', title: '低效清理' }] }), 'utf8');
   fs.writeFileSync(inboxFile, JSON.stringify({ tasks: [{ taskId: 'ext-1', lane: 'external_inbox', status: 'new', priority: 'P1', title: '开发诉求' }] }), 'utf8');
   fs.writeFileSync(reviewFile, JSON.stringify({ due: [{ taskId: 'review-1', lane: 'effect_review', status: 'waiting_review', dueDate: '2026-05-19', title: '复查' }], upcoming: [] }), 'utf8');
   fs.writeFileSync(capabilityFile, JSON.stringify({ tasks: [] }), 'utf8');
+  fs.writeFileSync(learningMemoryFile, JSON.stringify({
+    status: 'active_watch',
+    summary: { constraints: 1, blockers: 0, warnings: 1 },
+    nextRunBrief: { mustReadBeforeDecision: ['data/learning/daily_learning_2026-05-18.json'] },
+    tasks: [{ taskId: 'learning-1', lane: 'learning_memory', kind: 'learning_constraint', status: 'new', priority: 'P1', title: 'watch prior dry-run result' }],
+  }), 'utf8');
 
   const hub = runAgentOperatingHub({
     ledgerFile,
     inboxFile,
     reviewFile,
     capabilityFile,
+    learningMemoryFile,
     outFile,
     today: '2026-05-19',
     timeContext,
   });
 
-  assert.strictEqual(hub.summary.total, 3);
+  assert.strictEqual(hub.summary.total, 4);
+  assert.strictEqual(hub.summary.learningMemoryApplied, true);
+  assert.strictEqual(hub.summary.learningConstraintTasks, 1);
   assert.ok(fs.existsSync(outFile));
   const persisted = JSON.parse(fs.readFileSync(outFile, 'utf8'));
   assert.strictEqual(persisted.todayQueue[0].workType, 'due_effect_review');
+  assert.ok(persisted.todayQueue.some(item => item.workType === 'learning_constraint'));
 }
 
 console.log('agent_operating_hub tests passed');

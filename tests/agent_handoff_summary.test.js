@@ -687,6 +687,57 @@ const timeContext = {
 }
 
 {
+  const summary = buildAgentHandoffSummary({
+    timeContext,
+    hub: {
+      businessDate: '2026-05-19',
+      dataDate: '2026-05-18',
+      summary: { total: 0 },
+      todayQueue: [],
+    },
+    commandResults: { summary: { executed: 0, failed: 0 }, results: [] },
+    writeExecution: {
+      mode: 'skipped',
+      summary: { eligibleActions: 0, blockedActions: 0, dryRunBlockedActions: 0, executedStages: 0, failedStages: 0 },
+    },
+    effectReview: { summary: { total: 0 }, results: [] },
+    dailyOperatingWorkflow: {
+      date: '2026-05-19',
+      required: true,
+      status: 'needs_recovery',
+      blockers: ['all_sku_review_missing', 'season_title_dry_run_missing'],
+      allSku: { status: 'missing', file: 'all_sku_operating_review_2026-05-19.json', totalSkus: 0, mustReview: 0, marketMissing: 0 },
+      season: { status: 'missing', dryRunItems: 0, autoAdCandidates: 0, activeSeasonTasks: 0, riskItems: 0 },
+      effectReview: { status: 'ready', dueReviews: 0, effectReviewTotal: 0, feedbackApplied: 0 },
+    },
+    snapshot: {
+      businessDate: '2026-05-19',
+      dataDate: '2026-05-18',
+      productCards: [{ sku: 'SKU1' }],
+      sellerSalesRows: [{
+        seller_title: 'total',
+        order_sales: '525427.69',
+        sale_num: '3663',
+        net_profit: '0.1941',
+        refund_percent: '0.0546',
+        ACOS: '0.1998',
+        ROAS: '5.0059',
+        SP: '0.3112',
+        advCost: '0.1012',
+      }],
+    },
+  });
+
+  assert.strictEqual(summary.summary.dailyOperatingWorkflowStatus, 'needs_recovery');
+  assert.ok(summary.summary.dailyOperatingWorkflowBlockers.includes('all_sku_review_missing'));
+  assert.strictEqual(summary.summary.operatingClosureStatus, 'needs_recovery');
+  assert.strictEqual(summary.summary.dailyClosureStatus, 'needs_recovery');
+  assert.ok(summary.markdown.includes('## 每日经营工作流'));
+  assert.ok(summary.markdown.includes('all_sku_review_missing'));
+  assert.ok(summary.markdown.includes('season_title_dry_run_missing'));
+}
+
+{
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-handoff-summary-'));
   const outFile = path.join(tmpDir, 'handoff.md');
   const jsonOutFile = path.join(tmpDir, 'handoff.json');

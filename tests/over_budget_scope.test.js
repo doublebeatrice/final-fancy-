@@ -337,16 +337,23 @@ assert.strictEqual(actionTargetsOverBudget({ riskLevel: 'low', actionSource: ['c
   const { items, counts } = buildOverBudgetPlanItems(snapshot, { actor: 'claude' });
   assert.ok(counts.aggressive >= 1, 'should generate at least one aggressive item');
   assert.ok(counts.controlled >= 1, 'should generate at least one controlled item');
-  // RRR is now auto-paused (Orders=0, Clicks=60, Spend=20, invDays=60 -> safe pause)
-  assert.ok(counts.autoPause + counts.lowerLayer >= 1, 'should cover lower-layer signal via auto-pause or review');
+  // RRR is now forced into receiver-layer review; ProductAd aggregate zero-order is not enough to auto-pause.
+  assert.ok(counts.autoPause + counts.lowerLayer >= 1, 'should cover lower-layer signal via review');
   for (const item of items) {
     for (const action of item.actions) {
       assert.strictEqual(action.approvedBy, 'claude');
-      assert.strictEqual(action.decisionStage, 'ai_approved');
       assert.deepStrictEqual(action.actionSource, ['claude']);
-      assert.strictEqual(action.requiresAiDecision, false);
-      assert.strictEqual(action.canAutoExecute, true);
       assert.ok(Array.isArray(action.evidence) && action.evidence.length >= 3);
+      if (action.riskLevel === 'overbudget_receiver_layer_review_required') {
+        assert.strictEqual(action.decisionStage, 'review_required');
+        assert.strictEqual(action.requiresAiDecision, true);
+        assert.strictEqual(action.canAutoExecute, false);
+        assert.strictEqual(action.actionType, 'review');
+      } else {
+        assert.strictEqual(action.decisionStage, 'ai_approved');
+        assert.strictEqual(action.requiresAiDecision, false);
+        assert.strictEqual(action.canAutoExecute, true);
+      }
       if (action.actionType === 'budget') {
         assert.ok(action.suggestedBudget > action.currentBudget, 'budget lift must be positive');
       }
@@ -517,14 +524,17 @@ assert.strictEqual(coreBidBump(1.50), 1.57);
     ],
   };
   const { items, stats } = buildAutoPauseActions(snapshot, { actor: 'claude' });
-  assert.strictEqual(items.length, 1, 'should auto-pause clean candidate');
+  assert.strictEqual(items.length, 1, 'should surface clean candidate for receiver-layer review');
   const action = items[0].actions[0];
-  assert.strictEqual(action.actionType, 'pause');
-  assert.strictEqual(action.entityType, 'productAd');
-  assert.strictEqual(action.id, 'adP1');
-  assert.strictEqual(action.riskLevel, 'over_budget_no_order_pause');
+  assert.strictEqual(action.actionType, 'review');
+  assert.strictEqual(action.entityType, 'skuCandidate');
+  assert.strictEqual(action.adId, 'adP1');
+  assert.strictEqual(action.riskLevel, 'overbudget_receiver_layer_review_required');
+  assert.strictEqual(action.decisionStage, 'review_required');
+  assert.strictEqual(action.canAutoExecute, false);
   assert.strictEqual(action.approvedBy, 'claude');
   assert.strictEqual(stats.kept, 1);
+  assert.strictEqual(stats.receiverLayerMissing, 1);
 }
 
 // Test 33: buildAutoPauseActions — tight inventory protects from pause
@@ -579,7 +589,7 @@ assert.strictEqual(coreBidBump(1.50), 1.57);
   assert.strictEqual(stats.onCooldownAd, 1);
 }
 
-// Test 37: buildOverBudgetPlanItems integrates auto-pause and removes overlapping lower-layer review
+// Test 37: buildOverBudgetPlanItems keeps lower-layer review when ProductAd pause is only review-required
 {
   const snapshot = {
     productCards: [makeCard('INT1', { profitRate: 0.20, invDays: 60 })],
@@ -588,10 +598,12 @@ assert.strictEqual(coreBidBump(1.50), 1.57);
     ],
   };
   const result = buildOverBudgetPlanItems(snapshot, { actor: 'claude', currentDate: new Date('2026-06-15') });
-  assert.ok(result.counts.autoPause >= 1, 'should produce auto-pause');
-  assert.strictEqual(result.counts.lowerLayer, 0, 'lower-layer review removed when auto-pause covers same campaign');
+  assert.ok(result.counts.autoPause >= 1, 'should produce ProductAd receiver-layer review');
+  assert.ok(result.counts.lowerLayer >= 1, 'lower-layer review remains because ProductAd pause did not execute');
   const pauseItem = result.items.find(i => i.actions[0].actionType === 'pause');
-  assert.ok(pauseItem);
+  assert.ok(!pauseItem, 'ProductAd aggregate zero-order must not auto-pause');
+  const reviewItem = result.items.find(i => i.actions[0].riskLevel === 'overbudget_receiver_layer_review_required');
+  assert.ok(reviewItem);
 }
 
 // Test 38: dedupeBudgetItemsBySku — same SKU two budget lifts → keep top score, demote rest
@@ -855,10 +867,11 @@ assert.strictEqual(isInSeasonWindow('halloween', new Date('2026-11-30')), false)
     currentDate: new Date('2026-06-15'),
     maxDailyBudgetIncreaseUsd: 1000,
   });
-  // expect: aggressive (EZ1 + paired core bid), controlled (EZ2), auto-pause (EZ3)
+  // expect: aggressive (EZ1 + paired core bid), controlled (EZ2), receiver-layer review (EZ3)
   const types = result.items.map(i => `${i.actions[0].actionType}:${i.actions[0].entityType}`);
   assert.ok(types.includes('budget:campaign'), 'should have budget lift');
-  assert.ok(types.includes('pause:productAd'), 'should have auto-pause');
+  assert.ok(types.includes('review:skuCandidate'), 'should have receiver-layer review');
+  assert.ok(!types.includes('pause:productAd'), 'should not auto-pause ProductAd aggregate');
   // aggressive should pair core bid
   const agg = result.items.find(i => (i.actions[0] || {}).riskLevel === 'over_budget_aggressive_budget_expansion');
   assert.ok(agg && agg.actions.length === 2);

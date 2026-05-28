@@ -8,6 +8,7 @@ const {
   normalizeAdSkuSummaryReport,
   normalizeInventoryReport,
   normalizeProfitReport,
+  normalizeExtendedSelectionReport,
   normalizeSelectionMarketReport,
   reviewSubjectKeys,
 } = require('../src/agent_review_evidence');
@@ -64,6 +65,215 @@ const { runAgentReviewEvidence } = require('../scripts/run_agent_review_evidence
   assert.strictEqual(inventory.rows.SE5608.sellableDays, 18);
   assert.strictEqual(profit.rows.SE5608.profitRate, 0.16);
   assert.strictEqual(profit.rows.SE5608.netProfit, 4.2);
+}
+
+{
+  const extended = normalizeExtendedSelectionReport({
+    ok: true,
+    source: 'selection_extended_evidence',
+    results: [{
+      request: {
+        key: 'asinInfo',
+        query: { asins: 'B0INFO0001' },
+      },
+      api: {
+        ok: true,
+        code: 200,
+        result: {
+          asin: 'B0INFO0001',
+          title: 'Single ASIN Info Object',
+        },
+      },
+    }, {
+      request: {
+        key: 'associationFlow',
+        body: { asinList: ['B0GWD724Y8'] },
+      },
+      api: {
+        ok: true,
+        code: 200,
+        result: [{
+          relatedAsin: 'B0GWD724Y8',
+          relatedCount: 3,
+          relatedDetailVo: {
+            asin: 'B0GWD724Y8',
+            title: '12 Pcs Patriotic Bucket Hat Set',
+            price: '45.99',
+            isSelfAsin: 1,
+          },
+        }],
+      },
+    }, {
+      request: {
+        key: 'adPlacement',
+        body: { asinList: ['B0GWD724Y8'] },
+      },
+      api: {
+        ok: true,
+        code: 200,
+        result: [{
+          relatedAsin: 'B0GWAD0001',
+          relatedCount: 1,
+        }],
+      },
+    }, {
+      request: {
+        key: 'commentAnalysis',
+        query: { asin: 'B0GWD724Y8' },
+      },
+      api: {
+        ok: true,
+        code: 200,
+        result: {
+          haveComments: [{
+            asin: 'B0GWD724Y8',
+            asinRatingCount: 12,
+            asinCommentsCount: 5,
+            asinRatingAvg: 4.2,
+          }],
+          noComments: [],
+        },
+      },
+    }, {
+      request: {
+        key: 'commentList',
+        query: { asin: 'B0GWD724Y8' },
+      },
+      api: {
+        ok: true,
+        code: 200,
+        result: {
+          records: [{ id: 1, rating: 5 }, { id: 2, rating: 1 }],
+          total: 2,
+        },
+      },
+    }, {
+      request: {
+        key: 'trafficDetail',
+        query: { asins: 'B0GWD724Y8' },
+      },
+      api: {
+        ok: true,
+        code: 200,
+        result: [{
+          asin: 'B0GWD724Y8',
+          searchTerm: 'american flag bucket hat',
+          flowRate: 0.12,
+        }],
+      },
+    }, {
+      request: {
+        key: 'bsrList',
+        query: { uTime: '2026-05-21', categoryType: 1 },
+      },
+      api: {
+        ok: true,
+        code: 200,
+        result: {
+          records: [{
+            asin: 'B0GWD724Y8',
+            title: '12 Pcs Patriotic Bucket Hat Set',
+            bsrRank: 42,
+            firstCategoryRank: 4,
+            price: 45.99,
+            rating: 4.3,
+            totalComments: 18,
+          }],
+          total: 1,
+        },
+      },
+    }, {
+      request: {
+        key: 'bsrOverview',
+        query: { uTime: '2026-05-21', categoryType: 1 },
+      },
+      api: {
+        ok: true,
+        code: 200,
+        result: {
+          asinNum1: 100,
+          newAsinCount1: 12,
+        },
+      },
+    }, {
+      request: {
+        key: 'categoryAnalysis',
+        query: { uTime: '2026-05-10', site: 1, dateType: 1 },
+        body: { advancedSearch: { category: 'Beauty & Personal Care' } },
+      },
+      api: {
+        ok: true,
+        code: 200,
+        result: {
+          records: [{
+            category: 'Beauty & Personal Care',
+            productType: 'makeup bag',
+            sellers: 42,
+            asin: 120,
+            newAsin: 12,
+          }],
+          total: 1,
+        },
+      },
+    }, {
+      request: {
+        key: 'flowThemeMain',
+        body: { uTime: '2026-04', dateType: 2 },
+      },
+      api: {
+        ok: true,
+        code: 200,
+        result: {
+          records: [{ patternSt: 'christmas towel', pattern_rank: 12 }],
+          total: 1,
+        },
+      },
+    }, {
+      request: {
+        key: 'flowThemeHistory',
+        query: { uTime: '2026-04' },
+      },
+      api: {
+        ok: true,
+        code: 200,
+        result: ['material', 'function'],
+      },
+    }, {
+      request: {
+        key: 'storeFeedbackList',
+        query: { uTime: '2026-04-01', myCollection: 0 },
+      },
+      api: {
+        ok: true,
+        code: 200,
+        result: {
+          records: [{
+            accountId: 'A2EJCTH67GJMT3',
+            accountName: 'Pattern.',
+            count30Day: 5027,
+            asinCounts: 8000,
+          }],
+          total: 1,
+        },
+      },
+    }],
+  });
+
+  assert.strictEqual(extended.rows.B0INFO0001.asinInfo.title, 'Single ASIN Info Object');
+  assert.strictEqual(extended.rows.B0GWD724Y8.asinInfo.title, '12 Pcs Patriotic Bucket Hat Set');
+  assert.strictEqual(extended.rows.B0GWD724Y8.associationFlow.length, 1);
+  assert.strictEqual(extended.rows.B0GWD724Y8.commentList.records.length, 2);
+  assert.strictEqual(extended.rows.B0GWD724Y8.commentAsinStats[0].asinRatingAvg, 4.2);
+  assert.strictEqual(extended.rows.B0GWD724Y8.trafficDetail.length, 1);
+  assert.strictEqual(extended.rows.B0GWD724Y8.dailyRanks[0].bsrRank, 42);
+  assert.strictEqual(extended.dailyRanks.bsrOverview.metrics.asinNum1, 100);
+  assert.strictEqual(extended.categoryAnalysis.category, 'Beauty & Personal Care');
+  assert.strictEqual(extended.categoryAnalysis.rowCount, 1);
+  assert.strictEqual(extended.flowThemeTags.main.rowCount, 1);
+  assert.strictEqual(extended.flowThemeTags.dimensions.rowCount, 2);
+  assert.strictEqual(extended.storeFeedback.list.rows[0].accountName, 'Pattern.');
+  assert.strictEqual(extended.rows.B0GWAD0001.adPlacement.length, 1);
+  assert.strictEqual(extended.readyForAutoAction, false);
 }
 
 {
@@ -242,6 +452,11 @@ const { runAgentReviewEvidence } = require('../scripts/run_agent_review_evidence
       },
     },
     selectionReports: {
+      keywordResearch: {
+        source: 'selection_keyword_research',
+        candidateKeywords: [{ term: 'american flag bucket hat', source: 'operator_terms' }],
+        directCompetitorAsins: [{ asin: 'B0HAT00001', searchTerm: 'american flag bucket hat' }],
+      },
       keywordConversion: {
         source: 'selection_keyword_conversion_rate',
         rows: [{ keyword: 'american flag bucket hat', marketQuality: 'weak', costRisk: 'high' }],
@@ -254,19 +469,200 @@ const { runAgentReviewEvidence } = require('../scripts/run_agent_review_evidence
         source: 'selection_keyword_seasonality',
         rows: [{ searchTerm: 'american flag bucket hat', seasonalityType: 'strong_seasonal', peakQuarter: 'q2', quarterRatio: 2.4 }],
       },
+      productTimeMachine: {
+        source: 'selection_product_time_machine',
+        rows: [{
+          asin: 'B0HAT00001',
+          searchKeyword: 'american flag bucket hat',
+          demandTier: 'high',
+          trafficMix: 'ad_led',
+          boughtInPastMonthLowerBound: 1000,
+          aoVal: 1.4,
+          trafficTerms: { total: 120, natural: 20, sp: 80 },
+        }],
+      },
+      extendedSelection: {
+        source: 'selection_extended_evidence',
+        ok: true,
+        results: [{
+          request: {
+            key: 'associationFlow',
+            body: { asinList: ['B0ABCDEF12'] },
+          },
+          api: {
+            ok: true,
+            code: 200,
+            result: [{
+              relatedAsin: 'B0ABCDEF12',
+              relatedCount: 2,
+              relatedDetailVo: {
+                asin: 'B0ABCDEF12',
+                title: 'American Flag Bucket Hat',
+                isSelfAsin: 1,
+              },
+            }],
+          },
+        }],
+      },
     },
   });
 
   assert.strictEqual(evidence.SE5608.market.terms[0].term, 'american flag bucket hat');
+  assert.strictEqual(evidence.SE5608.market.coverage.keywordResearchMatched, 1);
   assert.strictEqual(evidence.SE5608.market.coverage.keywordConversionMatched, 1);
   assert.strictEqual(evidence.SE5608.market.coverage.abaMatched, 1);
   assert.strictEqual(evidence.SE5608.market.coverage.seasonalityMatched, 1);
+  assert.strictEqual(evidence.SE5608.market.coverage.productTimeMachineMatched, 1);
+  assert.strictEqual(evidence.SE5608.market.operatingIntelligence.decisionQuality, 'full_market_profile');
   assert.ok(evidence.SE5608.riskSignals.includes('market_conversion_weak'));
   assert.ok(evidence.SE5608.riskSignals.includes('market_competition_high'));
   assert.ok(evidence.SE5608.riskSignals.includes('market_strong_seasonality'));
+  assert.ok(evidence.SE5608.riskSignals.includes('competitor_ad_pressure_high'));
+  assert.ok(evidence.SE5608.sources.some(item => item.source === 'selection_keyword_research'));
   assert.ok(evidence.SE5608.sources.some(item => item.source === 'selection_keyword_conversion_rate'));
   assert.ok(evidence.SE5608.sources.some(item => item.source === 'selection_aba_search_terms'));
   assert.ok(evidence.SE5608.sources.some(item => item.source === 'selection_keyword_seasonality'));
+  assert.ok(evidence.SE5608.sources.some(item => item.source === 'selection_product_time_machine'));
+  assert.strictEqual(evidence.SE5608.productSelection, null);
+}
+
+{
+  const queue = {
+    due: [{
+      taskId: 'review-product-selection',
+      subject: { asin: 'B0ABCDEF12' },
+      reviewPlan: {
+        baseline: { spend: 10, orders: 1 },
+        metrics: ['asin', 'product'],
+      },
+    }],
+  };
+  const evidence = buildReviewEvidence({
+    queue,
+    adReports: {
+      B0ABCDEF12: {
+        ok: true,
+        rows: [{ sku: 'B0ABCDEF12', spend: 14, orders: 1 }],
+      },
+    },
+    selectionReports: {
+      extendedSelection: {
+        source: 'selection_extended_evidence',
+        ok: true,
+        results: [{
+          request: {
+            key: 'associationFlow',
+            body: { asinList: ['B0ABCDEF12'] },
+          },
+          api: {
+            ok: true,
+            code: 200,
+            result: [{
+              relatedAsin: 'B0ABCDEF12',
+              relatedCount: 2,
+              relatedDetailVo: {
+                asin: 'B0ABCDEF12',
+                title: 'American Flag Bucket Hat',
+                isSelfAsin: 1,
+              },
+            }],
+          },
+        }, {
+          request: {
+            key: 'adPlacement',
+            body: { asinList: ['B0ABCDEF12'] },
+          },
+          api: {
+            ok: true,
+            code: 200,
+            result: [{
+              relatedAsin: 'B0ABCDEF12',
+              relatedCount: 1,
+              relatedDetailVo: {
+                asin: 'B0ABCDEF12',
+                title: 'American Flag Bucket Hat',
+                isSelfAsin: 1,
+              },
+            }],
+          },
+        }, {
+          request: {
+            key: 'commentList',
+            query: { asin: 'B0ABCDEF12' },
+          },
+          api: {
+            ok: true,
+            code: 200,
+            result: {
+              records: [{ id: 1, rating: 5 }],
+              total: 1,
+            },
+          },
+        }, {
+          request: {
+            key: 'trafficDetail',
+            query: { asins: 'B0ABCDEF12' },
+          },
+          api: {
+            ok: true,
+            code: 200,
+            result: [{
+              asin: 'B0ABCDEF12',
+              searchTerm: 'american flag bucket hat',
+            }],
+          },
+        }, {
+          request: {
+            key: 'newReleasesList',
+            query: { uTime: '2026-05-21', categoryType: 2 },
+          },
+          api: {
+            ok: true,
+            code: 200,
+            result: {
+              records: [{
+                asin: 'B0ABCDEF12',
+                title: 'American Flag Bucket Hat',
+                bsrRank: 18,
+                isAsinNew: true,
+              }],
+              total: 1,
+            },
+          },
+        }, {
+          request: {
+            key: 'storeFeedbackNewAsin',
+            query: {
+              accountId: 'A2STORE',
+              accountName: 'Store sample',
+            },
+          },
+          api: {
+            ok: true,
+            code: 200,
+            result: {
+              records: [{
+                asin: 'B0ABCDEF12',
+                account_name: 'Store sample',
+                isAsinNew: 1,
+              }],
+              total: 1,
+            },
+          },
+        }],
+      },
+    },
+  });
+
+  assert.strictEqual(evidence.B0ABCDEF12.productSelection.readyForDecisionSupport, true);
+  assert.strictEqual(evidence.B0ABCDEF12.productSelection.associationFlowCount, 1);
+  assert.strictEqual(evidence.B0ABCDEF12.productSelection.adPlacementCount, 1);
+  assert.strictEqual(evidence.B0ABCDEF12.productSelection.commentListCount, 1);
+  assert.strictEqual(evidence.B0ABCDEF12.productSelection.trafficDetailCount, 1);
+  assert.strictEqual(evidence.B0ABCDEF12.productSelection.dailyRankCount, 1);
+  assert.strictEqual(evidence.B0ABCDEF12.productSelection.storeFeedbackNewAsinCount, 1);
+  assert.strictEqual(evidence.B0ABCDEF12.productSelection.dailyRanks[0].list, 'newReleases');
+  assert.ok(evidence.B0ABCDEF12.sources.some(item => item.source === 'selection_extended_evidence'));
 }
 
 {

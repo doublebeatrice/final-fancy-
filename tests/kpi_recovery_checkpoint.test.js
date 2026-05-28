@@ -149,6 +149,18 @@ function writeJson(file, value) {
         dryRun: true,
       },
     ],
+    selectionReports: {
+      extendedSelection: {
+        ok: true,
+        results: [{
+          request: { key: 'flowThemeMain', body: { uTime: '2026-04', dateType: 2 } },
+          api: { ok: true, code: 200, result: { records: [{ patternSt: 'christmas towel' }], total: 1 } },
+        }, {
+          request: { key: 'storeFeedbackList', query: { uTime: '2026-04-01', myCollection: 0 } },
+          api: { ok: true, code: 200, result: { records: [{ accountName: 'Pattern.', count30Day: 5027 }], total: 1 } },
+        }],
+      },
+    },
   });
 
   assert.strictEqual(checkpoint.status, 'partial');
@@ -167,6 +179,9 @@ function writeJson(file, value) {
   assert.strictEqual(checkpoint.actionPools.recoveryDryRun.sample[0].sku, 'IF1427');
   assert.strictEqual(checkpoint.landedEvidence.landedActionSuccess, 774);
   assert.strictEqual(checkpoint.landedEvidence.landedActionFailed, 31);
+  assert.strictEqual(checkpoint.selectionKpiEvidence.readyForDecisionSupport, true);
+  assert.strictEqual(checkpoint.selectionKpiEvidence.flowTheme.main.rowCount, 1);
+  assert.strictEqual(checkpoint.selectionKpiEvidence.storeFeedback.list.rowCount, 1);
   assert.strictEqual(checkpoint.nextRecoveryTarget.businessDate, '2026-05-21');
   assert.strictEqual(checkpoint.nextRecoveryTarget.sales, 543689.74);
   assert.strictEqual(checkpoint.nextRecoveryTarget.relationshipToGate, 'next_pending_target');
@@ -437,6 +452,8 @@ function writeJson(file, value) {
     'closed.json',
     '--adjustments',
     'adjustments.json',
+    '--extended-selection-report',
+    'selection.json',
     '--out',
     'checkpoint.json',
     '--operator-out',
@@ -453,6 +470,7 @@ function writeJson(file, value) {
   assert.strictEqual(parsed.kpiApprovalReviewMarkdownFile, 'approval.md');
   assert.strictEqual(parsed.closedLoopFile, 'closed.json');
   assert.strictEqual(parsed.adjustmentLogFile, 'adjustments.json');
+  assert.strictEqual(parsed.extendedSelectionReportFile, 'selection.json');
   assert.strictEqual(parsed.outFile, 'checkpoint.json');
   assert.strictEqual(parsed.operatorOutFile, 'operator.md');
 }
@@ -478,6 +496,7 @@ function writeJson(file, value) {
   const writeExecutionFile = path.join(dir, 'write.json');
   const closedLoopFile = path.join(dir, 'closed.json');
   const adjustmentLogFile = path.join(dir, 'adjustments.json');
+  const extendedSelectionReportFile = path.join(dir, 'selection.json');
   const outFile = path.join(dir, 'checkpoint.json');
   const operatorOutFile = path.join(dir, 'operator.md');
 
@@ -557,6 +576,13 @@ function writeJson(file, value) {
       },
     },
   });
+  writeJson(extendedSelectionReportFile, {
+    ok: true,
+    results: [{
+      request: { key: 'storeFeedbackList', query: { uTime: '2026-04-01', myCollection: 0 } },
+      api: { ok: true, code: 200, result: { records: [{ accountName: 'Pattern.', count30Day: 5027 }], total: 1 } },
+    }],
+  });
 
   const result = run({
     date: '2026-05-20',
@@ -570,6 +596,7 @@ function writeJson(file, value) {
     kpiApprovalReviewMarkdownFile,
     closedLoopFile,
     adjustmentLogFile,
+    extendedSelectionReportFile,
     outFile,
     operatorOutFile,
   });
@@ -581,6 +608,7 @@ function writeJson(file, value) {
   assert.strictEqual(result.checkpoint.deposit.rawCandidateSearch.sameDateTotal, 1);
   assert.strictEqual(result.checkpoint.actionPools.recoveryDryRun.highEfficiencyBidUps, 1);
   assert.strictEqual(result.checkpoint.actionPools.approvalReview.recommendApprove, 2);
+  assert.strictEqual(result.checkpoint.selectionKpiEvidence.storeFeedback.list.rowCount, 1);
   assert.ok(result.checkpoint.deposit.nextAction.includes('archive'));
   const operatorMarkdown = fs.readFileSync(operatorOutFile, 'utf8');
   assert.ok(operatorMarkdown.includes('Deposit status: partial'));
@@ -588,6 +616,8 @@ function writeJson(file, value) {
   assert.ok(operatorMarkdown.includes('KPI recovery dry-run | highEfficiencyBidUps 1; SKUs 1'));
   assert.ok(operatorMarkdown.includes('not counted as landed actions'));
   assert.ok(operatorMarkdown.includes('## KPI approval review'));
+  assert.ok(operatorMarkdown.includes('## Selection KPI evidence'));
+  assert.ok(operatorMarkdown.includes('Store feedback rows: 1'));
   assert.ok(operatorMarkdown.includes('kpi_approval_review_2026-05-20.md'));
   assert.ok(operatorMarkdown.includes('recommendApprove 2; approvalNeeded 3; hold 2; blocked 2'));
 }

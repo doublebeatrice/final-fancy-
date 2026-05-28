@@ -1,6 +1,7 @@
 const { getSeasonWindows, getUpcomingSeasonWindows, matchProductSeason } = require('./season_calendar');
 const { buildProductProfile, scoreTermRelevance } = require('./product_profile');
 const { normalizeSelectionMarketReport } = require('./agent_review_evidence');
+const { buildSelectionOperatingIntelligence } = require('./selection_operating_intelligence');
 
 function num(value, fallback = 0) {
   const n = Number(value);
@@ -102,8 +103,18 @@ function yoyFor(card = {}) {
 }
 
 function profitRateFor(card = {}) {
-  const raw = firstDefined(card, ['profitRate', 'netProfit', 'net_profit']);
+  const raw = firstDefined(card, ['netProfit', 'net_profit', 'busyNetProfit', 'busy_net_profit', 'profitRate']);
   return raw === null ? 0 : round(raw, 4);
+}
+
+function profitSourceFor(card = {}) {
+  return firstDefined(card, ['netProfit', 'net_profit']) !== null
+    ? 'netProfit'
+    : firstDefined(card, ['busyNetProfit', 'busy_net_profit']) !== null
+      ? 'busyNetProfit'
+      : firstDefined(card, ['profitRate']) !== null
+        ? 'profitRate'
+        : '';
 }
 
 function inventoryFor(card = {}) {
@@ -231,29 +242,42 @@ function marketRiskSignals(market = {}) {
     if (aba.demandTier === 'low') signals.push('market_demand_low');
     if (aba.competitionTier === 'high') signals.push('market_competition_high');
     if (seasonality.seasonalityType === 'strong_seasonal') signals.push('market_strong_seasonality');
+    if (row.productTimeMachine?.some(item => item.trafficMix === 'ad_led')) signals.push('competitor_ad_pressure_high');
+    if (row.keywordResearch && !row.keywordResearch.readyForDecisionSupport) signals.push('front_search_competitor_weak');
   }
   return uniqueList(signals);
 }
 
 function buildSkuMarketAnalysis({ card = {}, profile = {}, nodePlan = {}, verdict = {}, selectionReports = {} } = {}) {
   const terms = marketTermsForSku(card, profile, nodePlan);
+  const keywordResearch = selectionReports.keywordResearch || {};
   const keywordConversion = selectionReports.keywordConversion || {};
   const abaSearchTerms = selectionReports.abaSearchTerms || {};
   const keywordSeasonality = selectionReports.keywordSeasonality || {};
+  const productTimeMachine = selectionReports.productTimeMachine || {};
   const evidence = terms.map(term => ({
     term,
     productFit: scoreTermRelevance(term, profile),
+    keywordResearch: keywordResearch.rows?.[term] || null,
     keywordConversion: keywordConversion.rows?.[term] || null,
     abaSearchTerm: abaSearchTerms.rows?.[term] || abaSearchTerms.queryRows?.[term] || null,
     keywordSeasonality: keywordSeasonality.rows?.[term] || null,
+    productTimeMachine: productTimeMachine.rows?.[term] || [],
   }));
   const coverage = {
     requested: terms.length,
+    keywordResearchMatched: evidence.filter(row => row.keywordResearch).length,
     keywordConversionMatched: evidence.filter(row => row.keywordConversion).length,
     abaMatched: evidence.filter(row => row.abaSearchTerm).length,
     seasonalityMatched: evidence.filter(row => row.keywordSeasonality).length,
+    productTimeMachineMatched: evidence.filter(row => row.productTimeMachine?.length).length,
   };
-  const readyForDecisionSupport = evidence.some(row => row.keywordConversion || row.abaSearchTerm || row.keywordSeasonality);
+  const operatingIntelligence = buildSelectionOperatingIntelligence({
+    evidenceRows: evidence,
+    productProfile: profile,
+    card,
+  });
+  const readyForDecisionSupport = operatingIntelligence.readyForDecisionSupport;
   const expectationMismatch = text(verdict.verdict) !== 'watch';
   const required = true;
   const status = readyForDecisionSupport
@@ -269,15 +293,51 @@ function buildSkuMarketAnalysis({ card = {}, profile = {}, nodePlan = {}, verdic
     readyForAutoAction: false,
     evidence,
     sources: [
+      ...(coverage.keywordResearchMatched ? ['selection_keyword_research'] : []),
       ...(coverage.keywordConversionMatched ? ['selection_keyword_conversion_rate'] : []),
       ...(coverage.abaMatched ? ['selection_aba_search_terms'] : []),
       ...(coverage.seasonalityMatched ? ['selection_keyword_seasonality'] : []),
+      ...(coverage.productTimeMachineMatched ? ['selection_product_time_machine'] : []),
     ],
     actionBoundary: 'read_only_market_evidence',
+    operatingIntelligence,
   };
   return {
     ...market,
-    riskSignals: marketRiskSignals(market),
+    riskSignals: uniqueList([...marketRiskSignals(market), ...(operatingIntelligence.riskSignals || [])]),
+  };
+}
+
+function productSelectionEvidenceForCard(card = {}, selectionReports = {}) {
+  const asin = text(card.asin).toUpperCase();
+  if (!asin) return null;
+  const extended = selectionReports.extendedSelection || {};
+  const row = extended.rows?.[asin] || null;
+  if (!row) return null;
+  const commentListCount = Array.isArray(row.commentList)
+    ? row.commentList.length
+    : (Array.isArray(row.commentList?.records) ? row.commentList.records.length : 0);
+  return {
+    asin,
+    readyForDecisionSupport: true,
+    readyForAutoAction: false,
+    asinInfo: row.asinInfo || null,
+    associationFlowCount: Array.isArray(row.associationFlow) ? row.associationFlow.length : 0,
+    adPlacementCount: Array.isArray(row.adPlacement) ? row.adPlacement.length : 0,
+    trafficDetailCount: Array.isArray(row.trafficDetail) ? row.trafficDetail.length : 0,
+    commentListCount,
+    dailyRankCount: Array.isArray(row.dailyRanks) ? row.dailyRanks.length : 0,
+    dailyRanks: Array.isArray(row.dailyRanks) ? row.dailyRanks.slice(0, 20) : [],
+    commentAsinStats: row.commentAsinStats || [],
+    commentEvidence: {
+      count: row.commentCount || null,
+      analysis: row.commentAnalysis || null,
+      gptData: row.commentGptData || null,
+      rating: row.commentRating || null,
+      type: row.commentType || null,
+    },
+    sourceKeys: row.sourceKeys || [],
+    evidenceBoundary: extended.evidenceBoundary || 'selection_read_only_market_evidence',
   };
 }
 
@@ -524,6 +584,7 @@ function buildAllSkuOperatingReview(input = {}) {
     const units7 = num(card.unitsSold_7d);
     const units30 = num(card.unitsSold_30d);
     const profitRate = profitRateFor(card);
+    const profitSource = profitSourceFor(card);
     const pace = salesPace7v30(units7, units30);
     const nodePlan = buildNodePlan(card, lifecycle, ad7, businessDate);
     const verdict = verdictFor({
@@ -546,6 +607,7 @@ function buildAllSkuOperatingReview(input = {}) {
       verdict,
       selectionReports,
     });
+    const productSelection = productSelectionEvidenceForCard(card, selectionReports);
     return {
       sku: text(card.sku),
       asin: text(card.asin),
@@ -562,6 +624,7 @@ function buildAllSkuOperatingReview(input = {}) {
       yoyUnitsPct: yoy.value,
       yoySourceField: yoy.source,
       profitRate,
+      profitSource,
       invDays: inventory.invDays,
       sellableDays7d: inventory.sellableDays7d,
       fulRes: inventory.fulRes,
@@ -586,6 +649,7 @@ function buildAllSkuOperatingReview(input = {}) {
       priority: verdict.priority,
       reasons: verdict.reasons,
       marketAnalysis,
+      productSelection,
       followUp: verdict.verdict === 'old_product_recovery_check'
         ? '补看 chart 展示/点击、listing/价格、广告词是否同步变差'
         : verdict.verdict === 'node_traffic_gap'
@@ -611,6 +675,10 @@ function buildAllSkuOperatingReview(input = {}) {
     byVerdict[row.verdict] = (byVerdict[row.verdict] || 0) + 1;
   }
   const marketAnalysis = summarizeMarketAnalysis(rows);
+  const productSelection = {
+    readyForDecisionSupport: rows.filter(row => row.productSelection?.readyForDecisionSupport).length,
+    totalSkus: rows.length,
+  };
 
   return {
     generatedAt: new Date().toISOString(),
@@ -627,6 +695,7 @@ function buildAllSkuOperatingReview(input = {}) {
       nodeTrafficGap: rows.filter(row => row.verdict === 'node_traffic_gap').length,
       nodeConversionGap: rows.filter(row => row.verdict === 'node_conversion_gap').length,
       marketAnalysis,
+      productSelection,
     },
     rows,
     topPriorityRows: rows.slice(0, 50),
@@ -658,6 +727,7 @@ function renderAllSkuOperatingReviewHtml(review = {}) {
     <td>${esc(row.invDays)}</td>
     <td>${esc(row.ad7.spend)} / ${esc(row.ad7.orders)} / ${pct(row.ad7.acos)}</td>
     <td>${row.nodePlan?.target ? `${esc(row.nodePlan.target.weeklyClicks)} clicks / ${esc(row.nodePlan.target.weeklyOrders)} orders` : '-'}</td>
+    <td>${esc(row.marketAnalysis?.status || 'missing_market_analysis')} / ${esc(row.marketAnalysis?.operatingIntelligence?.decisionQuality || 'research_needed')} / ${esc(row.marketAnalysis?.operatingIntelligence?.recommendedOperatingUse || '')}</td>
     <td>${esc(row.action)}</td>
     <td>${esc((row.reasons || []).join('；'))}</td>
     <td>${esc(row.followUp)}</td>
@@ -686,7 +756,7 @@ function renderAllSkuOperatingReviewHtml(review = {}) {
   <div class="pills">${verdicts}</div>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>SKU</th><th>生命周期</th><th>节点阶段</th><th>开售</th><th>销量 3/7/30</th><th>同比</th><th>利润率</th><th>库存天数</th><th>7日广告 花费/单/ACOS</th><th>阶段目标</th><th>结论</th><th>原因</th><th>复查点</th></tr></thead>
+      <thead><tr><th>SKU</th><th>生命周期</th><th>节点阶段</th><th>开售</th><th>销量 3/7/30</th><th>同比</th><th>利润率</th><th>库存天数</th><th>7日广告 花费/单/ACOS</th><th>阶段目标</th><th>market</th><th>结论</th><th>原因</th><th>复查点</th></tr></thead>
       <tbody>${tableRows}</tbody>
     </table>
   </div>
@@ -697,7 +767,9 @@ function renderAllSkuOperatingReviewHtml(review = {}) {
 module.exports = {
   buildAllSkuOperatingReview,
   buildNodePlan,
+  productSelectionEvidenceForCard,
   lifecycleFor,
+  profitRateFor,
   renderAllSkuOperatingReviewHtml,
   verdictFor,
   yoyFor,

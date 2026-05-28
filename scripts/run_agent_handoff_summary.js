@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { buildOpsTimeContext } = require('../src/ops_time');
 const { buildKpiAudit, KPI_TRAJECTORY } = require('../src/proactive_audit');
+const { buildDailyOperatingWorkflow } = require('../src/agent_daily_workflow');
 
 const ROOT = path.join(__dirname, '..');
 const DEFAULT_OUT_DIR = path.join(ROOT, 'data', 'agent');
@@ -386,7 +387,7 @@ function dataFreshnessMarkdownLines(dataFreshness = {}) {
   ];
 }
 
-function buildOperatingStatus({ dataFreshness = {}, kpiSummary = {}, commandFailed = 0, writeFailed = 0, writeBlocked = 0 } = {}) {
+function buildOperatingStatus({ dataFreshness = {}, kpiSummary = {}, dailyOperatingWorkflow = {}, commandFailed = 0, writeFailed = 0, writeBlocked = 0 } = {}) {
   const warnings = [];
   if (commandFailed > 0) warnings.push('command_failed');
   if (writeFailed > 0) warnings.push('write_failed');
@@ -394,9 +395,13 @@ function buildOperatingStatus({ dataFreshness = {}, kpiSummary = {}, commandFail
   if (dataFreshness.snapshotStale) warnings.push('snapshot_stale');
   if (dataFreshness.status === 'warning') warnings.push('data_quality_warning');
   if (kpiSummary.status === 'off_track') warnings.push('kpi_off_track');
+  const workflowStatus = text(dailyOperatingWorkflow.status || '');
+  const workflowBlockers = Array.isArray(dailyOperatingWorkflow.blockers) ? dailyOperatingWorkflow.blockers : [];
+  if (workflowStatus === 'needs_recovery') warnings.push('daily_workflow_needs_recovery', ...workflowBlockers);
   let status = 'complete';
   if (commandFailed > 0 || writeFailed > 0 || writeBlocked > 0) status = 'blocked';
   else if (dataFreshness.snapshotStale || dataFreshness.status === 'warning') status = 'partial';
+  else if (workflowStatus === 'needs_recovery') status = 'needs_recovery';
   else if (kpiSummary.status === 'off_track') status = 'needs_recovery';
   return {
     status,
@@ -466,6 +471,24 @@ function dailyClosureMarkdownLines(dailyClosure = {}) {
     dailyClosure.dailyClosureReasons?.length
       ? `- reasons: ${dailyClosure.dailyClosureReasons.join(', ')}`
       : '- reasons: none',
+    '',
+  ];
+}
+
+function dailyOperatingWorkflowMarkdownLines(workflow = {}) {
+  if (!workflow || !workflow.status || workflow.status === 'not_required') return [];
+  const allSku = workflow.allSku || {};
+  const season = workflow.season || {};
+  const effect = workflow.effectReview || {};
+  const blockers = Array.isArray(workflow.blockers) && workflow.blockers.length
+    ? workflow.blockers.join(', ')
+    : 'none';
+  return [
+    '## 每日经营工作流',
+    `- status: ${workflow.status}; required=${workflow.required === true ? 'true' : 'false'}; blockers: ${blockers}.`,
+    `- 全体 SKU: ${allSku.status || 'unknown'}; totalSkus ${Number(allSku.totalSkus || 0)}; mustReview ${Number(allSku.mustReview || 0)}; marketMissing ${Number(allSku.marketMissing || 0)}; file ${path.basename(text(allSku.file || 'all_sku_operating_review.json'))}.`,
+    `- 节日线: ${season.status || 'unknown'}; dryRunItems ${Number(season.dryRunItems || 0)}; autoAdCandidates ${Number(season.autoAdCandidates || 0)}; activeSeasonTasks ${Number(season.activeSeasonTasks || 0)}; riskItems ${Number(season.riskItems || 0)}.`,
+    `- 等生效: ${effect.status || 'unknown'}; dueReviews ${Number(effect.dueReviews || 0)}; effectReviewTotal ${Number(effect.effectReviewTotal || 0)}; feedbackApplied ${Number(effect.feedbackApplied || 0)}.`,
     '',
   ];
 }
@@ -998,6 +1021,19 @@ function buildAgentHandoffSummary(input = {}) {
   const workTypeCounts = countBy(queue, item => item.workType || item.lane || 'unknown');
   const closureVerification = input.closureVerification || null;
   const effectReviewCoverage = effectReviewCoverageSummary({ hub, effectReview, reviewResults, workTypeCounts, closureVerification });
+  const allSkuReview = input.allSkuReview || {};
+  const dailyOperatingWorkflow = input.dailyOperatingWorkflow || buildDailyOperatingWorkflow({
+    businessDate,
+    allSkuReview,
+    allSkuReviewFile: input.allSkuReviewFile || '',
+    seasonTitleDryRunFile: input.seasonTitleDryRunFile || '',
+    seasonGapAuditFile: input.seasonGapAuditFile || '',
+    seasonTitleListingQueueFile: input.seasonTitleListingQueueFile || '',
+    seasonActionSchemaFile: input.seasonActionSchemaFile || '',
+    seasonListingApplicationsFile: input.seasonListingApplicationsFile || '',
+    effectReviewCoverage,
+    required: input.requireDailyWorkflow === true,
+  });
   const topTasks = queue.slice(0, 8).map(taskLine);
   const adjustmentSummary = input.adjustmentSummary || summarizeAdjustmentLedger(input.adjustments || [], businessDate, {
     fallbackToLatest: input.adjustmentFallbackToLatest !== false,
@@ -1028,11 +1064,11 @@ function buildAgentHandoffSummary(input = {}) {
   const landedActionManualReview = preferAdjustmentLedger || !hasLandedEvidence
     ? (adjustmentSummary.totalManualReviewCount ?? adjustmentSummary.manualReviewCount)
     : Number(landedEvidence.landedActionManualReview || 0);
-  const allSkuReview = input.allSkuReview || {};
   const hardWriteBlocked = Math.max(0, Number(writeExecution.summary?.blockedActions || 0) - Number(writeExecution.summary?.dryRunBlockedActions || 0));
   const operatingStatus = input.operatingStatus || buildOperatingStatus({
     dataFreshness,
     kpiSummary,
+    dailyOperatingWorkflow,
     commandFailed: failedCommands.length,
     writeFailed: writeExecution.summary?.failedStages || 0,
     writeBlocked: hardWriteBlocked,
@@ -1064,6 +1100,7 @@ function buildAgentHandoffSummary(input = {}) {
     ...depositStatusMarkdownLines(depositStatus),
     ...artifactVerificationMarkdownLines(closureVerification),
     ...dailyClosureMarkdownLines(dailyClosure),
+    ...dailyOperatingWorkflowMarkdownLines(dailyOperatingWorkflow),
     ...operatingStatusMarkdownLines(operatingStatus),
     ...dataFreshnessMarkdownLines(dataFreshness),
     ...kpiMarkdownLines(kpiSummary),
@@ -1173,6 +1210,16 @@ function buildAgentHandoffSummary(input = {}) {
       monthKpiDigestReady,
       allSkuReviewTotal: Number(allSkuReview.summary?.totalSkus || 0),
       allSkuReviewMustReview: Number(allSkuReview.summary?.mustReview || 0),
+      dailyOperatingWorkflowStatus: dailyOperatingWorkflow.status,
+      dailyOperatingWorkflowBlockers: dailyOperatingWorkflow.blockers || [],
+      dailyOperatingWorkflow: {
+        status: dailyOperatingWorkflow.status,
+        required: dailyOperatingWorkflow.required === true,
+        blockers: dailyOperatingWorkflow.blockers || [],
+        allSku: dailyOperatingWorkflow.allSku || {},
+        season: dailyOperatingWorkflow.season || {},
+        effectReview: dailyOperatingWorkflow.effectReview || {},
+      },
     },
     dashboardFile,
     dashboardReady,
@@ -1184,6 +1231,7 @@ function buildAgentHandoffSummary(input = {}) {
     kpiSummary,
     kpiGate,
     kpiCheckpoint,
+    dailyOperatingWorkflow,
     allSkuReview,
     adjustmentSummary,
     markdown,
@@ -1210,6 +1258,11 @@ function runAgentHandoffSummary(options = {}) {
   const kpiCheckpointFile = options.kpiCheckpointFile || path.join(ROOT, 'data', 'tasks', `kpi_recovery_checkpoint_${today}.json`);
   const allSkuReviewDate = timeContext.businessDate || today;
   const allSkuReviewFile = options.allSkuReviewFile || path.join(ROOT, 'data', 'tasks', `all_sku_operating_review_${allSkuReviewDate}.json`);
+  const seasonTitleDryRunFile = options.seasonTitleDryRunFile || path.join(ROOT, 'data', 'tasks', `season_title_dry_run_${allSkuReviewDate}.json`);
+  const seasonGapAuditFile = options.seasonGapAuditFile || path.join(ROOT, 'data', 'tasks', `season_gap_audit_${allSkuReviewDate}_latest.json`);
+  const seasonTitleListingQueueFile = options.seasonTitleListingQueueFile || path.join(ROOT, 'data', 'tasks', `season_title_listing_queue_${allSkuReviewDate}.json`);
+  const seasonActionSchemaFile = options.seasonActionSchemaFile || path.join(ROOT, 'data', 'snapshots', `action_schema_${allSkuReviewDate}_season_title_ads.json`);
+  const seasonListingApplicationsFile = options.seasonListingApplicationsFile || path.join(ROOT, 'data', 'snapshots', `season_title_listing_applications_${allSkuReviewDate}.json`);
   const kpiDryRunDecisionFile = options.kpiDryRunDecisionFile || path.join(ROOT, 'data', 'tasks', `kpi_recovery_dryrun_decisions_${today}.json`);
   const kpiRecoveryNextActionsFile = options.kpiRecoveryNextActionsFile || path.join(ROOT, 'data', 'tasks', `kpi_recovery_next_actions_${today}.md`);
   const kpiApprovalReviewFile = options.kpiApprovalReviewFile || path.join(ROOT, 'data', 'tasks', `kpi_approval_review_${today}.md`);
@@ -1236,6 +1289,14 @@ function runAgentHandoffSummary(options = {}) {
     monthKpiDigestMarkdownFile: options.monthKpiDigestMarkdownFile || options.monthKpiDigestFile || '',
     kpiApprovalReviewFile,
     kpiApprovalReview: options.kpiApprovalReview || readJsonIfExists(kpiApprovalReviewJsonFile, {}),
+    requireDailyWorkflow: options.requireDailyWorkflow === true,
+    dailyOperatingWorkflow: options.dailyOperatingWorkflow,
+    allSkuReviewFile,
+    seasonTitleDryRunFile,
+    seasonGapAuditFile,
+    seasonTitleListingQueueFile,
+    seasonActionSchemaFile,
+    seasonListingApplicationsFile,
     allSkuReview: options.allSkuReview || readJsonIfExists(allSkuReviewFile, {}),
   });
   const outFile = options.outFile || defaultFile('agent_handoff', summary.businessDate, 'md');
@@ -1269,6 +1330,13 @@ function parseArgs(argv) {
     kpiRecoveryNextActionsFile: get('--kpi-next-actions') || process.env.AGENT_KPI_NEXT_ACTIONS_FILE || '',
     kpiApprovalReviewFile: get('--kpi-approval-review') || process.env.AGENT_KPI_APPROVAL_REVIEW_FILE || '',
     kpiApprovalReviewJsonFile: get('--kpi-approval-review-json') || process.env.AGENT_KPI_APPROVAL_REVIEW_JSON_FILE || '',
+    allSkuReviewFile: get('--all-sku-review') || process.env.AGENT_ALL_SKU_REVIEW_FILE || '',
+    seasonTitleDryRunFile: get('--season-title-dry-run') || process.env.AGENT_SEASON_TITLE_DRY_RUN_FILE || '',
+    seasonGapAuditFile: get('--season-gap-audit') || process.env.AGENT_SEASON_GAP_AUDIT_FILE || '',
+    seasonTitleListingQueueFile: get('--season-title-listing-queue') || process.env.AGENT_SEASON_TITLE_LISTING_QUEUE_FILE || '',
+    seasonActionSchemaFile: get('--season-action-schema') || process.env.AGENT_SEASON_ACTION_SCHEMA_FILE || '',
+    seasonListingApplicationsFile: get('--season-listing-applications') || process.env.AGENT_SEASON_LISTING_APPLICATIONS_FILE || '',
+    requireDailyWorkflow: args.includes('--require-daily-workflow') || process.env.AGENT_REQUIRE_DAILY_WORKFLOW === '1',
     today: get('--today') || '',
     now: get('--now') || '',
     site: get('--site') || process.env.AD_OPS_SITE || 'Amazon.com',

@@ -64,16 +64,28 @@ function classifyApiResult(result) {
   return 'failed';
 }
 
+function firstNonBlank(...values) {
+  for (const value of values) {
+    if (value === undefined || value === null) continue;
+    const text = String(value).trim();
+    if (text) return text;
+  }
+  return '';
+}
+
 function extractCreateResultMeta(result = {}) {
   const raw = result.rawResponse || result;
-  const param = raw?.data?.param || result.param || {};
+  const data = raw?.data || {};
+  const param = data?.param || result.param || {};
+  const campaign = data?.campaign || data?.campaignInfo || data?.campaignNew || {};
+  const adGroup = data?.adGroup || data?.group || data?.adGroupInfo || {};
   return {
     siteId: param.siteId || result.siteId || '',
     accountId: param.accountId || result.accountId || '',
-    campaignId: String(result.campaignId || param.campaignId || raw?.data?.campaignId || ''),
-    adGroupId: String(result.adGroupId || param.adGroupId || raw?.data?.adGroupId || ''),
-    campaignName: result.campaignName || param.campaignName || '',
-    groupName: result.groupName || param.groupName || '',
+    campaignId: firstNonBlank(result.campaignId, param.campaignId, data.campaignId, data.campaign_id, campaign.campaignId, campaign.id, data.id),
+    adGroupId: firstNonBlank(result.adGroupId, param.adGroupId, data.adGroupId, data.ad_group_id, data.groupId, data.group_id, adGroup.adGroupId, adGroup.id),
+    campaignName: firstNonBlank(result.campaignName, param.campaignName, data.campaignName, data.name, campaign.campaignName, campaign.name),
+    groupName: firstNonBlank(result.groupName, param.groupName, data.groupName, data.adGroupName, adGroup.groupName, adGroup.name),
     raw,
   };
 }
@@ -108,6 +120,23 @@ function normalizeSources(source) {
   if (Array.isArray(source)) return [...new Set(source.filter(Boolean))];
   if (!source) return ['codex'];
   return [source];
+}
+
+function safeArtifactId(value) {
+  return String(value || '')
+    .trim()
+    .replace(/[^a-zA-Z0-9_-]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 120) || 'run';
+}
+
+function writeJsonArtifacts(latestFile, runFile, value) {
+  const text = JSON.stringify(value, null, 2);
+  fs.writeFileSync(latestFile, text);
+  if (runFile && path.resolve(runFile) !== path.resolve(latestFile)) {
+    fs.writeFileSync(runFile, text);
+  }
 }
 
 function readStats(row) {
@@ -210,6 +239,12 @@ async function run(options = {}) {
     site: options.site || 'Amazon.com',
     sourceRunId: options.sourceRunId,
   });
+  const artifactDate = timeContext.businessDate || today;
+  const artifactRunId = safeArtifactId(timeContext.sourceRunId || timeContext.runAt || Date.now());
+  const artifact = (prefix, runScoped = false) => path.join(
+    SNAPSHOTS_DIR,
+    runScoped ? `${prefix}_${artifactDate}_${artifactRunId}.json` : `${prefix}_${artifactDate}.json`
+  );
   const adPageId = await findAdPageId();
   log(`Ad backend page ID: ${adPageId}`);
   const ws = new WebSocket(`ws://127.0.0.1:9222/devtools/page/${adPageId}`);
@@ -279,6 +314,24 @@ async function run(options = {}) {
       reason: productAdsError?.reason || '',
       rawResponse: json,
       errors: ok ? [] : [json?.msg || 'createOneTime failed', productAdsError?.errorType || '', productAdsError?.reason || ''].filter(Boolean),
+    };
+  }
+
+  async function execCreateSbvCampaign(createInput) {
+    const built = buildSbvCreatePayload(createInput);
+    if (!built.ok) return built;
+    const json = await execAdApi(built.requestUrl, built.requestBody, 'POST');
+    const meta = extractCreateResultMeta({ ...built, rawResponse: json });
+    const ok = Number(json?.code) === 200 && (!!meta.campaignId || json?.msg === 'success');
+    return {
+      ...built,
+      ok,
+      responseCode: json?.code ?? null,
+      responseMsg: json?.msg || '',
+      campaignId: meta.campaignId,
+      adGroupId: meta.adGroupId,
+      rawResponse: json,
+      errors: ok ? [] : [json?.msg || 'createCampaignBeta failed'].filter(Boolean),
     };
   }
 
@@ -631,12 +684,21 @@ async function run(options = {}) {
     let apiFailed = 0;
     for (const item of items) {
       const createInput = item.createInput || {};
-      if (String(createInput.advType || 'SP').toUpperCase() !== 'SP') {
+      const advType = String(createInput.advType || 'SP').toUpperCase();
+      const adFormat = String(createInput.adFormat || '').toLowerCase();
+      let result = null;
+      let label = '';
+      if (advType === 'SP') {
+        result = await execCreateSpCampaign(createInput);
+        label = 'SP create';
+      } else if (advType === 'SB' && adFormat === 'video') {
+        result = await execCreateSbvCampaign(createInput);
+        label = 'SBV create';
+      } else {
         apiFailed += 1;
-        recordExecutionEvent(item, 'skuCandidate', 'failed', { msg: 'SB create is not supported in this execution chain yet' });
+        recordExecutionEvent(item, 'skuCandidate', 'failed', { msg: `unsupported create advType=${advType || '-'} adFormat=${adFormat || '-'}` });
         continue;
       }
-      const result = await execCreateSpCampaign(createInput);
       const meta = extractCreateResultMeta(result);
       const status = (result?.ok || (classifyApiResult(meta.raw) === 'api_success' && meta.campaignId && meta.adGroupId))
         ? 'api_success'
@@ -644,7 +706,7 @@ async function run(options = {}) {
       if (status === 'api_success') apiSuccess += 1;
       else apiFailed += 1;
       recordExecutionEvent(item, 'skuCandidate', status, result, meta);
-      log(`SP create ${item.sku || createInput.sku || '-'} ${createInput.mode || '-'}: ${status} campaignId=${meta.campaignId || '-'} adGroupId=${meta.adGroupId || '-'}`);
+      log(`${label} ${item.sku || createInput.sku || '-'} ${createInput.mode || createInput.targetType || '-'}: ${status} campaignId=${meta.campaignId || '-'} adGroupId=${meta.adGroupId || '-'}`);
       await wait(500);
     }
     return { apiSuccess, apiFailed };
@@ -1091,16 +1153,26 @@ async function run(options = {}) {
           if (event.apiStatus !== 'api_success') continue;
           for (const rows of [STATE.kwRows, STATE.autoRows, STATE.targetRows, STATE.productAdRows, STATE.sbRows, STATE.sbCampaignRows]) updateRows(rows, event);
           if (event.action?.actionType === 'create' && event.campaignId) {
-            STATE.autoRows = STATE.autoRows || [];
-            STATE.autoRows.push({
+            const createInput = event.action?.createInput || {};
+            const isSbVideo = String(createInput.advType || '').toUpperCase() === 'SB' && String(createInput.adFormat || '').toLowerCase() === 'video';
+            const row = {
               campaignId: event.campaignId,
               adGroupId: event.adGroupId,
               campaignName: event.campaignName,
               campaign_name: event.campaignName,
               bid: event.suggestedBid || event.action?.createInput?.defaultBid || '',
               budget: event.action?.createInput?.dailyBudget || '',
+              accountId: event.accountId || createInput.accountId || '',
+              siteId: event.siteId || createInput.siteId || 4,
               state: '1'
-            });
+            };
+            if (isSbVideo) {
+              STATE.sbRows = STATE.sbRows || [];
+              STATE.sbRows.push({ ...row, __adProperty: '4', adFormat: 'video' });
+            } else {
+              STATE.autoRows = STATE.autoRows || [];
+              STATE.autoRows.push(row);
+            }
           }
         }
         return { ok: true, refreshed: { directPageState: true } };
@@ -1221,8 +1293,12 @@ async function run(options = {}) {
   const aiValidationErrors = aiDecision.errors || [];
   const scopeSummary = aiDecision.scope || scopeAnalysis.summary || {};
   const totalActions = plan.reduce((sum, item) => sum + item.actions.length, 0);
-  fs.writeFileSync(path.join(SNAPSHOTS_DIR, `plan_${today}.json`), JSON.stringify(plan, null, 2));
-  fs.writeFileSync(path.join(SNAPSHOTS_DIR, `seven_day_untouched_${today}.json`), JSON.stringify({ meta: sevenDayMeta, spRows: sp7DayRows, sbRows: sb7DayRows, review: aiReview, skipped: aiSkipped }, null, 2));
+  const planFile = artifact('plan', true);
+  const latestPlanFile = artifact('plan');
+  const sevenDayFile = artifact('seven_day_untouched', true);
+  const latestSevenDayFile = artifact('seven_day_untouched');
+  writeJsonArtifacts(latestPlanFile, planFile, plan);
+  writeJsonArtifacts(latestSevenDayFile, sevenDayFile, { meta: sevenDayMeta, spRows: sp7DayRows, sbRows: sb7DayRows, review: aiReview, skipped: aiSkipped });
   log(`External action schema loaded: ${plan.length} SKUs, ${totalActions} actions; review=${aiReview.length}; skipped=${aiSkipped.length}; validationErrors=${aiValidationErrors.length}`);
   if (dryRun) {
     const allActions = plan.flatMap(p => (p.actions || []).map(a => ({ ...a, sku: p.sku })));
@@ -1279,8 +1355,9 @@ async function run(options = {}) {
       },
       drySummary,
     };
-    const dryRunFile = path.join(SNAPSHOTS_DIR, `execution_dry_run_${today}.json`);
-    fs.writeFileSync(dryRunFile, JSON.stringify(dryReport, null, 2));
+    const dryRunFile = artifact('execution_dry_run', true);
+    const latestDryRunFile = artifact('execution_dry_run');
+    writeJsonArtifacts(latestDryRunFile, dryRunFile, dryReport);
     log(`DRY_RUN complete: ${JSON.stringify(dryReport.sevenDayStats)}`);
     closeWs();
     return {
@@ -1289,7 +1366,11 @@ async function run(options = {}) {
       verificationBlocked,
       files: {
         dryRunFile,
-        planFile: path.join(SNAPSHOTS_DIR, `plan_${today}.json`),
+        latestDryRunFile,
+        planFile,
+        latestPlanFile,
+        sevenDayFile,
+        latestSevenDayFile,
         contextFile: path.join(SNAPSHOTS_DIR, 'ai_decision_context.json'),
         validatedPlanFile: path.join(SNAPSHOTS_DIR, 'ai_decision_validated_plan.json'),
       },
@@ -1485,9 +1566,12 @@ async function run(options = {}) {
   }
   const noteFailures = noteResults.filter(r => !r.ok);
 
-  fs.writeFileSync(
-    path.join(SNAPSHOTS_DIR, `execution_verify_${today}.json`),
-    JSON.stringify({ apiStats, finalCounts, noteResults, events: verifiedEvents, nonExecutionEvents }, null, 2)
+  const verifyFile = artifact('execution_verify', true);
+  const latestVerifyFile = artifact('execution_verify');
+  writeJsonArtifacts(
+    latestVerifyFile,
+    verifyFile,
+    { apiStats, finalCounts, noteResults, events: verifiedEvents, nonExecutionEvents }
   );
 
   const newHistory = loadHistory();
@@ -1666,11 +1750,12 @@ async function run(options = {}) {
     noteFailure: noteFailures.length,
     missingAidSkus: noteFailures.map(r => ({ sku: r.sku, error: r.error })),
   };
-  const verifyFile = path.join(SNAPSHOTS_DIR, `execution_verify_${today}.json`);
-  const summaryFile = path.join(SNAPSHOTS_DIR, `execution_summary_${today}.json`);
-  const coverageFile = path.join(SNAPSHOTS_DIR, `execution_coverage_${today}.json`);
-  fs.writeFileSync(summaryFile, JSON.stringify(report, null, 2));
-  fs.writeFileSync(coverageFile, JSON.stringify({ summary: coverageSummary, coverage }, null, 2));
+  const summaryFile = artifact('execution_summary', true);
+  const latestSummaryFile = artifact('execution_summary');
+  const coverageFile = artifact('execution_coverage', true);
+  const latestCoverageFile = artifact('execution_coverage');
+  writeJsonArtifacts(latestSummaryFile, summaryFile, report);
+  writeJsonArtifacts(latestCoverageFile, coverageFile, { summary: coverageSummary, coverage });
 
   log(`Final lookup: success=${finalCounts.success || 0}, created_pending_visibility=${finalCounts.created_pending_visibility || 0}, not_landed=${finalCounts.not_landed || 0}, blocked=${finalCounts.blocked_by_system_recent_adjust || finalCounts.conflict || 0}, failed=${finalCounts.failed || 0}`);
   log(`SKU coverage: adjusted=${coverageSummary.adjusted || 0}, blocked=${coverageSummary.blocked || 0}, manual_review=${coverageSummary.manual_review || 0}, no_action=${coverageSummary.no_action || 0}, failed=${coverageSummary.failed || 0}, unverified=${coverageSummary.unverified || 0}`);
@@ -1684,9 +1769,15 @@ async function run(options = {}) {
     verificationBlocked,
     files: {
       verifyFile,
+      latestVerifyFile,
       summaryFile,
+      latestSummaryFile,
       coverageFile,
-      planFile: path.join(SNAPSHOTS_DIR, `plan_${today}.json`),
+      latestCoverageFile,
+      planFile,
+      latestPlanFile,
+      sevenDayFile,
+      latestSevenDayFile,
       contextFile: path.join(SNAPSHOTS_DIR, 'ai_decision_context.json'),
       validatedPlanFile: path.join(SNAPSHOTS_DIR, 'ai_decision_validated_plan.json'),
     },
@@ -1768,6 +1859,164 @@ function buildAiCampaignName(mode, coreTerm, sku, matchType = '', targetType = '
   const term = adNameTermPart(coreTerm, 'target');
   const skuPart = slugAdNamePart(sku, 'sku');
   return `ai_${prefix}_${term}_${skuPart}`.slice(0, 90).replace(/_+$/g, '');
+}
+
+function normalizeStringArray(values, { upper = false } = {}) {
+  const list = Array.isArray(values) ? values : [values];
+  const seen = new Set();
+  const out = [];
+  for (const value of list) {
+    const text = String(value || '').replace(/\s+/g, ' ').trim();
+    if (!text) continue;
+    const normalized = upper ? text.toUpperCase() : text;
+    const key = normalized.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(normalized);
+  }
+  return out;
+}
+
+function buildSbvCampaignName(coreTerm, sku) {
+  const term = adNameTermPart(coreTerm, 'target');
+  const skuPart = slugAdNamePart(sku, 'sku');
+  return `sbvkw_${term}_${skuPart}`.slice(0, 90).replace(/_+$/g, '');
+}
+
+function normalizeSbvKeywords(input = {}, defaultBid = 0) {
+  const rawRows = Array.isArray(input.fieldArray?.keyword)
+    ? input.fieldArray.keyword
+    : (Array.isArray(input.keywordRows) ? input.keywordRows : input.keywords);
+  const list = Array.isArray(rawRows) ? rawRows : [rawRows];
+  const defaultMatchType = String(input.matchType || 'BROAD').trim().toUpperCase();
+  const seen = new Set();
+  const rows = [];
+  for (const item of list) {
+    const source = item && typeof item === 'object' ? item : { keywordText: item };
+    const keywordText = String(source.keywordText || source.keyword || source.value || '').replace(/\s+/g, ' ').trim();
+    const matchType = String(source.matchType || defaultMatchType).trim().toUpperCase();
+    const bid = Number(source.bid ?? defaultBid);
+    const key = `${keywordText.toLowerCase()}::${matchType}`;
+    if (!keywordText || !['BROAD', 'PHRASE', 'EXACT'].includes(matchType) || !Number.isFinite(bid) || bid <= 0 || seen.has(key)) continue;
+    seen.add(key);
+    rows.push({
+      keywordText,
+      matchType,
+      bid,
+      coreMark: source.coreMark ?? '',
+    });
+  }
+  return rows;
+}
+
+function buildSbvCreatePayload(input = {}) {
+  const mode = normalizeCreateMode(input.mode || input.positionType || 'keywordTarget');
+  const targetType = String(input.targetType || 'keyword').trim().toLowerCase();
+  const adFormat = String(input.adFormat || 'video').trim().toLowerCase();
+  const skuArray = normalizeStringArray(input.skuArray || input.skus || input.sku);
+  const asinArray = normalizeStringArray(input.asinArray || input.asins || input.asin, { upper: true });
+  const sku = skuArray[0] || '';
+  const asin = asinArray[0] || '';
+  const coreTerm = String(input.coreTerm || '').trim();
+  const accountId = Number(input.accountId);
+  const siteId = Number(input.siteId || 4);
+  const budget = Number(input.budget ?? input.dailyBudget);
+  const dailyBudget = Number(input.dailyBudget ?? input.budget);
+  const defaultBid = Number(input.defaultBid);
+  const brand = String(input.brand || input.brandEntityId || '').trim();
+  const brandName = String(input.brandName || '').trim();
+  const videoAssetIds = normalizeStringArray(input.videoAssetIds || input.videoAssetId || input.creative?.videoAssetIds || input.fieldArray?.ads?.[0]?.creative?.videoAssetIds);
+  const startDate = String(input.startDate || formatYmd()).trim();
+  const budgetType = String(input.budgetType || 'DAILY').trim().toUpperCase();
+  const bidTopOfSearch = Number(input.bidTopOfSearch ?? input.placementTop ?? 0);
+  const bidRestOfSearch = Number(input.bidRestOfSearch ?? input.placementRestOfSearch ?? 0);
+  const customBidPercentage = Number(input.customBidPercentage ?? 0);
+  const landingType = Number(input.landingType ?? 2);
+  const errors = [];
+
+  if (mode !== 'keywordTarget') errors.push('SBV create supports keywordTarget mode only');
+  if (targetType !== 'keyword') errors.push('SBV create targetType must be keyword');
+  if (adFormat !== 'video') errors.push('SBV create adFormat must be video');
+  if (!coreTerm) errors.push('coreTerm is required');
+  if (!skuArray.length) errors.push('sku or skuArray is required');
+  if (!asinArray.length) errors.push('asin or asinArray is required');
+  if (!brand) errors.push('brand or brandEntityId is required');
+  if (!brandName) errors.push('brandName is required');
+  if (!videoAssetIds.length) errors.push('videoAssetIds is required');
+  if (!Number.isFinite(accountId) || accountId <= 0) errors.push('accountId must be positive');
+  if (!Number.isFinite(siteId) || siteId <= 0) errors.push('siteId must be positive');
+  if (!Number.isFinite(budget) || budget <= 0) errors.push('budget/dailyBudget must be positive');
+  if (!Number.isFinite(dailyBudget) || dailyBudget <= 0) errors.push('dailyBudget/budget must be positive');
+  if (!Number.isFinite(defaultBid) || defaultBid <= 0) errors.push('defaultBid must be positive');
+  if (!Number.isFinite(bidTopOfSearch) || bidTopOfSearch < 0) errors.push('bidTopOfSearch must be zero or positive');
+  if (!Number.isFinite(bidRestOfSearch) || bidRestOfSearch < 0) errors.push('bidRestOfSearch must be zero or positive');
+  if (!Number.isFinite(customBidPercentage) || customBidPercentage < 0) errors.push('customBidPercentage must be zero or positive');
+  if (!Number.isFinite(landingType) || landingType <= 0) errors.push('landingType must be positive');
+
+  const requestedName = normalizeRequestedAdName(input.campaignName || input.groupName || '');
+  const campaignName = requestedName && requestedName !== 'ad'
+    ? requestedName.slice(0, 90).trim()
+    : buildSbvCampaignName(coreTerm, sku);
+  const groupName = normalizeRequestedAdName(input.groupName || campaignName) || campaignName;
+  const requestUrl = '/campaignSb/createCampaignBeta';
+  const keywordRows = normalizeSbvKeywords(input, defaultBid);
+  if (!keywordRows.length) errors.push('valid keyword rows are required');
+  if (errors.length) return { ok: false, errors, mode, requestUrl, campaignName, groupName };
+
+  const payload = {
+    createType: 'campaign',
+    advType: 'SB',
+    targetType: 'keyword',
+    name: input.name || 'create SB campaign',
+    campaignName,
+    startDate,
+    siteId,
+    budgetType,
+    budget,
+    dailyBudget,
+    bidTopOfSearch,
+    bidRestOfSearch,
+    customBidPercentage,
+    moduleIdArray: Array.isArray(input.moduleIdArray) ? input.moduleIdArray : [],
+    brandName,
+    brand,
+    accountId,
+    groupName,
+    goal: input.goal || 'PAGE_VISIT',
+    costType: input.costType || 'CPC',
+    asinArray,
+    skuArray,
+    adFormat: 'video',
+    landingType,
+    landingPageUrl: input.landingPageUrl || '',
+    videoType: input.videoType || '\u7b80\u6613',
+    fieldArray: {
+      campaigns: [{
+        budgetType,
+        brandEntityId: brand,
+        name: campaignName,
+        startDate,
+        budget,
+        bidding: {
+          bidOptimization: input.bidOptimization === true,
+          bidAdjustmentsByPlacement: [
+            { percentage: bidTopOfSearch, placement: 'TOP_OF_SEARCH' },
+            { percentage: bidRestOfSearch, placement: 'OTHER' },
+          ],
+        },
+      }],
+      keyword: keywordRows,
+      negativeKeywords: Array.isArray(input.negativeKeywords) ? input.negativeKeywords : [],
+      ads: [{
+        name: groupName,
+        creative: {
+          asins: asinArray,
+          videoAssetIds,
+        },
+      }],
+    },
+  };
+  return { ok: true, mode, requestUrl, requestBody: payload, campaignName, groupName, errors: [] };
 }
 
 function buildSpCreatePayload(input = {}) {
@@ -2057,6 +2306,7 @@ module.exports = {
   run,
   groupByAccountSite,
   buildSpCreatePayload,
+  buildSbvCreatePayload,
   buildSpAppendTargetPayload,
   buildStateToggleRequest,
   hasRecentCandidateBlock,

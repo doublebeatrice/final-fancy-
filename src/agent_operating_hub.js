@@ -19,9 +19,10 @@ function workTypeRank(workType) {
     due_effect_review: 0,
     daily_ops: 1,
     capability_setup: 2,
-    external_request: 3,
-    upcoming_effect_review: 4,
-    blocked_or_other: 5,
+    learning_constraint: 3,
+    external_request: 4,
+    upcoming_effect_review: 5,
+    blocked_or_other: 6,
   }[workType] ?? 9;
 }
 
@@ -39,6 +40,20 @@ function capabilityHintsForTask(task = {}) {
   const requirements = list(task.evidenceRequirements).map(item => item.toLowerCase());
   const metrics = list(task.reviewPlan?.metrics).map(item => item.toLowerCase());
   const hints = [];
+  const wantsCorrectionRisk = task.kind === 'operator_correction' || [...requirements, ...metrics].some(item =>
+    item.includes('correction') ||
+    item.includes('same_rule') ||
+    item.includes('same-rule') ||
+    item.includes('risk_audit') ||
+    item.includes('operator_feedback')
+  );
+  const wantsAutonomyAudit = task.kind === 'agent_autonomy_review' || [...requirements, ...metrics].some(item =>
+    item.includes('autonomy') ||
+    item.includes('unattended') ||
+    item.includes('self_drive') ||
+    item.includes('self-driving') ||
+    item.includes('closed_loop_report')
+  );
   const wantsSelection = [...requirements, ...metrics].some(item =>
     item.includes('selection') ||
     item.includes('market') ||
@@ -52,12 +67,18 @@ function capabilityHintsForTask(task = {}) {
   const wantsInventory = [...requirements, ...metrics].some(item => item.includes('inventory') || item.includes('库存'));
   const wantsProfit = [...requirements, ...metrics].some(item => item.includes('profit') || item.includes('利润'));
 
+  if (wantsCorrectionRisk) hints.push('agent::correction_risk::audit::read');
+  if (wantsAutonomyAudit) {
+    hints.push('agent::autonomy::audit::read');
+    hints.push('agent::readiness::audit::read');
+  }
   if (wantsSelection) {
     hints.push('selection::market_evidence::keyword-research::read');
     hints.push('selection::market_evidence::keyword-conversion::read');
     hints.push('selection::market_evidence::aba-search-terms::read');
     hints.push('selection::market_evidence::keyword-seasonality::read');
     hints.push('selection::market_evidence::product-time-machine::read');
+    hints.push('selection::market_evidence::operating-intelligence::read');
   }
   if (wantsInventory) hints.push('sellerinventory::listing::origin-data::read');
   if (wantsProfit) hints.push('agent::effect_review::review-evidence-collector::read');
@@ -147,6 +168,11 @@ function buildExecutionPlan(task = {}, options = {}) {
       parts.push('--profit-report', profitFile);
       requiredInputs.push(profitFile);
     }
+    if (hasCapability(requiredCapabilities, 'selection::market_evidence::keyword-research::read')) {
+      const keywordResearchFile = defaultSnapshotFile('selection_keyword_research', today);
+      parts.push('--keyword-research-report', keywordResearchFile);
+      requiredInputs.push(keywordResearchFile);
+    }
     if (hasCapability(requiredCapabilities, 'selection::market_evidence::keyword-conversion::read')) {
       const keywordFile = defaultSnapshotFile('selection_keyword_conversion_rate', today);
       parts.push('--keyword-conversion-report', keywordFile);
@@ -172,7 +198,74 @@ function buildExecutionPlan(task = {}, options = {}) {
       output: outFile,
     }));
     expectedOutputs.push(evidenceFile, outFile);
-  } else if (classified.workType === 'external_request' || classified.autonomyMode === 'gather_evidence') {
+    if (hasCapability(requiredCapabilities, 'selection::market_evidence::operating-intelligence::read')) {
+      const operatingIntelligenceFile = defaultSnapshotFile('selection_operating_intelligence', today);
+      const operatingParts = [
+        'npm run ops:selection:operating-intelligence --',
+        '--keyword-research-report', defaultSnapshotFile('selection_keyword_research', today),
+        '--keyword-conversion-report', defaultSnapshotFile('selection_keyword_conversion_rate', today),
+        '--aba-report', defaultSnapshotFile('selection_aba_search_terms', today),
+        '--seasonality-report', defaultSnapshotFile('selection_keyword_seasonality', today),
+        '--product-time-machine-report', defaultSnapshotFile('selection_product_time_machine', today),
+        '--out', operatingIntelligenceFile,
+      ];
+      commands.push(commandItem('Generate selection operating intelligence', operatingParts.join(' '), {
+        purpose: 'Summarize the five selection evidence layers into one read-only intelligence report after the main review evidence has been collected.',
+        output: operatingIntelligenceFile,
+      }));
+      expectedOutputs.push(operatingIntelligenceFile);
+    }
+  } else if (classified.workType === 'external_request' || ['gather_evidence', 'gather_learning_evidence'].includes(classified.autonomyMode)) {
+    if (hasCapability(requiredCapabilities, 'agent::correction_risk::audit::read')) {
+      const outFile = defaultAgentFile('correction_risk', today);
+      const correctionText = text(task.rawInput || task.description || task.title);
+      const subject = task.subject || {};
+      const parts = [
+        'npm run ops:agent:correction-risk --',
+        '--text', quoteArg(correctionText),
+        '--today', today,
+        '--out', outFile,
+      ];
+      if (text(subject.sku)) parts.push('--sku', quoteArg(subject.sku));
+      if (text(subject.asin)) parts.push('--asin', quoteArg(subject.asin));
+      if (text(subject.entityId)) parts.push('--entity-id', quoteArg(subject.entityId));
+      if (text(subject.keyword)) parts.push('--keyword', quoteArg(subject.keyword));
+      commands.push(commandItem('生成纠错风险审计', parts.join(' '), {
+        purpose: '把 operator 纠错转成系统风险审计、同类规则扫描、回滚复核和长期学习补丁。',
+        output: outFile,
+      }));
+      expectedOutputs.push(outFile);
+    }
+    if (hasCapability(requiredCapabilities, 'agent::autonomy::audit::read')) {
+      const outFile = defaultAgentFile('autonomy_audit', today);
+      const closedLoopFile = defaultAgentFile('agent_closed_loop', today);
+      const parts = [
+        'npm run ops:agent:autonomy-audit --',
+        '--closed-loop', closedLoopFile,
+        '--today', today,
+        '--out', outFile,
+      ];
+      commands.push(commandItem('鐢熸垚鏃犱汉鍊煎畧鑷┍瀹¤', parts.join(' '), {
+        purpose: '鎶婇棴鐜骇鐗╅獙鎴?autonomyStatus銆佽嚜椹卞緱鍒嗗拰缂哄彛浠诲姟锛岀敤浜庡垽鏂槸鍚﹀彲鏃犱汉鍊煎畧杩愯銆?',
+        output: outFile,
+      }));
+      expectedOutputs.push(outFile);
+    }
+    if (hasCapability(requiredCapabilities, 'agent::readiness::audit::read')) {
+      const outFile = defaultAgentFile('agent_readiness_audit', today);
+      const parts = [
+        'npm run ops:agent:readiness-audit --',
+        '--today', today,
+        '--require-correction-lesson',
+        '--require-risk-routing-lesson',
+        '--out', outFile,
+      ];
+      commands.push(commandItem('生成 agent 总目标 readiness 审计', parts.join(' '), {
+        purpose: '把 closed-loop、live schedule、unattended gate、learning memory 和 correction-risk 合成总目标级证据，避免只看单点绿灯。',
+        output: outFile,
+      }));
+      expectedOutputs.push(outFile);
+    }
     const terms = marketTermsForTask(task);
     if (hasCapability(requiredCapabilities, 'selection::market_evidence::keyword-research::read')) {
       const keywordResearchArgs = keywordResearchSubjectArgs(task);
@@ -214,6 +307,23 @@ function buildExecutionPlan(task = {}, options = {}) {
         output: defaultSnapshotFile('selection_product_time_machine', today),
       }));
       expectedOutputs.push(defaultSnapshotFile('selection_product_time_machine', today));
+      if (hasCapability(requiredCapabilities, 'selection::market_evidence::operating-intelligence::read')) {
+        const operatingIntelligenceFile = defaultSnapshotFile('selection_operating_intelligence', today);
+        const operatingParts = [
+          'npm run ops:selection:operating-intelligence --',
+          '--keyword-research-report', defaultSnapshotFile('selection_keyword_research', today),
+          '--keyword-conversion-report', defaultSnapshotFile('selection_keyword_conversion_rate', today),
+          '--aba-report', defaultSnapshotFile('selection_aba_search_terms', today),
+          '--seasonality-report', defaultSnapshotFile('selection_keyword_seasonality', today),
+          '--product-time-machine-report', defaultSnapshotFile('selection_product_time_machine', today),
+          '--out', operatingIntelligenceFile,
+        ];
+        commands.push(commandItem('生成选品综合智能分析', operatingParts.join(' '), {
+          purpose: '把五层选品证据汇总成一份可判断但不可写入的综合智能报告，用于稳定接入能力目录。',
+          output: operatingIntelligenceFile,
+        }));
+        expectedOutputs.push(operatingIntelligenceFile);
+      }
       if (!terms.length) requiredInputs.push('关键词或搜索词');
     }
   } else if (classified.workType === 'daily_ops') {
@@ -271,6 +381,10 @@ function classifyWorkItem(task = {}, options = {}) {
     workType = 'capability_setup';
     autonomyMode = 'complete_capability_setup';
     nextStep = '补齐接口契约、探针、授权边界或写后回查，再进入可用能力目录。';
+  } else if (lane === 'learning_memory' || task.kind === 'learning_constraint') {
+    workType = 'learning_constraint';
+    autonomyMode = 'gather_learning_evidence';
+    nextStep = 'Read the prior learning memory constraint, gather the required evidence, and do not reuse the affected rule until the constraint is closed.';
   } else if (lane === 'external_inbox') {
     workType = 'external_request';
     autonomyMode = 'gather_evidence';
@@ -278,7 +392,7 @@ function classifyWorkItem(task = {}, options = {}) {
   }
 
   const requiresEscalation = (task.authorizationHint || []).some(item => /requires|boundary|高影响|授权/i.test(String(item))) &&
-    !['run_review', 'run_daily_loop', 'gather_evidence'].includes(autonomyMode);
+    !['run_review', 'run_daily_loop', 'gather_evidence', 'gather_learning_evidence'].includes(autonomyMode);
 
   const base = {
     ...task,
@@ -302,6 +416,7 @@ function flattenSourceItems(source = {}) {
     ...(source.ledger?.nextOpenTasks || []),
     ...(source.externalInbox?.tasks || []),
     ...(source.capabilityRegistry?.tasks || []),
+    ...(source.learningMemory?.tasks || []),
     ...(source.reviewQueue?.upcoming || []),
   ];
 }
@@ -337,10 +452,30 @@ function countBy(items, keyFn) {
   }, {});
 }
 
+function learningContext(memory = {}, sourceFiles = {}) {
+  const brief = memory.nextRunBrief || {};
+  const tasks = Array.isArray(memory.tasks) ? memory.tasks : [];
+  return {
+    applied: !!(memory.nextRunBrief || tasks.length),
+    status: text(memory.status),
+    sourceFile: text(sourceFiles.learningMemoryFile || memory.files?.outFile || ''),
+    constraints: Number(memory.summary?.constraints || 0),
+    blockers: Number(memory.summary?.blockers || 0),
+    warnings: Number(memory.summary?.warnings || 0),
+    taskCount: tasks.length,
+    mustReadBeforeDecision: list(brief.mustReadBeforeDecision),
+    doNotApplyWhen: list(brief.doNotApplyWhen),
+    evidenceBeforeReuse: list(brief.evidenceBeforeReuse),
+    openFollowUps: list(brief.openFollowUps),
+  };
+}
+
 function buildOperatingHub(input = {}) {
   const timeContext = input.timeContext || {};
   const today = dateOnly(input.today || timeContext.businessDate || timeContext.runAt);
-  const todayQueue = mergeAgentWorkSources(input, { ...(input.sourceFiles || {}), today });
+  const sourceFiles = input.sourceFiles || {};
+  const todayQueue = mergeAgentWorkSources(input, { ...sourceFiles, today });
+  const learning = learningContext(input.learningMemory || {}, sourceFiles);
   const summary = {
     total: todayQueue.length,
     byWorkType: countBy(todayQueue, item => item.workType),
@@ -350,6 +485,14 @@ function buildOperatingHub(input = {}) {
     dueReviews: todayQueue.filter(item => item.workType === 'due_effect_review').length,
     externalRequests: todayQueue.filter(item => item.workType === 'external_request').length,
     capabilitySetup: todayQueue.filter(item => item.workType === 'capability_setup').length,
+    learningMemoryApplied: learning.applied,
+    learningMemoryStatus: learning.status,
+    learningConstraintTasks: todayQueue.filter(item => item.workType === 'learning_constraint').length,
+    learningMemoryBlockers: learning.blockers,
+    learningMemoryWarnings: learning.warnings,
+    learningMustReadCount: learning.mustReadBeforeDecision.length,
+    learningDoNotApplyCount: learning.doNotApplyWhen.length,
+    learningEvidenceBeforeReuseCount: learning.evidenceBeforeReuse.length,
   };
   return {
     generatedAt: text(input.generatedAt || timeContext.runAt || new Date().toISOString()),
@@ -357,6 +500,7 @@ function buildOperatingHub(input = {}) {
     dataDate: dateOnly(timeContext.dataDate || today),
     sourceRunId: text(timeContext.sourceRunId || ''),
     summary,
+    learningContext: learning,
     todayQueue,
   };
 }

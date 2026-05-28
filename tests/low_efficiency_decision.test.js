@@ -310,37 +310,73 @@ test('classifyPoolPattern recognizes the four canonical states', () => {
   assert.strictEqual(classifyPoolPattern(presenceFlags(poolEntry({ 15: {}, 7: {}, 3: {} }))), 'recently_degraded');
 });
 
-test('pool decision lowers bid when only the 30d pool flags the row but residual waste is still meaningful', () => {
+test('pool decision holds when only the 30d pool flags the row', () => {
   const entry = poolEntry({ 30: { clicks: 20, spend: 6, orders: 1, acos: 0.40 } });
+  const decision = decideFromPoolMembership(entry, { now: NOW });
+  assert.strictEqual(decision.actionType, 'hold');
+  assert.strictEqual(decision.reasonCode, 'recent_trend_improved');
+  assert.strictEqual(decision.pattern, 'improving_long_only');
+});
+
+test('pool decision can still lower bid when 7d also remains inefficient', () => {
+  const entry = poolEntry({
+    30: { clicks: 20, spend: 6, orders: 1, acos: 0.40 },
+    7: { clicks: 5, spend: 2.1, orders: 1, acos: 0.32 },
+  });
   const decision = decideFromPoolMembership(entry, { now: NOW });
   assert.strictEqual(decision.actionType, 'bid');
   assert.strictEqual(decision.reasonCode, 'residual_30d_high_acos');
-  assert.strictEqual(decision.pattern, 'improving_long_only');
+  assert.strictEqual(decision.pattern, 'volatile_30_7');
   assert.strictEqual(decision.suggestedBid, 0.75);
 });
 
-test('pool decision lowers bid for rows still low in 7d with no orders even if 3d is clean', () => {
+test('pool decision holds when 30d and 15d are inefficient but 7d ACOS has recovered', () => {
+  const entry = poolEntry({
+    30: { clicks: 10, spend: 3.5, orders: 1, sales: 5.39, acos: 0.64935 },
+    15: { clicks: 9, spend: 3.15, orders: 1, sales: 5.39, acos: 0.584415 },
+    7: { clicks: 2, spend: 0.7, orders: 1, sales: 5.39, acos: 0.12987 },
+  }, { bid: 0.35 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  assert.strictEqual(decision.actionType, 'hold');
+  assert.strictEqual(decision.reasonCode, 'recent_recovery_under_20_acos');
+  assert.strictEqual(decision.opportunityAction, 'review_bid_up');
+  assert.strictEqual(decision.suggestedDirection, 'up');
+  assert.strictEqual(decision.recoverySignal.acos, 0.12987);
+});
+
+test('pool decision protects 7d recovered rows above 20 ACOS without bid-up flag', () => {
+  const entry = poolEntry({
+    30: { clicks: 18, spend: 8.4, orders: 1, sales: 20, acos: 0.42 },
+    15: { clicks: 10, spend: 4.2, orders: 1, sales: 20, acos: 0.21 },
+    7: { clicks: 8, spend: 3.44, orders: 1, sales: 16, acos: 0.215 },
+  }, { bid: 0.42 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  assert.strictEqual(decision.actionType, 'hold');
+  assert.strictEqual(decision.reasonCode, 'recent_recovery_7d_acos_ok');
+  assert.strictEqual(decision.opportunityAction, undefined);
+  assert.strictEqual(decision.suggestedDirection, undefined);
+});
+
+test('pool decision pauses rows with sustained zero-order waste even if 3d is clean', () => {
   const entry = poolEntry({
     30: { clicks: 25, spend: 7, orders: 0 },
     15: { clicks: 14, spend: 4, orders: 0 },
     7: { clicks: 7, spend: 2, orders: 0 },
   });
   const decision = decideFromPoolMembership(entry, { now: NOW });
-  assert.strictEqual(decision.actionType, 'bid');
-  assert.strictEqual(decision.reasonCode, 'seven_day_no_order_still_low');
-  assert.strictEqual(decision.suggestedBid, 0.75);
+  assert.strictEqual(decision.actionType, 'pause');
+  assert.strictEqual(decision.reasonCode, 'residual_30d_zero_order_hard_stop');
 });
 
-test('pool decision flags recently-degraded rows (30d clean, 15/7/3 in pool) as bid_small', () => {
+test('pool decision hard-stops recently-degraded rows when 15d zero-order waste is meaningful', () => {
   const entry = poolEntry({
     15: { clicks: 8, spend: 3, orders: 0 },
     7: { clicks: 5, spend: 2, orders: 0 },
     3: { clicks: 3, spend: 1, orders: 0 },
   }, { bid: 1.2 });
   const decision = decideFromPoolMembership(entry, { now: NOW });
-  assert.strictEqual(decision.actionType, 'bid');
-  assert.strictEqual(decision.reasonCode, 'recently_degraded');
-  assert.strictEqual(decision.suggestedBid, 1.05);
+  assert.strictEqual(decision.actionType, 'pause');
+  assert.strictEqual(decision.reasonCode, 'residual_15d_zero_order_hard_stop');
 });
 
 test('pool decision pauses persistently-low rows that pass the hard-stop test', () => {
@@ -362,12 +398,28 @@ test('pool decision skips rows still inside the adjustment cooldown', () => {
   assert.strictEqual(decision.reasonCode, 'adjustment_cooldown_not_elapsed');
 });
 
+test('pool decision still tags recovered under-20 rows inside cooldown as bid-up review candidates', () => {
+  const entry = poolEntry(
+    {
+      30: { clicks: 10, spend: 3.5, orders: 1, sales: 5.39, acos: 0.64935 },
+      15: { clicks: 9, spend: 3.15, orders: 1, sales: 5.39, acos: 0.584415 },
+      7: { clicks: 2, spend: 0.7, orders: 1, sales: 5.39, acos: 0.12987 },
+    },
+    { bid: 0.35, updatedAt: '2026-05-10 09:00:00' }
+  );
+  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  assert.strictEqual(decision.actionType, 'skip');
+  assert.strictEqual(decision.reasonCode, 'adjustment_cooldown_not_elapsed');
+  assert.strictEqual(decision.opportunityAction, 'review_bid_up');
+  assert.strictEqual(decision.suggestedDirection, 'up');
+});
+
 test('pool decision overrides cooldown when 7d has meaningful spend and zero orders', () => {
   const entry = poolEntry({ 7: { clicks: 9, spend: 2.45, orders: 0 } }, { bid: 0.35, updatedAt: '2026-05-10 09:00:00' });
   const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
   assert.strictEqual(decision.actionType, 'bid');
-  assert.strictEqual(decision.reasonCode, 'cooldown_override_7d_zero_order');
-  assert.strictEqual(decision.suggestedBid, 0.32);
+  assert.strictEqual(decision.reasonCode, 'cooldown_override_7d_zero_order_heavy_cut');
+  assert.strictEqual(decision.suggestedBid, 0.03);
 });
 
 test('pool decision overrides cooldown when 7d ACOS is high despite orders', () => {
@@ -379,11 +431,37 @@ test('pool decision overrides cooldown when 7d ACOS is high despite orders', () 
 });
 
 test('pool decision overrides cooldown when 15d still has meaningful zero-order waste', () => {
-  const entry = poolEntry({ 15: { clicks: 10, spend: 3.2, orders: 0 } }, { bid: 0.38, updatedAt: '2026-05-10 09:00:00' });
+  const entry = poolEntry({
+    15: { clicks: 10, spend: 3.2, orders: 0 },
+    7: { clicks: 7, spend: 2.2, orders: 0 },
+  }, { bid: 0.38, updatedAt: '2026-05-10 09:00:00' });
+  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  assert.strictEqual(decision.actionType, 'pause');
+  assert.strictEqual(decision.reasonCode, 'cooldown_override_15d_zero_order_hard_stop');
+});
+
+test('pool decision cuts 90 percent for extreme ACOS instead of using the small step', () => {
+  const entry = poolEntry(
+    { 7: { clicks: 66, spend: 22.34, orders: 2, acos: 0.932 } },
+    { kind: 'auto', bid: 0.34, updatedAt: '2026-05-10 09:00:00' }
+  );
   const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
   assert.strictEqual(decision.actionType, 'bid');
-  assert.strictEqual(decision.reasonCode, 'cooldown_override_15d_zero_order');
-  assert.strictEqual(decision.suggestedBid, 0.35);
+  assert.strictEqual(decision.reasonCode, 'cooldown_override_7d_extreme_acos_cut');
+  assert.strictEqual(decision.suggestedBid, 0.03);
+});
+
+test('pool decision pauses SB targets with 15d zero-order waste', () => {
+  const entry = poolEntry(
+    {
+      15: { clicks: 5, spend: 3.03, orders: 0 },
+      7: { clicks: 7, spend: 2.1, orders: 0 },
+    },
+    { kind: 'sbTarget', bid: 0.43, updatedAt: '2026-05-10 09:00:00' }
+  );
+  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  assert.strictEqual(decision.actionType, 'pause');
+  assert.strictEqual(decision.reasonCode, 'cooldown_override_15d_zero_order_hard_stop');
 });
 
 test('pool decision clamps SBV keyword bid-downs to the 0.25 floor', () => {
@@ -422,7 +500,8 @@ test('pool decision still allows non-SBV low bids below 0.10 to move down', () =
   );
   const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
   assert.strictEqual(decision.actionType, 'bid');
-  assert.strictEqual(decision.suggestedBid, 0.04);
+  assert.strictEqual(decision.reasonCode, 'residual_15d_severe_acos_cut');
+  assert.strictEqual(decision.suggestedBid, 0.03);
 });
 
 test('pool decision does not override cooldown for same-day adjustments', () => {

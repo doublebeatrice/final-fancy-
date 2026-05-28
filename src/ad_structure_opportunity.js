@@ -71,6 +71,94 @@ function videoStatusKnown(card = {}) {
   return listing.hasVideo === true || listing.hasVideo === false || profile.hasVideo === true || profile.hasVideo === false || num(listing.videoCount || profile.videoCount) > 0;
 }
 
+function firstSbvAssetSource(card = {}) {
+  const createContext = card.createContext || {};
+  const sources = [
+    card.sbvVideoAsset,
+    card.sbvVideoAssetLookup,
+    card.videoAsset,
+    createContext.sbvVideoAsset,
+    createContext.sbvVideoAssetLookup,
+    createContext.sbvAsset,
+    createContext.assetLibrary,
+    createContext.amazonAsset,
+  ].filter(Boolean);
+  for (const source of sources) {
+    if (source.matchedAsset) return source.matchedAsset;
+    if (source.asset) return source.asset;
+    return source;
+  }
+  return null;
+}
+
+function asList(value) {
+  if (Array.isArray(value)) return value;
+  if (value === undefined || value === null || value === '') return [];
+  return [value];
+}
+
+function associatedAsins(source = {}) {
+  const direct = [
+    ...asList(source.associatedAsins),
+    ...asList(source.asins),
+    ...asList(source.asinArray),
+    ...asList(source.asin),
+    ...asList(source.ASIN),
+  ];
+  const parsed = [];
+  const raw = source.associatedContexts || source.associated_contexts || '';
+  if (raw) {
+    try {
+      const contexts = typeof raw === 'string' ? JSON.parse(raw) : raw;
+      for (const item of contexts?.ASIN || []) parsed.push(item?.id || item?.asin || item?.name);
+    } catch (_) {}
+  }
+  return [...direct, ...parsed].map(item => text(item).toUpperCase()).filter(Boolean);
+}
+
+function sbvVideoAssetStatus(card = {}) {
+  const asin = text(card.asin).toUpperCase();
+  const source = firstSbvAssetSource(card);
+  if (!source) {
+    return { known: false, ready: false, missing: false, reason: 'asset_lookup_not_run' };
+  }
+
+  const sourceText = lower([
+    source.status,
+    source.lookupStatus,
+    source.reason,
+    source.error,
+    source.message,
+  ].join(' '));
+  const assetIds = [
+    ...asList(source.assetId),
+    ...asList(source.videoAssetId),
+    ...asList(source.amazonAssetId),
+    ...asList(source.assetLibraryId),
+    ...asList(source.videoAssetIds),
+  ].map(text).filter(Boolean);
+  const rowCount = source.rowCount === undefined ? null : num(source.rowCount);
+  const asins = associatedAsins(source);
+  const asinMatches = !asin || !asins.length || asins.includes(asin);
+
+  if (assetIds.length && asinMatches && !/missing|not_found|no_asset|no video/.test(sourceText)) {
+    return {
+      known: true,
+      ready: true,
+      missing: false,
+      assetId: assetIds[0],
+      assetName: text(source.name || source.assetName || source.fileName),
+      associatedAsins: asins,
+    };
+  }
+
+  if (source.matchedAsset === null || rowCount === 0 || /missing|not_found|no_asset|no video/.test(sourceText)) {
+    return { known: true, ready: false, missing: true, reason: 'no_exact_asin_video_asset' };
+  }
+
+  return { known: false, ready: false, missing: false, reason: 'asset_lookup_incomplete' };
+}
+
 function groupCounts(productCards = []) {
   const counts = new Map();
   for (const card of productCards || []) {
@@ -108,23 +196,38 @@ function auditAdStructureOpportunities(snapshot = {}) {
         evidence: [`variantCount=${variants}`, 'hasSb=false'],
       });
     }
-    if (listingHasVideo(card) && !hasSbvCoverage(card)) {
+    const sbvAsset = sbvVideoAssetStatus(card);
+    if (!hasSbvCoverage(card) && sbvAsset.ready) {
       items.push({
         sku,
         asin,
-        issue: 'sbv_missing_front_video',
+        issue: 'sbv_missing_video_asset_ready',
         action: 'manual_create_sbv',
-        reason: 'Amazon front listing has video evidence but current ad structure has no SBV coverage.',
-        evidence: ['listingHasVideo=true', 'hasSbv=false'],
+        reason: 'SBV is part of the basic ad structure check, and the asset library has an exact ASIN-bound video asset; current ad structure has no SBV coverage.',
+        evidence: [
+          'hasSbv=false',
+          `videoAssetId=${sbvAsset.assetId}`,
+          sbvAsset.assetName ? `videoAssetName=${sbvAsset.assetName}` : '',
+          sbvAsset.associatedAsins?.length ? `associatedAsins=${sbvAsset.associatedAsins.join(',')}` : '',
+        ].filter(Boolean),
       });
-    } else if (!videoStatusKnown(card) && !hasSbvCoverage(card)) {
+    } else if (!hasSbvCoverage(card) && sbvAsset.missing) {
       items.push({
         sku,
         asin,
-        issue: 'front_video_check_needed',
-        action: 'fetch_front_listing_video_status',
-        reason: 'No SBV exists and the snapshot does not know whether the Amazon front listing has a video; queue this SKU for targeted front-page video check.',
-        evidence: ['listingHasVideo=unknown', 'hasSbv=false'],
+        issue: 'sbv_video_asset_missing',
+        action: 'do_not_create_sbv',
+        reason: 'No exact ASIN-bound video asset was found in the asset library, so SBV should not be created; the product may not have a video shot yet.',
+        evidence: ['hasSbv=false', 'assetLookup=not_found'],
+      });
+    } else if (!hasSbvCoverage(card) && !sbvAsset.known) {
+      items.push({
+        sku,
+        asin,
+        issue: 'sbv_video_asset_check_needed',
+        action: 'search_asset_library_by_asin',
+        reason: 'No SBV exists. Search the asset library by ASIN before considering SBV; if no exact product video is found, do not create SBV.',
+        evidence: [`listingHasVideo=${listingHasVideo(card) ? 'true' : (videoStatusKnown(card) ? 'false' : 'unknown')}`, 'hasSbv=false', 'assetLookup=needed'],
       });
     }
   }
@@ -133,8 +236,9 @@ function auditAdStructureOpportunities(snapshot = {}) {
     summary: {
       productsChecked: productCards.length,
       sbRecommended: items.filter(item => item.issue === 'sb_missing_three_plus_variants').length,
-      sbvRecommended: items.filter(item => item.issue === 'sbv_missing_front_video').length,
-      videoCheckQueued: items.filter(item => item.issue === 'front_video_check_needed').length,
+      sbvRecommended: items.filter(item => item.issue === 'sbv_missing_video_asset_ready').length,
+      sbvVideoMissing: items.filter(item => item.issue === 'sbv_video_asset_missing').length,
+      videoCheckQueued: items.filter(item => item.issue === 'sbv_video_asset_check_needed').length,
       totalItems: items.length,
     },
     items,
@@ -146,5 +250,6 @@ module.exports = {
   hasSbCoverage,
   hasSbvCoverage,
   listingHasVideo,
+  sbvVideoAssetStatus,
   variantCount,
 };

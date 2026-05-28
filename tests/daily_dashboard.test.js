@@ -169,6 +169,14 @@ const html = dashboardHtml({
       kpiGateEvaluatedBusinessDate: '2026-05-19',
       kpiGateDataDate: '2026-05-18',
       monthKpiDigestReady: true,
+      dailyOperatingWorkflow: {
+        status: 'needs_recovery',
+        required: true,
+        blockers: ['all_sku_review_missing'],
+        allSku: { status: 'missing', totalSkus: 0, mustReview: 0 },
+        season: { status: 'ready', dryRunItems: 84, activeSeasonTasks: 94 },
+        effectReview: { status: 'ready', dueReviews: 41, effectReviewTotal: 41, feedbackApplied: 41 },
+      },
     },
     kpiRecoveryGate: {
       status: 'target_set_actual_pending',
@@ -297,6 +305,9 @@ assert.ok(html.includes('kpi_approval_review_2026-05-20.json'));
 assert.ok(html.includes('recommendApprove 2; approvalNeeded 3; hold 2; blocked 2'));
 assert.ok(html.includes('Month KPI digest'));
 assert.ok(html.includes('month_kpi_operator_digest_2026-05-20.md'));
+assert.ok(html.includes('每日经营工作流'));
+assert.ok(html.includes('status needs_recovery'));
+assert.ok(html.includes('all_sku_review_missing'));
 assert.ok(html.includes('market_required_missing'));
 assert.ok(html.includes('market evidence ready 1'));
 assert.ok(html.includes('market missing 1'));

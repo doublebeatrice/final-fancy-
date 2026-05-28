@@ -30,12 +30,14 @@ const action = {
   reason: 'Season title update',
   original: {
     parentTitle: 'Old title',
+    titleEn: 'Old English title',
     bulletPoints: ['Old bullet'],
     productDescription: 'Old description',
     searchCoreKeywords: 'old keyword',
   },
   now: {
     parentTitle: 'New title',
+    titleEn: 'New English title',
     bulletPoints: ['New bullet'],
     productDescription: 'New description',
     searchCoreKeywords: 'new keyword',
@@ -97,6 +99,56 @@ const action = {
   });
   assert.strictEqual(validation.ok, false);
   assert.ok(validation.errors.includes('parent_title_over_125_conservative_limit'));
+}
+
+{
+  const validation = validateCopyEditAction({
+    ...action,
+    now: {
+      ...action.now,
+      searchCoreKeywords: 'keyword '.repeat(40).trim(),
+    },
+  });
+  assert.strictEqual(validation.ok, false);
+  assert.ok(validation.errors.includes('search_core_keywords_over_250'));
+}
+
+{
+  const validation = validateCopyEditAction({
+    ...action,
+    now: {
+      ...action.now,
+      titleEn: 'Brand '.repeat(23).trim(),
+    },
+    productContext: {
+      categoryPath: 'Clothing, Shoes & Jewelry > Women > Tops',
+    },
+  });
+  assert.strictEqual(validation.ok, false);
+  assert.ok(validation.errors.includes('title_en_over_125_clothing_category_limit'));
+}
+
+{
+  const validation = validateCopyEditAction({
+    ...action,
+    now: {
+      ...action.now,
+      titleEn: 'Brand America 250th Anniversary Bracelet Kit',
+    },
+  });
+  assert.strictEqual(validation.ok, false);
+  assert.ok(validation.errors.includes('title_en_250th_us_term_spacing_lt_3'));
+}
+
+{
+  const validation = validateCopyEditAction({
+    ...action,
+    now: {
+      ...action.now,
+      titleEn: 'Brand USA Letter Beads with Flag Charms for 250th Anniversary Bracelet Kit',
+    },
+  });
+  assert.strictEqual(validation.ok, true);
 }
 
 {
@@ -241,9 +293,22 @@ const action = {
   assert.strictEqual(form.get('variant_status'), '2');
   assert.strictEqual(form.get('original[parent_title]'), 'Old title');
   assert.strictEqual(form.get('now[parent_title]'), 'New title');
+  assert.strictEqual(form.get('original[title_en]'), 'Old English title');
+  assert.strictEqual(form.get('now[title_en]'), 'New English title');
   assert.strictEqual(form.get('original[product_description]'), 'Old description');
   assert.strictEqual(form.get('now[search_core_keywords]'), 'new keyword');
   assert.deepStrictEqual(form.getAll('synchronizeFields[]'), []);
+}
+
+{
+  const form = buildListingCopyEditForm({
+    ...action,
+    omitParentTitle: true,
+  });
+  assert.strictEqual(form.has('original[parent_title]'), false);
+  assert.strictEqual(form.has('now[parent_title]'), false);
+  assert.strictEqual(form.get('original[title_en]'), 'Old English title');
+  assert.strictEqual(form.get('now[title_en]'), 'New English title');
 }
 
 {

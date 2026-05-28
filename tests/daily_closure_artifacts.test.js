@@ -750,6 +750,66 @@ function writeApprovalReviewArtifacts(jsonFile, markdownFile) {
 }
 
 {
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'daily-closure-artifacts-workflow-open-'));
+  const closedLoopFile = path.join(tmpDir, 'agent_closed_loop_2026-05-20.json');
+  const handoffFile = path.join(tmpDir, 'agent_handoff_2026-05-20.md');
+  const dashboardFile = path.join(tmpDir, 'daily_dashboard_2026-05-20.html');
+  const report = sampleReport();
+  report.summary.dailyClosureStatus = 'complete';
+  report.summary.dailyComplete = true;
+  report.summary.dailyClosureReasons = [];
+  report.summary.depositStatus = 'complete';
+  report.summary.depositMissingCount = 0;
+  report.summary.kpiStatus = '';
+  report.summary.operatingClosureStatus = 'complete';
+  report.summary.dailyOperatingWorkflowStatus = 'needs_recovery';
+  report.summary.dailyOperatingWorkflowBlockers = ['all_sku_review_missing', 'season_title_dry_run_missing'];
+  report.summary.dailyOperatingWorkflow = {
+    status: 'needs_recovery',
+    required: true,
+    blockers: ['all_sku_review_missing', 'season_title_dry_run_missing'],
+    allSku: { status: 'missing', totalSkus: 0, mustReview: 0 },
+    season: { status: 'missing', dryRunItems: 0, activeSeasonTasks: 0 },
+    effectReview: { status: 'ready', dueReviews: 0, effectReviewTotal: 0, feedbackApplied: 0 },
+  };
+  report.handoff.summary.dailyClosureStatus = 'complete';
+  report.handoff.summary.dailyComplete = true;
+  report.handoff.summary.dailyClosureReasons = [];
+  report.handoff.summary.dailyOperatingWorkflowStatus = 'needs_recovery';
+  report.handoff.summary.dailyOperatingWorkflow = report.summary.dailyOperatingWorkflow;
+  report.handoff.depositStatus = { status: 'complete', missing: [], suspicious: [] };
+  delete report.summary.recoveryGateTargetBusinessDate;
+  delete report.handoff.kpiSummary;
+  writeJson(closedLoopFile, report);
+  writeText(handoffFile, [
+    '# handoff',
+    '涓氬姟鏃ユ湡锛?026-05-19',
+    '鏁版嵁鏃ユ湡锛?026-05-18',
+    '- dailyClosureStatus: complete; dailyComplete=true.',
+    '## 每日经营工作流',
+    '- status: needs_recovery; blockers: all_sku_review_missing, season_title_dry_run_missing.',
+  ].join('\n'));
+  writeText(dashboardFile, [
+    '<html>',
+    'localDate 2026-05-20 | businessDate 2026-05-19 | dataDate 2026-05-18',
+    'dailyClosureStatus: complete',
+    'closedLoop=true | dailyComplete=true',
+    '每日经营工作流: status needs_recovery; blockers all_sku_review_missing, season_title_dry_run_missing',
+    '</html>',
+  ].join('\n'));
+
+  const result = verifyDailyClosureArtifacts({
+    date: '2026-05-20',
+    closedLoopFile,
+    handoffFile,
+    dashboardFile,
+  });
+  assert.strictEqual(result.ok, false);
+  assert.ok(result.errors.some(error => error.includes('dailyComplete cannot be true while daily operating workflow needs recovery')));
+  assert.ok(result.errors.some(error => error.includes('dailyClosureStatus cannot be complete while daily operating workflow needs recovery')));
+}
+
+{
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'daily-closure-artifacts-checkpoint-ok-'));
   const closedLoopFile = path.join(tmpDir, 'agent_closed_loop_2026-05-20.json');
   const handoffFile = path.join(tmpDir, 'agent_handoff_2026-05-20.md');

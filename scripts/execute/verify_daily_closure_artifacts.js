@@ -240,6 +240,17 @@ function verifyDailyClosureArtifacts(options = {}) {
     Number(summary.feedbackApplied || 0),
     Number(hub?.summary?.feedbackApplied || 0)
   );
+  const dailyOperatingWorkflow = summary.dailyOperatingWorkflow || handoffSummary.dailyOperatingWorkflow || {};
+  const dailyOperatingWorkflowStatus = text(
+    summary.dailyOperatingWorkflowStatus ||
+    dailyOperatingWorkflow.status ||
+    handoffSummary.dailyOperatingWorkflowStatus ||
+    ''
+  );
+  const dailyOperatingWorkflowBlockers = Array.isArray(summary.dailyOperatingWorkflowBlockers)
+    ? summary.dailyOperatingWorkflowBlockers.map(text).filter(Boolean)
+    : (Array.isArray(dailyOperatingWorkflow.blockers) ? dailyOperatingWorkflow.blockers.map(text).filter(Boolean) : []);
+  const dailyOperatingWorkflowActive = !!dailyOperatingWorkflowStatus && dailyOperatingWorkflowStatus !== 'not_required';
   const dueReviews = Number(
     hub?.summary && Object.prototype.hasOwnProperty.call(hub.summary, 'dueReviews')
       ? hub.summary.dueReviews
@@ -255,6 +266,7 @@ function verifyDailyClosureArtifacts(options = {}) {
   const dryRunDecisionSummary = kpiDryRunDecision?.summary || {};
   const dryRunDecisionTotal = Number(dryRunDecisionSummary.total || 0);
   const dryRunDecisionByDecision = dryRunDecisionSummary.byDecision || {};
+  const dryRunDecisionExecuted = Number(dryRunDecisionByDecision.executed || 0);
   const approvalReviewSummary = kpiApprovalReview?.summary || {};
   const approvalReviewTotal = Number(approvalReviewSummary.total || summary.kpiApprovalReviewTotal || 0);
   const approvalReviewRecommended = Number(approvalReviewSummary.recommendApprove || summary.kpiApprovalRecommendApprove || 0);
@@ -323,6 +335,34 @@ function verifyDailyClosureArtifacts(options = {}) {
   }
   if (kpiRequiresRecovery && recoveryEvidenceCount <= 0) {
     errors.push('KPI recovery evidence missing: no landed actions, manual reviews, approval-needed items, blocked items, or feedback applied');
+  }
+  if (dailyOperatingWorkflowActive) {
+    if (dailyOperatingWorkflowStatus === 'needs_recovery') {
+      if (dailyComplete) {
+        errors.push('dailyComplete cannot be true while daily operating workflow needs recovery');
+      }
+      if (dailyClosureStatus === 'complete') {
+        errors.push('dailyClosureStatus cannot be complete while daily operating workflow needs recovery');
+      }
+    }
+    if (!includesAll(handoffText, [
+      '## 每日经营工作流',
+      `status: ${dailyOperatingWorkflowStatus}`,
+    ])) {
+      errors.push(`handoff missing daily operating workflow status ${dailyOperatingWorkflowStatus}`);
+    }
+    if (!includesAll(dashboardText, [
+      '每日经营工作流',
+      `status ${dailyOperatingWorkflowStatus}`,
+    ])) {
+      errors.push(`dashboard missing daily operating workflow status ${dailyOperatingWorkflowStatus}`);
+    }
+    if (dailyOperatingWorkflowBlockers.length && !includesAll(handoffText, dailyOperatingWorkflowBlockers)) {
+      errors.push('handoff missing one or more daily operating workflow blockers');
+    }
+    if (dailyOperatingWorkflowBlockers.length && !includesAll(dashboardText, dailyOperatingWorkflowBlockers)) {
+      errors.push('dashboard missing one or more daily operating workflow blockers');
+    }
   }
   if (dueReviews > 0) {
     if (!reviewQueue) {
@@ -418,13 +458,14 @@ function verifyDailyClosureArtifacts(options = {}) {
       if (dryRunDecisionTotal < recoveryDryRunHighEfficiencyBidUps) {
         errors.push(`KPI dry-run decision total too small: expected at least ${recoveryDryRunHighEfficiencyBidUps}, got ${dryRunDecisionTotal}`);
       }
-      if (Number(dryRunDecisionByDecision.blocked || 0) <= 0 && Number(dryRunDecisionByDecision.approval_needed || 0) <= 0) {
+      const allDryRunCandidatesAlreadyLanded = dryRunDecisionExecuted >= recoveryDryRunHighEfficiencyBidUps;
+      if (!allDryRunCandidatesAlreadyLanded && Number(dryRunDecisionByDecision.blocked || 0) <= 0 && Number(dryRunDecisionByDecision.approval_needed || 0) <= 0) {
         errors.push('KPI dry-run decision split missing blocked or approval_needed classifications');
       }
     }
     if (!kpiDryRunDecisionMarkdownText) {
       errors.push(`missing KPI dry-run decision markdown file: ${kpiDryRunDecisionMarkdownFile}`);
-    } else if (!includesAll(kpiDryRunDecisionMarkdownText, [
+    } else if (dryRunDecisionExecuted < recoveryDryRunHighEfficiencyBidUps && !includesAll(kpiDryRunDecisionMarkdownText, [
       'approval_needed',
       'blocked',
     ])) {
@@ -817,6 +858,7 @@ function verifyDailyClosureArtifacts(options = {}) {
       recoveryDryRunHighEfficiencyBidUps,
       recoveryDryRunSkuCount,
       recoveryDryRunDecisionTotal: dryRunDecisionTotal,
+      recoveryDryRunDecisionExecuted: dryRunDecisionExecuted,
       recoveryDryRunDecisionApprovalNeeded: Number(dryRunDecisionByDecision.approval_needed || 0),
       recoveryDryRunDecisionBlocked: Number(dryRunDecisionByDecision.blocked || 0),
       kpiRecoveryNextActionsReady: !!kpiRecoveryNextActionsText,
@@ -830,6 +872,9 @@ function verifyDailyClosureArtifacts(options = {}) {
       dueReviews,
       reviewQueueDue,
       effectReviewTotal,
+      dailyOperatingWorkflowStatus,
+      dailyOperatingWorkflowBlockers,
+      dailyOperatingWorkflow,
       landedActionConflictStatus,
       landedActionSameEntityReverseCount,
       landedActionSameNameMixedCount,

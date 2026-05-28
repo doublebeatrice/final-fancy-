@@ -36,6 +36,11 @@ const timeContext = {
 }
 
 {
+  const parsed = parseArgs(['node', 'scripts/run_agent_closed_loop.js', '--prior-learning-memory', 'data/agent/learning_memory_2026-05-18.json']);
+  assert.strictEqual(parsed.priorLearningMemoryFile, 'data/agent/learning_memory_2026-05-18.json');
+}
+
+{
   const parsed = parseArgs([
     'node',
     'scripts/run_agent_closed_loop.js',
@@ -49,6 +54,49 @@ const timeContext = {
   assert.strictEqual(parsed.landedActionConflictAuditDate, '2026-05-21');
   assert.strictEqual(parsed.landedActionConflictAuditFile, 'data/tasks/landed_action_conflict_audit_2026-05-21.json');
   assert.strictEqual(parsed.landedActionConflictAuditMarkdownFile, 'data/tasks/landed_action_conflict_audit_2026-05-21.md');
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-closed-loop-prior-learning-'));
+  const priorLearningMemoryFile = path.join(tmpDir, 'learning_memory_2026-05-18.json');
+  fs.writeFileSync(priorLearningMemoryFile, JSON.stringify({
+    status: 'active_watch',
+    summary: { constraints: 1, blockers: 0, warnings: 1 },
+    nextRunBrief: {
+      mustReadBeforeDecision: ['data/learning/daily_learning_2026-05-18.json'],
+      doNotApplyWhen: ['do not treat prior dry-run as landed'],
+      evidenceBeforeReuse: ['fresh snapshot'],
+    },
+    tasks: [{
+      taskId: 'learning-1',
+      lane: 'learning_memory',
+      kind: 'learning_constraint',
+      status: 'new',
+      priority: 'P1',
+      title: 'do not treat prior dry-run as landed',
+      evidenceRequirements: ['fresh snapshot'],
+    }],
+  }), 'utf8');
+
+  const result = runAgentClosedLoop({
+    timeContext,
+    outDir: tmpDir,
+    priorLearningMemoryFile,
+    generateDashboard: false,
+    generateAutonomyAudit: false,
+    snapshot: {
+      businessDate: '2026-05-19',
+      dataDate: '2026-05-18',
+      productCards: [{ sku: 'SKU1' }],
+      sellerSalesRows: [{ seller_title: 'total', order_sales: '10', sale_num: '1' }],
+    },
+    execFileSync: () => '',
+  });
+
+  assert.strictEqual(result.summary.priorLearningMemoryApplied, true);
+  assert.strictEqual(result.summary.priorLearningConstraintTasks, 1);
+  assert.strictEqual(result.hub.summary.learningConstraintTasks, 1);
+  assert.ok(result.priorLearningContext.mustReadBeforeDecision.some(file => file.includes('daily_learning_2026-05-18.json')));
 }
 
 {

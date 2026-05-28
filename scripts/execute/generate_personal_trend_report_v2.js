@@ -61,19 +61,20 @@ function rowTitle(row) {
 
 function findCoreRows(rows) {
   const find = matcher => rows.find(row => matcher(rowTitle(row), row)) || {};
+  const seller = code => find((title, row) => String(row?.seller_num || '').trim() === code || title.startsWith(`${code}-`));
   return {
-    total: find(title => title === '所选编号汇总'),
+    total: find(title => title === '所选编号汇总' || title.toLowerCase() === 'total'),
     hjGroup: find(title => title === 'HJ大组'),
     hj1: find(title => title === 'HJ1小组'),
-    hj17: find(title => title.startsWith('HJ17-')),
-    hj171: find(title => title.startsWith('HJ171-')),
-    hj172: find(title => title.startsWith('HJ172-')),
+    hj17: seller('HJ17'),
+    hj171: seller('HJ171'),
+    hj172: seller('HJ172'),
   };
 }
 
 function isReferenceRow(row) {
   const title = rowTitle(row);
-  return title === '所选编号汇总' || title === 'HJ大组' || title === 'HJ1小组';
+  return title === '所选编号汇总' || title.toLowerCase() === 'total' || title === 'HJ大组' || title === 'HJ1小组';
 }
 
 function codeOf(row) {
@@ -547,6 +548,18 @@ function generateReport(options = {}) {
     .map(([label, value]) => ({ label, value }))
     .sort((a, b) => b.value - a.value)
     .slice(0, 10);
+  const currentTrendRow = Object.keys(total).length ? {
+    date,
+    sales: money(totalSales),
+    units: int(total.sale_num),
+    profit: pct(total.net_profit),
+    refund: pct(total.refund_percent),
+    acos: pct(total.ACOS),
+    roas: money(total.ROAS),
+  } : null;
+  const trendTableRows = currentTrendRow
+    ? [...prior.filter(row => row.date !== date), currentTrendRow].slice(-8)
+    : prior;
 
   const title = `黄成喆每日经营复盘 ${date}（V2 手写风格沉淀版）`;
   const headline = '每日经营复盘：今天不是缺数据，是利润、退货、广告和老品同时要拆开处理';
@@ -780,7 +793,7 @@ function generateReport(options = {}) {
 
   <h2>二、自身趋势沉淀｜先看这几天的自动沉淀口径，再判断今天是不是日波动</h2>
   <div class="note">这里保留近几天自动沉淀 HTML 里的核心指标，目的不是替代财务口径，而是让每天的经营复盘可以连续追踪。</div>
-  ${table(['日期', '销售额', '销量', '净利', '退货率', 'ACOS', 'ROAS'], prior.map(row => tr([
+  ${table(['日期', '销售额', '销量', '净利', '退货率', 'ACOS', 'ROAS'], trendTableRows.map(row => tr([
     esc(row.date), esc(row.sales), esc(row.units), esc(row.profit), esc(row.refund), esc(row.acos), esc(row.roas),
   ])), '没有找到历史自动版 HTML。')}
 

@@ -41,6 +41,12 @@ const timeContext = {
   assert.ok(productTimeMachine.args[0].endsWith(path.join('scripts', 'execute', 'fetch_selection_product_time_machine.js')));
   assert.deepStrictEqual(productTimeMachine.args.slice(1, 3), ['--search-keywords', 'cowboy hat']);
 
+  const operatingIntelligence = parseNpmRunCommand('npm run ops:selection:operating-intelligence -- --sample');
+  assert.strictEqual(operatingIntelligence.ok, true);
+  assert.strictEqual(operatingIntelligence.script, 'ops:selection:operating-intelligence');
+  assert.ok(operatingIntelligence.args[0].endsWith(path.join('scripts', 'execute', 'fetch_selection_operating_intelligence.js')));
+  assert.deepStrictEqual(operatingIntelligence.args.slice(1, 2), ['--sample']);
+
   const denied = parseNpmRunCommand('npm run ops:today -- --execute');
   assert.strictEqual(denied.ok, false);
   assert.ok(denied.reason.includes('not_allowlisted'));

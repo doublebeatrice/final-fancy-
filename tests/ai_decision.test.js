@@ -454,6 +454,53 @@ const codexApproval = {
     {
       ...cards[0],
       createContext: {
+        accountId: 468,
+        siteId: 4,
+        recommendedDailyBudget: 3,
+        recommendedDefaultBid: 0.35,
+      },
+    },
+  ], rowsByType, [], [], []).products };
+  const validated = validateAndNormalizePlan([
+    {
+      sku: 'SKU-1',
+      summary: 'sbv create test',
+      actions: [
+        {
+          actionType: 'create',
+          advType: 'SB',
+          adFormat: 'video',
+          targetType: 'keyword',
+          coreTerm: 'baby shower game',
+          keywords: ['ready to pop baby shower', 'shes ready to pop baby shower'],
+          dailyBudget: 3,
+          defaultBid: 0.35,
+          brandName: 'Wesiti',
+          brand: 'ENTITY3EK98Y2AIA3TP',
+          videoAssetIds: ['amzn1.assetlibrary.asset1.a65386b5a2a828fee9c4427e37b3cc79'],
+          reason: 'front listing has video and SBV gap',
+          evidence: ['video asset ready'],
+          confidence: 0.9,
+          riskLevel: 'sbv_low_budget_create',
+          ...codexApproval,
+        },
+      ],
+    },
+  ], context);
+  assert.strictEqual(validated.plan[0].actions.length, 1);
+  assert.strictEqual(validated.review.length, 0);
+  assert.strictEqual(validated.plan[0].actions[0].createInput.advType, 'SB');
+  assert.strictEqual(validated.plan[0].actions[0].createInput.adFormat, 'video');
+  assert.strictEqual(validated.plan[0].actions[0].createInput.mode, 'keywordTarget');
+  assert.deepStrictEqual(validated.plan[0].actions[0].createInput.videoAssetIds, ['amzn1.assetlibrary.asset1.a65386b5a2a828fee9c4427e37b3cc79']);
+  assert.strictEqual(validated.plan[0].actions[0].verifySource, 'sbRows');
+}
+
+{
+  const context = { products: buildProductContexts([
+    {
+      ...cards[0],
+      createContext: {
         accountId: 1,
         siteId: 4,
         recommendedDailyBudget: 3,

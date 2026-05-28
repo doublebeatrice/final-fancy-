@@ -314,6 +314,163 @@ function smallBidStep(currentBid) {
   return 0.02;
 }
 
+function metricWindow(entry = {}, windowDays) {
+  return entry.windows?.[String(windowDays)]
+    || entry.windows?.[windowDays]
+    || entry.metrics?.[String(windowDays)]
+    || entry.metrics?.[windowDays]
+    || null;
+}
+
+function sevenDayRecoverySignal(entry = {}) {
+  const metric = metricWindow(entry, 7);
+  if (!metric) return null;
+  const clicks = num(metric.clicks);
+  const spend = num(metric.spend);
+  const orders = num(metric.orders);
+  const sales = num(metric.sales);
+  const acos = metric.acos === null || metric.acos === undefined || metric.acos === '' ? null : num(metric.acos);
+  if (!(orders > 0 && acos !== null && acos > 0 && acos <= 0.25)) return null;
+
+  const bidUpCandidate = acos < 0.2;
+  return {
+    windowDays: 7,
+    clicks,
+    spend,
+    orders,
+    sales,
+    acos,
+    reasonCode: bidUpCandidate ? 'recent_recovery_under_20_acos' : 'recent_recovery_7d_acos_ok',
+    opportunityAction: bidUpCandidate ? 'review_bid_up' : null,
+    suggestedDirection: bidUpCandidate ? 'up' : 'hold',
+    reason: `7d has recovered: clicks=${clicks}, spend=${spend.toFixed(2)}, orders=${orders}, acos=${acos.toFixed(3)}.`
+  };
+}
+
+function attachRecoveryOpportunity(decision = {}, recovery = null) {
+  if (!recovery || decision.actionType === 'bid' || decision.actionType === 'pause') return decision;
+  const next = { ...decision, recoverySignal: recovery };
+  if (recovery.opportunityAction) {
+    next.opportunityAction = recovery.opportunityAction;
+    next.suggestedDirection = recovery.suggestedDirection;
+    next.opportunityReasonCode = recovery.reasonCode;
+  }
+  return next;
+}
+
+function wasteReasonCode(windowDays, kind, strength = '') {
+  const suffix = strength ? `_${strength}` : '';
+  return `cooldown_override_${windowDays}d_${kind}${suffix}`;
+}
+
+function wasteHitFromMetric(metric = {}, windowDays) {
+  const clicks = num(metric.clicks);
+  const spend = num(metric.spend);
+  const orders = num(metric.orders);
+  const acos = metric.acos === null || metric.acos === undefined || metric.acos === '' ? null : num(metric.acos);
+  const isSevenDay = windowDays === 7;
+  const zeroOrderClickGate = isSevenDay ? 7 : 5;
+  const zeroOrderSpendGate = isSevenDay ? 2 : 2.5;
+  const highAcosClickGate = 5;
+  const highAcosSpendGate = isSevenDay ? 2 : 2.5;
+
+  if (orders === 0 && (clicks >= zeroOrderClickGate || spend >= zeroOrderSpendGate)) {
+    const hardStop = windowDays >= 15 && (clicks >= 8 || spend >= 3);
+    const strength = hardStop ? 'hard_stop' : 'heavy_cut';
+    return {
+      windowDays,
+      kind: 'zero_order',
+      strength,
+      severity: hardStop ? 100 : 80,
+      clicks,
+      spend,
+      orders,
+      acos,
+      reasonCode: wasteReasonCode(windowDays, 'zero_order', strength),
+      reason: `${windowDays}d still has clicks/spend with zero orders: clicks=${clicks}, spend=${spend.toFixed(2)}, orders=0.`
+    };
+  }
+
+  if (orders > 0 && acos !== null && acos >= 0.3 && (clicks >= highAcosClickGate || spend >= highAcosSpendGate)) {
+    const strength = acos >= 0.9 ? 'extreme_acos_cut' : acos >= 0.6 ? 'severe_acos_cut' : 'high_acos';
+    return {
+      windowDays,
+      kind: 'high_acos',
+      strength,
+      severity: acos >= 0.9 ? 90 : acos >= 0.6 ? 70 : 20,
+      clicks,
+      spend,
+      orders,
+      acos,
+      reasonCode: wasteReasonCode(windowDays, strength === 'high_acos' ? 'high_acos' : strength),
+      reason: `${windowDays}d ACOS is still high despite orders: clicks=${clicks}, spend=${spend.toFixed(2)}, orders=${orders}, acos=${acos.toFixed(3)}.`
+    };
+  }
+
+  return null;
+}
+
+function pickStrongerWasteHit(best, candidate) {
+  if (!candidate) return best;
+  if (!best) return candidate;
+  if (candidate.severity !== best.severity) return candidate.severity > best.severity ? candidate : best;
+  if ((candidate.acos || 0) !== (best.acos || 0)) return (candidate.acos || 0) > (best.acos || 0) ? candidate : best;
+  return candidate.windowDays > best.windowDays ? candidate : best;
+}
+
+function bidTargetForWaste(entry = {}, waste = {}) {
+  const bid = num(entry.bid) || 0;
+  if (bid <= 0) return null;
+  if (waste.strength === 'extreme_acos_cut' || waste.strength === 'heavy_cut') return clampBid(bid * 0.1, bidFloorFor(entry));
+  if (waste.strength === 'severe_acos_cut') return clampBid(bid * 0.5, bidFloorFor(entry));
+  return clampBid(bid - smallBidStep(bid), bidFloorFor(entry));
+}
+
+function decisionFromWaste(entry = {}, waste = {}, pattern = '', flags = presenceFlags(entry), prefix = 'residual') {
+  if (!waste) return null;
+  const reasonCode = waste.reasonCode.replace('cooldown_override_', `${prefix}_`);
+  if (waste.strength === 'hard_stop') {
+    return {
+      actionType: 'pause',
+      reasonCode,
+      pattern,
+      presence: flags,
+      severity: waste.severity,
+      reason: waste.reason
+    };
+  }
+
+  const bid = num(entry.bid) || 0;
+  const suggestedBid = bidTargetForWaste(entry, waste);
+  if (!suggestedBid || suggestedBid >= bid) {
+    return {
+      actionType: 'hold',
+      reasonCode: 'bid_already_at_floor',
+      pattern,
+      presence: flags,
+      severity: waste.severity,
+      reason: `Current bid ${bid.toFixed(2)} is already near the floor. ${waste.reason}`
+    };
+  }
+
+  return {
+    actionType: 'bid',
+    currentBid: bid,
+    suggestedBid,
+    reasonCode,
+    pattern,
+    presence: flags,
+    severity: waste.severity,
+    reason: waste.reason
+  };
+}
+
+function isStrongWasteDecision(decision = {}) {
+  return decision.actionType === 'pause'
+    || Number(decision.severity || 0) >= 70
+    || /zero_order/.test(String(decision.reasonCode || ''));
+}
+
 function pauseEligibilityForPersistentlyLow(entry) {
   const w = entry.windows || {};
   const m30 = w['30'] || w[30] || {};
@@ -341,77 +498,34 @@ function cooldownOverrideDecision(entry = {}, now = new Date()) {
   const lastAdjust = latestTimestamp(entry.operatedAt, entry.updatedAt);
   if (isSameLocalDate(lastAdjust, now)) return null;
 
-  const bid = num(entry.bid) || 0;
-  if (bid <= 0) return null;
-
   const windowHit = continuingWasteWindow(entry);
   if (!windowHit) return null;
 
-  const suggestedBid = clampBid(bid - smallBidStep(bid), bidFloorFor(entry));
-  if (suggestedBid >= bid) return null;
-
-  return {
-    actionType: 'bid',
-    currentBid: bid,
-    suggestedBid,
-    reasonCode: windowHit.reasonCode,
-    pattern: 'cooldown_override',
-    presence: presenceFlags(entry),
-    reason: windowHit.reason
-  };
+  return decisionFromWaste(entry, windowHit, 'cooldown_override', presenceFlags(entry), 'cooldown_override');
 }
 
 function continuingWasteWindow(entry = {}) {
   const bid = num(entry.bid) || 0;
   if (bid <= 0) return null;
 
-  for (const windowDays of [7, 15, 30]) {
-    const metric = entry.windows?.[String(windowDays)] || entry.windows?.[windowDays];
-    if (!metric) continue;
-    const clicks = num(metric.clicks);
-    const spend = num(metric.spend);
-    const orders = num(metric.orders);
-    const acos = metric.acos === null || metric.acos === undefined || metric.acos === '' ? null : num(metric.acos);
-    const isSevenDay = windowDays === 7;
-    const zeroOrderClickGate = isSevenDay ? 7 : 8;
-    const zeroOrderSpendGate = isSevenDay ? 2 : 2.5;
-    const highAcosClickGate = isSevenDay ? 5 : 5;
-    const highAcosSpendGate = isSevenDay ? 2 : 2.5;
+  const sevenDayMetric = metricWindow(entry, 7);
+  const sevenDayHit = sevenDayMetric ? wasteHitFromMetric(sevenDayMetric, 7) : null;
+  if (!sevenDayHit) return null;
 
-    if (orders === 0 && (clicks >= zeroOrderClickGate || spend >= zeroOrderSpendGate)) {
-      return {
-        windowDays,
-        reasonCode: `cooldown_override_${windowDays}d_zero_order`,
-        reason: `${windowDays}d still has clicks/spend with zero orders: clicks=${clicks}, spend=${spend.toFixed(2)}, orders=0.`
-      };
-    }
-    if (orders > 0 && acos !== null && acos >= 0.3 && (clicks >= highAcosClickGate || spend >= highAcosSpendGate)) {
-      return {
-        windowDays,
-        reasonCode: `cooldown_override_${windowDays}d_high_acos`,
-        reason: `${windowDays}d ACOS is still high despite orders: clicks=${clicks}, spend=${spend.toFixed(2)}, orders=${orders}, acos=${acos.toFixed(3)}.`
-      };
-    }
+  let best = null;
+  for (const windowDays of [7, 15, 30]) {
+    const metric = metricWindow(entry, windowDays);
+    if (!metric) continue;
+    best = pickStrongerWasteHit(best, wasteHitFromMetric(metric, windowDays));
   }
 
-  return null;
+  return best;
 }
 
 function residualWasteBidDecision(entry = {}, pattern = '', flags = presenceFlags(entry)) {
   const waste = continuingWasteWindow(entry);
   if (!waste) return null;
-  const bid = num(entry.bid) || 0;
-  const suggestedBid = clampBid(bid - smallBidStep(bid), bidFloorFor(entry));
-  if (suggestedBid >= bid) return null;
-  return {
-    actionType: 'bid',
-    currentBid: bid,
-    suggestedBid,
-    reasonCode: waste.reasonCode.replace('cooldown_override_', 'residual_'),
-    pattern,
-    presence: flags,
-    reason: waste.reason
-  };
+  return decisionFromWaste(entry, waste, pattern, flags, 'residual');
 }
 
 function decideFromPoolMembership(entry = {}, options = {}) {
@@ -422,47 +536,44 @@ function decideFromPoolMembership(entry = {}, options = {}) {
     return { actionType: 'skip', reasonCode: 'inactive_parent_or_entity', pattern: 'inactive', presence: presenceFlags(entry), reason: 'Entity, campaign, or ad group is not enabled.' };
   }
 
+  const flags = presenceFlags(entry);
+  const recovery = sevenDayRecoverySignal(entry);
   const lastAdjust = latestTimestamp(entry.operatedAt, entry.updatedAt);
   if (daysSince(lastAdjust, now) < cooldownDays) {
     const override = cooldownOverrideDecision(entry, now);
     if (override) return override;
-    return { actionType: 'skip', reasonCode: 'adjustment_cooldown_not_elapsed', pattern: 'cooldown', presence: presenceFlags(entry), reason: `Last adjustment is inside the ${cooldownDays}-day cooldown.` };
+    return attachRecoveryOpportunity(
+      { actionType: 'skip', reasonCode: 'adjustment_cooldown_not_elapsed', pattern: 'cooldown', presence: flags, reason: `Last adjustment is inside the ${cooldownDays}-day cooldown.` },
+      recovery
+    );
   }
 
-  const flags = presenceFlags(entry);
   const pattern = classifyPoolPattern(flags);
   const intent = PATTERN_INTENT[pattern] || PATTERN_INTENT.mixed_other;
   const focus = pickFocusMetric(entry, pattern);
   const focusSummary = `clicks=${num(focus.clicks)}, spend=${num(focus.spend).toFixed(2)}, orders=${num(focus.orders)}, acos=${focus.acos === null || focus.acos === undefined ? '-' : Number(focus.acos).toFixed(3)}`;
   const presenceSummary = `30d=${flags[30] ? 'in' : 'ok'} 15d=${flags[15] ? 'in' : 'ok'} 7d=${flags[7] ? 'in' : 'ok'} 3d=${flags[3] ? 'in' : 'ok'}`;
 
+  if (recovery) {
+    return attachRecoveryOpportunity({
+      actionType: 'hold',
+      reasonCode: recovery.reasonCode,
+      pattern,
+      presence: flags,
+      reason: `${presenceSummary}. ${recovery.reason}`
+    }, recovery);
+  }
+
   if (pattern === 'improving_marginally') {
-    const m7 = entry.windows?.['7'] || entry.windows?.[7] || {};
-    if (num(m7.orders) === 0 && (num(m7.clicks) > 0 || num(m7.spend) > 0)) {
-      const bid = num(entry.bid) || 0;
-      if (bid <= 0) {
-        return { actionType: 'hold', reasonCode: 'missing_bid', pattern, presence: flags, reason: `Cannot compute bid step without a current bid. ${presenceSummary}.` };
-      }
-      const suggestedBid = clampBid(bid - smallBidStep(bid), bidFloorFor(entry));
-      if (suggestedBid >= bid) {
-        return { actionType: 'hold', reasonCode: 'bid_already_at_floor', pattern, presence: flags, reason: `Current bid ${bid.toFixed(2)} is already near the floor. ${presenceSummary}.` };
-      }
-      return {
-        actionType: 'bid',
-        currentBid: bid,
-        suggestedBid,
-        reasonCode: 'seven_day_no_order_still_low',
-        pattern,
-        presence: flags,
-        reason: `${presenceSummary}. 7d clicks=${num(m7.clicks)}, spend=${num(m7.spend).toFixed(2)}, orders=0.`
-      };
-    }
+    const residual = residualWasteBidDecision(entry, pattern, flags);
+    if (residual) return residual;
   }
 
   if (intent.actionType === 'skip' || intent.actionType === 'hold') {
     const residual = residualWasteBidDecision(entry, pattern, flags);
     if (residual) return residual;
-    return { actionType: intent.actionType === 'skip' ? 'skip' : 'hold', reasonCode: intent.reasonCode, pattern, presence: flags, reason: `${presenceSummary}. ${focusSummary}.` };
+    const decision = { actionType: intent.actionType === 'skip' ? 'skip' : 'hold', reasonCode: intent.reasonCode, pattern, presence: flags, reason: `${presenceSummary}. ${focusSummary}.` };
+    return attachRecoveryOpportunity(decision, recovery);
   }
 
   const bid = num(entry.bid) || 0;
@@ -475,6 +586,8 @@ function decideFromPoolMembership(entry = {}, options = {}) {
     if (eligibility.pause) {
       return { actionType: 'pause', reasonCode: eligibility.reasonCode, pattern, presence: flags, reason: `${presenceSummary}. 30d ${focusSummary}.` };
     }
+    const strongResidual = residualWasteBidDecision(entry, pattern, flags);
+    if (strongResidual && isStrongWasteDecision(strongResidual)) return strongResidual;
     const focusMetric = entry.windows?.['30'] || entry.windows?.[30] || focus;
     const amount = bidDownAmount(focusMetric, bid, 30);
     if (amount >= bid) {
@@ -495,6 +608,9 @@ function decideFromPoolMembership(entry = {}, options = {}) {
     return { actionType: 'bid', currentBid: bid, suggestedBid, reasonCode: 'persistently_low_small_step', pattern, presence: flags, reason: `${presenceSummary}. 30d ${focusSummary}.` };
   }
 
+  const strongResidual = residualWasteBidDecision(entry, pattern, flags);
+  if (strongResidual && isStrongWasteDecision(strongResidual)) return strongResidual;
+
   const step = smallBidStep(bid);
   const suggestedBid = clampBid(bid - step, bidFloorFor(entry));
   if (suggestedBid >= bid) {
@@ -509,7 +625,7 @@ function scanLowEfficiencyPools(snapshot = {}, options = {}) {
   const pools = snapshot.lowEfficiencyRows || {};
   const order = ['kw', 'auto', 'manual', 'sbKw', 'sbTarget'];
   const results = {};
-  const summary = { byKind: {}, totals: { actionable: 0, hold: 0, skip: 0 } };
+  const summary = { byKind: {}, totals: { actionable: 0, hold: 0, skip: 0, recoveryOpportunity: 0 } };
   for (const kind of order) {
     const rows = pools[kind] || [];
     const decisions = rows.map(entry => {
@@ -519,11 +635,13 @@ function scanLowEfficiencyPools(snapshot = {}, options = {}) {
     const actionable = decisions.filter(d => d.decision.actionType === 'bid' || d.decision.actionType === 'pause');
     const hold = decisions.filter(d => d.decision.actionType === 'hold');
     const skip = decisions.filter(d => d.decision.actionType === 'skip');
+    const recoveryOpportunity = decisions.filter(d => d.decision.opportunityAction === 'review_bid_up');
     results[kind] = decisions;
-    summary.byKind[kind] = { scanned: rows.length, actionable: actionable.length, hold: hold.length, skip: skip.length };
+    summary.byKind[kind] = { scanned: rows.length, actionable: actionable.length, hold: hold.length, skip: skip.length, recoveryOpportunity: recoveryOpportunity.length };
     summary.totals.actionable += actionable.length;
     summary.totals.hold += hold.length;
     summary.totals.skip += skip.length;
+    summary.totals.recoveryOpportunity += recoveryOpportunity.length;
   }
   return { generatedAt: new Date().toISOString(), cooldownDays, summary, results };
 }
@@ -743,5 +861,6 @@ module.exports = {
   scanLowEfficiencyCandidates,
   scanLowEfficiencyPools,
   classifyPoolPattern,
-  presenceFlags
+  presenceFlags,
+  sevenDayRecoverySignal
 };
