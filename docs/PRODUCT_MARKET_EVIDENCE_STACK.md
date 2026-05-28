@@ -43,22 +43,33 @@ For holiday/seasonal products, review the product before writing the note: activ
    - Use `npm run ops:selection:keyword-conversion -- --keywords "<terms>"`.
    - Read search volume, click volume, purchase volume, click-purchase rate, CPC/CPA/ACOS strategy ranges, missing keywords, and freshness.
 
-6. Product and listing fit
+6. Extended selection live evidence
+   - Use `npm run ops:selection:api -- --endpoint "<front-end api path>" --method GET|POST --query "site=1" --body-file <payload.json>` when a needed selection page has an exposed read-only API but no specialized parser yet.
+   - Use `npm run ops:selection:extended -- --preset "home-overview asin-info association-flow ad-placement comment-analysis flow-structure" --asin "<ASIN>" --site 1 --date-info "<YYYY-MM>"` for the stable product-level preset layer.
+   - Use `npm run ops:selection:extended -- --preset "bsr-list new-releases" --site 1 --rank-page-size 20` for stable BSR and new-release daily rank evidence; the runner resolves the latest available rank date automatically when `--rank-date` is omitted.
+   - Use `npm run ops:selection:extended -- --preset "category-analysis" --category "<Amazon category name>" --site 1 --category-page-size 20` for stable category capacity and product-type evidence; the runner resolves the latest available category-analysis week automatically when `--category-date` is omitted.
+   - Use `npm run ops:selection:extended -- --preset "flow-theme-tags store-feedback" --site 1 --date-info "<YYYY-MM>" --search-term "<term>" --feedback-page-size 20` for stable traffic-theme and store-quality evidence.
+   - Use `--account-name` plus `--account-id` when store feedback needs account-specific top ASINs, category concentration, new-ASIN list, feedback trend, or ASIN-count trend.
+   - The generic caller runs inside the logged-in selection browser session, automatically prefixes `/soundasia_selection` for front-end API paths, writes a JSON snapshot, and blocks likely write endpoints by default.
+   - Agent effect review and SKU operating review absorb `selection_extended_evidence` as `productSelection` when ASIN evidence is available.
+   - KPI checkpoint and month digest absorb the same extended report as `selectionKpiEvidence` when `--extended-selection-report` is supplied.
+
+7. Product and listing fit
    - Use listing title, bullets, images, product profile, category, price, rating, reviews, return risk, and product theme.
    - Confirm that the keyword or market actually belongs to the product, not only to an adjacent market.
 
-7. SKU-level ad backend proof
+8. SKU-level ad backend proof
    - Use the smallest ad read path: SKU summary, SKU ad product rows, ad group rows, campaign placement, or customer-search terms.
    - Read CTR, CVR, CPC, ACOS, spend, sales, orders, impressions/click trend, campaign budget/state, and recent action history.
 
-8. Inventory and economics
+9. Inventory and economics
    - Check inventory days, stuck-stock risk, net profit or usable margin fields, refund pressure, active season window, and replenishment/clearance context.
    - Split stock into FBA fulfillable/reserved, Amazon inbound, local good/available stock, local pending/test stock, and FBAPlan air/sea quantities. Do not treat them as one pool.
    - For developer-facing replenishment, only local good/available stock with no existing FBAPlan supports "arrange FBA". Amazon inbound, pending/unarrived local stock, test warehouse stock, and existing FBAPlan air/sea quantities are pipeline evidence, not a request to development to chase or repeat.
    - Before recommending purchase or replenishment, read product season/node and MOQ/minimum-order economics. For Mexican / Cinco de Mayo / Fiesta / Pinata products, the main U.S. traffic window is preheat through May 5; after May 5 treat replenishment as tail/off-season unless current market evidence proves otherwise. Do not extrapolate the last 30 days across the node peak into a fresh MOQ purchase.
    - If MOQ is missing from the current export, mark replenishment as blocked for MOQ confirmation instead of assuming the SKU can absorb a small purchase. If MOQ exists, compare MOQ against recent daily unit velocity and the active-season window; hold replenishment when the MOQ cannot be consumed before the node tails off.
 
-9. Decision and execution boundary
+10. Decision and execution boundary
    - Keyword research, ABA, keyword seasonality, Product Time Machine, and keyword conversion are evidence only. They can support a hypothesis, but cannot directly create keywords, raise bids, raise budgets, or change listing/price/inventory.
    - Supported ad actions still require dry-run, execution, landing verification, notes/logs, and follow-up.
 
@@ -91,6 +102,27 @@ Existing replenishment pipeline alone does not justify a developer request. If a
 
 Seasonal tail risk overrides simple inventory-gap math. A low FBA count after the season peak is not by itself a replenishment signal; first ask whether the remaining demand window can consume MOQ without creating stale inventory.
 
+## Internalized Operating Models
+
+`src/selection_operating_intelligence.js` is the shared interpretation layer for selection evidence. SKU reviews and agent effect reviews now use it to turn raw selection sources into daily operating signals:
+
+- front-search competitor validation: direct competitors, scene competitors, traffic-bridge ASINs, and excluded ASINs.
+- low-monopoly market: visible rank/demand with low AO, low brand concentration, and low top-click concentration.
+- low-supply market: low product count or favorable supply-demand shape.
+- new-product survival room: new-ASIN share or new-ASIN sales share is meaningful.
+- seasonal or trend market: market cycle, quarter ratio, Google trend direction, new/rising keyword flags.
+- price-room market: average market price supports a margin/differentiation review.
+- listing-quality gap: low A+ or video penetration means page quality can be a lever.
+- review-upgrade opportunity: demand exists but market rating is weak.
+- seller-type opening: FBM share, China-seller share, or Amazon self-share indicates a possible entry angle.
+- long-tail precision: 3+ word terms are treated as controlled validation lanes, not broad spend.
+- competitor traffic map: Product Time Machine contributes competitor bought history, organic/ad traffic mix, AO, organic flow share, and rank movement.
+- conversion economics: keyword conversion adds CPC/CPA/ACOS and purchase-proof checks.
+- product-level selection evidence: stable ASIN info, association-flow, ad-placement, category-analysis, BSR/new-release rank rows, comment-analysis, traffic-detail, flow-theme-tags, and store-feedback snapshots are attached as read-only `productSelection` or `selectionKpiEvidence` for ASIN/SKU/KPI diagnosis.
+- stable capability wrapper: `npm run ops:selection:operating-intelligence -- --sample` or the same command with report-file arguments turns the five selection layers into one read-only capability report. It returns `capabilityId`, `decisionQuality`, `recommendedOperatingUse`, `sourceCoverage`, `opportunityModels`, `riskSignals`, `missingEvidence`, `analysis`, and `capabilitySummary`.
+
+The module always marks selection intelligence as `readyForAutoAction: false`. These signals improve product judgement and daily review quality, but write actions still need the normal dry-run, execution, and landed verification path.
+
 ## Output Shape
 
 For product or keyword judgement, include:
@@ -104,6 +136,7 @@ For product or keyword judgement, include:
 - Replenishment actionability: whether local good/available stock exists, whether FBAPlan air/sea already exists, whether MOQ and node window support consumption, and whether the developer has a real next action.
 - What is executable now, what is only a hypothesis, and what is blocked.
 - Next checkpoint and what to verify.
+- Stable capability detail: the wrapper keeps the boundary read-only, accepts normalized report files or derived terms, and separates `analysis` from `operatingIntelligence` so the caller can inspect the score model, source coverage, and follow-up commands without risking a write path.
 
 For developer-facing replies, keep the detailed evidence in the operator summary and write a short natural reply that says product judgement, action/status, and follow-up.
 
@@ -111,5 +144,7 @@ For developer-facing replies, keep the detailed evidence in the operator summary
 
 - ABA trend/history is not yet wired beyond the current selected period.
 - ASIN-mode ABA interpretation is not yet specialized.
-- The daily ops orchestrator does not automatically attach this full evidence stack to every candidate yet.
-- Cross-source product-profile assembly is still operator/agent-driven rather than one unified report command.
+- Account-specific store feedback detail needs an `accountId`; without it the stable preset still returns the store list total and available site evidence.
+- Flow theme tags are stable for the theme table, theme dimensions, and optional search-term base-word matching; deeper keyword-bidding and custom tag write paths remain outside the read-only preset.
+- Daily SKU operating review and agent effect review now consume the internalized selection stack, including extended `productSelection`, when the report files are present.
+- Cross-source product-profile assembly still depends on available live report files; missing sources are surfaced as `missingEvidence` instead of being silently ignored.

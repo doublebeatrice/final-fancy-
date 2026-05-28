@@ -25,6 +25,8 @@ Top-50 SKUs must be surfaced as reminders until the operator explicitly says `ch
 
 Preserve the product identity first. Do not rewrite the front half of a title unless the core product term is wrong or stale.
 
+For variant groups marked as separate-title/differentiated-title in sellerinventory, color or style-specific title edits belong in `title_en` (English title), not `parent_title` (parent title). Use `omitParentTitle: true` in the copy-edit action when the parent title must remain untouched; otherwise sellerinventory can still validate the unchanged parent title together with the child English title and block submission on same-group parent-title locks or combined repeated-word checks.
+
 Preferred seasonal edits:
 
 - Replace expired event wording with a stable evergreen buyer term when supported by product context.

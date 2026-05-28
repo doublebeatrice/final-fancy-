@@ -102,6 +102,58 @@ Before daily decisions or daily retrospective work, read the latest durable less
 
 For total-account, sales-core, or core trend questions, do not derive a metric from SKU/ad/inventory data when the sales-core row already exposes it. Read the aggregated `sellerSalesRows` total row first. For 0-5 month new-product health, use `acos_in_5_month`, `advCost_in_5_month`, `order_sales_in_5_month`, `net_profit_in_5_month`, and `gross_profit_in_5_month` directly before drilling down.
 
+### Fast Core Data Answer
+
+When the user asks "今天的数据是?", "今天销售/净利/ACOS是多少?", or otherwise only needs the core daily numbers, use the lightweight path first:
+
+```powershell
+npm run ops:deposit:quick-summary -- --date <YYYY-MM-DD> --json
+```
+
+This reads the deposited sales-core JSON/CSV and HJ17 success-rate file. It should finish in seconds and must be preferred over `export_snapshot.js`, `run_today_ops.js --mode full-snapshot`, or regenerating HTML. If the quick summary reports `sales_core_summary` missing, recover only the sales-core raw file after login readiness:
+
+```powershell
+npm run chrome:ready
+npm run ops:deposit:recover-sales-core -- --date <YYYY-MM-DD>
+npm run ops:deposit:quick-summary -- --date <YYYY-MM-DD> --json
+```
+
+Run the full snapshot path only when the user asks to complete or refresh the full deposit, HTML, manifest, SKU pools, inventory/ad details, proactive audit, or operating closure. Do not spend five-plus minutes on full snapshot capture just to answer the total sales, units, net profit, ACOS, refund, 0-5 month fields, or HJ17 success rate.
+
+### WeCom Online-Sheet Copy Output
+
+When the user needs the daily group WeCom/企微 online-sheet cells, generate tab-separated copy text instead of prose. Use:
+
+```powershell
+npm run ops:deposit:wecom-fill -- --date <YYYY-MM-DD>
+```
+
+This outputs one row in the sheet order: date, all-product gross profit rate, all-product reference net profit, all-product ad share, all-product AT, all-product ACOS, 0-5 month gross profit rate, 0-5 month reference net profit, 0-5 month ad share, 0-5 month ACOS, old-product decline from sales-core `qty_yoy_over_1_year`, and HJ17 success rate.
+
+If the date column is already filled in the sheet and the operator will paste from the first metric cell, use:
+
+```powershell
+npm run ops:deposit:wecom-fill -- --date <YYYY-MM-DD> --values-only
+```
+
+For a weekly block, use `--from <YYYY-MM-DD> --to <YYYY-MM-DD>`. The old-product decline cell is a sales-core percentage, not a SKU review count; use the total sales-core row's `qty_yoy_over_1_year` and leave the cell blank if the sales-core summary is missing. Never borrow this value from SKU review output or another date.
+
+### WeCom Weekly 30-Day Copy Output
+
+When the user needs the Monday 近30天全量 online-sheet row for their own account, use the 30-day sales-core file and output tab-separated copy text:
+
+```powershell
+npm run ops:deposit:wecom-weekly-30d -- --date <YYYY-MM-DD>
+```
+
+The default row is the user's own selected seller scope (`HJ17,HJ171,HJ172`) and maps to the online sheet's 黄成喆 row. It uses the `seller_sales_core_30d_<date>.json/csv` selected summary row for all-product, 0-3 month, 0-5 month, 3+ month, within-1-year, and over-1-year old-product fields, plus HJ17's deposited 30-60 day success rate when present. If the date/name cells are already fixed in the sheet, paste from the first metric cell with:
+
+```powershell
+npm run ops:deposit:wecom-weekly-30d -- --date <YYYY-MM-DD> --values-only
+```
+
+Important historical boundary: `/pm/sale/getBySeller` uses a rolling `time=30` parameter and does not accept a business-date backfill parameter. A file named for an older Monday but exported later is a current rolling 30-day pull, not an exact historical Monday snapshot. Preserve the raw 30-day file every Monday before filling the sheet.
+
 The 2026-05-14 rule is mandatory: do not run daily operations as "first round / second round / third round" and wait for the user to push. Run the full loop directly: data health, total-result diagnosis, risk-first action pool, old-product repair pool, opportunity pool, execution, landing verification, and follow-up learning.
 
 Daily planning must include overbudget, high refund, high ACOS/no-order waste, low profit, old-product decline, and evidence-backed opportunity recovery. Overbudget rows must be classified as hard stop, budget shift, or watch-only. Refund pressure is a hard traffic gate. Repeat pushes on the same SKU/entity require recent-history review and new evidence.

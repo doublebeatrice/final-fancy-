@@ -84,7 +84,8 @@ npm run ops:today -- --execute --mode full-snapshot --actor codex
 
 Do not use full snapshot export as the default for a named SKU. Choose the smallest read path that answers the question:
 
-- Total-account or sales-core questions: read `/pm/sale/getBySeller` / `sellerSalesRows` first and use the aggregated total row. If the metric already exists there, such as `ACOS`, `acos_in_5_month`, `advCost_in_5_month`, `order_sales_in_5_month`, `net_profit_in_5_month`, or `gross_profit_in_5_month`, answer from that field before any SKU/ad/inventory derivation.
+- Total-account or sales-core questions: start with `npm run ops:deposit:quick-summary -- --date <YYYY-MM-DD> --json`. This reads the deposited sales-core file and HJ17 success-rate file in seconds. If `sales_core_summary` is missing, run only `npm run ops:deposit:recover-sales-core -- --date <YYYY-MM-DD>` after `npm run chrome:ready`; do not export a full snapshot just to answer sales, units, net profit, ACOS, refund, 0-5 month metrics, or success rate.
+- Full snapshot is reserved for refreshing the complete daily deposit, HTML report, manifest, SKU pools, inventory/ad details, proactive audit, or operating closure.
 - Named SKU overall health: `node scripts\execute\fetch_ad_sku_summary.js <siteId> <days> <SKU>`; this calls `/product/adSkuSummary` and returns SKU-level spend, sales, orders, ACOS, CPC, clicks/impressions, previous-period deltas, and inventory snippet.
 - Named SKU traffic trend confirmation: call `POST /product/chart` inside the logged-in `adv` session when the business question is "should this SKU push harder now?" This is now a formal evidence source for `impressions` and `clicks` absolute-value trend, especially for seasonal or holiday SKUs where the right action depends on whether traffic is falling during the sell-through window.
 - Named SKU ad breakdown: `node scripts\execute\fetch_sku_ad_product_data.js <SKU> <siteId> <days>` or `node scripts\execute\fetch_sku_ad_product_data.js <SKU> <siteId> <startYmd> <endYmd>`; this calls `/product/adProductData` and returns campaign/adGroup/product-ad rows for the SKU, including campaign budget fields such as `dailyBudget` when present.
@@ -186,7 +187,7 @@ node scripts\execute\run_actions.js data\snapshots\action_schema.json --snapshot
 
 Dry-run must show validation errors as structured failures. Do not execute if schema validation is not clean. Do not rely on omitted flags or environment variables to express execution intent; `run_actions.js` defaults to dry-run and live writes require `--execute`.
 
-For listing copy execution, a clean dry-run is not enough if the plan was generated earlier. `run_listing_copy_edits.js` must re-fetch sellerinventory origin data and refuse live submission when the live parent title no longer matches the planned original title. Treat this as a stale-plan stop, not as a retryable backend failure.
+For listing copy execution, a clean dry-run is not enough if the plan was generated earlier. `run_listing_copy_edits.js` must re-fetch sellerinventory origin data and refuse live submission when the live parent title or live English title no longer matches the planned original title field. Treat this as a stale-plan stop, not as a retryable backend failure. For separate-title variants, submit color/style-specific title edits as `title_en` with `omitParentTitle: true`; do not route them through `parent_title`.
 
 ## Execute
 

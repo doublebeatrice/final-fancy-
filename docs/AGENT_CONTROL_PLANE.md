@@ -217,12 +217,15 @@ npm run ops:agent:capabilities -- --file data\agent\capabilities_2026-05-19.json
 - 外部任务收件箱：开发、产品、运营、库存、老板临时问题。
 - 到期复查队列：昨天、三天前、七天前承诺要回看的动作。
 - 能力注册目录：新接口还缺探针、契约、授权边界或写后回查的任务。
+- 上一轮 learning memory：不能复用的规则、复用前必须补的证据和未闭环 follow-up。
 
 ```powershell
 npm run ops:agent:hub -- --ledger data\agent\agent_ledger_2026-05-19.json --inbox data\agent\external_inbox_2026-05-19.json --reviews data\agent\review_queue_2026-05-19.json --capabilities data\agent\capability_registry_2026-05-19.json --today 2026-05-19 --out data\agent\operating_hub_2026-05-19.json
 ```
 
-排序规则是：到期复查优先，其次每日运营主线，再处理能力补齐，最后处理外部临时任务和未到期复查。中枢当前只负责合流、排序、给出下一步动作和命令计划，不直接执行后台写入。
+排序规则是：到期复查优先，其次每日运营主线，再处理能力补齐和学习约束，最后处理外部临时任务和未到期复查。中枢当前只负责合流、排序、给出下一步动作和命令计划，不直接执行后台写入。
+
+中枢默认读取前一天的 `data\agent\learning_memory_<date>.json`。需要指定时使用 `--prior-learning-memory <file>`。读取成功后，hub 会把 `learning_constraint` 任务合并进 `todayQueue`，并写出 `learningContext.mustReadBeforeDecision`、`learningContext.doNotApplyWhen`、`learningContext.evidenceBeforeReuse`。closed-loop summary 会同步写出 `priorLearningMemoryApplied` 和 `priorLearningConstraintTasks`。
 
 每条队列项会带：
 
@@ -250,6 +253,139 @@ npm run ops:agent:run-commands -- --hub data\agent\operating_hub_2026-05-19.json
 输出写到 `data\agent\command_results_<date>.json`，后续由执行结果回填入口写回任务状态和历史。
 
 如果命令退出成功但没有生成声明的输出文件，执行器会把该条结果标为失败。这样后续回填会进入阻塞状态，而不是把“没拿到证据”的任务误记成已执行。
+
+### 纠错风险审计
+
+操作者纠错是系统风险信号，不是普通备注。只要纠错提到判断错、数据旧、证据缺、范围错、已误执行、未落地，或者同一规则可能影响其他 SKU，先运行纠错审计：
+
+```powershell
+npm run ops:agent:correction-risk -- --text "HAY0218 budget-down was wrong, stale snapshot was used, same rule may affect other SKUs" --today 2026-05-25
+```
+
+Risk is routing, not refusal: when an operating action is supported, risk changes the evidence, boundary, dry-run, approval, batch size, and follow-up plan; it must not be used as a reason to skip the action. Unsupported actions must create a concrete capability gap, escalation task, or next evidence command.
+
+审计输出 `data\agent\correction_risk_<date>.json/.md`，并在 `data\learning\corrections\` 下写入带 `doNotApplyWhen`、复用证据要求和下一次校验点的学习补丁。中枢会把纠错类外部消息转成 `operator_correction`，只自动运行只读审计命令；任何回滚、二次动作或同规则修复仍要走原来的 schema、预演、授权边界和落地回查。
+
+### 无人值守成熟度审计
+
+闭环跑通不等于已经可无人值守。`ops:agent:autonomy-audit` 会把闭环产物验成一组可检查的自驱条件：closed-loop、artifact verification、handoff、只读命令、写入闸口、数据新鲜度、恢复 next-actions、daily learning、纠错系统和 market-evidence-first 规则。
+
+```powershell
+npm run ops:agent:autonomy-audit -- --closed-loop data\agent\agent_closed_loop_2026-05-25.json --today 2026-05-25
+```
+
+总编排会在最后自动生成 `data\agent\autonomy_audit_<date>.json/.md`，并把 `autonomyStatus`、`autonomyScore`、`autonomousReady` 和缺口任务数写回 closed-loop summary。`ready_with_recovery` 表示系统能自驱推进恢复；`not_ready` 表示还存在会阻断无人值守的证据、学习、写入或纠错缺口。
+
+### 长期学习索引
+
+每日学习、纠错补丁和 SKU lesson 不能只作为散落文档存在。`ops:agent:learning-memory` 会把它们合成下一轮可直接读取的约束索引：
+
+```powershell
+npm run ops:agent:learning-memory -- --learning data\learning\daily_learning_2026-05-25.json --autonomy-audit data\agent\autonomy_audit_2026-05-25.json --today 2026-05-25
+```
+
+输出 `data\agent\learning_memory_<date>.json/.md`，核心是 `nextRunBrief.mustReadBeforeDecision`、`doNotApplyWhen`、`evidenceBeforeReuse` 和 `openFollowUps`。总编排会在 autonomy audit 后自动生成 learning memory，再用该 memory 复核 autonomy audit；下一轮 hub 会读取上一轮 memory 并把约束任务排入队列。因此“越用越聪明”的证据不只是一份 daily learning，而是下一轮能直接执行的约束索引和任务。
+
+### 无人值守执行闸口
+
+真实写入不能因为闭环成功就自动放开。`ops:agent:unattended-gate` 负责判断 dry-run 是否可以升级为无人值守 execute：
+
+```powershell
+npm run ops:agent:unattended-gate -- --closed-loop data\agent\agent_closed_loop_2026-05-25.json --autonomy-audit data\agent\autonomy_audit_2026-05-25.json --learning-memory data\agent\learning_memory_2026-05-25.json --write-execution data\agent\write_execution_2026-05-25.json --today 2026-05-25
+```
+
+它只在 closed-loop、artifact verification、autonomy audit、learning memory、write dry-run、数据新鲜度、低风险授权、无待审批动作、无 dry-run blocker、schema/snapshot 文件齐全时输出 `decision=execute_allowed`。默认只审计；只有显式加 `--execute-if-ready`，且 gate 已允许，才会调用受限写入链进入真实 execute。总编排会自动生成 `unattended_gate_<date>.json/.md` 并写回 `unattendedGateDecision`、`unattendedExecuteAllowed` 和 blocker 数。
+
+### 无人值守监督入口
+
+生产定时任务应调用 `ops:agent:unattended-supervisor`，不要直接裸跑 closed-loop。监督入口负责三件事：
+
+- 读取上一轮 `learning_memory`，没有学习连续性时阻断 live unattended execute。
+- 调用 closed-loop 并保留 autonomy audit、learning memory、unattended gate 的状态。
+- 写出 `unattended_supervisor_<date>.json/.md` heartbeat，给定时任务和人工复盘一个稳定检查点。
+
+```powershell
+npm run ops:agent:unattended-supervisor -- --prior-learning-memory data\agent\learning_memory_2026-05-24.json --today 2026-05-25 --out-dir data\agent
+```
+
+如果需要真实无人值守写入，必须同时传：
+
+```powershell
+npm run ops:agent:unattended-supervisor -- --execute --execute-if-ready --prior-learning-memory data\agent\learning_memory_2026-05-24.json --today 2026-05-25 --out-dir data\agent
+```
+
+只有 `--execute-if-ready` 不会触发写入；监督入口会把它记录为 requested 但不 armed。live execute 还要求上一轮 learning memory 存在，除非显式使用 `--allow-missing-prior-learning` 做首轮 bootstrap。
+
+### 生产定时计划
+
+生产定时任务不要手写一条命令后直接丢进 Windows Task Scheduler。先用计划生成器产出可审计版本：
+
+```powershell
+npm run ops:agent:unattended-schedule-plan -- --today 2026-05-25 --out-dir data\agent
+```
+
+如果要生成 live execute 版本，必须同时传双确认开关：
+
+```powershell
+npm run ops:agent:unattended-schedule-plan -- --execute --execute-if-ready --today 2026-05-25 --out-dir data\agent
+```
+
+输出 `unattended_schedule_plan_<date>.json/.md`，包含五类内容：生产 supervisor 命令、带 `--today` 和 prior learning 的 run-now 验证命令、scheduler audit 命令、completion audit 命令、Windows Task Scheduler 注册片段。这个脚本只生成计划，不安装系统计划任务。周期性生产命令默认不固定 `--today`，让 supervisor 自己按运行日期推导 business date 和上一轮 learning memory；只在一次性验证时使用 `--pin-today`。
+
+安装或验证系统计划任务必须走安装入口，默认仍然只是报告模式：
+
+```powershell
+npm run ops:agent:unattended-schedule-install -- --plan data\agent\unattended_schedule_plan_2026-05-25.json --verify-installed --today 2026-05-25
+```
+
+只有显式加 `--install` 才会写入 Windows Task Scheduler：
+
+```powershell
+npm run ops:agent:unattended-schedule-install -- --plan data\agent\unattended_schedule_plan_2026-05-25.json --install --today 2026-05-25
+```
+
+输出 `unattended_schedule_install_<date>.json/.md`，并校验已安装任务的 executable、arguments、working directory 是否和计划一致。生成的主 Windows task 通过 `cmd.exe` 调用仓库当前 Node 可执行文件，并把 stdout/stderr 追加到 `data\agent\unattended_supervisor_task.log`；任务必须以 `RunLevel=Highest` 安装，保证无人值守运行时可以读取 Task Scheduler 自身状态。计划器还会生成 `AdOpsAgentCompletionAudit`，默认在主任务 20 分钟后运行 `ops:agent:completion-audit`，并在 task action 里传入 `--scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit`；completion audit 会先等待 supervisor 任务退出，再刷新 `unattended_schedule_install_<date>` 的最终 Task Scheduler 状态，最后把严格完成审计写到 `agent_completion_audit_<date>.json/md`。严格完成不仅要求 supervisor 自然触发，还要求 `AdOpsAgentCompletionAudit` 自己有自然触发运行证明和计划任务调用来源证明，不能用人工补跑替代无人值守完成。这里的 `<date>` 是站点业务日期，不一定等于中国本机日期。
+
+需要立即验证 Task Scheduler 运行链路时，用受控 run-now，不改计划配置：
+
+```powershell
+npm run ops:agent:unattended-schedule-install -- --plan data\agent\unattended_schedule_plan_2026-05-25.json --run-now --run-now-timeout-seconds 900 --today 2026-05-25
+```
+
+这会触发已安装的 `AdOpsAgentUnattendedSupervisor` 跑一次，并等待任务结束后写回 `lastRunTime` / `lastTaskResult`。随后 scheduler audit 必须看到 run 后有更新的 supervisor heartbeat；否则按调度健康缺口处理。
+
+`run-now` 只证明已安装任务的运行链路、权限、工作目录和 heartbeat 输出，不证明自然定时触发已经发生。要证明完整无人值守，等下一次真实触发时间后加严格检查：
+
+```powershell
+npm run ops:agent:unattended-scheduler-audit -- --heartbeat-dir data\agent --schedule-command "npm run ops:agent:unattended-supervisor -- --out-dir data\agent --execute --execute-if-ready" --schedule-install data\agent\unattended_schedule_install_2026-05-25.json --require-schedule --require-live-execute --require-natural-scheduled-run --today 2026-05-25
+```
+
+### 定时健康审计
+
+监督入口产出 heartbeat 后，还需要定时健康审计来证明无人值守不是“昨天跑过一次”。`ops:agent:unattended-scheduler-audit` 会检查：
+
+- 最近 `unattended_supervisor_<date>.json` 是否存在且新鲜。
+- 最新 heartbeat 是否 `ok=true`，是否缺 prior learning。
+- 是否连续多次 blocked/failed。
+- 生产计划命令是否调用 `ops:agent:unattended-supervisor`，是否绕过 supervisor 直接跑 closed-loop。
+- 真实自驱计划是否同时写了 `--execute` 和 `--execute-if-ready`；只巡检的 dry-run 计划不能冒充 live self-driving。
+- 是否错误地只写了 `--execute-if-ready` 而没有 `--execute`。
+
+```powershell
+npm run ops:agent:unattended-scheduler-audit -- --heartbeat-dir data\agent --schedule-command "npm run ops:agent:unattended-supervisor -- --out-dir data\agent --execute --execute-if-ready" --schedule-install data\agent\unattended_schedule_install_2026-05-25.json --require-schedule --require-live-execute --today 2026-05-25
+```
+
+输出 `unattended_scheduler_audit_<date>.json/.md`，并把调度健康缺口写成 `scheduler_health_gap` 任务。真实自驱生产计划必须让审计显示 `scheduleLiveExecuteArmed=true`；这只证明计划任务已带双保险，真正写入仍由 unattended gate 决定。传入 `--schedule-install` 后，审计还会检查已安装任务的 Ready 状态、触发器、`lastRunTime`、`lastTaskResult`，以及 last run 后是否写出更新的 supervisor heartbeat。这个审计是生产无人值守的守夜层：closed-loop 证明任务链，supervisor 证明本次受控运行，scheduler audit 证明调度入口、heartbeat 连续性、真实计划任务运行结果和 live 双保险有效。
+
+### 总目标 readiness 审计
+
+当问题是“agent 化够不够、自驱够不够、纠错有没有进学习”时，不要只看 autonomy audit 或 scheduler audit 的单点结果。总目标审计把 closed-loop artifact、live-armed schedule、supervisor 双保险、unattended gate、learning memory、correction-risk、risk-is-routing 纠错、prior learning、heartbeat 连续性和 scheduled task runtime proof 合成一份报告：
+
+```powershell
+npm run ops:agent:readiness-audit -- --today 2026-05-25 --require-correction-lesson --require-risk-routing-lesson
+```
+
+输出 `agent_readiness_audit_<date>.json/.md`。严格判断完整目标时，加 `--require-natural-scheduled-run`，要求已安装任务的 `lastRunTime` 对齐上一轮自然日触发时间，并且有更新的 supervisor heartbeat；readiness 也会独立检查 `AdOpsAgentCompletionAudit` 是否安装为可运行的 post-trigger 计划任务，以及该任务是否已有自然触发 runtime proof，不能靠人工次日补验替代。受控 `run-now` 不能替代自然触发证明。`status=ready_with_warnings` 可以表示生产入口、学习和纠错系统已成立，但仍有正常 watch 项，例如 `gate=no_actions` 或 active learning warnings；`status=not_ready` 才表示有会破坏完整目标的缺口。生产 `ops:agent:unattended-supervisor` 默认会在每次 heartbeat 后自动生成当天 `unattended_schedule_install_<date>` 验证、`unattended_scheduler_audit_<date>` 和这份 readiness audit，并把摘要回写到 `unattended_supervisor_<date>.json`；`--skip-scheduler-audit` / `--skip-readiness-audit` 只用于测试，不作为生产 readiness 证据。
 
 ### 低风险写入编排
 

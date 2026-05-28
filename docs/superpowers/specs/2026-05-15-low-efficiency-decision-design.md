@@ -28,29 +28,53 @@ This design upgrades the operating loop so that:
 
 ### 2026-05-18 Correction: 7d Zero Orders Is Not Recovery
 
-`improving_marginally` originally meant `30d + 15d + 7d` are in the low-efficiency pools while `3d` is clean. That is not enough to call the row recovered. If the row is still in the 7d low-efficiency pool, has clicks or spend, and has zero 7d orders, it must take one small bid-down step with reasonCode `seven_day_no_order_still_low`.
+`improving_marginally` originally meant `30d + 15d + 7d` are in the low-efficiency pools while `3d` is clean. That is not enough to call the row recovered. If the row is still in the 7d low-efficiency pool and has clicks or spend with zero 7d orders, it must not hold. Historically this used `seven_day_no_order_still_low`; the current rule uses the 2026-05-25 severity ladder below.
 
 Example from the live fix: `SH0424 / kids uv 50 umbrella hat` had 7d clicks=7, spend=3.68, orders=0, bid=0.53. It was cut to 0.48 and verified landed. The lesson is that 3d absence can mean short-window sample noise; it cannot override 7d zero-order waste.
 
 ### 2026-05-18 Correction: Cooldown Is Not a Waste Shield
 
-The 14-day cooldown prevents repeated same-day or rapid consecutive cuts after a landed adjustment. It must not block a non-same-day row that is still burning money in the 7d low-efficiency pool. `decideFromPoolMembership` now overrides cooldown with one small bid-down when either condition is true:
+The 14-day cooldown prevents repeated same-day or rapid consecutive cuts after a landed adjustment. It must not block a non-same-day row that is still burning money in the low-efficiency pool. `decideFromPoolMembership` can override cooldown when either condition is true:
 
 - 7d orders are zero and `clicks >= 7` or `spend >= 2`.
-- 7d orders are positive but ACOS is at least 45%, with `clicks >= 6` or `spend >= 2`.
+- orders are positive but ACOS is at least 30%, with `clicks >= 5` or enough spend for the window.
 
-Same-day adjustments remain protected. The live 2026-05-18 repair found 71 non-same-day cooldown rows with 7d waste/high ACOS, total 7d spend $519.48; all 71 were small bid-downs and verified landed.
+Same-day adjustments remain protected. The old repair used one small bid-down for these overrides; the 2026-05-25 correction below supersedes that with severity-tiered control.
 
 ### 2026-05-19 Correction: Operator ACOS Control Applies Across Windows
 
-The operator correction on 2026-05-19 was that a single example such as a 3d ACOS around 30% should be generalized across all low-efficiency windows when account ad-cost pressure is high. The execution layer must scan 3d, 7d, 15d, and 30d together and apply one small bid-down to eligible rows when any window has enough spend/click/order evidence and ACOS is above the control line. Do not stop at the example window.
+The operator correction on 2026-05-19 was that a single example such as a 3d ACOS around 30% should be generalized across all low-efficiency windows when account ad-cost pressure is high. The execution layer must scan 3d, 7d, 15d, and 30d together before closing the row. Do not stop at the example window.
 
-This overlay is still a controlled action, not a broad reset:
+This overlay was originally a controlled small-step action, not a broad reset:
 
 - exclude same-day adjusted rows;
 - exclude rows protected by `recent_trend_improved`, `recent_trend_improving`, or `volatile_unclear_trend`;
-- use one small bid-down per entity;
-- do not pause or make a large bid cut from this overlay alone.
+- do not act from one noisy 3d window alone.
+
+### 2026-05-25 Correction: Severity Controls Must Distinguish ACOS 30% From ACOS 90%
+
+The operator correction on 2026-05-25 was that the old `smallBidStep()` path treated moderate and extreme waste too similarly. A 30%-40% ACOS row can take a small controlled reduction, but ACOS around 90% or sustained zero-order spend is a stop-loss signal.
+
+Use this severity ladder for `continuingWasteWindow()` / residual waste / cooldown override decisions:
+
+- Moderate high ACOS: orders > 0, ACOS 30%-60%, enough clicks/spend for the window -> keep the small bid step.
+- Severe high ACOS: orders > 0, ACOS 60%-90% -> cut bid roughly in half.
+- Extreme high ACOS: orders > 0, ACOS >=90% -> cut bid to about 10% of current bid, respecting entity-specific floors.
+- 7d zero-order burn: orders = 0 with 7d clicks >=7 or spend >=2 -> cut bid to about 10% of current bid.
+- 15d/30d zero-order waste: orders = 0 with clicks >=8 or spend >=3 -> pause.
+
+Live examples from the 2026-05-25 repair:
+
+- `asinAccessoryRelated` auto target had 7d clicks=66, spend=22.34, orders=2, ACOS=0.932. The original small step moved 0.34 -> 0.31; the corrected severity action moved 0.31 -> 0.03 and was verified in the refreshed low-efficiency pool.
+- `asin=B0BG24NK35` SB target had 15d clicks=5, spend=3.03, orders=0 and 30d clicks=6, spend=3.59, orders=0. The original small step moved 0.43 -> 0.40; the corrected severity action paused the target and it disappeared from the refreshed actionable pool.
+
+The live correction sequence was: first run `495/495` original low-efficiency bid-downs, then run a severity correction of `305/305` success, then execute the remaining `26/26` newly exposed actionable rows, and finally rerun `npm run ops:low-efficiency:dry` to confirm `actionable=0`. Same-entity reverse conflicts remained `0`.
+
+### 2026-05-25 Correction: 7d Recovery Blocks Residual Bid-Down
+
+The later operator correction on 2026-05-25 was that long-window waste must not override a recovered 7d window. If a row has 7d orders and 7d ACOS <=25%, `decideFromPoolMembership()` holds it even when 15d/30d remain high. If 7d ACOS is under 20%, the decision also carries `opportunityAction=review_bid_up` and `suggestedDirection=up`.
+
+This is only an opportunity signal. The low-efficiency cleanup runner must not directly raise bids. Any small bid-up still belongs in the high-efficiency or recovery path, with inventory, profit, refund, season/window, recent action, dry-run, execution, and refreshed landed-state checks.
 
 ### 2026-05-19 Correction: Bid Floors and SBV Landing Verification
 
@@ -79,17 +103,17 @@ For SBV/video rows, the write response alone is not authoritative. A sub-floor r
 
 ### 4. Decision bands (when action is needed)
 
-- `persistently_low` reuses the original `bidDownAmount(metric, bid, 30)` ladder + hard-stop pause check.
-- `recently_degraded / late_degrading / volatile_*_degrade / mixed_other` use a `smallBidStep` ladder:
+- `persistently_low` reuses the original `bidDownAmount(metric, bid, 30)` ladder + hard-stop pause check, but strong residual waste can override it with the severity ladder above.
+- `recently_degraded / late_degrading / volatile_*_degrade / mixed_other` use a `smallBidStep` ladder only when the waste is moderate:
   - bid ≥ $1 → cut $0.10
   - bid ≥ $0.50 → cut $0.05
   - bid ≥ $0.20 → cut $0.03
   - else → cut $0.02
   - `clampBid` snaps to $0.05 step at ≥ $0.50, $0.02 floor.
-- `improving_long_only` and `improving_recently` hold because the 7d pool is already clean.
-- `improving_marginally` is not automatically protected. If 7d is still in the low-efficiency pool and has clicks or spend with zero orders, use the same `smallBidStep` ladder and reasonCode `seven_day_no_order_still_low`. Only hold when the 7d window has orders or no meaningful traffic.
+- `improving_long_only` and `improving_recently` hold when the 7d window has recovered. Residual 15d/30d waste may act only when the 7d window also still has active waste.
+- `improving_marginally` is not automatically protected. If 7d is still in the low-efficiency pool and has zero orders or high ACOS, use the severity ladder rather than the old fixed small-step rule. If 7d has orders and ACOS <=25%, hold; if ACOS is under 20%, add the `review_bid_up` opportunity signal for the recovery/high-efficiency path.
 - `noise_only_3d` always holds.
-- Operator pressure overlay: if account ad-cost pressure is high and a row is still in the current low-efficiency pool, scan all windows (`3/7/15/30`) for high-ACOS evidence before closing the row. This overlay must still obey same-day protection, trend/volatile holds, and bid floors.
+- Operator pressure overlay: if account ad-cost pressure is high and a row is still in the current low-efficiency pool, scan all windows (`3/7/15/30`) for high-ACOS and zero-order evidence before closing the row. This overlay must still obey same-day protection, trend/volatile holds, and bid floors.
 
 ### 5. Cooldown gate
 

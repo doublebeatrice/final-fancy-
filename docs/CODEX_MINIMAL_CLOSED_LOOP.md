@@ -133,7 +133,7 @@ The repo does not:
 - Generate AI decisions inside the panel.
 - Use execution-layer rule functions as the decision source.
 
-If Codex cannot perfectly judge a supported advertising action, Codex should still make the best explicit decision and use `forceExecute: true` when overriding conservative strategy gates. Use `review` only for unsupported or non-advertising surfaces such as SB create, listing edits, price changes, replenishment, missing fields, unknown entities, missing verification mapping, or writes that cannot be landed.
+If Codex cannot perfectly judge a supported advertising action, Codex should still make the best explicit decision and use `forceExecute: true` when overriding conservative strategy gates. Use `review` only for unsupported or non-advertising surfaces such as non-video SB create, listing edits, price changes, replenishment, missing fields, unknown entities, missing verification mapping, or writes that cannot be landed. SBV video create is supported only through `/campaignSb/createCampaignBeta` when brand, video asset, ASIN/SKU, keyword rows, budget, and readback verification are present.
 
 Known 2026-05-12 technical blocker: SP campaign `enable` returned API success but verified as still paused. This is automation work / `not_landed`, not a manual-review strategy decision.
 

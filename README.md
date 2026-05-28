@@ -33,6 +33,17 @@ scripts/run_agent_operating_hub.js   自主运营中枢，把每日、外部、�
 scripts/run_agent_command_runner.js  只读命令执行器，只跑中枢计划里的白名单证据命令
 scripts/run_agent_write_execution.js  低风险写入编排器，先预演，显式授权后执行并回查
 scripts/run_agent_execution_feedback.js  命令执行回填入口，把命令结果写回任务状态和历史
+scripts/run_agent_correction_risk.js  运营纠错风险审计入口，把纠错转成同规则扫描、回滚复核和学习补丁
+scripts/run_agent_autonomy_audit.js  无人值守成熟度审计入口，把闭环证据验成 autonomyStatus 和缺口任务
+scripts/run_agent_learning_memory.js  长期学习索引入口，把 daily learning、纠错、SKU lesson、自驱缺口合成下一轮约束
+scripts/run_agent_unattended_gate.js  无人值守执行闸口，判断 dry-run 是否可安全升级为 execute
+scripts/run_agent_unattended_supervisor.js  无人值守监督入口，给定时任务输出 heartbeat 并执行双确认闸门
+scripts/run_agent_unattended_scheduler_audit.js  定时健康审计，检查 heartbeat 新鲜度、计划命令和连续失败
+scripts/run_agent_unattended_schedule_plan.js  生产定时计划生成器，只产出 supervisor 命令、审计命令和 Windows 定时任务安装片段，不直接安装
+scripts/run_agent_unattended_schedule_install.js  生产定时任务安装/验证入口，默认 dry-run，只有显式 --install 才写入 Windows Task Scheduler
+scripts/run_agent_readiness_audit.js  总目标 readiness 审计，把 agent 化、live schedule、learning memory 和纠错系统合成一份通过/缺口报告
+scripts/run_agent_completion_audit.js  自然触发后的严格完成审计入口，自动串 scheduler/readiness 且要求 natural scheduled run proof
+scripts/run_agent_goal_audit.js  目标级完成审计，逐项验 agent 化、无人值守自然完成、长期学习和纠错系统
 scripts/run_agent_handoff_summary.js  中文交接摘要，压缩今日队列、证据、复查和写入状态
 scripts/run_agent_closed_loop.js  智能代理总编排入口，把中枢、证据、写入、回填、交接串成闭环
 scripts/generators/        候选 schema 生成器（输出都是 candidate，必须 AI 重写才可执行）
@@ -113,11 +124,15 @@ For any keyword, SKU, ASIN, product direction, developer request, traffic recove
 
 Use `docs/PRODUCT_MARKET_EVIDENCE_STACK.md` as the default read path: ABA demand/concentration, keyword conversion economics, SKU ad proof, listing/price fit, inventory/economics, and recent action history. Selection-system evidence is still read-only; executable ad actions require the normal schema, dry-run, execution, and landing verification flow.
 
+The listing workflow is also a reusable operating pattern: competitor pool from relevance/sales/keyword overlap, reverse-mined traffic map, rule-based keyword filtering, then constrained output. Use `docs/MARKET_EVIDENCE_FIRST_OPERATING_PATTERN.md` before keyword creation, bid/budget expansion, traffic recovery, new-product launch, clearance, or product/developer replies that depend on market fit.
+
 ## SKU Lesson System
 
 Daily SKU review is an operating-route review, not a flat metric checklist. For every eligible SKU, preserve product identity, lifecycle/node stage, stage target, target result, route, evidence, action boundary, and follow-up. Reusable lessons belong in `data/learning/sku_lessons/` and follow `docs/SKU_LESSON_SYSTEM.md`.
 
 Lessons must include scope and transfer limits. A single SKU or variant result is not a parent-group rule unless fresh variant-level evidence supports the transfer. Conflicting lessons should be marked and reconciled instead of silently overwritten.
+
+Open SKU follow-ups live in `data/tasks/sku_watchlist.json`, with the rules in `docs/SKU_WATCHLIST_OPERATING_RULE.md`. Use this single watchlist for seasonal/event-window SKU checkpoints instead of creating per-SKU conversation automations.
 
 ## 智能代理底座
 
@@ -185,11 +200,106 @@ npm run ops:agent:hub -- --ledger data\agent\agent_ledger_<date>.json --inbox da
 
 中枢输出的每条任务会带 `requiredCapabilities` 和 `executionPlan.commands`。它会把“该跑哪条只读证据命令”列出来，比如到期复查、选品关键词转化、ABA 搜索词、关键词季节性证据；但不会绕过 schema、预演、授权边界或写后回查。
 
+中枢默认尝试读取前一天的 `data\agent\learning_memory_<date>.json`。如果要指定上一轮记忆，使用 `--prior-learning-memory data\agent\learning_memory_<prev-date>.json`。读取到的 memory 会把 `learning_constraint` 任务合并进今日队列，并把 `mustReadBeforeDecision`、`doNotApplyWhen`、`evidenceBeforeReuse` 写入 hub 的 `learningContext`。
+
 只读证据命令可以交给受限执行器跑，它只接受中枢标记为 `safeToAutoRun=true` 且命令风险为 `read_only` 的白名单命令：
 
 ```powershell
 npm run ops:agent:run-commands -- --hub data\agent\operating_hub_<date>.json --out data\agent\command_results_<date>.json
 ```
+
+运营纠错单独进入风险审计。只要操作者指出判断错、数据旧、证据缺、范围错、已误执行、未落地或可能影响同类 SKU，先生成纠错审计和学习补丁，再允许复用同一规则：
+
+```powershell
+npm run ops:agent:correction-risk -- --text "HAY0218 budget-down was wrong, stale snapshot was used, same rule may affect other SKUs" --today <date>
+```
+
+Risk is routing, not refusal: when an operating action is supported, risk changes the evidence, boundary, dry-run, approval, batch size, and follow-up plan; it must not be used as a reason to skip the action. Unsupported actions must create a concrete capability gap, escalation task, or next evidence command.
+
+输出默认写入 `data\agent\correction_risk_<date>.json/.md`，并在 `data\learning\corrections\` 下沉淀带 `doNotApplyWhen` 的学习补丁。
+
+无人值守成熟度可以单独审计，也会在 closed-loop 最后自动写回 summary：
+
+```powershell
+npm run ops:agent:autonomy-audit -- --closed-loop data\agent\agent_closed_loop_<date>.json --today <date>
+```
+
+审计会检查 closed-loop、artifact verification、handoff、只读命令、写入闸口、数据新鲜度、恢复 next-actions、daily learning、纠错系统和 market-evidence-first 规则；输出 `data\agent\autonomy_audit_<date>.json/.md`。
+
+长期学习索引会把当日 learning、autonomy gaps、纠错 lesson、SKU lesson 统一成下一轮机器可读约束：
+
+```powershell
+npm run ops:agent:learning-memory -- --learning data\learning\daily_learning_<date>.json --autonomy-audit data\agent\autonomy_audit_<date>.json --today <date>
+```
+
+输出 `data\agent\learning_memory_<date>.json/.md`，其中 `nextRunBrief` 会列出下一轮必须读的文件、不能套用的规则、复用前必须补的证据和未闭环 follow-up。closed-loop 会自动生成它，并把 `learningMemoryReady`、`learningMemoryStatus`、`learningMemoryConstraintCount` 写回 summary。下一轮 closed-loop 会在 hub 阶段读取上一轮 memory，并写回 `priorLearningMemoryApplied`、`priorLearningConstraintTasks`、`priorLearningDoNotApplyCount` 等字段，证明学习约束已经进入决策队列。
+
+无人值守真实执行还要经过单独闸口：
+
+```powershell
+npm run ops:agent:unattended-gate -- --closed-loop data\agent\agent_closed_loop_<date>.json --autonomy-audit data\agent\autonomy_audit_<date>.json --learning-memory data\agent\learning_memory_<date>.json --write-execution data\agent\write_execution_<date>.json --today <date>
+```
+
+只有输出 `decision=execute_allowed` 时，定时任务才可以显式加 `--execute-if-ready`。闸口会拦截过期数据、artifact 失败、非低风险动作、待审批动作、dry-run blocker、纠错/学习 blocker、缺 schema/snapshot、以及过大的批量动作。
+
+生产定时任务应调用监督入口，而不是直接调用 closed-loop：
+
+```powershell
+npm run ops:agent:unattended-supervisor -- --prior-learning-memory data\agent\learning_memory_<prev-date>.json --today <date> --out-dir data\agent
+```
+
+它会输出 `unattended_supervisor_<date>.json/.md` heartbeat，记录上一轮学习记忆是否存在、closed-loop 是否跑通、autonomy/learning/gate 状态、是否实际执行、以及阻断原因。supervisor 每次默认还会验证已安装任务并写 `unattended_schedule_install_<date>.json/.md`、生成 `unattended_scheduler_audit_<date>.json/.md`、再写 `agent_readiness_audit_<date>.json/.md`，把完整 agent 化、自驱、纠错学习、计划任务运行证明和 live schedule 状态回填成机器可读证据；`--skip-scheduler-audit` / `--skip-readiness-audit` 只用于窄范围测试，不作为生产自驱证明。真实无人值守写入必须同时传 `--execute --execute-if-ready`；只有 `--execute-if-ready` 不会触发 live execute。
+
+生产定时任务先生成计划，再按计划安装或验证；不要手写一条命令直接丢进系统计划任务：
+
+```powershell
+npm run ops:agent:unattended-schedule-plan -- --today <date> --out-dir data\agent
+npm run ops:agent:unattended-schedule-install -- --plan data\agent\unattended_schedule_plan_<date>.json --verify-installed --today <date>
+```
+
+`unattended-schedule-install` 默认只写安装验证报告；只有显式加 `--install` 才会写入 Windows Task Scheduler。它会校验已安装任务的 executable、arguments、working directory 是否和 supervisor 计划一致，防止生产计划绕过 supervisor、learning memory 或双确认闸门。生成的主 Windows task 通过 `cmd.exe` 调用仓库当前 Node 可执行文件，并把 stdout/stderr 追加到 `data\agent\unattended_supervisor_task.log`；任务必须以 `RunLevel=Highest` 安装，保证无人值守运行时可以读取 Task Scheduler 自身状态。
+
+计划器还会生成第二个 `AdOpsAgentCompletionAudit` 任务，默认在主任务 20 分钟后运行。它带 `--scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit` 调用 `ops:agent:completion-audit`，先等待主 supervisor 任务退出，再刷新 `unattended_schedule_install_<date>` 的最终 Task Scheduler 状态，然后把严格 scheduler audit 和严格 readiness audit 写到 `unattended_scheduler_completion_audit_<date>`、`agent_readiness_completion_audit_<date>` 和 `agent_completion_audit_<date>`。completion audit 的最终通过同时要求 supervisor 自然触发证明、`AdOpsAgentCompletionAudit` 自己的自然触发运行证明和计划任务调用来源证明，不能用人工次日补跑冒充无人值守完成。这里的 `<date>` 是站点业务日期，不一定等于中国本机日期。
+
+需要立即验证 Task Scheduler 运行链路时，用已安装任务的受控 run-now，不改计划配置：
+
+```powershell
+npm run ops:agent:unattended-schedule-install -- --plan data\agent\unattended_schedule_plan_<date>.json --run-now --run-now-timeout-seconds 900 --today <date>
+```
+
+这会触发已安装的 `AdOpsAgentUnattendedSupervisor` 跑一次，并等待任务结束后写回 `lastRunTime` / `lastTaskResult`。随后再跑 scheduler audit；它必须看到 run 后有更新的 `unattended_supervisor_<date>.json` heartbeat。
+
+`run-now` 只证明已安装任务的运行链路、权限、工作目录和 heartbeat 写入是通的；它不等于自然定时触发已经发生。完成无人值守证明时，等下一次真实触发时间后再加严格检查：
+
+```powershell
+npm run ops:agent:unattended-scheduler-audit -- --heartbeat-dir data\agent --schedule-command "npm run ops:agent:unattended-supervisor -- --out-dir data\agent --execute --execute-if-ready" --schedule-install data\agent\unattended_schedule_install_<date>.json --require-schedule --require-live-execute --require-natural-scheduled-run --today <date>
+```
+
+定时任务健康另有审计入口，用来检查最近 heartbeat 是否新鲜、生产计划命令是否使用 supervisor、是否连续失败、是否缺 prior learning：
+
+```powershell
+npm run ops:agent:unattended-scheduler-audit -- --heartbeat-dir data\agent --schedule-command "npm run ops:agent:unattended-supervisor -- --out-dir data\agent --execute --execute-if-ready" --schedule-install data\agent\unattended_schedule_install_<date>.json --require-schedule --require-live-execute --today <date>
+```
+
+输出 `unattended_scheduler_audit_<date>.json/.md`。真实自驱生产计划必须让审计显示 `scheduleLiveExecuteArmed=true`；这只说明计划任务已带双保险，真正写入仍由 unattended gate 决定。传入 `--schedule-install` 后，审计还会检查已安装任务的 Ready 状态、触发器、`lastRunTime`、`lastTaskResult`，以及 last run 后是否写出更新的 supervisor heartbeat。若计划命令直接跑 `ops:agent:closed-loop`、缺少 live 双保险、只带 `--execute-if-ready`、heartbeat 过期、计划任务非 0 退出、到点运行后没有新 heartbeat，或连续失败，会生成 P0 调度健康任务。
+
+总目标 readiness 审计把关键证据合成一份报告，避免只看某个单点绿灯：
+
+```powershell
+npm run ops:agent:readiness-audit -- --today <date> --require-correction-lesson --require-risk-routing-lesson
+```
+
+输出 `agent_readiness_audit_<date>.json/.md`。报告会同时检查 closed-loop artifact、live-armed schedule、post-trigger completion audit scheduled task 和 runtime proof、supervisor 双保险、unattended gate、learning memory、correction-risk、risk-is-routing 纠错、prior learning、heartbeat 连续性和 scheduled task runtime proof。日常生产跑 `ops:agent:unattended-supervisor` 时会自动先生成 schedule-install verify 和 scheduler audit，再生成这一份报告；手动命令用于复核或指定输入文件。
+
+严格判断“无人值守自驱化是否已经完成”时，加 `--require-natural-scheduled-run`。这会要求已安装任务的 `lastRunTime` 对齐上一轮自然日触发时间，并且有更新的 supervisor heartbeat；受控 `run-now` 不能替代这条证明。
+
+最终不要只看 readiness 或 completion 单点绿灯，跑目标级审计：
+
+```powershell
+npm run ops:agent:goal-audit -- --today <date>
+```
+
+输出 `agent_goal_audit_<date>.json/.md`。它逐项检查 agent 控制面、live unattended schedule、自然触发完成证明、长期 learning memory、operator correction-risk 和 `risk is routing, not refusal` 学习约束；只有所有 requirement 都是 `pass` 才算完整目标达成。自然触发未发生时会显示 `pending_natural_trigger`，不是完成。
 
 如果命令退出成功但没有生成声明的输出文件，会按失败处理，避免任务被误标为已执行。
 
@@ -234,7 +344,9 @@ npm run ops:agent:closed-loop -- --self-test
 ## 每日闭环（一次完整运行）
 
 ### 0. 准备
-- Chrome 跑在 debug 模式（端口 9222），由 `scripts/execute/open_debug_browser_fixed_profile.ps1` 启动，并自动运行 `scripts/execute/ensure_backend_login.js`
+- 业务系统只用一个浏览器会话：广告后台、sellerinventory、选品和项目扩展都走 `广告运营协作浏览器` / `npm run chrome:operator`，它复用 `C:\chrome-debug-profile` 并暴露端口 `9222`
+- 个人 Chrome 只用于 ChatGPT、个人插件和普通网页；操作期间不要在个人 Chrome 打开广告后台或 sellerinventory，否则两个 Chrome profile 会互相顶掉登录态
+- `npm run chrome:debug` 仍是脚本/自动化的 readiness 入口，由 `scripts/execute/open_debug_browser_fixed_profile.ps1` 启动，并自动运行 `scripts/execute/ensure_backend_login.js`
 - 三个内部系统都要登录：`https://adv.yswg.com.cn/`、`https://sellerinventory.yswg.com.cn/`、`https://selection.yswg.com.cn/dashboard/analysis`；如果企业微信桌面端已登录，脚本会自动点击“继续在浏览器中登录访问”
 - Readiness is not based on visible pages alone. Treat the browser session as usable only when `health.adv.ok=true`, `health.inventory.ok=true`, and `health.selection.ok=true`; never paste or store `X-Access-Token`, cookies, CSRF, JWT, or Inventory-Token values.
 - 打开扩展面板 `chrome-extension://.../panel.html`
@@ -242,7 +354,7 @@ npm run ops:agent:closed-loop -- --self-test
 > 隔夜后 session 会过期；adv 后台的 KeywordManage 页带了 filter 参数会让快照只抓到子集。两个坑都记在 `memory.md`。
 
 ### 1. 导出快照
-Recovery rule before exporting: do not stop after the first abnormal preflight. Run `npm run chrome:debug`, recover adv to `https://adv.yswg.com.cn/vue/KeywordManage?tabId=<timestamp>`, wait for the keyword table, recover sellerinventory to the `/pm/formal/list` frame, confirm selection is open at `https://selection.yswg.com.cn/dashboard/analysis`, and rerun preflight. Treat the run as blocked only after this recovery pass still fails.
+Recovery rule before exporting: do not stop after the first abnormal preflight. Run `npm run chrome:operator` for operator-visible recovery or `npm run chrome:debug` for automation-only recovery, recover adv to `https://adv.yswg.com.cn/vue/KeywordManage?tabId=<timestamp>`, wait for the keyword table, recover sellerinventory to the `/pm/formal/list` frame, confirm selection is open at `https://selection.yswg.com.cn/dashboard/analysis`, and rerun preflight. Treat the run as blocked only after this recovery pass still fails.
 
 ```powershell
 node scripts\execute\export_snapshot.js data\snapshots\latest_snapshot.json
