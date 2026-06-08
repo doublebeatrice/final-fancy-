@@ -32,6 +32,24 @@ This changes the default operating stance:
 - For upcoming seasonal products with low impressions/clicks and inventory moving toward stuck-stock risk, prefer building missing SP coverage aggressively.
 - For keyword, SKU, ASIN, product direction, developer request, traffic recovery, keyword creation, or product-push questions, use `docs/PRODUCT_MARKET_EVIDENCE_STACK.md`. Product judgement should combine market demand, keyword economics, SKU ad proof, listing/price fit, inventory/economics, and action history instead of relying only on ad or inventory rows.
 
+## New Product Ad Build Model
+
+For a new SKU, the default sequence is market first, then owned ad coverage. Do not treat inventory arrival or weak delivery as enough reason to spend. First confirm the product use case, buyer persona, listing readiness, price/profit, inventory carry capacity, competitor pool, ABA demand, keyword economics, Product Time Machine traffic ownership, and comparable ASINs.
+
+Owned coverage is the standard. System-created campaigns can be read for keyword clues, bids, and status, but they are not counted as our base structure and should not be modified as the landing action unless the operator explicitly asks to touch them.
+
+The base structure is:
+
+- SP auto: discovery lane for search terms and product-page traffic, launched with a small budget and a bid based on create context, product-line CPC, and market CPC evidence.
+- SP broad keyword: first controlled keyword lane, using buyer-facing terms that survive competitor reverse-traffic, ABA, keyword conversion, listing-fit, and product-form filters.
+- SP expansion/product targeting: controlled exploration around validated traffic roots; do not let broad expansion replace the main proven direction.
+- SP ASIN targeting: comparable ASINs by use case, form, price band, buyer intent, and traffic overlap; do not target ASINs only because they are high volume.
+- SBV/SB: build only when brand permission, creative, budget, and readback verification are available. For video, require an exact ASIN-bound asset or SBV candidate. If no video asset is found, record the video lane as not creatable instead of forcing SBV.
+
+Keyword source priority is competitor ASIN reverse traffic, ABA search volume and estimated orders, keyword conversion/CPC proof, listing and customer language, then system-created keyword rows as weak reference only. Block wrong product-form terms, pure generic audience terms, and seasonal generics unless the listing directly supports that intent.
+
+New-product budgets should stay small by lane until evidence arrives. The goal is to prove the right entrance, not to buy scale immediately. Every created layer needs action schema, dry-run, execution, live row readback, conflict audit, and a 3-day/7-day review plan. Stop or reduce lanes that spend through the no-order threshold, pull irrelevant traffic, or cannot be supported by inventory.
+
 ## Daily Operating Guardrails
 
 The 2026-05-14 operating retrospective is part of this playbook: `data/learning/operations_retrospective_2026-05-06_to_2026-05-14.md`.

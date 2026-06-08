@@ -100,6 +100,7 @@ Do not add an OpenAI-compatible provider or AI runtime inside the panel. Do not 
 - Listing-style keyword work is the reusable market-evidence-first operating pattern, not only a copywriting method. Before creating keywords, raising spend, recovering traffic, judging new products, clearing inventory, or replying to product/developer requests, build a competitor or market pool from relevance, sales strength, and keyword overlap; reverse-mine the real traffic map; apply explicit keep/exclude/role/risk rules; then generate a bounded action. Use `docs/MARKET_EVIDENCE_FIRST_OPERATING_PATTERN.md`.
 - Product-identity corrections must not stop at closing wrong theme traffic. If the SKU is reclassified from an occasion lane such as Teacher Appreciation into its real product body, rebuild the receiving traffic structure around that body: SP auto, broad/phrase/exact keyword lanes, and selected product-ASIN targets. Core terms must be broad enough to get traffic and still be true to the product; do not leave only one or two clean but low-volume terms.
 - New products must be researched before or while their first ad structure is built, not only after ads fail. Use inventory open/arrival dates to identify new SKUs, then inspect Amazon front listing, images/video status, product use case, buyer persona, season/window, 3-15 core buyer-facing terms, 3-15 target ASINs, competitor listings, price/profit, reviews, and whether the listing actually contains the traffic terms.
+- For new-product ad builds or operator requests to `铺广告架构`, use owned controllable coverage as the standard: SP auto, SP broad keyword, SP expansion/product targeting, SP ASIN targeting, and SBV/SB only when brand, creative, and budget conditions allow. System-created campaigns are read-only reference evidence and must not be counted as owned coverage or modified as the landing action. If a matching ASIN-bound video asset exists, build SBV with the same validated keyword set; if video lookup and SBV pending lists are empty, record `do_not_create_sbv` instead of forcing a video campaign.
 - Keyword research must include product theme/person/use-case terms, functional/style terms, color/style audience splits, historical converting terms, SIF/selection reverse terms, customer-review language, competitor missing traffic, broader parent-market terms when exact terms are too narrow, and SBV/customer-search discoveries. Developer-supplied direction is only a hypothesis; market evidence and listing fit decide the final keyword set.
 - Product maintenance frequencies in operator workbooks are minimum floors. New products, peak/preheat seasonal products, old products declining more than 15%, high-inventory risk, and developer-focus products require a higher check frequency when live evidence moves quickly.
 - Selection AI ASIN keyword pipeline is a batch-seeding tool. For new or no-traffic ASINs, do not seed only the SKU's own ASIN or a tiny final-target ASIN set; feed a broad batch of relevant external ASINs first, then filter the returned keyword/product pools into executable targets. Control spend by reducing final target count and budgets, not by creating large ASIN pools at bids too low to receive traffic.
@@ -266,6 +267,20 @@ Export snapshot:
 
 ```powershell
 node scripts\execute\export_snapshot.js data\snapshots\latest_snapshot.json
+```
+
+Export a Tencent Docs / 企业微信 (WeCom) document to local Markdown (skill `tencent-doc-export`). These docs render the body to `<canvas>` and may disable copy for view-only members, so WebFetch and select-all + copy both return nothing; this reads the editor's in-memory model over CDP instead. Needs the `9222` collaboration browser logged into the doc's workspace:
+
+```powershell
+npm run doc:export -- "<docUrl>"
+npm run doc:export -- "<docUrl>" --json
+```
+
+Export a Tencent Docs / 企业微信 (WeCom) **spreadsheet** (`/sheet/` link) to a local `.xlsx` (skill `wecom-sheet-export`). These sheets render cells to `<canvas>` and lazy-load each sheet only when active, so WebFetch / copy return nothing; this reads `window.SpreadsheetApp`'s in-memory grid over CDP, then writes xlsx with openpyxl (dates/percentages/merges preserved). Hidden sub-sheets are read by temporarily unhiding them in browser memory with all outbound commits blocked, then re-hidden — read-only, never synced. Needs the `9222` browser logged into the sheet's workspace. Skips a `账号密码` sheet by default. Two stages:
+
+```powershell
+npm run sheet:export -- "<sheetUrl>" --out data\doc_exports\name.sheets.json --json
+npm run sheet:build -- data\doc_exports\name.sheets.json data\doc_exports\name.xlsx
 ```
 
 Dry-run:

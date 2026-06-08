@@ -18,6 +18,7 @@
 
 ```
 AGENT.md                   给 AI 的项目规则和红线
+AGENTS.md                  Codex/agent root instructions
 README.md                  人和 AI 共用的入口说明
 CHANGELOG.md               重要能力变更记录
 auto_adjust.js             主执行编排入口；仍留根目录，避免破坏运行链路
@@ -125,6 +126,8 @@ For any keyword, SKU, ASIN, product direction, developer request, traffic recove
 Use `docs/PRODUCT_MARKET_EVIDENCE_STACK.md` as the default read path: ABA demand/concentration, keyword conversion economics, SKU ad proof, listing/price fit, inventory/economics, and recent action history. Selection-system evidence is still read-only; executable ad actions require the normal schema, dry-run, execution, and landing verification flow.
 
 The listing workflow is also a reusable operating pattern: competitor pool from relevance/sales/keyword overlap, reverse-mined traffic map, rule-based keyword filtering, then constrained output. Use `docs/MARKET_EVIDENCE_FIRST_OPERATING_PATTERN.md` before keyword creation, bid/budget expansion, traffic recovery, new-product launch, clearance, or product/developer replies that depend on market fit.
+
+For "铺广告架构", use `docs/BASIC_AD_ARCHITECTURE_WORKFLOW.md`: SP auto, SP broad keyword, SP expanded ASIN, SP exact ASIN, and SBV/SB when available, with source-backed keywords/ASINs and landed-state verification.
 
 ## SKU Lesson System
 

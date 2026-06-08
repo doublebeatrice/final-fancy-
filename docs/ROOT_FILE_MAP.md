@@ -1,6 +1,6 @@
 # Root File Map
 
-Last reconciled: 2026-05-18.
+Last reconciled: 2026-06-04.
 
 This is the living map for what belongs in the repository root. The root should contain entry points, project rules, dependency manifests, and top-level folders only. Runtime outputs, source datasets, temporary probes, reports, and historical files belong under their typed folders.
 
@@ -10,6 +10,7 @@ This is the living map for what belongs in the repository root. The root should 
 |---|---|
 | `README.md` | Human and AI project entry guide. Start here. |
 | `AGENT.md` | AI operating rules, execution boundaries, and run discipline. |
+| `AGENTS.md` | Current Codex/agent root instructions. Keep alongside `AGENT.md` until the older rule surface is intentionally retired. |
 | `memory.md` | Durable operating memory and business-decision context. |
 | `CHANGELOG.md` | Concise capability change log. |
 | `auto_adjust.js` | Main Node execution orchestrator. Kept in root because tests and execution scripts import it directly. |
@@ -41,6 +42,7 @@ This is the living map for what belongs in the repository root. The root should 
 |---|---|
 | `data/snapshots/` | Canonical run snapshots, logs, execution summaries, and verification files. Ignored by git because it is high-volume runtime output. |
 | `data/tmp_tests/` | Scratch probes and failure evidence. Ignored by git; promote durable conclusions to `data/learning/` or `docs/`. |
+| `data/exports/` | Generated export files, including seven-day untouched readbacks. Ignored by git unless a specific export is promoted as durable evidence. |
 | `data/learning/` | Durable daily learning and operating conclusions. Commit selectively when the learning changes future decisions. |
 | `data/learning/sku_lessons/` | Reusable SKU-level operating lessons with scope, evidence, transfer boundaries, conflict status, and next validation. These are not daily logs. |
 | `data/tasks/` | Daily task boards, proactive audits, seasonal audits, and review queues. |
@@ -53,6 +55,9 @@ This is the living map for what belongs in the repository root. The root should 
 | Path | Purpose |
 |---|---|
 | `data/reference/season_events_2026_source.xlsx` | Source workbook for season/event windows. Import with `npm run ops:season-events:import`. |
+| `data/reference/HJ4月复盘 5月培训亚马逊运营・节点 .docx` | Training/review source document; kept out of root because it is source reference material, not an entry point. |
+| `data/reference/销售二部-工作标准，业务方法和知识点.xlsx` | Sales-ops standard and business-method source workbook; kept out of root because it is reference material. |
+| `data/reference/节气巡查_今日提醒动态版_大节气提前优化版.xlsx` | Current seasonal-reminder source workbook; kept with reference inputs. |
 | `data/season_events_2026.json` | Runtime season-event JSON consumed by seasonal audits/title workflows. |
 | `docs/2025年半精品销售季度KPI考核 - 组员.xlsx` | KPI context workbook used by operating playbooks. |
 
@@ -84,6 +89,17 @@ When a run fails or a result looks wrong, read these in order:
 | `a8070a0f-0570-4d04-97c8-d4c82d9968d6.png` | `data/a8070a0f-0570-4d04-97c8-d4c82d9968d6.png` | Image/data artifact. |
 | `限sku.txt` | `data/限sku.txt` | Data/reference list. |
 | `节气巡查.xlsx` | `data/reference/season_events_2026_source.xlsx` | Source workbook for season-event import. |
+
+## 2026-06-04 Root Reconciliation
+
+| Old path | New path | Notes |
+|---|---|---|
+| `HJ4月复盘 5月培训亚马逊运营・节点 .docx` | `data/reference/HJ4月复盘 5月培训亚马逊运营・节点 .docx` | Source/reference document. |
+| `销售二部-工作标准，业务方法和知识点.xlsx` | `data/reference/销售二部-工作标准，业务方法和知识点.xlsx` | Source/reference workbook. |
+| `节气巡查_今日提醒动态版_大节气提前优化版.xlsx` | `data/reference/节气巡查_今日提醒动态版_大节气提前优化版.xlsx` | Source/reference workbook. |
+| `remaining_sp_7day_untouched_cn_2026-05-22.*` | `data/exports/remaining_sp_7day_untouched_cn_2026-05-22.*` | Generated seven-day untouched export; future exports are written under `data/exports/`. |
+| `Claude 对 Codex 说的话.md`, `GOAL-*.md` | `docs/handoffs/` | Claude/Codex handoff and goal notes; useful context but not root entry points. |
+| `2026-06-01` | `archive/root_cleanup_2026-06-04/2026-06-01` | Empty/accidental root artifact quarantined instead of deleted. |
 
 ## Removed
 

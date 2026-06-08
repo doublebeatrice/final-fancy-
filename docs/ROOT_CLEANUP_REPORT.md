@@ -188,3 +188,26 @@ The root was reconciled again after new daily-deposit, seasonal-listing, develop
 - `auto_adjust.js`: still the main execution orchestrator and still imported by tests/scripts.
 - `memory.md`: still the durable operating memory.
 - `AGENT.md`: still the AI rule surface. It is large, but it contains execution guardrails that affect live ad actions.
+
+## Follow-up Cleanup: 2026-06-04
+
+The root was reconciled again after handoff notes, source workbooks, and generated exports accumulated in the top level.
+
+### Moved
+
+- `Claude 对 Codex 说的话.md` and `GOAL-*.md` -> `docs/handoffs/`.
+- `HJ4月复盘 5月培训亚马逊运营・节点 .docx` -> `data/reference/`.
+- `销售二部-工作标准，业务方法和知识点.xlsx` -> `data/reference/`.
+- `节气巡查_今日提醒动态版_大节气提前优化版.xlsx` -> `data/reference/`.
+- `remaining_sp_7day_untouched_cn_2026-05-22.csv/json` -> `data/exports/`.
+- `2026-06-01` -> `archive/root_cleanup_2026-06-04/2026-06-01`.
+
+### Updated
+
+- `scripts/export_remaining_sp_7day_cn.js`: future seven-day untouched exports now write to `data/exports/`, while retaining cleanup compatibility for old root-level exports.
+- `docs/ROOT_FILE_MAP.md`: refreshed root ownership rules and 2026-06-04 move records.
+
+### Still Kept in Root
+
+- `AGENT.md`: retained because existing README/docs still reference it as the older rule surface.
+- `AGENTS.md`: retained as the current Codex/agent instruction file.
