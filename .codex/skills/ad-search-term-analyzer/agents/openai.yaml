@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ad Search Term Analyzer"
+  short_description: "Classify live ad customer-search terms."
+  default_prompt: "Use $ad-search-term-analyzer to classify these live search terms into waste, hold, scale, ASIN target, and listing feedback candidates."

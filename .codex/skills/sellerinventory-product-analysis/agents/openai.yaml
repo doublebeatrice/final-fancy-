@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sellerinventory Product Analysis"
+  short_description: "Read SKU product-analysis profit, inventory, and 30-day sales with the monthly profit lag made explicit."
+  default_prompt: "Use $sellerinventory-product-analysis to live-read a SKU product-analysis row and explain the lagged monthly profit, inventory pressure, and operating-route implications."

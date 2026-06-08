@@ -1,0 +1,4 @@
+interface:
+  display_name: "Selection Feature Demand Validator"
+  short_description: "Validate feature demand from real evidence."
+  default_prompt: "Use $selection-feature-demand-validator to judge whether this feature or product-change request reflects real buyer demand."

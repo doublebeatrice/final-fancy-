@@ -1,0 +1,4 @@
+interface:
+  display_name: "New Product Ad Build"
+  short_description: "Market-first workflow for new SKU ad structures."
+  default_prompt: "Use $new-product-ad-build to analyze and land a market-backed new-product ad structure."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tencent / WeCom Doc Export"
+  short_description: "Export full text of a canvas-rendered or copy-disabled Tencent/WeCom doc."
+  default_prompt: "Use $tencent-doc-export to export the full text of this Tencent Docs / 企业微信 document link to a local Markdown file."

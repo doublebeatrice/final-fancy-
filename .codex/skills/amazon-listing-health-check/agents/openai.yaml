@@ -1,0 +1,4 @@
+interface:
+  display_name: "Amazon Listing Health Check"
+  short_description: "Inspect listing health with live evidence."
+  default_prompt: "Use $amazon-listing-health-check to inspect this ASIN or SKU for front-page, internal, and search-visibility health."

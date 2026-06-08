@@ -1,0 +1,4 @@
+interface:
+  display_name: "Selection Product Research"
+  short_description: "Internal market research without Sorftime."
+  default_prompt: "Use $selection-product-research to research this product or keyword with internal selection, sellerinventory, ad backend, and Amazon front evidence."

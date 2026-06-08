@@ -1,0 +1,4 @@
+interface:
+  display_name: "GBrain Knowledge Writer"
+  short_description: "Write curated ad-ops knowledge to GBrain."
+  default_prompt: "Use $gbrain-knowledge-writer to write this decision or review into the Ad Ops GBrain knowledge base."

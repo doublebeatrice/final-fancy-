@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rising Product Traffic Follow-Up"
+  short_description: "Analyze rising SKUs, audit all-time ad history, execute effective traffic expansion, and verify live landing."
+  default_prompt: "Use $rising-product-traffic-followup to analyze rising SKUs, check all-time historical winners, execute justified ad expansion, and plan 1/3/7-day follow-up."

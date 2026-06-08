@@ -1,0 +1,4 @@
+interface:
+  display_name: "CVR Rank Threshold Analyzer"
+  short_description: "Backtest CVR against natural rank risk."
+  default_prompt: "Use $cvr-rank-threshold-analyzer to compare daily CVR with Product Time Machine rank movement and define observation and danger lines."

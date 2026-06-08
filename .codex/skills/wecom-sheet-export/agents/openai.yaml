@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tencent / WeCom Sheet Export"
+  short_description: "Export a canvas-rendered Tencent/WeCom spreadsheet to a local .xlsx (handles hidden sheets, read-only)."
+  default_prompt: "Use $wecom-sheet-export to export this Tencent Docs / 企业微信 spreadsheet link to a local .xlsx file."
