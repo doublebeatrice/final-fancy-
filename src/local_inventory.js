@@ -111,8 +111,75 @@ function localInventoryQuantity(card = {}, inv = {}) {
   return 0;
 }
 
+function firstPresentNumber(values = []) {
+  for (const value of values) {
+    if (!isPresent(value)) continue;
+    const n = Number(value);
+    if (Number.isFinite(n)) return n;
+  }
+  return null;
+}
+
+function plannedPairUnits(totalValues = [], partGroups = []) {
+  const total = firstPresentNumber(totalValues);
+  if (total !== null) return total;
+  return partGroups.reduce((sum, values) => sum + (firstPresentNumber(values) ?? 0), 0);
+}
+
+function replenishmentUnits(card = {}, inv = {}) {
+  const local = (card.localInventory ?? inv.localInventory) || {};
+  const inboundAlias = firstPresentNumber([
+    card.inboundQty,
+    inv.inboundQty,
+    card.inbound,
+    inv.inbound,
+    card.inb,
+    inv.inb,
+  ]);
+  const inbound = inboundAlias !== null
+    ? inboundAlias
+    : (firstPresentNumber([card.stockInb, inv.stockInb]) ?? 0) +
+      (firstPresentNumber([card.stockInbAir, inv.stockInbAir]) ?? 0);
+  const stockPlan = firstPresentNumber([card.stockPlan, inv.stockPlan]) ?? 0;
+  const localAvailable = firstPresentNumber([card.localAvailableForPlan, inv.localAvailableForPlan, local.availableForPlan]) ?? 0;
+  const fbaPlan = plannedPairUnits(
+    [card.localFbaPlan, inv.localFbaPlan, local.fbaPlan],
+    [
+      [card.localFbaPlanAir, inv.localFbaPlanAir, local.fbaPlanAir],
+      [card.localFbaPlanSea, inv.localFbaPlanSea, local.fbaPlanSea],
+    ],
+  );
+  const existingFbaPlan = plannedPairUnits(
+    [card.localFbaPlanTotal, inv.localFbaPlanTotal, local.fbaPlanTotal],
+    [
+      [card.localFbaPlanTotalAir, inv.localFbaPlanTotalAir, local.fbaPlanTotalAir],
+      [card.localFbaPlanTotalSea, inv.localFbaPlanTotalSea, local.fbaPlanTotalSea],
+    ],
+  );
+  return inbound + stockPlan + localAvailable + fbaPlan + existingFbaPlan;
+}
+
+function replenishmentCoverage7d(card = {}, item = {}, inv = {}) {
+  const units7d = num(item.units7d ?? card.unitsSold_7d);
+  const units = replenishmentUnits(card, inv);
+  if (units7d <= 0) return { units, days: null, totalSellableDays7d: null };
+  const itemFulRes = firstPresentNumber([item.fulResUnits]);
+  const fulRes = itemFulRes !== null
+    ? itemFulRes
+    : num(card.fulFillable ?? card.fulfillable ?? card.stockFul) +
+      num(card.reservedQty ?? card.reserved ?? card.stockRes);
+  const velocity = units7d / 7;
+  return {
+    units,
+    days: Math.round((units / velocity + Number.EPSILON) * 10) / 10,
+    totalSellableDays7d: Math.round(((fulRes + units) / velocity + Number.EPSILON) * 10) / 10,
+  };
+}
+
 module.exports = {
   extractLocalInventory,
   localInventoryQuantity,
   normalizeShipmentDate,
+  replenishmentCoverage7d,
+  replenishmentUnits,
 };

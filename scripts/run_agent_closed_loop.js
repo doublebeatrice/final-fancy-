@@ -4,7 +4,6 @@ const { runAgentReviewQueue } = require('./run_agent_review_queue');
 const { runAgentOperatingHub } = require('./run_agent_operating_hub');
 const { runAgentCommandRunner } = require('./run_agent_command_runner');
 const { runAgentWriteExecution } = require('./run_agent_write_execution');
-const { runAgentExecutionFeedback } = require('./run_agent_execution_feedback');
 const { runAgentHandoffSummary } = require('./run_agent_handoff_summary');
 const { runAgentAutonomyAudit } = require('./run_agent_autonomy_audit');
 const { runAgentLearningMemory } = require('./run_agent_learning_memory');
@@ -24,14 +23,42 @@ const { run: runKpiDryRunDecisions } = require('./execute/generate_kpi_recovery_
 const { run: runKpiApprovalReview } = require('./execute/generate_kpi_approval_review');
 const { run: runMonthKpiOperatorDigest } = require('./execute/generate_month_kpi_operator_digest');
 const { auditLandedActionConflicts, markdownReport: landedActionConflictMarkdown } = require('./execute/audit_landed_action_conflicts');
+const { normalizeMandatoryDailyClosure } = require('../src/daily_mandatory_closure');
 const { verifyDailyClosureArtifacts } = require('./execute/verify_daily_closure_artifacts');
 const { buildOpsTimeContext } = require('../src/ops_time');
+const { DORMANT_COMPONENTS, dormantComponent } = require('../src/pipeline/stage_registry');
 
 const ROOT = path.join(__dirname, '..');
 const DEFAULT_OUT_DIR = path.join(ROOT, 'data', 'agent');
 
 function text(value) {
   return String(value ?? '').trim();
+}
+
+function dormantArtifact(id, timeContext = {}) {
+  const component = dormantComponent(id) || { id, status: 'dormant', reason: 'component is dormant' };
+  return {
+    status: 'dormant',
+    dormantComponent: component,
+    businessDate: text(timeContext.businessDate || ''),
+    dataDate: text(timeContext.dataDate || ''),
+    summary: {
+      feedbackApplied: 0,
+      feedbackUnmatched: 0,
+    },
+  };
+}
+
+function closedLoopDormantComponents() {
+  const ids = new Set([
+    'agent_unattended_supervisor',
+    'agent_unattended_scheduler',
+    'agent_goal_audit',
+    'agent_completion_audit',
+    'operating_hub_feedback_artifact',
+    'review_evidence_artifact',
+  ]);
+  return DORMANT_COMPONENTS.filter(item => ids.has(item.id));
 }
 
 function dateOnly(value) {
@@ -246,6 +273,8 @@ function buildDailyClosureStatus({
   recoveryGateStatus = '',
   depositStatus = '',
   depositMissingCount = 0,
+  mandatoryDailyClosureOpen = 0,
+  mandatoryDailyClosureResolved = true,
 } = {}) {
   const reasons = [];
   if (commandFailed > 0) reasons.push('command_failed');
@@ -261,6 +290,7 @@ function buildDailyClosureStatus({
   if (operatingClosureStatus === 'blocked') reasons.push('operating_blocked');
   if (operatingClosureStatus === 'partial') reasons.push('operating_partial');
   if (operatingClosureStatus === 'needs_recovery') reasons.push('operating_needs_recovery');
+  if (mandatoryDailyClosureOpen > 0 && mandatoryDailyClosureResolved !== true) reasons.push('mandatory_daily_closure_not_landed');
 
   const uniqueReasons = [...new Set(reasons)];
   let status = 'complete';
@@ -268,7 +298,7 @@ function buildDailyClosureStatus({
     status = 'blocked';
   } else if (depositStatus === 'partial' || depositMissingCount > 0 || snapshotStale || dataFreshnessStatus === 'warning' || operatingClosureStatus === 'partial') {
     status = 'partial';
-  } else if (kpiStatus === 'off_track' || recoveryGateStatus === 'fail' || operatingClosureStatus === 'needs_recovery') {
+  } else if (kpiStatus === 'off_track' || recoveryGateStatus === 'fail' || operatingClosureStatus === 'needs_recovery' || (mandatoryDailyClosureOpen > 0 && mandatoryDailyClosureResolved !== true)) {
     status = 'needs_recovery';
   }
   return {
@@ -296,6 +326,14 @@ function closedLoopSummary({ commandResults = {}, writeExecution = {}, feedback 
   const operatingClosureStatus = text(handoff.summary?.operatingClosureStatus || handoffOperatingStatus.status || '');
   const recoveryGateStatus = text(recoveryGate?.status || (recoveryTarget ? 'target_set' : 'missing'));
   const depositStatusText = text(depositStatus.status || handoff.summary?.depositStatus || '');
+  const mandatoryDailyClosure = normalizeMandatoryDailyClosure(
+    handoff.summary?.mandatoryDailyClosure ||
+    handoff.summary?.dailyMandatoryClosure ||
+    handoff.dailyMandatoryClosure ||
+    handoff.dailyOperatingWorkflow?.mandatoryDailyClosure ||
+    handoff.dailyOperatingWorkflow?.mandatoryClosure ||
+    {}
+  );
   const dailyClosure = buildDailyClosureStatus({
     commandFailed,
     writeFailed,
@@ -307,6 +345,8 @@ function closedLoopSummary({ commandResults = {}, writeExecution = {}, feedback 
     recoveryGateStatus,
     depositStatus: depositStatusText,
     depositMissingCount: depositMissing.length,
+    mandatoryDailyClosureOpen: mandatoryDailyClosure.openCount,
+    mandatoryDailyClosureResolved: mandatoryDailyClosure.resolved,
   });
   return {
     closedLoop: commandFailed === 0 && writeFailed === 0 && hardWriteBlocked === 0 && !!handoff.markdown,
@@ -364,6 +404,10 @@ function closedLoopSummary({ commandResults = {}, writeExecution = {}, feedback 
       ? handoff.summary.dailyOperatingWorkflowBlockers
       : [],
     dailyOperatingWorkflow: handoff.summary?.dailyOperatingWorkflow || null,
+    mandatoryDailyClosure,
+    mandatoryDailyClosureOpen: mandatoryDailyClosure.openCount,
+    mandatoryDailyClosureUnresolved: mandatoryDailyClosure.unresolvedCount,
+    mandatoryDailyClosureResolved: mandatoryDailyClosure.resolved,
   };
 }
 
@@ -397,7 +441,6 @@ function runAgentClosedLoop(options = {}) {
   const effectReviewFile = options.effectReviewFile || fileFor(outDir, 'effect_review', today);
   const commandResultsFile = options.commandResultsOutFile || fileFor(outDir, 'command_results', today);
   const writeExecutionFile = options.writeExecutionOutFile || fileFor(outDir, 'write_execution', today);
-  const feedbackFile = options.feedbackOutFile || fileFor(outDir, 'operating_hub_feedback', today);
   const handoffOutFile = options.handoffOutFile || fileFor(outDir, 'agent_handoff', today, 'md');
   const handoffJsonFile = options.handoffJsonOutFile || fileFor(outDir, 'agent_handoff', today, 'json');
   const closedLoopFile = options.outFile || fileFor(outDir, 'agent_closed_loop', today);
@@ -405,9 +448,12 @@ function runAgentClosedLoop(options = {}) {
   const autonomyAuditMarkdownFile = options.autonomyAuditMarkdownOutFile || fileFor(outDir, 'autonomy_audit', today, 'md');
   const learningMemoryFile = options.learningMemoryOutFile || fileFor(outDir, 'learning_memory', today);
   const learningMemoryMarkdownFile = options.learningMemoryMarkdownOutFile || fileFor(outDir, 'learning_memory', today, 'md');
-  const priorLearningMemoryFile = options.priorLearningMemoryFile || options.learningMemoryInputFile || '';
   const unattendedGateFile = options.unattendedGateOutFile || fileFor(outDir, 'unattended_gate', today);
   const unattendedGateMarkdownFile = options.unattendedGateMarkdownOutFile || fileFor(outDir, 'unattended_gate', today, 'md');
+  const unattendedExecutionFile = options.unattendedExecutionOutFile || fileFor(outDir, 'unattended_write_execution', today);
+  const priorLearningMemoryFile = options.priorLearningMemoryFile || options.learningMemoryInputFile || '';
+  const trendAnomalyFile = options.trendAnomalyOutFile || fileFor(outDir, 'trend_anomaly', today);
+  const trendAnomalyMarkdownFile = options.trendAnomalyMarkdownOutFile || fileFor(outDir, 'trend_anomaly', today, 'md');
   const closureVerificationFile = options.closureVerificationOutFile || fileFor(outDir, 'daily_closure_verify', today);
   const kpiGateFile = options.kpiGateOutFile || (
     options.outDir
@@ -673,18 +719,11 @@ function runAgentClosedLoop(options = {}) {
     : skippedWriteExecution(timeContext);
   writeJson(writeExecutionFile, writeExecution);
 
-  const feedback = runAgentExecutionFeedback({
-    ...options,
-    timeContext,
-    hub,
-    results: commandResults,
-    outFile: feedbackFile,
-    today,
-  });
+  const feedback = dormantArtifact('operating_hub_feedback_artifact', evidenceTimeContext);
 
   const effectReview = options.effectReview || readJson(effectReviewFile, {});
   const evidenceHub = {
-    ...feedback,
+    ...hub,
     businessDate: evidenceTimeContext.businessDate,
     dataDate: evidenceTimeContext.dataDate,
   };
@@ -720,7 +759,6 @@ function runAgentClosedLoop(options = {}) {
       effectReviewFile,
       commandResultsFile,
       writeExecutionFile,
-      feedbackFile,
       handoffOutFile,
       handoffJsonFile,
       closedLoopFile,
@@ -736,6 +774,7 @@ function runAgentClosedLoop(options = {}) {
     },
     hub,
     priorLearningContext,
+    dormantComponents: closedLoopDormantComponents(),
     commandResults,
     writeExecution,
     feedback,
@@ -1199,6 +1238,35 @@ function runAgentClosedLoop(options = {}) {
       markdownFile: autonomyAuditMarkdownFile,
       today: evidenceTimeContext.businessDate,
     });
+    let trendAnomalyReport = null;
+    if (options.disableTrendAnomalyCheck === true) {
+      report.trendAnomaly = { status: 'skipped', reason: 'disableTrendAnomalyCheck=true' };
+      report.summary.trendAnomalyStatus = 'skipped';
+    } else {
+      try {
+        const { detectTrendAnomalies } = require('../src/trend_anomaly_detector');
+        trendAnomalyReport = detectTrendAnomalies({
+          today: evidenceTimeContext.businessDate,
+          windowDays: Number(options.trendAnomalyWindowDays || 7),
+          loadTotalForDate: options.loadTotalForDate,
+        });
+        writeJson(trendAnomalyFile, trendAnomalyReport);
+        writeText(trendAnomalyMarkdownFile, trendAnomalyReport.markdown || '');
+        report.files.trendAnomalyFile = trendAnomalyFile;
+        report.files.trendAnomalyMarkdownFile = trendAnomalyMarkdownFile;
+        report.trendAnomaly = {
+          status: trendAnomalyReport.status,
+          redCount: trendAnomalyReport.redSignals?.length || 0,
+          yellowCount: trendAnomalyReport.yellowSignals?.length || 0,
+          seriesPoints: trendAnomalyReport.series?.length || 0,
+          missingDates: trendAnomalyReport.missingDates || [],
+        };
+        report.summary.trendAnomalyStatus = trendAnomalyReport.status;
+      } catch (error) {
+        report.trendAnomaly = { status: 'error', error: String(error?.message || error) };
+        report.summary.trendAnomalyStatus = 'error';
+      }
+    }
     const learningMemory = runAgentLearningMemory({
       ...options,
       timeContext: evidenceTimeContext,
@@ -1206,6 +1274,7 @@ function runAgentClosedLoop(options = {}) {
       dataDate: evidenceTimeContext.dataDate,
       learningFile: options.learningFile || '',
       autonomyAuditFile: preliminaryAutonomyAudit.files.outFile,
+      trendAnomalyFile,
       outFile: learningMemoryFile,
       markdownFile: learningMemoryMarkdownFile,
       today: evidenceTimeContext.businessDate,
@@ -1239,36 +1308,38 @@ function runAgentClosedLoop(options = {}) {
     report.summary.learningMemoryReady = !!learningMemory.nextRunBrief;
     report.summary.learningMemoryStatus = learningMemory.status;
     report.summary.learningMemoryConstraintCount = learningMemory.summary.constraints;
+    writeJson(closedLoopFile, report);
     const unattendedGate = runAgentUnattendedGate({
       ...options,
       timeContext: evidenceTimeContext,
-      businessDate: evidenceTimeContext.businessDate,
-      dataDate: evidenceTimeContext.dataDate,
       closedLoopFile,
       autonomyAuditFile: autonomyAudit.files.outFile,
       learningMemoryFile: learningMemory.files.outFile,
+      trendAnomalyFile: report.files.trendAnomalyFile || trendAnomalyFile,
       writeExecutionFile,
-      executionOutFile: options.unattendedExecutionOutFile || fileFor(outDir, 'unattended_write_execution', today),
-      executeIfReady: options.execute === true && options.executeIfReady === true,
+      ledger: options.ledger,
+      ledgerFile: options.ledgerFile,
+      actionSchemaFile: options.actionSchemaFile,
+      snapshotFile: snapshotInput.effectiveSnapshotFile || options.snapshotFile,
+      adjustmentsFile: options.adjustmentsFile,
       outFile: unattendedGateFile,
       markdownFile: unattendedGateMarkdownFile,
-      today: evidenceTimeContext.businessDate,
+      executionOutFile: unattendedExecutionFile,
+      executeIfReady: options.execute === true && options.executeIfReady === true,
     });
-    report.files.unattendedGateFile = unattendedGate.files.outFile;
-    report.files.unattendedGateMarkdownFile = unattendedGate.files.markdownFile;
     report.unattendedGate = unattendedGate;
-    report.summary.unattendedGateDecision = unattendedGate.decision;
+    report.files.unattendedGateFile = unattendedGate.files?.outFile || unattendedGateFile;
+    report.files.unattendedGateMarkdownFile = unattendedGate.files?.markdownFile || unattendedGateMarkdownFile;
+    if (unattendedGate.execution?.files?.outFile || fs.existsSync(unattendedExecutionFile)) {
+      report.files.unattendedExecutionFile = unattendedGate.execution?.files?.outFile || unattendedExecutionFile;
+    }
+    report.summary.unattendedGateDecision = unattendedGate.decision || 'unknown';
     report.summary.unattendedExecuteAllowed = unattendedGate.canAutoExecute === true;
-    report.summary.unattendedGateBlockerCount = unattendedGate.summary.blockers;
+    report.summary.unattendedGateBlockerCount = unattendedGate.summary?.blockers || unattendedGate.issues?.length || 0;
     report.summary.executeRequested = options.execute === true;
     report.summary.executeIfReadyRequested = options.executeIfReady === true;
-    report.summary.executeIfReady = options.execute === true && options.executeIfReady === true;
-    report.summary.unattendedExecuted = !!unattendedGate.execution;
-    if (unattendedGate.execution) {
-      report.files.unattendedExecutionFile = unattendedGate.execution.files?.outFile || options.unattendedExecutionOutFile || fileFor(outDir, 'unattended_write_execution', today);
-      report.summary.unattendedExecutionFailedStages = unattendedGate.execution.summary?.failedStages || 0;
-      report.summary.unattendedExecutionBlockedActions = unattendedGate.execution.summary?.blockedActions || 0;
-    }
+    report.summary.executeIfReady = options.execute === true && options.executeIfReady === true && unattendedGate.canAutoExecute === true;
+    report.summary.unattendedExecuted = unattendedGate.execution?.mode === 'execute';
     writeJson(closedLoopFile, report);
   }
   return report;
@@ -1334,6 +1405,7 @@ function parseArgs(argv) {
     now: get('--now') || process.env.AGENT_NOW || '',
     site: get('--site') || process.env.AD_OPS_SITE || 'Amazon.com',
     sourceRunId: get('--source-run-id') || process.env.SOURCE_RUN_ID || '',
+    commandTimeoutMs: Number(get('--command-timeout-ms') || process.env.AGENT_COMMAND_TIMEOUT_MS || 120000),
     execute: args.includes('--execute') || process.env.AGENT_WRITE_EXECUTE === '1',
     executeIfReady: args.includes('--execute-if-ready') || process.env.AGENT_EXECUTE_IF_READY === '1',
     generateDashboard: !args.includes('--skip-dashboard') && process.env.AGENT_SKIP_DASHBOARD !== '1',

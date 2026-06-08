@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { normalizeMandatoryDailyClosure } = require('./daily_mandatory_closure');
 
 const ROOT = path.join(__dirname, '..');
 
@@ -184,15 +185,18 @@ function buildDailyOperatingWorkflow(options = {}) {
   const allSku = buildAllSkuGate({ ...options, date });
   const season = buildSeasonGate({ ...options, date });
   const effectReview = buildEffectReviewGate(options.effectReviewCoverage || {});
+  const mandatoryDailyClosure = normalizeMandatoryDailyClosure(options.mandatoryDailyClosure || options.dailyMandatoryClosure || {});
   const blockers = [
     ...allSku.blockers,
     ...season.blockers,
     ...effectReview.blockers,
+    ...(mandatoryDailyClosure.required && !mandatoryDailyClosure.resolved ? mandatoryDailyClosure.reasons : []),
   ];
   const hasAnyArtifact = (
     allSku.status !== 'missing' ||
     season.status !== 'missing' ||
-    effectReview.dueReviews > 0
+    effectReview.dueReviews > 0 ||
+    mandatoryDailyClosure.required
   );
   let status = 'not_required';
   if (required || hasAnyArtifact) {
@@ -206,6 +210,8 @@ function buildDailyOperatingWorkflow(options = {}) {
     allSku,
     season,
     effectReview,
+    mandatoryDailyClosure,
+    mandatoryClosure: mandatoryDailyClosure,
   };
 }
 

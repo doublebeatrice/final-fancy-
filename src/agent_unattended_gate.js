@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { normalizeAgentTask } = require('./agent_control_plane');
+const { normalizeMandatoryDailyClosure } = require('./daily_mandatory_closure');
 
 const ROOT = path.join(__dirname, '..');
 
@@ -168,6 +169,13 @@ function buildUnattendedGate(options = {}, timeContext = {}) {
     });
   }
   const dailyStatus = text(summary.dailyClosureStatus);
+  const mandatoryDailyClosure = normalizeMandatoryDailyClosure(
+    summary.mandatoryDailyClosure ||
+    summary.dailyMandatoryClosure ||
+    closedLoop.mandatoryDailyClosure ||
+    closedLoop.handoff?.summary?.mandatoryDailyClosure ||
+    {}
+  );
   if (!['complete', 'needs_recovery'].includes(dailyStatus)) {
     addIssue(issues, {
       id: 'daily_status_not_executable',
@@ -179,6 +187,25 @@ function buildUnattendedGate(options = {}, timeContext = {}) {
       id: 'recovery_next_actions_missing',
       title: 'Recovery mode lacks next actions',
       nextAction: 'Generate KPI recovery next-actions before unattended execute.',
+    });
+  }
+  if (
+    mandatoryDailyClosure.required &&
+    !mandatoryDailyClosure.resolved &&
+    (!hasEligibleWriteActions || text(writeExecution.mode) === 'execute')
+  ) {
+    addIssue(issues, {
+      id: 'mandatory_daily_closure_not_landed',
+      title: 'Mandatory daily closure items are not landed',
+      evidence: [
+        `open=${mandatoryDailyClosure.openCount}`,
+        `unresolved=${mandatoryDailyClosure.unresolvedCount}`,
+        `eligibleActions=${eligibleActionCount}`,
+        ...mandatoryDailyClosure.reasons,
+      ],
+      nextAction: hasEligibleWriteActions
+        ? 'Do not reuse an already-executed schema; refresh readback and prove low-efficiency, over-budget, and price closure before stopping.'
+        : 'Generate or repair the low-efficiency, over-budget, and price action schema before treating the day as no-actions.',
     });
   }
 
@@ -223,6 +250,40 @@ function buildUnattendedGate(options = {}, timeContext = {}) {
       title: 'Learning memory has active watch constraints',
       evidence: [`warnings=${number(learningMemory.summary?.warnings)}`],
       nextAction: 'Proceed only if the active watches are recovery-mode warnings and not blockers.',
+    });
+  }
+
+  const trendAnomalyFile = options.trendAnomalyFile || defaultAgentFile('trend_anomaly', businessDate);
+  const trendAnomaly = options.trendAnomaly || readJson(trendAnomalyFile, {});
+  const trendStatus = text(trendAnomaly.status).toLowerCase();
+  if (trendStatus === 'red') {
+    addIssue(issues, {
+      id: 'trend_anomaly_red',
+      title: 'Multi-day trend anomaly is red',
+      evidence: [
+        relative(trendAnomalyFile),
+        ...(Array.isArray(trendAnomaly.redSignals) ? trendAnomaly.redSignals : []).map(signal => `${signal.metric}: ${(signal.evidence || [])[0] || ''}`),
+      ],
+      nextAction: 'Investigate trend regression (sales/units/profit/refund/ACOS) before unattended execute. Confirm 2 days of stabilization or recovery before reusing the same rule.',
+    });
+  } else if (trendStatus === 'yellow') {
+    addIssue(warnings, {
+      id: 'trend_anomaly_yellow',
+      severity: 'warning',
+      title: 'Multi-day trend anomaly is yellow',
+      evidence: [
+        relative(trendAnomalyFile),
+        ...(Array.isArray(trendAnomaly.yellowSignals) ? trendAnomaly.yellowSignals : []).map(signal => `${signal.metric}: ${(signal.evidence || [])[0] || ''}`),
+      ],
+      nextAction: 'Watch trend; confirm anomaly is recovery-mode warning, not regression, before scaling actions.',
+    });
+  } else if (trendStatus === 'insufficient_data') {
+    addIssue(warnings, {
+      id: 'trend_anomaly_insufficient_data',
+      severity: 'warning',
+      title: 'Trend anomaly check has insufficient data',
+      evidence: [relative(trendAnomalyFile)],
+      nextAction: 'Backfill seller_sales_core_7d_<date>.json so future runs can detect drift.',
     });
   }
 
@@ -343,18 +404,24 @@ function buildUnattendedGate(options = {}, timeContext = {}) {
       approvalNeededActions: number(plan.summary?.approvalNeededActions),
       blockedActions: number(plan.summary?.blockedActions),
       dailyClosureStatus: dailyStatus,
+      mandatoryDailyClosureStatus: mandatoryDailyClosure.status,
+      mandatoryDailyClosureOpen: mandatoryDailyClosure.openCount,
+      mandatoryDailyClosureUnresolved: mandatoryDailyClosure.unresolvedCount,
       autonomyStatus: text(autonomyAudit.status),
       learningMemoryStatus: text(learningMemory.status),
+      trendAnomalyStatus: trendStatus || 'unknown',
       writeMode: text(writeExecution.mode),
     },
     files: {
       closedLoopFile,
       autonomyAuditFile,
       learningMemoryFile,
+      trendAnomalyFile,
       writeExecutionFile,
     },
     executeCommand: text(plan.executeCommand || ''),
     writePlan: plan,
+    mandatoryDailyClosure,
     issues,
     warnings,
     tasks: issues.map(issue => taskForIssue(issue, context)),

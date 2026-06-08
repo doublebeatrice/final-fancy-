@@ -158,6 +158,23 @@ function defaultAgentCapabilities() {
       },
     },
     {
+      name: 'sellerinventory product analysis',
+      sourceSystem: 'sellerinventory',
+      surface: 'product_analysis',
+      operationType: 'read',
+      endpoint: { method: 'POST', path: '/kernel/productAnalysis/query2' },
+      contract: {
+        params: ['sku', 'seller', 'page', 'limit', 'asin', 'parent_asin'],
+        responseFields: ['sku', 'asin', 'parent_asin', 'seller', 'developer', 'inventory', 'sales', 'refer_profit'],
+        freshness: 'live_backend',
+        pagination: 'page_limit',
+        profitFreshness: 'refer_profit monthly buckets lag by about one closed month; do not use as current-month real-time profit',
+      },
+      verification: {
+        probeCommand: 'node scripts/execute/fetch_product_analysis_query2.js --sku <SKU>',
+      },
+    },
+    {
       name: 'removal inventory fields',
       sourceSystem: 'sellerinventory',
       surface: 'inventory_removal',

@@ -27,6 +27,7 @@ function parseArgs(argv) {
     closedLoopFile: get('--closed-loop') || process.env.AGENT_CLOSED_LOOP_OUT || '',
     autonomyAuditFile: get('--autonomy-audit') || process.env.AGENT_AUTONOMY_AUDIT_OUT || '',
     learningMemoryFile: get('--learning-memory') || process.env.AGENT_LEARNING_MEMORY_OUT || '',
+    trendAnomalyFile: get('--trend-anomaly') || process.env.AGENT_TREND_ANOMALY_OUT || '',
     writeExecutionFile: get('--write-execution') || process.env.AGENT_WRITE_EXECUTION_FILE || '',
     ledgerFile: get('--ledger') || process.env.AGENT_LEDGER_FILE || '',
     actionSchemaFile: get('--actions') || get('--action-schema') || process.env.ACTION_SCHEMA_FILE || '',

@@ -58,10 +58,12 @@ function baselineFromAction(action = {}) {
 
 function reviewDaysFromAction(action = {}) {
   const reviewPlan = action.reviewPlan || action.meta?.expectation?.reviewPlan || {};
+  const goal = action.goal || reviewPlan.goal || action.meta?.expectation?.goal || {};
   const values = [
     ...(Array.isArray(reviewPlan.checkAfterDays) ? reviewPlan.checkAfterDays : []),
     ...(Array.isArray(reviewPlan.windows) ? reviewPlan.windows : []),
     ...(Array.isArray(action.learning?.measurementWindowDays) ? action.learning.measurementWindowDays : []),
+    goal.deadlineDays,
   ];
   return [...new Set(values.map(Number).filter(day => Number.isFinite(day) && day > 0))]
     .sort((a, b) => a - b);
@@ -334,9 +336,21 @@ function assessAuthorization(action = {}) {
 
 function buildReviewTasks({ sourceTaskId = '', action = {}, timeContext = {} } = {}) {
   const reviewPlan = action.reviewPlan || {};
+  const goal = action.goal || reviewPlan.goal || null;
+  const killSwitch = action.killSwitch || reviewPlan.killSwitch || null;
   const days = reviewDaysFromAction(action);
   const inferredBaseline = reviewPlan.baseline ? null : baselineFromAction(action);
   return days.map(day => normalizeAgentTask({
+    taskId: text(action.reviewTaskId) || `effect_review::${stableHash([
+      sourceTaskId,
+      action.taskId,
+      action.sku,
+      action.asin,
+      action.id || action.entityId,
+      action.actionType,
+      action.entityType,
+      day,
+    ])}::${day}d`,
     source: 'effect_review',
     kind: 'effect_review',
     title: `${text(action.sku || action.asin || action.id || 'action')} ${day}日效果复查`,
@@ -352,9 +366,11 @@ function buildReviewTasks({ sourceTaskId = '', action = {}, timeContext = {} } =
     reviewPlan: {
       ...reviewPlan,
       ...(inferredBaseline ? { baseline: inferredBaseline } : {}),
+      ...(goal ? { goal } : {}),
+      ...(killSwitch ? { killSwitch } : {}),
       checkAfterDays: days,
       checkAfterDay: day,
-      rollbackIf: text(reviewPlan.rollbackIf || reviewPlan.escalationPlan || ''),
+      rollbackIf: text(reviewPlan.rollbackIf || reviewPlan.escalationPlan || killSwitch?.rollbackIf || killSwitch?.condition || ''),
     },
     reviewOf: {
       sourceTaskId: text(sourceTaskId),
@@ -373,9 +389,65 @@ function countBy(items, keyFn) {
   }, {});
 }
 
+function uniqueByTaskId(tasks = []) {
+  const map = new Map();
+  for (const task of tasks) {
+    const key = text(task.taskId);
+    if (!key) continue;
+    map.set(key, task);
+  }
+  return [...map.values()];
+}
+
+function ledgerTasks(ledger = {}) {
+  return uniqueByTaskId([
+    ...(Array.isArray(ledger.tasks) ? ledger.tasks : []),
+    ...(Array.isArray(ledger.reviewTasks) ? ledger.reviewTasks : []),
+    ...(Array.isArray(ledger.carriedTasks) ? ledger.carriedTasks : []),
+    ...(Array.isArray(ledger.nextOpenTasks) ? ledger.nextOpenTasks : []),
+  ]);
+}
+
+function previousTaskMap(input = {}) {
+  const ledgers = [
+    ...(Array.isArray(input.previousLedgers) ? input.previousLedgers : []),
+    ...(input.previousLedger ? [input.previousLedger] : []),
+  ];
+  const map = new Map();
+  for (const ledger of ledgers) {
+    for (const task of ledgerTasks(ledger)) {
+      const key = text(task.taskId);
+      if (!key) continue;
+      map.set(key, task);
+    }
+  }
+  return map;
+}
+
+function carryForwardTask(task = {}, previous = null) {
+  if (!previous) return task;
+  const previousStatus = text(previous.status);
+  if (previousStatus === 'closed' || previousStatus === 'blocked') return previous;
+  if (Array.isArray(previous.history) && previous.history.length) {
+    return {
+      ...task,
+      history: previous.history,
+      createdAt: previous.createdAt || task.createdAt,
+      updatedAt: previous.updatedAt || task.updatedAt,
+      status: previous.status || task.status,
+      conclusion: previous.conclusion || task.conclusion,
+    };
+  }
+  return task;
+}
+
 function buildAgentLedger(input = {}) {
   const timeContext = input.timeContext || {};
-  const tasks = (input.tasks || []).map(task => normalizeAgentTask(task, timeContext));
+  const previous = previousTaskMap(input);
+  const tasks = (input.tasks || []).map(task => {
+    const normalized = normalizeAgentTask(task, timeContext);
+    return carryForwardTask(normalized, previous.get(normalized.taskId));
+  });
   const actions = (input.actions || []).map(action => ({
     ...action,
     authorization: assessAuthorization(action),
@@ -384,8 +456,39 @@ function buildAgentLedger(input = {}) {
     sourceTaskId: action.sourceTaskId || action.taskId || '',
     action,
     timeContext,
-  }));
-  const nextOpenTasks = [...tasks, ...reviewTasks].filter(task => task.status !== 'closed');
+  }).map(task => carryForwardTask(task, previous.get(task.taskId))));
+  const taskReviewTasks = tasks
+    .filter(task => task.source !== 'effect_review' && task.reviewPlan)
+    .flatMap(task => {
+      const subjectSkus = list(task.reviewPlan?.subjectSkus);
+      const reviewSkus = subjectSkus.length ? subjectSkus : list(task.subject?.sku);
+      const subjects = reviewSkus.length ? reviewSkus : [''];
+      const isMultiSkuReview = subjectSkus.length > 1;
+      return subjects.flatMap(sku => buildReviewTasks({
+        sourceTaskId: isMultiSkuReview ? [task.taskId, sku].filter(Boolean).join('::') : task.taskId,
+        action: {
+          sku: sku || task.subject?.sku,
+          asin: reviewSkus.length <= 1 ? task.subject?.asin : '',
+          id: isMultiSkuReview
+            ? [task.subject?.entityId || task.subject?.keyword || task.taskId, sku].filter(Boolean).join('::')
+            : (task.subject?.entityId || task.subject?.keyword || task.taskId),
+          actionType: task.kind || 'external_request',
+          entityType: task.lane || task.source || 'external_task',
+          reviewPlan: task.reviewPlan,
+          goal: task.reviewPlan?.goal,
+          killSwitch: task.reviewPlan?.killSwitch,
+        },
+        timeContext: {
+          ...timeContext,
+          businessDate: task.reviewPlan?.baselineAsOf || task.businessDate || timeContext.businessDate,
+          dataDate: task.dataDate || timeContext.dataDate,
+        },
+      }).map(reviewTask => carryForwardTask(reviewTask, previous.get(reviewTask.taskId))));
+    });
+  const allReviewTasks = uniqueByTaskId([...reviewTasks, ...taskReviewTasks]);
+  const carriedPreviousTasks = [...previous.values()].filter(task => !tasks.some(item => item.taskId === task.taskId) && !allReviewTasks.some(item => item.taskId === task.taskId));
+  const allTasks = uniqueByTaskId([...tasks, ...allReviewTasks, ...carriedPreviousTasks]);
+  const nextOpenTasks = allTasks.filter(task => task.status !== 'closed');
 
   return {
     generatedAt: text(input.generatedAt || timeContext.runAt || new Date().toISOString()),
@@ -395,15 +498,18 @@ function buildAgentLedger(input = {}) {
     summary: {
       taskCount: tasks.length,
       actionCount: actions.length,
-      reviewTaskCount: reviewTasks.length,
+      reviewTaskCount: allReviewTasks.length,
       nextOpenTaskCount: nextOpenTasks.length,
       byStatus: countBy(nextOpenTasks, task => task.status),
+      allByStatus: countBy(allTasks, task => task.status),
+      closedTaskCount: allTasks.filter(task => task.status === 'closed').length,
       byLane: countBy(tasks, task => task.lane),
       authorization: countBy(actions, action => action.authorization.mode),
     },
     tasks,
     actions,
-    reviewTasks,
+    reviewTasks: allReviewTasks,
+    carriedTasks: carriedPreviousTasks,
     nextOpenTasks,
   };
 }

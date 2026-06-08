@@ -64,7 +64,7 @@ function eventForResult(result = {}) {
     };
   }
 
-  if (result.verdict === 'close_success') {
+  if (result.verdict === 'close_success' || result.verdict === 'goal_met') {
     return {
       type: 'close',
       statusEvent: 'close',
@@ -73,7 +73,7 @@ function eventForResult(result = {}) {
     };
   }
 
-  if (result.verdict === 'continue_watch') {
+  if (['continue_watch', 'goal_partial', 'early_window'].includes(result.verdict)) {
     return {
       type: 'schedule_review',
       statusEvent: 'schedule_review',
@@ -82,7 +82,7 @@ function eventForResult(result = {}) {
     };
   }
 
-  if (result.verdict === 'rollback_review' || result.verdict === 'needs_data') {
+  if (['rollback_review', 'goal_missed', 'needs_data'].includes(result.verdict)) {
     return {
       type: 'command_requires_action',
       statusEvent: 'block',

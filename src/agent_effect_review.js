@@ -15,6 +15,13 @@ function dateOnly(value) {
   return date.toISOString().slice(0, 10);
 }
 
+function daysBetween(start = '', end = '') {
+  const startDate = new Date(dateOnly(start) + 'T00:00:00.000Z');
+  const endDate = new Date(dateOnly(end) + 'T00:00:00.000Z');
+  if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) return null;
+  return Math.floor((endDate.getTime() - startDate.getTime()) / 86400000);
+}
+
 function evidenceKeyForTask(task = {}) {
   const subject = task.subject || {};
   return text(subject.sku) || text(subject.asin) || text(subject.keyword) || text(subject.entityId) || text(task.taskId);
@@ -49,14 +56,73 @@ function hasMarketRisk(signals = []) {
   return signals.some(signal => String(signal).startsWith('market_'));
 }
 
+function goalForTask(task = {}) {
+  const goal = task.reviewPlan?.goal || task.goal || task.reviewGoal || null;
+  return goal && typeof goal === 'object' ? goal : null;
+}
+
+function metricValue(metrics = {}, name = '') {
+  const key = text(name).toLowerCase();
+  if (!key) return null;
+  const aliases = {
+    unit: ['units', 'orders'],
+    units: ['units', 'orders'],
+    order: ['orders'],
+    orders: ['orders'],
+    sales: ['sales'],
+    netprofit: ['netProfit', 'net_profit'],
+    net_profit: ['netProfit', 'net_profit'],
+    spend: ['spend'],
+    acos: ['acos'],
+    clicks: ['clicks'],
+    impressions: ['impressions'],
+  }[key] || [key];
+  for (const alias of aliases) {
+    if (metrics[alias] !== undefined && metrics[alias] !== null && metrics[alias] !== '') {
+      return num(metrics[alias], null);
+    }
+  }
+  return null;
+}
+
+function evaluateGoal(task = {}, baseline = {}, current = {}) {
+  const goal = goalForTask(task);
+  if (!goal) return null;
+  const metric = text(goal.metric || goal.name || 'orders').toLowerCase();
+  const currentValue = metricValue(current, metric);
+  if (currentValue === null) return null;
+  const target = goal.to ?? goal.target ?? goal.min ?? null;
+  const hardFloor = goal.hardFloor ?? goal.floor ?? null;
+  const baselineValue = metricValue(baseline, metric);
+  if (target !== null && currentValue >= num(target, Infinity)) {
+    return { verdict: 'goal_met', reason: `goal_${metric}_met`, goal, currentValue, baselineValue };
+  }
+  if (hardFloor !== null && currentValue < num(hardFloor, -Infinity)) {
+    return { verdict: 'goal_missed', reason: `goal_${metric}_below_hard_floor`, goal, currentValue, baselineValue };
+  }
+  return { verdict: 'goal_partial', reason: `goal_${metric}_not_met_yet`, goal, currentValue, baselineValue };
+}
+
 function enrichResult(result = {}, evidence = {}) {
   return {
     ...result,
+    baselineAsOf: text(result.baselineAsOf || evidence.baselineAsOf || evidence.baseline?.asOf || evidence.baseline?.exportedAt || ''),
+    currentAsOf: text(result.currentAsOf || evidence.currentAsOf || evidence.current?.asOf || evidence.current?.exportedAt || ''),
+    currentStale: result.currentStale === true || evidence.currentStale === true,
     inventory: evidence.inventory || null,
     profit: evidence.profit || null,
     market: evidence.market || null,
     riskSignals: Array.isArray(evidence.riskSignals) ? evidence.riskSignals.slice() : [],
   };
+}
+
+function baseResult(task = {}, evidence = {}, patch = {}) {
+  return enrichResult({
+    taskId: task.taskId || '',
+    key: evidenceKeyForTask(task),
+    title: task.title || '',
+    ...patch,
+  }, evidence);
 }
 
 function evaluateReviewTask(task = {}, evidence = {}) {
@@ -69,7 +135,7 @@ function evaluateReviewTask(task = {}, evidence = {}) {
       verdict: 'needs_data',
       status: 'blocked',
       reasons: ['missing_baseline_or_current_metrics'],
-      nextStep: '先拉取执行前基线和当前表现，再做复查判断。',
+      nextStep: 'Collect baseline and current metrics before judging the action.',
     }, evidence);
   }
 
@@ -77,6 +143,12 @@ function evaluateReviewTask(task = {}, evidence = {}) {
   const current = evidence.current || {};
   const guardrailRisks = businessGuardrailRisks(evidence);
   const reasons = [];
+  const baselineAsOf = text(evidence.baselineAsOf || baseline.asOf || baseline.exportedAt || task.reviewPlan?.baselineAsOf || task.dataDate || task.businessDate || task.createdAt);
+  const currentAsOf = text(evidence.currentAsOf || current.asOf || current.exportedAt);
+  const today = text(evidence.today || task.today || '');
+  const currentAgeDays = today && currentAsOf ? daysBetween(currentAsOf, today) : null;
+  const currentStale = currentAgeDays !== null && currentAgeDays > 2;
+  const timeWindowPatch = { baselineAsOf, currentAsOf, currentStale, currentAgeDays };
   const spendBefore = num(baseline.spend);
   const spendAfter = num(current.spend);
   const ordersBefore = num(baseline.orders);
@@ -84,34 +156,80 @@ function evaluateReviewTask(task = {}, evidence = {}) {
   const rollbackIf = text(task.reviewPlan?.rollbackIf).toLowerCase();
   const reviewDay = num(task.reviewPlan?.checkAfterDay, 0);
 
+  if (!baselineAsOf || !currentAsOf) {
+    return baseResult(task, { ...evidence, currentStale }, {
+      verdict: 'needs_data',
+      status: 'blocked',
+      reasons: ['missing_effect_review_time_window'],
+      baseline,
+      current,
+      ...timeWindowPatch,
+      nextStep: 'Collect distinct baselineAsOf and currentAsOf before judging the action.',
+    });
+  }
+
+  if (dateOnly(baselineAsOf) === dateOnly(currentAsOf)) {
+    return baseResult(task, { ...evidence, currentStale }, {
+      verdict: 'needs_data',
+      status: 'blocked',
+      reasons: ['same_window_baseline_and_current'],
+      baseline,
+      current,
+      ...timeWindowPatch,
+      nextStep: 'Baseline and current are from the same window; do not judge against itself.',
+    });
+  }
+
   if (rollbackIf.includes('spend rises without orders') && spendAfter > spendBefore && ordersAfter <= ordersBefore) {
     reasons.push('spend_rises_without_orders');
-    return enrichResult({
-      taskId: task.taskId || '',
-      key,
-      title: task.title || '',
-      verdict: 'rollback_review',
-      status: 'needs_action',
+    if (currentStale) reasons.push('current_metrics_stale');
+    return baseResult(task, evidence, {
+      verdict: currentStale ? 'goal_partial' : 'goal_missed',
+      status: currentStale ? 'waiting_review' : 'needs_action',
       reasons,
       baseline,
       current,
-      nextStep: '进入回滚或二次控制复核，不要继续放大该动作。',
-      }, evidence);
+      ...timeWindowPatch,
+      nextStep: currentStale
+        ? 'Current metrics are stale; keep this review open and refresh evidence before rollback.'
+        : 'Review rollback or secondary control; do not keep scaling this action.',
+    });
   }
 
   if (reviewDay > 0 && reviewDay < 3) {
     reasons.push('early_review_window');
-    return enrichResult({
-      taskId: task.taskId || '',
-      key,
-      title: task.title || '',
-      verdict: 'continue_watch',
+    return baseResult(task, evidence, {
+      verdict: 'early_window',
       status: 'waiting_review',
       reasons,
       baseline,
       current,
-      nextStep: '1日窗口只做早期回查，不关闭动作；继续观察到3日窗口再判断保留、回滚或二次动作。',
-    }, evidence);
+      ...timeWindowPatch,
+      nextStep: 'Early review window; wait for the next scheduled checkpoint before closing or rolling back.',
+    });
+  }
+
+  const goalResult = evaluateGoal(task, baseline, current);
+  if (goalResult) {
+    reasons.push(goalResult.reason);
+    return baseResult(task, evidence, {
+      verdict: currentStale && goalResult.verdict !== 'goal_partial' ? 'goal_partial' : goalResult.verdict,
+      status: (currentStale && goalResult.verdict !== 'goal_partial' ? 'goal_partial' : goalResult.verdict) === 'goal_met'
+        ? 'closed_recommended'
+        : ((currentStale && goalResult.verdict !== 'goal_partial' ? 'goal_partial' : goalResult.verdict) === 'goal_missed' ? 'needs_action' : 'waiting_review'),
+      reasons: currentStale && goalResult.verdict !== 'goal_partial' ? [...reasons, 'current_metrics_stale'] : reasons,
+      baseline,
+      current,
+      ...timeWindowPatch,
+      goal: goalResult.goal,
+      goalCurrentValue: goalResult.currentValue,
+      goalBaselineValue: goalResult.baselineValue,
+      nextStep: goalResult.verdict === 'goal_met'
+        ? 'Goal met; close this review and preserve the lesson.'
+        : (goalResult.verdict === 'goal_missed'
+          ? 'Goal missed; create rollback or direction-change work.'
+          : 'Goal not fully met; keep watching until the next checkpoint.'),
+    });
   }
 
   if (ordersAfter > ordersBefore && acosImprovedOrStable(baseline, current)) {
@@ -119,43 +237,41 @@ function evaluateReviewTask(task = {}, evidence = {}) {
     if (guardrailRisks.length) {
       reasons.push('business_guardrail_risk', ...guardrailRisks);
       if (hasMarketRisk(guardrailRisks)) reasons.push('market_guardrail_risk');
-      return enrichResult({
-        taskId: task.taskId || '',
-        key,
-        title: task.title || '',
-        verdict: 'continue_watch',
+      if (currentStale) reasons.push('current_metrics_stale');
+      return baseResult(task, evidence, {
+        verdict: 'goal_partial',
         status: 'waiting_review',
         reasons,
         baseline,
         current,
-        nextStep: '订单有改善，但库存或利润约束仍未通过，继续观察并限制追加放量。',
-      }, evidence);
+        ...timeWindowPatch,
+        nextStep: 'Orders improved, but guardrails still require observation before scaling.',
+      });
     }
-    return enrichResult({
-      taskId: task.taskId || '',
-      key,
-      title: task.title || '',
-      verdict: 'close_success',
-      status: 'closed_recommended',
+    if (currentStale) reasons.push('current_metrics_stale');
+    return baseResult(task, evidence, {
+      verdict: currentStale ? 'goal_partial' : 'goal_met',
+      status: currentStale ? 'waiting_review' : 'closed_recommended',
       reasons,
       baseline,
       current,
-      nextStep: '记录为有效动作，关闭本次复查，保留后续常规观察。',
-    }, evidence);
+      ...timeWindowPatch,
+      nextStep: currentStale
+        ? 'Orders improved, but current metrics are stale; refresh evidence before closing.'
+        : 'Goal met by order improvement; close this review and preserve the lesson.',
+    });
   }
 
   reasons.push('no_clear_change_yet');
-  return enrichResult({
-    taskId: task.taskId || '',
-    key,
-    title: task.title || '',
-    verdict: 'continue_watch',
+  return baseResult(task, evidence, {
+    verdict: 'goal_partial',
     status: 'waiting_review',
     reasons,
     baseline,
     current,
-    nextStep: '继续观察到下一个复查窗口，暂不追加动作。',
-  }, evidence);
+    ...timeWindowPatch,
+    nextStep: 'No clear change yet; keep watching until the next checkpoint.',
+  });
 }
 
 function countBy(items, keyFn) {
@@ -170,16 +286,24 @@ function buildEffectReviewReport(input = {}) {
   const queue = input.queue || {};
   const due = queue.due || queue.tasks || [];
   const evidence = input.evidence || {};
-  const results = due.map(task => evaluateReviewTask(task, evidence[evidenceKeyForTask(task)] || {}));
+  const today = dateOnly(input.today || new Date().toISOString());
+  const results = due.map(task => evaluateReviewTask(task, {
+    ...(evidence[evidenceKeyForTask(task)] || {}),
+    today,
+  }));
+  const timeWindowDowngraded = results.filter(item => (item.reasons || []).includes('same_window_baseline_and_current')).length;
+  const staleDowngraded = results.filter(item => (item.reasons || []).includes('current_metrics_stale')).length;
   return {
     generatedAt: text(input.generatedAt || new Date().toISOString()),
-    today: dateOnly(input.today || new Date().toISOString()),
+    today,
     summary: {
       total: results.length,
       byVerdict: countBy(results, item => item.verdict),
       byStatus: countBy(results, item => item.status),
       needsAction: results.filter(item => item.status === 'needs_action').length,
       blocked: results.filter(item => item.status === 'blocked').length,
+      timeWindowDowngraded,
+      staleDowngraded,
     },
     results,
   };

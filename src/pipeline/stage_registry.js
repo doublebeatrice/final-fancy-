@@ -19,6 +19,11 @@ const DEFAULT_STAGES = Object.freeze([
     inputs: ['snapshot_file', 'adjustment_log'],
   },
   {
+    name: 'external_inbox',
+    required: false,
+    inputs: ['external_task_text', 'external_task_file', 'external_task_dir'],
+  },
+  {
     name: 'proactive_operating_audit',
     required: false,
     inputs: ['snapshot_file', 'time_context'],
@@ -38,11 +43,6 @@ const DEFAULT_STAGES = Object.freeze([
     required: false,
     inputs: ['active_browser_session', 'ad_backend_rows'],
     retryDelayMinutes: 15,
-  },
-  {
-    name: 'ad_structure_opportunities',
-    required: false,
-    inputs: ['snapshot_file'],
   },
   {
     name: 'sku_ad_form_summary',
@@ -71,11 +71,86 @@ const DEFAULT_STAGES = Object.freeze([
     inputs: ['manifest', 'task_pool', 'adjustment_records'],
   },
   {
+    name: 'trend_anomaly_check',
+    required: false,
+    inputs: ['daily_learning_file', 'kpi_baseline'],
+  },
+  {
     name: 'report',
     required: false,
     inputs: ['execution_verify', 'execution_summary', 'execution_coverage'],
   },
 ]);
+
+const DORMANT_COMPONENTS = Object.freeze([
+  {
+    id: 'agent_unattended_gate',
+    status: 'dormant',
+    reason: 'Unattended execute gating is not accepted as completion proof until actions carry falsifiable goals and landed readback.',
+    mainFlow: false,
+    completionProof: false,
+  },
+  {
+    id: 'agent_unattended_supervisor',
+    status: 'dormant',
+    reason: 'Scheduler heartbeat alone does not prove product judgement, execution, or effect review closure.',
+    mainFlow: false,
+    completionProof: false,
+  },
+  {
+    id: 'agent_unattended_scheduler',
+    status: 'dormant',
+    reason: 'Schedule install/audit artifacts are operational plumbing, not business closure evidence.',
+    mainFlow: false,
+    completionProof: false,
+  },
+  {
+    id: 'agent_goal_audit',
+    status: 'dormant',
+    reason: 'Goal audit can summarize evidence but must not replace ledger/effect-review proof.',
+    mainFlow: false,
+    completionProof: false,
+  },
+  {
+    id: 'agent_completion_audit',
+    status: 'dormant',
+    reason: 'Completion audit previously aggregated green artifacts without proving one action lifecycle.',
+    mainFlow: false,
+    completionProof: false,
+  },
+  {
+    id: 'ai_decision_brief_artifact',
+    status: 'dormant',
+    reason: 'The brief is a view artifact and can hide product-identity mistakes; task cards remain the source artifact.',
+    mainFlow: false,
+    completionProof: false,
+  },
+  {
+    id: 'operating_hub_feedback_artifact',
+    status: 'dormant',
+    reason: 'Feedback file only mirrors command results and must not count as effect-review feedback.',
+    mainFlow: false,
+    completionProof: false,
+  },
+  {
+    id: 'ad_structure_opportunities_detail',
+    status: 'dormant',
+    reason: 'The detail audit is not product-level closure and is no longer a default daily stage.',
+    mainFlow: false,
+    completionProof: false,
+  },
+  {
+    id: 'review_evidence_artifact',
+    status: 'dormant',
+    reason: 'Review evidence files are inputs only; the effect-review verdict and ledger transition are the closure proof.',
+    mainFlow: false,
+    completionProof: false,
+  },
+]);
+
+function dormantComponent(id) {
+  return DORMANT_COMPONENTS.find(item => item.id === id) || null;
+}
 
 function normalizeStage(stage = {}, index = 0) {
   const name = String(stage.name || '').trim();
@@ -120,8 +195,10 @@ function assertStageStatus(status) {
 
 module.exports = {
   DEFAULT_STAGES,
+  DORMANT_COMPONENTS,
   STAGE_STATUSES,
   assertStageStatus,
   createStageRegistry,
+  dormantComponent,
   normalizeStage,
 };

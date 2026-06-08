@@ -6,6 +6,7 @@ const {
   buildActionQuality,
   buildFetchOptions,
   buildKpiRecoveryOverBudgetSchema,
+  buildOperatingClosure,
   buildProactiveRecoveryActionSchema,
   buildRunQuality,
   buildRunSummary,
@@ -25,6 +26,19 @@ const {
   assert.strictEqual(options.dryRun, false);
   assert.strictEqual(options.operationMode, 'execute');
   assert.strictEqual(options.mode, 'full-snapshot', 'execute must not replace requested snapshot mode');
+}
+
+{
+  const options = parseArgs([
+    'node',
+    'scripts/run_today_ops.js',
+    '--business-date',
+    '2026-06-03',
+    '--data-date',
+    '2026-06-02',
+  ]);
+  assert.strictEqual(options.businessDate, '2026-06-03');
+  assert.strictEqual(options.dataDate, '2026-06-02');
 }
 
 {
@@ -81,6 +95,45 @@ const {
   assert.strictEqual(runQuality.status, 'needs_attention');
   assert.strictEqual(runQuality.dataQuality, 'warning');
   assert.strictEqual(runQuality.actionQuality, 'no_action_plan');
+}
+
+{
+  const manifest = {
+    status: 'success',
+    operationMode: 'dry-run',
+    dataQuality: { baselineQuality: 'complete', warnings: [] },
+    schemaValidation: { planActionCount: 0, executableSkus: 0, errorCount: 0 },
+    overBudgetCoverage: { actionableCampaigns: 12 },
+    lowEfficiencyPools: { actionableRows: 5 },
+    proactiveOperatingAudit: { priceActions: 3 },
+    steps: [{ name: 'execute_verify_note', status: 'skipped' }],
+  };
+  manifest.operatingClosure = buildOperatingClosure(manifest);
+  const actionQuality = buildActionQuality(manifest, { execute: false });
+  assert.strictEqual(actionQuality.status, 'blocked');
+  assert.strictEqual(actionQuality.mandatoryDailyClosure.openCount, 20);
+  assert.ok(actionQuality.warnings.includes('mandatory_daily_closure_not_landed'));
+  assert.ok(actionQuality.warnings.includes('low_efficiency_not_landed'));
+  assert.ok(actionQuality.warnings.includes('over_budget_not_landed'));
+  assert.ok(actionQuality.warnings.includes('price_not_landed'));
+}
+
+{
+  const manifest = {
+    status: 'success',
+    operationMode: 'execute',
+    dataQuality: { baselineQuality: 'complete', warnings: [] },
+    schemaValidation: { planActionCount: 20, executableSkus: 4, errorCount: 0 },
+    overBudgetCoverage: { actionableCampaigns: 12 },
+    lowEfficiencyPools: { actionableRows: 5 },
+    proactiveOperatingAudit: { priceActions: 3 },
+    steps: [{ name: 'execute_verify_note', status: 'success' }],
+  };
+  manifest.operatingClosure = buildOperatingClosure(manifest);
+  const actionQuality = buildActionQuality(manifest, { execute: true });
+  assert.strictEqual(actionQuality.status, 'executed');
+  assert.strictEqual(actionQuality.mandatoryDailyClosure.resolved, false);
+  assert.ok(actionQuality.warnings.includes('mandatory_daily_closure_not_landed'));
 }
 
 {

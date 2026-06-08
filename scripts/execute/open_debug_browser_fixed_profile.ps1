@@ -27,7 +27,7 @@ $requiredUrls = @(
   "https://adv.yswg.com.cn/",
   "https://sellerinventory.yswg.com.cn/",
   "https://selection.yswg.com.cn/dashboard/analysis",
-  "chrome-extension://ipidenfkcdlhadnieamoocalimlnhagj/panel.html"
+  "https://www.sif.com/"
 )
 
 function Coalesce-Text {
@@ -119,6 +119,22 @@ function Resolve-ProfileDirectory {
   return Coalesce-Text -Values @($ProfileDirectory, $env:AD_OPS_CHROME_PROFILE_DIRECTORY)
 }
 
+function Resolve-LocalChromeForTestingPath {
+  $toolsDir = Join-Path $repoRoot "tools\chrome-for-testing"
+  if (-not (Test-Path $toolsDir)) {
+    return ""
+  }
+
+  $candidate = Get-ChildItem -LiteralPath $toolsDir -Recurse -Filter "chrome.exe" -ErrorAction SilentlyContinue |
+    Where-Object { $_.FullName -match "\\chrome-win64\\chrome\.exe$" } |
+    Sort-Object FullName -Descending |
+    Select-Object -First 1
+  if ($candidate) {
+    return $candidate.FullName
+  }
+  return ""
+}
+
 function Resolve-ChromePath {
   $configuredPath = Coalesce-Text -Values @($ChromePath, $env:AD_OPS_CHROME_PATH)
   if (-not [string]::IsNullOrWhiteSpace($configuredPath)) {
@@ -129,6 +145,8 @@ function Resolve-ChromePath {
     throw "Configured Chrome executable not found: $resolvedPath"
   }
 
+  $chromeForTestingPath = Resolve-LocalChromeForTestingPath
+
   $candidatePaths = @(
     "C:\Program Files\Google\Chrome\Application\chrome.exe",
     "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
@@ -138,6 +156,10 @@ function Resolve-ChromePath {
   $path = $candidatePaths | Where-Object { Test-Path $_ } | Select-Object -First 1
   if ($path) {
     return $path
+  }
+
+  if (-not [string]::IsNullOrWhiteSpace($chromeForTestingPath)) {
+    return $chromeForTestingPath
   }
 
   try {
@@ -179,6 +201,17 @@ function Get-ActiveDebugProfileDir {
     return Resolve-FullPath -Path $value
   } catch {
     return ""
+  }
+}
+
+function Stop-DebugChrome {
+  $debugProcesses = Get-CimInstance Win32_Process -Filter "name = 'chrome.exe'" |
+    Where-Object {
+      $_.CommandLine -like "*--remote-debugging-port=$DebugPort*" -and
+      $_.CommandLine -notlike "*--type=*"
+    }
+  foreach ($debugProcess in $debugProcesses) {
+    Stop-Process -Id $debugProcess.ProcessId -Force -ErrorAction SilentlyContinue
   }
 }
 
@@ -228,10 +261,18 @@ function Invoke-BackendLoginReady {
   }
 
   Write-Host "Checking backend login readiness through WeCom browser access..."
-  & node $scriptPath
-  if ($LASTEXITCODE -ne 0) {
-    exit $LASTEXITCODE
+  $previousErrorActionPreference = $ErrorActionPreference
+  $ErrorActionPreference = "Continue"
+  try {
+    $output = & node $scriptPath 2>&1
+    $exitCode = $LASTEXITCODE
+  } finally {
+    $ErrorActionPreference = $previousErrorActionPreference
   }
+  foreach ($line in $output) {
+    Write-Host $line
+  }
+  return $exitCode
 }
 
 function Quote-Arg {
@@ -288,6 +329,8 @@ $chromeArgs = @(
   "--user-data-dir=$resolvedProfileDir",
   "--variations-override-country=us",
   "--lang=en-US",
+  "--disable-infobars",
+  "--disable-session-crashed-bubble",
   "--no-first-run"
 )
 
@@ -301,6 +344,7 @@ if (-not $NoProjectExtension -and (Test-Path $projectExtensionDir)) {
 }
 if ($extensionLoadDirs.Count -gt 0) {
   $extensionList = ($extensionLoadDirs | Select-Object -Unique) -join ','
+  $chromeArgs += "--disable-extensions-except=$extensionList"
   $chromeArgs += "--load-extension=$extensionList"
 }
 
@@ -330,8 +374,13 @@ if ($existingTabs) {
   if ($ShowWindow) {
     Show-DebugChromeWindow
   }
-  Invoke-BackendLoginReady
-  exit 0
+  $readyExitCode = Invoke-BackendLoginReady
+  if ($readyExitCode -eq 0) {
+    exit 0
+  }
+  Write-Warning "Existing Chrome debug session failed readiness. Restarting the debug Chrome on $debugUrl with the resolved browser binary."
+  Stop-DebugChrome
+  Start-Sleep -Seconds 2
 }
 
 if ($DryRun) {
@@ -357,4 +406,7 @@ Write-Host "User data dir: $resolvedProfileDir"
 if (-not [string]::IsNullOrWhiteSpace($resolvedProfileDirectory)) {
   Write-Host "Profile directory: $resolvedProfileDirectory"
 }
-Invoke-BackendLoginReady
+$readyExitCode = Invoke-BackendLoginReady
+if ($readyExitCode -ne 0) {
+  exit $readyExitCode
+}

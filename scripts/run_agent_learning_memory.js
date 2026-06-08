@@ -25,6 +25,7 @@ function parseArgs(argv) {
     sourceRunId: get('--source-run-id') || process.env.SOURCE_RUN_ID || '',
     learningFile: get('--learning') || process.env.AGENT_DAILY_LEARNING_FILE || '',
     autonomyAuditFile: get('--autonomy-audit') || process.env.AGENT_AUTONOMY_AUDIT_OUT || '',
+    trendAnomalyFile: get('--trend-anomaly') || process.env.AGENT_TREND_ANOMALY_OUT || '',
     correctionDir: get('--correction-dir') || process.env.AGENT_CORRECTION_LEARNING_DIR || '',
     skuLessonDir: get('--sku-lesson-dir') || process.env.AGENT_SKU_LESSON_DIR || '',
     outFile: get('--out') || process.env.AGENT_LEARNING_MEMORY_OUT || '',

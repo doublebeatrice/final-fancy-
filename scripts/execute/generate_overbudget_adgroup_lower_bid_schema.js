@@ -138,6 +138,14 @@ function buildOverbudgetAdgroupLowerBidPlans({ snapshot = {}, history = [], limi
       const multiplier = noOrderWaste ? 0.88 : (profitPressure ? 0.96 : (minBudgetProfitPressure ? 0.9 : 0.92));
       const nextBid = roundBid(num(entity.bid) * multiplier);
       if (!(nextBid < num(entity.bid))) continue;
+      const currentNetProfit = Number(profitRate.toFixed(4));
+      const goal = {
+        metric: 'netProfit',
+        from: currentNetProfit,
+        to: Number((currentNetProfit + 0.01).toFixed(4)),
+        deadlineDays: 7,
+        hardFloor: Number((currentNetProfit - 0.02).toFixed(4)),
+      };
 
       const action = {
         id: entityId,
@@ -172,6 +180,7 @@ function buildOverbudgetAdgroupLowerBidPlans({ snapshot = {}, history = [], limi
         approvedBy: 'codex',
         requiresAiDecision: false,
         allowLargeBidChange: false,
+        goal,
         learning: {
           enabled: true,
           hypothesis: 'Trim weak lower-layer object inside an over-budget ad group without changing campaign budget.',

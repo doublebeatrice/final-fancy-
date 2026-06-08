@@ -22,6 +22,13 @@ function unique(list) {
   return [...new Set((list || []).map(text).filter(Boolean))];
 }
 
+function daysBetween(startDate, endDate) {
+  const start = new Date(`${dateOnly(startDate)}T00:00:00.000Z`);
+  const end = new Date(`${dateOnly(endDate)}T00:00:00.000Z`);
+  const diff = Math.round((end.getTime() - start.getTime()) / 86400000);
+  return Number.isFinite(diff) ? diff : null;
+}
+
 function firstMatch(raw, pattern) {
   const match = text(raw).match(pattern);
   return match ? match[1] || match[0] : '';
@@ -38,13 +45,68 @@ function extractSku(raw) {
   return match ? match[0].toUpperCase() : '';
 }
 
+function extractSkus(raw) {
+  const value = text(raw).replace(/B[0-9A-Z]{9}/ig, ' ');
+  return unique(value.match(/\b[A-Z]{2,6}\d{3,5}[A-Z0-9-]*\b/g) || [])
+    .map(item => item.toUpperCase());
+}
+
+function stripMarkdownCell(value = '') {
+  return text(value)
+    .replace(/\*\*/g, '')
+    .replace(/`/g, '')
+    .trim();
+}
+
+function extractActionableSkus(rawInput = '', fallbackSkus = []) {
+  const skus = new Set((fallbackSkus || []).map(text).filter(Boolean));
+  const actionable = [];
+  for (const line of text(rawInput).split(/\r?\n/)) {
+    if (!line.includes('|')) continue;
+    const cells = line.split('|').slice(1, -1).map(stripMarkdownCell);
+    if (cells.length < 2) continue;
+    const rowText = cells.join(' ');
+    const rowSku = extractSku(rowText);
+    if (!rowSku || !skus.has(rowSku)) continue;
+    if (/hold|excluded?|inventory[_ -]?hard[_ -]?stop|hard stop|do not append|not appended|pause|paused|不加|没加|排除|暂停|停/.test(rowText.toLowerCase())) {
+      continue;
+    }
+    if (/append|success|enabled|landed|cna week gifts|加成功|已加/.test(rowText.toLowerCase())) {
+      actionable.push(rowSku);
+    }
+  }
+  return unique(actionable);
+}
+
 function extractKeyword(raw) {
   const value = text(raw);
+  const backtick = firstMatch(value, /`([^`]{2,80})`/);
+  if (backtick) return backtick;
   const quoted = firstMatch(value, /["“”']([^"“”']{2,80})["“”']/);
   if (quoted) return quoted;
   const cn = firstMatch(value, /(?:词|关键词)\s*([a-z0-9][a-z0-9 -]{2,80}?)(?:\s*(?:能不能|可以|要不要|加广告|投|看|转化)|\?|？|，|,|。|$)/i);
   if (cn) return cn.replace(/\s+/g, ' ').trim();
   return '';
+}
+
+function inferRequestDate(input = {}, rawInput = '') {
+  return text(input.requestDate) ||
+    firstMatch(input.title, /^(\d{4}-\d{2}-\d{2})/) ||
+    firstMatch(rawInput, /^#\s*(\d{4}-\d{2}-\d{2})/m) ||
+    firstMatch(rawInput, /\b(\d{4}-\d{2}-\d{2})\b/);
+}
+
+function extractFollowUpCheckpoints(rawInput = '', requestDate = '') {
+  return text(rawInput).split(/\r?\n/).map(line => {
+    const match = line.match(/^\s*[-*]?\s*(\d{4}-\d{2}-\d{2})\s*[:：]\s*(.+?)\s*$/);
+    if (!match) return null;
+    const day = requestDate ? daysBetween(requestDate, match[1]) : null;
+    return {
+      date: match[1],
+      description: text(match[2]),
+      daysAfterRequest: Number.isFinite(day) ? day : null,
+    };
+  }).filter(Boolean);
 }
 
 function isRiskAsInactionCorrection(raw = '') {
@@ -56,6 +118,8 @@ function isRiskAsInactionCorrection(raw = '') {
 
 function classify(raw) {
   const value = text(raw).toLowerCase();
+  if (/这个词|关键词|keyword/.test(text(raw))) return 'keyword_question';
+  if (/点击没了|没流量|能不能.*(?:加投|推|投)|能.*(?:加投|推广告|加广告)|开发诉求|产品诉求/.test(text(raw))) return 'developer_product_inquiry';
   if (isRiskAsInactionCorrection(raw)) return 'operator_correction';
   if (/agent\s*化|agentization|无人值守|自驱|自主运营|autonomy|unattended|self[-\s]?driv/.test(value)) return 'agent_autonomy_review';
   if (/纠错|不对|错了|错判|修正|更正|不是这样|系统性风险|correction|wrong|mistake|bad decision|fix this decision/.test(value)) return 'operator_correction';
@@ -106,15 +170,48 @@ function priorityForKind(kind, raw) {
   return 'P2';
 }
 
+function reviewPlanForExternalRequest(kind, businessDate, checkpoints = []) {
+  if (!['developer_product_inquiry', 'keyword_question', 'product_market_review', 'kpi_or_sales_drop_review'].includes(kind)) {
+    return null;
+  }
+  const explicitDays = [...new Set(checkpoints
+    .map(item => item.daysAfterRequest)
+    .filter(day => Number.isFinite(day) && day > 0))]
+    .sort((a, b) => a - b);
+  const goal = { metric: 'orders', from: 0, to: 1, deadlineDays: 7, hardFloor: 0 };
+  const killSwitch = {
+    metric: 'orders',
+    condition: 'spend rises without orders by day 7',
+    rollbackIf: 'spend rises without orders by day 7',
+  };
+  return {
+    checkAfterDays: explicitDays.length ? explicitDays : [1, 3, 7],
+    checkpoints,
+    metrics: ['orders', 'sales', 'spend', 'acos'],
+    goal,
+    killSwitch,
+    baseline: { orders: 0, sales: 0, spend: 0, acos: 0 },
+    baselineAsOf: businessDate,
+    rollbackIf: killSwitch.rollbackIf,
+    outcomeQuestion: 'did_this_request_recover_sales',
+  };
+}
+
 function parseExternalRequest(input, timeContext = {}) {
   const rawInput = typeof input === 'string' ? input : text(input.text || input.message || input.rawInput);
   const kind = text(input.kind) || classify(rawInput);
+  const requestDate = dateOnly(inferRequestDate(input, rawInput) || timeContext.businessDate || timeContext.runAt);
+  const followUpCheckpoints = extractFollowUpCheckpoints(rawInput, requestDate);
+  const allSkus = extractSkus(rawInput);
+  const actionableSkus = extractActionableSkus(rawInput, allSkus);
+  const skus = actionableSkus.length ? actionableSkus : allSkus;
   const subject = {
-    sku: text(input.subject?.sku || input.sku || extractSku(rawInput)),
+    sku: text(input.subject?.sku || input.sku || skus[0] || extractSku(rawInput)),
     asin: text(input.subject?.asin || input.asin || extractAsin(rawInput)),
     keyword: text(input.subject?.keyword || input.keyword || extractKeyword(rawInput)),
   };
   const businessDate = dateOnly(timeContext.businessDate || timeContext.runAt);
+  const reviewPlan = input.reviewPlan || reviewPlanForExternalRequest(kind, requestDate, followUpCheckpoints);
   const task = normalizeAgentTask({
     source: 'external_request',
     kind,
@@ -128,6 +225,7 @@ function parseExternalRequest(input, timeContext = {}) {
     authorizationHint: authorizationHintForKind(kind),
     replyExpectation: 'operator_ready_reply',
     nextCheckpoint: `${addDays(businessDate, 1)} 前复查或给出下一步处理结论`,
+    reviewPlan: reviewPlan ? { ...reviewPlan, subjectSkus: skus } : null,
     businessDate,
     dataDate: timeContext.dataDate,
     sourceRunId: timeContext.sourceRunId,
@@ -228,4 +326,5 @@ module.exports = {
   buildExternalInbox,
   dedupeReviewTasks,
   parseExternalRequest,
+  reviewPlanForExternalRequest,
 };

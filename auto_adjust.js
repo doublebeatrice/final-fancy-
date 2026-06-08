@@ -1877,10 +1877,11 @@ function normalizeStringArray(values, { upper = false } = {}) {
   return out;
 }
 
-function buildSbvCampaignName(coreTerm, sku) {
+function buildSbvCampaignName(coreTerm, sku, mode = 'keywordTarget') {
   const term = adNameTermPart(coreTerm, 'target');
   const skuPart = slugAdNamePart(sku, 'sku');
-  return `sbvkw_${term}_${skuPart}`.slice(0, 90).replace(/_+$/g, '');
+  const prefix = mode === 'productTarget' ? 'sbvasin' : 'sbvkw';
+  return `${prefix}_${term}_${skuPart}`.slice(0, 90).replace(/_+$/g, '');
 }
 
 function normalizeSbvKeywords(input = {}, defaultBid = 0) {
@@ -1904,6 +1905,58 @@ function normalizeSbvKeywords(input = {}, defaultBid = 0) {
       matchType,
       bid,
       coreMark: source.coreMark ?? '',
+    });
+  }
+  return rows;
+}
+
+function normalizeSbvProductExpressionType(value = '') {
+  const text = String(value || '').trim();
+  const compact = text.replace(/[_\s-]+/g, '').toLowerCase();
+  if (!compact || compact === 'target' || compact === 'producttarget' || compact === 'asin' || compact === 'asinsameas') return 'asinSameAs';
+  if (compact === 'asincategorysameas' || compact === 'category') return 'asinCategorySameAs';
+  if (compact === 'asinbrandsameas') return 'asinBrandSameAs';
+  if (compact === 'asinpricelessthan') return 'asinPriceLessThan';
+  if (compact === 'asinpricebetween') return 'asinPriceBetween';
+  if (compact === 'asinpricegreaterthan') return 'asinPriceGreaterThan';
+  if (compact === 'asinreviewratinglessthan') return 'asinReviewRatingLessThan';
+  if (compact === 'asinreviewratingbetween') return 'asinReviewRatingBetween';
+  if (compact === 'asinreviewratinggreaterthan') return 'asinReviewRatingGreaterThan';
+  if (compact === 'asinisprimeshippingeligible') return 'asinIsPrimeShippingEligible';
+  return text;
+}
+
+function normalizeSbvProductTargets(input = {}, defaultBid = 0) {
+  const rawRows = Array.isArray(input.fieldArray?.targets)
+    ? input.fieldArray.targets
+    : (Array.isArray(input.targetRows) ? input.targetRows : (Array.isArray(input.targets) ? input.targets : input.targetAsins));
+  const list = Array.isArray(rawRows) ? rawRows : [rawRows];
+  const defaultType = normalizeSbvProductExpressionType(input.targetExpressionType || input.expressionType || input.targetType || 'ASIN_SAME_AS');
+  const seen = new Set();
+  const rows = [];
+  for (const item of list) {
+    const source = item && typeof item === 'object' ? item : { asin: item };
+    const bid = Number(source.bid ?? defaultBid);
+    const expressions = Array.isArray(source.expressions)
+      ? source.expressions
+          .map(expression => ({
+            type: normalizeSbvProductExpressionType(expression.type || expression.targetType || defaultType),
+            value: String(expression.value || expression.asin || expression.categoryId || '').trim().toUpperCase(),
+            ...(expression.name ? { name: expression.name } : {}),
+          }))
+          .filter(expression => expression.type && expression.value)
+      : [];
+    if (!expressions.length) {
+      const value = String(source.asin || source.targetAsin || source.value || source.categoryId || '').trim().toUpperCase();
+      if (value) expressions.push({ type: defaultType, value });
+    }
+    const key = JSON.stringify(expressions);
+    if (!expressions.length || !Number.isFinite(bid) || bid <= 0 || seen.has(key)) continue;
+    seen.add(key);
+    rows.push({
+      bid,
+      targetMark: source.targetMark ?? '',
+      expressions,
     });
   }
   return rows;
@@ -1934,8 +1987,9 @@ function buildSbvCreatePayload(input = {}) {
   const landingType = Number(input.landingType ?? 2);
   const errors = [];
 
-  if (mode !== 'keywordTarget') errors.push('SBV create supports keywordTarget mode only');
-  if (targetType !== 'keyword') errors.push('SBV create targetType must be keyword');
+  const sbvTargetType = mode === 'productTarget' ? 'target' : 'keyword';
+  if (!['keywordTarget', 'productTarget'].includes(mode)) errors.push('SBV create supports keywordTarget or productTarget mode only');
+  if (mode === 'keywordTarget' && targetType !== 'keyword') errors.push('SBV keyword create targetType must be keyword');
   if (adFormat !== 'video') errors.push('SBV create adFormat must be video');
   if (!coreTerm) errors.push('coreTerm is required');
   if (!skuArray.length) errors.push('sku or skuArray is required');
@@ -1956,17 +2010,19 @@ function buildSbvCreatePayload(input = {}) {
   const requestedName = normalizeRequestedAdName(input.campaignName || input.groupName || '');
   const campaignName = requestedName && requestedName !== 'ad'
     ? requestedName.slice(0, 90).trim()
-    : buildSbvCampaignName(coreTerm, sku);
+    : buildSbvCampaignName(coreTerm, sku, mode);
   const groupName = normalizeRequestedAdName(input.groupName || campaignName) || campaignName;
   const requestUrl = '/campaignSb/createCampaignBeta';
   const keywordRows = normalizeSbvKeywords(input, defaultBid);
-  if (!keywordRows.length) errors.push('valid keyword rows are required');
+  const targetRows = normalizeSbvProductTargets(input, defaultBid);
+  if (mode === 'keywordTarget' && !keywordRows.length) errors.push('valid keyword rows are required');
+  if (mode === 'productTarget' && !targetRows.length) errors.push('valid target rows are required');
   if (errors.length) return { ok: false, errors, mode, requestUrl, campaignName, groupName };
 
   const payload = {
     createType: 'campaign',
     advType: 'SB',
-    targetType: 'keyword',
+    targetType: sbvTargetType,
     name: input.name || 'create SB campaign',
     campaignName,
     startDate,
@@ -2005,8 +2061,6 @@ function buildSbvCreatePayload(input = {}) {
           ],
         },
       }],
-      keyword: keywordRows,
-      negativeKeywords: Array.isArray(input.negativeKeywords) ? input.negativeKeywords : [],
       ads: [{
         name: groupName,
         creative: {
@@ -2016,6 +2070,13 @@ function buildSbvCreatePayload(input = {}) {
       }],
     },
   };
+  if (mode === 'keywordTarget') {
+    payload.fieldArray.keyword = keywordRows;
+    payload.fieldArray.negativeKeywords = Array.isArray(input.negativeKeywords) ? input.negativeKeywords : [];
+  } else {
+    payload.fieldArray.targets = targetRows;
+    payload.fieldArray.negativeTargets = Array.isArray(input.negativeTargets) ? input.negativeTargets : [];
+  }
   return { ok: true, mode, requestUrl, requestBody: payload, campaignName, groupName, errors: [] };
 }
 

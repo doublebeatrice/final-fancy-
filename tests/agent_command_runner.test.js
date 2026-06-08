@@ -4,6 +4,8 @@ const os = require('os');
 const path = require('path');
 const {
   collectRunnableCommands,
+  DEFAULT_COMMAND_TIMEOUT_MS,
+  parseArgs,
   parseNpmRunCommand,
   runAgentCommandRunner,
 } = require('../scripts/run_agent_command_runner');
@@ -50,6 +52,9 @@ const timeContext = {
   const denied = parseNpmRunCommand('npm run ops:today -- --execute');
   assert.strictEqual(denied.ok, false);
   assert.ok(denied.reason.includes('not_allowlisted'));
+
+  const parsedArgs = parseArgs(['node', 'scripts/run_agent_command_runner.js', '--command-timeout-ms', '45000']);
+  assert.strictEqual(parsedArgs.commandTimeoutMs, 45000);
 }
 
 {
@@ -152,8 +157,8 @@ const timeContext = {
     hub,
     outFile,
     timeContext,
-    execFileSync: (bin, args) => {
-      calls.push({ bin, args });
+    execFileSync: (bin, args, execOptions) => {
+      calls.push({ bin, args, execOptions });
       const outputFile = path.join(tmpDir, 'selection_keyword_conversion_rate_2026-05-19.json');
       fs.writeFileSync(outputFile, JSON.stringify({ ok: true, rows: [] }), 'utf8');
       return JSON.stringify({ ok: true, outputFile });
@@ -166,6 +171,7 @@ const timeContext = {
   assert.strictEqual(calls.length, 1);
   assert.strictEqual(calls[0].bin, process.execPath);
   assert.ok(calls[0].args[0].endsWith(path.join('scripts', 'execute', 'fetch_selection_keyword_conversion_rate.js')));
+  assert.strictEqual(calls[0].execOptions.timeout, DEFAULT_COMMAND_TIMEOUT_MS);
   assert.strictEqual(result.results[0].taskId, 'ext-1');
   assert.strictEqual(result.results[0].ok, true);
   assert.ok(result.results[0].outputFiles.some(file => file.includes('selection_keyword_conversion_rate_2026-05-19.json')));
@@ -241,6 +247,80 @@ const timeContext = {
   assert.strictEqual(result.summary.executed, 1);
   assert.strictEqual(result.results[0].report.verdict, 'close_success');
   assert.strictEqual(result.results[0].summary, '记录为有效动作，关闭本次复查。');
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-command-runner-timeout-'));
+  const hub = {
+    businessDate: '2026-05-19',
+    todayQueue: [{
+      taskId: 'ext-timeout',
+      executionPlan: {
+        safeToAutoRun: true,
+        commands: [{
+          label: 'keyword research',
+          command: 'npm run ops:selection:keyword-research -- --sku HEL0319 --terms "Teacher End of the Year"',
+          output: path.join(tmpDir, 'selection_keyword_research_2026-05-19.json'),
+          riskLevel: 'read_only',
+        }],
+      },
+    }],
+  };
+  const result = runAgentCommandRunner({
+    hub,
+    timeContext,
+    commandTimeoutMs: 2000,
+    execFileSync: () => {
+      const error = new Error('spawnSync node ETIMEDOUT');
+      error.code = 'ETIMEDOUT';
+      throw error;
+    },
+  });
+
+  assert.strictEqual(result.summary.failed, 1);
+  assert.strictEqual(result.results[0].ok, false);
+  assert.strictEqual(result.results[0].timedOut, true);
+  assert.strictEqual(result.results[0].timeoutMs, 2000);
+  assert.strictEqual(result.results[0].exitCode, 1);
+  assert.ok(result.results[0].summary.includes('Command timed out after 2000ms'));
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-command-runner-structured-nonzero-'));
+  const outputFile = path.join(tmpDir, 'selection_keyword_seasonality_2026-05-19.json');
+  const hub = {
+    businessDate: '2026-05-19',
+    todayQueue: [{
+      taskId: 'ext-no-rows',
+      executionPlan: {
+        safeToAutoRun: true,
+        commands: [{
+          label: 'seasonality',
+          command: 'npm run ops:selection:keyword-seasonality -- --search-terms \"state=2\"',
+          output: outputFile,
+          riskLevel: 'read_only',
+        }],
+      },
+    }],
+  };
+  const result = runAgentCommandRunner({
+    hub,
+    timeContext,
+    execFileSync: () => {
+      fs.writeFileSync(outputFile, JSON.stringify({ ok: false, message: 'no decision-support rows' }), 'utf8');
+      const error = new Error('Command failed');
+      error.status = 1;
+      error.stdout = JSON.stringify({ ok: false, outputFile, message: 'no decision-support rows' });
+      throw error;
+    },
+  });
+
+  assert.strictEqual(result.summary.executed, 1);
+  assert.strictEqual(result.summary.failed, 0);
+  assert.strictEqual(result.results[0].ok, true);
+  assert.strictEqual(result.results[0].softFailed, true);
+  assert.strictEqual(result.results[0].exitCode, 1);
+  assert.ok(result.results[0].summary.includes('no decision-support rows'));
 }
 
 console.log('agent_command_runner tests passed');

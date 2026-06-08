@@ -6,6 +6,8 @@ const { runAgentUnattendedSchedulerAudit } = require('./run_agent_unattended_sch
 const { runAgentReadinessAudit } = require('./run_agent_readiness_audit');
 const { runAgentUnattendedScheduleInstall } = require('./run_agent_unattended_schedule_install');
 const { runAgentGoalAudit } = require('./run_agent_goal_audit');
+const { runBossDailyPaper } = require('./run_agent_boss_daily_paper');
+const { runGoalFinalAudit } = require('./run_goal_final_audit');
 
 const ROOT = path.join(__dirname, '..');
 const DEFAULT_AGENT_DIR = path.join(ROOT, 'data', 'agent');
@@ -207,6 +209,9 @@ function parseArgs(argv) {
     scheduledTaskInvocation: args.includes('--scheduled-task-invocation') || process.env.AGENT_SCHEDULED_TASK_INVOCATION === '1',
     scheduledTaskName: get('--scheduled-task-name') || process.env.AGENT_SCHEDULED_TASK_NAME || '',
     generateGoalAudit: !args.includes('--skip-goal-audit') && process.env.AGENT_COMPLETION_SKIP_GOAL_AUDIT !== '1',
+    generateGoalFinal: args.includes('--goal-final') || process.env.AGENT_COMPLETION_GOAL_FINAL === '1',
+    requireGoalFinalComplete: args.includes('--require-goal-final-complete') || process.env.AGENT_COMPLETION_REQUIRE_GOAL_FINAL_COMPLETE === '1',
+    goalFinalToday: get('--goal-final-today') || process.env.AGENT_GOAL_FINAL_TODAY || '',
   };
 }
 
@@ -222,6 +227,7 @@ function renderMarkdown(report = {}) {
   lines.push(`- Scheduled task invocation: ${report.summary?.scheduledTaskInvocationOk === true}`);
   lines.push(`- Natural scheduled runtime ready: ${report.summary?.naturalScheduledRuntimeReady === true}`);
   lines.push(`- Goal audit: ${report.summary?.goalAuditOk === true}`);
+  lines.push(`- GOAL-FINAL audit: ${report.summary?.goalFinalAuditStatus || 'skipped'} (${report.summary?.goalFinalCurrentStreak || 0}/${report.summary?.goalFinalRequiredBusinessDays || 3})`);
   lines.push(`- Business date: ${report.businessDate || ''}`);
   lines.push(`- Local date: ${report.localDate || ''}`);
   lines.push(`- Supervisor wait: ${report.supervisorWait?.skipped === true ? 'skipped' : `${report.supervisorWait?.state || ''}${report.supervisorWait?.timedOut ? ' timeout' : ''}`}`);
@@ -250,6 +256,7 @@ function runAgentCompletionAudit(options = {}) {
     sourceRunId: options.sourceRunId || `agent_completion_audit_${Date.now()}`,
   });
   const businessDate = dateOnly(options.today || timeContext.businessDate || timeContext.runAt);
+  const goalFinalDate = dateOnly(options.goalFinalToday || options.today || timeContext.localDate || businessDate);
   const agentDir = options.agentDir || DEFAULT_AGENT_DIR;
   const relativeAgentDir = path.isAbsolute(agentDir) ? path.relative(ROOT, agentDir) : agentDir;
   const heartbeatDir = options.heartbeatDir || agentDir;
@@ -450,6 +457,10 @@ function runAgentCompletionAudit(options = {}) {
       scheduleInstallRefreshed: scheduleInstall.refreshed === true,
       goalAuditOk: false,
       goalAuditStatus: '',
+      goalFinalAuditOk: false,
+      goalFinalAuditStatus: 'skipped',
+      goalFinalCurrentStreak: 0,
+      goalFinalRequiredBusinessDays: 3,
     },
     files: {
       schedulerOutFile,
@@ -559,6 +570,85 @@ function runAgentCompletionAudit(options = {}) {
   } else {
     report.goalAudit = { generated: false, skipped: true };
     report.summary.goalAuditStatus = 'skipped';
+  }
+
+  if (options.generateGoalFinal === true) {
+    try {
+      const bossPaperRunner = options.bossPaperRunner || runBossDailyPaper;
+      const goalFinalAuditRunner = options.goalFinalAuditRunner || runGoalFinalAudit;
+      const bossPaper = bossPaperRunner({ today: goalFinalDate, agentDir });
+      const goalFinalAudit = goalFinalAuditRunner({ today: goalFinalDate, agentDir });
+      const bossPaperStatus = text(bossPaper.verification?.status || '');
+      const bossPaperGuardStatus = text(bossPaper.guard?.status || '');
+      report.goalFinal = {
+        generated: true,
+        today: goalFinalDate,
+        bossPaperStatus,
+        bossPaperGuardStatus,
+        auditOk: goalFinalAudit.ok === true,
+        auditStatus: text(goalFinalAudit.status || ''),
+        currentStreak: Number(goalFinalAudit.summary?.currentStreak || 0),
+        requiredBusinessDays: Number(goalFinalAudit.summary?.requiredBusinessDays || 3),
+        neededPassDays: Number(goalFinalAudit.summary?.neededPassDays || 0),
+        earliestCompletionDate: text(goalFinalAudit.summary?.earliestCompletionDate || ''),
+        blockers: goalFinalAudit.goalFinal?.blockers || [],
+        files: {
+          bossPaperFile: text(bossPaper.files?.paperFile || ''),
+          bossPaperJsonFile: text(bossPaper.files?.jsonFile || ''),
+          auditFile: text(goalFinalAudit.files?.jsonFile || ''),
+          auditMarkdownFile: text(goalFinalAudit.files?.markdownFile || ''),
+        },
+      };
+      report.files.bossPaperFile = report.goalFinal.files.bossPaperFile;
+      report.files.bossPaperJsonFile = report.goalFinal.files.bossPaperJsonFile;
+      report.files.goalFinalAuditFile = report.goalFinal.files.auditFile;
+      report.files.goalFinalAuditMarkdownFile = report.goalFinal.files.auditMarkdownFile;
+      report.summary.goalFinalAuditOk = goalFinalAudit.ok === true;
+      report.summary.goalFinalAuditStatus = report.goalFinal.auditStatus;
+      report.summary.goalFinalCurrentStreak = report.goalFinal.currentStreak;
+      report.summary.goalFinalRequiredBusinessDays = report.goalFinal.requiredBusinessDays;
+      if (bossPaperStatus !== 'pass' || bossPaperGuardStatus !== 'pass') {
+        report.issues.push({
+          id: 'goal_final_boss_paper_not_pass',
+          severity: 'blocker',
+          title: 'GOAL-FINAL boss paper did not pass current guards',
+          evidence: [`bossPaperStatus=${bossPaperStatus}`, `bossPaperGuardStatus=${bossPaperGuardStatus}`],
+          nextAction: 'Repair the boss-paper evidence chain before counting this business day toward GOAL-FINAL.',
+        });
+      }
+      if (options.requireGoalFinalComplete === true && goalFinalAudit.ok !== true) {
+        report.issues.push({
+          id: 'goal_final_not_complete',
+          severity: 'blocker',
+          title: 'GOAL-FINAL consecutive-day requirement is not complete',
+          evidence: [
+            `status=${report.goalFinal.auditStatus}`,
+            `streak=${report.goalFinal.currentStreak}/${report.goalFinal.requiredBusinessDays}`,
+            `earliestCompletionDate=${report.goalFinal.earliestCompletionDate}`,
+          ],
+          nextAction: 'Keep producing real boss papers on the next required business days until GOAL-FINAL audit reports complete.',
+        });
+      }
+    } catch (error) {
+      report.goalFinal = {
+        generated: false,
+        ok: false,
+        status: 'failed',
+        today: goalFinalDate,
+        error: text(error.message || error),
+      };
+      report.summary.goalFinalAuditOk = false;
+      report.summary.goalFinalAuditStatus = 'failed';
+      report.issues.push({
+        id: 'goal_final_audit_failed',
+        severity: 'blocker',
+        title: 'GOAL-FINAL boss-paper/audit generation failed',
+        evidence: [report.goalFinal.error],
+        nextAction: 'Repair GOAL-FINAL generation so scheduled completion audit produces boss paper and goal_final_audit artifacts.',
+      });
+    }
+  } else {
+    report.goalFinal = { generated: false, skipped: true };
   }
   report.ok = scheduler.ok === true && readiness.ok === true && !report.issues.some(item => item.severity === 'blocker');
   report.status = report.ok ? 'complete_ready' : 'not_ready';

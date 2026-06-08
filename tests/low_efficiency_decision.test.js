@@ -155,7 +155,7 @@ test('builds SB target pause writer payload', () => {
   assert.strictEqual(request.body.targetNewArray[0].state, 2);
 });
 
-test('parses date-only timestamps so date-only updatedAt does not bypass the cooldown', () => {
+test('parses date-only timestamps so date-only updatedAt does not bypass the recent-adjustment gate', () => {
   const entity = normalizeLowEfficiencyRow('spKeyword', {
     keywordId: 'k-only',
     matchType: 'BROAD',
@@ -177,7 +177,7 @@ test('parses date-only timestamps so date-only updatedAt does not bypass the coo
   assert.strictEqual(decision.reasonCode, 'adjustment_window_not_elapsed');
 });
 
-test('uses the most recent adjustment timestamp for cooldown checks', () => {
+test('uses the most recent adjustment timestamp for recent-adjustment checks', () => {
   const entity = normalizeLowEfficiencyRow('spTarget', spTargetRow({
     updatedAt: '2026-05-14 09:51:25',
     operatedAt: '2026-05-01',
@@ -336,7 +336,7 @@ test('pool decision holds when 30d and 15d are inefficient but 7d ACOS has recov
     15: { clicks: 9, spend: 3.15, orders: 1, sales: 5.39, acos: 0.584415 },
     7: { clicks: 2, spend: 0.7, orders: 1, sales: 5.39, acos: 0.12987 },
   }, { bid: 0.35 });
-  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
   assert.strictEqual(decision.actionType, 'hold');
   assert.strictEqual(decision.reasonCode, 'recent_recovery_under_20_acos');
   assert.strictEqual(decision.opportunityAction, 'review_bid_up');
@@ -350,7 +350,7 @@ test('pool decision protects 7d recovered rows above 20 ACOS without bid-up flag
     15: { clicks: 10, spend: 4.2, orders: 1, sales: 20, acos: 0.21 },
     7: { clicks: 8, spend: 3.44, orders: 1, sales: 16, acos: 0.215 },
   }, { bid: 0.42 });
-  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
   assert.strictEqual(decision.actionType, 'hold');
   assert.strictEqual(decision.reasonCode, 'recent_recovery_7d_acos_ok');
   assert.strictEqual(decision.opportunityAction, undefined);
@@ -391,14 +391,18 @@ test('pool decision pauses persistently-low rows that pass the hard-stop test', 
   assert.strictEqual(decision.reasonCode, 'no_order_hard_stop');
 });
 
-test('pool decision skips rows still inside the adjustment cooldown', () => {
+test('pool decision skips rows recently changed without a new stop-loss trigger', () => {
   const entry = poolEntry({ 30: {}, 15: {}, 7: {}, 3: {} }, { updatedAt: '2026-05-10' });
-  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
   assert.strictEqual(decision.actionType, 'skip');
-  assert.strictEqual(decision.reasonCode, 'adjustment_cooldown_not_elapsed');
+  assert.strictEqual(decision.reasonCode, 'recent_adjustment_no_new_waste');
+  assert.match(decision.reason, /目标：/);
+  assert.match(decision.reason, /发生：/);
+  assert.match(decision.reason, /动作：/);
+  assert.match(decision.reason, /可纠正原因：/);
 });
 
-test('pool decision still tags recovered under-20 rows inside cooldown as bid-up review candidates', () => {
+test('pool decision still tags recovered under-20 rows after a recent change as bid-up review candidates', () => {
   const entry = poolEntry(
     {
       30: { clicks: 10, spend: 3.5, orders: 1, sales: 5.39, acos: 0.64935 },
@@ -407,37 +411,59 @@ test('pool decision still tags recovered under-20 rows inside cooldown as bid-up
     },
     { bid: 0.35, updatedAt: '2026-05-10 09:00:00' }
   );
-  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
   assert.strictEqual(decision.actionType, 'skip');
-  assert.strictEqual(decision.reasonCode, 'adjustment_cooldown_not_elapsed');
+  assert.strictEqual(decision.reasonCode, 'recent_adjustment_no_new_waste');
   assert.strictEqual(decision.opportunityAction, 'review_bid_up');
   assert.strictEqual(decision.suggestedDirection, 'up');
 });
 
-test('pool decision overrides cooldown when 7d has meaningful spend and zero orders', () => {
+test('pool decision still cuts after a recent change when 7d has meaningful spend and zero orders', () => {
   const entry = poolEntry({ 7: { clicks: 9, spend: 2.45, orders: 0 } }, { bid: 0.35, updatedAt: '2026-05-10 09:00:00' });
-  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
   assert.strictEqual(decision.actionType, 'bid');
-  assert.strictEqual(decision.reasonCode, 'cooldown_override_7d_zero_order_heavy_cut');
+  assert.strictEqual(decision.reasonCode, 'recent_adjustment_stoploss_7d_zero_order_heavy_cut');
   assert.strictEqual(decision.suggestedBid, 0.03);
 });
 
-test('pool decision overrides cooldown when 7d ACOS is high despite orders', () => {
+test('pool decision still cuts after a recent change when 7d ACOS is high despite orders', () => {
   const entry = poolEntry({ 7: { clicks: 8, spend: 2.8, orders: 1, acos: 0.5195 } }, { bid: 0.35, updatedAt: '2026-05-10 09:00:00' });
-  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
   assert.strictEqual(decision.actionType, 'bid');
-  assert.strictEqual(decision.reasonCode, 'cooldown_override_7d_high_acos');
+  assert.strictEqual(decision.reasonCode, 'recent_adjustment_stoploss_7d_high_acos');
   assert.strictEqual(decision.suggestedBid, 0.32);
 });
 
-test('pool decision overrides cooldown when 15d still has meaningful zero-order waste', () => {
+test('pool decision still pauses after a recent change when 15d has meaningful zero-order waste', () => {
   const entry = poolEntry({
     15: { clicks: 10, spend: 3.2, orders: 0 },
     7: { clicks: 7, spend: 2.2, orders: 0 },
   }, { bid: 0.38, updatedAt: '2026-05-10 09:00:00' });
-  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
   assert.strictEqual(decision.actionType, 'pause');
-  assert.strictEqual(decision.reasonCode, 'cooldown_override_15d_zero_order_hard_stop');
+  assert.strictEqual(decision.reasonCode, 'recent_adjustment_stoploss_15d_zero_order_hard_stop');
+});
+
+test('pool decision trims single 15d-window high ACOS rows with orders', () => {
+  const entry = poolEntry(
+    { 15: { clicks: 32, spend: 9.6, orders: 1, sales: 26.99, acos: 0.356 } },
+    { kind: 'auto', bid: 0.3, updatedAt: '2026-04-01' }
+  );
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
+  assert.strictEqual(decision.actionType, 'bid');
+  assert.strictEqual(decision.reasonCode, 'single_15d_acos_small_trim');
+  assert.strictEqual(decision.pattern, 'volatile_15_only');
+  assert.strictEqual(decision.suggestedBid, 0.27);
+});
+
+test('pool decision pauses floor-bid zero-order rows without long-window order protection', () => {
+  const entry = poolEntry(
+    { 7: { clicks: 13, spend: 3.63, orders: 0 } },
+    { kind: 'sbKw', bid: 0.25, campaignName: 'white bunny pr2214-sbv-s-old', updatedAt: '2026-04-01' }
+  );
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
+  assert.strictEqual(decision.actionType, 'pause');
+  assert.strictEqual(decision.reasonCode, 'residual_7d_zero_order_floor_pause');
 });
 
 test('pool decision cuts 90 percent for extreme ACOS instead of using the small step', () => {
@@ -445,9 +471,9 @@ test('pool decision cuts 90 percent for extreme ACOS instead of using the small 
     { 7: { clicks: 66, spend: 22.34, orders: 2, acos: 0.932 } },
     { kind: 'auto', bid: 0.34, updatedAt: '2026-05-10 09:00:00' }
   );
-  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
   assert.strictEqual(decision.actionType, 'bid');
-  assert.strictEqual(decision.reasonCode, 'cooldown_override_7d_extreme_acos_cut');
+  assert.strictEqual(decision.reasonCode, 'recent_adjustment_stoploss_7d_extreme_acos_cut');
   assert.strictEqual(decision.suggestedBid, 0.03);
 });
 
@@ -459,9 +485,9 @@ test('pool decision pauses SB targets with 15d zero-order waste', () => {
     },
     { kind: 'sbTarget', bid: 0.43, updatedAt: '2026-05-10 09:00:00' }
   );
-  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
   assert.strictEqual(decision.actionType, 'pause');
-  assert.strictEqual(decision.reasonCode, 'cooldown_override_15d_zero_order_hard_stop');
+  assert.strictEqual(decision.reasonCode, 'recent_adjustment_stoploss_15d_zero_order_hard_stop');
 });
 
 test('pool decision clamps SBV keyword bid-downs to the 0.25 floor', () => {
@@ -469,9 +495,9 @@ test('pool decision clamps SBV keyword bid-downs to the 0.25 floor', () => {
     { 7: { clicks: 8, spend: 2.8, orders: 1, acos: 0.5195 } },
     { kind: 'sbKw', bid: 0.27, campaignName: 'sbvkw_babyshower_yan4858', updatedAt: '2026-05-10 09:00:00' }
   );
-  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
   assert.strictEqual(decision.actionType, 'bid');
-  assert.strictEqual(decision.reasonCode, 'cooldown_override_7d_high_acos');
+  assert.strictEqual(decision.reasonCode, 'recent_adjustment_stoploss_7d_high_acos');
   assert.strictEqual(decision.suggestedBid, 0.25);
 });
 
@@ -484,7 +510,7 @@ test('pool decision holds SBV keyword rows already at the 0.25 floor', () => {
     },
     { kind: 'sbKw', bid: 0.25, campaignName: 'sbvkw_tie your shoe_yan2278', updatedAt: '2026-04-01' }
   );
-  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
   assert.strictEqual(decision.actionType, 'hold');
   assert.strictEqual(decision.reasonCode, 'bid_already_at_floor');
 });
@@ -498,17 +524,17 @@ test('pool decision still allows non-SBV low bids below 0.10 to move down', () =
     },
     { kind: 'kw', bid: 0.06, campaignName: 'kw_q2 profit joy0900 phrase_joy0900', updatedAt: '2026-04-01' }
   );
-  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
   assert.strictEqual(decision.actionType, 'bid');
   assert.strictEqual(decision.reasonCode, 'residual_15d_severe_acos_cut');
   assert.strictEqual(decision.suggestedBid, 0.03);
 });
 
-test('pool decision does not override cooldown for same-day adjustments', () => {
+test('pool decision does not repeat-write same-day adjustments', () => {
   const entry = poolEntry({ 7: { clicks: 20, spend: 8, orders: 0 } }, { bid: 0.35, updatedAt: '2026-05-15 09:00:00' });
-  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
   assert.strictEqual(decision.actionType, 'skip');
-  assert.strictEqual(decision.reasonCode, 'adjustment_cooldown_not_elapsed');
+  assert.strictEqual(decision.reasonCode, 'recent_adjustment_no_new_waste');
 });
 
 test('pool decision skips inactive parents regardless of pattern', () => {
@@ -523,7 +549,7 @@ test('pool decision treats SB string campaignState=ENABLED and missing groupStat
     { 30: {}, 15: {}, 7: {}, 3: {} },
     { campaignState: 'ENABLED', groupState: undefined, updatedAt: '2026-04-01' }
   );
-  const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: 14 });
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
   assert.notStrictEqual(decision.reasonCode, 'inactive_parent_or_entity');
 });
 

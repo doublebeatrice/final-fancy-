@@ -36,12 +36,15 @@ const plan = buildUnattendedSchedulePlan({
     '--run-now',
     '--run-now-timeout-seconds',
     '120',
+    '--command-timeout-ms',
+    '7000',
   ]);
   assert.strictEqual(parsed.planFile, 'data\\agent\\unattended_schedule_plan_2026-05-25.json');
   assert.strictEqual(parsed.install, true);
   assert.strictEqual(parsed.verifyInstalled, true);
   assert.strictEqual(parsed.runNow, true);
   assert.strictEqual(parsed.runNowTimeoutSeconds, 120);
+  assert.strictEqual(parsed.commandTimeoutMs, 7000);
 }
 
 {
@@ -212,6 +215,7 @@ const plan = buildUnattendedSchedulePlan({
   const report = runAgentUnattendedScheduleInstall({
     timeContext,
     today: '2026-05-25',
+    dryRunSchedule: true,
     executeIfReady: true,
     install: true,
     execFileSync: () => {

@@ -167,6 +167,25 @@ function suggestedBid(currentBid, tier) {
   return next > currentBid ? next : null;
 }
 
+function bidUpGoal(tier = {}) {
+  const from = Math.max(0, Math.round(num(tier.stats?.orders)));
+  return {
+    metric: 'orders',
+    from,
+    to: Math.max(from + 1, Math.ceil(from * 1.1)),
+    deadlineDays: 7,
+    hardFloor: Math.max(0, Math.floor(from * 0.7)),
+  };
+}
+
+function bidUpKillSwitch(goal = {}) {
+  return {
+    metric: 'orders',
+    condition: `orders below ${goal.hardFloor} by day 7 or spend rises without order growth`,
+    rollbackIf: `orders below ${goal.hardFloor} by day 7 or spend rises without order growth`,
+  };
+}
+
 function normalizeMatchType(value) {
   if (value === 1 || value === '1') return 'exact';
   if (value === 2 || value === '2') return 'phrase';
@@ -336,51 +355,60 @@ function buildHighEfficiencyBidSchema({
       sku,
       asin: card.asin || '',
       summary: `High-efficiency bid lift: ${chosen.length} proven row(s), tiered by conversion, inventory, and profit.`,
-      actions: chosen.map(({ row, tier, nextBid }) => ({
-        id: row.__entityId,
-        entityType: row.__entityType,
-        actionType: 'bid',
-        currentBid: tier.currentBid,
-        suggestedBid: nextBid,
-        campaignId: text(row.campaignId),
-        adGroupId: text(row.adGroupId),
-        campaignName: row.campaignName || '',
-        groupName: row.groupName || '',
-        text: rowTerm(row),
-        reason: `high_efficiency_${tier.decision}: ${tier.reasons.join('+')}; orders7=${tier.stats.orders}; acos7=${tier.stats.acos.toFixed(4)}; invDays=${num(card.invDays)}; netProfit=${productProfit(card).net.toFixed(4)}; busyNetProfit=${productProfit(card).busy.toFixed(4)}.`,
-        evidence: [
-          `source=/keyword/findAllNew property=${row.__adProperty}`,
-          `term=${rowTerm(row) || row.type || ''}`,
-          `orders7=${tier.stats.orders}`,
-          `sales7=${tier.stats.sales.toFixed(2)}`,
-          `spend7=${tier.stats.spend.toFixed(2)}`,
-          `acos7=${tier.stats.acos.toFixed(4)}`,
-          `conversionRate=${tier.stats.conversionRate.toFixed(4)}`,
-          `invDays=${num(card.invDays)}`,
-          `stockTotal=${stockTotal(card)}`,
-          `netProfit=${productProfit(card).net.toFixed(4)}`,
-          `busyNetProfit=${productProfit(card).busy.toFixed(4)}`,
-        ],
-        confidence: tier.decision === 'strong_bid_up' ? 0.82 : tier.decision === 'standard_bid_up' ? 0.74 : 0.66,
-        riskLevel: tier.riskLevel,
-        allowLargeBidChange: tier.allowLargeBidChange === true,
-        decisionStage: 'ai_approved',
-        approvedBy: 'codex',
-        actionSource: ['codex'],
-        requiresAiDecision: false,
-        source: 'codex_high_efficiency_bid_schema',
-        expectedEffect: {
-          impressions: 'up',
-          clicks: 'up_controlled',
-          spend: 'up_controlled',
-          orders: 'up_or_watch',
-          acos: 'hold_or_watch',
-        },
-        reviewPlan: {
-          checkpoints: ['1d', '3d', '7d'],
-          rollbackIf: 'spend rises without order growth or ACOS exceeds SKU profit room',
-        },
-      })),
+      actions: chosen.map(({ row, tier, nextBid }) => {
+        const goal = bidUpGoal(tier);
+        const killSwitch = bidUpKillSwitch(goal);
+        return {
+          id: row.__entityId,
+          entityType: row.__entityType,
+          actionType: 'bid',
+          currentBid: tier.currentBid,
+          suggestedBid: nextBid,
+          campaignId: text(row.campaignId),
+          adGroupId: text(row.adGroupId),
+          campaignName: row.campaignName || '',
+          groupName: row.groupName || '',
+          text: rowTerm(row),
+          reason: `high_efficiency_${tier.decision}: ${tier.reasons.join('+')}; orders7=${tier.stats.orders}; acos7=${tier.stats.acos.toFixed(4)}; invDays=${num(card.invDays)}; netProfit=${productProfit(card).net.toFixed(4)}; busyNetProfit=${productProfit(card).busy.toFixed(4)}.`,
+          evidence: [
+            `source=/keyword/findAllNew property=${row.__adProperty}`,
+            `term=${rowTerm(row) || row.type || ''}`,
+            `orders7=${tier.stats.orders}`,
+            `sales7=${tier.stats.sales.toFixed(2)}`,
+            `spend7=${tier.stats.spend.toFixed(2)}`,
+            `acos7=${tier.stats.acos.toFixed(4)}`,
+            `conversionRate=${tier.stats.conversionRate.toFixed(4)}`,
+            `invDays=${num(card.invDays)}`,
+            `stockTotal=${stockTotal(card)}`,
+            `netProfit=${productProfit(card).net.toFixed(4)}`,
+            `busyNetProfit=${productProfit(card).busy.toFixed(4)}`,
+          ],
+          confidence: tier.decision === 'strong_bid_up' ? 0.82 : tier.decision === 'standard_bid_up' ? 0.74 : 0.66,
+          riskLevel: tier.riskLevel,
+          allowLargeBidChange: tier.allowLargeBidChange === true,
+          decisionStage: 'ai_approved',
+          approvedBy: 'codex',
+          actionSource: ['codex'],
+          requiresAiDecision: false,
+          source: 'codex_high_efficiency_bid_schema',
+          expectedEffect: {
+            impressions: 'up',
+            clicks: 'up_controlled',
+            spend: 'up_controlled',
+            orders: 'up_or_watch',
+            acos: 'hold_or_watch',
+          },
+          goal,
+          killSwitch,
+          reviewPlan: {
+            checkpoints: ['1d', '3d', '7d'],
+            checkAfterDays: [1, 3, 7],
+            goal,
+            killSwitch,
+            rollbackIf: 'spend rises without order growth or ACOS exceeds SKU profit room',
+          },
+        };
+      }),
     });
   }
 

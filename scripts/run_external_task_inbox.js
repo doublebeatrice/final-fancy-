@@ -10,6 +10,22 @@ function readText(file) {
   return fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, '');
 }
 
+function readMarkdownItems(dir) {
+  if (!dir || !fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir)
+    .filter(name => name.toLowerCase().endsWith('.md'))
+    .sort()
+    .map(name => {
+      const file = path.join(dir, name);
+      return {
+        text: readText(file),
+        title: path.basename(name, path.extname(name)),
+        requestDate: (name.match(/^(\d{4}-\d{2}-\d{2})/) || [])[1] || '',
+        attachments: [file],
+      };
+    });
+}
+
 function writeJson(file, value) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, JSON.stringify(value, null, 2), 'utf8');
@@ -24,6 +40,7 @@ function parseArgs(argv) {
   return {
     text: get('--text') || process.env.EXTERNAL_TASK_TEXT || '',
     inputFile: get('--file') || process.env.EXTERNAL_TASK_FILE || '',
+    inputDir: get('--dir') || process.env.EXTERNAL_TASK_DIR || '',
     outFile: get('--out') || process.env.EXTERNAL_TASK_OUT || '',
     site: get('--site') || process.env.AD_OPS_SITE || 'Amazon.com',
     now: get('--now') || process.env.AGENT_NOW || '',
@@ -49,7 +66,7 @@ function runExternalTaskInbox(options = {}) {
     sourceRunId: options.sourceRunId || `external_inbox_${Date.now()}`,
   });
   const inputText = options.text || (options.inputFile ? readText(options.inputFile) : '');
-  const items = options.items || splitInput(inputText);
+  const items = options.items || (options.inputDir ? readMarkdownItems(options.inputDir) : splitInput(inputText));
   const inbox = buildExternalInbox(items, timeContext);
   const outFile = options.outFile || defaultOutFile(timeContext);
   writeJson(outFile, inbox);
@@ -79,6 +96,7 @@ if (require.main === module) {
 
 module.exports = {
   parseArgs,
+  readMarkdownItems,
   runExternalTaskInbox,
   splitInput,
 };

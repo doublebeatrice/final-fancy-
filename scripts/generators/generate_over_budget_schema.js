@@ -18,6 +18,25 @@ function candidateMeta(actionType, reasonSignals = []) {
   };
 }
 
+function budgetLiftGoal(campaign = {}) {
+  const from = Math.max(0, Math.round(num(campaign.orders)));
+  return {
+    metric: 'orders',
+    from,
+    to: Math.max(from + 1, Math.ceil(from * 1.05)),
+    deadlineDays: 7,
+    hardFloor: Math.max(0, Math.floor(from * 0.75)),
+  };
+}
+
+function budgetLiftKillSwitch(goal = {}) {
+  return {
+    metric: 'orders',
+    condition: `orders below ${goal.hardFloor} by day 7 while spend rises after budget lift`,
+    rollbackIf: `orders below ${goal.hardFloor} by day 7 while spend rises after budget lift`,
+  };
+}
+
 function computeControlledBudgetLift(currentBudget) {
   const current = num(currentBudget);
   if (current <= 0) return 0;
@@ -134,57 +153,69 @@ function buildOverBudgetControlledResult(snapshot, options = {}) {
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
 
-  const plans = campaigns.map(campaign => ({
-    sku: campaign.sku,
-    asin: campaign.asin,
-    summary: `Over-budget controlled budget lift: ${campaign.campaignName} is still capped while converting. Aggregated ACOS ${(campaign.acos * 100).toFixed(1)}%, orders ${campaign.orders}, profit ${(campaign.profitRate * 100).toFixed(1)}%, inventory days ${campaign.invDays}.`,
-    actions: [{
-      ...candidateMeta('budget', ['over_budget', 'efficient_conversion', 'controlled_budget_lift']),
-      id: campaign.campaignId,
-      entityType: 'campaign',
-      actionType: 'budget',
-      currentBudget: campaign.currentBudget,
-      suggestedBudget: campaign.suggestedBudget,
-      campaignId: campaign.campaignId,
-      adGroupId: campaign.adGroupId,
-      campaignName: campaign.campaignName,
-      groupName: campaign.groupName,
-      reason: `Over-budget campaign is still converting efficiently. Increase budget moderately from ${campaign.currentBudget} to ${campaign.suggestedBudget}, not a broad scale-up. Aggregated over-budget rows: spend ${campaign.spend.toFixed(2)}, sales ${campaign.sales.toFixed(2)}, orders ${campaign.orders}, ACOS ${(campaign.acos * 100).toFixed(1)}%; SKU profit ${(campaign.profitRate * 100).toFixed(1)}%, inventory days ${campaign.invDays}.`,
-      evidence: [
-        `overBudgetRows=${campaign.rows}`,
-        `campaign spend=${campaign.spend.toFixed(2)} sales=${campaign.sales.toFixed(2)} orders=${campaign.orders} ACOS=${(campaign.acos * 100).toFixed(1)}%`,
-        `profitRate=${(campaign.profitRate * 100).toFixed(1)}% invDays=${campaign.invDays} units7=${campaign.units7} units30=${campaign.units30}`,
-        ...campaign.evidence,
-      ],
-      confidence: 0.78,
-      riskLevel: campaign.currentBudget <= 1 ? 'over_budget_min_budget_repair' : 'over_budget_controlled_budget_up',
-      allowLargeBudgetChange: campaign.currentBudget <= 1,
-      learning: {
-        enabled: true,
-        hypothesis: campaign.currentBudget <= 1
-          ? 'Campaign was still over budget at the minimum daily budget while converting efficiently; repair to a workable minimum budget and monitor profit.'
-          : 'Campaign was over budget and still converting efficiently; a capped budget lift should recover profitable sales without broad expansion.',
-        expectedEffect: { impressions: 'up', clicks: 'up', spend: 'up', orders: 'up', acos: 'watch' },
-        measurementWindowDays: [1, 3, 7],
-        baselineQuality: 'complete',
-        baseline: {
-          sku: campaign.sku,
-          asin: campaign.asin,
-          entityType: 'campaign',
-          entityId: campaign.campaignId,
-          currentBudget: campaign.currentBudget,
-          suggestedBudget: campaign.suggestedBudget,
-          profitRate: campaign.profitRate,
-          invDays: campaign.invDays,
-          overBudgetRows: campaign.rows,
-          spend: roundMoney(campaign.spend),
-          sales: roundMoney(campaign.sales),
-          orders: campaign.orders,
-          acos: campaign.acos,
+  const plans = campaigns.map(campaign => {
+    const goal = budgetLiftGoal(campaign);
+    const killSwitch = budgetLiftKillSwitch(goal);
+    return {
+      sku: campaign.sku,
+      asin: campaign.asin,
+      summary: `Over-budget controlled budget lift: ${campaign.campaignName} is still capped while converting. Aggregated ACOS ${(campaign.acos * 100).toFixed(1)}%, orders ${campaign.orders}, profit ${(campaign.profitRate * 100).toFixed(1)}%, inventory days ${campaign.invDays}.`,
+      actions: [{
+        ...candidateMeta('budget', ['over_budget', 'efficient_conversion', 'controlled_budget_lift']),
+        id: campaign.campaignId,
+        entityType: 'campaign',
+        actionType: 'budget',
+        currentBudget: campaign.currentBudget,
+        suggestedBudget: campaign.suggestedBudget,
+        campaignId: campaign.campaignId,
+        adGroupId: campaign.adGroupId,
+        campaignName: campaign.campaignName,
+        groupName: campaign.groupName,
+        reason: `Over-budget campaign is still converting efficiently. Increase budget moderately from ${campaign.currentBudget} to ${campaign.suggestedBudget}, not a broad scale-up. Aggregated over-budget rows: spend ${campaign.spend.toFixed(2)}, sales ${campaign.sales.toFixed(2)}, orders ${campaign.orders}, ACOS ${(campaign.acos * 100).toFixed(1)}%; SKU profit ${(campaign.profitRate * 100).toFixed(1)}%, inventory days ${campaign.invDays}.`,
+        evidence: [
+          `overBudgetRows=${campaign.rows}`,
+          `campaign spend=${campaign.spend.toFixed(2)} sales=${campaign.sales.toFixed(2)} orders=${campaign.orders} ACOS=${(campaign.acos * 100).toFixed(1)}%`,
+          `profitRate=${(campaign.profitRate * 100).toFixed(1)}% invDays=${campaign.invDays} units7=${campaign.units7} units30=${campaign.units30}`,
+          ...campaign.evidence,
+        ],
+        confidence: 0.78,
+        riskLevel: campaign.currentBudget <= 1 ? 'over_budget_min_budget_repair' : 'over_budget_controlled_budget_up',
+        allowLargeBudgetChange: campaign.currentBudget <= 1,
+        goal,
+        killSwitch,
+        reviewPlan: {
+          checkAfterDays: [1, 3, 7],
+          goal,
+          killSwitch,
+          rollbackIf: 'orders fall below floor or ACOS leaves SKU profit room after budget lift',
         },
-      },
-    }],
-  }));
+        learning: {
+          enabled: true,
+          hypothesis: campaign.currentBudget <= 1
+            ? 'Campaign was still over budget at the minimum daily budget while converting efficiently; repair to a workable minimum budget and monitor profit.'
+            : 'Campaign was over budget and still converting efficiently; a capped budget lift should recover profitable sales without broad expansion.',
+          expectedEffect: { impressions: 'up', clicks: 'up', spend: 'up', orders: 'up', acos: 'watch' },
+          measurementWindowDays: [1, 3, 7],
+          baselineQuality: 'complete',
+          baseline: {
+            sku: campaign.sku,
+            asin: campaign.asin,
+            entityType: 'campaign',
+            entityId: campaign.campaignId,
+            currentBudget: campaign.currentBudget,
+            suggestedBudget: campaign.suggestedBudget,
+            profitRate: campaign.profitRate,
+            invDays: campaign.invDays,
+            overBudgetRows: campaign.rows,
+            spend: roundMoney(campaign.spend),
+            sales: roundMoney(campaign.sales),
+            orders: campaign.orders,
+            acos: campaign.acos,
+          },
+        },
+      }],
+    };
+  });
 
   return {
     plans,

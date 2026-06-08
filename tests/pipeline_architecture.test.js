@@ -2,7 +2,7 @@ const assert = require('assert');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { createStageRegistry } = require('../src/pipeline/stage_registry');
+const { DORMANT_COMPONENTS, createStageRegistry, dormantComponent } = require('../src/pipeline/stage_registry');
 const { createRunContext } = require('../src/pipeline/run_context');
 const { runStage } = require('../src/pipeline/run_stage');
 const { buildTaskCards } = require('../src/briefs/build_task_cards');
@@ -21,16 +21,19 @@ async function main() {
     'season_title_dry_run',
     'low_efficiency_candidates',
     'high_efficiency_rows',
-    'ad_structure_opportunities',
     'sku_ad_form_summary',
     'schema_validate',
     'dry_run',
     'execute_verify_note',
     'daily_learning',
+    'trend_anomaly_check',
     'report',
   ]) {
     assert.strictEqual(registry.has(name), true, `${name} must be registered`);
   }
+  assert.strictEqual(registry.has('ad_structure_opportunities'), false);
+  assert.strictEqual(dormantComponent('ad_structure_opportunities_detail').status, 'dormant');
+  assert.ok(DORMANT_COMPONENTS.some(item => item.id === 'ai_decision_brief_artifact' && item.completionProof === false));
 
 {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-stage-'));

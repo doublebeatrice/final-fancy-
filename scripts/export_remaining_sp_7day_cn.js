@@ -5,8 +5,9 @@ const WebSocket = require('ws');
 
 const ROOT = path.resolve(__dirname, '..');
 const DATE = new Date().toISOString().slice(0, 10);
-const CSV_PATH = path.join(ROOT, `remaining_sp_7day_untouched_cn_${DATE}.csv`);
-const JSON_PATH = path.join(ROOT, `remaining_sp_7day_untouched_cn_${DATE}.json`);
+const EXPORT_DIR = path.join(ROOT, 'data', 'exports');
+const CSV_PATH = path.join(EXPORT_DIR, `remaining_sp_7day_untouched_cn_${DATE}.csv`);
+const JSON_PATH = path.join(EXPORT_DIR, `remaining_sp_7day_untouched_cn_${DATE}.json`);
 const DELETE_PATTERNS = [
   /^remaining_sp_7day_untouched.*\.(csv|json)$/i,
   /^剩余SP七天未调整清单.*\.(csv|json)$/i,
@@ -87,11 +88,14 @@ function createClient(ws) {
 
 function cleanupOldExports() {
   const deleted = [];
-  for (const name of fs.readdirSync(ROOT)) {
-    if (!DELETE_PATTERNS.some(pattern => pattern.test(name))) continue;
-    const full = path.join(ROOT, name);
-    fs.rmSync(full, { force: true });
-    deleted.push(name);
+  for (const dir of [ROOT, EXPORT_DIR]) {
+    if (!fs.existsSync(dir)) continue;
+    for (const name of fs.readdirSync(dir)) {
+      if (!DELETE_PATTERNS.some(pattern => pattern.test(name))) continue;
+      const full = path.join(dir, name);
+      fs.rmSync(full, { force: true });
+      deleted.push(path.relative(ROOT, full));
+    }
   }
   return deleted;
 }
@@ -230,6 +234,7 @@ async function main() {
 
   try {
     await client.send('Runtime.enable');
+    fs.mkdirSync(EXPORT_DIR, { recursive: true });
     const deleted = cleanupOldExports();
     const rows = await pullRemainingRows(client);
     rows.sort((a, b) => {
@@ -273,8 +278,8 @@ async function main() {
       JSON.stringify(
         {
           deleted,
-          csv: path.basename(CSV_PATH),
-          json: path.basename(JSON_PATH),
+          csv: path.relative(ROOT, CSV_PATH),
+          json: path.relative(ROOT, JSON_PATH),
           summary,
         },
         null,

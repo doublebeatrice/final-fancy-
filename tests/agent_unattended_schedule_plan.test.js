@@ -28,12 +28,15 @@ const timeContext = {
     '10:15',
     '--execute',
     '--execute-if-ready',
+    '--command-timeout-ms',
+    '7000',
   ]);
   assert.strictEqual(parsed.today, '2026-05-25');
   assert.strictEqual(parsed.taskName, 'AdOpsDaily');
   assert.strictEqual(parsed.startTime, '10:15');
   assert.strictEqual(parsed.execute, true);
   assert.strictEqual(parsed.executeIfReady, true);
+  assert.strictEqual(parsed.commandTimeoutMs, 7000);
 }
 
 {
@@ -50,26 +53,33 @@ const timeContext = {
   }, timeContext);
   assert.strictEqual(report.ok, true);
   assert.strictEqual(report.status, 'ready');
-  assert.strictEqual(report.mode, 'dry_run');
+  assert.strictEqual(report.mode, 'execute_if_ready');
   assert.ok(report.commands.scheduleCommand.includes('ops:agent:unattended-supervisor'));
   assert.ok(!report.commands.scheduleCommand.includes('ops:agent:closed-loop'));
-  assert.ok(!report.commands.scheduleCommand.includes('--execute'));
+  assert.ok(report.commands.scheduleCommand.includes('--execute'));
+  assert.ok(report.commands.scheduleCommand.includes('--execute-if-ready'));
+  assert.ok(report.commands.scheduleCommand.includes('--command-timeout-ms 30000'));
   assert.ok(!report.commands.scheduleCommand.includes('--today'));
   assert.ok(report.commands.runNowCommand.includes('--today 2026-05-25'));
   assert.ok(report.commands.runNowCommand.includes('learning_memory_2026-05-24.json'));
   assert.ok(report.commands.schedulerAuditCommand.includes('ops:agent:unattended-scheduler-audit'));
   assert.ok(report.commands.completionAuditCommand.includes('ops:agent:completion-audit'));
   assert.ok(report.commands.completionAuditCommand.includes('--natural-schedule-tolerance-minutes 15'));
+  assert.ok(report.commands.completionAuditCommand.includes('--goal-final'));
   assert.ok(report.commands.completionAuditRunNowCommand.includes('--today 2026-05-25'));
   assert.ok(report.commands.completionAuditRunNowCommand.includes('--natural-schedule-tolerance-minutes 15'));
+  assert.ok(report.commands.completionAuditRunNowCommand.includes('--goal-final'));
   assert.ok(report.commands.schedulerAuditCommand.includes('--schedule-install'));
+  assert.ok(report.commands.schedulerAuditCommand.includes('--require-live-execute'));
   assert.ok(report.commands.schedulerAuditCommand.includes('unattended_schedule_install_2026-05-25.json'));
   assert.strictEqual(report.commands.windowsTaskAction.execute, process.env.ComSpec || 'C:\\Windows\\System32\\cmd.exe');
   assert.ok(report.commands.windowsTaskAction.arguments.includes('run_agent_unattended_supervisor.js'));
+  assert.ok(report.commands.windowsTaskAction.arguments.includes('--command-timeout-ms 30000'));
   assert.ok(report.commands.windowsTaskAction.arguments.includes('unattended_supervisor_task.log'));
   assert.ok(report.commands.windowsCompletionAuditAction.arguments.includes('run_agent_completion_audit.js'));
   assert.ok(report.commands.windowsCompletionAuditAction.arguments.includes('unattended_completion_audit_task.log'));
   assert.ok(report.commands.windowsCompletionAuditAction.arguments.includes('--natural-schedule-tolerance-minutes 15'));
+  assert.ok(report.commands.windowsCompletionAuditAction.arguments.includes('--goal-final'));
   assert.ok(report.commands.windowsCompletionAuditAction.arguments.includes('--scheduled-task-invocation'));
   assert.ok(report.commands.windowsCompletionAuditAction.arguments.includes('--scheduled-task-name AdOpsAgentCompletionAudit'));
   assert.strictEqual(report.schedule.completionAudit.taskName, 'AdOpsAgentCompletionAudit');
@@ -81,6 +91,18 @@ const timeContext = {
   assert.strictEqual(parseNpmRunCommand(report.commands.scheduleCommand).ok, true);
   assert.strictEqual(parseNpmRunCommand(report.commands.schedulerAuditCommand).ok, true);
   assert.strictEqual(parseNpmRunCommand(report.commands.completionAuditCommand).ok, true);
+}
+
+{
+  const report = buildUnattendedSchedulePlan({
+    today: '2026-05-25',
+    agentDir: 'data\\agent',
+    dryRunSchedule: true,
+  }, timeContext);
+  assert.strictEqual(report.ok, true);
+  assert.strictEqual(report.mode, 'dry_run');
+  assert.ok(!report.commands.scheduleCommand.includes('--execute'));
+  assert.ok(!report.commands.schedulerAuditCommand.includes('--require-live-execute'));
 }
 
 {
@@ -103,6 +125,7 @@ const timeContext = {
 {
   const report = buildUnattendedSchedulePlan({
     today: '2026-05-25',
+    dryRunSchedule: true,
     executeIfReady: true,
   }, timeContext);
   assert.strictEqual(report.ok, false);

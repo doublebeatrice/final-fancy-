@@ -68,6 +68,7 @@ function parseArgs(argv) {
     now: get('--now') || process.env.AGENT_NOW || '',
     site: get('--site') || process.env.AD_OPS_SITE || 'Amazon.com',
     sourceRunId: get('--source-run-id') || process.env.SOURCE_RUN_ID || '',
+    commandTimeoutMs: Number(get('--command-timeout-ms') || process.env.AGENT_COMMAND_TIMEOUT_MS || 120000),
     outDir: get('--out-dir') || process.env.AGENT_OUT_DIR || '',
     outFile: get('--out') || process.env.AGENT_UNATTENDED_SUPERVISOR_OUT || '',
     markdownFile: get('--md-out') || process.env.AGENT_UNATTENDED_SUPERVISOR_MD_OUT || '',
@@ -125,6 +126,9 @@ function summarizeClosedLoop(report = {}) {
     unattendedExecuteAllowed: summary.unattendedExecuteAllowed === true,
     unattendedGateBlockerCount: Number(summary.unattendedGateBlockerCount || 0),
     unattendedExecuted: summary.unattendedExecuted === true,
+    mandatoryDailyClosureOpen: Number(summary.mandatoryDailyClosureOpen || 0),
+    mandatoryDailyClosureUnresolved: Number(summary.mandatoryDailyClosureUnresolved || 0),
+    mandatoryDailyClosureResolved: summary.mandatoryDailyClosureResolved === true,
     priorLearningMemoryApplied: summary.priorLearningMemoryApplied === true,
     priorLearningConstraintTasks: Number(summary.priorLearningConstraintTasks || 0),
     priorLearningBlockers: Number(summary.priorLearningBlockers || 0),
@@ -197,6 +201,15 @@ function buildIssues({ closedLoop = {}, priorLearning = {}, requested = {}, effe
       'Prior learning memory has blocker constraints',
       [`priorLearningBlockers=${summary.priorLearningBlockers}`],
       'Close prior learning blockers before reusing affected rules.'
+    ));
+  }
+  if (summary.mandatoryDailyClosureOpen > 0 && summary.mandatoryDailyClosureResolved !== true) {
+    issues.push(issue(
+      'mandatory_daily_closure_not_landed',
+      liveRequested ? 'blocker' : 'warning',
+      'Mandatory daily closure is not landed',
+      [`open=${summary.mandatoryDailyClosureOpen}`, `unresolved=${summary.mandatoryDailyClosureUnresolved}`],
+      'Keep the day open until low-efficiency, over-budget, and price actions are landed or explicitly blocked for review.'
     ));
   }
   if (liveRequested && summary.unattendedExecuteAllowed === true && summary.unattendedExecuted !== true) {

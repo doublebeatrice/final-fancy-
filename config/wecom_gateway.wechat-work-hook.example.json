@@ -1,0 +1,17 @@
+{
+  "provider": "wechat-work-hook",
+  "callbackHost": "127.0.0.1",
+  "callbackPort": 9000,
+  "apiHost": "127.0.0.1",
+  "apiPort": 8989,
+  "apiPath": "/api",
+  "supportedWecomVersion": "4.1.36.6012",
+  "timezone": "Asia/Shanghai",
+  "digestTimes": ["10:00", "14:00", "17:00"],
+  "retentionDays": 7,
+  "outDir": "data/agent",
+  "codexThreadId": "",
+  "operatorAliases": ["你的名字"],
+  "groupWhitelist": ["开发群名称"],
+  "directSenderWhitelist": ["指定开发同事"]
+}

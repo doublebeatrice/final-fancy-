@@ -94,7 +94,7 @@ function fixture(tmpDir, overrides = {}) {
       state: 'Ready',
       triggerEnabled: true,
       runLevel: 'Highest',
-      actionArguments: 'run ops:agent:completion-audit -- --out-dir data\\agent --natural-schedule-tolerance-minutes 15 --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit',
+      actionArguments: 'run ops:agent:completion-audit -- --out-dir data\\agent --natural-schedule-tolerance-minutes 15 --goal-final --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit',
       nextRunTime: '05/26/2026 09:50:50',
       lastRunTime: '11/30/1999 00:00:00',
       lastTaskResult: '267011',
@@ -193,6 +193,27 @@ function fixture(tmpDir, overrides = {}) {
 }
 
 {
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-readiness-completion-no-goal-final-'));
+  const files = fixture(tmpDir, {
+    scheduleInstall: {
+      completionAuditTask: {
+        actionArguments: 'run ops:agent:completion-audit -- --out-dir data\\agent --natural-schedule-tolerance-minutes 15 --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit',
+      },
+    },
+  });
+  const report = buildAgentReadinessAudit({
+    ...files,
+    requireCorrectionLesson: true,
+    requireRiskRoutingLesson: true,
+  }, timeContext);
+  const check = report.checks.find(item => item.id === 'post_trigger_completion_audit_schedule');
+  assert.strictEqual(report.ok, false);
+  assert.strictEqual(report.summary.completionAuditScheduleReady, false);
+  assert.strictEqual(check.status, 'fail');
+  assert.ok(check.evidence.includes('goalFinalReady=false'));
+}
+
+{
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-readiness-runtime-pass-'));
   const files = fixture(tmpDir, {
     supervisor: {
@@ -256,7 +277,7 @@ function fixture(tmpDir, overrides = {}) {
         state: 'Ready',
         triggerEnabled: true,
         runLevel: 'Highest',
-        actionArguments: 'run ops:agent:completion-audit -- --out-dir data\\agent --natural-schedule-tolerance-minutes 15 --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit',
+        actionArguments: 'run ops:agent:completion-audit -- --out-dir data\\agent --natural-schedule-tolerance-minutes 15 --goal-final --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit',
         nextRunTime: '05/26/2026 09:50:50',
         lastRunTime: '05/25/2026 09:50:50',
         lastTaskResult: '0',
@@ -312,7 +333,7 @@ function fixture(tmpDir, overrides = {}) {
         state: 'Ready',
         triggerEnabled: true,
         runLevel: 'Highest',
-        actionArguments: 'run ops:agent:completion-audit -- --out-dir data\\agent --natural-schedule-tolerance-minutes 15 --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit',
+        actionArguments: 'run ops:agent:completion-audit -- --out-dir data\\agent --natural-schedule-tolerance-minutes 15 --goal-final --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit',
         nextRunTime: '05/26/2026 09:50:50',
         lastRunTime: '11/30/1999 00:00:00',
         lastTaskResult: '267011',
@@ -367,7 +388,7 @@ function fixture(tmpDir, overrides = {}) {
         state: 'Running',
         triggerEnabled: true,
         runLevel: 'Highest',
-        actionArguments: 'run ops:agent:completion-audit -- --out-dir data\\agent --natural-schedule-tolerance-minutes 15 --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit',
+        actionArguments: 'run ops:agent:completion-audit -- --out-dir data\\agent --natural-schedule-tolerance-minutes 15 --goal-final --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit',
         nextRunTime: '05/25/2026 09:50:50',
         lastRunTime: '05/25/2026 09:50:50',
         lastTaskResult: '267009',

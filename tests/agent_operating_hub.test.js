@@ -63,7 +63,7 @@ const timeContext = {
   assert.strictEqual(plan.commands.length, 2);
   assert.ok(plan.commands[0].command.includes('npm run ops:agent:review-effect'));
   assert.ok(plan.commands[0].command.includes('--queue data\\agent\\review_queue_2026-05-19.json'));
-  assert.ok(plan.commands[0].command.includes('--collect-evidence'));
+  assert.ok(!plan.commands[0].command.includes('--collect-evidence'));
   assert.ok(plan.commands[0].command.includes('--inventory-report'));
   assert.ok(plan.commands[0].command.includes('--profit-report'));
   assert.ok(plan.commands[0].command.includes('--keyword-research-report'));
@@ -71,6 +71,7 @@ const timeContext = {
   assert.ok(plan.commands[0].command.includes('--aba-report'));
   assert.ok(plan.commands[0].command.includes('--seasonality-report'));
   assert.ok(plan.commands[0].command.includes('--product-time-machine-report'));
+  assert.ok(!plan.expectedOutputs.some(output => output.includes('review_evidence')));
   assert.ok(plan.commands.some(command => command.command.includes('ops:selection:operating-intelligence')));
 }
 

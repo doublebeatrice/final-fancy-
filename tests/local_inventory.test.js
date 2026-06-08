@@ -8,6 +8,8 @@ const vm = require('vm');
 const {
   extractLocalInventory,
   localInventoryQuantity,
+  replenishmentCoverage7d,
+  replenishmentUnits,
 } = require('../src/local_inventory');
 const { buildDailyTaskPool } = require('../src/task_scheduler');
 
@@ -64,6 +66,22 @@ assert.strictEqual(xix2353Local.orderAmount, 10);
 assert.strictEqual(localInventoryQuantity({ localInventory: gm3068Local }), 0);
 assert.strictEqual(localInventoryQuantity({ localInventory: { availableForPlan: '', goodStock: 13 } }), 13);
 assert.strictEqual(localInventoryQuantity({ localInventory: 8 }), 8);
+assert.strictEqual(replenishmentUnits({
+  inboundQty: 20,
+  stockInb: 30,
+  stockInbAir: 40,
+  stockPlan: 5,
+  localInventory: { availableForPlan: 10, fbaPlan: 100, fbaPlanAir: 50, fbaPlanSea: 50, fbaPlanTotal: 12, fbaPlanTotalAir: 6, fbaPlanTotalSea: 6 },
+}), 147);
+assert.deepStrictEqual(
+  replenishmentCoverage7d({
+    fulFillable: 10,
+    reserved: 5,
+    unitsSold_7d: 14,
+    stockInb: 15,
+  }, { fulResUnits: 15 }),
+  { units: 15, days: 7.5, totalSellableDays7d: 15 },
+);
 
 const pool = buildDailyTaskPool({
   snapshot: {

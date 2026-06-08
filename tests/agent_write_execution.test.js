@@ -229,6 +229,7 @@ const timeContext = {
     snapshotFile: path.join(tmpDir, 'latest_snapshot.json'),
     outFile,
     timeContext,
+    dryRunFeedback: {},
     execFileSync: (bin, args) => {
       calls.push({ bin, args });
       return '[adjustment-log] appended 1 records';
@@ -262,6 +263,7 @@ const timeContext = {
     snapshotFile: path.join(tmpDir, 'latest_snapshot.json'),
     execute: true,
     timeContext,
+    dryRunFeedback: {},
     execFileSync: () => '',
   });
 

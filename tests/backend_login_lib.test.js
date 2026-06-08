@@ -91,6 +91,16 @@ assert.strictEqual(
 );
 
 assert.strictEqual(
+  classifyBackendPage(TARGETS.sif, {
+    href: 'https://www.sif.com/',
+    title: 'Sif\u5b98\u7f51',
+    text: 'Sif \u5173\u952e\u8bcd \u6d41\u91cf \u5e7f\u544a',
+    frames: [],
+  }).status,
+  'ready'
+);
+
+assert.strictEqual(
   parseSelectionAccessToken(JSON.stringify({ value: 'real-token', expire: 1770000000000 })),
   'real-token'
 );
@@ -105,6 +115,7 @@ assert.strictEqual(
     adv: { status: 'ready' },
     inventory: { status: 'ready' },
     selection: { status: 'ready' },
+    sif: { status: 'ready' },
   }),
   true
 );
@@ -114,6 +125,7 @@ assert.strictEqual(
     adv: { status: 'ready' },
     inventory: { status: 'manual_login_required' },
     selection: { status: 'ready' },
+    sif: { status: 'ready' },
   }),
   false
 );
@@ -122,6 +134,7 @@ assert.strictEqual(
   allTargetsReady({
     adv: { status: 'ready' },
     inventory: { status: 'ready' },
+    selection: { status: 'ready' },
   }),
   false
 );

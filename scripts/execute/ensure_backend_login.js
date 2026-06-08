@@ -6,14 +6,17 @@ const {
   redactSensitiveUrl,
 } = require('./backend_login_lib');
 const {
+  DEFAULT_BROWSER_URL,
   cdpSession,
+  closeTab,
   listTabs,
   openTab,
 } = require('../../discovery/lib/cdp');
 
-const PANEL_URL = 'chrome-extension://ipidenfkcdlhadnieamoocalimlnhagj/panel.html';
+const LEGACY_PANEL_URL = 'chrome-extension://ipidenfkcdlhadnieamoocalimlnhagj/panel.html';
 const DEFAULT_TIMEOUT_MS = Number(process.env.BACKEND_LOGIN_TIMEOUT_MS || 90000);
 const POLL_MS = Number(process.env.BACKEND_LOGIN_POLL_MS || 1500);
+const REQUIRE_PANEL = process.env.AD_OPS_REQUIRE_PANEL === '1';
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -27,8 +30,70 @@ function findTabForUrl(tabs, urlPrefix) {
   return pageTabs(tabs).find(tab => String(tab.url || '').startsWith(urlPrefix));
 }
 
+function isPanelUrl(url) {
+  return /^chrome-extension:\/\/[a-p]{32}\/panel\.html(?:[?#].*)?$/.test(String(url || ''));
+}
+
+function panelUrlForExtensionUrl(url) {
+  const match = String(url || '').match(/^chrome-extension:\/\/([a-p]{32})\//);
+  return match ? `chrome-extension://${match[1]}/panel.html` : '';
+}
+
+function uniqueValues(values) {
+  return [...new Set(values.filter(value => typeof value === 'string' && value.trim()))];
+}
+
+async function listBrowserTargets(browserUrl = DEFAULT_BROWSER_URL) {
+  const response = await fetch(`${browserUrl.replace(/\/$/, '')}/json/version`);
+  const version = await response.json();
+  if (!version.webSocketDebuggerUrl) return [];
+
+  const session = cdpSession({ webSocketDebuggerUrl: version.webSocketDebuggerUrl, url: 'browser' });
+  await session.ready();
+  try {
+    const result = await session.send('Target.getTargets');
+    return result.targetInfos || [];
+  } finally {
+    session.close();
+  }
+}
+
+async function discoverPanelCandidateUrls(tabs = null) {
+  const candidates = [];
+  if (process.env.AD_OPS_PANEL_URL) candidates.push(process.env.AD_OPS_PANEL_URL);
+
+  const currentTabs = tabs || await listTabs();
+  for (const tab of pageTabs(currentTabs)) {
+    if (isPanelUrl(tab.url)) candidates.push(tab.url);
+    if (isPanelUrl(tab.title)) candidates.push(tab.title);
+  }
+
+  try {
+    const targets = await listBrowserTargets();
+    for (const target of targets) {
+      const url = panelUrlForExtensionUrl(target.url);
+      if (url) candidates.push(url);
+    }
+  } catch (_) {
+    // Existing page targets and an explicit URL are enough for the safe path.
+  }
+
+  if (process.env.AD_OPS_USE_LEGACY_PANEL_URL === '1') candidates.push(LEGACY_PANEL_URL);
+  return uniqueValues(candidates);
+}
+
 function findTabForTarget(tabs, target) {
-  return pageTabs(tabs).find(tab => String(tab.url || '').startsWith(target.origin));
+  const matches = pageTabs(tabs).filter(tab => String(tab.url || '').startsWith(target.origin));
+  matches.sort((a, b) => targetTabScore(a, target) - targetTabScore(b, target));
+  return matches[0];
+}
+
+function targetTabScore(tab, target) {
+  const url = String(tab.url || '');
+  if (target.key === 'adv' && /^https:\/\/adv\.yswg\.com\.cn\/vue\/?\?/.test(url)) return 0;
+  if (url === target.requiredUrl || url === `${target.origin}/`) return 1;
+  if (!url.includes(target.loginPath)) return 2;
+  return 3;
 }
 
 async function withSession(tab, fn) {
@@ -242,8 +307,44 @@ async function ensureRequiredTabs() {
   const adv = await ensureTab(TARGETS.adv.requiredUrl, items => findTabForTarget(items, TARGETS.adv));
   const inventory = await ensureTab(TARGETS.inventory.requiredUrl, items => findTabForTarget(items, TARGETS.inventory));
   const selection = await ensureTab(TARGETS.selection.requiredUrl, items => findTabForTarget(items, TARGETS.selection));
-  const panel = await ensureTab(PANEL_URL, items => findTabForUrl(items, PANEL_URL));
-  return { adv, inventory, selection, panel, initialTabCount: tabs.length };
+  const sif = await ensureTab(TARGETS.sif.requiredUrl, items => findTabForTarget(items, TARGETS.sif));
+  const panel = await ensurePanelTab(tabs);
+  return { adv, inventory, selection, sif, panel: panel.tab, panelDiagnostics: panel, initialTabCount: tabs.length };
+}
+
+function workflowTabKey(tab) {
+  const url = String(tab.url || '');
+  if (isPanelUrl(url)) return 'panel';
+  for (const [key, target] of Object.entries(TARGETS)) {
+    if (url.startsWith(target.origin)) return key;
+  }
+  if (url === 'about:blank') return 'blank';
+  return null;
+}
+
+async function closeDuplicateWorkflowTabs(keepTabs) {
+  const keepIds = new Set(
+    Object.values(keepTabs || {})
+      .map(tab => tab && tab.id)
+      .filter(Boolean)
+  );
+  const tabs = pageTabs(await listTabs());
+  const closed = [];
+
+  for (const key of ['adv', 'inventory', 'selection', 'sif', 'panel']) {
+    const matches = tabs.filter(tab => workflowTabKey(tab) === key);
+    const keep = matches.find(tab => keepIds.has(tab.id)) || matches[0];
+    for (const tab of matches) {
+      if (!keep || tab.id === keep.id) continue;
+      if (await closeTab(tab)) closed.push({ key, id: tab.id, url: tab.url });
+    }
+  }
+
+  for (const tab of tabs.filter(item => workflowTabKey(item) === 'blank')) {
+    if (await closeTab(tab)) closed.push({ key: 'blank', id: tab.id, url: tab.url });
+  }
+
+  return closed;
 }
 
 async function checkAdHealth(tab) {
@@ -299,6 +400,8 @@ async function checkInventoryHealth(panelTab, inventoryTab) {
     };
   }
 
+  if (!panelTab) return runDirectPageCheck(inventoryTab);
+
   async function runCheck(tab) {
     return evaluate(tab, `(async () => {
       try {
@@ -325,6 +428,70 @@ async function checkInventoryHealth(panelTab, inventoryTab) {
     return runDirectPageCheck(inventoryTab);
   }
   return result;
+}
+
+async function checkPanelHealth(tab) {
+  if (!tab) {
+    return { ok: false, error: 'project extension panel tab missing', blocked: false, missingFunctions: [] };
+  }
+
+  return evaluate(tab, `(() => {
+    const required = [
+      'findTab',
+      'fetchAllData',
+      'fetchSevenDayUntouchedPools',
+      'ensureInventoryListPage',
+      'fetchAllInventoryDirect',
+    ];
+    const functions = {};
+    for (const name of required) functions[name] = typeof globalThis[name];
+    const missingFunctions = required.filter(name => functions[name] !== 'function');
+    const href = location.href;
+    const bodyText = String(document.body && document.body.innerText || '').replace(/\\s+/g, ' ').trim().slice(0, 500);
+    const blocked = href.startsWith('chrome-error://') || /blocked|ERR_BLOCKED_BY_CLIENT/i.test(bodyText);
+    return {
+      ok: !blocked && missingFunctions.length === 0,
+      href,
+      title: document.title,
+      blocked,
+      missingFunctions,
+      functions,
+      bodyText,
+    };
+  })()`);
+}
+
+async function ensurePanelTab(initialTabs = null) {
+  const candidates = await discoverPanelCandidateUrls(initialTabs);
+  const failed = [];
+
+  for (const url of candidates) {
+    let tab = null;
+    try {
+      tab = await ensureTab(url, items => findTabForUrl(items, url));
+      const health = await checkPanelHealth(tab);
+      if (health?.ok) return { tab, url, health, candidates, failed };
+
+      failed.push({ url, health });
+      if (health?.blocked) await closeTab(tab);
+    } catch (error) {
+      failed.push({ url, error: error.message || String(error) });
+      if (tab) await closeTab(tab);
+    }
+  }
+
+  return {
+    tab: null,
+    url: candidates[0] || null,
+    health: {
+      ok: false,
+      error: 'no usable project extension panel found',
+      blocked: failed.some(item => item.health?.blocked),
+      missingFunctions: [],
+    },
+    candidates,
+    failed,
+  };
 }
 
 async function checkSelectionHealth(tab) {
@@ -406,16 +573,70 @@ async function checkSelectionHealth(tab) {
   })()`, true);
 }
 
+async function checkSifHealth(tab) {
+  return evaluate(tab, `(async () => {
+    const readCookie = name => {
+      const hit = document.cookie.split(';').map(item => item.trim()).find(item => item.startsWith(name + '='));
+      return hit ? hit.slice(name.length + 1) : '';
+    };
+    const token = localStorage.getItem('token') || readCookie('sif_token_share_prod') || readCookie('sif_token') || '';
+    const tokenState = {
+      hasToken: !!token,
+      tokenLength: token ? String(token).length : 0,
+    };
+    if (token && !localStorage.getItem('token')) localStorage.setItem('token', token);
+    if (!token) {
+      return {
+        ok: false,
+        status: null,
+        code: null,
+        message: 'SIF token missing',
+        ...tokenState,
+      };
+    }
+
+    const url = '/api/search/keyword/abahistory/chart?country=US&keyword=party%20favors&granularity=week&_t=' + Date.now();
+    const res = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        accept: 'application/json, text/plain, */*',
+        authorization: token,
+      },
+    });
+    const bodyText = await res.text();
+    let json = null;
+    try { json = JSON.parse(bodyText); } catch (_) {}
+    const data = json?.data || json?.result || {};
+    return {
+      ok: res.status === 200 && json?.code === 1 && Array.isArray(data.granularities),
+      status: res.status,
+      code: json?.code ?? null,
+      message: String(json?.message || json?.msg || '').slice(0, 120),
+      resultKeys: data && typeof data === 'object' ? Object.keys(data).slice(0, 40) : [],
+      timelineCount: Array.isArray(data.granularities) ? data.granularities.length : 0,
+      latestSearchVolume: Array.isArray(data.keywordSearchVolumes) && data.keywordSearchVolumes.length
+        ? Number(data.keywordSearchVolumes[data.keywordSearchVolumes.length - 1])
+        : null,
+      html: bodyText.trimStart().startsWith('<'),
+      ...tokenState,
+    };
+  })()`, true);
+}
+
 async function ensureBackendsReady() {
   const tabs = await ensureRequiredTabs();
+  const duplicateTabsClosed = await closeDuplicateWorkflowTabs(tabs);
   const statuses = {};
 
   statuses.adv = await waitForBackendReady(TARGETS.adv, tabs.adv);
   statuses.inventory = await waitForBackendReady(TARGETS.inventory, tabs.inventory);
   statuses.selection = await waitForBackendReady(TARGETS.selection, tabs.selection);
+  statuses.sif = await waitForBackendReady(TARGETS.sif, tabs.sif);
 
   const health = {
     adv: statuses.adv.status === 'ready' ? await checkAdHealth(tabs.adv) : { ok: false, skipped: statuses.adv.status },
+    panel: tabs.panelDiagnostics?.health || await checkPanelHealth(tabs.panel),
     inventory: statuses.inventory.status === 'ready' ? await checkInventoryHealth(tabs.panel, tabs.inventory) : { ok: false, skipped: statuses.inventory.status },
     selection: statuses.selection.status === 'ready' ? await checkSelectionHealth(tabs.selection) : {
       ok: false,
@@ -427,10 +648,24 @@ async function ensureBackendsReady() {
       hasAccessToken: false,
       tokenLength: 0,
     },
+    sif: statuses.sif.status === 'ready' ? await checkSifHealth(tabs.sif) : {
+      ok: false,
+      status: null,
+      code: null,
+      message: `SIF page status: ${statuses.sif.status}`,
+      hasToken: false,
+      tokenLength: 0,
+    },
   };
 
+  const coreReady = allTargetsReady(statuses) && Object.keys(TARGETS).every(key => !!health[key]?.ok);
+  const panelReady = !!health.panel?.ok;
   return {
-    ok: allTargetsReady(statuses) && Object.keys(TARGETS).every(key => !!health[key]?.ok),
+    ok: coreReady && (!REQUIRE_PANEL || panelReady),
+    requirePanel: REQUIRE_PANEL,
+    panelWarning: coreReady && !panelReady ? 'project extension panel is unavailable; backend API reads are ready' : '',
+    duplicateTabsClosed,
+    panelDiagnostics: tabs.panelDiagnostics,
     statuses,
     health,
   };
@@ -450,6 +685,9 @@ if (require.main === module) {
 }
 
 module.exports = {
+  checkPanelHealth,
+  discoverPanelCandidateUrls,
+  checkSifHealth,
   checkSelectionHealth,
   ensureBackendsReady,
   parseSelectionAccessToken,

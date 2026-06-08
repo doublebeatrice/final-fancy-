@@ -180,6 +180,57 @@ function buildFixture(tmpDir, options = {}) {
 }
 
 {
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-unattended-mandatory-open-'));
+  const closedLoopFile = path.join(tmpDir, 'agent_closed_loop_2026-05-25.json');
+  const autonomyAuditFile = path.join(tmpDir, 'autonomy_audit_2026-05-25.json');
+  const learningMemoryFile = path.join(tmpDir, 'learning_memory_2026-05-25.json');
+  const writeExecutionFile = path.join(tmpDir, 'write_execution_2026-05-25.json');
+  writeJson(closedLoopFile, {
+    closedLoop: true,
+    summary: {
+      artifactVerificationOk: true,
+      commandFailed: 0,
+      writeFailed: 0,
+      dailyClosureStatus: 'needs_recovery',
+      kpiRecoveryNextActionsReady: true,
+      snapshotStale: false,
+      dataLagDays: 0,
+      mandatoryDailyClosure: {
+        lowEfficiency: { actionable: 2 },
+        overBudget: { requiredActions: 3 },
+        price: { requiredActions: 1 },
+      },
+    },
+  });
+  writeJson(autonomyAuditFile, {
+    status: 'ready',
+    summary: { blockerCount: 0, failCount: 0 },
+    checks: [],
+  });
+  writeJson(learningMemoryFile, {
+    status: 'ready',
+    summary: { blockers: 0, warnings: 0 },
+    nextRunBrief: { mustReadBeforeDecision: [] },
+  });
+  writeJson(writeExecutionFile, {
+    mode: 'skipped',
+    plan: {
+      summary: { totalActions: 0, eligibleActions: 0, blockedActions: 0 },
+    },
+    summary: { failedStages: 0 },
+  });
+  const gate = buildUnattendedGate({
+    closedLoopFile,
+    autonomyAuditFile,
+    learningMemoryFile,
+    writeExecutionFile,
+  }, timeContext);
+  assert.strictEqual(gate.decision, 'execute_blocked');
+  assert.strictEqual(gate.summary.mandatoryDailyClosureOpen, 6);
+  assert.ok(gate.issues.some(issue => issue.id === 'mandatory_daily_closure_not_landed'));
+}
+
+{
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-unattended-execute-'));
   const fixture = buildFixture(tmpDir);
   const outFile = path.join(tmpDir, 'unattended_gate.json');
@@ -218,6 +269,9 @@ function buildFixture(tmpDir, options = {}) {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-unattended-closed-loop-'));
   const result = runAgentClosedLoop({
     timeContext,
+    disableTrendAnomalyCheck: true,
+    correctionDir: tmpDir,
+    skuLessonDir: tmpDir,
     outDir: tmpDir,
     generateDashboard: false,
     hub: { businessDate: '2026-05-25', dataDate: '2026-05-25', summary: { total: 0 }, todayQueue: [] },
@@ -269,6 +323,9 @@ function buildFixture(tmpDir, options = {}) {
   const calls = [];
   const result = runAgentClosedLoop({
     timeContext,
+    disableTrendAnomalyCheck: true,
+    correctionDir: tmpDir,
+    skuLessonDir: tmpDir,
     outDir: tmpDir,
     dashboardOutDir: tmpDir,
     verifyDailyClosureArtifacts: () => ({ ok: true, errors: [] }),
@@ -318,6 +375,9 @@ function buildFixture(tmpDir, options = {}) {
   const calls = [];
   const result = runAgentClosedLoop({
     timeContext,
+    disableTrendAnomalyCheck: true,
+    correctionDir: tmpDir,
+    skuLessonDir: tmpDir,
     outDir: tmpDir,
     dashboardOutDir: tmpDir,
     verifyDailyClosureArtifacts: () => ({ ok: true, errors: [] }),
@@ -368,6 +428,9 @@ function buildFixture(tmpDir, options = {}) {
   const calls = [];
   const result = runAgentClosedLoop({
     timeContext,
+    disableTrendAnomalyCheck: true,
+    correctionDir: tmpDir,
+    skuLessonDir: tmpDir,
     outDir: tmpDir,
     dashboardOutDir: tmpDir,
     verifyDailyClosureArtifacts: () => ({ ok: true, errors: [] }),

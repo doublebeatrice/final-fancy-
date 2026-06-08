@@ -257,6 +257,8 @@ function buildChecks(reports = {}, files = {}, options = {}) {
     hasCommandOption(completionArgs, '--scheduled-task-invocation') &&
     completionArgs.includes(`--scheduled-task-name ${expectedCompletionTaskName}`)
   );
+  const completionGoalFinalReady = completionArgs.includes('AGENT_COMPLETION_GOAL_FINAL=1') ||
+    hasCommandOption(completionArgs, '--goal-final');
   const completionNextMs = parseTaskTime(completion.nextRunTime);
   const supervisorNextMs = parseTaskTime(installed.nextRunTime);
   const completionStartMinute = timeOfDayMinutes(completionPlan.startTime);
@@ -275,6 +277,7 @@ function buildChecks(reports = {}, files = {}, options = {}) {
     text(completion.runLevel).toLowerCase() === 'highest' &&
     installedCompletionAuditEntrypoint(completion) &&
     completionInvocationMarkerReady &&
+    completionGoalFinalReady &&
     completionNextMs > 0 &&
     completionAfterSupervisor &&
     !hasCommandOption(completionArgs, '--today');
@@ -298,10 +301,11 @@ function buildChecks(reports = {}, files = {}, options = {}) {
       `planCompletionAfterSupervisor=${planCompletionAfterSupervisor}`,
       `entrypointOk=${installedCompletionAuditEntrypoint(completion)}`,
       `invocationMarkerReady=${completionInvocationMarkerReady}`,
+      `goalFinalReady=${completionGoalFinalReady}`,
       `pinsToday=${hasCommandOption(completionArgs, '--today')}`,
       `actionArguments=${completionArgs}`,
     ],
-    'Install or repair AdOpsAgentCompletionAudit so natural-trigger completion proof is produced without a manual next-day check.'
+    'Install or repair AdOpsAgentCompletionAudit so it runs completion audit with --goal-final and produces natural-trigger GOAL-FINAL proof.'
   ));
 
   const completionNatural = naturalScheduledRun(completion, {

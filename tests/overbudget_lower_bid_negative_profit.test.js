@@ -77,6 +77,13 @@ const positiveReferenceProfitPlans = buildOverbudgetAdgroupLowerBidPlans({
 assert.strictEqual(positiveReferenceProfitPlans.length, 1);
 assert.strictEqual(positiveReferenceProfitPlans[0].actions[0].riskLevel, 'overbudget_adgroup_profit_pressure_bid_down');
 assert.strictEqual(positiveReferenceProfitPlans[0].actions[0].suggestedBid, 0.67);
+assert.deepStrictEqual(positiveReferenceProfitPlans[0].actions[0].goal, {
+  metric: 'netProfit',
+  from: 0.1548,
+  to: 0.1648,
+  deadlineDays: 7,
+  hardFloor: 0.1348,
+});
 
 snapshot.productCards[0].netProfit = -0.05;
 snapshot.productCards[0].busyNetProfit = -0.08;
@@ -99,6 +106,13 @@ assert.strictEqual(action.id, '423520514605853');
 assert.strictEqual(action.currentBid, 0.7);
 assert.strictEqual(action.suggestedBid, 0.64);
 assert.strictEqual(action.riskLevel, 'overbudget_adgroup_negative_profit_bid_down');
+assert.deepStrictEqual(action.goal, {
+  metric: 'netProfit',
+  from: -0.05,
+  to: -0.04,
+  deadlineDays: 7,
+  hardFloor: -0.07,
+});
 assert.ok(action.reason.includes('negative_profit'));
 assert.ok(action.evidence.some(item => item.includes('referenceNetProfit=-5.0%')));
 

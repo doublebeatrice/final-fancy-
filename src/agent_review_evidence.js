@@ -28,6 +28,13 @@ function dateOnly(value) {
   return date.toISOString().slice(0, 10);
 }
 
+function firstText(row = {}, keys = []) {
+  for (const key of keys) {
+    if (row[key] !== undefined && row[key] !== null && text(row[key])) return text(row[key]);
+  }
+  return '';
+}
+
 function firstNumber(row = {}, keys = []) {
   for (const key of keys) {
     if (row[key] !== undefined && row[key] !== null && row[key] !== '') return num(row[key]);
@@ -50,6 +57,7 @@ function normalizeMetricRow(row = {}) {
     spend,
     orders,
     sales,
+    netProfit: firstNumber(row, ['netProfit', 'net_profit', 'profit', 'profitAmount']),
     acos,
     clicks: firstNumber(row, ['clicks', 'click', '广告点击', '点击']),
     impressions: firstNumber(row, ['impressions', 'impression', '广告曝光', '曝光']),
@@ -816,6 +824,12 @@ function baselineForTask(task = {}) {
   return task.reviewPlan?.baseline || task.baseline || task.reviewBaseline || null;
 }
 
+function baselineAsOfForTask(task = {}, baseline = null) {
+  return firstText(baseline || {}, ['asOf', 'asOfDate', 'exportedAt', 'dataDate', 'businessDate', 'capturedAt']) ||
+    firstText(task.reviewPlan || {}, ['baselineAsOf', 'baselineDate', 'dataDate', 'businessDate', 'createdAt']) ||
+    firstText(task, ['dataDate', 'businessDate', 'createdAt']);
+}
+
 function requestedMetrics(task = {}) {
   return (task.reviewPlan?.metrics || []).map(item => text(item).toLowerCase());
 }
@@ -842,8 +856,14 @@ function normalizeReportMap(reports = {}, normalizeFn = value => value) {
   for (const [key, report] of Object.entries(reports || {})) {
     const normalized = normalizeFn(report);
     const explicitKey = text(key).toUpperCase();
-    if (explicitKey) normalizedReports[explicitKey] = normalized;
-    for (const rowKey of Object.keys(normalized.rows || {})) normalizedReports[rowKey] = normalized;
+    if (explicitKey && (!normalizedReports[explicitKey] || normalized.rows?.[explicitKey])) {
+      normalizedReports[explicitKey] = normalized;
+    }
+    for (const rowKey of Object.keys(normalized.rows || {})) {
+      if (!normalizedReports[rowKey] || !normalizedReports[rowKey].rows?.[rowKey]) {
+        normalizedReports[rowKey] = normalized;
+      }
+    }
   }
   return normalizedReports;
 }
@@ -999,6 +1019,8 @@ function buildReviewEvidence({ queue = {}, adReports = {}, inventoryReports = {}
     const market = marketEvidenceForTask(task, normalizedSelectionReports);
     const productSelection = productSelectionEvidenceForTask(task, normalizedSelectionReports);
     const baseline = baselineForTask(task);
+    const baselineAsOf = baselineAsOfForTask(task, baseline);
+    const currentAsOf = current ? firstText(adReport, ['exportedAt', 'generatedAt', 'dataDate', 'businessDate']) : '';
     const metrics = requestedMetrics(task);
     const warnings = [];
     if (!baseline) warnings.push('missing_baseline_metrics');
@@ -1007,10 +1029,15 @@ function buildReviewEvidence({ queue = {}, adReports = {}, inventoryReports = {}
     if (metrics.includes('profit') && !profit) warnings.push('missing_current_profit_metrics');
     if ((metrics.includes('market') || metrics.includes('selection')) && !market?.readyForDecisionSupport) warnings.push('missing_current_selection_market');
     if ((metrics.includes('product') || metrics.includes('asin') || metrics.includes('extended_selection')) && !productSelection?.readyForDecisionSupport) warnings.push('missing_current_extended_selection');
-    const riskSignals = riskSignalsForEvidence(current, inventory, profit, market);
+    const currentWithProfit = current && profit && !current.netProfit
+      ? { ...current, netProfit: (num(current.sales) * num(profit.profitRate)) - num(current.spend) }
+      : current;
+    const riskSignals = riskSignalsForEvidence(currentWithProfit, inventory, profit, market);
     evidence[key] = {
       baseline,
-      current,
+      baselineAsOf,
+      current: currentWithProfit,
+      currentAsOf,
       inventory,
       profit,
       market,
@@ -1042,6 +1069,42 @@ function readJson(file, fallback = {}) {
   }
 }
 
+function latestAdSkuSummaryFile(day = 7) {
+  const dir = path.join(ROOT, 'data', 'snapshots');
+  try {
+    return fs.readdirSync(dir)
+      .filter(name => new RegExp(`^ad_sku_summary_ALL_${Number(day) || 7}d_\\d{4}-\\d{2}-\\d{2}\\.json$`).test(name))
+      .map(name => path.join(dir, name))
+      .filter(file => fs.statSync(file).size > 3)
+      .sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)[0] || '';
+  } catch (_) {
+    return '';
+  }
+}
+
+function adSummaryFromSnapshot(snapshot = {}, day = 7) {
+  const rows = Array.isArray(snapshot.adSkuSummaryRows) ? snapshot.adSkuSummaryRows : [];
+  if (!rows.length) return null;
+  return {
+    ok: true,
+    source: 'latest_snapshot.adSkuSummaryRows',
+    exportedAt: snapshot.exportedAt || snapshot.generatedAt || '',
+    day,
+    rows,
+  };
+}
+
+function loadFallbackAdSkuSummary(options = {}) {
+  if (options.adSkuSummaryReport) return options.adSkuSummaryReport;
+  if (options.adSkuSummaryReportFile) return readJson(options.adSkuSummaryReportFile, {});
+  if (options.snapshotFile) {
+    const fromSnapshot = adSummaryFromSnapshot(readJson(options.snapshotFile, {}), options.day);
+    if (fromSnapshot) return fromSnapshot;
+  }
+  const latestFile = latestAdSkuSummaryFile(options.day);
+  return latestFile ? readJson(latestFile, {}) : {};
+}
+
 function writeJson(file, value) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, JSON.stringify(value, null, 2), 'utf8');
@@ -1057,6 +1120,10 @@ function collectAdSkuReviewEvidence(options = {}) {
   const script = path.join(ROOT, 'scripts', 'execute', 'fetch_ad_sku_summary.js');
   const adReports = {};
   const errors = [];
+  const fallbackAdReport = loadFallbackAdSkuSummary(options);
+  if (Array.isArray(fallbackAdReport.rows) && fallbackAdReport.rows.length) {
+    adReports.__fallback_ad_sku_summary = fallbackAdReport;
+  }
 
   for (const key of reviewSubjectKeys(queue)) {
     const reportFile = path.join(outDir, `ad_sku_summary_${key}_${day}d_${today}.json`);
@@ -1100,6 +1167,7 @@ function collectAdSkuReviewEvidence(options = {}) {
       selectionCollected: Object.values(evidence).filter(item => item.market?.readyForDecisionSupport).length,
       extendedSelectionCollected: Object.values(evidence).filter(item => item.productSelection?.readyForDecisionSupport).length,
       missingBaseline: Object.values(evidence).filter(item => item.warnings.includes('missing_baseline_metrics')).length,
+      fallbackAdSkuSummaryRows: Array.isArray(fallbackAdReport.rows) ? fallbackAdReport.rows.length : 0,
       errors,
     },
   };
@@ -1116,4 +1184,6 @@ module.exports = {
   normalizeExtendedSelectionReport,
   normalizeSelectionMarketReport,
   reviewSubjectKeys,
+  latestAdSkuSummaryFile,
+  loadFallbackAdSkuSummary,
 };

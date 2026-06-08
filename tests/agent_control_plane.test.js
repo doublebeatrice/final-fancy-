@@ -420,4 +420,50 @@ const timeContext = {
   assert.strictEqual(result.actions[0].asin, 'B0SCHEMA1');
 }
 
+{
+  const action = {
+    sku: 'PERSIST1',
+    actionType: 'bid',
+    entityType: 'keyword',
+    id: 'kw-persist',
+    approvedBy: 'codex',
+    actionSource: ['codex'],
+    evidence: ['7d orders=1'],
+    goal: { metric: 'orders', from: 1, to: 2, deadlineDays: 1, hardFloor: 0 },
+    killSwitch: { metric: 'orders', rollbackIf: 'spend rises without orders by day 1' },
+    reviewPlan: { checkAfterDays: [1], metrics: ['orders'], rollbackIf: 'spend rises without orders by day 1' },
+  };
+  const day1 = buildAgentLedger({
+    timeContext,
+    actions: [action],
+  });
+  const reviewTask = day1.reviewTasks[0];
+  const closedReviewTask = transitionAgentTask(reviewTask, {
+    type: 'close',
+    actor: 'effect_review',
+    at: '2026-05-20T09:00:00.000Z',
+    conclusion: 'goal met',
+  });
+  const previousLedger = {
+    ...day1,
+    reviewTasks: [closedReviewTask],
+    nextOpenTasks: [],
+  };
+  const day2 = buildAgentLedger({
+    timeContext: {
+      ...timeContext,
+      runAt: '2026-05-20T08:30:00.000Z',
+      businessDate: '2026-05-20',
+      dataDate: '2026-05-20',
+    },
+    previousLedger,
+    actions: [action],
+  });
+
+  assert.strictEqual(day2.summary.closedTaskCount, 1);
+  assert.strictEqual(day2.reviewTasks[0].status, 'closed');
+  assert.ok(day2.reviewTasks[0].history.length > 0);
+  assert.ok(!day2.nextOpenTasks.some(task => task.taskId === reviewTask.taskId));
+}
+
 console.log('agent_control_plane tests passed');

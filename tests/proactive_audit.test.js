@@ -149,6 +149,47 @@ const snapshot = {
       ],
     },
     {
+      sku: 'PIPE1',
+      asin: 'B0PIPELINE',
+      salesChannel: 'Amazon.com',
+      saleStatus: 'normal_sale',
+      fuldate: '2026-03-20',
+      opendate: '2026-03-20',
+      profitRate: 0.2,
+      price: 19.99,
+      invDays: 10,
+      fulFillable: 20,
+      reserved: 0,
+      stockInb: 80,
+      unitsSold_3d: 6,
+      unitsSold_7d: 14,
+      unitsSold_30d: 44,
+      adStats: { '3d': { spend: 2, orders: 2, sales: 40, impressions: 600, clicks: 12 }, '7d': { spend: 8, orders: 5, sales: 100, impressions: 1800, clicks: 36 } },
+      sbStats: { '3d': { spend: 0, orders: 0 }, '7d': { spend: 0, orders: 0 } },
+      createContext: { coverage: { hasSpAuto: true, hasSpKeyword: true, hasSpManual: true } },
+      productProfile: { productType: 'gift', listingTitle: 'Pipeline Covered Gift' },
+    },
+    {
+      sku: 'DAYS16',
+      asin: 'B0DAYS16',
+      salesChannel: 'Amazon.com',
+      saleStatus: 'normal_sale',
+      fuldate: '2026-03-20',
+      opendate: '2026-03-20',
+      profitRate: 0.2,
+      price: 19.99,
+      invDays: 16,
+      fulFillable: 16,
+      reserved: 0,
+      unitsSold_3d: 3,
+      unitsSold_7d: 7,
+      unitsSold_30d: 28,
+      adStats: { '3d': { spend: 1, orders: 1, sales: 20, impressions: 400, clicks: 8 }, '7d': { spend: 5, orders: 3, sales: 60, impressions: 1200, clicks: 24 } },
+      sbStats: { '3d': { spend: 0, orders: 0 }, '7d': { spend: 0, orders: 0 } },
+      createContext: { coverage: { hasSpAuto: true, hasSpKeyword: true, hasSpManual: true } },
+      productProfile: { productType: 'gift', listingTitle: 'Enough Ful Res Gift' },
+    },
+    {
       sku: 'LOWPROFIT1',
       asin: 'B0LOWPROFIT1',
       salesChannel: 'Amazon.com',
@@ -299,7 +340,9 @@ assert(audit.priceActions.items.some(item =>
   item.fulResUnits === 4 &&
   item.sellableDays7d === 2
 ));
-assert(!audit.priceActions.items.some(item => item.sku === 'LOWPROFIT1'), 'low profit alone should not trigger a price raise when Ful+Res can cover 7d velocity for 30+ days');
+assert(!audit.priceActions.items.some(item => item.sku === 'PIPE1'), 'price raise should wait when inbound/planned/local replenishment can connect the next stock window');
+assert(!audit.priceActions.items.some(item => item.sku === 'DAYS16'), 'price raise should wait when Ful+Res can cover 15+ days at 7d velocity');
+assert(!audit.priceActions.items.some(item => item.sku === 'LOWPROFIT1'), 'low profit alone should not trigger a price raise when Ful+Res can cover 7d velocity for 15+ days');
 assert(audit.listingRepair.items.some(item => item.sku === 'LIST1' && item.issue === 'traffic_without_conversion_listing_repair'));
 assert(audit.requiredModules.some(module => module.name === 'removalEconomics' && module.status === 'checked'));
 assert.strictEqual(audit.removalEconomics.summary.total, 2);
@@ -337,6 +380,16 @@ assert(fulResPricePlan.actions
   .filter(action => action.actionType === 'pause')
   .every(action => action.reason.includes('Ful+Res=4') && action.reason.includes('sellableDays7d=2')));
 assert(!priceSchema.some(item => item.sku === 'LOWPROFIT1'), 'low profit alone should not reach the executable price schema');
+const guardedPriceSchema = buildPriceSchema({
+  priceActions: {
+    items: [
+      { sku: 'PIPE1', asin: 'B0PIPELINE', issue: 'ful_res_7d_sellable_days_short_price_gate', units7d: 14, sellableDays7d: 10, price: 19.99, profitRate: 0.2 },
+      { sku: 'DAYS16', asin: 'B0DAYS16', issue: 'ful_res_7d_sellable_days_short_price_gate', units7d: 7, sellableDays7d: 16, price: 19.99, profitRate: 0.2 },
+    ],
+  },
+}, buildIndexes(snapshot), []);
+assert(!guardedPriceSchema.some(item => item.sku === 'PIPE1'), 'schema should hold price when replenishment can connect the next stock window');
+assert(!guardedPriceSchema.some(item => item.sku === 'DAYS16'), 'schema should hold price when Ful+Res sellableDays7d is 15 or more');
 
 const expiredSeasonActions = buildExpiredSeasonActions(audit, products, 10);
 const newProductActions = buildNewProductLaunchActions(audit, products, 10);

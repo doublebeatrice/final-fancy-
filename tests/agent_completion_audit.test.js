@@ -77,7 +77,7 @@ function seedCompletionFiles(tmpDir, overrides = {}) {
       taskName: 'AdOpsAgentCompletionAudit',
       state: 'Ready',
       actionExecute: 'C:\\Windows\\system32\\cmd.exe',
-      actionArguments: 'run_agent_completion_audit.js --out-dir data\\agent --natural-schedule-tolerance-minutes 15 --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit',
+      actionArguments: 'run_agent_completion_audit.js --out-dir data\\agent --natural-schedule-tolerance-minutes 15 --goal-final --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit',
       actionWorkingDirectory: 'D:\\ad-ops-workbench',
       triggerEnabled: true,
       runLevel: 'Highest',
@@ -135,6 +135,12 @@ function seedCompletionFiles(tmpDir, overrides = {}) {
 }
 
 {
+  const parsed = parseNpmRunCommand('npm run ops:agent:completion-audit -- --today 2026-05-25 --goal-final --require-goal-final-complete');
+  assert.strictEqual(parsed.ok, true);
+  assert.strictEqual(parsed.script, 'ops:agent:completion-audit');
+}
+
+{
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-completion-pass-'));
   seedCompletionFiles(tmpDir);
   const report = runAgentCompletionAudit({
@@ -165,6 +171,72 @@ function seedCompletionFiles(tmpDir, overrides = {}) {
   assert.ok(fs.existsSync(path.join(tmpDir, 'agent_goal_audit_2026-05-25.json')));
   assert.ok(fs.existsSync(path.join(tmpDir, 'agent_readiness_completion_audit_2026-05-25.json')));
   assert.ok(fs.existsSync(path.join(tmpDir, 'unattended_scheduler_completion_audit_2026-05-25.json')));
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-completion-goal-final-'));
+  seedCompletionFiles(tmpDir);
+  const report = runAgentCompletionAudit({
+    timeContext: { ...timeContext, localDate: '2026-05-25' },
+    today: '2026-05-25',
+    agentDir: tmpDir,
+    heartbeatDir: tmpDir,
+    waitForSupervisor: false,
+    refreshScheduleInstall: false,
+    scheduledTaskInvocation: true,
+    scheduledTaskName: 'AdOpsAgentCompletionAudit',
+    generateGoalFinal: true,
+    bossPaperRunner: () => ({
+      verification: { status: 'pass' },
+      guard: { status: 'pass' },
+      files: {
+        paperFile: path.join(tmpDir, '每日结果纸_2026-05-25.md'),
+        jsonFile: path.join(tmpDir, 'boss_daily_paper_2026-05-25.json'),
+      },
+    }),
+    goalFinalAuditRunner: () => ({
+      ok: false,
+      status: 'pending',
+      summary: { currentStreak: 1, requiredBusinessDays: 3, neededPassDays: 2, earliestCompletionDate: '2026-05-27' },
+      goalFinal: { blockers: [{ date: '2026-05-24', reason: 'missing_boss_daily_paper' }] },
+      files: {
+        jsonFile: path.join(tmpDir, 'goal_final_audit_2026-05-25.json'),
+        markdownFile: path.join(tmpDir, 'goal_final_audit_2026-05-25.md'),
+      },
+    }),
+  });
+  assert.strictEqual(report.ok, true);
+  assert.strictEqual(report.summary.goalFinalAuditStatus, 'pending');
+  assert.strictEqual(report.summary.goalFinalCurrentStreak, 1);
+  assert.ok(report.files.goalFinalAuditFile.endsWith('goal_final_audit_2026-05-25.json'));
+  assert.match(fs.readFileSync(path.join(tmpDir, 'agent_completion_audit_2026-05-25.md'), 'utf8'), /GOAL-FINAL audit: pending \(1\/3\)/);
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-completion-goal-final-required-'));
+  seedCompletionFiles(tmpDir);
+  const report = runAgentCompletionAudit({
+    timeContext: { ...timeContext, localDate: '2026-05-25' },
+    today: '2026-05-25',
+    agentDir: tmpDir,
+    heartbeatDir: tmpDir,
+    waitForSupervisor: false,
+    refreshScheduleInstall: false,
+    scheduledTaskInvocation: true,
+    scheduledTaskName: 'AdOpsAgentCompletionAudit',
+    generateGoalFinal: true,
+    requireGoalFinalComplete: true,
+    bossPaperRunner: () => ({ verification: { status: 'pass' }, guard: { status: 'pass' }, files: {} }),
+    goalFinalAuditRunner: () => ({
+      ok: false,
+      status: 'pending',
+      summary: { currentStreak: 2, requiredBusinessDays: 3, neededPassDays: 1, earliestCompletionDate: '2026-05-26' },
+      goalFinal: { blockers: [{ date: '2026-05-23', reason: 'missing_boss_daily_paper' }] },
+      files: {},
+    }),
+  });
+  assert.strictEqual(report.ok, false);
+  assert.ok(report.issues.some(item => item.id === 'goal_final_not_complete'));
 }
 
 {

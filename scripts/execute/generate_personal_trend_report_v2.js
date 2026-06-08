@@ -451,6 +451,89 @@ function readHistoricalSkuVisuals(dir) {
   return visuals;
 }
 
+function buildDailyTheme({ date, total, core, stopLoss, oldDecline, inventoryTight, inventoryPressure, adAnomalies, p0Tasks, p1Tasks }) {
+  const profit = num(total.net_profit);
+  const refund = num(total.refund_percent);
+  const acos = num(total.ACOS);
+  const adShare = num(total.SP);
+  const hjGroupRefund = num(core.hjGroup?.refund_percent);
+  const sellerRows = [core.hj171, core.hj17, core.hj172]
+    .filter(row => row && Object.keys(row).length)
+    .sort((a, b) => num(b.order_sales) - num(a.order_sales));
+  const mainSeller = codeOf(sellerRows[0] || {});
+
+  const refundPressure = refund >= 0.08 || (hjGroupRefund > 0 && refund - hjGroupRefund >= 0.015);
+  const profitPressure = profit > 0 && profit < 0.12;
+  const acosPressure = acos >= 0.25 || adShare >= 0.35 || adAnomalies.length >= 10;
+  const skuPressure = stopLoss.length >= 12 || oldDecline.length >= 10;
+  const inventoryPressureFirst = inventoryTight.length >= 8 || inventoryPressure.length >= 8;
+
+  if (refundPressure) {
+    return {
+      titleSuffix: '退货压力优先拆解',
+      headline: `每日经营复盘：${date} 先拆退货来源，再决定广告和 SKU 动作`,
+      conclusionHeading: '先给结论：退货正在压利润，今天先拆编号和 SKU 来源',
+      trendHeading: '二、自身趋势沉淀｜先确认退货是不是连续压力',
+      sellerHeading: `三、编号结构｜${mainSeller} 是主贡献盘，退货异常要单独拆`,
+      anomalyHeading: '四、编号/开发线异常池｜先找退货和利润同时拖累的行',
+      actionHeading: `六、今日动作池总览｜P0 ${p0Tasks.length} 个先止血，P1 ${p1Tasks.length} 个排队验证`,
+    };
+  }
+  if (profitPressure) {
+    return {
+      titleSuffix: '利润承压日',
+      headline: `每日经营复盘：${date} 利润承压，先守净利再谈放量`,
+      conclusionHeading: '先给结论：今天不是追销售额，先守住可兑现利润',
+      trendHeading: '二、自身趋势沉淀｜净利率要和广告、退货放在一起看',
+      sellerHeading: `三、编号结构｜${mainSeller} 承担主盘，低净利编号要拆开处理`,
+      anomalyHeading: '四、编号/开发线异常池｜优先找负利、低利和广告吃利润的行',
+      actionHeading: `六、今日动作池总览｜P0 ${p0Tasks.length} 个利润止血项先处理`,
+    };
+  }
+  if (acosPressure) {
+    return {
+      titleSuffix: '广告效率校准',
+      headline: `每日经营复盘：${date} 广告效率要校准，不能只看出单`,
+      conclusionHeading: '先给结论：今天先处理高花费低承接，再保留有效流量',
+      trendHeading: '二、自身趋势沉淀｜ACOS、广告占比和 ROAS 要连续看',
+      sellerHeading: `三、编号结构｜${mainSeller} 是销售主盘，广告质量要下钻到编号`,
+      anomalyHeading: '四、编号/开发线异常池｜先拆广告占比高但利润弱的行',
+      actionHeading: `六、今日动作池总览｜先控无效花费，再处理 ${p1Tasks.length} 个验证项`,
+    };
+  }
+  if (skuPressure) {
+    return {
+      titleSuffix: 'SKU 止血与老品修复',
+      headline: `每日经营复盘：${date} SKU 层问题集中，先止血再修老品`,
+      conclusionHeading: '先给结论：今天的重点在 SKU 层，不在总盘均值',
+      trendHeading: '二、自身趋势沉淀｜看总盘之前先看 SKU 问题有没有扩散',
+      sellerHeading: `三、编号结构｜${mainSeller} 是主盘，但 SKU 风险不能被均值盖住`,
+      anomalyHeading: '四、编号/开发线异常池｜把止血池和老品下滑池分开看',
+      actionHeading: `六、今日动作池总览｜止血 ${stopLoss.length} 个，老品修复 ${oldDecline.length} 个`,
+    };
+  }
+  if (inventoryPressureFirst) {
+    return {
+      titleSuffix: '库存承接校准',
+      headline: `每日经营复盘：${date} 库存承接要校准，能卖和能推分开判断`,
+      conclusionHeading: '先给结论：今天先分清紧库存、滞库存和可放量 SKU',
+      trendHeading: '二、自身趋势沉淀｜库存压力要和销量、利润一起看',
+      sellerHeading: `三、编号结构｜${mainSeller} 是销售主盘，库存风险要下钻到 SKU`,
+      anomalyHeading: '四、编号/开发线异常池｜先拆库存天数和利润同时异常的行',
+      actionHeading: `六、今日动作池总览｜紧库存 ${inventoryTight.length} 个，库存压力 ${inventoryPressure.length} 个`,
+    };
+  }
+  return {
+    titleSuffix: '日常结构复盘',
+    headline: `每日经营复盘：${date} 总盘先稳住，再拆广告、库存和老品`,
+    conclusionHeading: '先给结论：今天按总盘健康度、编号结构、SKU 风险顺序看',
+    trendHeading: '二、自身趋势沉淀｜先看这几天是不是稳定改善',
+    sellerHeading: `三、编号结构｜${mainSeller} 是主销售盘，其余编号看拖累项`,
+    anomalyHeading: '四、编号/开发线异常池｜找出今天真正偏离总盘的行',
+    actionHeading: `六、今日动作池总览｜P0 ${p0Tasks.length} 个，P1 ${p1Tasks.length} 个`,
+  };
+}
+
 function generateReport(options = {}) {
   const selectedInputFile = options.inputFile || inputFile;
   const selectedTaskFile = options.taskFile || taskFile;
@@ -561,8 +644,20 @@ function generateReport(options = {}) {
     ? [...prior.filter(row => row.date !== date), currentTrendRow].slice(-8)
     : prior;
 
-  const title = `黄成喆每日经营复盘 ${date}（V2 手写风格沉淀版）`;
-  const headline = '每日经营复盘：今天不是缺数据，是利润、退货、广告和老品同时要拆开处理';
+  const theme = buildDailyTheme({
+    date,
+    total,
+    core,
+    stopLoss,
+    oldDecline,
+    inventoryTight,
+    inventoryPressure,
+    adAnomalies,
+    p0Tasks,
+    p1Tasks,
+  });
+  const title = `黄成喆每日经营复盘 ${date}｜${theme.titleSuffix}（V2 手写风格沉淀版）`;
+  const headline = theme.headline;
   const narrativeBullets = [
     `总盘销售额 <b>${money(totalSales)}</b>，销量 <b>${int(total.sale_num)}</b>，净利 <b>${pct(total.net_profit)}</b>，已经不是单看销售额能判断好坏的日子。`,
     `退货率 <b>${pct(total.refund_percent)}</b>，比 HJ大组口径高 <b>${pp(total.refund_percent, core.hjGroup?.refund_percent)}</b>；今天要把退货 SKU 和广告 SKU 分开处理，不能只看总盘均值。`,
@@ -760,7 +855,7 @@ function generateReport(options = {}) {
   <div class="subhead">日期：${esc(date)}　｜　数据源：销售核心 + inventory snapshot + 广告 SKU 汇总 + 任务池　｜　版本：V2 手写风格沉淀版</div>
 
   <section class="conclusion">
-    <h2>先给结论：今天要按“止血、拆编号、再迁移预算”的顺序做</h2>
+    <h2>${esc(theme.conclusionHeading)}</h2>
     ${sentenceList(narrativeBullets)}
     <div class="metrics">
       <div class="metric"><span>销售额</span><b>${money(totalSales)}</b></div>
@@ -791,17 +886,17 @@ function generateReport(options = {}) {
     ${svgHorizontalBars('库存压力：高库存天数但动销弱', inventoryPressure.map(row => ({ label: row.sku, value: row.invDays })), { color: '#b45309', format: value => `${int(value)}天`, left: 118 })}
   </div>
 
-  <h2>二、自身趋势沉淀｜先看这几天的自动沉淀口径，再判断今天是不是日波动</h2>
+  <h2>${esc(theme.trendHeading)}</h2>
   <div class="note">这里保留近几天自动沉淀 HTML 里的核心指标，目的不是替代财务口径，而是让每天的经营复盘可以连续追踪。</div>
   ${table(['日期', '销售额', '销量', '净利', '退货率', 'ACOS', 'ROAS'], trendTableRows.map(row => tr([
     esc(row.date), esc(row.sales), esc(row.units), esc(row.profit), esc(row.refund), esc(row.acos), esc(row.roas),
   ])), '没有找到历史自动版 HTML。')}
 
-  <h2>三、编号结构｜HJ171 是主盘，HJ17 要看广告质量，HJ172 先看退货异常</h2>
+  <h2>${esc(theme.sellerHeading)}</h2>
   <div class="note">今天不能只写“黄成喆整体”。HJ171 承担主要销售额，HJ17 的广告效率更影响利润，HJ172 虽然销售额小，但退货率异常必须单独标记。</div>
   ${table(['编号', '销售额', '占比', '销量', '净利率', '退货率', 'ACOS', '广告占比', '同比', '判断'], [core.hj171, core.hj17, core.hj172].filter(row => row && Object.keys(row).length).map(row => sellerRow(row, totalSales)))}
 
-  <h2>四、编号/开发线异常池｜今天真正要拆的是这些行，不是总盘均值</h2>
+  <h2>${esc(theme.anomalyHeading)}</h2>
   <div class="note">按销售额、退货率、净利、ACOS、广告占比、同比下滑综合排序。它负责告诉我们“问题在哪个编号/开发线”，SKU 表负责告诉我们“具体动谁”。</div>
   ${table(['编号', '销售额', '占比', '销量', '净利率', '退货率', 'ACOS', '广告占比', '同比', '标签'], detailSellerRows.map(row => sellerRow(row, totalSales)))}
 
@@ -825,7 +920,7 @@ function generateReport(options = {}) {
     </div>
   </div>
 
-  <h2>六、今日动作池总览｜先按优先级执行，不要平均用力</h2>
+  <h2>${esc(theme.actionHeading)}</h2>
   <div class="note">任务池是机器筛出来的候选动作，执行前仍要确认广告实体层级、冷却期和库存承接；但它比只看一个总盘数字更适合每天沉淀。</div>
   ${table(['优先级', 'SKU', 'ASIN', '任务类型', '动作判断', '证据'], p0Tasks.map(taskRow))}
   <h3>P1 排队验证池</h3>

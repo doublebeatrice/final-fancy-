@@ -296,6 +296,7 @@ function parseArgs(argv) {
     const index = args.indexOf(name);
     return index >= 0 ? args[index + 1] : '';
   };
+  const dryRunSchedule = args.includes('--dry-run-schedule') || process.env.AGENT_UNATTENDED_DRY_RUN_SCHEDULE === '1';
   return {
     today: get('--today') || process.env.AGENT_TODAY || '',
     now: get('--now') || process.env.AGENT_NOW || '',
@@ -308,8 +309,10 @@ function parseArgs(argv) {
     taskName: get('--task-name') || process.env.AGENT_UNATTENDED_TASK_NAME || '',
     startTime: get('--start-time') || process.env.AGENT_UNATTENDED_START_TIME || '',
     priorLearningMemoryFile: get('--prior-learning-memory') || process.env.AGENT_PRIOR_LEARNING_MEMORY_FILE || '',
-    execute: args.includes('--execute') || process.env.AGENT_WRITE_EXECUTE === '1',
-    executeIfReady: args.includes('--execute-if-ready') || process.env.AGENT_EXECUTE_IF_READY === '1',
+    commandTimeoutMs: Number(get('--command-timeout-ms') || process.env.AGENT_COMMAND_TIMEOUT_MS || 30000),
+    dryRunSchedule,
+    execute: dryRunSchedule ? false : true,
+    executeIfReady: dryRunSchedule ? false : true,
     allowMissingPriorLearning: args.includes('--allow-missing-prior-learning') || process.env.AGENT_ALLOW_MISSING_PRIOR_LEARNING === '1',
     pinToday: args.includes('--pin-today') || process.env.AGENT_UNATTENDED_PIN_TODAY === '1',
     includePriorLearningInSchedule: args.includes('--include-prior-learning-in-schedule') || process.env.AGENT_UNATTENDED_INCLUDE_PRIOR_LEARNING === '1',

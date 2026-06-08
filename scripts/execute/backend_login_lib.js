@@ -23,6 +23,14 @@ const TARGETS = {
     loginPath: '/user/login',
     readyHints: ['\u9009\u54c1\u7cfb\u7edf', '\u4e9a\u9a6c\u900a\u9009\u54c1', '\u6b22\u8fce\u60a8'],
   },
+  sif: {
+    key: 'sif',
+    label: 'SIF',
+    requiredUrl: 'https://www.sif.com/',
+    origin: 'https://www.sif.com',
+    loginPath: '/login',
+    readyHints: ['Sif', 'SIF', '\u6d41\u91cf', '\u5173\u952e\u8bcd', '\u5e7f\u544a'],
+  },
 };
 
 const SENSITIVE_QUERY_KEYS = new Set([
@@ -84,6 +92,9 @@ function isReadyByText(target, text) {
     return hasAnyHint(text, ['Amazon', '\u4ea7\u54c1']) && hasAnyHint(text, ['Huang', 'HJ17', '\u4e66\u7b7e']);
   }
   if (target.key === 'selection') {
+    return hasAnyHint(text, target.readyHints);
+  }
+  if (target.key === 'sif') {
     return hasAnyHint(text, target.readyHints);
   }
   return hasAnyHint(text, target.readyHints);

@@ -1,6 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const { normalizePriceTargetTo99, validatePriceAction } = require('../../src/price_executor');
+const {
+  replenishmentCoverage7d,
+  replenishmentUnits: replenishmentUnitCount,
+} = require('../../src/local_inventory');
 
 const ROOT = path.join(__dirname, '..', '..');
 const DEFAULT_DATE = '2026-05-22';
@@ -42,6 +46,10 @@ function safeArray(value) {
   return Array.isArray(value) ? value : [];
 }
 
+function cleanText(value) {
+  return String(value ?? '').replace(/\s+/g, ' ').trim();
+}
+
 function stateEnabled(value) {
   return value === 1 || value === '1' || String(value || '').toLowerCase() === 'enabled';
 }
@@ -51,12 +59,68 @@ function fulResUnits(card = {}) {
     num(card.reservedQty ?? card.reserved ?? card.stockRes);
 }
 
+function replenishmentUnits(card = {}) {
+  return replenishmentUnitCount(card);
+}
+
 function sellableDaysFrom7dVelocity(card = {}, fallback = null) {
   const explicit = num(fallback, NaN);
   if (Number.isFinite(explicit)) return explicit;
   const units7 = num(card.unitsSold_7d);
   if (units7 <= 0) return null;
   return round(fulResUnits(card) / (units7 / 7), 1);
+}
+
+function replenishmentCoverage(card = {}, item = {}) {
+  return replenishmentCoverage7d(card, {
+    units7d: item.units7d ?? card.unitsSold_7d,
+    fulResUnits: fulResUnits(card),
+  });
+}
+
+function frontOfferPriceBlock(card = {}, item = {}) {
+  const listing = card.listing || {};
+  const text = [
+    listing.bodyPreview,
+    listing.availability,
+    listing.availabilityText,
+    listing.buyBoxText,
+    listing.offerText,
+    listing.offerStatus,
+    listing.priceAvailability,
+    card.buyBoxText,
+    card.buyBoxStatus,
+    card.offerStatus,
+    item.buyBoxText,
+    item.buyBoxStatus,
+    item.offerStatus,
+  ].map(cleanText).filter(Boolean).join(' ').toLowerCase();
+  const explicitNoBuyBox = [
+    listing.hasBuyBox,
+    listing.buyBoxAvailable,
+    listing.hasFeaturedOffer,
+    card.hasBuyBox,
+    card.buyBoxAvailable,
+    card.hasFeaturedOffer,
+    item.hasBuyBox,
+    item.buyBoxAvailable,
+    item.hasFeaturedOffer,
+  ].some(value => value === false);
+  const missingParsedPrice = Object.prototype.hasOwnProperty.call(listing, 'price') && listing.price === null;
+  const highPrice = text.includes('high price');
+  const noFeatured = text.includes('no featured offers available') || text.includes('no featured offer available');
+  const onlyBuyingOptions = text.includes('see all buying options');
+  if (!highPrice && !noFeatured && !onlyBuyingOptions && !explicitNoBuyBox) return null;
+  if (highPrice || noFeatured || explicitNoBuyBox || (onlyBuyingOptions && missingParsedPrice)) {
+    return {
+      highPrice,
+      noFeatured,
+      onlyBuyingOptions,
+      explicitNoBuyBox,
+      missingParsedPrice,
+    };
+  }
+  return null;
 }
 
 function rowStats(row, days) {
@@ -206,7 +270,7 @@ function priceActionFor(item, card, businessDate) {
     profitAfter: round(profitAfter, 4),
     profitAfterSea: round(num(card.seaProfitRate) + profitDelta, 4),
     floatPrice: round(floatPrice, 4),
-    isUrgent: sellableDays7d < 30 ? 'yes' : 'no',
+    isUrgent: sellableDays7d < 15 ? 'yes' : 'no',
     remark: `\u5e93\u5b58\u4fdd\u62a4\u63d0\u4ef7 ${businessDate}\uff1a${currentPrice}->${suggestedPrice}\uff1b\u5229\u6da6 ${pct(profitBefore)}->${pct(profitAfter)}`,
     priceIntent: 'inventory_protection',
     adCoupling: {
@@ -229,7 +293,7 @@ function priceActionFor(item, card, businessDate) {
     ],
     hypothesis: '\u5728\u5e93\u5b58\u504f\u7d27\u65f6\u505a\u53ef\u63a7\u63d0\u4ef7\uff0c\u4f18\u5148\u62ff\u5229\u6da6\uff1b\u524d\u53f0\u5f71\u54cd\u63091-3\u5929\u5ba1\u6838/\u751f\u6548\u6ede\u540e\u56de\u770b\u3002',
     expectedEffect: { priceApplication: '\u5df2\u63d0\u4ea4', grossMargin: '\u63d0\u5347', units: '\u89c2\u5bdf', conversionRate: '\u89c2\u5bdf', adSpend: '\u4e0b\u964d\u6216\u6301\u5e73' },
-    reviewPlan: reviewPlan('1/3\u5929\u4ecd\u6ca1\u6709\u7533\u8bf7\u6807\u8bb0\uff0c\u6216\u63d0\u4ef7\u751f\u6548\u540e7\u5929\u9500\u91cf/\u8f6c\u5316\u660e\u663e\u4e0b\u6ed1'),
+    reviewPlan: reviewPlan('1/3\u5929\u4ecd\u6ca1\u6709\u7533\u8bf7\u6807\u8bb0\uff0c\u6216\u540e\u7eed\u5e93\u5b58\u80fd\u63a5\u4e0a\uff0c\u6216\u63d0\u4ef7\u751f\u6548\u540e7\u5929\u9500\u91cf/\u8f6c\u5316\u660e\u663e\u4e0b\u6ed1'),
     confidence: 0.78,
     riskLevel: 'price_inventory_protection',
     ...approval(),
@@ -281,6 +345,7 @@ function buildSchema({ audit, snapshot, businessDate }) {
       fulResUnits: fulResUnits(card),
       sellableDays7d: sellableDaysFrom7dVelocity(card, item.sellableDays7d),
     };
+    const replenishment = replenishmentCoverage(card, item);
 
     if ((card.saleStatus || item.saleStatus) !== NORMAL_SALE) {
       basePlan.actions.push(reviewAction(item, 'price_non_normal_sale', 'Daily price gate requires normal-sale SKU before sellerinventory price execution.', common));
@@ -294,10 +359,42 @@ function buildSchema({ audit, snapshot, businessDate }) {
       coverage.push({ sku, status: 'review', reason: 'high_return_gate', ...common });
       continue;
     }
-    if (!(common.units7d > 0) || common.sellableDays7d === null || !(common.sellableDays7d < 30)) {
-      basePlan.actions.push(reviewAction(item, 'price_not_executable_velocity', 'Ful+Res price execution requires positive 7d units and sellableDays7d below 30.', common));
+    const commonWithReplenishment = {
+      ...common,
+      replenishmentUnits: replenishment.units,
+      replenishmentDays7d: replenishment.days,
+      totalSellableDays7d: replenishment.totalSellableDays7d,
+    };
+    const frontOfferBlock = frontOfferPriceBlock(card, item);
+    if (frontOfferBlock) {
+      basePlan.actions.push(reviewAction(item, 'front_offer_price_block', 'Front-page offer is blocked by high-price/no-featured-offer signals; review rollback or listing offer recovery before another inventory-protection price raise.', {
+        ...commonWithReplenishment,
+        ...frontOfferBlock,
+      }));
       plans.push(basePlan);
-      coverage.push({ sku, status: 'review', reason: 'not_executable_velocity', ...common });
+      coverage.push({ sku, status: 'review', reason: 'front_offer_price_block', ...commonWithReplenishment, ...frontOfferBlock });
+      continue;
+    }
+    if (!(common.units7d > 0) || common.sellableDays7d === null || !(common.sellableDays7d < 15)) {
+      basePlan.actions.push(reviewAction(item, 'price_not_executable_velocity', 'Inventory-protection price execution requires positive 7d units and Ful+Res sellableDays7d below 15.', {
+        ...common,
+        replenishmentUnits: replenishment.units,
+        replenishmentDays7d: replenishment.days,
+        totalSellableDays7d: replenishment.totalSellableDays7d,
+      }));
+      plans.push(basePlan);
+      coverage.push({ sku, status: 'review', reason: 'price_not_executable_velocity', ...common, replenishmentUnits: replenishment.units, replenishmentDays7d: replenishment.days, totalSellableDays7d: replenishment.totalSellableDays7d });
+      continue;
+    }
+    if (replenishment.totalSellableDays7d !== null && replenishment.totalSellableDays7d >= 15) {
+      basePlan.actions.push(reviewAction(item, 'price_replenishment_pipeline_available', 'Ful+Res is below 15 days, but inbound/planned/local replenishment can connect the next stock window; hold price raise and watch inventory/ad pressure.', {
+        ...common,
+        replenishmentUnits: replenishment.units,
+        replenishmentDays7d: replenishment.days,
+        totalSellableDays7d: replenishment.totalSellableDays7d,
+      }));
+      plans.push(basePlan);
+      coverage.push({ sku, status: 'review', reason: 'price_replenishment_pipeline_available', ...common, replenishmentUnits: replenishment.units, replenishmentDays7d: replenishment.days, totalSellableDays7d: replenishment.totalSellableDays7d });
       continue;
     }
     if (!(num(item.price ?? card.price) > 0)) {
@@ -306,7 +403,6 @@ function buildSchema({ audit, snapshot, businessDate }) {
       coverage.push({ sku, status: 'review', reason: 'missing_current_price', ...common });
       continue;
     }
-
     const priced = priceActionFor(item, card, businessDate);
     const validation = validatePriceAction(priced.action, { requireAdCoupling: true });
     if (!validation.ok) {
@@ -331,6 +427,9 @@ function buildSchema({ audit, snapshot, businessDate }) {
       reason: 'price_action_ready',
       pauseActions: pauseActions.length,
       ...common,
+      replenishmentUnits: replenishment.units,
+      replenishmentDays7d: replenishment.days,
+      totalSellableDays7d: replenishment.totalSellableDays7d,
       currentPrice: priced.currentPrice,
       suggestedPrice: priced.suggestedPrice,
       profitBefore: round(num(item.profitRate ?? card.profitRate), 4),
@@ -441,4 +540,7 @@ if (require.main === module) {
 
 module.exports = {
   buildSchema,
+  frontOfferPriceBlock,
+  replenishmentCoverage,
+  replenishmentUnits,
 };

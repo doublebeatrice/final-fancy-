@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { normalizePriceTargetTo99 } = require('../../src/price_executor');
+const { replenishmentCoverage7d } = require('../../src/local_inventory');
 
 const ROOT = path.join(__dirname, '..', '..');
 const SNAPSHOT_FILE = path.join(ROOT, 'data', 'snapshots', 'latest_snapshot.json');
@@ -328,7 +329,13 @@ function buildPriceSchema(audit, indexes, adjustments) {
     .filter(item => num(item.units7d ?? item.card.unitsSold_7d) > 0)
     .filter(item => {
       const sellableDays7d = sellableDaysFrom7dVelocity(item.card, item.sellableDays7d);
-      return sellableDays7d !== null && sellableDays7d < 30;
+      const replenishment = replenishmentCoverage7d(item.card, {
+        units7d: item.units7d ?? item.card.unitsSold_7d,
+        fulResUnits: fulResUnits(item.card),
+      });
+      return sellableDays7d !== null &&
+        sellableDays7d < 15 &&
+        !(replenishment.totalSellableDays7d !== null && replenishment.totalSellableDays7d >= 15);
     })
     .filter(item => ![1, 2].includes(num(item.card.productLabels?.is_high_return_rate, 0)))
     .map(item => {
@@ -338,15 +345,16 @@ function buildPriceSchema(audit, indexes, adjustments) {
       const units7 = num(item.units7d ?? item.card.unitsSold_7d);
       const sellableDays7d = sellableDaysFrom7dVelocity(item.card, item.sellableDays7d);
       const available = fulResUnits(item.card);
+      const replenishment = replenishmentCoverage7d(item.card, { units7d: units7, fulResUnits: available });
       const priceLift = sellableDays7d <= 21 ? 0.05 : 0.04;
       const rawSuggestedPrice = Math.max(currentPrice + 0.5, Math.ceil((currentPrice * (1 + priceLift)) * 100) / 100);
       const suggestedPrice = normalizePriceTargetTo99(currentPrice, rawSuggestedPrice);
       const floatPrice = (suggestedPrice - currentPrice) / currentPrice;
       const profitAfter = profitBefore + Math.min(0.08, Math.max(0.031, floatPrice * 0.9));
       let intent = 'margin_repair';
-      if (sellableDays7d < 30) intent = 'inventory_protection';
+      if (sellableDays7d < 15) intent = 'inventory_protection';
       else if (profitAfter >= 0.15 && skuAd7(item.card).orders > 0 && skuAd7(item.card).spend > 0) intent = 'ad_space_expansion';
-      return { ...item, currentPrice, suggestedPrice, profitBefore, profitAfter, floatPrice, intent, invDays, units7, fulResUnits: available, sellableDays7d };
+      return { ...item, currentPrice, suggestedPrice, profitBefore, profitAfter, floatPrice, intent, invDays, units7, fulResUnits: available, sellableDays7d, replenishment };
     })
     .filter(item => item.profitAfter > item.profitBefore && (item.profitAfter - item.profitBefore) >= 0.03)
     .sort((a, b) => a.sellableDays7d - b.sellableDays7d || b.units7 - a.units7)
@@ -390,7 +398,7 @@ function buildPriceSchema(audit, indexes, adjustments) {
       profitAfter: round(item.profitAfter, 4),
       profitAfterSea: round(num(card.seaProfitRate) + (item.profitAfter - item.profitBefore), 4),
       floatPrice: round(item.floatPrice, 4),
-      isUrgent: item.sellableDays7d < 30 ? 'yes' : 'no',
+      isUrgent: item.sellableDays7d < 15 ? 'yes' : 'no',
       remark: `codex_2026_05_15_${item.intent}_profit_${pct(item.profitBefore)}_to_${pct(item.profitAfter)}`,
       priceIntent: item.intent,
       adCoupling: coupling,
@@ -401,6 +409,8 @@ function buildPriceSchema(audit, indexes, adjustments) {
         `invDays=${item.invDays}`,
         `fulResUnits=${item.fulResUnits}`,
         `sellableDays7d=${item.sellableDays7d}`,
+        `replenishmentUnits=${item.replenishment.units}`,
+        `totalSellableDays7d=${item.replenishment.totalSellableDays7d}`,
         `is_high_return_rate=${card.productLabels?.is_high_return_rate ?? 'missing'}`,
         `currentPrice=${item.currentPrice}, suggestedPrice=${item.suggestedPrice}`,
         `profitBefore=${round(item.profitBefore, 4)}, profitAfter=${round(item.profitAfter, 4)}`,

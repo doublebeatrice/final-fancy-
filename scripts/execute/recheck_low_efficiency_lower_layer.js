@@ -17,14 +17,31 @@ const DATA_END = process.env.DATA_END || '2026-05-18';
 const DATA_START = process.env.DATA_START || '2026-04-19';
 const NOW = new Date(process.env.NOW_LOCAL || `${BUSINESS_DATE}T12:10:00+08:00`);
 const EXECUTE = process.argv.includes('--execute');
+const EXECUTE_FROM_SCAN = process.argv.includes('--from-scan') || process.env.LOW_EFFICIENCY_EXECUTE_FROM_SCAN === '1';
 const KIND_ARG = String(process.argv.find(arg => arg.startsWith('--kind=')) || '--kind=auto').split('=')[1];
 const COOLDOWN_DAYS = Number(process.env.LOW_EFFICIENCY_COOLDOWN_DAYS || 14);
 const MAX_PAGES = Number(process.env.LOW_EFFICIENCY_RECHECK_MAX_PAGES || 160);
+const VERIFY_MAX_PAGES = Number(process.env.LOW_EFFICIENCY_VERIFY_MAX_PAGES || MAX_PAGES);
+const EVAL_TIMEOUT_MS = Number(process.env.LOW_EFFICIENCY_EVAL_TIMEOUT_MS || 600000);
+const EXECUTE_MAX = Number(process.env.LOW_EFFICIENCY_EXECUTE_MAX || 0);
+const EXECUTE_REASON_REGEX_TEXT = String(process.env.LOW_EFFICIENCY_EXECUTE_REASON_REGEX || '').trim();
+const EXECUTE_REASON_REGEX = EXECUTE_REASON_REGEX_TEXT ? new RegExp(EXECUTE_REASON_REGEX_TEXT, 'i') : null;
+const ALLOW_UNCAPPED_EXECUTE = process.env.LOW_EFFICIENCY_ALLOW_UNCAPPED_EXECUTE === '1';
+
+function ymdAddDays(ymd, days) {
+  const date = new Date(`${ymd}T00:00:00`);
+  date.setDate(date.getDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
+function windowStart(endYmd, days) {
+  return ymdAddDays(endYmd, -days + 1);
+}
 
 const RANGES = {
-  3: ['2026-05-16', DATA_END],
-  7: ['2026-05-12', DATA_END],
-  15: ['2026-05-04', DATA_END],
+  3: [process.env.DATA_START_3 || windowStart(DATA_END, 3), DATA_END],
+  7: [process.env.DATA_START_7 || windowStart(DATA_END, 7), DATA_END],
+  15: [process.env.DATA_START_15 || windowStart(DATA_END, 15), DATA_END],
   30: [DATA_START, DATA_END],
 };
 
@@ -186,6 +203,14 @@ function findAdjusted(adjusted, entityType, id) {
   return adjusted.get(entityType)?.get(String(id)) || null;
 }
 
+function adjustmentBlocksRetry(record = {}) {
+  if (!record || record.dryRun) return false;
+  const outcome = text(record.outcome).toLowerCase();
+  if (!outcome) return true;
+  if (outcome.includes('fail') || outcome === 'manual_review') return false;
+  return true;
+}
+
 function listTabs() {
   return new Promise((resolve, reject) => {
     http.get('http://127.0.0.1:9222/json/list', res => {
@@ -247,6 +272,7 @@ function browserFetchExpression(spec, ranges, maxPages, verifyIds = []) {
       async function fetchWindow(range) {
         const rows = [];
         const pages = [];
+        const foundIds = new Set();
         for (let page = 1; page <= maxPages; page += 1) {
           const payload = {
             siteId: 4,
@@ -279,7 +305,9 @@ function browserFetchExpression(spec, ranges, maxPages, verifyIds = []) {
           const list = getList(json) || [];
           const kept = verifyIds.size ? list.filter(row => verifyIds.has(String(row[spec.idField] || row.id || row.targetId || row.keywordId || ''))) : list;
           rows.push(...kept);
+          for (const row of kept) foundIds.add(String(row[spec.idField] || row.id || row.targetId || row.keywordId || ''));
           pages.push({ page, status: res.status, count: list.length, kept: kept.length, total: json?.count || json?.data?.total || json?.total || null });
+          if (verifyIds.size && foundIds.size >= verifyIds.size) break;
           if (list.length < 500) break;
         }
         return { ok: true, range, rows, pages };
@@ -383,13 +411,16 @@ function classifyEntries(kind, spec, entries) {
     if (!hit) continue;
     const decision = decideFromPoolMembership(entry, { now: NOW, cooldownDays: COOLDOWN_DAYS });
     const logged = findAdjusted(adjusted, spec.entityType, entry.id);
+    const loggedBlocksRetry = adjustmentBlocksRetry(logged);
     const sameDayBackend = sameBusinessDate(entry.updatedAt) || sameBusinessDate(entry.operatedAt);
-    const nextBid = proposedBid(entry);
+    const nextBid = decision.actionType === 'bid'
+      ? num(decision.suggestedBid || proposedBid(entry))
+      : null;
     let status = 'candidate';
-    if (logged) status = `already_in_adjustment_log:${logged.outcome || ''}`;
+    if (loggedBlocksRetry) status = `already_in_adjustment_log:${logged.outcome || ''}`;
     else if (sameDayBackend) status = 'already_updated_today_backend';
     else if (decision.actionType === 'skip' || decision.actionType === 'hold') status = `decision_${decision.actionType}:${decision.reasonCode}`;
-    else if (nextBid >= num(entry.bid)) status = 'at_floor_or_no_bid_room';
+    else if (decision.actionType === 'bid' && nextBid >= num(entry.bid)) status = 'at_floor_or_no_bid_room';
     else status = 'remaining_actionable';
 
     const row = {
@@ -405,13 +436,14 @@ function classifyEntries(kind, spec, entries) {
       siteId: entry.siteId,
       bid: num(entry.bid),
       proposedBid: nextBid,
+      proposedAction: decision.actionType,
       updatedAt: entry.updatedAt,
       operatedAt: entry.operatedAt,
       rawType: entry.rawType,
       hit,
       decision,
       status,
-      adjustment: logged ? { outcome: logged.outcome, runAt: logged.runAt, sourceRunId: logged.sourceRunId } : null,
+      adjustment: logged ? { outcome: logged.outcome, runAt: logged.runAt, sourceRunId: logged.sourceRunId, blocksRetry: loggedBlocksRetry } : null,
       windows: entry.windows,
       entry,
     };
@@ -425,29 +457,29 @@ function classifyEntries(kind, spec, entries) {
 }
 
 function requestForCandidate(spec, candidate) {
-  const row = {
+  const raw = {
+    ...(candidate.entry?.raw || {}),
     [spec.idField]: candidate.id,
-    keywordText: candidate.text,
-    matchType: candidate.entry.matchType,
+    keywordText: candidate.text || candidate.entry?.raw?.keywordText,
+    targetText: candidate.text || candidate.entry?.raw?.targetText,
+    matchType: candidate.entry?.matchType || candidate.entry?.raw?.matchType,
     campaignId: candidate.campaignId,
     adGroupId: candidate.adGroupId,
     accountId: candidate.accountId,
     siteId: candidate.siteId,
     campaignName: candidate.campaignName,
     groupName: candidate.groupName,
-    state: 1,
-    campaignState: 1,
-    groupState: 1,
     bid: candidate.bid,
-    updatedAt: candidate.updatedAt,
-    operatedAt: candidate.operatedAt,
-    bidThreshold: candidate.entry.raw?.bidThreshold,
-    adFormat: candidate.entry.raw?.adFormat,
-    costType: candidate.entry.raw?.costType,
   };
-  const entity = normalizeLowEfficiencyRow(spec.normalizeKind, row, { metrics: candidate.windows });
-  const request = buildWriterRequest(entity, { actionType: 'bid', suggestedBid: candidate.proposedBid });
-  return { id: candidate.id, ...request };
+  const entity = normalizeLowEfficiencyRow(spec.normalizeKind, raw, {
+    metrics: candidate.entry?.windows || candidate.windows || {},
+  });
+  const decision = {
+    ...(candidate.decision || {}),
+    suggestedBid: candidate.decision?.suggestedBid ?? candidate.proposedBid,
+  };
+  const request = buildWriterRequest(entity, decision);
+  return { id: String(candidate.id), ...request };
 }
 
 function apiSuccessFor(spec, candidate, result) {
@@ -457,79 +489,162 @@ function apiSuccessFor(spec, candidate, result) {
   return success.some(item => String(item[spec.idField] || item.targetId || item.keywordId || item.id || '') === String(candidate.id));
 }
 
+function executionReasonText(candidate = {}) {
+  return [
+    candidate.decision?.reasonCode,
+    candidate.decision?.reason,
+    candidate.hit?.reason,
+  ].filter(Boolean).join(' ');
+}
+
+function selectExecutionCandidates(remaining = [], spec = null) {
+  let selected = remaining;
+  if (EXECUTE_REASON_REGEX) {
+    selected = selected.filter(candidate => EXECUTE_REASON_REGEX.test(executionReasonText(candidate)));
+  }
+  if (spec?.entityType) {
+    const adjusted = adjustmentLogByEntityType();
+    selected = selected.filter(candidate => !adjustmentBlocksRetry(findAdjusted(adjusted, spec.entityType, candidate.id)));
+  }
+  if (EXECUTE_MAX > 0) selected = selected.slice(0, EXECUTE_MAX);
+  return selected;
+}
+
+function expectedBidForCandidate(candidate = {}) {
+  const value = candidate.decision?.suggestedBid ?? candidate.proposedBid;
+  return value === null || value === undefined || value === '' ? null : num(value);
+}
+
+function rowPaused(row = {}) {
+  const state = text(row.state ?? row.targetState ?? row.keywordState).toLowerCase();
+  return state === '2' || state === 'paused' || state === 'pausing';
+}
+
 function recordsForExecutions(spec, executions, runAt, sourceRunId) {
-  return executions.map(item => ({
-    sku: String(item.candidate.campaignName || '').match(/_([a-z]{2,4}\d{3,5})(?:\b|_|$)/i)?.[1]?.toUpperCase() || `lowEff::${item.candidate.kind}::${item.candidate.id}`,
-    site: 'Amazon.com',
-    action: {
+  return executions.map(item => {
+    const actionType = item.candidate.decision?.actionType === 'pause' ? 'pause' : 'bid';
+    const action = {
       entityType: spec.entityType,
-      actionType: 'bid',
+      actionType,
       id: item.candidate.id,
       text: item.candidate.text,
       campaignId: item.candidate.campaignId,
       adGroupId: item.candidate.adGroupId,
       currentBid: item.candidate.bid,
-      suggestedBid: item.candidate.proposedBid,
-      reason: `[full_lower_layer_recheck:${item.candidate.decision.reasonCode}] ${item.candidate.hit.reason}; missed by today's low-efficiency pool recheck, small-step correction.`,
+      reason: `[full_lower_layer_recheck:${item.candidate.decision.reasonCode}] ${item.candidate.hit.reason}; missed by today's low-efficiency pool recheck, ${actionType === 'pause' ? 'hard-stop pause' : 'bid correction'}.`,
       approvedBy: 'claude',
       decisionStage: 'ai_approved',
       actionSource: ['claude'],
-    },
-    outcome: item.ok ? 'api_success' : 'api_failed',
-    dryRun: false,
-    runAt,
-    businessDate: BUSINESS_DATE,
-    sourceRunId,
-    meta: {
-      campaignName: item.candidate.campaignName,
-      kind: item.candidate.kind,
-      source: 'full_lower_layer_low_efficiency_recheck',
-      apiMessage: item.result?.json?.msg || item.result?.error || '',
-    },
-  }));
+    };
+    if (actionType === 'bid') action.suggestedBid = expectedBidForCandidate(item.candidate);
+    return {
+      sku: String(item.candidate.campaignName || '').match(/_([a-z]{2,4}\d{3,5})(?:\b|_|$)/i)?.[1]?.toUpperCase() || `lowEff::${item.candidate.kind}::${item.candidate.id}`,
+      site: 'Amazon.com',
+      action,
+      outcome: item.ok ? 'api_success' : 'api_failed',
+      dryRun: false,
+      runAt,
+      businessDate: BUSINESS_DATE,
+      sourceRunId,
+      meta: {
+        campaignName: item.candidate.campaignName,
+        kind: item.candidate.kind,
+        source: 'full_lower_layer_low_efficiency_recheck',
+        apiMessage: item.result?.json?.msg || item.result?.error || '',
+      },
+    };
+  });
 }
 
 async function run() {
   const spec = SPECS[KIND_ARG];
   if (!spec) throw new Error(`Unknown kind "${KIND_ARG}". Use one of: ${Object.keys(SPECS).join(', ')}`);
+  const scanPath = path.join(ROOT, 'data', 'snapshots', `full_low_efficiency_recheck_${KIND_ARG}_${BUSINESS_DATE}.json`);
+
+  let scanReport = null;
+  if (EXECUTE_FROM_SCAN) {
+    if (!fs.existsSync(scanPath)) throw new Error(`scan file not found: ${scanPath}`);
+    scanReport = JSON.parse(fs.readFileSync(scanPath, 'utf8'));
+    if (scanReport.kind !== KIND_ARG) throw new Error(`scan kind mismatch: expected ${KIND_ARG}, got ${scanReport.kind}`);
+  }
+
+  if (EXECUTE && EXECUTE_MAX <= 0 && !EXECUTE_REASON_REGEX && !ALLOW_UNCAPPED_EXECUTE) {
+    throw new Error('Refusing uncapped live execution. Set LOW_EFFICIENCY_EXECUTE_MAX, LOW_EFFICIENCY_EXECUTE_REASON_REGEX, or LOW_EFFICIENCY_ALLOW_UNCAPPED_EXECUTE=1.');
+  }
+
+  let executionCandidates = scanReport ? selectExecutionCandidates(scanReport.remaining || [], spec) : [];
+  if (EXECUTE_FROM_SCAN && (!EXECUTE || executionCandidates.length === 0)) {
+    console.log(JSON.stringify({
+      scanPath,
+      kind: KIND_ARG,
+      execute: EXECUTE,
+      executeFromScan: EXECUTE_FROM_SCAN,
+      executionCandidateCount: executionCandidates.length,
+      executeMax: EXECUTE_MAX,
+      executeReasonRegex: EXECUTE_REASON_REGEX_TEXT,
+      totalEntities: scanReport.totalEntities,
+      totalLowSignals: scanReport.totalLowSignals,
+      remainingActionable: scanReport.remainingActionable,
+      remainingByReason: scanReport.remainingByReason,
+      skippedClass: scanReport.skippedClass,
+      topRemaining: (scanReport.remaining || []).slice(0, 20).map(item => ({
+        id: item.id,
+        text: item.text,
+        campaignName: item.campaignName,
+        bid: item.bid,
+        proposedBid: item.proposedBid,
+        proposedAction: item.proposedAction,
+        updatedAt: item.updatedAt,
+        hit: item.hit.reason,
+        reasonCode: item.decision.reasonCode,
+      })),
+      execution: null,
+    }, null, 2));
+    return;
+  }
 
   const tab = await findAdvTab();
-  const ws = new WebSocket(tab.webSocketDebuggerUrl);
+  const ws = new WebSocket(tab.webSocketDebuggerUrl, { maxPayload: 512 * 1024 * 1024 });
   await new Promise(resolve => ws.on('open', resolve));
 
   try {
-    const raw = await evalInPage(ws, browserFetchExpression(spec, RANGES, MAX_PAGES), true, 600000);
-    const fetched = JSON.parse(raw || '{}');
-    const { entries, fetchSummary } = entriesFromFetched(KIND_ARG, spec, fetched);
-    const classified = classifyEntries(KIND_ARG, spec, entries);
-    const byReason = {};
-    for (const item of classified.remaining) byReason[item.decision.reasonCode] = (byReason[item.decision.reasonCode] || 0) + 1;
+    if (!scanReport) {
+      const fetched = {};
+      for (const [windowDays, range] of Object.entries(RANGES)) {
+        const raw = await evalInPage(ws, browserFetchExpression(spec, { [windowDays]: range }, MAX_PAGES), true, EVAL_TIMEOUT_MS);
+        Object.assign(fetched, JSON.parse(raw || '{}'));
+      }
+      const { entries, fetchSummary } = entriesFromFetched(KIND_ARG, spec, fetched);
+      const classified = classifyEntries(KIND_ARG, spec, entries);
+      const byReason = {};
+      for (const item of classified.remaining) byReason[item.decision.reasonCode] = (byReason[item.decision.reasonCode] || 0) + 1;
 
-    const scanReport = {
-      generatedAt: new Date().toISOString(),
-      businessDate: BUSINESS_DATE,
-      dataRange: { start: DATA_START, end: DATA_END },
-      kind: KIND_ARG,
-      spec: { label: spec.label, entityType: spec.entityType },
-      fetchSummary,
-      totalEntities: entries.length,
-      totalLowSignals: classified.allLowSignals.length,
-      remainingActionable: classified.remaining.length,
-      remainingByReason: byReason,
-      skippedClass: classified.skippedClass,
-      remaining: classified.remaining,
-      allLowSignals: classified.allLowSignals,
-    };
-    const scanPath = path.join(ROOT, 'data', 'snapshots', `full_low_efficiency_recheck_${KIND_ARG}_${BUSINESS_DATE}.json`);
-    fs.writeFileSync(scanPath, JSON.stringify(scanReport, null, 2));
+      scanReport = {
+        generatedAt: new Date().toISOString(),
+        businessDate: BUSINESS_DATE,
+        dataRange: { start: DATA_START, end: DATA_END },
+        kind: KIND_ARG,
+        spec: { label: spec.label, entityType: spec.entityType },
+        fetchSummary,
+        totalEntities: entries.length,
+        totalLowSignals: classified.allLowSignals.length,
+        remainingActionable: classified.remaining.length,
+        remainingByReason: byReason,
+        skippedClass: classified.skippedClass,
+        remaining: classified.remaining,
+        allLowSignals: classified.allLowSignals,
+      };
+      fs.writeFileSync(scanPath, JSON.stringify(scanReport, null, 2));
+      executionCandidates = selectExecutionCandidates(scanReport.remaining || [], spec);
+    }
 
     let executionReport = null;
-    if (EXECUTE && classified.remaining.length) {
-      const requests = classified.remaining.map(candidate => requestForCandidate(spec, candidate));
+    if (EXECUTE && executionCandidates.length) {
+      const requests = executionCandidates.map(candidate => requestForCandidate(spec, candidate));
       const execRaw = await evalInPage(ws, browserPatchExpression(requests), true, 600000);
       const exec = JSON.parse(execRaw || '{}');
       const resultsById = new Map((exec.results || []).map(result => [String(result.id), result]));
-      const executions = classified.remaining.map(candidate => {
+      const executions = executionCandidates.map(candidate => {
         const result = resultsById.get(String(candidate.id)) || {};
         return { candidate, result, ok: apiSuccessFor(spec, candidate, result) };
       });
@@ -545,15 +660,25 @@ async function run() {
       let verifyRows = [];
       if (verifyIds.length) {
         const verifyRanges = { 30: RANGES[30] };
-        const verifyRaw = await evalInPage(ws, browserFetchExpression(spec, verifyRanges, MAX_PAGES, verifyIds), true, 600000);
+        const verifyRaw = await evalInPage(ws, browserFetchExpression(spec, verifyRanges, VERIFY_MAX_PAGES, verifyIds), true, EVAL_TIMEOUT_MS);
         const verifyFetched = JSON.parse(verifyRaw || '{}');
         verifyRows = verifyFetched['30']?.rows || [];
         const byId = new Map(verifyRows.map(row => [String(row[spec.idField] || row.targetId || row.keywordId), row]));
         for (const item of executions.filter(x => x.ok)) {
           const row = byId.get(String(item.candidate.id));
+          const actionType = item.candidate.decision?.actionType === 'pause' ? 'pause' : 'bid';
           const actual = row ? num(row.bid) : null;
-          if (row && Math.abs(actual - item.candidate.proposedBid) < 0.0001) landed += 1;
-          else notLanded.push({ id: item.candidate.id, campaignName: item.candidate.campaignName, expectedBid: item.candidate.proposedBid, actualBid: actual, row: row || null });
+          const expectedBid = expectedBidForCandidate(item.candidate);
+          if (actionType === 'pause' && (!row || rowPaused(row))) landed += 1;
+          else if (actionType === 'bid' && row && Math.abs(actual - expectedBid) < 0.0001) landed += 1;
+          else notLanded.push({
+            id: item.candidate.id,
+            campaignName: item.candidate.campaignName,
+            actionType,
+            expectedBid: actionType === 'bid' ? expectedBid : null,
+            actualBid: actual,
+            row: row || null,
+          });
         }
       }
 
@@ -562,6 +687,11 @@ async function run() {
         businessDate: BUSINESS_DATE,
         kind: KIND_ARG,
         sourceRunId,
+        executeFromScan: EXECUTE_FROM_SCAN,
+        executeMax: EXECUTE_MAX,
+        executeReasonRegex: EXECUTE_REASON_REGEX_TEXT,
+        verifyMaxPages: VERIFY_MAX_PAGES,
+        availableActionable: (scanReport.remaining || []).length,
         total: executions.length,
         apiOk: executions.filter(item => item.ok).length,
         apiFailed: executions.filter(item => !item.ok).length,
@@ -588,6 +718,12 @@ async function run() {
       scanPath,
       kind: KIND_ARG,
       execute: EXECUTE,
+      executeFromScan: EXECUTE_FROM_SCAN,
+      executionCandidateCount: executionCandidates.length,
+      executeMax: EXECUTE_MAX,
+      executeReasonRegex: EXECUTE_REASON_REGEX_TEXT,
+      verifyMaxPages: VERIFY_MAX_PAGES,
+      evalTimeoutMs: EVAL_TIMEOUT_MS,
       totalEntities: scanReport.totalEntities,
       totalLowSignals: scanReport.totalLowSignals,
       remainingActionable: scanReport.remainingActionable,
@@ -599,6 +735,7 @@ async function run() {
         campaignName: item.campaignName,
         bid: item.bid,
         proposedBid: item.proposedBid,
+        proposedAction: item.proposedAction,
         updatedAt: item.updatedAt,
         hit: item.hit.reason,
         reasonCode: item.decision.reasonCode,

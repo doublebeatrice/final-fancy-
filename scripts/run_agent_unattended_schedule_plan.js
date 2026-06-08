@@ -12,6 +12,7 @@ const DEFAULT_COMPLETION_TASK_NAME = 'AdOpsAgentCompletionAudit';
 const DEFAULT_START_TIME = '09:30';
 const DEFAULT_COMPLETION_AUDIT_DELAY_MINUTES = 20;
 const DEFAULT_NATURAL_SCHEDULE_TOLERANCE_MINUTES = 15;
+const DEFAULT_SUPERVISOR_COMMAND_TIMEOUT_MS = 30000;
 
 function text(value) {
   return String(value ?? '').trim();
@@ -132,6 +133,7 @@ function supervisorArgs(options = {}, context = {}, mode = 'schedule') {
   }
   if (options.execute === true) args.push('--execute');
   if (options.executeIfReady === true) args.push('--execute-if-ready');
+  if (Number(options.commandTimeoutMs) > 0) args.push('--command-timeout-ms', String(Number(options.commandTimeoutMs)));
   if (options.allowMissingPriorLearning === true) args.push('--allow-missing-prior-learning');
   return args;
 }
@@ -143,6 +145,7 @@ function completionAuditArgs(options = {}, context = {}, mode = 'schedule') {
   args.push('--out-dir', agentDir);
   const toleranceMinutes = Number(options.naturalScheduleToleranceMinutes || DEFAULT_NATURAL_SCHEDULE_TOLERANCE_MINUTES);
   args.push('--natural-schedule-tolerance-minutes', String(toleranceMinutes));
+  args.push('--goal-final');
   if (mode === 'schedule') {
     args.push('--scheduled-task-invocation', '--scheduled-task-name', text(options.completionAuditTaskName || DEFAULT_COMPLETION_TASK_NAME));
   }
@@ -297,6 +300,7 @@ function buildUnattendedSchedulePlan(options = {}, timeContext = {}) {
   const dataDate = dateOnly(timeContext.dataDate || businessDate);
   const generatedAt = text(timeContext.runAt || options.now || new Date().toISOString());
   const agentDir = text(options.agentDir || DEFAULT_AGENT_DIR);
+  const liveScheduleDefault = options.dryRunSchedule === true ? false : true;
   const context = {
     businessDate,
     dataDate,
@@ -312,7 +316,10 @@ function buildUnattendedSchedulePlan(options = {}, timeContext = {}) {
     completionAuditDelayMinutes: Number(options.completionAuditDelayMinutes || DEFAULT_COMPLETION_AUDIT_DELAY_MINUTES),
     completionAuditStartTime: text(options.completionAuditStartTime || addMinutesToTime(options.startTime || DEFAULT_START_TIME, options.completionAuditDelayMinutes || DEFAULT_COMPLETION_AUDIT_DELAY_MINUTES)),
     naturalScheduleToleranceMinutes: Number(options.naturalScheduleToleranceMinutes || DEFAULT_NATURAL_SCHEDULE_TOLERANCE_MINUTES),
+    commandTimeoutMs: Number(options.commandTimeoutMs || DEFAULT_SUPERVISOR_COMMAND_TIMEOUT_MS),
     priorLearningMemoryFile: text(options.priorLearningMemoryFile || defaultPriorLearningFile(businessDate, agentDir)),
+    execute: options.execute === true || (options.execute !== false && liveScheduleDefault),
+    executeIfReady: options.executeIfReady === true || (options.executeIfReady !== false && liveScheduleDefault),
   };
   const commands = buildCommands(normalized, context);
   const registerScript = buildRegisterScript(normalized, commands);
@@ -431,6 +438,7 @@ function parseArgs(argv) {
     const index = args.indexOf(name);
     return index >= 0 ? args[index + 1] : '';
   };
+  const dryRunSchedule = args.includes('--dry-run-schedule') || process.env.AGENT_UNATTENDED_DRY_RUN_SCHEDULE === '1';
   return {
     today: get('--today') || process.env.AGENT_TODAY || '',
     now: get('--now') || process.env.AGENT_NOW || '',
@@ -445,9 +453,11 @@ function parseArgs(argv) {
     completionAuditStartTime: get('--completion-audit-start-time') || process.env.AGENT_COMPLETION_AUDIT_START_TIME || '',
     completionAuditDelayMinutes: Number(get('--completion-audit-delay-minutes') || process.env.AGENT_COMPLETION_AUDIT_DELAY_MINUTES || DEFAULT_COMPLETION_AUDIT_DELAY_MINUTES),
     naturalScheduleToleranceMinutes: Number(get('--natural-schedule-tolerance-minutes') || process.env.AGENT_NATURAL_SCHEDULE_TOLERANCE_MINUTES || DEFAULT_NATURAL_SCHEDULE_TOLERANCE_MINUTES),
+    commandTimeoutMs: Number(get('--command-timeout-ms') || process.env.AGENT_COMMAND_TIMEOUT_MS || DEFAULT_SUPERVISOR_COMMAND_TIMEOUT_MS),
     priorLearningMemoryFile: get('--prior-learning-memory') || process.env.AGENT_PRIOR_LEARNING_MEMORY_FILE || '',
-    execute: args.includes('--execute') || process.env.AGENT_WRITE_EXECUTE === '1',
-    executeIfReady: args.includes('--execute-if-ready') || process.env.AGENT_EXECUTE_IF_READY === '1',
+    dryRunSchedule,
+    execute: dryRunSchedule ? false : true,
+    executeIfReady: dryRunSchedule ? false : true,
     allowMissingPriorLearning: args.includes('--allow-missing-prior-learning') || process.env.AGENT_ALLOW_MISSING_PRIOR_LEARNING === '1',
     pinToday: args.includes('--pin-today') || process.env.AGENT_UNATTENDED_PIN_TODAY === '1',
     includePriorLearningInSchedule: args.includes('--include-prior-learning-in-schedule') || process.env.AGENT_UNATTENDED_INCLUDE_PRIOR_LEARNING === '1',

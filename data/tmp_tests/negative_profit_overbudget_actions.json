@@ -34,6 +34,13 @@
         "approvedBy": "codex",
         "requiresAiDecision": false,
         "allowLargeBidChange": false,
+        "goal": {
+          "metric": "netProfit",
+          "from": -0.05,
+          "to": -0.04,
+          "deadlineDays": 7,
+          "hardFloor": -0.07
+        },
         "learning": {
           "enabled": true,
           "hypothesis": "Trim weak lower-layer object inside an over-budget ad group without changing campaign budget.",

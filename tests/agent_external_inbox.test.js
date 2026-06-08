@@ -38,6 +38,8 @@ const riskExcuseCorrectionText = [
   assert.ok(task.evidenceRequirements.includes('selection_keyword_seasonality'));
   assert.ok(task.evidenceRequirements.includes('selection_market_evidence'));
   assert.ok(task.nextCheckpoint.includes('2026-05-20'));
+  assert.deepStrictEqual(task.reviewPlan.goal, { metric: 'orders', from: 0, to: 1, deadlineDays: 7, hardFloor: 0 });
+  assert.deepStrictEqual(task.reviewPlan.checkAfterDays, [1, 3, 7]);
 }
 
 {
@@ -60,6 +62,22 @@ const riskExcuseCorrectionText = [
   assert.ok(task.evidenceRequirements.includes('selection_keyword_conversion'));
   assert.ok(task.evidenceRequirements.includes('selection_aba_search_terms'));
   assert.ok(task.evidenceRequirements.includes('sku_ad_proof'));
+  assert.strictEqual(task.reviewPlan.outcomeQuestion, 'did_this_request_recover_sales');
+}
+
+{
+  const task = parseExternalRequest('LUO1006 点击没了能加投吗', timeContext);
+  const ledger = buildAgentLedger({
+    timeContext,
+    tasks: [task],
+    actions: [],
+  });
+  assert.strictEqual(ledger.tasks.length, 1);
+  assert.strictEqual(ledger.tasks[0].lane, 'external_inbox');
+  assert.strictEqual(ledger.reviewTasks.length, 3);
+  assert.strictEqual(ledger.reviewTasks[0].lane, 'effect_review');
+  assert.strictEqual(ledger.reviewTasks[0].subject.sku, 'LUO1006');
+  assert.strictEqual(ledger.reviewTasks[0].reviewOf.sourceTaskId, task.taskId);
 }
 
 {
@@ -143,6 +161,66 @@ const riskExcuseCorrectionText = [
   assert.ok(fs.existsSync(outFile));
   const persisted = JSON.parse(fs.readFileSync(outFile, 'utf8'));
   assert.strictEqual(persisted.tasks[0].lane, 'external_inbox');
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'external-inbox-md-'));
+  fs.writeFileSync(path.join(tmpDir, 'one.md'), 'LUO1006 点击没了能加投吗', 'utf8');
+  fs.writeFileSync(path.join(tmpDir, 'two.md'), 'HAY0218 为什么没流量', 'utf8');
+  const outFile = path.join(tmpDir, 'inbox.json');
+  const inbox = runExternalTaskInbox({ inputDir: tmpDir, outFile, timeContext });
+  assert.strictEqual(inbox.summary.total, 2);
+  assert.ok(inbox.tasks[0].attachments[0].endsWith('one.md'));
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'external-inbox-followup-'));
+  fs.writeFileSync(path.join(tmpDir, '2026-05-28_uan_cna.md'), [
+    '# 2026-05-28 UAN CNA keyword request',
+    'Need keyword `cna week gifts` for UAN3646 UAN3645 UAN3644 UAN3257 UAN3256 UAN3248 UAN2600 UAN2599 UAN0188.',
+    '',
+    '| SKU | Decision |',
+    '|---|---|',
+    '| UAN0188 | append |',
+    '| UAN2599 | append |',
+    '| UAN2600 | append |',
+    '| UAN3256 | append |',
+    '| UAN3257 | append |',
+    '| UAN3644 | append |',
+    '| UAN3645 | append |',
+    '| UAN3646 | append |',
+    '| UAN3248 | hold (inventory_hard_stop) |',
+    '',
+    '## Follow-Up',
+    '- 2026-05-29: first-day landing check.',
+    '- 2026-06-01: 3d effect review. CTR, CPC, first orders.',
+  ].join('\n'), 'utf8');
+  const outFile = path.join(tmpDir, 'inbox.json');
+  const inbox = runExternalTaskInbox({
+    inputDir: tmpDir,
+    outFile,
+    timeContext: { ...timeContext, businessDate: '2026-06-01', dataDate: '2026-06-01' },
+  });
+  assert.strictEqual(inbox.summary.total, 1);
+  assert.strictEqual(inbox.tasks[0].subject.sku, 'UAN0188');
+  assert.strictEqual(inbox.tasks[0].subject.keyword, 'cna week gifts');
+  assert.deepStrictEqual(inbox.tasks[0].reviewPlan.subjectSkus, ['UAN0188', 'UAN2599', 'UAN2600', 'UAN3256', 'UAN3257', 'UAN3644', 'UAN3645', 'UAN3646']);
+  assert.strictEqual(inbox.tasks[0].reviewPlan.baselineAsOf, '2026-05-28');
+  assert.deepStrictEqual(inbox.tasks[0].reviewPlan.checkAfterDays, [1, 4]);
+  assert.ok(inbox.tasks[0].reviewPlan.checkpoints.some(item => item.date === '2026-06-01'));
+
+  const ledger = buildAgentLedger({
+    timeContext: { ...timeContext, businessDate: '2026-06-01', dataDate: '2026-06-01' },
+    tasks: inbox.tasks,
+    actions: [],
+  });
+  const queue = buildDueReviewQueue(ledger, { today: '2026-06-01' });
+  const dueTodaySkus = queue.due
+    .filter(task => task.dueDate === '2026-06-01')
+    .map(task => task.subject.sku)
+    .sort();
+  assert.deepStrictEqual(dueTodaySkus, ['UAN0188', 'UAN2599', 'UAN2600', 'UAN3256', 'UAN3257', 'UAN3644', 'UAN3645', 'UAN3646']);
+  assert.ok(queue.due.some(task => task.subject.sku === 'UAN0188' && task.dueDate === '2026-06-01'));
 }
 
 {

@@ -22,6 +22,8 @@ const approval = {
   decisionStage: 'ai_approved',
   approvedBy: 'codex',
   actionSource: ['codex'],
+  goal: { metric: 'netProfit', from: 6, to: 7, deadlineDays: 7, hardFloor: 4 },
+  killSwitch: { metric: 'netProfit', condition: 'netProfit falls below hardFloor by day 7' },
 };
 
 {

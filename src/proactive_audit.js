@@ -18,6 +18,7 @@ const KPI_TRAJECTORY = [
 ];
 
 const { assessRemovalInventoryEconomics } = require('./inventory_economics');
+const { replenishmentCoverage7d } = require('./local_inventory');
 
 const EXPIRED_SEASON_PATTERNS = [
   {
@@ -340,7 +341,12 @@ function buildPriceActionsAudit(snapshot = {}) {
     const profitRate = num(card.profitRate);
     const available = fulResUnits(card);
     const sellableDays7d = sellableDaysFrom7dVelocity(card);
-    if (sellableDays7d !== null && sellableDays7d < 30) {
+    const replenishment = replenishmentCoverage7d(card, { units7d, fulResUnits: available });
+    if (
+      sellableDays7d !== null &&
+      sellableDays7d < 15 &&
+      !(replenishment.totalSellableDays7d !== null && replenishment.totalSellableDays7d >= 15)
+    ) {
       items.push({
         sku: text(card.sku),
         asin: text(card.asin),
@@ -349,11 +355,14 @@ function buildPriceActionsAudit(snapshot = {}) {
         units7d,
         fulResUnits: available,
         sellableDays7d,
+        replenishmentUnits: replenishment.units,
+        replenishmentDays7d: replenishment.days,
+        totalSellableDays7d: replenishment.totalSellableDays7d,
         profitRate,
         price: num(card.price),
         saleStatus: text(card.saleStatus),
         requiredAction: 'review_price_raise_or_recover_price',
-        why: 'Ful+Res inventory cannot cover 30 days at current 7d sales velocity; harvest profit before adding traffic.',
+        why: 'Ful+Res inventory cannot cover 15 days at current 7d sales velocity and replenishment cannot connect the next stock window; review controlled price raise before adding traffic.',
       });
     }
   }

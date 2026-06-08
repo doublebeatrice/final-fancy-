@@ -88,6 +88,15 @@ function highRow(overrides = {}) {
   assert.strictEqual(result.summary.actionRows, 1);
   assert.strictEqual(result.schema[0].actions[0].entityType, 'keyword');
   assert.strictEqual(result.schema[0].actions[0].decisionStage, 'ai_approved');
+  assert.deepStrictEqual(result.schema[0].actions[0].goal, {
+    metric: 'orders',
+    from: 4,
+    to: 5,
+    deadlineDays: 7,
+    hardFloor: 2,
+  });
+  assert.strictEqual(result.schema[0].actions[0].reviewPlan.goal.metric, 'orders');
+  assert.ok(result.schema[0].actions[0].killSwitch.rollbackIf.includes('orders below 2'));
 
   const enriched = enrichSnapshot(snapshot, result.selectedRows);
   assert.strictEqual(enriched.kwRows.length, 1);

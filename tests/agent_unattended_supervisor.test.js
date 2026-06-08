@@ -58,6 +58,7 @@ function lowRiskOptions(tmpDir, overrides = {}) {
     correctionDir: path.join(tmpDir, 'missing_corrections'),
     skuLessonDir: path.join(tmpDir, 'missing_sku_lessons'),
     generateSchedulerAudit: false,
+    disableTrendAnomalyCheck: true,
     dryRunFeedback: {},
     snapshot: JSON.parse(fs.readFileSync(snapshotFile, 'utf8')),
     ...overrides,
@@ -72,10 +73,13 @@ function lowRiskOptions(tmpDir, overrides = {}) {
     'data/agent/learning_memory_2026-05-24.json',
     '--execute',
     '--execute-if-ready',
+    '--command-timeout-ms',
+    '45000',
   ]);
   assert.strictEqual(parsed.priorLearningMemoryFile, 'data/agent/learning_memory_2026-05-24.json');
   assert.strictEqual(parsed.execute, true);
   assert.strictEqual(parsed.executeIfReady, true);
+  assert.strictEqual(parsed.commandTimeoutMs, 45000);
   assert.strictEqual(parsed.generateSchedulerAudit, true);
   assert.strictEqual(parsed.generateReadinessAudit, true);
 }
@@ -255,7 +259,7 @@ function lowRiskOptions(tmpDir, overrides = {}) {
       state: 'Ready',
       triggerEnabled: true,
       runLevel: 'Highest',
-      actionArguments: 'run ops:agent:completion-audit -- --out-dir data\\agent --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit',
+      actionArguments: 'run ops:agent:completion-audit -- --out-dir data\\agent --goal-final --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit',
       nextRunTime: '05/26/2026 09:50:50',
       lastRunTime: '11/30/1999 00:00:00',
       lastTaskResult: '267011',
@@ -330,8 +334,8 @@ function lowRiskOptions(tmpDir, overrides = {}) {
           state: 'Ready',
           actionExecute: process.env.ComSpec || 'C:\\Windows\\System32\\cmd.exe',
           actionArguments: isCompletion
-            ? `/d /s /c "\"${process.execPath}\" \"${path.join(root, 'scripts', 'run_agent_completion_audit.js')}\" --out-dir ${tmpDir} --natural-schedule-tolerance-minutes 15 --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit >> \"${path.join(root, 'data', 'agent', 'unattended_completion_audit_task.log')}\" 2>&1"`
-            : `/d /s /c "\"${process.execPath}\" \"${path.join(root, 'scripts', 'run_agent_unattended_supervisor.js')}\" --out-dir ${tmpDir} --execute --execute-if-ready >> \"${path.join(root, 'data', 'agent', 'unattended_supervisor_task.log')}\" 2>&1"`,
+            ? `/d /s /c "\"${process.execPath}\" \"${path.join(root, 'scripts', 'run_agent_completion_audit.js')}\" --out-dir ${tmpDir} --natural-schedule-tolerance-minutes 15 --goal-final --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit >> \"${path.join(root, 'data', 'agent', 'unattended_completion_audit_task.log')}\" 2>&1"`
+            : `/d /s /c "\"${process.execPath}\" \"${path.join(root, 'scripts', 'run_agent_unattended_supervisor.js')}\" --out-dir ${tmpDir} --execute --execute-if-ready --command-timeout-ms 30000 >> \"${path.join(root, 'data', 'agent', 'unattended_supervisor_task.log')}\" 2>&1"`,
           actionWorkingDirectory: path.join(__dirname, '..'),
           triggerEnabled: true,
           runLevel: 'Highest',

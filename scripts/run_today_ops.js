@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 const { createPanelWs, SNAPSHOTS_DIR, today } = require('../src/adjust_lib');
-const { loadExternalActionSchema } = require('../src/ai_decision');
+const { loadExternalActionSchema, normalizeActionGoal } = require('../src/ai_decision');
 const { analyzeAllowedOperationScope, applyAllowedOperationScope } = require('../src/operation_scope');
 const { appendAdjustmentRecords, recordsFromExecutionEvents, recordsFromPlan } = require('../src/adjustment_log');
 const { buildOpsTimeContext } = require('../src/ops_time');
@@ -20,13 +20,13 @@ const { summarizeOverBudgetCoverage } = require('../src/over_budget_policy');
 const { buildOverBudgetPlanItems } = require('../src/over_budget_to_actions');
 const { updateHistoryFromSnapshot, annotateCapSince } = require('../src/over_budget_history');
 const { scanLowEfficiencyCandidates, scanLowEfficiencyPools } = require('../src/low_efficiency_decision');
-const { auditAdStructureOpportunities } = require('../src/ad_structure_opportunity');
-const { createStageRegistry } = require('../src/pipeline/stage_registry');
+const { normalizeMandatoryDailyClosure } = require('../src/daily_mandatory_closure');
+const { createStageRegistry, DORMANT_COMPONENTS, dormantComponent } = require('../src/pipeline/stage_registry');
 const { createRunContext } = require('../src/pipeline/run_context');
 const { runStage } = require('../src/pipeline/run_stage');
 const { writeTaskCards } = require('../src/briefs/build_task_cards');
-const { writeAiDecisionBrief } = require('../src/briefs/build_ai_decision_brief');
 const { assertActionTerminology } = require('../src/capabilities/orchestrator/permission_gate');
+const { runExternalTaskInbox } = require('./run_external_task_inbox');
 const {
   buildExpiredSeasonActions,
   buildNewProductLaunchActions,
@@ -50,6 +50,11 @@ function parseArgs(argv) {
   const snapshotIndex = args.findIndex(arg => arg === '--snapshot');
   const modeIndex = args.findIndex(arg => arg === '--mode');
   const actorIndex = args.findIndex(arg => arg === '--actor');
+  const externalTextIndex = args.findIndex(arg => arg === '--external-task-text');
+  const externalFileIndex = args.findIndex(arg => arg === '--external-task-file');
+  const externalDirIndex = args.findIndex(arg => arg === '--external-task-dir');
+  const businessDateIndex = args.findIndex(arg => arg === '--business-date');
+  const dataDateIndex = args.findIndex(arg => arg === '--data-date');
   const requestedActor = actorIndex >= 0 ? String(args[actorIndex + 1] || '').toLowerCase().trim() : String(process.env.RUN_ACTOR || '').toLowerCase().trim();
   const actor = ['codex', 'claude', 'manual'].includes(requestedActor) ? requestedActor : 'codex';
   const requestedSchemaFile = schemaIndex >= 0 ? args[schemaIndex + 1] : (process.env.ACTION_SCHEMA_FILE || '');
@@ -65,6 +70,11 @@ function parseArgs(argv) {
     actionSchemaFile: resolveActionSchemaFile(requestedSchemaFile, actor),
     explicitActionSchemaRequested: isUsableSchemaFile(requestedSchemaFile),
     snapshotFileArg: snapshotIndex >= 0 ? args[snapshotIndex + 1] : '',
+    businessDate: businessDateIndex >= 0 ? args[businessDateIndex + 1] : (process.env.AD_OPS_BUSINESS_DATE || ''),
+    dataDate: dataDateIndex >= 0 ? args[dataDateIndex + 1] : (process.env.AD_OPS_DATA_DATE || ''),
+    externalTaskText: externalTextIndex >= 0 ? args[externalTextIndex + 1] : (process.env.EXTERNAL_TASK_TEXT || ''),
+    externalTaskFile: externalFileIndex >= 0 ? args[externalFileIndex + 1] : (process.env.EXTERNAL_TASK_FILE || ''),
+    externalTaskDir: externalDirIndex >= 0 ? args[externalDirIndex + 1] : (process.env.EXTERNAL_TASK_DIR || ''),
   };
 }
 
@@ -802,19 +812,92 @@ function countSchemaActions(schema = []) {
   };
 }
 
+function defaultGoalMetricForSchemaAction(action = {}) {
+  const actionType = String(action.actionType || '').trim();
+  const currentBid = Number(action.currentBid);
+  const suggestedBid = Number(action.suggestedBid);
+  if (actionType === 'price' || actionType === 'pause') return 'netProfit';
+  if (actionType === 'bid' && Number.isFinite(currentBid) && Number.isFinite(suggestedBid) && suggestedBid < currentBid) return 'netProfit';
+  return 'orders';
+}
+
+function defaultGoalForSchemaAction(action = {}) {
+  const metric = defaultGoalMetricForSchemaAction(action);
+  const from = Number.isFinite(Number(action.goalFrom)) ? Number(action.goalFrom) : 0;
+  const to = Number.isFinite(Number(action.goalTo)) ? Number(action.goalTo) : (metric === 'orders' ? from + 1 : from + 1);
+  const hardFloor = Number.isFinite(Number(action.goalHardFloor)) ? Number(action.goalHardFloor) : (metric === 'orders' ? Math.max(0, from - 1) : from - 1);
+  return {
+    metric,
+    from,
+    to,
+    deadlineDays: 7,
+    hardFloor,
+  };
+}
+
+function defaultKillSwitchForGoal(goal = {}, action = {}) {
+  if (goal.metric === 'netProfit') {
+    return {
+      metric: 'netProfit',
+      condition: 'netProfit falls below hardFloor by day 7',
+      rollbackIf: 'netProfit below hardFloor by day 7',
+    };
+  }
+  if (goal.metric === 'sales') {
+    return {
+      metric: 'sales',
+      condition: 'sales does not reach target while spend rises by day 7',
+      rollbackIf: 'sales miss target while spend rises by day 7',
+    };
+  }
+  return {
+    metric: 'orders',
+    condition: 'spend rises without orders by day 7',
+    rollbackIf: 'spend rises without orders by day 7',
+    actionType: action.actionType || '',
+  };
+}
+
+function attachDefaultActionGoals(schema = []) {
+  return (schema || []).map(item => ({
+    ...item,
+    actions: (item.actions || []).map(action => {
+      if (['review', 'skip', 'structure_fix'].includes(String(action.actionType || '').trim())) return action;
+      const existingGoal = action.goal || action.reviewPlan?.goal || null;
+      const existingValidation = normalizeActionGoal(existingGoal, {}, {}, action);
+      const goal = existingValidation.ok ? existingValidation.goal : defaultGoalForSchemaAction(action);
+      const killSwitch = action.killSwitch || action.reviewPlan?.killSwitch || defaultKillSwitchForGoal(goal, action);
+      return {
+        ...action,
+        goal,
+        killSwitch,
+        reviewPlan: {
+          ...(action.reviewPlan || {}),
+          goal,
+          killSwitch,
+          checkAfterDays: Array.isArray(action.reviewPlan?.checkAfterDays) && action.reviewPlan.checkAfterDays.length
+            ? action.reviewPlan.checkAfterDays
+            : [goal.deadlineDays],
+          rollbackIf: action.reviewPlan?.rollbackIf || killSwitch.rollbackIf || killSwitch.condition || '',
+        },
+      };
+    }),
+  }));
+}
+
 function mergeActionSchemas(parts = []) {
-  return mergePlans(parts.filter(Array.isArray));
+  return attachDefaultActionGoals(mergePlans(parts.filter(Array.isArray)));
 }
 
 function buildProactiveRecoveryActionSchema(audit = {}, snapshot = {}, options = {}) {
   const products = buildProductMap(snapshot);
   const rowsByType = options.rowsByType || buildRowsByType(snapshot);
   const reviewLimit = Number(options.reviewLimit || 80);
-  return mergePlans([
+  return attachDefaultActionGoals(mergePlans([
     buildExpiredSeasonActions(audit, products, Number(options.expiredLimit || 80), { snapshot, rowsByType }),
     buildNewProductLaunchActions(audit, products, Math.min(reviewLimit, 40)),
     buildReviewItems(audit, products, reviewLimit),
-  ]);
+  ]));
 }
 
 function buildOperatingClosure(manifest = {}) {
@@ -822,22 +905,36 @@ function buildOperatingClosure(manifest = {}) {
   const seasonActionCount = Number(manifest.seasonTitleActionSchema?.actions || 0);
   const listingApplicationCount = Number(manifest.seasonTitleListingApplications?.built || 0);
   const overBudgetActionable = Number(manifest.overBudgetCoverage?.actionableCampaigns || 0);
+  const overBudgetRequiredActions = Number(
+    manifest.kpiRecoveryOverBudgetSchema?.counts?.total
+    || manifest.kpiRecoveryOverBudgetSchema?.plannedActions
+    || 0
+  );
   const lowEfficiencyActionable = Number(
     manifest.lowEfficiencyPools?.actionableRows
     || manifest.lowEfficiencyPools?.actionable
     || manifest.lowEfficiencyCandidates?.actionable
     || 0
   );
+  const priceActions = Number(proactive.priceActions || 0);
   const proactiveGaps = [
     Number(proactive.newProductLaunch || 0),
     Number(proactive.arrivalAdRecovery || 0),
-    Number(proactive.priceActions || 0),
+    priceActions,
     Number(proactive.removalEconomics || 0),
     Number(proactive.expiredSeasonKeywordWaste || 0),
     Number(proactive.listingRepair || 0),
   ].reduce((sum, value) => sum + value, 0);
   const generatedCandidateActions = seasonActionCount + listingApplicationCount + overBudgetActionable + lowEfficiencyActionable;
   const primaryPlanActions = Number(manifest.schemaValidation?.planActionCount || 0);
+  const mandatoryDailyClosure = normalizeMandatoryDailyClosure({
+    lowEfficiency: { actionable: lowEfficiencyActionable },
+    overBudget: {
+      candidates: overBudgetActionable,
+      requiredActions: overBudgetRequiredActions || overBudgetActionable,
+    },
+    price: { requiredActions: priceActions },
+  });
   const warnings = [];
   if (generatedCandidateActions > 0 && primaryPlanActions <= 0) warnings.push('generated_candidates_not_in_primary_plan');
   if (proactiveGaps > 0 && primaryPlanActions <= 0) warnings.push('diagnosis_pressure_without_primary_plan');
@@ -852,7 +949,10 @@ function buildOperatingClosure(manifest = {}) {
     seasonTitleAdActions: seasonActionCount,
     listingApplications: listingApplicationCount,
     overBudgetActionableCampaigns: overBudgetActionable,
+    overBudgetRequiredActions: overBudgetRequiredActions || overBudgetActionable,
     lowEfficiencyActionable,
+    priceActions,
+    mandatoryDailyClosure,
     warnings,
   };
 }
@@ -872,9 +972,14 @@ function buildActionQuality(manifest = {}, options = {}) {
   if (overBudgetCoverage.warning) warnings.push(overBudgetCoverage.warning);
   if (!options.execute || executeStep.status === 'skipped') warnings.push('execution_skipped');
   warnings.push(...(operatingClosure.warnings || []));
+  const mandatoryDailyClosure = normalizeMandatoryDailyClosure(operatingClosure.mandatoryDailyClosure || operatingClosure);
+  if (mandatoryDailyClosure.required && !mandatoryDailyClosure.resolved) {
+    warnings.push('mandatory_daily_closure_not_landed', ...mandatoryDailyClosure.reasons);
+  }
 
   let status = 'ready_to_execute';
   if (errorCount > 0) status = 'blocked';
+  else if (mandatoryDailyClosure.required && !mandatoryDailyClosure.resolved && plannedActions <= 0) status = 'blocked';
   else if (plannedActions <= 0) status = 'no_action_plan';
   else if (!options.execute || executeStep.status === 'skipped') status = 'dry_run_only';
   else if (executeStep.status === 'success') status = 'executed';
@@ -886,6 +991,7 @@ function buildActionQuality(manifest = {}, options = {}) {
     executableSkus,
     errorCount,
     operatingClosure,
+    mandatoryDailyClosure,
     warnings: uniqueList(warnings),
   };
 }
@@ -972,7 +1078,9 @@ function buildRunSummary(manifest) {
     dailyTaskBoard: manifest.dailyTaskBoard || null,
     taskCards: manifest.taskCards || null,
     aiDecisionBrief: manifest.aiDecisionBrief || null,
+    dormantComponents: manifest.dormantComponents || [],
     actionTerminology: manifest.actionTerminology || null,
+    trendAnomaly: manifest.trendAnomaly || null,
   };
 }
 
@@ -1011,9 +1119,10 @@ function buildKpiRecoveryOverBudgetSchema(snapshot = {}, options = {}) {
     limit: options.limit || overBudgetRecoveryLimitsFromEnv(options.env || process.env),
     maxDailyBudgetIncreaseUsd: options.maxDailyBudgetIncreaseUsd ?? Number((options.env || process.env).KPI_RECOVERY_OVERBUDGET_MAX_DAILY_LIFT_USD || 80),
   });
+  const schema = attachDefaultActionGoals(result.items || []);
   return {
-    schema: result.items || [],
-    summary: summarizeKpiRecoveryOverBudgetSchema(snapshot, result.items || [], result),
+    schema,
+    summary: summarizeKpiRecoveryOverBudgetSchema(snapshot, schema, result),
   };
 }
 
@@ -1101,6 +1210,8 @@ async function main() {
   const timeContext = buildOpsTimeContext({
     site: process.env.AD_OPS_SITE || 'Amazon.com',
     sourceRunId: runId,
+    businessDate: options.businessDate || undefined,
+    dataDate: options.dataDate || undefined,
   });
   const runDir = path.join(SNAPSHOTS_DIR, 'runs', runId);
   const manifestFile = path.join(runDir, 'manifest.json');
@@ -1128,6 +1239,7 @@ async function main() {
       summaryFile,
     },
     overBudgetCapture: buildOverBudgetCaptureMeta(),
+    dormantComponents: DORMANT_COMPONENTS,
   };
 
   const stageRegistry = createStageRegistry();
@@ -1199,6 +1311,7 @@ async function main() {
     let dailyTaskPool = null;
     let proactiveAudit = null;
     let agentPlanActions = [];
+    let externalInboxTasks = [];
     await runStep('daily_task_pool', async () => {
       const adjustments = [
         ...readJson(path.join(ROOT, 'data', 'adjustments', `adjustments_${timeContext.businessDate}.json`), []),
@@ -1212,9 +1325,7 @@ async function main() {
       const htmlFile = path.join(taskDir, `daily_tasks_${timeContext.businessDate}.html`);
       const boardJsonFile = path.join(taskDir, `daily_task_board_${timeContext.businessDate}.json`);
       const taskCardsFile = path.join(taskDir, `task_cards_${timeContext.businessDate}.json`);
-      const aiDecisionBriefFile = path.join(taskDir, `ai_decision_brief_${timeContext.businessDate}.json`);
       const latestTaskCardsFile = path.join(taskDir, 'task_cards.json');
-      const latestAiDecisionBriefFile = path.join(taskDir, 'ai_decision_brief.json');
       const board = buildDailyTaskBoard(pool);
       board.snapshotFile = snapshotFile;
       writeJson(jsonFile, pool);
@@ -1222,33 +1333,54 @@ async function main() {
       writeJson(boardJsonFile, board);
       const taskCards = writeTaskCards(board, taskCardsFile);
       writeJson(latestTaskCardsFile, taskCards);
-      const aiDecisionBrief = writeAiDecisionBrief(taskCards, aiDecisionBriefFile);
-      writeJson(latestAiDecisionBriefFile, aiDecisionBrief);
       manifest.outputFiles.dailyTaskPoolJson = jsonFile;
       manifest.outputFiles.dailyTaskPoolHtml = htmlFile;
       manifest.outputFiles.dailyTaskBoardJson = boardJsonFile;
       manifest.outputFiles.taskCardsJson = taskCardsFile;
       manifest.outputFiles.taskCardsLatestJson = latestTaskCardsFile;
-      manifest.outputFiles.aiDecisionBriefJson = aiDecisionBriefFile;
-      manifest.outputFiles.aiDecisionBriefLatestJson = latestAiDecisionBriefFile;
       manifest.dailyTaskPool = pool.summary;
       manifest.dailyTaskBoard = board.summary;
       manifest.taskCards = taskCards.summary;
-      manifest.aiDecisionBrief = aiDecisionBrief.summary;
+      manifest.aiDecisionBrief = dormantComponent('ai_decision_brief_artifact');
       return {
         outputs: {
           dailyTaskPoolJson: jsonFile,
           dailyTaskPoolHtml: htmlFile,
           dailyTaskBoardJson: boardJsonFile,
           taskCardsJson: taskCardsFile,
-          aiDecisionBriefJson: aiDecisionBriefFile,
         },
         details: {
           pool: pool.summary,
           board: board.summary,
           taskCards: taskCards.summary,
-          aiDecisionBrief: aiDecisionBrief.summary,
+          aiDecisionBrief: manifest.aiDecisionBrief,
         },
+      };
+    });
+
+    await runStep('external_inbox', async () => {
+      if (!options.externalTaskText && !options.externalTaskFile && !options.externalTaskDir) {
+        return {
+          status: 'skipped',
+          outputs: {},
+          details: { reason: 'no external inbox input provided' },
+        };
+      }
+      const agentDir = path.join(ROOT, 'data', 'agent');
+      const inboxFile = path.join(agentDir, `external_inbox_${timeContext.businessDate}.json`);
+      const inbox = runExternalTaskInbox({
+        text: options.externalTaskText,
+        inputFile: options.externalTaskFile,
+        inputDir: options.externalTaskDir,
+        outFile: inboxFile,
+        timeContext,
+      });
+      externalInboxTasks = inbox.tasks || [];
+      manifest.outputFiles.externalInboxJson = inboxFile;
+      manifest.externalInbox = inbox.summary;
+      return {
+        outputs: { externalInboxJson: inboxFile },
+        details: inbox.summary,
       };
     });
 
@@ -1329,7 +1461,7 @@ async function main() {
         outMd: mdFile,
         outQueue: queueFile,
       });
-      const actionSchema = buildSeasonTitleActionSchema({ report: result.report, snapshot });
+      const actionSchema = attachDefaultActionGoals(buildSeasonTitleActionSchema({ report: result.report, snapshot }));
       const listingApplications = buildSeasonTitleListingApplications({ report: result.report, snapshot });
       const listingCopyDryRun = buildListingCopyDryRunReport(listingApplications, {
         businessDate: timeContext.businessDate,
@@ -1403,18 +1535,7 @@ async function main() {
       };
     });
 
-    await runStep('ad_structure_opportunities', async () => {
-      const taskDir = path.join(ROOT, 'data', 'tasks');
-      const jsonFile = path.join(taskDir, `ad_structure_opportunities_${timeContext.businessDate}.json`);
-      const report = auditAdStructureOpportunities(snapshot);
-      writeJson(jsonFile, report);
-      manifest.outputFiles.adStructureOpportunitiesJson = jsonFile;
-      manifest.adStructureOpportunities = report.summary;
-      return {
-        outputs: { adStructureOpportunitiesJson: jsonFile },
-        details: report.summary,
-      };
-    });
+    manifest.adStructureOpportunities = dormantComponent('ad_structure_opportunities_detail');
 
     await runStep('sku_ad_form_summary', async () => {
       const kpiOutputs = {};
@@ -1640,7 +1761,7 @@ async function main() {
       const ledgerFile = path.join(agentDir, `agent_ledger_${timeContext.businessDate}.json`);
       const ledger = buildAgentLedger({
         timeContext,
-        tasks: dailyTaskPoolToAgentTasks(dailyTaskPool || {}),
+        tasks: [...dailyTaskPoolToAgentTasks(dailyTaskPool || {}), ...externalInboxTasks],
         actions: agentPlanActions,
       });
       writeJson(ledgerFile, ledger);
@@ -1670,7 +1791,7 @@ async function main() {
       const ledgerFile = path.join(agentDir, `agent_ledger_${timeContext.businessDate}.json`);
       const ledger = buildAgentLedger({
         timeContext,
-        tasks: dailyTaskPoolToAgentTasks(dailyTaskPool || {}),
+        tasks: [...dailyTaskPoolToAgentTasks(dailyTaskPool || {}), ...externalInboxTasks],
         actions: agentPlanActions,
       });
       writeJson(ledgerFile, ledger);
@@ -1708,6 +1829,39 @@ async function main() {
       return {
         outputs: { ...ledgerResult.outputs, dailyLearningJson: result.jsonFile, dailyLearningMarkdown: result.mdFile },
         details: { dailyLearning: manifest.dailyLearning, agentLedger: ledgerResult.details },
+      };
+    });
+
+    await runStep('trend_anomaly_check', async () => {
+      const { detectTrendAnomalies } = require('../src/trend_anomaly_detector');
+      const agentDir = path.join(ROOT, 'data', 'agent');
+      fs.mkdirSync(agentDir, { recursive: true });
+      const jsonFile = path.join(agentDir, `trend_anomaly_${timeContext.businessDate}.json`);
+      const mdFile = path.join(agentDir, `trend_anomaly_${timeContext.businessDate}.md`);
+      const report = detectTrendAnomalies({
+        today: timeContext.businessDate,
+        windowDays: 7,
+      });
+      writeJson(jsonFile, report);
+      writeTextFileWithRetry(mdFile, report.markdown || '');
+      manifest.outputFiles.trendAnomalyJson = jsonFile;
+      manifest.outputFiles.trendAnomalyMarkdown = mdFile;
+      manifest.trendAnomaly = {
+        status: report.status,
+        redCount: report.redSignals?.length || 0,
+        yellowCount: report.yellowSignals?.length || 0,
+        seriesPoints: report.series?.length || 0,
+        missingDates: report.missingDates || [],
+      };
+      const status = report.status === 'red' ? 'partial' : 'success';
+      const blockedReason = report.status === 'red'
+        ? `trend_anomaly_red: ${report.redSignals.map(s => s.metric).join(', ')}`
+        : '';
+      return {
+        status,
+        outputs: { trendAnomalyJson: jsonFile, trendAnomalyMarkdown: mdFile },
+        blocked_reason: blockedReason,
+        details: manifest.trendAnomaly,
       };
     });
 
@@ -1773,6 +1927,8 @@ module.exports = {
   buildActionQuality,
   buildFetchOptions,
   buildKpiRecoveryOverBudgetSchema,
+  buildOperatingClosure,
+  attachDefaultActionGoals,
   buildProductMap,
   buildProactiveRecoveryActionSchema,
   countSchemaActions,

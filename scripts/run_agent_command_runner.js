@@ -5,6 +5,7 @@ const { buildOpsTimeContext } = require('../src/ops_time');
 
 const ROOT = path.join(__dirname, '..');
 const DEFAULT_OUT_DIR = path.join(ROOT, 'data', 'agent');
+const DEFAULT_COMMAND_TIMEOUT_MS = 120000;
 const ALLOWED_NPM_SCRIPTS = new Set([
   'ops:agent:review-effect',
   'ops:agent:review-evidence',
@@ -25,6 +26,7 @@ const ALLOWED_NPM_SCRIPTS = new Set([
   'ops:agent:readiness-audit',
   'ops:agent:completion-audit',
   'ops:agent:goal-audit',
+  'ops:agent:goal-final-audit',
   'ops:agent:capabilities',
 ]);
 const SCRIPT_ENTRYPOINTS = {
@@ -47,6 +49,7 @@ const SCRIPT_ENTRYPOINTS = {
   'ops:agent:readiness-audit': path.join(ROOT, 'scripts', 'run_agent_readiness_audit.js'),
   'ops:agent:completion-audit': path.join(ROOT, 'scripts', 'run_agent_completion_audit.js'),
   'ops:agent:goal-audit': path.join(ROOT, 'scripts', 'run_agent_goal_audit.js'),
+  'ops:agent:goal-final-audit': path.join(ROOT, 'scripts', 'run_goal_final_audit.js'),
   'ops:agent:capabilities': path.join(ROOT, 'scripts', 'run_agent_capability_registry.js'),
 };
 
@@ -217,11 +220,13 @@ function summaryForResult(report = null, stdoutJson = null, fallback = '') {
 function runOneCommand(item = {}, options = {}) {
   const execFileSync = options.execFileSync || defaultExecFileSync;
   const startedAt = text(options.startedAt || options.timeContext?.runAt || new Date().toISOString());
+  const timeoutMs = Math.max(1000, Number(options.commandTimeoutMs || DEFAULT_COMMAND_TIMEOUT_MS));
   try {
     const stdout = execFileSync(item.parsed.bin, item.parsed.args, {
       cwd: ROOT,
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'pipe'],
+      timeout: timeoutMs,
     });
     const stdoutJson = parseJsonMaybe(stdout);
     const outputFiles = outputFilesFor(item, stdoutJson || {});
@@ -260,17 +265,45 @@ function runOneCommand(item = {}, options = {}) {
   } catch (error) {
     const stdout = error.stdout ? String(error.stdout) : '';
     const stderr = error.stderr ? String(error.stderr) : '';
+    const timedOut = text(error.code) === 'ETIMEDOUT' || text(error.signal) === 'SIGTERM';
+    const exitCode = Number(error.status ?? error.code ?? 1);
+    const stdoutJson = parseJsonMaybe(stdout);
+    const outputFiles = outputFilesFor(item, stdoutJson || {});
+    const missing = missingOutputFiles(outputFiles);
+    if (!timedOut && stdoutJson && outputFiles.length && missing.length === 0) {
+      const report = reportForTask(outputFiles, item.taskId);
+      return {
+        taskId: item.taskId,
+        label: item.label,
+        command: item.command,
+        ok: true,
+        softFailed: true,
+        exitCode: Number.isFinite(exitCode) ? exitCode : 1,
+        summary: summaryForResult(report, stdoutJson, summarizeOutput(stdout)),
+        stdoutSummary: summarizeOutput(stdout),
+        stderrSummary: summarizeOutput(stderr),
+        outputFiles,
+        report: report || undefined,
+        at: startedAt,
+        sourceRunId: text(options.timeContext?.sourceRunId || ''),
+      };
+    }
     return {
       taskId: item.taskId,
       label: item.label,
       command: item.command,
       ok: false,
-      exitCode: Number(error.status || error.code || 1),
-      summary: summarizeOutput(stderr || stdout || error.message),
+      exitCode: Number.isFinite(exitCode) ? exitCode : 1,
+      summary: timedOut
+        ? `Command timed out after ${timeoutMs}ms`
+        : summarizeOutput(stderr || stdout || error.message),
       error: text(error.message),
+      timedOut,
+      timeoutMs,
       stdoutSummary: summarizeOutput(stdout),
       stderrSummary: summarizeOutput(stderr),
-      outputFiles: uniqueList([item.output]),
+      outputFiles: outputFiles.length ? outputFiles : uniqueList([item.output]),
+      missingOutputFiles: missing,
       at: startedAt,
       sourceRunId: text(options.timeContext?.sourceRunId || ''),
     };
@@ -308,6 +341,7 @@ function parseArgs(argv) {
     site: get('--site') || process.env.AD_OPS_SITE || 'Amazon.com',
     now: get('--now') || process.env.AGENT_NOW || '',
     sourceRunId: get('--source-run-id') || process.env.SOURCE_RUN_ID || '',
+    commandTimeoutMs: Number(get('--command-timeout-ms') || process.env.AGENT_COMMAND_TIMEOUT_MS || DEFAULT_COMMAND_TIMEOUT_MS),
     dryRun: args.includes('--dry-run') || process.env.AGENT_COMMAND_RUNNER_DRY_RUN === '1',
   };
 }
@@ -362,4 +396,5 @@ module.exports = {
   parseArgs,
   parseNpmRunCommand,
   runAgentCommandRunner,
+  DEFAULT_COMMAND_TIMEOUT_MS,
 };

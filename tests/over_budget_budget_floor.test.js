@@ -43,6 +43,15 @@ assert.ok(
   liftPlans[0].actions[0].suggestedBudget >= 3,
   `expected low-budget profitable over-budget campaign to lift to at least 3, got ${liftPlans[0].actions[0].suggestedBudget}`,
 );
+assert.deepStrictEqual(liftPlans[0].actions[0].goal, {
+  metric: 'orders',
+  from: 1,
+  to: 2,
+  deadlineDays: 7,
+  hardFloor: 0,
+});
+assert.strictEqual(liftPlans[0].actions[0].reviewPlan.goal.metric, 'orders');
+assert.ok(liftPlans[0].actions[0].killSwitch.rollbackIf.includes('spend rises'));
 
 const badSnapshot = JSON.parse(JSON.stringify(baseSnapshot));
 badSnapshot.overBudgetRows[0].Spend = '15.00';

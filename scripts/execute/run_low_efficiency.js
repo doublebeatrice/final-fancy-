@@ -20,7 +20,7 @@ const { sameDayGuardedEntityIds } = require('../../src/low_efficiency_execution_
 
 const ROOT = path.join(__dirname, '..', '..');
 const DRY_RUN = process.argv.includes('--dry-run');
-const COOLDOWN_DAYS = Number(process.env.LOW_EFFICIENCY_COOLDOWN_DAYS || 14);
+const RECENT_ADJUSTMENT_WINDOW_DAYS = Number(process.env.LOW_EFFICIENCY_RECENT_ADJUSTMENT_WINDOW_DAYS || 14);
 
 function log(msg) {
   console.log(`[${new Date().toISOString()}] ${msg}`);
@@ -94,7 +94,7 @@ async function patchInPanel(evalInPanel, request) {
 
 async function main() {
   const startedAt = Date.now();
-  log(`mode=${DRY_RUN ? 'dry-run' : 'EXECUTE'} cooldownDays=${COOLDOWN_DAYS}`);
+  log(`mode=${DRY_RUN ? 'dry-run' : 'EXECUTE'} recentAdjustmentWindowDays=${RECENT_ADJUSTMENT_WINDOW_DAYS}`);
 
   let pools;
   await withPanelWs(async (evalInPanel) => {
@@ -105,7 +105,7 @@ async function main() {
   log(`pools fetched: ${total} rows (kw=${pools?.kw?.length || 0} auto=${pools?.auto?.length || 0} manual=${pools?.manual?.length || 0} sbKw=${pools?.sbKw?.length || 0} sbTarget=${pools?.sbTarget?.length || 0})`);
 
   const fakeSnapshot = { lowEfficiencyRows: pools };
-  const scan = scanLowEfficiencyPools(fakeSnapshot, { now: new Date(), cooldownDays: COOLDOWN_DAYS });
+  const scan = scanLowEfficiencyPools(fakeSnapshot, { now: new Date(), recentAdjustmentWindowDays: RECENT_ADJUSTMENT_WINDOW_DAYS });
   log(`decisions: actionable=${scan.summary.totals.actionable} hold=${scan.summary.totals.hold} skip=${scan.summary.totals.skip}`);
   for (const [k, s] of Object.entries(scan.summary.byKind)) {
     log(`  ${k}: scanned=${s.scanned} actionable=${s.actionable} hold=${s.hold} skip=${s.skip}`);

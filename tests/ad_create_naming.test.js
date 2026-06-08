@@ -139,4 +139,34 @@ function baseInput(overrides = {}) {
   assert.ok(built.errors.includes('videoAssetIds is required'));
 }
 
+{
+  const built = buildSbvCreatePayload({
+    advType: 'SB',
+    mode: 'productTarget',
+    targetType: 'ASIN_SAME_AS',
+    sku: 'QQ1764',
+    asin: 'B0C1NF986W',
+    accountId: 296,
+    siteId: 4,
+    brandName: 'Wesiti',
+    brand: 'ENTITY3EK98Y2AIA3TP',
+    coreTerm: 'converted asin exact',
+    dailyBudget: 3,
+    defaultBid: 0.35,
+    adFormat: 'video',
+    videoAssetIds: ['amzn1.assetlibrary.asset1.video'],
+    targetAsins: ['B076VZ9C7Q', 'B0989TJ66K'],
+  });
+  assert.strictEqual(built.ok, true);
+  assert.strictEqual(built.requestUrl, '/campaignSb/createCampaignBeta');
+  assert.strictEqual(built.requestBody.targetType, 'target');
+  assert.strictEqual(built.requestBody.campaignName, 'sbvasin_converted asin exact_qq1764');
+  assert.strictEqual(built.requestBody.groupName, 'sbvasin_converted asin exact_qq1764');
+  assert.strictEqual(built.requestBody.fieldArray.keyword, undefined);
+  assert.deepStrictEqual(built.requestBody.fieldArray.targets.map(row => row.expressions[0]), [
+    { type: 'asinSameAs', value: 'B076VZ9C7Q' },
+    { type: 'asinSameAs', value: 'B0989TJ66K' },
+  ]);
+}
+
 console.log('ad create naming tests passed');

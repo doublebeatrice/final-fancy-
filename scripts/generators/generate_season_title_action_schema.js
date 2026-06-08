@@ -56,6 +56,90 @@ function displaySeasonTerm(item = {}, adAction = {}) {
   return eventName || coreTerm;
 }
 
+function clean(value) {
+  return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+const CONFUSING_SEASON_WORDS = [
+  { id: 'fathers_day', test: /\b(father|fathers|dad|dads|papa)\b/, support: ['father', 'dad', 'papa'] },
+  { id: 'nurse', test: /\b(nurse|nurses|nursing|rn|cna)\b/, support: ['nurse', 'nursing', 'rn', 'cna'] },
+  { id: 'easter', test: /\b(easter|bunny|rabbit|egg hunt)\b/, support: ['easter', 'bunny', 'rabbit', 'egg'] },
+  { id: 'mothers_day', test: /\b(mother|mothers|mom|moms|mama)\b/, support: ['mother', 'mom', 'mama'] },
+  { id: 'cinco', test: /\b(cinco|fiesta|mexican|taco)\b/, support: ['cinco', 'fiesta', 'mexican', 'taco'] },
+  { id: 'patriotic', test: /\b(patriot|patriotic|american flag|4th|july|independence|veteran|memorial)\b/, support: ['patriot', 'patriotic', 'american', 'flag', 'july', 'independence', 'veteran', 'memorial'] },
+];
+
+function confusingSeasonRule(item = {}, adAction = {}) {
+  const seed = clean([
+    item.selectedEvent?.name,
+    item.selectedEvent?.coreTerm,
+    ...(item.selectedEvent?.titleTerms || []),
+    adAction.coreTerm,
+    ...(adAction.keywords || []),
+  ].join(' '));
+  return CONFUSING_SEASON_WORDS.find(rule => rule.test.test(seed)) || null;
+}
+
+function hasReviewedMainImage(item = {}, product = {}) {
+  const profile = product.productProfile || {};
+  const identity = item.productIdentity || item.identity || {};
+  return !!(
+    identity.imageReviewed ||
+    identity.imageReviewedAt ||
+    item.imageReviewed ||
+    item.imageReviewedAt ||
+    profile.imageUnderstandingAt ||
+    profile.imageReviewedAt ||
+    profile.visionReviewedAt
+  );
+}
+
+function listingSupportText(item = {}, product = {}) {
+  const profile = product.productProfile || {};
+  const listing = product.listing || {};
+  return clean([
+    item.currentTitle,
+    listing.title,
+    listing.categoryPath,
+    ...(listing.breadcrumbs || []),
+    profile.listingTitle,
+    profile.categoryPath,
+    profile.productType,
+    ...(profile.productTypes || []),
+    ...(profile.targetAudience || []),
+    ...(profile.occasion || []),
+    ...(profile.visualTheme || []),
+    profile.positioning,
+  ].join(' '));
+}
+
+function hasListingSeasonSupport(item = {}, product = {}, rule = null) {
+  const value = listingSupportText(item, product);
+  if (!value) return false;
+  const supportWords = rule?.support || clean(item.selectedEvent?.coreTerm).split(/\s+/).filter(word => word.length >= 4);
+  return supportWords.some(word => value.includes(clean(word)));
+}
+
+function seasonWindowOpen(item = {}, businessDate = '') {
+  const status = clean(item.selectedStatus);
+  if (status === 'expired') return false;
+  const nodeEnd = String(item.selectedEvent?.nodeEnd || '').trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(nodeEnd) && /^\d{4}-\d{2}-\d{2}$/.test(businessDate)) {
+    return nodeEnd >= businessDate;
+  }
+  return true;
+}
+
+function seasonIdentityBlockers(item = {}, adAction = {}, product = {}, businessDate = '') {
+  const rule = confusingSeasonRule(item, adAction);
+  if (!rule) return [];
+  const blockers = [];
+  if (!hasReviewedMainImage(item, product)) blockers.push('main_image_not_verified');
+  if (!hasListingSeasonSupport(item, product, rule)) blockers.push('listing_not_supporting_confusing_season');
+  if (!seasonWindowOpen(item, businessDate)) blockers.push('season_window_expired');
+  return blockers;
+}
+
 function cleanKeywordList(keywords = []) {
   const seen = new Set();
   const out = [];
@@ -142,9 +226,29 @@ function createActionFromSeasonAd(item = {}, adAction = {}, product = {}) {
   };
 }
 
+function createReviewPlanFromSeasonAd(item = {}, adAction = {}, product = {}, blockers = []) {
+  const seasonTerm = displaySeasonTerm(item, adAction);
+  return {
+    sku: item.sku,
+    asin: item.asin || product.asin || '',
+    summary: `Seasonal ad candidate requires review before execution: ${seasonTerm}.`,
+    reviewRequired: true,
+    reviewReasons: blockers,
+    evidence: [
+      `season=${seasonTerm}`,
+      `seasonStatus=${item.selectedStatus || ''}`,
+      `titleDecision=${item.titleDecision || ''}`,
+      `adDecision=${item.adDecision || ''}`,
+      ...blockers.map(blocker => `blocker=${blocker}`),
+    ],
+    actions: [],
+  };
+}
+
 function buildSeasonTitleActionSchema(input = {}) {
   const report = input.report || {};
   const products = productMap(input.snapshot || {});
+  const businessDate = String(input.businessDate || report.businessDate || '').trim();
   const limit = Number(input.limit || 120);
   const plans = [];
   let actionCount = 0;
@@ -153,11 +257,22 @@ function buildSeasonTitleActionSchema(input = {}) {
     if (item.adDecision !== 'auto_execute' || item.highSales) continue;
     const product = products.get(String(item.sku || '').trim().toUpperCase()) || {};
     const actions = [];
+    const reviewBlockers = [];
     for (const adAction of item.adActions || []) {
       if (actionCount + actions.length >= limit) break;
+      const blockers = seasonIdentityBlockers(item, adAction, product, businessDate);
+      if (blockers.length) {
+        reviewBlockers.push(...blockers);
+        continue;
+      }
       actions.push(createActionFromSeasonAd(item, adAction, product));
     }
-    if (!actions.length) continue;
+    if (!actions.length) {
+      if (reviewBlockers.length) {
+        plans.push(createReviewPlanFromSeasonAd(item, item.adActions?.[0] || {}, product, [...new Set(reviewBlockers)]));
+      }
+      continue;
+    }
     plans.push({
       sku: item.sku,
       asin: item.asin || product.asin || '',
@@ -198,4 +313,5 @@ if (require.main === module) {
 module.exports = {
   buildSeasonTitleActionSchema,
   createActionFromSeasonAd,
+  seasonIdentityBlockers,
 };

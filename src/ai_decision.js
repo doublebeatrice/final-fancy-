@@ -40,7 +40,9 @@ const CRITICAL_REVIEW_RISKS = new Set([
 ]);
 
 const HIGH_VOLUME_BID_CHANGE_REVIEW_THRESHOLD = 0.15;
+const HIGH_VOLUME_BID_CHANGE_MIN_ABS_DELTA = 0.03;
 const NORMAL_BID_CHANGE_REVIEW_THRESHOLD = 0.25;
+const ACTION_GOAL_METRICS = new Set(['orders', 'sales', 'netProfit']);
 
 function toNum(value) {
   const n = Number(value);
@@ -212,6 +214,107 @@ function inferExpectedEffect(action) {
     return { price: action.direction || 'watch', margin: 'watch', conversionRate: 'watch', adSpend: action.adCoupling?.direction || 'watch' };
   }
   return { effect: 'review' };
+}
+
+function defaultGoalMetricForAction(action = {}) {
+  if (action.actionType === 'price') return 'netProfit';
+  if (action.actionType === 'pause') return 'netProfit';
+  if (action.actionType === 'bid' && toNum(action.suggestedBid) !== null && toNum(action.currentBid) !== null && toNum(action.suggestedBid) < toNum(action.currentBid)) {
+    return 'netProfit';
+  }
+  return 'orders';
+}
+
+function normalizeActionGoal(rawGoal = null, product = {}, entity = {}, action = {}) {
+  const sourceGoal = rawGoal && typeof rawGoal === 'object' ? rawGoal : null;
+  const metric = normalizeText(sourceGoal?.metric || sourceGoal?.name || defaultGoalMetricForAction(action));
+  const deadlineDays = toNum(sourceGoal?.deadlineDays ?? sourceGoal?.deadline ?? sourceGoal?.withinDays);
+  const from = toNum(sourceGoal?.from ?? sourceGoal?.baseline);
+  const targetRaw = sourceGoal?.to ?? sourceGoal?.target ?? sourceGoal?.min;
+  const to = toNum(targetRaw);
+  const hardFloor = toNum(sourceGoal?.hardFloor ?? sourceGoal?.floor);
+  const errors = [];
+
+  if (!sourceGoal) errors.push('missing_goal');
+  if (!ACTION_GOAL_METRICS.has(metric)) errors.push(`unsupported_metric:${metric || 'missing'}`);
+  if (!Number.isFinite(from)) errors.push('missing_from');
+  if (!Number.isFinite(to)) errors.push('missing_to');
+  if (Number.isFinite(from) && Number.isFinite(to) && from === to) errors.push('from_equals_to');
+  if (!Number.isFinite(deadlineDays) || deadlineDays <= 0) errors.push('missing_deadlineDays');
+  if (!Number.isFinite(hardFloor)) errors.push('missing_hardFloor');
+
+  return {
+    ok: errors.length === 0,
+    errors,
+    goal: {
+      metric,
+      from,
+      to,
+      deadlineDays,
+      hardFloor,
+    },
+    inferred: !sourceGoal,
+  };
+}
+
+function normalizeKillSwitch(rawKillSwitch = null, goal = {}, action = {}) {
+  if (rawKillSwitch && typeof rawKillSwitch === 'object') return rawKillSwitch;
+  const metric = normalizeText(goal.metric || 'orders');
+  const deadlineDays = toNum(goal.deadlineDays) || 7;
+  if (metric === 'netProfit') {
+    return {
+      metric,
+      condition: `netProfit falls below hardFloor by day ${deadlineDays}`,
+      rollbackIf: `netProfit below hardFloor by day ${deadlineDays}`,
+    };
+  }
+  if (metric === 'sales') {
+    return {
+      metric,
+      condition: `sales does not reach target while spend rises by day ${deadlineDays}`,
+      rollbackIf: `sales miss target while spend rises by day ${deadlineDays}`,
+    };
+  }
+  return {
+    metric,
+    condition: `spend rises without orders by day ${deadlineDays}`,
+    rollbackIf: `spend rises without orders by day ${deadlineDays}`,
+    actionType: action.actionType || '',
+  };
+}
+
+function applyActionGoalGate(product = {}, entity = {}, action = {}, rawAction = {}) {
+  if (['review', 'skip', 'structure_fix'].includes(action.actionType)) return action;
+  const rawGoal = rawAction.goal || rawAction.reviewPlan?.goal || action.goal || action.reviewPlan?.goal || null;
+  const assessment = normalizeActionGoal(rawGoal, product, entity, action);
+  if (!assessment.ok) {
+    return {
+      ...action,
+      actionType: 'review',
+      canAutoExecute: false,
+      riskLevel: 'manual_review',
+      goal: assessment.goal,
+      goalValidation: assessment,
+      reason: `${action.reason || ''} [risk_gate:missing_action_goal:${assessment.errors.join(',')}] Executable action requires falsifiable goal{metric,from,to,deadlineDays,hardFloor}.`.trim(),
+    };
+  }
+  const killSwitch = normalizeKillSwitch(rawAction.killSwitch || rawAction.reviewPlan?.killSwitch || action.killSwitch, assessment.goal, action);
+  const checkAfterDays = Array.isArray(action.reviewPlan?.checkAfterDays) && action.reviewPlan.checkAfterDays.length
+    ? action.reviewPlan.checkAfterDays
+    : [assessment.goal.deadlineDays];
+  return {
+    ...action,
+    goal: assessment.goal,
+    goalValidation: assessment,
+    killSwitch,
+    reviewPlan: {
+      ...(action.reviewPlan || {}),
+      goal: assessment.goal,
+      killSwitch,
+      checkAfterDays,
+      rollbackIf: normalizeText(action.reviewPlan?.rollbackIf || killSwitch.rollbackIf || killSwitch.condition),
+    },
+  };
 }
 
 function buildLearningContext(product, entity, action, rawAction = {}) {
@@ -902,6 +1005,21 @@ function refundGateAssessment(product = {}, action = {}) {
   };
 }
 
+function correctionGateHighReturnNoTrafficPush(product = {}, action = {}) {
+  const assessment = refundGateAssessment(product, action);
+  if (assessment.ok) return assessment;
+  return {
+    ...assessment,
+    lessonId: 'correction_gate_high_return_low_profit_no_traffic_push',
+    reason: `rule:correction:high_return_low_profit_no_traffic_push:${assessment.reason}`,
+    evidence: [
+      ...(assessment.evidence || []),
+      'lessonId=correction_gate_high_return_low_profit_no_traffic_push',
+      'rule:correction:high_return_low_profit_no_traffic_push',
+    ],
+  };
+}
+
 function cooldownAssessment(product = {}, action = {}) {
   const sku = String(product.sku || '');
   if (!sku) return { ok: true, reason: 'no_sku' };
@@ -959,6 +1077,21 @@ function cooldownAssessment(product = {}, action = {}) {
   };
 }
 
+function correctionGateSameSkuCooldown(product = {}, action = {}) {
+  const assessment = cooldownAssessment(product, action);
+  if (assessment.ok) return assessment;
+  return {
+    ...assessment,
+    lessonId: 'correction_gate_same_sku_traffic_push_cooldown',
+    reason: `rule:correction:same_sku_traffic_push_cooldown:${assessment.reason}`,
+    evidence: [
+      ...(assessment.evidence || []),
+      'lessonId=correction_gate_same_sku_traffic_push_cooldown',
+      'rule:correction:same_sku_traffic_push_cooldown',
+    ],
+  };
+}
+
 function overBudgetWarningAssessment(product = {}, action = {}) {
   const operating = product.operatingContext || {};
   const overBudget = operating.overBudget || product.overBudget || null;
@@ -986,6 +1119,21 @@ function overBudgetWarningAssessment(product = {}, action = {}) {
     };
   }
   return { ok: true, reason: 'over_budget_acceptable_for_budget_up' };
+}
+
+function correctionGateOverbudgetBudgetUp(product = {}, action = {}) {
+  const assessment = overBudgetWarningAssessment(product, action);
+  if (assessment.ok) return assessment;
+  return {
+    ...assessment,
+    lessonId: 'correction_gate_overbudget_inefficient_no_budget_up',
+    reason: `rule:correction:overbudget_inefficient_no_budget_up:${assessment.reason}`,
+    evidence: [
+      ...(assessment.evidence || []),
+      'lessonId=correction_gate_overbudget_inefficient_no_budget_up',
+      'rule:correction:overbudget_inefficient_no_budget_up',
+    ],
+  };
 }
 
 function gateRisk(product, entity, action) {
@@ -1017,7 +1165,7 @@ function gateRisk(product, entity, action) {
     return gated;
   }
 
-  const refundGate = refundGateAssessment(product || {}, gated);
+  const refundGate = correctionGateHighReturnNoTrafficPush(product || {}, gated);
   if (!refundGate.ok && !forceExecute) {
     gated.actionType = 'review';
     gated.canAutoExecute = false;
@@ -1029,7 +1177,7 @@ function gateRisk(product, entity, action) {
     gated.forceOverrideReasons = [...(gated.forceOverrideReasons || []), `refund_gate:${refundGate.reason}`];
   }
 
-  const cooldown = cooldownAssessment(product || {}, gated);
+  const cooldown = correctionGateSameSkuCooldown(product || {}, gated);
   if (!cooldown.ok && !forceExecute) {
     gated.actionType = 'review';
     gated.canAutoExecute = false;
@@ -1041,7 +1189,7 @@ function gateRisk(product, entity, action) {
     gated.forceOverrideReasons = [...(gated.forceOverrideReasons || []), `same_sku_cooldown:${cooldown.reason}`];
   }
 
-  const overBudget = overBudgetWarningAssessment(product || {}, gated);
+  const overBudget = correctionGateOverbudgetBudgetUp(product || {}, gated);
   if (!overBudget.ok && !forceExecute) {
     gated.actionType = 'review';
     gated.canAutoExecute = false;
@@ -1124,7 +1272,7 @@ function gateRisk(product, entity, action) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
       gated.riskLevel = 'marginal_profit_review';
-      gated.reason = `${gated.reason || ''} [risk_gate:marginal_profit:${economics.reason}] Scale/build action needs manual review because recent ad spend is not producing enough sales/orders to cover gross profit. evidence: ${(economics.evidence || []).join('; ')}`.trim();
+      gated.reason = `${gated.reason || ''} [risk_gate:marginal_profit:${economics.reason}] Scale/build action needs manual review because ad spend is eating gross profit; diagnose spend concentration before adding traffic. evidence: ${(economics.evidence || []).join('; ')}`.trim();
       return gated;
     }
     if (forceExecute && !economics.ok) {
@@ -1142,12 +1290,12 @@ function gateRisk(product, entity, action) {
     const isSbvCreate = advType === 'SB' && adFormat === 'video';
     if (!isSpCreate && !isSbvCreate) missing.push('supported SP create or SB video create only');
     if (isSpCreate && !['auto', 'productTarget', 'keywordTarget'].includes(mode)) missing.push('mode');
-    if (isSbvCreate && mode !== 'keywordTarget') missing.push('mode=keywordTarget');
+    if (isSbvCreate && !['keywordTarget', 'productTarget'].includes(mode)) missing.push('mode=keywordTarget|productTarget');
     for (const field of ['sku', 'asin', 'accountId', 'siteId', 'dailyBudget', 'defaultBid', 'coreTerm']) {
       if (createInput[field] === undefined || createInput[field] === null || createInput[field] === '') missing.push(field);
     }
     if (mode === 'keywordTarget' && !(Array.isArray(createInput.keywords) && createInput.keywords.length)) missing.push('keywords');
-    if (isSpCreate && mode === 'productTarget' && !(Array.isArray(createInput.targetAsins) && createInput.targetAsins.length)) missing.push('targetAsins');
+    if ((isSpCreate || isSbvCreate) && mode === 'productTarget' && !(Array.isArray(createInput.targetAsins) && createInput.targetAsins.length)) missing.push('targetAsins');
     if (isSbvCreate) {
       if (!String(createInput.brandName || '').trim()) missing.push('brandName');
       if (!String(createInput.brand || createInput.brandEntityId || '').trim()) missing.push('brand/brandEntityId');
@@ -1186,13 +1334,14 @@ function gateRisk(product, entity, action) {
   }
 
   if (gated.actionType === 'bid' && Number.isFinite(currentBid) && currentBid > 0 && Number.isFinite(suggestedBid)) {
+    const changeAbs = Math.abs(suggestedBid - currentBid);
     const changePct = Math.abs(suggestedBid - currentBid) / currentBid;
     const explicitTrafficPushOverride = gated.allowLargeBidChange === true && gated.riskLevel === 'traffic_push';
-    if (highVolume && changePct > HIGH_VOLUME_BID_CHANGE_REVIEW_THRESHOLD && !explicitTrafficPushOverride && !forceExecute) {
+    if (highVolume && changePct > HIGH_VOLUME_BID_CHANGE_REVIEW_THRESHOLD && changeAbs > HIGH_VOLUME_BID_CHANGE_MIN_ABS_DELTA && !explicitTrafficPushOverride && !forceExecute) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
       gated.riskLevel = 'manual_review';
-      gated.reason = `${gated.reason || ''} [risk_gate:high_volume_strong_bid_change:changePct=${changePct.toFixed(4)},threshold=${HIGH_VOLUME_BID_CHANGE_REVIEW_THRESHOLD}]`.trim();
+      gated.reason = `${gated.reason || ''} [risk_gate:high_volume_strong_bid_change:changePct=${changePct.toFixed(4)},threshold=${HIGH_VOLUME_BID_CHANGE_REVIEW_THRESHOLD},delta=${changeAbs.toFixed(2)},minDelta=${HIGH_VOLUME_BID_CHANGE_MIN_ABS_DELTA.toFixed(2)}]`.trim();
       return gated;
     }
     if (!highVolume && changePct > NORMAL_BID_CHANGE_REVIEW_THRESHOLD && !explicitTrafficPushOverride && !forceExecute) {
@@ -1372,6 +1521,8 @@ function validateAndNormalizePlan(rawPlan, context) {
         hypothesis: normalizeText(rawAction.hypothesis),
         expectedEffect: rawAction.expectedEffect && typeof rawAction.expectedEffect === 'object' ? rawAction.expectedEffect : null,
         reviewPlan: rawAction.reviewPlan && typeof rawAction.reviewPlan === 'object' ? rawAction.reviewPlan : null,
+        goal: rawAction.goal && typeof rawAction.goal === 'object' ? rawAction.goal : null,
+        killSwitch: rawAction.killSwitch && typeof rawAction.killSwitch === 'object' ? rawAction.killSwitch : null,
         text: String(rawAction.text || rawAction.keywordText || rawAction.targetText || entity.text || '').trim(),
         label: String(rawAction.label || rawAction.text || entity.label || entity.text || '').trim(),
         evidence,
@@ -1451,8 +1602,8 @@ function validateAndNormalizePlan(rawPlan, context) {
       }
 
       if (normalized.actionType === 'budget') {
-        if (entityType !== 'campaign' || !Number.isFinite(normalized.suggestedBudget)) {
-          errors.push({ sku, id, entityType, reason: 'budget action requires campaign entity and suggestedBudget' });
+        if (!['campaign', 'sbCampaign'].includes(entityType) || !Number.isFinite(normalized.suggestedBudget)) {
+          errors.push({ sku, id, entityType, reason: 'budget action requires campaign/sbCampaign entity and suggestedBudget' });
           continue;
         }
         normalized.direction = normalized.currentBudget != null && normalized.suggestedBudget > normalized.currentBudget ? 'up' : (normalized.currentBudget != null && normalized.suggestedBudget < normalized.currentBudget ? 'down' : 'same');
@@ -1490,6 +1641,9 @@ function validateAndNormalizePlan(rawPlan, context) {
           normalized.expected = priceVerification?.expected || normalized.expected;
         }
       }
+
+      const goalGated = applyActionGoalGate(product, entity, normalized, rawAction);
+      Object.assign(normalized, goalGated);
 
       normalized.learning = buildLearningContext(product, entity, normalized, rawAction);
 
@@ -1583,7 +1737,11 @@ function loadExternalActionSchema({
 
 module.exports = {
   buildProductContexts,
+  correctionGateHighReturnNoTrafficPush,
+  correctionGateOverbudgetBudgetUp,
+  correctionGateSameSkuCooldown,
   cooldownAssessment,
+  normalizeActionGoal,
   hasRequiredVerification,
   isTrafficIncreasingAction,
   loadExternalActionSchema,

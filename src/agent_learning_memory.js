@@ -7,6 +7,7 @@ const LEARNING_DIR = path.join(ROOT, 'data', 'learning');
 const CORRECTION_DIR = path.join(LEARNING_DIR, 'corrections');
 const SKU_LESSON_DIR = path.join(LEARNING_DIR, 'sku_lessons');
 const ACTIVE_CORRECTION_STATUSES = ['active', 'active_correction', 'needs_operator_review', 'conflict_watch', 'unresolved'];
+const SEVERITY_RANK = { info: 0, warning: 1, blocker: 2 };
 
 function text(value) {
   return String(value ?? '').trim();
@@ -57,6 +58,47 @@ function unique(values = []) {
   return [...new Set(values.map(text).filter(Boolean))];
 }
 
+function listify(value) {
+  if (Array.isArray(value)) return value;
+  if (value === undefined || value === null || value === '') return [];
+  return [value];
+}
+
+function strongerSeverity(a = 'info', b = 'info') {
+  return (SEVERITY_RANK[a] || 0) >= (SEVERITY_RANK[b] || 0) ? a : b;
+}
+
+function constraintKey(item = {}) {
+  return [
+    item.source || '',
+    item.title || '',
+    (item.doNotApplyWhen || []).join('|'),
+    (item.requiredEvidenceBeforeReuse || []).join('|'),
+  ].map(text).join('::');
+}
+
+function dedupeConstraints(constraints = []) {
+  const byKey = new Map();
+  for (const item of constraints) {
+    const key = constraintKey(item);
+    const existing = byKey.get(key);
+    if (!existing) {
+      byKey.set(key, { ...item, occurrences: 1 });
+      continue;
+    }
+    byKey.set(key, {
+      ...existing,
+      severity: strongerSeverity(existing.severity, item.severity),
+      evidenceFiles: unique([...(existing.evidenceFiles || []), ...(item.evidenceFiles || [])]),
+      requiredEvidenceBeforeReuse: unique([...(existing.requiredEvidenceBeforeReuse || []), ...(item.requiredEvidenceBeforeReuse || [])]),
+      doNotApplyWhen: unique([...(existing.doNotApplyWhen || []), ...(item.doNotApplyWhen || [])]),
+      nextAction: text(existing.nextAction || item.nextAction),
+      occurrences: (existing.occurrences || 1) + 1,
+    });
+  }
+  return [...byKey.values()];
+}
+
 function defaultLearningFile(date) {
   return path.join(LEARNING_DIR, `daily_learning_${date}.json`);
 }
@@ -100,6 +142,32 @@ function correctionLessonSeverity(item = {}) {
   return 'blocker';
 }
 
+function absorbedCorrectionGateForRule(rule = '') {
+  const value = text(rule).toLowerCase();
+  if (value.includes('latest snapshot') || value.includes('backend readback')) {
+    return {
+      gateFunction: 'requireCurrentEvidenceWindow',
+      lessonId: 'correction_gate_current_data_window',
+      severity: 'warning',
+    };
+  }
+  if (value.includes('businessdate') || value.includes('datadate')) {
+    return {
+      gateFunction: 'requireBusinessDataDateTrace',
+      lessonId: 'correction_gate_business_data_date_trace',
+      severity: 'warning',
+    };
+  }
+  if (value.includes('landing verification')) {
+    return {
+      gateFunction: 'requireLandingVerificationBeforeClosure',
+      lessonId: 'correction_gate_landing_verification_before_closure',
+      severity: 'warning',
+    };
+  }
+  return null;
+}
+
 function loadCorrectionLessons(dir = CORRECTION_DIR) {
   return listFiles(dir, file => file.endsWith('.json'))
     .map(file => normalizeCorrectionLesson(readJson(file, {}), file))
@@ -116,7 +184,10 @@ function normalizeSkuLesson(raw = {}, file = '') {
     sourceFile: relative(file),
     scope: raw.scope || {},
     lesson: text(raw.lesson || raw.summary || ''),
-    doNotApplyWhen: unique(raw.doNotApplyWhen || []),
+    doNotApplyWhen: unique([
+      ...listify(raw.doNotApplyWhen),
+      ...listify(raw.apply?.doNotCloseWhen),
+    ]),
     transferableTo: unique(raw.transferableTo || []),
     confidence: text(raw.confidence || ''),
     nextValidation: text(raw.nextValidation || ''),
@@ -199,6 +270,27 @@ function autonomyConstraints(audit = {}, file = '') {
     }));
 }
 
+function trendAnomalyConstraints(report = {}, file = '') {
+  if (!report || typeof report !== 'object') return [];
+  const status = String(report.status || '').toLowerCase();
+  if (!['red', 'yellow'].includes(status)) return [];
+  const items = [
+    ...(Array.isArray(report.redSignals) ? report.redSignals : []),
+    ...(Array.isArray(report.yellowSignals) ? report.yellowSignals : []),
+  ];
+  if (!items.length) return [];
+  return items.map(signal => ({
+    id: `trend_anomaly:${signal.metric}`,
+    source: 'trend_anomaly_detector',
+    severity: signal.severity === 'red' ? 'blocker' : 'warning',
+    title: `Trend anomaly: ${signal.metric} (${signal.severity})`,
+    evidenceFiles: [relative(file)],
+    doNotApplyWhen: Array.isArray(signal.doNotApplyWhen) ? signal.doNotApplyWhen : [],
+    requiredEvidenceBeforeReuse: Array.isArray(signal.requiredEvidenceBeforeReuse) ? signal.requiredEvidenceBeforeReuse : [],
+    nextAction: `Review ${relative(file)} and confirm trend stabilization before reusing this rule.`,
+  }));
+}
+
 function memoryTask(constraint = {}, context = {}) {
   if (constraint.severity === 'info') return null;
   return normalizeAgentTask({
@@ -226,25 +318,34 @@ function buildAgentLearningMemory(options = {}, timeContext = {}) {
   const sourceRunId = text(timeContext.sourceRunId || options.sourceRunId || '');
   const learningFile = options.learningFile || defaultLearningFile(dataDate || businessDate);
   const autonomyAuditFile = options.autonomyAuditFile || defaultAgentFile('autonomy_audit', businessDate);
+  const trendAnomalyFile = options.trendAnomalyFile || defaultAgentFile('trend_anomaly', businessDate);
   const correctionDir = options.correctionDir || CORRECTION_DIR;
   const skuLessonDir = options.skuLessonDir || SKU_LESSON_DIR;
   const dailyLearning = options.dailyLearning || readJson(learningFile, {});
   const autonomyAudit = options.autonomyAudit || readJson(autonomyAuditFile, {});
+  const trendAnomaly = options.trendAnomaly || readJson(trendAnomalyFile, {});
   const corrections = loadCorrectionLessons(correctionDir);
   const skuLessons = loadSkuLessons(skuLessonDir);
-  const constraints = [
+  const rawConstraints = [
     ...dailyLearningConstraints(dailyLearning, learningFile),
     ...autonomyConstraints(autonomyAudit, autonomyAuditFile),
-    ...corrections.flatMap(item => item.doNotApplyWhen.map(rule => ({
-      id: `correction:${item.id}:${rule.slice(0, 32)}`,
-      source: 'operator_correction',
-      severity: correctionLessonSeverity(item),
-      title: rule,
-      evidenceFiles: [item.sourceFile],
-      doNotApplyWhen: item.doNotApplyWhen,
-      requiredEvidenceBeforeReuse: item.requiredEvidenceBeforeReuse,
-      nextAction: item.nextValidation,
-    }))),
+    ...trendAnomalyConstraints(trendAnomaly, trendAnomalyFile),
+    ...corrections.flatMap(item => item.doNotApplyWhen.map(rule => {
+      const absorbed = absorbedCorrectionGateForRule(rule);
+      return {
+        id: `correction:${item.id}:${rule.slice(0, 32)}`,
+        source: 'operator_correction',
+        severity: absorbed?.severity || correctionLessonSeverity(item),
+        title: rule,
+        evidenceFiles: [item.sourceFile],
+        doNotApplyWhen: item.doNotApplyWhen,
+        requiredEvidenceBeforeReuse: item.requiredEvidenceBeforeReuse,
+        nextAction: absorbed
+          ? `absorbed_by_gate:${absorbed.gateFunction}; lessonId=${absorbed.lessonId}`
+          : item.nextValidation,
+        absorbedByGate: absorbed || null,
+      };
+    })),
     ...skuLessons.flatMap(item => item.doNotApplyWhen.map(rule => ({
       id: `sku_lesson:${item.id}:${rule.slice(0, 32)}`,
       source: 'sku_lesson',
@@ -256,6 +357,7 @@ function buildAgentLearningMemory(options = {}, timeContext = {}) {
       nextAction: item.nextValidation,
     }))),
   ];
+  const constraints = dedupeConstraints(rawConstraints);
   const context = { businessDate, dataDate, runAt: generatedAt, sourceRunId };
   const tasks = constraints.map(item => memoryTask(item, context)).filter(Boolean);
   const activeBlockers = constraints.filter(item => item.severity === 'blocker');
@@ -263,6 +365,7 @@ function buildAgentLearningMemory(options = {}, timeContext = {}) {
   const mustRead = unique([
     relative(learningFile),
     relative(autonomyAuditFile),
+    relative(trendAnomalyFile),
     ...corrections.map(item => item.sourceFile),
     ...skuLessons.map(item => item.sourceFile),
   ]);
@@ -274,6 +377,8 @@ function buildAgentLearningMemory(options = {}, timeContext = {}) {
     status: activeBlockers.length ? 'blocked_constraints' : (activeWarnings.length ? 'active_watch' : 'ready'),
     summary: {
       constraints: constraints.length,
+      rawConstraints: rawConstraints.length,
+      dedupedConstraints: rawConstraints.length - constraints.length,
       blockers: activeBlockers.length,
       warnings: activeWarnings.length,
       corrections: corrections.length,
@@ -284,6 +389,7 @@ function buildAgentLearningMemory(options = {}, timeContext = {}) {
     sources: {
       learningFile,
       autonomyAuditFile,
+      trendAnomalyFile,
       correctionDir,
       skuLessonDir,
     },
@@ -343,8 +449,10 @@ function persistAgentLearningMemory(memory = {}, options = {}) {
 module.exports = {
   buildAgentLearningMemory,
   dailyLearningConstraints,
+  dedupeConstraints,
   loadCorrectionLessons,
   loadSkuLessons,
   persistAgentLearningMemory,
   renderAgentLearningMemoryMarkdown,
+  trendAnomalyConstraints,
 };

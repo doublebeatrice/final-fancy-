@@ -3,6 +3,7 @@ const path = require('path');
 const { buildOpsTimeContext } = require('../src/ops_time');
 const { buildKpiAudit, KPI_TRAJECTORY } = require('../src/proactive_audit');
 const { buildDailyOperatingWorkflow } = require('../src/agent_daily_workflow');
+const { normalizeMandatoryDailyClosure } = require('../src/daily_mandatory_closure');
 
 const ROOT = path.join(__dirname, '..');
 const DEFAULT_OUT_DIR = path.join(ROOT, 'data', 'agent');
@@ -431,6 +432,8 @@ function buildDailyClosureStatus({
   recoveryGateStatus = '',
   depositStatus = '',
   depositMissingCount = 0,
+  mandatoryDailyClosureOpen = 0,
+  mandatoryDailyClosureResolved = true,
 } = {}) {
   const reasons = [];
   if (commandFailed > 0) reasons.push('command_failed');
@@ -446,6 +449,7 @@ function buildDailyClosureStatus({
   if (operatingClosureStatus === 'blocked') reasons.push('operating_blocked');
   if (operatingClosureStatus === 'partial') reasons.push('operating_partial');
   if (operatingClosureStatus === 'needs_recovery') reasons.push('operating_needs_recovery');
+  if (mandatoryDailyClosureOpen > 0 && mandatoryDailyClosureResolved !== true) reasons.push('mandatory_daily_closure_not_landed');
 
   const dailyClosureReasons = [...new Set(reasons)];
   let dailyClosureStatus = 'complete';
@@ -453,7 +457,7 @@ function buildDailyClosureStatus({
     dailyClosureStatus = 'blocked';
   } else if (depositStatus === 'partial' || depositMissingCount > 0 || snapshotStale || dataFreshnessStatus === 'warning' || operatingClosureStatus === 'partial') {
     dailyClosureStatus = 'partial';
-  } else if (kpiStatus === 'off_track' || recoveryGateStatus === 'fail' || operatingClosureStatus === 'needs_recovery') {
+  } else if (kpiStatus === 'off_track' || recoveryGateStatus === 'fail' || operatingClosureStatus === 'needs_recovery' || (mandatoryDailyClosureOpen > 0 && mandatoryDailyClosureResolved !== true)) {
     dailyClosureStatus = 'needs_recovery';
   }
   return {
@@ -471,6 +475,19 @@ function dailyClosureMarkdownLines(dailyClosure = {}) {
     dailyClosure.dailyClosureReasons?.length
       ? `- reasons: ${dailyClosure.dailyClosureReasons.join(', ')}`
       : '- reasons: none',
+    '',
+  ];
+}
+
+function mandatoryDailyClosureMarkdownLines(closure = {}) {
+  if (!closure || closure.required !== true) return [];
+  const categories = Array.isArray(closure.categories) ? closure.categories : [];
+  return [
+    '## Mandatory Daily Closure',
+    `- status: ${closure.status || 'unknown'}; open=${Number(closure.openCount || 0)}; unresolved=${Number(closure.unresolvedCount || 0)}; resolved=${closure.resolved === true ? 'true' : 'false'}.`,
+    ...(categories.length
+      ? categories.map(item => `- ${item.label || item.key}: open ${Number(item.openCount || 0)}, resolved ${Number(item.resolvedCount || 0)}, unresolved ${Number(item.unresolvedCount || 0)}.`)
+      : ['- categories: none']),
     '',
   ];
 }
@@ -1032,8 +1049,16 @@ function buildAgentHandoffSummary(input = {}) {
     seasonActionSchemaFile: input.seasonActionSchemaFile || '',
     seasonListingApplicationsFile: input.seasonListingApplicationsFile || '',
     effectReviewCoverage,
+    mandatoryDailyClosure: input.mandatoryDailyClosure || input.dailyMandatoryClosure || {},
     required: input.requireDailyWorkflow === true,
   });
+  const mandatoryDailyClosure = normalizeMandatoryDailyClosure(
+    input.mandatoryDailyClosure ||
+    input.dailyMandatoryClosure ||
+    dailyOperatingWorkflow.mandatoryDailyClosure ||
+    dailyOperatingWorkflow.mandatoryClosure ||
+    {}
+  );
   const topTasks = queue.slice(0, 8).map(taskLine);
   const adjustmentSummary = input.adjustmentSummary || summarizeAdjustmentLedger(input.adjustments || [], businessDate, {
     fallbackToLatest: input.adjustmentFallbackToLatest !== false,
@@ -1087,6 +1112,8 @@ function buildAgentHandoffSummary(input = {}) {
     recoveryGateStatus,
     depositStatus: depositStatus.status || '',
     depositMissingCount: depositMissing.length,
+    mandatoryDailyClosureOpen: mandatoryDailyClosure.openCount,
+    mandatoryDailyClosureResolved: mandatoryDailyClosure.resolved,
   });
   const markdown = [
     `# 智能代理早间交接 - ${localDate}`,
@@ -1100,6 +1127,7 @@ function buildAgentHandoffSummary(input = {}) {
     ...depositStatusMarkdownLines(depositStatus),
     ...artifactVerificationMarkdownLines(closureVerification),
     ...dailyClosureMarkdownLines(dailyClosure),
+    ...mandatoryDailyClosureMarkdownLines(mandatoryDailyClosure),
     ...dailyOperatingWorkflowMarkdownLines(dailyOperatingWorkflow),
     ...operatingStatusMarkdownLines(operatingStatus),
     ...dataFreshnessMarkdownLines(dataFreshness),
@@ -1220,6 +1248,10 @@ function buildAgentHandoffSummary(input = {}) {
         season: dailyOperatingWorkflow.season || {},
         effectReview: dailyOperatingWorkflow.effectReview || {},
       },
+      mandatoryDailyClosure,
+      mandatoryDailyClosureOpen: mandatoryDailyClosure.openCount,
+      mandatoryDailyClosureUnresolved: mandatoryDailyClosure.unresolvedCount,
+      mandatoryDailyClosureResolved: mandatoryDailyClosure.resolved,
     },
     dashboardFile,
     dashboardReady,

@@ -149,13 +149,10 @@ function buildExecutionPlan(task = {}, options = {}) {
   if (classified.workType === 'due_effect_review') {
     const reviewFile = options.reviewFile || defaultAgentFile('review_queue', today);
     const outFile = options.effectReviewFile || defaultAgentFile('effect_review', today);
-    const evidenceFile = defaultAgentFile('review_evidence', today);
     const parts = [
       'npm run ops:agent:review-effect --',
       '--queue', reviewFile,
-      '--collect-evidence',
       '--today', today,
-      '--evidence-out', evidenceFile,
       '--out', outFile,
     ];
     if (hasCapability(requiredCapabilities, 'sellerinventory::listing::origin-data::read')) {
@@ -197,7 +194,7 @@ function buildExecutionPlan(task = {}, options = {}) {
       purpose: '拉取当前证据，对比执行前基线并输出关闭、继续观察或回滚复核判断。',
       output: outFile,
     }));
-    expectedOutputs.push(evidenceFile, outFile);
+    expectedOutputs.push(outFile);
     if (hasCapability(requiredCapabilities, 'selection::market_evidence::operating-intelligence::read')) {
       const operatingIntelligenceFile = defaultSnapshotFile('selection_operating_intelligence', today);
       const operatingParts = [

@@ -62,6 +62,7 @@ writeJson(salesCoreFile, {
       sp_over_3_month: '0.2833',
       acos_over_3_month: '0.1847',
       order_sales_in_1_year: '458221.48',
+      gross_profit_in_1_year: '0.3412',
       net_profit_in_1_year: '0.1777',
       advCost_in_1_year: '0.1072',
       sp_in_1_year: '0.3332',
@@ -128,6 +129,14 @@ writeJson(successRateFile, {
 
   assert.ok(result.tsv.startsWith('16,372\t2,498,655.58\t34.47%\t20.98%\t5.41%'));
   assert.ok(result.tsv.endsWith('\t43.75%'));
+  const cells = result.tsv.split('\t');
+  assert.strictEqual(cells.length, 54);
+  assert.strictEqual(cells[13], '141,251.83');
+  assert.strictEqual(cells[19], '249,002.27');
+  assert.strictEqual(cells[20], '32.69%');
+  assert.strictEqual(cells[34], '458,221.48');
+  assert.strictEqual(cells[35], '34.12%');
+  assert.strictEqual(cells[43], '2,040,434.10');
 }
 
 {

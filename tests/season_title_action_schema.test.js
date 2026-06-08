@@ -7,6 +7,14 @@ const {
 const product = {
   sku: 'DAD001',
   asin: 'B0DAD001',
+  listing: {
+    title: "Dad Gifts Father's Day Keychain",
+    categoryPath: 'Gifts > Keychains',
+  },
+  productProfile: {
+    imageUnderstandingAt: '2026-05-31T00:00:00.000Z',
+    listingTitle: "Dad Gifts Father's Day Keychain",
+  },
   createContext: {
     accountId: 120,
     siteId: 4,
@@ -49,6 +57,29 @@ const reportItem = {
   assert.strictEqual(schema.length, 1);
   assert.strictEqual(schema[0].sku, 'DAD001');
   assert.strictEqual(schema[0].actions.length, 1);
+}
+
+{
+  const schema = buildSeasonTitleActionSchema({
+    report: { items: [reportItem], businessDate: '2026-05-31' },
+    snapshot: {
+      productCards: [{
+        ...product,
+        listing: {
+          title: 'Generic Keychain Gift',
+          categoryPath: 'Accessories',
+        },
+        productProfile: {
+          listingTitle: 'Generic Keychain Gift',
+        },
+      }],
+    },
+  });
+  assert.strictEqual(schema.length, 1);
+  assert.strictEqual(schema[0].reviewRequired, true);
+  assert.deepStrictEqual(schema[0].actions, []);
+  assert.ok(schema[0].reviewReasons.includes('main_image_not_verified'));
+  assert.ok(schema[0].reviewReasons.includes('listing_not_supporting_confusing_season'));
 }
 
 {

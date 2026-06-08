@@ -31,6 +31,16 @@ const timeContext = {
 }
 
 {
+  const status = buildDailyClosureStatus({
+    mandatoryDailyClosureOpen: 6,
+    mandatoryDailyClosureResolved: false,
+  });
+  assert.strictEqual(status.dailyClosureStatus, 'needs_recovery');
+  assert.strictEqual(status.dailyComplete, false);
+  assert.ok(status.dailyClosureReasons.includes('mandatory_daily_closure_not_landed'));
+}
+
+{
   const parsed = parseArgs(['node', 'scripts/run_agent_closed_loop.js', '--adjustments', 'data/adjustments/adjustments_2026-05-20.json']);
   assert.strictEqual(parsed.adjustmentsFile, 'data/adjustments/adjustments_2026-05-20.json');
 }
@@ -79,6 +89,7 @@ const timeContext = {
   }), 'utf8');
 
   const result = runAgentClosedLoop({
+    disableTrendAnomalyCheck: true,
     timeContext,
     outDir: tmpDir,
     priorLearningMemoryFile,
@@ -125,6 +136,7 @@ const timeContext = {
 {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-closed-loop-conflict-date-'));
   const result = runAgentClosedLoop({
+    disableTrendAnomalyCheck: true,
     timeContext: {
       ...timeContext,
       localDate: '2026-05-21',
@@ -161,6 +173,7 @@ const timeContext = {
   const adjustmentsFile = path.join(tmpDir, 'adjustments_2026-05-21.json');
   fs.writeFileSync(adjustmentsFile, JSON.stringify([]), 'utf8');
   const result = runAgentClosedLoop({
+    disableTrendAnomalyCheck: true,
     timeContext: {
       ...timeContext,
       localDate: '2026-05-21',
@@ -200,6 +213,7 @@ const timeContext = {
   const handoffOut = path.join(tmpDir, 'handoff.md');
   const calls = [];
   const result = runAgentClosedLoop({
+    disableTrendAnomalyCheck: true,
     timeContext,
     hub: {
       businessDate: '2026-05-19',
@@ -284,7 +298,8 @@ const timeContext = {
   assert.strictEqual(result.summary.dailyComplete, false);
   assert.ok(result.summary.dailyClosureReasons.includes('kpi_off_track'));
   assert.strictEqual(result.commandResults.summary.executed, 1);
-  assert.strictEqual(result.feedback.summary.feedbackApplied, 1);
+  assert.strictEqual(result.feedback.status, 'dormant');
+  assert.strictEqual(result.feedback.summary.feedbackApplied, 0);
   assert.strictEqual(result.writeExecution.summary.executedStages, 1);
   assert.strictEqual(result.summary.kpiStatus, 'off_track');
   assert.strictEqual(result.summary.kpiRequiredMode, 'active_recovery_with_profit_guardrails');
@@ -302,7 +317,8 @@ const timeContext = {
   assert.ok(result.handoff.markdown.includes('选品证据已生成'));
   assert.ok(result.handoff.markdown.includes('写入链路'));
   assert.ok(fs.existsSync(result.files.commandResultsFile));
-  assert.ok(fs.existsSync(result.files.feedbackFile));
+  assert.ok(result.dormantComponents.some(item => item.id === 'operating_hub_feedback_artifact'));
+  assert.strictEqual(result.files.feedbackFile, undefined);
   assert.ok(fs.existsSync(handoffOut));
   assert.ok(calls.length >= 2);
 }
@@ -311,6 +327,7 @@ const timeContext = {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-closed-loop-review-queue-'));
   const calls = [];
   const result = runAgentClosedLoop({
+    disableTrendAnomalyCheck: true,
     timeContext: {
       ...timeContext,
       businessDate: '2026-05-20',
@@ -380,6 +397,7 @@ const timeContext = {
 {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-closed-loop-stale-'));
   const result = runAgentClosedLoop({
+    disableTrendAnomalyCheck: true,
     timeContext: {
       ...timeContext,
       businessDate: '2026-05-20',
@@ -481,6 +499,7 @@ const timeContext = {
     '- Same-name mixed direction groups: 0',
   ].join('\n'), 'utf8');
   const result = runAgentClosedLoop({
+    disableTrendAnomalyCheck: true,
     timeContext: {
       ...timeContext,
       businessDate: '2026-05-20',
@@ -562,6 +581,7 @@ const timeContext = {
 {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-closed-loop-local-date-default-'));
   const result = runAgentClosedLoop({
+    disableTrendAnomalyCheck: true,
     timeContext: {
       runAt: '2026-05-20T04:30:00.000Z',
       localDate: '2026-05-20',
@@ -636,6 +656,7 @@ const timeContext = {
   }), 'utf8');
 
   const result = runAgentClosedLoop({
+    disableTrendAnomalyCheck: true,
     timeContext: {
       ...timeContext,
       businessDate: '2026-05-20',
@@ -730,6 +751,7 @@ const timeContext = {
   }), 'utf8');
 
   const result = runAgentClosedLoop({
+    disableTrendAnomalyCheck: true,
     timeContext: {
       ...timeContext,
       businessDate: '2026-05-20',
@@ -900,6 +922,7 @@ const timeContext = {
   ].join('\n'), 'utf8');
 
   const result = runAgentClosedLoop({
+    disableTrendAnomalyCheck: true,
     timeContext: {
       ...timeContext,
       businessDate: '2026-05-20',
@@ -1014,6 +1037,7 @@ const timeContext = {
     overBudgetCoverage: { counts: {}, snapshotRows: 0, actionableCampaigns: 0, matchedActionCount: 0 },
   }), 'utf8');
   const result = runAgentClosedLoop({
+    disableTrendAnomalyCheck: true,
     timeContext: {
       ...timeContext,
       businessDate: '2026-05-20',

@@ -132,6 +132,7 @@ function buildFixture(tmpDir, overrides = {}) {
 {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-autonomy-closed-loop-'));
   const result = runAgentClosedLoop({
+    disableTrendAnomalyCheck: true,
     timeContext,
     outDir: tmpDir,
     generateDashboard: false,
