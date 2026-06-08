@@ -1,0 +1,41 @@
+{
+  "id": "effect_review_2026-05-30_goal01-review-met_goal_met",
+  "status": "active",
+  "source": "effect_review",
+  "generatedAt": "2026-05-31T14:40:13.185Z",
+  "businessDate": "2026-05-30",
+  "scope": {
+    "sku": "GOAL01MET",
+    "asin": "",
+    "taskId": "goal01-review-met",
+    "actionType": "",
+    "entityType": "",
+    "verdict": "goal_met"
+  },
+  "condition": {
+    "baselineAsOf": "2026-05-27",
+    "currentAsOf": "2026-05-30",
+    "currentStale": false,
+    "baseline": {
+      "orders": 1,
+      "spend": 10,
+      "acos": 0.4
+    },
+    "current": {
+      "orders": 3,
+      "spend": 14,
+      "acos": 0.32
+    },
+    "reasons": [
+      "orders_improved"
+    ]
+  },
+  "apply": {
+    "recommendation": "close_task_and_preserve_lane_learning",
+    "nextStep": "Goal met by order improvement; close this review and preserve the lesson.",
+    "doNotCloseWhen": "baselineAsOf_equals_currentAsOf_or_current_metrics_stale"
+  },
+  "lesson": "GOAL01MET goal_met: Goal met by order improvement; close this review and preserve the lesson.",
+  "confidence": "medium",
+  "nextValidation": "Use this lesson before repeating the same SKU/action lane."
+}

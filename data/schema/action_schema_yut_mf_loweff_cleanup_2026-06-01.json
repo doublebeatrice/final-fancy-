@@ -1,0 +1,297 @@
+[
+  {
+    "sku": "YUT4466",
+    "summary": "Supplement low-efficiency cleanup after verified-flow expansion: lower or pause buyer-intent rows with meaningful 7d clicks and zero orders.",
+    "actions": [
+      {
+        "id": "212176392824662",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.06,
+        "suggestedBid": 0.05,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "no_conversion_waste_trim",
+        "confidence": 0.82,
+        "reason": "YUT4466 keyword inflatable number has 15 clicks, $9.41 spend, 0 orders in 7d. It is already low bid, so lower one step rather than expanding this lane.",
+        "evidence": ["live keyword: clicks=15 spend=9.41 orders=0 bid=0.06"],
+        "goal": {"metric": "netProfit", "from": 0.4104, "to": 0.42, "deadlineDays": 7, "hardFloor": 0.35},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If YUT4466 total 7d orders drop while this row was the only remaining traffic source, restore bid to 0.06."}
+      },
+      {
+        "id": "124563671826198",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.47,
+        "suggestedBid": 0.4,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "no_conversion_waste_trim",
+        "confidence": 0.72,
+        "reason": "YUT4466 birthday pool float has 6 clicks, $2.82 spend, 0 orders and sits inside a 24-click zero-order campaign. Lower instead of pausing because the row is relevant but unproven this week.",
+        "evidence": ["live keyword: clicks=6 spend=2.82 orders=0 bid=0.47"],
+        "goal": {"metric": "netProfit", "from": 0.4104, "to": 0.42, "deadlineDays": 7, "hardFloor": 0.35},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If it converts after bid-down, hold at 0.40 and reassess instead of cutting further."}
+      }
+    ]
+  },
+  {
+    "sku": "YUT2946",
+    "summary": "Control zero-order 21-year-old variant traffic.",
+    "actions": [
+      {
+        "id": "220425662240268",
+        "entityType": "keyword",
+        "actionType": "pause",
+        "currentState": "enabled",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "no_order_hard_stop",
+        "confidence": 0.84,
+        "reason": "YUT2946 number pool float has 17 clicks, $6.15 spend, 0 orders in 7d and the SKU ad summary is 38 clicks, 0 orders. Pause the specific keyword instead of closing the whole ad group.",
+        "evidence": ["live keyword: number pool float clicks=17 spend=6.15 orders=0 bid=0.04", "live SKU summary: YUT2946 7d clicks=38 orders=0"],
+        "goal": {"metric": "netProfit", "from": 0.2201, "to": 0.23, "deadlineDays": 7, "hardFloor": 0.15},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "Only re-enable if sibling 21-year-old traffic loses all orders and this exact term is needed for coverage."}
+      },
+      {
+        "id": "82052055142040",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.32,
+        "suggestedBid": 0.28,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "no_conversion_waste_trim",
+        "confidence": 0.72,
+        "reason": "YUT2946 birthday pool float has 5 clicks, $1.60 spend, 0 orders inside a zero-order 21-year-old campaign. Lower one step and observe.",
+        "evidence": ["live keyword: birthday pool float clicks=5 spend=1.60 orders=0 bid=0.32"],
+        "goal": {"metric": "netProfit", "from": 0.2201, "to": 0.23, "deadlineDays": 7, "hardFloor": 0.15},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If it gets a profitable order after bid-down, hold instead of further cutting."}
+      }
+    ]
+  },
+  {
+    "sku": "YUT4464",
+    "summary": "Cut poor auto buckets while protecting the verified YUT4464 receivers raised in the previous execution.",
+    "actions": [
+      {
+        "id": "473870415082661",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.45,
+        "suggestedBid": 0.39,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "poor_conversion_trim",
+        "confidence": 0.78,
+        "reason": "YUT4464 asinSubstituteRelated has 23 clicks, $10.96 spend, 1 order, $20.99 sales, 52.2% ACOS. Lower only this auto bucket and keep the separately verified auto receiver expanded.",
+        "evidence": ["live auto target: asinSubstituteRelated clicks=23 spend=10.96 orders=1 ACOS=52.2% bid=0.45"],
+        "goal": {"metric": "netProfit", "from": 0.233, "to": 0.25, "deadlineDays": 7, "hardFloor": 0.18},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If this bucket is the only source of YUT4464 orders after 3 days, stop further cuts."}
+      },
+      {
+        "id": "453093632627807",
+        "entityType": "autoTarget",
+        "actionType": "pause",
+        "currentState": "enabled",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "no_order_hard_stop",
+        "confidence": 0.78,
+        "reason": "YUT4464 queryHighRelMatches has 11 clicks, $4.55 spend, 0 orders. Pause this zero-order auto bucket while keeping proven YUT4464 rows live.",
+        "evidence": ["live auto target: queryHighRelMatches clicks=11 spend=4.55 orders=0 bid=0.04"],
+        "goal": {"metric": "netProfit", "from": 0.233, "to": 0.25, "deadlineDays": 7, "hardFloor": 0.18},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "Re-enable only if YUT4464 loses traffic and no other verified receiver can absorb demand."}
+      },
+      {
+        "id": "305458078890944",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.37,
+        "suggestedBid": 0.32,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "no_conversion_waste_trim",
+        "confidence": 0.76,
+        "reason": "YUT4464 q2 auto queryBroadRelMatches has 9 clicks, $3.33 spend, 0 orders. Lower this weak auto bucket.",
+        "evidence": ["live auto target: queryBroadRelMatches clicks=9 spend=3.33 orders=0 bid=0.37"],
+        "goal": {"metric": "netProfit", "from": 0.233, "to": 0.25, "deadlineDays": 7, "hardFloor": 0.18},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If the bucket converts profitably after bid-down, hold at 0.32."}
+      }
+    ]
+  },
+  {
+    "sku": "YUT4462",
+    "summary": "Cut weak generic birthday lane while preserving the verified 70/number-pool-float lane.",
+    "actions": [
+      {
+        "id": "24685024598323",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.35,
+        "suggestedBid": 0.3,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "no_conversion_waste_trim",
+        "confidence": 0.76,
+        "reason": "YUT4462 birthday pool float has 10 clicks, $3.50 spend, 0 orders. Lower this weak generic lane while the verified pool float numbers lane remains expanded.",
+        "evidence": ["live keyword: birthday pool float clicks=10 spend=3.50 orders=0 bid=0.35"],
+        "goal": {"metric": "netProfit", "from": 0.0193, "to": 0.03, "deadlineDays": 7, "hardFloor": 0},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If YUT4462 loses orders and the verified number lane cannot absorb traffic, restore to 0.35."}
+      }
+    ]
+  },
+  {
+    "sku": "YUT4460",
+    "summary": "Small trim on the active zero-order row.",
+    "actions": [
+      {
+        "id": "20218617105757",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.19,
+        "suggestedBid": 0.17,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "light_no_conversion_trim",
+        "confidence": 0.68,
+        "reason": "YUT4460 float pool has 5 clicks, $1.19 spend, 0 orders, and the SKU-level campaign is 9 clicks, 0 orders. Lower lightly because spend is not yet severe.",
+        "evidence": ["live keyword: float pool clicks=5 spend=1.19 orders=0 bid=0.19"],
+        "goal": {"metric": "netProfit", "from": 0.14, "to": 0.15, "deadlineDays": 7, "hardFloor": 0.1},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If YUT4460 organic/orders fall and this row had begun converting, restore to 0.19."}
+      }
+    ]
+  },
+  {
+    "sku": "MF6328",
+    "summary": "Trim MF6328 SP rows with zero orders; leave shared SB converting campaign for separate review.",
+    "actions": [
+      {
+        "id": "168512798424270",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.47,
+        "suggestedBid": 0.4,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "no_conversion_waste_trim",
+        "confidence": 0.72,
+        "reason": "MF6328 inflatable pool float has 6 clicks, $2.74 spend, 0 orders. Lower one step.",
+        "evidence": ["live keyword: inflatable pool float clicks=6 spend=2.74 orders=0 bid=0.47"],
+        "goal": {"metric": "netProfit", "from": -0.015, "to": 0, "deadlineDays": 7, "hardFloor": -0.05},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "Do not cut further if MF6328 loses all traffic while SB still converts."}
+      },
+      {
+        "id": "12975316656082",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.37,
+        "suggestedBid": 0.32,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "no_conversion_waste_trim",
+        "confidence": 0.72,
+        "reason": "MF6328 pool floats has 6 clicks, $2.46 spend, 0 orders. Lower one step.",
+        "evidence": ["live keyword: pool floats clicks=6 spend=2.46 orders=0 bid=0.37"],
+        "goal": {"metric": "netProfit", "from": -0.015, "to": 0, "deadlineDays": 7, "hardFloor": -0.05},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "Hold if the row converts after bid-down."}
+      },
+      {
+        "id": "244009655337540",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.47,
+        "suggestedBid": 0.4,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "no_conversion_waste_trim",
+        "confidence": 0.68,
+        "reason": "MF6328 pool party decorations has 4 clicks, $1.88 spend, 0 orders. Lower because the parent SP campaign is 24 clicks, 0 orders.",
+        "evidence": ["live keyword: pool party decorations clicks=4 spend=1.88 orders=0 bid=0.47"],
+        "goal": {"metric": "netProfit", "from": -0.015, "to": 0, "deadlineDays": 7, "hardFloor": -0.05},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If it converts profitably after bid-down, hold."}
+      },
+      {
+        "id": "173331954893879",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.4,
+        "suggestedBid": 0.34,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "no_conversion_waste_trim",
+        "confidence": 0.72,
+        "reason": "MF6328 summer product season pool floats has 6 clicks, $2.40 spend, 0 orders. Lower one step.",
+        "evidence": ["live keyword: pool floats clicks=6 spend=2.40 orders=0 bid=0.40"],
+        "goal": {"metric": "netProfit", "from": -0.015, "to": 0, "deadlineDays": 7, "hardFloor": -0.05},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If it converts profitably after bid-down, hold."}
+      }
+    ]
+  },
+  {
+    "sku": "MF6292",
+    "summary": "Trim MF6292 zero-order SP rows; leave shared SB converting campaign for separate review.",
+    "actions": [
+      {
+        "id": "80195617752180",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.33,
+        "suggestedBid": 0.29,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "no_conversion_waste_trim",
+        "confidence": 0.68,
+        "reason": "MF6292 pool birthday decorations has 4 clicks, $1.32 spend, 0 orders inside a zero-order SP campaign. Lower one step.",
+        "evidence": ["live keyword: pool birthday decorations clicks=4 spend=1.32 orders=0 bid=0.33"],
+        "goal": {"metric": "netProfit", "from": -0.265, "to": -0.22, "deadlineDays": 7, "hardFloor": -0.35},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If it converts after bid-down, hold instead of further cutting."}
+      },
+      {
+        "id": "89036854490942",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.33,
+        "suggestedBid": 0.29,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_mf_loweff_cleanup_2026-06-01",
+        "riskLevel": "no_conversion_waste_trim",
+        "confidence": 0.7,
+        "reason": "MF6292 pool party decorations has 5 clicks, $1.57 spend, 0 orders inside a zero-order SP campaign. Lower one step.",
+        "evidence": ["live keyword: pool party decorations clicks=5 spend=1.57 orders=0 bid=0.33"],
+        "goal": {"metric": "netProfit", "from": -0.265, "to": -0.22, "deadlineDays": 7, "hardFloor": -0.35},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If it converts after bid-down, hold instead of further cutting."}
+      }
+    ]
+  }
+]

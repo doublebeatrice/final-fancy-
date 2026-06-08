@@ -1,0 +1,77 @@
+[
+  {
+    "sku": "UG4758",
+    "asin": "B0GX388TDL",
+    "summary": "补齐 UG4758 基础广告结构：已有 SP auto 和 SP keyword，缺 SP ASIN expanded 商品投放 lane；按 girls trip / passport holder 场景竞品小规模开一组商品投放。",
+    "actions": [
+      {
+        "id": "create::UG4758::productTarget::girls trip passport set",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "riskLevel": "basic_structure_create",
+        "confidence": 0.78,
+        "reason": "UG4758 已有 SP auto 和 SP keyword，但缺少 SP 商品投放 lane；30d 仅 2 impressions / 0 clicks，基础结构未形成可验证流量。Product Time Machine/ABA 显示 girls trip gifts favors、girls trip gifts、passport holder for travel women、bachelorette party favors 有需求，选择贴近 girls trip/passport/bachelorette 的竞品 ASIN 做 ASIN_EXPANDED_FROM。",
+        "hypothesis": "用场景相近竞品 ASIN 扩展补齐商品投放入口，验证 girls trip passport set 是否能获得可控曝光；若 7 天无点击或无有效曝光，再回到关键词/图片/价格侧修正。",
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "evidence": [
+          "SKU=UG4758 ASIN=B0GX388TDL accountId=255 siteId=4",
+          "existing SP auto campaign=50571059484273/adGroup=383106579709777 budget=3 bid=0.10; existing SP keyword campaign=212693289197008/adGroup=278972607006192 keyword bids=0.14-0.16",
+          "adSkuSummary live 30d on 2026-06-01: impressions=2 clicks=0 spend=0 orders=0",
+          "ABA 2026-04-30: girls trip gifts favors searchVolume=19340 orders=4356 competition=medium",
+          "ABA 2026-04-30: passport holder for travel women searchVolume=35790 orders=7508 competition=medium",
+          "Keyword conversion 2026-05-10: bachelorette party favors cpcMedian=0.50 cpaMedian=12.9199; luggage tags for suitcases cpcMedian=0.97",
+          "Using defaultBid=0.30 from createContext.recommendedDefaultBid and market floor; not using the existing 0.10-0.16 low-exposure bids"
+        ],
+        "reviewPlan": {
+          "date": "2026-06-08",
+          "metrics": [
+            "impressions",
+            "clicks",
+            "spend",
+            "orders",
+            "ACOS",
+            "search terms",
+            "inventory"
+          ],
+          "checkpoint": "7 天看是否有有效曝光和点击；若 spend >= 6 且 0 单，降价或暂停弱 ASIN；若无曝光，先查 listing/竞价再修 bid。"
+        },
+        "killSwitch": {
+          "spendNoOrder": 8,
+          "minClicksNoOrder": 12,
+          "inventoryFloor": 8
+        },
+        "createInput": {
+          "advType": "SP",
+          "mode": "productTarget",
+          "sku": "UG4758",
+          "asin": "B0GX388TDL",
+          "accountId": 255,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.3,
+          "coreTerm": "girls trip passport set",
+          "targetType": "ASIN_EXPANDED_FROM",
+          "targetAsins": [
+            "B0CQP8N1X3",
+            "B09JWQ8Z82",
+            "B0C622R5B4",
+            "B0D2L1H885",
+            "B0BJ82KMQ7",
+            "B0GKG14LH7"
+          ]
+        }
+      }
+    ]
+  }
+]

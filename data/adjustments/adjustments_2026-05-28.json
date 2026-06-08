@@ -16380,5 +16380,115 @@
         }
       }
     }
+  },
+  {
+    "sku": "KOU1439",
+    "asin": "B0CB5MR6S2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "452565469369270",
+    "entityName": "auto_thank you tote bag _kou1439",
+    "beforeValue": 0.22,
+    "afterValue": 0.23,
+    "reason": "5-21 ui_7day_lower 把 $0.23 砍到 $0.22 (4.3%)，是 hygiene touch 不是 demand-driven。Precise revert 回 $0.23，恢复 baseline。其他 3 个 expression 不动。",
+    "runAt": "2026-05-29T02:44:18.070Z",
+    "businessDate": "2026-05-28",
+    "localDate": "2026-05-29",
+    "dataDate": "2026-05-27",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-29T02-44-18-070Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Reverting a 1-cent hygiene touch should restore the auto-target baseline without introducing new spend risk; max bid $0.23 is below team_appreciation cpc-low $0.33, so no main-keyword competition.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "spend": "up_modest",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "impressions",
+            "clicks",
+            "spend",
+            "orders",
+            "ACOS"
+          ],
+          "escalationPlan": "If 7d ACOS > 50% or 3d cost > $1.5 with 0 orders, revert to $0.22 and trigger listing review."
+        }
+      }
+    }
+  },
+  {
+    "sku": "KOU1439",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "452565469369270",
+    "entityName": "auto_thank you tote bag _kou1439",
+    "beforeValue": 0.22,
+    "afterValue": 0.23,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"452565469369270\"}],\"error\":[]}}",
+    "runAt": "2026-05-29T02:46:07.870Z",
+    "businessDate": "2026-05-28",
+    "localDate": "2026-05-29",
+    "dataDate": "2026-05-27",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-05-29T02-46-07-870Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Reverting a 1-cent hygiene touch should restore the auto-target baseline without introducing new spend risk; max bid $0.23 is below team_appreciation cpc-low $0.33, so no main-keyword competition.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "spend": "up_modest",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "impressions",
+            "clicks",
+            "spend",
+            "orders",
+            "ACOS"
+          ],
+          "escalationPlan": "If 7d ACOS > 50% or 3d cost > $1.5 with 0 orders, revert to $0.22 and trigger listing review."
+        }
+      }
+    }
   }
 ]

@@ -1,0 +1,135 @@
+[
+  {
+    "sku": "TIN0401",
+    "asin": "B0C5CN3FV9",
+    "operatorRequested": true,
+    "summary": "Operator override: developer asked to add traffic for TIN0401; execute narrow reversible bid-up on existing product-core SP/SB rows only.",
+    "actions": [
+      {
+        "id": "444299459639221",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.23,
+        "suggestedBid": 0.28,
+        "campaignId": "413473776380303",
+        "adGroupId": "359142168890558",
+        "campaignName": "kw_duck tags_tin0401",
+        "groupName": "kw_duck tags_tin0401",
+        "text": "cruise duck tags",
+        "reason": "User explicitly requested TIN0401 add traffic. Choose existing SP exact/close product keyword instead of broad budget expansion; current row is enabled and parent campaign/group enabled.",
+        "evidence": [
+          "source=live /keyword/findAllNew property=1 2026-06-05",
+          "SP keyword cruise duck tags exact/current row: impressions=3, clicks=0, spend=0, orders=0, bid=0.23; parent enabled",
+          "TIN0401 SKU 7d summary: impressions=34736, clicks=56, spend=9.06, orders=0; operator override requires traffic push despite weak current conversion",
+          "Inventory live sellerinventory 2026-06-05: FBA=136, sales_30=17",
+          "Narrow reversible action: no campaign budget increase; raise only product-core keyword"
+        ],
+        "confidence": 0.42,
+        "riskLevel": "operator_override_controlled_traffic_push",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "manual",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "User corrected: ?????. Execute controlled add-traffic action with explicit rollback checkpoint.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "killSwitch": {
+          "metric": "orders",
+          "condition": "spend rises above 4 USD by day 3 or 8 USD by day 7 with 0 orders",
+          "rollbackIf": "spend rises above 4 USD by day 3 or 8 USD by day 7 with 0 orders"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "3d spend > 4 USD and 0 orders, or 7d spend > 8 USD and 0 orders"
+        }
+      },
+      {
+        "id": "341686652491247",
+        "entityType": "sbKeyword",
+        "actionType": "bid",
+        "currentBid": 0.19,
+        "suggestedBid": 0.23,
+        "campaignId": "534377427541883",
+        "adGroupId": "371445822194682",
+        "campaignName": "cruise duck tags tin2239-sb2",
+        "groupName": "",
+        "text": "cruise duck tags pack",
+        "reason": "User explicitly requested TIN0401 add traffic. Choose existing SB product-core pack term with some clicks; keep step small and budget unchanged.",
+        "evidence": [
+          "source=live /keyword/findAllNew property=4 2026-06-05",
+          "SB keyword cruise duck tags pack: impressions=4331, clicks=1, spend=0.15, orders=0, CPC=0.15, bid=0.19; campaign enabled",
+          "TIN0401 SKU 7d summary: impressions=34736, clicks=56, spend=9.06, orders=0; operator override requires traffic push despite weak current conversion",
+          "Narrow reversible action: no SB campaign budget increase; raise only one product-core SB keyword"
+        ],
+        "confidence": 0.38,
+        "riskLevel": "operator_override_controlled_traffic_push",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "manual",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "User corrected: ?????. Execute controlled add-traffic action with explicit rollback checkpoint.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "killSwitch": {
+          "metric": "orders",
+          "condition": "spend rises above 4 USD by day 3 or 8 USD by day 7 with 0 orders",
+          "rollbackIf": "spend rises above 4 USD by day 3 or 8 USD by day 7 with 0 orders"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "3d spend > 4 USD and 0 orders, or 7d spend > 8 USD and 0 orders"
+        }
+      }
+    ]
+  }
+]

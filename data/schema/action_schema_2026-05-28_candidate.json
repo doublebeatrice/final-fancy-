@@ -1,0 +1,351 @@
+[
+  {
+    "_comment": "Claude 接班 day 1 — 5/28 11 条动作 candidate schema（v0）。entityId 待操作员通过 ops:ad:keyword-placement 命令逐 SKU 采集后填入。",
+    "_meta": {
+      "businessDate": "2026-05-28",
+      "createdBy": "claude_handoff_day1",
+      "schemaTemplateRef": "docs/SKU_ACTION_RESULT_TEMPLATE.md",
+      "status": "candidate_pending_entity_collection",
+      "collectionCommands": [
+        "npm run ops:ad:keyword-placement -- --sku STA2610 --today 2026-05-28",
+        "npm run ops:ad:keyword-placement -- --sku GM2827 --today 2026-05-28",
+        "npm run ops:ad:keyword-placement -- --sku HEL3107 --today 2026-05-28",
+        "npm run ops:ad:keyword-placement -- --sku CAS4030 --today 2026-05-28",
+        "npm run ops:ad:keyword-placement -- --sku HUA6645 --today 2026-05-28",
+        "npm run ops:ad:keyword-placement -- --sku KEJ1748 --today 2026-05-28",
+        "npm run ops:ad:keyword-placement -- --sku LUO0914 --today 2026-05-28",
+        "npm run ops:ad:keyword-placement -- --sku LIC0168 --today 2026-05-28",
+        "npm run ops:ad:keyword-placement -- --sku LEM5778 --today 2026-05-28"
+      ],
+      "totalActions": 11,
+      "byCategory": {
+        "claude_pause_low_efficiency": 5,
+        "claude_lower_bid_strong": 4,
+        "codex_kept_with_target_added": 2
+      }
+    }
+  },
+  {
+    "actionId": "act_2026-05-28_STA2610_pause_001",
+    "sku": "STA2610",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "campaignId": "TO_BE_COLLECTED",
+    "adGroupId": "",
+    "entityId": "",
+    "decisionStage": "claude_approved",
+    "approvedBy": "claude",
+    "actionSource": ["claude"],
+    "riskLevel": "low",
+    "forceExecute": false,
+    "hypothesis": {
+      "operatingClaim": "STA2610 库存 181，30d 单 2，广告 $29.67/85 clicks/0 ad orders。广告 0 转化、0 利润贡献，停掉等于直接释放 ~$1/天预算。",
+      "marketEvidence": ["no selection evidence — meaning no market window justifying spend"],
+      "skuEvidence": ["normal_sale_clearance_priority_2026-05-27.md: clearance_high; FBA/res/inbound 181; 30d units 2; netProfit -1.04; 30d ads $29.67/85 clicks/0 orders"],
+      "marketEvidenceVerdict": "lack of market evidence is itself decisive — do not invest"
+    },
+    "target": {
+      "primaryMetric": "ad_spend_7d",
+      "primaryDirection": "down",
+      "primaryFrom": null,
+      "primaryTo": "<= current_7d_spend * 0.05",
+      "guardMetric": "sku_units_7d",
+      "guardDirection": "not_below",
+      "guardThreshold": "max(2, current_7d_units * 0.5)",
+      "windowDays": [1, 3, 7]
+    },
+    "rollbackTrigger": {
+      "ifAny": [
+        "sku_units_7d 跌破 guardThreshold AND 不可归因于库存断货"
+      ],
+      "rollbackAction": "do_not_restart_ads — escalate to clearance price path",
+      "rollbackEntity": "redirect_to_clearance"
+    },
+    "review": {
+      "checkAfterDays": [1, 3, 7],
+      "verdictRule": {
+        "hit": "ad_spend_7d <= 0.05 * baseline AND sku_units_7d >= guardThreshold",
+        "miss": "ad_spend remains > 0.5 * baseline (campaign did not actually pause)",
+        "rollback": "guardThreshold breach without inventory cause → goto clearance path"
+      }
+    },
+    "lesson": {
+      "writeLessonAfterWindow": 7,
+      "scope": ["sku", "rule:zero_conversion_pause"],
+      "transferTags": ["lifecycle:clearance", "action_type:campaign_pause_zero_conv", "category:home_decor"]
+    }
+  },
+  {
+    "actionId": "act_2026-05-28_GM2827_pause_002",
+    "sku": "GM2827",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "campaignId": "TO_BE_COLLECTED",
+    "decisionStage": "claude_approved",
+    "approvedBy": "claude",
+    "actionSource": ["claude"],
+    "riskLevel": "low",
+    "forceExecute": false,
+    "hypothesis": {
+      "operatingClaim": "GM2827 库存 156，30d 单 6，广告 $44.69/135 clicks/0 ad orders。30d $44.69 全部为低效消耗。",
+      "marketEvidence": ["no selection evidence"],
+      "skuEvidence": ["clearance_high; 30d units 6; netProfit -0.65; 30d ads $44.69/135 clicks/0 orders"],
+      "marketEvidenceVerdict": "no market window — cease spend"
+    },
+    "target": {"primaryMetric": "ad_spend_7d", "primaryDirection": "down", "primaryTo": "<= current_7d_spend * 0.05", "guardMetric": "sku_units_7d", "guardThreshold": "max(2, current_7d_units * 0.5)", "windowDays": [1, 3, 7]},
+    "rollbackTrigger": {"ifAny": ["sku_units_7d breach without stockout"], "rollbackAction": "clearance_price_path"},
+    "review": {"checkAfterDays": [1, 3, 7]},
+    "lesson": {"writeLessonAfterWindow": 7, "transferTags": ["lifecycle:clearance", "action_type:campaign_pause_zero_conv"]}
+  },
+  {
+    "actionId": "act_2026-05-28_HEL3107_pause_003",
+    "sku": "HEL3107",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "campaignId": "TO_BE_COLLECTED",
+    "decisionStage": "claude_approved",
+    "approvedBy": "claude",
+    "actionSource": ["claude"],
+    "riskLevel": "low",
+    "forceExecute": false,
+    "hypothesis": {
+      "operatingClaim": "HEL3107 库存 138，30d 单 0，广告 $3.09/17 clicks/1 order — 顺手停。",
+      "marketEvidence": ["no selection evidence"],
+      "skuEvidence": ["clearance_high; 30d units 0; netProfit -0.67; 30d ads $3.09/17 clicks/1 order"]
+    },
+    "target": {"primaryMetric": "ad_spend_7d", "primaryDirection": "down", "primaryTo": "0", "guardMetric": "sku_units_7d", "guardThreshold": "0", "windowDays": [1, 3, 7]},
+    "rollbackTrigger": {"ifAny": ["impossible — already 0 baseline"], "rollbackAction": "none"},
+    "review": {"checkAfterDays": [1, 3, 7]},
+    "lesson": {"writeLessonAfterWindow": 7, "transferTags": ["lifecycle:dead_inventory", "action_type:tail_cleanup"]}
+  },
+  {
+    "actionId": "act_2026-05-28_CAS4030_pause_004",
+    "sku": "CAS4030",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "campaignId": "TO_BE_COLLECTED",
+    "decisionStage": "claude_approved",
+    "approvedBy": "claude",
+    "actionSource": ["claude"],
+    "riskLevel": "low",
+    "forceExecute": false,
+    "hypothesis": {
+      "operatingClaim": "CAS4030 库存 150，30d 单 2，广告 $21.95/84 clicks/2 ad orders。CPA $10.97 远超利润空间。",
+      "marketEvidence": ["no selection evidence"],
+      "skuEvidence": ["clearance_high; 30d units 2; netProfit -0.80; 30d ads $21.95/84 clicks/2 orders"]
+    },
+    "target": {"primaryMetric": "ad_spend_7d", "primaryDirection": "down", "primaryTo": "<= current_7d_spend * 0.05", "guardMetric": "sku_units_7d", "guardThreshold": "1", "windowDays": [1, 3, 7]},
+    "rollbackTrigger": {"ifAny": ["sku_units_7d breach"], "rollbackAction": "clearance_price_path"},
+    "review": {"checkAfterDays": [1, 3, 7]},
+    "lesson": {"writeLessonAfterWindow": 7, "transferTags": ["lifecycle:clearance", "action_type:campaign_pause_high_cpa"]}
+  },
+  {
+    "actionId": "act_2026-05-28_HUA6645_pause_005",
+    "sku": "HUA6645",
+    "actionType": "pause",
+    "entityType": "campaign",
+    "campaignId": "TO_BE_COLLECTED",
+    "decisionStage": "claude_approved",
+    "approvedBy": "claude",
+    "actionSource": ["claude"],
+    "riskLevel": "low",
+    "forceExecute": false,
+    "hypothesis": {
+      "operatingClaim": "HUA6645 库存 98，30d 单 0，广告 $21.83/67 clicks/0 ad orders。",
+      "marketEvidence": ["no selection evidence"],
+      "skuEvidence": ["clearance_high; 30d units 0; netProfit 0.01; 30d ads $21.83/67 clicks/0 orders"]
+    },
+    "target": {"primaryMetric": "ad_spend_7d", "primaryTo": "0", "guardMetric": "sku_units_7d", "guardThreshold": "0", "windowDays": [1, 3, 7]},
+    "rollbackTrigger": {"ifAny": ["impossible — already 0 baseline"]},
+    "review": {"checkAfterDays": [1, 3, 7]},
+    "lesson": {"writeLessonAfterWindow": 7, "transferTags": ["lifecycle:dead_inventory", "action_type:campaign_pause_zero_conv"]}
+  },
+  {
+    "actionId": "act_2026-05-28_KEJ1748_lower_bid_006",
+    "sku": "KEJ1748",
+    "actionType": "lower_bid",
+    "entityType": "keyword_or_target",
+    "campaignId": "TO_BE_COLLECTED",
+    "adGroupId": "TO_BE_COLLECTED",
+    "entityId": "TO_BE_COLLECTED",
+    "bidChange": "current * 0.5",
+    "decisionStage": "claude_approved",
+    "approvedBy": "claude",
+    "actionSource": ["claude"],
+    "riskLevel": "medium",
+    "forceExecute": false,
+    "hypothesis": {
+      "operatingClaim": "KEJ1748 库存 80，30d 9 单，广告 $141.49/372 clicks/13 orders，估算 ACOS ~58%。bid -50% 后单量预计降至 4-5 单，ACOS 应落到 30% 内。",
+      "marketEvidence": ["no selection evidence"],
+      "skuEvidence": ["clearance_candidate; 30d units 9; netProfit -0.31; 30d ads $141.49/372 clicks/13 orders/ACOS ~58%"]
+    },
+    "target": {
+      "primaryMetric": "ad_acos_7d",
+      "primaryDirection": "down",
+      "primaryFrom": 0.58,
+      "primaryTo": 0.30,
+      "guardMetric": "ad_orders_7d",
+      "guardThreshold": 4,
+      "secondaryMetric": "net_profit_7d",
+      "secondaryFrom": -0.31,
+      "secondaryTo": 0.0,
+      "windowDays": [1, 3, 7, 14]
+    },
+    "rollbackTrigger": {
+      "ifAny": ["3d ad_orders < 2", "1d 0 单 + 50 clicks"],
+      "rollbackAction": "halt_to_clearance_price_path",
+      "rollbackEntity": "do_not_restore_bid"
+    },
+    "review": {"checkAfterDays": [1, 3, 7, 14]},
+    "lesson": {"writeLessonAfterWindow": 7, "transferTags": ["lifecycle:clearance", "action_type:lower_bid_50pct", "acos_band:high"]}
+  },
+  {
+    "actionId": "act_2026-05-28_LUO0914_lower_bid_007",
+    "sku": "LUO0914",
+    "actionType": "lower_bid",
+    "entityType": "keyword_or_target",
+    "campaignId": "TO_BE_COLLECTED",
+    "adGroupId": "TO_BE_COLLECTED",
+    "entityId": "TO_BE_COLLECTED",
+    "bidChange": "current * 0.65",
+    "decisionStage": "claude_approved",
+    "approvedBy": "claude",
+    "actionSource": ["claude"],
+    "riskLevel": "medium",
+    "forceExecute": false,
+    "hypothesis": {
+      "operatingClaim": "LUO0914 库存 100，30d 11 单，广告 $53/161 clicks/8 orders。bid -35% 控成本，订单预计降至 5 单内。",
+      "marketEvidence": ["no selection evidence"],
+      "skuEvidence": ["clearance_candidate; 30d units 11; netProfit -0.02; 30d ads $53/161/8 orders"]
+    },
+    "target": {"primaryMetric": "ad_acos_7d", "primaryDirection": "down", "primaryTo": "current_7d_acos * 0.6", "guardMetric": "ad_orders_7d", "guardThreshold": 3, "windowDays": [1, 3, 7]},
+    "rollbackTrigger": {"ifAny": ["3d ad_orders < 1"], "rollbackAction": "clearance_price_path"},
+    "review": {"checkAfterDays": [1, 3, 7]},
+    "lesson": {"writeLessonAfterWindow": 7, "transferTags": ["lifecycle:clearance", "action_type:lower_bid_35pct"]}
+  },
+  {
+    "actionId": "act_2026-05-28_LIC0168_lower_bid_008",
+    "sku": "LIC0168",
+    "actionType": "lower_bid",
+    "entityType": "keyword_or_target",
+    "campaignId": "TO_BE_COLLECTED",
+    "adGroupId": "TO_BE_COLLECTED",
+    "entityId": "TO_BE_COLLECTED",
+    "bidChange": "current * 0.3",
+    "decisionStage": "claude_approved",
+    "approvedBy": "claude",
+    "actionSource": ["claude"],
+    "riskLevel": "medium",
+    "forceExecute": false,
+    "hypothesis": {
+      "operatingClaim": "LIC0168 库存 77，30d 2 单，广告 $34.68/170 clicks/2 orders。CPA $17/单，远超 price 利润空间，bid -70% 几乎熄火。",
+      "marketEvidence": ["no selection evidence"],
+      "skuEvidence": ["clearance_high; 30d units 2; netProfit -1.53; 30d ads $34.68/170 clicks/2 orders"]
+    },
+    "target": {"primaryMetric": "ad_spend_7d", "primaryFrom": "current_7d_spend", "primaryTo": "<= 10", "guardMetric": "sku_units_7d", "guardThreshold": 1, "windowDays": [1, 3, 7]},
+    "rollbackTrigger": {"ifAny": ["3d ad_orders < 1"], "rollbackAction": "full_pause_then_clearance"},
+    "review": {"checkAfterDays": [1, 3, 7]},
+    "lesson": {"writeLessonAfterWindow": 7, "transferTags": ["lifecycle:clearance", "action_type:lower_bid_70pct", "cpa_band:unsustainable"]}
+  },
+  {
+    "actionId": "act_2026-05-28_LEM5778_lower_bid_009",
+    "sku": "LEM5778",
+    "actionType": "lower_bid",
+    "entityType": "keyword_or_target",
+    "campaignId": "TO_BE_COLLECTED",
+    "adGroupId": "TO_BE_COLLECTED",
+    "entityId": "TO_BE_COLLECTED",
+    "bidChange": "current * 0.4",
+    "decisionStage": "claude_approved",
+    "approvedBy": "claude",
+    "actionSource": ["claude"],
+    "riskLevel": "medium",
+    "forceExecute": false,
+    "hypothesis": {
+      "operatingClaim": "LEM5778 库存 91，30d 6 单，广告 $38.17/185 clicks/2 orders，CPA $19。bid -60% 控成本。",
+      "marketEvidence": ["no selection evidence"],
+      "skuEvidence": ["clearance_high; 30d units 6; netProfit -0.48; 30d ads $38.17/185 clicks/2 orders"]
+    },
+    "target": {"primaryMetric": "ad_acos_7d", "primaryTo": "current_7d_acos * 0.5", "guardMetric": "ad_orders_7d", "guardThreshold": 2, "windowDays": [1, 3, 7]},
+    "rollbackTrigger": {"ifAny": ["3d ad_orders < 1"], "rollbackAction": "clearance_price_path"},
+    "review": {"checkAfterDays": [1, 3, 7]},
+    "lesson": {"writeLessonAfterWindow": 7, "transferTags": ["lifecycle:clearance", "action_type:lower_bid_60pct"]}
+  },
+  {
+    "actionId": "act_2026-05-28_DN3482_keep_codex_S1_010",
+    "sku": "DN3482",
+    "_keptFromCodex": "action_schema_dn_flower_bar_no_click_bidup_2026-05-28.json",
+    "_claudeAddedTarget": true,
+    "actionType": "bid_up",
+    "entityType": "keyword",
+    "campaignId": "79921291168580",
+    "adGroupId": "127621249139397",
+    "decisionStage": "claude_approved_with_target_added",
+    "approvedBy": "claude",
+    "actionSource": ["codex", "claude"],
+    "riskLevel": "low",
+    "forceExecute": true,
+    "forceReason": "codex S1 微加投保留 + Claude 追加目标和回滚口径",
+    "hypothesis": {
+      "operatingClaim": "DN3482 flower-bar 短语 4 个 0 clicks 词 bid 0.48 → 0.52，小步测试曝光是否带来真实点击。",
+      "marketEvidence": ["selection_aba_dn_vase_2026-05-27.json", "selection_keyword_research_dn_flower_bar_scene_2026-05-27.json"],
+      "skuEvidence": ["live keyword readback 2026-05-28: 4 keywords with 0 impressions/0 clicks"]
+    },
+    "target": {
+      "primaryMetric": "any_keyword_clicks_3d",
+      "primaryDirection": "up",
+      "primaryFrom": 0,
+      "primaryTo": "any keyword >= 5 clicks AND >= 1 order",
+      "guardMetric": "ad_spend_7d_for_4_keywords",
+      "guardThreshold": "<= 8",
+      "windowDays": [1, 3, 7]
+    },
+    "rollbackTrigger": {
+      "ifAny": ["7d 4 keywords combined orders < 2"],
+      "rollbackAction": "pause_all_4_keywords",
+      "rollbackEntity": "all 4 keywords listed in codex S1"
+    },
+    "review": {"checkAfterDays": [1, 3, 7]},
+    "lesson": {"writeLessonAfterWindow": 7, "transferTags": ["category:vase", "action_type:bid_up_8pct_no_click_test"]}
+  },
+  {
+    "actionId": "act_2026-05-28_DN2683_keep_codex_S3_011",
+    "sku": "DN2683",
+    "_keptFromCodex": "action_schema_dn_old_group_good_conversion_bidup_2026-05-28.json",
+    "_claudeAddedTarget": true,
+    "actionType": "bid_up",
+    "entityType": "sbKeyword",
+    "campaignId": "413551916830566",
+    "adGroupId": "281801874457411",
+    "entityId": "444511078589879",
+    "currentBid": 0.25,
+    "suggestedBid": 0.32,
+    "decisionStage": "claude_approved_with_target_added",
+    "approvedBy": "claude",
+    "actionSource": ["codex", "claude"],
+    "riskLevel": "low",
+    "forceExecute": true,
+    "forceReason": "codex S3 旧组高转化加投保留；Claude 追加目标命中口径并改 reviewPlan 为 1d/3d/7d",
+    "hypothesis": {
+      "operatingClaim": "DN2683 SBV old group 'flower buckets for cut flowers' 7d 4 单 ACOS 3.8%，强真实证据，加投捕获更多转化。",
+      "marketEvidence": ["dn_vase 选品证据栈"],
+      "skuEvidence": ["7d orders=4 spend=8.72 sales=226.96 ACOS=3.8%; fba 62 + inbound 72 + local 50"]
+    },
+    "target": {
+      "primaryMetric": "ad_orders_7d",
+      "primaryDirection": "up",
+      "primaryFrom": 4,
+      "primaryTo": 6,
+      "guardMetric": "ad_acos_7d",
+      "guardThreshold": "<= 0.08",
+      "windowDays": [1, 3, 7]
+    },
+    "rollbackTrigger": {
+      "ifAny": ["3d ad_orders < 1", "3d ad_acos > 0.10"],
+      "rollbackAction": "restore_to_bid_0.25",
+      "rollbackEntity": "same sbKeyword"
+    },
+    "review": {"checkAfterDays": [1, 3, 7]},
+    "lesson": {"writeLessonAfterWindow": 7, "transferTags": ["category:vase", "action_type:proven_converter_bid_up", "ad_type:sbv"]}
+  }
+]

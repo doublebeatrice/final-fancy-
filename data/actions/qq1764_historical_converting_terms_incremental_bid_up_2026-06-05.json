@@ -1,0 +1,382 @@
+[
+  {
+    "sku": "QQ1764",
+    "asin": "B0C1NF986W",
+    "operatorRequested": true,
+    "summary": "QQ1764 historical converting keyword/customer-search sweep: add small controlled bid to proven rows in separate groups; no budget change, no ASIN-group push, no broad weak-sample push.",
+    "actions": [
+      {
+        "actionType": "bid",
+        "entityType": "keyword",
+        "id": "431419070503597",
+        "currentBid": 0.55,
+        "suggestedBid": 0.6,
+        "text": "rainbow decorations",
+        "campaignId": "453560590907042",
+        "adGroupId": "348728747999677",
+        "campaignName": "kw_rainbow table cloths_qq1764",
+        "groupName": "kw_rainbow table cloths_qq1764",
+        "confidence": 0.72,
+        "riskLevel": "traffic_push",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "allowLargeBidChange": true,
+        "reason": "QQ1764 historical converting keyword sweep: rainbow decorations has 30d clicks=21, orders=7, ACOS=19.71%, current bid 0.55 is just below 30d CPC 0.60; lift to CPC only.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_watch",
+          "acos": "hold_or_watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "spend rises without order growth or 7d ACOS exceeds 30%"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 7,
+          "to": 8,
+          "deadlineDays": 7,
+          "hardFloor": 5
+        },
+        "killSwitch": {
+          "metric": "orders",
+          "condition": "orders do not hold and 7d ACOS exceeds 30%",
+          "rollbackIf": "orders do not hold and 7d ACOS exceeds 30%"
+        },
+        "verifySource": "kwRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.6
+        }
+      },
+      {
+        "actionType": "bid",
+        "entityType": "keyword",
+        "id": "116831418480757",
+        "currentBid": 0.6,
+        "suggestedBid": 0.64,
+        "text": "rainbow plastic tablecloth",
+        "campaignId": "453560590907042",
+        "adGroupId": "348728747999677",
+        "campaignName": "kw_rainbow table cloths_qq1764",
+        "groupName": "kw_rainbow table cloths_qq1764",
+        "confidence": 0.72,
+        "riskLevel": "traffic_push",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "allowLargeBidChange": true,
+        "reason": "QQ1764 historical converting keyword sweep: rainbow plastic tablecloth is highly product-fit, 30d clicks=4, orders=2, ACOS=11.73%, 3d still has 1 order; small lift below 30d CPC 0.7325.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_watch",
+          "acos": "hold_or_watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "spend rises without order growth or 7d ACOS exceeds 30%"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 2,
+          "to": 3,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "killSwitch": {
+          "metric": "orders",
+          "condition": "orders do not hold and 7d ACOS exceeds 30%",
+          "rollbackIf": "orders do not hold and 7d ACOS exceeds 30%"
+        },
+        "verifySource": "kwRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.64
+        }
+      },
+      {
+        "actionType": "bid",
+        "entityType": "autoTarget",
+        "id": "349749959584968",
+        "currentBid": 0.61,
+        "suggestedBid": 0.64,
+        "text": "queryBroadRelMatches",
+        "campaignId": "237666478004287",
+        "adGroupId": "381376498255436",
+        "campaignName": "auto b2b_rainbow table cloths_qq1764",
+        "groupName": "auto b2b_rainbow table cloths_qq1764",
+        "confidence": 0.72,
+        "riskLevel": "traffic_push",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "allowLargeBidChange": true,
+        "reason": "QQ1764 B2B auto historical customer-search winner: queryBroadRelMatches / loose-match has 30d clicks=16, orders=10, ACOS=7.12%; customer-search rows under loose-match repeatedly order; lift 0.61 to 0.64 only.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_watch",
+          "acos": "hold_or_watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "spend rises without order growth or 7d ACOS exceeds 30%"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 10,
+          "to": 11,
+          "deadlineDays": 7,
+          "hardFloor": 7
+        },
+        "killSwitch": {
+          "metric": "orders",
+          "condition": "orders do not hold and 7d ACOS exceeds 30%",
+          "rollbackIf": "orders do not hold and 7d ACOS exceeds 30%"
+        },
+        "verifySource": "autoRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.64
+        }
+      },
+      {
+        "actionType": "bid",
+        "entityType": "keyword",
+        "id": "150321222438184",
+        "currentBid": 0.5,
+        "suggestedBid": 0.55,
+        "text": "pride table cloth",
+        "campaignId": "63208730504804",
+        "adGroupId": "220545508465053",
+        "campaignName": "ai_kw phrase_pride tablecloth_qq1764",
+        "groupName": "ai_kw phrase_pride tablecloth_qq1764",
+        "confidence": 0.72,
+        "riskLevel": "traffic_push",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "allowLargeBidChange": true,
+        "reason": "QQ1764 Pride phrase group historical winner: pride table cloth has 30d clicks=19, orders=7, ACOS=14.54%, bid 0.50 below CPC 0.7263; Pride node is softer so lift only to 0.55.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_watch",
+          "acos": "hold_or_watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "Pride phrase spend rises without orders or 7d ACOS exceeds 28%"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 7,
+          "to": 8,
+          "deadlineDays": 7,
+          "hardFloor": 4
+        },
+        "killSwitch": {
+          "metric": "orders",
+          "condition": "Pride phrase spend rises without orders or 7d ACOS exceeds 28%",
+          "rollbackIf": "Pride phrase spend rises without orders or 7d ACOS exceeds 28%"
+        },
+        "verifySource": "kwRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.55
+        }
+      },
+      {
+        "actionType": "bid",
+        "entityType": "keyword",
+        "id": "210479974151680",
+        "currentBid": 0.55,
+        "suggestedBid": 0.58,
+        "text": "pride decorations",
+        "campaignId": "206778787718361",
+        "adGroupId": "40529086558584",
+        "campaignName": "ai_kw exact_converted precise terms_qq1764",
+        "groupName": "ai_kw exact_converted precise terms_qq1764",
+        "confidence": 0.72,
+        "riskLevel": "traffic_push",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "allowLargeBidChange": true,
+        "reason": "QQ1764 converted exact group: pride decorations has 30d clicks=14, orders=7, ACOS=9.52%, exact row already clean; lift 0.55 to 0.58 only.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_watch",
+          "acos": "hold_or_watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "converted exact spend rises without orders or 7d ACOS exceeds 25%"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 7,
+          "to": 8,
+          "deadlineDays": 7,
+          "hardFloor": 5
+        },
+        "killSwitch": {
+          "metric": "orders",
+          "condition": "converted exact spend rises without orders or 7d ACOS exceeds 25%",
+          "rollbackIf": "converted exact spend rises without orders or 7d ACOS exceeds 25%"
+        },
+        "verifySource": "kwRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.58
+        }
+      },
+      {
+        "actionType": "bid",
+        "entityType": "sbKeyword",
+        "id": "426660106131883",
+        "currentBid": 0.25,
+        "suggestedBid": 0.45,
+        "text": "rainbow colors table cloths",
+        "campaignId": "327049567885804",
+        "adGroupId": "554042452155064",
+        "campaignName": "rainbow table covering qq1764 sbv-s-old",
+        "groupName": "rainbow table covering qq1764 sbv-s-old",
+        "confidence": 0.72,
+        "riskLevel": "traffic_push",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "allowLargeBidChange": true,
+        "reason": "QQ1764 SBV old keyword winner: rainbow colors table cloths has 30d clicks=14, orders=3, ACOS=12.10%, current SBV bid 0.25 is far below 30d CPC 0.6307; lift to 0.45 instead of CPC for controlled video traffic.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_watch",
+          "acos": "hold_or_watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "SBV old spend rises without orders or 7d ACOS exceeds 28%"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 3,
+          "to": 4,
+          "deadlineDays": 7,
+          "hardFloor": 2
+        },
+        "killSwitch": {
+          "metric": "orders",
+          "condition": "SBV old spend rises without orders or 7d ACOS exceeds 28%",
+          "rollbackIf": "SBV old spend rises without orders or 7d ACOS exceeds 28%"
+        },
+        "verifySource": "sbRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.45
+        }
+      }
+    ]
+  }
+]

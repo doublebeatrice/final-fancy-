@@ -1,0 +1,447 @@
+{
+  "version": 1,
+  "generatedAt": "2026-06-08T01:30:55.940Z",
+  "time": {
+    "runAt": "2026-06-08T01:14:14.249Z",
+    "businessDate": "2026-06-08",
+    "localDate": "2026-06-08",
+    "dataDate": "2026-06-07",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-08T01-14-14-249Z"
+  },
+  "sources": {
+    "snapshotFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-06-08T01-14-14-249Z\\snapshot_2026-06-08.json",
+    "taskPoolFile": "D:\\ad-ops-workbench\\data\\tasks\\daily_tasks_2026-06-08.json",
+    "actionSchemaFile": "D:\\ad-ops-workbench\\data\\snapshots\\action_schema_2026-06-08_daily_recovery_combined.json",
+    "dryRunFile": "D:\\ad-ops-workbench\\data\\snapshots\\execution_dry_run_2026-06-08_today_ops_2026-06-08T01-14-14-249Z.json",
+    "verifyFile": "D:\\ad-ops-workbench\\data\\snapshots\\execution_verify_2026-06-08_today_ops_2026-06-08T01-14-14-249Z.json",
+    "adjustmentLogFile": "D:\\ad-ops-workbench\\data\\adjustments\\adjustments_2026-06-08.json",
+    "proactiveOperatingAuditJson": "D:\\ad-ops-workbench\\data\\tasks\\proactive_operating_audit_2026-06-08.json",
+    "manifestFile": "D:\\ad-ops-workbench\\data\\snapshots\\runs\\today_ops_2026-06-08T01-14-14-249Z\\manifest.json"
+  },
+  "dataQuality": {
+    "baselineQuality": "warning",
+    "productCards": 1298,
+    "adRowsTotal": 68931,
+    "sellerSalesRows": 181,
+    "listingFetchAttempted": 623,
+    "listingFetchSuccess": 34,
+    "listingFetchSkipped": 588,
+    "listingCoverage": 0.026194144838212634,
+    "allowedScopeSkuCount": 592,
+    "dataMissing": 0,
+    "overBudgetStatus": "complete",
+    "warnings": [
+      "listing_fetch_partial",
+      "listing_coverage_low"
+    ]
+  },
+  "observedPressure": {
+    "snapshotMetrics": {
+      "productCards": 1298,
+      "units7d": 3115,
+      "units30d": 13812,
+      "adSpend7d": 3680.2300000000005,
+      "adSales7d": 0,
+      "adSales7dAvailable": false,
+      "adOrders7d": 781,
+      "inventoryTight": 40,
+      "staleInventory": 120,
+      "lowProfit": 141,
+      "adAcos7d": null
+    },
+    "topSignals": [
+      {
+        "signal": "seven_day_unadjusted",
+        "count": 668
+      },
+      {
+        "signal": "stale_inventory_risk",
+        "count": 145
+      },
+      {
+        "signal": "season_peak",
+        "count": 115
+      },
+      {
+        "signal": "ad_structure_missing",
+        "count": 87
+      },
+      {
+        "signal": "reserved_page_watch",
+        "count": 34
+      },
+      {
+        "signal": "inventory_tight",
+        "count": 32
+      },
+      {
+        "signal": "profit_bleeding",
+        "count": 22
+      },
+      {
+        "signal": "season_tail",
+        "count": 20
+      },
+      {
+        "signal": "season_preheat",
+        "count": 17
+      }
+    ],
+    "taskSummary": {
+      "total": 668,
+      "bySignal": {
+        "stale_inventory_risk": 145,
+        "ad_structure_missing": 87,
+        "season_peak": 115,
+        "seven_day_unadjusted": 668,
+        "season_preheat": 17,
+        "profit_bleeding": 22,
+        "season_tail": 20,
+        "inventory_tight": 32,
+        "reserved_page_watch": 34
+      },
+      "withDataMissing": 0,
+      "dataMissing": 0,
+      "reservedPageBlocked": 34,
+      "skippedAdEntityCards": 630
+    },
+    "proactiveOperatingAudit": {
+      "kpiStatus": "off_track",
+      "newProductLaunch": 9,
+      "arrivalAdRecovery": 8,
+      "priceActions": 7,
+      "removalEconomics": 105,
+      "expiredSeasonKeywordWaste": 63,
+      "listingRepair": 213
+    }
+  },
+  "decisions": {
+    "schemaSkuCount": 138,
+    "plannedSkus": 29,
+    "executableSkus": 29,
+    "reviewSkus": 21,
+    "plannedActions": 35,
+    "actionQuality": {
+      "status": "executed",
+      "plannedActions": 35,
+      "executableSkus": 29,
+      "errorCount": 0,
+      "operatingClosure": {
+        "status": "primary_plan_ready",
+        "primaryPlanActions": 35,
+        "generatedCandidateActions": 788,
+        "proactiveGaps": 405,
+        "seasonTitleAdActions": 17,
+        "listingApplications": 34,
+        "overBudgetActionableCampaigns": 737,
+        "overBudgetRequiredActions": 70,
+        "lowEfficiencyActionable": 0,
+        "priceActions": 7,
+        "mandatoryDailyClosure": {
+          "required": true,
+          "status": "needs_landing",
+          "openCount": 77,
+          "resolvedCount": 0,
+          "unresolvedCount": 77,
+          "resolved": false,
+          "categories": [
+            {
+              "key": "lowEfficiency",
+              "label": "low_efficiency",
+              "openCount": 0,
+              "candidateCount": 0,
+              "requiredActions": 0,
+              "landed": 0,
+              "manualReview": 0,
+              "blocked": 0,
+              "approvalNeeded": 0,
+              "resolvedCount": 0,
+              "unresolvedCount": 0,
+              "resolved": true,
+              "reason": "low_efficiency_not_landed"
+            },
+            {
+              "key": "overBudget",
+              "label": "over_budget",
+              "openCount": 70,
+              "candidateCount": 737,
+              "requiredActions": 70,
+              "landed": 0,
+              "manualReview": 0,
+              "blocked": 0,
+              "approvalNeeded": 0,
+              "resolvedCount": 0,
+              "unresolvedCount": 70,
+              "resolved": false,
+              "reason": "over_budget_not_landed"
+            },
+            {
+              "key": "price",
+              "label": "price",
+              "openCount": 7,
+              "candidateCount": 0,
+              "requiredActions": 7,
+              "landed": 0,
+              "manualReview": 0,
+              "blocked": 0,
+              "approvalNeeded": 0,
+              "resolvedCount": 0,
+              "unresolvedCount": 7,
+              "resolved": false,
+              "reason": "price_not_landed"
+            }
+          ],
+          "reasons": [
+            "over_budget_not_landed",
+            "price_not_landed"
+          ]
+        },
+        "warnings": []
+      },
+      "mandatoryDailyClosure": {
+        "required": true,
+        "status": "needs_landing",
+        "openCount": 77,
+        "resolvedCount": 0,
+        "unresolvedCount": 77,
+        "resolved": false,
+        "categories": [
+          {
+            "key": "lowEfficiency",
+            "label": "low_efficiency",
+            "openCount": 0,
+            "candidateCount": 0,
+            "requiredActions": 0,
+            "landed": 0,
+            "manualReview": 0,
+            "blocked": 0,
+            "approvalNeeded": 0,
+            "resolvedCount": 0,
+            "unresolvedCount": 0,
+            "resolved": true,
+            "reason": "low_efficiency_not_landed"
+          },
+          {
+            "key": "overBudget",
+            "label": "over_budget",
+            "openCount": 70,
+            "candidateCount": 737,
+            "requiredActions": 70,
+            "landed": 0,
+            "manualReview": 0,
+            "blocked": 0,
+            "approvalNeeded": 0,
+            "resolvedCount": 0,
+            "unresolvedCount": 70,
+            "resolved": false,
+            "reason": "over_budget_not_landed"
+          },
+          {
+            "key": "price",
+            "label": "price",
+            "openCount": 7,
+            "candidateCount": 0,
+            "requiredActions": 7,
+            "landed": 0,
+            "manualReview": 0,
+            "blocked": 0,
+            "approvalNeeded": 0,
+            "resolvedCount": 0,
+            "unresolvedCount": 7,
+            "resolved": false,
+            "reason": "price_not_landed"
+          }
+        ],
+        "reasons": [
+          "over_budget_not_landed",
+          "price_not_landed"
+        ]
+      },
+      "warnings": [
+        "mandatory_daily_closure_not_landed",
+        "over_budget_not_landed",
+        "price_not_landed"
+      ]
+    },
+    "runQuality": {
+      "status": "needs_attention",
+      "dataQuality": "warning",
+      "actionQuality": "executed",
+      "warnings": [
+        "listing_fetch_partial",
+        "listing_coverage_low",
+        "mandatory_daily_closure_not_landed",
+        "over_budget_not_landed",
+        "price_not_landed"
+      ]
+    },
+    "operatingClosure": {
+      "status": "primary_plan_ready",
+      "primaryPlanActions": 35,
+      "generatedCandidateActions": 788,
+      "proactiveGaps": 405,
+      "seasonTitleAdActions": 17,
+      "listingApplications": 34,
+      "overBudgetActionableCampaigns": 737,
+      "overBudgetRequiredActions": 70,
+      "lowEfficiencyActionable": 0,
+      "priceActions": 7,
+      "mandatoryDailyClosure": {
+        "required": true,
+        "status": "needs_landing",
+        "openCount": 77,
+        "resolvedCount": 0,
+        "unresolvedCount": 77,
+        "resolved": false,
+        "categories": [
+          {
+            "key": "lowEfficiency",
+            "label": "low_efficiency",
+            "openCount": 0,
+            "candidateCount": 0,
+            "requiredActions": 0,
+            "landed": 0,
+            "manualReview": 0,
+            "blocked": 0,
+            "approvalNeeded": 0,
+            "resolvedCount": 0,
+            "unresolvedCount": 0,
+            "resolved": true,
+            "reason": "low_efficiency_not_landed"
+          },
+          {
+            "key": "overBudget",
+            "label": "over_budget",
+            "openCount": 70,
+            "candidateCount": 737,
+            "requiredActions": 70,
+            "landed": 0,
+            "manualReview": 0,
+            "blocked": 0,
+            "approvalNeeded": 0,
+            "resolvedCount": 0,
+            "unresolvedCount": 70,
+            "resolved": false,
+            "reason": "over_budget_not_landed"
+          },
+          {
+            "key": "price",
+            "label": "price",
+            "openCount": 7,
+            "candidateCount": 0,
+            "requiredActions": 7,
+            "landed": 0,
+            "manualReview": 0,
+            "blocked": 0,
+            "approvalNeeded": 0,
+            "resolvedCount": 0,
+            "unresolvedCount": 7,
+            "resolved": false,
+            "reason": "price_not_landed"
+          }
+        ],
+        "reasons": [
+          "over_budget_not_landed",
+          "price_not_landed"
+        ]
+      },
+      "warnings": []
+    },
+    "actionBreakdown": {
+      "byAction": {
+        "keyword:bid": 32,
+        "keyword:pause": 25,
+        "autoTarget:bid": 17,
+        "autoTarget:pause": 1,
+        "manualTarget:bid": 5,
+        "manualTarget:pause": 1,
+        "sbKeyword:bid": 9,
+        "sbKeyword:pause": 10,
+        "campaign:budget": 34,
+        "skuCandidate:review": 25,
+        "skuCandidate:skip": 119
+      },
+      "byDirection": {
+        "unknown": 240,
+        "up": 34,
+        "down": 4
+      },
+      "landed": {
+        "success": 99,
+        "failed": 0,
+        "planned": 35,
+        "manualReview": 25,
+        "skipped": 119,
+        "unknown": 0
+      }
+    },
+    "decisionAttribution": {
+      "claude": {
+        "plannedActions": 64,
+        "landedSuccess": 64,
+        "landedFailed": 0,
+        "dryRunPlanned": 0,
+        "manualReview": 0,
+        "skipped": 0,
+        "unknown": 0
+      },
+      "codex": {
+        "plannedActions": 214,
+        "landedSuccess": 35,
+        "landedFailed": 0,
+        "dryRunPlanned": 35,
+        "manualReview": 25,
+        "skipped": 119,
+        "unknown": 0
+      }
+    },
+    "finalRunLanding": {
+      "sourceRunId": "today_ops_2026-06-08T01-14-14-249Z",
+      "total": 214,
+      "success": 35,
+      "failed": 0,
+      "planned": 35,
+      "manualReview": 25,
+      "skipped": 119,
+      "unknown": 0
+    },
+    "allDayLanding": {
+      "businessDate": "2026-06-08",
+      "dateMode": "localDate",
+      "total": 278,
+      "runs": 2,
+      "success": 99,
+      "failed": 0,
+      "planned": 35,
+      "manualReview": 25,
+      "skipped": 119,
+      "unknown": 0,
+      "bestRunId": "low_efficiency_2026-06-08_1780881748934",
+      "bestRunSuccess": 64
+    }
+  },
+  "carryForward": {
+    "mustReadBeforeTomorrowDecision": true,
+    "measurementWindows": [
+      1,
+      3,
+      7,
+      14,
+      30
+    ],
+    "compareTomorrowAgainst": {
+      "snapshotMetrics": true,
+      "taskPressure": true,
+      "actionLanding": true,
+      "skuLevelMovement": true
+    },
+    "openQuestions": [
+      "Did spend reductions reduce waste without cutting orders?",
+      "Did budget increases recover profitable orders?",
+      "Did paused or lowered entities stay quiet without same-SKU sales loss?",
+      "Which seasonal preheat candidates gained impressions, clicks, and orders?"
+    ]
+  }
+}

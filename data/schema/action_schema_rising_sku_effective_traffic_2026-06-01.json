@@ -1,0 +1,2404 @@
+[
+  {
+    "sku": "XIA1681",
+    "asin": "B0C7K43997",
+    "operatorRequested": true,
+    "summary": "Effective traffic expansion requested by operator. Actions=7.",
+    "actions": [
+      {
+        "id": "320675560186228",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.16,
+        "suggestedBid": 0.22,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "historical_keyword_bid_up",
+        "confidence": 0.82,
+        "campaignId": "53386901225433",
+        "adGroupId": "456098882127767",
+        "campaignName": "kw exact_luck charm elephant_xia1681",
+        "groupName": "kw exact_luck charm elephant_xia1681",
+        "text": "good luck gifts bulk",
+        "label": "good luck gifts bulk",
+        "reason": "XIA1681 has a direct B2B-intent historical term already open at a low bid; raise it before adding new directions.",
+        "evidence": [
+          "current exact keyword good luck gifts bulk bid=0.16",
+          "SKU 30d ad ACOS about 4.2% with 15 ad orders; product CPC band supports a bid above the old 0.16",
+          "Market evidence: good luck gifts demand is rising with low competition versus broad elephant tail"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "422148263327325",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.14,
+        "suggestedBid": 0.18,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "historical_keyword_bid_up",
+        "confidence": 0.82,
+        "campaignId": "53386901225433",
+        "adGroupId": "456098882127767",
+        "campaignName": "kw exact_luck charm elephant_xia1681",
+        "groupName": "kw exact_luck charm elephant_xia1681",
+        "text": "small elephant figurines",
+        "label": "small elephant figurines",
+        "reason": "Historical exact elephant term converted efficiently; small bid-up to keep the proven lane visible.",
+        "evidence": [
+          "small elephant figurines was one of the existing 30d converting terms",
+          "old bid=0.14 is below the SKU recent CPC band"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "359281433270465",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.18,
+        "suggestedBid": 0.22,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "historical_keyword_bid_up",
+        "confidence": 0.82,
+        "campaignId": "53386901225433",
+        "adGroupId": "456098882127767",
+        "campaignName": "kw exact_luck charm elephant_xia1681",
+        "groupName": "kw exact_luck charm elephant_xia1681",
+        "text": "mini elephant figurines",
+        "label": "mini elephant figurines",
+        "reason": "Historical exact elephant term converted and can absorb more traffic with a controlled bid.",
+        "evidence": [
+          "mini elephant figurines existing exact term",
+          "old bid=0.18; SKU has 51 sellable days and 35.4% profit"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "312028438934684",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.1,
+        "suggestedBid": 0.15,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "historical_keyword_bid_up",
+        "confidence": 0.82,
+        "campaignId": "112545975738851",
+        "adGroupId": "298874718302637",
+        "campaignName": "kw phrase_luck charm elephant_xia1681",
+        "groupName": "kw phrase_luck charm elephant_xia1681",
+        "text": "elephant gifts",
+        "label": "elephant gifts",
+        "reason": "Phrase elephant gifts converted at low ACOS; lift from under-bid status before broad new expansion.",
+        "evidence": [
+          "elephant gifts existing phrase term",
+          "old bid=0.10; 30d keyword lane had efficient orders"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "357110099992369",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.16,
+        "suggestedBid": 0.2,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "market_supported_keyword_bid_up",
+        "confidence": 0.82,
+        "campaignId": "112545975738851",
+        "adGroupId": "298874718302637",
+        "campaignName": "kw phrase_luck charm elephant_xia1681",
+        "groupName": "kw phrase_luck charm elephant_xia1681",
+        "text": "encouragement gifts",
+        "label": "encouragement gifts",
+        "reason": "Encouragement/good-luck direction matches market reason and is under-bid.",
+        "evidence": [
+          "encouragement gifts phrase already open",
+          "market reason points away from pure elephant-only traffic toward good-luck/encouragement scenes"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "create::XIA1681::keywordTarget::BROAD::good_luck_gifts_bulk",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "createInput": {
+          "advType": "SP",
+          "mode": "keywordTarget",
+          "sku": "XIA1681",
+          "asin": "B0C7K43997",
+          "accountId": 426,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.25,
+          "coreTerm": "good luck gifts bulk",
+          "matchType": "BROAD",
+          "keywords": [
+            "good luck gifts bulk",
+            "encouragement gifts bulk",
+            "good luck gifts for coworkers",
+            "coworker encouragement gifts",
+            "small elephant gifts bulk"
+          ],
+          "campaignName": "b2b kw broad_good luck gifts bulk_xia1681",
+          "groupName": "b2b kw broad_good luck gifts bulk_xia1681",
+          "siteRestriction": "AMAZON_BUSINESS",
+          "siteAmazonBusiness": 1
+        },
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked these SKU traffic entrances to be landed now; bid and budget are bounded and evidence-backed.",
+        "allowDuplicateStructureCreate": true,
+        "riskLevel": "b2b_keyword_create",
+        "confidence": 0.78,
+        "reason": "Create the requested B2B keyword entrance around proven good-luck/bulk intent, instead of only raising old elephant keywords.",
+        "evidence": [
+          "operator requested XIA1681 b2b kw",
+          "existing exact good luck gifts bulk already open but thin",
+          "market evidence supports good luck gifts direction"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "new campaign visibility, impressions, clicks, orders",
+          "target": "open missing or standalone effective traffic entrance"
+        },
+        "reviewPlan": {
+          "1d": "read back campaign/ad group/child rows and verify first impressions",
+          "3d": "keep if clicks are relevant; lower/pause if irrelevant spend appears",
+          "7d": "split winners or rollback losers"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "create::XIA1681::auto::auto::good_luck_gifts_bulk",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "createInput": {
+          "advType": "SP",
+          "mode": "auto",
+          "sku": "XIA1681",
+          "asin": "B0C7K43997",
+          "accountId": 426,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.23,
+          "coreTerm": "good luck gifts bulk",
+          "campaignName": "b2b auto_good luck gifts bulk_xia1681",
+          "groupName": "b2b auto_good luck gifts bulk_xia1681",
+          "siteRestriction": "AMAZON_BUSINESS",
+          "siteAmazonBusiness": 1
+        },
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked these SKU traffic entrances to be landed now; bid and budget are bounded and evidence-backed.",
+        "allowDuplicateStructureCreate": true,
+        "riskLevel": "b2b_auto_create",
+        "confidence": 0.78,
+        "reason": "Create the requested B2B auto entrance so Amazon can discover business/bulk queries around good-luck gifts.",
+        "evidence": [
+          "operator requested XIA1681 b2b auto",
+          "SKU has efficient 30d ads and available inventory",
+          "B2B/bulk traffic is adjacent to existing converting good-luck term"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "new campaign visibility, impressions, clicks, orders",
+          "target": "open missing or standalone effective traffic entrance"
+        },
+        "reviewPlan": {
+          "1d": "read back campaign/ad group/child rows and verify first impressions",
+          "3d": "keep if clicks are relevant; lower/pause if irrelevant spend appears",
+          "7d": "split winners or rollback losers"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      }
+    ]
+  },
+  {
+    "sku": "NEW0005",
+    "asin": "B0BN8G94M6",
+    "operatorRequested": true,
+    "summary": "Effective traffic expansion requested by operator. Actions=9.",
+    "actions": [
+      {
+        "id": "555235920485851",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.08,
+        "suggestedBid": 0.15,
+        "allowLargeBidChange": true,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "new0005_alltime_auto_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "557142026813909",
+        "adGroupId": "304015603865530",
+        "campaignName": "auto3_wooden love sign_new0005",
+        "groupName": "wedding welcome sign new0005-a2",
+        "text": "queryBroadRelMatches",
+        "label": "queryBroadRelMatches",
+        "reason": "All-time queryBroadRelMatches is the strongest NEW0005 receiver; raise it before speculative new directions.",
+        "evidence": [
+          "all-time target queryBroadRelMatches: 67 orders, spend 94.86, sales 731.30, ACOS 13.0%",
+          "current snapshot bid=0.08; live all-time fetch showed this layer was already adjusted but still below traffic-capable range",
+          "product 30d ad ACOS about 11.6%"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "391847498230839",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.08,
+        "suggestedBid": 0.11,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "new0005_alltime_auto_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "380260731686953",
+        "adGroupId": "387646735435352",
+        "campaignName": "wedding welcome sign new0005-a 0.13",
+        "groupName": "wedding welcome sign new0005-a 0.13",
+        "text": "queryHighRelMatches",
+        "label": "queryHighRelMatches",
+        "reason": "Open queryHighRelMatches has all-time efficient conversion and should receive more traffic.",
+        "evidence": [
+          "all-time wedding welcome sign queryHighRelMatches: 16 orders, ACOS 15.8%",
+          "current bid=0.08; product margin 17.6% means use a controlled lift only"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "305529805539555",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.07,
+        "suggestedBid": 0.1,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "new0005_alltime_asin_receiver_bid_up",
+        "confidence": 0.82,
+        "campaignId": "380260731686953",
+        "adGroupId": "387646735435352",
+        "campaignName": "wedding welcome sign new0005-a 0.13",
+        "groupName": "wedding welcome sign new0005-a 0.13",
+        "text": "asinSubstituteRelated",
+        "label": "asinSubstituteRelated",
+        "reason": "Historical ASIN-substitute auto receiver is open and efficient enough for a small lift.",
+        "evidence": [
+          "all-time asinSubstituteRelated: 36 orders, ACOS 15.7%",
+          "current bid=0.07; bid remains below broad winner bid because profit margin is moderate"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "494996273713087",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.06,
+        "suggestedBid": 0.08,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "new0005_alltime_asin_receiver_bid_up",
+        "confidence": 0.82,
+        "campaignId": "353299294704695",
+        "adGroupId": "512037718405737",
+        "campaignName": "auto_wooden love sign_new0005",
+        "groupName": "auto_wooden love sign_new0005",
+        "text": "asinSubstituteRelated",
+        "label": "asinSubstituteRelated",
+        "reason": "Low-bid ASIN substitute layer has all-time efficient conversion; lift to regain effective traffic.",
+        "evidence": [
+          "all-time asinSubstituteRelated: 7 orders, ACOS 9.7%",
+          "current bid=0.06"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "395106015426915",
+        "entityType": "autoTarget",
+        "actionType": "enable",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator instructed to prioritize historical converting terms or ASINs before new directions.",
+        "riskLevel": "reopen_new0005_alltime_auto_winner",
+        "confidence": 0.78,
+        "campaignId": "353299294704695",
+        "adGroupId": "512037718405737",
+        "campaignName": "auto_wooden love sign_new0005",
+        "groupName": "auto_wooden love sign_new0005",
+        "text": "queryBroadRelMatches",
+        "label": "queryBroadRelMatches",
+        "reason": "Reopen a paused/low-active historical broad receiver before creating unrelated traffic.",
+        "evidence": [
+          "all-time auto_wooden love sign queryBroadRelMatches: 22 orders, ACOS 14.4%",
+          "operator said priority is historical converting terms/ASINs"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "serving state and impressions",
+          "target": "restore historically effective receiver"
+        },
+        "reviewPlan": {
+          "1d": "confirm serving/open state and early impressions",
+          "3d": "keep only if traffic is relevant"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "395106015426915",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.06,
+        "suggestedBid": 0.1,
+        "allowLargeBidChange": true,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "new0005_alltime_auto_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "353299294704695",
+        "adGroupId": "512037718405737",
+        "campaignName": "auto_wooden love sign_new0005",
+        "groupName": "auto_wooden love sign_new0005",
+        "text": "queryBroadRelMatches",
+        "label": "queryBroadRelMatches",
+        "reason": "After reopening the historical queryBroadRelMatches receiver, set bid to a click-capable but margin-aware level.",
+        "evidence": [
+          "all-time 22 orders, ACOS 14.4%, current bid=0.06",
+          "product margin 17.6%; do not over-scale beyond margin"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "create::NEW0005::keywordTarget::EXACT::love_sign",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "createInput": {
+          "advType": "SP",
+          "mode": "keywordTarget",
+          "sku": "NEW0005",
+          "asin": "B0BN8G94M6",
+          "accountId": 495,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.24,
+          "coreTerm": "love sign",
+          "matchType": "EXACT",
+          "keywords": [
+            "love sign",
+            "white love sign",
+            "love wooden letters",
+            "love decorations",
+            "love block letters"
+          ]
+        },
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked these SKU traffic entrances to be landed now; bid and budget are bounded and evidence-backed.",
+        "allowDuplicateStructureCreate": true,
+        "riskLevel": "new0005_historical_exact_create",
+        "confidence": 0.78,
+        "reason": "Create standalone EXACT group from NEW0005 all-time high-order customer search terms.",
+        "evidence": [
+          "all-time customer search: love sign 20 orders, ACOS 9.1%",
+          "white love sign 4 orders, ACOS 6.6%",
+          "love wooden letters 4 orders, ACOS 9.1%",
+          "operator requested standalone phrase/exact groups for high-order historical terms"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "new campaign visibility, impressions, clicks, orders",
+          "target": "open missing or standalone effective traffic entrance"
+        },
+        "reviewPlan": {
+          "1d": "read back campaign/ad group/child rows and verify first impressions",
+          "3d": "keep if clicks are relevant; lower/pause if irrelevant spend appears",
+          "7d": "split winners or rollback losers"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "create::NEW0005::keywordTarget::PHRASE::love_sign",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "createInput": {
+          "advType": "SP",
+          "mode": "keywordTarget",
+          "sku": "NEW0005",
+          "asin": "B0BN8G94M6",
+          "accountId": 495,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.21,
+          "coreTerm": "love sign",
+          "matchType": "PHRASE",
+          "keywords": [
+            "love sign",
+            "white love sign",
+            "love wooden letters",
+            "wood love sign",
+            "love block letters"
+          ]
+        },
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked these SKU traffic entrances to be landed now; bid and budget are bounded and evidence-backed.",
+        "allowDuplicateStructureCreate": true,
+        "riskLevel": "new0005_historical_phrase_create",
+        "confidence": 0.78,
+        "reason": "Create standalone PHRASE group from NEW0005 all-time high-order love-sign direction.",
+        "evidence": [
+          "all-time customer search direction is concentrated in love sign / white love sign / wooden letters",
+          "phrase layer should catch close variants without opening broad wedding head terms"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "new campaign visibility, impressions, clicks, orders",
+          "target": "open missing or standalone effective traffic entrance"
+        },
+        "reviewPlan": {
+          "1d": "read back campaign/ad group/child rows and verify first impressions",
+          "3d": "keep if clicks are relevant; lower/pause if irrelevant spend appears",
+          "7d": "split winners or rollback losers"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "create::NEW0005::productTarget::ASIN_EXPANDED_FROM::historical_love_sign_asin",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "createInput": {
+          "advType": "SP",
+          "mode": "productTarget",
+          "sku": "NEW0005",
+          "asin": "B0BN8G94M6",
+          "accountId": 495,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.18,
+          "coreTerm": "historical love sign asin",
+          "targetType": "ASIN_EXPANDED_FROM",
+          "targetAsins": [
+            "B087R7MW9J",
+            "B08NWV5GBL",
+            "B0FQTLF8YK",
+            "B0B4J9XR6T",
+            "B0CN1LHWBR"
+          ]
+        },
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked these SKU traffic entrances to be landed now; bid and budget are bounded and evidence-backed.",
+        "allowDuplicateStructureCreate": true,
+        "riskLevel": "new0005_historical_asin_create",
+        "confidence": 0.78,
+        "reason": "Open a product-target group from all-time converting ASINs before broader speculative expansion.",
+        "evidence": [
+          "B087R7MW9J: 8 orders, ACOS 17.4%",
+          "B08NWV5GBL: 4 orders, ACOS 10.8%",
+          "B0FQTLF8YK and B0B4J9XR6T had low-ACOS orders in all-time customer search"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "new campaign visibility, impressions, clicks, orders",
+          "target": "open missing or standalone effective traffic entrance"
+        },
+        "reviewPlan": {
+          "1d": "read back campaign/ad group/child rows and verify first impressions",
+          "3d": "keep if clicks are relevant; lower/pause if irrelevant spend appears",
+          "7d": "split winners or rollback losers"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      }
+    ]
+  },
+  {
+    "sku": "GM3068",
+    "asin": "B0FZTT66W8",
+    "operatorRequested": true,
+    "summary": "Effective traffic expansion requested by operator. Actions=6.",
+    "actions": [
+      {
+        "id": "386329251746750",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.28,
+        "suggestedBid": 0.33,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "dental_auto_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "549284647427654",
+        "adGroupId": "497599801087292",
+        "campaignName": "auto2_dentist appreciation gifts _gm3068",
+        "groupName": "auto2_dentist appreciation gifts _gm3068",
+        "text": "asinAccessoryRelated",
+        "label": "asinAccessoryRelated",
+        "reason": "GM3068 auto ASIN accessory receiver is efficient and can absorb more dental traffic.",
+        "evidence": [
+          "30d auto ASIN accessory receiver had 2 orders at about 6.2% ACOS",
+          "current bid=0.28; product 31% profit and 58 sellable days support small lift"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "557758907540534",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.09,
+        "suggestedBid": 0.13,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "dental_auto_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "549284647427654",
+        "adGroupId": "497599801087292",
+        "campaignName": "auto2_dentist appreciation gifts _gm3068",
+        "groupName": "auto2_dentist appreciation gifts _gm3068",
+        "text": "asinSubstituteRelated",
+        "label": "asinSubstituteRelated",
+        "reason": "GM3068 ASIN substitute receiver is efficient at low bid; lift modestly.",
+        "evidence": [
+          "30d asinSubstituteRelated had 2 orders at about 6.1% ACOS",
+          "current bid=0.09"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "296396873725135",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.03,
+        "suggestedBid": 0.08,
+        "allowLargeBidChange": true,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "dental_auto_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "390101468415779",
+        "adGroupId": "297317956686284",
+        "campaignName": "auto _dentist appreciation gifts _gm3068",
+        "groupName": "auto _dentist appreciation gifts _gm3068",
+        "text": "queryHighRelMatches",
+        "label": "queryHighRelMatches",
+        "reason": "GM3068 queryHighRelMatches produced orders while bid is too low for scale; raise to still-controlled traffic level.",
+        "evidence": [
+          "30d queryHighRelMatches had 6 orders at about 14.5% ACOS",
+          "current bid=0.03 is below product CPC and cannot reliably gain impressions"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "437833337034672",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.2,
+        "suggestedBid": 0.24,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "dental_auto_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "549284647427654",
+        "adGroupId": "497599801087292",
+        "campaignName": "auto2_dentist appreciation gifts _gm3068",
+        "groupName": "auto2_dentist appreciation gifts _gm3068",
+        "text": "queryBroadRelMatches",
+        "label": "queryBroadRelMatches",
+        "reason": "GM3068 queryBroadRelMatches had very low ACOS and should not stay capped at old bid.",
+        "evidence": [
+          "30d queryBroadRelMatches had 1 order at about 3.6% ACOS",
+          "current bid=0.20"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "create::GM3068::keywordTarget::PHRASE::dental_hygienist_gifts",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "createInput": {
+          "advType": "SP",
+          "mode": "keywordTarget",
+          "sku": "GM3068",
+          "asin": "B0FZTT66W8",
+          "accountId": 311,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.3,
+          "coreTerm": "dental hygienist gifts",
+          "matchType": "PHRASE",
+          "keywords": [
+            "dental hygienist gifts",
+            "dental assistant gifts",
+            "dentist gifts",
+            "dental office gifts",
+            "dental appreciation gifts"
+          ]
+        },
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked these SKU traffic entrances to be landed now; bid and budget are bounded and evidence-backed.",
+        "allowDuplicateStructureCreate": true,
+        "riskLevel": "dental_phrase_create",
+        "confidence": 0.78,
+        "reason": "Create dental phrase traffic because current keyword lane is off-theme Christian/nurse and auto is carrying the real dental demand.",
+        "evidence": [
+          "market evidence: dental hygienist gifts and dental assistant gifts have real demand",
+          "existing keyword rows are unrelated to dental and have zero orders",
+          "auto dental receivers are efficient"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "new campaign visibility, impressions, clicks, orders",
+          "target": "open missing or standalone effective traffic entrance"
+        },
+        "reviewPlan": {
+          "1d": "read back campaign/ad group/child rows and verify first impressions",
+          "3d": "keep if clicks are relevant; lower/pause if irrelevant spend appears",
+          "7d": "split winners or rollback losers"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "create::GM3068::keywordTarget::EXACT::dental_assistant_gifts",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "createInput": {
+          "advType": "SP",
+          "mode": "keywordTarget",
+          "sku": "GM3068",
+          "asin": "B0FZTT66W8",
+          "accountId": 311,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.32,
+          "coreTerm": "dental assistant gifts",
+          "matchType": "EXACT",
+          "keywords": [
+            "dental hygienist gifts",
+            "dental assistant gifts",
+            "dentist gifts"
+          ]
+        },
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked these SKU traffic entrances to be landed now; bid and budget are bounded and evidence-backed.",
+        "allowDuplicateStructureCreate": true,
+        "riskLevel": "dental_exact_create",
+        "confidence": 0.78,
+        "reason": "Create exact dental buyer-intent group for the strongest market-supported terms.",
+        "evidence": [
+          "market evidence supports dental hygienist / dental assistant / dentist gift terms",
+          "auto has converted efficiently; exact group protects relevance"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "new campaign visibility, impressions, clicks, orders",
+          "target": "open missing or standalone effective traffic entrance"
+        },
+        "reviewPlan": {
+          "1d": "read back campaign/ad group/child rows and verify first impressions",
+          "3d": "keep if clicks are relevant; lower/pause if irrelevant spend appears",
+          "7d": "split winners or rollback losers"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      }
+    ]
+  },
+  {
+    "sku": "QQ2806",
+    "asin": "B0D9QFQHN9",
+    "operatorRequested": true,
+    "summary": "Effective traffic expansion requested by operator. Actions=6.",
+    "actions": [
+      {
+        "id": "357874187154826",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.4,
+        "suggestedBid": 0.46,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "qq2806_stronger_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "442379278136934",
+        "adGroupId": "283756736740338",
+        "campaignName": "kw_rainbow_qq2806",
+        "groupName": "kw_core",
+        "text": "rainbow birthday decorations",
+        "label": "rainbow birthday decorations",
+        "reason": "QQ2806 rainbow birthday decorations is a proven high-volume winner; push harder while profit still supports it.",
+        "evidence": [
+          "30d keyword rainbow birthday decorations: 8 orders, ACOS about 11.6%; 7d remained efficient",
+          "current bid=0.40; user requested larger force"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "475228569495738",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.37,
+        "suggestedBid": 0.43,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "qq2806_stronger_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "442379278136934",
+        "adGroupId": "283756736740338",
+        "campaignName": "kw_rainbow_qq2806",
+        "groupName": "kw_core",
+        "text": "rainbow tablecloth",
+        "label": "rainbow tablecloth",
+        "reason": "QQ2806 broad rainbow tablecloth is efficient and should receive more auctions.",
+        "evidence": [
+          "30d rainbow tablecloth broad: 4 orders, ACOS about 9.6%",
+          "current bid=0.37"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "315938329363324",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.33,
+        "suggestedBid": 0.39,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "qq2806_stronger_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "442379278136934",
+        "adGroupId": "283756736740338",
+        "campaignName": "kw_rainbow_qq2806",
+        "groupName": "kw_core",
+        "text": "+rainbow +table +cloths",
+        "label": "+rainbow +table +cloths",
+        "reason": "QQ2806 +rainbow +table +cloths has low ACOS and is under-bid for the current push.",
+        "evidence": [
+          "30d +rainbow +table +cloths: 3 orders, ACOS about 6.6%",
+          "current bid=0.33"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "484035983838731",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.28,
+        "suggestedBid": 0.33,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "qq2806_auto_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "349784194386876",
+        "adGroupId": "444793962911967",
+        "campaignName": "auto_rainbow_qq2806",
+        "groupName": "auto_normal",
+        "text": "asinSubstituteRelated",
+        "label": "asinSubstituteRelated",
+        "reason": "QQ2806 auto asinSubstituteRelated is a strong receiver and should be scaled one step.",
+        "evidence": [
+          "30d auto asinSubstituteRelated: 13 orders, ACOS about 9.5%",
+          "current bid=0.28"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "372910167566282",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.45,
+        "suggestedBid": 0.5,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "qq2806_b2b_auto_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "265949825016665",
+        "adGroupId": "341785746132375",
+        "campaignName": "autob2b_rainbow_qq2806",
+        "groupName": "autob2b_rainbow_qq2806",
+        "text": "asinSubstituteRelated",
+        "label": "asinSubstituteRelated",
+        "reason": "QQ2806 B2B auto substitute layer is efficient and user asked for stronger expansion.",
+        "evidence": [
+          "30d autob2b asinSubstituteRelated: 2 orders, ACOS about 8.5%",
+          "current bid=0.45; use modest step to 0.50"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "447976517762231",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.46,
+        "suggestedBid": 0.52,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "qq2806_b2b_auto_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "265949825016665",
+        "adGroupId": "341785746132375",
+        "campaignName": "autob2b_rainbow_qq2806",
+        "groupName": "autob2b_rainbow_qq2806",
+        "text": "queryBroadRelMatches",
+        "label": "queryBroadRelMatches",
+        "reason": "QQ2806 B2B broad auto has low-ACOS order history; lift one step to expand effective traffic.",
+        "evidence": [
+          "30d autob2b queryBroadRelMatches: 1 order, ACOS about 4.8%",
+          "current bid=0.46; user requested larger force"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      }
+    ]
+  },
+  {
+    "sku": "TIN2263",
+    "asin": "B0CNR2DGTQ",
+    "operatorRequested": true,
+    "summary": "Effective traffic expansion requested by operator. Actions=3.",
+    "actions": [
+      {
+        "id": "137095771959116",
+        "entityType": "manualTarget",
+        "actionType": "bid",
+        "currentBid": 0.24,
+        "suggestedBid": 0.29,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "tin2263_historical_asin_bid_up",
+        "confidence": 0.82,
+        "campaignId": "202234001367198",
+        "adGroupId": "118508247258426",
+        "campaignName": "asin expanded_cruise ducks_tin2263",
+        "groupName": "asin expanded_cruise ducks_tin2263",
+        "text": "asinExpandedFrom=B0CN965PC2",
+        "label": "asinExpandedFrom=B0CN965PC2",
+        "reason": "TIN2263 historical ASIN B0CN965PC2 is the core receiver; raise before adding new directions.",
+        "evidence": [
+          "30d asinExpandedFrom=B0CN965PC2: 16 orders, ACOS about 8.2%",
+          "7d still converting; current bid=0.24"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "create::TIN2263::keywordTarget::PHRASE::cruise_duck_tags",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "createInput": {
+          "advType": "SP",
+          "mode": "keywordTarget",
+          "sku": "TIN2263",
+          "asin": "B0CNR2DGTQ",
+          "accountId": 510,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.28,
+          "coreTerm": "cruise duck tags",
+          "matchType": "PHRASE",
+          "keywords": [
+            "cruise duck tags",
+            "ducks for cruise ship with tags",
+            "cruise ducks for hiding with tags",
+            "rubber ducks for cruise ships",
+            "duck tags for cruise ship"
+          ]
+        },
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked these SKU traffic entrances to be landed now; bid and budget are bounded and evidence-backed.",
+        "allowDuplicateStructureCreate": true,
+        "riskLevel": "tin2263_missing_keyword_create",
+        "confidence": 0.78,
+        "reason": "TIN2263 lacks keyword entrance while the cruise-duck market and sibling terms convert; create phrase group for buyer-intent queries.",
+        "evidence": [
+          "operator flagged display/click gap",
+          "current TIN2263 has ASIN target but no keyword or auto entrance",
+          "market evidence: cruise duck tags demand is real and low CPC"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "new campaign visibility, impressions, clicks, orders",
+          "target": "open missing or standalone effective traffic entrance"
+        },
+        "reviewPlan": {
+          "1d": "read back campaign/ad group/child rows and verify first impressions",
+          "3d": "keep if clicks are relevant; lower/pause if irrelevant spend appears",
+          "7d": "split winners or rollback losers"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "create::TIN2263::auto::auto::cruise_duck_tags",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "createInput": {
+          "advType": "SP",
+          "mode": "auto",
+          "sku": "TIN2263",
+          "asin": "B0CNR2DGTQ",
+          "accountId": 510,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.25,
+          "coreTerm": "cruise duck tags"
+        },
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked these SKU traffic entrances to be landed now; bid and budget are bounded and evidence-backed.",
+        "allowDuplicateStructureCreate": true,
+        "riskLevel": "tin2263_missing_auto_create",
+        "confidence": 0.78,
+        "reason": "TIN2263 lacks auto entrance; create auto to discover converting cruise-duck queries while ASIN winner continues.",
+        "evidence": [
+          "operator flagged display/click gap",
+          "current TIN2263 has no auto rows in snapshot",
+          "sibling TIN2259 auto query broad converts"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "new campaign visibility, impressions, clicks, orders",
+          "target": "open missing or standalone effective traffic entrance"
+        },
+        "reviewPlan": {
+          "1d": "read back campaign/ad group/child rows and verify first impressions",
+          "3d": "keep if clicks are relevant; lower/pause if irrelevant spend appears",
+          "7d": "split winners or rollback losers"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      }
+    ]
+  },
+  {
+    "sku": "TIN2259",
+    "asin": "B0CNR3VGJ2",
+    "operatorRequested": true,
+    "summary": "Effective traffic expansion requested by operator. Actions=4.",
+    "actions": [
+      {
+        "id": "325023510731415",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.31,
+        "suggestedBid": 0.36,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "tin2259_keyword_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "288008146766362",
+        "adGroupId": "440952345277231",
+        "campaignName": "kw_duck tag cruise_tin2259",
+        "groupName": "kw_duck tag cruise_tin2259",
+        "text": "ducks for cruise ship with tags",
+        "label": "ducks for cruise ship with tags",
+        "reason": "TIN2259 best direct cruise-duck keyword should receive a controlled bid lift.",
+        "evidence": [
+          "30d ducks for cruise ship with tags had order history at low ACOS",
+          "current bid=0.31; low profit means small lift only"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "284795046511774",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.25,
+        "suggestedBid": 0.29,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "tin2259_keyword_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "288008146766362",
+        "adGroupId": "440952345277231",
+        "campaignName": "kw_duck tag cruise_tin2259",
+        "groupName": "kw_duck tag cruise_tin2259",
+        "text": "cruise duck tags",
+        "label": "cruise duck tags",
+        "reason": "TIN2259 cruise duck tags direct term is relevant and needs a small effective-traffic lift.",
+        "evidence": [
+          "direct cruise duck tags keyword exists at bid=0.25",
+          "market evidence supports cruise duck tags but trend is declining, so keep controlled"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "490308235291329",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.24,
+        "suggestedBid": 0.29,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "tin2259_auto_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "469755247048381",
+        "adGroupId": "361105737520305",
+        "campaignName": "duck tags for cruise ducking-tin2259-a2",
+        "groupName": "duck tags for cruise ducking-tin2259-a2",
+        "text": "queryBroadRelMatches",
+        "label": "queryBroadRelMatches",
+        "reason": "TIN2259 queryBroadRelMatches is the efficient auto receiver and should be scaled one step.",
+        "evidence": [
+          "30d auto queryBroadRelMatches carried 9 orders at about 16.6% ACOS; 7d 3 orders at about 11.4% ACOS",
+          "current bid=0.24"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "create::TIN2259::keywordTarget::EXACT::cruise_duck_tags",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "createInput": {
+          "advType": "SP",
+          "mode": "keywordTarget",
+          "sku": "TIN2259",
+          "asin": "B0CNR3VGJ2",
+          "accountId": 510,
+          "siteId": 4,
+          "dailyBudget": 2,
+          "defaultBid": 0.3,
+          "coreTerm": "cruise duck tags",
+          "matchType": "EXACT",
+          "keywords": [
+            "ducks for cruise ship with tags",
+            "cruise duck tags",
+            "rubber ducks for cruise ships",
+            "cruise ducks for hiding with tags"
+          ]
+        },
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked these SKU traffic entrances to be landed now; bid and budget are bounded and evidence-backed.",
+        "allowDuplicateStructureCreate": true,
+        "riskLevel": "tin2259_exact_winner_create",
+        "confidence": 0.78,
+        "reason": "Create a tight exact group from proven cruise-duck terms instead of broad low-margin expansion.",
+        "evidence": [
+          "TIN2259 margin is low, so exact is safer than broad",
+          "existing broad/auto terms are converting and should be isolated as exact winners"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "new campaign visibility, impressions, clicks, orders",
+          "target": "open missing or standalone effective traffic entrance"
+        },
+        "reviewPlan": {
+          "1d": "read back campaign/ad group/child rows and verify first impressions",
+          "3d": "keep if clicks are relevant; lower/pause if irrelevant spend appears",
+          "7d": "split winners or rollback losers"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      }
+    ]
+  },
+  {
+    "sku": "SAN0149",
+    "asin": "B0B8HH4JMS",
+    "operatorRequested": true,
+    "summary": "Effective traffic expansion requested by operator. Actions=5.",
+    "actions": [
+      {
+        "id": "334968976995414",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.32,
+        "suggestedBid": 0.39,
+        "allowLargeBidChange": true,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "san0149_heavy_auto_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "303844277234593",
+        "adGroupId": "514196300815140",
+        "campaignName": "bandana san0149-a",
+        "groupName": "bandana san0149-a",
+        "text": "asinSubstituteRelated",
+        "label": "asinSubstituteRelated",
+        "reason": "SAN0149 ASIN substitute auto is the proven receiver; scale it for volume despite profit-negative boundary.",
+        "evidence": [
+          "30d auto asinSubstituteRelated: 17 orders, ACOS about 9.4%",
+          "SKU profit is negative, so this is volume/clearance traffic, not profit push",
+          "operator requested strong expansion"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "562326945054169",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.2,
+        "suggestedBid": 0.26,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "san0149_heavy_auto_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "303844277234593",
+        "adGroupId": "514196300815140",
+        "campaignName": "bandana san0149-a",
+        "groupName": "bandana san0149-a",
+        "text": "queryBroadRelMatches",
+        "label": "queryBroadRelMatches",
+        "reason": "SAN0149 broad auto converted efficiently and should be lifted for more volume.",
+        "evidence": [
+          "30d queryBroadRelMatches: 2 orders, ACOS about 6.9%",
+          "current bid=0.20; user asked????????"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "369084533661123",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.19,
+        "suggestedBid": 0.23,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "san0149_auto_support_bid_up",
+        "confidence": 0.82,
+        "campaignId": "303844277234593",
+        "adGroupId": "514196300815140",
+        "campaignName": "bandana san0149-a",
+        "groupName": "bandana san0149-a",
+        "text": "queryHighRelMatches",
+        "label": "queryHighRelMatches",
+        "reason": "SAN0149 high-rel auto is relevant; lift slightly as part of heavy effective expansion.",
+        "evidence": [
+          "same auto campaign is carrying current demand",
+          "current bid=0.19; keep below ASIN-substitute winner"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "create::SAN0149::keywordTarget::PHRASE::western_party_favors",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "createInput": {
+          "advType": "SP",
+          "mode": "keywordTarget",
+          "sku": "SAN0149",
+          "asin": "B0B8HH4JMS",
+          "accountId": 528,
+          "siteId": 4,
+          "dailyBudget": 4,
+          "defaultBid": 0.28,
+          "coreTerm": "western party favors",
+          "matchType": "PHRASE",
+          "keywords": [
+            "western party favors",
+            "cowboy party favors",
+            "cowboy party hats",
+            "cowboy hats bulk",
+            "cowboy bandanas bulk"
+          ]
+        },
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked these SKU traffic entrances to be landed now; bid and budget are bounded and evidence-backed.",
+        "allowDuplicateStructureCreate": true,
+        "riskLevel": "san0149_heavy_keyword_create",
+        "confidence": 0.68,
+        "reason": "Create a larger phrase expansion lane for western/cowboy demand as requested, with profit-negative caveat.",
+        "evidence": [
+          "market evidence supports cowboy/western demand volume",
+          "current auto converts but there is no keyword lane",
+          "SKU profit is negative, so review is volume/clearance-oriented"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "new campaign visibility, impressions, clicks, orders",
+          "target": "open missing or standalone effective traffic entrance"
+        },
+        "reviewPlan": {
+          "1d": "read back campaign/ad group/child rows and verify first impressions",
+          "3d": "keep if clicks are relevant; lower/pause if irrelevant spend appears",
+          "7d": "split winners or rollback losers"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "create::SAN0149::auto::auto::western_party_favors",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "createInput": {
+          "advType": "SP",
+          "mode": "auto",
+          "sku": "SAN0149",
+          "asin": "B0B8HH4JMS",
+          "accountId": 528,
+          "siteId": 4,
+          "dailyBudget": 4,
+          "defaultBid": 0.25,
+          "coreTerm": "western party favors"
+        },
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked these SKU traffic entrances to be landed now; bid and budget are bounded and evidence-backed.",
+        "allowDuplicateStructureCreate": true,
+        "riskLevel": "san0149_heavy_auto_create",
+        "confidence": 0.66,
+        "reason": "Add a second auto lane for the western/cowboy direction to expand discovery beyond the existing bandana auto group.",
+        "evidence": [
+          "operator requested heavy effective-traffic expansion",
+          "existing auto is efficient but narrow",
+          "budget/bid are bounded because product profit is negative"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "new campaign visibility, impressions, clicks, orders",
+          "target": "open missing or standalone effective traffic entrance"
+        },
+        "reviewPlan": {
+          "1d": "read back campaign/ad group/child rows and verify first impressions",
+          "3d": "keep if clicks are relevant; lower/pause if irrelevant spend appears",
+          "7d": "split winners or rollback losers"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      }
+    ]
+  },
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "operatorRequested": true,
+    "summary": "Effective traffic expansion requested by operator. Actions=7.",
+    "actions": [
+      {
+        "id": "391719833749255",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.2,
+        "suggestedBid": 0.24,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "kur0501_historical_keyword_bid_up",
+        "confidence": 0.82,
+        "campaignId": "506462874274728",
+        "adGroupId": "500182209065264",
+        "campaignName": "kw_hippie flower car magnet_kur0501",
+        "groupName": "kw_hippie flower car magnet_kur0501",
+        "text": "magnetic car decals",
+        "label": "magnetic car decals",
+        "reason": "KUR0501 historical magnetic car decals keyword has the only meaningful order history; lift it first.",
+        "evidence": [
+          "30d magnetic car decals: 1 order with about 17.6% ACOS",
+          "current bid=0.20; product has 284 sellable days"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "154841744312054",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.2,
+        "suggestedBid": 0.23,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "kur0501_display_click_repair_bid_up",
+        "confidence": 0.82,
+        "campaignId": "195454623715979",
+        "adGroupId": "10863034573384",
+        "campaignName": "ai_kw phrase_flower magnets_kur0501",
+        "groupName": "ai_kw phrase_flower magnets_kur0501",
+        "text": "flower magnets",
+        "label": "flower magnets",
+        "reason": "KUR0501 flower magnets phrase lane needs enough bid to get impressions/clicks.",
+        "evidence": [
+          "newer phrase lane currently bid=0.20",
+          "market evidence supports flower magnets / flower car magnets as relevant adjacent demand"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "215880384486389",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.2,
+        "suggestedBid": 0.23,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "kur0501_display_click_repair_bid_up",
+        "confidence": 0.82,
+        "campaignId": "195454623715979",
+        "adGroupId": "10863034573384",
+        "campaignName": "ai_kw phrase_flower magnets_kur0501",
+        "groupName": "ai_kw phrase_flower magnets_kur0501",
+        "text": "flower car magnets",
+        "label": "flower car magnets",
+        "reason": "KUR0501 flower car magnets phrase is product-fit and should be lifted for measurable traffic.",
+        "evidence": [
+          "phrase flower car magnets currently bid=0.20",
+          "operator asked to expand display/click and effective traffic together"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "416364078446893",
+        "entityType": "autoTarget",
+        "actionType": "enable",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator instructed to prioritize historical converting terms or ASINs before new directions.",
+        "riskLevel": "kur0501_reopen_auto_bucket",
+        "confidence": 0.78,
+        "campaignId": "341283780324260",
+        "adGroupId": "430545249445395",
+        "campaignName": "auto2_hippie flower car magnet_kur0501",
+        "groupName": "auto2_hippie flower car magnet_kur0501",
+        "text": "queryBroadRelMatches",
+        "label": "queryBroadRelMatches",
+        "reason": "Reopen queryBroadRelMatches auto bucket to recover missing display/clicks, with a bounded bid.",
+        "evidence": [
+          "KUR0501 current auto traffic is nearly absent: 7d only 4 clicks overall and 0 ad orders",
+          "operator asked display/click gap plus effective traffic"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "serving state and impressions",
+          "target": "restore historically effective receiver"
+        },
+        "reviewPlan": {
+          "1d": "confirm serving/open state and early impressions",
+          "3d": "keep only if traffic is relevant"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "416364078446893",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.14,
+        "suggestedBid": 0.18,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "kur0501_display_click_repair_bid_up",
+        "confidence": 0.82,
+        "campaignId": "341283780324260",
+        "adGroupId": "430545249445395",
+        "campaignName": "auto2_hippie flower car magnet_kur0501",
+        "groupName": "auto2_hippie flower car magnet_kur0501",
+        "text": "queryBroadRelMatches",
+        "label": "queryBroadRelMatches",
+        "reason": "Set reopened KUR0501 queryBroadRelMatches to a traffic-capable but controlled bid.",
+        "evidence": [
+          "current bid=0.14; product CPC/market needs a higher floor for impressions",
+          "30d SKU ad ACOS is weak, so do not over-scale"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "376105176803937",
+        "entityType": "autoTarget",
+        "actionType": "enable",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator instructed to prioritize historical converting terms or ASINs before new directions.",
+        "riskLevel": "kur0501_reopen_auto_bucket",
+        "confidence": 0.78,
+        "campaignId": "341283780324260",
+        "adGroupId": "430545249445395",
+        "campaignName": "auto2_hippie flower car magnet_kur0501",
+        "groupName": "auto2_hippie flower car magnet_kur0501",
+        "text": "asinSubstituteRelated",
+        "label": "asinSubstituteRelated",
+        "reason": "Reopen ASIN-substitute auto bucket for controlled discovery, not a broad scale.",
+        "evidence": [
+          "auto bucket was not carrying enough traffic; SKU has inventory pressure",
+          "operator requested display/click and effective traffic together"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "serving state and impressions",
+          "target": "restore historically effective receiver"
+        },
+        "reviewPlan": {
+          "1d": "confirm serving/open state and early impressions",
+          "3d": "keep only if traffic is relevant"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "376105176803937",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.1,
+        "suggestedBid": 0.14,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_rising_sku_effective_traffic_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator explicitly asked all target SKUs to be landed; this is restricted to historical/converting or market-supported traffic.",
+        "riskLevel": "kur0501_display_click_repair_bid_up",
+        "confidence": 0.82,
+        "campaignId": "341283780324260",
+        "adGroupId": "430545249445395",
+        "campaignName": "auto2_hippie flower car magnet_kur0501",
+        "groupName": "auto2_hippie flower car magnet_kur0501",
+        "text": "asinSubstituteRelated",
+        "label": "asinSubstituteRelated",
+        "reason": "Set reopened KUR0501 ASIN-substitute bucket to a cautious discovery bid.",
+        "evidence": [
+          "current bid=0.10; keep controlled due weak 30d ACOS",
+          "use alongside magnetic car decals historical winner"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "increase valid traffic without opening unrelated tails"
+        },
+        "reviewPlan": {
+          "3d": "check whether impressions/clicks rose and ACOS stayed acceptable",
+          "7d": "keep winners; roll back if clicks/spend rise without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      }
+    ]
+  }
+]

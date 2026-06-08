@@ -1,0 +1,47 @@
+{
+  "id": "effect_review_2026-05-31_effect_review_1868488d38_3d_goal_met",
+  "status": "active",
+  "source": "effect_review",
+  "generatedAt": "2026-05-31T16:07:01.412Z",
+  "businessDate": "2026-05-31",
+  "scope": {
+    "sku": "GT3801",
+    "asin": "",
+    "taskId": "effect_review::1868488d38::3d",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "verdict": "goal_met"
+  },
+  "condition": {
+    "baselineAsOf": "2026-05-28",
+    "currentAsOf": "2026-05-31",
+    "currentStale": false,
+    "baseline": {
+      "impressions": 12436,
+      "clicks": 115,
+      "spend": 43.78,
+      "orders": 9,
+      "sales": 173.89,
+      "acos": 0.2518
+    },
+    "current": {
+      "impressions": 14223,
+      "clicks": 149,
+      "spend": 77.48,
+      "orders": 10,
+      "sales": 205.89,
+      "acos": 0.3763
+    },
+    "reasons": [
+      "goal_orders_met"
+    ]
+  },
+  "apply": {
+    "recommendation": "close_task_and_preserve_lane_learning",
+    "nextStep": "Goal met; close this review and preserve the lesson.",
+    "doNotCloseWhen": "baselineAsOf_equals_currentAsOf_or_current_metrics_stale"
+  },
+  "lesson": "GT3801 goal_met: Goal met; close this review and preserve the lesson.",
+  "confidence": "medium",
+  "nextValidation": "Use this lesson before repeating the same SKU/action lane."
+}

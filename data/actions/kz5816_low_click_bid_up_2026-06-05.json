@@ -1,0 +1,500 @@
+[
+  {
+    "sku": "KZ5816",
+    "asin": "B0BNHHNB2Q",
+    "operatorRequested": true,
+    "summary": "KZ5816 low impression/click recovery: controlled bottom-layer bid-up on proven converting rows only; no budget change; exclude new SBV ASIN rows and weak no-order auto/SBV rows.",
+    "actions": [
+      {
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "manual",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "operator asked to recover impressions/clicks; execute only proven bottom-layer bid-up rows with live readback",
+        "allowLargeBidChange": true,
+        "confidence": 0.72,
+        "riskLevel": "controlled_bid_up_for_low_click_recovery",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_limited",
+          "orders": "hold_or_up",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "3???/???????????7????????????7?ACOS??30%????????"
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "7d ACOS > 30% or spend rises without order growth",
+          "rollbackIf": "roll back the specific bid-up row only"
+        },
+        "id": "251913938942376",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.37,
+        "suggestedBid": 0.42,
+        "campaignId": "527002120891722",
+        "adGroupId": "395918085864732",
+        "campaignName": "kw_vip party_kz5816",
+        "groupName": "kw_vip party_kz5816",
+        "text": "movie night decorations",
+        "reason": "30?13??5??ACOS 6.82%?????KZ5816 movie night banner?????????bid 0.37???30?CPC????????0.42???????",
+        "evidence": [
+          "live row movie night decorations: 7/30d evidence from backend snapshots on 2026-06-05",
+          "current bid=0.37, suggested bid=0.42",
+          "impressions=8147, clicks=13, spend=4.84, orders=5, sales=70.92, ACOS=0.068245, CPC=0.372307",
+          "no campaign budget increase; parent campaign/ad group enabled"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 5,
+          "to": 6,
+          "deadlineDays": 7,
+          "hardFloor": 4
+        },
+        "verifySource": "kwRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.42
+        }
+      },
+      {
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "manual",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "operator asked to recover impressions/clicks; execute only proven bottom-layer bid-up rows with live readback",
+        "allowLargeBidChange": true,
+        "confidence": 0.72,
+        "riskLevel": "controlled_bid_up_for_low_click_recovery",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_limited",
+          "orders": "hold_or_up",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "3???/???????????7????????????7?ACOS??30%????????"
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "7d ACOS > 30% or spend rises without order growth",
+          "rollbackIf": "roll back the specific bid-up row only"
+        },
+        "id": "84835368484256",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.26,
+        "suggestedBid": 0.32,
+        "campaignId": "527002120891722",
+        "adGroupId": "395918085864732",
+        "campaignName": "kw_vip party_kz5816",
+        "groupName": "kw_vip party_kz5816",
+        "text": "vip sign",
+        "reason": "7?2??2??30?5??3??ACOS 6.04%???bid 0.26????CPC?????????????",
+        "evidence": [
+          "live row vip sign: 7/30d evidence from backend snapshots on 2026-06-05",
+          "current bid=0.26, suggested bid=0.32",
+          "impressions=1193, clicks=5, spend=1.63, orders=3, sales=26.97, ACOS=0.060437, CPC=0.326000",
+          "no campaign budget increase; parent campaign/ad group enabled"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 3,
+          "to": 4,
+          "deadlineDays": 7,
+          "hardFloor": 2
+        },
+        "verifySource": "kwRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.32
+        }
+      },
+      {
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "manual",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "operator asked to recover impressions/clicks; execute only proven bottom-layer bid-up rows with live readback",
+        "allowLargeBidChange": true,
+        "confidence": 0.72,
+        "riskLevel": "controlled_bid_up_for_low_click_recovery",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_limited",
+          "orders": "hold_or_up",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "3???/???????????7????????????7?ACOS??30%????????"
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "7d ACOS > 30% or spend rises without order growth",
+          "rollbackIf": "roll back the specific bid-up row only"
+        },
+        "id": "157083239463453",
+        "entityType": "manualTarget",
+        "actionType": "bid",
+        "currentBid": 0.47,
+        "suggestedBid": 0.52,
+        "campaignId": "128136203487216",
+        "adGroupId": "81572002752970",
+        "campaignName": "asin_vip party_kz5816",
+        "groupName": "asin_vip party_kz5816",
+        "text": "asinExpandedFrom=B0FV8K3YKG",
+        "reason": "KZ5816??ASIN?????30?21??7?5??2??ACOS 11.96%?bid 0.47?CPC 0.43???0.52???????????????ASIN?",
+        "evidence": [
+          "live row asinExpandedFrom=B0FV8K3YKG: 7/30d evidence from backend snapshots on 2026-06-05",
+          "current bid=0.47, suggested bid=0.52",
+          "impressions=1364, clicks=5, spend=2.15, orders=2, sales=17.98, ACOS=0.119577, CPC=0.430000",
+          "no campaign budget increase; parent campaign/ad group enabled"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 2,
+          "to": 3,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "verifySource": "targetRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.52
+        }
+      },
+      {
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "manual",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "operator asked to recover impressions/clicks; execute only proven bottom-layer bid-up rows with live readback",
+        "allowLargeBidChange": true,
+        "confidence": 0.72,
+        "riskLevel": "controlled_bid_up_for_low_click_recovery",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_limited",
+          "orders": "hold_or_up",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "3???/???????????7????????????7?ACOS??30%????????"
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "7d ACOS > 30% or spend rises without order growth",
+          "rollbackIf": "roll back the specific bid-up row only"
+        },
+        "id": "153028564146075",
+        "entityType": "sbKeyword",
+        "actionType": "bid",
+        "currentBid": 0.25,
+        "suggestedBid": 0.3,
+        "campaignId": "46012006236710",
+        "adGroupId": "388788488952804",
+        "campaignName": "sb kw_vip party_kz6722 kz6074 kz5816",
+        "groupName": "",
+        "text": "cinema party decorations",
+        "reason": "SB????30?3??7?3??2??ACOS 4.17%-11.98%?bid 0.25????????????????",
+        "evidence": [
+          "live row cinema party decorations: 7/30d evidence from backend snapshots on 2026-06-05",
+          "current bid=0.25, suggested bid=0.3",
+          "impressions=9768, clicks=12, spend=3.11, orders=3, sales=25.97, ACOS=0.119753, CPC=0.259166",
+          "no campaign budget increase; parent campaign/ad group enabled"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 3,
+          "to": 4,
+          "deadlineDays": 7,
+          "hardFloor": 2
+        },
+        "verifySource": "sbRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.3
+        }
+      },
+      {
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "manual",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "operator asked to recover impressions/clicks; execute only proven bottom-layer bid-up rows with live readback",
+        "allowLargeBidChange": true,
+        "confidence": 0.72,
+        "riskLevel": "controlled_bid_up_for_low_click_recovery",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_limited",
+          "orders": "hold_or_up",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "3???/???????????7????????????7?ACOS??30%????????"
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "7d ACOS > 30% or spend rises without order growth",
+          "rollbackIf": "roll back the specific bid-up row only"
+        },
+        "id": "53306801382580",
+        "entityType": "sbKeyword",
+        "actionType": "bid",
+        "currentBid": 0.25,
+        "suggestedBid": 0.3,
+        "campaignId": "46012006236710",
+        "adGroupId": "388788488952804",
+        "campaignName": "sb kw_vip party_kz6722 kz6074 kz5816",
+        "groupName": "",
+        "text": "film festival party supplies",
+        "reason": "7?2??1??30?1?????/film festival????????0.25?0.30??????",
+        "evidence": [
+          "live row film festival party supplies: 7/30d evidence from backend snapshots on 2026-06-05",
+          "current bid=0.25, suggested bid=0.3",
+          "impressions=2618, clicks=7, spend=1.81, orders=1, sales=8.99, ACOS=0.201334, CPC=0.258571",
+          "no campaign budget increase; parent campaign/ad group enabled"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "verifySource": "sbRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.3
+        }
+      },
+      {
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "manual",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "operator asked to recover impressions/clicks; execute only proven bottom-layer bid-up rows with live readback",
+        "allowLargeBidChange": true,
+        "confidence": 0.72,
+        "riskLevel": "controlled_bid_up_for_low_click_recovery",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_limited",
+          "orders": "hold_or_up",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "3???/???????????7????????????7?ACOS??30%????????"
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "7d ACOS > 30% or spend rises without order growth",
+          "rollbackIf": "roll back the specific bid-up row only"
+        },
+        "id": "72857603414320",
+        "entityType": "sbKeyword",
+        "actionType": "bid",
+        "currentBid": 0.23,
+        "suggestedBid": 0.27,
+        "campaignId": "46012006236710",
+        "adGroupId": "388788488952804",
+        "campaignName": "sb kw_vip party_kz6722 kz6074 kz5816",
+        "groupName": "",
+        "text": "now showing sign",
+        "reason": "7?1??1??30?1???KZ5816 now showing / movie banner????????0.23??0.27?",
+        "evidence": [
+          "live row now showing sign: 7/30d evidence from backend snapshots on 2026-06-05",
+          "current bid=0.23, suggested bid=0.27",
+          "impressions=3743, clicks=5, spend=1.27, orders=1, sales=8.99, ACOS=0.141268, CPC=0.254000",
+          "no campaign budget increase; parent campaign/ad group enabled"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "verifySource": "sbRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.27
+        }
+      },
+      {
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "manual",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "operator asked to recover impressions/clicks; execute only proven bottom-layer bid-up rows with live readback",
+        "allowLargeBidChange": true,
+        "confidence": 0.72,
+        "riskLevel": "controlled_bid_up_for_low_click_recovery",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_limited",
+          "orders": "hold_or_up",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "3???/???????????7????????????7?ACOS??30%????????"
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "7d ACOS > 30% or spend rises without order growth",
+          "rollbackIf": "roll back the specific bid-up row only"
+        },
+        "id": "357774256534314",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.36,
+        "suggestedBid": 0.4,
+        "campaignId": "261784245421408",
+        "adGroupId": "323598684584468",
+        "campaignName": "auto b2b_vip party_kz5816",
+        "groupName": "auto b2b_vip party_kz5816",
+        "text": "auto b2b queryBroadRelMatches",
+        "reason": "B2B??queryBroadRelMatches 7?1??1??ACOS 4.00%?30?B2B???3??????????????????auto???????",
+        "evidence": [
+          "live row auto b2b queryBroadRelMatches: 7/30d evidence from backend snapshots on 2026-06-05",
+          "current bid=0.36, suggested bid=0.4",
+          "impressions=90, clicks=1, spend=0.36, orders=1, sales=8.99, ACOS=0.040044, CPC=0.360000",
+          "no campaign budget increase; parent campaign/ad group enabled"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "verifySource": "autoRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.4
+        }
+      }
+    ]
+  }
+]

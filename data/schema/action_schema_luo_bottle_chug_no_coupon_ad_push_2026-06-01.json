@@ -1,0 +1,170 @@
+[
+  {
+    "sku": "LUO1012",
+    "asin": "B0FHJ4RJH5",
+    "operatorRequested": true,
+    "summary": "No-coupon sell-through push: add controlled SP bid pressure only on the proven bottle-chug keyword for LUO1012.",
+    "actions": [
+      {
+        "id": "439962755111412",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.49,
+        "suggestedBid": 0.56,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": ["codex", "manual"],
+        "source": "codex_luo_bottle_chug_no_coupon_ad_push_2026-06-01",
+        "forceExecute": true,
+        "forceReason": "Operator approved landing the no-coupon ad push; spend should go to validated ad lanes instead of coupon.",
+        "riskLevel": "validated_sp_keyword_small_bid_up",
+        "confidence": 0.82,
+        "campaignId": "484061383361469",
+        "adGroupId": "328735340948112",
+        "campaignName": "kw_bottle chug_luo1012",
+        "groupName": "kw_bottle chug_luo1012",
+        "text": "baby bottle chug games baby shower",
+        "label": "baby bottle chug games baby shower",
+        "reason": "LUO1012 needs no-coupon incremental traffic on the strongest bottle-chug SP term. Live row shows bid 0.49, 23 clicks, spend 9.91, 5 orders, sales 114.95, ACOS 8.62%. Raise to 0.56 instead of applying coupon or opening broad terms.",
+        "evidence": [
+          "live 2026-06-01 /keyword/findAllNew: keywordId=439962755111412 baby bottle chug games baby shower bid=0.49 clicks=23 spend=9.91 orders=5 sales=114.95 ACOS=0.0862",
+          "line target now includes local inventory: all-stock pace needs about 5.1 units/day",
+          "coupon was rejected for now because it carries discount plus fee and can cannibalize natural orders"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 5,
+          "to": 6,
+          "deadlineDays": 7,
+          "hardFloor": 3
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If this keyword spends over 10 in 7 days with fewer than 3 orders or ACOS rises above 25%, restore bid to 0.49."
+        }
+      }
+    ]
+  },
+  {
+    "sku": "LUO1006",
+    "asin": "B0FHHRWSF2",
+    "operatorRequested": true,
+    "summary": "No-coupon sell-through push: add controlled SB/SBV bid pressure on proven brand-video and shared SB rows while leaving broad weak siblings closed.",
+    "actions": [
+      {
+        "id": "292187941978925",
+        "entityType": "sbKeyword",
+        "actionType": "bid",
+        "currentBid": 0.32,
+        "suggestedBid": 0.36,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": ["codex", "manual"],
+        "source": "codex_luo_bottle_chug_no_coupon_ad_push_2026-06-01",
+        "forceExecute": true,
+        "forceReason": "Operator approved landing the no-coupon ad push; this shared SB keyword has conversion proof and is narrower than broad baby-shower traffic.",
+        "riskLevel": "validated_shared_sb_keyword_small_bid_up",
+        "confidence": 0.76,
+        "campaignId": "510906577601481",
+        "adGroupId": "304819105480720",
+        "campaignName": "sb_bottle chug_luo0914 luo1012 luo1006",
+        "groupName": "",
+        "text": "baby bottle for baby shower game",
+        "label": "baby bottle for baby shower game",
+        "reason": "Shared SB keyword has live conversion proof at very low cost: bid 0.32, 2 clicks, spend 0.51, 1 order, sales 22.99, ACOS 2.22%. Raise one step to 0.36 while keeping sibling paused broad terms closed.",
+        "evidence": [
+          "live 2026-06-01 /keyword/findAllNew property=4: keywordId=292187941978925 bid=0.32 clicks=2 spend=0.51 orders=1 sales=22.99 ACOS=0.0222",
+          "campaignId=510906577601481 and adGroupId=304819105480720 are enabled in live readback",
+          "old SB sibling broad terms remain excluded from the push"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If this SB keyword spends over 5 in 3 days with 0 orders or 7d ACOS rises above 45%, restore bid to 0.32 or pause."
+        }
+      },
+      {
+        "id": "457276860636557",
+        "entityType": "sbKeyword",
+        "actionType": "bid",
+        "currentBid": 0.35,
+        "suggestedBid": 0.40,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": ["codex", "manual"],
+        "source": "codex_luo_bottle_chug_no_coupon_ad_push_2026-06-01",
+        "forceExecute": true,
+        "forceReason": "Operator approved landing the no-coupon ad push; this SBV term has conversion proof and small spend.",
+        "riskLevel": "validated_sbv_keyword_small_bid_up",
+        "confidence": 0.74,
+        "campaignId": "327693028915431",
+        "adGroupId": "559341917780504",
+        "campaignName": "sbvkw_bottle chug_luo1006",
+        "groupName": "",
+        "text": "cheap baby bottles for chug games",
+        "label": "cheap baby bottles for chug games",
+        "reason": "LUO1006 SBV term has tiny but strong conversion proof: bid 0.35, 2 clicks, spend 0.73, 1 order, sales 22.99, ACOS 3.18%. Raise to 0.40 to buy more demonstrative video traffic instead of coupon.",
+        "evidence": [
+          "live 2026-06-01 /keyword/findAllNew property=4: keywordId=457276860636557 bid=0.35 clicks=2 spend=0.73 orders=1 sales=22.99 ACOS=0.0318",
+          "campaign sbvkw_bottle chug_luo1006 is enabled",
+          "SBV is appropriate for bottle-chug gameplay demonstration and remains narrower than broad baby-shower terms"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If this SBV keyword spends over 5 with 0 additional orders or 7d ACOS rises above 35%, restore bid to 0.35."
+        }
+      },
+      {
+        "id": "327229045309634",
+        "entityType": "sbKeyword",
+        "actionType": "bid",
+        "currentBid": 0.35,
+        "suggestedBid": 0.40,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": ["codex", "manual"],
+        "source": "codex_luo_bottle_chug_no_coupon_ad_push_2026-06-01",
+        "forceExecute": true,
+        "forceReason": "Operator approved landing the no-coupon ad push; this SBV term has conversion proof and tiny spend.",
+        "riskLevel": "validated_sbv_keyword_small_bid_up",
+        "confidence": 0.72,
+        "campaignId": "327693028915431",
+        "adGroupId": "559341917780504",
+        "campaignName": "sbvkw_bottle chug_luo1006",
+        "groupName": "",
+        "text": "poopy diaper baby shower game",
+        "label": "poopy diaper baby shower game",
+        "reason": "LUO1006 SBV term has tiny but strong conversion proof: bid 0.35, 1 click, spend 0.37, 1 order, sales 22.99, ACOS 1.61%. Raise to 0.40 as a small video-traffic expansion.",
+        "evidence": [
+          "live 2026-06-01 /keyword/findAllNew property=4: keywordId=327229045309634 bid=0.35 clicks=1 spend=0.37 orders=1 sales=22.99 ACOS=0.0161",
+          "campaign sbvkw_bottle chug_luo1006 is enabled",
+          "this is not a broad expansion; LUO0914/LUO1051 weak SBV rows are excluded"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If this SBV keyword spends over 5 with 0 additional orders or 7d ACOS rises above 35%, restore bid to 0.35."
+        }
+      }
+    ]
+  }
+]

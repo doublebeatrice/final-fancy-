@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-05-24T01:27:18.109Z",
+  "generatedAt": "2026-05-29T10:22:01.784Z",
   "time": {
-    "runAt": "2026-05-24T01:24:11.677Z",
-    "businessDate": "2026-05-23",
-    "localDate": "2026-05-24",
-    "dataDate": "2026-05-22",
+    "runAt": "2026-05-29T10:14:29.875Z",
+    "businessDate": "2026-05-29",
+    "localDate": "2026-05-29",
+    "dataDate": "2026-05-28",
     "siteTimezone": "America/Los_Angeles",
     "localTimezone": "Asia/Shanghai",
-    "sourceRunId": "today_ops_2026-05-24T01-24-11-677Z",
-    "siteLocalTime": "2026-05-23T18:24:11",
-    "localTime": "2026-05-24T09:24:11",
+    "sourceRunId": "today_ops_2026-05-29T10-14-29-875Z",
+    "siteLocalTime": "2026-05-29T03:14:29",
+    "localTime": "2026-05-29T18:14:29",
     "dataLagDays": 1
   },
   "policy": {
@@ -26,12 +26,13 @@
     "taskCards": {
       "P0": {
         "count": 40,
-        "executable": 40,
-        "reviewRequired": 0,
+        "executable": 39,
+        "reviewRequired": 1,
         "missingData": 0,
         "byTaskType": {
-          "profit_bleeding": 20,
-          "stale_inventory_risk": 20
+          "reserved_page_watch": 1,
+          "profit_bleeding": 28,
+          "stale_inventory_risk": 11
         }
       },
       "P1": {
@@ -40,9 +41,9 @@
         "reviewRequired": 31,
         "missingData": 0,
         "byTaskType": {
-          "season_peak": 8,
-          "season_preheat": 2,
-          "inventory_tight": 30
+          "season_peak": 5,
+          "season_preheat": 4,
+          "inventory_tight": 31
         }
       },
       "P2": {
@@ -70,7 +71,75 @@
   "tasks": {
     "P0": [
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::SHQ3955::B0GT33N8Y4",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::LEM8356::B0GDTG4MW9",
+        "priority": "P0",
+        "sku": "LEM8356",
+        "asin": "B0GDTG4MW9",
+        "primaryTaskType": "reserved_page_watch",
+        "decisionSummary": "Treat this as a page/watch decision, not an ad build opportunity.",
+        "keyEvidence": {
+          "sales": {
+            "units7d": 0,
+            "units30d": 0,
+            "profitRate": -0.3265,
+            "netProfit": 0.0053,
+            "yoySalesPct": 0
+          },
+          "ads": {
+            "spend7d": 0,
+            "orders7d": 0,
+            "acos7d": 0,
+            "spend30d": 0,
+            "orders30d": 0,
+            "acos30d": 0,
+            "adDependency": 0
+          },
+          "inventory": {
+            "ful": 5,
+            "res": 0,
+            "local": 2,
+            "sellableDays": 999,
+            "staleRisk": true
+          },
+          "product": {
+            "productType": "gift basket",
+            "isSeasonal": false,
+            "isReservedPage": true,
+            "variantGroup": "",
+            "seasonWindows": [
+              {
+                "key": "nurse_week",
+                "label": "Nurse Week",
+                "phase": "tail"
+              }
+            ],
+            "operatingFinalAction": "page_hold_do_not_create"
+          }
+        },
+        "candidateActions": [
+          "manual_review_reserved_page_do_not_create_or_scale",
+          "reserved_page_watch",
+          "stale_inventory_risk",
+          "ad_structure_missing",
+          "season_tail",
+          "seven_day_unadjusted"
+        ],
+        "risks": [
+          "reserved_page_hard_guardrail",
+          "provisional_local_policy_not_external_ai",
+          "reserved_overseason_page_cannot_create_or_scale_ads"
+        ],
+        "missingData": [],
+        "historyActionSummary": {
+          "lastAdjustedAt": null,
+          "cooldown": null
+        },
+        "executableHint": false,
+        "reviewRequired": true,
+        "confidence": 0.9
+      },
+      {
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::SHQ3955::B0GT33N8Y4",
         "priority": "P0",
         "sku": "SHQ3955",
         "asin": "B0GT33N8Y4",
@@ -78,26 +147,207 @@
         "decisionSummary": "Stop or reduce waste before considering expansion.",
         "keyEvidence": {
           "sales": {
-            "units7d": 4,
-            "units30d": 6,
-            "profitRate": 0.1748,
-            "netProfit": 0.2524,
+            "units7d": 3,
+            "units30d": 8,
+            "profitRate": 0.169,
+            "netProfit": 0.2232,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 5.3100000000000005,
+            "spend7d": 10.050000000000002,
             "orders7d": 0,
             "acos7d": 99,
-            "spend30d": 16.569999999999997,
+            "spend30d": 37.88,
             "orders30d": 0,
             "acos30d": 99,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 22,
+            "ful": 29,
             "res": 0,
             "local": 1,
-            "sellableDays": 160,
+            "sellableDays": 113,
+            "staleRisk": false
+          },
+          "product": {
+            "productType": "jewelry",
+            "isSeasonal": true,
+            "isReservedPage": false,
+            "variantGroup": "",
+            "seasonWindows": [],
+            "operatingFinalAction": "normal_push_sell_through"
+          }
+        },
+        "candidateActions": [
+          "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
+          "profit_bleeding",
+          "seven_day_unadjusted"
+        ],
+        "risks": [
+          "verify_entity_level_before_execution",
+          "provisional_local_policy_not_external_ai"
+        ],
+        "missingData": [],
+        "historyActionSummary": {
+          "lastAdjustedAt": null,
+          "cooldown": null
+        },
+        "executableHint": true,
+        "reviewRequired": false,
+        "confidence": 0.76
+      },
+      {
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::STY6101::B0GQMGB44G",
+        "priority": "P0",
+        "sku": "STY6101",
+        "asin": "B0GQMGB44G",
+        "primaryTaskType": "profit_bleeding",
+        "decisionSummary": "Stop or reduce waste before considering expansion.",
+        "keyEvidence": {
+          "sales": {
+            "units7d": 3,
+            "units30d": 27,
+            "profitRate": -0.2073,
+            "netProfit": 0.1014,
+            "yoySalesPct": 0
+          },
+          "ads": {
+            "spend7d": 41.61000000000001,
+            "orders7d": 0,
+            "acos7d": 99,
+            "spend30d": 396.92999999999995,
+            "orders30d": 34,
+            "acos30d": 0.22443452838898287,
+            "adDependency": 0
+          },
+          "inventory": {
+            "ful": 40,
+            "res": 0,
+            "local": 1,
+            "sellableDays": 49,
+            "staleRisk": false
+          },
+          "product": {
+            "productType": "decor",
+            "isSeasonal": true,
+            "isReservedPage": false,
+            "variantGroup": "",
+            "seasonWindows": [],
+            "operatingFinalAction": "normal_push"
+          }
+        },
+        "candidateActions": [
+          "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
+          "profit_bleeding",
+          "ad_structure_missing"
+        ],
+        "risks": [
+          "verify_entity_level_before_execution",
+          "provisional_local_policy_not_external_ai"
+        ],
+        "missingData": [],
+        "historyActionSummary": {
+          "lastAdjustedAt": "2026-05-29T09:22:12.375Z",
+          "cooldown": null
+        },
+        "executableHint": true,
+        "reviewRequired": false,
+        "confidence": 0.76
+      },
+      {
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::MF6292::B0GMNCFTF2",
+        "priority": "P0",
+        "sku": "MF6292",
+        "asin": "B0GMNCFTF2",
+        "primaryTaskType": "profit_bleeding",
+        "decisionSummary": "Stop or reduce waste before considering expansion.",
+        "keyEvidence": {
+          "sales": {
+            "units7d": 2,
+            "units30d": 7,
+            "profitRate": 0.0082,
+            "netProfit": -0.155,
+            "yoySalesPct": 0
+          },
+          "ads": {
+            "spend7d": 9.589999999999998,
+            "orders7d": 0,
+            "acos7d": 99,
+            "spend30d": 98.05,
+            "orders30d": 12,
+            "acos30d": 0.3892726695251707,
+            "adDependency": 0
+          },
+          "inventory": {
+            "ful": 90,
+            "res": 0,
+            "local": 1,
+            "sellableDays": 390,
+            "staleRisk": false
+          },
+          "product": {
+            "productType": "decor",
+            "isSeasonal": true,
+            "isReservedPage": false,
+            "variantGroup": "",
+            "seasonWindows": [
+              {
+                "key": "summer",
+                "label": "Summer",
+                "phase": "preheat"
+              }
+            ],
+            "operatingFinalAction": "normal_push_sell_through"
+          }
+        },
+        "candidateActions": [
+          "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
+          "profit_bleeding",
+          "ad_structure_missing",
+          "season_preheat"
+        ],
+        "risks": [
+          "verify_entity_level_before_execution",
+          "provisional_local_policy_not_external_ai"
+        ],
+        "missingData": [],
+        "historyActionSummary": {
+          "lastAdjustedAt": "2026-05-29T09:22:12.375Z",
+          "cooldown": null
+        },
+        "executableHint": true,
+        "reviewRequired": false,
+        "confidence": 0.76
+      },
+      {
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::OB4139::B0GJRV1TCQ",
+        "priority": "P0",
+        "sku": "OB4139",
+        "asin": "B0GJRV1TCQ",
+        "primaryTaskType": "profit_bleeding",
+        "decisionSummary": "Stop or reduce waste before considering expansion.",
+        "keyEvidence": {
+          "sales": {
+            "units7d": 4,
+            "units30d": 74,
+            "profitRate": -0.0369,
+            "netProfit": 0.2899,
+            "yoySalesPct": 0
+          },
+          "ads": {
+            "spend7d": 5.970000000000001,
+            "orders7d": 0,
+            "acos7d": 99,
+            "spend30d": 141.73999999999998,
+            "orders30d": 56,
+            "acos30d": 0.08194195357296219,
+            "adDependency": 0
+          },
+          "inventory": {
+            "ful": 7,
+            "res": 0,
+            "local": 0,
+            "sellableDays": 4,
             "staleRisk": false
           },
           "product": {
@@ -107,17 +357,25 @@
             "variantGroup": "",
             "seasonWindows": [
               {
-                "key": "mothers_day",
-                "label": "Mother's Day",
+                "key": "wedding",
+                "label": "Wedding Season",
+                "phase": "peak"
+              },
+              {
+                "key": "nurse_week",
+                "label": "Nurse Week",
                 "phase": "tail"
               }
             ],
-            "operatingFinalAction": "normal_push_sell_through"
+            "operatingFinalAction": "hold_or_light_test"
           }
         },
         "candidateActions": [
           "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
           "profit_bleeding",
+          "inventory_tight",
+          "ad_structure_missing",
+          "season_peak",
           "season_tail",
           "seven_day_unadjusted"
         ],
@@ -135,7 +393,7 @@
         "confidence": 0.76
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::YEO1463::B0GHXLR9YP",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::YEO1463::B0GHXLR9YP",
         "priority": "P0",
         "sku": "YEO1463",
         "asin": "B0GHXLR9YP",
@@ -143,85 +401,26 @@
         "decisionSummary": "Stop or reduce waste before considering expansion.",
         "keyEvidence": {
           "sales": {
-            "units7d": 0,
-            "units30d": 6,
+            "units7d": 1,
+            "units30d": 4,
             "profitRate": 0.0144,
-            "netProfit": 0.0313,
+            "netProfit": 0.0054,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 9.629999999999999,
+            "spend7d": 7.040000000000001,
             "orders7d": 0,
             "acos7d": 99,
-            "spend30d": 74.69000000000001,
-            "orders30d": 12,
-            "acos30d": 0.22982062780269064,
+            "spend30d": 54.400000000000006,
+            "orders30d": 6,
+            "acos30d": 0.3263194204898241,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 81,
+            "ful": 80,
             "res": 0,
             "local": 2,
-            "sellableDays": 430,
-            "staleRisk": false
-          },
-          "product": {
-            "productType": "apparel",
-            "isSeasonal": false,
-            "isReservedPage": false,
-            "variantGroup": "",
-            "seasonWindows": [],
-            "operatingFinalAction": "light_test"
-          }
-        },
-        "candidateActions": [
-          "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
-          "profit_bleeding",
-          "ad_structure_missing",
-          "seven_day_unadjusted"
-        ],
-        "risks": [
-          "verify_entity_level_before_execution",
-          "provisional_local_policy_not_external_ai"
-        ],
-        "missingData": [],
-        "historyActionSummary": {
-          "lastAdjustedAt": null,
-          "cooldown": null
-        },
-        "executableHint": true,
-        "reviewRequired": false,
-        "confidence": 0.76
-      },
-      {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::LE8173::B0GGRYHLW4",
-        "priority": "P0",
-        "sku": "LE8173",
-        "asin": "B0GGRYHLW4",
-        "primaryTaskType": "profit_bleeding",
-        "decisionSummary": "Stop or reduce waste before considering expansion.",
-        "keyEvidence": {
-          "sales": {
-            "units7d": 1,
-            "units30d": 25,
-            "profitRate": 0.0524,
-            "netProfit": 0.101,
-            "yoySalesPct": 0
-          },
-          "ads": {
-            "spend7d": 10.37,
-            "orders7d": 0,
-            "acos7d": 99,
-            "spend30d": 192.23999999999998,
-            "orders30d": 36,
-            "acos30d": 0.27178451178451174,
-            "adDependency": 0
-          },
-          "inventory": {
-            "ful": 75,
-            "res": 0,
-            "local": 0,
-            "sellableDays": 90,
+            "sellableDays": 645,
             "staleRisk": false
           },
           "product": {
@@ -231,9 +430,9 @@
             "variantGroup": "",
             "seasonWindows": [
               {
-                "key": "graduation",
-                "label": "Graduation",
-                "phase": "peak"
+                "key": "summer",
+                "label": "Summer",
+                "phase": "preheat"
               }
             ],
             "operatingFinalAction": "normal_push_sell_through"
@@ -242,66 +441,9 @@
         "candidateActions": [
           "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
           "profit_bleeding",
-          "season_peak",
-          "seven_day_unadjusted"
-        ],
-        "risks": [
-          "verify_entity_level_before_execution",
-          "provisional_local_policy_not_external_ai"
-        ],
-        "missingData": [],
-        "historyActionSummary": {
-          "lastAdjustedAt": null,
-          "cooldown": null
-        },
-        "executableHint": true,
-        "reviewRequired": false,
-        "confidence": 0.76
-      },
-      {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::XUE2224::B0G6ZT57YR",
-        "priority": "P0",
-        "sku": "XUE2224",
-        "asin": "B0G6ZT57YR",
-        "primaryTaskType": "profit_bleeding",
-        "decisionSummary": "Stop or reduce waste before considering expansion.",
-        "keyEvidence": {
-          "sales": {
-            "units7d": 0,
-            "units30d": 9,
-            "profitRate": -0.38,
-            "netProfit": 0.0663,
-            "yoySalesPct": 0
-          },
-          "ads": {
-            "spend7d": 9.53,
-            "orders7d": 0,
-            "acos7d": 99,
-            "spend30d": 132.08,
-            "orders30d": 9,
-            "acos30d": 0.3876678073177152,
-            "adDependency": 0
-          },
-          "inventory": {
-            "ful": 24,
-            "res": 0,
-            "local": 30,
-            "sellableDays": 94,
-            "staleRisk": false
-          },
-          "product": {
-            "productType": "gift basket",
-            "isSeasonal": true,
-            "isReservedPage": false,
-            "variantGroup": "",
-            "seasonWindows": [],
-            "operatingFinalAction": "normal_push_sell_through"
-          }
-        },
-        "candidateActions": [
-          "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
-          "profit_bleeding",
+          "stale_inventory_risk",
           "ad_structure_missing",
+          "season_preheat",
           "seven_day_unadjusted"
         ],
         "risks": [
@@ -318,73 +460,7 @@
         "confidence": 0.76
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::LO3817::B0G4R61LRM",
-        "priority": "P0",
-        "sku": "LO3817",
-        "asin": "B0G4R61LRM",
-        "primaryTaskType": "profit_bleeding",
-        "decisionSummary": "Stop or reduce waste before considering expansion.",
-        "keyEvidence": {
-          "sales": {
-            "units7d": 1,
-            "units30d": 58,
-            "profitRate": -0.0447,
-            "netProfit": -0.0048,
-            "yoySalesPct": 0
-          },
-          "ads": {
-            "spend7d": 5.959999999999999,
-            "orders7d": 0,
-            "acos7d": 99,
-            "spend30d": 304.38,
-            "orders30d": 46,
-            "acos30d": 0.40086887835703006,
-            "adDependency": 0
-          },
-          "inventory": {
-            "ful": 112,
-            "res": 0,
-            "local": 1,
-            "sellableDays": 62,
-            "staleRisk": false
-          },
-          "product": {
-            "productType": "unknown",
-            "isSeasonal": true,
-            "isReservedPage": false,
-            "variantGroup": "",
-            "seasonWindows": [
-              {
-                "key": "mothers_day",
-                "label": "Mother's Day",
-                "phase": "tail"
-              }
-            ],
-            "operatingFinalAction": "normal_push_sell_through"
-          }
-        },
-        "candidateActions": [
-          "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
-          "profit_bleeding",
-          "ad_structure_missing",
-          "season_tail",
-          "seven_day_unadjusted"
-        ],
-        "risks": [
-          "verify_entity_level_before_execution",
-          "provisional_local_policy_not_external_ai"
-        ],
-        "missingData": [],
-        "historyActionSummary": {
-          "lastAdjustedAt": null,
-          "cooldown": null
-        },
-        "executableHint": true,
-        "reviewRequired": false,
-        "confidence": 0.76
-      },
-      {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::YUT4460::B0DX13SR8F",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::YUT4460::B0DX13SR8F",
         "priority": "P0",
         "sku": "YUT4460",
         "asin": "B0DX13SR8F",
@@ -392,26 +468,26 @@
         "decisionSummary": "Stop or reduce waste before considering expansion.",
         "keyEvidence": {
           "sales": {
-            "units7d": 3,
-            "units30d": 12,
-            "profitRate": 0.0982,
-            "netProfit": 0.1531,
+            "units7d": 9,
+            "units30d": 19,
+            "profitRate": 0.0304,
+            "netProfit": 0.1451,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 5.83,
+            "spend7d": 7.17,
             "orders7d": 0,
             "acos7d": 99,
-            "spend30d": 65.11999999999999,
-            "orders30d": 9,
-            "acos30d": 0.41757285776424535,
+            "spend30d": 57.78000000000001,
+            "orders30d": 5,
+            "acos30d": 99,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 67,
+            "ful": 61,
             "res": 0,
             "local": 0,
-            "sellableDays": 183,
+            "sellableDays": 117,
             "staleRisk": false
           },
           "product": {
@@ -449,7 +525,151 @@
         "confidence": 0.76
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::YUT2844::B0BDRFT6F4",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::YUT4458::B0D1VMCWXL",
+        "priority": "P0",
+        "sku": "YUT4458",
+        "asin": "B0D1VMCWXL",
+        "primaryTaskType": "profit_bleeding",
+        "decisionSummary": "Stop or reduce waste before considering expansion.",
+        "keyEvidence": {
+          "sales": {
+            "units7d": 3,
+            "units30d": 7,
+            "profitRate": 0.0272,
+            "netProfit": -0.083,
+            "yoySalesPct": 0
+          },
+          "ads": {
+            "spend7d": 5.600000000000001,
+            "orders7d": 0,
+            "acos7d": 99,
+            "spend30d": 57.46,
+            "orders30d": 2,
+            "acos30d": 1.3687470223916152,
+            "adDependency": 0
+          },
+          "inventory": {
+            "ful": 62,
+            "res": 0,
+            "local": 0,
+            "sellableDays": 313,
+            "staleRisk": false
+          },
+          "product": {
+            "productType": "gift basket",
+            "isSeasonal": true,
+            "isReservedPage": false,
+            "variantGroup": "",
+            "seasonWindows": [
+              {
+                "key": "summer",
+                "label": "Summer",
+                "phase": "preheat"
+              }
+            ],
+            "operatingFinalAction": "normal_push"
+          }
+        },
+        "candidateActions": [
+          "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
+          "profit_bleeding",
+          "ad_structure_missing",
+          "season_preheat",
+          "seven_day_unadjusted"
+        ],
+        "risks": [
+          "verify_entity_level_before_execution",
+          "provisional_local_policy_not_external_ai"
+        ],
+        "missingData": [],
+        "historyActionSummary": {
+          "lastAdjustedAt": null,
+          "cooldown": null
+        },
+        "executableHint": true,
+        "reviewRequired": false,
+        "confidence": 0.76
+      },
+      {
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::LE5044::B0G23F3KD7",
+        "priority": "P0",
+        "sku": "LE5044",
+        "asin": "B0G23F3KD7",
+        "primaryTaskType": "profit_bleeding",
+        "decisionSummary": "Stop or reduce waste before considering expansion.",
+        "keyEvidence": {
+          "sales": {
+            "units7d": 2,
+            "units30d": 16,
+            "profitRate": -0.0445,
+            "netProfit": 0.0993,
+            "yoySalesPct": 0
+          },
+          "ads": {
+            "spend7d": 9.58,
+            "orders7d": 0,
+            "acos7d": 99,
+            "spend30d": 44.760000000000005,
+            "orders30d": 6,
+            "acos30d": 99,
+            "adDependency": 0
+          },
+          "inventory": {
+            "ful": 79,
+            "res": 0,
+            "local": 0,
+            "sellableDays": 160,
+            "staleRisk": false
+          },
+          "product": {
+            "productType": "gift basket",
+            "isSeasonal": true,
+            "isReservedPage": false,
+            "variantGroup": "",
+            "seasonWindows": [
+              {
+                "key": "graduation",
+                "label": "Graduation",
+                "phase": "peak"
+              },
+              {
+                "key": "summer",
+                "label": "Summer",
+                "phase": "preheat"
+              },
+              {
+                "key": "mothers_day",
+                "label": "Mother's Day",
+                "phase": "tail"
+              }
+            ],
+            "operatingFinalAction": "normal_push_sell_through"
+          }
+        },
+        "candidateActions": [
+          "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
+          "profit_bleeding",
+          "ad_structure_missing",
+          "season_peak",
+          "season_preheat",
+          "season_tail",
+          "seven_day_unadjusted"
+        ],
+        "risks": [
+          "verify_entity_level_before_execution",
+          "provisional_local_policy_not_external_ai"
+        ],
+        "missingData": [],
+        "historyActionSummary": {
+          "lastAdjustedAt": null,
+          "cooldown": null
+        },
+        "executableHint": true,
+        "reviewRequired": false,
+        "confidence": 0.76
+      },
+      {
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::YUT2844::B0BDRFT6F4",
         "priority": "P0",
         "sku": "YUT2844",
         "asin": "B0BDRFT6F4",
@@ -457,209 +677,30 @@
         "decisionSummary": "Stop or reduce waste before considering expansion.",
         "keyEvidence": {
           "sales": {
-            "units7d": 8,
-            "units30d": 44,
-            "profitRate": -0.0471,
-            "netProfit": 0.2884,
-            "yoySalesPct": 0
-          },
-          "ads": {
-            "spend7d": 5.82,
-            "orders7d": 0,
-            "acos7d": 99,
-            "spend30d": 77.35,
-            "orders30d": 4,
-            "acos30d": 0.42047184170471835,
-            "adDependency": 0
-          },
-          "inventory": {
-            "ful": 16,
-            "res": 0,
-            "local": 18,
-            "sellableDays": 18,
-            "staleRisk": false
-          },
-          "product": {
-            "productType": "unknown",
-            "isSeasonal": true,
-            "isReservedPage": false,
-            "variantGroup": "",
-            "seasonWindows": [],
-            "operatingFinalAction": "light_test"
-          }
-        },
-        "candidateActions": [
-          "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
-          "profit_bleeding",
-          "inventory_tight",
-          "ad_structure_missing",
-          "seven_day_unadjusted"
-        ],
-        "risks": [
-          "verify_entity_level_before_execution",
-          "provisional_local_policy_not_external_ai"
-        ],
-        "missingData": [],
-        "historyActionSummary": {
-          "lastAdjustedAt": null,
-          "cooldown": null
-        },
-        "executableHint": true,
-        "reviewRequired": false,
-        "confidence": 0.76
-      },
-      {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::YUT2840::B0BDRJ2D98",
-        "priority": "P0",
-        "sku": "YUT2840",
-        "asin": "B0BDRJ2D98",
-        "primaryTaskType": "profit_bleeding",
-        "decisionSummary": "Stop or reduce waste before considering expansion.",
-        "keyEvidence": {
-          "sales": {
             "units7d": 4,
-            "units30d": 28,
-            "profitRate": 0.0637,
-            "netProfit": 0.253,
+            "units30d": 42,
+            "profitRate": -0.0471,
+            "netProfit": 0.2907,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 5.26,
+            "spend7d": 8.74,
             "orders7d": 0,
             "acos7d": 99,
-            "spend30d": 112.24000000000001,
-            "orders30d": 12,
-            "acos30d": 0.21262408123058274,
+            "spend30d": 67.48,
+            "orders30d": 4,
+            "acos30d": 0.3668188736681887,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 8,
+            "ful": 21,
             "res": 0,
-            "local": 22,
-            "sellableDays": 11,
+            "local": 2,
+            "sellableDays": 16,
             "staleRisk": false
           },
           "product": {
             "productType": "unknown",
-            "isSeasonal": false,
-            "isReservedPage": false,
-            "variantGroup": "",
-            "seasonWindows": [],
-            "operatingFinalAction": "light_test"
-          }
-        },
-        "candidateActions": [
-          "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
-          "profit_bleeding",
-          "inventory_tight",
-          "ad_structure_missing",
-          "seven_day_unadjusted"
-        ],
-        "risks": [
-          "verify_entity_level_before_execution",
-          "provisional_local_policy_not_external_ai"
-        ],
-        "missingData": [],
-        "historyActionSummary": {
-          "lastAdjustedAt": null,
-          "cooldown": null
-        },
-        "executableHint": true,
-        "reviewRequired": false,
-        "confidence": 0.76
-      },
-      {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::YUT2590::B0BDL42VW7",
-        "priority": "P0",
-        "sku": "YUT2590",
-        "asin": "B0BDL42VW7",
-        "primaryTaskType": "profit_bleeding",
-        "decisionSummary": "Stop or reduce waste before considering expansion.",
-        "keyEvidence": {
-          "sales": {
-            "units7d": 3,
-            "units30d": 28,
-            "profitRate": -0.1794,
-            "netProfit": 0.2374,
-            "yoySalesPct": 0
-          },
-          "ads": {
-            "spend7d": 5.8500000000000005,
-            "orders7d": 0,
-            "acos7d": 99,
-            "spend30d": 133.19,
-            "orders30d": 25,
-            "acos30d": 0.3815873829978203,
-            "adDependency": 0
-          },
-          "inventory": {
-            "ful": 23,
-            "res": 0,
-            "local": 30,
-            "sellableDays": 25,
-            "staleRisk": false
-          },
-          "product": {
-            "productType": "unknown",
-            "isSeasonal": false,
-            "isReservedPage": false,
-            "variantGroup": "",
-            "seasonWindows": [],
-            "operatingFinalAction": "light_test"
-          }
-        },
-        "candidateActions": [
-          "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
-          "profit_bleeding",
-          "ad_structure_missing",
-          "seven_day_unadjusted"
-        ],
-        "risks": [
-          "verify_entity_level_before_execution",
-          "provisional_local_policy_not_external_ai"
-        ],
-        "missingData": [],
-        "historyActionSummary": {
-          "lastAdjustedAt": null,
-          "cooldown": null
-        },
-        "executableHint": true,
-        "reviewRequired": false,
-        "confidence": 0.76
-      },
-      {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::LUO1051::B0FL2FHX6Y",
-        "priority": "P0",
-        "sku": "LUO1051",
-        "asin": "B0FL2FHX6Y",
-        "primaryTaskType": "profit_bleeding",
-        "decisionSummary": "Stop or reduce waste before considering expansion.",
-        "keyEvidence": {
-          "sales": {
-            "units7d": 0,
-            "units30d": 6,
-            "profitRate": -0.2495,
-            "netProfit": -0.3932,
-            "yoySalesPct": 0
-          },
-          "ads": {
-            "spend7d": 16.17,
-            "orders7d": 0,
-            "acos7d": 99,
-            "spend30d": 97.93,
-            "orders30d": 12,
-            "acos30d": 0.41916780354706684,
-            "adDependency": 0
-          },
-          "inventory": {
-            "ful": 73,
-            "res": 0,
-            "local": 39,
-            "sellableDays": 365,
-            "staleRisk": false
-          },
-          "product": {
-            "productType": "jewelry",
             "isSeasonal": true,
             "isReservedPage": false,
             "variantGroup": "",
@@ -670,6 +711,7 @@
         "candidateActions": [
           "reduce_or_pause_loss_making_ads_via_existing_dry_run_execute_flow",
           "profit_bleeding",
+          "inventory_tight",
           "ad_structure_missing",
           "seven_day_unadjusted"
         ],
@@ -689,38 +731,38 @@
     ],
     "P1": [
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::OCE2575::B0GN55FC6F",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::SHQ3950::B0GT3G8TG6",
         "priority": "P1",
-        "sku": "OCE2575",
-        "asin": "B0GN55FC6F",
+        "sku": "SHQ3950",
+        "asin": "B0GT3G8TG6",
         "primaryTaskType": "season_peak",
         "decisionSummary": "Do not let active seasonal products be suppressed behind generic daily task limits.",
         "keyEvidence": {
           "sales": {
-            "units7d": 1,
-            "units30d": 16,
-            "profitRate": 0.2842,
-            "netProfit": -0.2347,
+            "units7d": 9,
+            "units30d": 20,
+            "profitRate": 0.2113,
+            "netProfit": 0.2236,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 27.89,
-            "orders7d": 1,
+            "spend7d": 5.05,
+            "orders7d": 0,
             "acos7d": 99,
-            "spend30d": 286.24,
-            "orders30d": 17,
-            "acos30d": 0.8899109466046102,
+            "spend30d": 78.64,
+            "orders30d": 19,
+            "acos30d": 0.11828943607948135,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 80,
+            "ful": 17,
             "res": 0,
-            "local": 1,
-            "sellableDays": 152,
+            "local": 0,
+            "sellableDays": 30,
             "staleRisk": false
           },
           "product": {
-            "productType": "unknown",
+            "productType": "gift basket",
             "isSeasonal": true,
             "isReservedPage": false,
             "variantGroup": "",
@@ -731,89 +773,19 @@
                 "phase": "peak"
               },
               {
-                "key": "teacher_appreciation",
-                "label": "Teacher Appreciation",
-                "phase": "tail"
-              },
-              {
-                "key": "nurse_week",
-                "label": "Nurse Week",
+                "key": "mothers_day",
+                "label": "Mother's Day",
                 "phase": "tail"
               }
             ],
-            "operatingFinalAction": "light_test"
+            "operatingFinalAction": "normal_push"
           }
         },
         "candidateActions": [
           "fix_seasonal_structure_gap_in_dry_run",
           "ad_structure_missing",
           "season_peak",
-          "season_tail"
-        ],
-        "risks": [
-          "season_structure_gap_must_not_be_suppressed",
-          "verify_seed_listing_fit_before_execution",
-          "provisional_local_policy_not_external_ai"
-        ],
-        "missingData": [],
-        "historyActionSummary": {
-          "lastAdjustedAt": "2026-05-24T01:16:49.468Z",
-          "cooldown": null
-        },
-        "executableHint": true,
-        "reviewRequired": false,
-        "confidence": 0.7
-      },
-      {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::GT4431::B0G2LY9D4X",
-        "priority": "P1",
-        "sku": "GT4431",
-        "asin": "B0G2LY9D4X",
-        "primaryTaskType": "season_peak",
-        "decisionSummary": "Do not let active seasonal products be suppressed behind generic daily task limits.",
-        "keyEvidence": {
-          "sales": {
-            "units7d": 19,
-            "units30d": 55,
-            "profitRate": 0.3076,
-            "netProfit": 0.257,
-            "yoySalesPct": 0
-          },
-          "ads": {
-            "spend7d": 6.04,
-            "orders7d": 2,
-            "acos7d": 0.1888680425265791,
-            "spend30d": 48.449999999999996,
-            "orders30d": 19,
-            "acos30d": 0.1594746716697936,
-            "adDependency": 0
-          },
-          "inventory": {
-            "ful": 60,
-            "res": 0,
-            "local": 0,
-            "sellableDays": 41,
-            "staleRisk": false
-          },
-          "product": {
-            "productType": "unknown",
-            "isSeasonal": true,
-            "isReservedPage": false,
-            "variantGroup": "",
-            "seasonWindows": [
-              {
-                "key": "memorial_day",
-                "label": "Memorial Day",
-                "phase": "peak"
-              }
-            ],
-            "operatingFinalAction": "light_test"
-          }
-        },
-        "candidateActions": [
-          "fix_seasonal_structure_gap_in_dry_run",
-          "ad_structure_missing",
-          "season_peak",
+          "season_tail",
           "seven_day_unadjusted"
         ],
         "risks": [
@@ -831,7 +803,7 @@
         "confidence": 0.7
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::LED3339::B0DSP4HQL3",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::LED3339::B0DSP4HQL3",
         "priority": "P1",
         "sku": "LED3339",
         "asin": "B0DSP4HQL3",
@@ -839,26 +811,26 @@
         "decisionSummary": "Do not let active seasonal products be suppressed behind generic daily task limits.",
         "keyEvidence": {
           "sales": {
-            "units7d": 1,
+            "units7d": 2,
             "units30d": 6,
             "profitRate": 0.1475,
-            "netProfit": 0.2154,
+            "netProfit": 0.2118,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 0.39,
-            "orders7d": 0,
-            "acos7d": 99,
-            "spend30d": 5.74,
-            "orders30d": 0,
-            "acos30d": 99,
+            "spend7d": 0.8200000000000001,
+            "orders7d": 1,
+            "acos7d": 0.06312548113933796,
+            "spend30d": 5.72,
+            "orders30d": 4,
+            "acos30d": 0.1100846805234796,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 32,
+            "ful": 31,
             "res": 0,
             "local": 30,
-            "sellableDays": 160,
+            "sellableDays": 155,
             "staleRisk": false
           },
           "product": {
@@ -871,78 +843,6 @@
                 "key": "graduation",
                 "label": "Graduation",
                 "phase": "peak"
-              },
-              {
-                "key": "teacher_appreciation",
-                "label": "Teacher Appreciation",
-                "phase": "tail"
-              }
-            ],
-            "operatingFinalAction": "light_test"
-          }
-        },
-        "candidateActions": [
-          "fix_seasonal_structure_gap_in_dry_run",
-          "ad_structure_missing",
-          "season_peak",
-          "season_tail",
-          "seven_day_unadjusted"
-        ],
-        "risks": [
-          "season_structure_gap_must_not_be_suppressed",
-          "verify_seed_listing_fit_before_execution",
-          "provisional_local_policy_not_external_ai"
-        ],
-        "missingData": [],
-        "historyActionSummary": {
-          "lastAdjustedAt": null,
-          "cooldown": null
-        },
-        "executableHint": true,
-        "reviewRequired": false,
-        "confidence": 0.7
-      },
-      {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::WC2648::B0CGV931JK",
-        "priority": "P1",
-        "sku": "WC2648",
-        "asin": "B0CGV931JK",
-        "primaryTaskType": "season_peak",
-        "decisionSummary": "Do not let active seasonal products be suppressed behind generic daily task limits.",
-        "keyEvidence": {
-          "sales": {
-            "units7d": 4,
-            "units30d": 13,
-            "profitRate": 0.2835,
-            "netProfit": 0.1621,
-            "yoySalesPct": 0
-          },
-          "ads": {
-            "spend7d": 14.189999999999998,
-            "orders7d": 2,
-            "acos7d": 0.19180859691808594,
-            "spend30d": 115.96000000000001,
-            "orders30d": 10,
-            "acos30d": 0.31349013246823465,
-            "adDependency": 0
-          },
-          "inventory": {
-            "ful": 43,
-            "res": 0,
-            "local": 70,
-            "sellableDays": 116,
-            "staleRisk": false
-          },
-          "product": {
-            "productType": "gift basket",
-            "isSeasonal": true,
-            "isReservedPage": false,
-            "variantGroup": "",
-            "seasonWindows": [
-              {
-                "key": "memorial_day",
-                "label": "Memorial Day",
-                "phase": "peak"
               }
             ],
             "operatingFinalAction": "light_test"
@@ -969,34 +869,34 @@
         "confidence": 0.7
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::SC3420::B0C2HKSG2X",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::NAY0239::B0D2R8MRXP",
         "priority": "P1",
-        "sku": "SC3420",
-        "asin": "B0C2HKSG2X",
+        "sku": "NAY0239",
+        "asin": "B0D2R8MRXP",
         "primaryTaskType": "season_peak",
         "decisionSummary": "Do not let active seasonal products be suppressed behind generic daily task limits.",
         "keyEvidence": {
           "sales": {
-            "units7d": 7,
-            "units30d": 54,
-            "profitRate": 0.3713,
-            "netProfit": 0.1417,
+            "units7d": 8,
+            "units30d": 67,
+            "profitRate": 0.1791,
+            "netProfit": 0.3069,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 28.929999999999993,
-            "orders7d": 4,
-            "acos7d": 0.40202890494719284,
-            "spend30d": 318.9900000000001,
-            "orders30d": 65,
-            "acos30d": 0.27279257707273286,
+            "spend7d": 7.25,
+            "orders7d": 1,
+            "acos7d": 0.2072020577307802,
+            "spend30d": 50.07,
+            "orders30d": 16,
+            "acos30d": 99,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 39,
+            "ful": 68,
             "res": 0,
-            "local": 0,
-            "sellableDays": 34,
+            "local": 80,
+            "sellableDays": 31,
             "staleRisk": false
           },
           "product": {
@@ -1006,8 +906,8 @@
             "variantGroup": "",
             "seasonWindows": [
               {
-                "key": "memorial_day",
-                "label": "Memorial Day",
+                "key": "wedding",
+                "label": "Wedding Season",
                 "phase": "peak"
               }
             ],
@@ -1017,32 +917,25 @@
         "candidateActions": [
           "fix_seasonal_structure_gap_in_dry_run",
           "ad_structure_missing",
-          "season_peak"
+          "season_peak",
+          "seven_day_unadjusted"
         ],
         "risks": [
           "season_structure_gap_must_not_be_suppressed",
           "verify_seed_listing_fit_before_execution",
-          "provisional_local_policy_not_external_ai",
-          "cooldown_active_up_0d"
+          "provisional_local_policy_not_external_ai"
         ],
         "missingData": [],
         "historyActionSummary": {
-          "lastAdjustedAt": "2026-05-24T01:16:49.468Z",
-          "cooldown": {
-            "active": true,
-            "ageDays": 0,
-            "cooldownDays": 7,
-            "direction": "up",
-            "lastAdjustedAt": "2026-05-24T01:16:49.468Z",
-            "signalType": "ad_structure_missing"
-          }
+          "lastAdjustedAt": null,
+          "cooldown": null
         },
-        "executableHint": false,
-        "reviewRequired": true,
+        "executableHint": true,
+        "reviewRequired": false,
         "confidence": 0.7
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::HUQ0699::B0CZRTJ7N4",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::HUQ0699::B0CZRTJ7N4",
         "priority": "P1",
         "sku": "HUQ0699",
         "asin": "B0CZRTJ7N4",
@@ -1051,25 +944,25 @@
         "keyEvidence": {
           "sales": {
             "units7d": 0,
-            "units30d": 13,
+            "units30d": 10,
             "profitRate": 0.1385,
-            "netProfit": -0.1256,
+            "netProfit": -0.1485,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 1.61,
+            "spend7d": 0.14,
             "orders7d": 0,
             "acos7d": 99,
-            "spend30d": 201.41,
-            "orders30d": 18,
-            "acos30d": 0.4145774155036845,
+            "spend30d": 158.01999999999998,
+            "orders30d": 15,
+            "acos30d": 0.3903174015067309,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 15,
+            "ful": 14,
             "res": 0,
             "local": 0,
-            "sellableDays": 40,
+            "sellableDays": 51,
             "staleRisk": false
           },
           "product": {
@@ -1114,79 +1007,7 @@
         "confidence": 0.7
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::HAN0044::B0BZR32F82",
-        "priority": "P1",
-        "sku": "HAN0044",
-        "asin": "B0BZR32F82",
-        "primaryTaskType": "season_peak",
-        "decisionSummary": "Do not let active seasonal products be suppressed behind generic daily task limits.",
-        "keyEvidence": {
-          "sales": {
-            "units7d": 8,
-            "units30d": 37,
-            "profitRate": 0.3456,
-            "netProfit": 0.2028,
-            "yoySalesPct": 0
-          },
-          "ads": {
-            "spend7d": 9.48,
-            "orders7d": 1,
-            "acos7d": 0.948948948948949,
-            "spend30d": 110.92000000000002,
-            "orders30d": 32,
-            "acos30d": 0.346971971971972,
-            "adDependency": 0
-          },
-          "inventory": {
-            "ful": 95,
-            "res": 0,
-            "local": 130,
-            "sellableDays": 78,
-            "staleRisk": false
-          },
-          "product": {
-            "productType": "apparel",
-            "isSeasonal": true,
-            "isReservedPage": false,
-            "variantGroup": "",
-            "seasonWindows": [
-              {
-                "key": "memorial_day",
-                "label": "Memorial Day",
-                "phase": "peak"
-              },
-              {
-                "key": "nurse_week",
-                "label": "Nurse Week",
-                "phase": "tail"
-              }
-            ],
-            "operatingFinalAction": "light_test"
-          }
-        },
-        "candidateActions": [
-          "fix_seasonal_structure_gap_in_dry_run",
-          "ad_structure_missing",
-          "season_peak",
-          "season_tail",
-          "seven_day_unadjusted"
-        ],
-        "risks": [
-          "season_structure_gap_must_not_be_suppressed",
-          "verify_seed_listing_fit_before_execution",
-          "provisional_local_policy_not_external_ai"
-        ],
-        "missingData": [],
-        "historyActionSummary": {
-          "lastAdjustedAt": null,
-          "cooldown": null
-        },
-        "executableHint": true,
-        "reviewRequired": false,
-        "confidence": 0.7
-      },
-      {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::UY0879::B0BDLT56DH",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::UY0879::B0BDLT56DH",
         "priority": "P1",
         "sku": "UY0879",
         "asin": "B0BDLT56DH",
@@ -1195,25 +1016,25 @@
         "keyEvidence": {
           "sales": {
             "units7d": 16,
-            "units30d": 74,
+            "units30d": 63,
             "profitRate": 0.2017,
-            "netProfit": 0.1063,
+            "netProfit": 0.0618,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 16.95,
-            "orders7d": 3,
-            "acos7d": 0.4889206576125804,
-            "spend30d": 198.37999999999997,
-            "orders30d": 39,
-            "acos30d": 0.4102930664760543,
+            "spend7d": 23.03,
+            "orders7d": 5,
+            "acos7d": 1.1972837741243745,
+            "spend30d": 194.08999999999997,
+            "orders30d": 35,
+            "acos30d": 0.39876697641172254,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 96,
+            "ful": 92,
             "res": 0,
-            "local": 50,
-            "sellableDays": 45,
+            "local": 0,
+            "sellableDays": 47,
             "staleRisk": false
           },
           "product": {
@@ -1240,7 +1061,8 @@
           "fix_seasonal_structure_gap_in_dry_run",
           "ad_structure_missing",
           "season_peak",
-          "season_tail"
+          "season_tail",
+          "seven_day_unadjusted"
         ],
         "risks": [
           "season_structure_gap_must_not_be_suppressed",
@@ -1249,7 +1071,7 @@
         ],
         "missingData": [],
         "historyActionSummary": {
-          "lastAdjustedAt": "2026-05-24T01:16:49.468Z",
+          "lastAdjustedAt": null,
           "cooldown": null
         },
         "executableHint": true,
@@ -1257,7 +1079,73 @@
         "confidence": 0.7
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::YUT4466::B0DX5XVDZJ",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::MF6294::B0GMH7Q46X",
+        "priority": "P1",
+        "sku": "MF6294",
+        "asin": "B0GMH7Q46X",
+        "primaryTaskType": "season_preheat",
+        "decisionSummary": "Do not let active seasonal products be suppressed behind generic daily task limits.",
+        "keyEvidence": {
+          "sales": {
+            "units7d": 7,
+            "units30d": 17,
+            "profitRate": 0.1382,
+            "netProfit": 0.1701,
+            "yoySalesPct": 0
+          },
+          "ads": {
+            "spend7d": 14.76,
+            "orders7d": 2,
+            "acos7d": 0.18454613653413351,
+            "spend30d": 113.51,
+            "orders30d": 16,
+            "acos30d": 0.17740372593148288,
+            "adDependency": 0
+          },
+          "inventory": {
+            "ful": 21,
+            "res": 0,
+            "local": 60,
+            "sellableDays": 46,
+            "staleRisk": false
+          },
+          "product": {
+            "productType": "decor",
+            "isSeasonal": true,
+            "isReservedPage": false,
+            "variantGroup": "",
+            "seasonWindows": [
+              {
+                "key": "summer",
+                "label": "Summer",
+                "phase": "preheat"
+              }
+            ],
+            "operatingFinalAction": "normal_push"
+          }
+        },
+        "candidateActions": [
+          "fix_seasonal_structure_gap_in_dry_run",
+          "ad_structure_missing",
+          "season_preheat",
+          "seven_day_unadjusted"
+        ],
+        "risks": [
+          "season_structure_gap_must_not_be_suppressed",
+          "verify_seed_listing_fit_before_execution",
+          "provisional_local_policy_not_external_ai"
+        ],
+        "missingData": [],
+        "historyActionSummary": {
+          "lastAdjustedAt": null,
+          "cooldown": null
+        },
+        "executableHint": true,
+        "reviewRequired": false,
+        "confidence": 0.7
+      },
+      {
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::YUT4466::B0DX5XVDZJ",
         "priority": "P1",
         "sku": "YUT4466",
         "asin": "B0DX5XVDZJ",
@@ -1265,26 +1153,26 @@
         "decisionSummary": "Do not let active seasonal products be suppressed behind generic daily task limits.",
         "keyEvidence": {
           "sales": {
-            "units7d": 19,
-            "units30d": 47,
-            "profitRate": 0.2398,
-            "netProfit": 0.3993,
+            "units7d": 15,
+            "units30d": 55,
+            "profitRate": 0.2778,
+            "netProfit": 0.4181,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 7.1000000000000005,
-            "orders7d": 3,
-            "acos7d": 0.08455400738358938,
-            "spend30d": 21.819999999999997,
+            "spend7d": 16.830000000000002,
+            "orders7d": 0,
+            "acos7d": 99,
+            "spend30d": 52.65,
             "orders30d": 14,
-            "acos30d": 0.055683152146174655,
+            "acos30d": 0.12539894250464442,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 101,
+            "ful": 89,
             "res": 0,
             "local": 0,
-            "sellableDays": 87,
+            "sellableDays": 68,
             "staleRisk": false
           },
           "product": {
@@ -1329,7 +1217,7 @@
         "confidence": 0.7
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::YUT4464::B0DX5T5D86",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::YUT4464::B0DX5T5D86",
         "priority": "P1",
         "sku": "YUT4464",
         "asin": "B0DX5T5D86",
@@ -1337,26 +1225,26 @@
         "decisionSummary": "Do not let active seasonal products be suppressed behind generic daily task limits.",
         "keyEvidence": {
           "sales": {
-            "units7d": 17,
-            "units30d": 42,
-            "profitRate": 0.1406,
-            "netProfit": 0.2611,
+            "units7d": 27,
+            "units30d": 60,
+            "profitRate": 0.233,
+            "netProfit": 0.3287,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 23.45,
-            "orders7d": 12,
-            "acos7d": 0.07819794584500467,
-            "spend30d": 191.30000000000004,
-            "orders30d": 56,
-            "acos30d": 0.1366975361573201,
+            "spend7d": 46.63,
+            "orders7d": 8,
+            "acos7d": 0.20106071058985858,
+            "spend30d": 270.4599999999999,
+            "orders30d": 72,
+            "acos30d": 0.12957533249013067,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 102,
+            "ful": 82,
             "res": 0,
             "local": 0,
-            "sellableDays": 74,
+            "sellableDays": 44,
             "staleRisk": false
           },
           "product": {
@@ -1376,7 +1264,7 @@
                 "phase": "tail"
               }
             ],
-            "operatingFinalAction": "normal_push_sell_through"
+            "operatingFinalAction": "normal_push"
           }
         },
         "candidateActions": [
@@ -1401,7 +1289,155 @@
         "confidence": 0.7
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::RHO1540::B0GLPCPFK9",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::ZHW0104::B0CF9V3J2Y",
+        "priority": "P1",
+        "sku": "ZHW0104",
+        "asin": "B0CF9V3J2Y",
+        "primaryTaskType": "season_preheat",
+        "decisionSummary": "Do not let active seasonal products be suppressed behind generic daily task limits.",
+        "keyEvidence": {
+          "sales": {
+            "units7d": 3,
+            "units30d": 16,
+            "profitRate": 0.1911,
+            "netProfit": -0.0418,
+            "yoySalesPct": 0
+          },
+          "ads": {
+            "spend7d": 11.32,
+            "orders7d": 1,
+            "acos7d": 1.1331331331331331,
+            "spend30d": 97.18999999999998,
+            "orders30d": 8,
+            "acos30d": 1.216091091091091,
+            "adDependency": 0
+          },
+          "inventory": {
+            "ful": 64,
+            "res": 0,
+            "local": 0,
+            "sellableDays": 122,
+            "staleRisk": false
+          },
+          "product": {
+            "productType": "decor",
+            "isSeasonal": true,
+            "isReservedPage": false,
+            "variantGroup": "",
+            "seasonWindows": [
+              {
+                "key": "fathers_day",
+                "label": "Father's Day",
+                "phase": "preheat"
+              },
+              {
+                "key": "mothers_day",
+                "label": "Mother's Day",
+                "phase": "tail"
+              },
+              {
+                "key": "nurse_week",
+                "label": "Nurse Week",
+                "phase": "tail"
+              }
+            ],
+            "operatingFinalAction": "light_test"
+          }
+        },
+        "candidateActions": [
+          "fix_seasonal_structure_gap_in_dry_run",
+          "ad_structure_missing",
+          "season_preheat",
+          "season_tail",
+          "seven_day_unadjusted"
+        ],
+        "risks": [
+          "season_structure_gap_must_not_be_suppressed",
+          "verify_seed_listing_fit_before_execution",
+          "provisional_local_policy_not_external_ai"
+        ],
+        "missingData": [],
+        "historyActionSummary": {
+          "lastAdjustedAt": null,
+          "cooldown": null
+        },
+        "executableHint": true,
+        "reviewRequired": false,
+        "confidence": 0.7
+      },
+      {
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::SHQ3949::B0GT3G8ZL7",
+        "priority": "P1",
+        "sku": "SHQ3949",
+        "asin": "B0GT3G8ZL7",
+        "primaryTaskType": "inventory_tight",
+        "decisionSummary": "Avoid extra traffic until inventory and price posture are checked.",
+        "keyEvidence": {
+          "sales": {
+            "units7d": 7,
+            "units30d": 34,
+            "profitRate": 0.2214,
+            "netProfit": 0.2465,
+            "yoySalesPct": 0
+          },
+          "ads": {
+            "spend7d": 6.710000000000001,
+            "orders7d": 0,
+            "acos7d": 99,
+            "spend30d": 114.66999999999999,
+            "orders30d": 14,
+            "acos30d": 99,
+            "adDependency": 0
+          },
+          "inventory": {
+            "ful": 14,
+            "res": 0,
+            "local": 1,
+            "sellableDays": 15,
+            "staleRisk": false
+          },
+          "product": {
+            "productType": "gift basket",
+            "isSeasonal": true,
+            "isReservedPage": false,
+            "variantGroup": "",
+            "seasonWindows": [
+              {
+                "key": "wedding",
+                "label": "Wedding Season",
+                "phase": "peak"
+              },
+              {
+                "key": "mothers_day",
+                "label": "Mother's Day",
+                "phase": "tail"
+              }
+            ],
+            "operatingFinalAction": "hold_or_light_test"
+          }
+        },
+        "candidateActions": [
+          "control_spend_or_review_price_until_inventory_recovers",
+          "inventory_tight",
+          "season_peak",
+          "season_tail",
+          "seven_day_unadjusted"
+        ],
+        "risks": [
+          "inventory_tight_no_scale",
+          "provisional_local_policy_not_external_ai"
+        ],
+        "missingData": [],
+        "historyActionSummary": {
+          "lastAdjustedAt": null,
+          "cooldown": null
+        },
+        "executableHint": false,
+        "reviewRequired": true,
+        "confidence": 0.68
+      },
+      {
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::RHO1540::B0GLPCPFK9",
         "priority": "P1",
         "sku": "RHO1540",
         "asin": "B0GLPCPFK9",
@@ -1409,25 +1445,25 @@
         "decisionSummary": "Avoid extra traffic until inventory and price posture are checked.",
         "keyEvidence": {
           "sales": {
-            "units7d": 10,
-            "units30d": 72,
-            "profitRate": 0.2662,
-            "netProfit": 0.2168,
+            "units7d": 11,
+            "units30d": 64,
+            "profitRate": 0.3025,
+            "netProfit": 0.2574,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 6.370000000000002,
+            "spend7d": 5.07,
             "orders7d": 2,
-            "acos7d": 0.22766261615439606,
-            "spend30d": 70.25999999999999,
-            "orders30d": 29,
-            "acos30d": 0.173177885681891,
+            "acos7d": 0.16911274182788527,
+            "spend30d": 49.419999999999995,
+            "orders30d": 22,
+            "acos30d": 0.1498574807447389,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 13,
+            "ful": 17,
             "res": 0,
-            "local": 69,
+            "local": 0,
             "sellableDays": 12,
             "staleRisk": false
           },
@@ -1467,78 +1503,7 @@
         "confidence": 0.68
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::OB4139::B0GJRV1TCQ",
-        "priority": "P1",
-        "sku": "OB4139",
-        "asin": "B0GJRV1TCQ",
-        "primaryTaskType": "inventory_tight",
-        "decisionSummary": "Avoid extra traffic until inventory and price posture are checked.",
-        "keyEvidence": {
-          "sales": {
-            "units7d": 9,
-            "units30d": 81,
-            "profitRate": -0.0867,
-            "netProfit": 0.2512,
-            "yoySalesPct": 0
-          },
-          "ads": {
-            "spend7d": 15.469999999999999,
-            "orders7d": 6,
-            "acos7d": 99,
-            "spend30d": 175.91,
-            "orders30d": 70,
-            "acos30d": 0.07830034043626276,
-            "adDependency": 0
-          },
-          "inventory": {
-            "ful": 11,
-            "res": 0,
-            "local": 0,
-            "sellableDays": 5,
-            "staleRisk": false
-          },
-          "product": {
-            "productType": "jewelry",
-            "isSeasonal": true,
-            "isReservedPage": false,
-            "variantGroup": "",
-            "seasonWindows": [
-              {
-                "key": "wedding",
-                "label": "Wedding Season",
-                "phase": "peak"
-              },
-              {
-                "key": "nurse_week",
-                "label": "Nurse Week",
-                "phase": "tail"
-              }
-            ],
-            "operatingFinalAction": "hold_or_light_test"
-          }
-        },
-        "candidateActions": [
-          "control_spend_or_review_price_until_inventory_recovers",
-          "inventory_tight",
-          "ad_structure_missing",
-          "season_peak",
-          "season_tail"
-        ],
-        "risks": [
-          "inventory_tight_no_scale",
-          "provisional_local_policy_not_external_ai"
-        ],
-        "missingData": [],
-        "historyActionSummary": {
-          "lastAdjustedAt": "2026-05-24T01:16:49.468Z",
-          "cooldown": null
-        },
-        "executableHint": false,
-        "reviewRequired": true,
-        "confidence": 0.68
-      },
-      {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::QAA4200::B0FM3ZN2BK",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::QAA4200::B0FM3ZN2BK",
         "priority": "P1",
         "sku": "QAA4200",
         "asin": "B0FM3ZN2BK",
@@ -1546,26 +1511,26 @@
         "decisionSummary": "Avoid extra traffic until inventory and price posture are checked.",
         "keyEvidence": {
           "sales": {
-            "units7d": 11,
-            "units30d": 42,
+            "units7d": 6,
+            "units30d": 32,
             "profitRate": 0.4382,
-            "netProfit": 0.3841,
+            "netProfit": 0.3963,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 6.840000000000001,
-            "orders7d": 2,
-            "acos7d": 0.09245742092457422,
-            "spend30d": 87.96,
-            "orders30d": 34,
-            "acos30d": 0.10022979183563124,
+            "spend7d": 3.5900000000000003,
+            "orders7d": 0,
+            "acos7d": 99,
+            "spend30d": 61.74,
+            "orders30d": 22,
+            "acos30d": 99,
             "adDependency": 0
           },
           "inventory": {
             "ful": 16,
             "res": 0,
             "local": 0,
-            "sellableDays": 15,
+            "sellableDays": 19,
             "staleRisk": false
           },
           "product": {
@@ -1610,7 +1575,7 @@
         "confidence": 0.68
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::OCE1413::B0FHK5GS4F",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::OCE1413::B0FHK5GS4F",
         "priority": "P1",
         "sku": "OCE1413",
         "asin": "B0FHK5GS4F",
@@ -1618,26 +1583,26 @@
         "decisionSummary": "Avoid extra traffic until inventory and price posture are checked.",
         "keyEvidence": {
           "sales": {
-            "units7d": 37,
-            "units30d": 137,
-            "profitRate": 0.1924,
-            "netProfit": 0.2226,
+            "units7d": 27,
+            "units30d": 133,
+            "profitRate": 0.2004,
+            "netProfit": 0.2133,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 16.6,
-            "orders7d": 9,
-            "acos7d": 0.12304499295826848,
-            "spend30d": 172.58999999999997,
-            "orders30d": 98,
-            "acos30d": 0.11748648759036635,
+            "spend7d": 18.07,
+            "orders7d": 11,
+            "acos7d": 0.10273466371027346,
+            "spend30d": 194.6,
+            "orders30d": 105,
+            "acos30d": 0.1159057744423598,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 24,
+            "ful": 20,
             "res": 0,
             "local": 0,
-            "sellableDays": 14,
+            "sellableDays": 10,
             "staleRisk": false
           },
           "product": {
@@ -1676,7 +1641,160 @@
         "confidence": 0.68
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::OB3296::B0GJRF57B5",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::WOO0172::B0CDLT85VX",
+        "priority": "P1",
+        "sku": "WOO0172",
+        "asin": "B0CDLT85VX",
+        "primaryTaskType": "inventory_tight",
+        "decisionSummary": "Avoid extra traffic until inventory and price posture are checked.",
+        "keyEvidence": {
+          "sales": {
+            "units7d": 4,
+            "units30d": 19,
+            "profitRate": -0.0072,
+            "netProfit": 0.1757,
+            "yoySalesPct": 0
+          },
+          "ads": {
+            "spend7d": 2.11,
+            "orders7d": 0,
+            "acos7d": 99,
+            "spend30d": 40.629999999999995,
+            "orders30d": 6,
+            "acos30d": 0.3764128219381137,
+            "adDependency": 0
+          },
+          "inventory": {
+            "ful": 8,
+            "res": 0,
+            "local": 0,
+            "sellableDays": 15,
+            "staleRisk": false
+          },
+          "product": {
+            "productType": "unknown",
+            "isSeasonal": true,
+            "isReservedPage": false,
+            "variantGroup": "",
+            "seasonWindows": [
+              {
+                "key": "graduation",
+                "label": "Graduation",
+                "phase": "peak"
+              },
+              {
+                "key": "nurse_week",
+                "label": "Nurse Week",
+                "phase": "tail"
+              }
+            ],
+            "operatingFinalAction": "light_test"
+          }
+        },
+        "candidateActions": [
+          "control_spend_or_review_price_until_inventory_recovers",
+          "inventory_tight",
+          "ad_structure_missing",
+          "season_peak",
+          "season_tail",
+          "seven_day_unadjusted"
+        ],
+        "risks": [
+          "inventory_tight_no_scale",
+          "provisional_local_policy_not_external_ai"
+        ],
+        "missingData": [],
+        "historyActionSummary": {
+          "lastAdjustedAt": null,
+          "cooldown": null
+        },
+        "executableHint": false,
+        "reviewRequired": true,
+        "confidence": 0.68
+      },
+      {
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::YAN3229::B0D5L7RDZQ",
+        "priority": "P1",
+        "sku": "YAN3229",
+        "asin": "B0D5L7RDZQ",
+        "primaryTaskType": "inventory_tight",
+        "decisionSummary": "Avoid extra traffic until inventory and price posture are checked.",
+        "keyEvidence": {
+          "sales": {
+            "units7d": 8,
+            "units30d": 37,
+            "profitRate": 0.1726,
+            "netProfit": 0.0943,
+            "yoySalesPct": 0
+          },
+          "ads": {
+            "spend7d": 9.97,
+            "orders7d": 1,
+            "acos7d": 99,
+            "spend30d": 189.42000000000002,
+            "orders30d": 38,
+            "acos30d": 0.4729015013648772,
+            "adDependency": 0
+          },
+          "inventory": {
+            "ful": 21,
+            "res": 0,
+            "local": 0,
+            "sellableDays": 20,
+            "staleRisk": false
+          },
+          "product": {
+            "productType": "apparel",
+            "isSeasonal": true,
+            "isReservedPage": false,
+            "variantGroup": "",
+            "seasonWindows": [
+              {
+                "key": "fathers_day",
+                "label": "Father's Day",
+                "phase": "preheat"
+              },
+              {
+                "key": "mothers_day",
+                "label": "Mother's Day",
+                "phase": "tail"
+              },
+              {
+                "key": "nurse_week",
+                "label": "Nurse Week",
+                "phase": "tail"
+              },
+              {
+                "key": "memorial_day",
+                "label": "Memorial Day",
+                "phase": "tail"
+              }
+            ],
+            "operatingFinalAction": "hold_or_light_test"
+          }
+        },
+        "candidateActions": [
+          "control_spend_or_review_price_until_inventory_recovers",
+          "inventory_tight",
+          "season_preheat",
+          "season_tail",
+          "seven_day_unadjusted"
+        ],
+        "risks": [
+          "inventory_tight_no_scale",
+          "provisional_local_policy_not_external_ai"
+        ],
+        "missingData": [],
+        "historyActionSummary": {
+          "lastAdjustedAt": null,
+          "cooldown": null
+        },
+        "executableHint": false,
+        "reviewRequired": true,
+        "confidence": 0.68
+      },
+      {
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::OB3296::B0GJRF57B5",
         "priority": "P1",
         "sku": "OB3296",
         "asin": "B0GJRF57B5",
@@ -1684,23 +1802,23 @@
         "decisionSummary": "Avoid extra traffic until inventory and price posture are checked.",
         "keyEvidence": {
           "sales": {
-            "units7d": 5,
-            "units30d": 72,
-            "profitRate": -0.209,
-            "netProfit": 0.1861,
+            "units7d": 3,
+            "units30d": 66,
+            "profitRate": -0.1453,
+            "netProfit": 0.2187,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 23.98,
-            "orders7d": 4,
+            "spend7d": 18.07,
+            "orders7d": 2,
             "acos7d": 99,
-            "spend30d": 368.40000000000003,
-            "orders30d": 87,
-            "acos30d": 0.272757585861954,
+            "spend30d": 332.79999999999995,
+            "orders30d": 81,
+            "acos30d": 0.2606022715431906,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 19,
+            "ful": 17,
             "res": 0,
             "local": 0,
             "sellableDays": 9,
@@ -1718,64 +1836,6 @@
         "candidateActions": [
           "control_spend_or_review_price_until_inventory_recovers",
           "inventory_tight",
-          "ad_structure_missing"
-        ],
-        "risks": [
-          "inventory_tight_no_scale",
-          "provisional_local_policy_not_external_ai"
-        ],
-        "missingData": [],
-        "historyActionSummary": {
-          "lastAdjustedAt": "2026-05-24T01:16:49.468Z",
-          "cooldown": null
-        },
-        "executableHint": false,
-        "reviewRequired": true,
-        "confidence": 0.68
-      },
-      {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::LE8163::B0GGRXJY9R",
-        "priority": "P1",
-        "sku": "LE8163",
-        "asin": "B0GGRXJY9R",
-        "primaryTaskType": "inventory_tight",
-        "decisionSummary": "Avoid extra traffic until inventory and price posture are checked.",
-        "keyEvidence": {
-          "sales": {
-            "units7d": 1,
-            "units30d": 8,
-            "profitRate": 0.3223,
-            "netProfit": 0.4677,
-            "yoySalesPct": 0
-          },
-          "ads": {
-            "spend7d": 0,
-            "orders7d": 0,
-            "acos7d": 0,
-            "spend30d": 0,
-            "orders30d": 0,
-            "acos30d": 0,
-            "adDependency": 0
-          },
-          "inventory": {
-            "ful": 2,
-            "res": 0,
-            "local": 0,
-            "sellableDays": 8,
-            "staleRisk": false
-          },
-          "product": {
-            "productType": "unknown",
-            "isSeasonal": false,
-            "isReservedPage": false,
-            "variantGroup": "",
-            "seasonWindows": [],
-            "operatingFinalAction": "light_test"
-          }
-        },
-        "candidateActions": [
-          "control_spend_or_review_price_until_inventory_recovers",
-          "inventory_tight",
           "ad_structure_missing",
           "seven_day_unadjusted"
         ],
@@ -1793,34 +1853,34 @@
         "confidence": 0.68
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::GM3213::B0GGZR3ZFV",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::XIX2353::B0GH7R7T65",
         "priority": "P1",
-        "sku": "GM3213",
-        "asin": "B0GGZR3ZFV",
+        "sku": "XIX2353",
+        "asin": "B0GH7R7T65",
         "primaryTaskType": "inventory_tight",
         "decisionSummary": "Avoid extra traffic until inventory and price posture are checked.",
         "keyEvidence": {
           "sales": {
-            "units7d": 4,
-            "units30d": 45,
-            "profitRate": 0.1684,
-            "netProfit": 0.118,
+            "units7d": 34,
+            "units30d": 129,
+            "profitRate": 0.3205,
+            "netProfit": 0.1729,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 0,
-            "orders7d": 0,
-            "acos7d": 0,
-            "spend30d": 35.92,
-            "orders30d": 21,
-            "acos30d": 0.17121883788550457,
+            "spend7d": 120.81000000000004,
+            "orders7d": 37,
+            "acos7d": 0.15853807935751724,
+            "spend30d": 516.47,
+            "orders30d": 144,
+            "acos30d": 0.2616552099639285,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 7,
+            "ful": 48,
             "res": 0,
-            "local": 1,
-            "sellableDays": 7,
+            "local": 0,
+            "sellableDays": 16,
             "staleRisk": false
           },
           "product": {
@@ -1852,7 +1912,66 @@
         "confidence": 0.68
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::LEM6581::B0FXVC4W6W",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::GM3213::B0GGZR3ZFV",
+        "priority": "P1",
+        "sku": "GM3213",
+        "asin": "B0GGZR3ZFV",
+        "primaryTaskType": "inventory_tight",
+        "decisionSummary": "Avoid extra traffic until inventory and price posture are checked.",
+        "keyEvidence": {
+          "sales": {
+            "units7d": 3,
+            "units30d": 40,
+            "profitRate": 0.2222,
+            "netProfit": 0.2188,
+            "yoySalesPct": 0
+          },
+          "ads": {
+            "spend7d": 0,
+            "orders7d": 0,
+            "acos7d": 0,
+            "spend30d": 11.05,
+            "orders30d": 7,
+            "acos30d": 0.1436370726634603,
+            "adDependency": 0
+          },
+          "inventory": {
+            "ful": 5,
+            "res": 0,
+            "local": 1,
+            "sellableDays": 6,
+            "staleRisk": false
+          },
+          "product": {
+            "productType": "unknown",
+            "isSeasonal": true,
+            "isReservedPage": false,
+            "variantGroup": "",
+            "seasonWindows": [],
+            "operatingFinalAction": "light_test"
+          }
+        },
+        "candidateActions": [
+          "control_spend_or_review_price_until_inventory_recovers",
+          "inventory_tight",
+          "ad_structure_missing",
+          "seven_day_unadjusted"
+        ],
+        "risks": [
+          "inventory_tight_no_scale",
+          "provisional_local_policy_not_external_ai"
+        ],
+        "missingData": [],
+        "historyActionSummary": {
+          "lastAdjustedAt": null,
+          "cooldown": null
+        },
+        "executableHint": false,
+        "reviewRequired": true,
+        "confidence": 0.68
+      },
+      {
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::LEM6581::B0FXVC4W6W",
         "priority": "P1",
         "sku": "LEM6581",
         "asin": "B0FXVC4W6W",
@@ -1860,26 +1979,26 @@
         "decisionSummary": "Avoid extra traffic until inventory and price posture are checked.",
         "keyEvidence": {
           "sales": {
-            "units7d": 5,
+            "units7d": 2,
             "units30d": 25,
             "profitRate": -0.1079,
-            "netProfit": -0.0632,
+            "netProfit": -0.0336,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 27.93,
-            "orders7d": 1,
-            "acos7d": 0.6984246061515379,
-            "spend30d": 534.5600000000001,
-            "orders30d": 40,
-            "acos30d": 0.33418354588647164,
+            "spend7d": 4.81,
+            "orders7d": 0,
+            "acos7d": 99,
+            "spend30d": 469.44,
+            "orders30d": 36,
+            "acos30d": 0.326081520380095,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 13,
+            "ful": 11,
             "res": 0,
             "local": 1,
-            "sellableDays": 18,
+            "sellableDays": 17,
             "staleRisk": false
           },
           "product": {
@@ -1911,7 +2030,7 @@
         "confidence": 0.68
       },
       {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::SY4371::B0FWQF947V",
+        "taskId": "today_ops_2026-05-29T10-14-29-875Z::SY4371::B0FWQF947V",
         "priority": "P1",
         "sku": "SY4371",
         "asin": "B0FWQF947V",
@@ -1919,26 +2038,26 @@
         "decisionSummary": "Avoid extra traffic until inventory and price posture are checked.",
         "keyEvidence": {
           "sales": {
-            "units7d": 4,
-            "units30d": 45,
-            "profitRate": 0.2261,
-            "netProfit": 0.2705,
+            "units7d": 1,
+            "units30d": 36,
+            "profitRate": 0.1574,
+            "netProfit": 0.2239,
             "yoySalesPct": 0
           },
           "ads": {
-            "spend7d": 3.6100000000000003,
-            "orders7d": 1,
+            "spend7d": 2.5999999999999996,
+            "orders7d": 0,
             "acos7d": 99,
-            "spend30d": 90.27000000000001,
-            "orders30d": 25,
-            "acos30d": 0.25201233732039424,
+            "spend30d": 62.830000000000005,
+            "orders30d": 20,
+            "acos30d": 0.21574188025041474,
             "adDependency": 0
           },
           "inventory": {
-            "ful": 13,
+            "ful": 14,
             "res": 0,
             "local": 0,
-            "sellableDays": 11,
+            "sellableDays": 13,
             "staleRisk": false
           },
           "product": {
@@ -1953,72 +2072,7 @@
         "candidateActions": [
           "control_spend_or_review_price_until_inventory_recovers",
           "inventory_tight",
-          "ad_structure_missing"
-        ],
-        "risks": [
-          "inventory_tight_no_scale",
-          "provisional_local_policy_not_external_ai"
-        ],
-        "missingData": [],
-        "historyActionSummary": {
-          "lastAdjustedAt": "2026-05-24T01:16:49.468Z",
-          "cooldown": null
-        },
-        "executableHint": false,
-        "reviewRequired": true,
-        "confidence": 0.68
-      },
-      {
-        "taskId": "today_ops_2026-05-24T01-24-11-677Z::YYW2629::B0FMRNLGTW",
-        "priority": "P1",
-        "sku": "YYW2629",
-        "asin": "B0FMRNLGTW",
-        "primaryTaskType": "inventory_tight",
-        "decisionSummary": "Avoid extra traffic until inventory and price posture are checked.",
-        "keyEvidence": {
-          "sales": {
-            "units7d": 5,
-            "units30d": 42,
-            "profitRate": 0.2015,
-            "netProfit": 0.2415,
-            "yoySalesPct": 0
-          },
-          "ads": {
-            "spend7d": 0,
-            "orders7d": 0,
-            "acos7d": 0,
-            "spend30d": 195.81,
-            "orders30d": 20,
-            "acos30d": 0.16052631578947368,
-            "adDependency": 0
-          },
-          "inventory": {
-            "ful": 11,
-            "res": 0,
-            "local": 1,
-            "sellableDays": 8,
-            "staleRisk": false
-          },
-          "product": {
-            "productType": "apparel",
-            "isSeasonal": true,
-            "isReservedPage": false,
-            "variantGroup": "",
-            "seasonWindows": [
-              {
-                "key": "nurse_week",
-                "label": "Nurse Week",
-                "phase": "tail"
-              }
-            ],
-            "operatingFinalAction": "light_test"
-          }
-        },
-        "candidateActions": [
-          "control_spend_or_review_price_until_inventory_recovers",
-          "inventory_tight",
           "ad_structure_missing",
-          "season_tail",
           "seven_day_unadjusted"
         ],
         "risks": [

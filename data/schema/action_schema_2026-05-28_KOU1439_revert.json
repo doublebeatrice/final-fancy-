@@ -1,0 +1,41 @@
+[
+  {
+    "sku": "KOU1439",
+    "summary": "Revert 5-21 ui_7day_lower hygiene touch on auto target 452565469369270 ($0.22 -> $0.23). Single-expression revert, no other entity touched. See operator_actions_2026-05-28_KOU1439_traffic_recovery.json for full hypothesis/target/rollback/lesson.",
+    "actions": [
+      {
+        "id": "452565469369270",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.22,
+        "suggestedBid": 0.23,
+        "direction": "up",
+        "decisionStage": "ai_approved",
+        "approvedBy": "claude",
+        "actionSource": ["claude"],
+        "riskLevel": "low",
+        "forceExecute": false,
+        "reason": "5-21 ui_7day_lower 把 $0.23 砍到 $0.22 (4.3%)，是 hygiene touch 不是 demand-driven。Precise revert 回 $0.23，恢复 baseline。其他 3 个 expression 不动。",
+        "hypothesis": "Reverting a 1-cent hygiene touch should restore the auto-target baseline without introducing new spend risk; max bid $0.23 is below team_appreciation cpc-low $0.33, so no main-keyword competition.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "spend": "up_modest",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [1, 3, 7],
+          "metrics": ["impressions", "clicks", "spend", "orders", "ACOS"],
+          "escalationPlan": "If 7d ACOS > 50% or 3d cost > $1.5 with 0 orders, revert to $0.22 and trigger listing review."
+        },
+        "verifySpec": {
+          "type": "ad_entity_state",
+          "expectField": "bid",
+          "expectValue": 0.23,
+          "tolerance": 0.001
+        }
+      }
+    ]
+  }
+]

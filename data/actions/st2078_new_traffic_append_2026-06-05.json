@@ -1,0 +1,193 @@
+{
+  "sku": "ST2078",
+  "asin": "B0BPH8WHH8",
+  "businessDate": "2026-06-05",
+  "runAt": "2026-06-05T12:05:38.845Z",
+  "evidenceBoundary": "live ad backend + selection PTM/ABA/conversion snapshots on 2026-06-05; no budget/state changes",
+  "bidBasis": {
+    "spKeywordCpc7d": 0.19,
+    "spKeywordCpc30d": 0.1961,
+    "productTargetPrevCpc30d": 0.2826,
+    "productLineCpc": 0.3015
+  },
+  "oldGroups": {
+    "keyword": {
+      "campaignName": "kw_strawberry keychains_st2078",
+      "campaignId": "471705995606608",
+      "adGroupId": "533438542781358",
+      "accountId": 165,
+      "siteId": 4
+    },
+    "productTarget": {
+      "campaignName": "asin_strawberry keychains_st2078",
+      "campaignId": "327866610700697",
+      "adGroupId": "310781471835478",
+      "accountId": 165,
+      "siteId": 4
+    }
+  },
+  "keywordCandidates": [
+    {
+      "value": "strawberry key chain",
+      "matchType": "PHRASE",
+      "matchTypeCode": "2",
+      "bid": 0.21,
+      "reason": "singular spaced variant has rising PTM history and usable conversion economics; existing plural broad is efficient but this exact wording is missing"
+    },
+    {
+      "value": "strawberry party favors",
+      "matchType": "PHRASE",
+      "matchTypeCode": "2",
+      "bid": 0.2,
+      "reason": "medium ABA demand; phrase controls broad candy/decoration drift while testing party-favor demand"
+    },
+    {
+      "value": "strawberry shortcake party favors",
+      "matchType": "PHRASE",
+      "matchTypeCode": "2",
+      "bid": 0.19,
+      "reason": "medium ABA demand but higher fit risk; kept as small phrase test only"
+    }
+  ],
+  "asinCandidates": [
+    {
+      "value": "B0GX1NHK7F",
+      "matchType": "ASIN_SAME_AS",
+      "bid": 0.3,
+      "title": "Kenning 50 Pcs Strawberry Keychains Strawberry Party Favors",
+      "reason": "closest 50 pcs strawberry keychain party favor competitor; price 14.99 aligns with ST2078"
+    },
+    {
+      "value": "B0FM47ZCX1",
+      "matchType": "ASIN_SAME_AS",
+      "bid": 0.3,
+      "title": "20 Set Strawberry Keychain Party Supplies with cards/organza",
+      "reason": "front-search sponsored/direct competitor and PTM organic rank around top 3 for strawberry keychain"
+    },
+    {
+      "value": "B0GBXNZ7V9",
+      "matchType": "ASIN_SAME_AS",
+      "bid": 0.3,
+      "title": "Meooeck 24 Pcs Red Strawberry Party Favors Bulk Keychain",
+      "reason": "appears in strawberry keychain bulk/party-favor evidence, not already targeted"
+    }
+  ],
+  "skippedExisting": {
+    "keywords": [],
+    "asins": []
+  },
+  "dryRun": {
+    "keywordPayload": {
+      "ok": true,
+      "positionType": "keywordTarget",
+      "requestUrl": "/keyword/createKeywordNew",
+      "requestBody": {
+        "siteId": 4,
+        "accountId": 165,
+        "keywords": [
+          {
+            "campaignId": "471705995606608",
+            "adGroupId": "533438542781358",
+            "bid": 0.21,
+            "matchType": "PHRASE",
+            "state": "ENABLED",
+            "keywordText": "strawberry key chain"
+          },
+          {
+            "campaignId": "471705995606608",
+            "adGroupId": "533438542781358",
+            "bid": 0.2,
+            "matchType": "PHRASE",
+            "state": "ENABLED",
+            "keywordText": "strawberry party favors"
+          },
+          {
+            "campaignId": "471705995606608",
+            "adGroupId": "533438542781358",
+            "bid": 0.19,
+            "matchType": "PHRASE",
+            "state": "ENABLED",
+            "keywordText": "strawberry shortcake party favors"
+          }
+        ],
+        "keywordGroups": []
+      },
+      "errors": []
+    },
+    "asinPayload": {
+      "ok": true,
+      "positionType": "productTarget",
+      "requestUrl": "/advTarget/storeManualTarget",
+      "requestBody": {
+        "siteId": 4,
+        "accountId": 165,
+        "targetingClauses": [
+          {
+            "campaignId": "327866610700697",
+            "adGroupId": "310781471835478",
+            "expressionType": "MANUAL",
+            "state": "ENABLED",
+            "bid": 0.3,
+            "expression": [
+              {
+                "type": "ASIN_SAME_AS",
+                "value": "B0GX1NHK7F"
+              }
+            ],
+            "resolvedExpression": [
+              {
+                "type": "ASIN_SAME_AS",
+                "value": "B0GX1NHK7F"
+              }
+            ]
+          },
+          {
+            "campaignId": "327866610700697",
+            "adGroupId": "310781471835478",
+            "expressionType": "MANUAL",
+            "state": "ENABLED",
+            "bid": 0.3,
+            "expression": [
+              {
+                "type": "ASIN_SAME_AS",
+                "value": "B0FM47ZCX1"
+              }
+            ],
+            "resolvedExpression": [
+              {
+                "type": "ASIN_SAME_AS",
+                "value": "B0FM47ZCX1"
+              }
+            ]
+          },
+          {
+            "campaignId": "327866610700697",
+            "adGroupId": "310781471835478",
+            "expressionType": "MANUAL",
+            "state": "ENABLED",
+            "bid": 0.3,
+            "expression": [
+              {
+                "type": "ASIN_SAME_AS",
+                "value": "B0GBXNZ7V9"
+              }
+            ],
+            "resolvedExpression": [
+              {
+                "type": "ASIN_SAME_AS",
+                "value": "B0GBXNZ7V9"
+              }
+            ]
+          }
+        ]
+      },
+      "errors": []
+    },
+    "executable": true
+  },
+  "reviewPlan": {
+    "date3d": "2026-06-08",
+    "date7d": "2026-06-12",
+    "checkpoint": "3d??????/??????7d???????????ASIN spend?4-6????????/???ACOS????25-30%???"
+  }
+}

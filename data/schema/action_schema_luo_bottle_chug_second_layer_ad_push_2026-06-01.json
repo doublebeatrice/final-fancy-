@@ -1,0 +1,134 @@
+[
+  {
+    "sku": "LUO1006",
+    "asin": "B0FHHRWSF2",
+    "operatorRequested": true,
+    "summary": "Second-layer no-coupon push: repair exact high-intent SP entries on LUO1006 that are active but under-bid and almost not serving.",
+    "actions": [
+      {
+        "id": "528390127445672",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.30,
+        "suggestedBid": 0.40,
+        "allowLargeBidChange": true,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": ["codex", "manual"],
+        "source": "codex_luo_bottle_chug_second_layer_ad_push_2026-06-01",
+        "forceExecute": true,
+        "forceReason": "Operator challenged that the first landing was not enough for the all-stock target; this is a narrow exact-term traffic repair, not a broad expansion.",
+        "riskLevel": "exact_high_intent_traffic_repair",
+        "confidence": 0.7,
+        "campaignId": "266537160571547",
+        "adGroupId": "515674560487184",
+        "campaignName": "kw  exact_bottle chug_luo1006",
+        "groupName": "kw  exact_bottle chug_luo1006",
+        "text": "baby bottle chug game",
+        "label": "baby bottle chug game",
+        "reason": "LUO1006 exact high-intent keyword is enabled but under-serving: bid 0.30, 11 impressions, 0 clicks. Market CPC evidence for bottle-chug terms is materially higher, and the all-stock target needs faster traffic recovery. Raise to 0.40 as a capped exact-term repair.",
+        "evidence": [
+          "live row 2026-06-01: keywordId=528390127445672 baby bottle chug game bid=0.30 impressions=11 clicks=0 spend=0 orders=0",
+          "keyword market evidence: baby bottle chug game has high intent and median CPC around 0.76",
+          "first-layer landing already protected proven SB/SBV rows; this second layer stays exact, not broad"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If this exact keyword reaches 8 clicks or spends over 5 with 0 orders, restore bid to 0.30."
+        }
+      },
+      {
+        "id": "304715138499690",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.30,
+        "suggestedBid": 0.40,
+        "allowLargeBidChange": true,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": ["codex", "manual"],
+        "source": "codex_luo_bottle_chug_second_layer_ad_push_2026-06-01",
+        "forceExecute": true,
+        "forceReason": "Operator challenged that the first landing was not enough for the all-stock target; this is a narrow exact-term traffic repair, not a broad expansion.",
+        "riskLevel": "exact_high_intent_traffic_repair",
+        "confidence": 0.68,
+        "campaignId": "266537160571547",
+        "adGroupId": "515674560487184",
+        "campaignName": "kw  exact_bottle chug_luo1006",
+        "groupName": "kw  exact_bottle chug_luo1006",
+        "text": "bottle chug baby shower game",
+        "label": "bottle chug baby shower game",
+        "reason": "LUO1006 exact high-intent keyword is enabled but has no delivery at bid 0.30. Raise to 0.40 to test buyer-intent exact traffic before considering any broad expansion.",
+        "evidence": [
+          "live row 2026-06-01: keywordId=304715138499690 bottle chug baby shower game bid=0.30 impressions=0 clicks=0 spend=0 orders=0",
+          "query intent is directly aligned to the product gameplay and baby-shower use case",
+          "no coupon path approved; ad spend should first go to exact buyer-intent traffic"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If this exact keyword reaches 8 clicks or spends over 5 with 0 orders, restore bid to 0.30."
+        }
+      }
+    ]
+  },
+  {
+    "sku": "LUO0914",
+    "asin": "B0F6N5QY5N",
+    "operatorRequested": true,
+    "summary": "Second-layer no-coupon push: use the only low-ACOS LUO0914 direct bottle-chug SP term while avoiding broad tail-SKU expansion.",
+    "actions": [
+      {
+        "id": "556958282035225",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.38,
+        "suggestedBid": 0.43,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": ["codex", "manual"],
+        "source": "codex_luo_bottle_chug_second_layer_ad_push_2026-06-01",
+        "forceExecute": true,
+        "forceReason": "Operator challenged that the first landing was not enough for the all-stock target; this tail SKU action is limited to a proven low-ACOS direct keyword.",
+        "riskLevel": "tail_sku_validated_keyword_small_bid_up",
+        "confidence": 0.78,
+        "campaignId": "380213744331693",
+        "adGroupId": "562411319109733",
+        "campaignName": "kw_bottle chug_luo0914",
+        "groupName": "kw_bottle chug_luo0914",
+        "text": "chug the baby bottle game",
+        "label": "chug the baby bottle game",
+        "reason": "Although LUO0914 is a clearance/control SKU, this exact direct keyword is already efficient: bid 0.38, 18 clicks, spend 5.92, 3 orders, sales 65.97, ACOS 8.97%. Raise one step to 0.43 to help all-stock sell-through without opening broad tail-SKU traffic.",
+        "evidence": [
+          "live 2026-06-01 /keyword/findAllNew: keywordId=556958282035225 chug the baby bottle game bid=0.38 clicks=18 spend=5.92 orders=3 sales=65.97 ACOS=0.0897",
+          "LUO0914 remains excluded from broad/SB/SBV expansion; this is only a proven direct SP keyword",
+          "all-stock target needs contribution from tail SKUs, but only on low-waste paths"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 3,
+          "to": 4,
+          "deadlineDays": 7,
+          "hardFloor": 2
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If this keyword spends over 8 in 7 days with fewer than 2 orders or ACOS rises above 25%, restore bid to 0.38."
+        }
+      }
+    ]
+  }
+]

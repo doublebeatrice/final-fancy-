@@ -1,0 +1,3941 @@
+[
+  {
+    "sku": "DN3049",
+    "asin": "B0D8B4Q956",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "397627294006978",
+    "entityName": "auto_flower bucket _dn3049",
+    "beforeValue": 120,
+    "afterValue": 138,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 120 -> 138 (15%). Orders 16, ACOS 19.0%, profit 21.4%, invDays 14.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "budget"
+          },
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": "spend rises without orders by day 7"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SIJ2012",
+    "asin": "B0CHDSG76N",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "360520582788860",
+    "entityName": "storage bins-sij2012-system-a",
+    "beforeValue": 64.8,
+    "afterValue": 77.76,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 64.8 -> 77.76 (20%). Orders 11, ACOS 10.7%, profit 18.1%, invDays 22.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "budget"
+          },
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": "spend rises without orders by day 7"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SHQ0554",
+    "asin": "B0D73SYRYR",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "142244869468018",
+    "entityName": "auto_q2 profit shq0554 auto_shq0554",
+    "beforeValue": 12,
+    "afterValue": 15,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 12 -> 15 (25%). Orders 22, ACOS 19.3%, profit 24.5%, invDays 24.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "budget"
+          },
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": "spend rises without orders by day 7"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SC3420",
+    "asin": "B0C2HKSG2X",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "428072125021660",
+    "entityName": "kw_30redbirdmemory_sc3420",
+    "beforeValue": 40.5,
+    "afterValue": 48.6,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 40.5 -> 48.6 (20%). Orders 28, ACOS 18.1%, profit 14.2%, invDays 30.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "budget"
+          },
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": "spend rises without orders by day 7"
+        }
+      }
+    }
+  },
+  {
+    "sku": "QAA3142",
+    "asin": "B0F4R59VVV",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "529876226959922",
+    "entityName": "kw_ crown brooch pins _qaa3142",
+    "beforeValue": 23.44,
+    "afterValue": 29.3,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 23.44 -> 29.3 (25%). Orders 22, ACOS 13.0%, profit 30.3%, invDays 18.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "budget"
+          },
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": "spend rises without orders by day 7"
+        }
+      }
+    }
+  },
+  {
+    "sku": "TIN2263",
+    "asin": "B0CNR2DGTQ",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "202234001367198",
+    "entityName": "asin expanded_cruise ducks_tin2263",
+    "beforeValue": 15,
+    "afterValue": 18.75,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 15 -> 18.75 (25%). Orders 20, ACOS 7.5%, profit 16.3%, invDays 59.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "budget"
+          },
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": "spend rises without orders by day 7"
+        }
+      }
+    }
+  },
+  {
+    "sku": "PR2460",
+    "asin": "B0BYHS1CYH",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "306892610703010",
+    "entityName": "auto_slingshot chicken finger_pr2460",
+    "beforeValue": 16.58,
+    "afterValue": 20.72,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 16.58 -> 20.72 (25%). Orders 18, ACOS 7.8%, profit 34.7%, invDays 13.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "budget"
+          },
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": "spend rises without orders by day 7"
+        }
+      }
+    }
+  },
+  {
+    "sku": "COO1855",
+    "asin": "B0D9LKYKWV",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "159436999766996",
+    "entityName": "auto_q2 profit coo1855 auto_coo1855",
+    "beforeValue": 4.6,
+    "afterValue": 5.75,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 4.6 -> 5.75 (25%). Orders 20, ACOS 17.6%, profit 24.8%, invDays 12.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "budget"
+          },
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": "spend rises without orders by day 7"
+        }
+      }
+    }
+  },
+  {
+    "sku": "MED1970",
+    "asin": "B0FJB9LC2X",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "147480840129883",
+    "entityName": "ai_auto_steam table pans_med1970",
+    "beforeValue": 8,
+    "afterValue": 10,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 8 -> 10 (25%). Orders 10, ACOS 10.4%, profit 16.0%, invDays 37.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "budget"
+          },
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": "spend rises without orders by day 7"
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY3670",
+    "asin": "B0D73NTLPF",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "483509004194382",
+    "entityName": "auto_ star badge lapel pin_uy3670",
+    "beforeValue": 15,
+    "afterValue": 18.75,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 15 -> 18.75 (25%). Orders 6, ACOS 13.8%, profit 15.0%, invDays 77.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "budget"
+          },
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": "spend rises without orders by day 7"
+        }
+      }
+    }
+  },
+  {
+    "sku": "MF6294",
+    "asin": "B0GMH7Q46X",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "252297710887286",
+    "entityName": "jumbo letter balloons-mf6294-system-a",
+    "beforeValue": 7.18,
+    "afterValue": 8.97,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 7.18 -> 8.97 (25%). Orders 9, ACOS 11.7%, profit 19.7%, invDays 30.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "budget"
+          },
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": "spend rises without orders by day 7"
+        }
+      }
+    }
+  },
+  {
+    "sku": "DUN1391",
+    "asin": "B0CJ5GF9VP",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "419742057756314",
+    "entityName": "asin_commercial food storage_dun1391",
+    "beforeValue": 3,
+    "afterValue": 4,
+    "reason": "Over-budget campaign converting inside profit room. Controlled lift 3 -> 4 (33%). Orders 4, ACOS 17.9%, profit 13.7%, invDays 30.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled budget lift on a converting capped campaign should recover profitable demand without changing structure.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "orders": "up_modest",
+          "spend": "up_modest",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "windows": [
+            3,
+            7
+          ],
+          "metrics": [
+            "clicks",
+            "orders",
+            "acos",
+            "spend"
+          ],
+          "escalationPlan": "if 7d ACOS rises above profit room without order growth, revert to prior budget.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "budget"
+          },
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": "spend rises without orders by day 7"
+        }
+      }
+    }
+  },
+  {
+    "sku": "PR2214",
+    "asin": "B0BYJGTQLJ",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "331654172145711",
+    "entityName": "white bunny pr2214-sbv-s-old",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Easter expired \"little stuffed bunny party favor\" spend3=0.32, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Easter expired \"little stuffed bunny party favor\" spend3=0.32, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "PR2214",
+    "asin": "B0BYJGTQLJ",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "369214933307309",
+    "entityName": "white bunny pr2214-sbv-s-old",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Easter expired \"bulk stuffed bunnies\" spend3=0.25, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Easter expired \"bulk stuffed bunnies\" spend3=0.25, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "PR2214",
+    "asin": "B0BYJGTQLJ",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "327115422721585",
+    "entityName": "white bunny pr2214-sbv-s-old",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Easter expired \"mini bunny stuffed animal\" spend3=0.24, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Easter expired \"mini bunny stuffed animal\" spend3=0.24, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "LO3817",
+    "asin": "B0G4R61LRM",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "155682037153891",
+    "entityName": "sbv kw broad_christian mothers day gifts_lo3817",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Mother's Day tail/expired \"mothers day church favors\" spend3=0.25, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Mother's Day tail/expired \"mothers day church favors\" spend3=0.25, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL3650",
+    "asin": "B0B9Y2ZG9G",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "432110160071855",
+    "entityName": "sbvkw_red chili_cl3650",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"red chili pepper pinata\" spend3=2.1, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"red chili pepper pinata\" spend3=2.1, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL3650",
+    "asin": "B0B9Y2ZG9G",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "547281666533222",
+    "entityName": "kw_red chili_cl3650",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"chili pinata\" spend3=0.24, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"chili pinata\" spend3=0.24, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL3563",
+    "asin": "B0BWN6ZT4X",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "145136272257549",
+    "entityName": "kw_pinata_cl3563",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"traditional mexican piñatas\" spend3=1.41, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"traditional mexican piñatas\" spend3=1.41, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL3563",
+    "asin": "B0BWN6ZT4X",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "226033650079336",
+    "entityName": "sbv_pinata_cl3563",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"mini pinata\" spend3=0.38, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"mini pinata\" spend3=0.38, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL3563",
+    "asin": "B0BWN6ZT4X",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "103115908518443",
+    "entityName": "sbv_pinata_cl3563",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"small pinata\" spend3=0.38, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"small pinata\" spend3=0.38, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL3563",
+    "asin": "B0BWN6ZT4X",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "322853364274283",
+    "entityName": "sbv_pinata_cl3563",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"mexican pinata\" spend3=0.38, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"mexican pinata\" spend3=0.38, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL3563",
+    "asin": "B0BWN6ZT4X",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "12960892927578",
+    "entityName": "kw_pinata_cl3563",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"mexican party decorations\" spend3=0.34, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"mexican party decorations\" spend3=0.34, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL3563",
+    "asin": "B0BWN6ZT4X",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "14672536122730",
+    "entityName": "kw_pinata_cl3563",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"mini piñatas\" spend3=0.3, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"mini piñatas\" spend3=0.3, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL3563",
+    "asin": "B0BWN6ZT4X",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "51650470406958",
+    "entityName": "kw_pinata_cl3563",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"large pinata\" spend3=0.3, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"large pinata\" spend3=0.3, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL4199",
+    "asin": "B0C84SXWG7",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "407680799510959",
+    "entityName": "kw_taco piñata_cl4199",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"pinata\" spend3=0.76, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"pinata\" spend3=0.76, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL4199",
+    "asin": "B0C84SXWG7",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "134934259083710",
+    "entityName": "sbv_pinata_cl4199",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"mexican piñata\" spend3=0.34, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"mexican piñata\" spend3=0.34, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL4199",
+    "asin": "B0C84SXWG7",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "196777142760032",
+    "entityName": "sbv_pinata_cl4199",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"small pinata\" spend3=0.27, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"small pinata\" spend3=0.27, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL4199",
+    "asin": "B0C84SXWG7",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "130626610969826",
+    "entityName": "sb_pinata_cl4199  cl4170 cl3563",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"mexican theme party decorations\" spend3=0.22, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"mexican theme party decorations\" spend3=0.22, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL4199",
+    "asin": "B0C84SXWG7",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "sbKeyword",
+    "entityId": "113833582657119",
+    "entityName": "sbv_pinata_cl4199",
+    "beforeValue": 0.3,
+    "afterValue": 0.25,
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"taco pinata large\" spend3=0.22, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"taco pinata large\" spend3=0.22, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL4199",
+    "asin": "B0C84SXWG7",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "131153673904398",
+    "entityName": "sb_pinata_cl4199  cl4170 cl3563",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"large mexican pinata\" spend3=0.2, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"large mexican pinata\" spend3=0.2, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "CL4199",
+    "asin": "B0C84SXWG7",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "377274699586698",
+    "entityName": "sb_pinata_cl4199  cl4170 cl3563",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"fiesta pinata\" spend3=0.15, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"fiesta pinata\" spend3=0.15, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "ZO0891",
+    "asin": "B0DW8ZQX13",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "193624372332204",
+    "entityName": "kw broad_christian mothers day gifts_zo0891",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Mother's Day tail/expired \"bible study gifts\" spend3=0.67, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Mother's Day tail/expired \"bible study gifts\" spend3=0.67, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "SY4371",
+    "asin": "B0FWQF947V",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "528941878360851",
+    "entityName": "sbvkw_positive taco_sy4371",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"stuffed taco\" spend3=0.42, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"stuffed taco\" spend3=0.42, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "XIH2559",
+    "asin": "B0FJR3GQ3M",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "114134036014924",
+    "entityName": "kw broad_mothers day gifts for mom_xih2559",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Mother's Day tail/expired \"regalos para mama cristianos\" spend3=0.42, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Mother's Day tail/expired \"regalos para mama cristianos\" spend3=0.42, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUN2188",
+    "asin": "B0DV48NW74",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "34762726249201",
+    "entityName": "kw exact_mothers day gifts bulk cups_yun2188",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Mother's Day tail/expired \"christian gifts for women bulk\" spend3=0.41, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Mother's Day tail/expired \"christian gifts for women bulk\" spend3=0.41, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "MH2710",
+    "asin": "B0CGLZSDKP",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "92639953171388",
+    "entityName": "kw broad_nurse ornaments_mh2710",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Nurse Week tail/expired \"nurses day gifts\" spend3=0.4, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Nurse Week tail/expired \"nurses day gifts\" spend3=0.4, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "LO3821",
+    "asin": "B0G4R6JZD5",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "9120477457003",
+    "entityName": "broad_christian_gifts_lo3821",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Mother's Day tail/expired \"christian gifts for mom\" spend3=0.35, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Mother's Day tail/expired \"christian gifts for mom\" spend3=0.35, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "GM2634",
+    "asin": "B0FMJJ88NR",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "69340139675225",
+    "entityName": "sbvkw_ christian necklace_gm2634",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Mother's Day tail/expired \"religious mothers day gifts for women\" spend3=0.35, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Mother's Day tail/expired \"religious mothers day gifts for women\" spend3=0.35, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "LED3942",
+    "asin": "B0DT3VC3SP",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "479669629660530",
+    "entityName": "sbvkw_appreciationballpoint_led3942",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"pens for teachers gifts\" spend3=0.32, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"pens for teachers gifts\" spend3=0.32, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "XUL2303",
+    "asin": "B0F4XT3ZYK",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "280035889531395",
+    "entityName": "kw_may_xul2303",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"teacher week gift\" spend3=0.3, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"teacher week gift\" spend3=0.3, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "OB3296",
+    "asin": "B0GJRF57B5",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "53710526310726",
+    "entityName": "kw broad_donkey pinata_ob3296",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"piñata\" spend3=0.25, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"piñata\" spend3=0.25, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "HEL0319",
+    "asin": "B0C6TSBBDK",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "9075323699119",
+    "entityName": "thank you keychains HEL0319 SBV-S-NEW",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Nurse Week tail/expired \"nurse gifts hospital week gifts\" spend3=0.25, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Nurse Week tail/expired \"nurse gifts hospital week gifts\" spend3=0.25, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "HEL0319",
+    "asin": "B0C6TSBBDK",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "11139060863416",
+    "entityName": "kw broad_teacher appreciation keychains bulk_hel0319",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"nurse appreciation keychains bulk\" spend3=0.25, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"nurse appreciation keychains bulk\" spend3=0.25, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "TM2900",
+    "asin": "B0G64QCQD8",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "275946604289877",
+    "entityName": "kw_q2 profit tm2900 phrase_tm2900",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Nurse Week tail/expired \"nurse week gifts\" spend3=0.25, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Nurse Week tail/expired \"nurse week gifts\" spend3=0.25, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "QA1157",
+    "asin": "B0BQ325P4G",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "104401723283392",
+    "entityName": "b2b kw broad_end of year student gifts_qa1157",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"kids party favors\" spend3=0.22, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Teacher Appreciation tail/expired \"kids party favors\" spend3=0.22, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "HL4017",
+    "asin": "B0CTG3VYGH",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "65528795309860",
+    "entityName": "kw_q2 profit hl4017 broad_hl4017",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"mexican party favors\" spend3=0.19, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"mexican party favors\" spend3=0.19, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YYW2630",
+    "asin": "B0FMRLKZ7R",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "531014269416286",
+    "entityName": "baby shower teddy bear-yyw2630-system-keyword",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Nurse Week tail/expired \"small teddy bear gift for newborn girl\" spend3=0.15, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Nurse Week tail/expired \"small teddy bear gift for newborn girl\" spend3=0.15, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "EY1448",
+    "asin": "B09W9F82GK",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "414071083935182",
+    "entityName": "kw_ mexican keychain_ey1448",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "Expired/tail season keyword waste: Cinco de Mayo expired \"cinco de mayo party favors\" spend3=0.1, orders3=0, ACOS3=none.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expired/tail season keyword waste: Cinco de Mayo expired \"cinco de mayo party favors\" spend3=0.1, orders3=0, ACOS3=none.",
+        "expectedEffect": {
+          "impressions": "down_selective",
+          "clicks": "down_selective",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "improve_or_hold"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "same-SKU sales or efficient orders fall while waste does not improve",
+          "goal": {
+            "metric": "netProfit",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": -1
+          },
+          "killSwitch": {
+            "metric": "netProfit",
+            "condition": "netProfit falls below hardFloor by day 7",
+            "rollbackIf": "netProfit below hardFloor by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "GUF3129",
+    "asin": "B0GWD724Y8",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::GUF3129::auto::auto::patriotic gift hat",
+    "entityName": "ai_auto_patriotic gift hat_guf3129",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "auto",
+      "sku": "GUF3129",
+      "asin": "B0GWD724Y8",
+      "accountId": 714,
+      "siteId": 4,
+      "dailyBudget": 3,
+      "defaultBid": 0.3,
+      "coreTerm": "patriotic gift hat",
+      "matchType": "",
+      "keywords": [],
+      "campaignName": "ai_auto_patriotic gift hat_guf3129",
+      "groupName": "ai_auto_patriotic gift hat_guf3129",
+      "targetType": "",
+      "targetAsins": [],
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 1,
+        "deadlineDays": 7,
+        "hardFloor": 0
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": "",
+      "siteRestriction": ""
+    },
+    "reason": "New product has inventory but no SP auto coverage. Build low-budget auto now instead of waiting for natural orders.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "New product has inventory but no SP auto coverage. Build low-budget auto now instead of waiting for natural orders.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up_controlled",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "spend rises without impressions/clicks/orders or listing readiness blocks conversion",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "create"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "QUN5204",
+    "asin": "B0GTTQX894",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::QUN5204::auto::auto::graduate graduation gift basket",
+    "entityName": "ai_auto_graduate graduation gift basket_qun5204",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "auto",
+      "sku": "QUN5204",
+      "asin": "B0GTTQX894",
+      "accountId": 798,
+      "siteId": 4,
+      "dailyBudget": 3,
+      "defaultBid": 0.3,
+      "coreTerm": "graduate graduation gift basket",
+      "matchType": "",
+      "keywords": [],
+      "campaignName": "ai_auto_graduate graduation gift basket_qun5204",
+      "groupName": "ai_auto_graduate graduation gift basket_qun5204",
+      "targetType": "",
+      "targetAsins": [],
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 1,
+        "deadlineDays": 7,
+        "hardFloor": 0
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": "",
+      "siteRestriction": ""
+    },
+    "reason": "New product has inventory but no SP auto coverage. Build low-budget auto now instead of waiting for natural orders.",
+    "runAt": "2026-06-01T02:06:35.231Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "today_ops_2026-06-01T02-06-35-231Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "New product has inventory but no SP auto coverage. Build low-budget auto now instead of waiting for natural orders.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up_controlled",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "spend rises without impressions/clicks/orders or listing readiness blocks conversion",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "create"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "KZ6722",
+    "asin": "B0GV48BQ52",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "60363259944448",
+    "entityName": "kw broad_kpop party decorations_kz6722",
+    "beforeValue": 0.42,
+    "afterValue": 0.48,
+    "reason": "Developer requested a small bid lift. Live broad lane is converting: 30d group 982 impressions, 6 clicks, 2 orders, ACOS 13.24%; sibling/converting kpop background and existing kpop backdrop banner are both at 0.48, while this term is only 0.42 with low exposure.",
+    "runAt": "2026-06-01T03:01:34.805Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-01T03-01-34-805Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Small bid lift should increase eligible traffic for relevant kpop party/backdrop terms without broad budget expansion.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "spend": "up_modest",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "impressions",
+            "clicks",
+            "orders",
+            "acos"
+          ],
+          "rollbackIf": "click spend rises without order signal or ACOS breaks SKU profit boundary",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "7d spend rises without any order signal",
+            "rollbackIf": "if 7d spend rises and orders stay 0, revert to prior bid"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "KZ6722",
+    "asin": "B0GV48BQ52",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "134763852855584",
+    "entityName": "kw broad_kpop party decorations_kz6722",
+    "beforeValue": 0.46,
+    "afterValue": 0.48,
+    "reason": "Developer requested a small bid lift. Current term is enabled at 0.46; same broad lane 7d/30d is order-positive and 0.48 is the current comparable lane bid ceiling, so raise only one small step.",
+    "runAt": "2026-06-01T03:01:34.805Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-01T03-01-34-805Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Small bid lift should increase eligible traffic for relevant kpop party/backdrop terms without broad budget expansion.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "spend": "up_modest",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "impressions",
+            "clicks",
+            "orders",
+            "acos"
+          ],
+          "rollbackIf": "click spend rises without order signal or ACOS breaks SKU profit boundary",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "7d spend rises without any order signal",
+            "rollbackIf": "if 7d spend rises and orders stay 0, revert to prior bid"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "KZ6722",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "60363259944448",
+    "entityName": "kw broad_kpop party decorations_kz6722",
+    "beforeValue": 0.42,
+    "afterValue": 0.48,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"60363259944448\"},{\"keywordId\":\"134763852855584\"}],\"error\":[]}}",
+    "runAt": "2026-06-01T03:01:42.494Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-01T03-01-42-494Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Small bid lift should increase eligible traffic for relevant kpop party/backdrop terms without broad budget expansion.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "spend": "up_modest",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "impressions",
+            "clicks",
+            "orders",
+            "acos"
+          ],
+          "rollbackIf": "click spend rises without order signal or ACOS breaks SKU profit boundary",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "7d spend rises without any order signal",
+            "rollbackIf": "if 7d spend rises and orders stay 0, revert to prior bid"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "KZ6722",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "134763852855584",
+    "entityName": "kw broad_kpop party decorations_kz6722",
+    "beforeValue": 0.46,
+    "afterValue": 0.48,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"60363259944448\"},{\"keywordId\":\"134763852855584\"}],\"error\":[]}}",
+    "runAt": "2026-06-01T03:01:42.494Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-01T03-01-42-494Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Small bid lift should increase eligible traffic for relevant kpop party/backdrop terms without broad budget expansion.",
+        "expectedEffect": {
+          "impressions": "up_modest",
+          "clicks": "up_modest",
+          "spend": "up_modest",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "metrics": [
+            "impressions",
+            "clicks",
+            "orders",
+            "acos"
+          ],
+          "rollbackIf": "click spend rises without order signal or ACOS breaks SKU profit boundary",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "7d spend rises without any order signal",
+            "rollbackIf": "if 7d spend rises and orders stay 0, revert to prior bid"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "LUO0914",
+    "asin": "B0F6N5QY5N",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "402678236219675",
+    "entityName": "asin_bottle chug baby shower_luo0914",
+    "beforeValue": 0.67,
+    "afterValue": 0.45,
+    "reason": "LUO0914 recent conversion regression is concentrated in SP manual ASIN targeting; exact ASIN row has clicks/spend with zero orders and bid materially above current keyword market CPC, so reduce to controlled sell-through level while preserving converting keyword lane.",
+    "runAt": "2026-06-01T04:13:50.308Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-01T04-13-50-308Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Reducing high-bid zero-order ASIN targets should lower wasted clicks without cutting the keyword path that still converts.",
+        "expectedEffect": {
+          "spend": "down",
+          "clicks": "down_on_weak_asin_targets",
+          "orders": "watch",
+          "acos": "down"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "orders fall and weak ASIN spend continues after 3 days",
+          "goal": {
+            "metric": "netProfit",
+            "from": -0.02,
+            "to": 0.02,
+            "deadlineDays": 7,
+            "hardFloor": -0.05
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "keyword lane orders fall while weak ASIN spend continues by day 3",
+            "rollbackIf": "orders fall and weak ASIN spend continues after 3 days"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "LUO0914",
+    "asin": "B0F6N5QY5N",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "472024811279746",
+    "entityName": "asin_bottle chug baby shower_luo0914",
+    "beforeValue": 0.69,
+    "afterValue": 0.45,
+    "reason": "LUO0914 recent conversion regression is concentrated in SP manual ASIN targeting; exact ASIN row has clicks/spend with zero orders and bid materially above current keyword market CPC, so reduce to controlled sell-through level while preserving converting keyword lane.",
+    "runAt": "2026-06-01T04:13:50.308Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-01T04-13-50-308Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Reducing high-bid zero-order ASIN targets should lower wasted clicks without cutting the keyword path that still converts.",
+        "expectedEffect": {
+          "spend": "down",
+          "clicks": "down_on_weak_asin_targets",
+          "orders": "watch",
+          "acos": "down"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "orders fall and weak ASIN spend continues after 3 days",
+          "goal": {
+            "metric": "netProfit",
+            "from": -0.02,
+            "to": 0.02,
+            "deadlineDays": 7,
+            "hardFloor": -0.05
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "keyword lane orders fall while weak ASIN spend continues by day 3",
+            "rollbackIf": "orders fall and weak ASIN spend continues after 3 days"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "LUO0914",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "402678236219675",
+    "entityName": "asin_bottle chug baby shower_luo0914",
+    "beforeValue": 0.67,
+    "afterValue": 0.45,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"402678236219675\"},{\"targetId\":\"472024811279746\"}],\"error\":[]}}",
+    "runAt": "2026-06-01T04:13:55.222Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-01T04-13-55-222Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Reducing high-bid zero-order ASIN targets should lower wasted clicks without cutting the keyword path that still converts.",
+        "expectedEffect": {
+          "spend": "down",
+          "clicks": "down_on_weak_asin_targets",
+          "orders": "watch",
+          "acos": "down"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "orders fall and weak ASIN spend continues after 3 days",
+          "goal": {
+            "metric": "netProfit",
+            "from": -0.02,
+            "to": 0.02,
+            "deadlineDays": 7,
+            "hardFloor": -0.05
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "keyword lane orders fall while weak ASIN spend continues by day 3",
+            "rollbackIf": "orders fall and weak ASIN spend continues after 3 days"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "LUO0914",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "472024811279746",
+    "entityName": "asin_bottle chug baby shower_luo0914",
+    "beforeValue": 0.69,
+    "afterValue": 0.45,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"402678236219675\"},{\"targetId\":\"472024811279746\"}],\"error\":[]}}",
+    "runAt": "2026-06-01T04:13:55.222Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-01T04-13-55-222Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Reducing high-bid zero-order ASIN targets should lower wasted clicks without cutting the keyword path that still converts.",
+        "expectedEffect": {
+          "spend": "down",
+          "clicks": "down_on_weak_asin_targets",
+          "orders": "watch",
+          "acos": "down"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "orders fall and weak ASIN spend continues after 3 days",
+          "goal": {
+            "metric": "netProfit",
+            "from": -0.02,
+            "to": 0.02,
+            "deadlineDays": 7,
+            "hardFloor": -0.05
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "keyword lane orders fall while weak ASIN spend continues by day 3",
+            "rollbackIf": "orders fall and weak ASIN spend continues after 3 days"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "LUO0914",
+    "asin": "B0F6N5QY5N",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "470325847673131",
+    "entityName": "kw_bottle chug_luo0914",
+    "beforeValue": 0.28,
+    "afterValue": 0.32,
+    "reason": "Raise under-delivering broad keyword to a low-CPC test bid below market CPC; keyword lane is the only currently converting LUO0914 ad path, and campaign budget remains unchanged.",
+    "runAt": "2026-06-01T04:24:21.129Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-01T04-24-21-129Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A below-market test bid can recover impressions/clicks for relevant baby-shower bottle game traffic without opening broad budget expansion.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_small",
+          "spend": "up_capped_by_budget",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "tested terms spend > 5 and orders remain 0 by day 7",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "7d spend exceeds 5 with 0 orders on the tested terms",
+            "rollbackIf": "tested terms spend > 5 and orders remain 0 by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "LUO0914",
+    "asin": "B0F6N5QY5N",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "357526818331877",
+    "entityName": "kw_bottle chug_luo0914",
+    "beforeValue": 0.09,
+    "afterValue": 0.38,
+    "reason": "Raise under-delivering broad keyword to a low-CPC test bid below market CPC; keyword lane is the only currently converting LUO0914 ad path, and campaign budget remains unchanged.",
+    "runAt": "2026-06-01T04:24:21.129Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-01T04-24-21-129Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A below-market test bid can recover impressions/clicks for relevant baby-shower bottle game traffic without opening broad budget expansion.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_small",
+          "spend": "up_capped_by_budget",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "tested terms spend > 5 and orders remain 0 by day 7",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "7d spend exceeds 5 with 0 orders on the tested terms",
+            "rollbackIf": "tested terms spend > 5 and orders remain 0 by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "LUO0914",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "470325847673131",
+    "entityName": "kw_bottle chug_luo0914",
+    "beforeValue": 0.28,
+    "afterValue": 0.32,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"470325847673131\"},{\"keywordId\":\"357526818331877\"}],\"error\":[]}}",
+    "runAt": "2026-06-01T04:24:26.233Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-01T04-24-26-233Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "A below-market test bid can recover impressions/clicks for relevant baby-shower bottle game traffic without opening broad budget expansion.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_small",
+          "spend": "up_capped_by_budget",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "tested terms spend > 5 and orders remain 0 by day 7",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "7d spend exceeds 5 with 0 orders on the tested terms",
+            "rollbackIf": "tested terms spend > 5 and orders remain 0 by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "LUO0914",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "357526818331877",
+    "entityName": "kw_bottle chug_luo0914",
+    "beforeValue": 0.09,
+    "afterValue": 0.38,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"470325847673131\"},{\"keywordId\":\"357526818331877\"}],\"error\":[]}}",
+    "runAt": "2026-06-01T04:24:26.233Z",
+    "businessDate": "2026-05-31",
+    "localDate": "2026-06-01",
+    "dataDate": "2026-05-30",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-01T04-24-26-233Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "A below-market test bid can recover impressions/clicks for relevant baby-shower bottle game traffic without opening broad budget expansion.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_small",
+          "spend": "up_capped_by_budget",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "tested terms spend > 5 and orders remain 0 by day 7",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "7d spend exceeds 5 with 0 orders on the tested terms",
+            "rollbackIf": "tested terms spend > 5 and orders remain 0 by day 7"
+          }
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "sku": "PR2214",
+    "summary": "Pause floor-bid SBV keyword that keeps spending with zero orders and has no long-window order protection.",
+    "actions": [
+      {
+        "id": "300727415855471",
+        "entityType": "sbKeyword",
+        "actionType": "pause",
+        "currentState": "enabled",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_loweff_floor_pause_2026-06-08",
+        "riskLevel": "floor_bid_zero_order_pause",
+        "confidence": 0.80,
+        "reason": "SBV keyword mini stuffed rabbits is already at the SBV floor bid 0.25 and still has 7d 13 clicks, $3.63 spend, 0 orders, with no 15d/30d order protection in the 2026-06-08 low-efficiency pool. Pause the child keyword instead of holding.",
+        "evidence": ["2026-06-08 low-efficiency pool: SBV keyword mini stuffed rabbits, id=300727415855471, bid=0.25, 7d clicks=13 spend=3.63 orders=0; no 15d/30d order protection"],
+        "goal": {"metric": "netProfit", "from": 0.03, "to": 0.05, "deadlineDays": 7, "hardFloor": 0},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "Re-enable only if PR2214 loses all relevant SBV traffic and sibling rows cannot absorb demand."}
+      }
+    ]
+  }
+]

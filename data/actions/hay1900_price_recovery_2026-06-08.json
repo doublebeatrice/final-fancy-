@@ -1,0 +1,66 @@
+[
+  {
+    "sku": "HAY1900",
+    "asin": "B0CT32947T",
+    "summary": "HAY1900 price recovery after post-raise conversion and traffic break.",
+    "actions": [
+      {
+        "id": "HAY1900",
+        "sku": "HAY1900",
+        "asin": "B0CT32947T",
+        "site": "Amazon.com",
+        "entityType": "sku",
+        "actionType": "price",
+        "currentPrice": 54.99,
+        "suggestedPrice": 51.99,
+        "priceIntent": "conversion_recovery",
+        "remark": "提价后近7天广告展示点击订单断流，回调价格观察出单恢复",
+        "reason": "HAY1900 2026-06-08 实时广告汇总显示近7天展示/点击/订单均为0，30天仍有有效手动词组8单且ACOS 3.26%；产品分析FBA 124、30天销量23，库存已不再是硬控销状态。先从54.99小步回调到51.99恢复承接，不加广告。",
+        "evidence": [
+          "sellerinventory productAnalysis/query2 live-read 2026-06-08: fba_inv=124, sales_30=23",
+          "adSkuSummary live-read 2026-06-08: skuInvData.price=54.99, 7d impressions/clicks/orders/spend=0",
+          "adProductData live-read 2026-06-08: manual keyword campaign 30d orders=8, ACOS=3.2557%",
+          "adProductData live-read 2026-06-08: auto campaign 30d orders=1, ACOS=36.1503%"
+        ],
+        "adCoupling": {
+          "direction": "hold",
+          "reason": "先修复价格承接，不同步加广告；价格恢复后只允许观察或恢复已验证手动词组，禁止扩大无效泛流量。",
+          "allowedAdActions": ["hold", "raise_proven_terms_after_conversion_recovers"],
+          "blockedAdActions": ["raise_wasteful_traffic", "raise_budget_before_price_review"],
+          "checkAfterDays": [1, 3, 7]
+        },
+        "hypothesis": "小步降回51.99后，若价格是主要阻断点，3天内应恢复曝光点击或订单，7天内至少恢复有效手动词组出单。",
+        "expectedEffect": {
+          "priceApplication": "submitted",
+          "conversion": "recover",
+          "orders": "watch",
+          "adSpend": "hold"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "killSwitch": {
+          "metric": "orders",
+          "condition": "If price lands but 7d orders remain 0 while ads are eligible, stop further price cuts and move to listing/front-end diagnosis.",
+          "rollbackIf": "price lands but orders remain zero by day 7"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [1, 3, 7],
+          "metrics": ["lowestprice", "price_apply_time", "impressions", "clicks", "orders", "ACOS", "FBA inventory"],
+          "rollbackIf": "If price does not land within 1 day, check application status; if 7d orders stay zero after landed price and ads remain eligible, move to listing/front-end issue review instead of further lowering blindly."
+        },
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "requiresAiDecision": false,
+        "canAutoExecute": true,
+        "riskLevel": "price_conversion_recovery",
+        "confidence": 0.78
+      }
+    ]
+  }
+]

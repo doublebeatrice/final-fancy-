@@ -1,0 +1,548 @@
+[
+  {
+    "sku": "SH0423",
+    "asin": "B07S22D2CS",
+    "operatorRequested": true,
+    "summary": "SH0423 2026-vs-2025 traffic repair: 2025 same-window traffic was concentrated in SBV video; 2026 has more total SP traffic but recently lost/capped several proven lower-layer lanes. Execute only controlled bid-ups on proven or strategically missing rows; no budget increase and no reopening of hard-stopped SP rainbow umbrella broad.",
+    "actions": [
+      {
+        "id": "63363294200026",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.03,
+        "suggestedBid": 0.12,
+        "campaignId": "106509577454404",
+        "adGroupId": "81800054974338",
+        "campaignName": "kw broad_umbrella hat_sh0423",
+        "groupName": "kw broad_umbrella hat_sh0423",
+        "text": "umbrella hat",
+        "reason": "Main-term repair, not full broad reopening: 2026-05-06..2026-06-04 row had 17,476 impressions, 95 clicks, 16 orders, spend 35.58, sales 190.84, ACOS 18.64%, CPC 0.375. It was cut to 0.03 after 7d zero-order pressure, so restore only to 0.12 as a capped traffic test instead of previous 0.35/0.38.",
+        "evidence": [
+          "source=live /keyword/findAllNew property=1 2026-06-05; current bid=0.03, state=1, campaignState=1, groupState=1",
+          "30d row umbrella hat broad: impressions=17476, clicks=95, orders=16, spend=35.58, sales=190.84, ACOS=0.186438, CPC=0.374526",
+          "7d row after cut: impressions=8, clicks=0, orders=0, spend=0; this is a missing-traffic repair, not recent-efficiency scaling",
+          "2026-06-02 hard-stop queue did not hard-stop this broad main term; SP rainbow umbrella broad and exact umbrella hat were excluded instead"
+        ],
+        "confidence": 0.62,
+        "riskLevel": "controlled_main_term_repair",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "operator",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "Operator requested missing traffic recovery; this row is the main historical converter but is restored only to 0.12 to avoid fighting recent low-efficiency controls.",
+        "allowLargeBidChange": true,
+        "expectedEffect": {
+          "impressions": "recover_controlled",
+          "clicks": "recover_controlled",
+          "spend": "up_limited",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "3d spend above 4 USD with 0 orders or 7d ACOS above 35%",
+          "rollbackIf": "roll back this main-term repair only"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "3d spend > 4 USD with 0 orders, or 7d ACOS > 35%"
+        },
+        "verifySource": "kwRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.12
+        }
+      },
+      {
+        "id": "120933017847744",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.35,
+        "suggestedBid": 0.39,
+        "campaignId": "106509577454404",
+        "adGroupId": "81800054974338",
+        "campaignName": "kw broad_umbrella hat_sh0423",
+        "groupName": "kw broad_umbrella hat_sh0423",
+        "text": "head umbrella",
+        "reason": "Recent and 30d conversion both support a small bid-up: 7d had 4,896 impressions, 15 clicks, 1 order, ACOS 19.59%, CPC 0.365; 30d had 40 clicks, 6 orders, ACOS 15.54%, CPC 0.369.",
+        "evidence": [
+          "source=live /keyword/findAllNew property=1 2026-06-05; current bid=0.35, state=1, campaignState=1, groupState=1",
+          "7d row head umbrella: impressions=4896, clicks=15, orders=1, spend=5.48, sales=27.98, ACOS=0.195854, CPC=0.365333",
+          "30d row head umbrella: impressions=10905, clicks=40, orders=6, spend=14.75, sales=94.92, ACOS=0.155394, CPC=0.36875",
+          "Market conversion evidence: head umbrella CPC median about 0.35 and CPA/ACOS usable as a niche lane"
+        ],
+        "confidence": 0.72,
+        "riskLevel": "controlled_bid_up_for_missing_traffic",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "operator",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "Operator requested all suitable bid-ups; this row has both 7d and 30d conversion at acceptable ACOS.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_limited",
+          "orders": "hold_or_up",
+          "acos": "watch"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "7d ACOS above 32% or spend rises without order growth",
+          "rollbackIf": "roll back this keyword bid only"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "7d ACOS > 32% or 7d orders fall below 1 after spend increase"
+        },
+        "verifySource": "kwRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.39
+        }
+      },
+      {
+        "id": "146237906953695",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.35,
+        "suggestedBid": 0.39,
+        "campaignId": "151811182617217",
+        "adGroupId": "124973306050729",
+        "campaignName": "kw exact_umbrella hat_sh0423",
+        "groupName": "kw exact_umbrella hat_sh0423",
+        "text": "hat umbrella",
+        "reason": "Exact keyword is efficient in the current week: 7d had 5 clicks, 2 orders, ACOS 6.49%, CPC 0.35; 30d also had 2 orders at ACOS 9.08%. Lift one step to expand a clean converting exact lane.",
+        "evidence": [
+          "source=live /keyword/findAllNew property=1 2026-06-05; current bid=0.35, state=1, campaignState=1, groupState=1",
+          "7d exact hat umbrella: impressions=1335, clicks=5, orders=2, spend=1.75, sales=26.98, ACOS=0.064862, CPC=0.35",
+          "30d exact hat umbrella: impressions=1857, clicks=7, orders=2, spend=2.45, sales=26.98, ACOS=0.090808, CPC=0.35",
+          "Excluded exact umbrella hat because it was cut again on 2026-06-05 after 7d zero-order spend"
+        ],
+        "confidence": 0.74,
+        "riskLevel": "controlled_exact_keyword_bid_up",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "operator",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "Operator requested all suitable bid-ups; this exact row is a current-week converter with low ACOS.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_limited",
+          "orders": "hold_or_up",
+          "acos": "watch"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 2,
+          "to": 3,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "7d ACOS above 30% or 7d orders below 1 after spend increase",
+          "rollbackIf": "roll back this exact keyword bid only"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "7d ACOS > 30% or 7d orders below 1 after spend increase"
+        },
+        "verifySource": "kwRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.39
+        }
+      },
+      {
+        "id": "303435237223929",
+        "entityType": "manualTarget",
+        "actionType": "bid",
+        "currentBid": 0.38,
+        "suggestedBid": 0.42,
+        "campaignId": "345555626986116",
+        "adGroupId": "321371552289307",
+        "campaignName": "auto-CustomerTerm-sh0423-system-pt",
+        "groupName": "auto-CustomerTerm-sh0423-system-pt",
+        "text": "asin=B07S22D2CS",
+        "reason": "Manual product target has repeat conversion and low ACOS: 7d had 6 clicks, 1 order, ACOS 17.55%; 30d had 28 clicks, 9 orders, sales 192.84, ACOS 5.52%. Lift one step to protect and expand this high-efficiency product lane.",
+        "evidence": [
+          "source=live /advTarget/findAllNew property=3 2026-06-05; current bid=0.38, state=1, campaignState=1, groupState=1",
+          "7d target asin=B07S22D2CS: impressions=498, clicks=6, orders=1, spend=2.28, sales=12.99, ACOS=0.175519, CPC=0.38",
+          "30d target asin=B07S22D2CS: impressions=2037, clicks=28, orders=9, spend=10.64, sales=192.84, ACOS=0.055175, CPC=0.38",
+          "Skipped same group B004SSVMP2 because 7d ACOS is 39.31% despite 4 orders"
+        ],
+        "confidence": 0.76,
+        "riskLevel": "controlled_product_target_bid_up",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "operator",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "Operator requested all suitable bid-ups; this product target has repeat 7d and 30d conversion with acceptable ACOS.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_limited",
+          "orders": "hold_or_up",
+          "acos": "watch"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "7d ACOS above 30% or spend rises without order growth",
+          "rollbackIf": "roll back this target bid only"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "7d ACOS > 30% or 7d orders below 1 after spend increase"
+        },
+        "verifySource": "targetRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.42
+        }
+      },
+      {
+        "id": "298737474590699",
+        "entityType": "manualTarget",
+        "actionType": "bid",
+        "currentBid": 0.38,
+        "suggestedBid": 0.42,
+        "campaignId": "345555626986116",
+        "adGroupId": "321371552289307",
+        "campaignName": "auto-CustomerTerm-sh0423-system-pt",
+        "groupName": "auto-CustomerTerm-sh0423-system-pt",
+        "text": "asin=B07QYLP454",
+        "reason": "Efficient smaller ASIN lane: 7d had 4 clicks, 1 order, ACOS 11.70%; 30d had 11 clicks, 3 orders, ACOS 11.14%. Lift one step while keeping budget unchanged.",
+        "evidence": [
+          "source=live /advTarget/findAllNew property=3 2026-06-05; current bid=0.38, state=1, campaignState=1, groupState=1",
+          "7d target asin=B07QYLP454: impressions=982, clicks=4, orders=1, spend=1.52, sales=12.99, ACOS=0.117013, CPC=0.38",
+          "30d target asin=B07QYLP454: impressions=1782, clicks=11, orders=3, spend=4.12, sales=36.97, ACOS=0.111442, CPC=0.374545",
+          "Bid-up is limited to a proven lower-layer target, no broad/product-expanded expansion"
+        ],
+        "confidence": 0.72,
+        "riskLevel": "controlled_product_target_bid_up",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "operator",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "Operator requested all suitable bid-ups; this target has current-week and 30d conversion with low ACOS.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_limited",
+          "orders": "hold_or_up",
+          "acos": "watch"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "7d ACOS above 30% or 7d orders below 1 after spend increase",
+          "rollbackIf": "roll back this target bid only"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "7d ACOS > 30% or 7d orders below 1 after spend increase"
+        },
+        "verifySource": "targetRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.42
+        }
+      },
+      {
+        "id": "133020769142032",
+        "entityType": "manualTarget",
+        "actionType": "bid",
+        "currentBid": 0.32,
+        "suggestedBid": 0.36,
+        "campaignId": "130198990318157",
+        "adGroupId": "38584257640678",
+        "campaignName": "asin exact_umbrella hat_sh0423",
+        "groupName": "asin exact_umbrella hat_sh0423",
+        "text": "asin=B07X2LZB3R",
+        "reason": "ASIN exact lane is both current and 30d efficient: 7d had 6 clicks, 1 order, ACOS 13.72%; 30d had 18 clicks, 3 orders, ACOS 16.76%. Current bid 0.32 is below recent CPC, so lift to 0.36.",
+        "evidence": [
+          "source=live /advTarget/findAllNew property=3 2026-06-05; current bid=0.32, state=1, campaignState=1, groupState=1",
+          "7d target asin=B07X2LZB3R: impressions=302, clicks=6, orders=1, spend=1.92, sales=13.99, ACOS=0.137240, CPC=0.32",
+          "30d target asin=B07X2LZB3R: impressions=1458, clicks=18, orders=3, spend=6.03, sales=35.97, ACOS=0.167640, CPC=0.335",
+          "Skipped high-recent-ACOS asin expanded B0B23RZRX1 despite 30d orders because 7d ACOS is 50.04%"
+        ],
+        "confidence": 0.72,
+        "riskLevel": "controlled_asin_exact_bid_up",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "operator",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "Operator requested all suitable bid-ups; this ASIN target has both 7d and 30d conversion with acceptable ACOS.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_limited",
+          "orders": "hold_or_up",
+          "acos": "watch"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "7d ACOS above 30% or 7d orders below 1 after spend increase",
+          "rollbackIf": "roll back this ASIN exact target bid only"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "7d ACOS > 30% or 7d orders below 1 after spend increase"
+        },
+        "verifySource": "targetRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.36
+        }
+      },
+      {
+        "id": "257262906526096",
+        "entityType": "sbKeyword",
+        "actionType": "bid",
+        "currentBid": 0.33,
+        "suggestedBid": 0.37,
+        "campaignId": "167317611610656",
+        "adGroupId": "542973723427325",
+        "campaignName": "sbkw _umbrella hat_sh0424 sh0423 sh0422",
+        "groupName": "",
+        "text": "rainbow umbrella",
+        "reason": "This is the cleanest replacement for missing 2025 rainbow/SBV-style traffic: 7d had 17 clicks, 2 orders, ACOS 20.55%; 30d had 26 clicks, 5 orders, ACOS 12.76%. Lift the shared SB keyword one step; do not reopen SP rainbow umbrella broad, which was hard-stopped.",
+        "evidence": [
+          "source=live /keywordSb/findAllNew property=4 2026-06-05; current bid=0.33, state=1, campaignState=ENABLED",
+          "7d SB rainbow umbrella: impressions=749, clicks=17, orders=2, spend=5.34, sales=25.98, ACOS=0.205542, CPC=0.314117",
+          "30d SB rainbow umbrella: impressions=1882, clicks=26, orders=5, spend=8.29, sales=64.95, ACOS=0.127637, CPC=0.318846",
+          "2025 same-window missing traffic was SBV/video-heavy; current SP rainbow umbrella broad is excluded by 2026-06-02 hard-stop rule"
+        ],
+        "confidence": 0.78,
+        "riskLevel": "controlled_sb_rainbow_traffic_repair",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "operator",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "Operator requested missing traffic recovery; this SB row has current-week and 30d conversion and replaces the unsafe SP broad rainbow lane.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_limited",
+          "orders": "hold_or_up",
+          "acos": "watch"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 2,
+          "to": 3,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "7d ACOS above 32% or 7d orders below 1 after spend increase",
+          "rollbackIf": "roll back this SB keyword bid only"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "7d ACOS > 32% or 7d orders below 1 after spend increase"
+        },
+        "verifySource": "sbRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.37
+        }
+      },
+      {
+        "id": "501248343421675",
+        "entityType": "sbKeyword",
+        "actionType": "bid",
+        "currentBid": 0.33,
+        "suggestedBid": 0.36,
+        "campaignId": "514131394658037",
+        "adGroupId": "384555368956986",
+        "campaignName": "sbv_rainbow umbrella_sh0423",
+        "groupName": "",
+        "text": "umbrella hats for adults",
+        "reason": "Small SBV recovery for the missing 2025 video lane: the campaign was the only meaningful 2025 same-window ad traffic source, and this phrase row is the only current SBV row with 30d conversion (4 clicks, 1 order, ACOS 9.58%). 7d has only 2 clicks and 0 orders, so lift only 0.03.",
+        "evidence": [
+          "source=live /keywordSb/findAllNew property=4 2026-06-05; current bid=0.33, state=1, campaignState=ENABLED, adFormat=video",
+          "2025 same-window SBV campaign: impressions=11924, clicks=191, orders=24, sales=331.72, ACOS=16.88%",
+          "2026 same-window SBV phrase row: impressions=370, clicks=4, orders=1, spend=1.34, sales=13.99, ACOS=0.095782, CPC=0.335",
+          "7d SBV phrase row: impressions=151, clicks=2, orders=0, spend=0.69; low-sample recovery, not a normal high-efficiency scale",
+          "Skipped SBV +umbrella +hat broad and exact umbrella hats for adults because both have 0 orders in 7d and 30d"
+        ],
+        "confidence": 0.58,
+        "riskLevel": "small_sbv_video_recovery_test",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "operator",
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "Operator requested missing last-year traffic recovery; this is the only current SBV row with 30d conversion and is lifted by only 0.03 due sparse recent sample.",
+        "expectedEffect": {
+          "impressions": "recover_small",
+          "clicks": "recover_small",
+          "spend": "up_limited",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "killSwitch": {
+          "metric": "orders_acos",
+          "condition": "7d spend above 3 USD with 0 orders or 7d ACOS above 35%",
+          "rollbackIf": "roll back this SBV keyword bid only"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "7d spend > 3 USD with 0 orders or 7d ACOS > 35%"
+        },
+        "verifySource": "sbRows",
+        "verifyField": "bid",
+        "expected": {
+          "type": "number",
+          "sourceField": "suggestedBid",
+          "value": 0.36
+        }
+      }
+    ]
+  }
+]

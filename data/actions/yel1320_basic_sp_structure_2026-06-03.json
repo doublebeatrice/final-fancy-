@@ -1,0 +1,175 @@
+[
+  {
+    "sku": "YEL1320",
+    "asin": "B0GXZYQJPL",
+    "operatorRequested": true,
+    "summary": "Self-owned YEL1320 base SP structure: ignore system-created auto/keyword campaigns, add low-budget owned auto, owned broad keyword, and owned exact ASIN targeting for patriotic cooling towel launch/clearance learning. SBV is skipped because no usable video asset was verified.",
+    "actions": [
+      {
+        "id": "create::YEL1320::auto::patriotic cooling towel auto",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": ["codex", "manual"],
+        "riskLevel": "basic_structure_create",
+        "confidence": 0.74,
+        "allowDuplicateStructureCreate": true,
+        "forceExecute": true,
+        "forceReason": "Operator requested new-product ad structure; existing YEL1320 auto is system-created and does not count as owned controllable coverage.",
+        "reason": "YEL1320 has only system-created auto and keyword campaigns. Create a low-budget owned SP auto lane to collect search-term and product-page learning while keeping spend controlled because sale_status is limited infringement clearance and inventory/profit details were unavailable from productAnalysis.",
+        "evidence": [
+          "Live ad read 2026-06-03: ASIN=B0GXZYQJPL accountId=894 siteId=4 price=28.99 sale_status=限时侵权清仓 servingStatus=ELIGIBLE.",
+          "Existing system auto campaign cooling towel-yel1320-system-a is enabled but not counted as owned coverage.",
+          "Amazon listing: 12 pcs patriotic cooling towels, red/white/blue, 40 x 12 inch, 4th of July/Independence Day/outdoor summer use.",
+          "Selection keyword conversion 2026-05-17: cooling towel searchVolume=11604, clickPurchaseRatio=0.1393, broad cpcMedian=1.49; product-line CPC live read=0.562671, so 0.42 is controlled discovery."
+        ],
+        "reviewPlan": {
+          "date": "2026-06-10",
+          "metrics": ["impressions", "clicks", "spend", "orders", "customer search terms"],
+          "checkpoint": "1d serving check, 3d relevance/CPC check, 7d order and learning check. Cut buckets if traffic is generic non-patriotic towel traffic with spend and no order."
+        },
+        "killSwitch": {
+          "spendNoOrder": 8,
+          "minClicksNoOrder": 12,
+          "inventoryFloor": 1
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "createInput": {
+          "advType": "SP",
+          "mode": "auto",
+          "sku": "YEL1320",
+          "asin": "B0GXZYQJPL",
+          "accountId": 894,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.42,
+          "coreTerm": "patriotic cooling towel auto"
+        }
+      },
+      {
+        "id": "create::YEL1320::keywordTarget::BROAD::patriotic cooling towel",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": ["codex", "manual"],
+        "riskLevel": "basic_structure_create",
+        "confidence": 0.78,
+        "allowDuplicateStructureCreate": true,
+        "forceExecute": true,
+        "forceReason": "Operator requested new-product ad structure; existing keyword campaign is system-created and does not count as owned controllable coverage.",
+        "reason": "Create a self-owned SP broad keyword lane with buyer-facing patriotic cooling towel terms. Do not use naked high-volume cooling towel alone as the main broad term because the SKU is a patriotic/Independence Day themed 12-pack and pure generic traffic is broader than the listing.",
+        "evidence": [
+          "Front-search keyword research: patriotic cooling towels returned 34 scene competitors and candidate term patriotic cooling towels has front_competitor_matches=24.",
+          "ABA 2026-04-30: cooling towels searchVolume=120375 estimatedOrders=20326; cooling towels for neck and face searchVolume=48727 estimatedOrders=9865; cooling towels bulk searchVolume=11265 estimatedOrders=2936.",
+          "Selection conversion: only cooling towel returned conversion economics; patriotic variants missing, so patriotic terms are relevant hypothesis not proven conversion terms.",
+          "Existing system keyword campaign cooling towel-yel1320-system-keyword had 2 impressions and 0 clicks in 30d, bid 0.14-0.16 appears too low for market CPC."
+        ],
+        "reviewPlan": {
+          "date": "2026-06-10",
+          "metrics": ["impressions", "clicks", "spend", "orders", "ACOS", "search terms"],
+          "checkpoint": "Keep patriotic/cooling-neck/bulk terms with relevant clicks; cut naked generic towel, beach towel, bath towel, or non-cooling traffic."
+        },
+        "killSwitch": {
+          "spendNoOrder": 8,
+          "minClicksNoOrder": 12,
+          "inventoryFloor": 1
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "createInput": {
+          "advType": "SP",
+          "mode": "keywordTarget",
+          "sku": "YEL1320",
+          "asin": "B0GXZYQJPL",
+          "accountId": 894,
+          "siteId": 4,
+          "dailyBudget": 5,
+          "defaultBid": 0.48,
+          "coreTerm": "patriotic cooling towel",
+          "matchType": "BROAD",
+          "keywords": [
+            "patriotic cooling towels",
+            "patriotic cooling towel",
+            "4th of july cooling towels",
+            "american flag cooling towel",
+            "red white blue cooling towel",
+            "cooling towels for neck and face",
+            "cooling towels bulk",
+            "cooling towels for hot weather"
+          ]
+        }
+      },
+      {
+        "id": "create::YEL1320::productTarget::ASIN_SAME_AS::patriotic cooling towel exact",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": ["codex", "manual"],
+        "riskLevel": "basic_structure_create",
+        "confidence": 0.76,
+        "allowDuplicateStructureCreate": true,
+        "forceExecute": true,
+        "forceReason": "Operator requested new-product ad structure; YEL1320 has no owned ASIN targeting lane.",
+        "reason": "Create a narrow owned exact-ASIN lane from front-search patriotic cooling towel competitors. These ASINs are closer to YEL1320 by patriotic theme, cooling towel form, quantity pack, and summer/Independence Day use case than generic cooling towel market leaders.",
+        "evidence": [
+          "Keyword research front search for patriotic cooling towels: B0GS9SDNZR position 1, 12 pack patriotic cooling towels, price 22.99, reviews 183.",
+          "Keyword research front search: B0DTQ5GBM2 position 3, 12 pack 250th Anniversary patriotic cooling towel, price 17.99.",
+          "Keyword research front search: B0FK9FS91B position 5, 12 pcs American Flag cooling towels 40x12, price 21.99, reviews 55.",
+          "Keyword research front search: B0FHHMM5MR position 7, 24 pack 250th Anniversary patriotic cooling towel, price 29.99.",
+          "Generic cooling towel PTM leaders are cheaper 4-pack products; they are kept out of exact ASIN launch to avoid weak fit."
+        ],
+        "reviewPlan": {
+          "date": "2026-06-10",
+          "metrics": ["impressions", "clicks", "spend", "orders", "target ASIN relevance"],
+          "checkpoint": "After 7 days, keep targets with relevant clicks/orders. Pause exact ASINs with spend through 8 and no order."
+        },
+        "killSwitch": {
+          "spendNoOrder": 8,
+          "minClicksNoOrder": 12,
+          "inventoryFloor": 1
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "createInput": {
+          "advType": "SP",
+          "mode": "productTarget",
+          "sku": "YEL1320",
+          "asin": "B0GXZYQJPL",
+          "accountId": 894,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.42,
+          "coreTerm": "patriotic cooling towel exact",
+          "targetType": "ASIN_SAME_AS",
+          "targetAsins": [
+            "B0GS9SDNZR",
+            "B0DTQ5GBM2",
+            "B0FK9FS91B",
+            "B0FHHMM5MR",
+            "B0DNJVCNBW",
+            "B0F527GTYF"
+          ]
+        }
+      }
+    ]
+  }
+]

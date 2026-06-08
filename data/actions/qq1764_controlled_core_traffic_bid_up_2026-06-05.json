@@ -1,0 +1,136 @@
+[
+  {
+    "sku": "QQ1764",
+    "asin": "B0C1NF986W",
+    "operatorRequested": true,
+    "summary": "QQ1764 controlled core traffic increase after 3d impression/click dip: only lift the proven SP core keyword and SP auto high-relevance target; no budget increase, no broad/generic expansion, no Pride/ASIN/category lift.",
+    "actions": [
+      {
+        "actionType": "bid",
+        "currentBid": 0.62,
+        "campaignId": "453560590907042",
+        "adGroupId": "348728747999677",
+        "campaignName": "kw_rainbow table cloths_qq1764",
+        "groupName": "kw_rainbow table cloths_qq1764",
+        "confidence": 0.76,
+        "riskLevel": "traffic_push",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "Operator requested QQ1764 add traffic; 2026-06-05 pre-execute live rows show repeated orders on this exact lower-layer row, parent campaign/group enabled, and the 3d decline is exposure/click recovery rather than budget/state failure.",
+        "allowLargeBidChange": true,
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_watch",
+          "acos": "hold_or_watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "spend rises without order growth or 7d ACOS exceeds 30%"
+        },
+        "id": "452730244644750",
+        "entityType": "keyword",
+        "suggestedBid": 0.67,
+        "text": "rainbow tablecloth",
+        "reason": "QQ1764 add-traffic controlled bid-up: live pre-execute row rainbow tablecloth has 2026-06-02..2026-06-04 impressions=1707, clicks=21, orders=7, spend=15.82, ACOS=23.29%, CPC=0.753; current bid 0.62 is below CPC band, so lift only to 0.67.",
+        "evidence": [
+          "source=live /keyword/findAllNew property=1 2026-06-05 pre-execute",
+          "3d row rainbow tablecloth: impressions=1707, clicks=21, orders=7, spend=15.82, sales=67.93, ACOS=0.232886, CPC=0.753333, bid=0.62",
+          "parent enabled: campaignState=1, groupState=1",
+          "SKU live 3d refreshed 2026-06-05: impressions/clicks down versus previous 3d, but orders and ACOS still usable; add only proven core traffic",
+          "Skipped ASIN/category/Pride/generic traffic because recent click quality is weaker or sample is not clean enough"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 7,
+          "to": 8,
+          "deadlineDays": 7,
+          "hardFloor": 5
+        },
+        "killSwitch": {
+          "metric": "orders",
+          "condition": "orders below 5 by day 7 or 7d ACOS rises above 30%",
+          "rollbackIf": "orders below 5 by day 7 or 7d ACOS rises above 30%"
+        }
+      },
+      {
+        "actionType": "bid",
+        "currentBid": 0.57,
+        "campaignId": "531200496587254",
+        "adGroupId": "543160596154486",
+        "campaignName": "auto_rainbow table cloths_qq1764",
+        "groupName": "auto_rainbow table cloths_qq1764",
+        "confidence": 0.74,
+        "riskLevel": "traffic_push",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "forceExecute": true,
+        "forceReason": "Operator requested QQ1764 add traffic; 2026-06-05 pre-execute live rows show repeated orders on this exact lower-layer row, parent campaign/group enabled, and the 3d decline is exposure/click recovery rather than budget/state failure.",
+        "allowLargeBidChange": true,
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_watch",
+          "acos": "hold_or_watch"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "spend rises without order growth or 7d ACOS exceeds 30%"
+        },
+        "id": "541331796223705",
+        "entityType": "autoTarget",
+        "suggestedBid": 0.62,
+        "text": "queryHighRelMatches",
+        "reason": "QQ1764 add-traffic controlled bid-up: live pre-execute auto high-rel target queryHighRelMatches has 2026-06-02..2026-06-04 impressions=1360, clicks=18, orders=6, spend=10.41, ACOS=13.53%, CPC=0.578; lift from 0.57 to 0.62 to recover high-relevance exposure without broad expansion.",
+        "evidence": [
+          "source=live /keyword/findAllNew property=2 table=product_target 2026-06-05 pre-execute",
+          "3d auto queryHighRelMatches: impressions=1360, clicks=18, orders=6, spend=10.41, sales=76.94, ACOS=0.135300, CPC=0.578333, bid=0.57",
+          "parent enabled: campaignState=1, groupState=1",
+          "Search-term sample under this auto target remains order-bearing; use high-rel bucket rather than low-click ASIN/category traffic",
+          "No campaign budget change; spend increase is capped at lower-layer bid only"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 6,
+          "to": 7,
+          "deadlineDays": 7,
+          "hardFloor": 4
+        },
+        "killSwitch": {
+          "metric": "orders",
+          "condition": "orders below 4 by day 7 or 7d ACOS rises above 28%",
+          "rollbackIf": "orders below 4 by day 7 or 7d ACOS rises above 28%"
+        }
+      }
+    ]
+  }
+]

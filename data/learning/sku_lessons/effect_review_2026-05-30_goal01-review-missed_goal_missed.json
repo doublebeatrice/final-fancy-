@@ -1,0 +1,39 @@
+{
+  "id": "effect_review_2026-05-30_goal01-review-missed_goal_missed",
+  "status": "active",
+  "source": "effect_review",
+  "generatedAt": "2026-05-31T14:40:13.185Z",
+  "businessDate": "2026-05-30",
+  "scope": {
+    "sku": "GOAL01MISS",
+    "asin": "",
+    "taskId": "goal01-review-missed",
+    "actionType": "",
+    "entityType": "",
+    "verdict": "goal_missed"
+  },
+  "condition": {
+    "baselineAsOf": "2026-05-27",
+    "currentAsOf": "2026-05-30",
+    "currentStale": false,
+    "baseline": {
+      "orders": 0,
+      "spend": 10
+    },
+    "current": {
+      "orders": 0,
+      "spend": 18
+    },
+    "reasons": [
+      "spend_rises_without_orders"
+    ]
+  },
+  "apply": {
+    "recommendation": "create_rollback_or_direction_change_task",
+    "nextStep": "Review rollback or secondary control; do not keep scaling this action.",
+    "doNotCloseWhen": "baselineAsOf_equals_currentAsOf_or_current_metrics_stale"
+  },
+  "lesson": "GOAL01MISS goal_missed: Review rollback or secondary control; do not keep scaling this action.",
+  "confidence": "medium",
+  "nextValidation": "Use this lesson before repeating the same SKU/action lane."
+}

@@ -1,0 +1,53 @@
+{
+  "lessonId": "lesson_correction_2026-06-01_2ce515492eaa",
+  "type": "operator_correction",
+  "status": "active_correction",
+  "severity": "high",
+  "subject": "correction:lesson_correction_2026-05-25_3bb7c84cb2e6:latest snapshot or backend readb",
+  "surface": "general_decision",
+  "scope": {
+    "sku": "",
+    "asin": "",
+    "keyword": "",
+    "entityId": "correction:lesson_correction_2026-05-25_3bb7c84cb2e6:latest snapshot or backend readb",
+    "appliesTo": [
+      "general_decision",
+      "stale_or_wrong_data"
+    ]
+  },
+  "doNotApplyWhen": [
+    "latest snapshot or backend readback is missing",
+    "decision evidence cannot be tied to the current businessDate/dataDate",
+    "same rule has an unresolved correction audit",
+    "landing verification for the previous write is missing or contradictory"
+  ],
+  "requiredEvidenceBeforeReuse": [
+    "read_latest_daily_learning_and_final_run_landing",
+    "verify_latest_snapshot_businessDate_dataDate_sourceRunId",
+    "inspect_related_action_schema_and_execution_verify",
+    "inspect_adjustment_log_for_same_sku_or_same_entity",
+    "compare_decision_inputs_against_fresh_backend_snapshot"
+  ],
+  "immediateControls": [
+    "record_operator_correction_as_authoritative_feedback",
+    "freeze_same_rule_auto_execute_until_audit_closes",
+    "require_human_visible_summary_before_next_same_surface_write",
+    "block_decisions_from_reusing_the_stale_snapshot"
+  ],
+  "operatingPrinciple": "",
+  "nextValidation": {
+    "dueDate": "2026-06-02",
+    "checks": [
+      "confirm all generated risk tasks have owner and status",
+      "confirm same-rule scan found zero unresolved high-risk repeats or generated follow-up tasks",
+      "confirm future daily decisions read this correction lesson before same-surface actions"
+    ]
+  },
+  "sourceCorrection": {
+    "correctionId": "correction_2026-06-01_2ce515492eaa",
+    "rawText": "learning_memory:correction:lesson_correction_2026-05-25_3bb7c84cb2e6:latest snapshot or backend readb",
+    "sourceRunId": "correction_risk_1780298674368",
+    "businessDate": "2026-06-01",
+    "dataDate": "2026-05-31"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "effect_review_2026-05-30_goal01-review-partial_goal_partial",
+  "status": "active",
+  "source": "effect_review",
+  "generatedAt": "2026-05-31T14:40:13.185Z",
+  "businessDate": "2026-05-30",
+  "scope": {
+    "sku": "GOAL01PART",
+    "asin": "",
+    "taskId": "goal01-review-partial",
+    "actionType": "",
+    "entityType": "",
+    "verdict": "goal_partial"
+  },
+  "condition": {
+    "baselineAsOf": "2026-05-27",
+    "currentAsOf": "2026-05-30",
+    "currentStale": false,
+    "baseline": {
+      "orders": 1,
+      "spend": 10
+    },
+    "current": {
+      "orders": 1,
+      "spend": 11
+    },
+    "reasons": [
+      "no_clear_change_yet"
+    ]
+  },
+  "apply": {
+    "recommendation": "keep_review_open_and_refresh_evidence_before_scaling",
+    "nextStep": "No clear change yet; keep watching until the next checkpoint.",
+    "doNotCloseWhen": "baselineAsOf_equals_currentAsOf_or_current_metrics_stale"
+  },
+  "lesson": "GOAL01PART goal_partial: No clear change yet; keep watching until the next checkpoint.",
+  "confidence": "medium",
+  "nextValidation": "Use this lesson before repeating the same SKU/action lane."
+}

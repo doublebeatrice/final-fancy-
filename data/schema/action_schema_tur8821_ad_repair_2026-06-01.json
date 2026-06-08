@@ -1,0 +1,142 @@
+[
+  {
+    "sku": "TUR8821",
+    "asin": "B0GVT9WTG2",
+    "summary": "2026-06-01 live repair for TUR8821: recover proven auto receiver traffic, trim weak exact keyword, and scale proven sibling-ASIN target. Market evidence favors prayer/scripture/box/tin and sibling ASIN traffic; generic christian gifts broad remains risky.",
+    "actions": [
+      {
+        "id": "66942555686969",
+        "entityType": "campaign",
+        "actionType": "budget",
+        "currentBudget": 3,
+        "suggestedBudget": 5,
+        "allowLargeBudgetChange": true,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_live_ad_repair_2026-06-01",
+        "riskLevel": "over_budget_min_budget_repair",
+        "confidence": 0.78,
+        "reason": "ai_auto_arrival recovery_tur8821 is out of budget but its active receiver layers are profitable: queryBroadRelMatches 39 clicks, 4 orders, $12.93 spend, 7.9% ACOS; asinSubstituteRelated 48 clicks, 2 orders, $14.82 spend, 10.6% ACOS. The bad accessory bucket is already paused, so raise budget from $3 to $5 only; do not double because the latest 3d window has 0 orders.",
+        "evidence": [
+          "live: campaignId=66942555686969 adGroupId=451340603880161 dailyBudget=3 servingStatus=CAMPAIGN_OUT_OF_BUDGET",
+          "live auto: targetId=311396150242641 queryBroadRelMatches bid=0.35 30d clicks=39 spend=12.93 orders=4 sales=163.96 ACOS=0.0789",
+          "live auto: targetId=350654159003958 asinSubstituteRelated bid=0.32 30d clicks=48 spend=14.82 orders=2 sales=139.96 ACOS=0.1059",
+          "live auto: targetId=310318738022108 asinAccessoryRelated 28 clicks 0 orders state=2 already paused",
+          "market: prayer/scripture/box/tin direction is usable; generic christian gifts broad is weak"
+        ],
+        "hypothesis": "Budget repair should restore spend to the two proven auto buckets without reopening the paused accessory waste bucket.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "orders": "watch_up",
+          "spend": "up_limited",
+          "acos": "watch_under_0.20"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 6,
+          "to": 7,
+          "deadlineDays": 7,
+          "hardFloor": 4
+        },
+        "killSwitch": {
+          "metric": "orders",
+          "condition": "7d spend rises above 35 without at least 4 campaign orders",
+          "rollbackIf": "7d spend rises above 35 without at least 4 campaign orders"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If 7d ACOS rises above 25% or the paused accessory bucket reopens, restore budget to 3 and re-cut receiver layer."
+        }
+      },
+      {
+        "id": "64423820554728",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.47,
+        "suggestedBid": 0.42,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_live_ad_repair_2026-06-01",
+        "riskLevel": "controlled_efficiency_trim",
+        "confidence": 0.76,
+        "reason": "In ai_kw exact_prayer scripture cards_tur8821, prayer cards is the only exact keyword with enough data and poor efficiency versus margin: 28 clicks, $11.75 spend, 1 order, $40.99 sales, 28.7% ACOS. Scripture cards and bible verse cards have too few clicks to judge. Lower prayer cards from $0.47 to the market CPC area $0.42 instead of pausing.",
+        "evidence": [
+          "live exact: keywordId=64423820554728 prayer cards bid=0.47 30d clicks=28 spend=11.75 orders=1 sales=40.99 ACOS=0.2867",
+          "live exact: scripture cards 3 clicks 0 orders; not enough data for action",
+          "live exact: bible verse cards 2 clicks 0 orders; not enough data for action",
+          "market: prayer cards has demand but is crowded; CPC median is about 0.42 and ACOS needs control"
+        ],
+        "hypothesis": "A small bid trim should keep exact prayer-card discovery alive while reducing spend above the product profit room.",
+        "expectedEffect": {
+          "impressions": "down_modest",
+          "clicks": "down_modest",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "down"
+        },
+        "goal": {
+          "metric": "netProfit",
+          "from": 0.2542,
+          "to": 0.27,
+          "deadlineDays": 7,
+          "hardFloor": 0.2
+        },
+        "killSwitch": {
+          "metric": "netProfit",
+          "condition": "netProfit falls below 0.20 by day 7 or exact prayer-card orders stop while organic sales also drops",
+          "rollbackIf": "netProfit below 0.20 by day 7 or exact prayer-card orders stop while organic sales also drops"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If impressions collapse and SKU orders fall below 7d hard floor, restore prayer cards to 0.47."
+        }
+      },
+      {
+        "id": "207697722067389",
+        "entityType": "manualTarget",
+        "actionType": "bid",
+        "currentBid": 0.47,
+        "suggestedBid": 0.53,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_live_ad_repair_2026-06-01",
+        "riskLevel": "traffic_push",
+        "confidence": 0.82,
+        "reason": "ai_asin_sibling tur5292_tur8821 has the best conversion lane: asin=B0GFV4TN5L has 20 clicks, $7.89 spend, 2 orders, $152.96 sales, 5.2% ACOS. Raise from $0.47 to $0.53, a 12.8% controlled bid-up below the high-volume review threshold.",
+        "evidence": [
+          "live sibling target: targetId=207697722067389 asin=B0GFV4TN5L bid=0.47 30d clicks=20 spend=7.89 orders=2 sales=152.96 ACOS=0.0516 CPC=0.3945",
+          "TUR5292 same ASIN lane: targetId=279259222039419 asin=B0GFV4TN5L 24 clicks 3 orders ACOS=0.0637",
+          "bid evidence: current lane CPC=0.3945 and exact prayer market CPC area=0.42; 0.53 keeps a traffic-capable but bounded push"
+        ],
+        "hypothesis": "The same sibling ASIN already converts for both SKUs; a small bid-up should win more placement without pushing spend into generic broad traffic.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "orders": "up",
+          "spend": "up_limited",
+          "acos": "watch_under_0.15"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 2,
+          "to": 3,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "killSwitch": {
+          "metric": "orders",
+          "condition": "7d target spend exceeds 12 without at least 1 order",
+          "rollbackIf": "7d target spend exceeds 12 without at least 1 order"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If 7d target ACOS rises above 20% or spend exceeds 12 with 0 orders, restore bid to 0.47."
+        }
+      }
+    ]
+  }
+]

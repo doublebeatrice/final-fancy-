@@ -1,0 +1,349 @@
+[
+  {
+    "sku": "MF6328",
+    "asin": "B0GMN2PCWN",
+    "operatorRequested": true,
+    "summary": "MF6328 efficiency rebalance: cut/pause no-conversion generic click waste, and lift only current converting SB narrow terms.",
+    "actions": [
+      {
+        "id": "258459157609353",
+        "entityType": "sbKeyword",
+        "actionType": "bid",
+        "currentBid": 0.46,
+        "suggestedBid": 0.5,
+        "campaignId": "272213410885381",
+        "adGroupId": "494111239569353",
+        "campaignName": "sbkw_pool floats_mf6328 mf6292 mf6280",
+        "groupName": "",
+        "text": "birthday pool floats",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "source": "codex_mf6328_efficiency_rebalance_2026-06-05",
+        "riskLevel": "high_efficiency_controlled_bid_up",
+        "confidence": 0.78,
+        "reason": "birthday pool floats is the strongest narrow birthday-pool-float receiver; 7d and 30d both convert, so restore controlled bid room after earlier over-budget trim.",
+        "evidence": [
+          "live backend evidence: 7d clicks=8 spend=4.27 orders=2 sales=41.98 acos=0.1017; 30d clicks=27 spend=12.89 orders=6 sales=161.93 acos=0.0796; bid=0.46 state=1",
+          "market fit: birthday/number/pool float narrow lane, not generic pool floats"
+        ],
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_watch",
+          "acos": "hold_or_watch"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 2,
+          "to": 3,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "If 7d spend rises but orders do not improve, return bid to previous level."
+        },
+        "allowLargeBidChange": true,
+        "rollbackIf": "If 7d spend rises but orders do not improve, return bid to previous level."
+      },
+      {
+        "id": "272881129888457",
+        "entityType": "sbKeyword",
+        "actionType": "bid",
+        "currentBid": 0.46,
+        "suggestedBid": 0.5,
+        "campaignId": "272213410885381",
+        "adGroupId": "494111239569353",
+        "campaignName": "sbkw_pool floats_mf6328 mf6292 mf6280",
+        "groupName": "",
+        "text": "birthday pool party decorations",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "source": "codex_mf6328_efficiency_rebalance_2026-06-05",
+        "riskLevel": "high_efficiency_controlled_bid_up",
+        "confidence": 0.72,
+        "reason": "birthday pool party decorations still converts in the latest 7d and fits the birthday/pool party scene; small lift only.",
+        "evidence": [
+          "live backend evidence: 7d clicks=4 spend=1.83 orders=1 sales=20.99 acos=0.0872; 30d clicks=8 spend=3.03 orders=2 sales=47.98 acos=0.0632; bid=0.46 state=1",
+          "market fit: birthday/number/pool float narrow lane, not generic pool floats"
+        ],
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_watch",
+          "acos": "hold_or_watch"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "If 7d spend rises but orders do not improve, return bid to previous level."
+        },
+        "allowLargeBidChange": true,
+        "rollbackIf": "If 7d spend rises but orders do not improve, return bid to previous level."
+      },
+      {
+        "id": "175592488942813",
+        "entityType": "sbKeyword",
+        "actionType": "bid",
+        "currentBid": 0.46,
+        "suggestedBid": 0.5,
+        "campaignId": "272213410885381",
+        "adGroupId": "494111239569353",
+        "campaignName": "sbkw_pool floats_mf6328 mf6292 mf6280",
+        "groupName": "",
+        "text": "inflatable number float",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "source": "codex_mf6328_efficiency_rebalance_2026-06-05",
+        "riskLevel": "high_efficiency_controlled_bid_up",
+        "confidence": 0.7,
+        "reason": "inflatable number float has 7d order and directly matches the number-float product body; small lift only.",
+        "evidence": [
+          "live backend evidence: 7d clicks=3 spend=1.23 orders=1 sales=20.99 acos=0.0586; 30d clicks=6 spend=2.34 orders=1 sales=20.99 acos=0.1115; bid=0.46 state=1",
+          "market fit: birthday/number/pool float narrow lane, not generic pool floats"
+        ],
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_watch",
+          "acos": "hold_or_watch"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "If 7d spend rises but orders do not improve, return bid to previous level."
+        },
+        "allowLargeBidChange": true,
+        "rollbackIf": "If 7d spend rises but orders do not improve, return bid to previous level."
+      },
+      {
+        "id": "244009655337540",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.4,
+        "suggestedBid": 0.35,
+        "campaignId": "25287830145641",
+        "adGroupId": "158850663455662",
+        "campaignName": "kw broad_pool floats_mf6328",
+        "groupName": "kw broad_pool floats_mf6328",
+        "text": "pool party decorations",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "source": "codex_mf6328_efficiency_rebalance_2026-06-05",
+        "riskLevel": "no_conversion_waste_trim",
+        "confidence": 0.74,
+        "reason": "pool party decorations in SP broad is generic decoration intent, latest 7d 3 clicks/0 orders after prior trim; lower one safe step instead of feeding broad party-decor traffic.",
+        "evidence": [
+          "live backend evidence: 7d clicks=3 spend=1.41 orders=0 sales=0.00 acos=no_sales; 30d clicks=5 spend=2.22 orders=0 sales=0.00 acos=no_sales; bid=0.40 state=1",
+          "market fit: weak or generic compared with birthday/number/pool-float niche"
+        ],
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "protect",
+          "acos": "protect"
+        },
+        "goal": {
+          "metric": "netProfit",
+          "from": -0.02,
+          "to": 0,
+          "deadlineDays": 7,
+          "hardFloor": -0.05
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "If protected narrow SB terms lose all order flow and this term shows unexpected conversion after the cut, review before restoring."
+        },
+        "rollbackIf": "If protected narrow SB terms lose all order flow and this term shows unexpected conversion after the cut, review before restoring."
+      },
+      {
+        "id": "187967699562",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.46,
+        "suggestedBid": 0.4,
+        "campaignId": "25287830145641",
+        "adGroupId": "158850663455662",
+        "campaignName": "kw broad_pool floats_mf6328",
+        "groupName": "kw broad_pool floats_mf6328",
+        "text": "birthday pool float",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "source": "codex_mf6328_efficiency_rebalance_2026-06-05",
+        "riskLevel": "relevant_no_conversion_trim",
+        "confidence": 0.68,
+        "reason": "birthday pool float is relevant but latest 7d 3 clicks/0 orders and no 30d orders in this lane; lower one safe step, do not pause.",
+        "evidence": [
+          "live backend evidence: 7d clicks=3 spend=1.37 orders=0 sales=0.00 acos=no_sales; 30d clicks=13 spend=5.31 orders=0 sales=0.00 acos=no_sales; bid=0.46 state=1",
+          "market fit: weak or generic compared with birthday/number/pool-float niche"
+        ],
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "protect",
+          "acos": "protect"
+        },
+        "goal": {
+          "metric": "netProfit",
+          "from": -0.02,
+          "to": 0,
+          "deadlineDays": 7,
+          "hardFloor": -0.05
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "If protected narrow SB terms lose all order flow and this term shows unexpected conversion after the cut, review before restoring."
+        },
+        "rollbackIf": "If protected narrow SB terms lose all order flow and this term shows unexpected conversion after the cut, review before restoring."
+      },
+      {
+        "id": "129949845139806",
+        "entityType": "keyword",
+        "actionType": "pause",
+        "currentBid": 0.4,
+        "currentState": "enabled",
+        "campaignId": "166959273472785",
+        "adGroupId": "103366226661439",
+        "campaignName": "broad_summer_party_supplies_mf6328",
+        "groupName": "broad_summer_party_supplies_mf6328",
+        "text": "pool floats",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "source": "codex_mf6328_efficiency_rebalance_2026-06-05",
+        "riskLevel": "generic_no_conversion_hard_stop",
+        "confidence": 0.78,
+        "reason": "broad_summer_party_supplies pool floats is generic and 7d/30d both zero-order; pause this row instead of continuing generic pool-floats traffic.",
+        "evidence": [
+          "live backend evidence: 7d clicks=4 spend=1.53 orders=0 sales=0.00 acos=no_sales; 30d clicks=4 spend=1.53 orders=0 sales=0.00 acos=no_sales; bid=0.40 state=1",
+          "market fit: weak or generic compared with birthday/number/pool-float niche"
+        ],
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "protect",
+          "acos": "protect"
+        },
+        "goal": {
+          "metric": "netProfit",
+          "from": -0.02,
+          "to": 0,
+          "deadlineDays": 7,
+          "hardFloor": -0.05
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "If protected narrow SB terms lose all order flow and this term shows unexpected conversion after the cut, review before restoring."
+        },
+        "rollbackIf": "If protected narrow SB terms lose all order flow and this term shows unexpected conversion after the cut, review before restoring."
+      },
+      {
+        "id": "244712761796993",
+        "entityType": "sbKeyword",
+        "actionType": "pause",
+        "currentBid": 0.4,
+        "currentState": "enabled",
+        "campaignId": "272213410885381",
+        "adGroupId": "494111239569353",
+        "campaignName": "sbkw_pool floats_mf6328 mf6292 mf6280",
+        "groupName": "",
+        "text": "summer pool party decorations",
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": [
+          "codex"
+        ],
+        "requiresAiDecision": false,
+        "source": "codex_mf6328_efficiency_rebalance_2026-06-05",
+        "riskLevel": "generic_no_conversion_hard_stop",
+        "confidence": 0.74,
+        "reason": "summer pool party decorations is broad/generic and latest 7d plus 30d have zero orders; pause inside shared SB while protecting converting siblings.",
+        "evidence": [
+          "live backend evidence: 7d clicks=3 spend=1.38 orders=0 sales=0.00 acos=no_sales; 30d clicks=6 spend=2.44 orders=0 sales=0.00 acos=no_sales; bid=0.40 state=1",
+          "market fit: weak or generic compared with birthday/number/pool-float niche"
+        ],
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "protect",
+          "acos": "protect"
+        },
+        "goal": {
+          "metric": "netProfit",
+          "from": -0.02,
+          "to": 0,
+          "deadlineDays": 7,
+          "hardFloor": -0.05
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "If protected narrow SB terms lose all order flow and this term shows unexpected conversion after the cut, review before restoring."
+        },
+        "rollbackIf": "If protected narrow SB terms lose all order flow and this term shows unexpected conversion after the cut, review before restoring."
+      }
+    ]
+  }
+]

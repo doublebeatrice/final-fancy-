@@ -1,0 +1,300 @@
+[
+  {
+    "sku": "YUT4462",
+    "asin": "B0DX5Y7RZ9",
+    "summary": "Rebalance YUT variant traffic by adding controlled bid pressure to verified 70/number-pool-float traffic instead of cutting total demand.",
+    "actions": [
+      {
+        "id": "131222412878338",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.4,
+        "suggestedBid": 0.42,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_verified_flow_rebalance_2026-06-01",
+        "riskLevel": "verified_flow_small_bid_up",
+        "confidence": 0.78,
+        "reason": "YUT4462 needs protected expansion on the verified 70/number-float lane. Keyword pool float numbers has 30 clicks, 4 orders, $11.63 spend, $89.96 sales, 12.9% ACOS. Raise slightly from 0.40 to 0.42 rather than broadly increasing the whole SKU because profit is thin.",
+        "evidence": [
+          "live ad group row 2026-05-25..2026-05-31: keywordId=131222412878338 pool float numbers bid=0.40 clicks=30 spend=11.63 orders=4 sales=89.96 ACOS=0.1293 CPC=0.3877",
+          "live SKU summary: YUT4462 7d units=7, 7d ad orders=7, profitRate=0.0836, inventory days=59",
+          "market: exact age terms are fragmented, so expansion should stay on own proven buyer-facing lane"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 4,
+          "to": 5,
+          "deadlineDays": 7,
+          "hardFloor": 2
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If 7d ACOS rises above 18% or spend grows without at least 3 orders, restore bid to 0.40."
+        }
+      }
+    ]
+  },
+  {
+    "sku": "YUT2927",
+    "asin": "B0D1C7Q59K",
+    "summary": "Add traffic to the verified 16-year-old pool-float lane while keeping expansion narrow.",
+    "actions": [
+      {
+        "id": "21914936313512",
+        "entityType": "manualTarget",
+        "actionType": "bid",
+        "currentBid": 0.32,
+        "suggestedBid": 0.36,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_verified_flow_rebalance_2026-06-01",
+        "riskLevel": "verified_asin_target_bid_up",
+        "confidence": 0.8,
+        "reason": "YUT2927 asinExpandedFrom=B0C73ZB4TS is a verified receiver: 22 clicks, 2 orders, $7.70 spend, $50.98 sales, 15.1% ACOS. Raise from 0.32 to 0.36 so the working ASIN lane can absorb traffic shifted away from weak broad terms.",
+        "evidence": [
+          "live manual target: targetId=21914936313512 bid=0.32 clicks=22 spend=7.70 orders=2 sales=50.98 ACOS=0.1510 CPC=0.35",
+          "live SKU summary: YUT2927 7d units=11, 3d units=6, profitRate=0.1262, inventory days=130",
+          "market: exact age keyword data is sparse, so this proven ASIN receiver is a better expansion path than generic pool party terms"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 2,
+          "to": 3,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If target spend exceeds $12 in 7d with fewer than 2 orders, restore bid to 0.32."
+        }
+      },
+      {
+        "id": "127280675443042",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.25,
+        "suggestedBid": 0.28,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_verified_flow_rebalance_2026-06-01",
+        "riskLevel": "verified_age_keyword_small_bid_up",
+        "confidence": 0.72,
+        "reason": "16 birthday pool float has direct age intent and converted at very low cost: 2 clicks, 1 order, $0.50 spend, $20.99 sales. Raise to 0.28 as a first-step bid-up to give the precise age lane a measurable traffic chance.",
+        "evidence": [
+          "live keyword: keywordId=127280675443042 16 birthday pool float bid=0.25 clicks=2 spend=0.50 orders=1 sales=20.99 ACOS=0.0238",
+          "live group: YUT2927 16-lane campaign remains enabled with parent campaign/group enabled",
+          "market: broad age terms are missing in selection data, so only own converting age keyword gets a small bid-up"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If the keyword reaches 12 clicks without another order, restore bid to 0.25."
+        }
+      }
+    ]
+  },
+  {
+    "sku": "YUT4464",
+    "asin": "B0DX5T5D86",
+    "summary": "Protect the main 50-year-old variant by expanding only its verified birthday and auto receiver lanes.",
+    "actions": [
+      {
+        "id": "408098862601597",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.4,
+        "suggestedBid": 0.46,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_verified_flow_rebalance_2026-06-01",
+        "riskLevel": "verified_auto_bid_up",
+        "confidence": 0.84,
+        "reason": "The queryBroadRelMatches auto receiver in ai_auto_nurse summer decor_yut4464 is strongly converting despite the old campaign name: 12 clicks, 4 orders, $4.80 spend, $92.96 sales, 5.2% ACOS. Raise from 0.40 to 0.46 to add verified traffic.",
+        "evidence": [
+          "live auto target: targetId=408098862601597 queryBroadRelMatches bid=0.40 clicks=12 spend=4.80 orders=4 sales=92.96 ACOS=0.0516 CPC=0.40",
+          "live SKU summary: YUT4464 7d units=20, 7d ad orders=10, profitRate=0.3205, inventory days=40",
+          "market: pool party decorations is weak in conversion, so expansion is limited to the actual converting auto bucket"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 4,
+          "to": 5,
+          "deadlineDays": 7,
+          "hardFloor": 3
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If this auto target spends above $12 in 7d with fewer than 3 orders or ACOS above 20%, restore bid to 0.40."
+        }
+      },
+      {
+        "id": "135979510911067",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.43,
+        "suggestedBid": 0.48,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_verified_flow_rebalance_2026-06-01",
+        "riskLevel": "verified_core_keyword_bid_up",
+        "confidence": 0.74,
+        "reason": "birthday pool float is the core buyer-facing lane and converted: 3 clicks, 1 order, $1.29 spend, $20.99 sales, 6.1% ACOS. Raise from 0.43 to 0.48 to keep traffic on the specific birthday-pool intent.",
+        "evidence": [
+          "live keyword: keywordId=135979510911067 birthday pool float bid=0.43 clicks=3 spend=1.29 orders=1 sales=20.99 ACOS=0.0615",
+          "keyword conversion evidence: birthday pool float is usable niche; not broad enough for aggressive scaling but good for low-bid cross-check",
+          "YUT4464 has healthy profitRate=0.3205 and only 40 inventory days"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If the keyword reaches 12 clicks with no further order, restore bid to 0.43."
+        }
+      },
+      {
+        "id": "268209263128251",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.61,
+        "suggestedBid": 0.67,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_verified_flow_rebalance_2026-06-01",
+        "riskLevel": "verified_age_keyword_bid_up",
+        "confidence": 0.76,
+        "reason": "50th birthday decorations is directly matched to the 50 variant and converted within profit room: 8 clicks, 1 order, $4.88 spend, $28.99 sales, 16.8% ACOS. Raise from 0.61 to 0.67 as a controlled age-lane expansion.",
+        "evidence": [
+          "live keyword: keywordId=268209263128251 50th birthday decorations bid=0.61 clicks=8 spend=4.88 orders=1 sales=28.99 ACOS=0.1683",
+          "YUT4464 profitRate=0.3205 supports a controlled bid-up while watching ACOS",
+          "market: age-specific query data is sparse, so use own conversion proof rather than generic market expansion"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 1,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If 7d ACOS rises above 28% or the keyword spends above $10 without another order, restore bid to 0.61."
+        }
+      },
+      {
+        "id": "161211464447894",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.58,
+        "suggestedBid": 0.62,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_verified_flow_rebalance_2026-06-01",
+        "riskLevel": "bounded_core_keyword_bid_up",
+        "confidence": 0.7,
+        "reason": "number pool float is converting for YUT4464 with enough clicks: 35 clicks, 3 orders, $20.29 spend, $70.97 sales, 28.6% ACOS. Because ACOS is near the profit boundary, raise only slightly from 0.58 to 0.62.",
+        "evidence": [
+          "live keyword: keywordId=161211464447894 number pool float bid=0.58 clicks=35 spend=20.29 orders=3 sales=70.97 ACOS=0.2859 CPC=0.5797",
+          "YUT4464 profitRate=0.3205, so this is inside room but not a large-scale lane",
+          "selection Product Time Machine did not return number pool float rows; this bid-up relies on own ad proof only"
+        ],
+        "goal": {
+          "metric": "orders",
+          "from": 3,
+          "to": 4,
+          "deadlineDays": 7,
+          "hardFloor": 2
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If ACOS crosses 32% or orders do not rise after spend increases, restore bid to 0.58."
+        }
+      }
+    ]
+  },
+  {
+    "sku": "YUT4458",
+    "asin": "B0D1VMCWXL",
+    "summary": "Free budget from weak 30 Red traffic so the group can fund verified 16/50/70 lanes.",
+    "actions": [
+      {
+        "id": "228308606321167",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.28,
+        "suggestedBid": 0.22,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_verified_flow_rebalance_2026-06-01",
+        "riskLevel": "weak_flow_funding_trim",
+        "confidence": 0.78,
+        "reason": "YUT4458 is negative-profit and high-inventory, and giant number pool float spent without orders: 11 clicks, $3.08 spend, 0 orders. Lower from 0.28 to 0.22 as a first-step funding trim for proven sibling lanes instead of reducing total group traffic.",
+        "evidence": [
+          "live keyword: keywordId=228308606321167 giant number pool float bid=0.28 clicks=11 spend=3.08 orders=0",
+          "live SKU summary: YUT4458 profitRate=-0.0427, inventory days=267, 7d ad orders=0",
+          "market: 30th birthday pool float did not return usable selection rows"
+        ],
+        "goal": {
+          "metric": "netProfit",
+          "from": 0.0272,
+          "to": 0.04,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "Only restore if YUT4458 organic sales drops below 1 unit in 7d while this keyword had been the only traffic source."
+        }
+      },
+      {
+        "id": "11910524996946",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.22,
+        "suggestedBid": 0.18,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_yut_verified_flow_rebalance_2026-06-01",
+        "riskLevel": "weak_flow_funding_trim",
+        "confidence": 0.72,
+        "reason": "30th birthday pool float is relevant but has not converted on YUT4458: 7 clicks, $1.96 spend, 0 orders, and the SKU is negative-profit. Keep it alive at lower pressure rather than turning it off.",
+        "evidence": [
+          "live keyword: keywordId=11910524996946 30th birthday pool float bid=0.22 clicks=7 spend=1.96 orders=0",
+          "YUT4458 7d units=3, 3d units=1, 7d ad orders=0",
+          "selection coverage: 30th birthday pool float missing from Product Time Machine and keyword conversion output"
+        ],
+        "goal": {
+          "metric": "netProfit",
+          "from": 0.0272,
+          "to": 0.04,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If this keyword gets an order after the lower bid, hold at 0.18 and reassess instead of cutting further."
+        }
+      }
+    ]
+  }
+]

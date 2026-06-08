@@ -1,0 +1,62 @@
+[
+  {
+    "sku": "DUN1128",
+    "summary": "Control DUN shared SB no-conversion keyword rows while protecting proven bread basket lanes.",
+    "actions": [
+      {
+        "id": "32810215993629",
+        "entityType": "sbKeyword",
+        "actionType": "pause",
+        "currentState": "enabled",
+        "decisionStage": "operator_approved",
+        "approvedBy": "operator",
+        "actionSource": ["codex"],
+        "source": "codex_dun_click_no_conversion_cleanup_2026-06-01",
+        "riskLevel": "no_order_hard_stop",
+        "confidence": 0.86,
+        "reason": "SB shared DUN keyword bread basket with cover has 30-day 15 clicks, $3.51 spend, 0 orders; current market recheck returned no effective exact row for bread basket with cover. Pause this weak row while keeping bread basket and bread basket for serving on dining table live.",
+        "evidence": [
+          "live SB keyword: keywordId=32810215993629 bread basket with cover bid=0.25 clicks=15 spend=3.51 orders=0",
+          "market recheck: bread basket with cover returned 0 Product Time Machine rows and 0 exact ABA rows",
+          "protected siblings: bread basket and bread basket for serving on dining table both have 30-day orders"
+        ],
+        "goal": {
+          "metric": "wasted_clicks",
+          "from": 15,
+          "to": 0,
+          "deadlineDays": 7
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "Only re-enable if the exact covered-basket lane later shows orders or if protected bread basket rows lose all coverage."
+        }
+      },
+      {
+        "id": "143586659845475",
+        "entityType": "sbKeyword",
+        "actionType": "bid",
+        "currentBid": 0.25,
+        "suggestedBid": 0.22,
+        "decisionStage": "operator_approved",
+        "approvedBy": "operator",
+        "actionSource": ["codex"],
+        "source": "codex_dun_click_no_conversion_cleanup_2026-06-01",
+        "riskLevel": "no_conversion_waste_trim",
+        "confidence": 0.72,
+        "reason": "SB shared DUN keyword basket for bread has 30-day 10 clicks, $2.61 spend, 0 orders. Lower one step instead of pausing because it remains product-adjacent and spend is still modest.",
+        "evidence": [
+          "live SB keyword: keywordId=143586659845475 basket for bread bid=0.25 clicks=10 spend=2.61 orders=0",
+          "protected siblings: bread basket and bread basket for serving on dining table both have 30-day orders"
+        ],
+        "goal": {
+          "metric": "spend_quality",
+          "deadlineDays": 7
+        },
+        "reviewPlan": {
+          "checkAfterDays": [3, 7],
+          "rollbackIf": "If this row gets a profitable order after bid-down, hold at 0.22 instead of cutting further."
+        }
+      }
+    ]
+  }
+]

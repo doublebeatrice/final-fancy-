@@ -1,0 +1,293 @@
+[
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "operatorRequested": true,
+    "summary": "Supplemental all-time historical winner recovery after reviewing KUR0501 lifetime groups. Actions=6.",
+    "actions": [
+      {
+        "id": "336515300037274",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.09,
+        "suggestedBid": 0.18,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_kur0501_alltime_history_recovery_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator approved supplemental execution after all-time historical group review.",
+        "riskLevel": "kur0501_lifetime_keyword_winner_bid_up",
+        "confidence": 0.86,
+        "campaignId": "506462874274728",
+        "adGroupId": "500182209065264",
+        "campaignName": "kw_hippie flower car magnet_kur0501",
+        "groupName": "kw_hippie flower car magnet_kur0501",
+        "text": "funny car magnets",
+        "label": "funny car magnets",
+        "reason": "All-time active keyword has 7 orders, ACOS 18.54%, but bid is only 0.09; lift to recover effective traffic.",
+        "evidence": [
+          "all-time 7 orders / spend 11.67 / sales 62.93 / ACOS 18.54%",
+          "current active campaign/group/keyword state=1",
+          "old bid=0.09 below product CPC band 0.27"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "recover historical effective traffic with bounded bid"
+        },
+        "reviewPlan": {
+          "3d": "check impressions/clicks and first order signal",
+          "7d": "keep if ACOS controlled; roll back if spend rises without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "479798998286687",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.13,
+        "suggestedBid": 0.2,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_kur0501_alltime_history_recovery_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator approved supplemental execution after all-time historical group review.",
+        "riskLevel": "kur0501_lifetime_keyword_winner_bid_up",
+        "confidence": 0.86,
+        "campaignId": "506462874274728",
+        "adGroupId": "500182209065264",
+        "campaignName": "kw_hippie flower car magnet_kur0501",
+        "groupName": "kw_hippie flower car magnet_kur0501",
+        "text": "bumper magnets for cars",
+        "label": "bumper magnets for cars",
+        "reason": "All-time active keyword has 7 orders, ACOS 16.83%; old bid is below its historical CPC.",
+        "evidence": [
+          "all-time 7 orders / spend 10.59 / sales 62.93 / ACOS 16.83%",
+          "historical CPC about 0.29",
+          "current active campaign/group/keyword state=1"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "recover historical effective traffic with bounded bid"
+        },
+        "reviewPlan": {
+          "3d": "check impressions/clicks and first order signal",
+          "7d": "keep if ACOS controlled; roll back if spend rises without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "494813078428735",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.12,
+        "suggestedBid": 0.18,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_kur0501_alltime_history_recovery_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator approved supplemental execution after all-time historical group review.",
+        "riskLevel": "kur0501_lifetime_keyword_winner_bid_up",
+        "confidence": 0.82,
+        "campaignId": "506462874274728",
+        "adGroupId": "500182209065264",
+        "campaignName": "kw_hippie flower car magnet_kur0501",
+        "groupName": "kw_hippie flower car magnet_kur0501",
+        "text": "hippie car accessories",
+        "label": "hippie car accessories",
+        "reason": "All-time active keyword has 4 orders, ACOS 21.48%; lift moderately but below the stronger two keywords.",
+        "evidence": [
+          "all-time 4 orders / spend 7.94 / sales 36.96 / ACOS 21.48%",
+          "current active campaign/group/keyword state=1",
+          "old bid=0.12 below historical CPC about 0.27"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "recover historical effective traffic with bounded bid"
+        },
+        "reviewPlan": {
+          "3d": "check impressions/clicks and first order signal",
+          "7d": "keep if ACOS controlled; roll back if spend rises without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "399155139494083",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.09,
+        "suggestedBid": 0.18,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_kur0501_alltime_history_recovery_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator approved supplemental execution after all-time historical group review.",
+        "riskLevel": "kur0501_lifetime_auto_winner_bid_up",
+        "confidence": 0.86,
+        "campaignId": "341283780324260",
+        "adGroupId": "430545249445395",
+        "campaignName": "auto2_hippie flower car magnet_kur0501",
+        "groupName": "auto2_hippie flower car magnet_kur0501",
+        "text": "queryHighRelMatches",
+        "label": "queryHighRelMatches",
+        "reason": "All-time active auto bucket has 40 orders, ACOS 20.71%, but bid is only 0.09; this was missed in first execution.",
+        "evidence": [
+          "all-time 40 orders / spend 85.02 / sales 410.59 / ACOS 20.71%",
+          "current active campaign/group/target state=1",
+          "historical CPC about 0.27"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "recover high-related automatic traffic"
+        },
+        "reviewPlan": {
+          "3d": "check query relevance and click lift",
+          "7d": "keep if ACOS controlled; trim if spend rises without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "448651724704593",
+        "entityType": "autoTarget",
+        "actionType": "enable",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_kur0501_alltime_history_recovery_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator approved supplemental execution after all-time historical group review.",
+        "riskLevel": "kur0501_reopen_lifetime_auto_winner",
+        "confidence": 0.8,
+        "campaignId": "341283780324260",
+        "adGroupId": "430545249445395",
+        "campaignName": "auto2_hippie flower car magnet_kur0501",
+        "groupName": "auto2_hippie flower car magnet_kur0501",
+        "text": "asinAccessoryRelated",
+        "label": "asinAccessoryRelated",
+        "reason": "All-time auto accessory bucket has 15 orders and parent campaign/group are active; reopen as controlled historical winner.",
+        "evidence": [
+          "all-time 15 orders / spend 37.26 / sales 169.83 / ACOS 21.94%",
+          "target state=2 while parent campaign/group state=1"
+        ],
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "serving state and impressions",
+          "target": "restore historically effective ASIN accessory receiver"
+        },
+        "reviewPlan": {
+          "1d": "confirm serving and early impressions",
+          "3d": "check customer search/ASIN relevance"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      },
+      {
+        "id": "448651724704593",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.07,
+        "suggestedBid": 0.14,
+        "allowLargeBidChange": false,
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_kur0501_alltime_history_recovery_2026-06-01",
+        "forceExecute": true,
+        "requiresAiDecision": false,
+        "forceReason": "Operator approved supplemental execution after all-time historical group review.",
+        "riskLevel": "kur0501_lifetime_auto_winner_bid_up",
+        "confidence": 0.8,
+        "campaignId": "341283780324260",
+        "adGroupId": "430545249445395",
+        "campaignName": "auto2_hippie flower car magnet_kur0501",
+        "groupName": "auto2_hippie flower car magnet_kur0501",
+        "text": "asinAccessoryRelated",
+        "label": "asinAccessoryRelated",
+        "reason": "Set reopened accessory bucket to a controlled bid aligned with the already reopened substitute bucket.",
+        "evidence": [
+          "all-time CPC about 0.22 and ACOS 21.94%",
+          "use 0.14 because SKU recent efficiency is weaker than historical lifetime"
+        ],
+        "expectedEffect": {
+          "window": "3d/7d",
+          "metric": "impressions, clicks, orders, ACOS",
+          "target": "controlled historical ASIN expansion"
+        },
+        "reviewPlan": {
+          "3d": "check click lift and query/ASIN relevance",
+          "7d": "keep if ACOS controlled; reduce if spend rises without orders"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        }
+      }
+    ]
+  }
+]

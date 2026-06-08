@@ -1,0 +1,71 @@
+[
+  {
+    "sku": "ZO0891",
+    "summary": "Small trim for single-window low-efficiency auto target: 15d has one order but ACOS is above the desired control band.",
+    "actions": [
+      {
+        "id": "555061156890316",
+        "entityType": "autoTarget",
+        "actionType": "bid",
+        "currentBid": 0.30,
+        "suggestedBid": 0.27,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_loweff_single_window_trim_2026-06-08",
+        "riskLevel": "single_window_acos_trim",
+        "confidence": 0.74,
+        "reason": "ZO0891 auto queryHighRelMatches is only in the 15d low-efficiency window, not 3d/7d/30d, but 15d has 32 clicks, $9.60 spend, 1 order, ACOS 35.6%. Lower slightly instead of holding or pausing.",
+        "evidence": ["2026-06-08 low-efficiency pool: 15d clicks=32 spend=9.60 orders=1 ACOS=35.6% bid=0.30; 3d/7d/30d not in pool"],
+        "goal": {"metric": "netProfit", "from": -0.2541, "to": -0.23, "deadlineDays": 7, "hardFloor": -0.30},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If orders disappear and this target was the only converting receiver, stop further cuts and review sibling traffic before restoring."}
+      }
+    ]
+  },
+  {
+    "sku": "CL4199",
+    "summary": "Small trim for single-window low-efficiency manual ASIN target with one order and high ACOS.",
+    "actions": [
+      {
+        "id": "370411673222121",
+        "entityType": "manualTarget",
+        "actionType": "bid",
+        "currentBid": 0.45,
+        "suggestedBid": 0.40,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_loweff_single_window_trim_2026-06-08",
+        "riskLevel": "single_window_acos_trim",
+        "confidence": 0.74,
+        "reason": "CL4199 ASIN target asinExpandedFrom=B0C84SXWG7 is only in the 15d low-efficiency window, not 3d/7d/30d, but 15d has 25 clicks, $11.22 spend, 1 order, ACOS 37.4%. Lower slightly instead of holding.",
+        "evidence": ["2026-06-08 low-efficiency pool: 15d clicks=25 spend=11.22 orders=1 ACOS=37.4% bid=0.45; 3d/7d/30d not in pool"],
+        "goal": {"metric": "netProfit", "from": -0.2052, "to": -0.18, "deadlineDays": 7, "hardFloor": -0.25},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If this exact ASIN target becomes profitable after bid-down, hold at 0.40 rather than cutting again."}
+      }
+    ]
+  },
+  {
+    "sku": "UAN3644",
+    "summary": "Small trim for single-window low-efficiency manual ASIN target with one order and high ACOS.",
+    "actions": [
+      {
+        "id": "191995693497977",
+        "entityType": "manualTarget",
+        "actionType": "bid",
+        "currentBid": 0.41,
+        "suggestedBid": 0.36,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_loweff_single_window_trim_2026-06-08",
+        "riskLevel": "single_window_acos_trim",
+        "confidence": 0.74,
+        "reason": "UAN3644 ASIN target asinExpandedFrom=B0FFH2GBGL is only in the 15d low-efficiency window, not 3d/7d/30d, but 15d has 12 clicks, $4.84 spend, 1 order, ACOS 40.4%. Lower slightly instead of holding.",
+        "evidence": ["2026-06-08 low-efficiency pool: 15d clicks=12 spend=4.84 orders=1 ACOS=40.4% bid=0.41; 3d/7d/30d not in pool"],
+        "goal": {"metric": "netProfit", "from": 0.0146, "to": 0.03, "deadlineDays": 7, "hardFloor": 0},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If this exact ASIN target becomes profitable after bid-down, hold at 0.36 rather than cutting again."}
+      }
+    ]
+  }
+]

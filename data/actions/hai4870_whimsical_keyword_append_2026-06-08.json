@@ -1,0 +1,124 @@
+{
+  "exportedAt": "2026-06-08T02:19:49.678Z",
+  "startedAt": "2026-06-08T02:19:15.065Z",
+  "businessDate": "2026-06-08",
+  "evidenceBoundary": "live ad backend via shared Chrome debug session",
+  "plan": {
+    "sku": "HAI4870",
+    "asin": "B0FP19WXC6",
+    "accountId": 496,
+    "siteId": 4,
+    "campaignId": "78108427620546",
+    "adGroupId": "37840724347923",
+    "campaignName": "kw_q2 profit hai4870 phrase_hai4870",
+    "groupName": "kw_q2 profit hai4870 phrase_hai4870",
+    "matchType": "PHRASE",
+    "bid": 0.26,
+    "terms": [
+      "whimsical room decor",
+      "whimsical mushroom decor",
+      "felt mushroom decor",
+      "mushroom room decor"
+    ]
+  },
+  "before": {
+    "rowCount": 0,
+    "existingTargetRows": []
+  },
+  "dryRun": {
+    "ok": true,
+    "positionType": "keywordTarget",
+    "requestUrl": "/keyword/createKeywordNew",
+    "requestBody": {
+      "siteId": 4,
+      "accountId": 496,
+      "keywords": [
+        {
+          "campaignId": "78108427620546",
+          "adGroupId": "37840724347923",
+          "bid": 0.26,
+          "matchType": "PHRASE",
+          "state": "ENABLED",
+          "keywordText": "whimsical room decor"
+        },
+        {
+          "campaignId": "78108427620546",
+          "adGroupId": "37840724347923",
+          "bid": 0.26,
+          "matchType": "PHRASE",
+          "state": "ENABLED",
+          "keywordText": "whimsical mushroom decor"
+        },
+        {
+          "campaignId": "78108427620546",
+          "adGroupId": "37840724347923",
+          "bid": 0.26,
+          "matchType": "PHRASE",
+          "state": "ENABLED",
+          "keywordText": "felt mushroom decor"
+        },
+        {
+          "campaignId": "78108427620546",
+          "adGroupId": "37840724347923",
+          "bid": 0.26,
+          "matchType": "PHRASE",
+          "state": "ENABLED",
+          "keywordText": "mushroom room decor"
+        }
+      ],
+      "keywordGroups": []
+    },
+    "errors": []
+  },
+  "missingTermsBeforeExecution": [
+    "whimsical room decor",
+    "whimsical mushroom decor",
+    "felt mushroom decor",
+    "mushroom room decor"
+  ],
+  "execution": {
+    "skipped": false,
+    "ms": 4397,
+    "ok": false,
+    "okInterpretation": "API success shape is data.keyword.success; the first script version only checked data.success, so ok=false is a parser limitation, not an execution failure. Final landed-state verification is in data/snapshots/ad_keyword_placement_HAI4870_whimsical_readback_2026-06-08.json.",
+    "response": {
+      "code": 200,
+      "msg": "success",
+      "data": {
+        "keyword": {
+          "error": [],
+          "success": [
+            {
+              "index": 0,
+              "keywordId": "146586337511406"
+            },
+            {
+              "index": 1,
+              "keywordId": "181783712080432"
+            },
+            {
+              "index": 2,
+              "keywordId": "66384386356526"
+            },
+            {
+              "index": 3,
+              "keywordId": "171633960093108"
+            }
+          ]
+        },
+        "keywordGroup": []
+      }
+    }
+  },
+  "readback": {
+    "rowCount": 0,
+    "landedRows": [],
+    "missingAfter": [
+      "whimsical room decor",
+      "whimsical mushroom decor",
+      "felt mushroom decor",
+      "mushroom room decor"
+    ],
+    "allLanded": false
+  }
+}

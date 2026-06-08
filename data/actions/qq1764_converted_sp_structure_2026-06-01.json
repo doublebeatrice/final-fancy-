@@ -1,0 +1,162 @@
+[
+  {
+    "sku": "QQ1764",
+    "asin": "B0C1NF986W",
+    "summary": "QQ1764 live converted traffic isolation on 2026-06-01: create separate SP exact keyword and SP ASIN_SAME_AS groups for converted terms/search ASINs that are missing or weakly covered in precise lanes. SBV ASIN target creation is intentionally excluded because the current executor only supports SBV keyword create.",
+    "operatorRequested": true,
+    "actions": [
+      {
+        "id": "create::QQ1764::keywordTarget::EXACT::converted precise terms",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_live_qq1764_converted_structure_2026-06-01",
+        "riskLevel": "converted_traffic_precise_structure_create",
+        "confidence": 0.82,
+        "allowDuplicateStructureCreate": true,
+        "forceExecute": true,
+        "forceReason": "The operator explicitly requested separate groups for converted terms. Existing precise winners are not duplicated unless needed for a focused converted-term lane.",
+        "reason": "Create a separate SP EXACT group for converted buyer-facing terms where precise coverage is weak, mixed, or needs isolated monitoring. Bid uses QQ1764's live converting keyword CPC/bid band: rainbow tablecloth exact bid 0.61 with 13 orders, rainbow decorations exact bid 0.63 with 3 orders, rainbow plastic tablecloth exact bid 0.57 with 1 order, and pride decorations phrase bid 0.45 with 3 orders. Because QQ1764 profit is thin, use 0.55 instead of pushing to the highest 0.79 pride table cloth bid.",
+        "evidence": [
+          "Live 7d QQ1764 SKU summary: 48,300 impressions, 196 clicks, 53 orders, ACOS 21.3%; previous 7d was 11,765 impressions, 105 clicks, 31 orders.",
+          "rainbow table cloth converted in broad: 1,479 impressions, 18 clicks, 2 orders, ACOS 67.7%; exact exists but only 1 impression and 0 clicks.",
+          "pride decorations converted in phrase: 274 impressions, 7 clicks, 3 orders, ACOS 12.9%; exact exists but bid is only 0.06 with 0 orders.",
+          "rainbow decorations exact: 1,071 impressions, 8 clicks, 3 orders, ACOS 19.5%, bid 0.63.",
+          "rainbow birthday party decorations exact: 301 impressions, 3 clicks, 1 order, ACOS 19.7%, bid 0.59.",
+          "rainbow plastic tablecloth exact: 118 impressions, 2 clicks, 1 order, ACOS 16.9%, bid 0.57.",
+          "Inventory 2026-06-01: fulfillable 718 plus inbound 80, normal sale, but profitRate 8.69% so broad/generic expansion should stay controlled."
+        ],
+        "hypothesis": "A focused exact group should move proven query demand away from mixed broad/phrase traffic and make spend easier to monitor without opening new broad discovery.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "orders": "watch_up",
+          "spend": "up_limited",
+          "acos": "watch_under_0.25"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 53,
+          "to": 56,
+          "deadlineDays": 7,
+          "hardFloor": 45
+        },
+        "reviewPlan": {
+          "date": "2026-06-08",
+          "metrics": [
+            "impressions",
+            "clicks",
+            "orders",
+            "ACOS",
+            "search terms"
+          ],
+          "checkpoint": "3 days check clicks and spend; 7 days keep terms that order under 25% ACOS and trim any term spending 6-8 without an order."
+        },
+        "killSwitch": {
+          "spendNoOrder": 8,
+          "minClicksNoOrder": 12,
+          "maxAcos": 0.35,
+          "inventoryFloor": 80
+        },
+        "createInput": {
+          "advType": "SP",
+          "mode": "keywordTarget",
+          "sku": "QQ1764",
+          "asin": "B0C1NF986W",
+          "accountId": 296,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.55,
+          "coreTerm": "converted precise terms",
+          "matchType": "EXACT",
+          "keywords": [
+            "rainbow table cloth",
+            "pride decorations",
+            "rainbow decorations",
+            "rainbow birthday party decorations",
+            "rainbow plastic tablecloth"
+          ]
+        }
+      },
+      {
+        "id": "create::QQ1764::productTarget::ASIN_SAME_AS::converted asin exact",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_live_qq1764_converted_structure_2026-06-01",
+        "riskLevel": "converted_asin_precise_structure_create",
+        "confidence": 0.84,
+        "allowDuplicateStructureCreate": true,
+        "forceExecute": true,
+        "forceReason": "The operator explicitly requested a separate group for converted ASINs; current live target rows are ASIN_EXPANDED_FROM sources, not precise ASIN_SAME_AS targets for the converting search ASINs.",
+        "reason": "Create a separate SP product-target group using ASIN_SAME_AS for the three live 7d converting customer-search ASINs. The existing SP ASIN group has 3 orders at 10.4% ACOS with bid/CPC 0.35, so keep the same bid and a $3 budget.",
+        "evidence": [
+          "Existing SP ASIN group campaignId=42606095714560 adGroupId=23029796570577 has 25,073 impressions, 8 clicks, 3 orders, spend 2.80, ACOS 10.4%, CPC 0.35.",
+          "customerSearchText B076VZ9C7Q converted from asin-expanded B0F31344BT: 2 clicks, 1 order, ACOS 7.8%.",
+          "customerSearchText B0989TJ66K converted from asin-expanded B096NKLFZQ: 1 click, 1 order, ACOS 3.9%.",
+          "customerSearchText B07Z1K95X6 converted from asin-expanded B0CLTP6JYJ: 1 click, 1 order, ACOS 3.9%.",
+          "Current target rows are expanded-source targets; the true converting search ASINs are not landed as ASIN_SAME_AS in a separate precise group."
+        ],
+        "hypothesis": "Precise ASIN_SAME_AS targets should let the three converting competitor/product pages receive controlled spend without depending on category or expanded-ASIN matching.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "up_controlled",
+          "orders": "watch_up",
+          "spend": "up_limited",
+          "acos": "watch_under_0.20"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 3,
+          "to": 4,
+          "deadlineDays": 7,
+          "hardFloor": 1
+        },
+        "reviewPlan": {
+          "date": "2026-06-08",
+          "metrics": [
+            "impressions",
+            "clicks",
+            "orders",
+            "ACOS",
+            "target ASIN"
+          ],
+          "checkpoint": "3 days check whether exact ASINs receive impressions; 7 days keep under 20% ACOS and cut any ASIN spending 6-8 without an order."
+        },
+        "killSwitch": {
+          "spendNoOrder": 8,
+          "minClicksNoOrder": 10,
+          "maxAcos": 0.3,
+          "inventoryFloor": 80
+        },
+        "createInput": {
+          "advType": "SP",
+          "mode": "productTarget",
+          "sku": "QQ1764",
+          "asin": "B0C1NF986W",
+          "accountId": 296,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.35,
+          "coreTerm": "converted asin exact",
+          "targetType": "ASIN_SAME_AS",
+          "targetAsins": [
+            "B076VZ9C7Q",
+            "B0989TJ66K",
+            "B07Z1K95X6"
+          ]
+        }
+      }
+    ]
+  }
+]

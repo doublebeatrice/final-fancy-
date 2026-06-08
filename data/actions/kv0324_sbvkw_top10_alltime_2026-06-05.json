@@ -1,0 +1,145 @@
+[
+  {
+    "sku": "KV0324",
+    "asin": "B0B27MJTJT",
+    "summary": "KV0324 SBV keyword top all-time converting terms: create one SBV keyword campaign from the top 10 all-time order terms, bid 0.40 above current and all-time average CPC.",
+    "operatorRequested": true,
+    "actions": [
+      {
+        "id": "create::KV0324::SBV::keywordTarget::top10_alltime_broken_arm_bear",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "operator_request"
+        ],
+        "source": "codex_live_kv0324_sbvkw_top10_alltime_2026-06-05",
+        "riskLevel": "validated_sbvkw_create",
+        "confidence": 0.82,
+        "allowDuplicateStructureCreate": true,
+        "forceExecute": true,
+        "forceReason": "Operator explicitly requested a new sbvkw keyword selection for KV0324 using all-time highest-order terms; duplicate coverage with old SBV rows is accepted as an operator-directed expansion.",
+        "reason": "Create a new SBV keyword campaign from KV0324's all-time highest-order buyer-facing keyword rows. Bid 0.40 is above current 30d weighted CPC 0.3198 and all-time weighted CPC 0.3752, and above the SBV video floor.",
+        "evidence": [
+          "Live backend ready on 2026-06-05; report window 2024-01-01 to 2026-06-04.",
+          "GBrain search found no KV0324-specific prior conclusion; using live ad backend evidence.",
+          "KV0324 ASIN B0B27MJTJT is normal sale and ELIGIBLE, accountId=357, siteId=4.",
+          "All-time SKU weighted CPC=0.3752 from spend 3842.40 and clicks 10240; current 30d weighted CPC=0.3198 from spend 90.81 and clicks 284.",
+          "Exact ASIN-bound SBV asset is ACTIVE: B0B27MJTJT-S-VB.mp4 / amzn1.assetlibrary.asset1.12d6535f3940cefb01582686306e196b; brand=DEEKIN / ENTITYJWJDK25JE4KE.",
+          "Top all-time order keyword rows selected by exact buyer-facing keyword text, excluding ASIN targets and auto placeholder rows."
+        ],
+        "hypothesis": "A new SBV keyword lane on the proven broken-arm and cast-arm buyer terms should add video exposure while staying anchored to historically efficient converting demand.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_watch",
+          "orders": "up_watch",
+          "spend": "up_limited",
+          "acos": "watch_under_0.18"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 2,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "reviewPlan": {
+          "date": "2026-06-08",
+          "metrics": [
+            "impressions",
+            "clicks",
+            "orders",
+            "ACOS",
+            "keyword"
+          ],
+          "checkpoint": "3 days check whether the new SBVKW receives impressions and clicks; 7 days keep only keywords with orders or efficient clicks, and trim or pause if spend reaches 8 without an order."
+        },
+        "killSwitch": {
+          "spendNoOrder": 8,
+          "minClicksNoOrder": 12,
+          "maxAcos": 0.25,
+          "inventoryFloor": 80
+        },
+        "createInput": {
+          "advType": "SB",
+          "adFormat": "video",
+          "mode": "keywordTarget",
+          "targetType": "keyword",
+          "sku": "KV0324",
+          "asin": "B0B27MJTJT",
+          "accountId": 357,
+          "siteId": 4,
+          "brandName": "DEEKIN",
+          "brand": "ENTITYJWJDK25JE4KE",
+          "videoAssetIds": [
+            "amzn1.assetlibrary.asset1.12d6535f3940cefb01582686306e196b"
+          ],
+          "landingType": 2,
+          "landingPageUrl": "https://www.amazon.com/dp/B0B27MJTJT",
+          "goal": "PAGE_VISIT",
+          "costType": "CPC",
+          "dailyBudget": 3,
+          "defaultBid": 0.4,
+          "startDate": "2026-06-05",
+          "coreTerm": "broken arm bear top terms",
+          "campaignName": "sbvkw_broad_broken arm bear top terms_kv0324",
+          "groupName": "sbvkw_broad_broken arm bear top terms_kv0324",
+          "keywords": [
+            {
+              "keywordText": "broken arm bear",
+              "matchType": "BROAD",
+              "bid": 0.4
+            },
+            {
+              "keywordText": "broken arm gifts",
+              "matchType": "BROAD",
+              "bid": 0.4
+            },
+            {
+              "keywordText": "get well toys for child with broken arm",
+              "matchType": "BROAD",
+              "bid": 0.4
+            },
+            {
+              "keywordText": "gifts for kids with a broken arm",
+              "matchType": "BROAD",
+              "bid": 0.4
+            },
+            {
+              "keywordText": "broken arm stuffed animals",
+              "matchType": "BROAD",
+              "bid": 0.4
+            },
+            {
+              "keywordText": "broken arm gifts for girls",
+              "matchType": "BROAD",
+              "bid": 0.4
+            },
+            {
+              "keywordText": "stuffy with a cast arm",
+              "matchType": "BROAD",
+              "bid": 0.4
+            },
+            {
+              "keywordText": "get well soon gifts for kids",
+              "matchType": "BROAD",
+              "bid": 0.4
+            },
+            {
+              "keywordText": "teddy bear arm cast",
+              "matchType": "BROAD",
+              "bid": 0.4
+            },
+            {
+              "keywordText": "broken arm leg bear",
+              "matchType": "BROAD",
+              "bid": 0.4
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

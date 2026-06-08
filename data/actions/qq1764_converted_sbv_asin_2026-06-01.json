@@ -1,0 +1,93 @@
+[
+  {
+    "sku": "QQ1764",
+    "asin": "B0C1NF986W",
+    "summary": "QQ1764 SBV ASIN precise test: use the existing live QQ1764 SBV brand/video creative and create a separate SBV product-target group for the three 7d converting search ASINs.",
+    "operatorRequested": true,
+    "actions": [
+      {
+        "id": "create::QQ1764::SBV::productTarget::ASIN_SAME_AS::converted asin exact",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "source": "codex_live_qq1764_sbv_asin_create_2026-06-01",
+        "riskLevel": "validated_sbv_asin_test_create",
+        "confidence": 0.78,
+        "allowDuplicateStructureCreate": true,
+        "forceExecute": true,
+        "forceReason": "The operator explicitly requested learning and testing SBV ASIN creation from the SBV keyword creation path.",
+        "reason": "Create SBV product targeting with targetType=target and fieldArray.targets expressions type asinSameAs. The brand/video fields are copied from existing live QQ1764 SBV creatives. Bid uses the proven SP ASIN converted lane CPC/bid 0.35 and stays above the SBV video floor while QQ1764 profit is thin.",
+        "evidence": [
+          "Existing QQ1764 SBV creatives are live: brandName=Tudomro, brandEntityId=ENTITY2VPOM7IX7COBN.",
+          "Existing SBV high-quality creative uses videoAssetId amzn1.assetlibrary.asset1.06644c2939d448aade8d22455410499a:version_v1 and ASIN B0C1NF986W.",
+          "Existing SBV target readbacks for old/high-quality/new groups returned targetRowCount=0, so QQ1764 has no current SBV ASIN target rows.",
+          "SP ASIN exact lane just landed for B076VZ9C7Q, B0989TJ66K, B07Z1K95X6 at bid 0.35; these ASINs came from live 7d converting customer search rows."
+        ],
+        "hypothesis": "A narrow SBV ASIN group should test whether the product video can win controlled competitor/product-page traffic on the exact ASINs that already converted through SP ASIN search terms.",
+        "expectedEffect": {
+          "impressions": "up_controlled",
+          "clicks": "watch",
+          "orders": "watch_up",
+          "spend": "up_limited",
+          "acos": "watch_under_0.25"
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "reviewPlan": {
+          "date": "2026-06-08",
+          "metrics": [
+            "impressions",
+            "clicks",
+            "orders",
+            "ACOS",
+            "target ASIN"
+          ],
+          "checkpoint": "3 days check whether SBV ASIN receives impressions; 7 days keep only targets with orders or efficient clicks, and pause/trim if spend reaches 6-8 without an order."
+        },
+        "killSwitch": {
+          "spendNoOrder": 8,
+          "minClicksNoOrder": 10,
+          "maxAcos": 0.35,
+          "inventoryFloor": 80
+        },
+        "createInput": {
+          "advType": "SB",
+          "adFormat": "video",
+          "mode": "productTarget",
+          "targetType": "ASIN_SAME_AS",
+          "sku": "QQ1764",
+          "asin": "B0C1NF986W",
+          "accountId": 296,
+          "siteId": 4,
+          "brandName": "Tudomro",
+          "brand": "ENTITY2VPOM7IX7COBN",
+          "videoAssetIds": [
+            "amzn1.assetlibrary.asset1.06644c2939d448aade8d22455410499a:version_v1"
+          ],
+          "landingType": 2,
+          "landingPageUrl": "https://www.amazon.com/dp/B0C1NF986W",
+          "goal": "PAGE_VISIT",
+          "costType": "CPC",
+          "dailyBudget": 3,
+          "defaultBid": 0.35,
+          "coreTerm": "converted asin exact",
+          "targetAsins": [
+            "B076VZ9C7Q",
+            "B0989TJ66K",
+            "B07Z1K95X6"
+          ]
+        }
+      }
+    ]
+  }
+]

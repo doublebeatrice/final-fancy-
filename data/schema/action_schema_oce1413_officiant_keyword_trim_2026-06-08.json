@@ -1,0 +1,29 @@
+[
+  {
+    "sku": "OCE1413",
+    "summary": "Controlled trim for SP keyword hard cover officiant book for ceremony: direct product-intent keyword still converts, but 7d ACOS is above the control band and the latest short window has 14 clicks with 0 orders.",
+    "actions": [
+      {
+        "id": "472427699956286",
+        "keywordId": "472427699956286",
+        "entityType": "keyword",
+        "actionType": "bid",
+        "currentBid": 0.20,
+        "suggestedBid": 0.18,
+        "decisionStage": "ai_approved",
+        "approvedBy": "codex",
+        "actionSource": ["codex"],
+        "source": "codex_oce1413_officiant_keyword_trim_2026-06-08",
+        "riskLevel": "core_keyword_acos_trim",
+        "confidence": 0.78,
+        "reason": "OCE1413 needs to keep wedding-officiant-book traffic, but this broad keyword is now paying above the desired margin band: live 7d read shows 83 clicks, $16.45 spend, 3 orders, ACOS 35.78% at bid 0.20, and the latest short window shown by the operator has 14 clicks with 0 orders. Lower one step to reduce CPC and waste while preserving the active converting lane.",
+        "evidence": [
+          "2026-06-08 live /keyword/findAllNew group read: keywordId=472427699956286, text=hard cover officiant book for ceremony, bid=0.20, state=1, campaignState=1, groupState=1, 7d clicks=83 spend=16.45 orders=3 sales=45.97 ACOS=35.78%",
+          "operator visible row: bid=0.20, strategy=down only, 3d ACOS 35.78% versus 7/15/30d around 26%-24%-23%, latest short-window 14 clicks with 0 orders in product-card snapshot"
+        ],
+        "goal": {"metric": "acos", "from": 0.3578, "to": 0.30, "deadlineDays": 7, "hardFloor": 0.40},
+        "reviewPlan": {"checkAfterDays": [3, 7], "rollbackIf": "If orders fall to 0 and sibling wedding-officiant-book lanes do not replace the orders, stop further cuts and inspect receiver-layer search terms before another change."}
+      }
+    ]
+  }
+]

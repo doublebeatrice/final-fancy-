@@ -1,0 +1,136 @@
+[
+  {
+    "sku": "UG4758",
+    "asin": "B0GX388TDL",
+    "summary": "Self-owned UG4758 base ad structure completion: ignore system-created SP auto/keyword coverage, add own SP auto and own SP broad keyword lane from verified girls trip traffic terms. SBV is skipped because live video checks returned no UG4758 video row or SBV candidate.",
+    "actions": [
+      {
+        "id": "create::UG4758::auto::girls trip passport set",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "riskLevel": "basic_structure_create",
+        "confidence": 0.78,
+        "allowDuplicateStructureCreate": true,
+        "forceExecute": true,
+        "forceReason": "User explicitly instructed to land the base structure; system-created auto is read-only and must not count as owned coverage.",
+        "reason": "UG4758 currently has only system-created auto/keyword coverage plus the newly landed self-owned ASIN target lane. The operator rule is to ignore system-created ads for coverage, so a self-owned SP auto lane is required for base discovery. Bid uses SKU product-line CPC evidence around 0.33 and createContext recommendedDefaultBid 0.30.",
+        "evidence": [
+          "SKU=UG4758 ASIN=B0GX388TDL accountId=255 siteId=4",
+          "System-created auto campaign passport cover set-ug4758-system-a is read-only and not counted as coverage.",
+          "createContext recommendedDefaultBid=0.30; productLine cpc=0.332008.",
+          "Existing self-owned ASIN target campaign 148242582757730/adGroup 260822116116435 was verified live with six enabled ASIN_EXPANDED_FROM targets at bid 0.30."
+        ],
+        "reviewPlan": {
+          "date": "2026-06-08",
+          "metrics": [
+            "impressions",
+            "clicks",
+            "spend",
+            "orders",
+            "customer search terms"
+          ],
+          "checkpoint": "After 7 days, keep only discovered relevant search terms; if spend reaches 8 with no order or traffic is irrelevant, cut auto buckets or pause the lane."
+        },
+        "killSwitch": {
+          "spendNoOrder": 8,
+          "minClicksNoOrder": 12,
+          "inventoryFloor": 8
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "createInput": {
+          "advType": "SP",
+          "mode": "auto",
+          "sku": "UG4758",
+          "asin": "B0GX388TDL",
+          "accountId": 255,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.3,
+          "coreTerm": "girls trip passport set auto"
+        }
+      },
+      {
+        "id": "create::UG4758::keywordTarget::BROAD::girls trip gifts",
+        "entityType": "skuCandidate",
+        "actionType": "create",
+        "decisionStage": "manual_approved",
+        "approvedBy": "manual",
+        "actionSource": [
+          "codex",
+          "manual"
+        ],
+        "riskLevel": "basic_structure_create",
+        "confidence": 0.82,
+        "allowDuplicateStructureCreate": true,
+        "forceExecute": true,
+        "forceReason": "User explicitly instructed to land KW; system-created keyword campaign is read-only and must not count as owned coverage.",
+        "reason": "Create a self-owned SP keyword lane using verified competitor ASIN reverse-traffic terms. Terms are buyer-facing girls trip/gifts/favors/weekend phrases; generic passport/luggage terms are excluded from the main lane. Bid uses the product-line CPC around 0.33 and prior market CPC evidence, not the system campaign's low 0.14-0.16 bids.",
+        "evidence": [
+          "ASIN reverse traffic on 2026-04-30 showed B0G2BQN36B and B0G71YBFZK receiving traffic on girls trip 2026, girl trip gift ideas, girls trip bag stuffers, girls trip weekend gifts, girl trip gifts favors, girls trip gifts for women.",
+          "ABA 2026-04-30: girls trip gifts favors searchVolume=19340 estimatedOrders=4356.",
+          "Keyword conversion evidence: girls trip gifts cpcMedian=1.17 and girls weekend gifts cpcMedian=1.01, so 0.32 is a controlled discovery bid, not a placeholder low bid.",
+          "System-created keyword campaign passport cover set-ug4758-system-keyword is read-only and not counted as coverage."
+        ],
+        "reviewPlan": {
+          "date": "2026-06-08",
+          "metrics": [
+            "impressions",
+            "clicks",
+            "spend",
+            "orders",
+            "ACOS",
+            "search terms"
+          ],
+          "checkpoint": "After 7 days, protect terms with clicks/orders; cut terms that spend 6-8 without order or pull unrelated travel/passport traffic."
+        },
+        "killSwitch": {
+          "spendNoOrder": 8,
+          "minClicksNoOrder": 12,
+          "inventoryFloor": 8
+        },
+        "goal": {
+          "metric": "orders",
+          "from": 0,
+          "to": 1,
+          "deadlineDays": 7,
+          "hardFloor": 0
+        },
+        "createInput": {
+          "advType": "SP",
+          "mode": "keywordTarget",
+          "sku": "UG4758",
+          "asin": "B0GX388TDL",
+          "accountId": 255,
+          "siteId": 4,
+          "dailyBudget": 3,
+          "defaultBid": 0.32,
+          "coreTerm": "girls trip gifts",
+          "matchType": "BROAD",
+          "keywords": [
+            "girls trip gifts favors",
+            "girl trip gifts favors",
+            "girls trip weekend gifts",
+            "girls trip gifts for women",
+            "girl trip gift ideas",
+            "girls trip 2026",
+            "girls trip bag stuffers",
+            "girls trip essentials",
+            "passport holder and luggage tag set"
+          ]
+        }
+      }
+    ]
+  }
+]
