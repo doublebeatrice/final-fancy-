@@ -1,4 +1,9 @@
 node_modules/
+tmp/
+tools/chrome-for-testing/
+config/wecom_gateway.local.json
+.obsidian/
+.tmp/
 
 # data/ 可重生产物（每日跑一次就有，不入库）
 data/snapshots/
@@ -30,6 +35,7 @@ data/inv_auto_filtered_*.csv
 
 archive/reports/
 archive/runtime/
+archive/root_cleanup_*/
 snapshots/
 黄成喆个人数据趋势/
 *.log
@@ -37,3 +43,6 @@ snapshots/
 *.bak
 remaining_sp_7day_untouched_cn_*.csv
 remaining_sp_7day_untouched_cn_*.json
+
+# WeCom sheet-export intermediates (re-creatable from the live sheet)
+data/doc_exports/*.sheets.json
