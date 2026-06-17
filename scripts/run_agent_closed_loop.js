@@ -1212,6 +1212,20 @@ function runAgentClosedLoop(options = {}) {
     }
     writeJson(closedLoopFile, report);
   } else {
+    if (options.closureVerification) {
+      report.closureVerification = options.closureVerification;
+      report.summary.artifactVerificationOk = options.closureVerification.ok === true;
+      report.summary.artifactVerificationErrors = Array.isArray(options.closureVerification.errors)
+        ? options.closureVerification.errors
+        : [];
+      if (report.summary.artifactVerificationOk !== true) {
+        report.summary.closedLoop = false;
+        report.closedLoop = false;
+      }
+      writeJson(closureVerificationFile, report.closureVerification);
+      report.files.closureVerificationFile = closureVerificationFile;
+      writeJson(closedLoopFile, report);
+    }
     refreshKpiCheckpoint();
   }
   if (snapshotInputWarnings.length) {
