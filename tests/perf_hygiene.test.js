@@ -90,6 +90,20 @@ function write(file, body = '') {
 }
 
 {
+  const result = hygieneCheck({
+    root: makeTempDir(),
+    untrackedFiles: ['data/actions/a.json', 'unknown.bin'],
+    thresholds: {
+      maxUntrackedFiles: 10,
+      maxReviewNeededUntrackedFiles: 0,
+    },
+  });
+
+  assert.strictEqual(result.ok, false);
+  assert(result.findings.some(item => item.id === 'review-needed-untracked-files'));
+}
+
+{
   assert.strictEqual(classifyUntrackedFile('data/actions/a.json'), 'business-evidence');
   assert.strictEqual(classifyUntrackedFile('data/learning/a.md'), 'business-memory');
   assert.strictEqual(classifyUntrackedFile('src/new_module.js'), 'source-or-test');

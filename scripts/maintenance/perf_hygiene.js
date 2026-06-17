@@ -32,6 +32,7 @@ const DEFAULT_HYGIENE_THRESHOLDS = {
   maxLargeFiles: 20,
   largeFileBytes: 50 * 1024 * 1024,
   maxUntrackedFiles: 300,
+  maxReviewNeededUntrackedFiles: 0,
 };
 const SUSPICIOUS_ROOT_BASENAMES = new Set([
   '--json',
@@ -501,6 +502,17 @@ function hygieneCheck(options = {}) {
       threshold: thresholds.maxUntrackedFiles,
       value: untrackedFiles.length,
       paths: untrackedFiles.slice(0, 30),
+    });
+  }
+  const reviewNeededUntracked = untrackedFiles.filter(file => classifyUntrackedFile(file) === 'review-needed');
+  if (reviewNeededUntracked.length > thresholds.maxReviewNeededUntrackedFiles) {
+    addFinding(findings, {
+      id: 'review-needed-untracked-files',
+      title: 'Unknown untracked files need review',
+      detail: `${reviewNeededUntracked.length} untracked files are not in a known category.`,
+      threshold: thresholds.maxReviewNeededUntrackedFiles,
+      value: reviewNeededUntracked.length,
+      paths: reviewNeededUntracked.slice(0, 30),
     });
   }
 

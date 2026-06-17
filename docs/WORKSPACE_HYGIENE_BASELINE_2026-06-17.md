@@ -205,3 +205,13 @@ Post-pass result:
 
 - New npm aliases must replace existing aliases or justify raising the hygiene gate.
 - `perf:hygiene-check` remains `ok: true`.
+
+## Untracked Unknown-File Guard - 2026-06-17
+
+- Current untracked files are still visible, but all are classified into known categories.
+- Added `maxReviewNeededUntrackedFiles: 0` to `perf:hygiene-check`.
+
+Post-pass result:
+
+- Unknown untracked files now fail hygiene immediately instead of hiding inside the total untracked count.
+- `perf:hygiene-check` remains `ok: true`.
