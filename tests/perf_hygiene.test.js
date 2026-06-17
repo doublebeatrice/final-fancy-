@@ -72,4 +72,17 @@ function write(file, body = '') {
   assert.deepStrictEqual(largeFileFinding.files.map(item => item.path), ['unexpected.bin']);
 }
 
+{
+  const result = hygieneCheck({
+    root: makeTempDir(),
+    untrackedFiles: ['a.txt', 'b.txt', 'c.txt'],
+    thresholds: {
+      maxUntrackedFiles: 2,
+    },
+  });
+
+  assert.strictEqual(result.ok, false);
+  assert(result.findings.some(item => item.id === 'too-many-untracked-files'));
+}
+
 console.log('perf_hygiene tests passed');

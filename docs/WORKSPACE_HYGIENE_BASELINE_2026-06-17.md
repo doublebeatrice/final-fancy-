@@ -118,3 +118,19 @@ Post-pass result:
 - Active date-stamped `scripts/execute` files: 0.
 - `npm test` passes through the grouped runner.
 - `perf:hygiene-check` remains `ok: true`.
+
+## Untracked File Routing Pass - 2026-06-17
+
+- Added ignore rules for clearly generated local artifacts:
+  - `.playwright-cli/`
+  - `data/doc_exports/`
+  - `reports/`
+  - `tmp_wipo_*.html`
+- Left business evidence visible, including `data/actions/`, `data/learning/`, `data/schema/`, and `data/adjustments/`.
+- Added `maxUntrackedFiles` to `perf:hygiene-check`.
+
+Post-pass result:
+
+- Untracked file count reduced: 451 -> 283.
+- Untracked warning threshold: 300.
+- `perf:hygiene-check` remains `ok: true`.

@@ -31,6 +31,7 @@ const DEFAULT_HYGIENE_THRESHOLDS = {
   maxRootArtifacts: 0,
   maxLargeFiles: 20,
   largeFileBytes: 50 * 1024 * 1024,
+  maxUntrackedFiles: 300,
 };
 const SUSPICIOUS_ROOT_BASENAMES = new Set([
   '--json',
@@ -360,6 +361,18 @@ function readPackageScriptCount(root) {
   return Object.keys(parsed.scripts || {}).length;
 }
 
+function listUntrackedFiles(root) {
+  try {
+    return execFileSync('git', ['ls-files', '--others', '--exclude-standard'], {
+      cwd: root,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    }).split(/\r?\n/).filter(Boolean).map(file => file.replace(/\\/g, '/'));
+  } catch (_) {
+    return [];
+  }
+}
+
 function listDateStampedExecuteScripts(root) {
   const dir = path.join(root, 'scripts', 'execute');
   return walkFiles(dir)
@@ -441,6 +454,18 @@ function hygieneCheck(options = {}) {
       threshold: thresholds.maxDateStampedExecuteScripts,
       value: dateStampedExecuteScripts.length,
       paths: dateStampedExecuteScripts.slice(0, 30),
+    });
+  }
+
+  const untrackedFiles = Array.isArray(options.untrackedFiles) ? options.untrackedFiles : listUntrackedFiles(root);
+  if (untrackedFiles.length > thresholds.maxUntrackedFiles) {
+    addFinding(findings, {
+      id: 'too-many-untracked-files',
+      title: 'Untracked file count is high',
+      detail: `${untrackedFiles.length} untracked files found.`,
+      threshold: thresholds.maxUntrackedFiles,
+      value: untrackedFiles.length,
+      paths: untrackedFiles.slice(0, 30),
     });
   }
 

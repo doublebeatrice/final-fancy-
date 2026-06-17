@@ -2,8 +2,12 @@ node_modules/
 tmp/
 tools/chrome-for-testing/
 config/wecom_gateway.local.json
+config/weixin_clawbot.local.json
+discovery/output/
+outputs/
 .obsidian/
 .tmp/
+.playwright-cli/
 
 # data/ 可重生产物（每日跑一次就有，不入库）
 data/snapshots/
@@ -25,6 +29,7 @@ data/core_sales/
 data/exports/
 data/reports/
 data/logs/
+data/doc_exports/
 data/adjustment_history.json
 data/listing_cache.json
 data/over_budget_history.json
@@ -36,13 +41,14 @@ data/inv_auto_filtered_*.csv
 archive/reports/
 archive/runtime/
 archive/root_cleanup_*/
+reports/
 snapshots/
 黄成喆个人数据趋势/
 *.log
 *.tmp
 *.bak
+tmp_wipo_*.html
 remaining_sp_7day_untouched_cn_*.csv
 remaining_sp_7day_untouched_cn_*.json
 
-# WeCom sheet-export intermediates (re-creatable from the live sheet)
-data/doc_exports/*.sheets.json
+# WeCom/Tencent doc exports are re-creatable from the live documents.
