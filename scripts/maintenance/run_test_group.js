@@ -86,6 +86,13 @@ function selectChangedTests(tests, changedFiles) {
   return normalizedTests.filter(file => selected.has(file));
 }
 
+function selectTestsForChangedMode(tests, group, changedFiles) {
+  if (group === 'changed' || group === 'staged') {
+    return selectChangedTests(tests, changedFiles);
+  }
+  return selectTests(tests, group);
+}
+
 function summarizeGroups(tests) {
   const normalized = tests.map(normalize);
   const counts = new Map([
@@ -148,6 +155,21 @@ function listChangedFiles() {
     });
 }
 
+function listStagedFiles() {
+  const result = spawnSync('git', ['diff', '--cached', '--name-only'], {
+    cwd: ROOT,
+    encoding: 'utf8',
+  });
+  if (result.status !== 0) {
+    process.stderr.write(result.stderr || 'Unable to read staged git diff.\n');
+    process.exit(result.status || 1);
+  }
+  return result.stdout
+    .split(/\r?\n/)
+    .map(line => line.trim())
+    .filter(Boolean);
+}
+
 function runTests(files) {
   const results = [];
   for (const file of files) {
@@ -189,8 +211,10 @@ function main() {
   }
   const allTests = listTestFiles();
   const tests = group === 'changed'
-    ? selectChangedTests(allTests, listChangedFiles())
-    : selectTests(allTests, group);
+    ? selectTestsForChangedMode(allTests, group, listChangedFiles())
+    : (group === 'staged'
+        ? selectTestsForChangedMode(allTests, group, listStagedFiles())
+        : selectTests(allTests, group));
   if (!tests.length) {
     process.stderr.write(`No tests found for group: ${group}\n`);
     process.exit(1);
@@ -207,6 +231,7 @@ module.exports = {
   classifyTestFile,
   matchesGroup,
   selectChangedTests,
+  selectTestsForChangedMode,
   summarizeGroups,
   summarizeTestRuns,
   selectTests,

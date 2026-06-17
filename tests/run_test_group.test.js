@@ -4,6 +4,7 @@ const {
   classifyTestFile,
   matchesGroup,
   selectChangedTests,
+  selectTestsForChangedMode,
   summarizeGroups,
   summarizeTestRuns,
   selectTests,
@@ -28,6 +29,24 @@ const {
     { file: 'tests/slow.test.js', durationMs: 1400 },
     { file: 'tests/mid.test.js', durationMs: 250 },
   ]);
+}
+
+{
+  const tests = [
+    'tests/agent_closed_loop.test.js',
+    'tests/run_agent_closed_loop.test.js',
+    'tests/run_test_group.test.js',
+  ];
+  const changedFiles = ['scripts/run_agent_closed_loop.js'];
+
+  assert.deepStrictEqual(
+    selectTestsForChangedMode(tests, 'changed', changedFiles),
+    ['tests/run_agent_closed_loop.test.js']
+  );
+  assert.deepStrictEqual(
+    selectTestsForChangedMode(tests, 'staged', changedFiles),
+    ['tests/run_agent_closed_loop.test.js']
+  );
 }
 
 {
