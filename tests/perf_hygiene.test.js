@@ -3,7 +3,11 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const { report } = require('../scripts/maintenance/perf_hygiene');
-const { hygieneCheck } = require('../scripts/maintenance/perf_hygiene');
+const {
+  classifyUntrackedFile,
+  hygieneCheck,
+  untrackedReport,
+} = require('../scripts/maintenance/perf_hygiene');
 
 function makeTempDir() {
   return fs.mkdtempSync(path.join(os.tmpdir(), 'perf-hygiene-'));
@@ -83,6 +87,34 @@ function write(file, body = '') {
 
   assert.strictEqual(result.ok, false);
   assert(result.findings.some(item => item.id === 'too-many-untracked-files'));
+}
+
+{
+  assert.strictEqual(classifyUntrackedFile('data/actions/a.json'), 'business-evidence');
+  assert.strictEqual(classifyUntrackedFile('data/learning/a.md'), 'business-memory');
+  assert.strictEqual(classifyUntrackedFile('src/new_module.js'), 'source-or-test');
+  assert.strictEqual(classifyUntrackedFile('tests/new_module.test.js'), 'source-or-test');
+  assert.strictEqual(classifyUntrackedFile('config/example.json'), 'config-or-doc');
+  assert.strictEqual(classifyUntrackedFile('unknown.bin'), 'review-needed');
+}
+
+{
+  const result = untrackedReport({
+    root: makeTempDir(),
+    files: [
+      'data/actions/a.json',
+      'data/actions/b.json',
+      'src/new_module.js',
+      'unknown.bin',
+    ],
+  });
+
+  assert.strictEqual(result.total, 4);
+  assert.deepStrictEqual(result.categories.map(item => [item.category, item.count]), [
+    ['business-evidence', 2],
+    ['review-needed', 1],
+    ['source-or-test', 1],
+  ]);
 }
 
 console.log('perf_hygiene tests passed');

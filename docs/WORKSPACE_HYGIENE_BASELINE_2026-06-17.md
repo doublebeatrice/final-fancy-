@@ -134,3 +134,22 @@ Post-pass result:
 - Untracked file count reduced: 451 -> 283.
 - Untracked warning threshold: 300.
 - `perf:hygiene-check` remains `ok: true`.
+
+## Untracked Audit Report Pass - 2026-06-17
+
+- Added `node scripts/maintenance/perf_hygiene.js untracked-report --json`.
+- The report groups remaining untracked files into review categories instead of hiding them.
+
+Current untracked report:
+
+- `business-evidence`: 125
+- `business-memory`: 84
+- `source-or-test`: 58
+- `business-schema`: 13
+- `config-or-doc`: 3
+- `review-needed`: 0
+
+Post-pass result:
+
+- Remaining untracked files are explainable by category.
+- `perf:hygiene-check` remains `ok: true`.

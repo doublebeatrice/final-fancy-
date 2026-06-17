@@ -373,6 +373,41 @@ function listUntrackedFiles(root) {
   }
 }
 
+function classifyUntrackedFile(file) {
+  const normalized = file.replace(/\\/g, '/');
+  if (normalized.startsWith('data/actions/')) return 'business-evidence';
+  if (normalized.startsWith('data/learning/')) return 'business-memory';
+  if (normalized.startsWith('data/adjustments/')) return 'business-memory';
+  if (normalized.startsWith('data/schema/')) return 'business-schema';
+  if (normalized.startsWith('data/selection/')) return 'business-evidence';
+  if (normalized.startsWith('src/') || normalized.startsWith('tests/') || normalized.startsWith('scripts/')) return 'source-or-test';
+  if (normalized.startsWith('docs/') || normalized.startsWith('config/')) return 'config-or-doc';
+  return 'review-needed';
+}
+
+function untrackedReport(options = {}) {
+  const root = path.resolve(options.root || ROOT);
+  const files = Array.isArray(options.files) ? options.files : listUntrackedFiles(root);
+  const groups = new Map();
+  for (const file of files) {
+    const category = classifyUntrackedFile(file);
+    if (!groups.has(category)) groups.set(category, []);
+    groups.get(category).push(file);
+  }
+  const categories = Array.from(groups.entries())
+    .map(([category, paths]) => ({
+      category,
+      count: paths.length,
+      paths: paths.slice(0, 40),
+    }))
+    .sort((a, b) => b.count - a.count || a.category.localeCompare(b.category));
+  return {
+    root,
+    total: files.length,
+    categories,
+  };
+}
+
 function listDateStampedExecuteScripts(root) {
   const dir = path.join(root, 'scripts', 'execute');
   return walkFiles(dir)
@@ -535,6 +570,10 @@ function main() {
     print(hygieneCheck(), args.json);
     return;
   }
+  if (command === 'untracked-report') {
+    print(untrackedReport(), args.json);
+    return;
+  }
   throw new Error(`Unknown command: ${command}`);
 }
 
@@ -548,6 +587,8 @@ if (require.main === module) {
 }
 
 module.exports = {
+  classifyUntrackedFile,
   report,
   hygieneCheck,
+  untrackedReport,
 };
