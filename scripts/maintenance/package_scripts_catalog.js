@@ -37,6 +37,30 @@ function listPackageScripts(options = {}) {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
+function walkScriptFiles(dir, root, output = []) {
+  if (!fs.existsSync(dir)) return output;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      walkScriptFiles(full, root, output);
+    } else if (entry.isFile() && entry.name.endsWith('.js')) {
+      output.push(full.replace(root + path.sep, '').replace(/\\/g, '/'));
+    }
+  }
+  return output;
+}
+
+function listScriptFiles(options = {}) {
+  const files = options.files || walkScriptFiles(path.join(ROOT, 'scripts'), ROOT);
+  const query = (options.query || '').toLowerCase();
+  return files
+    .map(file => file.replace(/\\/g, '/'))
+    .filter(file => file.startsWith('scripts/') && file.endsWith('.js'))
+    .filter(file => !query || file.toLowerCase().includes(query))
+    .sort()
+    .map(file => ({ name: file, command: `node ${file}` }));
+}
+
 function readPackageScripts(root = ROOT) {
   const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
   return packageJson.scripts || {};
@@ -51,11 +75,13 @@ function printScripts(items) {
 function main() {
   const args = parseArgs(process.argv.slice(2));
   const scripts = readPackageScripts();
-  const items = listPackageScripts({
-    scripts,
-    prefix: args.prefix || '',
-    query: args.query || '',
-  });
+  const items = args.files
+    ? listScriptFiles({ query: args.query || '' })
+    : listPackageScripts({
+        scripts,
+        prefix: args.prefix || '',
+        query: args.query || '',
+      });
   printScripts(items);
 }
 
@@ -70,4 +96,5 @@ if (require.main === module) {
 
 module.exports = {
   listPackageScripts,
+  listScriptFiles,
 };

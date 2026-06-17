@@ -118,11 +118,7 @@
     "ops:season-events:import": "python scripts/data-tools/import_season_events.py data/reference/season_events_2026_source.xlsx --out data/season_events_2026.json",
     "ops:listing-copy": "node scripts/execute/run_listing_copy_edits.js",
     "ops:listing-copy:withdraw": "node scripts/execute/run_listing_copy_application_withdrawals.js",
-    "reports:normalize": "node scripts/execute/normalize_daily_report_names.js",
-    "impact": "node scripts/analytics/analyze_execution_impact.js",
-    "profiles": "node scripts/generators/generate_product_profiles.js",
-    "vision:queue": "node scripts/generators/generate_product_vision_queue.js",
-    "vision:merge": "node scripts/generators/merge_product_vision_results.js"
+    "impact": "node scripts/analytics/analyze_execution_impact.js"
   },
   "keywords": [],
   "author": "",
