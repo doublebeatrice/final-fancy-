@@ -223,11 +223,11 @@ Post-pass result:
 
 Current source/test untracked report:
 
-- `total`: 58
-- `sourceFiles`: 35
+- `total`: 57
+- `sourceFiles`: 34
 - `testFiles`: 23
 - `pairedSources`: 26
-- `sourceWithoutTests`: 9
+- `sourceWithoutTests`: 8
 - `pairedTests`: 23
 - `orphanTests`: 0
 
@@ -241,7 +241,7 @@ Post-pass result:
 ## Source/Test Gap Guard - 2026-06-17
 
 - Added default hygiene thresholds for the remaining source/test gaps:
-  - `maxSourceWithoutTests`: 9
+  - `maxSourceWithoutTests`: 8
   - `maxOrphanSourceTests`: 0
 
 Post-pass result:
@@ -262,9 +262,21 @@ Post-pass result:
 ## Total Untracked Guard Tightening - 2026-06-17
 
 - Current `untracked-report` total: 284.
-- Tightened `perf:hygiene-check` default `maxUntrackedFiles`: 300 -> 284.
+- Tightened `perf:hygiene-check` default `maxUntrackedFiles`: 300 -> 283.
 
 Post-pass result:
 
 - The current known untracked backlog is allowed, but any net-new untracked file now fails `perf:hygiene-check`.
+- `perf:hygiene-check` remains `ok: true`.
+
+## Probe Web Page CDP Stabilization - 2026-06-17
+
+- Added tests for `scripts/execute/probe_web_page_cdp.js`.
+- Exported only the existing argument parser and readiness wait helper for testability.
+- Added the script and its test to version control because `package.json` already exposes `ops:browser:probe`.
+
+Post-pass result:
+
+- `sourceWithoutTests`: 9 -> 8.
+- `maxUntrackedFiles`: 284 -> 283.
 - `perf:hygiene-check` remains `ok: true`.

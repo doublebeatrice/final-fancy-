@@ -31,9 +31,9 @@ const DEFAULT_HYGIENE_THRESHOLDS = {
   maxRootArtifacts: 0,
   maxLargeFiles: 20,
   largeFileBytes: 50 * 1024 * 1024,
-  maxUntrackedFiles: 284,
+  maxUntrackedFiles: 283,
   maxReviewNeededUntrackedFiles: 0,
-  maxSourceWithoutTests: 9,
+  maxSourceWithoutTests: 8,
   maxOrphanSourceTests: 0,
 };
 const SUSPICIOUS_ROOT_BASENAMES = new Set([
