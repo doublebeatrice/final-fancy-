@@ -194,3 +194,14 @@ Post-pass result:
 
 - Ops-related daily validation can run focused groups instead of the full 90-test `ops` group.
 - `perf:hygiene-check` remains `ok: true`.
+
+## Package Script Guard Tightening - 2026-06-17
+
+- Removed duplicate or low-frequency aliases after adding direct script discovery through `package_scripts_catalog.js --files`.
+- `package.json` scripts reduced: 120 -> 115.
+- Tightened `perf:hygiene-check` default `maxPackageScripts`: 120 -> 115.
+
+Post-pass result:
+
+- New npm aliases must replace existing aliases or justify raising the hygiene gate.
+- `perf:hygiene-check` remains `ok: true`.

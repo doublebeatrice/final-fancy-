@@ -26,7 +26,7 @@ const KEEP_BASENAMES = new Set([
 ]);
 const DEFAULT_HYGIENE_THRESHOLDS = {
   snapshotBytes: 5 * 1024 * 1024 * 1024,
-  maxPackageScripts: 120,
+  maxPackageScripts: 115,
   maxDateStampedExecuteScripts: 25,
   maxRootArtifacts: 0,
   maxLargeFiles: 20,
