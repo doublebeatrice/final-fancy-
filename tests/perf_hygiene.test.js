@@ -105,6 +105,27 @@ function write(file, body = '') {
 }
 
 {
+  const result = hygieneCheck({
+    root: makeTempDir(),
+    untrackedFiles: [
+      'scripts/covered.js',
+      'scripts/no_test.js',
+      'tests/covered.test.js',
+      'tests/orphan.test.js',
+    ],
+    thresholds: {
+      maxUntrackedFiles: 10,
+      maxSourceWithoutTests: 0,
+      maxOrphanSourceTests: 0,
+    },
+  });
+
+  assert.strictEqual(result.ok, false);
+  assert(result.findings.some(item => item.id === 'source-without-tests'));
+  assert(result.findings.some(item => item.id === 'orphan-source-tests'));
+}
+
+{
   assert.strictEqual(classifyUntrackedFile('data/actions/a.json'), 'business-evidence');
   assert.strictEqual(classifyUntrackedFile('data/learning/a.md'), 'business-memory');
   assert.strictEqual(classifyUntrackedFile('src/new_module.js'), 'source-or-test');

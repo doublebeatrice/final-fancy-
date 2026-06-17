@@ -236,3 +236,14 @@ Post-pass result:
 - The remaining source/test bloat now has a concrete audit queue instead of one broad bucket.
 - `run_*`, `generate_*`, and CLI-wrapper naming patterns are treated as paired source/test files instead of false positives.
 - `perf:hygiene-check` remains `ok: true`.
+
+## Source/Test Gap Guard - 2026-06-17
+
+- Added default hygiene thresholds for the remaining source/test gaps:
+  - `maxSourceWithoutTests`: 12
+  - `maxOrphanSourceTests`: 2
+
+Post-pass result:
+
+- The current known source/test gaps are allowed, but new unpaired source files or orphan tests now fail `perf:hygiene-check`.
+- `perf:hygiene-check` remains `ok: true`.

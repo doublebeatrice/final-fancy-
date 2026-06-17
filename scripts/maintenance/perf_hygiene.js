@@ -33,6 +33,8 @@ const DEFAULT_HYGIENE_THRESHOLDS = {
   largeFileBytes: 50 * 1024 * 1024,
   maxUntrackedFiles: 300,
   maxReviewNeededUntrackedFiles: 0,
+  maxSourceWithoutTests: 12,
+  maxOrphanSourceTests: 2,
 };
 const SUSPICIOUS_ROOT_BASENAMES = new Set([
   '--json',
@@ -618,6 +620,27 @@ function hygieneCheck(options = {}) {
       threshold: thresholds.maxReviewNeededUntrackedFiles,
       value: reviewNeededUntracked.length,
       paths: reviewNeededUntracked.slice(0, 30),
+    });
+  }
+  const sourceAudit = sourceUntrackedReport({ root, files: untrackedFiles });
+  if (sourceAudit.summary.sourceWithoutTests > thresholds.maxSourceWithoutTests) {
+    addFinding(findings, {
+      id: 'source-without-tests',
+      title: 'Untracked source files need matching tests',
+      detail: `${sourceAudit.summary.sourceWithoutTests} untracked source files do not have matching tests.`,
+      threshold: thresholds.maxSourceWithoutTests,
+      value: sourceAudit.summary.sourceWithoutTests,
+      paths: sourceAudit.sourceWithoutTests.slice(0, 30),
+    });
+  }
+  if (sourceAudit.summary.orphanTests > thresholds.maxOrphanSourceTests) {
+    addFinding(findings, {
+      id: 'orphan-source-tests',
+      title: 'Untracked source tests need matching source files',
+      detail: `${sourceAudit.summary.orphanTests} untracked tests do not have matching source files.`,
+      threshold: thresholds.maxOrphanSourceTests,
+      value: sourceAudit.summary.orphanTests,
+      paths: sourceAudit.orphanTests.slice(0, 30),
     });
   }
 
