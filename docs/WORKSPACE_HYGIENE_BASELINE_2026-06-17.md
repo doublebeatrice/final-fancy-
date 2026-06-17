@@ -247,3 +247,13 @@ Post-pass result:
 
 - The current known source/test gaps are allowed, but new unpaired source files or orphan tests now fail `perf:hygiene-check`.
 - `perf:hygiene-check` remains `ok: true`.
+
+## Health Report Scan Stability Pass - 2026-06-17
+
+- Directory scans now skip files or directories that disappear between `readdir` and `stat`.
+- Other filesystem errors still fail normally.
+
+Post-pass result:
+
+- `perf_hygiene report` no longer fails when Git temporary object files disappear during scanning.
+- `perf:hygiene-check` remains `ok: true`.

@@ -28,6 +28,27 @@ function write(file, body = '') {
 }
 
 {
+  const originalStatSync = fs.statSync;
+  let thrown = false;
+  fs.statSync = function statSyncWithTransientEnoent(file, ...args) {
+    if (!thrown && String(file).includes(`${path.sep}.git${path.sep}`)) {
+      thrown = true;
+      const err = new Error('transient git object disappeared');
+      err.code = 'ENOENT';
+      throw err;
+    }
+    return originalStatSync.call(fs, file, ...args);
+  };
+  try {
+    const result = report({ skipGitStatus: true, skipMcp: true });
+    assert.ok(result.directories.some(item => item.path === '.git'));
+    assert.strictEqual(thrown, true);
+  } finally {
+    fs.statSync = originalStatSync;
+  }
+}
+
+{
   const root = makeTempDir();
   write(path.join(root, 'package.json'), JSON.stringify({
     scripts: {

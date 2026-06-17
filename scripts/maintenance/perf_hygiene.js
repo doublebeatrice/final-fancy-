@@ -93,13 +93,33 @@ function relFrom(root, file) {
   return path.relative(root, file).replace(/\\/g, '/');
 }
 
+function ignoreMissingFile(err) {
+  return err && err.code === 'ENOENT';
+}
+
+function safeStat(file) {
+  try {
+    return fs.statSync(file);
+  } catch (err) {
+    if (ignoreMissingFile(err)) return null;
+    throw err;
+  }
+}
+
 function walkFiles(dir) {
   const files = [];
   if (!fs.existsSync(dir)) return files;
   const stack = [dir];
   while (stack.length) {
     const current = stack.pop();
-    for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
+    let entries;
+    try {
+      entries = fs.readdirSync(current, { withFileTypes: true });
+    } catch (err) {
+      if (ignoreMissingFile(err)) continue;
+      throw err;
+    }
+    for (const entry of entries) {
       const full = path.join(current, entry.name);
       if (entry.isDirectory()) {
         stack.push(full);
@@ -117,7 +137,8 @@ function dirStats(dir) {
   let newest = 0;
   let oldest = Number.MAX_SAFE_INTEGER;
   for (const file of files) {
-    const stat = fs.statSync(file);
+    const stat = safeStat(file);
+    if (!stat) continue;
     bytes += stat.size;
     newest = Math.max(newest, stat.mtimeMs);
     oldest = Math.min(oldest, stat.mtimeMs);
@@ -136,7 +157,8 @@ function dirStatsForRoot(root, dir) {
   const files = walkFiles(dir);
   let bytes = 0;
   for (const file of files) {
-    bytes += fs.statSync(file).size;
+    const stat = safeStat(file);
+    if (stat) bytes += stat.size;
   }
   return {
     path: relFrom(root, dir),
@@ -215,7 +237,8 @@ function assertRuntimeDirsUntracked() {
 }
 
 function shouldArchive(file, cutoffMs) {
-  const stat = fs.statSync(file);
+  const stat = safeStat(file);
+  if (!stat) return false;
   const base = path.basename(file);
   if (KEEP_BASENAMES.has(base)) return false;
   return stat.mtimeMs < cutoffMs;
@@ -284,7 +307,8 @@ function archiveRuntime(args) {
     ensureInside(ROOT, dir);
     for (const file of walkFiles(dir)) {
       if (shouldArchive(file, cutoffMs)) {
-        const stat = fs.statSync(file);
+        const stat = safeStat(file);
+        if (!stat) continue;
         candidates.push({
           source: file,
           dest: path.join(archiveDir, rel(file)),
@@ -335,9 +359,11 @@ function archiveRuntime(args) {
 function largestFiles(limit = 15) {
   return walkFiles(path.join(ROOT, 'data'))
     .map(file => {
-      const stat = fs.statSync(file);
+      const stat = safeStat(file);
+      if (!stat) return null;
       return { path: rel(file), bytes: stat.size, size: formatBytes(stat.size), mtime: stat.mtime.toISOString() };
     })
+    .filter(Boolean)
     .sort((a, b) => b.bytes - a.bytes)
     .slice(0, limit);
 }
@@ -349,9 +375,11 @@ function findLargeFiles(root, limit, minBytes) {
       return !LARGE_FILE_IGNORED_PREFIXES.some(prefix => relative.startsWith(prefix));
     })
     .map(file => {
-      const stat = fs.statSync(file);
+      const stat = safeStat(file);
+      if (!stat) return null;
       return { path: relFrom(root, file), bytes: stat.size, size: formatBytes(stat.size) };
     })
+    .filter(Boolean)
     .filter(item => item.bytes >= minBytes)
     .sort((a, b) => b.bytes - a.bytes)
     .slice(0, limit);
