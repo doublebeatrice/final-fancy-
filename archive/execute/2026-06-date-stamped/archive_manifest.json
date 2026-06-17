@@ -1,0 +1,253 @@
+{
+  "createdAt": "2026-06-17T09:58:32",
+  "reason": "Archive unreferenced date-stamped one-off execute scripts after workspace hygiene scan.",
+  "files": [
+    {
+      "source": "scripts/execute/ad_recovery_reopen_2026-06-12.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/ad_recovery_reopen_2026-06-12.js",
+      "bytes": 13765,
+      "lastWriteTime": "2026-06-12T12:40:30"
+    },
+    {
+      "source": "scripts/execute/adjust_juneteenth_cas_ru_2026-06-08.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/adjust_juneteenth_cas_ru_2026-06-08.js",
+      "bytes": 14807,
+      "lastWriteTime": "2026-06-08T21:37:24"
+    },
+    {
+      "source": "scripts/execute/append_cas4030_juneteenth_cake_keywords_2026-06-08.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/append_cas4030_juneteenth_cake_keywords_2026-06-08.js",
+      "bytes": 8356,
+      "lastWriteTime": "2026-06-08T22:05:02"
+    },
+    {
+      "source": "scripts/execute/append_hai4870_whimsical_keywords_2026-06-08.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/append_hai4870_whimsical_keywords_2026-06-08.js",
+      "bytes": 7654,
+      "lastWriteTime": "2026-06-08T10:18:59"
+    },
+    {
+      "source": "scripts/execute/append_hel0606_2025_turtle_terms_2026-06-10.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/append_hel0606_2025_turtle_terms_2026-06-10.js",
+      "bytes": 14120,
+      "lastWriteTime": "2026-06-10T21:28:31"
+    },
+    {
+      "source": "scripts/execute/append_qq1764_c_layer_exact_terms_2026-06-12.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/append_qq1764_c_layer_exact_terms_2026-06-12.js",
+      "bytes": 14461,
+      "lastWriteTime": "2026-06-12T17:39:55"
+    },
+    {
+      "source": "scripts/execute/append_ro2084_hawaiian_grass_skirts_2026-06-15.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/append_ro2084_hawaiian_grass_skirts_2026-06-15.js",
+      "bytes": 8603,
+      "lastWriteTime": "2026-06-15T20:18:11"
+    },
+    {
+      "source": "scripts/execute/append_ru2438_juneteenth_table_keywords_2026-06-08.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/append_ru2438_juneteenth_table_keywords_2026-06-08.js",
+      "bytes": 8327,
+      "lastWriteTime": "2026-06-08T21:40:55"
+    },
+    {
+      "source": "scripts/execute/append_uan_cna_week_keyword_2026-05-28.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/append_uan_cna_week_keyword_2026-05-28.js",
+      "bytes": 5379,
+      "lastWriteTime": "2026-05-28T22:05:02"
+    },
+    {
+      "source": "scripts/execute/append_worldcup_soccer_yut3183_2026-06-10.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/append_worldcup_soccer_yut3183_2026-06-10.js",
+      "bytes": 15067,
+      "lastWriteTime": "2026-06-10T21:34:38"
+    },
+    {
+      "source": "scripts/execute/build_2026_05_15_closed_loop.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/build_2026_05_15_closed_loop.js",
+      "bytes": 50756,
+      "lastWriteTime": "2026-06-05T16:34:22",
+      "restoredTo": "scripts/execute/build_closed_loop_plan.js"
+    },
+    {
+      "source": "scripts/execute/build_2026_06_09_daily_automation_snapshot.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/build_2026_06_09_daily_automation_snapshot.js",
+      "bytes": 6024,
+      "lastWriteTime": "2026-06-17T09:24:08"
+    },
+    {
+      "source": "scripts/execute/build_sku_review_closure_2026-06-15.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/build_sku_review_closure_2026-06-15.js",
+      "bytes": 31890,
+      "lastWriteTime": "2026-06-15T21:58:09"
+    },
+    {
+      "source": "scripts/execute/build_uan_history_yoy_scale_2026-06-12.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/build_uan_history_yoy_scale_2026-06-12.js",
+      "bytes": 20380,
+      "lastWriteTime": "2026-06-12T22:19:58"
+    },
+    {
+      "source": "scripts/execute/check_uan3646_cna_keyword_2026-05-29.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/check_uan3646_cna_keyword_2026-05-29.js",
+      "bytes": 4689,
+      "lastWriteTime": "2026-05-29T09:57:33"
+    },
+    {
+      "source": "scripts/execute/create_cii1823_soccer_party_phrase_2026-06-11.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/create_cii1823_soccer_party_phrase_2026-06-11.js",
+      "bytes": 11881,
+      "lastWriteTime": "2026-06-11T23:10:23"
+    },
+    {
+      "source": "scripts/execute/create_dn3482_variant_winner_exact_2026-06-12.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/create_dn3482_variant_winner_exact_2026-06-12.js",
+      "bytes": 13465,
+      "lastWriteTime": "2026-06-12T19:16:04"
+    },
+    {
+      "source": "scripts/execute/create_ey5555_b2b_auto_2026-06-12.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/create_ey5555_b2b_auto_2026-06-12.js",
+      "bytes": 10962,
+      "lastWriteTime": "2026-06-12T21:41:16"
+    },
+    {
+      "source": "scripts/execute/create_ey5555_b2b_broad_2026-06-12.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/create_ey5555_b2b_broad_2026-06-12.js",
+      "bytes": 15995,
+      "lastWriteTime": "2026-06-12T22:24:26"
+    },
+    {
+      "source": "scripts/execute/create_fd_b2b_auto_2026-06-12.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/create_fd_b2b_auto_2026-06-12.js",
+      "bytes": 22449,
+      "lastWriteTime": "2026-06-12T21:59:44"
+    },
+    {
+      "source": "scripts/execute/create_kz5816_b2b_kw_group_2026-06-08.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/create_kz5816_b2b_kw_group_2026-06-08.js",
+      "bytes": 8082,
+      "lastWriteTime": "2026-06-08T16:54:02"
+    },
+    {
+      "source": "scripts/execute/create_qaa2627_b2b_auto_2026-06-12.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/create_qaa2627_b2b_auto_2026-06-12.js",
+      "bytes": 11550,
+      "lastWriteTime": "2026-06-12T22:09:43"
+    },
+    {
+      "source": "scripts/execute/create_qaa3142_group_cna_sp_2026-06-12.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/create_qaa3142_group_cna_sp_2026-06-12.js",
+      "bytes": 11349,
+      "lastWriteTime": "2026-06-12T17:45:33"
+    },
+    {
+      "source": "scripts/execute/create_qq1764_c_layer_matrix_2026-06-12.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/create_qq1764_c_layer_matrix_2026-06-12.js",
+      "bytes": 18530,
+      "lastWriteTime": "2026-06-12T17:30:17"
+    },
+    {
+      "source": "scripts/execute/create_qq2235_b2b_auto_broad_2026-06-10.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/create_qq2235_b2b_auto_broad_2026-06-10.js",
+      "bytes": 14253,
+      "lastWriteTime": "2026-06-10T20:49:04"
+    },
+    {
+      "source": "scripts/execute/create_rho0122_b2b_kw_group_2026-06-08.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/create_rho0122_b2b_kw_group_2026-06-08.js",
+      "bytes": 8546,
+      "lastWriteTime": "2026-06-08T18:23:57"
+    },
+    {
+      "source": "scripts/execute/create_sty2760_b2b_auto_2026-06-10.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/create_sty2760_b2b_auto_2026-06-10.js",
+      "bytes": 9162,
+      "lastWriteTime": "2026-06-10T20:41:07"
+    },
+    {
+      "source": "scripts/execute/create_ute4258_theme_phrase_keywords_2026-06-08.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/create_ute4258_theme_phrase_keywords_2026-06-08.js",
+      "bytes": 7859,
+      "lastWriteTime": "2026-06-08T12:32:58"
+    },
+    {
+      "source": "scripts/execute/create_uy1624_b2b_auto_broad_2026-06-10.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/create_uy1624_b2b_auto_broad_2026-06-10.js",
+      "bytes": 12728,
+      "lastWriteTime": "2026-06-10T20:34:28"
+    },
+    {
+      "source": "scripts/execute/gt4431_coverage_push_2026-06-12.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/gt4431_coverage_push_2026-06-12.js",
+      "bytes": 24096,
+      "lastWriteTime": "2026-06-12T20:10:09"
+    },
+    {
+      "source": "scripts/execute/hua0165_hot_season_traffic_push_2026-06-16.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/hua0165_hot_season_traffic_push_2026-06-16.js",
+      "bytes": 20623,
+      "lastWriteTime": "2026-06-16T20:10:23"
+    },
+    {
+      "source": "scripts/execute/hua0165_sbv_retry_2026-06-16.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/hua0165_sbv_retry_2026-06-16.js",
+      "bytes": 15617,
+      "lastWriteTime": "2026-06-16T21:03:21"
+    },
+    {
+      "source": "scripts/execute/ka1744_controlled_reopen_2026-06-11.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/ka1744_controlled_reopen_2026-06-11.js",
+      "bytes": 12025,
+      "lastWriteTime": "2026-06-11T21:33:09"
+    },
+    {
+      "source": "scripts/execute/kei1148_relayer_keywords_asins_2026-06-09.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/kei1148_relayer_keywords_asins_2026-06-09.js",
+      "bytes": 17960,
+      "lastWriteTime": "2026-06-09T19:14:29"
+    },
+    {
+      "source": "scripts/execute/mf6328_ad_repair_2026-06-10.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/mf6328_ad_repair_2026-06-10.js",
+      "bytes": 18542,
+      "lastWriteTime": "2026-06-10T18:53:03"
+    },
+    {
+      "source": "scripts/execute/mty1808_stoploss_small_terms_2026-06-09.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/mty1808_stoploss_small_terms_2026-06-09.js",
+      "bytes": 13684,
+      "lastWriteTime": "2026-06-09T16:04:34"
+    },
+    {
+      "source": "scripts/execute/qaa0976_selective_restore_system_keyword_2026-06-15.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/qaa0976_selective_restore_system_keyword_2026-06-15.js",
+      "bytes": 22358,
+      "lastWriteTime": "2026-06-15T21:30:10"
+    },
+    {
+      "source": "scripts/execute/qun5512_lowstock_bid_trim_2026-06-12.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/qun5512_lowstock_bid_trim_2026-06-12.js",
+      "bytes": 7116,
+      "lastWriteTime": "2026-06-12T20:26:13"
+    },
+    {
+      "source": "scripts/execute/readback_uan_cna_week_keyword_2026-05-28.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/readback_uan_cna_week_keyword_2026-05-28.js",
+      "bytes": 5431,
+      "lastWriteTime": "2026-05-28T23:59:23"
+    },
+    {
+      "source": "scripts/execute/tur9541_broad_expanded_sbv_2026-06-15.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/tur9541_broad_expanded_sbv_2026-06-15.js",
+      "bytes": 21300,
+      "lastWriteTime": "2026-06-15T16:27:24"
+    },
+    {
+      "source": "scripts/execute/yut4458_mf6294_rebuild_expand_2026-06-12.js",
+      "archivedTo": "archive/execute/2026-06-date-stamped/yut4458_mf6294_rebuild_expand_2026-06-12.js",
+      "bytes": 31842,
+      "lastWriteTime": "2026-06-12T22:06:29"
+    }
+  ]
+}

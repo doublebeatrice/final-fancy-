@@ -9,7 +9,7 @@ const {
 const {
   buildIndexes,
   buildPriceSchema,
-} = require('../scripts/execute/build_2026_05_15_closed_loop');
+} = require('../scripts/execute/build_closed_loop_plan');
 
 const timeContext = {
   runAt: '2026-05-14T08:00:00.000Z',
@@ -168,6 +168,79 @@ const snapshot = {
       sbStats: { '3d': { spend: 0, orders: 0 }, '7d': { spend: 0, orders: 0 } },
       createContext: { coverage: { hasSpAuto: true, hasSpKeyword: true, hasSpManual: true } },
       productProfile: { productType: 'gift', listingTitle: 'Pipeline Covered Gift' },
+    },
+    {
+      sku: 'ADREC1',
+      asin: 'B0ADREC1',
+      salesChannel: 'Amazon.com',
+      saleStatus: 'normal_sale',
+      fuldate: '2026-03-20',
+      opendate: '2026-03-20',
+      profitRate: 0.24,
+      price: 27.99,
+      invDays: 18,
+      fulFillable: 4,
+      reserved: 0,
+      stockInb: 20,
+      unitsSold_3d: 1,
+      unitsSold_7d: 2,
+      unitsSold_30d: 12,
+      can_sales_7_first: 14,
+      can_sales_30_first: 40,
+      adv_point: 0.006,
+      advState: '开',
+      adStats: { '3d': { spend: 0, orders: 0, impressions: 0, clicks: 0 }, '7d': { spend: 0.3, orders: 0, impressions: 40, clicks: 1 } },
+      sbStats: { '3d': { spend: 0, orders: 0 }, '7d': { spend: 0, orders: 0 } },
+      createContext: { coverage: { hasSpAuto: true, hasSpKeyword: true, hasSpManual: true } },
+      productProfile: { productType: 'gift', listingTitle: 'Recoverable Ad Suppressed Gift' },
+    },
+    {
+      sku: 'VARPRICE1',
+      asin: 'B0VARPRICE1',
+      parent_asin: 'B0VARPARENT',
+      salesChannel: 'Amazon.com',
+      saleStatus: 'normal_sale',
+      fuldate: '2026-03-20',
+      opendate: '2026-03-20',
+      profitRate: 0.24,
+      price: 21.99,
+      invDays: 8,
+      fulFillable: 4,
+      reserved: 0,
+      unitsSold_3d: 2,
+      unitsSold_7d: 4,
+      unitsSold_30d: 18,
+      adv_point: 0.04,
+      advState: '开',
+      adStats: { '3d': { spend: 2, orders: 1, sales: 22, impressions: 600, clicks: 10 }, '7d': { spend: 5, orders: 2, sales: 44, impressions: 1200, clicks: 20 } },
+      sbStats: { '3d': { spend: 0, orders: 0 }, '7d': { spend: 0, orders: 0 } },
+      createContext: { coverage: { hasSpAuto: true, hasSpKeyword: true, hasSpManual: true } },
+      productProfile: { productType: 'gift', listingTitle: 'Variant Tight Child' },
+    },
+    {
+      sku: 'VARSIB1',
+      asin: 'B0VARSIB1',
+      parent_asin: 'B0VARPARENT',
+      salesChannel: 'Amazon.com',
+      saleStatus: 'normal_sale',
+      fuldate: '2026-03-20',
+      opendate: '2026-03-20',
+      profitRate: 0.18,
+      netProfit: 0.08,
+      price: 19.99,
+      invDays: 120,
+      fulFillable: 80,
+      reserved: 0,
+      unitsSold_3d: 0,
+      unitsSold_7d: 1,
+      unitsSold_30d: 6,
+      can_sales_30_first: 120,
+      adv_point: 0,
+      advState: '关',
+      adStats: { '3d': { spend: 0, orders: 0, impressions: 0, clicks: 0 }, '7d': { spend: 0, orders: 0, impressions: 0, clicks: 0 } },
+      sbStats: { '3d': { spend: 0, orders: 0 }, '7d': { spend: 0, orders: 0 } },
+      createContext: { coverage: { hasSpAuto: true, hasSpKeyword: true, hasSpManual: true } },
+      productProfile: { productType: 'gift', listingTitle: 'Variant Sibling Needs Recovery' },
     },
     {
       sku: 'DAYS16',
@@ -332,7 +405,18 @@ assert.strictEqual(audit.kpi.status, 'off_track');
 
 assert(audit.newProductLaunch.items.some(item => item.sku === 'NEW001' && item.issue === 'new_product_missing_basic_ad_structure'));
 assert(audit.newProductLaunch.items.some(item => item.sku === 'NEW002' && item.issue === 'new_product_existing_structure_low_delivery'));
-assert(audit.arrivalAdRecovery.items.some(item => item.sku === 'NEW001' && item.requiredAction === 'build_and_enable_basic_ads'));
+const arrivalRecoveryItem = audit.arrivalAdRecovery.items.find(item => item.sku === 'NEW001');
+assert(arrivalRecoveryItem);
+assert.strictEqual(arrivalRecoveryItem.issue, 'ad_recovery_diagnosis_required');
+assert.strictEqual(arrivalRecoveryItem.subIssue, 'arrived_inventory_without_basic_ads');
+assert.strictEqual(arrivalRecoveryItem.requiredAction, 'diagnose_ad_recovery_before_action');
+assert.strictEqual(arrivalRecoveryItem.diagnosticStructureRequired, true);
+assert.strictEqual(arrivalRecoveryItem.ruleSource, 'GBrain:04-standard-playbooks/ad-recovery-full-diagnostic-structure');
+assert(arrivalRecoveryItem.evidenceRequired.includes('historical_effective_lanes'));
+assert(!audit.arrivalAdRecovery.items.some(item => [
+  'build_and_enable_basic_ads',
+  'reopen_or_scale_existing_ads',
+].includes(item.requiredAction)), 'arrival ad recovery must not skip the full diagnostic structure');
 assert(audit.priceActions.items.some(item => item.sku === 'TIGHT1' && item.requiredAction === 'review_price_raise_or_recover_price'));
 assert(audit.priceActions.items.some(item =>
   item.sku === 'FULRES1' &&
@@ -341,6 +425,15 @@ assert(audit.priceActions.items.some(item =>
   item.sellableDays7d === 2
 ));
 assert(!audit.priceActions.items.some(item => item.sku === 'PIPE1'), 'price raise should wait when inbound/planned/local replenishment can connect the next stock window');
+assert(audit.priceActions.routedOut.some(item => item.sku === 'PIPE1' && item.issue === 'price_pool_replenishment_pipeline_available'), 'replenishment-covered price candidates should be visible as routed out, not disappear silently');
+assert(!audit.priceActions.items.some(item => item.sku === 'ADREC1'), 'low-ad-share candidate with replenishment should route to ad recovery instead of price execution');
+assert(audit.priceActions.routedOut.some(item => item.sku === 'ADREC1' && item.issue === 'price_pool_routed_to_ad_recovery'));
+assert(!audit.priceActions.items.some(item => item.sku === 'VARPRICE1'), 'child SKU price candidate should wait when sibling variation has material ad recovery pressure');
+assert(audit.priceActions.routedOut.some(item =>
+  item.sku === 'VARPRICE1' &&
+  item.issue === 'price_pool_variant_line_review_required' &&
+  String(item.variantSiblingIssues).includes('VARSIB1:ad_recovery')
+));
 assert(!audit.priceActions.items.some(item => item.sku === 'DAYS16'), 'price raise should wait when Ful+Res can cover 15+ days at 7d velocity');
 assert(!audit.priceActions.items.some(item => item.sku === 'LOWPROFIT1'), 'low profit alone should not trigger a price raise when Ful+Res can cover 7d velocity for 15+ days');
 assert(audit.listingRepair.items.some(item => item.sku === 'LIST1' && item.issue === 'traffic_without_conversion_listing_repair'));
@@ -397,6 +490,12 @@ const reviewItems = buildReviewItems(audit, products, 30);
 const mergedPlan = mergePlans([expiredSeasonActions, newProductActions, reviewItems]);
 const new001Actions = mergedPlan.find(item => item.sku === 'NEW001')?.actions || [];
 const new002Actions = mergedPlan.find(item => item.sku === 'NEW002')?.actions || [];
+const adRecoveryReviewActions = mergedPlan.find(item => item.sku === 'ADREC1')?.actions || [];
+
+assert(adRecoveryReviewActions.some(action =>
+  action.actionType === 'review' &&
+  action.id === 'review::ADREC1::price_pool_routed_to_ad_recovery'
+));
 
 assert(new001Actions.some(action =>
   action.entityType === 'keyword' &&
