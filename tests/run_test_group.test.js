@@ -69,6 +69,10 @@ const {
     selectChangedTests(tests, ['scripts/maintenance/run_test_group.js']),
     ['tests/run_test_group.test.js']
   );
+  assert.deepStrictEqual(
+    selectChangedTests(['tests/package_scripts_catalog.test.js'], ['package.json']),
+    ['tests/package_scripts_catalog.test.js']
+  );
 }
 
 {

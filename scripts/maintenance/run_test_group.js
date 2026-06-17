@@ -62,6 +62,9 @@ function selectTests(tests, group) {
 
 function changedFileToTestName(file) {
   const normalized = normalize(file);
+  if (normalized === 'package.json') {
+    return 'tests/package_scripts_catalog.test.js';
+  }
   if (normalized.startsWith('tests/') && normalized.endsWith('.test.js')) {
     return normalized;
   }

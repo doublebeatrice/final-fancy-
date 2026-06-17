@@ -37,6 +37,7 @@ node scripts/maintenance/run_test_group.js maintenance
 - `perf:archive -- --execute` moves the selected runtime files to `..\ad-ops-workbench-archive\<timestamp>\` and writes `archive_manifest.json`.
 - `package_scripts_catalog.js` searches the current `package.json` scripts by prefix or keyword without adding another npm script alias.
 - `run_test_group.js` runs local tests by group and prints the slowest test files after multi-file runs. `npm test` delegates to `run_test_group.js all`; use `run_test_group.js list` to inspect group sizes, `run_test_group.js changed` for tests directly matching the current git changes, `run_test_group.js staged` for tests directly matching the current index, and narrower groups during daily development.
+- Use `run_test_group.js messaging` for WeCom/Weixin/Tencent Docs tests instead of adding package aliases for each messaging surface.
 
 ## Operating Rules
 

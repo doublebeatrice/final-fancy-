@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "node scripts/maintenance/run_test_group.js all",
-    "test:weixin": "node tests/weixin_clawbot_http.test.js && node tests/weixin_clawbot_probe_cli.test.js && node tests/weixin_clawbot_setup.test.js && node tests/weixin_clawbot_reminders.test.js && node tests/weixin_clawbot_replies.test.js && node tests/weixin_codex_gateway.test.js && node tests/weixin_clawbot_schedule.test.js && node tests/weixin_clawbot_doctor.test.js && node tests/weixin_clawbot_spike_cli.test.js",
     "chrome:ready": "powershell -ExecutionPolicy Bypass -File scripts\\execute\\open_debug_browser_fixed_profile.ps1",
     "doc:export": "node scripts/execute/export_tencent_doc.js",
     "sheet:export": "node scripts/execute/export_wecom_sheet.js",
