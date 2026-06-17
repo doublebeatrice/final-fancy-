@@ -114,6 +114,13 @@ function summarizeGroups(tests) {
   return Array.from(counts.entries()).map(([group, count]) => ({ group, count }));
 }
 
+function summarizeTestRuns(results, limit = 5) {
+  return results
+    .slice()
+    .sort((a, b) => b.durationMs - a.durationMs)
+    .slice(0, limit);
+}
+
 function listTestFiles() {
   return fs.readdirSync(path.join(ROOT, 'tests'))
     .filter(name => name.endsWith('.test.js'))
@@ -142,17 +149,33 @@ function listChangedFiles() {
 }
 
 function runTests(files) {
+  const results = [];
   for (const file of files) {
     process.stdout.write(`\n> node ${file}\n`);
+    const startedAt = Date.now();
     const result = spawnSync(process.execPath, [file], {
       cwd: ROOT,
       stdio: 'inherit',
     });
+    results.push({
+      file,
+      durationMs: Date.now() - startedAt,
+    });
     if (result.status !== 0) {
+      printTimingSummary(results);
       return result.status || 1;
     }
   }
+  printTimingSummary(results);
   return 0;
+}
+
+function printTimingSummary(results) {
+  if (results.length < 2) return;
+  process.stdout.write('\nSlowest tests:\n');
+  for (const result of summarizeTestRuns(results)) {
+    process.stdout.write(`  ${result.durationMs}ms\t${result.file}\n`);
+  }
 }
 
 function main() {
@@ -185,5 +208,6 @@ module.exports = {
   matchesGroup,
   selectChangedTests,
   summarizeGroups,
+  summarizeTestRuns,
   selectTests,
 };

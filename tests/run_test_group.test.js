@@ -5,6 +5,7 @@ const {
   matchesGroup,
   selectChangedTests,
   summarizeGroups,
+  summarizeTestRuns,
   selectTests,
 } = require('../scripts/maintenance/run_test_group');
 
@@ -14,6 +15,19 @@ const {
   assert.strictEqual(classifyTestFile('tests/weixin_clawbot_http.test.js'), 'messaging');
   assert.strictEqual(classifyTestFile('tests/selection_keyword_research.test.js'), 'ops');
   assert.strictEqual(classifyTestFile('tests/perf_hygiene.test.js'), 'maintenance');
+}
+
+{
+  const summary = summarizeTestRuns([
+    { file: 'tests/fast.test.js', durationMs: 12 },
+    { file: 'tests/slow.test.js', durationMs: 1400 },
+    { file: 'tests/mid.test.js', durationMs: 250 },
+  ], 2);
+
+  assert.deepStrictEqual(summary, [
+    { file: 'tests/slow.test.js', durationMs: 1400 },
+    { file: 'tests/mid.test.js', durationMs: 250 },
+  ]);
 }
 
 {

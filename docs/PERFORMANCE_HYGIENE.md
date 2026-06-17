@@ -35,7 +35,7 @@ node scripts/maintenance/run_test_group.js maintenance
 - `perf:archive` dry-runs archival of old files under `data/snapshots/` and `data/attribution/`. It never archives `latest_snapshot.json` or `latest_snapshot_profiled.json`.
 - `perf:archive -- --execute` moves the selected runtime files to `..\ad-ops-workbench-archive\<timestamp>\` and writes `archive_manifest.json`.
 - `package_scripts_catalog.js` searches the current `package.json` scripts by prefix or keyword without adding another npm script alias.
-- `run_test_group.js` runs local tests by group. `npm test` delegates to `run_test_group.js all`; use `run_test_group.js list` to inspect group sizes, `run_test_group.js changed` for tests directly matching the current git changes, and narrower groups during daily development.
+- `run_test_group.js` runs local tests by group and prints the slowest test files after multi-file runs. `npm test` delegates to `run_test_group.js all`; use `run_test_group.js list` to inspect group sizes, `run_test_group.js changed` for tests directly matching the current git changes, and narrower groups during daily development.
 
 ## Operating Rules
 
