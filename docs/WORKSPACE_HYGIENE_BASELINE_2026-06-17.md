@@ -257,3 +257,13 @@ Post-pass result:
 
 - `perf_hygiene report` no longer fails when Git temporary object files disappear during scanning.
 - `perf:hygiene-check` remains `ok: true`.
+
+## Total Untracked Guard Tightening - 2026-06-17
+
+- Current `untracked-report` total: 284.
+- Tightened `perf:hygiene-check` default `maxUntrackedFiles`: 300 -> 284.
+
+Post-pass result:
+
+- The current known untracked backlog is allowed, but any net-new untracked file now fails `perf:hygiene-check`.
+- `perf:hygiene-check` remains `ok: true`.

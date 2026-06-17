@@ -31,7 +31,7 @@ const DEFAULT_HYGIENE_THRESHOLDS = {
   maxRootArtifacts: 0,
   maxLargeFiles: 20,
   largeFileBytes: 50 * 1024 * 1024,
-  maxUntrackedFiles: 300,
+  maxUntrackedFiles: 284,
   maxReviewNeededUntrackedFiles: 0,
   maxSourceWithoutTests: 12,
   maxOrphanSourceTests: 2,
