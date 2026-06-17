@@ -226,22 +226,23 @@ Current source/test untracked report:
 - `total`: 58
 - `sourceFiles`: 35
 - `testFiles`: 23
-- `pairedSources`: 23
-- `sourceWithoutTests`: 12
-- `pairedTests`: 21
-- `orphanTests`: 2
+- `pairedSources`: 26
+- `sourceWithoutTests`: 9
+- `pairedTests`: 23
+- `orphanTests`: 0
 
 Post-pass result:
 
 - The remaining source/test bloat now has a concrete audit queue instead of one broad bucket.
 - `run_*`, `generate_*`, and CLI-wrapper naming patterns are treated as paired source/test files instead of false positives.
+- Test files that explicitly `require('../scripts/...')` or `require('../src/...')` now count as paired with that source file.
 - `perf:hygiene-check` remains `ok: true`.
 
 ## Source/Test Gap Guard - 2026-06-17
 
 - Added default hygiene thresholds for the remaining source/test gaps:
-  - `maxSourceWithoutTests`: 12
-  - `maxOrphanSourceTests`: 2
+  - `maxSourceWithoutTests`: 9
+  - `maxOrphanSourceTests`: 0
 
 Post-pass result:
 

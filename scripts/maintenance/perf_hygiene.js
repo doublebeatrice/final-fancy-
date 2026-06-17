@@ -33,8 +33,8 @@ const DEFAULT_HYGIENE_THRESHOLDS = {
   largeFileBytes: 50 * 1024 * 1024,
   maxUntrackedFiles: 284,
   maxReviewNeededUntrackedFiles: 0,
-  maxSourceWithoutTests: 12,
-  maxOrphanSourceTests: 2,
+  maxSourceWithoutTests: 9,
+  maxOrphanSourceTests: 0,
 };
 const SUSPICIOUS_ROOT_BASENAMES = new Set([
   '--json',
@@ -478,6 +478,28 @@ function sourceCandidatesForTest(file) {
   return unique(names);
 }
 
+function readFileContent(root, file, fileContents) {
+  if (fileContents && Object.prototype.hasOwnProperty.call(fileContents, file)) {
+    return fileContents[file];
+  }
+  try {
+    return fs.readFileSync(path.join(root, file), 'utf8');
+  } catch (_) {
+    return '';
+  }
+}
+
+function requiredSourceFiles(root, testFile, fileContents) {
+  const body = readFileContent(root, testFile, fileContents);
+  const sources = [];
+  const requirePattern = /require\(['"](\.\.\/(?:scripts|src)\/[^'"]+)['"]\)/g;
+  for (const match of body.matchAll(requirePattern)) {
+    const resolved = path.normalize(path.join(path.dirname(testFile), match[1])).replace(/\\/g, '/');
+    sources.push(resolved.endsWith('.js') ? resolved : `${resolved}.js`);
+  }
+  return unique(sources);
+}
+
 function isSourceFile(file) {
   return (file.startsWith('src/') || file.startsWith('scripts/')) && file.endsWith('.js');
 }
@@ -500,12 +522,19 @@ function sourceUntrackedReport(options = {}) {
   const sourceFiles = sourceOrTestFiles.filter(isSourceFile);
   const testFiles = sourceOrTestFiles.filter(isTestFile);
   const knownSourcesByName = new Map();
+  const requiredSourcesByTest = new Map();
 
   for (const file of knownFiles) {
     if (!isSourceFile(file)) continue;
     const name = path.basename(file, '.js');
     if (!knownSourcesByName.has(name)) knownSourcesByName.set(name, []);
     knownSourcesByName.get(name).push(file);
+  }
+  for (const test of testFiles) {
+    requiredSourcesByTest.set(
+      test,
+      requiredSourceFiles(root, test, options.fileContents).filter(source => knownFiles.has(source))
+    );
   }
 
   const paired = [];
@@ -514,6 +543,11 @@ function sourceUntrackedReport(options = {}) {
     const test = testCandidatesForSource(source).find(candidate => knownFiles.has(candidate));
     if (test) {
       paired.push({ source, test });
+      continue;
+    }
+    const requiringTest = testFiles.find(candidate => requiredSourcesByTest.get(candidate)?.includes(source));
+    if (requiringTest) {
+      paired.push({ source, test: requiringTest });
     } else {
       sourceWithoutTests.push(source);
     }
@@ -522,7 +556,7 @@ function sourceUntrackedReport(options = {}) {
   const orphanTests = [];
   for (const test of testFiles) {
     const hasSource = sourceCandidatesForTest(test).some(sourceName => knownSourcesByName.has(sourceName));
-    if (!hasSource) {
+    if (!hasSource && !requiredSourcesByTest.get(test)?.length) {
       orphanTests.push(test);
     }
   }

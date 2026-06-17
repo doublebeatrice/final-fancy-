@@ -182,11 +182,15 @@ function write(file, body = '') {
       'scripts/run_bar.js',
       'scripts/run_baz.js',
       'scripts/generate_qux.js',
+      'scripts/analytics/analyze_workflow_runtime.js',
+      'scripts/execute/validate_cna_6_11_effect_review_result.js',
       'scripts/no_test.js',
       'tests/foo.test.js',
       'tests/bar.test.js',
       'tests/baz_cli.test.js',
       'tests/qux.test.js',
+      'tests/workflow_runtime_report.test.js',
+      'tests/cna_effect_review_validator.test.js',
       'tests/orphan.test.js',
       'data/actions/a.json',
     ],
@@ -195,27 +199,37 @@ function write(file, body = '') {
       'scripts/run_bar.js',
       'scripts/run_baz.js',
       'scripts/generate_qux.js',
+      'scripts/analytics/analyze_workflow_runtime.js',
+      'scripts/execute/validate_cna_6_11_effect_review_result.js',
       'scripts/no_test.js',
       'tests/foo.test.js',
       'tests/bar.test.js',
       'tests/baz_cli.test.js',
       'tests/qux.test.js',
+      'tests/workflow_runtime_report.test.js',
+      'tests/cna_effect_review_validator.test.js',
       'tests/orphan.test.js',
     ],
+    fileContents: {
+      'tests/workflow_runtime_report.test.js': "require('../scripts/analytics/analyze_workflow_runtime');",
+      'tests/cna_effect_review_validator.test.js': "require('../scripts/execute/validate_cna_6_11_effect_review_result');",
+    },
   });
 
-  assert.strictEqual(result.total, 10);
+  assert.strictEqual(result.total, 14);
   assert.deepStrictEqual(result.summary, {
-    sourceFiles: 5,
-    testFiles: 5,
-    pairedSources: 4,
+    sourceFiles: 7,
+    testFiles: 7,
+    pairedSources: 6,
     sourceWithoutTests: 1,
-    pairedTests: 4,
+    pairedTests: 6,
     orphanTests: 1,
   });
   assert.deepStrictEqual(result.sourceWithoutTests, ['scripts/no_test.js']);
   assert.deepStrictEqual(result.orphanTests, ['tests/orphan.test.js']);
   assert.deepStrictEqual(result.paired.map(item => [item.source, item.test]), [
+    ['scripts/analytics/analyze_workflow_runtime.js', 'tests/workflow_runtime_report.test.js'],
+    ['scripts/execute/validate_cna_6_11_effect_review_result.js', 'tests/cna_effect_review_validator.test.js'],
     ['scripts/generate_qux.js', 'tests/qux.test.js'],
     ['scripts/run_bar.js', 'tests/bar.test.js'],
     ['scripts/run_baz.js', 'tests/baz_cli.test.js'],
