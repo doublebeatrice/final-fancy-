@@ -421,13 +421,31 @@ function untrackedReport(options = {}) {
   };
 }
 
-function testNameForSource(file) {
-  const base = path.basename(file, '.js');
-  return `tests/${base}.test.js`;
+function unique(items) {
+  return Array.from(new Set(items));
 }
 
-function sourceNameForTest(file) {
-  return path.basename(file).replace(/\.test\.js$/, '');
+function testCandidatesForSource(file) {
+  const base = path.basename(file, '.js');
+  const names = [base];
+  if (base.startsWith('run_')) {
+    const stripped = base.replace(/^run_/, '');
+    names.push(stripped, `${stripped}_cli`);
+  }
+  if (base.startsWith('generate_')) {
+    names.push(base.replace(/^generate_/, ''));
+  }
+  return unique(names).map(name => `tests/${name}.test.js`);
+}
+
+function sourceCandidatesForTest(file) {
+  const base = path.basename(file).replace(/\.test\.js$/, '');
+  const names = [base, `run_${base}`, `generate_${base}`];
+  if (base.endsWith('_cli')) {
+    const stripped = base.replace(/_cli$/, '');
+    names.push(stripped, `run_${stripped}`, `generate_${stripped}`);
+  }
+  return unique(names);
 }
 
 function isSourceFile(file) {
@@ -463,8 +481,8 @@ function sourceUntrackedReport(options = {}) {
   const paired = [];
   const sourceWithoutTests = [];
   for (const source of sourceFiles) {
-    const test = testNameForSource(source);
-    if (knownFiles.has(test)) {
+    const test = testCandidatesForSource(source).find(candidate => knownFiles.has(candidate));
+    if (test) {
       paired.push({ source, test });
     } else {
       sourceWithoutTests.push(source);
@@ -473,8 +491,8 @@ function sourceUntrackedReport(options = {}) {
 
   const orphanTests = [];
   for (const test of testFiles) {
-    const sourceName = sourceNameForTest(test);
-    if (!knownSourcesByName.has(sourceName)) {
+    const hasSource = sourceCandidatesForTest(test).some(sourceName => knownSourcesByName.has(sourceName));
+    if (!hasSource) {
       orphanTests.push(test);
     }
   }

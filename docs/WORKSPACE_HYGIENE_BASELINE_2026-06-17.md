@@ -226,12 +226,13 @@ Current source/test untracked report:
 - `total`: 58
 - `sourceFiles`: 35
 - `testFiles`: 23
-- `pairedSources`: 10
-- `sourceWithoutTests`: 25
-- `pairedTests`: 11
-- `orphanTests`: 12
+- `pairedSources`: 23
+- `sourceWithoutTests`: 12
+- `pairedTests`: 21
+- `orphanTests`: 2
 
 Post-pass result:
 
 - The remaining source/test bloat now has a concrete audit queue instead of one broad bucket.
+- `run_*`, `generate_*`, and CLI-wrapper naming patterns are treated as paired source/test files instead of false positives.
 - `perf:hygiene-check` remains `ok: true`.

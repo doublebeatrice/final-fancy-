@@ -138,35 +138,45 @@ function write(file, body = '') {
     files: [
       'src/foo.js',
       'scripts/run_bar.js',
+      'scripts/run_baz.js',
+      'scripts/generate_qux.js',
       'scripts/no_test.js',
       'tests/foo.test.js',
-      'tests/run_bar.test.js',
+      'tests/bar.test.js',
+      'tests/baz_cli.test.js',
+      'tests/qux.test.js',
       'tests/orphan.test.js',
       'data/actions/a.json',
     ],
     existingFiles: [
       'src/foo.js',
       'scripts/run_bar.js',
+      'scripts/run_baz.js',
+      'scripts/generate_qux.js',
       'scripts/no_test.js',
       'tests/foo.test.js',
-      'tests/run_bar.test.js',
+      'tests/bar.test.js',
+      'tests/baz_cli.test.js',
+      'tests/qux.test.js',
       'tests/orphan.test.js',
     ],
   });
 
-  assert.strictEqual(result.total, 6);
+  assert.strictEqual(result.total, 10);
   assert.deepStrictEqual(result.summary, {
-    sourceFiles: 3,
-    testFiles: 3,
-    pairedSources: 2,
+    sourceFiles: 5,
+    testFiles: 5,
+    pairedSources: 4,
     sourceWithoutTests: 1,
-    pairedTests: 2,
+    pairedTests: 4,
     orphanTests: 1,
   });
   assert.deepStrictEqual(result.sourceWithoutTests, ['scripts/no_test.js']);
   assert.deepStrictEqual(result.orphanTests, ['tests/orphan.test.js']);
   assert.deepStrictEqual(result.paired.map(item => [item.source, item.test]), [
-    ['scripts/run_bar.js', 'tests/run_bar.test.js'],
+    ['scripts/generate_qux.js', 'tests/qux.test.js'],
+    ['scripts/run_bar.js', 'tests/bar.test.js'],
+    ['scripts/run_baz.js', 'tests/baz_cli.test.js'],
     ['src/foo.js', 'tests/foo.test.js'],
   ]);
 }
