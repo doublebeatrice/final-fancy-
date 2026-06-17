@@ -60,6 +60,32 @@ function selectTests(tests, group) {
   return normalized.filter(file => matchesGroup(file, group));
 }
 
+function changedFileToTestName(file) {
+  const normalized = normalize(file);
+  if (normalized.startsWith('tests/') && normalized.endsWith('.test.js')) {
+    return normalized;
+  }
+  if (normalized.endsWith('.js')) {
+    return `tests/${path.basename(normalized, '.js')}.test.js`;
+  }
+  return null;
+}
+
+function selectChangedTests(tests, changedFiles) {
+  const normalizedTests = tests.map(normalize);
+  const testSet = new Set(normalizedTests);
+  const selected = new Set();
+
+  for (const file of changedFiles.map(normalize)) {
+    const candidate = changedFileToTestName(file);
+    if (candidate && testSet.has(candidate)) {
+      selected.add(candidate);
+    }
+  }
+
+  return normalizedTests.filter(file => selected.has(file));
+}
+
 function summarizeGroups(tests) {
   const normalized = tests.map(normalize);
   const counts = new Map([
@@ -95,6 +121,26 @@ function listTestFiles() {
     .sort();
 }
 
+function listChangedFiles() {
+  const result = spawnSync('git', ['status', '--short'], {
+    cwd: ROOT,
+    encoding: 'utf8',
+  });
+  if (result.status !== 0) {
+    process.stderr.write(result.stderr || 'Unable to read git status.\n');
+    process.exit(result.status || 1);
+  }
+  return result.stdout
+    .split(/\r?\n/)
+    .map(line => line.trimEnd())
+    .filter(Boolean)
+    .map(line => {
+      const file = line.slice(3);
+      const renameIndex = file.indexOf(' -> ');
+      return renameIndex === -1 ? file : file.slice(renameIndex + 4);
+    });
+}
+
 function runTests(files) {
   for (const file of files) {
     process.stdout.write(`\n> node ${file}\n`);
@@ -118,7 +164,10 @@ function main() {
     }
     return;
   }
-  const tests = selectTests(listTestFiles(), group);
+  const allTests = listTestFiles();
+  const tests = group === 'changed'
+    ? selectChangedTests(allTests, listChangedFiles())
+    : selectTests(allTests, group);
   if (!tests.length) {
     process.stderr.write(`No tests found for group: ${group}\n`);
     process.exit(1);
@@ -134,6 +183,7 @@ if (require.main === module) {
 module.exports = {
   classifyTestFile,
   matchesGroup,
+  selectChangedTests,
   summarizeGroups,
   selectTests,
 };

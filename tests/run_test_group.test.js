@@ -3,6 +3,7 @@ const assert = require('assert');
 const {
   classifyTestFile,
   matchesGroup,
+  selectChangedTests,
   summarizeGroups,
   selectTests,
 } = require('../scripts/maintenance/run_test_group');
@@ -13,6 +14,28 @@ const {
   assert.strictEqual(classifyTestFile('tests/weixin_clawbot_http.test.js'), 'messaging');
   assert.strictEqual(classifyTestFile('tests/selection_keyword_research.test.js'), 'ops');
   assert.strictEqual(classifyTestFile('tests/perf_hygiene.test.js'), 'maintenance');
+}
+
+{
+  const tests = [
+    'tests/perf_hygiene.test.js',
+    'tests/run_test_group.test.js',
+    'tests/sku_operating_review.test.js',
+    'tests/wecom_gateway.test.js',
+  ];
+
+  assert.deepStrictEqual(
+    selectChangedTests(tests, ['src/sku_operating_review.js']),
+    ['tests/sku_operating_review.test.js']
+  );
+  assert.deepStrictEqual(
+    selectChangedTests(tests, ['tests/wecom_gateway.test.js']),
+    ['tests/wecom_gateway.test.js']
+  );
+  assert.deepStrictEqual(
+    selectChangedTests(tests, ['scripts/maintenance/run_test_group.js']),
+    ['tests/run_test_group.test.js']
+  );
 }
 
 {
