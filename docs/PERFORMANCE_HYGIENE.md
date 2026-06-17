@@ -13,6 +13,7 @@ npm run perf:archive -- --keep-days 3 --execute
 node scripts/maintenance/package_scripts_catalog.js --prefix ops:deposit
 node scripts/maintenance/package_scripts_catalog.js --query keyword
 node scripts/maintenance/run_test_group.js core
+node scripts/maintenance/run_test_group.js list
 node scripts/maintenance/run_test_group.js ops
 node scripts/maintenance/run_test_group.js agent
 node scripts/maintenance/run_test_group.js messaging
@@ -27,7 +28,7 @@ node scripts/maintenance/run_test_group.js maintenance
 - `perf:archive` dry-runs archival of old files under `data/snapshots/` and `data/attribution/`. It never archives `latest_snapshot.json` or `latest_snapshot_profiled.json`.
 - `perf:archive -- --execute` moves the selected runtime files to `..\ad-ops-workbench-archive\<timestamp>\` and writes `archive_manifest.json`.
 - `package_scripts_catalog.js` searches the current `package.json` scripts by prefix or keyword without adding another npm script alias.
-- `run_test_group.js` runs local tests by group. `npm test` delegates to `run_test_group.js all`; use narrower groups during daily development.
+- `run_test_group.js` runs local tests by group. `npm test` delegates to `run_test_group.js all`; use `run_test_group.js list` to inspect group sizes and narrower groups during daily development.
 
 ## Operating Rules
 

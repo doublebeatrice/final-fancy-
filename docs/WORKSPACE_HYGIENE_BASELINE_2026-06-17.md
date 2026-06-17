@@ -153,3 +153,19 @@ Post-pass result:
 
 - Remaining untracked files are explainable by category.
 - `perf:hygiene-check` remains `ok: true`.
+
+## Test Group Visibility Pass - 2026-06-17
+
+- Added `node scripts/maintenance/run_test_group.js list`.
+- Current group sizes:
+  - `all`: 147
+  - `ops`: 90
+  - `agent`: 26
+  - `messaging`: 20
+  - `core`: 6
+  - `maintenance`: 5
+
+Post-pass result:
+
+- Daily verification can choose an appropriately sized group without trial-and-error.
+- `perf:hygiene-check` remains `ok: true`.

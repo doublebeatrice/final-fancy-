@@ -45,6 +45,23 @@ function selectTests(tests, group) {
   return normalized.filter(file => classifyTestFile(file) === group);
 }
 
+function summarizeGroups(tests) {
+  const normalized = tests.map(normalize);
+  const counts = new Map([
+    ['all', normalized.length],
+    ['agent', 0],
+    ['core', 0],
+    ['maintenance', 0],
+    ['messaging', 0],
+    ['ops', 0],
+  ]);
+  for (const file of normalized) {
+    const group = classifyTestFile(file);
+    counts.set(group, (counts.get(group) || 0) + 1);
+  }
+  return Array.from(counts.entries()).map(([group, count]) => ({ group, count }));
+}
+
 function listTestFiles() {
   return fs.readdirSync(path.join(ROOT, 'tests'))
     .filter(name => name.endsWith('.test.js'))
@@ -68,6 +85,13 @@ function runTests(files) {
 
 function main() {
   const group = process.argv[2] || 'all';
+  if (group === 'list') {
+    const summary = summarizeGroups(listTestFiles());
+    for (const item of summary) {
+      process.stdout.write(`${item.group}\t${item.count}\n`);
+    }
+    return;
+  }
   const tests = selectTests(listTestFiles(), group);
   if (!tests.length) {
     process.stderr.write(`No tests found for group: ${group}\n`);
@@ -83,5 +107,6 @@ if (require.main === module) {
 
 module.exports = {
   classifyTestFile,
+  summarizeGroups,
   selectTests,
 };
