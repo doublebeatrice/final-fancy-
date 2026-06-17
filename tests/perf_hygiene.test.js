@@ -6,6 +6,7 @@ const { report } = require('../scripts/maintenance/perf_hygiene');
 const {
   classifyUntrackedFile,
   hygieneCheck,
+  sourceUntrackedReport,
   untrackedReport,
 } = require('../scripts/maintenance/perf_hygiene');
 
@@ -128,6 +129,45 @@ function write(file, body = '') {
     ['business-evidence', 2],
     ['review-needed', 1],
     ['source-or-test', 1],
+  ]);
+}
+
+{
+  const result = sourceUntrackedReport({
+    root: makeTempDir(),
+    files: [
+      'src/foo.js',
+      'scripts/run_bar.js',
+      'scripts/no_test.js',
+      'tests/foo.test.js',
+      'tests/run_bar.test.js',
+      'tests/orphan.test.js',
+      'data/actions/a.json',
+    ],
+    existingFiles: [
+      'src/foo.js',
+      'scripts/run_bar.js',
+      'scripts/no_test.js',
+      'tests/foo.test.js',
+      'tests/run_bar.test.js',
+      'tests/orphan.test.js',
+    ],
+  });
+
+  assert.strictEqual(result.total, 6);
+  assert.deepStrictEqual(result.summary, {
+    sourceFiles: 3,
+    testFiles: 3,
+    pairedSources: 2,
+    sourceWithoutTests: 1,
+    pairedTests: 2,
+    orphanTests: 1,
+  });
+  assert.deepStrictEqual(result.sourceWithoutTests, ['scripts/no_test.js']);
+  assert.deepStrictEqual(result.orphanTests, ['tests/orphan.test.js']);
+  assert.deepStrictEqual(result.paired.map(item => [item.source, item.test]), [
+    ['scripts/run_bar.js', 'tests/run_bar.test.js'],
+    ['src/foo.js', 'tests/foo.test.js'],
   ]);
 }
 

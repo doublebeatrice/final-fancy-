@@ -215,3 +215,23 @@ Post-pass result:
 
 - Unknown untracked files now fail hygiene immediately instead of hiding inside the total untracked count.
 - `perf:hygiene-check` remains `ok: true`.
+
+## Source/Test Untracked Audit Pass - 2026-06-17
+
+- Added `node scripts/maintenance/perf_hygiene.js source-untracked-report --json`.
+- The report splits `source-or-test` untracked files into paired source/test files, source files without matching tests, and tests without matching source files.
+
+Current source/test untracked report:
+
+- `total`: 58
+- `sourceFiles`: 35
+- `testFiles`: 23
+- `pairedSources`: 10
+- `sourceWithoutTests`: 25
+- `pairedTests`: 11
+- `orphanTests`: 12
+
+Post-pass result:
+
+- The remaining source/test bloat now has a concrete audit queue instead of one broad bucket.
+- `perf:hygiene-check` remains `ok: true`.

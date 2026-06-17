@@ -374,6 +374,18 @@ function listUntrackedFiles(root) {
   }
 }
 
+function listTrackedFiles(root) {
+  try {
+    return execFileSync('git', ['ls-files'], {
+      cwd: root,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    }).split(/\r?\n/).filter(Boolean).map(file => file.replace(/\\/g, '/'));
+  } catch (_) {
+    return [];
+  }
+}
+
 function classifyUntrackedFile(file) {
   const normalized = file.replace(/\\/g, '/');
   if (normalized.startsWith('data/actions/')) return 'business-evidence';
@@ -406,6 +418,81 @@ function untrackedReport(options = {}) {
     root,
     total: files.length,
     categories,
+  };
+}
+
+function testNameForSource(file) {
+  const base = path.basename(file, '.js');
+  return `tests/${base}.test.js`;
+}
+
+function sourceNameForTest(file) {
+  return path.basename(file).replace(/\.test\.js$/, '');
+}
+
+function isSourceFile(file) {
+  return (file.startsWith('src/') || file.startsWith('scripts/')) && file.endsWith('.js');
+}
+
+function isTestFile(file) {
+  return file.startsWith('tests/') && file.endsWith('.test.js');
+}
+
+function sourceUntrackedReport(options = {}) {
+  const root = path.resolve(options.root || ROOT);
+  const files = (Array.isArray(options.files) ? options.files : listUntrackedFiles(root))
+    .map(file => file.replace(/\\/g, '/'));
+  const knownFiles = new Set(
+    (Array.isArray(options.existingFiles) ? options.existingFiles : files.concat(listTrackedFiles(root)))
+      .map(file => file.replace(/\\/g, '/'))
+  );
+  const sourceOrTestFiles = files
+    .filter(file => classifyUntrackedFile(file) === 'source-or-test')
+    .sort();
+  const sourceFiles = sourceOrTestFiles.filter(isSourceFile);
+  const testFiles = sourceOrTestFiles.filter(isTestFile);
+  const knownSourcesByName = new Map();
+
+  for (const file of knownFiles) {
+    if (!isSourceFile(file)) continue;
+    const name = path.basename(file, '.js');
+    if (!knownSourcesByName.has(name)) knownSourcesByName.set(name, []);
+    knownSourcesByName.get(name).push(file);
+  }
+
+  const paired = [];
+  const sourceWithoutTests = [];
+  for (const source of sourceFiles) {
+    const test = testNameForSource(source);
+    if (knownFiles.has(test)) {
+      paired.push({ source, test });
+    } else {
+      sourceWithoutTests.push(source);
+    }
+  }
+
+  const orphanTests = [];
+  for (const test of testFiles) {
+    const sourceName = sourceNameForTest(test);
+    if (!knownSourcesByName.has(sourceName)) {
+      orphanTests.push(test);
+    }
+  }
+
+  return {
+    root,
+    total: sourceOrTestFiles.length,
+    summary: {
+      sourceFiles: sourceFiles.length,
+      testFiles: testFiles.length,
+      pairedSources: paired.length,
+      sourceWithoutTests: sourceWithoutTests.length,
+      pairedTests: testFiles.length - orphanTests.length,
+      orphanTests: orphanTests.length,
+    },
+    paired,
+    sourceWithoutTests,
+    orphanTests,
   };
 }
 
@@ -586,6 +673,10 @@ function main() {
     print(untrackedReport(), args.json);
     return;
   }
+  if (command === 'source-untracked-report') {
+    print(sourceUntrackedReport(), args.json);
+    return;
+  }
   throw new Error(`Unknown command: ${command}`);
 }
 
@@ -602,5 +693,6 @@ module.exports = {
   classifyUntrackedFile,
   report,
   hygieneCheck,
+  sourceUntrackedReport,
   untrackedReport,
 };
