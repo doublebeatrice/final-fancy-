@@ -16,12 +16,35 @@ const REPORT_DIRS = [
   path.join(ROOT, 'data', 'attribution'),
   path.join(ROOT, 'data', 'tasks'),
   path.join(ROOT, 'data', 'learning'),
+  path.join(ROOT, 'discovery', 'output'),
+  path.join(ROOT, 'outputs'),
   path.join(ROOT, '.git'),
 ];
 const KEEP_BASENAMES = new Set([
   'latest_snapshot.json',
   'latest_snapshot_profiled.json',
 ]);
+const DEFAULT_HYGIENE_THRESHOLDS = {
+  snapshotBytes: 5 * 1024 * 1024 * 1024,
+  maxPackageScripts: 120,
+  maxDateStampedExecuteScripts: 25,
+  maxRootArtifacts: 0,
+  maxLargeFiles: 20,
+  largeFileBytes: 50 * 1024 * 1024,
+};
+const SUSPICIOUS_ROOT_BASENAMES = new Set([
+  '--json',
+  '7',
+  '30',
+  '2026-06-12',
+]);
+const LARGE_FILE_IGNORED_PREFIXES = [
+  '.git/',
+  'node_modules/',
+  'tools/chrome-for-testing/',
+  'data/snapshots/',
+  'data/attribution/',
+];
 
 function parseArgs(argv) {
   const args = { _: [] };
@@ -62,6 +85,10 @@ function rel(file) {
   return path.relative(ROOT, file).replace(/\\/g, '/');
 }
 
+function relFrom(root, file) {
+  return path.relative(root, file).replace(/\\/g, '/');
+}
+
 function walkFiles(dir) {
   const files = [];
   if (!fs.existsSync(dir)) return files;
@@ -98,6 +125,20 @@ function dirStats(dir) {
     size: formatBytes(bytes),
     newest: newest ? new Date(newest).toISOString() : null,
     oldest: oldest === Number.MAX_SAFE_INTEGER ? null : new Date(oldest).toISOString(),
+  };
+}
+
+function dirStatsForRoot(root, dir) {
+  const files = walkFiles(dir);
+  let bytes = 0;
+  for (const file of files) {
+    bytes += fs.statSync(file).size;
+  }
+  return {
+    path: relFrom(root, dir),
+    files: files.length,
+    bytes,
+    size: formatBytes(bytes),
   };
 }
 
@@ -297,12 +338,142 @@ function largestFiles(limit = 15) {
     .slice(0, limit);
 }
 
-function report() {
-  const mcp = listMcpProcesses();
+function findLargeFiles(root, limit, minBytes) {
+  return walkFiles(root)
+    .filter(file => {
+      const relative = relFrom(root, file);
+      return !LARGE_FILE_IGNORED_PREFIXES.some(prefix => relative.startsWith(prefix));
+    })
+    .map(file => {
+      const stat = fs.statSync(file);
+      return { path: relFrom(root, file), bytes: stat.size, size: formatBytes(stat.size) };
+    })
+    .filter(item => item.bytes >= minBytes)
+    .sort((a, b) => b.bytes - a.bytes)
+    .slice(0, limit);
+}
+
+function readPackageScriptCount(root) {
+  const packagePath = path.join(root, 'package.json');
+  if (!fs.existsSync(packagePath)) return 0;
+  const parsed = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
+  return Object.keys(parsed.scripts || {}).length;
+}
+
+function listDateStampedExecuteScripts(root) {
+  const dir = path.join(root, 'scripts', 'execute');
+  return walkFiles(dir)
+    .map(file => relFrom(root, file))
+    .filter(file => /20\d\d[-_]\d\d[-_]\d\d/.test(file))
+    .sort();
+}
+
+function listSuspiciousRootArtifacts(root) {
+  if (!fs.existsSync(root)) return [];
+  return fs.readdirSync(root, { withFileTypes: true })
+    .filter(entry => entry.isFile())
+    .map(entry => entry.name)
+    .filter(name => SUSPICIOUS_ROOT_BASENAMES.has(name) || /^--/.test(name))
+    .sort();
+}
+
+function addFinding(findings, finding) {
+  findings.push({
+    severity: finding.severity || 'warn',
+    ...finding,
+  });
+}
+
+function hygieneCheck(options = {}) {
+  const root = path.resolve(options.root || ROOT);
+  const thresholds = { ...DEFAULT_HYGIENE_THRESHOLDS, ...(options.thresholds || {}) };
+  const findings = [];
+
+  const rootArtifacts = listSuspiciousRootArtifacts(root);
+  if (rootArtifacts.length > thresholds.maxRootArtifacts) {
+    addFinding(findings, {
+      id: 'root-artifacts',
+      title: 'Suspicious root-level artifacts',
+      detail: `${rootArtifacts.length} suspicious files found in project root.`,
+      threshold: thresholds.maxRootArtifacts,
+      value: rootArtifacts.length,
+      paths: rootArtifacts,
+    });
+  }
+
+  const runtimeDirs = [
+    path.join(root, 'data', 'snapshots'),
+    path.join(root, '.tmp'),
+    path.join(root, 'tmp'),
+  ].filter(dir => fs.existsSync(dir));
+  for (const dir of runtimeDirs) {
+    const stats = dirStatsForRoot(root, dir);
+    if (stats.bytes > thresholds.snapshotBytes) {
+      addFinding(findings, {
+        id: 'large-runtime-dir',
+        title: 'Large runtime directory',
+        detail: `${stats.path} is ${stats.size}.`,
+        threshold: formatBytes(thresholds.snapshotBytes),
+        value: stats.size,
+        path: stats.path,
+        files: stats.files,
+      });
+    }
+  }
+
+  const packageScripts = readPackageScriptCount(root);
+  if (packageScripts > thresholds.maxPackageScripts) {
+    addFinding(findings, {
+      id: 'too-many-package-scripts',
+      title: 'package.json script count is high',
+      detail: `${packageScripts} npm scripts found.`,
+      threshold: thresholds.maxPackageScripts,
+      value: packageScripts,
+    });
+  }
+
+  const dateStampedExecuteScripts = listDateStampedExecuteScripts(root);
+  if (dateStampedExecuteScripts.length > thresholds.maxDateStampedExecuteScripts) {
+    addFinding(findings, {
+      id: 'date-stamped-execute-scripts',
+      title: 'Date-stamped execute scripts need archival review',
+      detail: `${dateStampedExecuteScripts.length} date-stamped scripts found under scripts/execute.`,
+      threshold: thresholds.maxDateStampedExecuteScripts,
+      value: dateStampedExecuteScripts.length,
+      paths: dateStampedExecuteScripts.slice(0, 30),
+    });
+  }
+
+  const largeFiles = findLargeFiles(root, thresholds.maxLargeFiles, thresholds.largeFileBytes);
+  if (largeFiles.length) {
+    addFinding(findings, {
+      id: 'large-files',
+      title: 'Large files found in workspace',
+      detail: `${largeFiles.length} files are at least ${formatBytes(thresholds.largeFileBytes)}.`,
+      threshold: formatBytes(thresholds.largeFileBytes),
+      value: largeFiles.length,
+      files: largeFiles,
+    });
+  }
+
+  return {
+    ok: findings.length === 0,
+    root,
+    thresholds: {
+      ...thresholds,
+      snapshotSize: formatBytes(thresholds.snapshotBytes),
+      largeFileSize: formatBytes(thresholds.largeFileBytes),
+    },
+    findings,
+  };
+}
+
+function report(options = {}) {
+  const mcp = options.skipMcp ? [] : listMcpProcesses();
   const mcpBytes = mcp.reduce((sum, item) => sum + Number(item.WorkingSetSize || 0), 0);
   return {
     root: ROOT,
-    gitStatus: timedGitStatus(),
+    gitStatus: options.skipGitStatus ? null : timedGitStatus(),
     chromeDevtoolsMcp: {
       processes: mcp.length,
       memory: formatBytes(mcpBytes),
@@ -335,12 +506,23 @@ function main() {
     print(archiveRuntime(args), args.json);
     return;
   }
+  if (command === 'hygiene-check') {
+    print(hygieneCheck(), args.json);
+    return;
+  }
   throw new Error(`Unknown command: ${command}`);
 }
 
-try {
-  main();
-} catch (err) {
-  process.stderr.write(`${err.stack || err.message}\n`);
-  process.exit(1);
+if (require.main === module) {
+  try {
+    main();
+  } catch (err) {
+    process.stderr.write(`${err.stack || err.message}\n`);
+    process.exit(1);
+  }
 }
+
+module.exports = {
+  report,
+  hygieneCheck,
+};
