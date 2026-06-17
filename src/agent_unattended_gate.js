@@ -116,6 +116,20 @@ function allowedAutonomyWarnings(audit = {}) {
     .filter(check => check.status === 'warning' && !allowed.has(check.id));
 }
 
+function list(value) {
+  return Array.isArray(value) ? value.map(text).filter(Boolean) : [];
+}
+
+function coverageSufficiencyMemoryReady(learningMemory = {}) {
+  const doNotApply = list(learningMemory.nextRunBrief?.doNotApplyWhen);
+  const evidenceBeforeReuse = list(learningMemory.nextRunBrief?.evidenceBeforeReuse);
+  return doNotApply.some(item =>
+    /coverage sufficiency has not been answered before action landing details/i.test(item)
+  ) && evidenceBeforeReuse.some(item =>
+    /coverage[_\s-]?ratio/i.test(item)
+  );
+}
+
 function buildUnattendedGate(options = {}, timeContext = {}) {
   const businessDate = dateOnly(options.today || options.businessDate || timeContext.businessDate || timeContext.runAt);
   const dataDate = dateOnly(options.dataDate || timeContext.dataDate || businessDate);
@@ -235,6 +249,13 @@ function buildUnattendedGate(options = {}, timeContext = {}) {
       title: 'Learning memory is missing',
       evidence: exists(learningMemoryFile) ? [relative(learningMemoryFile)] : [],
       nextAction: 'Generate learning memory before unattended execute so scoped constraints are applied.',
+    });
+  } else if (!coverageSufficiencyMemoryReady(learningMemory)) {
+    addIssue(issues, {
+      id: 'coverage_sufficiency_memory_missing',
+      title: 'Coverage sufficiency correction memory is missing',
+      evidence: [relative(learningMemoryFile)],
+      nextAction: 'Regenerate learning memory from coverage-underreach corrections before unattended live execution.',
     });
   } else if (number(learningMemory.summary?.blockers) > 0 || text(learningMemory.status) === 'blocked_constraints') {
     addIssue(issues, {

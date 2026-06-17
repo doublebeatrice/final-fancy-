@@ -23,6 +23,30 @@ function writeJson(file, value) {
   fs.writeFileSync(file, JSON.stringify(value, null, 2), 'utf8');
 }
 
+function coverageBrief(extra = {}) {
+  return {
+    ...extra,
+    doNotApplyWhen: [
+      ...(extra.doNotApplyWhen || []),
+      'coverage sufficiency has not been answered before action landing details',
+    ],
+    evidenceBeforeReuse: [
+      ...(extra.evidenceBeforeReuse || []),
+      'coverage_ratio',
+    ],
+  };
+}
+
+function writeCoverageSkuLesson(dir) {
+  writeJson(path.join(dir, 'coverage_sufficiency_sku_lesson.json'), {
+    id: 'coverage_sufficiency_sku_lesson',
+    status: 'active',
+    lesson: 'Coverage sufficiency must be answered before action landing details.',
+    doNotApplyWhen: ['coverage sufficiency has not been answered before action landing details'],
+    transferableTo: ['coverage_ratio'],
+  });
+}
+
 function buildFixture(tmpDir, options = {}) {
   const actionSchemaFile = path.join(tmpDir, 'action_schema.json');
   const snapshotFile = path.join(tmpDir, 'latest_snapshot.json');
@@ -78,7 +102,7 @@ function buildFixture(tmpDir, options = {}) {
   writeJson(learningMemoryFile, options.learningMemory || {
     status: 'active_watch',
     summary: { blockers: 0, warnings: 2 },
-    nextRunBrief: { mustReadBeforeDecision: [] },
+    nextRunBrief: coverageBrief({ mustReadBeforeDecision: [] }),
   });
   return { actionSchemaFile, snapshotFile, writeExecutionFile, closedLoopFile, autonomyAuditFile, learningMemoryFile, ledger, writeExecution, dryRunFeedback: {} };
 }
@@ -100,13 +124,32 @@ function buildFixture(tmpDir, options = {}) {
     learningMemory: {
       status: 'blocked_constraints',
       summary: { blockers: 1, warnings: 0 },
-      nextRunBrief: { doNotApplyWhen: ['same rule has an unresolved correction audit'] },
+      nextRunBrief: coverageBrief({ doNotApplyWhen: ['same rule has an unresolved correction audit'] }),
     },
   });
   const gate = buildUnattendedGate(fixture, timeContext);
   assert.strictEqual(gate.decision, 'execute_blocked');
   assert.ok(gate.issues.some(issue => issue.id === 'learning_memory_has_blockers'));
   assert.ok(gate.tasks.some(task => task.kind === 'unattended_execute_blocker'));
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-unattended-blocked-coverage-memory-'));
+  const fixture = buildFixture(tmpDir, {
+    learningMemory: {
+      status: 'active_watch',
+      summary: { blockers: 0, warnings: 1 },
+      nextRunBrief: {
+        mustReadBeforeDecision: [],
+        doNotApplyWhen: ['risk level is the only reason to skip a supported operating action'],
+        evidenceBeforeReuse: ['route_supported_operating_action_to_evidence_boundary_dry_run_execute_or_explicit_blocker'],
+      },
+    },
+  });
+  const gate = buildUnattendedGate(fixture, timeContext);
+  assert.strictEqual(gate.decision, 'execute_blocked');
+  assert.strictEqual(gate.canAutoExecute, false);
+  assert.ok(gate.issues.some(issue => issue.id === 'coverage_sufficiency_memory_missing'));
 }
 
 {
@@ -156,7 +199,7 @@ function buildFixture(tmpDir, options = {}) {
   writeJson(learningMemoryFile, {
     status: 'active_watch',
     summary: { blockers: 0, warnings: 1 },
-    nextRunBrief: { mustReadBeforeDecision: [] },
+    nextRunBrief: coverageBrief({ mustReadBeforeDecision: [] }),
   });
   writeJson(writeExecutionFile, {
     mode: 'skipped',
@@ -210,7 +253,7 @@ function buildFixture(tmpDir, options = {}) {
   writeJson(learningMemoryFile, {
     status: 'ready',
     summary: { blockers: 0, warnings: 0 },
-    nextRunBrief: { mustReadBeforeDecision: [] },
+    nextRunBrief: coverageBrief({ mustReadBeforeDecision: [] }),
   });
   writeJson(writeExecutionFile, {
     mode: 'skipped',
@@ -349,7 +392,7 @@ function buildFixture(tmpDir, options = {}) {
   });
   assert.strictEqual(result.summary.executeRequested, true);
   assert.strictEqual(result.summary.executeIfReady, false);
-  assert.strictEqual(result.summary.unattendedExecuteAllowed, true);
+  assert.strictEqual(result.summary.unattendedExecuteAllowed, false);
   assert.strictEqual(result.summary.unattendedExecuted, false);
   assert.ok(calls.length >= 1);
   assert.ok(calls.every(call => !call.args.includes('--execute')), 'closed-loop --execute must not bypass unattended gate');
@@ -380,6 +423,7 @@ function buildFixture(tmpDir, options = {}) {
     skuLessonDir: tmpDir,
     outDir: tmpDir,
     dashboardOutDir: tmpDir,
+    generateDashboard: false,
     verifyDailyClosureArtifacts: () => ({ ok: true, errors: [] }),
     executeIfReady: true,
     hub: { businessDate: '2026-05-25', dataDate: '2026-05-25', summary: { total: 0 }, todayQueue: [] },
@@ -402,13 +446,15 @@ function buildFixture(tmpDir, options = {}) {
   assert.strictEqual(result.summary.executeRequested, false);
   assert.strictEqual(result.summary.executeIfReadyRequested, true);
   assert.strictEqual(result.summary.executeIfReady, false);
-  assert.strictEqual(result.summary.unattendedExecuteAllowed, true);
+  assert.strictEqual(result.summary.unattendedExecuteAllowed, false);
   assert.strictEqual(result.summary.unattendedExecuted, false);
   assert.ok(calls.every(call => !call.args.includes('--execute')), 'closed-loop --execute-if-ready alone must not execute');
 }
 
 {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-unattended-closed-loop-execute-if-ready-'));
+  const correctionDir = path.join(tmpDir, 'corrections');
+  const skuLessonDir = path.join(tmpDir, 'sku_lessons');
   const actionSchemaFile = path.join(tmpDir, 'action_schema.json');
   const snapshotFile = path.join(tmpDir, 'latest_snapshot.json');
   const learningFile = path.join(tmpDir, 'daily_learning_2026-05-25.json');
@@ -422,6 +468,7 @@ function buildFixture(tmpDir, options = {}) {
     actionSource: ['codex'],
     evidence: ['7d spend no orders'],
   }];
+  writeCoverageSkuLesson(skuLessonDir);
   writeJson(actionSchemaFile, actions);
   writeJson(snapshotFile, { businessDate: '2026-05-25', productCards: [{ sku: 'LOW1' }] });
   writeJson(learningFile, { time: { businessDate: '2026-05-25', dataDate: '2026-05-25' }, carryForward: { openQuestions: [] } });
@@ -429,10 +476,12 @@ function buildFixture(tmpDir, options = {}) {
   const result = runAgentClosedLoop({
     timeContext,
     disableTrendAnomalyCheck: true,
-    correctionDir: tmpDir,
-    skuLessonDir: tmpDir,
+    correctionDir,
+    skuLessonDir,
     outDir: tmpDir,
     dashboardOutDir: tmpDir,
+    generateDashboard: false,
+    closureVerification: { ok: true, errors: [] },
     verifyDailyClosureArtifacts: () => ({ ok: true, errors: [] }),
     execute: true,
     executeIfReady: true,

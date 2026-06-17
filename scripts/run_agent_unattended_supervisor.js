@@ -335,6 +335,7 @@ function readinessAuditOptions({ options = {}, report = {}, timeContext = {}, to
     closedLoopFile: report.files?.closedLoopFile || '',
     requireCorrectionLesson: true,
     requireRiskRoutingLesson: true,
+    requireCoverageSufficiencyLesson: true,
     outFile: readinessOutFile,
     markdownFile: readinessMarkdownFile,
   };
@@ -389,6 +390,7 @@ function renderMarkdown(report = {}) {
   lines.push(`# Agent unattended supervisor - ${report.businessDate || ''}`);
   lines.push('');
   lines.push(`- Status: ${report.status || 'unknown'}`);
+  if (report.stage) lines.push(`- Stage: ${report.stage}`);
   lines.push(`- Mode: ${report.mode || 'dry-run'}`);
   lines.push(`- Prior learning: ${report.priorLearning?.exists ? 'present' : 'missing'} (${report.priorLearning?.file || ''})`);
   lines.push(`- Closed loop: ${report.closedLoop?.closedLoop === true}`);
@@ -420,6 +422,82 @@ function renderMarkdown(report = {}) {
   return `${lines.join('\n')}\n`;
 }
 
+function renderNextAgentPrompt(report = {}) {
+  const issues = Array.isArray(report.issues) ? report.issues : [];
+  const blockers = issues.filter(item => item.severity === 'blocker');
+  const outDir = path.dirname(text(report.files?.outFile || 'data/agent/unattended_supervisor.json')) || 'data/agent';
+  const lines = [];
+  lines.push(`# Next agent prompt - ${report.businessDate || ''}`);
+  lines.push('');
+  lines.push('Continue the unattended agent loop from local artifacts only. Do not treat this as live business evidence unless fresh reads are run in this session.');
+  lines.push('');
+  lines.push('## Objective');
+  if (blockers.length) {
+    lines.push('Repair the unattended supervisor loop until the daily heartbeat, scheduler audit, readiness audit, and learning continuity are explainable.');
+  } else if (report.status === 'in_progress') {
+    lines.push('The supervisor has started. Inspect whether the closed-loop run completed and whether a newer heartbeat replaced this in-progress marker.');
+  } else {
+    lines.push('Review the supervisor output and continue only if new blockers or due follow-ups are present.');
+  }
+  lines.push('');
+  lines.push('## Current State');
+  lines.push(`- status: ${report.status || 'unknown'}`);
+  if (report.stage) lines.push(`- stage: ${report.stage}`);
+  lines.push(`- ok: ${report.ok === true}`);
+  lines.push(`- mode: ${report.mode || ''}`);
+  lines.push(`- requestedExecute: ${report.requested?.execute === true}`);
+  lines.push(`- requestedExecuteIfReady: ${report.requested?.executeIfReady === true}`);
+  lines.push(`- effectiveExecuteIfReady: ${report.effective?.executeIfReady === true}`);
+  lines.push('');
+  lines.push('## Files To Open First');
+  for (const key of [
+    'outFile',
+    'markdownFile',
+    'closedLoopFile',
+    'schedulerAuditFile',
+    'readinessAuditFile',
+    'learningMemoryFile',
+    'unattendedGateFile',
+    'priorLearningMemoryFile',
+  ]) {
+    const value = text(report.files?.[key]);
+    if (value) lines.push(`- ${key}: ${value}`);
+  }
+  lines.push('');
+  lines.push('## Issues');
+  if (!issues.length) {
+    lines.push('- none');
+  } else {
+    for (const item of issues) {
+      lines.push(`- [${item.severity || 'unknown'}] ${item.id || ''}: ${item.title || ''}`);
+      if (item.evidence?.length) lines.push(`  - evidence: ${item.evidence.join('; ')}`);
+      if (item.nextAction) lines.push(`  - next: ${item.nextAction}`);
+    }
+  }
+  lines.push('');
+  lines.push('## Suggested Commands');
+  lines.push('```powershell');
+  lines.push(`npm run ops:agent:unattended-supervisor -- --today ${report.businessDate || ''} --out-dir ${commandArg(outDir)} --command-timeout-ms 30000 --allow-missing-prior-learning`);
+  lines.push(`npm run ops:agent:unattended-scheduler-audit -- --heartbeat-dir ${commandArg(outDir)} --today ${report.businessDate || ''}`);
+  lines.push('```');
+  lines.push('');
+  lines.push('## Acceptance Check');
+  lines.push('- A same-day unattended_supervisor JSON exists and is not stuck at stage=in_progress.');
+  lines.push('- Scheduler audit either passes or names a concrete runtime blocker.');
+  lines.push('- Readiness audit and learning memory blockers are carried into the next run instead of disappearing.');
+  return `${lines.join('\n')}\n`;
+}
+
+function writeSupervisorReport(report = {}, outFile = '', markdownFile = '') {
+  const jsonFile = outFile || report.files?.outFile;
+  const mdFile = markdownFile || report.files?.markdownFile;
+  if (jsonFile) writeJson(jsonFile, report);
+  if (mdFile) writeText(mdFile, renderMarkdown(report));
+  if (report.files?.nextAgentPromptFile) {
+    writeText(report.files.nextAgentPromptFile, renderNextAgentPrompt(report));
+  }
+}
+
 function runAgentUnattendedSupervisor(options = {}) {
   const timeContext = options.timeContext || buildOpsTimeContext({
     now: options.now ? new Date(options.now) : new Date(),
@@ -430,6 +508,7 @@ function runAgentUnattendedSupervisor(options = {}) {
   const outDir = options.outDir || DEFAULT_OUT_DIR;
   const outFile = options.outFile || path.join(outDir, `unattended_supervisor_${today}.json`);
   const markdownFile = options.markdownFile || path.join(outDir, `unattended_supervisor_${today}.md`);
+  const nextAgentPromptFile = options.nextAgentPromptFile || path.join(outDir, `next_agent_prompt_${today}.md`);
   const priorFile = options.priorLearningMemoryFile || previousLearningMemoryFile(today);
   const priorExists = !!priorFile && fs.existsSync(priorFile);
   const priorRequired = options.selfTest !== true && options.allowMissingPriorLearning !== true;
@@ -441,6 +520,34 @@ function runAgentUnattendedSupervisor(options = {}) {
     execute: requested.execute,
     executeIfReady: requested.execute && requested.executeIfReady && (priorExists || !priorRequired),
   };
+  const priorLearning = {
+    file: priorFile,
+    exists: priorExists,
+    required: priorRequired,
+    status: text(readJson(priorFile, {}).status || ''),
+  };
+  const initialReport = {
+    generatedAt: text(timeContext.runAt || new Date().toISOString()),
+    businessDate: today,
+    dataDate: dateOnly(timeContext.dataDate || today),
+    sourceRunId: text(timeContext.sourceRunId || ''),
+    status: 'in_progress',
+    stage: 'closed_loop',
+    ok: false,
+    mode: requested.execute && requested.executeIfReady ? 'execute_if_ready' : 'dry_run',
+    requested,
+    effective,
+    priorLearning,
+    closedLoop: {},
+    issues: [],
+    files: {
+      outFile,
+      markdownFile,
+      nextAgentPromptFile,
+      priorLearningMemoryFile: priorFile,
+    },
+  };
+  writeSupervisorReport(initialReport, outFile, markdownFile);
   const baseOptions = {
     ...options,
     timeContext,
@@ -453,13 +560,8 @@ function runAgentUnattendedSupervisor(options = {}) {
   const closedLoopOptions = options.selfTest === true
     ? buildSelfTestOptions(baseOptions)
     : baseOptions;
-  const closedLoop = runAgentClosedLoop(closedLoopOptions);
-  const priorLearning = {
-    file: priorFile,
-    exists: priorExists,
-    required: priorRequired,
-    status: text(readJson(priorFile, {}).status || ''),
-  };
+  const closedLoopRunner = options.runClosedLoop || runAgentClosedLoop;
+  const closedLoop = closedLoopRunner(closedLoopOptions);
   const issues = buildIssues({ closedLoop, priorLearning, requested, effective });
   const status = supervisorStatus(issues, closedLoop, requested);
   const report = {
@@ -468,6 +570,7 @@ function runAgentUnattendedSupervisor(options = {}) {
     dataDate: closedLoop.dataDate || dateOnly(timeContext.dataDate || today),
     sourceRunId: text(timeContext.sourceRunId || ''),
     status,
+    stage: 'complete',
     ok: !issues.some(item => item.severity === 'blocker'),
     mode: requested.execute && requested.executeIfReady ? 'execute_if_ready' : 'dry_run',
     requested,
@@ -478,6 +581,7 @@ function runAgentUnattendedSupervisor(options = {}) {
     files: {
       outFile,
       markdownFile,
+      nextAgentPromptFile,
       closedLoopFile: closedLoop.files?.closedLoopFile || '',
       handoffFile: closedLoop.files?.handoffOutFile || '',
       autonomyAuditFile: closedLoop.files?.autonomyAuditFile || '',
@@ -488,8 +592,7 @@ function runAgentUnattendedSupervisor(options = {}) {
     },
     closedLoopReport: closedLoop,
   };
-  writeJson(outFile, report);
-  writeText(markdownFile, renderMarkdown(report));
+  writeSupervisorReport(report, outFile, markdownFile);
   if (options.generateSchedulerAudit !== false) {
     try {
       runSupervisorSchedulerAudit({
@@ -519,12 +622,10 @@ function runAgentUnattendedSupervisor(options = {}) {
     }
     report.ok = !report.issues.some(item => item.severity === 'blocker');
     report.status = supervisorStatus(report.issues, closedLoop, requested);
-    writeJson(outFile, report);
-    writeText(markdownFile, renderMarkdown(report));
+    writeSupervisorReport(report, outFile, markdownFile);
   } else {
     report.schedulerAudit = { generated: false, skipped: true };
-    writeJson(outFile, report);
-    writeText(markdownFile, renderMarkdown(report));
+    writeSupervisorReport(report, outFile, markdownFile);
   }
   if (options.generateReadinessAudit !== false) {
     try {
@@ -539,6 +640,18 @@ function runAgentUnattendedSupervisor(options = {}) {
       report.readinessAudit = summarizeReadinessAudit(readiness);
       report.files.readinessAuditFile = report.readinessAudit.files.outFile;
       report.files.readinessAuditMarkdownFile = report.readinessAudit.files.markdownFile;
+      if (readiness.ok !== true && requested.execute === true && requested.executeIfReady === true) {
+        report.issues.push(issue(
+          'readiness_audit_failed',
+          'blocker',
+          'Readiness audit is not ready for live unattended execution',
+          [
+            `status=${text(readiness.status)}`,
+            `failedChecks=${report.readinessAudit.failedChecks.join(',')}`,
+          ],
+          'Resolve readiness blockers, including coverage sufficiency correction memory, before trusting live unattended execution.'
+        ));
+      }
     } catch (error) {
       report.readinessAudit = {
         generated: false,
@@ -546,13 +659,22 @@ function runAgentUnattendedSupervisor(options = {}) {
         status: 'failed',
         error: text(error.message || error),
       };
+      if (requested.execute === true && requested.executeIfReady === true) {
+        report.issues.push(issue(
+          'readiness_audit_failed',
+          'blocker',
+          'Readiness audit failed to run for live unattended execution',
+          [report.readinessAudit.error],
+          'Repair readiness-audit generation before trusting live unattended execution.'
+        ));
+      }
     }
-    writeJson(outFile, report);
-    writeText(markdownFile, renderMarkdown(report));
+    report.ok = !report.issues.some(item => item.severity === 'blocker');
+    report.status = supervisorStatus(report.issues, closedLoop, requested);
+    writeSupervisorReport(report, outFile, markdownFile);
   } else {
     report.readinessAudit = { generated: false, skipped: true };
-    writeJson(outFile, report);
-    writeText(markdownFile, renderMarkdown(report));
+    writeSupervisorReport(report, outFile, markdownFile);
   }
   return report;
 }
@@ -588,6 +710,7 @@ if (require.main === module) {
 module.exports = {
   buildIssues,
   parseArgs,
+  renderNextAgentPrompt,
   renderMarkdown,
   runAgentUnattendedSupervisor,
   supervisorStatus,

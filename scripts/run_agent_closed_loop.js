@@ -4,7 +4,10 @@ const { runAgentReviewQueue } = require('./run_agent_review_queue');
 const { runAgentOperatingHub } = require('./run_agent_operating_hub');
 const { runAgentCommandRunner } = require('./run_agent_command_runner');
 const { runAgentWriteExecution } = require('./run_agent_write_execution');
-const { runAgentHandoffSummary } = require('./run_agent_handoff_summary');
+const {
+  dailyClosureFromKpiCheckpoint,
+  runAgentHandoffSummary,
+} = require('./run_agent_handoff_summary');
 const { runAgentAutonomyAudit } = require('./run_agent_autonomy_audit');
 const { runAgentLearningMemory } = require('./run_agent_learning_memory');
 const { runAgentUnattendedGate } = require('./run_agent_unattended_gate');
@@ -308,6 +311,34 @@ function buildDailyClosureStatus({
   };
 }
 
+function dailyClosureFromHandoff(handoff = {}) {
+  const handoffDailyClosure = handoff.dailyClosure || {};
+  const summaryDailyClosure = handoff.summary || {};
+  const checkpointDailyClosure = dailyClosureFromKpiCheckpoint(handoff.kpiCheckpoint || handoff.kpiRecoveryCheckpoint || {});
+  const dailyClosureStatus = text(
+    handoffDailyClosure.dailyClosureStatus ||
+    summaryDailyClosure.dailyClosureStatus ||
+    checkpointDailyClosure?.dailyClosureStatus ||
+    ''
+  );
+  if (!dailyClosureStatus) return null;
+  const rawReasons = Array.isArray(handoffDailyClosure.dailyClosureReasons)
+    ? handoffDailyClosure.dailyClosureReasons
+    : (Array.isArray(summaryDailyClosure.dailyClosureReasons)
+        ? summaryDailyClosure.dailyClosureReasons
+        : (checkpointDailyClosure?.dailyClosureReasons || []));
+  const hasDailyComplete = Object.prototype.hasOwnProperty.call(handoffDailyClosure, 'dailyComplete') ||
+    Object.prototype.hasOwnProperty.call(summaryDailyClosure, 'dailyComplete');
+  const dailyComplete = hasDailyComplete
+    ? (handoffDailyClosure.dailyComplete === true || summaryDailyClosure.dailyComplete === true)
+    : dailyClosureStatus === 'complete';
+  return {
+    dailyClosureStatus,
+    dailyClosureReasons: [...new Set(rawReasons.map(text).filter(Boolean))],
+    dailyComplete,
+  };
+}
+
 function closedLoopSummary({ commandResults = {}, writeExecution = {}, feedback = {}, handoff = {} } = {}) {
   const commandFailed = Number(commandResults.summary?.failed || 0);
   const writeFailed = Number(writeExecution.summary?.failedStages || 0);
@@ -326,6 +357,7 @@ function closedLoopSummary({ commandResults = {}, writeExecution = {}, feedback 
   const operatingClosureStatus = text(handoff.summary?.operatingClosureStatus || handoffOperatingStatus.status || '');
   const recoveryGateStatus = text(recoveryGate?.status || (recoveryTarget ? 'target_set' : 'missing'));
   const depositStatusText = text(depositStatus.status || handoff.summary?.depositStatus || '');
+  const depositIncomplete = depositStatusText === 'partial' || depositStatusText === 'blocked' || depositMissing.length > 0;
   const mandatoryDailyClosure = normalizeMandatoryDailyClosure(
     handoff.summary?.mandatoryDailyClosure ||
     handoff.summary?.dailyMandatoryClosure ||
@@ -334,7 +366,7 @@ function closedLoopSummary({ commandResults = {}, writeExecution = {}, feedback 
     handoff.dailyOperatingWorkflow?.mandatoryClosure ||
     {}
   );
-  const dailyClosure = buildDailyClosureStatus({
+  const dailyClosure = (depositIncomplete ? null : dailyClosureFromHandoff(handoff)) || buildDailyClosureStatus({
     commandFailed,
     writeFailed,
     writeBlocked: hardWriteBlocked,
