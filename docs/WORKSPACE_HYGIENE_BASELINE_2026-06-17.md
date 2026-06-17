@@ -169,3 +169,28 @@ Post-pass result:
 
 - Daily verification can choose an appropriately sized group without trial-and-error.
 - `perf:hygiene-check` remains `ok: true`.
+
+## Ops Test Subgroup Pass - 2026-06-17
+
+- Split the broad `ops` test group into smaller selectable groups while keeping `ops` as the full ops aggregate.
+- Current subgroup sizes:
+  - `ads`: 17
+  - `selection`: 22
+  - `pricing`: 8
+  - `deposit`: 6
+  - `old-products`: 6
+  - `workflow`: 12
+
+Validated groups:
+
+- `ads`
+- `selection`
+- `pricing`
+- `deposit`
+- `old-products`
+- `workflow`
+
+Post-pass result:
+
+- Ops-related daily validation can run focused groups instead of the full 90-test `ops` group.
+- `perf:hygiene-check` remains `ok: true`.

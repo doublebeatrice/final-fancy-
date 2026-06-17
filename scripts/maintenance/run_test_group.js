@@ -11,6 +11,12 @@ const GROUP_PATTERNS = {
   agent: [/^agent_/, /^goal_/, /^capability_/],
   messaging: [/^wecom_/, /^weixin_/, /^tencent_doc_/, /^package_scripts_catalog$/],
   maintenance: [/^perf_hygiene$/, /^codex_/, /^workflow_runtime_report$/, /^run_test_group$/],
+  ads: [/^ad_/, /^high_efficiency/, /^low_efficiency/, /^over_budget/, /^overbudget_/, /^campaign_/, /^direct_sp_/, /^run_actions/],
+  deposit: [/^daily_deposit/, /^daily_core/, /^daily_dashboard/, /^daily_closure/, /^wecom_daily/, /^wecom_weekly/],
+  'old-products': [/^old_product/, /^run_all_sku_operating_review/, /^sku_operating_review/],
+  pricing: [/^price_/, /^inventory_/, /^local_inventory/, /^sales_history/, /^removal_inventory/, /^recover_inventory/],
+  selection: [/^selection_/, /^sif_/, /^season_/, /^seasonal_/, /^product_profile/, /^internal_keyword/],
+  workflow: [/^proactive_/, /^kpi_/, /^month_kpi/, /^operation_/, /^execution_/, /^decision_/, /^landed_/, /^trend_/],
   ops: [
     /^ad_/, /^adjust/, /^ai_/, /^campaign_/, /^cna_/, /^daily_/, /^decision_/,
     /^dedupe_/, /^developer_/, /^direct_/, /^execution_/, /^generator_/,
@@ -39,10 +45,19 @@ function classifyTestFile(file) {
   return 'core';
 }
 
+function matchesGroup(file, group) {
+  if (!group || group === 'all') return true;
+  if (group === 'ops') return classifyTestFile(file) === 'ops';
+  const patterns = GROUP_PATTERNS[group];
+  if (!patterns) return classifyTestFile(file) === group;
+  const name = testName(file);
+  return patterns.some(pattern => pattern.test(name));
+}
+
 function selectTests(tests, group) {
   const normalized = tests.map(normalize);
   if (!group || group === 'all') return normalized;
-  return normalized.filter(file => classifyTestFile(file) === group);
+  return normalized.filter(file => matchesGroup(file, group));
 }
 
 function summarizeGroups(tests) {
@@ -54,10 +69,21 @@ function summarizeGroups(tests) {
     ['maintenance', 0],
     ['messaging', 0],
     ['ops', 0],
+    ['ads', 0],
+    ['deposit', 0],
+    ['old-products', 0],
+    ['pricing', 0],
+    ['selection', 0],
+    ['workflow', 0],
   ]);
   for (const file of normalized) {
     const group = classifyTestFile(file);
     counts.set(group, (counts.get(group) || 0) + 1);
+    for (const subgroup of ['ads', 'deposit', 'old-products', 'pricing', 'selection', 'workflow']) {
+      if (matchesGroup(file, subgroup)) {
+        counts.set(subgroup, (counts.get(subgroup) || 0) + 1);
+      }
+    }
   }
   return Array.from(counts.entries()).map(([group, count]) => ({ group, count }));
 }
@@ -107,6 +133,7 @@ if (require.main === module) {
 
 module.exports = {
   classifyTestFile,
+  matchesGroup,
   summarizeGroups,
   selectTests,
 };

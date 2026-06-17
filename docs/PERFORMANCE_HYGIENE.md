@@ -14,6 +14,12 @@ node scripts/maintenance/package_scripts_catalog.js --prefix ops:deposit
 node scripts/maintenance/package_scripts_catalog.js --query keyword
 node scripts/maintenance/run_test_group.js core
 node scripts/maintenance/run_test_group.js list
+node scripts/maintenance/run_test_group.js ads
+node scripts/maintenance/run_test_group.js selection
+node scripts/maintenance/run_test_group.js pricing
+node scripts/maintenance/run_test_group.js deposit
+node scripts/maintenance/run_test_group.js old-products
+node scripts/maintenance/run_test_group.js workflow
 node scripts/maintenance/run_test_group.js ops
 node scripts/maintenance/run_test_group.js agent
 node scripts/maintenance/run_test_group.js messaging
