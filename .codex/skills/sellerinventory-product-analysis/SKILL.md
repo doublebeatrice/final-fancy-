@@ -92,8 +92,8 @@ If `sales_30` is zero, do not compute a finite inventory-days value; classify as
 2. Use `daily-data-deposit` or deposited sales-core for current total/SKU profit, ACOS, sales, and business trend when current-month economics matter.
 3. Use `selection-market-evidence` when demand, seasonality, competitor ASINs, keywords, or product fit matter.
 4. Use ad backend reads for current 3/7/30 day spend, orders, ACOS, impressions, clicks, budget, and live entity state.
-5. Use `sku-operating-review` to turn the evidence into route: main push, small-step verify, repair first, hold, or clearance/stop-loss.
-6. Use `ad-ops-action-closure` only after the route has a validated ad action and readback plan.
+5. Use `sku-operating-review` to turn the evidence into route and intensity. Routes should be growth push, controlled push, repair then push, profit-control, controlled clearance, stop-loss clearance, or evidence hold; do not use `small-step verify` as a route.
+6. If the route enters any ad action, first complete `D:\ad-ops-brain\playbooks\广告调整完整结构.md` with scope, problem scale, existing layers, missing/new layers, expected coverage, intensity, readback, and 3/7-day acceptance; then use `ad-ops-action-closure` only after the route has a validated ad action and readback plan. Write `覆盖不足` when the ad action does not cover the main SKU gap.
 
 ## Output Contract
 

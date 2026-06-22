@@ -12,6 +12,12 @@ const { persistDailyLearning } = require('../src/daily_learning');
 const { buildAgentLedger } = require('../src/agent_control_plane');
 const { buildProactiveOperatingAudit, renderProactiveOperatingAuditHtml } = require('../src/proactive_audit');
 const { buildAllSkuOperatingReview, renderAllSkuOperatingReviewHtml } = require('../src/sku_operating_review');
+const {
+  buildWatchlistDelta,
+  mergeWatchlistDeltaFile,
+  buildOldProductMaintenancePlan,
+  renderOldProductMaintenanceMarkdown,
+} = require('../src/old_product_maintenance');
 const { writeSeasonTitleReport } = require('./generate_season_title_dry_run');
 const { buildSeasonTitleActionSchema } = require('./generators/generate_season_title_action_schema');
 const { buildSeasonTitleListingApplications } = require('./generators/generate_season_title_listing_schema');
@@ -21,6 +27,10 @@ const { buildOverBudgetPlanItems } = require('../src/over_budget_to_actions');
 const { updateHistoryFromSnapshot, annotateCapSince } = require('../src/over_budget_history');
 const { scanLowEfficiencyCandidates, scanLowEfficiencyPools } = require('../src/low_efficiency_decision');
 const { normalizeMandatoryDailyClosure } = require('../src/daily_mandatory_closure');
+const {
+  buildPriceRaiseFollowup,
+  renderPriceRaiseFollowupMarkdown,
+} = require('../src/price_raise_followup');
 const { createStageRegistry, DORMANT_COMPONENTS, dormantComponent } = require('../src/pipeline/stage_registry');
 const { createRunContext } = require('../src/pipeline/run_context');
 const { runStage } = require('../src/pipeline/run_stage');
@@ -34,10 +44,17 @@ const {
   mergePlans,
 } = require('./generators/generate_proactive_audit_action_schema');
 const { exportSnapshot } = require('./execute/export_snapshot');
+const { classifyDailyDeposit, defaultOutFile: defaultDailyDepositStatusFile } = require('./execute/inspect_daily_deposit');
 const { run } = require('../auto_adjust');
 
 const ROOT = path.join(__dirname, '..');
 const SNAPSHOT_DATA_DIR = path.join(ROOT, 'data', 'snapshots');
+const GBRAIN_ROOT = path.join('D:', 'ad-ops-brain');
+const GBRAIN_STANDARD_DIR = path.join(GBRAIN_ROOT, 'playbooks');
+const LARGE_POST_RAISE_UNITS_1D = 3;
+const LARGE_POST_RAISE_UNITS_3D = 6;
+const LARGE_POST_RAISE_UNITS_7D = 10;
+const PRICE_RAISE_ABSORPTION_DAYS = 7;
 
 function parseArgs(argv) {
   const args = argv.slice(2);
@@ -241,6 +258,11 @@ function numberFromEnv(name, fallback) {
   const raw = process.env[name];
   if (raw === undefined || raw === '') return fallback;
   const n = Number(raw);
+  return Number.isFinite(n) ? n : fallback;
+}
+
+function toNumber(value, fallback = 0) {
+  const n = Number(String(value ?? '').replace(/,/g, '').trim());
   return Number.isFinite(n) ? n : fallback;
 }
 
@@ -706,6 +728,165 @@ function validateActionTerminology(validation = {}) {
   };
 }
 
+function dateOnly(value) {
+  const m = String(value || '').match(/\d{4}-\d{2}-\d{2}/);
+  return m ? m[0] : '';
+}
+
+function addDateDays(date, days) {
+  const clean = dateOnly(date);
+  if (!clean) return '';
+  const [year, month, day] = clean.split('-').map(Number);
+  const d = new Date(Date.UTC(year, month - 1, day + days));
+  return d.toISOString().slice(0, 10);
+}
+
+function daysBetweenDateStrings(fromDate, toDate) {
+  const from = dateOnly(fromDate);
+  const to = dateOnly(toDate);
+  if (!from || !to) return null;
+  const fromMs = Date.parse(`${from}T00:00:00.000Z`);
+  const toMs = Date.parse(`${to}T00:00:00.000Z`);
+  if (!Number.isFinite(fromMs) || !Number.isFinite(toMs)) return null;
+  return Math.floor((toMs - fromMs) / 86400000);
+}
+
+function maxNumberFromFields(source = {}, keys = []) {
+  let best = null;
+  for (const key of keys) {
+    if (!Object.prototype.hasOwnProperty.call(source || {}, key)) continue;
+    const value = toNumber(source[key], NaN);
+    if (!Number.isFinite(value)) continue;
+    best = best === null ? value : Math.max(best, value);
+  }
+  return best;
+}
+
+function postRaiseSalesEvidence(action = {}) {
+  const sources = [action, action.priceEffect || {}, action.postRaise || {}];
+  const read = keys => sources.reduce((best, source) => {
+    const value = maxNumberFromFields(source, keys);
+    if (value === null) return best;
+    return best === null ? value : Math.max(best, value);
+  }, null);
+  const units1d = read(['postPriceUnits1d', 'postPriceUnits_1d', 'postRaiseUnits1d', 'postRaiseUnits_1d', 'unitsAfterPriceRaise1d', 'afterPriceUnits1d', 'postPriceOrders1d', 'postRaiseOrders1d']);
+  const units3d = read(['postPriceUnits3d', 'postPriceUnits_3d', 'postRaiseUnits3d', 'postRaiseUnits_3d', 'unitsAfterPriceRaise3d', 'afterPriceUnits3d', 'postPriceOrders3d', 'postRaiseOrders3d']);
+  const units7d = read(['postPriceUnits7d', 'postPriceUnits_7d', 'postRaiseUnits7d', 'postRaiseUnits_7d', 'unitsAfterPriceRaise7d', 'afterPriceUnits7d', 'postPriceOrders7d', 'postRaiseOrders7d']);
+  return {
+    units1d,
+    units3d,
+    units7d,
+    large:
+      (units1d !== null && units1d >= LARGE_POST_RAISE_UNITS_1D) ||
+      (units3d !== null && units3d >= LARGE_POST_RAISE_UNITS_3D) ||
+      (units7d !== null && units7d >= LARGE_POST_RAISE_UNITS_7D),
+  };
+}
+
+function defaultGbrainRuleFiles() {
+  try {
+    return fs.readdirSync(GBRAIN_STANDARD_DIR)
+      .filter(name => name.endsWith('.md') && name.includes('提价') && name.includes('广告联动'))
+      .map(name => path.join(GBRAIN_STANDARD_DIR, name));
+  } catch (_) {
+    return [];
+  }
+}
+
+function addDays(date, offset) {
+  const parsed = Date.parse(`${date}T00:00:00Z`);
+  if (!Number.isFinite(parsed)) return '';
+  return new Date(parsed + offset * 86400000).toISOString().slice(0, 10);
+}
+
+function loadRecentAdjustmentRecords(businessDate, options = {}) {
+  const days = Number(options.days || PRICE_RAISE_ABSORPTION_DAYS);
+  const dir = options.dir || path.join(ROOT, 'data', 'adjustments');
+  const dates = Array.from({ length: days + 1 }, (_, index) => addDays(businessDate, index - days)).filter(Boolean);
+  return dates.flatMap(date => readJson(path.join(dir, `adjustments_${date}.json`), []));
+}
+
+function loadGbrainText(files = defaultGbrainRuleFiles()) {
+  return files
+    .map(file => {
+      try {
+        return { file, text: fs.readFileSync(file, 'utf8') };
+      } catch (_) {
+        return { file, text: '' };
+      }
+    });
+}
+
+function recentPriceRaiseForSku(records = [], sku, businessDate) {
+  const normalizedSku = String(sku || '').trim().toUpperCase();
+  return (records || [])
+    .filter(record => String(record?.sku || '').trim().toUpperCase() === normalizedSku)
+    .filter(record => String(record?.actionType || '') === 'price')
+    .filter(record => record?.dryRun !== true)
+    .filter(record => toNumber(record?.afterValue, NaN) > toNumber(record?.beforeValue, NaN) || String(record?.direction || '').toLowerCase() === 'up')
+    .filter(record => {
+      const recordDate = dateOnly(record.businessDate || record.localDate || record.runAt);
+      const age = daysBetweenDateStrings(recordDate, businessDate);
+      return age !== null && age >= 0 && age <= PRICE_RAISE_ABSORPTION_DAYS;
+    })
+    .sort((a, b) => String(b.runAt || b.businessDate || '').localeCompare(String(a.runAt || a.businessDate || '')))[0] || null;
+}
+
+function buildGbrainActionGuard(validation = {}, options = {}) {
+  const businessDate = dateOnly(options.businessDate || options.timeContext?.businessDate || '');
+  const loaded = options.gbrainText !== undefined
+    ? [{ file: options.gbrainFile || 'inline', text: String(options.gbrainText || '') }]
+    : loadGbrainText(options.gbrainFiles);
+  const combinedText = loaded.map(item => item.text).join('\n');
+  const rules = [];
+  if (/连续两天|连续第二天|连续.*提价|大量出单/.test(combinedText)) {
+    rules.push({
+      id: 'gbrain.price.no_consecutive_raise_without_large_post_raise_sales',
+      sourceFiles: loaded.filter(item => item.text).map(item => item.file),
+    });
+  }
+  const actions = (validation.plan || [])
+    .flatMap(item => (item.actions || []).map(action => ({ ...action, sku: action.sku || item.sku, asin: action.asin || item.asin })));
+  const failures = [];
+  for (const rule of rules) {
+    if (rule.id !== 'gbrain.price.no_consecutive_raise_without_large_post_raise_sales') continue;
+    for (const action of actions) {
+      if (action.actionType !== 'price') continue;
+      const current = toNumber(action.currentPrice ?? action.priceRaw ?? action.beforeValue, NaN);
+      const suggested = toNumber(action.suggestedPrice ?? action.priceApply ?? action.afterValue, NaN);
+      if (!(suggested > current)) continue;
+      const recent = recentPriceRaiseForSku(options.recentAdjustments || [], action.sku || action.id, businessDate);
+      const postRaise = postRaiseSalesEvidence(action);
+      if (!recent || postRaise.large) continue;
+      failures.push({
+        ruleId: rule.id,
+        sku: action.sku || action.id || '',
+        actionType: action.actionType,
+        entityType: action.entityType || '',
+        currentPrice: Number.isFinite(current) ? current : null,
+        suggestedPrice: Number.isFinite(suggested) ? suggested : null,
+        recentPriceRaiseBusinessDate: recent.businessDate || '',
+        recentPriceRaiseRunAt: recent.runAt || '',
+        recentPriceRaiseFrom: recent.beforeValue,
+        recentPriceRaiseTo: recent.afterValue,
+        priceRaiseAbsorptionDays: PRICE_RAISE_ABSORPTION_DAYS,
+        postRaiseUnits1d: postRaise.units1d,
+        postRaiseUnits3d: postRaise.units3d,
+        postRaiseUnits7d: postRaise.units7d,
+        sourceFiles: rule.sourceFiles,
+        reason: 'GBrain blocks price raises during the post-raise absorption period unless the raised price has explicit large post-raise sales evidence.',
+      });
+    }
+  }
+  return {
+    ok: failures.length === 0,
+    checkedActions: actions.length,
+    loadedFiles: loaded.map(item => ({ file: item.file, found: Boolean(item.text) })),
+    rules: rules.map(rule => rule.id),
+    failures,
+  };
+}
+
 function buildProductMap(snapshot = {}) {
   const map = new Map();
   for (const card of snapshot.productCards || []) {
@@ -809,6 +990,56 @@ function countSchemaActions(schema = []) {
     actions,
     executableActions,
     reviewActions: actions - executableActions,
+  };
+}
+
+function buildOldProductMaintenanceArtifacts(input = {}) {
+  const businessDate = String(input.businessDate || input.timeContext?.businessDate || today || '').slice(0, 10);
+  const dataDate = String(input.dataDate || input.timeContext?.dataDate || businessDate || '').slice(0, 10);
+  const taskDir = input.taskDir || path.join(ROOT, 'data', 'tasks');
+  const snapshotDir = input.snapshotDir || SNAPSHOT_DATA_DIR;
+  const files = {
+    oldProductMaintenanceJson: path.join(taskDir, `old_product_maintenance_${businessDate}.json`),
+    oldProductMaintenanceMarkdown: path.join(taskDir, `old_product_maintenance_${businessDate}.md`),
+    oldProductMarketEvidenceQueueJson: path.join(taskDir, `old_product_market_evidence_queue_${businessDate}.json`),
+    oldProductCandidateConfirmationJson: path.join(taskDir, `old_product_candidate_confirmation_${businessDate}.json`),
+    oldProductPendingConfirmationActionsJson: path.join(taskDir, `old_product_pending_confirmation_actions_${businessDate}.json`),
+    oldProductManualSuggestionQueueJson: path.join(taskDir, `old_product_manual_suggestion_queue_${businessDate}.json`),
+    oldProductWatchlistDeltaJson: path.join(taskDir, `old_product_watchlist_delta_${businessDate}.json`),
+    oldProductSkuWatchlistJson: input.skuWatchlistFile || path.join(taskDir, 'sku_watchlist.json'),
+    oldProductApprovedExecutionHandoffJson: path.join(taskDir, `old_product_approved_execution_handoff_${businessDate}.json`),
+    oldProductApprovedActionSchemaJson: path.join(snapshotDir, `action_schema_${businessDate}_old_product_approved.json`),
+  };
+  const plan = buildOldProductMaintenancePlan({
+    businessDate,
+    dataDate,
+    allSkuReview: input.allSkuReview || {},
+    approval: input.approval || {},
+    depositStatus: input.depositStatus || null,
+    effectResults: input.effectResults || [],
+    maxCandidates: input.maxCandidates || 20,
+    generatedAt: input.generatedAt || input.timeContext?.runAt,
+    approvedActionsOutFile: files.oldProductApprovedActionSchemaJson,
+    snapshotFile: input.snapshotFile || path.join(snapshotDir, 'latest_snapshot.json'),
+  });
+  writeJson(files.oldProductMaintenanceJson, plan);
+  writeTextFileWithRetry(files.oldProductMaintenanceMarkdown, renderOldProductMaintenanceMarkdown(plan));
+  writeJson(files.oldProductMarketEvidenceQueueJson, plan.marketEvidenceQueue || { summary: { total: 0 }, items: [] });
+  writeJson(files.oldProductCandidateConfirmationJson, plan.candidateConfirmationList || { summary: { total: 0 }, items: [] });
+  writeJson(files.oldProductPendingConfirmationActionsJson, plan.pendingConfirmationActions || { summary: { total: 0 }, items: [] });
+  writeJson(files.oldProductManualSuggestionQueueJson, plan.manualSuggestionQueue || { summary: { total: 0 }, items: [] });
+  const watchlistDelta = buildWatchlistDelta(plan);
+  writeJson(files.oldProductWatchlistDeltaJson, watchlistDelta);
+  const skuWatchlistMerge = mergeWatchlistDeltaFile(files.oldProductSkuWatchlistJson, watchlistDelta);
+  writeJson(files.oldProductApprovedExecutionHandoffJson, plan.approvedExecutionHandoff || { summary: { total: 0 }, items: [] });
+  writeJson(files.oldProductApprovedActionSchemaJson, plan.approvedActionSchema || []);
+  return {
+    plan,
+    files,
+    summary: {
+      ...plan.summary,
+      skuWatchlistMerge,
+    },
   };
 }
 
@@ -1062,6 +1293,8 @@ function buildRunSummary(manifest) {
       .map(stage => ({ stage: stage.stage, durationMs: stage.durationMs, attempted: stage.attempted || 0, success: stage.success || 0, failed: stage.failed || 0, skipped: stage.skipped || 0 })),
     outputFiles: manifest.outputFiles || {},
     allSkuOperatingReview: manifest.allSkuOperatingReview || null,
+    oldProductMaintenance: manifest.oldProductMaintenance || null,
+    oldProductMaintenanceDataPrerequisites: manifest.oldProductMaintenanceDataPrerequisites || null,
     overBudgetCapture: manifest.overBudgetCapture || {},
     overBudgetCoverage: manifest.overBudgetCoverage || null,
     warnings: manifest.warnings || [],
@@ -1075,6 +1308,7 @@ function buildRunSummary(manifest) {
     kpiRecoveryOverBudgetSchema: manifest.kpiRecoveryOverBudgetSchema || null,
     agentLedger: manifest.agentLedger || null,
     dailyLearning: manifest.dailyLearning || null,
+    priceRaiseFollowup: manifest.priceRaiseFollowup || null,
     dailyTaskBoard: manifest.dailyTaskBoard || null,
     taskCards: manifest.taskCards || null,
     aiDecisionBrief: manifest.aiDecisionBrief || null,
@@ -1310,6 +1544,7 @@ async function main() {
 
     let dailyTaskPool = null;
     let proactiveAudit = null;
+    let allSkuOperatingReview = null;
     let agentPlanActions = [];
     let externalInboxTasks = [];
     await runStep('daily_task_pool', async () => {
@@ -1387,6 +1622,7 @@ async function main() {
     async function runAllSkuOperatingReviewStage() {
       const taskDir = path.join(ROOT, 'data', 'tasks');
       const review = buildAllSkuOperatingReview({ snapshot, timeContext });
+      allSkuOperatingReview = review;
       review.snapshotFile = snapshotFile;
       const jsonFile = path.join(taskDir, `all_sku_operating_review_${timeContext.businessDate}.json`);
       const htmlFile = path.join(taskDir, `all_sku_operating_review_${timeContext.businessDate}.html`);
@@ -1398,6 +1634,7 @@ async function main() {
       return {
         outputs: { allSkuOperatingReviewJson: jsonFile, allSkuOperatingReviewHtml: htmlFile },
         details: review.summary,
+        review,
       };
     }
 
@@ -1441,6 +1678,63 @@ async function main() {
         details: {
           proactiveOperatingAudit: manifest.proactiveOperatingAudit,
           proactiveRecoveryActionSchema: manifest.proactiveRecoveryActionSchema,
+        },
+      };
+    });
+
+    await runStep('price_raise_followup', async () => {
+      const taskDir = path.join(ROOT, 'data', 'tasks');
+      const jsonFile = path.join(taskDir, `price_raise_followup_${timeContext.businessDate}.json`);
+      const mdFile = path.join(taskDir, `price_raise_followup_${timeContext.businessDate}.md`);
+      const report = buildPriceRaiseFollowup({
+        businessDate: timeContext.businessDate,
+        snapshot,
+        adjustments: loadRecentAdjustmentRecords(timeContext.businessDate),
+      });
+      writeJson(jsonFile, report);
+      writeTextFileWithRetry(mdFile, renderPriceRaiseFollowupMarkdown(report));
+      manifest.outputFiles.priceRaiseFollowupJson = jsonFile;
+      manifest.outputFiles.priceRaiseFollowupMarkdown = mdFile;
+      manifest.priceRaiseFollowup = report.summary;
+      return {
+        outputs: {
+          priceRaiseFollowupJson: jsonFile,
+          priceRaiseFollowupMarkdown: mdFile,
+        },
+        details: report.summary,
+      };
+    });
+
+    await runStep('old_product_maintenance', async () => {
+      let depositStatus = null;
+      try {
+        depositStatus = classifyDailyDeposit(timeContext.businessDate, { snapshotFile });
+        const statusFile = defaultDailyDepositStatusFile(depositStatus);
+        writeJson(statusFile, depositStatus);
+        manifest.outputFiles.dailyDepositStatusJson = statusFile;
+      } catch (error) {
+        depositStatus = {
+          date: timeContext.businessDate,
+          status: 'not_checked',
+          error: error.message,
+        };
+      }
+      const result = buildOldProductMaintenanceArtifacts({
+        businessDate: timeContext.businessDate,
+        dataDate: timeContext.dataDate,
+        generatedAt: timeContext.runAt,
+        allSkuReview: allSkuOperatingReview || readJson(manifest.outputFiles.allSkuOperatingReviewJson || '', {}),
+        depositStatus,
+        snapshotFile,
+      });
+      Object.assign(manifest.outputFiles, result.files);
+      manifest.oldProductMaintenance = result.summary;
+      manifest.oldProductMaintenanceDataPrerequisites = result.plan.dataPrerequisites;
+      return {
+        outputs: result.files,
+        details: {
+          summary: result.summary,
+          dataPrerequisites: result.plan.dataPrerequisites,
         },
       };
     });
@@ -1654,6 +1948,20 @@ async function main() {
         summary.errorCount += terminology.failures.length;
         summary.terminologyFailures = terminology.failures;
       }
+      const recentAdjustments = Array.from(
+        { length: PRICE_RAISE_ABSORPTION_DAYS + 1 },
+        (_, index) => addDateDays(timeContext.businessDate, index - PRICE_RAISE_ABSORPTION_DAYS)
+      )
+        .filter(Boolean)
+        .flatMap(date => readJson(path.join(ROOT, 'data', 'adjustments', `adjustments_${date}.json`), []));
+      const gbrainGuard = buildGbrainActionGuard(scoped, {
+        businessDate: timeContext.businessDate,
+        recentAdjustments,
+      });
+      if (!gbrainGuard.ok) {
+        summary.errorCount += gbrainGuard.failures.length;
+        summary.gbrainGuardFailures = gbrainGuard.failures;
+      }
       const executableActions = (loaded.plan || [])
         .flatMap(item => (item.actions || []).map(action => ({
           ...action,
@@ -1677,6 +1985,13 @@ async function main() {
         checkedActions: terminology.checkedActions,
         failures: terminology.failures,
       };
+      manifest.gbrainGuard = gbrainGuard;
+      if (!gbrainGuard.ok) {
+        manifest.warnings = [...(manifest.warnings || []), {
+          code: 'gbrain_action_guard_failed',
+          detail: `${gbrainGuard.failures.length} action(s) violate GBrain operating rules`,
+        }];
+      }
       manifest.overBudgetCoverage = overBudgetCoverage;
       if (overBudgetCoverage.warning) {
         manifest.warnings = [...(manifest.warnings || []), {
@@ -1926,8 +2241,10 @@ if (require.main === module) {
 module.exports = {
   buildActionQuality,
   buildFetchOptions,
+  buildGbrainActionGuard,
   buildKpiRecoveryOverBudgetSchema,
   buildOperatingClosure,
+  buildOldProductMaintenanceArtifacts,
   attachDefaultActionGoals,
   buildProductMap,
   buildProactiveRecoveryActionSchema,
@@ -1937,6 +2254,7 @@ module.exports = {
   buildSnapshotDataQuality,
   dailyTaskPoolToAgentTasks,
   getSnapshotStepPlan,
+  loadRecentAdjustmentRecords,
   mergeActionSchemas,
   parseArgs,
   summarizeKpiRecoveryOverBudgetSchema,

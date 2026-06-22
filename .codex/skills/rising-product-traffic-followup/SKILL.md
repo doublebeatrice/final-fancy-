@@ -31,6 +31,7 @@ Use these skills when their trigger conditions apply:
 ## Non-Negotiables
 
 - Do not jump straight to bid/budget changes. Explain why sales rose first.
+- Any ad action for growth, recovery, historical-winner reuse, new traffic, bid/budget change, or structure creation must first use `D:\ad-ops-brain\playbooks\广告调整完整结构.md` as the canonical entry standard. Include adjustment scope, problem scale, existing layers, missing/new layers, expected coverage, intensity, live readback, and 3/7-day acceptance; write `覆盖不足` when the action cannot cover the main sales/traffic gap.
 - Give the SKU list in an easy-copy format when the user needs to review multiple SKUs.
 - For every SKU selected for ad action, inspect all-time historical ad groups before deciding. Do not rely only on 30-day rows.
 - Prioritize historical converting search terms and historical converting ASINs before new traffic directions.

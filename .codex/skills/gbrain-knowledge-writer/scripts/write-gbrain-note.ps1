@@ -65,17 +65,17 @@ function Resolve-RelativePath {
   switch ($Type) {
     "sku" {
       if ($Sku) {
-        return "01-SKU当前结论\$Sku.md"
+        return "skus\$Sku.md"
       }
-      return "01-SKU当前结论\$slug.md"
+      return "skus\$slug.md"
     }
-    "decision" { return "02-决策记录\$Date-$slug.md" }
-    "effect-review" { return "03-复盘\效果复盘\$Date-$slug.md" }
-    "daily-review" { return "03-复盘\每日复盘\$Date-$slug.md" }
-    "weekly-review" { return "03-复盘\周复盘\$Date-$slug.md" }
-    "playbook" { return "04-标准打法\$slug.md" }
-    "resolver" { return "05-名称映射\$slug.md" }
-    "source-digest" { return "06-来源摘要\$Date-$slug.md" }
+    "decision" { return "decisions\$Date-$slug.md" }
+    "effect-review" { return "retrospectives\effect\$Date-$slug.md" }
+    "daily-review" { return "retrospectives\daily\$Date-$slug.md" }
+    "weekly-review" { return "retrospectives\weekly\$Date-$slug.md" }
+    "playbook" { return "playbooks\$slug.md" }
+    "resolver" { return "mappings\$slug.md" }
+    "source-digest" { return "sources\$Date-$slug.md" }
   }
 }
 

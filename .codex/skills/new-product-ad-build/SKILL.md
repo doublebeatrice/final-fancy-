@@ -18,6 +18,8 @@ Build new-product advertising from market evidence first, then owned controllabl
 
 Default project root: `D:\ad-ops-workbench`.
 
+Canonical entry: this skill is the new-product / base-architecture submodule of `D:\ad-ops-brain\playbooks\广告调整完整结构.md`. Before proposing or building ads, define the operating goal, adjustment scope, problem scale, SKU receiver capability, traffic assets, existing layers, missing/new layers, expected coverage, live readback, and 3/7-day acceptance. If the base build cannot cover the main gap, say `覆盖不足`.
+
 ## Compose With Existing Skills
 
 Use these skills when their trigger conditions apply:
@@ -79,6 +81,68 @@ Default base structure:
 
 For video: lookup exact ASIN-bound video assets and SBV pending rows. If a usable video exists, build SBV with the same validated keyword set as the SP broad keyword lane unless the operator specifies a narrower set. If video upload and SBV pending lookup are empty, record `do_not_create_sbv` or `video_asset_missing`; do not force a video campaign.
 
+### 4a. SBV Pre-Create Live Probe (REQUIRED)
+
+Before deciding `can_build_sbv` vs `do_not_create_sbv`, run these live reads in this order. Do not rely on GBrain conclusions older than 24h for the build/no-build call — they cover advertising state which moves daily.
+
+1. **Current ad performance** (decides whether SBV is worth building at all):
+   ```powershell
+   node scripts\execute\fetch_ad_sku_summary.js 4 7 <SKU>
+   node scripts\execute\fetch_ad_sku_summary.js 4 30 <SKU>
+   ```
+   Read `7_clicks/7_orders`, `30_clicks/30_orders`, `7_acos/30_acos`, `CTR`, `CPC`. SBV is justified when SP has broken zero orders but CTR is still weak (visual / video lift wanted), not when SP is at 0 clicks/0 orders (build that traffic first).
+
+2. **True brand ownership of the ASIN**:
+   ```js
+   POST /amazonAsset/getExternalAssetUrl  { type:"video", siteId, skuOrAsin:<ASIN>, accountId }
+   ```
+   Use `data.brandInfo.brandEntityId` and `data.brandRegistryName` as the authoritative brand for THIS ASIN. Do not trust `/sbProduct/getStore` — it returns the account's first registered brand and silently mismatches when the account holds multiple brands (HyDren vs Blueweenly on accountId 737 is the canonical example).
+
+3. **Video readiness, two layers**:
+   - Layer A — **Amazon Asset Library** (`amzn1.assetlibrary.asset1.xxxxxx`): this is what `/campaignSb/createCampaignBeta` accepts as `videoAssetIds`. Probe with the correct brand from step 2:
+     ```powershell
+     node scripts\execute\fetch_amazon_asset_list.js --accountId <ID> --siteId 4 --brandEntityId <ENTITY> --brandRegistryName <NAME> --limit 100
+     ```
+     Filter `normalizedAssets` where `associatedAsins` includes the target ASIN.
+   - Layer B — **Internal OSS source** (`oa.yswg.com.cn/database/...mp4`): returned by `data.assets[].url` from `getExternalAssetUrl`. This is the upload-side source. If Layer A is empty but Layer B has rows, the video exists internally but has not been synced to Amazon yet. Do not report `video_asset_missing` — report `video_pending_amazon_sync` and route to step 4b.
+
+   Decision matrix:
+
+   | Layer A | Layer B | Action |
+   |---|---|---|
+   | hit | (any) | use Layer A `assetId`, go to step 5 |
+   | empty | hit | `video_pending_amazon_sync` — go to step 4b |
+   | empty | empty | `video_asset_missing` — require operator to upload before building |
+
+### 4b. Internal OSS → Amazon Asset Library Sync
+
+When step 4a returns `video_pending_amazon_sync`, the source video must be promoted to Amazon Asset Library before SBV create can succeed.
+
+Current path (semi-automated):
+1. Operator opens the SBV creation page `https://adv.yswg.com.cn/vue/createSbAd?tabId=...` in the debug Chrome, picks the target ASIN, and selects the video in the picker. The page calls `/amazonAsset/uploadAsset` automatically to sync OSS → Amazon. Operator can stop after the picker confirms selection — no need to submit the campaign manually.
+2. Re-run `fetch_amazon_asset_list.js` with the correct brand. The newly synced asset appears as the newest row (status=ACTIVE, name often `<ASIN>.mp4`). Note: `associatedAsins` may be `[]` immediately after upload — that field lags, but the asset is usable.
+3. Pass the full `amzn1.assetlibrary.asset1.xxxxxx` via `--videoAssetIds` to `create_sbv.js` to bypass the automatic ASIN-match check.
+
+Fully automated path (not yet implemented): wrap `/amazonAsset/uploadAsset` in a script so step 1 doesn't need the UI. Track this as a separate skill enhancement.
+
+For video: lookup exact ASIN-bound video assets and SBV pending rows. If a usable video exists, build SBV with the same validated keyword set as the SP broad keyword lane unless the operator specifies a narrower set. If video upload and SBV pending lookup are empty, record `do_not_create_sbv` or `video_asset_missing`; do not force a video campaign.
+
+### 4c. SBV Keyword Set Sourcing (REQUIRED)
+
+Do not pick SBV keywords by guessing or by only echoing the SP broad lane. Every SBV keyword set must be assembled from these four evidence sources, then filtered against the GBrain block list:
+
+1. **SIF reverse keywords** for the target ASIN (`fetch_sif_reverse_keywords.js <ASIN> 4`). The `total.ratio` field shows what share of this ASIN's existing exposure each keyword contributes. The top 1-2 are always required.
+2. **Selection ABA search terms** for the product family root (`fetch_selection_aba_search_terms.js "<root>"`). Rank by `searchVolume` and `topAsins[0].clickShare` — prefer terms with high volume AND low top1 clickShare (a single ASIN is not eating the lane). Cross-check `priceAvg` against the product price band; reject when the market price band sits far below our SKU.
+3. **Selection keyword conversion** (`fetch_selection_keyword_conversion_rate.js "<root>"`). Read `cpcMedian`, `cpaMedian`, `acosMedian`, `costRisk` for each candidate. SBV bids typically run 20-40% under SP at the same placement, so subtract that headroom before deciding the launch bid.
+4. **Selection PTM** for the ASIN (`fetch_selection_product_time_machine.js <ASIN>`) to cross-check that proposed terms appear in this ASIN's recent traffic structure.
+
+GBrain block list to respect (current, see `skus/<sku>系列诊断` for the family-specific list):
+- Amazon sensitive-word terms (e.g., `world cup`, `world cup soccer ball`) — the create API will reject.
+- Family-blocked terms recorded in `skus` or `decisions` (e.g., the YUT soccer family blocks `soccer cup` / `soccer party favors` / `soccer souvenirs` / `soccer gifts` / `world party favors`).
+- Brand terms without licensing (e.g., `nike soccer ball`, `adidas soccer ball`, `messi soccer ball`).
+
+Output one row per keyword with its source(s) and reasoning before execution. A keyword without a named source is a red flag — replace it.
+
 ### 5. Prepare Operator-Checkable Output
 
 Before execution or handoff, show:
@@ -104,6 +168,18 @@ node scripts\execute\run_actions.js <schema.json> --snapshot data\snapshots\late
 node scripts\execute\run_actions.js <schema.json> --snapshot data\snapshots\latest_snapshot.json --execute --fast-scope
 ```
 
+For SBV specifically, use `create_sbv.js` and pass the resolved brand + Amazon-format videoAssetId explicitly to skip the auto-resolve fallbacks (which can mismatch on multi-brand accounts):
+
+```powershell
+node scripts\execute\create_sbv.js \
+  --sku <SKU> --asin <ASIN> --accountId <ID> --siteId 4 \
+  --brandEntityId <ENTITY_FROM_getExternalAssetUrl> --brandName <NAME> \
+  --videoAssetIds amzn1.assetlibrary.asset1.<hash> \
+  --budget <N> --bid <N> --matchType BROAD \
+  --keywords "<term1>,<term2>,<term3>,..."
+# add --execute after dry-run is clean
+```
+
 Use `forceExecute: true` only with a clear reason, such as operator-approved duplicate owned coverage because system-created ads do not count.
 
 ### 7. Verify Landing
@@ -125,6 +201,8 @@ node scripts\execute\audit_landed_action_conflicts.js --date <YYYY-MM-DD>
 ```
 
 If list visibility lags, report `created_pending_visibility` and schedule or perform a recheck instead of claiming full closure.
+
+For SBV in particular: campaign + ad group are visible within seconds via `/campaignSb/findAllNew` (filter by today's date sorted by `created_at desc`), but keyword rows commonly take 5-30 minutes to surface in `/keyword/findAllNew`. Report the campaign-level landing immediately with `keyword_rows_pending_visibility`, then recheck the keyword list before declaring full closure.
 
 ### 8. Report And Set Review Cadence
 

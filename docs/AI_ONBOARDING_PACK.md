@@ -43,7 +43,7 @@
 - Attribution 链路自动传递到：`adjustments_<date>.json` → `daily_learning_<date>` → 库存便签前缀 `[由 Claude 决策]` / `[由 Codex 决策]` / `[人工决策]`。
 - 已知坑：SP campaign enable 可能 API success 但仍 paused，记 `not_landed`，不进 manual review（自动化问题，不是人工问题）。
 
-## 3. 入口速查：npm scripts 全表（120 条，按家族）
+## 3. 入口速查：npm scripts 全表（129 条，按家族）
 
 ### 3.1 浏览器与会话（9）
 
@@ -149,7 +149,7 @@ WeCom（11）：`ops:wecom:gateway/digest/cleanup/vwork-probe/bridge-health/file
 
 `ops:runtime:report`（workflow 运行时报告）、`impact`（执行影响分析）、`test`（`scripts/maintenance/run_test_group.js all`，无 jest/mocha；test 框架是自研分组器）、`codex:conversations`（Codex 会话备份）。
 
-> **完整 120 条：用 `npm run` 列；按文件查 `node scripts/maintenance/package_scripts_catalog.js [--prefix ...] [--query ...]`。漂移自查：`npm run docs:onboarding-drift`。**
+> **完整 129 条：用 `npm run` 列；按文件查 `node scripts/maintenance/package_scripts_catalog.js [--prefix ...] [--query ...]`。漂移自查：`npm run docs:onboarding-drift`。**
 
 ## 4. .codex/skills 技能目录（15）
 
@@ -353,44 +353,125 @@ WeCom（11）：`ops:wecom:gateway/digest/cleanup/vwork-probe/bridge-health/file
 
 ## 10. GBrain 速查（`D:\ad-ops-brain`）
 
-### 10.1 Vault 顶层
+GBrain 是 `github.com/garrytan/gbrain` 的 PGLite + pgvector + ollama bge-m3 instance。它是**跨会话的长期业务记忆**，不是 live state。
+
+### 10.1 Vault 顶层（2026-06-22 重构为英文 MECE）
 
 ```
 D:\ad-ops-brain\
-├── 00-先看这里.md / 00-使用边界.md / 00-命名规则.md / 00-页面字段规范.md
-├── 01-SKU当前结论/   ← 单 SKU 当前运营结论（live state）
-├── 02-决策记录/       ← 日期化决策日志
-├── 03-复盘/           ← 复盘 / 效果复盘
-├── 04-标准打法/       ← 58 份规则 playbook（核心）
-├── 05-名称映射/       ← SKU/ASIN/campaign id 对应
-├── 06-来源摘要/       ← 证据摘要 / 引用索引
-├── 07-验收问题/       ← QA 题库
-├── 08-模板/           ← 模板
-├── 90-脚本/           ← run-gbrain.ps1 + start-gbrain-mcp/autopilot
-├── advertising/       ← 广告专区（非编号）
-└── .runtime/gbrain/   ← 自带 node_modules（express、cors、@jsquash/avif、heic-decode）的 GBrain Node 服务
+├── RESOLVER.md            ← master decision tree（去哪个目录、信不信、什么时候 live 验证）
+├── schema.md              ← page kinds、frontmatter、命名规则、链接规则
+├── index.md               ← directory map + 日常工作流
+├── log.md                 ← vault structural change log（append-only）
+├── skus/                  ← 单 SKU 当前结论（state）
+├── decisions/             ← 日期化决策日志
+├── retrospectives/        ← daily / effect / weekly 复盘
+├── playbooks/             ← 可复用经营规则（59 份）
+│   └── advertising/       ← 广告专项
+├── mappings/              ← SKU/ASIN/campaign id 对应
+├── sources/               ← 证据摘要 / 引用索引
+├── qa/                    ← 验收问题
+├── templates/             ← 新页模板
+├── 90-脚本/                ← run-gbrain.ps1 + autopilot 脚本
+└── .runtime/gbrain/       ← GBrain Node 服务（自带 node_modules）
 ```
 
-### 10.2 04-标准打法 高频 playbook
+每个目录有自己的 `README.md` resolver。任务不知道页面该去哪个目录时，先读 `RESOLVER.md` 的决策树，再看对应目录的 README。
+
+### 10.2 高频 playbooks（`playbooks/`，59 份）
 
 - **`广告调整完整结构.md`** —— 任何 ad action 的强制入口模板（goal/scope/scale/coverage/intensity/readback/3-7 天验收）
 - **`SKU缺流量全链路检查.md`、`SKU增长覆盖面合格线.md`、`SKU诊断路线与动作力度.md`、`SKU完整诊断结构.md`、`SKU问题覆盖面总框架.md`**
 - **`广告结构检查-system与owned边界.md`、`广告组分型规则.md`、`高效词放量.md`、`超预算闭环.md`、`广告恢复完整诊断结构.md`、`日常低效词闭环标准.md`、`新品广告架构.md`、`提价后的广告联动.md`**
-- **`产品列表查询保留原始筛选项.md`** —— sellerinventory `/pm/list` `/pm/formal/list` 默认 filter 保留规则（[[feedback_query_pm_list_keep_filters]]）
+- **`产品列表查询保留原始筛选项.md`** —— sellerinventory `/pm/list` `/pm/formal/list` 默认 filter 保留规则
 - **`每日数据沉淀完整性与库存恢复.md`、`每日数据沉淀HTML质量.md`** —— daily deposit 数据质量
 - **`Claude-Codex交叉验证与GBrain调用.md`** —— 跨 AI 协议
 - **`GBrain-PGLite-WASM初始化恢复.md`** —— GBrain 失效时**先读这个再回退裸文件搜**
 - 季节/库存救火/老品/listing 提交各有专章
 
-### 10.3 调用入口
+文件名是中文，目录前缀是英文：wiki 链接写 `[[playbooks/广告调整完整结构]]`。
+
+### 10.3 命令矩阵（按用途）
+
+**Read（按从轻到重）**：
 
 ```powershell
+# 关键词搜（tsvector，快，返回原始 chunk）—— 用于找一个具体引用或片段
 D:\ad-ops-brain\90-脚本\run-gbrain.ps1 search "<keyword>"
+
+# 混合搜（hybrid: vector + BM25 + RRF + intent rewriting）—— 用于"GBrain 怎么看 X"
+D:\ad-ops-brain\90-脚本\run-gbrain.ps1 query "<问题>"
+D:\ad-ops-brain\90-脚本\run-gbrain.ps1 ask "<问题>"   # alias for query
+
+# 健康检查（JSON）
 D:\ad-ops-brain\90-脚本\run-gbrain.ps1 doctor --json
+D:\ad-ops-brain\90-脚本\run-gbrain.ps1 doctor --fast  # 跳过慢检查
 ```
-- 失败时顺序：`doctor --json` → 看 PGLite/WASM → 读 `GBrain-PGLite-WASM初始化恢复.md` → 退回 `rg -n "<keyword>" D:\ad-ops-brain` 并标"raw GBrain file 证据"。
-- `doctor --json` 的 `sync_freshness=stale|failed` 时索引仍能用，但最新 markdown 改动可能没进，要加裸搜。
-- **绝对不要写**：原始 API 响应、cookie/token/JWT/CSRF、命令日志、未脱敏字段。
+
+**4 角度搜索协议**（任何业务任务开工前的最小搜索集，对 `query` 也适用）：
+1. 对象：SKU / ASIN / campaign / ad group / keyword / product line / seller
+2. 工作流：listing / advertising adjustment / daily deposit / developer request / selection / price / inventory / review
+3. 失败模式：not landed / readback / stale snapshot / default filter / blocked / no traffic / no clicks / conversion loss
+4. 系统路由：`adv` / `sellerinventory` / `selection` / `/pm/list` / `/pm/formal/list` / `/keyword/findAllNew`
+
+**Write（写回 vault）**：
+
+通过 Obsidian 直接编辑，或用 Claude/Codex 的 `gbrain-knowledge-writer` skill（强制中文 body、redact secrets、维护 `## GBrain 图谱链接`）。新页面要遵循 `schema.md` 的 frontmatter + 必填段。
+
+**Sync / Index / Embed（维护）**：
+
+```powershell
+# 增量 sync（git-to-brain；本地 vault 没有 origin，所以 sync 是 no-op）
+D:\ad-ops-brain\90-脚本\run-gbrain.ps1 sync --source default
+
+# 全量重导（renamed 大改动后用）
+D:\ad-ops-brain\90-脚本\run-gbrain.ps1 import D:\ad-ops-brain
+
+# 补抽 stale 链接/嵌入
+D:\ad-ops-brain\90-脚本\run-gbrain.ps1 extract --stale
+D:\ad-ops-brain\90-脚本\run-gbrain.ps1 embed --stale
+
+# 自我修复循环（USD 上限保护）
+D:\ad-ops-brain\90-脚本\run-gbrain.ps1 doctor --remediate --yes --target-score 90 --max-usd 5
+```
+
+**Admin / 运维**：
+
+```powershell
+D:\ad-ops-brain\90-脚本\run-gbrain.ps1 sources list           # 看注册的 source 和 page 数
+D:\ad-ops-brain\90-脚本\run-gbrain.ps1 stats                  # vault 统计
+D:\ad-ops-brain\90-脚本\run-gbrain.ps1 history <slug>         # 单页版本历史
+D:\ad-ops-brain\90-脚本\run-gbrain.ps1 autopilot --interval N # 后台自维护守护
+D:\ad-ops-brain\90-脚本\run-gbrain.ps1 upgrade                # 自更新（注意 runtime 有本地 customization 时会冲突）
+```
+
+### 10.4 失败回退
+
+| 症状 | 回退 |
+|---|---|
+| `sync_freshness=fail` / 7d ago | 仍可 query/search；**重要业务结论要并跑** `rg -n "<kw>" D:\ad-ops-brain` 并标"raw GBrain file 证据" |
+| PGLite/WASM 起不来 | 先读 `playbooks/GBrain-PGLite-WASM初始化恢复.md` |
+| `query` 命中明显不全 | `extract --stale` + `embed --stale` 后重试 |
+| 整个 vault 没反应 | doctor --fast 看 ops 类 check，必要时 `kill` 残留 serve 进程 |
+
+### 10.5 MCP 接入（推荐）
+
+把 GBrain 挂成 Claude Code / Codex 的 MCP 工具，会话内直接 tool-call 不用 shell：
+
+```bash
+claude mcp add gbrain -- gbrain serve
+# 或 Codex:
+codex mcp add gbrain -- gbrain serve
+```
+
+挂上后会话能直接调 `gbrain.search` / `gbrain.query` / 等 tool，回包是结构化的。
+
+### 10.6 写 vault 的红线
+
+- 不写 cookie / token / JWT / CSRF / Inventory-Token / 任何凭证
+- 不整包导入 `D:\ad-ops-workbench\data\` 原始大表
+- 只写摘要、判断、边界、复盘结果
+- 不发明指向不存在页的链接，写 `暂无` 或省略
 
 ## 11. 当前 WIP 主题（截至 2026-06-19）
 
@@ -403,7 +484,7 @@ D:\ad-ops-brain\90-脚本\run-gbrain.ps1 doctor --json
 
 2. **价格上调后的吸收期 GBrain 守卫**
    - 常量：`LARGE_POST_RAISE_UNITS_1D=3 / _3D=6 / _7D=10`、`PRICE_RAISE_ABSORPTION_DAYS=7`
-   - 新函数：`postRaiseSalesEvidence()`、`recentPriceRaiseForSku()`、`buildGbrainActionGuard()`（加载 `D:\ad-ops-brain\04-标准打法\*提价*广告联动*.md`）
+   - 新函数：`postRaiseSalesEvidence()`、`recentPriceRaiseForSku()`、`buildGbrainActionGuard()`（加载 `D:\ad-ops-brain\playbooks\*提价*广告联动*.md`）
    - 双写：`scripts/run_today_ops.js` + `scripts/execute/build_price_full_closure.js`（**两份硬编码可能漂移**）
    - 新模块：`src/price_raise_followup.js`，挂在 run_summary 的 `priceRaiseFollowup`
 
@@ -506,7 +587,7 @@ D:\ad-ops-brain\90-脚本\run-gbrain.ps1 doctor --json
    - 新一条 npm `ops:*` 命令 → 改 §3 对应小节
    - 新 capability adapter（`src/capabilities/adapters/`） → 改 §6.1
    - 新 write 路径或 verify 链 → 改 §8
-   - 新 GBrain 04-标准打法 高频 playbook → 改 §10.2
+   - 新 GBrain `playbooks/` 高频 playbook → 改 §10.2
 3. **当 WIP 主题闭环了**（§11 中的某条 commit landed 且 review 完毕） → 移除该条或合并
 4. **当出现新踩坑**（同样的错连犯两次，或 user feedback memory 写了新条）→ 加进 §13
 5. **当某 src/ 模块被删/改名/拆库** → 改 §6

@@ -158,6 +158,8 @@ The 2026-05-14 rule is mandatory: do not run daily operations as "first round / 
 
 Daily planning must include overbudget, high refund, high ACOS/no-order waste, low profit, old-product decline, and evidence-backed opportunity recovery. Overbudget rows must be classified as hard stop, budget shift, or watch-only. Refund pressure is a hard traffic gate. Repeat pushes on the same SKU/entity require recent-history review and new evidence.
 
+Any daily-planning item that becomes an ad adjustment, ad recovery, new ad build, bid/budget change, pause, negation, or traffic expansion must first use `D:\ad-ops-brain\playbooks\广告调整完整结构.md`. Daily deposit can surface candidates, but the action plan must state operating goal, adjustment scope, problem scale, existing layers, missing/new layers, expected coverage, intensity, live readback, and 3/7-day acceptance. Write `覆盖不足` when the action pool does not cover the main KPI/SKU gap.
+
 Daily planning must also include full SKU operating review. This is not a metric checklist: classify every eligible SKU by product identity, lifecycle/node stage, operating route, stage target, target status, evidence, action boundary, and follow-up. Produce or verify `data\tasks\all_sku_operating_review_<YYYY-MM-DD>.json/html` or an equivalent full-SKU review before calling the day complete. When the review produces a reusable lesson, write it under `data\learning\sku_lessons\` with the scope and conflict rules from `docs\SKU_LESSON_SYSTEM.md`. A single SKU or variant result must not be generalized to a whole parent group, product type, keyword family, or node without fresh supporting evidence.
 
 Daily planning must also run the proactive operating audit before claiming the loop is complete:

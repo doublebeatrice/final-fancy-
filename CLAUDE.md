@@ -42,7 +42,7 @@ D:\ad-ops-brain\90-脚本\run-gbrain.ps1 search "<keyword>"
 D:\ad-ops-brain\90-脚本\run-gbrain.ps1 doctor --json
 ```
 
-If GBrain search fails, run `doctor --json`; if PGLite or WASM initialization fails, read `D:\ad-ops-brain\04-标准打法\GBrain-PGLite-WASM初始化恢复.md` before falling back to raw file search.
+If GBrain search fails, run `doctor --json`; if PGLite or WASM initialization fails, read `D:\ad-ops-brain\playbooks\GBrain-PGLite-WASM初始化恢复.md` before falling back to raw file search.
 
 If `doctor --json` reports `sync_freshness` as stale or failed, indexed search may still work but may not include the newest Markdown changes. In that case, also run raw file search such as `rg -n "<keyword>" D:\ad-ops-brain` and label the result as raw GBrain file evidence.
 

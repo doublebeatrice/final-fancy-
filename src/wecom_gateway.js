@@ -227,7 +227,7 @@ function buildReviewDraft(event = {}, rawContent = '') {
     });
     return {
       suggestedReply: '先不要直接承诺已处理。建议按产品判断、当前证据、拟处理动作和下一复查点整理一段可转发回复。',
-      suggestedAction: '进入开发诉求轻闭环：查 GBrain -> 看产品/市场 -> 读取必要广告/库存/listing证据 -> 只列可逆动作建议，等待人工审核。',
+      suggestedAction: '进入开发诉求轻闭环：查 GBrain -> 看产品/市场 -> 读取必要广告/库存/listing证据；涉及广告时先按 D:\\ad-ops-brain\\playbooks\\广告调整完整结构.md 写清目标、范围、问题规模、现有/待新增投放层和覆盖缺口 -> 只列可逆动作建议，等待人工审核。',
       missingEvidence: task.evidenceRequirements || [],
       agentTask: task,
     };

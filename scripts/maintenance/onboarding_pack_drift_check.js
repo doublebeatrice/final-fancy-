@@ -11,7 +11,7 @@ const PACK = path.join(ROOT, 'docs', 'AI_ONBOARDING_PACK.md');
 // update these to match. The drift check exists precisely so silent reality
 // shifts get flagged.
 const EXPECTED = {
-  npmScripts: { value: 120, tolerance: 3, section: '§3' },
+  npmScripts: { value: 129, tolerance: 3, section: '§3' },
   codexSkills: { value: 15, tolerance: 0, section: '§4' },
   runAgentScripts: { value: 25, tolerance: 2, section: '§5.1' },
   runTopLevelScripts: { value: 52, tolerance: 4, section: '§5.1' },

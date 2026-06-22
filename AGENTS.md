@@ -33,7 +33,7 @@ After the task, write or update GBrain when the work produced durable business k
 
 When writing or updating GBrain, maintain a `## GBrain 图谱链接` section whenever the page has reliable relationships. Group links as `相关 SKU`, `相关决策`, and `相关打法 / 复盘教训`; add source digests or mappings when they are the durable evidence source. Link only existing canonical GBrain pages. If a target is not reliable, write `暂无` or omit that group instead of inventing links to reduce orphan count.
 
-When work produces an effect review, repeated mistake, failed assumption, or reusable operating lesson, write or update the relevant page under `03-复盘/效果复盘/` or `04-标准打法/`, then link it from the related SKU and decision pages.
+When work produces an effect review, repeated mistake, failed assumption, or reusable operating lesson, write or update the relevant page under `retrospectives/效果复盘/` or `playbooks/`, then link it from the related SKU and decision pages.
 
 Do not save raw API responses, full reports, cookies, tokens, secrets, or command logs into GBrain.
 
@@ -58,7 +58,7 @@ The default product-review chain is:
 
 Only move into bids, budgets, campaign changes, or traffic expansion after the product goal, market reason, and product ability to receive the traffic are clear.
 
-For any advertising adjustment, use `D:\ad-ops-brain\04-标准打法\广告调整完整结构.md` as the canonical entry standard before narrower playbooks. The output must define evidence boundary, SKU operating goal, adjustment scope, problem scale, receiver capability, traffic assets, ad structure, action direction, concrete action, intensity, live readback, and 3/7-day acceptance. Narrower pages such as `SKU缺流量全链路检查`, `SKU增长覆盖面合格线`, `广告结构检查-system与owned边界`, `高效词放量`, `超预算闭环`, and `广告恢复完整诊断结构` are submodules, not replacements for the canonical flow.
+For any advertising adjustment, use `D:\ad-ops-brain\playbooks\广告调整完整结构.md` as the canonical entry standard before narrower playbooks. The output must define evidence boundary, SKU operating goal, adjustment scope, problem scale, receiver capability, traffic assets, ad structure, action direction, concrete action, intensity, live readback, and 3/7-day acceptance. Narrower pages such as `SKU缺流量全链路检查`, `SKU增长覆盖面合格线`, `广告结构检查-system与owned边界`, `高效词放量`, `超预算闭环`, and `广告恢复完整诊断结构` are submodules, not replacements for the canonical flow.
 
 When the user asks about `覆盖面`, `覆盖度购买`, `购买覆盖`, `力度够不够`, `同比下滑`, `恢复下滑`, or `增长 push`, answer the coverage question before listing actions. First derive the target order gap, required click gap, current/action-covered click pool, and coverage ratio. If the planned or executed actions cover less than half of the main gap, explicitly write `覆盖不足`; do not call the plan sufficient, complete, closed-loop, or capable of reaching the target. Executed bid rows, dry runs, and live readbacks prove only action landing, not growth coverage sufficiency.
 

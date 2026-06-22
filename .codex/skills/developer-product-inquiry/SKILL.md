@@ -29,6 +29,8 @@ Treat every developer request as a product operating problem first, not an ad-pa
 
 硬规则：必须先做产品判断。不要只停留在广告层面，不能只写广告指标；广告数据只能作为产品判断后的证据和执行层说明。
 
+涉及广告调整、创建、恢复、放量、控投、加词、加 ASIN、否词或暂停时，必须先按 `D:\ad-ops-brain\playbooks\广告调整完整结构.md` 写清经营目标、调整范围、问题规模、SKU 承接、现有投放层、待新增/补建投放层、预计覆盖缺口、力度、执行读回和 3/7 天验收。开发诉求回复可以很短，但内部判断不能绕过这套结构；覆盖不了主要缺口时写 `覆盖不足`。
+
 Use `docs/PRODUCT_MARKET_EVIDENCE_STACK.md` as the default evidence stack when the request depends on demand, product fit, keyword expansion, traffic recovery, or whether a product can be pushed. Do not wait for the operator to explicitly ask for ABA or keyword conversion data. Build the profile from market demand, keyword economics, SKU ad proof, listing/price fit, inventory/economics, and recent action history.
 
 Before recommending or executing any ad, listing, price, inventory, or follow-up action, state:

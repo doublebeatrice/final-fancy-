@@ -81,6 +81,8 @@ Separate bad habits from market misjudgment:
 
 This skill produces candidates. Supported ad writes must go through `ad-ops-action-closure` with schema, dry-run, execution, and landed readback.
 
+Before turning candidates into bid/budget changes, negatives, manual promotion, ASIN targets, or new lanes, use `D:\ad-ops-brain\playbooks\广告调整完整结构.md` as the canonical entry standard. The resulting action must state scope, problem scale, existing layers, missing/new layers, expected coverage, intensity, readback, and 3/7-day acceptance; if candidates cover only a minor part of the SKU gap, write `覆盖不足`.
+
 Do not write negatives, bids, budgets, or new targets directly from this skill.
 
 ## Output Contract

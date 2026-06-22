@@ -18,6 +18,8 @@ Run product and market research from our own data stack instead of Sorftime. Use
 
 Default project root: `D:\ad-ops-workbench`.
 
+If research becomes an ad action, use `D:\ad-ops-brain\playbooks\广告调整完整结构.md` before `ad-ops-action-closure` or `new-product-ad-build`. Selection evidence can prove market direction, but it cannot replace operating goal, adjustment scope, problem scale, receiver capability, existing layers, missing/new layers, expected coverage, intensity, readback, or 3/7-day acceptance.
+
 ## Data Replacement Map
 
 Read `references/internal-data-map.md` when you need exact command mapping from Sorftime-style capabilities to our internal sources.
@@ -122,7 +124,7 @@ For a research answer, return:
 <research only / dry-run candidate / live-action handoff / repair first, with exact command or skill handoff>
 ```
 
-If a real ad action is justified, hand off to `ad-ops-action-closure` or `new-product-ad-build` for schema, dry-run, execution, and landed verification.
+If a real ad action is justified, first complete `D:\ad-ops-brain\playbooks\广告调整完整结构.md`, then hand off to `ad-ops-action-closure` or `new-product-ad-build` for schema, dry-run, execution, and landed verification. Write `覆盖不足` when the selected market lane cannot cover the main SKU/product gap.
 
 ## Red Lines
 
