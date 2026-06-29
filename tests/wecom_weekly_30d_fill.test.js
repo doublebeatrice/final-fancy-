@@ -6,6 +6,8 @@ const path = require('path');
 const {
   buildWecomWeekly30dFill,
   rowsToTsv,
+  selectRow,
+  assertOutputShape,
 } = require('../scripts/execute/generate_wecom_weekly_30d_fill');
 
 function writeJson(file, value) {
@@ -98,23 +100,24 @@ writeJson(successRateFile, {
     successRateFile,
   });
 
+  // 输出形态契约:比率/金额一律裸值(无 % 无逗号),与表格单元格存储一致。
   assert.strictEqual(result.rows[0].values.date, '5月25日');
   assert.strictEqual(result.rows[0].values.name, '黄成喆');
-  assert.strictEqual(result.rows[0].values.totalUnits, '16,372');
-  assert.strictEqual(result.rows[0].values.totalSales, '2,498,655.58');
-  assert.strictEqual(result.rows[0].values.totalGrossProfitRate, '34.47%');
-  assert.strictEqual(result.rows[0].values.totalNetProfitRate, '20.98%');
-  assert.strictEqual(result.rows[0].values.totalRefundRate, '5.41%');
-  assert.strictEqual(result.rows[0].values.totalAdCostShare, '9.91%');
+  assert.strictEqual(result.rows[0].values.totalUnits, '16372');
+  assert.strictEqual(result.rows[0].values.totalSales, '2498655.58');
+  assert.strictEqual(result.rows[0].values.totalGrossProfitRate, '0.3447');
+  assert.strictEqual(result.rows[0].values.totalNetProfitRate, '0.2098');
+  assert.strictEqual(result.rows[0].values.totalRefundRate, '0.0541');
+  assert.strictEqual(result.rows[0].values.totalAdCostShare, '0.0991');
   assert.strictEqual(result.rows[0].values.totalSp, '0.29');
   assert.strictEqual(result.rows[0].values.totalAt, '0.46');
-  assert.strictEqual(result.rows[0].values.totalAcos, '18.38%');
-  assert.strictEqual(result.rows[0].values.new0To3Sales, '141,251.83');
-  assert.strictEqual(result.rows[0].values.new0To5GrossProfitRate, '32.69%');
-  assert.strictEqual(result.rows[0].values.over3Sales, '2,357,403.75');
-  assert.strictEqual(result.rows[0].values.under1YearSales, '458,221.48');
-  assert.strictEqual(result.rows[0].values.oldOver1YearYoyGrowth, '-17.10%');
-  assert.strictEqual(result.rows[0].values.successRate30To60, '43.75%');
+  assert.strictEqual(result.rows[0].values.totalAcos, '0.1838');
+  assert.strictEqual(result.rows[0].values.new0To3Sales, '141251.83');
+  assert.strictEqual(result.rows[0].values.new0To5GrossProfitRate, '0.3269');
+  assert.strictEqual(result.rows[0].values.over3Sales, '2357403.75');
+  assert.strictEqual(result.rows[0].values.under1YearSales, '458221.48');
+  assert.strictEqual(result.rows[0].values.oldOver1YearYoyGrowth, '-0.171');
+  assert.strictEqual(result.rows[0].values.successRate30To60, '0.4375');
   assert.ok(result.warnings[0].includes('exported at 2026-05-27'));
 }
 
@@ -127,16 +130,19 @@ writeJson(successRateFile, {
     valuesOnly: true,
   });
 
-  assert.ok(result.tsv.startsWith('16,372\t2,498,655.58\t34.47%\t20.98%\t5.41%'));
-  assert.ok(result.tsv.endsWith('\t43.75%'));
+  assert.ok(result.tsv.startsWith('16372\t2498655.58\t0.3447\t0.2098\t0.0541'));
+  assert.ok(result.tsv.endsWith('\t0.4375'));
   const cells = result.tsv.split('\t');
   assert.strictEqual(cells.length, 54);
-  assert.strictEqual(cells[13], '141,251.83');
-  assert.strictEqual(cells[19], '249,002.27');
-  assert.strictEqual(cells[20], '32.69%');
-  assert.strictEqual(cells[34], '458,221.48');
-  assert.strictEqual(cells[35], '34.12%');
-  assert.strictEqual(cells[43], '2,040,434.10');
+  assert.strictEqual(cells[13], '141251.83');
+  assert.strictEqual(cells[19], '249002.27');
+  assert.strictEqual(cells[20], '0.3269');
+  assert.strictEqual(cells[34], '458221.48');
+  assert.strictEqual(cells[35], '0.3412');
+  assert.strictEqual(cells[43], '2040434.10');
+  // 全行不得出现 % 或千分位逗号
+  assert.ok(!result.tsv.includes('%'), 'TSV 不应含百分号');
+  assert.ok(!/\d,\d/.test(result.tsv), 'TSV 不应含千分位逗号');
 }
 
 {
@@ -153,6 +159,66 @@ writeJson(successRateFile, {
   assert.strictEqual(result.rows[1].values.name, 'HJ1小组均值');
   assert.strictEqual(result.rows[0].values.successRate30To60, '');
   assert.ok(rowsToTsv(result.rows, { withHeader: true }).startsWith('日期\t姓名'));
+}
+
+{
+  const only7dRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'wecom-weekly-30d-fill-only7d-'));
+  const only7dRawDir = path.join(only7dRoot, '5-25');
+  writeJson(path.join(only7dRawDir, 'seller_sales_core_7d_2026-05-25.json'), {
+    date: '2026-05-25',
+    days: 7,
+    rows: [{ seller_title: 'total', sale_num: '7' }],
+  });
+  const result = buildWecomWeekly30dFill({
+    date: '2026-05-25',
+    rawDir: only7dRawDir,
+  });
+
+  assert.ok(result.missing.includes('seller_sales_core_30d'));
+  assert.strictEqual(result.files.salesCore, '');
+  assert.strictEqual(result.rows[0].values.totalUnits, '');
+}
+
+// ---- 负向用例:证明坏数据会被拦在粘贴之前,而不是靠人眼发现 ----
+
+// 负向1:比率值混进百分号 → 形态校验报错
+assert.throws(
+  () => assertOutputShape({ totalGrossProfitRate: '34.47%' }),
+  /形态不合法.*百分号/,
+  '带%的比率应被拦下'
+);
+
+// 负向2:金额混进千分位逗号 → 形态校验报错
+assert.throws(
+  () => assertOutputShape({ totalSales: '2,498,655.58' }),
+  /形态不合法.*逗号/,
+  '带逗号的金额应被拦下'
+);
+
+// 负向3:后台返回里没有目标汇总行 → selectRow 报错(数据源结构变了)
+assert.throws(
+  () => selectRow([{ seller_title: '别的组', order_sales: '1' }], 'selected'),
+  /选不到目标行/,
+  '找不到所选编号汇总应报错'
+);
+
+// 负向4:同名汇总行多行但关键字段打架 → 报错,不闷头取第一行
+assert.throws(
+  () => selectRow([
+    { seller_title: '所选编号汇总', order_sales: '100', sale_num: '1' },
+    { seller_title: '所选编号汇总', order_sales: '999', sale_num: '1' },
+  ], 'selected'),
+  /不一致/,
+  '多个汇总行数值打架应报错'
+);
+
+// 正向兜底:同名多行但完全一致 → 取第一行,不报错
+{
+  const picked = selectRow([
+    { seller_title: '所选编号汇总', order_sales: '100', sale_num: '5' },
+    { seller_title: '所选编号汇总', order_sales: '100', sale_num: '5' },
+  ], 'selected');
+  assert.strictEqual(picked.order_sales, '100');
 }
 
 console.log('wecom_weekly_30d_fill tests passed');

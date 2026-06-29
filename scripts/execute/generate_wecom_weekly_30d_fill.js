@@ -5,64 +5,77 @@ const { archiveDateDir, parseCsv } = require('./quick_daily_core_summary');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 
+// fmt 是该列的输出形态契约,供 assertOutputShape 校验(防止 % / 逗号 / 错位静默漏出):
+//   pct=裸小数比率(无%)  money=两位小数金额(无逗号)  int=整数(无逗号)
+//   metric=裸小数(SP/AT/CPC/CPS/ROAS)  text=文本(日期/姓名)
 const COPY_COLUMNS = [
-  { key: 'date', label: '日期' },
-  { key: 'name', label: '姓名' },
-  { key: 'totalUnits', label: '销售数量' },
-  { key: 'totalSales', label: '销售额' },
-  { key: 'totalGrossProfitRate', label: '毛利率' },
-  { key: 'totalNetProfitRate', label: '参考净利' },
-  { key: 'totalRefundRate', label: '退款率' },
-  { key: 'totalAdSpend', label: '广告花费' },
-  { key: 'totalAdCostShare', label: '所有产品-广告占比' },
-  { key: 'totalSp', label: '所有产品-SP' },
-  { key: 'totalAt', label: '所有产品-AT' },
-  { key: 'totalAcos', label: '所有产品-ACOS' },
-  { key: 'totalCpc', label: '所有产品-CPC' },
-  { key: 'totalCps', label: '所有产品-CPS' },
-  { key: 'totalRoas', label: '所有产品-ROAS' },
-  { key: 'new0To3Sales', label: '开售0-3个月-销售额' },
-  { key: 'new0To3GrossProfitRate', label: '开售0-3个月-毛利率' },
-  { key: 'new0To3NetProfitRate', label: '开售0-3个月-参考净利' },
-  { key: 'new0To3AdCostShare', label: '开售0-3个月-广告占比' },
-  { key: 'new0To3Sp', label: '开售0-3个月-SP' },
-  { key: 'new0To3Acos', label: '开售0-3个月-ACOS' },
-  { key: 'new0To5Sales', label: '开售0-5个月-销售额' },
-  { key: 'new0To5GrossProfitRate', label: '开售0-5个月-毛利率' },
-  { key: 'new0To5NetProfitRate', label: '开售0-5个月-参考净利' },
-  { key: 'new0To5AdCostShare', label: '开售0-5个月-广告占比' },
-  { key: 'new0To5Sp', label: '开售0-5个月-SP' },
-  { key: 'new0To5Acos', label: '开售0-5个月-ACOS' },
-  { key: 'new0To5At', label: '开售0-5个月-AT' },
-  { key: 'new0To5Cpc', label: '开售0-5个月-CPC' },
-  { key: 'new0To5Cps', label: '开售0-5个月-CPS' },
-  { key: 'over3Sales', label: '开售3个月以上-销售额' },
-  { key: 'over3GrossProfitRate', label: '开售3个月以上-毛利率' },
-  { key: 'over3NetProfitRate', label: '开售3个月以上-参考净利' },
-  { key: 'over3AdCostShare', label: '开售3个月以上-广告占比' },
-  { key: 'over3Sp', label: '开售3个月以上-SP' },
-  { key: 'over3Acos', label: '开售3个月以上-ACOS' },
-  { key: 'under1YearSales', label: '开售一年以内-销售额' },
-  { key: 'under1YearGrossProfitRate', label: '开售一年以内-毛利率' },
-  { key: 'under1YearNetProfitRate', label: '开售一年以内-参考净利' },
-  { key: 'under1YearAdCostShare', label: '开售一年以内-广告占比' },
-  { key: 'under1YearSp', label: '开售一年以内-SP' },
-  { key: 'under1YearAcos', label: '开售一年以内-ACOS' },
-  { key: 'under1YearAt', label: '开售一年以内-AT' },
-  { key: 'under1YearCpc', label: '开售一年以内-CPC' },
-  { key: 'under1YearCps', label: '开售一年以内-CPS' },
-  { key: 'oldOver1YearSales', label: '开售一年以上老品-销售额' },
-  { key: 'oldOver1YearGrossProfitRate', label: '开售一年以上老品-毛利率' },
-  { key: 'oldOver1YearNetProfitRate', label: '开售一年以上老品-参考净利' },
-  { key: 'oldOver1YearYoyGrowth', label: '老品同比增长' },
-  { key: 'oldOver1YearAdCostShare', label: '开售一年以上老品-广告占比' },
-  { key: 'oldOver1YearSp', label: '开售一年以上老品-SP' },
-  { key: 'oldOver1YearAcos', label: '开售一年以上老品-ACOS' },
-  { key: 'oldOver1YearAt', label: '开售一年以上老品-AT' },
-  { key: 'oldOver1YearCpc', label: '开售一年以上老品-CPC' },
-  { key: 'oldOver1YearCps', label: '开售一年以上老品-CPS' },
-  { key: 'successRate30To60', label: '30-60天-成功率' },
+  { key: 'date', label: '日期', fmt: 'text' },
+  { key: 'name', label: '姓名', fmt: 'text' },
+  { key: 'totalUnits', label: '销售数量', fmt: 'int' },
+  { key: 'totalSales', label: '销售额', fmt: 'money' },
+  { key: 'totalGrossProfitRate', label: '毛利率', fmt: 'pct' },
+  { key: 'totalNetProfitRate', label: '参考净利', fmt: 'pct' },
+  { key: 'totalRefundRate', label: '退款率', fmt: 'pct' },
+  { key: 'totalAdSpend', label: '广告花费', fmt: 'money' },
+  { key: 'totalAdCostShare', label: '所有产品-广告占比', fmt: 'pct' },
+  { key: 'totalSp', label: '所有产品-SP', fmt: 'metric' },
+  { key: 'totalAt', label: '所有产品-AT', fmt: 'metric' },
+  { key: 'totalAcos', label: '所有产品-ACOS', fmt: 'pct' },
+  { key: 'totalCpc', label: '所有产品-CPC', fmt: 'metric' },
+  { key: 'totalCps', label: '所有产品-CPS', fmt: 'metric' },
+  { key: 'totalRoas', label: '所有产品-ROAS', fmt: 'metric' },
+  { key: 'new0To3Sales', label: '开售0-3个月-销售额', fmt: 'money' },
+  { key: 'new0To3GrossProfitRate', label: '开售0-3个月-毛利率', fmt: 'pct' },
+  { key: 'new0To3NetProfitRate', label: '开售0-3个月-参考净利', fmt: 'pct' },
+  { key: 'new0To3AdCostShare', label: '开售0-3个月-广告占比', fmt: 'pct' },
+  { key: 'new0To3Sp', label: '开售0-3个月-SP', fmt: 'metric' },
+  { key: 'new0To3Acos', label: '开售0-3个月-ACOS', fmt: 'pct' },
+  { key: 'new0To5Sales', label: '开售0-5个月-销售额', fmt: 'money' },
+  { key: 'new0To5GrossProfitRate', label: '开售0-5个月-毛利率', fmt: 'pct' },
+  { key: 'new0To5NetProfitRate', label: '开售0-5个月-参考净利', fmt: 'pct' },
+  { key: 'new0To5AdCostShare', label: '开售0-5个月-广告占比', fmt: 'pct' },
+  { key: 'new0To5Sp', label: '开售0-5个月-SP', fmt: 'metric' },
+  { key: 'new0To5Acos', label: '开售0-5个月-ACOS', fmt: 'pct' },
+  { key: 'new0To5At', label: '开售0-5个月-AT', fmt: 'metric' },
+  { key: 'new0To5Cpc', label: '开售0-5个月-CPC', fmt: 'metric' },
+  { key: 'new0To5Cps', label: '开售0-5个月-CPS', fmt: 'metric' },
+  { key: 'over3Sales', label: '开售3个月以上-销售额', fmt: 'money' },
+  { key: 'over3GrossProfitRate', label: '开售3个月以上-毛利率', fmt: 'pct' },
+  { key: 'over3NetProfitRate', label: '开售3个月以上-参考净利', fmt: 'pct' },
+  { key: 'over3AdCostShare', label: '开售3个月以上-广告占比', fmt: 'pct' },
+  { key: 'over3Sp', label: '开售3个月以上-SP', fmt: 'metric' },
+  { key: 'over3Acos', label: '开售3个月以上-ACOS', fmt: 'pct' },
+  { key: 'under1YearSales', label: '开售一年以内-销售额', fmt: 'money' },
+  { key: 'under1YearGrossProfitRate', label: '开售一年以内-毛利率', fmt: 'pct' },
+  { key: 'under1YearNetProfitRate', label: '开售一年以内-参考净利', fmt: 'pct' },
+  { key: 'under1YearAdCostShare', label: '开售一年以内-广告占比', fmt: 'pct' },
+  { key: 'under1YearSp', label: '开售一年以内-SP', fmt: 'metric' },
+  { key: 'under1YearAcos', label: '开售一年以内-ACOS', fmt: 'pct' },
+  { key: 'under1YearAt', label: '开售一年以内-AT', fmt: 'metric' },
+  { key: 'under1YearCpc', label: '开售一年以内-CPC', fmt: 'metric' },
+  { key: 'under1YearCps', label: '开售一年以内-CPS', fmt: 'metric' },
+  { key: 'oldOver1YearSales', label: '开售一年以上老品-销售额', fmt: 'money' },
+  { key: 'oldOver1YearGrossProfitRate', label: '开售一年以上老品-毛利率', fmt: 'pct' },
+  { key: 'oldOver1YearNetProfitRate', label: '开售一年以上老品-参考净利', fmt: 'pct' },
+  { key: 'oldOver1YearYoyGrowth', label: '老品同比增长', fmt: 'pct' },
+  { key: 'oldOver1YearAdCostShare', label: '开售一年以上老品-广告占比', fmt: 'pct' },
+  { key: 'oldOver1YearSp', label: '开售一年以上老品-SP', fmt: 'metric' },
+  { key: 'oldOver1YearAcos', label: '开售一年以上老品-ACOS', fmt: 'pct' },
+  { key: 'oldOver1YearAt', label: '开售一年以上老品-AT', fmt: 'metric' },
+  { key: 'oldOver1YearCpc', label: '开售一年以上老品-CPC', fmt: 'metric' },
+  { key: 'oldOver1YearCps', label: '开售一年以上老品-CPS', fmt: 'metric' },
+  { key: 'successRate30To60', label: '30-60天-成功率', fmt: 'pct' },
 ];
+
+// 每种 fmt 的合法形态(空串永远合法:表示该段该月无数据)。
+// 关键作用:裸小数比率混进 "33.76%"、金额混进逗号,都会被这里挡下。
+const FMT_PATTERN = {
+  pct: /^-?\d+(\.\d+)?$/,        // 0.3376 / -0.2626,绝不能带 %
+  money: /^-?\d+\.\d{2}$/,       // 1932447.79,绝不能带逗号
+  int: /^-?\d+$/,                // 12755,绝不能带逗号
+  metric: /^-?\d+(\.\d+)?$/,     // 0.27 / 2.42 裸小数
+  text: /.*/,                    // 日期/姓名不校验形态
+};
 
 const ROW_PRESETS = {
   selected: { label: '黄成喆', selector: 'selected' },
@@ -111,6 +124,7 @@ function parseArgs(argv = process.argv.slice(2)) {
     person: text(options.person || options.name || ''),
     dateFormat: text(options['date-format'] || options.dateFormat || 'zh'),
     valuesOnly: !!(options['values-only'] || options.valuesOnly),
+    noDate: !!(options['no-date'] || options.noDate),
     withHeader: !!(options.header || options.headers || options['with-header']),
     json: !!options.json,
   };
@@ -151,14 +165,7 @@ function findSalesCoreFile(date, rawDir) {
   const exactCsv = files
     .filter(file => new RegExp(`^seller_sales_core_30d_${date}\\.csv$`, 'i').test(path.basename(file)))
     .sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)[0];
-  if (exactCsv) return exactCsv;
-  const fallbackJson = files
-    .filter(file => new RegExp(`^seller_sales_core_\\d+d_${date}\\.json$`, 'i').test(path.basename(file)))
-    .sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)[0];
-  if (fallbackJson) return fallbackJson;
-  return files
-    .filter(file => new RegExp(`^seller_sales_core_\\d+d_${date}\\.csv$`, 'i').test(path.basename(file)))
-    .sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)[0] || '';
+  return exactCsv || '';
 }
 
 function findSuccessRateFile(date, rawDir) {
@@ -196,25 +203,25 @@ function num(value, fallback = null) {
 
 function formatPct(value) {
   const n = num(value);
-  return n === null ? '' : `${(n * 100).toFixed(2)}%`;
+  if (n === null) return '';
+  return n.toFixed(4).replace(/0+$/, '').replace(/\.$/, '');
 }
 
 function formatMoney(value) {
   const n = num(value);
-  return n === null
-    ? ''
-    : n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  if (n === null) return '';
+  return n.toFixed(2);
 }
 
 function formatInt(value) {
   const n = num(value);
-  return n === null ? '' : Math.round(n).toLocaleString('en-US');
+  return n === null ? '' : String(Math.round(n));
 }
 
 function formatMetric(value, digits = 2) {
   const n = num(value);
   if (n === null) return '';
-  return n.toFixed(digits).replace(/\.?0+$/, '');
+  return n.toFixed(digits).replace(/0+$/, '').replace(/\.$/, '');
 }
 
 function formatDate(date, format = 'zh') {
@@ -227,19 +234,50 @@ function rowTitle(row = {}) {
   return text(row.seller_title || row.title || row.sellerTitle);
 }
 
+// 口径已与运营确认(2026-06-29):30天表"黄成喆"行 = "所选编号汇总"
+// 即本号HJ17 + 唐婷合作号HJ171 + 宋守东合作号HJ172 三个号合计,不是个人HJ17。
+// 选行按标题精确匹配,不再用 rows[2] 位置兜底(行序一变会静默选错)。
+// 后台数据会把同一汇总块重复多次,因此允许多行命中但断言它们关键字段一致,取第一行。
+const ROW_SELECTORS = {
+  selected: { title: '所选编号汇总', label: '黄成喆(三号合计)' },
+  hjGroup: { title: 'HJ大组', label: 'HJ大组' },
+  hj1Group: { title: 'HJ1小组', label: 'HJ1小组' },
+};
+
+const ROW_CONSISTENCY_KEYS = [
+  'order_sales', 'sale_num', 'gross_profit', 'net_profit', 'advCost', 'ACOS',
+  'order_sales_in_5_month', 'order_sales_over_1_year', 'qty_yoy_over_1_year',
+];
+
 function selectRow(rows = [], selector = 'selected') {
-  if (selector === 'selected') {
-    return rows.find(row => /所选|汇总|total/i.test(rowTitle(row))) || rows[2] || {};
+  const spec = ROW_SELECTORS[selector] || ROW_SELECTORS.selected;
+  const matches = rows.filter(row => rowTitle(row) === spec.title);
+  if (!matches.length) {
+    throw new Error(
+      `选不到目标行 "${spec.title}"(${selector})。后台返回的行标题里没有它,` +
+      `可能数据源结构变了或拉错了。命中标题样例: ${[...new Set(rows.map(rowTitle).filter(Boolean))].slice(0, 8).join(' / ')}`
+    );
   }
-  if (selector === 'hjGroup') return rows.find(row => rowTitle(row) === 'HJ大组') || rows[0] || {};
-  if (selector === 'hj1Group') return rows.find(row => rowTitle(row) === 'HJ1小组') || rows[1] || {};
-  return {};
+  // 多行命中时断言关键字段一致,避免不同块数值打架却闷头取第一行
+  const first = matches[0];
+  for (let i = 1; i < matches.length; i += 1) {
+    const diff = ROW_CONSISTENCY_KEYS.find(k => String(matches[i][k]) !== String(first[k]));
+    if (diff) {
+      throw new Error(
+        `"${spec.title}" 命中 ${matches.length} 行,但字段 "${diff}" 不一致` +
+        `(${String(first[diff])} vs ${String(matches[i][diff])})。无法确定取哪一行,停下来人工核对。`
+      );
+    }
+  }
+  return first;
 }
 
 function successPercent(successRate = null) {
+  // 30天表成功率列与同行其它比率一致,输出裸小数(0.7143),不带 %。
+  // 历史表格 col54 存的就是裸小数(如 0.1667),带 % 粘进去会被当成 7143%。
   if (!successRate) return '';
-  if (successRate.successRatePercent) return successRate.successRatePercent;
-  return formatPct(successRate.successRate);
+  if (typeof successRate.successRate === 'number') return formatPct(successRate.successRate);
+  return formatPct(successRate.successRatePercent);
 }
 
 function normalizeRowsOption(rowsText) {
@@ -316,6 +354,33 @@ function exportedDate(payload = {}) {
   return /^\d{4}-\d{2}-\d{2}/.test(raw) ? raw.slice(0, 10) : '';
 }
 
+// 出表前的形态校验:把"靠人眼盯56列"搬进代码。
+// 每个值要么是空串(该段该月无数据,合法),要么匹配该列 fmt 的形态。
+// 专挡今天反复栽的两类:比率混进 "33.76%"、金额混进千分位逗号。
+function assertOutputShape(values, rowKey = 'selected') {
+  const violations = [];
+  for (const column of COPY_COLUMNS) {
+    const fmt = column.fmt || 'text';
+    if (fmt === 'text') continue;
+    const raw = values[column.key];
+    const value = raw === null || raw === undefined ? '' : String(raw);
+    if (value === '') continue; // 空=该段无数据,合法
+    const pattern = FMT_PATTERN[fmt];
+    if (pattern && !pattern.test(value)) {
+      let hint = '';
+      if (value.includes('%')) hint = '(带了百分号,应为裸小数)';
+      else if (value.includes(',')) hint = '(带了千分位逗号,应为纯数字)';
+      violations.push(`列"${column.label}"[${fmt}] 值="${value}" 形态不合法${hint}`);
+    }
+  }
+  if (violations.length) {
+    throw new Error(
+      `填表输出形态校验未通过(${rowKey},共${violations.length}处),已拦截,不会吐出错位/错格式的行:\n  ` +
+      violations.join('\n  ')
+    );
+  }
+}
+
 function buildWecomWeekly30dFill(options = {}) {
   const date = options.date || chinaDate();
   assertDate(date);
@@ -325,21 +390,20 @@ function buildWecomWeekly30dFill(options = {}) {
   const successRateFile = options.successRateFile || findSuccessRateFile(date, rawDir);
   const successRate = readJson(successRateFile, null);
   const rowKeys = normalizeRowsOption(options.rows || 'selected');
+  // 缺数据文件 = 优雅 missing(返回空值行);有数据但找不到目标行 = selectRow 抛错(数据源结构变了)。
+  const hasData = rows.length > 0;
   const outputRows = rowKeys.map(key => {
     const preset = ROW_PRESETS[key] || ROW_PRESETS.selected;
     const name = key === 'selected' && options.person ? options.person : preset.label;
-    const sourceRow = selectRow(rows, preset.selector);
-    return {
+    const sourceRow = hasData ? selectRow(rows, preset.selector) : {};
+    const values = buildValues(sourceRow, {
       date,
-      key,
-      sourceTitle: rowTitle(sourceRow),
-      values: buildValues(sourceRow, {
-        date,
-        dateFormat: options.dateFormat || 'zh',
-        name,
-        successRate: key === 'selected' ? successRate : null,
-      }),
-    };
+      dateFormat: options.dateFormat || 'zh',
+      name,
+      successRate: key === 'selected' ? successRate : null,
+    });
+    assertOutputShape(values, key);
+    return { date, key, sourceTitle: rowTitle(sourceRow), values };
   });
   const missing = [];
   if (!salesCoreFile || !rows.length) missing.push('seller_sales_core_30d');
@@ -361,8 +425,9 @@ function buildWecomWeekly30dFill(options = {}) {
 }
 
 function columnsFor(options = {}) {
-  if (!options.valuesOnly) return COPY_COLUMNS;
-  return COPY_COLUMNS.filter(column => column.key !== 'date' && column.key !== 'name');
+  if (options.valuesOnly) return COPY_COLUMNS.filter(column => column.key !== 'date' && column.key !== 'name');
+  if (options.noDate) return COPY_COLUMNS.filter(column => column.key !== 'date');
+  return COPY_COLUMNS;
 }
 
 function rowsToTsv(rows, options = {}) {
@@ -393,9 +458,12 @@ if (require.main === module) {
 
 module.exports = {
   COPY_COLUMNS,
+  FMT_PATTERN,
   buildWecomWeekly30dFill,
   buildValues,
   columnsFor,
   formatDate,
   rowsToTsv,
+  selectRow,
+  assertOutputShape,
 };
