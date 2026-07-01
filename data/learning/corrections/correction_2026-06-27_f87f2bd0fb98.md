@@ -1,0 +1,37 @@
+# Operator Correction Risk Audit - correction_2026-06-27_f87f2bd0fb98
+
+- businessDate: 2026-06-27
+- dataDate: 2026-06-25
+- severity: medium
+- surface: general_decision
+- subject: correction:lesson_correction_2026-05-25_3bb7c84cb2e6:landing verification for the pre
+- sourceRunId: correction_risk_1782518403412
+
+## Correction
+- learning_memory:correction:lesson_correction_2026-05-25_3bb7c84cb2e6:landing verification for the pre
+
+## Risk Categories
+- decision_quality_risk
+
+## Immediate Controls
+- record_operator_correction_as_authoritative_feedback
+
+## Required Checks
+- read_latest_daily_learning_and_final_run_landing
+- verify_latest_snapshot_businessDate_dataDate_sourceRunId
+- inspect_related_action_schema_and_execution_verify
+- inspect_adjustment_log_for_same_sku_or_same_entity
+
+## Follow-Up Tasks
+- P2 operator_correction_risk_audit: correction:lesson_correction_2026-05-25_3bb7c84cb2e6:landing verification for the pre operator correction risk audit due 2026-06-27
+- P2 same_rule_scan: correction:lesson_correction_2026-05-25_3bb7c84cb2e6:landing verification for the pre same-rule recent action scan due 2026-06-27
+- P2 learning_patch: correction:lesson_correction_2026-05-25_3bb7c84cb2e6:landing verification for the pre correction learning patch due 2026-06-28
+
+## Long-Term Learning Patch
+- lessonId: lesson_correction_2026-06-27_f87f2bd0fb98
+- status: active_correction
+- doNotApplyWhen:
+  - latest snapshot or backend readback is missing
+  - decision evidence cannot be tied to the current businessDate/dataDate
+  - same rule has an unresolved correction audit
+  - landing verification for the previous write is missing or contradictory

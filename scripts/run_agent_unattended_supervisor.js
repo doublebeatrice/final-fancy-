@@ -7,6 +7,7 @@ const {
 const { runAgentReadinessAudit } = require('./run_agent_readiness_audit');
 const { runAgentUnattendedScheduleInstall } = require('./run_agent_unattended_schedule_install');
 const { runAgentUnattendedSchedulerAudit } = require('./run_agent_unattended_scheduler_audit');
+const { runBossDailyPaper } = require('./run_agent_boss_daily_paper');
 const { buildOpsTimeContext } = require('../src/ops_time');
 
 const ROOT = path.join(__dirname, '..');
@@ -87,8 +88,13 @@ function parseArgs(argv) {
     generateAutonomyAudit: !args.includes('--skip-autonomy-audit') && process.env.AGENT_SKIP_AUTONOMY_AUDIT !== '1',
     generateSchedulerAudit: !args.includes('--skip-scheduler-audit') && process.env.AGENT_SKIP_SCHEDULER_AUDIT !== '1',
     generateReadinessAudit: !args.includes('--skip-readiness-audit') && process.env.AGENT_SKIP_READINESS_AUDIT !== '1',
+    generateBossDailyPaper: !args.includes('--skip-boss-paper') && process.env.AGENT_SKIP_BOSS_DAILY_PAPER !== '1',
+    forceClosedLoop: args.includes('--force-closed-loop') || process.env.AGENT_FORCE_CLOSED_LOOP === '1',
+    forceBossDailyPaper: args.includes('--force-boss-paper') || process.env.AGENT_FORCE_BOSS_DAILY_PAPER === '1',
     readinessAuditFile: get('--readiness-audit-out') || process.env.AGENT_READINESS_AUDIT_OUT || '',
     readinessAuditMarkdownFile: get('--readiness-audit-md-out') || process.env.AGENT_READINESS_AUDIT_MD_OUT || '',
+    bossPaperOutFile: get('--boss-paper-out') || process.env.AGENT_BOSS_PAPER_OUT || '',
+    bossPaperJsonFile: get('--boss-paper-json-out') || process.env.AGENT_BOSS_PAPER_JSON_OUT || '',
     schedulerAuditFile: get('--scheduler-audit') || process.env.AGENT_UNATTENDED_SCHEDULER_AUDIT_OUT || '',
     schedulerAuditMarkdownFile: get('--scheduler-audit-md-out') || process.env.AGENT_UNATTENDED_SCHEDULER_AUDIT_MD_OUT || '',
     scheduleInstallFile: get('--schedule-install') || process.env.AGENT_UNATTENDED_SCHEDULE_INSTALL_OUT || '',
@@ -309,6 +315,198 @@ function summarizeScheduleInstall(report = {}) {
   };
 }
 
+function summarizeBossDailyPaper(report = {}) {
+  const status = text(report.verification?.status || report.guard?.status || '');
+  return {
+    generated: true,
+    ok: status === 'pass',
+    status,
+    taskFollowupStatus: text(report.taskFollowup?.status || ''),
+    files: {
+      paperFile: text(report.files?.paperFile || ''),
+      jsonFile: text(report.files?.jsonFile || ''),
+    },
+  };
+}
+
+function defaultClosedLoopFile(outDir = DEFAULT_OUT_DIR, today = '') {
+  return path.join(outDir, `agent_closed_loop_${today}.json`);
+}
+
+function defaultAgentJsonFile(outDir = DEFAULT_OUT_DIR, prefix = '', today = '') {
+  return path.join(outDir, `${prefix}_${today}.json`);
+}
+
+function reusableClosedLoop(report = {}, today = '') {
+  const summary = report.summary || {};
+  const businessDate = text(report.businessDate || '');
+  if (businessDate && businessDate !== today) return false;
+  return summary.closedLoop === true &&
+    Number(summary.commandFailed || 0) === 0 &&
+    Number(summary.writeFailed || 0) === 0 &&
+    Number(summary.writeBlocked || 0) === 0;
+}
+
+function addExistingFile(files = {}, key = '', file = '') {
+  if (files[key] || !file || !fs.existsSync(file)) return;
+  files[key] = file;
+}
+
+function priorLearningSummaryFromFile(file = '') {
+  const memory = readJson(file, null);
+  if (!memory) return null;
+  const tasks = Array.isArray(memory.tasks) ? memory.tasks : [];
+  const brief = memory.nextRunBrief || {};
+  return {
+    priorLearningMemoryApplied: !!(memory.nextRunBrief || tasks.length),
+    priorLearningMemoryStatus: text(memory.status || ''),
+    priorLearningConstraintTasks: tasks.length,
+    priorLearningBlockers: Number(memory.summary?.blockers || 0),
+    priorLearningWarnings: Number(memory.summary?.warnings || 0),
+    priorLearningMustReadCount: Array.isArray(brief.mustReadBeforeDecision) ? brief.mustReadBeforeDecision.length : 0,
+    priorLearningDoNotApplyCount: Array.isArray(brief.doNotApplyWhen) ? brief.doNotApplyWhen.length : 0,
+    priorLearningEvidenceBeforeReuseCount: Array.isArray(brief.evidenceBeforeReuse) ? brief.evidenceBeforeReuse.length : 0,
+  };
+}
+
+function hydrateReusableClosedLoop(report = {}, today = '', outDir = '', options = {}) {
+  const hydrated = {
+    ...report,
+    summary: { ...(report.summary || {}) },
+    files: { ...(report.files || {}) },
+  };
+  addExistingFile(hydrated.files, 'handoffJsonFile', defaultAgentJsonFile(outDir, 'agent_handoff', today));
+  addExistingFile(hydrated.files, 'autonomyAuditFile', defaultAgentJsonFile(outDir, 'autonomy_audit', today));
+  addExistingFile(hydrated.files, 'learningMemoryFile', defaultAgentJsonFile(outDir, 'learning_memory', today));
+  addExistingFile(hydrated.files, 'unattendedGateFile', defaultAgentJsonFile(outDir, 'unattended_gate', today));
+  addExistingFile(hydrated.files, 'unattendedExecutionFile', defaultAgentJsonFile(outDir, 'unattended_execution', today));
+  addExistingFile(hydrated.files, 'writeExecutionFile', defaultAgentJsonFile(outDir, 'write_execution', today));
+
+  const handoff = readJson(hydrated.files.handoffJsonFile, null);
+  if (handoff?.summary) {
+    if (hydrated.summary.artifactVerificationOk === undefined && handoff.summary.artifactVerificationOk !== undefined) {
+      hydrated.summary.artifactVerificationOk = handoff.summary.artifactVerificationOk === true;
+    }
+    if (hydrated.summary.artifactVerificationErrors === undefined && Array.isArray(handoff.summary.artifactVerificationErrors)) {
+      hydrated.summary.artifactVerificationErrors = handoff.summary.artifactVerificationErrors;
+    }
+  }
+
+  const autonomy = readJson(hydrated.files.autonomyAuditFile, null);
+  if (autonomy) {
+    hydrated.autonomyAudit = autonomy;
+    hydrated.summary.autonomyStatus = text(autonomy.status || hydrated.summary.autonomyStatus || '');
+    hydrated.summary.autonomyScore = Number(autonomy.score || hydrated.summary.autonomyScore || 0);
+    hydrated.summary.autonomousReady = autonomy.summary?.autonomousReady === true;
+    hydrated.summary.autonomyTaskCount = Number(autonomy.summary?.taskCount || hydrated.summary.autonomyTaskCount || 0);
+    hydrated.summary.autonomyBlockerCount = Number(autonomy.summary?.blockerCount || hydrated.summary.autonomyBlockerCount || 0);
+  }
+
+  const learning = readJson(hydrated.files.learningMemoryFile, null);
+  if (learning) {
+    hydrated.learningMemory = learning;
+    hydrated.summary.learningMemoryReady = !!learning.nextRunBrief;
+    hydrated.summary.learningMemoryStatus = text(learning.status || hydrated.summary.learningMemoryStatus || '');
+    hydrated.summary.learningMemoryConstraintCount = Number(learning.summary?.constraints || hydrated.summary.learningMemoryConstraintCount || 0);
+  }
+
+  const gate = readJson(hydrated.files.unattendedGateFile, null);
+  if (gate) {
+    hydrated.unattendedGate = gate;
+    hydrated.summary.unattendedGateDecision = text(gate.decision || hydrated.summary.unattendedGateDecision || 'unknown');
+    hydrated.summary.unattendedExecuteAllowed = gate.canAutoExecute === true;
+    hydrated.summary.unattendedGateBlockerCount = Number(gate.summary?.blockers || gate.issues?.length || hydrated.summary.unattendedGateBlockerCount || 0);
+    hydrated.summary.unattendedExecuted = gate.execution?.mode === 'execute';
+  }
+
+  const priorLearning = priorLearningSummaryFromFile(options.priorLearningMemoryFile || '');
+  if (priorLearning) {
+    Object.assign(hydrated.summary, priorLearning);
+  }
+
+  return hydrated;
+}
+
+function readReusableClosedLoop({ options = {}, today = '', outDir = '' } = {}) {
+  if (options.forceClosedLoop === true || options.selfTest === true || options.runClosedLoop) return null;
+  const file = options.closedLoopFile || defaultClosedLoopFile(outDir, today);
+  const report = readJson(file, null);
+  if (!report || reusableClosedLoop(report, today) !== true) return null;
+  const hydrated = hydrateReusableClosedLoop(report, today, outDir, {
+    priorLearningMemoryFile: options.priorLearningMemoryFile || '',
+  });
+  return {
+    ...hydrated,
+    files: {
+      ...(hydrated.files || {}),
+      closedLoopFile: text(hydrated.files?.closedLoopFile || file),
+    },
+    reused: true,
+  };
+}
+
+function defaultBossDailyPaperJsonFile(outDir = DEFAULT_OUT_DIR, today = '') {
+  return path.join(outDir, `boss_daily_paper_${today}.json`);
+}
+
+function reusableBossDailyPaper(report = {}, today = '') {
+  const paperDate = text(report.today || report.businessDate || '');
+  if (paperDate && paperDate !== today) return false;
+  return !!(report.verification || report.guard || report.taskFollowup || report.files);
+}
+
+function readReusableBossDailyPaper({ options = {}, today = '', outDir = '' } = {}) {
+  if (options.forceBossDailyPaper === true || options.runBossDailyPaper) return null;
+  const file = options.bossPaperJsonFile || defaultBossDailyPaperJsonFile(outDir, today);
+  const report = readJson(file, null);
+  if (!report || reusableBossDailyPaper(report, today) !== true) return null;
+  return {
+    ...report,
+    files: {
+      ...(report.files || {}),
+      jsonFile: text(report.files?.jsonFile || file),
+    },
+    reused: true,
+  };
+}
+
+function runSupervisorBossDailyPaper({ options = {}, report = {}, today = '', outDir = '' } = {}) {
+  if (options.generateBossDailyPaper !== true) {
+    report.bossDailyPaper = { generated: false, skipped: true };
+    return;
+  }
+  try {
+    const bossPaper = readReusableBossDailyPaper({ options, today, outDir }) || (() => {
+      const runner = options.runBossDailyPaper || runBossDailyPaper;
+      return runner({
+        ...options,
+        today,
+        agentDir: outDir,
+        outFile: options.bossPaperOutFile || '',
+        jsonOutFile: options.bossPaperJsonFile || '',
+      });
+    })();
+    report.bossDailyPaper = summarizeBossDailyPaper(bossPaper);
+    report.bossDailyPaper.reused = bossPaper.reused === true;
+    report.files.bossDailyPaperFile = report.bossDailyPaper.files.paperFile;
+    report.files.bossDailyPaperJsonFile = report.bossDailyPaper.files.jsonFile;
+  } catch (error) {
+    report.bossDailyPaper = {
+      generated: false,
+      ok: false,
+      status: 'failed',
+      error: text(error.message || error),
+    };
+    report.issues.push(issue(
+      'boss_daily_paper_failed',
+      'warning',
+      'Boss daily paper failed to generate',
+      [report.bossDailyPaper.error],
+      'Run the boss daily paper command after repairing the failed evidence source.'
+    ));
+  }
+}
+
 function schedulerAuditFiles({ options = {}, today = '', outDir = '' } = {}) {
   return {
     scheduleInstallFile: options.scheduleInstallFile || path.join(outDir, `unattended_schedule_install_${today}.json`),
@@ -403,6 +601,9 @@ function renderMarkdown(report = {}) {
   }
   if (report.schedulerAudit) {
     lines.push(`- Scheduler audit: ${report.schedulerAudit.generated === true ? report.schedulerAudit.status || 'generated' : 'not generated'}`);
+  }
+  if (report.bossDailyPaper) {
+    lines.push(`- Boss daily paper: ${report.bossDailyPaper.generated === true ? report.bossDailyPaper.status || 'generated' : 'not generated'}`);
   }
   lines.push('');
   lines.push('## Issues');
@@ -561,7 +762,11 @@ function runAgentUnattendedSupervisor(options = {}) {
     ? buildSelfTestOptions(baseOptions)
     : baseOptions;
   const closedLoopRunner = options.runClosedLoop || runAgentClosedLoop;
-  const closedLoop = closedLoopRunner(closedLoopOptions);
+  const closedLoop = readReusableClosedLoop({
+    options: { ...options, priorLearningMemoryFile: priorFile },
+    today,
+    outDir,
+  }) || closedLoopRunner(closedLoopOptions);
   const issues = buildIssues({ closedLoop, priorLearning, requested, effective });
   const status = supervisorStatus(issues, closedLoop, requested);
   const report = {
@@ -592,6 +797,16 @@ function runAgentUnattendedSupervisor(options = {}) {
     },
     closedLoopReport: closedLoop,
   };
+  report.closedLoop.reused = closedLoop.reused === true;
+  writeSupervisorReport(report, outFile, markdownFile);
+  runSupervisorBossDailyPaper({
+    options,
+    report,
+    today,
+    outDir,
+  });
+  report.ok = !report.issues.some(item => item.severity === 'blocker');
+  report.status = supervisorStatus(report.issues, closedLoop, requested);
   writeSupervisorReport(report, outFile, markdownFile);
   if (options.generateSchedulerAudit !== false) {
     try {
@@ -693,6 +908,7 @@ function main() {
     schedulerAudit: report.schedulerAudit,
     scheduleInstall: report.scheduleInstall,
     readinessAudit: report.readinessAudit,
+    bossDailyPaper: report.bossDailyPaper,
     issues: report.issues,
   }, null, 2));
   if (!report.ok) process.exitCode = 1;

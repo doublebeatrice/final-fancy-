@@ -1,0 +1,274 @@
+[
+  {
+    "sku": "SH0424",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "review",
+    "entityType": "manualTarget",
+    "entityId": "121740907934520",
+    "entityName": "asin exact_umbrella hat_sh0424",
+    "beforeValue": null,
+    "afterValue": null,
+    "reason": "SH0423同ASIN target 30天出16单 ACOS 21.8% CVR 13.1%。SH0424当前bid $0.35拿不到展示（30天仅8clicks 0单），提至$0.38对齐SH0423竞价水平 [risk_gate:missing_action_goal:unsupported_metric:orders7] Executable action requires falsifiable goal{metric,from,to,deadlineDays,hardFloor}.",
+    "runAt": "2026-06-30T13:38:08.055Z",
+    "businessDate": "2026-06-30",
+    "localDate": "2026-06-30",
+    "dataDate": "2026-06-29",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-30T13-38-08-055Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "manual_review",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "manual_review",
+      "finalStatus": "manual_review",
+      "expectation": {
+        "hypothesis": "SH0423同ASIN target 30天出16单 ACOS 21.8% CVR 13.1%。SH0424当前bid $0.35拿不到展示（30天仅8clicks 0单），提至$0.38对齐SH0423竞价水平 [risk_gate:missing_action_goal:unsupported_metric:orders7] Executable action requires falsifiable goal{metric,from,to,deadlineDays,hardFloor}.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "orders": "up"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "7d ACOS > 30% with >= 15 clicks and 0 orders"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SH0424",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "review",
+    "entityType": "manualTarget",
+    "entityId": "69788643692846",
+    "entityName": "asin exact_umbrella hat_sh0424",
+    "beforeValue": null,
+    "afterValue": null,
+    "reason": "SH0423同target 30天出5单 ACOS 2.4% CVR 55.6%（极高效率）。SH0424当前$0.35几乎零展示（30天仅1click），提至$0.42匹配SH0423的$0.40 + 追赶TopOfSearch 57% [risk_gate:missing_action_goal:unsupported_metric:orders7] Executable action requires falsifiable goal{metric,from,to,deadlineDays,hardFloor}.",
+    "runAt": "2026-06-30T13:38:08.055Z",
+    "businessDate": "2026-06-30",
+    "localDate": "2026-06-30",
+    "dataDate": "2026-06-29",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-30T13-38-08-055Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "manual_review",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "manual_review",
+      "finalStatus": "manual_review",
+      "expectation": {
+        "hypothesis": "SH0423同target 30天出5单 ACOS 2.4% CVR 55.6%（极高效率）。SH0424当前$0.35几乎零展示（30天仅1click），提至$0.42匹配SH0423的$0.40 + 追赶TopOfSearch 57% [risk_gate:missing_action_goal:unsupported_metric:orders7] Executable action requires falsifiable goal{metric,from,to,deadlineDays,hardFloor}.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "orders": "up"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "7d spend > $5 with 0 orders"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SH0424",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "review",
+    "entityType": "manualTarget",
+    "entityId": "220577567817032",
+    "entityName": "asin exact_umbrella hat_sh0424",
+    "beforeValue": null,
+    "afterValue": null,
+    "reason": "SH0423同target 30天出5单 ACOS 14.8% CVR 17.9%。SH0424当前有1单但7天0展示，提bid增加曝光 [risk_gate:missing_action_goal:unsupported_metric:orders7] Executable action requires falsifiable goal{metric,from,to,deadlineDays,hardFloor}.",
+    "runAt": "2026-06-30T13:38:08.055Z",
+    "businessDate": "2026-06-30",
+    "localDate": "2026-06-30",
+    "dataDate": "2026-06-29",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-30T13-38-08-055Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "manual_review",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "manual_review",
+      "finalStatus": "manual_review",
+      "expectation": {
+        "hypothesis": "SH0423同target 30天出5单 ACOS 14.8% CVR 17.9%。SH0424当前有1单但7天0展示，提bid增加曝光 [risk_gate:missing_action_goal:unsupported_metric:orders7] Executable action requires falsifiable goal{metric,from,to,deadlineDays,hardFloor}.",
+        "expectedEffect": {
+          "impressions": "up",
+          "orders": "up"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "7d ACOS > 25% with >= 10 clicks"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SH0424",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "review",
+    "entityType": "campaign",
+    "entityId": "224891127492478",
+    "entityName": "umbrella hat sh0424 sh0422 sh0423-a",
+    "beforeValue": null,
+    "afterValue": null,
+    "reason": "主力auto组ACOS 19.7%最健康，加Top of Search 30%提升首行曝光拉CTR。当前CTR从0.81%跌到0.51%，首行位CTR远高于其他位置。SH0423的SBV用了Top 30%有效 [risk_gate:missing_action_goal:unsupported_metric:CTR] Executable action requires falsifiable goal{metric,from,to,deadlineDays,hardFloor}.",
+    "runAt": "2026-06-30T13:38:08.055Z",
+    "businessDate": "2026-06-30",
+    "localDate": "2026-06-30",
+    "dataDate": "2026-06-29",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-30T13-38-08-055Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "manual_review",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "manual_review",
+      "finalStatus": "manual_review",
+      "expectation": {
+        "hypothesis": "主力auto组ACOS 19.7%最健康，加Top of Search 30%提升首行曝光拉CTR。当前CTR从0.81%跌到0.51%，首行位CTR远高于其他位置。SH0423的SBV用了Top 30%有效 [risk_gate:missing_action_goal:unsupported_metric:CTR] Executable action requires falsifiable goal{metric,from,to,deadlineDays,hardFloor}.",
+        "expectedEffect": {
+          "impressions": "up",
+          "CTR": "up",
+          "clicks": "up"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "7d ACOS > 30% or CPC > $0.60"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SH0424",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "review",
+    "entityType": "campaign",
+    "entityId": "117891004430405",
+    "entityName": "kw broad_umbrella hat_sh0424",
+    "beforeValue": null,
+    "afterValue": null,
+    "reason": "broad组有出单词覆盖，加Top 20%提升核心词首行展示。比主力auto组保守因为broad匹配风险更高 [risk_gate:missing_action_goal:unsupported_metric:CTR] Executable action requires falsifiable goal{metric,from,to,deadlineDays,hardFloor}.",
+    "runAt": "2026-06-30T13:38:08.055Z",
+    "businessDate": "2026-06-30",
+    "localDate": "2026-06-30",
+    "dataDate": "2026-06-29",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-30T13-38-08-055Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "manual_review",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "manual_review",
+      "finalStatus": "manual_review",
+      "expectation": {
+        "hypothesis": "broad组有出单词覆盖，加Top 20%提升核心词首行展示。比主力auto组保守因为broad匹配风险更高 [risk_gate:missing_action_goal:unsupported_metric:CTR] Executable action requires falsifiable goal{metric,from,to,deadlineDays,hardFloor}.",
+        "expectedEffect": {
+          "impressions": "up",
+          "CTR": "up"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "7d ACOS > 35%"
+        }
+      }
+    }
+  },
+  {
+    "sku": "SH0424",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "review",
+    "entityType": "campaign",
+    "entityId": "89239274927936",
+    "entityName": "umbrella hat sh0424-a",
+    "beforeValue": null,
+    "afterValue": null,
+    "reason": "独立auto组Product Page +40%但ACOS 29.6%且placementACOSMin=51%，说明Product Page位置转化极差。降到20%减少无效花费 [risk_gate:missing_action_goal:unsupported_metric:ACOS] Executable action requires falsifiable goal{metric,from,to,deadlineDays,hardFloor}.",
+    "runAt": "2026-06-30T13:38:08.055Z",
+    "businessDate": "2026-06-30",
+    "localDate": "2026-06-30",
+    "dataDate": "2026-06-29",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-30T13-38-08-055Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "manual_review",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "manual_review",
+      "finalStatus": "manual_review",
+      "expectation": {
+        "hypothesis": "独立auto组Product Page +40%但ACOS 29.6%且placementACOSMin=51%，说明Product Page位置转化极差。降到20%减少无效花费 [risk_gate:missing_action_goal:unsupported_metric:ACOS] Executable action requires falsifiable goal{metric,from,to,deadlineDays,hardFloor}.",
+        "expectedEffect": {
+          "wastefulSpend": "down",
+          "ACOS": "down"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": "impressions drop > 50% without ACOS improvement"
+        }
+      }
+    }
+  }
+]

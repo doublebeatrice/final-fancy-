@@ -109,8 +109,14 @@ function fixture(tmpDir, overrides = {}) {
     summary: { constraints: 16, blockers: 0, warnings: 12, corrections: 1 },
     nextRunBrief: {
       mustReadBeforeDecision: ['data/learning/daily_learning_2026-05-25.json'],
-      doNotApplyWhen: ['risk level is the only reason to skip a supported operating action'],
-      evidenceBeforeReuse: ['route_supported_operating_action_to_evidence_boundary_dry_run_execute_or_explicit_blocker'],
+      doNotApplyWhen: [
+        'risk level is the only reason to skip a supported operating action',
+        'coverage sufficiency has not been answered before action landing details',
+      ],
+      evidenceBeforeReuse: [
+        'route_supported_operating_action_to_evidence_boundary_dry_run_execute_or_explicit_blocker',
+        'coverage_ratio',
+      ],
     },
   };
   const closedLoop = { summary: { closedLoop: true } };
@@ -131,11 +137,13 @@ function fixture(tmpDir, overrides = {}) {
     '2026-05-25',
     '--require-correction-lesson',
     '--require-risk-routing-lesson',
+    '--require-coverage-sufficiency-lesson',
     '--require-natural-scheduled-run',
   ]);
   assert.strictEqual(parsed.today, '2026-05-25');
   assert.strictEqual(parsed.requireCorrectionLesson, true);
   assert.strictEqual(parsed.requireRiskRoutingLesson, true);
+  assert.strictEqual(parsed.requireCoverageSufficiencyLesson, true);
   assert.strictEqual(parsed.requireNaturalScheduledRun, true);
 }
 
@@ -153,6 +161,7 @@ function fixture(tmpDir, overrides = {}) {
     ...files,
     requireCorrectionLesson: true,
     requireRiskRoutingLesson: true,
+    requireCoverageSufficiencyLesson: true,
   }, timeContext);
   assert.strictEqual(report.ok, true);
   assert.strictEqual(report.status, 'ready_with_warnings');
@@ -161,6 +170,7 @@ function fixture(tmpDir, overrides = {}) {
   assert.strictEqual(report.summary.completionAuditRuntimeReady, false);
   assert.strictEqual(report.summary.learningReady, true);
   assert.strictEqual(report.summary.correctionReady, true);
+  assert.strictEqual(report.summary.coverageSufficiencyReady, true);
   assert.strictEqual(report.summary.scheduledRuntimeReady, false);
   assert.strictEqual(report.summary.naturalScheduledRuntimeReady, false);
   assert.ok(report.checks.some(item => item.id === 'live_unattended_schedule' && item.status === 'pass'));
@@ -170,7 +180,87 @@ function fixture(tmpDir, overrides = {}) {
   assert.ok(report.checks.some(item => item.id === 'natural_scheduled_trigger_proof' && item.status === 'warning'));
   assert.ok(report.checks.some(item => item.id === 'unattended_execute_gate' && item.status === 'warning'));
   assert.ok(report.checks.some(item => item.id === 'risk_is_routing_not_refusal' && item.status === 'pass'));
+  assert.ok(report.checks.some(item => item.id === 'coverage_sufficiency_correction_memory' && item.status === 'pass'));
   assert.match(renderMarkdown(report), /Agent readiness audit/);
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-readiness-gate-artifact-fresh-'));
+  const files = fixture(tmpDir, {
+    supervisor: {
+      closedLoop: {
+        closedLoop: true,
+        dailyClosureStatus: 'needs_recovery',
+        commandFailed: 0,
+        writeFailed: 0,
+        writeBlocked: 0,
+        artifactVerificationOk: true,
+        learningMemoryStatus: 'active_watch',
+        unattendedGateDecision: 'execute_blocked',
+        unattendedGateBlockerCount: 1,
+        priorLearningMemoryApplied: true,
+        priorLearningConstraintTasks: 4,
+        priorLearningBlockers: 0,
+        priorLearningWarnings: 2,
+      },
+    },
+    unattendedGate: {
+      decision: 'no_actions',
+      summary: { blockers: 0, eligibleActions: 0 },
+    },
+  });
+  const report = buildAgentReadinessAudit({
+    ...files,
+    requireCorrectionLesson: true,
+    requireRiskRoutingLesson: true,
+    requireCoverageSufficiencyLesson: true,
+  }, timeContext);
+  const check = report.checks.find(item => item.id === 'unattended_execute_gate');
+  assert.strictEqual(check.status, 'warning');
+  assert.ok(check.evidence.includes('decision=no_actions'));
+  assert.ok(check.evidence.includes('blockers=0'));
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-readiness-quoted-completion-args-'));
+  const files = fixture(tmpDir);
+  const scheduleInstall = JSON.parse(fs.readFileSync(files.scheduleInstallFile, 'utf8'));
+  scheduleInstall.completionAuditTask.actionArguments = "-NoProfile -ExecutionPolicy Bypass -Command \"$env:AGENT_TODAY=(Get-Date).ToString('yyyy-MM-dd'); & 'D:\\noede\\node.exe' 'D:\\ad-ops-workbench\\scripts\\run_agent_completion_audit.js' '--out-dir' 'data\\agent' '--natural-schedule-tolerance-minutes' '15' '--goal-final' '--scheduled-task-invocation' '--scheduled-task-name' 'AdOpsAgentCompletionAudit' >> 'D:\\ad-ops-workbench\\data\\agent\\unattended_completion_audit_task.log' 2>&1\"";
+  writeJson(files.scheduleInstallFile, scheduleInstall);
+  const report = buildAgentReadinessAudit({
+    ...files,
+    requireCorrectionLesson: true,
+    requireRiskRoutingLesson: true,
+    requireCoverageSufficiencyLesson: true,
+  }, timeContext);
+  assert.strictEqual(report.summary.completionAuditScheduleReady, true);
+  assert.ok(report.checks.some(item => item.id === 'post_trigger_completion_audit_schedule' && item.status === 'pass'));
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-readiness-coverage-required-fail-'));
+  const files = fixture(tmpDir, {
+    learningMemory: {
+      nextRunBrief: {
+        mustReadBeforeDecision: ['data/learning/daily_learning_2026-05-25.json'],
+        doNotApplyWhen: ['risk level is the only reason to skip a supported operating action'],
+        evidenceBeforeReuse: ['route_supported_operating_action_to_evidence_boundary_dry_run_execute_or_explicit_blocker'],
+      },
+    },
+  });
+  const report = buildAgentReadinessAudit({
+    ...files,
+    requireCorrectionLesson: true,
+    requireRiskRoutingLesson: true,
+    requireCoverageSufficiencyLesson: true,
+  }, timeContext);
+  const check = report.checks.find(item => item.id === 'coverage_sufficiency_correction_memory');
+  assert.strictEqual(report.ok, false);
+  assert.strictEqual(report.status, 'not_ready');
+  assert.strictEqual(report.summary.coverageSufficiencyReady, false);
+  assert.strictEqual(check.status, 'fail');
+  assert.ok(check.evidence.includes('doNotApplyHit=false'));
+  assert.ok(check.evidence.includes('evidenceHit=false'));
 }
 
 {
@@ -434,6 +524,61 @@ function fixture(tmpDir, overrides = {}) {
   assert.strictEqual(report.summary.scheduledRuntimeReady, true);
   assert.strictEqual(report.summary.naturalScheduledRuntimeReady, false);
   assert.ok(report.checks.some(item => item.id === 'natural_scheduled_trigger_proof' && item.status === 'fail'));
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-readiness-post-reinstall-pending-'));
+  const files = fixture(tmpDir, {
+    supervisor: {
+      generatedAt: '2026-05-25T01:31:00.000Z',
+      ok: false,
+      status: 'blocked',
+    },
+    schedulerAudit: {
+      status: 'ready_with_warnings',
+      ok: true,
+      summary: {
+        blockers: 0,
+        warnings: 2,
+        heartbeatCount: 1,
+        latestHeartbeatOk: false,
+        consecutiveFailures: 21,
+        scheduleUsesSupervisor: true,
+        scheduleLiveExecuteArmed: true,
+        scheduleInstallGeneratedAt: '2026-05-25T12:00:00.000Z',
+        naturalScheduledRunObserved: false,
+        postInstallHeartbeatCount: 0,
+        latestHeartbeatGeneratedAt: '2026-05-25T01:31:00.000Z',
+      },
+    },
+    scheduleInstall: {
+      generatedAt: '2026-05-25T12:00:00.000Z',
+      installedTask: {
+        state: 'Ready',
+        triggerEnabled: true,
+        actionArguments: 'run ops:agent:unattended-supervisor -- --out-dir data\\agent --execute --execute-if-ready',
+        nextRunTime: '05/26/2026 09:30:30',
+        lastRunTime: '05/25/2026 09:30:30',
+        lastTaskResult: '1',
+      },
+    },
+  });
+  const report = buildAgentReadinessAudit({
+    ...files,
+    requireCorrectionLesson: true,
+    requireRiskRoutingLesson: true,
+    requireNaturalScheduledRun: true,
+    now: '2026-05-25T13:00:00.000Z',
+  }, {
+    ...timeContext,
+    runAt: '2026-05-25T13:00:00.000Z',
+  });
+  assert.strictEqual(report.ok, false);
+  assert.strictEqual(report.summary.scheduledRuntimeReady, false);
+  assert.strictEqual(report.summary.naturalScheduledRuntimeReady, false);
+  assert.ok(report.checks.some(item => item.id === 'scheduler_heartbeat_continuity' && item.status === 'warning'));
+  assert.ok(report.checks.some(item => item.id === 'scheduled_task_runtime_proof' && item.status === 'warning'));
+  assert.ok(report.checks.some(item => item.id === 'natural_scheduled_trigger_proof' && item.status === 'warning'));
 }
 
 {

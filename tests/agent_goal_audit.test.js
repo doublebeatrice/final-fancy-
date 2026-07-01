@@ -50,10 +50,12 @@ function fixture(tmpDir, overrides = {}) {
       liveScheduleReady: true,
       scheduledRuntimeReady: true,
       correctionReady: true,
+      coverageSufficiencyReady: true,
     },
     checks: [
       { id: 'agent_closed_loop_control_plane', status: 'pass' },
       { id: 'live_unattended_schedule', status: 'pass' },
+      { id: 'coverage_sufficiency_correction_memory', status: 'pass' },
     ],
   };
   const completion = {
@@ -82,8 +84,14 @@ function fixture(tmpDir, overrides = {}) {
     summary: { constraints: 8, blockers: 0, corrections: 1 },
     nextRunBrief: {
       mustReadBeforeDecision: ['data\\learning\\corrections\\risk.json'],
-      doNotApplyWhen: ['risk level is the only reason to skip a supported operating action'],
-      evidenceBeforeReuse: ['route_supported_operating_action_to_evidence_boundary_dry_run_execute_or_explicit_blocker'],
+      doNotApplyWhen: [
+        'risk level is the only reason to skip a supported operating action',
+        'coverage sufficiency has not been answered before action landing details',
+      ],
+      evidenceBeforeReuse: [
+        'route_supported_operating_action_to_evidence_boundary_dry_run_execute_or_explicit_blocker',
+        'coverage_ratio',
+      ],
     },
   };
   const correctionRisk = {
@@ -137,6 +145,27 @@ function fixture(tmpDir, overrides = {}) {
   assert.strictEqual(report.summary.pending, 1);
   assert.strictEqual(report.requirements.find(item => item.id === 'natural_unattended_completion').status, 'pending');
   assert.strictEqual(report.requirements.find(item => item.id === 'risk_is_routing_not_refusal').status, 'pass');
+  assert.strictEqual(report.requirements.find(item => item.id === 'coverage_sufficiency_first').status, 'pass');
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-goal-audit-risk-learning-memory-'));
+  const files = fixture(tmpDir, {
+    correctionRisk: {
+      correction: { signals: [] },
+      audit: {
+        severity: 'medium',
+        immediateControls: [],
+      },
+      tasks: [{ kind: 'operator_correction_risk_audit' }],
+    },
+  });
+  const report = buildGoalAudit({
+    today: '2026-05-25',
+    agentDir: tmpDir,
+    ...files,
+  }, timeContext);
+  assert.strictEqual(report.requirements.find(item => item.id === 'risk_is_routing_not_refusal').status, 'pass');
 }
 
 {
@@ -149,8 +178,12 @@ function fixture(tmpDir, overrides = {}) {
         liveScheduleReady: true,
         scheduledRuntimeReady: true,
         correctionReady: true,
+        coverageSufficiencyReady: true,
       },
-      checks: [{ id: 'agent_closed_loop_control_plane', status: 'pass' }],
+      checks: [
+        { id: 'agent_closed_loop_control_plane', status: 'pass' },
+        { id: 'coverage_sufficiency_correction_memory', status: 'pass' },
+      ],
     },
     completion: {
       ok: true,
@@ -173,6 +206,42 @@ function fixture(tmpDir, overrides = {}) {
   assert.strictEqual(report.status, 'complete_ready');
   assert.strictEqual(report.summary.failed, 0);
   assert.strictEqual(report.summary.pending, 0);
+  assert.strictEqual(report.summary.coverageSufficiencyReady, true);
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-goal-audit-coverage-fail-'));
+  const files = fixture(tmpDir, {
+    readiness: {
+      summary: {
+        liveScheduleReady: true,
+        scheduledRuntimeReady: true,
+        correctionReady: true,
+        coverageSufficiencyReady: false,
+      },
+      checks: [
+        { id: 'agent_closed_loop_control_plane', status: 'pass' },
+        { id: 'coverage_sufficiency_correction_memory', status: 'fail' },
+      ],
+    },
+    learningMemory: {
+      nextRunBrief: {
+        mustReadBeforeDecision: ['data\\learning\\corrections\\risk.json'],
+        doNotApplyWhen: ['risk level is the only reason to skip a supported operating action'],
+        evidenceBeforeReuse: ['route_supported_operating_action_to_evidence_boundary_dry_run_execute_or_explicit_blocker'],
+      },
+    },
+  });
+  const report = buildGoalAudit({
+    today: '2026-05-25',
+    agentDir: tmpDir,
+    ...files,
+  }, timeContext);
+  const requirement = report.requirements.find(item => item.id === 'coverage_sufficiency_first');
+  assert.strictEqual(report.ok, false);
+  assert.strictEqual(report.status, 'not_ready');
+  assert.strictEqual(report.summary.coverageSufficiencyReady, false);
+  assert.strictEqual(requirement.status, 'fail');
 }
 
 {

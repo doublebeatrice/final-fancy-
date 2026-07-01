@@ -219,8 +219,19 @@ function summaryForResult(report = null, stdoutJson = null, fallback = '') {
 
 function runOneCommand(item = {}, options = {}) {
   const execFileSync = options.execFileSync || defaultExecFileSync;
-  const startedAt = text(options.startedAt || options.timeContext?.runAt || new Date().toISOString());
+  const startedAtMs = Date.now();
+  const startedAt = text(options.startedAt || new Date(startedAtMs).toISOString());
   const timeoutMs = Math.max(1000, Number(options.commandTimeoutMs || DEFAULT_COMMAND_TIMEOUT_MS));
+  const withTiming = result => {
+    const finishedAtMs = Date.now();
+    return {
+      ...result,
+      at: startedAt,
+      startedAt,
+      finishedAt: new Date(finishedAtMs).toISOString(),
+      durationMs: Math.max(0, finishedAtMs - startedAtMs),
+    };
+  };
   try {
     const stdout = execFileSync(item.parsed.bin, item.parsed.args, {
       cwd: ROOT,
@@ -232,7 +243,7 @@ function runOneCommand(item = {}, options = {}) {
     const outputFiles = outputFilesFor(item, stdoutJson || {});
     const missing = missingOutputFiles(outputFiles);
     if (missing.length) {
-      return {
+      return withTiming({
         taskId: item.taskId,
         label: item.label,
         command: item.command,
@@ -243,12 +254,11 @@ function runOneCommand(item = {}, options = {}) {
         stderrSummary: '',
         outputFiles,
         missingOutputFiles: missing,
-        at: startedAt,
         sourceRunId: text(options.timeContext?.sourceRunId || ''),
-      };
+      });
     }
     const report = reportForTask(outputFiles, item.taskId);
-    return {
+    return withTiming({
       taskId: item.taskId,
       label: item.label,
       command: item.command,
@@ -259,9 +269,8 @@ function runOneCommand(item = {}, options = {}) {
       stderrSummary: '',
       outputFiles,
       report: report || undefined,
-      at: startedAt,
       sourceRunId: text(options.timeContext?.sourceRunId || ''),
-    };
+    });
   } catch (error) {
     const stdout = error.stdout ? String(error.stdout) : '';
     const stderr = error.stderr ? String(error.stderr) : '';
@@ -272,7 +281,7 @@ function runOneCommand(item = {}, options = {}) {
     const missing = missingOutputFiles(outputFiles);
     if (!timedOut && stdoutJson && outputFiles.length && missing.length === 0) {
       const report = reportForTask(outputFiles, item.taskId);
-      return {
+      return withTiming({
         taskId: item.taskId,
         label: item.label,
         command: item.command,
@@ -284,11 +293,10 @@ function runOneCommand(item = {}, options = {}) {
         stderrSummary: summarizeOutput(stderr),
         outputFiles,
         report: report || undefined,
-        at: startedAt,
         sourceRunId: text(options.timeContext?.sourceRunId || ''),
-      };
+      });
     }
-    return {
+    return withTiming({
       taskId: item.taskId,
       label: item.label,
       command: item.command,
@@ -304,10 +312,23 @@ function runOneCommand(item = {}, options = {}) {
       stderrSummary: summarizeOutput(stderr),
       outputFiles: outputFiles.length ? outputFiles : uniqueList([item.output]),
       missingOutputFiles: missing,
-      at: startedAt,
       sourceRunId: text(options.timeContext?.sourceRunId || ''),
-    };
+    });
   }
+}
+
+function commandTimingSummary(results = []) {
+  const durations = results
+    .map(item => Number(item.durationMs))
+    .filter(value => Number.isFinite(value) && value >= 0);
+  const total = durations.reduce((sum, value) => sum + value, 0);
+  return {
+    timedOut: results.filter(item => item.timedOut === true).length,
+    measuredCommandCount: durations.length,
+    totalCommandDurationMs: total,
+    averageCommandDurationMs: durations.length ? Number((total / durations.length).toFixed(1)) : 0,
+    maxCommandDurationMs: durations.length ? Math.max(...durations) : 0,
+  };
 }
 
 function commandResultsReport({ hub = {}, runnable = [], skipped = [], results = [], timeContext = {} } = {}) {
@@ -322,6 +343,7 @@ function commandResultsReport({ hub = {}, runnable = [], skipped = [], results =
       executed: results.filter(item => item.ok === true).length,
       failed,
       skipped: skipped.length,
+      ...commandTimingSummary(results),
     },
     results,
     skipped,

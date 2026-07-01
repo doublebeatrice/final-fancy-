@@ -42,6 +42,7 @@ const CRITICAL_REVIEW_RISKS = new Set([
 const HIGH_VOLUME_BID_CHANGE_REVIEW_THRESHOLD = 0.15;
 const HIGH_VOLUME_BID_CHANGE_MIN_ABS_DELTA = 0.03;
 const NORMAL_BID_CHANGE_REVIEW_THRESHOLD = 0.25;
+const NORMAL_BID_CHANGE_MIN_ABS_DELTA = 0.02;
 const ACTION_GOAL_METRICS = new Set(['orders', 'sales', 'netProfit']);
 
 function toNum(value) {
@@ -587,21 +588,23 @@ function detectCardEntities(card) {
         stats30d: ad.stats30d || {},
       });
     }
-    if (campaign.sbCampaign?.id) {
+    const sbCampaignId = campaign.sbCampaign?.id || campaign.sbCampaign?.campaignId ||
+      ((campaign.sponsoredBrands || []).length ? campaign.campaignId : '');
+    if (sbCampaignId) {
       sbCampaigns.push({
-        id: String(campaign.sbCampaign.id || ''),
+        id: String(sbCampaignId || ''),
         entityType: 'sbCampaign',
-        text: campaign.sbCampaign.name || campaign.name || '',
-        label: campaign.sbCampaign.name || campaign.name || '',
-        campaignName: campaign.sbCampaign.name || campaign.name || campaign.campaignName || '',
+        text: campaign.sbCampaign?.name || campaign.name || '',
+        label: campaign.sbCampaign?.name || campaign.name || '',
+        campaignName: campaign.sbCampaign?.name || campaign.name || campaign.campaignName || '',
         groupName: campaign.groupName || campaign.adGroupName || '',
         currentBid: null,
-        currentBudget: toNum(campaign.sbCampaign.budget),
-        state: campaign.sbCampaign.state || campaign.sbCampaign.status || '',
-        onCooldown: !!campaign.sbCampaign.onCooldown,
-        stats3d: campaign.sbCampaign.stats3d || {},
-        stats7d: campaign.sbCampaign.stats7d || {},
-        stats30d: campaign.sbCampaign.stats30d || {},
+        currentBudget: toNum(campaign.sbCampaign?.budget ?? campaign.budget),
+        state: campaign.sbCampaign?.state || campaign.sbCampaign?.status || campaign.campaignState || campaign.state || '',
+        onCooldown: !!campaign.sbCampaign?.onCooldown,
+        stats3d: campaign.sbCampaign?.stats3d || {},
+        stats7d: campaign.sbCampaign?.stats7d || {},
+        stats30d: campaign.sbCampaign?.stats30d || {},
       });
     }
     for (const sb of campaign.sponsoredBrands || []) {
@@ -1344,7 +1347,7 @@ function gateRisk(product, entity, action) {
       gated.reason = `${gated.reason || ''} [risk_gate:high_volume_strong_bid_change:changePct=${changePct.toFixed(4)},threshold=${HIGH_VOLUME_BID_CHANGE_REVIEW_THRESHOLD},delta=${changeAbs.toFixed(2)},minDelta=${HIGH_VOLUME_BID_CHANGE_MIN_ABS_DELTA.toFixed(2)}]`.trim();
       return gated;
     }
-    if (!highVolume && changePct > NORMAL_BID_CHANGE_REVIEW_THRESHOLD && !explicitTrafficPushOverride && !forceExecute) {
+    if (!highVolume && changePct > NORMAL_BID_CHANGE_REVIEW_THRESHOLD && changeAbs > NORMAL_BID_CHANGE_MIN_ABS_DELTA && !explicitTrafficPushOverride && !forceExecute) {
       gated.actionType = 'review';
       gated.canAutoExecute = false;
       gated.riskLevel = 'manual_review';

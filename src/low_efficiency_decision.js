@@ -170,7 +170,7 @@ function isVideoSbKind(kind) {
 function bidFloorFor(item = {}) {
   const kind = item.kind;
   const campaignName = text(item.campaignName || item.raw?.campaignName);
-  if (isVideoSbKind(kind) && /sbv|video/i.test(campaignName)) return 0.25;
+  if (isVideoSbKind(kind)) return 0.25;
   return 0.02;
 }
 
@@ -426,6 +426,16 @@ function bidTargetForWaste(entry = {}, waste = {}) {
   return clampBid(bid - smallBidStep(bid), bidFloorFor(entry));
 }
 
+function floorPauseReasonCode(reasonCode = '', waste = {}) {
+  if (waste.kind === 'zero_order') {
+    return reasonCode.replace(/hard_stop|heavy_cut|high_acos|severe_acos_cut|extreme_acos_cut/, 'floor_pause');
+  }
+  if (waste.strength === 'extreme_acos_cut') {
+    return reasonCode.replace(/hard_stop|heavy_cut|high_acos|severe_acos_cut|extreme_acos_cut/, 'extreme_acos_floor_pause');
+  }
+  return reasonCode;
+}
+
 function decisionFromWaste(entry = {}, waste = {}, pattern = '', flags = presenceFlags(entry), prefix = 'residual') {
   if (!waste) return null;
   const reasonCode = waste.reasonCode.replace('recent_adjustment_stoploss_', `${prefix}_`);
@@ -440,16 +450,28 @@ function decisionFromWaste(entry = {}, waste = {}, pattern = '', flags = presenc
     };
   }
 
+  // Zero-order waste cannot be reliably shut off by a bid cut: the 0.1x heavy-cut
+  // target routinely lands below the platform minimum bid, where the backend
+  // silently ignores the write yet still returns success. The row then keeps
+  // spending at the original bid with zero orders. Pause instead — it always lands.
+  if (waste.kind === 'zero_order') {
+    return {
+      actionType: 'pause',
+      reasonCode: floorPauseReasonCode(reasonCode, waste),
+      pattern,
+      presence: flags,
+      severity: waste.severity,
+      reason: waste.reason
+    };
+  }
+
   const bid = num(entry.bid) || 0;
   const suggestedBid = bidTargetForWaste(entry, waste);
   if (!suggestedBid || suggestedBid >= bid) {
-    const m15 = metricWindow(entry, 15) || {};
-    const m30 = metricWindow(entry, 30) || {};
-    const hasLongWindowOrders = num(m15.orders) > 0 || num(m30.orders) > 0;
-    if (waste.kind === 'zero_order' && !hasLongWindowOrders) {
+    if (waste.kind === 'zero_order' || waste.strength === 'extreme_acos_cut') {
       return {
         actionType: 'pause',
-        reasonCode: reasonCode.replace(/heavy_cut|high_acos|severe_acos_cut|extreme_acos_cut/, 'floor_pause'),
+        reasonCode: floorPauseReasonCode(reasonCode, waste),
         pattern,
         presence: flags,
         severity: waste.severity,

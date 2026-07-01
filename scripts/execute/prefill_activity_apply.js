@@ -427,7 +427,7 @@ function browserApplyCouponPatchSource() {
     if (typeof control.onChangeCouponValue === 'function' && control.form.value.couponValue !== undefined) {
       control.onChangeCouponValue(control.form.value.couponValue);
     }
-    if (typeof control.onChangeKeywords === 'function' && control.form.value.core_keywords) {
+    if (typeof control.onChangeKeywords === 'function' && Object.prototype.hasOwnProperty.call(patch, 'core_keywords')) {
       control.onChangeKeywords(control.form.value.core_keywords);
     }
     if (frame.contentWindow?.Vue?.nextTick) await frame.contentWindow.Vue.nextTick();

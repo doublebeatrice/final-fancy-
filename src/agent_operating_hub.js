@@ -2,6 +2,10 @@ function text(value) {
   return String(value ?? '').trim();
 }
 
+function lower(value) {
+  return text(value).toLowerCase();
+}
+
 function dateOnly(value) {
   const raw = text(value);
   if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw;
@@ -39,6 +43,7 @@ function list(value) {
 function capabilityHintsForTask(task = {}) {
   const requirements = list(task.evidenceRequirements).map(item => item.toLowerCase());
   const metrics = list(task.reviewPlan?.metrics).map(item => item.toLowerCase());
+  const title = lower([task.title, task.description, task.rawInput].filter(Boolean).join(' '));
   const hints = [];
   const wantsCorrectionRisk = task.kind === 'operator_correction' || [...requirements, ...metrics].some(item =>
     item.includes('correction') ||
@@ -64,6 +69,22 @@ function capabilityHintsForTask(task = {}) {
     item.includes('time_machine') ||
     item.includes('时光机')
   );
+  const wantsProductLineOps = [...requirements, ...metrics].some(item =>
+    item.includes('product_line') ||
+    item.includes('product-line') ||
+    item.includes('产品线') ||
+    item.includes('全链路') ||
+    item.includes('选品') ||
+    item.includes('新品') ||
+    item.includes('listing') ||
+    item.includes('developer') ||
+    item.includes('开发')
+  ) || (
+    task.lane === 'external_inbox' &&
+    /产品线|全链路|选品|新品|listing|开发|能不能推|能不能做|广告怎么|acos/i.test(title)
+  ) || (
+    task.lane === 'external_inbox' && wantsSelection
+  );
   const wantsInventory = [...requirements, ...metrics].some(item => item.includes('inventory') || item.includes('库存'));
   const wantsProfit = [...requirements, ...metrics].some(item => item.includes('profit') || item.includes('利润'));
 
@@ -80,6 +101,7 @@ function capabilityHintsForTask(task = {}) {
     hints.push('selection::market_evidence::product-time-machine::read');
     hints.push('selection::market_evidence::operating-intelligence::read');
   }
+  if (wantsProductLineOps) hints.push('product_line_ops::profile::read');
   if (wantsInventory) hints.push('sellerinventory::listing::origin-data::read');
   if (wantsProfit) hints.push('agent::effect_review::review-evidence-collector::read');
   if (task.kind === 'effect_review' || task.lane === 'effect_review') hints.push('agent::effect_review::review-evidence-collector::read');
@@ -116,6 +138,17 @@ function defaultAgentFile(prefix, today) {
 
 function defaultSnapshotFile(prefix, today) {
   return `data\\snapshots\\${prefix}_${today}.json`;
+}
+
+function productLineSubjectArgs(task = {}) {
+  const subject = task.subject || {};
+  const terms = marketTermsForTask(task);
+  const parts = [];
+  if (text(subject.sku)) parts.push('--sku', quoteArg(subject.sku));
+  if (text(subject.asin)) parts.push('--asin', quoteArg(subject.asin));
+  const termText = text(subject.keyword) || (terms.length ? terms.join(', ') : '');
+  if (termText) parts.push('--terms', quoteArg(termText));
+  return parts;
 }
 
 function hasCapability(capabilities = [], needle = '') {
@@ -255,6 +288,7 @@ function buildExecutionPlan(task = {}, options = {}) {
         '--today', today,
         '--require-correction-lesson',
         '--require-risk-routing-lesson',
+        '--require-coverage-sufficiency-lesson',
         '--out', outFile,
       ];
       commands.push(commandItem('生成 agent 总目标 readiness 审计', parts.join(' '), {
@@ -266,44 +300,52 @@ function buildExecutionPlan(task = {}, options = {}) {
     const terms = marketTermsForTask(task);
     if (hasCapability(requiredCapabilities, 'selection::market_evidence::keyword-research::read')) {
       const keywordResearchArgs = keywordResearchSubjectArgs(task);
-      commands.push(commandItem('拉选品关键词调研证据', `npm run ops:selection:keyword-research -- ${keywordResearchArgs.length ? keywordResearchArgs.join(' ') : '--terms <关键词或搜索词>'}`, {
+      const keywordResearchFile = defaultSnapshotFile('selection_keyword_research', today);
+      const commandArgs = keywordResearchArgs.length
+        ? [...keywordResearchArgs, '--out', keywordResearchFile].join(' ')
+        : `--terms <关键词或搜索词> --out ${keywordResearchFile}`;
+      commands.push(commandItem('拉选品关键词调研证据', `npm run ops:selection:keyword-research -- ${commandArgs}`, {
         purpose: '先从 Amazon 前台和产品证据找可承接的新流量方向，只生成候选和复核清单，不直接执行广告动作。',
-        output: defaultSnapshotFile('selection_keyword_research', today),
+        output: keywordResearchFile,
       }));
-      expectedOutputs.push(defaultSnapshotFile('selection_keyword_research', today));
+      expectedOutputs.push(keywordResearchFile);
       if (!keywordResearchArgs.length) requiredInputs.push('关键词、SKU、ASIN 或产品描述');
     }
     const termArg = terms.length ? terms.join(', ') : '<关键词或搜索词>';
     if (hasCapability(requiredCapabilities, 'selection::market_evidence::keyword-conversion::read')) {
-      commands.push(commandItem('拉选品关键词转化证据', `npm run ops:selection:keyword-conversion -- --keywords ${quoteArg(termArg)}`, {
+      const keywordConversionFile = defaultSnapshotFile('selection_keyword_conversion_rate', today);
+      commands.push(commandItem('拉选品关键词转化证据', `npm run ops:selection:keyword-conversion -- --keywords ${quoteArg(termArg)} --out ${keywordConversionFile}`, {
         purpose: '确认关键词市场转化和成本，不作为直接执行广告动作的依据。',
-        output: defaultSnapshotFile('selection_keyword_conversion_rate', today),
+        output: keywordConversionFile,
       }));
-      expectedOutputs.push(defaultSnapshotFile('selection_keyword_conversion_rate', today));
+      expectedOutputs.push(keywordConversionFile);
       if (!terms.length) requiredInputs.push('关键词或搜索词');
     }
     if (hasCapability(requiredCapabilities, 'selection::market_evidence::aba-search-terms::read')) {
-      commands.push(commandItem('拉选品 ABA 搜索词证据', `npm run ops:selection:aba-search-terms -- --search-terms ${quoteArg(termArg)}`, {
+      const abaSearchTermsFile = defaultSnapshotFile('selection_aba_search_terms', today);
+      commands.push(commandItem('拉选品 ABA 搜索词证据', `npm run ops:selection:aba-search-terms -- --search-terms ${quoteArg(termArg)} --out ${abaSearchTermsFile}`, {
         purpose: '确认需求、竞争和头部 ASIN 集中度，不作为直接执行广告动作的依据。',
-        output: defaultSnapshotFile('selection_aba_search_terms', today),
+        output: abaSearchTermsFile,
       }));
-      expectedOutputs.push(defaultSnapshotFile('selection_aba_search_terms', today));
+      expectedOutputs.push(abaSearchTermsFile);
       if (!terms.length) requiredInputs.push('关键词或搜索词');
     }
     if (hasCapability(requiredCapabilities, 'selection::market_evidence::keyword-seasonality::read')) {
-      commands.push(commandItem('拉选品关键词季节性证据', `npm run ops:selection:keyword-seasonality -- --search-terms ${quoteArg(termArg)}`, {
+      const keywordSeasonalityFile = defaultSnapshotFile('selection_keyword_seasonality', today);
+      commands.push(commandItem('拉选品关键词季节性证据', `npm run ops:selection:keyword-seasonality -- --search-terms ${quoteArg(termArg)} --out ${keywordSeasonalityFile}`, {
         purpose: '确认关键词 Google 趋势、市场规模、竞品门槛、品牌集中和买家扩展词，只作为市场判断证据。',
-        output: defaultSnapshotFile('selection_keyword_seasonality', today),
+        output: keywordSeasonalityFile,
       }));
-      expectedOutputs.push(defaultSnapshotFile('selection_keyword_seasonality', today));
+      expectedOutputs.push(keywordSeasonalityFile);
       if (!terms.length) requiredInputs.push('关键词或搜索词');
     }
     if (hasCapability(requiredCapabilities, 'selection::market_evidence::product-time-machine::read')) {
-      commands.push(commandItem('拉选品产品时光机证据', `npm run ops:selection:product-time-machine -- --search-keywords ${quoteArg(termArg)}`, {
+      const productTimeMachineFile = defaultSnapshotFile('selection_product_time_machine', today);
+      commands.push(commandItem('拉选品产品时光机证据', `npm run ops:selection:product-time-machine -- --search-keywords ${quoteArg(termArg)} --out ${productTimeMachineFile}`, {
         purpose: '确认关键词下竞品 ASIN、近月购买量、历史购买趋势、自然/广告流量词结构、自然排名和关键词历史曲线，只作为市场与竞品证据。',
-        output: defaultSnapshotFile('selection_product_time_machine', today),
+        output: productTimeMachineFile,
       }));
-      expectedOutputs.push(defaultSnapshotFile('selection_product_time_machine', today));
+      expectedOutputs.push(productTimeMachineFile);
       if (hasCapability(requiredCapabilities, 'selection::market_evidence::operating-intelligence::read')) {
         const operatingIntelligenceFile = defaultSnapshotFile('selection_operating_intelligence', today);
         const operatingParts = [
@@ -322,6 +364,30 @@ function buildExecutionPlan(task = {}, options = {}) {
         expectedOutputs.push(operatingIntelligenceFile);
       }
       if (!terms.length) requiredInputs.push('关键词或搜索词');
+    }
+    if (hasCapability(requiredCapabilities, 'product_line_ops::profile::read')) {
+      const productLineProfileFile = defaultSnapshotFile('product_line_ops_profile', today);
+      const productLineParts = [
+        'npm run ops:product-line:profile --',
+        ...productLineSubjectArgs(task),
+        '--keyword-research-report', defaultSnapshotFile('selection_keyword_research', today),
+        '--keyword-conversion-report', defaultSnapshotFile('selection_keyword_conversion_rate', today),
+        '--aba-report', defaultSnapshotFile('selection_aba_search_terms', today),
+        '--seasonality-report', defaultSnapshotFile('selection_keyword_seasonality', today),
+        '--product-time-machine-report', defaultSnapshotFile('selection_product_time_machine', today),
+        '--operating-intelligence-report', defaultSnapshotFile('selection_operating_intelligence', today),
+        '--sif-reverse-keywords-report', defaultSnapshotFile('sif_reverse_keywords', today),
+        '--sif-keyword-history-report', defaultSnapshotFile('sif_keyword_history', today),
+        '--sif-ad-xray-report', defaultSnapshotFile('sif_ad_xray', today),
+        '--inventory-report', defaultSnapshotFile('sellerinventory_product_analysis', today),
+        '--ad-backend-report', defaultSnapshotFile('ad_sku_summary', today),
+        '--out', productLineProfileFile,
+      ].filter(Boolean);
+      commands.push(commandItem('生成产品线全链路 profile', productLineParts.join(' '), {
+        purpose: '把 selection、SIF、sellerinventory、广告后台和 GBrain 边界收口成只读产品线经营 profile；卖家精灵只作为 fallback，不作为默认源。',
+        output: productLineProfileFile,
+      }));
+      expectedOutputs.push(productLineProfileFile);
     }
   } else if (classified.workType === 'daily_ops') {
     const outFile = defaultAgentFile('agent_ledger', today);

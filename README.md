@@ -60,6 +60,8 @@ npm run chrome:ready
 
 可用状态不要只看网页是否打开；以后端 readiness 为准。不要复制、保存或提交 cookies、token、JWT、CSRF、Inventory-Token。
 
+通用网页或只读页面辅助可以复用 `discovery/lib/cdp.js` 的 CDP helper：`openTab` / `closeTab` / `evaluate` / `pageInfo` / `scroll` / `clickAt` / `screenshot`。这些能力借鉴自 `web-access` 的通用浏览器操作模式，仍然直接走本仓库 `9222` 协作浏览器；业务系统结构化读取、写入执行和落地验证仍必须走 `npm run chrome:ready` 及对应业务脚本。
+
 ## Daily Deposit 数据闭环
 
 每天数据入库/填报先从 status 开始：
@@ -242,6 +244,7 @@ data/doc_exports/          文档/表格导出产物，不提交
 ```powershell
 npm test
 node --check auto_adjust.js
+npm run ops:codex:health -- --probe --probe-model gpt-5.5
 npm run ops:closure:verify -- --date <YYYY-MM-DD>
 git status -sb
 git ls-files --others --exclude-standard

@@ -768,8 +768,9 @@ function reviewAction(item, kind, reason) {
 function buildReviewItems(audit = {}, products = new Map(), limit = 80) {
   const sourceItems = [
     ...(audit.newProductLaunch?.items || []).map(item => ({ item, kind: 'new_product_launch', reason: 'New or recently arrived product must not wait for natural orders; build or repair basic ad launch.' })),
-    ...(audit.arrivalAdRecovery?.items || []).map(item => ({ item, kind: 'arrival_ad_recovery', reason: 'Arrived inventory has no effective ad delivery; reopen, scale, or build ads.' })),
+    ...(audit.arrivalAdRecovery?.items || []).map(item => ({ item, kind: 'arrival_ad_recovery', reason: 'Run full ad recovery diagnosis before any enable, scale, or build decision; size intensity from market, product, inventory, profit, and historical lane evidence.' })),
     ...(audit.priceActions?.items || []).map(item => ({ item, kind: 'price_action', reason: 'Daily price gate: review raise/recovery for tight inventory or low-profit active sales.' })),
+    ...(audit.priceActions?.routedOut || []).map(item => ({ item, kind: item.issue || 'price_routed_out', reason: item.why || 'Price pool routed this SKU away from direct price execution; close the better route such as ad recovery, replenishment watch, or parent variation-line review.' })),
     ...(audit.removalEconomics?.items || []).map(item => ({ item, kind: 'removal_economics', reason: 'Read-only removal economics must decide discount sell-through, service provider, batch clearance, or disposal before any removal application.' })),
     ...(audit.listingRepair?.items || []).map(item => ({ item, kind: 'listing_repair', reason: 'Traffic or spend indicates listing, offer, review, price, or search-term fit repair before scaling.' })),
   ].filter(entry => entry.item?.sku).slice(0, limit);

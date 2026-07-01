@@ -1,0 +1,4 @@
+interface:
+  display_name: "老品下滑归因诊断"
+  short_description: "输入 SKU，自动拉数据归因，输出《老品整改问题单》"
+  default_prompt: "帮我归因这个 SKU 的下滑原因"

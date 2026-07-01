@@ -37,6 +37,12 @@ const riskExcuseCorrectionText = [
   '\u7ecf\u5e38\u8fd9\u6837\u4f1a\u5f71\u54cd\u540e\u7eed\u89c4\u5219',
 ].join('\uff0c');
 
+const coverageUnderreachCorrectionText = [
+  'BOY1281 覆盖面这个问题我说了多少次了',
+  '覆盖度购买不够，力度不够永远没办法达到目标',
+  '不能只报调了几条 bid 和 readback，必须先算订单缺口、点击缺口和动作覆盖比例',
+].join('，');
+
 {
   const event = correctionEvent({ text: correctionText }, timeContext);
   assert.strictEqual(event.subject.sku, 'HAY0218');
@@ -101,6 +107,29 @@ const riskExcuseCorrectionText = [
   assert.strictEqual(task.priority, 'P0');
   assert.ok(task.evidenceRequirements.includes('supported_action_execution_path_review'));
   assert.ok(task.authorizationHint.includes('risk_is_routing_not_refusal'));
+}
+
+{
+  const report = buildCorrectionRiskReport({ text: coverageUnderreachCorrectionText }, timeContext);
+  assert.strictEqual(report.summary.severity, 'high');
+  assert.strictEqual(report.correction.subject.sku, 'BOY1281');
+  assert.strictEqual(report.correction.surface, 'coverage_sufficiency');
+  assert.ok(report.correction.signals.includes('coverage_underreach'));
+  assert.ok(report.correction.signals.includes('repeated_pattern_risk'));
+  assert.ok(report.audit.categories.includes('coverage_sufficiency_risk'));
+  assert.ok(report.audit.requiredChecks.includes('derive_target_order_gap_click_gap_and_action_coverage_ratio'));
+  assert.ok(report.audit.requiredChecks.includes('inspect_missing_kw_auto_asin_sbv_search_term_budget_placement_layers'));
+  assert.ok(report.audit.immediateControls.includes('coverage_question_must_be_answered_before_action_summary'));
+  assert.ok(report.audit.immediateControls.includes('do_not_label_under_50_percent_gap_coverage_as_sufficient'));
+  assert.ok(report.tasks.some(task => task.kind === 'coverage_sufficiency_audit'));
+  assert.ok(report.learningPatch.doNotApplyWhen.includes('coverage sufficiency has not been answered before action landing details'));
+  assert.ok(report.learningPatch.operatingPrinciple.includes('coverage sufficiency first'));
+
+  const task = parseExternalRequest(coverageUnderreachCorrectionText, timeContext);
+  assert.strictEqual(task.kind, 'operator_correction');
+  assert.strictEqual(task.priority, 'P0');
+  assert.ok(task.evidenceRequirements.includes('coverage_sufficiency_audit'));
+  assert.ok(task.authorizationHint.includes('coverage_sufficiency_first'));
 }
 
 {

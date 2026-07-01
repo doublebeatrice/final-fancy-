@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { ALLOWED_OPERATION_SALE_STATUS } = require('../../src/operation_scope');
 
 function num(value) {
   if (value === null || value === undefined || value === '') return 0;
@@ -30,7 +31,7 @@ function saleStatusesForSb(row, systemSnapshot) {
 }
 
 function isNormalSaleOnly(statuses) {
-  return statuses.length > 0 && statuses.every(status => status === '正常销售');
+  return statuses.length > 0 && statuses.every(status => ALLOWED_OPERATION_SALE_STATUS.includes(status));
 }
 
 function minBid(row, entityType) {
@@ -142,6 +143,7 @@ function actionFor(systemRow, card, candidate, channel) {
   const stats = uiStats(systemRow);
   const label = labelFor(row);
   const campaign = row.campaign || {};
+  const saleStatus = channel === 'SP' ? saleStatusForSp(systemRow) : '';
   const reasonCode = channel === 'SB'
     ? 'system_7day_sb_low_risk_bid_down_touch'
     : 'system_7day_sp_low_risk_bid_down_touch';
@@ -167,7 +169,7 @@ function actionFor(systemRow, card, candidate, channel) {
     },
     measurementWindowDays: [1, 3, 7, 14, 30],
     evidence: [
-      `system_card_channel=${channel}; SKU=${card.sku}; sale_status=正常销售.`,
+      `system_card_channel=${channel}; SKU=${card.sku}; sale_status=${saleStatus || 'allowed'}.`,
       `UI row spend=${stats.spend.toFixed(2)}, clicks=${stats.clicks.toFixed(0)}, orders=${stats.orders.toFixed(0)}, ACOS=${stats.acos || 0}.`,
       `${row.entityType} ${row.id} ${label}: bid ${candidate.currentBid}->${candidate.suggestedBid}.`,
     ],
@@ -267,7 +269,7 @@ function main() {
 
   for (const row of systemSnapshot.spRows || []) {
     const saleStatus = saleStatusForSp(row);
-    if (saleStatus !== '正常销售') {
+    if (!ALLOWED_OPERATION_SALE_STATUS.includes(saleStatus)) {
       skip('SP', row, 'product_status_not_normal_sale', { saleStatus });
       continue;
     }

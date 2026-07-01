@@ -1,0 +1,2354 @@
+[
+  {
+    "sku": "UY6438",
+    "asin": "B0H19VW8XH",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "327859713145038",
+    "entityName": "20260617-uy6438-system-a",
+    "beforeValue": 0.1,
+    "afterValue": 0.3,
+    "reason": "UY6438 has an enabled auto lane but all four buckets are at 0.10 and 7/30d delivery is zero. Product-line CPC evidence is about 0.295, so close-match bucket needs a traffic-capable bid.",
+    "runAt": "2026-06-18T01:48:56.797Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-18",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "uy6438_new_product_ad_build_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Raising close-match auto to 0.30 should create initial search-term discovery without opening broad budget too far.",
+        "expectedEffect": {
+          "impressions": "start",
+          "clicks": "small_controlled",
+          "spend": "controlled"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "3d irrelevant traffic or 7d spend without useful terms/orders",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "bid"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY6438",
+    "asin": "B0H19VW8XH",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "391265771482588",
+    "entityName": "20260617-uy6438-system-a",
+    "beforeValue": 0.1,
+    "afterValue": 0.2,
+    "reason": "UY6438 auto broad bucket is enabled but dead-floor bid and zero delivery; keep below close-match due niche/low-bid market verdict.",
+    "runAt": "2026-06-18T01:48:56.797Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-18",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "uy6438_new_product_ad_build_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A 0.20 bid may unlock limited broad auto discovery while protecting against generic decor traffic.",
+        "expectedEffect": {
+          "impressions": "start",
+          "clicks": "limited",
+          "spend": "low"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "broad auto pulls generic office/home decor terms",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "bid"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY6438",
+    "asin": "B0H19VW8XH",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "399156980408525",
+    "entityName": "20260617-uy6438-system-a",
+    "beforeValue": 0.1,
+    "afterValue": 0.2,
+    "reason": "UY6438 product-page discovery should be opened cautiously because direct ASIN competitors are available but front-page inventory shows limited visible stock.",
+    "runAt": "2026-06-18T01:48:56.797Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-18",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "uy6438_new_product_ad_build_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A 0.20 substitute bid should test comparable product-page traffic without overspending.",
+        "expectedEffect": {
+          "impressions": "start",
+          "clicks": "limited",
+          "spend": "low"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "ASIN traffic irrelevant or spend reaches 10 without order/learning",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "bid"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY6438",
+    "asin": "B0H19VW8XH",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "540547953483292",
+    "entityName": "20260617-uy6438-system-a",
+    "beforeValue": 0.1,
+    "afterValue": 0.12,
+    "reason": "Accessory/complement auto is weakest for this decor product, so only a minimal unlock from 0.10 to 0.12 is justified.",
+    "runAt": "2026-06-18T01:48:56.797Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-18",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "uy6438_new_product_ad_build_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Minimal accessory exposure can confirm whether Amazon finds adjacent therapy-room placements; otherwise it will be cut.",
+        "expectedEffect": {
+          "impressions": "small",
+          "spend": "very_low"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "accessory traffic is irrelevant",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "bid"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY6438",
+    "asin": "B0H19VW8XH",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::UY6438::keywordTarget::BROAD::therapist office decor",
+    "entityName": "",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "keywordTarget",
+      "sku": "UY6438",
+      "asin": "B0H19VW8XH",
+      "accountId": 380,
+      "siteId": 4,
+      "dailyBudget": 5,
+      "defaultBid": 0.35,
+      "coreTerm": "therapist office decor",
+      "matchType": "BROAD",
+      "keywords": [
+        "therapist office decor",
+        "mental health office decor",
+        "mental health awareness decorations",
+        "school counselor office decor",
+        "positive affirmation signs",
+        "calming corner decor"
+      ],
+      "campaignName": "ai_kw broad_therapist office decor_uy6438",
+      "groupName": "ai_kw broad_therapist office decor_uy6438",
+      "targetType": "",
+      "targetAsins": [],
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 1,
+        "deadlineDays": 7,
+        "hardFloor": 0
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": "",
+      "siteRestriction": ""
+    },
+    "reason": "UY6438 has no owned SP keyword lane and zero 7/30d delivery. Selection evidence supports therapist office decor / mental health office decor as narrow launch entrances.",
+    "runAt": "2026-06-18T01:48:56.797Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-18",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "uy6438_new_product_ad_build_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A controlled broad lane at 0.35 and $5/day should start buyer-query discovery around therapist/counselor/mental-health decor without relying on system auto.",
+        "expectedEffect": {
+          "impressions": "start",
+          "clicks": "controlled",
+          "searchTerms": "relevance_discovery"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "irrelevant gift/home decor terms dominate or 7d spend reaches 12 with no order/usable search term",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "create"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY6438",
+    "asin": "B0H19VW8XH",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::UY6438::productTarget::ASIN_SAME_AS::therapist office decor",
+    "entityName": "",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "productTarget",
+      "sku": "UY6438",
+      "asin": "B0H19VW8XH",
+      "accountId": 380,
+      "siteId": 4,
+      "dailyBudget": 4,
+      "defaultBid": 0.28,
+      "coreTerm": "therapist office decor",
+      "targetType": "ASIN_SAME_AS",
+      "targetAsins": [
+        "B0DSJCN7RN",
+        "B0D1CJMZ94",
+        "B0D8FKH6JS",
+        "B0CQKDB7K5",
+        "B0B1J5WD3Y",
+        "B0D22TZF83",
+        "B0D2KT3RW7",
+        "B0DNTHH6XG",
+        "B0D1N2MZ26",
+        "B0CLV9J7QW"
+      ],
+      "campaignName": "ai_asin_therapist office decor_uy6438",
+      "groupName": "ai_asin_therapist office decor_uy6438",
+      "matchType": "",
+      "keywords": [],
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 1,
+        "deadlineDays": 7,
+        "hardFloor": 0
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": "",
+      "siteRestriction": ""
+    },
+    "reason": "UY6438 lacks owned SP ASIN targeting. Exact ASINs are direct therapy office / mental health / counselor decor competitors from front-search, ABA, and PTM evidence.",
+    "runAt": "2026-06-18T01:48:56.797Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-18",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "uy6438_new_product_ad_build_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Exact ASIN lane should buy comparable product-page traffic while broad keyword lane learns search terms.",
+        "expectedEffect": {
+          "impressions": "product_page",
+          "clicks": "controlled",
+          "asinLearning": "direct_competitor"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "ASIN placement spend reaches 10-12 with no order or no relevant learning",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "create"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY6438",
+    "asin": "B0H19VW8XH",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::UY6438::productTarget::ASIN_EXPANDED_FROM::mental health decor",
+    "entityName": "",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "productTarget",
+      "sku": "UY6438",
+      "asin": "B0H19VW8XH",
+      "accountId": 380,
+      "siteId": 4,
+      "dailyBudget": 3,
+      "defaultBid": 0.2,
+      "coreTerm": "mental health decor",
+      "targetType": "ASIN_EXPANDED_FROM",
+      "targetAsins": [
+        "B0CLV9J7QW",
+        "B0D8FKH6JS",
+        "B0CQKDB7K5",
+        "B0D22TZF83",
+        "B0B1J5WD3Y"
+      ],
+      "campaignName": "ai_asin expanded_mental health decor_uy6438",
+      "groupName": "ai_asin expanded_mental health decor_uy6438",
+      "matchType": "",
+      "keywords": [],
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 1,
+        "deadlineDays": 7,
+        "hardFloor": 0
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": "",
+      "siteRestriction": ""
+    },
+    "reason": "UY6438 lacks an owned expanded ASIN/product target lane. Use only mental-health/therapy decor seeds, not generic office decor traffic bridges.",
+    "runAt": "2026-06-18T01:48:56.797Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-18",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "uy6438_new_product_ad_build_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Expanded ASIN from relevant mental-health decor seeds can discover adjacent product-page traffic at low bid.",
+        "expectedEffect": {
+          "impressions": "product_page",
+          "clicks": "low",
+          "asinLearning": "expanded_relevant"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "expanded targets drift into generic office/home decor or spend reaches 10 with no learning",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "create"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY6438",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "327859713145038",
+    "entityName": "20260617-uy6438-system-a",
+    "beforeValue": 0.1,
+    "afterValue": 0.3,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"327859713145038\"},{\"targetId\":\"391265771482588\"},{\"targetId\":\"399156980408525\"},{\"targetId\":\"540547953483292\"}],\"error\":[]}}",
+    "runAt": "2026-06-18T01:49:03.434Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-18",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "uy6438_new_product_ad_build_2026-06-18_execute",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Raising close-match auto to 0.30 should create initial search-term discovery without opening broad budget too far.",
+        "expectedEffect": {
+          "impressions": "start",
+          "clicks": "small_controlled",
+          "spend": "controlled"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "3d irrelevant traffic or 7d spend without useful terms/orders",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "bid"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY6438",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "391265771482588",
+    "entityName": "20260617-uy6438-system-a",
+    "beforeValue": 0.1,
+    "afterValue": 0.2,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"327859713145038\"},{\"targetId\":\"391265771482588\"},{\"targetId\":\"399156980408525\"},{\"targetId\":\"540547953483292\"}],\"error\":[]}}",
+    "runAt": "2026-06-18T01:49:03.434Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-18",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "uy6438_new_product_ad_build_2026-06-18_execute",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "A 0.20 bid may unlock limited broad auto discovery while protecting against generic decor traffic.",
+        "expectedEffect": {
+          "impressions": "start",
+          "clicks": "limited",
+          "spend": "low"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "broad auto pulls generic office/home decor terms",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "bid"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY6438",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "399156980408525",
+    "entityName": "20260617-uy6438-system-a",
+    "beforeValue": 0.1,
+    "afterValue": 0.2,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"327859713145038\"},{\"targetId\":\"391265771482588\"},{\"targetId\":\"399156980408525\"},{\"targetId\":\"540547953483292\"}],\"error\":[]}}",
+    "runAt": "2026-06-18T01:49:03.434Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-18",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "uy6438_new_product_ad_build_2026-06-18_execute",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "A 0.20 substitute bid should test comparable product-page traffic without overspending.",
+        "expectedEffect": {
+          "impressions": "start",
+          "clicks": "limited",
+          "spend": "low"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "ASIN traffic irrelevant or spend reaches 10 without order/learning",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "bid"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY6438",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "540547953483292",
+    "entityName": "20260617-uy6438-system-a",
+    "beforeValue": 0.1,
+    "afterValue": 0.12,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"327859713145038\"},{\"targetId\":\"391265771482588\"},{\"targetId\":\"399156980408525\"},{\"targetId\":\"540547953483292\"}],\"error\":[]}}",
+    "runAt": "2026-06-18T01:49:03.434Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-18",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "uy6438_new_product_ad_build_2026-06-18_execute",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Minimal accessory exposure can confirm whether Amazon finds adjacent therapy-room placements; otherwise it will be cut.",
+        "expectedEffect": {
+          "impressions": "small",
+          "spend": "very_low"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "accessory traffic is irrelevant",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "bid"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY6438",
+    "asin": "B0H19VW8XH",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::UY6438::keywordTarget::BROAD::therapist office decor",
+    "entityName": "ai_kw broad_therapist office decor_uy6438",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "keywordTarget",
+      "sku": "UY6438",
+      "asin": "B0H19VW8XH",
+      "accountId": 380,
+      "siteId": 4,
+      "dailyBudget": 5,
+      "defaultBid": 0.35,
+      "coreTerm": "therapist office decor",
+      "matchType": "BROAD",
+      "keywords": [
+        "therapist office decor",
+        "mental health office decor",
+        "mental health awareness decorations",
+        "school counselor office decor",
+        "positive affirmation signs",
+        "calming corner decor"
+      ],
+      "campaignName": "ai_kw broad_therapist office decor_uy6438",
+      "groupName": "ai_kw broad_therapist office decor_uy6438",
+      "targetType": "",
+      "targetAsins": [],
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 1,
+        "deadlineDays": 7,
+        "hardFloor": 0
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": "",
+      "siteRestriction": ""
+    },
+    "reason": "{\"ok\":true,\"mode\":\"keywordTarget\",\"requestUrl\":\"/campaign/createOneTime\",\"requestBody\":{\"createType\":\"campaign\",\"advType\":\"SP\",\"name\":\"create SP campaign\",\"campaignName\":\"ai_kw broad_therapist office decor_uy6438\",\"startDate\":\"2026-06-18\",\"accountId\":380,\"siteId\":4,\"dailyBudget\":5,\"offAmazonBudgetControlStrategy\":\"MINIMIZE_SPEND\",\"placementTop\":0,\"placementProductPage\":0,\"placementRestOfSearch\":0,\"siteAmazonBusiness\":0,\"groupName\":\"ai_kw broad_therapist office decor_uy6438\",\"haulFlag\":false,\"asinArray\":[\"B0H19VW8XH\"],\"skuArray\":[\"UY6438\"],\"defaultBid\":0.35,\"targetingType\":\"MANUAL\",\"positionType\":\"keywordTarget\",\"strategy\":\"MANUAL\",\"keywordArray\":[{\"keywordText\":\"therapist office decor\",\"matchType\":\"BROAD\",\"bid\":0.35,\"coreMark\":\"\"},{\"keywordText\":\"mental health office decor\",\"matchType\":\"BROAD\",\"bid\":0.35,\"coreMark\":\"\"},{\"keywordText\":\"mental health awareness decorations\",\"matchType\":\"BROAD\",\"bid\":0.35,\"coreMark\":\"\"},{\"keywordText\":\"school counselor office decor\",\"matchType\":\"BROAD\",\"bid\":0.35,\"coreMark\":\"\"},{\"keywordText\":\"positive affirmation signs\",\"matchType\":\"BROAD\",\"bid\":0.35,\"coreMark\":\"\"},{\"keywordText\":\"calming corner decor\",\"matchType\":\"BROAD\",\"bid\":0.35,\"coreMark\":\"\"}],\"keywordGroups\":[],\"negativeKeywordArray\":[]},\"campaignName\":\"ai_kw broad_therapist office decor_uy6438\",\"groupName\":\"ai_kw broad_therapist office decor_uy6438\",\"errors\":[],\"responseCode\":200,\"responseMsg\":\"success\",\"campaignId\":\"14426266412358\",\"adGroupId\":\"1508634706776\",\"errorType\":\"\",\"reason\":\"\",\"rawResponse\":{\"code\":200,\"msg\":\"success\",\"data\":{\"apiResponse\":\"\",\"param\":{\"info\":\"新建SP广告\",\"userName\":\"黄成喆\",\"siteId\":4,\"accountId\":380,\"state\":\"ENABLED\",\"campaignName\":\"ai_kw broad_therapist office decor_uy6438\",\"groupName\":\"ai_kw broad_therapist office decor_uy6438\",\"dailyBudget\":5,\"defaultBid\":0.35,\"strategy\":\"MANUAL\",\"positionType\":\"keywordTarget\",\"targetingType\":\"MANUAL\",\"startDate\":\"2026-06-18\",\"endDate\":\"\",\"skuArray\":[\"UY6438\"],\"asinArray\":[\"B0H19VW8XH\"],\"keywordArray\":[{\"keywordText\":\"therapist office decor\",\"matchType\":\"BROAD\",\"bid\":0.35,\"coreMark\":null},{\"keywordText\":\"mental health office decor\",\"matchType\":\"BROAD\",\"bid\":0.35,\"coreMark\":null},{\"keywordText\":\"mental health awareness decorations\",\"matchType\":\"BROAD\",\"bid\":0.35,\"coreMark\":null},{\"keywordText\":\"school counselor office decor\",\"matchType\":\"BROAD\",\"bid\":0.35,\"coreMark\":null},{\"keywordText\":\"positive affirmation signs\",\"matchType\":\"BROAD\",\"bid\":0.35,\"coreMark\":null},{\"keywordText\":\"calming corner decor\",\"matchType\":\"BROAD\",\"bid\":0.35,\"coreMark\":null}],\"negativeKeywordArray\":[],\"productTargetArray\":[],\"negativeProductTargetArray\":[],\"audience\":[],\"keywordGroups\":[],\"offAmazonBudgetControlStrategy\":\"MINIMIZE_SPEND\",\"campaignId\":\"14426266412358\",\"adGroupId\":\"1508634706776\"}}}}",
+    "runAt": "2026-06-18T01:49:03.434Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-18",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "uy6438_new_product_ad_build_2026-06-18_execute",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "A controlled broad lane at 0.35 and $5/day should start buyer-query discovery around therapist/counselor/mental-health decor without relying on system auto.",
+        "expectedEffect": {
+          "impressions": "start",
+          "clicks": "controlled",
+          "searchTerms": "relevance_discovery"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "irrelevant gift/home decor terms dominate or 7d spend reaches 12 with no order/usable search term",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "create"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY6438",
+    "asin": "B0H19VW8XH",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::UY6438::productTarget::ASIN_SAME_AS::therapist office decor",
+    "entityName": "ai_asin_therapist office decor_uy6438",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "productTarget",
+      "sku": "UY6438",
+      "asin": "B0H19VW8XH",
+      "accountId": 380,
+      "siteId": 4,
+      "dailyBudget": 4,
+      "defaultBid": 0.28,
+      "coreTerm": "therapist office decor",
+      "targetType": "ASIN_SAME_AS",
+      "targetAsins": [
+        "B0DSJCN7RN",
+        "B0D1CJMZ94",
+        "B0D8FKH6JS",
+        "B0CQKDB7K5",
+        "B0B1J5WD3Y",
+        "B0D22TZF83",
+        "B0D2KT3RW7",
+        "B0DNTHH6XG",
+        "B0D1N2MZ26",
+        "B0CLV9J7QW"
+      ],
+      "campaignName": "ai_asin_therapist office decor_uy6438",
+      "groupName": "ai_asin_therapist office decor_uy6438",
+      "matchType": "",
+      "keywords": [],
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 1,
+        "deadlineDays": 7,
+        "hardFloor": 0
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": "",
+      "siteRestriction": ""
+    },
+    "reason": "{\"ok\":true,\"mode\":\"productTarget\",\"requestUrl\":\"/campaign/createOneTime\",\"requestBody\":{\"createType\":\"campaign\",\"advType\":\"SP\",\"name\":\"create SP campaign\",\"campaignName\":\"ai_asin_therapist office decor_uy6438\",\"startDate\":\"2026-06-18\",\"accountId\":380,\"siteId\":4,\"dailyBudget\":4,\"offAmazonBudgetControlStrategy\":\"MINIMIZE_SPEND\",\"placementTop\":0,\"placementProductPage\":0,\"placementRestOfSearch\":0,\"siteAmazonBusiness\":0,\"groupName\":\"ai_asin_therapist office decor_uy6438\",\"haulFlag\":false,\"asinArray\":[\"B0H19VW8XH\"],\"skuArray\":[\"UY6438\"],\"defaultBid\":0.28,\"targetingType\":\"MANUAL\",\"positionType\":\"productTarget\",\"strategy\":\"LEGACY_FOR_SALES\",\"productTargetArray\":[{\"bid\":0.28,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0DSJCN7RN\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0DSJCN7RN\"}]},{\"bid\":0.28,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D1CJMZ94\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D1CJMZ94\"}]},{\"bid\":0.28,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D8FKH6JS\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D8FKH6JS\"}]},{\"bid\":0.28,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0CQKDB7K5\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0CQKDB7K5\"}]},{\"bid\":0.28,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0B1J5WD3Y\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0B1J5WD3Y\"}]},{\"bid\":0.28,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D22TZF83\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D22TZF83\"}]},{\"bid\":0.28,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D2KT3RW7\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D2KT3RW7\"}]},{\"bid\":0.28,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0DNTHH6XG\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0DNTHH6XG\"}]},{\"bid\":0.28,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D1N2MZ26\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D1N2MZ26\"}]},{\"bid\":0.28,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0CLV9J7QW\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0CLV9J7QW\"}]}],\"negativeProductTargetArray\":[]},\"campaignName\":\"ai_asin_therapist office decor_uy6438\",\"groupName\":\"ai_asin_therapist office decor_uy6438\",\"errors\":[],\"responseCode\":200,\"responseMsg\":\"success\",\"campaignId\":\"47850475773771\",\"adGroupId\":\"45592341438977\",\"errorType\":\"\",\"reason\":\"\",\"rawResponse\":{\"code\":200,\"msg\":\"success\",\"data\":{\"apiResponse\":\"\",\"param\":{\"info\":\"新建SP广告\",\"userName\":\"黄成喆\",\"siteId\":4,\"accountId\":380,\"state\":\"ENABLED\",\"campaignName\":\"ai_asin_therapist office decor_uy6438\",\"groupName\":\"ai_asin_therapist office decor_uy6438\",\"dailyBudget\":4,\"defaultBid\":0.28,\"strategy\":\"LEGACY_FOR_SALES\",\"positionType\":\"productTarget\",\"targetingType\":\"MANUAL\",\"startDate\":\"2026-06-18\",\"endDate\":\"\",\"skuArray\":[\"UY6438\"],\"asinArray\":[\"B0H19VW8XH\"],\"keywordArray\":[],\"negativeKeywordArray\":[],\"productTargetArray\":[{\"bid\":0.28,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0DSJCN7RN\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0DSJCN7RN\"}]},{\"bid\":0.28,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D1CJMZ94\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D1CJMZ94\"}]},{\"bid\":0.28,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D8FKH6JS\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D8FKH6JS\"}]},{\"bid\":0.28,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0CQKDB7K5\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0CQKDB7K5\"}]},{\"bid\":0.28,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0B1J5WD3Y\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0B1J5WD3Y\"}]},{\"bid\":0.28,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D22TZF83\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D22TZF83\"}]},{\"bid\":0.28,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D2KT3RW7\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D2KT3RW7\"}]},{\"bid\":0.28,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0DNTHH6XG\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0DNTHH6XG\"}]},{\"bid\":0.28,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D1N2MZ26\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0D1N2MZ26\"}]},{\"bid\":0.28,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0CLV9J7QW\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0CLV9J7QW\"}]}],\"negativeProductTargetArray\":[],\"audience\":[],\"keywordGroups\":[],\"offAmazonBudgetControlStrategy\":\"MINIMIZE_SPEND\",\"campaignId\":\"47850475773771\",\"adGroupId\":\"45592341438977\"}}}}",
+    "runAt": "2026-06-18T01:49:03.434Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-18",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "uy6438_new_product_ad_build_2026-06-18_execute",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Exact ASIN lane should buy comparable product-page traffic while broad keyword lane learns search terms.",
+        "expectedEffect": {
+          "impressions": "product_page",
+          "clicks": "controlled",
+          "asinLearning": "direct_competitor"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "ASIN placement spend reaches 10-12 with no order or no relevant learning",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "create"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "UY6438",
+    "asin": "B0H19VW8XH",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::UY6438::productTarget::ASIN_EXPANDED_FROM::mental health decor",
+    "entityName": "ai_asin expanded_mental health decor_uy6438",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "productTarget",
+      "sku": "UY6438",
+      "asin": "B0H19VW8XH",
+      "accountId": 380,
+      "siteId": 4,
+      "dailyBudget": 3,
+      "defaultBid": 0.2,
+      "coreTerm": "mental health decor",
+      "targetType": "ASIN_EXPANDED_FROM",
+      "targetAsins": [
+        "B0CLV9J7QW",
+        "B0D8FKH6JS",
+        "B0CQKDB7K5",
+        "B0D22TZF83",
+        "B0B1J5WD3Y"
+      ],
+      "campaignName": "ai_asin expanded_mental health decor_uy6438",
+      "groupName": "ai_asin expanded_mental health decor_uy6438",
+      "matchType": "",
+      "keywords": [],
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 1,
+        "deadlineDays": 7,
+        "hardFloor": 0
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": "",
+      "siteRestriction": ""
+    },
+    "reason": "{\"ok\":true,\"mode\":\"productTarget\",\"requestUrl\":\"/campaign/createOneTime\",\"requestBody\":{\"createType\":\"campaign\",\"advType\":\"SP\",\"name\":\"create SP campaign\",\"campaignName\":\"ai_asin expanded_mental health decor_uy6438\",\"startDate\":\"2026-06-18\",\"accountId\":380,\"siteId\":4,\"dailyBudget\":3,\"offAmazonBudgetControlStrategy\":\"MINIMIZE_SPEND\",\"placementTop\":0,\"placementProductPage\":0,\"placementRestOfSearch\":0,\"siteAmazonBusiness\":0,\"groupName\":\"ai_asin expanded_mental health decor_uy6438\",\"haulFlag\":false,\"asinArray\":[\"B0H19VW8XH\"],\"skuArray\":[\"UY6438\"],\"defaultBid\":0.2,\"targetingType\":\"MANUAL\",\"positionType\":\"productTarget\",\"strategy\":\"LEGACY_FOR_SALES\",\"productTargetArray\":[{\"bid\":0.2,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0CLV9J7QW\"}],\"expression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0CLV9J7QW\"}]},{\"bid\":0.2,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0D8FKH6JS\"}],\"expression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0D8FKH6JS\"}]},{\"bid\":0.2,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0CQKDB7K5\"}],\"expression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0CQKDB7K5\"}]},{\"bid\":0.2,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0D22TZF83\"}],\"expression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0D22TZF83\"}]},{\"bid\":0.2,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0B1J5WD3Y\"}],\"expression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0B1J5WD3Y\"}]}],\"negativeProductTargetArray\":[]},\"campaignName\":\"ai_asin expanded_mental health decor_uy6438\",\"groupName\":\"ai_asin expanded_mental health decor_uy6438\",\"errors\":[],\"responseCode\":200,\"responseMsg\":\"success\",\"campaignId\":\"247197290511743\",\"adGroupId\":\"147032728012647\",\"errorType\":\"\",\"reason\":\"\",\"rawResponse\":{\"code\":200,\"msg\":\"success\",\"data\":{\"apiResponse\":\"\",\"param\":{\"info\":\"新建SP广告\",\"userName\":\"黄成喆\",\"siteId\":4,\"accountId\":380,\"state\":\"ENABLED\",\"campaignName\":\"ai_asin expanded_mental health decor_uy6438\",\"groupName\":\"ai_asin expanded_mental health decor_uy6438\",\"dailyBudget\":3,\"defaultBid\":0.2,\"strategy\":\"LEGACY_FOR_SALES\",\"positionType\":\"productTarget\",\"targetingType\":\"MANUAL\",\"startDate\":\"2026-06-18\",\"endDate\":\"\",\"skuArray\":[\"UY6438\"],\"asinArray\":[\"B0H19VW8XH\"],\"keywordArray\":[],\"negativeKeywordArray\":[],\"productTargetArray\":[{\"bid\":0.2,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0CLV9J7QW\"}],\"expression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0CLV9J7QW\"}]},{\"bid\":0.2,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0D8FKH6JS\"}],\"expression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0D8FKH6JS\"}]},{\"bid\":0.2,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0CQKDB7K5\"}],\"expression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0CQKDB7K5\"}]},{\"bid\":0.2,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0D22TZF83\"}],\"expression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0D22TZF83\"}]},{\"bid\":0.2,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0B1J5WD3Y\"}],\"expression\":[{\"type\":\"ASIN_EXPANDED_FROM\",\"value\":\"B0B1J5WD3Y\"}]}],\"negativeProductTargetArray\":[],\"audience\":[],\"keywordGroups\":[],\"offAmazonBudgetControlStrategy\":\"MINIMIZE_SPEND\",\"campaignId\":\"247197290511743\",\"adGroupId\":\"147032728012647\"}}}}",
+    "runAt": "2026-06-18T01:49:03.434Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-18",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "uy6438_new_product_ad_build_2026-06-18_execute",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Expanded ASIN from relevant mental-health decor seeds can discover adjacent product-page traffic at low bid.",
+        "expectedEffect": {
+          "impressions": "product_page",
+          "clicks": "low",
+          "asinLearning": "expanded_relevant"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "1d",
+            "3d",
+            "7d"
+          ],
+          "checkAfterDays": [
+            1,
+            3,
+            7
+          ],
+          "rollbackIf": "expanded targets drift into generic office/home decor or spend reaches 10 with no learning",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 7,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 7",
+            "rollbackIf": "spend rises without orders by day 7",
+            "actionType": "create"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "TUR9541",
+    "asin": "B0GYRW7MG5",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "117945757522332",
+    "entityName": "20260606-tur9541-system-a",
+    "beforeValue": 3,
+    "afterValue": 5,
+    "reason": "TUR9541 is in the 2026 Father's Day tail window. Existing Father’s Day/Christian broad, SB keyword, SBV, and ASIN expanded layers generated 7851 impressions, 85 clicks, and 37.65 spend from 2026-06-15 to 2026-06-17 with 0 orders, so they are not good budget receivers. The system auto campaign 20260606-tur9541-system-a is the narrow proven receiver: live ProductAd read shows CAMPAIGN_OUT_OF_BUDGET, 1961 impressions, 50 clicks, 13.81 spend, 3 orders, 82.97 sales, 16.64% ACOS; auto target asinAccessoryRelated shows 1256 impressions, 23 clicks, 6.32 spend, 3 orders, 7.62% ACOS. Raise daily budget 3.00 -> 5.00 only, without raising bids or adding generic dad gift traffic.",
+    "runAt": "2026-06-18T02:06:10.285Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "tur9541_fathers_day_exposure_push_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "TUR9541 is in the 2026 Father's Day tail window. Existing Father’s Day/Christian broad, SB keyword, SBV, and ASIN expanded layers generated 7851 impressions, 85 clicks, and 37.65 spend from 2026-06-15 to 2026-06-17 with 0 orders, so they are not good budget receivers. The system auto campaign 20260606-tur9541-system-a is the narrow proven receiver: live ProductAd read shows CAMPAIGN_OUT_OF_BUDGET, 1961 impressions, 50 clicks, 13.81 spend, 3 orders, 82.97 sales, 16.64% ACOS; auto target asinAccessoryRelated shows 1256 impressions, 23 clicks, 6.32 spend, 3 orders, 7.62% ACOS. Raise daily budget 3.00 -> 5.00 only, without raising bids or adding generic dad gift traffic.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_hold_efficiency",
+          "acos": "hold_below_0.30"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "2026-06-19",
+            "2026-06-22"
+          ],
+          "rollbackIf": "3d ACOS exceeds 30% with no order lift, or 3d spend rises above 18 USD with zero new orders after the budget lift.",
+          "goal": {
+            "metric": "orders",
+            "from": 3,
+            "to": 4,
+            "deadlineDays": 3,
+            "hardFloor": 2
+          },
+          "killSwitch": {
+            "metric": "acos",
+            "condition": "3d ACOS exceeds 30% without order lift or zero-order spend exceeds 18 USD after action",
+            "rollbackIf": "Revert campaign daily budget to 3.00 and inspect auto target/search-term quality before any further Father's Day exposure push."
+          },
+          "checkAfterDays": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  {
+    "sku": "TUR9541",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "117945757522332",
+    "entityName": "20260606-tur9541-system-a",
+    "beforeValue": 3,
+    "afterValue": 5,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"117945757522332\"}],\"error\":[]}}",
+    "runAt": "2026-06-18T02:06:18.256Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "tur9541_fathers_day_exposure_push_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "TUR9541 is in the 2026 Father's Day tail window. Existing Father’s Day/Christian broad, SB keyword, SBV, and ASIN expanded layers generated 7851 impressions, 85 clicks, and 37.65 spend from 2026-06-15 to 2026-06-17 with 0 orders, so they are not good budget receivers. The system auto campaign 20260606-tur9541-system-a is the narrow proven receiver: live ProductAd read shows CAMPAIGN_OUT_OF_BUDGET, 1961 impressions, 50 clicks, 13.81 spend, 3 orders, 82.97 sales, 16.64% ACOS; auto target asinAccessoryRelated shows 1256 impressions, 23 clicks, 6.32 spend, 3 orders, 7.62% ACOS. Raise daily budget 3.00 -> 5.00 only, without raising bids or adding generic dad gift traffic.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_hold_efficiency",
+          "acos": "hold_below_0.30"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "2026-06-19",
+            "2026-06-22"
+          ],
+          "rollbackIf": "3d ACOS exceeds 30% with no order lift, or 3d spend rises above 18 USD with zero new orders after the budget lift.",
+          "goal": {
+            "metric": "orders",
+            "from": 3,
+            "to": 4,
+            "deadlineDays": 3,
+            "hardFloor": 2
+          },
+          "killSwitch": {
+            "metric": "acos",
+            "condition": "3d ACOS exceeds 30% without order lift or zero-order spend exceeds 18 USD after action",
+            "rollbackIf": "Revert campaign daily budget to 3.00 and inspect auto target/search-term quality before any further Father's Day exposure push."
+          },
+          "checkAfterDays": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  {
+    "sku": "TUR9541",
+    "asin": "B0GYRW7MG5",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "117945757522332",
+    "entityName": "20260606-tur9541-system-a",
+    "beforeValue": 5,
+    "afterValue": 6,
+    "reason": "The first TUR9541 system auto budget lift landed live at dailyBudget=5.00, but campaign 117945757522332 still reads CAMPAIGN_OUT_OF_BUDGET. The same live readback shows the receiver remains controlled: 19.43 spend, 71 clicks, 4 orders, 111.96 sales, ACOS 17.35%; parent campaign, group, and ProductAd are enabled. Raise daily budget 5.00 -> 6.00, completing a controlled double from the original 3.00 without bid-up and without scaling zero-order Father’s Day broad/SB/SBV layers.",
+    "runAt": "2026-06-18T02:09:07.634Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "tur9541_fathers_day_exposure_push_round2_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "The first TUR9541 system auto budget lift landed live at dailyBudget=5.00, but campaign 117945757522332 still reads CAMPAIGN_OUT_OF_BUDGET. The same live readback shows the receiver remains controlled: 19.43 spend, 71 clicks, 4 orders, 111.96 sales, ACOS 17.35%; parent campaign, group, and ProductAd are enabled. Raise daily budget 5.00 -> 6.00, completing a controlled double from the original 3.00 without bid-up and without scaling zero-order Father’s Day broad/SB/SBV layers.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_hold_efficiency",
+          "acos": "hold_below_0.30"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "2026-06-19",
+            "2026-06-22"
+          ],
+          "rollbackIf": "3d ACOS exceeds 30% with no order lift, or post-action spend rises above 20 USD with zero new orders.",
+          "goal": {
+            "metric": "orders",
+            "from": 4,
+            "to": 5,
+            "deadlineDays": 3,
+            "hardFloor": 3
+          },
+          "killSwitch": {
+            "metric": "acos",
+            "condition": "3d ACOS exceeds 30% without order lift or zero-order spend exceeds 20 USD after action",
+            "rollbackIf": "Revert campaign daily budget to 5.00 or 3.00 depending on spend quality, then inspect auto target/search-term quality."
+          },
+          "checkAfterDays": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  {
+    "sku": "TUR9541",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "budget",
+    "entityType": "campaign",
+    "entityId": "117945757522332",
+    "entityName": "20260606-tur9541-system-a",
+    "beforeValue": 5,
+    "afterValue": 6,
+    "reason": "{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"success\":[{\"campaignId\":\"117945757522332\"}],\"error\":[]}}",
+    "runAt": "2026-06-18T02:09:16.440Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "tur9541_fathers_day_exposure_push_round2_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "The first TUR9541 system auto budget lift landed live at dailyBudget=5.00, but campaign 117945757522332 still reads CAMPAIGN_OUT_OF_BUDGET. The same live readback shows the receiver remains controlled: 19.43 spend, 71 clicks, 4 orders, 111.96 sales, ACOS 17.35%; parent campaign, group, and ProductAd are enabled. Raise daily budget 5.00 -> 6.00, completing a controlled double from the original 3.00 without bid-up and without scaling zero-order Father’s Day broad/SB/SBV layers.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up_controlled",
+          "spend": "up_controlled",
+          "orders": "up_or_hold_efficiency",
+          "acos": "hold_below_0.30"
+        },
+        "reviewPlan": {
+          "checkpoints": [
+            "2026-06-19",
+            "2026-06-22"
+          ],
+          "rollbackIf": "3d ACOS exceeds 30% with no order lift, or post-action spend rises above 20 USD with zero new orders.",
+          "goal": {
+            "metric": "orders",
+            "from": 4,
+            "to": 5,
+            "deadlineDays": 3,
+            "hardFloor": 3
+          },
+          "killSwitch": {
+            "metric": "acos",
+            "condition": "3d ACOS exceeds 30% without order lift or zero-order spend exceeds 20 USD after action",
+            "rollbackIf": "Revert campaign daily budget to 5.00 or 3.00 depending on spend quality, then inspect auto target/search-term quality."
+          },
+          "checkAfterDays": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  {
+    "sku": "GUF3129",
+    "asin": "B0GWD724Y8",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::GUF3129::keywordTarget::250th anniversary gifts",
+    "entityName": "ai_kw broad_250th anniversary gifts_guf3129",
+    "beforeValue": null,
+    "afterValue": {
+      "mode": "keywordTarget",
+      "sku": "GUF3129",
+      "asin": "B0GWD724Y8",
+      "accountId": 714,
+      "siteId": 4,
+      "dailyBudget": 5,
+      "defaultBid": 0.65,
+      "coreTerm": "250th anniversary gifts",
+      "targetType": "",
+      "targetAsins": [],
+      "matchType": "BROAD",
+      "keywords": [
+        "250th anniversary gifts",
+        "250th anniversary decorations",
+        "250th anniversary party supplies",
+        "250th anniversary party favors",
+        "america 250th anniversary",
+        "usa 250th anniversary decorations"
+      ],
+      "advType": "SP",
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "campaignName": "ai_kw broad_250th anniversary gifts_guf3129",
+      "groupName": "ai_kw broad_250th anniversary gifts_guf3129",
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 2,
+        "deadlineDays": 7,
+        "hardFloor": 1,
+        "objective": "Buy high-search-volume 250th gift/decorations traffic during the Independence Day / America 250th window without contaminating the existing converting hat broad group.",
+        "trafficGap": "Existing 250th hat-only rows have coverage but not meaningful clicks; high-volume 250th search pool is gift/decorations/party terms.",
+        "receiverBoundary": "GUF3129 is a patriotic bucket hat set; gifts/party/decorations terms are adjacent high-volume traffic, not proven direct hat terms."
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": "",
+      "siteRestriction": ""
+    },
+    "reason": "Existing 250th terms on GUF3129 are too narrow and produced little or no traffic. Live/selection evidence shows the high-volume 250th pool is gifts/decorations/party supplies, so create a separate broad lane to buy that search-volume window while keeping the current converting hat broad group clean.",
+    "runAt": "2026-06-18T11:27:03.958Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "guf3129-250th-high-volume-broad-dryrun3",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Existing 250th terms on GUF3129 are too narrow and produced little or no traffic. Live/selection evidence shows the high-volume 250th pool is gifts/decorations/party supplies, so create a separate broad lane to buy that search-volume window while keeping the current converting hat broad group clean.",
+        "expectedEffect": {
+          "windowDays": 3,
+          "target": "Generate initial impressions and clicks from the high-volume 250th pool; do not judge success from creation alone.",
+          "minimum3d": "At least 8-12 clicks or clear buyer-search evidence within 3 days.",
+          "minimum7d": "At least 20-30 clicks and 1-2 orders, or a clear reason to stop/retune."
+        },
+        "reviewPlan": {
+          "threeDayReviewDate": "2026-06-21",
+          "sevenDayReviewDate": "2026-06-25",
+          "readback": "Read created campaign/ad group state, keyword rows, bids, budget, impressions, clicks, spend, orders, and customer search terms.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 2,
+            "deadlineDays": 7,
+            "hardFloor": 1
+          },
+          "killSwitch": {
+            "threeDay": "If spend reaches about 8 USD or clicks reach 12 with 0 orders and search terms are generic decorations/gifts without hat or wearable intent, lower bids or pause the worst rows.",
+            "sevenDay": "If the lane gets clicks but no orders after 20-30 clicks, stop expanding 250th gift/decorations traffic and return budget to proven bucket-hat terms."
+          },
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": ""
+        }
+      }
+    }
+  },
+  {
+    "sku": "GUF3129",
+    "asin": "B0GWD724Y8",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::GUF3129::keywordTarget::250th anniversary gifts",
+    "entityName": "ai_kw broad_250th anniversary gifts_guf3129",
+    "beforeValue": null,
+    "afterValue": {
+      "mode": "keywordTarget",
+      "sku": "GUF3129",
+      "asin": "B0GWD724Y8",
+      "accountId": 714,
+      "siteId": 4,
+      "dailyBudget": 5,
+      "defaultBid": 0.65,
+      "coreTerm": "250th anniversary gifts",
+      "targetType": "",
+      "targetAsins": [],
+      "matchType": "BROAD",
+      "keywords": [
+        "250th anniversary gifts",
+        "250th anniversary decorations",
+        "250th anniversary party supplies",
+        "250th anniversary party favors",
+        "america 250th anniversary",
+        "usa 250th anniversary decorations"
+      ],
+      "advType": "SP",
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "campaignName": "ai_kw broad_250th anniversary gifts_guf3129",
+      "groupName": "ai_kw broad_250th anniversary gifts_guf3129",
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 2,
+        "deadlineDays": 7,
+        "hardFloor": 1,
+        "objective": "Buy high-search-volume 250th gift/decorations traffic during the Independence Day / America 250th window without contaminating the existing converting hat broad group.",
+        "trafficGap": "Existing 250th hat-only rows have coverage but not meaningful clicks; high-volume 250th search pool is gift/decorations/party terms.",
+        "receiverBoundary": "GUF3129 is a patriotic bucket hat set; gifts/party/decorations terms are adjacent high-volume traffic, not proven direct hat terms."
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": "",
+      "siteRestriction": ""
+    },
+    "reason": "{\"ok\":true,\"mode\":\"keywordTarget\",\"requestUrl\":\"/campaign/createOneTime\",\"requestBody\":{\"createType\":\"campaign\",\"advType\":\"SP\",\"name\":\"create SP campaign\",\"campaignName\":\"ai_kw broad_250th anniversary gifts_guf3129\",\"startDate\":\"2026-06-18\",\"accountId\":714,\"siteId\":4,\"dailyBudget\":5,\"offAmazonBudgetControlStrategy\":\"MINIMIZE_SPEND\",\"placementTop\":0,\"placementProductPage\":0,\"placementRestOfSearch\":0,\"siteAmazonBusiness\":0,\"groupName\":\"ai_kw broad_250th anniversary gifts_guf3129\",\"haulFlag\":false,\"asinArray\":[\"B0GWD724Y8\"],\"skuArray\":[\"GUF3129\"],\"defaultBid\":0.65,\"targetingType\":\"MANUAL\",\"positionType\":\"keywordTarget\",\"strategy\":\"MANUAL\",\"keywordArray\":[{\"keywordText\":\"250th anniversary gifts\",\"matchType\":\"BROAD\",\"bid\":0.65,\"coreMark\":\"\"},{\"keywordText\":\"250th anniversary decorations\",\"matchType\":\"BROAD\",\"bid\":0.65,\"coreMark\":\"\"},{\"keywordText\":\"250th anniversary party supplies\",\"matchType\":\"BROAD\",\"bid\":0.65,\"coreMark\":\"\"},{\"keywordText\":\"250th anniversary party favors\",\"matchType\":\"BROAD\",\"bid\":0.65,\"coreMark\":\"\"},{\"keywordText\":\"america 250th anniversary\",\"matchType\":\"BROAD\",\"bid\":0.65,\"coreMark\":\"\"},{\"keywordText\":\"usa 250th anniversary decorations\",\"matchType\":\"BROAD\",\"bid\":0.65,\"coreMark\":\"\"}],\"keywordGroups\":[],\"negativeKeywordArray\":[]},\"campaignName\":\"ai_kw broad_250th anniversary gifts_guf3129\",\"groupName\":\"ai_kw broad_250th anniversary gifts_guf3129\",\"errors\":[],\"responseCode\":200,\"responseMsg\":\"success\",\"campaignId\":\"49065106244616\",\"adGroupId\":\"32398560167188\",\"errorType\":\"\",\"reason\":\"\",\"rawResponse\":{\"code\":200,\"msg\":\"success\",\"data\":{\"apiResponse\":\"\",\"param\":{\"info\":\"新建SP广告\",\"userName\":\"黄成喆\",\"siteId\":4,\"accountId\":714,\"state\":\"ENABLED\",\"campaignName\":\"ai_kw broad_250th anniversary gifts_guf3129\",\"groupName\":\"ai_kw broad_250th anniversary gifts_guf3129\",\"dailyBudget\":5,\"defaultBid\":0.65,\"strategy\":\"MANUAL\",\"positionType\":\"keywordTarget\",\"targetingType\":\"MANUAL\",\"startDate\":\"2026-06-18\",\"endDate\":\"\",\"skuArray\":[\"GUF3129\"],\"asinArray\":[\"B0GWD724Y8\"],\"keywordArray\":[{\"keywordText\":\"250th anniversary gifts\",\"matchType\":\"BROAD\",\"bid\":0.65,\"coreMark\":null},{\"keywordText\":\"250th anniversary decorations\",\"matchType\":\"BROAD\",\"bid\":0.65,\"coreMark\":null},{\"keywordText\":\"250th anniversary party supplies\",\"matchType\":\"BROAD\",\"bid\":0.65,\"coreMark\":null},{\"keywordText\":\"250th anniversary party favors\",\"matchType\":\"BROAD\",\"bid\":0.65,\"coreMark\":null},{\"keywordText\":\"america 250th anniversary\",\"matchType\":\"BROAD\",\"bid\":0.65,\"coreMark\":null},{\"keywordText\":\"usa 250th anniversary decorations\",\"matchType\":\"BROAD\",\"bid\":0.65,\"coreMark\":null}],\"negativeKeywordArray\":[],\"productTargetArray\":[],\"negativeProductTargetArray\":[],\"audience\":[],\"keywordGroups\":[],\"offAmazonBudgetControlStrategy\":\"MINIMIZE_SPEND\",\"campaignId\":\"49065106244616\",\"adGroupId\":\"32398560167188\"}}}}",
+    "runAt": "2026-06-18T11:27:36.719Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "guf3129-250th-high-volume-broad-execute",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex",
+      "manual"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Existing 250th terms on GUF3129 are too narrow and produced little or no traffic. Live/selection evidence shows the high-volume 250th pool is gifts/decorations/party supplies, so create a separate broad lane to buy that search-volume window while keeping the current converting hat broad group clean.",
+        "expectedEffect": {
+          "windowDays": 3,
+          "target": "Generate initial impressions and clicks from the high-volume 250th pool; do not judge success from creation alone.",
+          "minimum3d": "At least 8-12 clicks or clear buyer-search evidence within 3 days.",
+          "minimum7d": "At least 20-30 clicks and 1-2 orders, or a clear reason to stop/retune."
+        },
+        "reviewPlan": {
+          "threeDayReviewDate": "2026-06-21",
+          "sevenDayReviewDate": "2026-06-25",
+          "readback": "Read created campaign/ad group state, keyword rows, bids, budget, impressions, clicks, spend, orders, and customer search terms.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 2,
+            "deadlineDays": 7,
+            "hardFloor": 1
+          },
+          "killSwitch": {
+            "threeDay": "If spend reaches about 8 USD or clicks reach 12 with 0 orders and search terms are generic decorations/gifts without hat or wearable intent, lower bids or pause the worst rows.",
+            "sevenDay": "If the lane gets clicks but no orders after 20-30 clicks, stop expanding 250th gift/decorations traffic and return budget to proven bucket-hat terms."
+          },
+          "checkAfterDays": [
+            7
+          ],
+          "rollbackIf": ""
+        }
+      }
+    }
+  },
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "391719833749255",
+    "entityName": "kw_hippie flower car magnet_kur0501",
+    "beforeValue": 0.27,
+    "afterValue": 0.38,
+    "reason": "This is the only current 3d/7d converting keyword row and it is still below the market click-price band for magnetic car decals. Raise it first because acceptance needs more qualified clicks quickly, not broad exploratory spend.",
+    "runAt": "2026-06-18T11:42:42.371Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "kur0501_acceptance_push_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Raising the current winner should create the fastest incremental qualified clicks while keeping ACOS reviewable.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "impressions, clicks, CPC, orders, ACOS",
+          "target": "more than 3 clicks/day from this row by the 3d checkpoint, with CPC not materially above 0.38 unless it is converting"
+        },
+        "reviewPlan": {
+          "1d": "Confirm bid landed and delivery increases.",
+          "3d": "Hold if clicks and order signal improve; if 8+ clicks after the raise still produce 0 orders, lower back toward 0.27.",
+          "7d": "Keep only if ACOS and total daily-sales lift support the acceptance target.",
+          "goal": {
+            "metric": "orders",
+            "from": 1,
+            "to": 2,
+            "deadlineDays": 6,
+            "hardFloor": 1
+          },
+          "killSwitch": {
+            "windowDays": 3,
+            "metric": "clicks_without_order_after_raise",
+            "threshold": 8,
+            "action": "lower bid back toward 0.27 if relevance is weak or no order appears"
+          },
+          "checkAfterDays": [
+            6
+          ],
+          "rollbackIf": ""
+        }
+      }
+    }
+  },
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "192671889262601",
+    "entityName": "ai_kw exact_car magnets_kur0501",
+    "beforeValue": 0.26,
+    "afterValue": 0.37,
+    "reason": "The exact lane is cleaner than broad but is under market-entry CPC and has almost no clicks. Raise to the market start area so it can participate before the acceptance checkpoint.",
+    "runAt": "2026-06-18T11:42:42.371Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "kur0501_acceptance_push_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Exact magnetic car decals can add cleaner buyer-intent clicks once bid is no longer below the practical entry point.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "exact impressions, clicks, CPC, orders",
+          "target": "begin acquiring clicks by the 3d checkpoint"
+        },
+        "reviewPlan": {
+          "1d": "Confirm bid landed.",
+          "3d": "If there are clicks without order, inspect query/page placement before further raising.",
+          "7d": "Keep only if it contributes qualified clicks or orders.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 6,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "windowDays": 3,
+            "metric": "clicks_without_order_after_raise",
+            "threshold": 5,
+            "action": "hold capped or lower if clicks are not order-relevant"
+          },
+          "checkAfterDays": [
+            6
+          ],
+          "rollbackIf": ""
+        }
+      }
+    }
+  },
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "187451881212204",
+    "entityName": "ai_kw exact_car magnets_kur0501",
+    "beforeValue": 0.25,
+    "afterValue": 0.37,
+    "reason": "car magnets is the larger market entry for this SKU, but current exact delivery is too small. Raise to controlled market-entry strength rather than pushing generic auto traffic.",
+    "runAt": "2026-06-18T11:42:42.371Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "kur0501_acceptance_push_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Exact car magnets should add controlled category-intent clicks without relying on auto drift.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "impressions, clicks, CPC, orders",
+          "target": "more exact delivery by the 3d checkpoint; do not continue raising unless query quality and order signal support it"
+        },
+        "reviewPlan": {
+          "1d": "Confirm bid landed.",
+          "3d": "If spend rises with 0 orders, keep the bid capped and check search-term relevance.",
+          "7d": "Hold only if total daily sales and ad orders improve.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 6,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "windowDays": 3,
+            "metric": "clicks_without_order_after_raise",
+            "threshold": 6,
+            "action": "cap or lower if category traffic is too broad for the listing"
+          },
+          "checkAfterDays": [
+            6
+          ],
+          "rollbackIf": ""
+        }
+      }
+    }
+  },
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::KUR0501::keywordTarget::PHRASE::hippie_car_magnets_acceptance",
+    "entityName": "",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "keywordTarget",
+      "sku": "KUR0501",
+      "asin": "B09CD2K6CW",
+      "accountId": 455,
+      "siteId": 4,
+      "dailyBudget": 3,
+      "defaultBid": 0.35,
+      "coreTerm": "hippie car magnets",
+      "matchType": "PHRASE",
+      "keywords": [
+        "hippie car magnets",
+        "peace sign car magnets",
+        "flower power car magnets",
+        "60s car magnets",
+        "hippie car decorations"
+      ],
+      "campaignName": "ai_kw phrase_hippie car magnets_kur0501",
+      "groupName": "ai_kw phrase_hippie car magnets_kur0501",
+      "targetType": "",
+      "targetAsins": [],
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 1,
+        "deadlineDays": 6,
+        "hardFloor": 0
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": "",
+      "siteRestriction": ""
+    },
+    "reason": "The existing phrase test is mostly flower/fridge-magnet intent and is not the strongest acceptance route. Add a capped phrase lane around the product's own identity: hippie, peace sign, 60s, car magnets.",
+    "runAt": "2026-06-18T11:42:42.371Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "kur0501_acceptance_push_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "A tighter phrase lane can capture product-identity queries that are closer to the listing than the current flower/fridge phrase lane.",
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "created campaign visibility, impressions, clicks, search-term relevance, orders",
+          "target": "start accumulating relevant clicks before the 3d checkpoint"
+        },
+        "reviewPlan": {
+          "1d": "Confirm campaign, ad group, product ad, and keywords are visible and enabled.",
+          "3d": "Keep terms with relevant clicks; lower or negate terms drifting to non-car decoration intent.",
+          "7d": "Only scale if orders or strong add-to-cart/order signal appear.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 6,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "windowDays": 3,
+            "metric": "irrelevant_or_non_car_clicks",
+            "threshold": 5,
+            "action": "negate drifting terms or pause the weak keyword"
+          },
+          "checkAfterDays": [
+            6
+          ],
+          "rollbackIf": ""
+        }
+      }
+    }
+  },
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::KUR0501::productTarget::ASIN_SAME_AS::hippie_car_magnet_competitors",
+    "entityName": "",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "productTarget",
+      "sku": "KUR0501",
+      "asin": "B09CD2K6CW",
+      "accountId": 455,
+      "siteId": 4,
+      "dailyBudget": 3,
+      "defaultBid": 0.3,
+      "coreTerm": "hippie car magnet competitors",
+      "targetType": "ASIN_SAME_AS",
+      "targetAsins": [
+        "B08Y886HWQ",
+        "B0B6MZ2XB4",
+        "B07NSQYFY6"
+      ],
+      "campaignName": "ai_asin same_as_hippie car magnets_kur0501",
+      "groupName": "ai_asin same_as_hippie car magnets_kur0501",
+      "matchType": "",
+      "keywords": [],
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 1,
+        "deadlineDays": 6,
+        "hardFloor": 0
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": "",
+      "siteRestriction": ""
+    },
+    "reason": "KUR0501 is missing an active same-style ASIN page layer for the strongest current competitor pool. Add only three close targets so acceptance traffic is product-page relevant and spend remains capped.",
+    "runAt": "2026-06-18T11:42:42.371Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "kur0501_acceptance_push_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Same-style competitor page traffic can add qualified clicks that current keyword/auto structure is not covering.",
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "created target visibility, product-page impressions, clicks, orders, ACOS",
+          "target": "generate relevant page traffic without exceeding the capped budget"
+        },
+        "reviewPlan": {
+          "1d": "Confirm campaign, ad group, product ad, and targets are visible and enabled.",
+          "3d": "If ASIN clicks appear but no order, compare price/review disadvantage before raising.",
+          "7d": "Keep only targets that produce order signal or controlled CPC with relevant placement.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 6,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "windowDays": 3,
+            "metric": "asin_clicks_without_order",
+            "threshold": 6,
+            "action": "pause weak ASIN target or lower bid if price/review disadvantage blocks conversion"
+          },
+          "checkAfterDays": [
+            6
+          ],
+          "rollbackIf": ""
+        }
+      }
+    }
+  },
+  {
+    "sku": "KUR0501",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "391719833749255",
+    "entityName": "kw_hippie flower car magnet_kur0501",
+    "beforeValue": 0.27,
+    "afterValue": 0.38,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"391719833749255\"}],\"error\":[]}}",
+    "runAt": "2026-06-18T11:43:21.449Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "kur0501_acceptance_push_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Raising the current winner should create the fastest incremental qualified clicks while keeping ACOS reviewable.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "impressions, clicks, CPC, orders, ACOS",
+          "target": "more than 3 clicks/day from this row by the 3d checkpoint, with CPC not materially above 0.38 unless it is converting"
+        },
+        "reviewPlan": {
+          "1d": "Confirm bid landed and delivery increases.",
+          "3d": "Hold if clicks and order signal improve; if 8+ clicks after the raise still produce 0 orders, lower back toward 0.27.",
+          "7d": "Keep only if ACOS and total daily-sales lift support the acceptance target.",
+          "goal": {
+            "metric": "orders",
+            "from": 1,
+            "to": 2,
+            "deadlineDays": 6,
+            "hardFloor": 1
+          },
+          "killSwitch": {
+            "windowDays": 3,
+            "metric": "clicks_without_order_after_raise",
+            "threshold": 8,
+            "action": "lower bid back toward 0.27 if relevance is weak or no order appears"
+          },
+          "checkAfterDays": [
+            6
+          ],
+          "rollbackIf": ""
+        }
+      }
+    }
+  },
+  {
+    "sku": "KUR0501",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "192671889262601",
+    "entityName": "ai_kw exact_car magnets_kur0501",
+    "beforeValue": 0.26,
+    "afterValue": 0.37,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"192671889262601\"},{\"keywordId\":\"187451881212204\"}],\"error\":[]}}",
+    "runAt": "2026-06-18T11:43:21.449Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "kur0501_acceptance_push_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Exact magnetic car decals can add cleaner buyer-intent clicks once bid is no longer below the practical entry point.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "exact impressions, clicks, CPC, orders",
+          "target": "begin acquiring clicks by the 3d checkpoint"
+        },
+        "reviewPlan": {
+          "1d": "Confirm bid landed.",
+          "3d": "If there are clicks without order, inspect query/page placement before further raising.",
+          "7d": "Keep only if it contributes qualified clicks or orders.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 6,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "windowDays": 3,
+            "metric": "clicks_without_order_after_raise",
+            "threshold": 5,
+            "action": "hold capped or lower if clicks are not order-relevant"
+          },
+          "checkAfterDays": [
+            6
+          ],
+          "rollbackIf": ""
+        }
+      }
+    }
+  },
+  {
+    "sku": "KUR0501",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "187451881212204",
+    "entityName": "ai_kw exact_car magnets_kur0501",
+    "beforeValue": 0.25,
+    "afterValue": 0.37,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"192671889262601\"},{\"keywordId\":\"187451881212204\"}],\"error\":[]}}",
+    "runAt": "2026-06-18T11:43:21.449Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "kur0501_acceptance_push_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Exact car magnets should add controlled category-intent clicks without relying on auto drift.",
+        "expectedEffect": {
+          "window": "1d/3d",
+          "metric": "impressions, clicks, CPC, orders",
+          "target": "more exact delivery by the 3d checkpoint; do not continue raising unless query quality and order signal support it"
+        },
+        "reviewPlan": {
+          "1d": "Confirm bid landed.",
+          "3d": "If spend rises with 0 orders, keep the bid capped and check search-term relevance.",
+          "7d": "Hold only if total daily sales and ad orders improve.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 6,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "windowDays": 3,
+            "metric": "clicks_without_order_after_raise",
+            "threshold": 6,
+            "action": "cap or lower if category traffic is too broad for the listing"
+          },
+          "checkAfterDays": [
+            6
+          ],
+          "rollbackIf": ""
+        }
+      }
+    }
+  },
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::KUR0501::keywordTarget::PHRASE::hippie_car_magnets_acceptance",
+    "entityName": "ai_kw phrase_hippie car magnets_kur0501",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "keywordTarget",
+      "sku": "KUR0501",
+      "asin": "B09CD2K6CW",
+      "accountId": 455,
+      "siteId": 4,
+      "dailyBudget": 3,
+      "defaultBid": 0.35,
+      "coreTerm": "hippie car magnets",
+      "matchType": "PHRASE",
+      "keywords": [
+        "hippie car magnets",
+        "peace sign car magnets",
+        "flower power car magnets",
+        "60s car magnets",
+        "hippie car decorations"
+      ],
+      "campaignName": "ai_kw phrase_hippie car magnets_kur0501",
+      "groupName": "ai_kw phrase_hippie car magnets_kur0501",
+      "targetType": "",
+      "targetAsins": [],
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 1,
+        "deadlineDays": 6,
+        "hardFloor": 0
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": "",
+      "siteRestriction": ""
+    },
+    "reason": "{\"ok\":true,\"mode\":\"keywordTarget\",\"requestUrl\":\"/campaign/createOneTime\",\"requestBody\":{\"createType\":\"campaign\",\"advType\":\"SP\",\"name\":\"create SP campaign\",\"campaignName\":\"ai_kw phrase_hippie car magnets_kur0501\",\"startDate\":\"2026-06-18\",\"accountId\":455,\"siteId\":4,\"dailyBudget\":3,\"offAmazonBudgetControlStrategy\":\"MINIMIZE_SPEND\",\"placementTop\":0,\"placementProductPage\":0,\"placementRestOfSearch\":0,\"siteAmazonBusiness\":0,\"groupName\":\"ai_kw phrase_hippie car magnets_kur0501\",\"haulFlag\":false,\"asinArray\":[\"B09CD2K6CW\"],\"skuArray\":[\"KUR0501\"],\"defaultBid\":0.35,\"targetingType\":\"MANUAL\",\"positionType\":\"keywordTarget\",\"strategy\":\"MANUAL\",\"keywordArray\":[{\"keywordText\":\"hippie car magnets\",\"matchType\":\"PHRASE\",\"bid\":0.35,\"coreMark\":\"\"},{\"keywordText\":\"peace sign car magnets\",\"matchType\":\"PHRASE\",\"bid\":0.35,\"coreMark\":\"\"},{\"keywordText\":\"flower power car magnets\",\"matchType\":\"PHRASE\",\"bid\":0.35,\"coreMark\":\"\"},{\"keywordText\":\"60s car magnets\",\"matchType\":\"PHRASE\",\"bid\":0.35,\"coreMark\":\"\"},{\"keywordText\":\"hippie car decorations\",\"matchType\":\"PHRASE\",\"bid\":0.35,\"coreMark\":\"\"}],\"keywordGroups\":[],\"negativeKeywordArray\":[]},\"campaignName\":\"ai_kw phrase_hippie car magnets_kur0501\",\"groupName\":\"ai_kw phrase_hippie car magnets_kur0501\",\"errors\":[],\"responseCode\":200,\"responseMsg\":\"success\",\"campaignId\":\"8968192540650\",\"adGroupId\":\"126090147844940\",\"errorType\":\"\",\"reason\":\"\",\"rawResponse\":{\"code\":200,\"msg\":\"success\",\"data\":{\"apiResponse\":\"\",\"param\":{\"info\":\"新建SP广告\",\"userName\":\"黄成喆\",\"siteId\":4,\"accountId\":455,\"state\":\"ENABLED\",\"campaignName\":\"ai_kw phrase_hippie car magnets_kur0501\",\"groupName\":\"ai_kw phrase_hippie car magnets_kur0501\",\"dailyBudget\":3,\"defaultBid\":0.35,\"strategy\":\"MANUAL\",\"positionType\":\"keywordTarget\",\"targetingType\":\"MANUAL\",\"startDate\":\"2026-06-18\",\"endDate\":\"\",\"skuArray\":[\"KUR0501\"],\"asinArray\":[\"B09CD2K6CW\"],\"keywordArray\":[{\"keywordText\":\"hippie car magnets\",\"matchType\":\"PHRASE\",\"bid\":0.35,\"coreMark\":null},{\"keywordText\":\"peace sign car magnets\",\"matchType\":\"PHRASE\",\"bid\":0.35,\"coreMark\":null},{\"keywordText\":\"flower power car magnets\",\"matchType\":\"PHRASE\",\"bid\":0.35,\"coreMark\":null},{\"keywordText\":\"60s car magnets\",\"matchType\":\"PHRASE\",\"bid\":0.35,\"coreMark\":null},{\"keywordText\":\"hippie car decorations\",\"matchType\":\"PHRASE\",\"bid\":0.35,\"coreMark\":null}],\"negativeKeywordArray\":[],\"productTargetArray\":[],\"negativeProductTargetArray\":[],\"audience\":[],\"keywordGroups\":[],\"offAmazonBudgetControlStrategy\":\"MINIMIZE_SPEND\",\"campaignId\":\"8968192540650\",\"adGroupId\":\"126090147844940\"}}}}",
+    "runAt": "2026-06-18T11:43:21.449Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "kur0501_acceptance_push_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "A tighter phrase lane can capture product-identity queries that are closer to the listing than the current flower/fridge phrase lane.",
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "created campaign visibility, impressions, clicks, search-term relevance, orders",
+          "target": "start accumulating relevant clicks before the 3d checkpoint"
+        },
+        "reviewPlan": {
+          "1d": "Confirm campaign, ad group, product ad, and keywords are visible and enabled.",
+          "3d": "Keep terms with relevant clicks; lower or negate terms drifting to non-car decoration intent.",
+          "7d": "Only scale if orders or strong add-to-cart/order signal appear.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 6,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "windowDays": 3,
+            "metric": "irrelevant_or_non_car_clicks",
+            "threshold": 5,
+            "action": "negate drifting terms or pause the weak keyword"
+          },
+          "checkAfterDays": [
+            6
+          ],
+          "rollbackIf": ""
+        }
+      }
+    }
+  },
+  {
+    "sku": "KUR0501",
+    "asin": "B09CD2K6CW",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::KUR0501::productTarget::ASIN_SAME_AS::hippie_car_magnet_competitors",
+    "entityName": "ai_asin same_as_hippie car magnets_kur0501",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "productTarget",
+      "sku": "KUR0501",
+      "asin": "B09CD2K6CW",
+      "accountId": 455,
+      "siteId": 4,
+      "dailyBudget": 3,
+      "defaultBid": 0.3,
+      "coreTerm": "hippie car magnet competitors",
+      "targetType": "ASIN_SAME_AS",
+      "targetAsins": [
+        "B08Y886HWQ",
+        "B0B6MZ2XB4",
+        "B07NSQYFY6"
+      ],
+      "campaignName": "ai_asin same_as_hippie car magnets_kur0501",
+      "groupName": "ai_asin same_as_hippie car magnets_kur0501",
+      "matchType": "",
+      "keywords": [],
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 1,
+        "deadlineDays": 6,
+        "hardFloor": 0
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": "",
+      "siteRestriction": ""
+    },
+    "reason": "{\"ok\":true,\"mode\":\"productTarget\",\"requestUrl\":\"/campaign/createOneTime\",\"requestBody\":{\"createType\":\"campaign\",\"advType\":\"SP\",\"name\":\"create SP campaign\",\"campaignName\":\"ai_asin same_as_hippie car magnets_kur0501\",\"startDate\":\"2026-06-18\",\"accountId\":455,\"siteId\":4,\"dailyBudget\":3,\"offAmazonBudgetControlStrategy\":\"MINIMIZE_SPEND\",\"placementTop\":0,\"placementProductPage\":0,\"placementRestOfSearch\":0,\"siteAmazonBusiness\":0,\"groupName\":\"ai_asin same_as_hippie car magnets_kur0501\",\"haulFlag\":false,\"asinArray\":[\"B09CD2K6CW\"],\"skuArray\":[\"KUR0501\"],\"defaultBid\":0.3,\"targetingType\":\"MANUAL\",\"positionType\":\"productTarget\",\"strategy\":\"LEGACY_FOR_SALES\",\"productTargetArray\":[{\"bid\":0.3,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B08Y886HWQ\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B08Y886HWQ\"}]},{\"bid\":0.3,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0B6MZ2XB4\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0B6MZ2XB4\"}]},{\"bid\":0.3,\"targetMark\":\"\",\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B07NSQYFY6\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B07NSQYFY6\"}]}],\"negativeProductTargetArray\":[]},\"campaignName\":\"ai_asin same_as_hippie car magnets_kur0501\",\"groupName\":\"ai_asin same_as_hippie car magnets_kur0501\",\"errors\":[],\"responseCode\":200,\"responseMsg\":\"success\",\"campaignId\":\"132110995197854\",\"adGroupId\":\"213079214075129\",\"errorType\":\"\",\"reason\":\"\",\"rawResponse\":{\"code\":200,\"msg\":\"success\",\"data\":{\"apiResponse\":\"\",\"param\":{\"info\":\"新建SP广告\",\"userName\":\"黄成喆\",\"siteId\":4,\"accountId\":455,\"state\":\"ENABLED\",\"campaignName\":\"ai_asin same_as_hippie car magnets_kur0501\",\"groupName\":\"ai_asin same_as_hippie car magnets_kur0501\",\"dailyBudget\":3,\"defaultBid\":0.3,\"strategy\":\"LEGACY_FOR_SALES\",\"positionType\":\"productTarget\",\"targetingType\":\"MANUAL\",\"startDate\":\"2026-06-18\",\"endDate\":\"\",\"skuArray\":[\"KUR0501\"],\"asinArray\":[\"B09CD2K6CW\"],\"keywordArray\":[],\"negativeKeywordArray\":[],\"productTargetArray\":[{\"bid\":0.3,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B08Y886HWQ\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B08Y886HWQ\"}]},{\"bid\":0.3,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0B6MZ2XB4\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B0B6MZ2XB4\"}]},{\"bid\":0.3,\"targetMark\":null,\"resolvedExpression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B07NSQYFY6\"}],\"expression\":[{\"type\":\"ASIN_SAME_AS\",\"value\":\"B07NSQYFY6\"}]}],\"negativeProductTargetArray\":[],\"audience\":[],\"keywordGroups\":[],\"offAmazonBudgetControlStrategy\":\"MINIMIZE_SPEND\",\"campaignId\":\"132110995197854\",\"adGroupId\":\"213079214075129\"}}}}",
+    "runAt": "2026-06-18T11:43:21.449Z",
+    "businessDate": "2026-06-18",
+    "localDate": "2026-06-18",
+    "dataDate": "2026-06-17",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "kur0501_acceptance_push_2026-06-18",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "codex",
+    "actionSource": [
+      "codex"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Same-style competitor page traffic can add qualified clicks that current keyword/auto structure is not covering.",
+        "expectedEffect": {
+          "window": "1d/3d/7d",
+          "metric": "created target visibility, product-page impressions, clicks, orders, ACOS",
+          "target": "generate relevant page traffic without exceeding the capped budget"
+        },
+        "reviewPlan": {
+          "1d": "Confirm campaign, ad group, product ad, and targets are visible and enabled.",
+          "3d": "If ASIN clicks appear but no order, compare price/review disadvantage before raising.",
+          "7d": "Keep only targets that produce order signal or controlled CPC with relevant placement.",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 6,
+            "hardFloor": 0
+          },
+          "killSwitch": {
+            "windowDays": 3,
+            "metric": "asin_clicks_without_order",
+            "threshold": 6,
+            "action": "pause weak ASIN target or lower bid if price/review disadvantage blocks conversion"
+          },
+          "checkAfterDays": [
+            6
+          ],
+          "rollbackIf": ""
+        }
+      }
+    }
+  }
+]

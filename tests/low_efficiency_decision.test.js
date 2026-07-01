@@ -418,12 +418,11 @@ test('pool decision still tags recovered under-20 rows after a recent change as 
   assert.strictEqual(decision.suggestedDirection, 'up');
 });
 
-test('pool decision still cuts after a recent change when 7d has meaningful spend and zero orders', () => {
+test('pool decision pauses after a recent change when 7d has meaningful spend and zero orders', () => {
   const entry = poolEntry({ 7: { clicks: 9, spend: 2.45, orders: 0 } }, { bid: 0.35, updatedAt: '2026-05-10 09:00:00' });
   const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
-  assert.strictEqual(decision.actionType, 'bid');
-  assert.strictEqual(decision.reasonCode, 'recent_adjustment_stoploss_7d_zero_order_heavy_cut');
-  assert.strictEqual(decision.suggestedBid, 0.03);
+  assert.strictEqual(decision.actionType, 'pause');
+  assert.strictEqual(decision.reasonCode, 'recent_adjustment_stoploss_7d_zero_order_floor_pause');
 });
 
 test('pool decision still cuts after a recent change when 7d ACOS is high despite orders', () => {
@@ -466,6 +465,34 @@ test('pool decision pauses floor-bid zero-order rows without long-window order p
   assert.strictEqual(decision.reasonCode, 'residual_7d_zero_order_floor_pause');
 });
 
+test('pool decision pauses floor-bid zero-order rows even with stale long-window orders', () => {
+  const entry = poolEntry(
+    {
+      15: { clicks: 53, spend: 11.21, orders: 1, sales: 28.99, acos: 0.386685 },
+      7: { clicks: 29, spend: 5.72, orders: 0 },
+    },
+    { kind: 'auto', bid: 0.02, updatedAt: '2026-06-15 09:36:51' }
+  );
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
+  assert.strictEqual(decision.actionType, 'pause');
+  assert.strictEqual(decision.reasonCode, 'recent_adjustment_stoploss_7d_zero_order_floor_pause');
+});
+
+test('pool decision pauses floor-bid extreme ACOS rows when no lower bid remains', () => {
+  const entry = poolEntry(
+    {
+      30: { clicks: 281, spend: 57.76, orders: 12, sales: 179.87, acos: 0.32112 },
+      15: { clicks: 227, spend: 46.5, orders: 7, sales: 109.92, acos: 0.423034 },
+      7: { clicks: 106, spend: 21.68, orders: 1, sales: 13.99, acos: 1.549678 },
+      3: { clicks: 15, spend: 2.88, orders: 0 },
+    },
+    { kind: 'auto', bid: 0.02, updatedAt: '2026-06-15 09:36:20' }
+  );
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
+  assert.strictEqual(decision.actionType, 'pause');
+  assert.strictEqual(decision.reasonCode, 'recent_adjustment_stoploss_7d_extreme_acos_floor_pause');
+});
+
 test('pool decision cuts 90 percent for extreme ACOS instead of using the small step', () => {
   const entry = poolEntry(
     { 7: { clicks: 66, spend: 22.34, orders: 2, acos: 0.932 } },
@@ -499,6 +526,16 @@ test('pool decision clamps SBV keyword bid-downs to the 0.25 floor', () => {
   assert.strictEqual(decision.actionType, 'bid');
   assert.strictEqual(decision.reasonCode, 'recent_adjustment_stoploss_7d_high_acos');
   assert.strictEqual(decision.suggestedBid, 0.25);
+});
+
+test('pool decision pauses non-video SB keyword zero-order rows instead of a token floor trim', () => {
+  const entry = poolEntry(
+    { 7: { clicks: 13, spend: 3.27, orders: 0 } },
+    { kind: 'sbKw', bid: 0.29, campaignName: 'sbkw_letterstencils_xix1523', updatedAt: '2026-05-10 09:00:00' }
+  );
+  const decision = decideFromPoolMembership(entry, { now: NOW, recentAdjustmentWindowDays: 14 });
+  assert.strictEqual(decision.actionType, 'pause');
+  assert.strictEqual(decision.reasonCode, 'recent_adjustment_stoploss_7d_zero_order_floor_pause');
 });
 
 test('pool decision holds SBV keyword rows already at the 0.25 floor', () => {

@@ -341,4 +341,77 @@ const { buildAllSkuOperatingReview, buildNodePlan, lifecycleFor, profitRateFor, 
   assert.strictEqual(newMarket.coverage.abaMatched, 1);
 }
 
+{
+  const scopedReports = {
+    bySku: {
+      OLD1: {
+        keywordResearch: {
+          source: 'selection_keyword_research',
+          directCompetitorAsins: [{ searchTerm: 'shared niche gift', asin: 'B0COMP0001' }],
+        },
+        keywordConversion: {
+          rows: [{ keyword: 'shared niche gift', marketQuality: 'usable_niche', costRisk: 'low' }],
+        },
+        abaSearchTerms: {
+          rows: [{
+            searchTerm: 'shared niche gift',
+            demandTier: 'medium',
+            competitionTier: 'medium',
+            rank: 60000,
+            aoValue: 0.1,
+            totalClickShare: 0.2,
+          }],
+        },
+        keywordSeasonality: {
+          rows: [{ searchTerm: 'shared niche gift', seasonalityType: 'steady' }],
+        },
+        productTimeMachine: {
+          rows: [{
+            searchKeyword: 'shared niche gift',
+            asin: 'B0COMP0001',
+            demandTier: 'medium',
+            trafficMix: 'organic_led',
+            boughtInPastMonthLowerBound: 100,
+          }],
+        },
+      },
+    },
+  };
+  const review = buildAllSkuOperatingReview({
+    timeContext: { businessDate: '2026-06-16', dataDate: '2026-06-15' },
+    selectionReports: scopedReports,
+    snapshot: {
+      productCards: [{
+        sku: 'OLD1',
+        asin: 'B0OLD00001',
+        opendate: '2024-01-01',
+        fulFillable: 80,
+        invDays: 90,
+        unitsSold_7d: 2,
+        unitsSold_30d: 10,
+        yoyUnitsPct: -0.4,
+        profitRate: 0.2,
+        createContext: { keywordSeeds: ['shared niche gift'] },
+      }, {
+        sku: 'OLD2',
+        asin: 'B0OLD00002',
+        opendate: '2024-01-01',
+        fulFillable: 80,
+        invDays: 90,
+        unitsSold_7d: 2,
+        unitsSold_30d: 10,
+        yoyUnitsPct: -0.4,
+        profitRate: 0.2,
+        createContext: { keywordSeeds: ['shared niche gift'] },
+      }],
+    },
+  });
+
+  const old1 = review.rows.find(row => row.sku === 'OLD1').marketAnalysis;
+  const old2 = review.rows.find(row => row.sku === 'OLD2').marketAnalysis;
+  assert.strictEqual(old1.status, 'market_evidence_ready');
+  assert.notStrictEqual(old2.status, 'market_evidence_ready');
+  assert.strictEqual(review.summary.marketAnalysis.readyForDecisionSupport, 1);
+}
+
 console.log('sku_operating_review.test.js passed');

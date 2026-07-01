@@ -52,3 +52,36 @@ remaining_sp_7day_untouched_cn_*.csv
 remaining_sp_7day_untouched_cn_*.json
 
 # WeCom/Tencent doc exports are re-creatable from the live documents.
+
+# Local settings / secrets
+.claude/settings.local.json
+.claude/launch.json
+config/*.local.json
+.env
+.env.*
+
+# Temporary / debug artifacts
+__tmp_*
+_tmp_*
+*_tmp_*
+*.tmp.js
+30
+7
+--out
+scripts/diagnostics/_tmp_*
+
+# IDE / editor / tool state
+.serena/
+.workbuddy/
+
+# Accidental paste / stray files at root
+D\357\200\272*
+ad-ops-workbench*
+
+# Headroom MCP local state
+headroom/
+headroom_memory.db
+
+# Stray temp HTML/docx at root
+tmp_sc*.html
+*.docx

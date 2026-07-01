@@ -87,6 +87,13 @@ function generatedTime(report = {}) {
   return Number.isNaN(date.getTime()) ? 0 : date.getTime();
 }
 
+function explicitGeneratedTime(report = {}) {
+  const raw = text(report.generatedAt || '');
+  if (!raw) return 0;
+  const date = new Date(raw);
+  return Number.isNaN(date.getTime()) ? 0 : date.getTime();
+}
+
 function loadHeartbeats(dir = DEFAULT_AGENT_DIR) {
   return listHeartbeatFiles(dir)
     .map(file => ({ file, report: readJson(file, {}) }))
@@ -205,11 +212,29 @@ function consecutiveFailures(heartbeats = []) {
 
 function heartbeatIssues(heartbeats = [], nowMs = Date.now(), options = {}) {
   const issues = [];
-  const latest = heartbeats[0] || null;
+  const installMs = explicitGeneratedTime(options.scheduleInstall || {});
+  const scopedHeartbeats = installMs
+    ? heartbeats.filter(item => generatedTime(item.report) + 60 * 1000 >= installMs)
+    : heartbeats;
+  if (installMs && heartbeats.length && !scopedHeartbeats.length) {
+    addIssue(issues, {
+      id: 'heartbeat_predates_current_install',
+      severity: 'warning',
+      title: 'Latest supervisor heartbeat predates the current scheduled task install',
+      evidence: [
+        `installGeneratedAt=${text(options.scheduleInstall?.generatedAt || '')}`,
+        `latestHeartbeat=${text(heartbeats[0]?.report?.generatedAt || '')}`,
+      ],
+      nextAction: 'Wait for the next natural scheduled run, then rerun scheduler audit to verify the repaired task writes a fresh heartbeat.',
+    });
+    return issues;
+  }
+  const latest = scopedHeartbeats[0] || null;
   if (!latest) {
     addIssue(issues, {
       id: 'heartbeat_missing',
-      title: 'No unattended supervisor heartbeat found',
+      severity: installMs ? 'warning' : 'blocker',
+      title: installMs ? 'No supervisor heartbeat has been written since the current install' : 'No unattended supervisor heartbeat found',
       nextAction: 'Run ops:agent:unattended-supervisor and make the scheduler write heartbeat files every business day.',
     });
     return issues;
@@ -240,7 +265,7 @@ function heartbeatIssues(heartbeats = [], nowMs = Date.now(), options = {}) {
       nextAction: 'Generate or link prior learning memory before allowing unattended live execution.',
     });
   }
-  const failCount = consecutiveFailures(heartbeats);
+  const failCount = consecutiveFailures(scopedHeartbeats);
   if (failCount > Number(options.maxConsecutiveFailures || 2)) {
     addIssue(issues, {
       id: 'consecutive_unattended_failures',
@@ -281,15 +306,22 @@ function naturalScheduledRun(installed = {}, options = {}) {
 
 function installedTaskSummary(scheduleInstall = {}, heartbeats = [], nowMs = Date.now(), options = {}) {
   const installed = scheduleInstall.installedTask || {};
+  const installMs = explicitGeneratedTime(scheduleInstall);
   const lastRunMs = parseTaskTime(installed.lastRunTime);
   const nextRunMs = parseTaskTime(installed.nextRunTime);
   const latestMs = latestHeartbeatTime(heartbeats);
-  const runObserved = lastRunMs > 0 && lastRunMs <= nowMs + 5 * 60 * 1000;
+  const lastRunAfterInstall = !installMs || (lastRunMs > 0 && lastRunMs + 60 * 1000 >= installMs);
+  const runObserved = lastRunMs > 0 && lastRunAfterInstall && lastRunMs <= nowMs + 5 * 60 * 1000;
   const heartbeatAfterLastRun = runObserved ? latestMs + 5 * 60 * 1000 >= lastRunMs : null;
-  const natural = naturalScheduledRun(installed, options);
+  const rawNatural = naturalScheduledRun(installed, options);
+  const natural = runObserved ? rawNatural : { ...rawNatural, observed: false };
+  const postInstallHeartbeatCount = installMs
+    ? heartbeats.filter(item => generatedTime(item.report) + 60 * 1000 >= installMs).length
+    : heartbeats.length;
   return {
     scheduleInstallFileProvided: !!text(options.scheduleInstallFile || ''),
     scheduleInstallOk: scheduleInstall.ok === true,
+    scheduleInstallGeneratedAt: text(scheduleInstall.generatedAt || ''),
     installedTaskReady: installed.ok === true && ['ready', 'running'].includes(text(installed.state).toLowerCase()) && installed.triggerEnabled !== false,
     installedTaskState: text(installed.state || ''),
     installedTriggerEnabled: installed.triggerEnabled === undefined ? null : installed.triggerEnabled !== false,
@@ -297,12 +329,14 @@ function installedTaskSummary(scheduleInstall = {}, heartbeats = [], nowMs = Dat
     installedLastRunTime: text(installed.lastRunTime || ''),
     installedLastTaskResult: text(installed.lastTaskResult || ''),
     scheduledTaskRunObserved: runObserved,
+    installedLastRunAfterInstall: lastRunAfterInstall,
     scheduledTaskLastResultOk: runObserved ? (taskRunning(installed) ? null : taskResultOk(installed.lastTaskResult)) : null,
     latestHeartbeatAfterLastRun: heartbeatAfterLastRun,
     naturalScheduledRunObserved: natural.observed,
     expectedPreviousNaturalRun: natural.expectedPreviousNaturalRun,
     naturalScheduleToleranceMinutes: natural.toleranceMinutes,
     latestHeartbeatGeneratedAt: text(heartbeats[0]?.report?.generatedAt || ''),
+    postInstallHeartbeatCount,
     nextRunDue: nextRunMs > 0 && nextRunMs <= nowMs,
   };
 }
@@ -372,9 +406,12 @@ function installedTaskIssues(scheduleInstall = {}, heartbeats = [], nowMs = Date
   }
   const lastRunMs = parseTaskTime(installed.lastRunTime);
   const nextRunMs = parseTaskTime(installed.nextRunTime);
-  const runObserved = lastRunMs > 0 && lastRunMs <= nowMs + 5 * 60 * 1000;
+  const installMs = explicitGeneratedTime(scheduleInstall);
+  const lastRunAfterInstall = !installMs || (lastRunMs > 0 && lastRunMs + 60 * 1000 >= installMs);
+  const runObserved = lastRunMs > 0 && lastRunAfterInstall && lastRunMs <= nowMs + 5 * 60 * 1000;
   const latestMs = latestHeartbeatTime(heartbeats);
-  const natural = naturalScheduledRun(installed, options);
+  const rawNatural = naturalScheduledRun(installed, options);
+  const natural = runObserved ? rawNatural : { ...rawNatural, observed: false };
   if (runObserved) {
     if (!taskRunning(installed) && !taskResultOk(installed.lastTaskResult)) {
       addIssue(issues, {
@@ -410,6 +447,18 @@ function installedTaskIssues(scheduleInstall = {}, heartbeats = [], nowMs = Date
         nextAction: 'Keep the task installed; after the next natural trigger, rerun scheduler audit and require natural scheduled run proof.',
       });
     }
+  } else if (installMs && lastRunMs > 0 && lastRunMs + 60 * 1000 < installMs && nextRunMs > nowMs) {
+    addIssue(issues, {
+      id: 'post_install_natural_run_not_yet_observed',
+      severity: 'warning',
+      title: 'Current scheduled task install has not produced its first natural run yet',
+      evidence: [
+        `installGeneratedAt=${text(scheduleInstall.generatedAt || '')}`,
+        `lastRunTime=${text(installed.lastRunTime)}`,
+        `nextRunTime=${text(installed.nextRunTime)}`,
+      ],
+      nextAction: 'After the next natural trigger, rerun scheduler audit and require a fresh heartbeat from the repaired task action.',
+    });
   } else if (nextRunMs > 0 && nextRunMs <= nowMs) {
     addIssue(issues, {
       id: 'scheduled_task_due_without_run',
@@ -457,10 +506,11 @@ function buildSchedulerAudit(options = {}, timeContext = {}) {
   const scheduleCommand = text(options.scheduleCommand || scheduleCommandFromFile(options.scheduleFile || ''));
   const scheduleInstall = options.scheduleInstall || readJson(options.scheduleInstallFile || '', {});
   const nowMs = new Date(generatedAt).getTime();
+  const auditOptions = { ...options, scheduleInstall };
   const issues = [
-    ...commandIssues(scheduleCommand, options),
-    ...heartbeatIssues(heartbeats, Number.isFinite(nowMs) ? nowMs : Date.now(), options),
-    ...installedTaskIssues(scheduleInstall, heartbeats, Number.isFinite(nowMs) ? nowMs : Date.now(), options),
+    ...commandIssues(scheduleCommand, auditOptions),
+    ...heartbeatIssues(heartbeats, Number.isFinite(nowMs) ? nowMs : Date.now(), auditOptions),
+    ...installedTaskIssues(scheduleInstall, heartbeats, Number.isFinite(nowMs) ? nowMs : Date.now(), auditOptions),
   ];
   const blockers = issues.filter(item => item.severity === 'blocker');
   const warnings = issues.filter(item => item.severity === 'warning');

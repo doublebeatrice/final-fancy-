@@ -1,0 +1,4 @@
+interface:
+  display_name: "亚马逊产品线运营"
+  short_description: "选品、词库、竞品、广告、数据复盘与 MCP 检索 SOP"
+  default_prompt: "使用 $amazon-product-line-ops 根据我提供的产品、关键词、卖家精灵数据或广告报表，完成亚马逊产品全链路分析、上架计划和运营优化。"

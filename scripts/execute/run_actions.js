@@ -1,6 +1,7 @@
 const path = require('path');
 const { readFileSync } = require('fs');
 const { run } = require('../../auto_adjust');
+const { buildOpsTimeContext } = require('../../src/ops_time');
 const {
   appendAdjustmentRecords,
   recordsFromExecutionEvents,
@@ -55,12 +56,24 @@ function parseCliArgs(args = [], env = process.env) {
   const snapshotFile = snapshotArgIndex >= 0
     ? args[snapshotArgIndex + 1]
     : (args.find(arg => arg.startsWith('--snapshot=')) || '').slice('--snapshot='.length) || env.PANEL_SNAPSHOT_FILE || '';
+  const valueAfter = name => {
+    const index = args.findIndex(arg => arg === name);
+    return index >= 0 ? args[index + 1] : '';
+  };
+  const businessDate = valueAfter('--business-date') || env.AD_OPS_BUSINESS_DATE || '';
+  const dataDate = valueAfter('--data-date') || env.AD_OPS_DATA_DATE || '';
+  const sourceRunId = valueAfter('--source-run-id') || env.AD_OPS_SOURCE_RUN_ID || '';
+  const timeContext = businessDate || dataDate || sourceRunId
+    ? buildOpsTimeContext({ businessDate, dataDate, sourceRunId })
+    : undefined;
 
   return {
     actionSchemaFile,
     snapshotFile,
     dryRun: hasExecuteFlag ? false : true,
     fastScope: hasFullScopeFlag ? false : (hasFastScopeFlag ? true : undefined),
+    timeContext,
+    sourceRunId,
   };
 }
 
@@ -72,6 +85,8 @@ async function main() {
     snapshotFile: options.snapshotFile ? path.resolve(options.snapshotFile) : '',
     dryRun: options.dryRun,
     fastScope: options.fastScope,
+    timeContext: options.timeContext,
+    sourceRunId: options.sourceRunId,
   });
   const logResult = persistAdjustmentLog(result);
   if (logResult?.count) {

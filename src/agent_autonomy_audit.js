@@ -104,6 +104,8 @@ function buildAutonomyAudit(options = {}, timeContext = {}) {
   const files = closedLoop.files || {};
   const summary = closedLoop.summary || {};
   const handoffFile = options.handoffFile || files.handoffOutFile || defaultAgentFile('agent_handoff', businessDate, 'md');
+  const handoffJsonFile = options.handoffJsonFile || files.handoffJsonFile || defaultAgentFile('agent_handoff', businessDate, 'json');
+  const handoffJson = options.handoffJson || readJson(handoffJsonFile, {});
   const commandResultsFile = options.commandResultsFile || files.commandResultsFile || defaultAgentFile('command_results', businessDate);
   const writeExecutionFile = options.writeExecutionFile || files.writeExecutionFile || defaultAgentFile('write_execution', businessDate);
   const learningFile = options.learningFile || defaultLearningFile(dataDate || businessDate);
@@ -128,19 +130,29 @@ function buildAutonomyAudit(options = {}, timeContext = {}) {
       nextAction: 'Run the full agent closed-loop and keep the report before claiming unattended operation.',
     });
 
-  pushCheck(checks, summary.artifactVerificationOk === true || options.requireArtifactVerification === false
+  const artifactVerificationOk = summary.artifactVerificationOk === true ||
+    (summary.artifactVerificationOk === undefined && handoffJson.summary?.artifactVerificationOk === true);
+  const artifactVerificationErrors = Array.isArray(summary.artifactVerificationErrors)
+    ? summary.artifactVerificationErrors
+    : (Array.isArray(handoffJson.summary?.artifactVerificationErrors) ? handoffJson.summary.artifactVerificationErrors : []);
+  pushCheck(checks, artifactVerificationOk === true || options.requireArtifactVerification === false
     ? {
       id: 'artifact_verification',
       title: 'Closure artifacts verify cleanly',
       status: 'pass',
-      evidence: ['artifactVerificationOk=true'],
+      evidence: [
+        summary.artifactVerificationOk === true ? 'closedLoop artifactVerificationOk=true' : '',
+        summary.artifactVerificationOk === undefined && handoffJson.summary?.artifactVerificationOk === true
+          ? `${relative(handoffJsonFile)} artifactVerificationOk=true`
+          : '',
+      ].filter(Boolean),
     }
     : {
       id: 'artifact_verification',
       title: 'Closure artifact verification is not clean',
       status: 'fail',
       severity: 'blocker',
-      gaps: (summary.artifactVerificationErrors || ['artifactVerificationOk is not true']).map(text),
+      gaps: (artifactVerificationErrors.length ? artifactVerificationErrors : ['artifactVerificationOk is not true']).map(text),
       nextAction: 'Fix artifact verification errors before treating the loop as unattended.',
     });
 

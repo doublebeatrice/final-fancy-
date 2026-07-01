@@ -7,6 +7,9 @@ const {
   normalizeCouponPrefill,
   redactActivityUrl,
 } = require('../src/activity_apply_prefill');
+const {
+  browserApplyCouponPatchSource,
+} = require('../scripts/execute/prefill_activity_apply');
 
 {
   const patch = normalizeCouponPrefill({
@@ -43,6 +46,18 @@ const {
   assert.deepStrictEqual(patch.cascaderValue, [3, 'Reorder customers']);
   assert.strictEqual(patch.couponType, 2);
   assert.strictEqual(patch.couponValue, 2.5);
+}
+
+{
+  const patch = normalizeCouponPrefill({
+    start: '2026-06-01',
+    end: '2026-06-07',
+    couponType: 'amount',
+    couponValue: '2.5',
+    activityKind: 'reorder',
+    keywords: '',
+  });
+  assert.strictEqual(patch.core_keywords, '');
 }
 
 {
@@ -119,4 +134,39 @@ export default defineComponent({
   assert.strictEqual(redacted, 'https://sellerinventory.yswg.com.cn/pm/formal/list?Inventory-Token=%5Bredacted%5D&jwt-token=%5Bredacted%5D&keep=1');
 }
 
-console.log('activity apply prefill tests passed');
+(async () => {
+  const calls = [];
+  global.document = {
+    querySelectorAll() {
+      return [{
+        src: 'https://sellerinventory.yswg.com.cn/report/activityApplyIndex?skus=KZ6722',
+        contentWindow: {
+          __codexActivityForms: {
+            coupon: {
+              form: { value: { set_name: 'ready', core_keywords: 'old keyword' } },
+              onChangeKeywords(value) {
+                calls.push(value);
+              },
+              getSnapshot() {
+                return { ...this.form.value };
+              },
+            },
+          },
+        },
+      }];
+    },
+  };
+  const result = JSON.parse(await browserApplyCouponPatchSource()({
+    sku: 'KZ6722',
+    patch: { core_keywords: '' },
+  }));
+  assert.strictEqual(result.ok, true);
+  assert.strictEqual(result.snapshot.core_keywords, '');
+  assert.deepStrictEqual(calls, ['']);
+  delete global.document;
+
+  console.log('activity apply prefill tests passed');
+})().catch(error => {
+  delete global.document;
+  throw error;
+});

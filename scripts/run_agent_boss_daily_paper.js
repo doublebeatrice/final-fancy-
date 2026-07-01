@@ -8,6 +8,10 @@ const { runAgentReviewQueue } = require('./run_agent_review_queue');
 const { runAgentEffectReview } = require('./run_agent_effect_review');
 const { runAgentLearningMemory } = require('./run_agent_learning_memory');
 const { runExternalTaskInbox } = require('./run_external_task_inbox');
+const {
+  buildTaskFollowupDashboard,
+  renderTaskFollowupMarkdown,
+} = require('../src/task_followup_dashboard');
 
 const ROOT = path.join(__dirname, '..');
 const DEFAULT_AGENT_DIR = path.join(ROOT, 'data', 'agent');
@@ -2224,7 +2228,18 @@ function buildBossDailyPaper(options = {}) {
     files: {},
   };
   report.redLights = options.redLights || buildRedLights(report);
+  report.taskFollowup = buildReportTaskFollowup(report, options);
   return report;
+}
+
+function buildReportTaskFollowup(report = {}, options = {}) {
+  if (options.taskFollowup) return options.taskFollowup;
+  if (!options.force && report.taskFollowup) return report.taskFollowup;
+  return buildTaskFollowupDashboard({
+    ...options,
+    today: report.today,
+    report,
+  });
 }
 
 function formatCoverageTriplet(coverage = {}, label = '') {
@@ -2348,6 +2363,7 @@ function renderGoalFinalEvidenceSection(report = {}) {
 }
 
 function renderBossDailyPaper(report = {}) {
+  const taskFollowup = buildReportTaskFollowup(report);
   return [
     `# 每日结果纸 ${report.today}`,
     '',
@@ -2358,6 +2374,8 @@ function renderBossDailyPaper(report = {}) {
     renderRedLightSection(report),
     '',
     renderGoalFinalEvidenceSection(report),
+    '',
+    renderTaskFollowupMarkdown(taskFollowup),
     '',
   ].join('\n');
 }
@@ -2397,11 +2415,13 @@ function runBossDailyPaper(options = {}) {
   report.guard = guard;
   report.verification = buildVerification(report, guard);
   report.goalFinal = buildGoalFinalContinuity(today, agentDir, report);
+  report.taskFollowup = buildReportTaskFollowup(report, { ...options, force: true });
   markdown = renderBossDailyPaper(report);
   guard = validateBossPaperGuard({ outFile, content: markdown, evidenceFiles });
   report.guard = guard;
   report.verification = buildVerification(report, guard);
   report.goalFinal = buildGoalFinalContinuity(today, agentDir, report);
+  report.taskFollowup = buildReportTaskFollowup(report, { ...options, force: true });
   markdown = renderBossDailyPaper(report);
   writeText(outFile, markdown);
   writeJson(jsonOutFile, report);

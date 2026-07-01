@@ -1,0 +1,5037 @@
+[
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "keyword",
+    "entityId": "261057389724770",
+    "entityName": "ai_kw exact_size3 soccer ball_yut3184",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "核心高量精准词被暂停(30d展示driver),恢复以增展示",
+    "runAt": "2026-06-23T02:23:37.372Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-37-372Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复暂停精准词直接提升on-profile展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "261057389724770",
+    "entityName": "ai_kw exact_size3 soccer ball_yut3184",
+    "beforeValue": 0.14,
+    "afterValue": 1,
+    "reason": "bid进已验证点击区间(~1.0),原0.14/1.25偏离",
+    "runAt": "2026-06-23T02:23:37.372Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-37-372Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "bid进区间赢得位置",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "keyword",
+    "entityId": "117919858746085",
+    "entityName": "ai_kw exact_size3 soccer ball_yut3184",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "核心高量精准词被暂停(30d展示driver),恢复以增展示",
+    "runAt": "2026-06-23T02:23:37.372Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-37-372Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复暂停精准词直接提升on-profile展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "117919858746085",
+    "entityName": "ai_kw exact_size3 soccer ball_yut3184",
+    "beforeValue": 1.25,
+    "afterValue": 1,
+    "reason": "bid进已验证点击区间(~1.0),原0.14/1.25偏离",
+    "runAt": "2026-06-23T02:23:37.372Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-37-372Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "bid进区间赢得位置",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "21576514660199",
+    "entityName": "ai_asin expanded_soccer party_yut3184",
+    "beforeValue": 0.39,
+    "afterValue": 0.9,
+    "reason": "画像匹配的6-pack竞品ASIN定向,bid0.31-0.39远低于阈值3,饥饿;抬进点击区间",
+    "runAt": "2026-06-23T02:23:37.372Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-37-372Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "画像匹配ASIN抬价赢得展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "37943054632115",
+    "entityName": "ai_asin expanded_soccer party_yut3184",
+    "beforeValue": 0.32,
+    "afterValue": 0.9,
+    "reason": "画像匹配的6-pack竞品ASIN定向,bid0.31-0.39远低于阈值3,饥饿;抬进点击区间",
+    "runAt": "2026-06-23T02:23:37.372Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-37-372Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "画像匹配ASIN抬价赢得展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "182853629142760",
+    "entityName": "ai_asin expanded_soccer party_yut3184",
+    "beforeValue": 0.32,
+    "afterValue": 0.9,
+    "reason": "画像匹配的6-pack竞品ASIN定向,bid0.31-0.39远低于阈值3,饥饿;抬进点击区间",
+    "runAt": "2026-06-23T02:23:37.372Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-37-372Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "画像匹配ASIN抬价赢得展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "261185017838120",
+    "entityName": "ai_asin expanded_soccer party_yut3184",
+    "beforeValue": 0.32,
+    "afterValue": 0.9,
+    "reason": "画像匹配的6-pack竞品ASIN定向,bid0.31-0.39远低于阈值3,饥饿;抬进点击区间",
+    "runAt": "2026-06-23T02:23:37.372Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-37-372Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "画像匹配ASIN抬价赢得展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "253357039983078",
+    "entityName": "ai_asin expanded_soccer party_yut3184",
+    "beforeValue": 0.31,
+    "afterValue": 0.9,
+    "reason": "画像匹配的6-pack竞品ASIN定向,bid0.31-0.39远低于阈值3,饥饿;抬进点击区间",
+    "runAt": "2026-06-23T02:23:37.372Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-37-372Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "画像匹配ASIN抬价赢得展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "219039737973735",
+    "entityName": "ai_asin expanded_soccer party_yut3184",
+    "beforeValue": 0.32,
+    "afterValue": 0.9,
+    "reason": "画像匹配的6-pack竞品ASIN定向,bid0.31-0.39远低于阈值3,饥饿;抬进点击区间",
+    "runAt": "2026-06-23T02:23:37.372Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-37-372Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "画像匹配ASIN抬价赢得展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "keyword",
+    "entityId": "261057389724770",
+    "entityName": "ai_kw exact_size3 soccer ball_yut3184",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"261057389724770\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:23:51.824Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-51-824Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "恢复暂停精准词直接提升on-profile展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "keyword",
+    "entityId": "117919858746085",
+    "entityName": "ai_kw exact_size3 soccer ball_yut3184",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"117919858746085\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:23:51.824Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-51-824Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "恢复暂停精准词直接提升on-profile展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "21576514660199",
+    "entityName": "ai_asin expanded_soccer party_yut3184",
+    "beforeValue": 0.39,
+    "afterValue": 0.9,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"21576514660199\"},{\"targetId\":\"37943054632115\"},{\"targetId\":\"182853629142760\"},{\"targetId\":\"261185017838120\"},{\"targetId\":\"253357039983078\"},{\"targetId\":\"219039737973735\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:23:51.824Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-51-824Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "画像匹配ASIN抬价赢得展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "37943054632115",
+    "entityName": "ai_asin expanded_soccer party_yut3184",
+    "beforeValue": 0.32,
+    "afterValue": 0.9,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"21576514660199\"},{\"targetId\":\"37943054632115\"},{\"targetId\":\"182853629142760\"},{\"targetId\":\"261185017838120\"},{\"targetId\":\"253357039983078\"},{\"targetId\":\"219039737973735\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:23:51.824Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-51-824Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "画像匹配ASIN抬价赢得展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "182853629142760",
+    "entityName": "ai_asin expanded_soccer party_yut3184",
+    "beforeValue": 0.32,
+    "afterValue": 0.9,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"21576514660199\"},{\"targetId\":\"37943054632115\"},{\"targetId\":\"182853629142760\"},{\"targetId\":\"261185017838120\"},{\"targetId\":\"253357039983078\"},{\"targetId\":\"219039737973735\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:23:51.824Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-51-824Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "画像匹配ASIN抬价赢得展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "261185017838120",
+    "entityName": "ai_asin expanded_soccer party_yut3184",
+    "beforeValue": 0.32,
+    "afterValue": 0.9,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"21576514660199\"},{\"targetId\":\"37943054632115\"},{\"targetId\":\"182853629142760\"},{\"targetId\":\"261185017838120\"},{\"targetId\":\"253357039983078\"},{\"targetId\":\"219039737973735\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:23:51.824Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-51-824Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "画像匹配ASIN抬价赢得展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "253357039983078",
+    "entityName": "ai_asin expanded_soccer party_yut3184",
+    "beforeValue": 0.31,
+    "afterValue": 0.9,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"21576514660199\"},{\"targetId\":\"37943054632115\"},{\"targetId\":\"182853629142760\"},{\"targetId\":\"261185017838120\"},{\"targetId\":\"253357039983078\"},{\"targetId\":\"219039737973735\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:23:51.824Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-51-824Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "画像匹配ASIN抬价赢得展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "219039737973735",
+    "entityName": "ai_asin expanded_soccer party_yut3184",
+    "beforeValue": 0.32,
+    "afterValue": 0.9,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"21576514660199\"},{\"targetId\":\"37943054632115\"},{\"targetId\":\"182853629142760\"},{\"targetId\":\"261185017838120\"},{\"targetId\":\"253357039983078\"},{\"targetId\":\"219039737973735\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:23:51.824Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-23-51-824Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "画像匹配ASIN抬价赢得展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "132643470461060",
+    "entityName": "ai_kw broad_soccer party_yut3184",
+    "beforeValue": 0.34,
+    "afterValue": 0.7,
+    "reason": "世界杯窗口拓市场词,原0.34-0.55基本零展示;适度抬价进展示(仍低于核心1.00)",
+    "runAt": "2026-06-23T02:30:21.634Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-21-634Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "175213795621502",
+    "entityName": "ai_kw broad_soccer party_yut3184",
+    "beforeValue": 0.34,
+    "afterValue": 0.7,
+    "reason": "世界杯窗口拓市场词,原0.34-0.55基本零展示;适度抬价进展示(仍低于核心1.00)",
+    "runAt": "2026-06-23T02:30:21.634Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-21-634Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "113010977124765",
+    "entityName": "ai_kw broad_soccer party_yut3184",
+    "beforeValue": 0.34,
+    "afterValue": 0.7,
+    "reason": "世界杯窗口拓市场词,原0.34-0.55基本零展示;适度抬价进展示(仍低于核心1.00)",
+    "runAt": "2026-06-23T02:30:21.634Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-21-634Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "122418600305117",
+    "entityName": "ai_kw broad_soccer party_yut3184",
+    "beforeValue": 0.4,
+    "afterValue": 0.7,
+    "reason": "世界杯窗口拓市场词,原0.34-0.55基本零展示;适度抬价进展示(仍低于核心1.00)",
+    "runAt": "2026-06-23T02:30:21.634Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-21-634Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "108334345390878",
+    "entityName": "ai_kw broad_soccer party_yut3184",
+    "beforeValue": 0.34,
+    "afterValue": 0.7,
+    "reason": "世界杯窗口拓市场词,原0.34-0.55基本零展示;适度抬价进展示(仍低于核心1.00)",
+    "runAt": "2026-06-23T02:30:21.634Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-21-634Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "177229513986016",
+    "entityName": "ai_kw broad_soccer party_yut3184",
+    "beforeValue": 0.34,
+    "afterValue": 0.7,
+    "reason": "世界杯窗口拓市场词,原0.34-0.55基本零展示;适度抬价进展示(仍低于核心1.00)",
+    "runAt": "2026-06-23T02:30:21.634Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-21-634Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "165473446995036",
+    "entityName": "ai_kw phrase_soccer party_yut3184",
+    "beforeValue": 0.55,
+    "afterValue": 0.7,
+    "reason": "世界杯窗口拓市场词,原0.34-0.55基本零展示;适度抬价进展示(仍低于核心1.00)",
+    "runAt": "2026-06-23T02:30:21.634Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-21-634Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "221286825770836",
+    "entityName": "ai_kw phrase_soccer party_yut3184",
+    "beforeValue": 0.39,
+    "afterValue": 0.7,
+    "reason": "世界杯窗口拓市场词,原0.34-0.55基本零展示;适度抬价进展示(仍低于核心1.00)",
+    "runAt": "2026-06-23T02:30:21.634Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-21-634Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "199179748536757",
+    "entityName": "ai_kw phrase_soccer party_yut3184",
+    "beforeValue": 0.38,
+    "afterValue": 0.7,
+    "reason": "世界杯窗口拓市场词,原0.34-0.55基本零展示;适度抬价进展示(仍低于核心1.00)",
+    "runAt": "2026-06-23T02:30:21.634Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-21-634Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "106116998136052",
+    "entityName": "ai_kw phrase_soccer party_yut3184",
+    "beforeValue": 0.38,
+    "afterValue": 0.7,
+    "reason": "世界杯窗口拓市场词,原0.34-0.55基本零展示;适度抬价进展示(仍低于核心1.00)",
+    "runAt": "2026-06-23T02:30:21.634Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-21-634Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "5038045151847",
+    "entityName": "ai_kw phrase_soccer party_yut3184",
+    "beforeValue": 0.55,
+    "afterValue": 0.7,
+    "reason": "世界杯窗口拓市场词,原0.34-0.55基本零展示;适度抬价进展示(仍低于核心1.00)",
+    "runAt": "2026-06-23T02:30:21.634Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-21-634Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "B0D3PQSZP2",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "sbCampaign",
+    "entityId": "108401150220147",
+    "entityName": "sbvkw broad_soccer ball_yut3184",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "恢复被暂停SBV先看数据(按用户指示不重建)",
+    "runAt": "2026-06-23T02:30:21.634Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-21-634Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复SBV增品牌位展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "sbCampaign",
+    "entityId": "108401150220147",
+    "entityName": "sbvkw broad_soccer ball_yut3184",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"campaignId\":\"108401150220147\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:30:37.572Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-37-572Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "恢复SBV增品牌位展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "132643470461060",
+    "entityName": "ai_kw broad_soccer party_yut3184",
+    "beforeValue": 0.34,
+    "afterValue": 0.7,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"132643470461060\"},{\"keywordId\":\"175213795621502\"},{\"keywordId\":\"113010977124765\"},{\"keywordId\":\"122418600305117\"},{\"keywordId\":\"108334345390878\"},{\"keywordId\":\"177229513986016\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:30:37.572Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-37-572Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "175213795621502",
+    "entityName": "ai_kw broad_soccer party_yut3184",
+    "beforeValue": 0.34,
+    "afterValue": 0.7,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"132643470461060\"},{\"keywordId\":\"175213795621502\"},{\"keywordId\":\"113010977124765\"},{\"keywordId\":\"122418600305117\"},{\"keywordId\":\"108334345390878\"},{\"keywordId\":\"177229513986016\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:30:37.572Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-37-572Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "113010977124765",
+    "entityName": "ai_kw broad_soccer party_yut3184",
+    "beforeValue": 0.34,
+    "afterValue": 0.7,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"132643470461060\"},{\"keywordId\":\"175213795621502\"},{\"keywordId\":\"113010977124765\"},{\"keywordId\":\"122418600305117\"},{\"keywordId\":\"108334345390878\"},{\"keywordId\":\"177229513986016\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:30:37.572Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-37-572Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "122418600305117",
+    "entityName": "ai_kw broad_soccer party_yut3184",
+    "beforeValue": 0.4,
+    "afterValue": 0.7,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"132643470461060\"},{\"keywordId\":\"175213795621502\"},{\"keywordId\":\"113010977124765\"},{\"keywordId\":\"122418600305117\"},{\"keywordId\":\"108334345390878\"},{\"keywordId\":\"177229513986016\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:30:37.572Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-37-572Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "108334345390878",
+    "entityName": "ai_kw broad_soccer party_yut3184",
+    "beforeValue": 0.34,
+    "afterValue": 0.7,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"132643470461060\"},{\"keywordId\":\"175213795621502\"},{\"keywordId\":\"113010977124765\"},{\"keywordId\":\"122418600305117\"},{\"keywordId\":\"108334345390878\"},{\"keywordId\":\"177229513986016\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:30:37.572Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-37-572Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "177229513986016",
+    "entityName": "ai_kw broad_soccer party_yut3184",
+    "beforeValue": 0.34,
+    "afterValue": 0.7,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"132643470461060\"},{\"keywordId\":\"175213795621502\"},{\"keywordId\":\"113010977124765\"},{\"keywordId\":\"122418600305117\"},{\"keywordId\":\"108334345390878\"},{\"keywordId\":\"177229513986016\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:30:37.572Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-37-572Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "165473446995036",
+    "entityName": "ai_kw phrase_soccer party_yut3184",
+    "beforeValue": 0.55,
+    "afterValue": 0.7,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"165473446995036\"},{\"keywordId\":\"221286825770836\"},{\"keywordId\":\"199179748536757\"},{\"keywordId\":\"106116998136052\"},{\"keywordId\":\"5038045151847\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:30:37.572Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-37-572Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "221286825770836",
+    "entityName": "ai_kw phrase_soccer party_yut3184",
+    "beforeValue": 0.39,
+    "afterValue": 0.7,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"165473446995036\"},{\"keywordId\":\"221286825770836\"},{\"keywordId\":\"199179748536757\"},{\"keywordId\":\"106116998136052\"},{\"keywordId\":\"5038045151847\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:30:37.572Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-37-572Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "199179748536757",
+    "entityName": "ai_kw phrase_soccer party_yut3184",
+    "beforeValue": 0.38,
+    "afterValue": 0.7,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"165473446995036\"},{\"keywordId\":\"221286825770836\"},{\"keywordId\":\"199179748536757\"},{\"keywordId\":\"106116998136052\"},{\"keywordId\":\"5038045151847\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:30:37.572Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-37-572Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "106116998136052",
+    "entityName": "ai_kw phrase_soccer party_yut3184",
+    "beforeValue": 0.38,
+    "afterValue": 0.7,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"165473446995036\"},{\"keywordId\":\"221286825770836\"},{\"keywordId\":\"199179748536757\"},{\"keywordId\":\"106116998136052\"},{\"keywordId\":\"5038045151847\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:30:37.572Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-37-572Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "5038045151847",
+    "entityName": "ai_kw phrase_soccer party_yut3184",
+    "beforeValue": 0.55,
+    "afterValue": 0.7,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"165473446995036\"},{\"keywordId\":\"221286825770836\"},{\"keywordId\":\"199179748536757\"},{\"keywordId\":\"106116998136052\"},{\"keywordId\":\"5038045151847\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:30:37.572Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-30-37-572Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "拓展词抬价拿到展示蹭世界杯",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3183",
+    "asin": "B0D3PKTJWT",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "keyword",
+    "entityId": "346203618751026",
+    "entityName": "kw_soccer balls-yut3183",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "soccer ball 被误暂停(有展示/出单历史),恢复增展示",
+    "runAt": "2026-06-23T02:50:13.960Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-13-960Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复on-profile词增展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 3,
+            "to": 5,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3183",
+    "asin": "B0D3PKTJWT",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "346203618751026",
+    "entityName": "kw_soccer balls-yut3183",
+    "beforeValue": 0.71,
+    "afterValue": 1,
+    "reason": "soccer ball 出价进点击区间(~1.0)",
+    "runAt": "2026-06-23T02:50:13.960Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-13-960Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "bid进区间赢位置",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 3,
+            "to": 5,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3183",
+    "asin": "B0D3PKTJWT",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "keyword",
+    "entityId": "60005492376391",
+    "entityName": "kw phrase_soccer balls-yut3183",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "mini soccer ball 被误暂停(有展示/出单历史),恢复增展示",
+    "runAt": "2026-06-23T02:50:13.960Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-13-960Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复on-profile词增展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3183",
+    "asin": "B0D3PKTJWT",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "60005492376391",
+    "entityName": "kw phrase_soccer balls-yut3183",
+    "beforeValue": 0.8,
+    "afterValue": 0.8,
+    "reason": "mini soccer ball 出价进点击区间(~1.0)",
+    "runAt": "2026-06-23T02:50:13.960Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-13-960Z",
+    "lastAdjustedAt": null,
+    "direction": "same",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "bid进区间赢位置",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2840",
+    "asin": "B0BDRJ2D98",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "239124277639907",
+    "entityName": "ai_kw exact_size3 soccer ball_yut2840",
+    "beforeValue": 0.13,
+    "afterValue": 1,
+    "reason": "size 3 soccer balls 出价进点击区间(~1.0)",
+    "runAt": "2026-06-23T02:50:13.960Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-13-960Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "bid进区间赢位置",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 2,
+            "to": 4,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2844",
+    "asin": "B0BDRFT6F4",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "keyword",
+    "entityId": "45480859887834",
+    "entityName": "kwphrase_soccer ball_yut2844",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "soccer ball size 被误暂停(有展示/出单历史),恢复增展示",
+    "runAt": "2026-06-23T02:50:13.960Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-13-960Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复on-profile词增展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2844",
+    "asin": "B0BDRFT6F4",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "45480859887834",
+    "entityName": "kwphrase_soccer ball_yut2844",
+    "beforeValue": 1.25,
+    "afterValue": 1,
+    "reason": "soccer ball size 出价进点击区间(~1.0)",
+    "runAt": "2026-06-23T02:50:13.960Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-13-960Z",
+    "lastAdjustedAt": null,
+    "direction": "down",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "bid进区间赢位置",
+        "expectedEffect": {
+          "impressions": "down",
+          "clicks": "down",
+          "spend": "down",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2844",
+    "asin": "B0BDRFT6F4",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "153007452386220",
+    "entityName": "kwphrase_soccer ball_yut2844",
+    "beforeValue": 0.72,
+    "afterValue": 0.9,
+    "reason": "+soccer +ball 出价进点击区间(~1.0)",
+    "runAt": "2026-06-23T02:50:13.960Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-13-960Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "bid进区间赢位置",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2847",
+    "asin": "B0BDRFP6H1",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "360654017336102",
+    "entityName": "asin expanded_soccer ball_yut2847",
+    "beforeValue": 0.07,
+    "afterValue": 0.8,
+    "reason": "画像匹配竞品ASIN出价0.07-0.08饿死(有出单),抬进区间",
+    "runAt": "2026-06-23T02:50:13.960Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-13-960Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "ASIN抬价赢展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 1,
+            "to": 2,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2847",
+    "asin": "B0BDRFP6H1",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "376088580033272",
+    "entityName": "asin expanded_soccer ball_yut2847",
+    "beforeValue": 0.08,
+    "afterValue": 0.8,
+    "reason": "画像匹配竞品ASIN出价0.07-0.08饿死(有出单),抬进区间",
+    "runAt": "2026-06-23T02:50:13.960Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-13-960Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "ASIN抬价赢展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3183",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "keyword",
+    "entityId": "346203618751026",
+    "entityName": "kw_soccer balls-yut3183",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"346203618751026\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:50:34.864Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-34-864Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "恢复on-profile词增展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 3,
+            "to": 5,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3183",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "keyword",
+    "entityId": "60005492376391",
+    "entityName": "kw phrase_soccer balls-yut3183",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"60005492376391\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:50:34.864Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-34-864Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "恢复on-profile词增展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2844",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "keyword",
+    "entityId": "45480859887834",
+    "entityName": "kwphrase_soccer ball_yut2844",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"45480859887834\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:50:34.864Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-34-864Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "恢复on-profile词增展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2840",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "239124277639907",
+    "entityName": "ai_kw exact_size3 soccer ball_yut2840",
+    "beforeValue": 0.13,
+    "afterValue": 1,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"239124277639907\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:50:34.864Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-34-864Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "bid进区间赢位置",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 2,
+            "to": 4,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2844",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "153007452386220",
+    "entityName": "kwphrase_soccer ball_yut2844",
+    "beforeValue": 0.72,
+    "afterValue": 0.9,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"keywordId\":\"45480859887834\"},{\"keywordId\":\"153007452386220\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:50:34.864Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-34-864Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "bid进区间赢位置",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2847",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "360654017336102",
+    "entityName": "asin expanded_soccer ball_yut2847",
+    "beforeValue": 0.07,
+    "afterValue": 0.8,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"360654017336102\"},{\"targetId\":\"376088580033272\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:50:34.864Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-34-864Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "ASIN抬价赢展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 1,
+            "to": 2,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2847",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "376088580033272",
+    "entityName": "asin expanded_soccer ball_yut2847",
+    "beforeValue": 0.08,
+    "afterValue": 0.8,
+    "reason": "{\"code\":200,\"msg\":\"success\",\"data\":{\"success\":[{\"targetId\":\"360654017336102\"},{\"targetId\":\"376088580033272\"}],\"error\":[]}}",
+    "runAt": "2026-06-23T02:50:34.864Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-50-34-864Z",
+    "lastAdjustedAt": null,
+    "direction": "up",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "ASIN抬价赢展示",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3183",
+    "asin": "B0D3PKTJWT",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "96327508770701",
+    "entityName": "ai_kw exact_soccer ball with pump_yut3183",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "恢复被暂停的自营结构(ai_kw exact_soccer ball with pump_yut3183, 日预算$10.00)以补齐广告结构、增展示",
+    "runAt": "2026-06-23T02:55:21.852Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-21-852Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3183",
+    "asin": "B0D3PKTJWT",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "539837942071385",
+    "entityName": "asin_soccer balls-yut3183",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "恢复被暂停的自营结构(asin_soccer balls-yut3183, 日预算$15.00)以补齐广告结构、增展示",
+    "runAt": "2026-06-23T02:55:21.852Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-21-852Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2840",
+    "asin": "B0BDRJ2D98",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "47060190231771",
+    "entityName": "auto_soccer ball_yut2840",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "恢复被暂停的自营结构(auto_soccer ball_yut2840, 日预算$3.00)以补齐广告结构、增展示",
+    "runAt": "2026-06-23T02:55:21.852Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-21-852Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2840",
+    "asin": "B0BDRJ2D98",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "148005538851661",
+    "entityName": "kw broad_soccer ball_yut2840",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "恢复被暂停的自营结构(kw broad_soccer ball_yut2840, 日预算$3.00)以补齐广告结构、增展示",
+    "runAt": "2026-06-23T02:55:21.852Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-21-852Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2840",
+    "asin": "B0BDRJ2D98",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "160718172471898",
+    "entityName": "asin expanded_soccer ball_yut2840",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "恢复被暂停的自营结构(asin expanded_soccer ball_yut2840, 日预算$3.00)以补齐广告结构、增展示",
+    "runAt": "2026-06-23T02:55:21.852Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-21-852Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2844",
+    "asin": "B0BDRFT6F4",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "72520540481822",
+    "entityName": "ai_kw exact_size4 soccer ball_yut2844",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "恢复被暂停的自营结构(ai_kw exact_size4 soccer ball_yut2844, 日预算$10.00)以补齐广告结构、增展示",
+    "runAt": "2026-06-23T02:55:21.852Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-21-852Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2844",
+    "asin": "B0BDRFT6F4",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "97009283476116",
+    "entityName": "asin expanded_soccer ball_yut2844",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "恢复被暂停的自营结构(asin expanded_soccer ball_yut2844, 日预算$2.00)以补齐广告结构、增展示",
+    "runAt": "2026-06-23T02:55:21.852Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-21-852Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2844",
+    "asin": "B0BDRFT6F4",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "201630939123157",
+    "entityName": "kw broad_soccer ball_yut2844",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "恢复被暂停的自营结构(kw broad_soccer ball_yut2844, 日预算$3.00)以补齐广告结构、增展示",
+    "runAt": "2026-06-23T02:55:21.852Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-21-852Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2844",
+    "asin": "B0BDRFT6F4",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "140781859291033",
+    "entityName": "auto_soccer ball_yut2844",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "恢复被暂停的自营结构(auto_soccer ball_yut2844, 日预算$2.00)以补齐广告结构、增展示",
+    "runAt": "2026-06-23T02:55:21.852Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-21-852Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2847",
+    "asin": "B0BDRFP6H1",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "42667539378554",
+    "entityName": "ai_kw exact_mini size2 soccer ball_yut2847",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "恢复被暂停的自营结构(ai_kw exact_mini size2 soccer ball_yut2847, 日预算$10.00)以补齐广告结构、增展示",
+    "runAt": "2026-06-23T02:55:21.852Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-21-852Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2847",
+    "asin": "B0BDRFP6H1",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "233752740692057",
+    "entityName": "kw broad_soccer ball_yut2847",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "恢复被暂停的自营结构(kw broad_soccer ball_yut2847, 日预算$3.00)以补齐广告结构、增展示",
+    "runAt": "2026-06-23T02:55:21.852Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-21-852Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3183",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "96327508770701",
+    "entityName": "ai_kw exact_soccer ball with pump_yut3183",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "sp campaign state verify did not land",
+    "runAt": "2026-06-23T02:55:33.693Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-33-693Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "not_landed",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "not_landed",
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT3183",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "539837942071385",
+    "entityName": "asin_soccer balls-yut3183",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "sp campaign state verify did not land",
+    "runAt": "2026-06-23T02:55:33.693Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-33-693Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "not_landed",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "not_landed",
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2840",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "47060190231771",
+    "entityName": "auto_soccer ball_yut2840",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "sp campaign state verify did not land",
+    "runAt": "2026-06-23T02:55:33.693Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-33-693Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "not_landed",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "not_landed",
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2840",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "148005538851661",
+    "entityName": "kw broad_soccer ball_yut2840",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "sp campaign state verify did not land",
+    "runAt": "2026-06-23T02:55:33.693Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-33-693Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "not_landed",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "not_landed",
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2840",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "160718172471898",
+    "entityName": "asin expanded_soccer ball_yut2840",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "sp campaign state verify did not land",
+    "runAt": "2026-06-23T02:55:33.693Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-33-693Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "not_landed",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "not_landed",
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2844",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "72520540481822",
+    "entityName": "ai_kw exact_size4 soccer ball_yut2844",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "sp campaign state verify did not land",
+    "runAt": "2026-06-23T02:55:33.693Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-33-693Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "not_landed",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "not_landed",
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2844",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "97009283476116",
+    "entityName": "asin expanded_soccer ball_yut2844",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "sp campaign state verify did not land",
+    "runAt": "2026-06-23T02:55:33.693Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-33-693Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "not_landed",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "not_landed",
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2844",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "201630939123157",
+    "entityName": "kw broad_soccer ball_yut2844",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "sp campaign state verify did not land",
+    "runAt": "2026-06-23T02:55:33.693Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-33-693Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "not_landed",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "not_landed",
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2844",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "140781859291033",
+    "entityName": "auto_soccer ball_yut2844",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "sp campaign state verify did not land",
+    "runAt": "2026-06-23T02:55:33.693Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-33-693Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "not_landed",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "not_landed",
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2847",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "42667539378554",
+    "entityName": "ai_kw exact_mini size2 soccer ball_yut2847",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "sp campaign state verify did not land",
+    "runAt": "2026-06-23T02:55:33.693Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-33-693Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "not_landed",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "not_landed",
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "YUT2847",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "enable",
+    "entityType": "campaign",
+    "entityId": "233752740692057",
+    "entityName": "kw broad_soccer ball_yut2847",
+    "beforeValue": "paused",
+    "afterValue": "enabled",
+    "reason": "sp campaign state verify did not land",
+    "runAt": "2026-06-23T02:55:33.693Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T02-55-33-693Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "not_landed",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "not_landed",
+      "expectation": {
+        "hypothesis": "恢复on-profile结构层增展示/有效点击",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 1,
+            "deadlineDays": 21,
+            "hardFloor": 0
+          },
+          "checkAfterDays": [
+            7,
+            14,
+            21
+          ],
+          "rollbackIf": "spend rises without orders by day 21",
+          "killSwitch": {
+            "metric": "orders",
+            "condition": "spend rises without orders by day 21",
+            "rollbackIf": "spend rises without orders by day 21"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "BOY1281",
+    "asin": "B094R3HJ5W",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::BOY1281::auto::b2b",
+    "entityName": "ai_auto_b2b kids swim goggles_boy1281",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "auto",
+      "sku": "BOY1281",
+      "asin": "B094R3HJ5W",
+      "accountId": 84,
+      "siteId": 4,
+      "dailyBudget": 3,
+      "defaultBid": 0.7,
+      "coreTerm": "kids swim goggles",
+      "campaignName": "ai_auto_b2b kids swim goggles_boy1281",
+      "groupName": "ai_auto_b2b kids swim goggles_boy1281",
+      "siteRestriction": "AMAZON_BUSINESS",
+      "targetType": "",
+      "targetAsins": [],
+      "matchType": "",
+      "keywords": [],
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 2,
+        "deadlineDays": 7,
+        "hardFloor": -8
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": ""
+    },
+    "reason": "Operator request: add one Amazon Business SP auto group for BOY1281 at bid 0.7 to expand B2B/bulk purchase coverage for kids swim goggles during the summer window. Separate AMAZON_BUSINESS lane (not a duplicate of existing consumer autos); small budget controlled learning entry, to be verified by live readback and reviewed at 3d/7d.",
+    "runAt": "2026-06-23T03:14:58.599Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T03-14-58-599Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "dry_run_planned",
+    "dryRun": true,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "expectation": {
+        "hypothesis": "Operator request: add one Amazon Business SP auto group for BOY1281 at bid 0.7 to expand B2B/bulk purchase coverage for kids swim goggles during the summer window. Separate AMAZON_BUSINESS lane (not a duplicate of existing consumer autos); small budget controlled learning entry, to be verified by live readback and reviewed at 3d/7d.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "0 orders by day 7 with off-intent search terms -> lower bid or pause weak auto buckets",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 2,
+            "deadlineDays": 7,
+            "hardFloor": -8
+          },
+          "killSwitch": {
+            "condition": "B2B auto group spends past ~8 USD net loss with 0 orders by day 7, or search terms drift off kids swim goggles / bulk-business intent",
+            "rollbackIf": "0 orders and off-intent search terms by day 7"
+          }
+        }
+      }
+    }
+  },
+  {
+    "sku": "BOY1281",
+    "asin": "B094R3HJ5W",
+    "site": "Amazon.com",
+    "actionType": "create",
+    "entityType": "skuCandidate",
+    "entityId": "create::BOY1281::auto::b2b",
+    "entityName": "ai_auto_b2b kids swim goggles_boy1281",
+    "beforeValue": null,
+    "afterValue": {
+      "advType": "SP",
+      "mode": "auto",
+      "sku": "BOY1281",
+      "asin": "B094R3HJ5W",
+      "accountId": 84,
+      "siteId": 4,
+      "dailyBudget": 3,
+      "defaultBid": 0.7,
+      "coreTerm": "kids swim goggles",
+      "campaignName": "ai_auto_b2b kids swim goggles_boy1281",
+      "groupName": "ai_auto_b2b kids swim goggles_boy1281",
+      "siteRestriction": "AMAZON_BUSINESS",
+      "targetType": "",
+      "targetAsins": [],
+      "matchType": "",
+      "keywords": [],
+      "adFormat": "",
+      "brandName": "",
+      "brand": "",
+      "videoAssetIds": [],
+      "startDate": "",
+      "goal": {
+        "metric": "orders",
+        "from": 0,
+        "to": 2,
+        "deadlineDays": 7,
+        "hardFloor": -8
+      },
+      "costType": "",
+      "landingPageUrl": "",
+      "videoType": ""
+    },
+    "reason": "{\"ok\":true,\"mode\":\"auto\",\"requestUrl\":\"/campaign/createOneTime\",\"requestBody\":{\"createType\":\"campaign\",\"advType\":\"SP\",\"name\":\"create SP campaign\",\"campaignName\":\"ai_auto_b2b kids swim goggles_boy1281\",\"startDate\":\"2026-06-23\",\"accountId\":84,\"siteId\":4,\"dailyBudget\":3,\"offAmazonBudgetControlStrategy\":null,\"placementTop\":0,\"placementProductPage\":0,\"placementRestOfSearch\":0,\"siteAmazonBusiness\":0,\"groupName\":\"ai_auto_b2b kids swim goggles_boy1281\",\"haulFlag\":false,\"asinArray\":[\"B094R3HJ5W\"],\"skuArray\":[\"BOY1281\"],\"defaultBid\":0.7,\"siteRestriction\":\"AMAZON_BUSINESS\",\"targetingType\":\"AUTO\",\"positionType\":\"auto\",\"strategy\":\"LEGACY_FOR_SALES\",\"autoTargetUpdate\":{\"QUERY_HIGH_REL_MATCHES\":{\"bid\":0.7,\"state\":\"enabled\"},\"QUERY_BROAD_REL_MATCHES\":{\"bid\":0.7,\"state\":\"enabled\"},\"ASIN_ACCESSORY_RELATED\":{\"bid\":0.7,\"state\":\"enabled\"},\"ASIN_SUBSTITUTE_RELATED\":{\"bid\":0.7,\"state\":\"enabled\"}},\"negativeKeywordArray\":[],\"negativeProductTargetArray\":[]},\"campaignName\":\"ai_auto_b2b kids swim goggles_boy1281\",\"groupName\":\"ai_auto_b2b kids swim goggles_boy1281\",\"errors\":[],\"responseCode\":200,\"responseMsg\":\"success\",\"campaignId\":\"84771339640356\",\"adGroupId\":\"335965551343691\",\"errorType\":\"\",\"reason\":\"\",\"rawResponse\":{\"code\":200,\"msg\":\"success\",\"data\":{\"apiResponse\":\"\",\"param\":{\"info\":\"新建SP广告\",\"userName\":\"黄成喆\",\"siteId\":4,\"accountId\":84,\"state\":\"ENABLED\",\"campaignName\":\"ai_auto_b2b kids swim goggles_boy1281\",\"groupName\":\"ai_auto_b2b kids swim goggles_boy1281\",\"dailyBudget\":3,\"defaultBid\":0.7,\"strategy\":\"LEGACY_FOR_SALES\",\"positionType\":\"auto\",\"targetingType\":\"AUTO\",\"startDate\":\"2026-06-23\",\"endDate\":\"\",\"skuArray\":[\"BOY1281\"],\"asinArray\":[\"B094R3HJ5W\"],\"keywordArray\":[],\"negativeKeywordArray\":[],\"productTargetArray\":[],\"negativeProductTargetArray\":[],\"audience\":[],\"keywordGroups\":[],\"offAmazonBudgetControlStrategy\":null,\"siteRestriction\":\"AMAZON_BUSINESS\",\"campaignId\":\"84771339640356\",\"adGroupId\":\"335965551343691\"}}}}",
+    "runAt": "2026-06-23T03:15:14.905Z",
+    "businessDate": "2026-06-23",
+    "localDate": "2026-06-23",
+    "dataDate": "2026-06-22",
+    "siteTimezone": "America/Los_Angeles",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "ops_2026-06-23T03-15-14-905Z",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiStatus": "api_success",
+      "finalStatus": "success",
+      "expectation": {
+        "hypothesis": "Operator request: add one Amazon Business SP auto group for BOY1281 at bid 0.7 to expand B2B/bulk purchase coverage for kids swim goggles during the summer window. Separate AMAZON_BUSINESS lane (not a duplicate of existing consumer autos); small budget controlled learning entry, to be verified by live readback and reviewed at 3d/7d.",
+        "expectedEffect": {
+          "impressions": "up",
+          "clicks": "up",
+          "spend": "up",
+          "orders": "watch",
+          "acos": "watch"
+        },
+        "reviewPlan": {
+          "checkAfterDays": [
+            3,
+            7
+          ],
+          "rollbackIf": "0 orders by day 7 with off-intent search terms -> lower bid or pause weak auto buckets",
+          "goal": {
+            "metric": "orders",
+            "from": 0,
+            "to": 2,
+            "deadlineDays": 7,
+            "hardFloor": -8
+          },
+          "killSwitch": {
+            "condition": "B2B auto group spends past ~8 USD net loss with 0 orders by day 7, or search terms drift off kids swim goggles / bulk-business intent",
+            "rollbackIf": "0 orders and off-intent search terms by day 7"
+          }
+        }
+      }
+    }
+  }
+]

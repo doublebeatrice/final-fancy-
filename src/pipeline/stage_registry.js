@@ -29,6 +29,11 @@ const DEFAULT_STAGES = Object.freeze([
     inputs: ['snapshot_file', 'time_context'],
   },
   {
+    name: 'old_product_maintenance',
+    required: false,
+    inputs: ['all_sku_operating_review', 'daily_deposit_status'],
+  },
+  {
     name: 'season_title_dry_run',
     required: false,
     inputs: ['snapshot_file', 'season_events', 'listing_cache'],

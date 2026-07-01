@@ -1,0 +1,57 @@
+{
+  "sku": "AE3311",
+  "asin": null,
+  "grading": {
+    "grade": "边缘老品",
+    "priority": "中等",
+    "strategy": "控制成本、止损，仅处理关键问题"
+  },
+  "attribution": {
+    "indicators": {
+      "salesDown": false,
+      "ctrDown": false,
+      "cvrDown": true,
+      "profitDown": false,
+      "acosHigh": false,
+      "acosWorsening": true,
+      "impressionsDown": false
+    },
+    "pattern": null,
+    "investigation": null,
+    "rootCauses": [],
+    "note": "表层指标无明显异常或数据不完整"
+  },
+  "risk": "中",
+  "report": "📋 老品整改问题单\n\nSKU/ASIN：AE3311 / 待确认\n所属类目：待确认\n产品分级：边缘老品（中等优先级）\n整改策略：控制成本、止损，仅处理关键问题\n\n【表层指标】\n- 30天ACoS：19.6%（7天：24.2%）\n- 30天转化率：29.9%（7天：2.9%）\n- 30天点击率：0.5%（7天：1.9%）\n- 30天展现：183963（7天：46042）\n- 30天广告花费：$702.75\n\n【归因诊断】\n【核心根因】\n- 数据不足以自动归因，需人工补充以下数据后判断：\n  · 同比销量变化（需要去年同期数据）\n  · 库存可售天数\n  · 近期是否有断货/差评\n\n【整改动作】\n- 待归因确认后匹配\n\n【整改周期】：2周（2026-06-25 至 2026-07-09）\n【风险等级】：中\n【负责人】：__________ 【监督人】：组长\n",
+  "data": {
+    "sku": "AE3311",
+    "asin": null,
+    "category": null,
+    "units30d": null,
+    "profit30d": null,
+    "profitRate": null,
+    "profitRankPct": null,
+    "invDays": null,
+    "units30d_yoy": null,
+    "gapToDeptAvg": null,
+    "adSpend30d": 702.75,
+    "adSales30d": 3584.51,
+    "adOrders30d": 296,
+    "adClicks30d": 990,
+    "adImpressions30d": 183963,
+    "acos30d": 0.1961,
+    "adSpend7d": 284.42,
+    "adSales7d": 1175.66,
+    "adOrders7d": 26,
+    "adClicks7d": 884,
+    "adImpressions7d": 46042,
+    "acos7d": 0.2419,
+    "ctr30d": 0.005381516935470719,
+    "ctr7d": 0.019199860996481473,
+    "cvr30d": 0.298989898989899,
+    "cvr7d": 0.029411764705882353,
+    "adSpendRatio": 0.19605190109666312,
+    "impressions30d": 183963,
+    "impressions7d": 46042
+  }
+}

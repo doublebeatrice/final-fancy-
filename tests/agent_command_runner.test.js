@@ -174,6 +174,14 @@ const timeContext = {
   assert.strictEqual(calls[0].execOptions.timeout, DEFAULT_COMMAND_TIMEOUT_MS);
   assert.strictEqual(result.results[0].taskId, 'ext-1');
   assert.strictEqual(result.results[0].ok, true);
+  assert.ok(result.results[0].startedAt);
+  assert.ok(result.results[0].finishedAt);
+  assert.strictEqual(result.results[0].at, result.results[0].startedAt);
+  assert.ok(Number.isFinite(result.results[0].durationMs));
+  assert.ok(result.results[0].durationMs >= 0);
+  assert.strictEqual(result.summary.timedOut, 0);
+  assert.strictEqual(result.summary.measuredCommandCount, 1);
+  assert.ok(Number.isFinite(result.summary.averageCommandDurationMs));
   assert.ok(result.results[0].outputFiles.some(file => file.includes('selection_keyword_conversion_rate_2026-05-19.json')));
   assert.ok(fs.existsSync(outFile));
 }

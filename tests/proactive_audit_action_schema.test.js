@@ -2,6 +2,7 @@ const assert = require('assert');
 const {
   buildExpiredSeasonActions,
   buildNewProductLaunchActions,
+  buildReviewItems,
 } = require('../scripts/generators/generate_proactive_audit_action_schema');
 
 {
@@ -65,6 +66,30 @@ const {
     actions.some(action => action.actionType === 'review' && /keyword seeds/i.test(action.reason)),
     'should surface a review item explaining that keyword seeds are too broad'
   );
+}
+
+{
+  const audit = {
+    arrivalAdRecovery: {
+      items: [{
+        sku: 'QA2082',
+        asin: 'B0TESTQA82',
+        issue: 'ad_recovery_diagnosis_required',
+        subIssue: 'arrived_inventory_ads_have_no_effective_delivery',
+        requiredAction: 'diagnose_ad_recovery_before_action',
+        diagnosticStructureRequired: true,
+        ruleSource: 'GBrain:04-standard-playbooks/ad-recovery-full-diagnostic-structure',
+      }],
+    },
+  };
+  const products = new Map([['QA2082', { sku: 'QA2082', asin: 'B0TESTQA82' }]]);
+  const plans = buildReviewItems(audit, products, 10);
+  const action = plans.flatMap(plan => plan.actions || []).find(item => item.actionType === 'review');
+
+  assert.ok(action, 'arrival ad recovery remains a review action until the full diagnostic structure is filled');
+  assert.strictEqual(action.id, 'review::QA2082::arrival_ad_recovery');
+  assert.ok(action.reason.includes('full ad recovery diagnosis'));
+  assert.ok(action.evidence.some(entry => entry === 'requiredAction=diagnose_ad_recovery_before_action'));
 }
 
 {

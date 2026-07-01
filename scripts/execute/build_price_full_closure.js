@@ -9,6 +9,10 @@ const {
 const ROOT = path.join(__dirname, '..', '..');
 const DEFAULT_DATE = '2026-05-22';
 const NORMAL_SALE = '\u6b63\u5e38\u9500\u552e';
+const LARGE_POST_RAISE_UNITS_1D = 3;
+const LARGE_POST_RAISE_UNITS_3D = 6;
+const LARGE_POST_RAISE_UNITS_7D = 10;
+const PRICE_RAISE_ABSORPTION_DAYS = 7;
 
 function readJson(file, fallback = null) {
   try {
@@ -38,12 +42,109 @@ function round(value, digits = 2) {
   return Number.isFinite(n) ? Number(n.toFixed(digits)) : null;
 }
 
+function dateOnly(value) {
+  const m = String(value || '').match(/\d{4}-\d{2}-\d{2}/);
+  return m ? m[0] : '';
+}
+
+function addDays(date, days) {
+  const clean = dateOnly(date);
+  if (!clean) return '';
+  const [year, month, day] = clean.split('-').map(Number);
+  const d = new Date(Date.UTC(year, month - 1, day + days));
+  return d.toISOString().slice(0, 10);
+}
+
+function daysBetweenDateStrings(fromDate, toDate) {
+  const from = dateOnly(fromDate);
+  const to = dateOnly(toDate);
+  if (!from || !to) return null;
+  const fromMs = Date.parse(`${from}T00:00:00.000Z`);
+  const toMs = Date.parse(`${to}T00:00:00.000Z`);
+  if (!Number.isFinite(fromMs) || !Number.isFinite(toMs)) return null;
+  return Math.floor((toMs - fromMs) / 86400000);
+}
+
 function pct(value) {
   return `${(num(value) * 100).toFixed(1)}%`;
 }
 
 function safeArray(value) {
   return Array.isArray(value) ? value : [];
+}
+
+function maxFieldNumber(sources = [], keys = []) {
+  let best = null;
+  for (const source of sources) {
+    if (!source || typeof source !== 'object') continue;
+    for (const key of keys) {
+      if (!Object.prototype.hasOwnProperty.call(source, key)) continue;
+      const value = num(source[key], NaN);
+      if (!Number.isFinite(value)) continue;
+      best = best === null ? value : Math.max(best, value);
+    }
+  }
+  return best;
+}
+
+function postRaiseSalesEvidence(item = {}, card = {}) {
+  const sources = [item, card, item.priceEffect || {}, card.priceEffect || {}, item.postRaise || {}, card.postRaise || {}];
+  const units1d = maxFieldNumber(sources, [
+    'postPriceUnits1d',
+    'postPriceUnits_1d',
+    'postRaiseUnits1d',
+    'postRaiseUnits_1d',
+    'unitsAfterPriceRaise1d',
+    'afterPriceUnits1d',
+    'postPriceOrders1d',
+    'postRaiseOrders1d',
+  ]);
+  const units3d = maxFieldNumber(sources, [
+    'postPriceUnits3d',
+    'postPriceUnits_3d',
+    'postRaiseUnits3d',
+    'postRaiseUnits_3d',
+    'unitsAfterPriceRaise3d',
+    'afterPriceUnits3d',
+    'postPriceOrders3d',
+    'postRaiseOrders3d',
+  ]);
+  const units7d = maxFieldNumber(sources, [
+    'postPriceUnits7d',
+    'postPriceUnits_7d',
+    'postRaiseUnits7d',
+    'postRaiseUnits_7d',
+    'unitsAfterPriceRaise7d',
+    'afterPriceUnits7d',
+    'postPriceOrders7d',
+    'postRaiseOrders7d',
+  ]);
+  const large =
+    (units1d !== null && units1d >= LARGE_POST_RAISE_UNITS_1D) ||
+    (units3d !== null && units3d >= LARGE_POST_RAISE_UNITS_3D) ||
+    (units7d !== null && units7d >= LARGE_POST_RAISE_UNITS_7D);
+  return {
+    units1d,
+    units3d,
+    units7d,
+    large,
+    thresholds: `1d>=${LARGE_POST_RAISE_UNITS_1D} or 3d>=${LARGE_POST_RAISE_UNITS_3D} or 7d>=${LARGE_POST_RAISE_UNITS_7D}`,
+  };
+}
+
+function recentPriceRaiseForSku(records = [], sku, businessDate) {
+  const normalizedSku = String(sku || '').trim().toUpperCase();
+  return safeArray(records)
+    .filter(record => String(record?.sku || '').trim().toUpperCase() === normalizedSku)
+    .filter(record => String(record?.actionType || '') === 'price')
+    .filter(record => record?.dryRun !== true)
+    .filter(record => num(record?.afterValue, NaN) > num(record?.beforeValue, NaN) || String(record?.direction || '').toLowerCase() === 'up')
+    .filter(record => {
+      const recordDate = dateOnly(record.businessDate || record.localDate || record.runAt);
+      const age = daysBetweenDateStrings(recordDate, businessDate);
+      return age !== null && age >= 0 && age <= PRICE_RAISE_ABSORPTION_DAYS;
+    })
+    .sort((a, b) => String(b.runAt || b.businessDate || '').localeCompare(String(a.runAt || a.businessDate || '')))[0] || null;
 }
 
 function cleanText(value) {
@@ -76,6 +177,119 @@ function replenishmentCoverage(card = {}, item = {}) {
     units7d: item.units7d ?? card.unitsSold_7d,
     fulResUnits: fulResUnits(card),
   });
+}
+
+function offAdState(card = {}) {
+  const state = cleanText(card.advState ?? card.adState ?? card.ad_status ?? card.adStatus).toLowerCase();
+  return state === 'off' || state === 'closed' || state === 'disabled' || state.includes('关');
+}
+
+function adPoint(card = {}) {
+  for (const key of ['adv_point', 'adPoint', 'adCostShare']) {
+    if (Object.prototype.hasOwnProperty.call(card, key)) return num(card[key], null);
+  }
+  return null;
+}
+
+function canSalesDays(card = {}, days) {
+  return num(
+    card[`can_sales_${days}_first`] ??
+      card[`can_sales_${days}_second`] ??
+      card[`can_sales_${days}_third`] ??
+      card[`sellableDays_${days}d`] ??
+      card[`dynamic_saleday${days}`],
+    null,
+  );
+}
+
+function adWindow(card = {}, key) {
+  const sp = card.adStats?.[key] || {};
+  const sb = card.sbStats?.[key] || {};
+  const spend = num(sp.spend ?? sp.Spend) + num(sb.spend ?? sb.Spend);
+  const orders = num(sp.orders ?? sp.Orders) + num(sb.orders ?? sb.Orders);
+  const clicks = num(sp.clicks ?? sp.Clicks) + num(sb.clicks ?? sb.Clicks);
+  const impressions = num(sp.impressions ?? sp.Impressions) + num(sb.impressions ?? sb.Impressions);
+  return { hasData: !!card.adStats?.[key] || !!card.sbStats?.[key], spend, orders, clicks, impressions };
+}
+
+function adRecoveryRouteForPrice(card = {}, replenishment = {}) {
+  const d7 = adWindow(card, '7d');
+  const point = adPoint(card);
+  const lowAdShare = point !== null && point <= 0.01;
+  const noEffectiveDelivery = d7.hasData && d7.impressions < 100 && d7.clicks < 3 && d7.orders === 0;
+  const adSuppressed = offAdState(card) || lowAdShare || noEffectiveDelivery;
+  if (!adSuppressed) return null;
+  const can7 = canSalesDays(card, 7);
+  const can30 = canSalesDays(card, 30);
+  const inventoryCanConnect =
+    (replenishment.totalSellableDays7d !== null && replenishment.totalSellableDays7d >= 15) ||
+    can7 >= 15 ||
+    can30 >= 15 ||
+    replenishment.units > 0;
+  if (!inventoryCanConnect) return null;
+  return {
+    advState: cleanText(card.advState ?? card.adState),
+    advPoint: point,
+    ad7dImpressions: d7.impressions,
+    ad7dClicks: d7.clicks,
+    ad7dOrders: d7.orders,
+    canSales7d: can7,
+    canSales30d: can30,
+  };
+}
+
+function priceApplicationFromCard(card = {}, businessDate) {
+  const applicationDate = dateOnly(card.price_apply_time || card.priceApplyTime || card.today_price_apply_time);
+  const age = daysBetweenDateStrings(applicationDate, businessDate);
+  if (age === null || age < 0 || age > PRICE_RAISE_ABSORPTION_DAYS) return null;
+  return {
+    businessDate: applicationDate,
+    runAt: card.price_apply_time || card.priceApplyTime || '',
+    beforeValue: '',
+    afterValue: card.lowestprice || card.price || '',
+    source: 'sellerinventory_price_apply_time',
+  };
+}
+
+function normalSaleStatus(value) {
+  const status = cleanText(value);
+  return status === NORMAL_SALE || status === 'normal_sale';
+}
+
+function variantLineReview(card = {}, parentGroups = new Map()) {
+  const parent = cleanText(card.parent_asin || card.parentAsin);
+  if (!parent) return null;
+  const sku = cleanText(card.sku).toUpperCase();
+  const siblings = safeArray(parentGroups.get(parent)).filter(item => cleanText(item.sku).toUpperCase() !== sku);
+  if (!siblings.length) return null;
+  const siblingIssues = [];
+  for (const sibling of siblings) {
+    const siblingSku = cleanText(sibling.sku);
+    const status = sibling.saleStatus || sibling.sale_status || '';
+    const siblingFulRes = fulResUnits(sibling);
+    const siblingCan30 = canSalesDays(sibling, 30);
+    const siblingUnits30 = num(sibling.unitsSold_30d ?? sibling.qty_30);
+    const siblingPoint = adPoint(sibling);
+    const siblingProfit = num(sibling.netProfit ?? sibling.net_profit ?? sibling.profitRate, null);
+    const hasInventoryRoom = siblingFulRes >= 15 || siblingCan30 >= 30;
+    if (status && !normalSaleStatus(status)) {
+      siblingIssues.push(`${siblingSku}:status=${cleanText(status)}`);
+      continue;
+    }
+    if (hasInventoryRoom && siblingUnits30 > 0 && (offAdState(sibling) || (siblingPoint !== null && siblingPoint <= 0.01))) {
+      siblingIssues.push(`${siblingSku}:ad_recovery`);
+      continue;
+    }
+    if (siblingPoint !== null && siblingPoint >= 0.15 && (siblingProfit === null || siblingProfit <= 0.1)) {
+      siblingIssues.push(`${siblingSku}:ad_cost_pressure`);
+    }
+  }
+  if (!siblingIssues.length) return null;
+  return {
+    variantParentAsin: parent,
+    variantSiblingCount: siblings.length,
+    variantSiblingIssues: siblingIssues.join('; '),
+  };
 }
 
 function frontOfferPriceBlock(card = {}, item = {}) {
@@ -324,10 +538,73 @@ function reviewAction(item, kind, reason, extra = {}) {
   };
 }
 
-function buildSchema({ audit, snapshot, businessDate }) {
+function routedOutReviewReason(item = {}) {
+  if (item.issue === 'price_pool_routed_to_ad_recovery') {
+    return 'Price candidate was routed to ad recovery: restore historical converting lanes or inspect suppressed delivery before any price raise.';
+  }
+  if (item.issue === 'price_pool_replenishment_pipeline_available') {
+    return 'Price candidate was routed to replenishment watch: inventory pipeline can connect the next window, so hold price and monitor stock/ad pressure.';
+  }
+  if (item.issue === 'price_pool_variant_line_review_required') {
+    return 'Price candidate requires parent variation-line review before price execution.';
+  }
+  return item.why || 'Price candidate was routed out of direct price execution and must be closed as a non-price review item.';
+}
+
+function variantLineExtra(card = {}, parentGroups = new Map()) {
+  const parent = cleanText(card.parent_asin || card.parentAsin);
+  if (!parent) return {};
+  const siblings = safeArray(parentGroups.get(parent)).filter(item => cleanText(item.sku).toUpperCase() !== cleanText(card.sku).toUpperCase());
+  const review = variantLineReview(card, parentGroups);
+  return {
+    variantParentAsin: parent,
+    variantSiblingCount: siblings.length,
+    variantSiblingIssues: review?.variantSiblingIssues || '',
+  };
+}
+
+function buildSchema({ audit, snapshot, businessDate, recentAdjustments = [] }) {
   const bySku = new Map(safeArray(snapshot.productCards).map(card => [String(card.sku || ''), card]));
+  const parentGroups = new Map();
+  for (const card of safeArray(snapshot.productCards)) {
+    const parent = cleanText(card.parent_asin || card.parentAsin);
+    if (!parent) continue;
+    if (!parentGroups.has(parent)) parentGroups.set(parent, []);
+    parentGroups.get(parent).push(card);
+  }
   const plans = [];
   const coverage = [];
+
+  for (const item of safeArray(audit.priceActions?.routedOut)) {
+    const sku = String(item.sku || '').toUpperCase();
+    const card = bySku.get(sku) || {};
+    const variantExtra = variantLineExtra(card, parentGroups);
+    const extra = {
+      issue: item.issue || 'price_pool_routed_out',
+      requiredAction: item.requiredAction || '',
+      units7d: num(item.units7d ?? card.unitsSold_7d),
+      fulResUnits: num(item.fulResUnits ?? fulResUnits(card)),
+      sellableDays7d: num(item.sellableDays7d ?? sellableDaysFrom7dVelocity(card), null),
+      replenishmentUnits: num(item.replenishmentUnits, null),
+      replenishmentDays7d: num(item.replenishmentDays7d, null),
+      totalSellableDays7d: num(item.totalSellableDays7d, null),
+      advState: item.advState || card.advState || card.adState || '',
+      advPoint: item.advPoint ?? adPoint(card),
+      ...variantExtra,
+    };
+    plans.push({
+      sku,
+      asin: item.asin || card.asin || '',
+      summary: `Price routed-out closure for ${sku}: ${item.issue || 'price_pool_routed_out'}`,
+      actions: [reviewAction(item, item.issue || 'price_pool_routed_out', routedOutReviewReason(item), extra)],
+    });
+    coverage.push({
+      sku,
+      status: 'review',
+      reason: item.issue || 'price_pool_routed_out',
+      ...extra,
+    });
+  }
 
   for (const item of safeArray(audit.priceActions?.items)) {
     const sku = String(item.sku || '').toUpperCase();
@@ -375,6 +652,16 @@ function buildSchema({ audit, snapshot, businessDate }) {
       coverage.push({ sku, status: 'review', reason: 'front_offer_price_block', ...commonWithReplenishment, ...frontOfferBlock });
       continue;
     }
+    const adRecoveryRoute = adRecoveryRouteForPrice(card, replenishment);
+    if (adRecoveryRoute) {
+      basePlan.actions.push(reviewAction(item, 'price_ad_recovery_route', 'Ad delivery/share is suppressed while inventory or replenishment can connect; restore historical converting lanes before treating this SKU as a price-raise execution candidate.', {
+        ...commonWithReplenishment,
+        ...adRecoveryRoute,
+      }));
+      plans.push(basePlan);
+      coverage.push({ sku, status: 'review', reason: 'price_ad_recovery_route', ...commonWithReplenishment, ...adRecoveryRoute });
+      continue;
+    }
     if (!(common.units7d > 0) || common.sellableDays7d === null || !(common.sellableDays7d < 15)) {
       basePlan.actions.push(reviewAction(item, 'price_not_executable_velocity', 'Inventory-protection price execution requires positive 7d units and Ful+Res sellableDays7d below 15.', {
         ...common,
@@ -395,6 +682,38 @@ function buildSchema({ audit, snapshot, businessDate }) {
       }));
       plans.push(basePlan);
       coverage.push({ sku, status: 'review', reason: 'price_replenishment_pipeline_available', ...common, replenishmentUnits: replenishment.units, replenishmentDays7d: replenishment.days, totalSellableDays7d: replenishment.totalSellableDays7d });
+      continue;
+    }
+    const recentPriceRaise = recentPriceRaiseForSku(recentAdjustments, sku, businessDate);
+    const recentPriceApplication = recentPriceRaise || priceApplicationFromCard(card, businessDate);
+    const postRaiseSales = postRaiseSalesEvidence(item, card);
+    if (recentPriceApplication && !postRaiseSales.large) {
+      const extra = {
+        ...common,
+        recentPriceRaiseBusinessDate: recentPriceApplication.businessDate || '',
+        recentPriceRaiseRunAt: recentPriceApplication.runAt || '',
+        recentPriceRaiseFrom: recentPriceApplication.beforeValue,
+        recentPriceRaiseTo: recentPriceApplication.afterValue,
+        recentPriceRaiseSource: recentPriceApplication.source || 'adjustments',
+        priceRaiseAbsorptionDays: PRICE_RAISE_ABSORPTION_DAYS,
+        postRaiseUnits1d: postRaiseSales.units1d,
+        postRaiseUnits3d: postRaiseSales.units3d,
+        postRaiseUnits7d: postRaiseSales.units7d,
+        largePostRaiseSalesThreshold: postRaiseSales.thresholds,
+      };
+      basePlan.actions.push(reviewAction(item, 'recent_price_raise_without_large_post_raise_sales', 'Price raises during the post-raise absorption period are blocked unless the raised price has explicit large post-raise sales evidence.', extra));
+      plans.push(basePlan);
+      coverage.push({ sku, status: 'review', reason: 'recent_price_raise_without_large_post_raise_sales', ...extra });
+      continue;
+    }
+    const variantReview = variantLineReview(card, parentGroups);
+    if (variantReview) {
+      basePlan.actions.push(reviewAction(item, 'variant_line_review_required', 'A sibling variation has ad recovery, ad cost pressure, or sale-status issues that can change the price decision for this child SKU; review the parent variation line before price execution.', {
+        ...commonWithReplenishment,
+        ...variantReview,
+      }));
+      plans.push(basePlan);
+      coverage.push({ sku, status: 'review', reason: 'variant_line_review_required', ...commonWithReplenishment, ...variantReview });
       continue;
     }
     if (!(num(item.price ?? card.price) > 0)) {
@@ -489,13 +808,26 @@ function parseArgs(argv = process.argv.slice(2)) {
   };
 }
 
+function loadRecentAdjustments(businessDate) {
+  const dates = Array.from(
+    { length: PRICE_RAISE_ABSORPTION_DAYS + 1 },
+    (_, index) => addDays(businessDate, index - PRICE_RAISE_ABSORPTION_DAYS)
+  ).filter(Boolean);
+  return dates.flatMap(date => readJson(path.join(ROOT, 'data', 'adjustments', `adjustments_${date}.json`), []));
+}
+
 function main() {
   const options = parseArgs();
   const audit = readJson(path.resolve(options.audit), null);
   const snapshot = readJson(path.resolve(options.snapshot), null);
   if (!audit) throw new Error(`cannot read audit JSON: ${options.audit}`);
   if (!snapshot) throw new Error(`cannot read snapshot JSON: ${options.snapshot}`);
-  const { plans, coverage } = buildSchema({ audit, snapshot, businessDate: options.businessDate });
+  const { plans, coverage } = buildSchema({
+    audit,
+    snapshot,
+    businessDate: options.businessDate,
+    recentAdjustments: loadRecentAdjustments(options.businessDate),
+  });
   writeJson(options.schema, plans);
   writeJson(options.coverage, {
     generatedAt: new Date().toISOString(),
@@ -541,6 +873,7 @@ if (require.main === module) {
 module.exports = {
   buildSchema,
   frontOfferPriceBlock,
+  postRaiseSalesEvidence,
   replenishmentCoverage,
   replenishmentUnits,
 };

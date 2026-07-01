@@ -61,6 +61,10 @@ function goalForTask(task = {}) {
   return goal && typeof goal === 'object' ? goal : null;
 }
 
+function list(value) {
+  return Array.isArray(value) ? value.map(text).filter(Boolean) : [];
+}
+
 function metricValue(metrics = {}, name = '') {
   const key = text(name).toLowerCase();
   if (!key) return null;
@@ -74,8 +78,13 @@ function metricValue(metrics = {}, name = '') {
     net_profit: ['netProfit', 'net_profit'],
     spend: ['spend'],
     acos: ['acos'],
+    cvr: ['cvr', 'conversionRate', 'conversion_rate'],
     clicks: ['clicks'],
     impressions: ['impressions'],
+    invdays: ['invDays', 'inventoryDays', 'sellableDays', 'stockDays'],
+    fulres: ['fulRes', 'fba', 'fbaAvailable', 'sellableStock'],
+    fba: ['fba', 'fulRes', 'fbaAvailable', 'sellableStock'],
+    stock: ['stock', 'fulRes', 'fba', 'sellableStock'],
   }[key] || [key];
   for (const alias of aliases) {
     if (metrics[alias] !== undefined && metrics[alias] !== null && metrics[alias] !== '') {
@@ -83,6 +92,162 @@ function metricValue(metrics = {}, name = '') {
     }
   }
   return null;
+}
+
+function truthyMetric(value) {
+  return value === true || value === 'true' || value === 1 || value === '1';
+}
+
+function falseyMetric(value) {
+  return value === false || value === 'false' || value === 0 || value === '0';
+}
+
+function isOldProductMarketRelativeReview(task = {}) {
+  const plan = task.reviewPlan || {};
+  const metrics = list(plan.metrics).map(item => item.toLowerCase());
+  return plan.requiresMarketRelativeImprovement === true ||
+    plan.requiresProfitImprovement === true ||
+    metrics.includes('market_relative_yoy_gap');
+}
+
+function marketRelativeImproved(evidence = {}) {
+  const marketRelative = evidence.marketRelative || {};
+  const candidates = [
+    evidence.relativeYoyGapImproved,
+    marketRelative.yoyGapImproved,
+    marketRelative.relativeGapImproved,
+    marketRelative.relativeYoyGapImproved,
+  ];
+  if (candidates.some(truthyMetric)) return true;
+  if (candidates.some(falseyMetric)) return false;
+  return null;
+}
+
+function marketAttributionClear(evidence = {}) {
+  const marketRelative = evidence.marketRelative || {};
+  const candidates = [
+    evidence.marketAttributionClear,
+    evidence.marketBaselineAvailable,
+    evidence.marketBaselineEvidence,
+    marketRelative.attributionClear,
+    marketRelative.marketBaselineAvailable,
+    marketRelative.baselineAvailable,
+    marketRelative.baselineEvidence,
+  ];
+  if (candidates.some(truthyMetric)) return true;
+  if (candidates.some(falseyMetric)) return false;
+  const attribution = text(marketRelative.attribution || marketRelative.attributionStatus || evidence.marketAttribution || '').toLowerCase();
+  if (['clear', 'verified', 'market_relative_verified', 'baseline_verified'].includes(attribution)) return true;
+  if (['unclear', 'unknown', 'missing', 'market_attribution_unclear'].includes(attribution)) return false;
+  return null;
+}
+
+function profitImproved(evidence = {}, baseline = {}, current = {}) {
+  const profit = evidence.profit || {};
+  const candidates = [
+    evidence.profitImproved,
+    profit.improved,
+    profit.unitProfitQualityImproved,
+  ];
+  if (candidates.some(truthyMetric)) return true;
+  if (candidates.some(falseyMetric)) return false;
+  const before = metricValue(baseline, 'netProfit');
+  const after = metricValue(current, 'netProfit');
+  if (before !== null && after !== null) return after > before;
+  return null;
+}
+
+function hasAnyMetric(metrics = {}, names = []) {
+  return names.some(name => metricValue(metrics, name) !== null);
+}
+
+function oldProductOperatingEvidence(evidence = {}, baseline = {}, current = {}) {
+  const adSpendReviewed = evidence.adSpendReviewed === true ||
+    evidence.adSpendResult === true ||
+    hasAnyMetric(baseline, ['spend']) && hasAnyMetric(current, ['spend']);
+  const conversionReviewed = evidence.conversionReviewed === true ||
+    evidence.conversionResult === true ||
+    evidence.conversion !== undefined ||
+    evidence.conversionRate !== undefined ||
+    (hasAnyMetric(baseline, ['clicks']) && hasAnyMetric(current, ['clicks']) && hasAnyMetric(baseline, ['orders']) && hasAnyMetric(current, ['orders'])) ||
+    (hasAnyMetric(baseline, ['cvr']) && hasAnyMetric(current, ['cvr']));
+  const inventoryRiskReviewed = evidence.inventoryReviewed === true ||
+    evidence.inventoryRiskReviewed === true ||
+    evidence.inventory !== undefined ||
+    evidence.inventoryRisk !== undefined ||
+    hasAnyMetric(current, ['invDays', 'fulRes', 'fba', 'stock']);
+  const reasons = [];
+  reasons.push(adSpendReviewed ? 'old_product_ad_spend_reviewed' : 'missing_old_product_ad_spend_result');
+  reasons.push(conversionReviewed ? 'old_product_conversion_reviewed' : 'missing_old_product_conversion_result');
+  reasons.push(inventoryRiskReviewed ? 'old_product_inventory_risk_reviewed' : 'missing_old_product_inventory_risk_result');
+  return {
+    ok: adSpendReviewed && conversionReviewed && inventoryRiskReviewed,
+    reasons,
+  };
+}
+
+function evaluateOldProductMarketRelativeReview(task = {}, evidence = {}, baseline = {}, current = {}, timeWindowPatch = {}) {
+  if (!isOldProductMarketRelativeReview(task)) return null;
+  const reasons = [];
+  const marketPass = marketRelativeImproved(evidence);
+  const marketAttribution = marketPass === true ? marketAttributionClear(evidence) : true;
+  const profitPass = profitImproved(evidence, baseline, current);
+  const operatingEvidence = oldProductOperatingEvidence(evidence, baseline, current);
+  if (marketPass === null) reasons.push('missing_market_relative_yoy_gap_result');
+  else reasons.push(marketPass ? 'market_relative_yoy_gap_improved' : 'market_relative_yoy_gap_not_improved');
+  if (marketPass === true) {
+    if (marketAttribution === true) reasons.push('market_attribution_clear');
+    else reasons.push(marketAttribution === false ? 'market_attribution_unclear' : 'missing_market_attribution_evidence');
+  }
+  if (profitPass === null) reasons.push('missing_profit_improvement_result');
+  else reasons.push(profitPass ? 'profit_improved' : 'profit_not_improved');
+  reasons.push(...operatingEvidence.reasons);
+
+  if (marketPass === null || marketAttribution !== true || profitPass === null) {
+    return baseResult(task, evidence, {
+      verdict: 'needs_data',
+      status: 'blocked',
+      reasons,
+      baseline,
+      current,
+      ...timeWindowPatch,
+      nextStep: 'Collect market-relative YoY gap, market attribution/baseline evidence, and profit evidence before judging old-product maintenance.',
+    });
+  }
+
+  if (!operatingEvidence.ok) {
+    return baseResult(task, evidence, {
+      verdict: 'needs_data',
+      status: 'blocked',
+      reasons,
+      baseline,
+      current,
+      ...timeWindowPatch,
+      nextStep: 'Collect old-product ad spend, conversion, and inventory-risk evidence before closing or counting this review for automation.',
+    });
+  }
+
+  if (marketPass && profitPass) {
+    return baseResult(task, evidence, {
+      verdict: 'goal_met',
+      status: 'closed_recommended',
+      reasons,
+      baseline,
+      current,
+      ...timeWindowPatch,
+      nextStep: 'Old-product maintenance met both market-relative decline improvement and profit improvement gates.',
+    });
+  }
+
+  return baseResult(task, evidence, {
+    verdict: 'goal_missed',
+    status: 'needs_action',
+    reasons,
+    baseline,
+    current,
+    ...timeWindowPatch,
+    nextStep: 'Do not scale or automate this old-product action; review direction, market relation, receiver, and profit route.',
+  });
 }
 
 function evaluateGoal(task = {}, baseline = {}, current = {}) {
@@ -209,6 +374,9 @@ function evaluateReviewTask(task = {}, evidence = {}) {
     });
   }
 
+  const oldProductMarketRelativeResult = evaluateOldProductMarketRelativeReview(task, evidence, baseline, current, timeWindowPatch);
+  if (oldProductMarketRelativeResult) return oldProductMarketRelativeResult;
+
   const goalResult = evaluateGoal(task, baseline, current);
   if (goalResult) {
     reasons.push(goalResult.reason);
@@ -298,6 +466,8 @@ function buildEffectReviewReport(input = {}) {
     today,
     summary: {
       total: results.length,
+      feedbackApplied: results.length,
+      effectReviewFeedbackApplied: results.length,
       byVerdict: countBy(results, item => item.verdict),
       byStatus: countBy(results, item => item.status),
       needsAction: results.filter(item => item.status === 'needs_action').length,

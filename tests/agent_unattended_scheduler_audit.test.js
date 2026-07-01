@@ -299,6 +299,49 @@ function heartbeat(file, overrides = {}) {
 }
 
 {
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-unattended-scheduler-post-reinstall-'));
+  heartbeat(path.join(tmpDir, 'unattended_supervisor_2026-05-25.json'), {
+    generatedAt: '2026-05-25T01:31:00.000Z',
+    status: 'blocked',
+    ok: false,
+  });
+  const scheduleInstallFile = path.join(tmpDir, 'unattended_schedule_install_2026-05-25.json');
+  writeJson(scheduleInstallFile, {
+    generatedAt: '2026-05-25T12:00:00.000Z',
+    ok: true,
+    status: 'installed',
+    installedTask: {
+      ok: true,
+      state: 'Ready',
+      triggerEnabled: true,
+      nextRunTime: '05/26/2026 09:30:30',
+      lastRunTime: '05/25/2026 09:30:30',
+      lastTaskResult: '1',
+    },
+  });
+  const report = buildSchedulerAudit({
+    heartbeatDir: tmpDir,
+    scheduleInstallFile,
+    scheduleCommand: 'npm run ops:agent:unattended-supervisor -- --out-dir data\\agent --execute --execute-if-ready',
+    requireSchedule: true,
+    requireLiveExecute: true,
+    requireInstalledTask: true,
+    requireNaturalScheduledRun: true,
+  }, {
+    ...timeContext,
+    runAt: '2026-05-25T13:00:00.000Z',
+  });
+  assert.strictEqual(report.ok, true);
+  assert.strictEqual(report.status, 'ready_with_warnings');
+  assert.strictEqual(report.summary.scheduledTaskRunObserved, false);
+  assert.strictEqual(report.summary.postInstallHeartbeatCount, 0);
+  assert.ok(report.issues.some(item => item.id === 'heartbeat_predates_current_install' && item.severity === 'warning'));
+  assert.ok(report.issues.some(item => item.id === 'post_install_natural_run_not_yet_observed' && item.severity === 'warning'));
+  assert.ok(!report.issues.some(item => item.id === 'scheduled_task_last_result_failed'));
+  assert.ok(!report.issues.some(item => item.id === 'latest_heartbeat_not_ok' && item.severity === 'blocker'));
+}
+
+{
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-unattended-scheduler-blocked-'));
   heartbeat(path.join(tmpDir, 'unattended_supervisor_2026-05-25.json'), {
     generatedAt: '2026-05-25T06:30:00.000Z',

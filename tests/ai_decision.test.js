@@ -899,6 +899,34 @@ const codexApproval = {
 }
 
 {
+  const campaignIdOnlyCards = JSON.parse(JSON.stringify(cards));
+  campaignIdOnlyCards[0].campaigns[0].sbCampaign = null;
+  const context = { products: buildProductContexts(campaignIdOnlyCards, rowsByType, [], [], []).products };
+  const validated = validateAndNormalizePlan([
+    {
+      sku: 'SKU-1',
+      summary: 'sb campaign pause with campaignId entity',
+      actions: [
+        {
+          entityType: 'sbCampaign',
+          id: 'c1',
+          actionType: 'pause',
+          reason: 'pause SB campaign using campaignId from product card',
+          evidence: ['campaign has sponsoredBrands but no sbCampaign object'],
+          confidence: 0.8,
+          riskLevel: 'low',
+          ...codexApproval,
+        },
+      ],
+    },
+  ], context);
+  assert.strictEqual(validated.errors.length, 0);
+  assert.strictEqual(validated.review.length, 0);
+  assert.strictEqual(validated.plan[0].actions[0].entityType, 'sbCampaign');
+  assert.strictEqual(validated.plan[0].actions[0].verifySource, 'sbCampaignRows');
+}
+
+{
   const context = { products: buildProductContexts(cards, rowsByType, [], [], []).products };
   const validated = validateAndNormalizePlan([
     {

@@ -80,7 +80,7 @@ function loadOrBuildPlan(options = {}, timeContext = {}) {
 
 function buildInstallScript(plan = {}) {
   const taskName = text(plan.schedule?.taskName || 'AdOpsAgentUnattendedSupervisor');
-  const startTime = text(plan.schedule?.startTime || '09:30');
+  const startTime = text(plan.schedule?.startTime || '08:00');
   const action = plan.commands?.windowsTaskAction || {};
   const description = 'Ad ops unattended supervisor; writes heartbeat and enforces safety gates.';
   const lines = [

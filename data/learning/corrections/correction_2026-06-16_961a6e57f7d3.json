@@ -1,0 +1,49 @@
+{
+  "lessonId": "lesson_correction_2026-06-16_961a6e57f7d3",
+  "type": "operator_correction",
+  "status": "active_correction",
+  "severity": "medium",
+  "subject": "correction:lesson_correction_2026-06-15_c31a7cdc4097:target order gap, click gap, act",
+  "surface": "general_decision",
+  "scope": {
+    "sku": "",
+    "asin": "",
+    "keyword": "",
+    "entityId": "correction:lesson_correction_2026-06-15_c31a7cdc4097:target order gap, click gap, act",
+    "appliesTo": [
+      "general_decision",
+      "operator_disagrees_with_decision"
+    ]
+  },
+  "doNotApplyWhen": [
+    "latest snapshot or backend readback is missing",
+    "decision evidence cannot be tied to the current businessDate/dataDate",
+    "same rule has an unresolved correction audit",
+    "landing verification for the previous write is missing or contradictory"
+  ],
+  "requiredEvidenceBeforeReuse": [
+    "read_latest_daily_learning_and_final_run_landing",
+    "verify_latest_snapshot_businessDate_dataDate_sourceRunId",
+    "inspect_related_action_schema_and_execution_verify",
+    "inspect_adjustment_log_for_same_sku_or_same_entity"
+  ],
+  "immediateControls": [
+    "record_operator_correction_as_authoritative_feedback"
+  ],
+  "operatingPrinciple": "",
+  "nextValidation": {
+    "dueDate": "2026-06-17",
+    "checks": [
+      "confirm all generated risk tasks have owner and status",
+      "confirm same-rule scan found zero unresolved high-risk repeats or generated follow-up tasks",
+      "confirm future daily decisions read this correction lesson before same-surface actions"
+    ]
+  },
+  "sourceCorrection": {
+    "correctionId": "correction_2026-06-16_961a6e57f7d3",
+    "rawText": "learning_memory:correction:lesson_correction_2026-06-15_c31a7cdc4097:target order gap, click gap, act",
+    "sourceRunId": "correction_risk_1781659802689",
+    "businessDate": "2026-06-16",
+    "dataDate": "2026-06-15"
+  }
+}

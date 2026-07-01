@@ -16,6 +16,7 @@ function buildAmazonAssetListPayload(input = {}) {
   const siteId = Number(input.siteId || 4);
   const assetType = String(input.assetType || 'VIDEO').trim().toUpperCase();
   const name = String(input.name || input.assetName || input.search || '').replace(/\s+/g, ' ').trim();
+  const asin = String(input.asin || '').trim().toUpperCase();
   const brandEntityId = String(input.brandEntityId || input.brand || '').trim();
   const brandRegistryName = String(input.brandRegistryName || input.brandName || '').trim();
   const page = toPositiveInt(input.page || 1, 1);
@@ -32,11 +33,13 @@ function buildAmazonAssetListPayload(input = {}) {
   if (!field) errors.push('field is required');
   if (!['asc', 'desc'].includes(order)) errors.push('order must be asc or desc');
 
+  const asinList = asin ? [asin] : [];
   const requestUrl = '/amazonAsset/getAssetList';
   const requestBody = {
     accountId,
     siteId,
     assetType,
+    asinList,
     ...(name ? { name } : {}),
     brandEntityId,
     brandRegistryName,

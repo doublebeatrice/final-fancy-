@@ -1,0 +1,61 @@
+{
+  "sku": "AE2139",
+  "asin": null,
+  "grading": {
+    "grade": "边缘老品",
+    "priority": "中等",
+    "strategy": "控制成本、止损，仅处理关键问题"
+  },
+  "attribution": {
+    "indicators": {
+      "salesDown": true,
+      "ctrDown": false,
+      "cvrDown": true,
+      "profitDown": false,
+      "acosHigh": false,
+      "acosWorsening": false,
+      "impressionsDown": false
+    },
+    "pattern": "销量下降+转化率走低",
+    "investigation": "差评增多、Listing 老旧、定价无优势、竞品促销",
+    "rootCauses": [
+      {
+        "cause": "Listing 长期未优化",
+        "evidence": "转化率下降：7天1.3% vs 30天4.6%"
+      }
+    ]
+  },
+  "risk": "中",
+  "report": "📋 老品整改问题单\n\nSKU/ASIN：AE2139 / 待确认\n所属类目：待确认\n产品分级：边缘老品（中等优先级）\n整改策略：控制成本、止损，仅处理关键问题\n\n【表层指标】\n- 30天销量：14单\n- 30天ACoS：33.7%（7天：1.4%）\n- 30天转化率：4.6%（7天：1.3%）\n- 30天点击率：0.8%（7天：0.8%）\n- 30天展现：38509（7天：10101）\n- 30天广告花费：$190.54\n\n【归因诊断】\n匹配模式：销量下降+转化率走低\n排查方向：差评增多、Listing 老旧、定价无优势、竞品促销\n\n【核心根因】\n1. Listing 长期未优化\n   依据：转化率下降：7天1.3% vs 30天4.6%\n\n【整改动作】\n1. 24h内处理差评、补充QA\n2. 优化主图/标题/五点，强化差异化\n3. 设置优惠券/限时折扣\n验证指标：转化率、好评率\n\n【整改周期】：2周（2026-06-25 至 2026-07-09）\n【风险等级】：中\n【负责人】：__________ 【监督人】：组长\n",
+  "data": {
+    "sku": "AE2139",
+    "asin": null,
+    "category": null,
+    "units30d": 14,
+    "profit30d": null,
+    "profitRate": null,
+    "profitRankPct": null,
+    "invDays": null,
+    "units30d_yoy": null,
+    "gapToDeptAvg": null,
+    "adSpend30d": 190.54,
+    "adSales30d": 564.86,
+    "adOrders30d": 14,
+    "adClicks30d": 303,
+    "adImpressions30d": 38509,
+    "acos30d": 0.3373,
+    "adSpend7d": 59.08,
+    "adSales7d": 41.99,
+    "adOrders7d": 1,
+    "adClicks7d": 80,
+    "adImpressions7d": 10101,
+    "acos7d": 0.014070000000000001,
+    "ctr30d": 0.007868290529486614,
+    "ctr7d": 0.00792000792000792,
+    "cvr30d": 0.0462046204620462,
+    "cvr7d": 0.0125,
+    "adSpendRatio": 0.3373225223949297,
+    "impressions30d": 38509,
+    "impressions7d": 10101
+  }
+}

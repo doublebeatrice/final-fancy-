@@ -1152,6 +1152,13 @@ async function run(options = {}) {
         for (const event of events || []) {
           if (event.apiStatus !== 'api_success') continue;
           for (const rows of [STATE.kwRows, STATE.autoRows, STATE.targetRows, STATE.productAdRows, STATE.sbRows, STATE.sbCampaignRows]) updateRows(rows, event);
+          if (event.entityType === 'sbCampaign' && (event.action?.actionType === 'enable' || event.action?.actionType === 'pause')) {
+            for (const row of STATE.sbCampaignRows || []) {
+              if (campaignRowId(row) === String(event.id)) {
+                row.state = event.action.actionType === 'enable' ? '1' : '2';
+              }
+            }
+          }
           if (event.action?.actionType === 'create' && event.campaignId) {
             const createInput = event.action?.createInput || {};
             const isSbVideo = String(createInput.advType || '').toUpperCase() === 'SB' && String(createInput.adFormat || '').toLowerCase() === 'video';
@@ -1234,6 +1241,14 @@ async function run(options = {}) {
     productCards: cards,
     inventoryScopeRows,
     invMap,
+    kwRows,
+    autoRows: autoTargetRows,
+    targetRows: manualTargetRows,
+    productAdRows,
+    sbRows,
+    sbCampaignRows,
+    sp7DayUntouchedRows: sp7DayRows,
+    sb7DayUntouchedRows: sb7DayRows,
   });
   log(`Product cards: ${cards.length}; SP keywords: ${kwRows.length}; SP auto: ${autoTargetRows.length}; SP manual targets: ${manualTargetRows.length}; SB keywords: ${sbKwRows.length}; SB targets: ${sbTargetRows.length}`);
   log(`7d untouched: SP candidates=${sp7DayRows.length}; SB candidates=${sb7DayRows.length}; SP granularity=${sevenDayMeta.sp?.entityLevel || 'unknown'}; SB granularity=${sevenDayMeta.sb?.entityLevel || 'unknown'}`);
@@ -2151,8 +2166,9 @@ function buildSpCreatePayload(input = {}) {
     payload.targetingType = 'MANUAL';
     payload.positionType = 'productTarget';
     payload.strategy = 'LEGACY_FOR_SALES';
-    payload.productTargetArray = targetAsins.map(value => ({
-      bid: defaultBid,
+    const tgtBids = input.targetBids || null;
+    payload.productTargetArray = targetAsins.map((value, i) => ({
+      bid: (tgtBids && tgtBids[i] != null) ? tgtBids[i] : defaultBid,
       targetMark: '',
       resolvedExpression: [{ type: targetType, value }],
       expression: [{ type: targetType, value }],
@@ -2167,7 +2183,12 @@ function buildSpCreatePayload(input = {}) {
     payload.targetingType = 'MANUAL';
     payload.positionType = 'keywordTarget';
     payload.strategy = 'MANUAL';
-    payload.keywordArray = keywords.map(keywordText => ({ keywordText, matchType, bid: defaultBid, coreMark: '' }));
+    const kwBids = input.keywordBids || null;
+    payload.keywordArray = keywords.map((keywordText, i) => ({
+      keywordText, matchType,
+      bid: (kwBids && kwBids[i] != null) ? kwBids[i] : defaultBid,
+      coreMark: '',
+    }));
     payload.keywordGroups = [];
     payload.negativeKeywordArray = [];
   }

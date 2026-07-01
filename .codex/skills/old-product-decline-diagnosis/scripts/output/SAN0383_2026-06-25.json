@@ -1,0 +1,40 @@
+{
+  "sku": "SAN0383",
+  "asin": "B09MK757X9",
+  "grading": {
+    "grade": "边缘老品",
+    "priority": "中等",
+    "strategy": "控制成本、止损，仅处理关键问题"
+  },
+  "attribution": {
+    "indicators": {
+      "salesDown": true,
+      "impressionsDown": true,
+      "clicksDown": true,
+      "ctrDown": false,
+      "cvrDown": false,
+      "acosWorsening": true,
+      "kwTotalDrop": false,
+      "kwAdDrop": false,
+      "kwNfDrop": false,
+      "orderChange": -0.8181818181818182,
+      "impressionChange": -0.5935493695393844,
+      "clickChange": -0.6508504923903312
+    },
+    "pattern": "销量环比下滑82%",
+    "rootCauses": [
+      {
+        "cause": "广告展现量环比大幅下降",
+        "evidence": "展现从367747降至149471（-59%），流量入口收窄",
+        "action": "expand_traffic"
+      },
+      {
+        "cause": "广告效率恶化",
+        "evidence": "ACoS从13.3%升至20.2%，投入产出比下降",
+        "action": "restructure_ads"
+      }
+    ]
+  },
+  "risk": "中",
+  "report": "📋 老品整改问题单\n\nSKU/ASIN：SAN0383 / B09MK757X9\n产品分级：边缘老品（中等优先级）\n整改策略：控制成本、止损，仅处理关键问题\n当前售价：$35.99\n上架日期：2023-07-21\n\n【环比/同比变化】\n- 30天订单：20单（上期110单，-82%）\n- 同比变化：-26%（seller组整体）\n- 30天展现：149471（上期367747）\n- 30天ACoS：20.2%（上期13.3%）\n- 30天CTR：0.3%（上期0.3%）\n- 转化率：5.1%\n\n【前台流量/排名变化（SIF）】\n- 排名关键词总数：128个（上周期139，进53/出64）\n- 自然排名词：104个（上周期104，进40/出40）\n- 广告排名词：35个（上周期41，进26/出32）\n- 核心流量词：cowboy hat、cowboy hats for women、cowboy hats\n\n【归因诊断】\n下滑类型：销量环比下滑82%\n\n【核心根因】\n1. 广告展现量环比大幅下降\n   数据依据：展现从367747降至149471（-59%），流量入口收窄\n2. 广告效率恶化\n   数据依据：ACoS从13.3%升至20.2%，投入产出比下降\n\n【整改动作】\n1. 检查广告预算是否被自动降低或暂停\n2. 扩大关键词覆盖面（长尾词+竞品词+场景词）\n3. 提高核心词出价至建议竞价的 1.2-1.5 倍\n验证指标：展现量恢复率、新增关键词出单数、CTR\n\n【整改周期】：2周（2026-06-25 至 2026-07-09）\n【风险等级】：中\n【负责人】：__________ 【监督人】：组长\n"
+}

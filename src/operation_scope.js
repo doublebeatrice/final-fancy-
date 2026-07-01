@@ -1,5 +1,5 @@
 const ALLOWED_OPERATION_SITES = ['Amazon.com', 'Amazon.co.uk'];
-const ALLOWED_OPERATION_SALE_STATUS = ['正常销售', '保留页面'];
+const ALLOWED_OPERATION_SALE_STATUS = ['正常销售', '保留页面', '发货限制安排跟卖'];
 
 function normalizeText(value) {
   return String(value || '').trim();
@@ -14,11 +14,48 @@ function normalizeInventoryScopeRow(row = {}) {
     sku: normalizeText(row.sku || row.SKU || row.Sku || row.raw_sku || row.product_sku || row.rawSku || ''),
     asin: normalizeText(row.asin || row.ASIN || ''),
     aid: row.aid || row.id || row.AID || row.product_id || '',
-    salesChannel: normalizeText(row.salesChannel || row.sales_channel || ''),
+    salesChannel: normalizeText(row.salesChannel || row.sales_channel || siteNameFromId(row.siteId || row.site_id) || ''),
     saleStatus: normalizeText(row.sale_status || row.saleStatus || ''),
-    fuldate: normalizeText(row.fuldate || ''),
-    opendate: normalizeText(row.opendate || ''),
+    fuldate: normalizeText(row.fuldate || row.ful_date || ''),
+    opendate: normalizeText(row.opendate || row.open_date || ''),
   };
+}
+
+function siteNameFromId(value) {
+  const siteId = String(value ?? '').trim();
+  if (siteId === '4') return 'Amazon.com';
+  return '';
+}
+
+function inventoryScopeRowFromAdRow(row = {}) {
+  const inv = row.skuInvData || row.sku_inv_data || {};
+  return {
+    sku: row.sku || inv.sku,
+    asin: row.asin || inv.asin,
+    siteId: row.siteId || row.site_id,
+    salesChannel: row.salesChannel || row.sales_channel || inv.salesChannel || inv.sales_channel,
+    saleStatus: row.saleStatus || row.sale_status || inv.saleStatus || inv.sale_status,
+    fuldate: row.fuldate || row.ful_date || inv.fuldate || inv.ful_date,
+    opendate: row.opendate || row.open_date || inv.opendate || inv.open_date,
+  };
+}
+
+function adInventoryScopeRows(snapshot = {}) {
+  const rows = [];
+  for (const key of [
+    'productCards',
+    'kwRows',
+    'autoRows',
+    'targetRows',
+    'productAdRows',
+    'sbRows',
+    'sbCampaignRows',
+    'sp7DayUntouchedRows',
+    'sb7DayUntouchedRows',
+  ]) {
+    for (const row of snapshot[key] || []) rows.push(inventoryScopeRowFromAdRow(row));
+  }
+  return rows;
 }
 
 function isOpenedProduct(row = {}) {
@@ -50,7 +87,8 @@ function extractInventoryScopeRows(snapshot = {}) {
         fuldate: row.fuldate || '',
         opendate: row.opendate || '',
       }));
-  return sourceRows.map(normalizeInventoryScopeRow).filter(row => row.sku);
+  const mergedRows = [...sourceRows, ...adInventoryScopeRows(snapshot)];
+  return mergedRows.map(normalizeInventoryScopeRow).filter(row => row.sku);
 }
 
 function analyzeAllowedOperationScope(snapshot = {}) {

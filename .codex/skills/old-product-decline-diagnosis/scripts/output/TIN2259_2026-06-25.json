@@ -1,0 +1,61 @@
+{
+  "sku": "TIN2259",
+  "asin": null,
+  "grading": {
+    "grade": "边缘老品",
+    "priority": "中等",
+    "strategy": "控制成本、止损，仅处理关键问题"
+  },
+  "attribution": {
+    "indicators": {
+      "salesDown": true,
+      "ctrDown": false,
+      "cvrDown": true,
+      "profitDown": false,
+      "acosHigh": false,
+      "acosWorsening": false,
+      "impressionsDown": true
+    },
+    "pattern": "销量下降+流量/点击问题",
+    "investigation": "流量渠道变动、关键词排名下跌、广告曝光不足",
+    "rootCauses": [
+      {
+        "cause": "竞品抢占自然流量",
+        "evidence": "广告展现量7天日均2649，30天日均5378，下滑51%"
+      }
+    ]
+  },
+  "risk": "中",
+  "report": "📋 老品整改问题单\n\nSKU/ASIN：TIN2259 / 待确认\n所属类目：待确认\n产品分级：边缘老品（中等优先级）\n整改策略：控制成本、止损，仅处理关键问题\n\n【表层指标】\n- 30天销量：101单\n- 30天ACoS：16.4%（7天：15.7%）\n- 30天转化率：5.6%（7天：4.1%）\n- 30天点击率：1.1%（7天：1.2%）\n- 30天展现：161338（7天：18540）\n- 30天广告花费：$475.98\n\n【归因诊断】\n匹配模式：销量下降+流量/点击问题\n排查方向：流量渠道变动、关键词排名下跌、广告曝光不足\n\n【核心根因】\n1. 竞品抢占自然流量\n   依据：广告展现量7天日均2649，30天日均5378，下滑51%\n\n【整改动作】\n1. 对标头部竞品定价/促销/广告策略\n2. 针对竞品高转化词精准卡位投放\n3. Listing强化差异卖点\n验证指标：关键词排名、自然流量占比\n\n【整改周期】：2周（2026-06-25 至 2026-07-09）\n【风险等级】：中\n【负责人】：__________ 【监督人】：组长\n",
+  "data": {
+    "sku": "TIN2259",
+    "asin": null,
+    "category": null,
+    "units30d": 101,
+    "profit30d": null,
+    "profitRate": null,
+    "profitRankPct": null,
+    "invDays": null,
+    "units30d_yoy": null,
+    "gapToDeptAvg": null,
+    "adSpend30d": 475.98,
+    "adSales30d": 2895.92,
+    "adOrders30d": 101,
+    "adClicks30d": 1795,
+    "adImpressions30d": 161338,
+    "acos30d": 0.1644,
+    "adSpend7d": 50.36,
+    "adSales7d": 321.88,
+    "adOrders7d": 9,
+    "adClicks7d": 221,
+    "adImpressions7d": 18540,
+    "acos7d": 0.1565,
+    "ctr30d": 0.011125711239757528,
+    "ctr7d": 0.01192017259978425,
+    "cvr30d": 0.05626740947075209,
+    "cvr7d": 0.04072398190045249,
+    "adSpendRatio": 0.1643622752009724,
+    "impressions30d": 161338,
+    "impressions7d": 18540
+  }
+}

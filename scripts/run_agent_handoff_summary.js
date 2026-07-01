@@ -245,6 +245,7 @@ function kpiGapForTarget(target = {}, current = {}) {
 }
 
 function dailyRecoveryPace(gap = {}, fromDate = '') {
+  if (!gap) return null;
   const targetDate = text(gap.date || gap.target?.date);
   const days = daysBetweenDateStrings(fromDate, targetDate);
   const remainingDays = days !== null ? Math.max(1, days) : null;
@@ -467,6 +468,20 @@ function buildDailyClosureStatus({
   };
 }
 
+function dailyClosureFromKpiCheckpoint(kpiCheckpoint = {}) {
+  const completion = kpiCheckpoint.completion || {};
+  const dailyClosureStatus = text(completion.dailyClosureStatus || '');
+  if (!dailyClosureStatus) return null;
+  const rawReasons = Array.isArray(completion.reasons)
+    ? completion.reasons
+    : (Array.isArray(completion.dailyClosureReasons) ? completion.dailyClosureReasons : []);
+  return {
+    dailyClosureStatus,
+    dailyClosureReasons: [...new Set(rawReasons.map(text).filter(Boolean))],
+    dailyComplete: completion.dailyComplete === true || (dailyClosureStatus === 'complete' && completion.dailyComplete !== false),
+  };
+}
+
 function dailyClosureMarkdownLines(dailyClosure = {}) {
   if (!dailyClosure || !dailyClosure.dailyClosureStatus) return [];
   return [
@@ -546,7 +561,10 @@ function buildKpiSummary(snapshot = {}, timeContext = {}) {
   };
   const effectiveBusinessDate = dateOnly(timeContext.businessDate || snapshot.businessDate || snapshot.time?.businessDate || '');
   const missedCheckpoint = kpiGapForTarget(trajectoryTargetOnOrBefore(effectiveBusinessDate), current);
-  const nextCheckpoint = kpiGapForTarget(trajectoryTargetAfter(effectiveBusinessDate), current);
+  const nextCheckpoint = kpiGapForTarget(
+    trajectoryTargetAfter(effectiveBusinessDate) || trajectoryTargetOnOrBefore(effectiveBusinessDate),
+    current
+  );
   const finalCheckpoint = {
     ...kpi.finalTarget,
     date: kpi.finalTarget?.target?.date || '2026-06-12',
@@ -1101,7 +1119,9 @@ function buildAgentHandoffSummary(input = {}) {
   const recoveryPace = kpiSummary.recoveryPace || {};
   const recoveryGateStatus = text(recoveryPace.nextBusinessDayGate?.status || (recoveryPace.nextBusinessDayTarget ? 'target_set' : 'missing'));
   const depositMissing = Array.isArray(depositStatus.missing) ? depositStatus.missing : [];
-  const dailyClosure = input.dailyClosure || buildDailyClosureStatus({
+  const depositIncomplete = depositStatus.status === 'partial' || depositStatus.status === 'blocked' || depositMissing.length > 0;
+  const checkpointDailyClosure = depositIncomplete ? null : dailyClosureFromKpiCheckpoint(kpiCheckpoint);
+  const dailyClosure = input.dailyClosure || checkpointDailyClosure || buildDailyClosureStatus({
     commandFailed: failedCommands.length,
     writeFailed: writeExecution.summary?.failedStages || 0,
     writeBlocked: hardWriteBlocked,
@@ -1404,6 +1424,7 @@ module.exports = {
   buildDataFreshnessSummary,
   buildKpiSummary,
   buildDailyClosureStatus,
+  dailyClosureFromKpiCheckpoint,
   artifactVerificationMarkdownLines,
   dashboardMarkdownLines,
   dailyClosureMarkdownLines,

@@ -569,9 +569,13 @@ function classifyDailyDeposit(date, options = {}) {
   requireItem('snapshot_json', snapshotFile && fs.existsSync(snapshotFile) ? [statFile(snapshotFile)] : []);
   requireItem('daily_deposit_manifest', depositManifest);
 
-  const inventoryFilesForTinyCheck = originalInventory.length ? originalInventory : derivedInventory;
+  const inventoryTinyThreshold = 1024 * 1024;
+  const hasUsableOriginalInventory = originalInventory.some(file => file.bytes >= inventoryTinyThreshold);
+  const inventoryFilesForTinyCheck = hasUsableOriginalInventory
+    ? []
+    : (originalInventory.length ? originalInventory : derivedInventory);
   for (const file of inventoryFilesForTinyCheck) {
-    if (file.bytes > 0 && file.bytes < 1024 * 1024) {
+    if (file.bytes > 0 && file.bytes < inventoryTinyThreshold) {
       suspicious.push({
         type: 'inventory_csv_tiny',
         file: file.file,

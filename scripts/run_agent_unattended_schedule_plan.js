@@ -9,7 +9,7 @@ const ROOT = path.join(__dirname, '..');
 const DEFAULT_AGENT_DIR = path.join('data', 'agent');
 const DEFAULT_TASK_NAME = 'AdOpsAgentUnattendedSupervisor';
 const DEFAULT_COMPLETION_TASK_NAME = 'AdOpsAgentCompletionAudit';
-const DEFAULT_START_TIME = '09:30';
+const DEFAULT_START_TIME = '08:00';
 const DEFAULT_COMPLETION_AUDIT_DELAY_MINUTES = 20;
 const DEFAULT_NATURAL_SCHEDULE_TOLERANCE_MINUTES = 15;
 const DEFAULT_SUPERVISOR_COMMAND_TIMEOUT_MS = 30000;
@@ -68,15 +68,22 @@ function buildNpmActionArgument(script, args = []) {
   return ['run', script, '--', ...cleaned.map(commandArg)].join(' ');
 }
 
-function cmdQuote(value) {
-  return `"${text(value).replace(/"/g, '\\"')}"`;
+function psSingle(value) {
+  return `'${text(value).replace(/'/g, "''")}'`;
 }
 
-function buildCmdActionArgument(scriptFile, args = [], options = {}) {
+function buildPowerShellActionArgument(scriptFile, args = [], options = {}) {
   const nodePath = text(options.nodePath || process.execPath);
   const logFile = path.join(ROOT, options.logFile || path.join('data', 'agent', 'unattended_supervisor_task.log'));
-  const cleaned = [cmdQuote(nodePath), cmdQuote(path.join(ROOT, scriptFile)), ...args.map(commandArg)].join(' ');
-  return `/d /s /c "${cleaned} >> ${cmdQuote(logFile)} 2>&1"`;
+  const commandArgs = args.map(psSingle).join(' ');
+  const invocation = [`& ${psSingle(nodePath)}`, psSingle(path.join(ROOT, scriptFile)), commandArgs]
+    .filter(Boolean)
+    .join(' ');
+  const command = [
+    `$env:AGENT_TODAY=(Get-Date).ToString('yyyy-MM-dd')`,
+    `${invocation} >> ${psSingle(logFile)} 2>&1`,
+  ].join('; ');
+  return `-NoProfile -ExecutionPolicy Bypass -Command "${command.replace(/"/g, '\\"')}"`;
 }
 
 function isValidStartTime(value) {
@@ -84,10 +91,6 @@ function isValidStartTime(value) {
   if (!/^\d{2}:\d{2}$/.test(raw)) return false;
   const [hour, minute] = raw.split(':').map(Number);
   return hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59;
-}
-
-function psSingle(value) {
-  return `'${text(value).replace(/'/g, "''")}'`;
 }
 
 function addIssue(list, input = {}) {
@@ -184,13 +187,13 @@ function buildCommands(options = {}, context = {}) {
     completionAuditRunNowCommand,
     schedulerAuditCommand: auditCommand,
     windowsTaskAction: {
-      execute: process.env.ComSpec || 'C:\\Windows\\System32\\cmd.exe',
-      arguments: buildCmdActionArgument(path.join('scripts', 'run_agent_unattended_supervisor.js'), scheduleArgs),
+      execute: 'powershell.exe',
+      arguments: buildPowerShellActionArgument(path.join('scripts', 'run_agent_unattended_supervisor.js'), scheduleArgs),
       workingDirectory: ROOT,
     },
     windowsCompletionAuditAction: {
-      execute: process.env.ComSpec || 'C:\\Windows\\System32\\cmd.exe',
-      arguments: buildCmdActionArgument(path.join('scripts', 'run_agent_completion_audit.js'), completionArgs, {
+      execute: 'powershell.exe',
+      arguments: buildPowerShellActionArgument(path.join('scripts', 'run_agent_completion_audit.js'), completionArgs, {
         logFile: path.join('data', 'agent', 'unattended_completion_audit_task.log'),
       }),
       workingDirectory: ROOT,
@@ -234,7 +237,7 @@ function validatePlan(options = {}, commands = {}) {
       id: 'invalid_start_time',
       title: 'Scheduled start time must use HH:mm 24-hour format',
       evidence: [options.startTime],
-      nextAction: 'Use a value like 09:30 for --start-time.',
+      nextAction: 'Use a value like 08:00 for --start-time.',
     });
   }
   if (options.executeIfReady === true && options.execute !== true) {

@@ -92,6 +92,7 @@ function adWindow(card = {}, key) {
   const clicks = num(sp.clicks ?? sp.Clicks) + num(sb.clicks ?? sb.Clicks);
   const impressions = num(sp.impressions ?? sp.Impressions) + num(sb.impressions ?? sb.Impressions);
   return {
+    hasData: !!card.adStats?.[key] || !!card.sbStats?.[key],
     spend,
     orders,
     sales,
@@ -117,6 +118,80 @@ function sellableDaysFrom7dVelocity(card = {}) {
   const units7d = num(card.unitsSold_7d);
   if (units7d <= 0) return null;
   return round(fulResUnits(card) / (units7d / 7), 1);
+}
+
+function offAdState(card = {}) {
+  const state = text(card.advState ?? card.adState ?? card.ad_status ?? card.adStatus).toLowerCase();
+  return state === 'off' || state === 'closed' || state === 'disabled' || state.includes('关');
+}
+
+function canSalesDays(card = {}, days) {
+  return num(
+    card[`can_sales_${days}_first`] ??
+      card[`can_sales_${days}_second`] ??
+      card[`can_sales_${days}_third`] ??
+      card[`sellableDays_${days}d`] ??
+      card[`dynamic_saleday${days}`],
+    null,
+  );
+}
+
+function adPoint(card = {}) {
+  for (const key of ['adv_point', 'adPoint', 'adCostShare']) {
+    if (Object.prototype.hasOwnProperty.call(card, key)) return num(card[key], null);
+  }
+  return null;
+}
+
+function shouldRoutePriceCandidateToAdRecovery(card = {}, replenishment = {}) {
+  const d7 = adWindow(card, '7d');
+  const point = adPoint(card);
+  const lowAdShare = point !== null && point <= 0.01;
+  const noEffectiveDelivery = d7.hasData && d7.impressions < 100 && d7.clicks < 3 && d7.orders === 0;
+  const adSuppressed = offAdState(card) || lowAdShare || noEffectiveDelivery;
+  if (!adSuppressed) return false;
+  const can7 = canSalesDays(card, 7);
+  const can30 = canSalesDays(card, 30);
+  const inventoryCanConnect =
+    (replenishment.totalSellableDays7d !== null && replenishment.totalSellableDays7d >= 15) ||
+    can7 >= 15 ||
+    can30 >= 15 ||
+    replenishment.units > 0;
+  return inventoryCanConnect;
+}
+
+function variantLinePriceReview(card = {}, parentGroups = new Map()) {
+  const parent = text(card.parent_asin || card.parentAsin);
+  if (!parent) return null;
+  const siblings = (parentGroups.get(parent) || []).filter(item => text(item.sku).toUpperCase() !== text(card.sku).toUpperCase());
+  if (!siblings.length) return null;
+  const siblingIssues = [];
+  for (const sibling of siblings) {
+    const status = text(sibling.saleStatus || sibling.sale_status);
+    const siblingFulRes = fulResUnits(sibling);
+    const siblingCan30 = canSalesDays(sibling, 30);
+    const siblingPoint = adPoint(sibling);
+    const siblingUnits30 = num(sibling.unitsSold_30d ?? sibling.qty_30);
+    const siblingProfit = num(sibling.netProfit ?? sibling.net_profit ?? sibling.profitRate, null);
+    const hasInventoryRoom = siblingFulRes >= 15 || siblingCan30 >= 30;
+    if (status && status !== 'normal_sale' && status !== '正常销售') {
+      siblingIssues.push(`${text(sibling.sku)}:status=${status}`);
+      continue;
+    }
+    if (hasInventoryRoom && siblingUnits30 > 0 && (offAdState(sibling) || (siblingPoint !== null && siblingPoint <= 0.01))) {
+      siblingIssues.push(`${text(sibling.sku)}:ad_recovery`);
+      continue;
+    }
+    if (siblingPoint !== null && siblingPoint >= 0.15 && (siblingProfit === null || siblingProfit <= 0.1)) {
+      siblingIssues.push(`${text(sibling.sku)}:ad_cost_pressure`);
+    }
+  }
+  if (!siblingIssues.length) return null;
+  return {
+    parentAsin: parent,
+    siblingCount: siblings.length,
+    siblingIssues,
+  };
 }
 
 function recentDays(card = {}, businessDate) {
@@ -294,6 +369,38 @@ function buildNewProductLaunchAudit(snapshot = {}, timeContext = {}) {
   };
 }
 
+const AD_RECOVERY_DIAGNOSTIC_RULE_SOURCE = 'GBrain:04-standard-playbooks/ad-recovery-full-diagnostic-structure';
+const AD_RECOVERY_EVIDENCE_REQUIRED = [
+  'operating_goal',
+  'current_ad_breakpoint',
+  'close_reason',
+  'historical_effective_lanes',
+  'receiver_layer',
+  'current_capacity',
+  'action_intensity',
+  'readback_plan',
+];
+
+function arrivalAdRecoveryDiagnosticItem(card, ageDays, d7, subIssue) {
+  return {
+    sku: text(card.sku),
+    asin: text(card.asin),
+    ageDays,
+    invDays: num(card.invDays),
+    fulfillable: num(card.fulFillable ?? card.fulfillable ?? card.stockFul),
+    impressions7d: d7.impressions,
+    clicks7d: d7.clicks,
+    requiredAction: 'diagnose_ad_recovery_before_action',
+    issue: 'ad_recovery_diagnosis_required',
+    subIssue,
+    diagnosticStructureRequired: true,
+    ruleSource: AD_RECOVERY_DIAGNOSTIC_RULE_SOURCE,
+    evidenceRequired: AD_RECOVERY_EVIDENCE_REQUIRED.join('|'),
+    actionIntensityRule: 'size_from_market_product_inventory_profit_and_historical_lane_evidence',
+    why: 'Arrival ad recovery must classify the real breakpoint before enable, scale, or build decisions.',
+  };
+}
+
 function buildArrivalAdRecoveryAudit(snapshot = {}, timeContext = {}) {
   const items = [];
   for (const card of snapshot.productCards || []) {
@@ -302,39 +409,27 @@ function buildArrivalAdRecoveryAudit(snapshot = {}, timeContext = {}) {
     if (ageDays === null || ageDays > 21) continue;
     const d7 = adWindow(card, '7d');
     if (!hasBasicAdStructure(card)) {
-      items.push({
-        sku: text(card.sku),
-        asin: text(card.asin),
-        ageDays,
-        invDays: num(card.invDays),
-        fulfillable: num(card.fulFillable ?? card.fulfillable ?? card.stockFul),
-        impressions7d: d7.impressions,
-        clicks7d: d7.clicks,
-        requiredAction: 'build_and_enable_basic_ads',
-        issue: 'arrived_inventory_without_basic_ads',
-      });
+      items.push(arrivalAdRecoveryDiagnosticItem(card, ageDays, d7, 'arrived_inventory_without_basic_ads'));
     } else if (d7.impressions < 200 || d7.clicks < 5) {
-      items.push({
-        sku: text(card.sku),
-        asin: text(card.asin),
-        ageDays,
-        invDays: num(card.invDays),
-        fulfillable: num(card.fulFillable ?? card.fulfillable ?? card.stockFul),
-        impressions7d: d7.impressions,
-        clicks7d: d7.clicks,
-        requiredAction: 'reopen_or_scale_existing_ads',
-        issue: 'arrived_inventory_ads_have_no_effective_delivery',
-      });
+      items.push(arrivalAdRecoveryDiagnosticItem(card, ageDays, d7, 'arrived_inventory_ads_have_no_effective_delivery'));
     }
   }
   return {
-    summary: { total: items.length },
+    summary: { total: items.length, diagnosticRequired: items.length },
     items: items.sort((a, b) => a.ageDays - b.ageDays || a.impressions7d - b.impressions7d),
   };
 }
 
 function buildPriceActionsAudit(snapshot = {}) {
   const items = [];
+  const routedOut = [];
+  const parentGroups = new Map();
+  for (const card of snapshot.productCards || []) {
+    const parent = text(card.parent_asin || card.parentAsin);
+    if (!parent) continue;
+    if (!parentGroups.has(parent)) parentGroups.set(parent, []);
+    parentGroups.get(parent).push(card);
+  }
   for (const card of snapshot.productCards || []) {
     const invDays = num(card.invDays);
     const units7d = num(card.unitsSold_7d);
@@ -342,14 +437,11 @@ function buildPriceActionsAudit(snapshot = {}) {
     const available = fulResUnits(card);
     const sellableDays7d = sellableDaysFrom7dVelocity(card);
     const replenishment = replenishmentCoverage7d(card, { units7d, fulResUnits: available });
-    if (
-      sellableDays7d !== null &&
-      sellableDays7d < 15 &&
-      !(replenishment.totalSellableDays7d !== null && replenishment.totalSellableDays7d >= 15)
-    ) {
-      items.push({
+    if (sellableDays7d !== null && sellableDays7d < 15) {
+      const baseItem = {
         sku: text(card.sku),
         asin: text(card.asin),
+        parentAsin: text(card.parent_asin || card.parentAsin),
         issue: 'ful_res_7d_sellable_days_short_price_gate',
         invDays,
         units7d,
@@ -361,6 +453,42 @@ function buildPriceActionsAudit(snapshot = {}) {
         profitRate,
         price: num(card.price),
         saleStatus: text(card.saleStatus),
+        advState: text(card.advState ?? card.adState),
+        advPoint: adPoint(card),
+      };
+      if (shouldRoutePriceCandidateToAdRecovery(card, replenishment)) {
+        routedOut.push({
+          ...baseItem,
+          issue: 'price_pool_routed_to_ad_recovery',
+          requiredAction: 'restore_historical_ad_lanes_before_price_raise',
+          why: 'Ad delivery/share is suppressed while inventory or replenishment can connect; restore historical converting lanes before treating the SKU as a price-raise candidate.',
+        });
+        continue;
+      }
+      if (replenishment.totalSellableDays7d !== null && replenishment.totalSellableDays7d >= 15) {
+        routedOut.push({
+          ...baseItem,
+          issue: 'price_pool_replenishment_pipeline_available',
+          requiredAction: 'hold_price_watch_inventory_and_ad_pressure',
+          why: 'Ful+Res is below 15 days, but inbound/planned/local replenishment can connect the next stock window.',
+        });
+        continue;
+      }
+      const variantReview = variantLinePriceReview(card, parentGroups);
+      if (variantReview) {
+        routedOut.push({
+          ...baseItem,
+          issue: 'price_pool_variant_line_review_required',
+          requiredAction: 'review_parent_variant_line_before_price_raise',
+          variantParentAsin: variantReview.parentAsin,
+          variantSiblingCount: variantReview.siblingCount,
+          variantSiblingIssues: variantReview.siblingIssues.join('; '),
+          why: 'A sibling variation has ad recovery, ad cost pressure, or sale-status issues that can change the price decision for this child SKU.',
+        });
+        continue;
+      }
+      items.push({
+        ...baseItem,
         requiredAction: 'review_price_raise_or_recover_price',
         why: 'Ful+Res inventory cannot cover 15 days at current 7d sales velocity and replenishment cannot connect the next stock window; review controlled price raise before adding traffic.',
       });
@@ -372,8 +500,13 @@ function buildPriceActionsAudit(snapshot = {}) {
       shortSellableDays: items.filter(item => item.issue.includes('sellable_days_short')).length,
       tightInventory: items.filter(item => item.issue.includes('sellable_days_short')).length,
       lowProfit: 0,
+      routedOut: routedOut.length,
+      routedToAdRecovery: routedOut.filter(item => item.issue === 'price_pool_routed_to_ad_recovery').length,
+      routedToVariantReview: routedOut.filter(item => item.issue === 'price_pool_variant_line_review_required').length,
+      routedToReplenishmentWatch: routedOut.filter(item => item.issue === 'price_pool_replenishment_pipeline_available').length,
     },
     items: items.sort((a, b) => a.sellableDays7d - b.sellableDays7d || b.units7d - a.units7d),
+    routedOut: routedOut.sort((a, b) => a.sellableDays7d - b.sellableDays7d || b.units7d - a.units7d),
   };
 }
 
@@ -635,9 +768,12 @@ function renderProactiveOperatingAuditHtml(audit = {}) {
   <h2>New Product Launch</h2>
   ${renderItemsTable(audit.newProductLaunch?.items || [], ['sku', 'asin', 'issue', 'ageDays', 'invDays', 'impressions7d', 'clicks7d', 'spend7d', 'requiredAction'])}
   <h2>Arrival Ad Recovery</h2>
-  ${renderItemsTable(audit.arrivalAdRecovery?.items || [], ['sku', 'asin', 'issue', 'ageDays', 'invDays', 'fulfillable', 'impressions7d', 'clicks7d', 'requiredAction'])}
+  ${renderItemsTable(audit.arrivalAdRecovery?.items || [], ['sku', 'asin', 'issue', 'subIssue', 'ageDays', 'invDays', 'fulfillable', 'impressions7d', 'clicks7d', 'requiredAction', 'diagnosticStructureRequired', 'ruleSource'])}
   <h2>Price Actions</h2>
   ${renderItemsTable(audit.priceActions?.items || [], ['sku', 'asin', 'issue', 'invDays', 'units7d', 'profitRate', 'price', 'requiredAction'])}
+  <h3>Price Pool Routed Out</h3>
+  <div class="note">Rows removed from price execution because the better route is ad recovery, variant-line review, or another non-price action.</div>
+  ${renderItemsTable(audit.priceActions?.routedOut || [], ['sku', 'asin', 'issue', 'parentAsin', 'units7d', 'fulResUnits', 'sellableDays7d', 'advState', 'advPoint', 'requiredAction', 'variantSiblingIssues'])}
   <h2>Removal Economics</h2>
   <div class="note">Read-only sellerinventory recovery values compare current sale, offline service provider, batch clearance, and disposal before any removal application.</div>
   ${renderItemsTable(audit.removalEconomics?.items || [], ['sku', 'asin', 'issue', 'invDays', 'fulResUnits', 'units30d', 'currentSaleRecoveryUsd', 'offlineServiceProviderRecoveryUsd', 'batchClearanceRecoveryUsd', 'disposalRecoveryUsd', 'bestRecoveryPath', 'requiredAction'])}

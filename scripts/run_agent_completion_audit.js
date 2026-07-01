@@ -211,6 +211,7 @@ function parseArgs(argv) {
     generateGoalAudit: !args.includes('--skip-goal-audit') && process.env.AGENT_COMPLETION_SKIP_GOAL_AUDIT !== '1',
     generateGoalFinal: args.includes('--goal-final') || process.env.AGENT_COMPLETION_GOAL_FINAL === '1',
     requireGoalFinalComplete: args.includes('--require-goal-final-complete') || process.env.AGENT_COMPLETION_REQUIRE_GOAL_FINAL_COMPLETE === '1',
+    refreshGoalFinalBossPaper: args.includes('--refresh-goal-final-boss-paper') || process.env.AGENT_COMPLETION_REFRESH_GOAL_FINAL_BOSS_PAPER === '1',
     goalFinalToday: get('--goal-final-today') || process.env.AGENT_GOAL_FINAL_TODAY || '',
   };
 }
@@ -346,6 +347,7 @@ function runAgentCompletionAudit(options = {}) {
     markdownFile: readinessMarkdownFile,
     requireCorrectionLesson: true,
     requireRiskRoutingLesson: true,
+    requireCoverageSufficiencyLesson: true,
     requireNaturalScheduledRun: true,
     naturalScheduleToleranceMinutes: options.naturalScheduleToleranceMinutes || 15,
   });
@@ -449,6 +451,7 @@ function runAgentCompletionAudit(options = {}) {
       completionAuditScheduleReady: readiness.summary?.completionAuditScheduleReady === true,
       completionAuditTaskRuntimeReady: completionAuditTaskRuntime.ready === true,
       scheduledTaskInvocationOk: invocation.ok === true,
+      coverageSufficiencyReady: readiness.summary?.coverageSufficiencyReady === true,
       naturalScheduledRuntimeReady: readiness.summary?.naturalScheduledRuntimeReady === true,
       failedChecks: (readiness.checks || []).filter(item => item.status === 'fail').length,
       schedulerBlockers: Number(scheduler.summary?.blockers || 0),
@@ -576,13 +579,18 @@ function runAgentCompletionAudit(options = {}) {
     try {
       const bossPaperRunner = options.bossPaperRunner || runBossDailyPaper;
       const goalFinalAuditRunner = options.goalFinalAuditRunner || runGoalFinalAudit;
-      const bossPaper = bossPaperRunner({ today: goalFinalDate, agentDir });
+      const bossPaperJsonFile = defaultAgentFile('boss_daily_paper', goalFinalDate, 'json', agentDir);
+      let bossPaper = readJson(bossPaperJsonFile, null);
+      if (!bossPaper && options.refreshGoalFinalBossPaper === true) {
+        bossPaper = bossPaperRunner({ today: goalFinalDate, agentDir });
+      }
       const goalFinalAudit = goalFinalAuditRunner({ today: goalFinalDate, agentDir });
-      const bossPaperStatus = text(bossPaper.verification?.status || '');
-      const bossPaperGuardStatus = text(bossPaper.guard?.status || '');
+      const bossPaperStatus = text(bossPaper?.verification?.status || '');
+      const bossPaperGuardStatus = text(bossPaper?.guard?.status || '');
       report.goalFinal = {
         generated: true,
         today: goalFinalDate,
+        bossPaperSource: bossPaper ? (bossPaper.generatedAt ? 'existing' : 'provided') : 'missing',
         bossPaperStatus,
         bossPaperGuardStatus,
         auditOk: goalFinalAudit.ok === true,
@@ -593,8 +601,8 @@ function runAgentCompletionAudit(options = {}) {
         earliestCompletionDate: text(goalFinalAudit.summary?.earliestCompletionDate || ''),
         blockers: goalFinalAudit.goalFinal?.blockers || [],
         files: {
-          bossPaperFile: text(bossPaper.files?.paperFile || ''),
-          bossPaperJsonFile: text(bossPaper.files?.jsonFile || ''),
+          bossPaperFile: text(bossPaper?.files?.paperFile || ''),
+          bossPaperJsonFile: text(bossPaper?.files?.jsonFile || bossPaperJsonFile),
           auditFile: text(goalFinalAudit.files?.jsonFile || ''),
           auditMarkdownFile: text(goalFinalAudit.files?.markdownFile || ''),
         },
@@ -607,7 +615,15 @@ function runAgentCompletionAudit(options = {}) {
       report.summary.goalFinalAuditStatus = report.goalFinal.auditStatus;
       report.summary.goalFinalCurrentStreak = report.goalFinal.currentStreak;
       report.summary.goalFinalRequiredBusinessDays = report.goalFinal.requiredBusinessDays;
-      if (bossPaperStatus !== 'pass' || bossPaperGuardStatus !== 'pass') {
+      if (!bossPaper) {
+        report.issues.push({
+          id: 'goal_final_boss_paper_missing',
+          severity: 'blocker',
+          title: 'GOAL-FINAL boss paper is missing for the audited day',
+          evidence: [`bossPaperJsonFile=${bossPaperJsonFile}`],
+          nextAction: 'Let the supervisor or boss-paper generator produce the daily result paper before the completion audit counts GOAL-FINAL.',
+        });
+      } else if (bossPaperStatus !== 'pass' || bossPaperGuardStatus !== 'pass') {
         report.issues.push({
           id: 'goal_final_boss_paper_not_pass',
           severity: 'blocker',

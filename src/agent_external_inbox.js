@@ -116,10 +116,20 @@ function isRiskAsInactionCorrection(raw = '') {
   return mentionsRisk && mentionsInactionExcuse;
 }
 
+function isCoverageUnderreachCorrection(raw = '') {
+  const value = text(raw).toLowerCase();
+  const mentionsCoverage = /coverage|覆盖面|覆盖度购买|购买覆盖|覆盖不足|动作覆盖比例/.test(value);
+  const mentionsUnderreach = /力度不够|不够|达不到目标|没办法达到目标|underreach|too\s+small|not\s+enough/.test(value);
+  const mentionsActionSubstitution = /只报|只说|只看|几条|bid|readback|读回|落地|动作|执行/.test(value);
+  const mentionsCorrection = /多少次|每次|又|反复|以后|不能|不要再|同样|一样|repeated|pattern|again/.test(value);
+  return mentionsCoverage && mentionsUnderreach && (mentionsActionSubstitution || mentionsCorrection);
+}
+
 function classify(raw) {
   const value = text(raw).toLowerCase();
   if (/这个词|关键词|keyword/.test(text(raw))) return 'keyword_question';
   if (/点击没了|没流量|能不能.*(?:加投|推|投)|能.*(?:加投|推广告|加广告)|开发诉求|产品诉求/.test(text(raw))) return 'developer_product_inquiry';
+  if (isCoverageUnderreachCorrection(raw)) return 'operator_correction';
   if (isRiskAsInactionCorrection(raw)) return 'operator_correction';
   if (/agent\s*化|agentization|无人值守|自驱|自主运营|autonomy|unattended|self[-\s]?driv/.test(value)) return 'agent_autonomy_review';
   if (/纠错|不对|错了|错判|修正|更正|不是这样|系统性风险|correction|wrong|mistake|bad decision|fix this decision/.test(value)) return 'operator_correction';
@@ -136,7 +146,7 @@ function classify(raw) {
 function evidenceForKind(kind) {
   const common = ['recent_action_history'];
   const byKind = {
-    operator_correction: ['correction_risk_audit', 'latest_snapshot_freshness', 'execution_verify', 'adjustment_log_history', 'same_rule_recent_scan', 'daily_learning_history', 'rollback_or_secondary_action_boundary', 'supported_action_execution_path_review'],
+    operator_correction: ['correction_risk_audit', 'latest_snapshot_freshness', 'execution_verify', 'adjustment_log_history', 'same_rule_recent_scan', 'daily_learning_history', 'rollback_or_secondary_action_boundary', 'supported_action_execution_path_review', 'coverage_sufficiency_audit'],
     agent_autonomy_review: ['agent_autonomy_audit', 'latest_closed_loop_report', 'artifact_verification', 'write_execution_gate', 'daily_learning_history', 'correction_risk_capability'],
     developer_product_inquiry: ['ad_backend_sku_summary', 'inventory_health', 'selection_keyword_research', 'selection_keyword_seasonality', 'selection_market_evidence', 'product_market_profile', 'operator_ready_reply'],
     keyword_question: ['selection_keyword_research', 'selection_keyword_seasonality', 'selection_keyword_conversion', 'selection_aba_search_terms', 'sku_ad_proof', 'listing_keyword_fit', 'inventory_health'],
@@ -151,7 +161,7 @@ function evidenceForKind(kind) {
 }
 
 function authorizationHintForKind(kind) {
-  if (kind === 'operator_correction') return ['operator_correction_is_authoritative_feedback', 'freeze_same_rule_auto_execute_until_audit_closes', 'risk_audit_required_before_reuse', 'risk_is_routing_not_refusal'];
+  if (kind === 'operator_correction') return ['operator_correction_is_authoritative_feedback', 'freeze_same_rule_auto_execute_until_audit_closes', 'risk_audit_required_before_reuse', 'risk_is_routing_not_refusal', 'coverage_sufficiency_first'];
   if (kind === 'agent_autonomy_review') return ['autonomy_audit_is_read_only', 'not_ready_creates_agent_gap_tasks', 'writes_still_require_schema_and_landing_verification'];
   if (kind === 'listing_copy_review') return ['listing_copy_boundary', 'top50_or_protected_sku_requires_boundary_release'];
   if (kind === 'price_review') return ['price_execution_boundary', 'sellerinventory_application_verification_required'];
@@ -163,6 +173,7 @@ function authorizationHintForKind(kind) {
 function priorityForKind(kind, raw) {
   const value = text(raw).toLowerCase();
   if (kind === 'agent_autonomy_review') return 'P1';
+  if (kind === 'operator_correction' && isCoverageUnderreachCorrection(raw)) return 'P0';
   if (kind === 'operator_correction' && isRiskAsInactionCorrection(raw)) return 'P0';
   if (kind === 'operator_correction') return /已经执行|落地|关错|调错|预算|价格|listing|critical|executed|landed/i.test(value) ? 'P0' : 'P1';
   if (/老板|kpi|紧急|马上|今天/.test(value)) return 'P0';

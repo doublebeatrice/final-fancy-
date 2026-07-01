@@ -95,8 +95,14 @@ function seedCompletionFiles(tmpDir, overrides = {}) {
     summary: { constraints: 4, blockers: 0, warnings: 1, corrections: 1 },
     nextRunBrief: {
       mustReadBeforeDecision: ['data/learning/daily_learning_2026-05-25.json'],
-      doNotApplyWhen: ['risk level is the only reason to skip a supported operating action'],
-      evidenceBeforeReuse: ['route_supported_operating_action_to_evidence_boundary_dry_run_execute_or_explicit_blocker'],
+      doNotApplyWhen: [
+        'risk level is the only reason to skip a supported operating action',
+        'coverage sufficiency has not been answered before action landing details',
+      ],
+      evidenceBeforeReuse: [
+        'route_supported_operating_action_to_evidence_boundary_dry_run_execute_or_explicit_blocker',
+        'coverage_ratio',
+      ],
     },
   });
   writeJson(path.join(tmpDir, 'correction_risk_2026-05-25.json'), {
@@ -124,6 +130,7 @@ function seedCompletionFiles(tmpDir, overrides = {}) {
   assert.strictEqual(parsed.today, '2026-05-25');
   assert.strictEqual(parsed.agentDir, 'data\\agent');
   assert.strictEqual(parsed.waitForSupervisor, true);
+  assert.strictEqual(parsed.refreshGoalFinalBossPaper, false);
 }
 
 {
@@ -160,6 +167,7 @@ function seedCompletionFiles(tmpDir, overrides = {}) {
   assert.strictEqual(report.summary.completionAuditScheduleReady, true);
   assert.strictEqual(report.summary.completionAuditTaskRuntimeReady, true);
   assert.strictEqual(report.summary.scheduledTaskInvocationOk, true);
+  assert.strictEqual(report.summary.coverageSufficiencyReady, true);
   assert.strictEqual(report.summary.naturalScheduledRuntimeReady, true);
   assert.strictEqual(report.summary.goalAuditOk, true);
   assert.strictEqual(report.goalAudit.ok, true);
@@ -171,6 +179,29 @@ function seedCompletionFiles(tmpDir, overrides = {}) {
   assert.ok(fs.existsSync(path.join(tmpDir, 'agent_goal_audit_2026-05-25.json')));
   assert.ok(fs.existsSync(path.join(tmpDir, 'agent_readiness_completion_audit_2026-05-25.json')));
   assert.ok(fs.existsSync(path.join(tmpDir, 'unattended_scheduler_completion_audit_2026-05-25.json')));
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-completion-coverage-fail-'));
+  seedCompletionFiles(tmpDir);
+  const learningFile = path.join(tmpDir, 'learning_memory_2026-05-25.json');
+  const learning = JSON.parse(fs.readFileSync(learningFile, 'utf8'));
+  learning.nextRunBrief.doNotApplyWhen = ['risk level is the only reason to skip a supported operating action'];
+  learning.nextRunBrief.evidenceBeforeReuse = ['route_supported_operating_action_to_evidence_boundary_dry_run_execute_or_explicit_blocker'];
+  writeJson(learningFile, learning);
+  const report = runAgentCompletionAudit({
+    timeContext,
+    today: '2026-05-25',
+    agentDir: tmpDir,
+    heartbeatDir: tmpDir,
+    waitForSupervisor: false,
+    refreshScheduleInstall: false,
+    scheduledTaskInvocation: true,
+    scheduledTaskName: 'AdOpsAgentCompletionAudit',
+  });
+  assert.strictEqual(report.ok, false);
+  assert.strictEqual(report.summary.coverageSufficiencyReady, false);
+  assert.ok(report.readiness.failedChecks.includes('coverage_sufficiency_correction_memory'));
 }
 
 {
@@ -186,6 +217,7 @@ function seedCompletionFiles(tmpDir, overrides = {}) {
     scheduledTaskInvocation: true,
     scheduledTaskName: 'AdOpsAgentCompletionAudit',
     generateGoalFinal: true,
+    refreshGoalFinalBossPaper: true,
     bossPaperRunner: () => ({
       verification: { status: 'pass' },
       guard: { status: 'pass' },
@@ -213,6 +245,49 @@ function seedCompletionFiles(tmpDir, overrides = {}) {
 }
 
 {
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-completion-goal-final-existing-paper-'));
+  seedCompletionFiles(tmpDir);
+  writeJson(path.join(tmpDir, 'boss_daily_paper_2026-05-25.json'), {
+    generatedAt: '2026-05-25T10:00:00.000Z',
+    verification: { status: 'pass' },
+    guard: { status: 'pass' },
+    files: {
+      paperFile: path.join(tmpDir, '每日结果纸_2026-05-25.md'),
+      jsonFile: path.join(tmpDir, 'boss_daily_paper_2026-05-25.json'),
+    },
+  });
+  let bossPaperRunnerCalled = false;
+  const report = runAgentCompletionAudit({
+    timeContext: { ...timeContext, localDate: '2026-05-25' },
+    today: '2026-05-25',
+    agentDir: tmpDir,
+    heartbeatDir: tmpDir,
+    waitForSupervisor: false,
+    refreshScheduleInstall: false,
+    scheduledTaskInvocation: true,
+    scheduledTaskName: 'AdOpsAgentCompletionAudit',
+    generateGoalFinal: true,
+    bossPaperRunner: () => {
+      bossPaperRunnerCalled = true;
+      throw new Error('should not regenerate boss paper');
+    },
+    goalFinalAuditRunner: () => ({
+      ok: true,
+      status: 'complete',
+      summary: { currentStreak: 3, requiredBusinessDays: 3, neededPassDays: 0 },
+      goalFinal: { blockers: [] },
+      files: {
+        jsonFile: path.join(tmpDir, 'goal_final_audit_2026-05-25.json'),
+        markdownFile: path.join(tmpDir, 'goal_final_audit_2026-05-25.md'),
+      },
+    }),
+  });
+  assert.strictEqual(bossPaperRunnerCalled, false);
+  assert.strictEqual(report.goalFinal.bossPaperSource, 'existing');
+  assert.strictEqual(report.summary.goalFinalAuditStatus, 'complete');
+}
+
+{
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-completion-goal-final-required-'));
   seedCompletionFiles(tmpDir);
   const report = runAgentCompletionAudit({
@@ -226,6 +301,7 @@ function seedCompletionFiles(tmpDir, overrides = {}) {
     scheduledTaskName: 'AdOpsAgentCompletionAudit',
     generateGoalFinal: true,
     requireGoalFinalComplete: true,
+    refreshGoalFinalBossPaper: true,
     bossPaperRunner: () => ({ verification: { status: 'pass' }, guard: { status: 'pass' }, files: {} }),
     goalFinalAuditRunner: () => ({
       ok: false,
@@ -383,12 +459,15 @@ function seedCompletionFiles(tmpDir, overrides = {}) {
       });
     },
   });
-  assert.strictEqual(report.ok, true);
+  assert.strictEqual(report.ok, false);
   assert.strictEqual(report.summary.scheduleInstallRefreshed, true);
   assert.strictEqual(report.summary.completionAuditTaskRuntimeReady, true);
   assert.strictEqual(report.summary.scheduledTaskInvocationOk, true);
+  assert.strictEqual(report.summary.schedulerStatus, 'ready_with_warnings');
   assert.strictEqual(report.scheduleInstall.refreshed, true);
   assert.strictEqual(report.scheduleInstall.installedTask.lastTaskResult, '0');
+  assert.ok(report.issues.some(item => item.id === 'heartbeat_predates_current_install'));
+  assert.ok(report.issues.some(item => item.id === 'post_install_natural_run_not_yet_observed'));
   assert.ok(calls.length >= 2);
 }
 

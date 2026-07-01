@@ -137,6 +137,29 @@ function touch(file, date) {
 }
 
 {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'daily-deposit-valid-inventory-after-tiny-'));
+  const trendRoot = path.join(root, 'trend');
+  const rawRoot = path.join(trendRoot, 'raw');
+  const rawDir = path.join(rawRoot, '5-20');
+  write(path.join(rawDir, 'seller_sales_core_7d_2026-05-20.csv'), 'sku,sales\nA,1\n');
+  write(path.join(rawDir, 'seller_sales_core_7d_2026-05-20.json'), '{}');
+  write(path.join(rawDir, 'inv_auto_filtered_2026-05-20-09-00-00.csv'), 'tiny');
+  write(path.join(rawDir, 'inv_auto_filtered_2026-05-20-10-00-00.csv'), 'x'.repeat(1024 * 1024 + 1));
+  write(path.join(rawDir, 'ad_sku_summary_30d_2026-05-20.csv'), 'sku,cost\nA,1\n');
+  write(path.join(rawDir, 'seller_success_rate_HJ17_2026-05-20.json'), '{}');
+  write(path.join(rawDir, 'seller_success_rate_HJ17_2026-05-20.csv'), 'seller,total\nHJ17,1\n');
+  write(path.join(rawDir, 'daily_deposit_manifest_2026-05-20.json'), '{}');
+  write(path.join(trendRoot, 'daily', '2026-05-20.html'), '<html></html>');
+  const snapshot = path.join(root, 'snapshot_2026-05-20.json');
+  write(snapshot, JSON.stringify({ productCards: [], sellerSalesRows: [], adSkuSummaryRows: [] }));
+
+  const status = classifyDailyDeposit('2026-05-20', { trendRoot, rawRoot, snapshotFile: snapshot });
+  assert.strictEqual(status.status, 'complete');
+  assert.deepStrictEqual(status.missing, []);
+  assert.deepStrictEqual(status.suspicious, []);
+}
+
+{
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'daily-deposit-zero-sales-'));
   const trendRoot = path.join(root, 'trend');
   const rawRoot = path.join(trendRoot, 'raw');

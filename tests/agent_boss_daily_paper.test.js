@@ -139,7 +139,11 @@ const report = {
 
 const markdown = renderBossDailyPaper(report);
 const sections = markdown.match(/^## /gm) || [];
-assert.strictEqual(sections.length, 4);
+assert.strictEqual(sections.length, 5);
+assert.ok(markdown.includes('## 5. \u4efb\u52a1\u8ddf\u8fdb\u88c5\u7f6e'));
+assert.ok(markdown.includes('SQL/\u6570\u636e\u6062\u590d'));
+assert.ok(markdown.includes('\u76ee\u6807\u5b8c\u6210\u5ea6'));
+assert.ok(markdown.includes('\u5c0f\u7ec4\u672c\u5468\u4efb\u52a1'));
 assert.ok(markdown.includes('## 4. GOAL-FINAL 自证证据'));
 assert.ok(markdown.includes('## 1. 总盘：净利/销量'));
 assert.ok(markdown.includes('## 2. 三条线：开发诉求 / 系统P0 / 节日巡查'));

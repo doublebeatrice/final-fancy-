@@ -1,0 +1,40 @@
+{
+  "sku": "DN1655",
+  "asin": "B0C1S3XC8Q",
+  "grading": {
+    "grade": "边缘老品",
+    "priority": "中等",
+    "strategy": "控制成本、止损，仅处理关键问题"
+  },
+  "attribution": {
+    "indicators": {
+      "salesDown": true,
+      "impressionsDown": true,
+      "clicksDown": true,
+      "ctrDown": true,
+      "cvrDown": false,
+      "acosWorsening": false,
+      "kwTotalDrop": true,
+      "kwAdDrop": true,
+      "kwNfDrop": false,
+      "orderChange": -0.8494623655913979,
+      "impressionChange": -0.7389926137139217,
+      "clickChange": -0.8004557291666666
+    },
+    "pattern": "销量环比下滑85%",
+    "rootCauses": [
+      {
+        "cause": "广告投放大幅缩减",
+        "evidence": "广告关键词从112个降至12个（退出101个），广告覆盖面严重萎缩",
+        "action": "restore_ads"
+      },
+      {
+        "cause": "点击率环比下降",
+        "evidence": "CTR从0.4%降至0.3%，主图/标题吸引力下降或竞品分流",
+        "action": "optimize_listing"
+      }
+    ]
+  },
+  "risk": "中",
+  "report": "📋 老品整改问题单\n\nSKU/ASIN：DN1655 / B0C1S3XC8Q\n产品分级：边缘老品（中等优先级）\n整改策略：控制成本、止损，仅处理关键问题\n当前售价：$44.99\n上架日期：2023-05-23\n\n【环比/同比变化】\n- 30天订单：28单（上期186单，-85%）\n- 同比变化：-26%（seller组整体）\n- 30天展现：223717（上期857129）\n- 30天ACoS：17.6%（上期15.1%）\n- 30天CTR：0.3%（上期0.4%）\n- 转化率：4.6%\n\n【前台流量/排名变化（SIF）】\n- 排名关键词总数：31个（上周期124，进4/出97）\n- 自然排名词：24个（上周期32，进6/出14）\n- 广告排名词：12个（上周期112，进1/出101）\n- 核心流量词：flower buckets、flower buckets for flower bar、flower bar\n\n【归因诊断】\n下滑类型：销量环比下滑85%\n\n【核心根因】\n1. 广告投放大幅缩减\n   数据依据：广告关键词从112个降至12个（退出101个），广告覆盖面严重萎缩\n2. 点击率环比下降\n   数据依据：CTR从0.4%降至0.3%，主图/标题吸引力下降或竞品分流\n\n【整改动作】\n1. 恢复被暂停/下线的广告活动，优先恢复历史出单词\n2. 逐步扩大广告关键词覆盖，参照历史高转化词库\n3. 监控恢复后7天的展现/点击/订单回升趋势\n验证指标：广告关键词数量恢复率、展现量回升率、7天订单恢复率\n\n【整改周期】：2周（2026-06-25 至 2026-07-09）\n【风险等级】：中\n【负责人】：__________ 【监督人】：组长\n"
+}

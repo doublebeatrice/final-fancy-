@@ -16,6 +16,10 @@ function list(value) {
   return [text(value)].filter(Boolean);
 }
 
+function unique(values = []) {
+  return [...new Set(values.map(text).filter(Boolean))];
+}
+
 function dateOnly(value) {
   const raw = text(value);
   if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw;
@@ -69,10 +73,22 @@ function hasRiskAsInactionExcuse(raw = '') {
   return mentionsRisk && mentionsInactionExcuse;
 }
 
+function hasCoverageUnderreachCorrection(raw = '') {
+  const value = lower(raw);
+  const mentionsCoverage = /coverage|覆盖面|覆盖度购买|购买覆盖|覆盖不足|动作覆盖比例/.test(value);
+  const mentionsUnderreach = /力度不够|不够|达不到目标|没办法达到目标|underreach|too\s+small|not\s+enough/.test(value);
+  const mentionsActionSubstitution = /只报|只说|只看|几条|bid|readback|读回|落地|动作|执行/.test(value);
+  const mentionsCorrection = /多少次|每次|又|反复|以后|不能|不要再|同样|一样|repeated|pattern|again/.test(value);
+  return mentionsCoverage && mentionsUnderreach && (mentionsActionSubstitution || mentionsCorrection);
+}
+
 function correctionSignals(raw = '') {
   const signals = [];
   if (hasRiskAsInactionExcuse(raw)) {
     signals.push('risk_as_inaction_excuse');
+  }
+  if (hasCoverageUnderreachCorrection(raw)) {
+    signals.push('coverage_underreach');
   }
   if (hasAny(raw, [/旧数据|数据不新|不是今天|过期|stale|date|snapshot|快照|data date/i])) {
     signals.push('stale_or_wrong_data');
@@ -92,7 +108,7 @@ function correctionSignals(raw = '') {
   if (hasAny(raw, [/同类|同样|规则|批量|全局|以后|所有|pattern|rule|batch/i])) {
     signals.push('repeated_pattern_risk');
   }
-  if (hasAny(raw, [/often|repeated|pattern|rule|batch|\u7ecf\u5e38|\u4ee5\u540e|\u540c\u7c7b|\u540c\u6837|\u89c4\u5219|\u6279\u91cf|\u5168\u5c40/i])) {
+  if (hasAny(raw, [/often|repeated|pattern|rule|batch|\u7ecf\u5e38|\u4ee5\u540e|\u540c\u7c7b|\u540c\u6837|\u89c4\u5219|\u6279\u91cf|\u5168\u5c40|\u591a\u5c11\u6b21|\u6bcf\u6b21|\u53cd\u590d|\u4e0d\u8981\u518d|\u4e00\u6837|\u53c8/i])) {
     signals.push('repeated_pattern_risk');
   }
   if (hasAny(raw, [/未落地|没落地|api success|verify|回查|not landed|landed/i])) {
@@ -104,6 +120,7 @@ function correctionSignals(raw = '') {
 
 function classifySurface(raw = '') {
   const value = lower(raw);
+  if (hasCoverageUnderreachCorrection(raw)) return 'coverage_sufficiency';
   if (hasRiskAsInactionExcuse(raw)) return 'agent_operating_behavior';
   if (/listing|标题|文案|bullet|description|search term/.test(value)) return 'listing';
   if (/价格|price/.test(value)) return 'price';
@@ -116,6 +133,7 @@ function classifySurface(raw = '') {
 }
 
 function severityFor(signals = [], surface = '') {
+  if (signals.includes('coverage_underreach')) return 'high';
   if (signals.includes('risk_as_inaction_excuse')) return 'high';
   if (signals.includes('wrong_or_risky_write') && signals.includes('repeated_pattern_risk')) return 'critical';
   if (['listing', 'price', 'ad_budget', 'ad_state'].includes(surface) && signals.includes('wrong_or_risky_write')) return 'critical';
@@ -138,6 +156,12 @@ function requiredChecksFor(signals = [], surface = '') {
   if (signals.includes('wrong_or_risky_write')) checks.push('read_backend_landed_state_and_prepare_rollback_or_secondary_action_review');
   if (signals.includes('repeated_pattern_risk')) checks.push('scan_last_7_to_30_days_for_same_rule_or_same_reason_actions');
   if (signals.includes('landing_verification_gap')) checks.push('rerun_landing_verification_before_any_new_write');
+  if (signals.includes('coverage_underreach')) {
+    checks.push('derive_target_order_gap_click_gap_and_action_coverage_ratio');
+    checks.push('inspect_missing_kw_auto_asin_sbv_search_term_budget_placement_layers');
+    checks.push('answer_coverage_sufficiency_before_action_landing_summary');
+    checks.push('mark_coverage_insufficient_when_actions_cover_less_than_half_of_main_gap');
+  }
   if (signals.includes('risk_as_inaction_excuse')) {
     checks.push('classify_risk_as_execution_design_not_stop_reason');
     checks.push('route_supported_operating_action_to_evidence_boundary_dry_run_execute_or_explicit_blocker');
@@ -160,6 +184,11 @@ function immediateControlsFor(severity = '', signals = [], surface = '') {
   if (signals.includes('wrong_or_risky_write')) controls.push('do_not_repeat_same_write_without_landed_state_and_rollback_check');
   if (signals.includes('stale_or_wrong_data')) controls.push('block_decisions_from_reusing_the_stale_snapshot');
   if (signals.includes('repeated_pattern_risk')) controls.push('scan_recent_batch_actions_before_treating_this_as_one_off');
+  if (signals.includes('coverage_underreach')) {
+    controls.push('coverage_question_must_be_answered_before_action_summary');
+    controls.push('do_not_label_under_50_percent_gap_coverage_as_sufficient');
+    controls.push('action_landing_readback_must_not_replace_coverage_sufficiency');
+  }
   if (isRiskAsInactionExcuse) {
     controls.push('risk_level_must_not_be_used_as_do_nothing_reason');
     controls.push('supported_operating_actions_must_route_to_execution_path');
@@ -215,6 +244,7 @@ function riskCategoriesFor(event = {}) {
   if (event.signals.includes('landing_verification_gap')) categories.push('landing_verification_risk');
   if (event.signals.includes('repeated_pattern_risk')) categories.push('systemic_rule_risk');
   if (event.signals.includes('risk_as_inaction_excuse')) categories.push('operating_underreach_risk');
+  if (event.signals.includes('coverage_underreach')) categories.push('coverage_sufficiency_risk');
   if (categories.length === 0) categories.push('decision_quality_risk');
   return categories;
 }
@@ -291,6 +321,30 @@ function buildRiskTasks(event = {}, audit = {}, timeContext = {}) {
       authorizationHint: ['schema_required_for_any_rollback_write', 'dry_run_and_landing_verification_required'],
     }, timeContext));
   }
+  if (event.signals.includes('coverage_underreach')) {
+    tasks.push(normalizeAgentTask({
+      ...base,
+      source: 'correction_risk',
+      kind: 'coverage_sufficiency_audit',
+      title: `${subjectTitle(event.subject)} coverage sufficiency audit`,
+      description: 'For growth, YoY recovery, and coverage questions, answer coverage sufficiency before action landing details and prove whether action intensity can cover the target gap.',
+      priority,
+      status: 'new',
+      dueDate: event.businessDate,
+      evidenceRequirements: [
+        'target_order_gap',
+        'required_click_gap',
+        'action_covered_click_pool',
+        'coverage_ratio',
+        'missing_kw_auto_asin_sbv_search_term_budget_placement_layers',
+      ],
+      authorizationHint: [
+        'coverage_sufficiency_first',
+        'write_coverage_insufficient_when_under_half_gap',
+        'landing_readback_is_not_coverage_sufficiency',
+      ],
+    }, timeContext));
+  }
   if (event.signals.includes('risk_as_inaction_excuse')) {
     tasks.push(normalizeAgentTask({
       ...base,
@@ -311,6 +365,7 @@ function buildRiskTasks(event = {}, audit = {}, timeContext = {}) {
 function buildLearningPatch(event = {}, audit = {}) {
   const subject = subjectTitle(event.subject);
   const isRiskAsInactionExcuse = event.signals.includes('risk_as_inaction_excuse');
+  const isCoverageUnderreach = event.signals.includes('coverage_underreach');
   return {
     lessonId: `lesson_${event.correctionId}`,
     type: 'operator_correction',
@@ -333,6 +388,11 @@ function buildLearningPatch(event = {}, audit = {}) {
       'decision evidence cannot be tied to the current businessDate/dataDate',
       'same rule has an unresolved correction audit',
       'landing verification for the previous write is missing or contradictory',
+      ...(isCoverageUnderreach ? [
+        'coverage sufficiency has not been answered before action landing details',
+        'target order gap, click gap, action coverage pool, and coverage ratio are missing',
+        'planned or executed actions cover less than half of the main gap but are described as sufficient or closed-loop',
+      ] : []),
       ...(event.signals.includes('scope_boundary_gap') ? ['SKU is outside the confirmed operation scope'] : []),
       ...(event.signals.includes('missing_evidence') ? ['required evidence fields are unavailable or stale'] : []),
       ...(isRiskAsInactionExcuse ? [
@@ -340,9 +400,19 @@ function buildLearningPatch(event = {}, audit = {}) {
         'a supported operating action has not been routed to evidence, boundary, dry-run, execution, or an explicit unsupported gap',
       ] : []),
     ],
-    requiredEvidenceBeforeReuse: audit.requiredChecks,
+    requiredEvidenceBeforeReuse: unique([
+      ...(audit.requiredChecks || []),
+      ...(isCoverageUnderreach ? [
+        'target_order_gap',
+        'required_click_gap',
+        'action_covered_click_pool',
+        'coverage_ratio',
+      ] : []),
+    ]),
     immediateControls: audit.immediateControls,
-    operatingPrinciple: isRiskAsInactionExcuse
+    operatingPrinciple: isCoverageUnderreach
+      ? 'coverage sufficiency first: for growth, YoY recovery, and coverage questions, answer enough/not enough from target gap and action coverage before reporting landed actions.'
+      : isRiskAsInactionExcuse
       ? 'Risk is routing, not refusal: it changes evidence, boundary, batch size, approval path, and follow-up, but it cannot be used to skip supported operating work.'
       : '',
     nextValidation: {
@@ -351,6 +421,7 @@ function buildLearningPatch(event = {}, audit = {}) {
         'confirm all generated risk tasks have owner and status',
         'confirm same-rule scan found zero unresolved high-risk repeats or generated follow-up tasks',
         'confirm future daily decisions read this correction lesson before same-surface actions',
+        ...(isCoverageUnderreach ? ['confirm future coverage/growth answers start with sufficiency, gap, coverage ratio, and missing layers'] : []),
         ...(isRiskAsInactionExcuse ? ['confirm future supported operating actions route to execute path or explicit unsupported-gap task instead of no-op'] : []),
       ],
     },

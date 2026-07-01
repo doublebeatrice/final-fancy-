@@ -97,6 +97,14 @@ async function findInventoryTab() {
   return tab;
 }
 
+async function findPanelTab() {
+  const tabs = await listTabs();
+  return tabs.find(item =>
+    String(item.url || '').startsWith('chrome-extension://') &&
+    String(item.title || '').includes('YSWG')
+  ) || null;
+}
+
 function evalInTab(ws, expression, timeoutMs = 240000) {
   return new Promise((resolve, reject) => {
     const id = Math.floor(Math.random() * 1000000000);
@@ -149,11 +157,12 @@ async function captureAndFetchRows(maxPages = 200) {
       const frames = [...document.querySelectorAll('iframe')]
         .filter(frame => (frame.src || '').includes('/pm/formal/list?tempid=') && !(frame.src || '').includes('variant_sku'));
       const frame = frames[0] || [...document.querySelectorAll('iframe')].find(item => (item.src || '').includes('/pm/formal/list'));
-      if (!frame || !frame.contentWindow || !frame.contentDocument) {
+      const useCurrentPage = !frame && String(location.href || '').includes('/pm/formal/list');
+      if (!useCurrentPage && (!frame || !frame.contentWindow || !frame.contentDocument)) {
         return JSON.stringify({ ok: false, error: 'inventory list frame not found' });
       }
-      const win = frame.contentWindow;
-      const doc = frame.contentDocument;
+      const win = useCurrentPage ? window : frame.contentWindow;
+      const doc = useCurrentPage ? document : frame.contentDocument;
       let captured = null;
       const originalOpen = win.XMLHttpRequest.prototype.open;
       const originalSend = win.XMLHttpRequest.prototype.send;
@@ -223,6 +232,7 @@ async function captureAndFetchRows(maxPages = 200) {
       }
       return JSON.stringify({
         ok: true,
+        source: 'filtered_list_request',
         rowCount: allRows.length,
         total,
         limit,
@@ -233,14 +243,82 @@ async function captureAndFetchRows(maxPages = 200) {
   `;
   try {
     const raw = await evalInTab(ws, expression, 300000);
-    return JSON.parse(raw || '{}');
+    return parseEvalResult(raw);
   } finally {
     ws.close();
   }
 }
 
+function parseEvalResult(raw) {
+  if (raw && typeof raw === 'object') return raw;
+  return JSON.parse(raw || '{}');
+}
+
+async function capturePanelInventoryRows() {
+  const tab = await findPanelTab();
+  if (!tab?.webSocketDebuggerUrl) {
+    return { ok: false, source: 'panel_fetchAllInventoryDirect', error: 'panel tab not found', rows: [], rowCount: 0 };
+  }
+  const ws = new WebSocket(tab.webSocketDebuggerUrl);
+  await new Promise(resolve => ws.on('open', resolve));
+  const expression = `
+    (async () => {
+      const rowsFrom = (value) => {
+        if (Array.isArray(value)) return value;
+        if (Array.isArray(value?.rows)) return value.rows;
+        if (Array.isArray(value?.data)) return value.data;
+        if (Array.isArray(value?.items)) return value.items;
+        return [];
+      };
+      if (typeof fetchAllInventoryDirect !== 'function') {
+        return JSON.stringify({ ok: false, source: 'panel_fetchAllInventoryDirect', error: 'fetchAllInventoryDirect not available', rows: [], rowCount: 0 });
+      }
+      if (typeof findTab !== 'function') {
+        return JSON.stringify({ ok: false, source: 'panel_fetchAllInventoryDirect', error: 'findTab not available', rows: [], rowCount: 0 });
+      }
+      const inventoryTab = await findTab('*://sellerinventory.yswg.com.cn/*');
+      if (!inventoryTab?.id) {
+        return JSON.stringify({ ok: false, source: 'panel_fetchAllInventoryDirect', error: 'sellerinventory tab not found by panel', rows: [], rowCount: 0 });
+      }
+      if (typeof ensureInventoryListPage === 'function') await ensureInventoryListPage(inventoryTab.id);
+      const value = await fetchAllInventoryDirect(inventoryTab.id);
+      const rows = rowsFrom(value);
+      return JSON.stringify({
+        ok: rows.length > 0,
+        source: 'panel_fetchAllInventoryDirect',
+        rowCount: rows.length,
+        total: Number(value?.total || value?.count || rows.length),
+        rows,
+      });
+    })()
+  `;
+  try {
+    const raw = await evalInTab(ws, expression, 300000);
+    return parseEvalResult(raw);
+  } catch (error) {
+    return { ok: false, source: 'panel_fetchAllInventoryDirect', error: error.message, rows: [], rowCount: 0 };
+  } finally {
+    ws.close();
+  }
+}
+
+function recoveryRowCount(result = {}) {
+  return Array.isArray(result.rows) ? result.rows.length : Number(result.rowCount || 0);
+}
+
+function chooseBestRecoveryResult(listResult = {}, panelResult = {}) {
+  const candidates = [listResult, panelResult]
+    .filter(result => result?.ok && recoveryRowCount(result) > 0)
+    .sort((a, b) => recoveryRowCount(b) - recoveryRowCount(a));
+  return candidates[0] || listResult || panelResult || {};
+}
+
 async function run(options = parseArgs()) {
-  const result = await captureAndFetchRows(options.maxPages);
+  const listResult = await captureAndFetchRows(options.maxPages);
+  const panelResult = recoveryRowCount(listResult) < 100
+    ? await capturePanelInventoryRows()
+    : { ok: false, source: 'panel_fetchAllInventoryDirect', rows: [], rowCount: 0, skipped: 'list_result_large_enough' };
+  const result = chooseBestRecoveryResult(listResult, panelResult);
   if (!result.ok || !Array.isArray(result.rows) || !result.rows.length) {
     throw new Error(`inventory recovery failed: ${JSON.stringify({ ok: result.ok, error: result.error, status: result.status, page: result.page, rowCount: result.rowCount })}`);
   }
@@ -251,18 +329,24 @@ async function run(options = parseArgs()) {
   fs.mkdirSync(path.dirname(metaFile), { recursive: true });
   fs.writeFileSync(metaFile, JSON.stringify({
     exportedAt: new Date().toISOString(),
-    source: '/pm/formal/list',
+    source: result.source || '/pm/formal/list',
     date: options.date,
     rowCount: result.rowCount,
     total: result.total,
     limit: result.limit,
     pagesFetched: result.pagesFetched,
     csvFile,
+    fallbacks: {
+      filteredListRows: recoveryRowCount(listResult),
+      panelDirectRows: recoveryRowCount(panelResult),
+      selectedSource: result.source || 'filtered_list_request',
+      panelError: panelResult.error || '',
+    },
   }, null, 2), 'utf8');
   return {
     ok: true,
     date: options.date,
-    source: '/pm/formal/list',
+    source: result.source || '/pm/formal/list',
     rowCount: result.rowCount,
     total: result.total,
     pagesFetched: result.pagesFetched,
@@ -281,4 +365,4 @@ if (require.main === module) {
     });
 }
 
-module.exports = { run, writeCsv };
+module.exports = { chooseBestRecoveryResult, parseEvalResult, run, writeCsv };

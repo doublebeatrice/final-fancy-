@@ -1,0 +1,16 @@
+{
+  "baseUrl": "https://ilinkai.weixin.qq.com",
+  "token": "",
+  "accountId": "",
+  "toUserId": "",
+  "contextToken": "",
+  "dryRun": true,
+  "codexModel": "",
+  "botName": "小哆",
+  "operatorName": "哆布",
+  "watchlistFile": "data/tasks/sku_watchlist.json",
+  "reviewQueueFile": "",
+  "outFile": "",
+  "textFile": "",
+  "stateFile": "data/agent/weixin_clawbot_reminders_state.json"
+}

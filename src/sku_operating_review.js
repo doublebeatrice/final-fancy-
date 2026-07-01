@@ -103,18 +103,20 @@ function yoyFor(card = {}) {
 }
 
 function profitRateFor(card = {}) {
-  const raw = firstDefined(card, ['netProfit', 'net_profit', 'busyNetProfit', 'busy_net_profit', 'profitRate']);
+  const raw = firstDefined(card, ['referenceNetProfit', 'reference_net_profit', 'netProfit', 'net_profit', 'busyNetProfit', 'busy_net_profit', 'profitRate']);
   return raw === null ? 0 : round(raw, 4);
 }
 
 function profitSourceFor(card = {}) {
-  return firstDefined(card, ['netProfit', 'net_profit']) !== null
-    ? 'netProfit'
-    : firstDefined(card, ['busyNetProfit', 'busy_net_profit']) !== null
-      ? 'busyNetProfit'
-      : firstDefined(card, ['profitRate']) !== null
-        ? 'profitRate'
-        : '';
+  return firstDefined(card, ['referenceNetProfit', 'reference_net_profit']) !== null
+    ? 'referenceNetProfit'
+    : firstDefined(card, ['netProfit', 'net_profit']) !== null
+      ? 'netProfit'
+      : firstDefined(card, ['busyNetProfit', 'busy_net_profit']) !== null
+        ? 'busyNetProfit'
+        : firstDefined(card, ['profitRate']) !== null
+          ? 'profitRate'
+          : '';
 }
 
 function inventoryFor(card = {}) {
@@ -339,6 +341,18 @@ function productSelectionEvidenceForCard(card = {}, selectionReports = {}) {
     sourceKeys: row.sourceKeys || [],
     evidenceBoundary: extended.evidenceBoundary || 'selection_read_only_market_evidence',
   };
+}
+
+function normalizeSelectionReportsBySku(reports = {}) {
+  const bySku = reports?.bySku || reports?.bySKU || reports?.selectionReportsBySku || {};
+  if (!bySku || typeof bySku !== 'object') return {};
+  const normalized = {};
+  for (const [sku, report] of Object.entries(bySku)) {
+    const key = text(sku).toUpperCase();
+    if (!key) continue;
+    normalized[key] = normalizeSelectionMarketReport(report);
+  }
+  return normalized;
 }
 
 function summarizeMarketAnalysis(rows = []) {
@@ -571,9 +585,18 @@ function buildAllSkuOperatingReview(input = {}) {
   const snapshot = input.snapshot || {};
   const timeContext = input.timeContext || {};
   const businessDate = dateOnly(timeContext.businessDate || input.businessDate || new Date().toISOString().slice(0, 10));
-  const selectionReports = normalizeSelectionMarketReport(input.selectionReports || input.marketEvidence || snapshot.selectionReports || {});
+  const rawSelectionReports = input.selectionReports || input.marketEvidence || snapshot.selectionReports || {};
+  const selectionReports = normalizeSelectionMarketReport(rawSelectionReports);
+  const selectionReportsBySku = normalizeSelectionReportsBySku(
+    input.selectionReportsBySku || rawSelectionReports || snapshot.selectionReportsBySku || {}
+  );
+  const hasScopedSelectionReports = Object.keys(selectionReportsBySku).length > 0;
   const cards = (snapshot.productCards || []).filter(card => text(card.sku));
   const rows = cards.map(card => {
+    const skuKey = text(card.sku).toUpperCase();
+    const cardSelectionReports = hasScopedSelectionReports
+      ? (selectionReportsBySku[skuKey] || normalizeSelectionMarketReport({}))
+      : selectionReports;
     const lifecycle = lifecycleFor(card, businessDate);
     const yoy = yoyFor(card);
     const ad3 = adWindow(card, '3d');
@@ -605,9 +628,9 @@ function buildAllSkuOperatingReview(input = {}) {
       profile,
       nodePlan,
       verdict,
-      selectionReports,
+      selectionReports: cardSelectionReports,
     });
-    const productSelection = productSelectionEvidenceForCard(card, selectionReports);
+    const productSelection = productSelectionEvidenceForCard(card, cardSelectionReports);
     return {
       sku: text(card.sku),
       asin: text(card.asin),

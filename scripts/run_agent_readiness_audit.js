@@ -69,8 +69,19 @@ function escapeRegExp(value = '') {
 }
 
 function hasCommandOption(value = '', name = '') {
-  const raw = ` ${text(value)} `;
-  return new RegExp(`\\s${escapeRegExp(name)}(?:\\s|=|$)`).test(raw);
+  const raw = text(value);
+  return new RegExp('(^|[\\s"\\\'`])' + escapeRegExp(name) + '(?=$|[\\s="\\\'`])').test(raw);
+}
+
+function hasCommandOptionValue(value = '', name = '', expected = '') {
+  const raw = text(value);
+  return new RegExp(
+    '(^|[\\s"\\\'`])' +
+    escapeRegExp(name) +
+    '(?:["\\\'`])?(?:\\s+|=)(?:["\\\'`])?' +
+    escapeRegExp(expected) +
+    '(?=$|[\\s"\\\'`])'
+  ).test(raw);
 }
 
 function timeOfDayMinutes(value = '') {
@@ -116,6 +127,14 @@ function parseTaskTime(value = '') {
 function reportTime(value = '') {
   const parsed = new Date(text(value));
   return Number.isNaN(parsed.getTime()) ? 0 : parsed.getTime();
+}
+
+function installTime(scheduleInstall = {}, scheduler = {}) {
+  return reportTime(scheduleInstall.generatedAt || scheduler.summary?.scheduleInstallGeneratedAt || '');
+}
+
+function isRunAfterInstall(lastRunMs = 0, installMs = 0) {
+  return !installMs || (lastRunMs > 0 && lastRunMs + 60 * 1000 >= installMs);
 }
 
 function taskResultOk(value = '') {
@@ -255,7 +274,7 @@ function buildChecks(reports = {}, files = {}, options = {}) {
     completionArgs.includes(`AGENT_SCHEDULED_TASK_NAME=${expectedCompletionTaskName}`)
   ) || (
     hasCommandOption(completionArgs, '--scheduled-task-invocation') &&
-    completionArgs.includes(`--scheduled-task-name ${expectedCompletionTaskName}`)
+    hasCommandOptionValue(completionArgs, '--scheduled-task-name', expectedCompletionTaskName)
   );
   const completionGoalFinalReady = completionArgs.includes('AGENT_COMPLETION_GOAL_FINAL=1') ||
     hasCommandOption(completionArgs, '--goal-final');
@@ -314,14 +333,22 @@ function buildChecks(reports = {}, files = {}, options = {}) {
     allowRunningStartTimeProof: true,
   });
   const completionRunning = installedTaskRunning(completion);
+  const scheduleInstallMs = installTime(install, scheduler);
+  const completionLastRunMs = parseTaskTime(completion.lastRunTime);
+  const completionNextRunMs = parseTaskTime(completion.nextRunTime);
+  const completionRunAfterInstall = isRunAfterInstall(completionLastRunMs, scheduleInstallMs);
+  const completionRuntimePending = scheduleInstallMs > 0 &&
+    !completionRunAfterInstall &&
+    completionNextRunMs > reportTime(options.generatedAt || scheduler.generatedAt || '');
   const completionRuntimeOk = completion.ok === true &&
     ['ready', 'running'].includes(text(completion.state).toLowerCase()) &&
     completion.triggerEnabled !== false &&
+    completionRunAfterInstall &&
     completionNatural.observed === true &&
     (completionRunning || taskResultOk(completion.lastTaskResult));
   const completionRuntimeStatus = completionRuntimeOk
     ? 'pass'
-    : (options.requireNaturalScheduledRun === true ? 'fail' : 'warning');
+    : (completionRuntimePending ? 'warning' : (options.requireNaturalScheduledRun === true ? 'fail' : 'warning'));
   checks.push(makeCheck(
     'post_trigger_completion_audit_runtime_proof',
     completionRuntimeStatus,
@@ -336,6 +363,8 @@ function buildChecks(reports = {}, files = {}, options = {}) {
       `nextRunTime=${text(completion.nextRunTime)}`,
       `lastRunTime=${text(completion.lastRunTime)}`,
       `lastTaskResult=${text(completion.lastTaskResult)}`,
+      `installGeneratedAt=${text(install.generatedAt || scheduler.summary?.scheduleInstallGeneratedAt || '')}`,
+      `runAfterInstall=${completionRunAfterInstall}`,
       `completionAuditNaturalRunObserved=${completionNatural.observed}`,
       `proofMode=${completionNatural.proofMode}`,
       `scheduledStartTime=${text(completionPlan.startTime)}`,
@@ -366,8 +395,10 @@ function buildChecks(reports = {}, files = {}, options = {}) {
     'Run supervisor with both --execute and --execute-if-ready plus prior learning continuity.'
   ));
 
-  const gateDecision = text(closedLoop.unattendedGateDecision || gate.decision);
-  const gateBlockers = number(closedLoop.unattendedGateBlockerCount ?? gate.summary?.blockers);
+  const gateDecision = text(gate.decision || closedLoop.unattendedGateDecision);
+  const gateBlockers = gate.summary?.blockers !== undefined
+    ? number(gate.summary?.blockers)
+    : number(closedLoop.unattendedGateBlockerCount);
   const gateReady = gateBlockers === 0 && ['execute_allowed', 'no_actions'].includes(gateDecision);
   checks.push(makeCheck(
     'unattended_execute_gate',
@@ -443,6 +474,28 @@ function buildChecks(reports = {}, files = {}, options = {}) {
     'Keep the risk-as-inaction correction active so supported operating actions route to evidence, schema, dry-run, execute, or explicit unsupported-gap tasks.'
   ));
 
+  const coverageDoNotApplyReady = doNotApply.some(item =>
+    /coverage sufficiency has not been answered before action landing details/i.test(item)
+  );
+  const coverageEvidenceReady = evidenceBeforeReuse.some(item =>
+    /coverage[_\s-]?ratio/i.test(item)
+  );
+  const coverageSufficiencyReady = coverageDoNotApplyReady && coverageEvidenceReady && correctionLessons > 0;
+  checks.push(makeCheck(
+    'coverage_sufficiency_correction_memory',
+    coverageSufficiencyReady ? 'pass' : (options.requireCoverageSufficiencyLesson === true ? 'fail' : 'warning'),
+    'Coverage sufficiency correction is active before growth actions are summarized',
+    [
+      `doNotApplyHit=${coverageDoNotApplyReady}`,
+      `evidenceHit=${coverageEvidenceReady}`,
+      `learningCorrections=${correctionLessons}`,
+      relative(files.learningMemoryFile),
+    ],
+    coverageSufficiencyReady
+      ? 'Keep coverage answers ordered as sufficiency, target gap, click gap, action coverage ratio, missing layers, then action landing.'
+      : 'Regenerate learning memory from the coverage-underreach correction before answering growth, YoY recovery, or coverage questions.'
+  ));
+
   const priorLearningReady = closedLoop.priorLearningMemoryApplied === true &&
     number(closedLoop.priorLearningBlockers) === 0;
   checks.push(makeCheck(
@@ -460,28 +513,40 @@ function buildChecks(reports = {}, files = {}, options = {}) {
       : 'Generate or provide prior learning memory before live unattended execution.'
   ));
 
+  const schedulerLatestHeartbeatMs = reportTime(scheduler.summary?.latestHeartbeatGeneratedAt || '');
+  const heartbeatPendingPostInstall = scheduleInstallMs > 0 &&
+    number(scheduler.summary?.postInstallHeartbeatCount) === 0 &&
+    (!schedulerLatestHeartbeatMs || schedulerLatestHeartbeatMs + 60 * 1000 < scheduleInstallMs);
   const heartbeatReady = scheduler.summary?.latestHeartbeatOk === true &&
     number(scheduler.summary?.consecutiveFailures) === 0 &&
     number(scheduler.summary?.heartbeatCount) > 0;
+  const heartbeatStatus = heartbeatReady ? 'pass' : (heartbeatPendingPostInstall ? 'warning' : 'fail');
   checks.push(makeCheck(
     'scheduler_heartbeat_continuity',
-    heartbeatReady ? 'pass' : 'fail',
-    'Scheduler heartbeat proves recurring unattended supervision is observable',
+    heartbeatStatus,
+    heartbeatPendingPostInstall
+      ? 'Scheduler is installed and waiting for the first post-install heartbeat'
+      : 'Scheduler heartbeat proves recurring unattended supervision is observable',
     [
       relative(files.schedulerAuditFile),
       `heartbeatCount=${number(scheduler.summary?.heartbeatCount)}`,
       `latestHeartbeatOk=${scheduler.summary?.latestHeartbeatOk === true}`,
       `consecutiveFailures=${number(scheduler.summary?.consecutiveFailures)}`,
+      `postInstallHeartbeatCount=${number(scheduler.summary?.postInstallHeartbeatCount)}`,
+      `scheduleInstallGeneratedAt=${text(install.generatedAt || scheduler.summary?.scheduleInstallGeneratedAt || '')}`,
       `nextRunTime=${text(installed.nextRunTime)}`,
     ],
-    'Repair scheduler heartbeat and verify installed task next run time.'
+    heartbeatPendingPostInstall
+      ? 'After the next scheduled run, rerun scheduler/readiness audit and require a fresh post-install heartbeat.'
+      : 'Repair scheduler heartbeat and verify installed task next run time.'
   ));
 
   const nowMs = reportTime(options.generatedAt || supervisor.generatedAt || scheduler.generatedAt || '');
   const latestHeartbeatMs = reportTime(supervisor.generatedAt || scheduler.summary?.latestHeartbeatGeneratedAt || '');
   const lastRunMs = parseTaskTime(installed.lastRunTime);
   const nextRunMs = parseTaskTime(installed.nextRunTime);
-  const runObserved = lastRunMs > 0 && (!nowMs || lastRunMs <= nowMs + 5 * 60 * 1000);
+  const supervisorRunAfterInstall = isRunAfterInstall(lastRunMs, scheduleInstallMs);
+  const runObserved = lastRunMs > 0 && supervisorRunAfterInstall && (!nowMs || lastRunMs <= nowMs + 5 * 60 * 1000);
   const heartbeatAfterLastRun = runObserved ? latestHeartbeatMs + 5 * 60 * 1000 >= lastRunMs : null;
   const installedReady = ['ready', 'running'].includes(text(installed.state).toLowerCase()) && installed.triggerEnabled !== false;
   const running = installedTaskRunning(installed);
@@ -504,6 +569,8 @@ function buildChecks(reports = {}, files = {}, options = {}) {
       `nextRunTime=${text(installed.nextRunTime)}`,
       `lastRunTime=${text(installed.lastRunTime)}`,
       `lastTaskResult=${text(installed.lastTaskResult)}`,
+      `installGeneratedAt=${text(install.generatedAt || scheduler.summary?.scheduleInstallGeneratedAt || '')}`,
+      `runAfterInstall=${supervisorRunAfterInstall}`,
       `scheduledTaskRunObserved=${runObserved}`,
       `latestHeartbeatAfterLastRun=${heartbeatAfterLastRun}`,
     ],
@@ -515,10 +582,11 @@ function buildChecks(reports = {}, files = {}, options = {}) {
   ));
 
   const natural = naturalScheduledRun(installed, options);
-  const naturalObserved = scheduler.summary?.naturalScheduledRunObserved === true || natural.observed;
+  const naturalObserved = scheduler.summary?.naturalScheduledRunObserved === true || (supervisorRunAfterInstall && natural.observed);
+  const naturalPendingPostInstall = scheduleInstallMs > 0 && !supervisorRunAfterInstall && nextRunMs > nowMs;
   const naturalStatus = naturalObserved
     ? 'pass'
-    : (options.requireNaturalScheduledRun === true ? 'fail' : 'warning');
+    : (naturalPendingPostInstall ? 'warning' : (options.requireNaturalScheduledRun === true ? 'fail' : 'warning'));
   checks.push(makeCheck(
     'natural_scheduled_trigger_proof',
     naturalStatus,
@@ -530,6 +598,8 @@ function buildChecks(reports = {}, files = {}, options = {}) {
       relative(files.schedulerAuditFile),
       `nextRunTime=${text(installed.nextRunTime)}`,
       `lastRunTime=${text(installed.lastRunTime)}`,
+      `installGeneratedAt=${text(install.generatedAt || scheduler.summary?.scheduleInstallGeneratedAt || '')}`,
+      `runAfterInstall=${supervisorRunAfterInstall}`,
       `naturalScheduledRunObserved=${naturalObserved}`,
       `expectedPreviousNaturalRun=${text(scheduler.summary?.expectedPreviousNaturalRun || natural.expectedPreviousNaturalRun)}`,
       `toleranceMinutes=${number(scheduler.summary?.naturalScheduleToleranceMinutes || natural.toleranceMinutes)}`,
@@ -583,6 +653,7 @@ function buildAgentReadinessAudit(options = {}, timeContext = {}) {
       completionAuditRuntimeReady: checks.find(item => item.id === 'post_trigger_completion_audit_runtime_proof')?.status === 'pass',
       learningReady: checks.find(item => item.id === 'long_term_learning_memory')?.status !== 'fail',
       correctionReady: checks.find(item => item.id === 'operator_correction_risk_system')?.status !== 'fail',
+      coverageSufficiencyReady: checks.find(item => item.id === 'coverage_sufficiency_correction_memory')?.status === 'pass',
       scheduledRuntimeReady: checks.find(item => item.id === 'scheduled_task_runtime_proof')?.status === 'pass',
       naturalScheduledRuntimeReady: checks.find(item => item.id === 'natural_scheduled_trigger_proof')?.status === 'pass',
     },
@@ -632,6 +703,7 @@ function parseArgs(argv) {
     closedLoopFile: get('--closed-loop') || '',
     requireCorrectionLesson: args.includes('--require-correction-lesson') || process.env.AGENT_REQUIRE_CORRECTION_LESSON === '1',
     requireRiskRoutingLesson: args.includes('--require-risk-routing-lesson') || process.env.AGENT_REQUIRE_RISK_ROUTING_LESSON === '1',
+    requireCoverageSufficiencyLesson: args.includes('--require-coverage-sufficiency-lesson') || process.env.AGENT_REQUIRE_COVERAGE_SUFFICIENCY_LESSON === '1',
     requireNaturalScheduledRun: args.includes('--require-natural-scheduled-run') || process.env.AGENT_REQUIRE_NATURAL_SCHEDULED_RUN === '1',
     naturalScheduleToleranceMinutes: Number(get('--natural-schedule-tolerance-minutes') || process.env.AGENT_NATURAL_SCHEDULE_TOLERANCE_MINUTES || 15),
   };

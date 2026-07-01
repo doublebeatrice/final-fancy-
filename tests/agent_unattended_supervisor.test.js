@@ -94,6 +94,7 @@ function lowRiskOptions(tmpDir, overrides = {}) {
     correctionDir: path.join(tmpDir, 'missing_corrections'),
     skuLessonDir: path.join(tmpDir, 'missing_sku_lessons'),
     generateSchedulerAudit: false,
+    generateBossDailyPaper: false,
     disableTrendAnomalyCheck: true,
     dryRunFeedback: {},
     snapshot: JSON.parse(fs.readFileSync(snapshotFile, 'utf8')),
@@ -452,10 +453,10 @@ function lowRiskOptions(tmpDir, overrides = {}) {
           taskName: isCompletion ? 'AdOpsAgentCompletionAudit' : 'AdOpsAgentUnattendedSupervisor',
           taskPath: '\\',
           state: 'Ready',
-          actionExecute: process.env.ComSpec || 'C:\\Windows\\System32\\cmd.exe',
+          actionExecute: 'powershell.exe',
           actionArguments: isCompletion
-            ? `/d /s /c "\"${process.execPath}\" \"${path.join(root, 'scripts', 'run_agent_completion_audit.js')}\" --out-dir ${tmpDir} --natural-schedule-tolerance-minutes 15 --goal-final --scheduled-task-invocation --scheduled-task-name AdOpsAgentCompletionAudit >> \"${path.join(root, 'data', 'agent', 'unattended_completion_audit_task.log')}\" 2>&1"`
-            : `/d /s /c "\"${process.execPath}\" \"${path.join(root, 'scripts', 'run_agent_unattended_supervisor.js')}\" --out-dir ${tmpDir} --execute --execute-if-ready --command-timeout-ms 30000 >> \"${path.join(root, 'data', 'agent', 'unattended_supervisor_task.log')}\" 2>&1"`,
+            ? `-NoProfile -ExecutionPolicy Bypass -Command "$env:AGENT_TODAY=(Get-Date).ToString('yyyy-MM-dd'); & '${process.execPath}' '${path.join(root, 'scripts', 'run_agent_completion_audit.js')}' '--out-dir' '${tmpDir}' '--natural-schedule-tolerance-minutes' '15' '--goal-final' '--scheduled-task-invocation' '--scheduled-task-name' 'AdOpsAgentCompletionAudit' >> '${path.join(root, 'data', 'agent', 'unattended_completion_audit_task.log')}' 2>&1"`
+            : `-NoProfile -ExecutionPolicy Bypass -Command "$env:AGENT_TODAY=(Get-Date).ToString('yyyy-MM-dd'); & '${process.execPath}' '${path.join(root, 'scripts', 'run_agent_unattended_supervisor.js')}' '--out-dir' '${tmpDir}' '--execute' '--execute-if-ready' '--command-timeout-ms' '30000' >> '${path.join(root, 'data', 'agent', 'unattended_supervisor_task.log')}' 2>&1"`,
           actionWorkingDirectory: path.join(__dirname, '..'),
           triggerEnabled: true,
           runLevel: 'Highest',
@@ -547,6 +548,120 @@ function lowRiskOptions(tmpDir, overrides = {}) {
   assert.strictEqual(earlyHeartbeat.status, 'in_progress');
   assert.strictEqual(earlyHeartbeat.stage, 'closed_loop');
   assert.strictEqual(earlyHeartbeat.ok, false);
+  assert.strictEqual(report.status, 'complete');
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-unattended-supervisor-boss-paper-'));
+  const priorLearningMemoryFile = path.join(tmpDir, 'learning_memory_2026-05-24.json');
+  const paperFile = path.join(tmpDir, 'daily_paper_2026-05-25.md');
+  const jsonFile = path.join(tmpDir, 'boss_daily_paper_2026-05-25.json');
+  writeJson(priorLearningMemoryFile, {
+    status: 'ready',
+    summary: { constraints: 0, blockers: 0, warnings: 0 },
+    nextRunBrief: { mustReadBeforeDecision: [] },
+    tasks: [],
+  });
+  const report = runAgentUnattendedSupervisor({
+    timeContext,
+    today: '2026-05-25',
+    outDir: tmpDir,
+    priorLearningMemoryFile,
+    generateSchedulerAudit: false,
+    generateReadinessAudit: false,
+    generateBossDailyPaper: true,
+    runClosedLoop: () => ({
+      businessDate: '2026-05-25',
+      dataDate: '2026-05-25',
+      summary: {
+        closedLoop: true,
+        dailyClosureStatus: 'complete',
+        commandFailed: 0,
+        writeFailed: 0,
+        writeBlocked: 0,
+        artifactVerificationOk: true,
+        autonomyStatus: 'ready',
+        autonomyBlockerCount: 0,
+        learningMemoryReady: true,
+        learningMemoryStatus: 'ready',
+        unattendedGateDecision: 'no_actions',
+        unattendedExecuted: false,
+      },
+      files: {},
+    }),
+    runBossDailyPaper: ({ today, agentDir }) => {
+      assert.strictEqual(today, '2026-05-25');
+      assert.strictEqual(agentDir, tmpDir);
+      fs.writeFileSync(paperFile, '# daily paper 2026-05-25\n\n## 5. \\u4efb\\u52a1\\u8ddf\\u8fdb\\u88c5\\u7f6e\n- status: complete\n', 'utf8');
+      writeJson(jsonFile, {
+        today,
+        files: { paperFile, jsonFile },
+        verification: { status: 'pass' },
+        taskFollowup: { status: 'complete' },
+      });
+      return {
+        today,
+        files: { paperFile, jsonFile },
+        verification: { status: 'pass' },
+        taskFollowup: { status: 'complete' },
+      };
+    },
+  });
+  assert.strictEqual(report.bossDailyPaper.generated, true);
+  assert.strictEqual(report.bossDailyPaper.status, 'pass');
+  assert.strictEqual(report.bossDailyPaper.taskFollowupStatus, 'complete');
+  assert.strictEqual(report.files.bossDailyPaperFile, paperFile);
+  assert.strictEqual(report.files.bossDailyPaperJsonFile, jsonFile);
+  assert.ok(fs.existsSync(report.files.bossDailyPaperFile));
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-unattended-supervisor-reuse-closed-loop-'));
+  const priorLearningMemoryFile = path.join(tmpDir, 'learning_memory_2026-05-24.json');
+  writeJson(priorLearningMemoryFile, {
+    status: 'ready',
+    summary: { constraints: 0, blockers: 0, warnings: 0 },
+    nextRunBrief: { mustReadBeforeDecision: [] },
+    tasks: [],
+  });
+  writeJson(path.join(tmpDir, 'agent_closed_loop_2026-05-25.json'), {
+    businessDate: '2026-05-25',
+    dataDate: '2026-05-25',
+    summary: {
+      closedLoop: true,
+      dailyClosureStatus: 'complete',
+      commandFailed: 0,
+      writeFailed: 0,
+      writeBlocked: 0,
+      artifactVerificationOk: true,
+      autonomyStatus: 'ready',
+      autonomyBlockerCount: 0,
+      learningMemoryReady: true,
+      learningMemoryStatus: 'ready',
+      priorLearningConstraintTasks: 7,
+      priorLearningBlockers: 7,
+      priorLearningWarnings: 7,
+      unattendedGateDecision: 'no_actions',
+      unattendedExecuted: false,
+    },
+    files: {},
+  });
+  let called = false;
+  const report = runAgentUnattendedSupervisor({
+    timeContext,
+    today: '2026-05-25',
+    outDir: tmpDir,
+    priorLearningMemoryFile,
+    generateBossDailyPaper: false,
+    generateSchedulerAudit: false,
+    generateReadinessAudit: false,
+    runClosedLoop: undefined,
+  });
+  assert.strictEqual(called, false);
+  assert.strictEqual(report.closedLoop.reused, true);
+  assert.strictEqual(report.closedLoop.priorLearningConstraintTasks, 0);
+  assert.strictEqual(report.closedLoop.priorLearningBlockers, 0);
+  assert.strictEqual(report.closedLoop.priorLearningWarnings, 0);
   assert.strictEqual(report.status, 'complete');
 }
 

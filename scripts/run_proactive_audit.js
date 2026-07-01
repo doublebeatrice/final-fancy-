@@ -15,6 +15,8 @@ function parseArgs(argv) {
   return {
     snapshot: get('--snapshot') || process.env.TODAY_TASK_SNAPSHOT || path.join(ROOT, 'data', 'snapshots', 'latest_snapshot.json'),
     site: get('--site') || process.env.AD_OPS_SITE || 'Amazon.com',
+    businessDate: get('--business-date') || process.env.AD_OPS_BUSINESS_DATE || '',
+    dataDate: get('--data-date') || process.env.AD_OPS_DATA_DATE || '',
   };
 }
 
@@ -39,7 +41,11 @@ function main() {
     throw new Error(`missing usable non-empty snapshot with productCards: ${snapshotFile}`);
   }
 
-  const timeContext = buildOpsTimeContext({ site: options.site });
+  const timeContext = buildOpsTimeContext({
+    site: options.site,
+    businessDate: options.businessDate,
+    dataDate: options.dataDate,
+  });
   const audit = buildProactiveOperatingAudit({ snapshot, timeContext });
   audit.snapshotFile = snapshotFile;
 

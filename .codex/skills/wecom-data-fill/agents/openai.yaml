@@ -1,4 +1,4 @@
 interface:
   display_name: "WeCom Data Fill"
-  short_description: "Generate TSV rows for WeCom ops sheets."
-  default_prompt: "Use $wecom-data-fill to generate today's TSV row for the WeCom operations sheet."
+  short_description: "Generate 7-day and 30-day TSV rows."
+  default_prompt: "Use $wecom-data-fill to generate a copy-paste TSV row for the WeCom operations sheet."

@@ -8,6 +8,8 @@ This document defines the operator-approved rules for seasonal listing title edi
 
 Successful sellerinventory submission means the internal edit application was submitted for review. It is not proof that the Amazon front-end listing has changed.
 
+Seasonal listing copy is the receiver gate before seasonal ad acceleration. For a seasonal/event product, do not treat an ad push as the first step when the title, bullets, search terms, main image, price, or Buy Box do not yet support the event buyer intent. Submit or repair the listing first, then verify sellerinventory approval and Amazon/front-end landing before scaling ads. Ads may proceed before a new copy edit only when the current front-end listing already clearly receives the seasonal/event traffic.
+
 Seasonal title edits can be auto-submitted only when all of these are true:
 
 - The SKU is not `saleStatus=保留页面`. Reserved-page products preserve the existing product page and must not receive listing copy edits.

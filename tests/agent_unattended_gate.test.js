@@ -223,6 +223,53 @@ function buildFixture(tmpDir, options = {}) {
 }
 
 {
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-unattended-no-actions-learning-blocked-'));
+  const closedLoopFile = path.join(tmpDir, 'agent_closed_loop_2026-05-25.json');
+  const autonomyAuditFile = path.join(tmpDir, 'autonomy_audit_2026-05-25.json');
+  const learningMemoryFile = path.join(tmpDir, 'learning_memory_2026-05-25.json');
+  const writeExecutionFile = path.join(tmpDir, 'write_execution_2026-05-25.json');
+  writeJson(closedLoopFile, {
+    closedLoop: true,
+    summary: {
+      artifactVerificationOk: true,
+      commandFailed: 0,
+      writeFailed: 0,
+      dailyClosureStatus: 'needs_recovery',
+      kpiRecoveryNextActionsReady: true,
+      snapshotStale: false,
+      dataLagDays: 0,
+    },
+  });
+  writeJson(autonomyAuditFile, {
+    status: 'ready',
+    summary: { blockerCount: 0, failCount: 0 },
+    checks: [],
+  });
+  writeJson(learningMemoryFile, {
+    status: 'blocked_constraints',
+    summary: { blockers: 2, warnings: 0 },
+    nextRunBrief: coverageBrief({ doNotApplyWhen: ['same rule has an unresolved correction audit'] }),
+  });
+  writeJson(writeExecutionFile, {
+    mode: 'skipped',
+    plan: {
+      summary: { totalActions: 0, eligibleActions: 0, blockedActions: 0 },
+    },
+    summary: { failedStages: 0 },
+  });
+  const gate = buildUnattendedGate({
+    closedLoopFile,
+    autonomyAuditFile,
+    learningMemoryFile,
+    writeExecutionFile,
+  }, timeContext);
+  assert.strictEqual(gate.decision, 'no_actions');
+  assert.strictEqual(gate.summary.blockers, 0);
+  assert.ok(gate.warnings.some(issue => issue.id === 'learning_memory_has_blockers'));
+  assert.ok(!gate.issues.some(issue => issue.id === 'learning_memory_has_blockers'));
+}
+
+{
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-unattended-mandatory-open-'));
   const closedLoopFile = path.join(tmpDir, 'agent_closed_loop_2026-05-25.json');
   const autonomyAuditFile = path.join(tmpDir, 'autonomy_audit_2026-05-25.json');

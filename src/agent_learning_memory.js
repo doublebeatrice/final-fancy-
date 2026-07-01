@@ -109,7 +109,9 @@ function defaultAgentFile(prefix, date, ext = 'json') {
 
 function normalizeCorrectionLesson(raw = {}, file = '') {
   const status = text(raw.status || raw.learningPatch?.status || '');
-  const active = !status || ACTIVE_CORRECTION_STATUSES.includes(status);
+  const sourceRawText = text(raw.sourceCorrection?.rawText || raw.learningPatch?.sourceCorrection?.rawText || '');
+  const syntheticLearningMemoryCorrection = sourceRawText.startsWith('learning_memory:correction:');
+  const active = (!status || ACTIVE_CORRECTION_STATUSES.includes(status)) && !syntheticLearningMemoryCorrection;
   const nextValidation = raw.nextValidation || raw.learningPatch?.nextValidation || '';
   const appliesTo = unique(raw.scope?.appliesTo || raw.learningPatch?.scope?.appliesTo || raw.appliesTo || []);
   const immediateControls = unique(raw.immediateControls || raw.learningPatch?.immediateControls || []);
@@ -117,6 +119,7 @@ function normalizeCorrectionLesson(raw = {}, file = '') {
     id: text(raw.lessonId || raw.id || path.basename(file, path.extname(file))),
     status: status || 'active',
     active,
+    syntheticLearningMemoryCorrection,
     source: 'operator_correction',
     sourceFile: relative(file),
     surface: text(raw.scope?.surface || raw.surface || ''),

@@ -27,6 +27,7 @@ const timeContext = {
   assert.ok(ids.includes('selection::market_evidence::keyword-seasonality::read'));
   assert.ok(ids.includes('selection::market_evidence::product-time-machine::read'));
   assert.ok(ids.includes('selection::market_evidence::operating-intelligence::read'));
+  assert.ok(ids.includes('product_line_ops::profile::read'));
   assert.ok(ids.includes('sellerinventory::listing::listing-edit-submit::write'));
   assert.ok(ids.includes('sellerinventory::product_analysis::product-analysis::read'));
   assert.ok(ids.includes('sellerinventory::inventory_removal::removal-inventory-fields::read'));

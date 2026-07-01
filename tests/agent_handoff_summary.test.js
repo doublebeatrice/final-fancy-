@@ -503,6 +503,37 @@ const timeContext = {
 }
 
 {
+  const kpi = buildKpiSummary({
+    sellerSalesRows: [{
+      seller_title: 'selected-total',
+      order_sales: '525427.69',
+      sale_num: '3663',
+      net_profit: '0.1941',
+      refund_percent: '0.0546',
+      ACOS: '0.1998',
+      ROAS: '5.0059',
+      SP: '0.3112',
+      advCost: '0.1012',
+      adv_spend: '53198.34389999999',
+    }],
+  }, {
+    ...timeContext,
+    businessDate: '2026-06-15',
+    dataDate: '2026-06-14',
+  });
+  assert.strictEqual(kpi.nextCheckpoint.target.date, '2026-06-12');
+  assert.strictEqual(kpi.recoveryPace.nextCheckpoint.targetDate, '2026-06-12');
+  assert.strictEqual(kpi.recoveryPace.nextCheckpoint.remainingDays, 1);
+  assert.strictEqual(kpi.recoveryPace.nextBusinessDayTarget.businessDate, '2026-06-16');
+  assert.strictEqual(kpi.recoveryPace.nextBusinessDayTarget.salesTarget, 680000);
+  assert.strictEqual(kpi.recoveryPace.nextBusinessDayTarget.unitsTarget, 4600);
+  assert.strictEqual(kpi.recoveryPace.nextBusinessDayTarget.netProfitRateMin, 0.205);
+  assert.strictEqual(kpi.recoveryPace.nextBusinessDayTarget.acosMax, 0.18);
+  assert.strictEqual(kpi.recoveryPace.nextBusinessDayTarget.refundRateMax, 0.038);
+  assert.strictEqual(kpi.recoveryPace.nextBusinessDayTarget.adCostShareMax, 0.105);
+}
+
+{
   const freshness = buildDataFreshnessSummary({
     businessDate: '2026-05-20',
     dataDate: '2026-05-18',

@@ -1,0 +1,40 @@
+{
+  "sku": "SC3077",
+  "asin": "B0CGV57T53",
+  "grading": {
+    "grade": "边缘老品",
+    "priority": "中等",
+    "strategy": "控制成本、止损，仅处理关键问题"
+  },
+  "attribution": {
+    "indicators": {
+      "salesDown": true,
+      "impressionsDown": true,
+      "clicksDown": true,
+      "ctrDown": true,
+      "cvrDown": false,
+      "acosWorsening": true,
+      "kwTotalDrop": false,
+      "kwAdDrop": false,
+      "kwNfDrop": false,
+      "orderChange": -0.8961038961038961,
+      "impressionChange": -0.6402330270249311,
+      "clickChange": -0.8369148119723715
+    },
+    "pattern": "销量环比下滑90%",
+    "rootCauses": [
+      {
+        "cause": "广告展现量环比大幅下降",
+        "evidence": "展现从103164降至37115（-64%），流量入口收窄",
+        "action": "expand_traffic"
+      },
+      {
+        "cause": "广告效率恶化",
+        "evidence": "ACoS从21.4%升至34.9%，投入产出比下降",
+        "action": "restructure_ads"
+      }
+    ]
+  },
+  "risk": "中",
+  "report": "📋 老品整改问题单\n\nSKU/ASIN：SC3077 / B0CGV57T53\n产品分级：边缘老品（中等优先级）\n整改策略：控制成本、止损，仅处理关键问题\n当前售价：$25.9\n上架日期：2024-08-26\n\n【环比/同比变化】\n- 30天订单：16单（上期154单，-90%）\n- 同比变化：-25%（seller组整体）\n- 30天展现：37115（上期103164）\n- 30天ACoS：34.9%（上期21.4%）\n- 30天CTR：1.1%（上期2.5%）\n- 转化率：3.8%\n\n【前台流量/排名变化（SIF）】\n- 排名关键词总数：94个（上周期49，进49/出4）\n- 自然排名词：54个（上周期49，进9/出4）\n- 广告排名词：63个（上周期0，进63/出0）\n- 核心流量词：jewelry organizer for drawer、jewelry drawer organizer inserts、drawer jewelry organizer tray\n\n【归因诊断】\n下滑类型：销量环比下滑90%\n\n【核心根因】\n1. 广告展现量环比大幅下降\n   数据依据：展现从103164降至37115（-64%），流量入口收窄\n2. 广告效率恶化\n   数据依据：ACoS从21.4%升至34.9%，投入产出比下降\n\n【整改动作】\n1. 检查广告预算是否被自动降低或暂停\n2. 扩大关键词覆盖面（长尾词+竞品词+场景词）\n3. 提高核心词出价至建议竞价的 1.2-1.5 倍\n验证指标：展现量恢复率、新增关键词出单数、CTR\n\n【整改周期】：2周（2026-06-26 至 2026-07-10）\n【风险等级】：中\n【负责人】：__________ 【监督人】：组长\n"
+}

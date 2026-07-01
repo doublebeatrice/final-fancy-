@@ -23,6 +23,10 @@ function optionalText(value) {
   return raw || undefined;
 }
 
+function hasOwnAny(input = {}, keys = []) {
+  return keys.some(key => Object.prototype.hasOwnProperty.call(input, key));
+}
+
 function boolToActivityValue(value, yes = 1, no = 2) {
   if (value === undefined || value === null || value === '') return undefined;
   if (value === true || value === 'true' || value === 'yes' || value === '是' || Number(value) === 1) return yes;
@@ -103,8 +107,9 @@ function normalizeCouponPrefill(input = {}) {
   const investmentDiscount = optionalText(input.investmentDiscount || input.investment_discount);
   if (investmentDiscount) patch.investment_discount = investmentDiscount;
 
-  const keywords = optionalText(input.coreKeywords || input.core_keywords || input.keywords);
-  if (keywords) patch.core_keywords = keywords.slice(0, 100);
+  if (hasOwnAny(input, ['coreKeywords', 'core_keywords', 'keywords'])) {
+    patch.core_keywords = text(input.coreKeywords ?? input.core_keywords ?? input.keywords).slice(0, 100);
+  }
 
   const remark = optionalText(input.remark);
   if (remark) patch.remark = remark.slice(0, 500);

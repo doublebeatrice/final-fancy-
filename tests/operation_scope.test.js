@@ -14,6 +14,7 @@ const openedUsRow = {
 };
 
 assert.strictEqual(isRowInAllowedOperationScope(openedUsRow), true);
+assert.strictEqual(isRowInAllowedOperationScope({ ...openedUsRow, saleStatus: '发货限制安排跟卖' }), true);
 assert.strictEqual(isRowInAllowedOperationScope({ ...openedUsRow, saleStatus: '停售' }), false);
 assert.strictEqual(isRowInAllowedOperationScope({ ...openedUsRow, salesChannel: 'Amazon.de' }), false);
 assert.strictEqual(isRowInAllowedOperationScope({ ...openedUsRow, fuldate: '', opendate: '' }), false);
@@ -66,8 +67,29 @@ assert.strictEqual(isRowInAllowedOperationScope({ ...openedUsRow, fuldate: '', o
 {
   const scope = analyzeAllowedOperationScope({
     productCards: [{ sku: 'MH0525' }],
+    productAdRows: [
+      {
+        sku: 'MH0525',
+        asin: 'B09KLVT7NB',
+        siteId: 4,
+        skuInvData: {
+          sku: 'MH0525',
+          asin: 'B09KLVT7NB',
+          sale_status: '发货限制安排跟卖',
+          ful_date: '2022-01-16',
+        },
+      },
+    ],
+  });
+  assert.strictEqual(scope.summary.allowedScopeSkuCount, 1);
+  assert.ok(scope.allowedSkuSet.has('MH0525'));
+}
+
+{
+  const scope = analyzeAllowedOperationScope({
+    productCards: [{ sku: 'MH0525' }],
     inventoryScopeRows: [
-      { ...openedUsRow, sku: 'MH0525', saleStatus: '发货限制安排跟卖' },
+      { ...openedUsRow, sku: 'MH0525', saleStatus: '停售' },
     ],
   });
 

@@ -34,6 +34,7 @@ const timeContext = {
   assert.ok(item.requiredCapabilities.includes('selection::market_evidence::keyword-seasonality::read'));
   assert.ok(item.requiredCapabilities.includes('selection::market_evidence::product-time-machine::read'));
   assert.ok(item.requiredCapabilities.includes('selection::market_evidence::operating-intelligence::read'));
+  assert.ok(item.requiredCapabilities.includes('product_line_ops::profile::read'));
   assert.ok(item.nextStep.includes('选品'));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:keyword-research')));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:keyword-conversion')));
@@ -41,6 +42,14 @@ const timeContext = {
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:keyword-seasonality')));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:product-time-machine')));
   assert.ok(item.executionPlan.commands.some(command => command.command.includes('ops:selection:operating-intelligence')));
+  const commands = item.executionPlan.commands.map(command => command.command);
+  assert.ok(commands.find(command => command.includes('ops:selection:keyword-research')).includes('--out data\\snapshots\\selection_keyword_research_2026-05-19.json'));
+  assert.ok(commands.find(command => command.includes('ops:selection:keyword-conversion')).includes('--out data\\snapshots\\selection_keyword_conversion_rate_2026-05-19.json'));
+  assert.ok(commands.find(command => command.includes('ops:selection:aba-search-terms')).includes('--out data\\snapshots\\selection_aba_search_terms_2026-05-19.json'));
+  assert.ok(commands.find(command => command.includes('ops:selection:keyword-seasonality')).includes('--out data\\snapshots\\selection_keyword_seasonality_2026-05-19.json'));
+  assert.ok(commands.find(command => command.includes('ops:selection:product-time-machine')).includes('--out data\\snapshots\\selection_product_time_machine_2026-05-19.json'));
+  assert.ok(commands.find(command => command.includes('ops:product-line:profile')).includes('--out data\\snapshots\\product_line_ops_profile_2026-05-19.json'));
+  assert.ok(commands.find(command => command.includes('ops:product-line:profile')).includes('--sif-reverse-keywords-report data\\snapshots\\sif_reverse_keywords_2026-05-19.json'));
 }
 
 {
@@ -93,6 +102,7 @@ const timeContext = {
   const readiness = item.executionPlan.commands.find(command => command.command.includes('ops:agent:readiness-audit'));
   assert.ok(readiness.command.includes('--require-correction-lesson'));
   assert.ok(readiness.command.includes('--require-risk-routing-lesson'));
+  assert.ok(readiness.command.includes('--require-coverage-sufficiency-lesson'));
 }
 
 {

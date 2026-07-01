@@ -4234,6 +4234,7 @@ function buildInvMap(rows) {
       seaProfitRate:  parseFloat(r.seaProfitRate || 0),       // 海运利润率
       netProfit:      parseFloat(r.net_profit || 0),          // Q1-Q3 参考净利润率
       busyNetProfit:  parseFloat(r.busy_net_profit || 0),     // Q4 参考净利润率（含旺季仓储费）
+      referenceNetProfit: parseFloat(r.reference_net_profit || 0) ? parseFloat(r.reference_net_profit) / 100 : null, // 面板"参考净利率"(百分比→小数)，无值时为null回落netProfit
       invDays:        sellableFulRes['30d'],
       sellableDays_3d: sellableFulRes['3d'],
       sellableDays_7d: sellableFulRes['7d'],
@@ -4519,6 +4520,7 @@ function buildProductCards(kwRows, autoRows, invMap, listingMap, targetRows = []
         seaProfitRate: inv.seaProfitRate  || 0,
         netProfit:     inv.netProfit      || 0,
         busyNetProfit: inv.busyNetProfit  || 0,
+        referenceNetProfit: inv.referenceNetProfit ?? null,
         invDays:       inv.invDays        || 0,
         sellableDays_3d: inv.sellableDays_3d || 0,
         sellableDays_7d: inv.sellableDays_7d || 0,

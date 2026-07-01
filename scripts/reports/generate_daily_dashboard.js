@@ -411,11 +411,11 @@ function dashboardHtml(model) {
   const nextGapDate = nextGap.date || nextGap.target?.date || '';
   const missedGapDate = missedGap.date || missedGap.target?.date || '';
   const recoveryPace = handoffKpi.recoveryPace || {};
+  const kpiGate = agentClosedLoop.kpiRecoveryGate || {};
   const nextPace = recoveryPace.nextCheckpoint || {};
   const finalPace = recoveryPace.finalTarget || {};
-  const nextDayTarget = recoveryPace.nextBusinessDayTarget || {};
+  const nextDayTarget = recoveryPace.nextBusinessDayTarget || kpiGate.target || {};
   const nextDayGate = recoveryPace.nextBusinessDayGate || {};
-  const kpiGate = agentClosedLoop.kpiRecoveryGate || {};
   const kpiGateStatus = agentSummary.kpiGateStatus || kpiGate.status || nextDayGate.status || (nextDayTarget.businessDate ? 'target_set' : 'missing');
   const kpiGateEvaluatedBusinessDate = agentSummary.kpiGateEvaluatedBusinessDate || kpiGate.evaluatedBusinessDate || '';
   const kpiGateDataDate = agentSummary.kpiGateDataDate || kpiGate.dataDate || '';
@@ -693,8 +693,8 @@ function dashboardHtml(model) {
       <div class="status-card ${effectReviewDue > 0 && effectReviewTotal >= effectReviewDue && effectReviewFeedbackApplied >= effectReviewDue ? 'good' : 'warn'}">
         <div class="status-label">Effect review coverage</div>
         <div class="status-value">${int(effectReviewTotal)} / ${int(effectReviewDue)}</div>
-        <div class="status-note">dueReviews ${int(effectReviewDue)} | reviewQueueDue ${int(reviewQueueDue)} | effectReviewTotal ${int(effectReviewTotal)} | feedbackApplied ${int(effectReviewFeedbackApplied)}</div>
-        <div class="status-note">needsAction ${int(effectReviewNeedsAction)} | blocked ${int(effectReviewBlocked)} | continueWatch ${int(effectReviewContinueWatch)}</div>
+        <div class="status-note">dueReviews ${num(effectReviewDue)} | reviewQueueDue ${num(reviewQueueDue)} | effectReviewTotal ${num(effectReviewTotal)} | feedbackApplied ${num(effectReviewFeedbackApplied)}</div>
+        <div class="status-note">needsAction ${num(effectReviewNeedsAction)} | blocked ${num(effectReviewBlocked)} | continueWatch ${num(effectReviewContinueWatch)}</div>
       </div>
       <div class="status-card ${agentActionSuccess > 0 ? 'good' : 'warn'}">
         <div class="status-label">已落地动作</div>

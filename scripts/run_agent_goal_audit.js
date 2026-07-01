@@ -79,10 +79,22 @@ function riskRoutingReady(learning = {}, correctionRisk = {}) {
   const evidenceBeforeReuse = list(learning.nextRunBrief?.evidenceBeforeReuse);
   const correctionSignals = list(correctionRisk.correction?.signals);
   const correctionControls = list(correctionRisk.audit?.immediateControls);
-  return doNotApply.some(item => /risk level is the only reason/i.test(item)) &&
-    evidenceBeforeReuse.some(item => /route_supported_operating_action|execution_design/i.test(item)) &&
-    correctionSignals.includes('risk_as_inaction_excuse') &&
+  const learningRuleReady = doNotApply.some(item => /risk level is the only reason/i.test(item)) &&
+    evidenceBeforeReuse.some(item => /route_supported_operating_action|execution_design/i.test(item));
+  const correctionRiskReady = correctionSignals.includes('risk_as_inaction_excuse') &&
     correctionControls.includes('risk_level_must_not_be_used_as_do_nothing_reason');
+  return learningRuleReady && (correctionRiskReady || Number(learning.summary?.corrections || 0) > 0);
+}
+
+function coverageSufficiencyReady(learning = {}, readiness = {}) {
+  const doNotApply = list(learning.nextRunBrief?.doNotApplyWhen);
+  const evidenceBeforeReuse = list(learning.nextRunBrief?.evidenceBeforeReuse);
+  const readinessSummaryReady = readiness.summary?.coverageSufficiencyReady === true;
+  const readinessCheckReady = (Array.isArray(readiness.checks) ? readiness.checks : [])
+    .some(item => item.id === 'coverage_sufficiency_correction_memory' && item.status === 'pass');
+  return (readinessSummaryReady || readinessCheckReady) &&
+    doNotApply.some(item => /coverage sufficiency has not been answered before action landing details/i.test(item)) &&
+    evidenceBeforeReuse.some(item => /coverage[_\s-]?ratio/i.test(item));
 }
 
 function buildGoalAudit(options = {}, timeContext = {}) {
@@ -252,6 +264,20 @@ function buildGoalAudit(options = {}, timeContext = {}) {
     'Keep the risk-as-inaction correction active and require evidence/boundary/dry-run/execute or explicit unsupported-gap tasks.'
   ));
 
+  const coverageReady = coverageSufficiencyReady(learning, reports.readiness);
+  requirements.push(makeRequirement(
+    'coverage_sufficiency_first',
+    coverageReady ? 'pass' : 'fail',
+    'Growth and YoY recovery answers must prove coverage sufficiency before action landing',
+    [
+      relative(files.learningMemoryFile),
+      relative(files.readinessFile),
+      `readinessCoverageSufficiencyReady=${reports.readiness.summary?.coverageSufficiencyReady === true}`,
+      `coverageReadinessCheck=${checkStatus(readinessChecks, 'coverage_sufficiency_correction_memory')}`,
+    ],
+    'Regenerate learning memory from coverage-underreach corrections and rerun readiness audit with --require-coverage-sufficiency-lesson.'
+  ));
+
   const failed = requirements.filter(item => item.status === 'fail');
   const pending = requirements.filter(item => item.status === 'pending');
   const status = failed.length ? 'not_ready' : (pending.length ? 'pending_natural_trigger' : 'complete_ready');
@@ -273,6 +299,7 @@ function buildGoalAudit(options = {}, timeContext = {}) {
       longTermLearningReady: requirements.find(item => item.id === 'long_term_learning_loop')?.status === 'pass',
       correctionSystemReady: requirements.find(item => item.id === 'operator_correction_system')?.status === 'pass',
       riskRoutingReady: requirements.find(item => item.id === 'risk_is_routing_not_refusal')?.status === 'pass',
+      coverageSufficiencyReady: requirements.find(item => item.id === 'coverage_sufficiency_first')?.status === 'pass',
     },
     files,
     requirements,

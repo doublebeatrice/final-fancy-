@@ -144,6 +144,13 @@ function buildUnattendedGate(options = {}, timeContext = {}) {
   const learningMemory = options.learningMemory || readJson(learningMemoryFile, {});
   const writeExecution = options.writeExecution || readJson(writeExecutionFile, {});
   const summary = closedLoop.summary || {};
+  const handoffJsonFile = options.handoffJsonFile || closedLoop.files?.handoffJsonFile || defaultAgentFile('agent_handoff', businessDate);
+  const handoffJson = options.handoffJson || readJson(handoffJsonFile, {});
+  const artifactVerificationOk = summary.artifactVerificationOk === true ||
+    (summary.artifactVerificationOk === undefined && handoffJson.summary?.artifactVerificationOk === true);
+  const artifactVerificationErrors = Array.isArray(summary.artifactVerificationErrors)
+    ? summary.artifactVerificationErrors
+    : (Array.isArray(handoffJson.summary?.artifactVerificationErrors) ? handoffJson.summary.artifactVerificationErrors : []);
   const plan = writeExecution.plan || {};
   const eligibleActionCount = Math.max(number(plan.summary?.eligibleActions), Array.isArray(plan.eligible) ? plan.eligible.length : 0);
   const hasEligibleWriteActions = eligibleActionCount > 0;
@@ -158,11 +165,11 @@ function buildUnattendedGate(options = {}, timeContext = {}) {
       nextAction: 'Run a clean closed-loop before unattended execute is considered.',
     });
   }
-  if (summary.artifactVerificationOk !== true) {
+  if (artifactVerificationOk !== true) {
     addIssue(issues, {
       id: 'artifact_verification_not_clean',
       title: 'Artifact verification is not clean',
-      evidence: summary.artifactVerificationErrors || [],
+      evidence: artifactVerificationErrors,
       nextAction: 'Fix artifact verification errors before live unattended execution.',
     });
   }
@@ -258,11 +265,14 @@ function buildUnattendedGate(options = {}, timeContext = {}) {
       nextAction: 'Regenerate learning memory from coverage-underreach corrections before unattended live execution.',
     });
   } else if (number(learningMemory.summary?.blockers) > 0 || text(learningMemory.status) === 'blocked_constraints') {
-    addIssue(issues, {
+    addIssue(hasEligibleWriteActions ? issues : warnings, {
       id: 'learning_memory_has_blockers',
+      severity: hasEligibleWriteActions ? 'blocker' : 'warning',
       title: 'Learning memory has active blockers',
       evidence: [`blockers=${number(learningMemory.summary?.blockers)}`, `status=${text(learningMemory.status)}`],
-      nextAction: 'Resolve correction or learning blockers before unattended execute.',
+      nextAction: hasEligibleWriteActions
+        ? 'Resolve correction or learning blockers before unattended execute.'
+        : 'No write action is eligible; keep learning blockers open for control-plane readiness and the next evidence loop.',
     });
   } else if (number(learningMemory.summary?.warnings) > 0) {
     addIssue(warnings, {

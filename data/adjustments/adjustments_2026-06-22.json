@@ -1,0 +1,3824 @@
+[
+  {
+    "sku": "lowEff::kw::311487632808413",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "311487632808413",
+    "entityName": "salad prep containers with lids",
+    "beforeValue": 0.94,
+    "afterValue": 0.09,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_extreme_acos_cut] 7d ACOS is still high despite orders: clicks=53, spend=44.50, orders=1, acos=1.060.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "311487632808413"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::144546102770418",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "144546102770418",
+    "entityName": "float pool",
+    "beforeValue": 0.47,
+    "afterValue": 0.44,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=45, spend=20.82, orders=2, acos=0.393.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "144546102770418"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::345644951557478",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "345644951557478",
+    "entityName": "cruise duck tags",
+    "beforeValue": 0.51,
+    "afterValue": 0.46,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=56, spend=28.41, orders=2, acos=0.474.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "345644951557478"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::431366274533992",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "431366274533992",
+    "entityName": "acrylic cakesicle stand",
+    "beforeValue": 0.33,
+    "afterValue": 0.3,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=50, spend=16.26, orders=4, acos=0.319.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "431366274533992"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::148221685425010",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "148221685425010",
+    "entityName": "silicone ties",
+    "beforeValue": 0.72,
+    "afterValue": 0.65,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_high_acos] 30d ACOS is still high despite orders: clicks=7, spend=5.04, orders=1, acos=0.388.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "148221685425010"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::92437649726970",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "92437649726970",
+    "entityName": "dove funeral ribbons",
+    "beforeValue": 0.54,
+    "afterValue": 0.27,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_15d_severe_acos_cut] 15d ACOS is still high despite orders: clicks=15, spend=8.09, orders=1, acos=0.810.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "92437649726970"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::532542430221486",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "532542430221486",
+    "entityName": "bear shirt",
+    "beforeValue": 0.68,
+    "afterValue": 0.6,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=131, spend=80.92, orders=12, acos=0.361.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "532542430221486"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::12285250461163",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "12285250461163",
+    "entityName": "soccer balls",
+    "beforeValue": 0.83,
+    "afterValue": 0.75,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=48, spend=38.24, orders=2, acos=0.472.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "12285250461163"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::397380901477051",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "397380901477051",
+    "entityName": "funeral favors",
+    "beforeValue": 0.58,
+    "afterValue": 0.5,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=21, spend=11.89, orders=1, acos=0.384.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "397380901477051"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::349350784362049",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "349350784362049",
+    "entityName": "metal bucket",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=12, spend=11.24, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "349350784362049"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::474977580858457",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "474977580858457",
+    "entityName": "square containers",
+    "beforeValue": 0.25,
+    "afterValue": 0.22,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=44, spend=10.85, orders=1, acos=0.339.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "474977580858457"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::356422850015968",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "356422850015968",
+    "entityName": "decorate a car baby shower",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=18, spend=10.73, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "356422850015968"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::20098496561896",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "20098496561896",
+    "entityName": "birthday inflatable",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=17, spend=10.27, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "20098496561896"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::232721563829749",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "232721563829749",
+    "entityName": "farmhouse flower bucket",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=14, spend=8.54, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "232721563829749"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::543052294690948",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "543052294690948",
+    "entityName": "turquoise flowers artificial",
+    "beforeValue": 0.57,
+    "afterValue": 0.5,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=15, spend=8.53, orders=1, acos=0.371.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "543052294690948"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::211393370719521",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "211393370719521",
+    "entityName": "christian fathers day gifts",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=16, spend=8.65, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "211393370719521"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::65359201682570",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "65359201682570",
+    "entityName": "eyebrow scissors with comb",
+    "beforeValue": 0.39,
+    "afterValue": 0.36,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=19, spend=7.41, orders=3, acos=0.458.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "65359201682570"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::217807425095153",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "217807425095153",
+    "entityName": "4th of july hat",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=10, spend=7.22, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "217807425095153"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::483326917460297",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "483326917460297",
+    "entityName": "teddy bear shirt pack",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=14, spend=7.05, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "483326917460297"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::514176332294575",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "514176332294575",
+    "entityName": "mini notebook bulk",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=18, spend=6.84, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "514176332294575"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::12033982019871",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "12033982019871",
+    "entityName": "cable ties reusable",
+    "beforeValue": 0.54,
+    "afterValue": 0.49,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=13, spend=6.80, orders=1, acos=0.378.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "12033982019871"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::51146863059462",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "51146863059462",
+    "entityName": "birthday pool float",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=18, spend=6.30, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "51146863059462"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::436321558538834",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "436321558538834",
+    "entityName": "+rainbow +tablecloth",
+    "beforeValue": 0.36,
+    "afterValue": 0.33,
+    "reason": "[low_efficiency_pool:improving_marginally:residual_30d_high_acos] 30d ACOS is still high despite orders: clicks=19, spend=7.14, orders=1, acos=0.447.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "436321558538834"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::518125965969590",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "518125965969590",
+    "entityName": "bee baby shower",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:mixed_other:residual_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=28, spend=5.69, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "518125965969590"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::362980411266301",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "362980411266301",
+    "entityName": "wooden keychain blanks",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=9, spend=6.99, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "362980411266301"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::550970546829687",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "550970546829687",
+    "entityName": "cars for baby shower to decorate",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_15d_zero_order_hard_stop] 15d still has clicks/spend with zero orders: clicks=11, spend=5.72, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "550970546829687"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::150321222438184",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "150321222438184",
+    "entityName": "pride table cloth",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_15d_zero_order_hard_stop] 15d still has clicks/spend with zero orders: clicks=7, spend=4.97, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "150321222438184"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::509205651871138",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "509205651871138",
+    "entityName": "rainbow birthday party decorations",
+    "beforeValue": 0.8,
+    "afterValue": 0.75,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=6, spend=4.80, orders=1, acos=0.534.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "509205651871138"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::278892504034910",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "278892504034910",
+    "entityName": "personalized funeral favors",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:mixed_other:residual_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=12, spend=4.56, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "278892504034910"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::89300982979305",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "89300982979305",
+    "entityName": "pride decorations",
+    "beforeValue": 0.57,
+    "afterValue": 0.28,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_severe_acos_cut] 30d ACOS is still high despite orders: clicks=11, spend=6.15, orders=1, acos=0.684.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "89300982979305"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::151260108418983",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "151260108418983",
+    "entityName": "bridesmaid box stickers",
+    "beforeValue": 0.24,
+    "afterValue": 0.21,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=19, spend=4.52, orders=1, acos=0.452.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "151260108418983"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::136900997488177",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "136900997488177",
+    "entityName": "funeral favors",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:volatile_15_7:residual_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=14, spend=4.48, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "136900997488177"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::182524355985491",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "182524355985491",
+    "entityName": "funeral ribbons",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:improving_marginally:residual_15d_zero_order_hard_stop] 15d still has clicks/spend with zero orders: clicks=17, spend=4.92, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "182524355985491"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::42960567124631",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "42960567124631",
+    "entityName": "purple memorial ribbon",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:volatile_15_7:residual_15d_zero_order_hard_stop] 15d still has clicks/spend with zero orders: clicks=21, spend=7.10, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "42960567124631"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::205332413686549",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "205332413686549",
+    "entityName": "pride tablecloth",
+    "beforeValue": 0.77,
+    "afterValue": 0.7,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=5, spend=3.85, orders=1, acos=0.428.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "205332413686549"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::175879558341675",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "175879558341675",
+    "entityName": "rainbow umbrella hat",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=13, spend=5.18, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "175879558341675"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::153742760917362",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "153742760917362",
+    "entityName": "bouquet sash",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=9, spend=3.34, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "153742760917362"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::159990468671135",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "159990468671135",
+    "entityName": "pride table decorations",
+    "beforeValue": 0.82,
+    "afterValue": 0.75,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=4, spend=3.22, orders=1, acos=0.358.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "159990468671135"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::214821287658381",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "214821287658381",
+    "entityName": "minister book for vow",
+    "beforeValue": 0.3,
+    "afterValue": 0.27,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_high_acos] 30d ACOS is still high despite orders: clicks=18, spend=5.40, orders=1, acos=0.541.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "214821287658381"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::448531312381357",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "448531312381357",
+    "entityName": "pressed sunflowers",
+    "beforeValue": 0.27,
+    "afterValue": 0.24,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=10, spend=2.70, orders=1, acos=0.338.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "448531312381357"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::29798273684350",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "keyword",
+    "entityId": "29798273684350",
+    "entityName": "grief gifts",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:volatile_15_7:residual_15d_zero_order_hard_stop] 15d still has clicks/spend with zero orders: clicks=12, spend=3.97, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "29798273684350"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::kw::98531145845031",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "keyword",
+    "entityId": "98531145845031",
+    "entityName": "grooming scissors for women",
+    "beforeValue": 0.35,
+    "afterValue": 0.32,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=6, spend=2.34, orders=1, acos=0.434.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "98531145845031"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::487683838650453",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "487683838650453",
+    "entityName": "queryHighRelMatches",
+    "beforeValue": 0.84,
+    "afterValue": 0.75,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=65, spend=54.76, orders=7, acos=0.460.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "487683838650453"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::119914567192587",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "119914567192587",
+    "entityName": "asinSubstituteRelated",
+    "beforeValue": 0.26,
+    "afterValue": 0.13,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_severe_acos_cut] 7d ACOS is still high despite orders: clicks=44, spend=23.38, orders=2, acos=0.900.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "119914567192587"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::389066907702530",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "389066907702530",
+    "entityName": "asinSubstituteRelated",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=6, spend=5.18, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "389066907702530"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::359758411135839",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "359758411135839",
+    "entityName": "queryHighRelMatches",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=39, spend=20.27, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "359758411135839"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::370012269163910",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "370012269163910",
+    "entityName": "queryBroadRelMatches",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=15, spend=12.38, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "370012269163910"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::370045292584126",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "370045292584126",
+    "entityName": "queryBroadRelMatches",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=17, spend=11.22, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "370045292584126"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::307316565405326",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "307316565405326",
+    "entityName": "queryHighRelMatches",
+    "beforeValue": 0.38,
+    "afterValue": 0.35,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=29, spend=10.64, orders=1, acos=0.426.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "307316565405326"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::532887724747846",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "532887724747846",
+    "entityName": "asinSubstituteRelated",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=17, spend=8.47, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "532887724747846"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::404974428702951",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "404974428702951",
+    "entityName": "queryBroadRelMatches",
+    "beforeValue": 0.36,
+    "afterValue": 0.33,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=22, spend=7.26, orders=1, acos=0.363.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "404974428702951"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::398654531707777",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "398654531707777",
+    "entityName": "queryBroadRelMatches",
+    "beforeValue": 0.28,
+    "afterValue": 0.25,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=26, spend=7.26, orders=1, acos=0.519.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "398654531707777"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::561645180693165",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "561645180693165",
+    "entityName": "queryHighRelMatches",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=24, spend=6.39, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "561645180693165"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::557589536673720",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "557589536673720",
+    "entityName": "queryBroadRelMatches",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_15d_zero_order_hard_stop] 15d still has clicks/spend with zero orders: clicks=74, spend=9.91, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "557589536673720"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::481946637412801",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "481946637412801",
+    "entityName": "queryHighRelMatches",
+    "beforeValue": 0.26,
+    "afterValue": 0.23,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=22, spend=5.71, orders=1, acos=0.572.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "481946637412801"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::416099818886368",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "416099818886368",
+    "entityName": "queryHighRelMatches",
+    "beforeValue": 0.44,
+    "afterValue": 0.41,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=12, spend=5.28, orders=1, acos=0.330.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "416099818886368"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::330334528969226",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "330334528969226",
+    "entityName": "queryHighRelMatches",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=15, spend=4.45, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "330334528969226"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::508288819388115",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "508288819388115",
+    "entityName": "asinSubstituteRelated",
+    "beforeValue": 0.5,
+    "afterValue": 0.45,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=7, spend=3.50, orders=1, acos=0.350.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "508288819388115"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::407898808935075",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "407898808935075",
+    "entityName": "queryBroadRelMatches",
+    "beforeValue": 0.22,
+    "afterValue": 0.19,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=16, spend=3.37, orders=1, acos=0.337.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "407898808935075"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::424343175739937",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "424343175739937",
+    "entityName": "asinSubstituteRelated",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=5, spend=2.84, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "424343175739937"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::307391484326764",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "307391484326764",
+    "entityName": "queryBroadRelMatches",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=13, spend=2.41, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "307391484326764"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::300299242396174",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "autoTarget",
+    "entityId": "300299242396174",
+    "entityName": "queryHighRelMatches",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:mixed_other:residual_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=6, spend=2.10, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "300299242396174"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::514566732935227",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "514566732935227",
+    "entityName": "asinSubstituteRelated",
+    "beforeValue": 0.17,
+    "afterValue": 0.15,
+    "reason": "[low_efficiency_pool:volatile_15_only:single_15d_acos_small_trim] Only the 15d window is in the low-efficiency pool, but ACOS is high despite orders: clicks=46, spend=7.75, orders=1, acos=0.408. Lower slightly instead of holding.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "514566732935227"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::auto::300650880627418",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "autoTarget",
+    "entityId": "300650880627418",
+    "entityName": "queryBroadRelMatches",
+    "beforeValue": 0.46,
+    "afterValue": 0.43,
+    "reason": "[low_efficiency_pool:volatile_15_only:single_15d_acos_small_trim] Only the 15d window is in the low-efficiency pool, but ACOS is high despite orders: clicks=12, spend=5.49, orders=1, acos=0.343. Lower slightly instead of holding.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "300650880627418"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::manual::168921885743803",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "168921885743803",
+    "entityName": "asinExpandedFrom=B0CXJ6GJC9",
+    "beforeValue": 0.42,
+    "afterValue": 0.21,
+    "reason": "[low_efficiency_pool:mixed_other:residual_7d_severe_acos_cut] 7d ACOS is still high despite orders: clicks=36, spend=15.03, orders=1, acos=0.627.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "168921885743803"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::manual::324642262212349",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "324642262212349",
+    "entityName": "asinExpandedFrom=B0C81PBS2B",
+    "beforeValue": 0.29,
+    "afterValue": 0.14,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_severe_acos_cut] 7d ACOS is still high despite orders: clicks=27, spend=7.74, orders=1, acos=0.775.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "324642262212349"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::manual::43645406542106",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "manualTarget",
+    "entityId": "43645406542106",
+    "entityName": "asinExpandedFrom=B0FVVCX5TR",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=15, spend=5.77, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "43645406542106"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::manual::33134284237259",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "manualTarget",
+    "entityId": "33134284237259",
+    "entityName": "asinExpandedFrom=B0F17BL9SN",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=13, spend=4.03, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "33134284237259"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::manual::133020769142032",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "133020769142032",
+    "entityName": "asin=B07X2LZB3R",
+    "beforeValue": 0.36,
+    "afterValue": 0.33,
+    "reason": "[low_efficiency_pool:mixed_other:mixed_other] 30d=ok 15d=ok 7d=in 3d=ok. focus clicks=11, spend=3.94, orders=1, acos=0.329.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "133020769142032"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::manual::208361214197929",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "manualTarget",
+    "entityId": "208361214197929",
+    "entityName": "asinExpandedFrom=B0F9WZL5NX",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=10, spend=2.62, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "208361214197929"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::manual::206166783484223",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "manualTarget",
+    "entityId": "206166783484223",
+    "entityName": "asin=B0C9F1C5TP",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:improving_marginally:residual_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=8, spend=3.20, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "206166783484223"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::manual::76729970978636",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "manualTarget",
+    "entityId": "76729970978636",
+    "entityName": "asinExpandedFrom=B0F9L5S6Y4",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:improving_marginally:residual_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=14, spend=3.64, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "76729970978636"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::manual::20688609145232",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "20688609145232",
+    "entityName": "asin=B07FD8X2RN",
+    "beforeValue": 0.33,
+    "afterValue": 0.3,
+    "reason": "[low_efficiency_pool:volatile_15_only:single_15d_acos_small_trim] Only the 15d window is in the low-efficiency pool, but ACOS is high despite orders: clicks=14, spend=4.62, orders=1, acos=0.385. Lower slightly instead of holding.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "20688609145232"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::manual::402054451734922",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "manualTarget",
+    "entityId": "402054451734922",
+    "entityName": "asinExpandedFrom=B0CRDLWNHM",
+    "beforeValue": 0.35,
+    "afterValue": 0.32,
+    "reason": "[low_efficiency_pool:volatile_15_only:single_15d_acos_small_trim] Only the 15d window is in the low-efficiency pool, but ACOS is high despite orders: clicks=11, spend=3.85, orders=1, acos=0.385. Lower slightly instead of holding.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "targetId": "402054451734922"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::307440510958675",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "sbKeyword",
+    "entityId": "307440510958675",
+    "entityName": "father's day gifts",
+    "beforeValue": 0.59,
+    "afterValue": 0.5,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_high_acos] 30d ACOS is still high despite orders: clicks=152, spend=110.06, orders=13, acos=0.343.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "307440510958675"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::116865034783098",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "116865034783098",
+    "entityName": "1776 2026 hat",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=21, spend=11.39, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "116865034783098"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::164087642177458",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "sbKeyword",
+    "entityId": "164087642177458",
+    "entityName": "prayer cards",
+    "beforeValue": 0.51,
+    "afterValue": 0.46,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_high_acos] 30d ACOS is still high despite orders: clicks=25, spend=11.15, orders=1, acos=0.413.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "164087642177458"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::175592488942813",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "175592488942813",
+    "entityName": "inflatable number float",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:persistently_low:residual_15d_zero_order_hard_stop] 15d still has clicks/spend with zero orders: clicks=18, spend=7.35, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "175592488942813"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::178251664030298",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "178251664030298",
+    "entityName": "christian gift boxes",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=18, spend=8.28, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "178251664030298"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::33632138324274",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "sbKeyword",
+    "entityId": "33632138324274",
+    "entityName": "letter stencils 1 inch",
+    "beforeValue": 0.31,
+    "afterValue": 0.28,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=34, spend=9.81, orders=1, acos=0.545.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "33632138324274"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::437193285326823",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "sbKeyword",
+    "entityId": "437193285326823",
+    "entityName": "rainbow goodie bags",
+    "beforeValue": 0.32,
+    "afterValue": 0.29,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=26, spend=8.04, orders=1, acos=0.402.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "437193285326823"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::113474973384076",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "113474973384076",
+    "entityName": "patriotic gifts",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=14, spend=7.71, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "113474973384076"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::229841142088981",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "229841142088981",
+    "entityName": "scripture cards",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=10, spend=5.15, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "229841142088981"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::122734714337310",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "122734714337310",
+    "entityName": "scripture cards",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=14, spend=6.20, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "122734714337310"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::403945124272063",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "403945124272063",
+    "entityName": "mini journals bulk",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=14, spend=4.46, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "403945124272063"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::495785283987477",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "495785283987477",
+    "entityName": "wooden cars baby shower",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=12, spend=4.78, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "495785283987477"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::322903132583961",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "322903132583961",
+    "entityName": "friendship bracelets",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:improving_marginally:residual_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=16, spend=4.20, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "322903132583961"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::126698687356050",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "126698687356050",
+    "entityName": "church gifts",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=9, spend=4.07, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "126698687356050"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::424437573827800",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "424437573827800",
+    "entityName": "pepper pinata with stick",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=11, spend=3.97, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "424437573827800"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::123296874234247",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "bid",
+    "entityType": "sbKeyword",
+    "entityId": "123296874234247",
+    "entityName": "umbrella hats for women",
+    "beforeValue": 0.4,
+    "afterValue": 0.37,
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_high_acos] 7d ACOS is still high despite orders: clicks=10, spend=3.94, orders=1, acos=0.329.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "123296874234247"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::87268046471627",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "87268046471627",
+    "entityName": "inflatable birthday decorations",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:improving_marginally:residual_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=12, spend=4.84, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "87268046471627"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::119711455066622",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "119711455066622",
+    "entityName": "bulk wedding flip flops",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=4, spend=3.60, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "119711455066622"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::232996999604136",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "232996999604136",
+    "entityName": "wall mounted basket",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=14, spend=5.24, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "232996999604136"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::323458324898214",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "323458324898214",
+    "entityName": "rubber ducks in bulk",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=10, spend=3.48, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "323458324898214"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::194847097819686",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "194847097819686",
+    "entityName": "giant number float",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:volatile_15_7:residual_15d_zero_order_hard_stop] 15d still has clicks/spend with zero orders: clicks=13, spend=4.86, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "194847097819686"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::397334467555874",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "397334467555874",
+    "entityName": "girls trip hats",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=11, spend=3.16, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "397334467555874"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::374097003906404",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "374097003906404",
+    "entityName": "rainbow decorations",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_7d_zero_order_floor_pause] 7d still has clicks/spend with zero orders: clicks=5, spend=3.11, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "374097003906404"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  },
+  {
+    "sku": "lowEff::sbKw::18348008060952",
+    "asin": "",
+    "site": "Amazon.com",
+    "actionType": "pause",
+    "entityType": "sbKeyword",
+    "entityId": "18348008060952",
+    "entityName": "christian gifts",
+    "beforeValue": "enabled",
+    "afterValue": "paused",
+    "reason": "[low_efficiency_pool:recent_adjustment_stoploss:recent_adjustment_stoploss_30d_zero_order_hard_stop] 30d still has clicks/spend with zero orders: clicks=8, spend=3.48, orders=0.",
+    "runAt": "2026-06-22T04:33:52.685Z",
+    "businessDate": "2026-06-22",
+    "localDate": "2026-06-22",
+    "localTimezone": "Asia/Shanghai",
+    "sourceRunId": "low_efficiency_2026-06-22_1782102832685",
+    "lastAdjustedAt": null,
+    "direction": "",
+    "outcome": "api_success",
+    "dryRun": false,
+    "approvedBy": "claude",
+    "actionSource": [
+      "claude"
+    ],
+    "meta": {
+      "apiResult": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "success": [
+            {
+              "keywordId": "18348008060952"
+            }
+          ],
+          "error": []
+        }
+      }
+    }
+  }
+]

@@ -55,6 +55,7 @@ function getRecoveryPace(closedLoop = {}) {
 }
 
 function buildNextRecoveryTarget(nextTarget = {}, gateStatus = '', gateTargetBusinessDate = '') {
+  if (!nextTarget) return null;
   const businessDate = text(nextTarget.businessDate || nextTarget.targetBusinessDate);
   if (!businessDate) return null;
 

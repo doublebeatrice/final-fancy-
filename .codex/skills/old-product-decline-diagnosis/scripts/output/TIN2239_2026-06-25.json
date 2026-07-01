@@ -1,0 +1,61 @@
+{
+  "sku": "TIN2239",
+  "asin": null,
+  "grading": {
+    "grade": "边缘老品",
+    "priority": "中等",
+    "strategy": "控制成本、止损，仅处理关键问题"
+  },
+  "attribution": {
+    "indicators": {
+      "salesDown": true,
+      "ctrDown": false,
+      "cvrDown": true,
+      "profitDown": false,
+      "acosHigh": false,
+      "acosWorsening": true,
+      "impressionsDown": false
+    },
+    "pattern": "销量下降+流量/点击问题",
+    "investigation": "流量渠道变动、关键词排名下跌、广告曝光不足",
+    "rootCauses": [
+      {
+        "cause": "广告预算/出价管控不当",
+        "evidence": "7天ACoS(39.1%)显著高于30天(18.6%)"
+      }
+    ]
+  },
+  "risk": "中",
+  "report": "📋 老品整改问题单\n\nSKU/ASIN：TIN2239 / 待确认\n所属类目：待确认\n产品分级：边缘老品（中等优先级）\n整改策略：控制成本、止损，仅处理关键问题\n\n【表层指标】\n- 30天销量：41单\n- 30天ACoS：18.6%（7天：39.1%）\n- 30天转化率：5.2%（7天：2.9%）\n- 30天点击率：0.7%（7天：0.8%）\n- 30天展现：117266（7天：20363）\n- 30天广告花费：$216.36\n\n【归因诊断】\n匹配模式：销量下降+流量/点击问题\n排查方向：流量渠道变动、关键词排名下跌、广告曝光不足\n\n【核心根因】\n1. 广告预算/出价管控不当\n   依据：7天ACoS(39.1%)显著高于30天(18.6%)\n\n【整改动作】\n1. 关停低转化关键词/低效广告位，保留高ROI流量\n2. 设置分时竞价，仅高峰时段投放\n3. 设定ACoS红线，超标自动降预算/暂停\n验证指标：ACoS、广告订单占比、ROI\n\n【整改周期】：2周（2026-06-25 至 2026-07-09）\n【风险等级】：中\n【负责人】：__________ 【监督人】：组长\n",
+  "data": {
+    "sku": "TIN2239",
+    "asin": null,
+    "category": null,
+    "units30d": 41,
+    "profit30d": null,
+    "profitRate": null,
+    "profitRankPct": null,
+    "invDays": null,
+    "units30d_yoy": null,
+    "gapToDeptAvg": null,
+    "adSpend30d": 216.36,
+    "adSales30d": 1166.58,
+    "adOrders30d": 41,
+    "adClicks30d": 782,
+    "adImpressions30d": 117266,
+    "acos30d": 0.1855,
+    "adSpend7d": 58.65,
+    "adSales7d": 149.95,
+    "adOrders7d": 5,
+    "adClicks7d": 173,
+    "adImpressions7d": 20363,
+    "acos7d": 0.3911,
+    "ctr30d": 0.006668599594085242,
+    "ctr7d": 0.008495801208073467,
+    "cvr30d": 0.052429667519181586,
+    "cvr7d": 0.028901734104046242,
+    "adSpendRatio": 0.18546520598673047,
+    "impressions30d": 117266,
+    "impressions7d": 20363
+  }
+}

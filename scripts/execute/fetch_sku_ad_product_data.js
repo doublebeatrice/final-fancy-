@@ -119,7 +119,7 @@ async function fetchSkuAdProductData() {
   const payload = {
     selectDate: [start, end],
     mode: 1,
-    state: 1,
+    state: process.env.AD_STATE ? Number(process.env.AD_STATE) : 1,
     siteId,
     sku,
     userName: ['HJ17', 'HJ171', 'HJ172'],

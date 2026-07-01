@@ -35,7 +35,6 @@ Clean the repository root without changing business rules or deleting files. The
 | `solar_terms.json`, `solar_term_map.json`, `solr_terms_raw.txt` | Data files | Move to `data/` |
 | `inv_auto_filtered_2026-04-17-02-52-35.csv` | Output/sample data | Move to `data/` |
 | `a8070a0f-0570-4d04-97c8-d4c82d9968d6.png` | Image/data artifact | Move to `data/` |
-| `限sku.txt` | Data/reference list | Move to `data/` |
 
 ## Directories Created
 
@@ -75,7 +74,6 @@ Clean the repository root without changing business rules or deleting files. The
 - `solr_terms_raw.txt` -> `data/solr_terms_raw.txt`
 - `inv_auto_filtered_2026-04-17-02-52-35.csv` -> `data/inv_auto_filtered_2026-04-17-02-52-35.csv`
 - `a8070a0f-0570-4d04-97c8-d4c82d9968d6.png` -> `data/a8070a0f-0570-4d04-97c8-d4c82d9968d6.png`
-- `限sku.txt` -> `data/限sku.txt`
 
 ### Historical Versions
 

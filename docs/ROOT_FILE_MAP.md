@@ -11,6 +11,7 @@ This is the living map for what belongs in the repository root. The root should 
 | `README.md` | Human and AI project entry guide. Start here. |
 | `AGENT.md` | AI operating rules, execution boundaries, and run discipline. |
 | `AGENTS.md` | Current Codex/agent root instructions. Keep alongside `AGENT.md` until the older rule surface is intentionally retired. |
+| `CLAUDE.md` | Claude Code root entry and cross-validation routing map. |
 | `memory.md` | Durable operating memory and business-decision context. |
 | `CHANGELOG.md` | Concise capability change log. |
 | `auto_adjust.js` | Main Node execution orchestrator. Kept in root because tests and execution scripts import it directly. |
@@ -61,6 +62,16 @@ This is the living map for what belongs in the repository root. The root should 
 | `data/season_events_2026.json` | Runtime season-event JSON consumed by seasonal audits/title workflows. |
 | `docs/2025年半精品销售季度KPI考核 - 组员.xlsx` | KPI context workbook used by operating playbooks. |
 
+## Agent Orientation Files
+
+| Path | Purpose |
+|---|---|
+| `docs/CLAUDE_DIRECTION_PACK.md` | Short compass for Claude task startup, update model, and common wrong turns. |
+| `docs/CLAUDE_CROSS_VALIDATION_GUIDE.md` | Cross-AI review workflow and script map. |
+| `scripts/diagnostics/claude_orientation_check.js` | Dynamic orientation check for Claude/Codex review tasks. |
+| `scripts/diagnostics/agent_quality_gate.js` | Five-dimension startup quality gate for task route, GBrain search, evidence boundary, runtime efficiency, and operating quality. |
+| `data/evals/agent_orientation_cases.json` | Seed cases for testing whether an agent picked the right search angles and completion boundary. |
+
 ## Error Trace Read Path
 
 When a run fails or a result looks wrong, read these in order:
@@ -87,7 +98,6 @@ When a run fails or a result looks wrong, read these in order:
 | `solr_terms_raw.txt` | `data/solr_terms_raw.txt` | Data file. |
 | `inv_auto_filtered_2026-04-17-02-52-35.csv` | `data/inv_auto_filtered_2026-04-17-02-52-35.csv` | Output/sample data. |
 | `a8070a0f-0570-4d04-97c8-d4c82d9968d6.png` | `data/a8070a0f-0570-4d04-97c8-d4c82d9968d6.png` | Image/data artifact. |
-| `限sku.txt` | `data/限sku.txt` | Data/reference list. |
 | `节气巡查.xlsx` | `data/reference/season_events_2026_source.xlsx` | Source workbook for season-event import. |
 
 ## 2026-06-04 Root Reconciliation

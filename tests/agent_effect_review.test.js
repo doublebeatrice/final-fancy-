@@ -107,6 +107,131 @@ function withWindow(evidence, baselineAsOf = '2026-05-16', currentAsOf = '2026-0
 
 {
   const task = {
+    taskId: 'review-old-product-missing-market-relative',
+    title: 'OLD1 old-product maintenance 7d review',
+    subject: { sku: 'OLD1' },
+    reviewPlan: {
+      metrics: ['market_relative_yoy_gap', 'orders', 'netProfit'],
+      requiresMarketRelativeImprovement: true,
+      requiresProfitImprovement: true,
+    },
+  };
+  const result = evaluateReviewTask(task, withWindow({
+    baseline: { orders: 4 },
+    current: { orders: 8 },
+  }));
+
+  assert.strictEqual(result.verdict, 'needs_data');
+  assert.strictEqual(result.status, 'blocked');
+  assert.ok(result.reasons.includes('missing_market_relative_yoy_gap_result'));
+  assert.ok(result.reasons.includes('missing_profit_improvement_result'));
+}
+
+{
+  const task = {
+    taskId: 'review-old-product-profit-only',
+    title: 'OLD1 old-product maintenance 7d review',
+    subject: { sku: 'OLD1' },
+    reviewPlan: {
+      metrics: ['market_relative_yoy_gap', 'orders', 'netProfit'],
+      requiresMarketRelativeImprovement: true,
+      requiresProfitImprovement: true,
+    },
+  };
+  const result = evaluateReviewTask(task, withWindow({
+    baseline: { orders: 4, clicks: 80, spend: 24, netProfit: 10 },
+    current: { orders: 8, clicks: 100, spend: 28, netProfit: 15 },
+    marketRelative: { yoyGapImproved: false },
+    profit: { improved: true },
+    inventory: { riskLevel: 'controlled', invDays: 60 },
+  }));
+
+  assert.strictEqual(result.verdict, 'goal_missed');
+  assert.strictEqual(result.status, 'needs_action');
+  assert.ok(result.reasons.includes('market_relative_yoy_gap_not_improved'));
+  assert.ok(result.reasons.includes('profit_improved'));
+}
+
+{
+  const task = {
+    taskId: 'review-old-product-missing-operating-layers',
+    title: 'OLD1 old-product maintenance 7d review',
+    subject: { sku: 'OLD1' },
+    reviewPlan: {
+      metrics: ['market_relative_yoy_gap', 'orders', 'netProfit'],
+      requiresMarketRelativeImprovement: true,
+      requiresProfitImprovement: true,
+    },
+  };
+  const result = evaluateReviewTask(task, withWindow({
+    baseline: { orders: 4, netProfit: 10 },
+    current: { orders: 8, netProfit: 15 },
+    marketRelative: { relativeGapImproved: true, attributionClear: true },
+    profit: { unitProfitQualityImproved: true },
+  }));
+
+  assert.strictEqual(result.verdict, 'needs_data');
+  assert.strictEqual(result.status, 'blocked');
+  assert.ok(result.reasons.includes('missing_old_product_ad_spend_result'));
+  assert.ok(result.reasons.includes('missing_old_product_conversion_result'));
+  assert.ok(result.reasons.includes('missing_old_product_inventory_risk_result'));
+}
+
+{
+  const task = {
+    taskId: 'review-old-product-both-gates',
+    title: 'OLD1 old-product maintenance 7d review',
+    subject: { sku: 'OLD1' },
+    reviewPlan: {
+      metrics: ['market_relative_yoy_gap', 'orders', 'netProfit'],
+      requiresMarketRelativeImprovement: true,
+      requiresProfitImprovement: true,
+    },
+  };
+  const result = evaluateReviewTask(task, withWindow({
+    baseline: { orders: 4, clicks: 80, spend: 24, acos: 0.2, netProfit: 10 },
+    current: { orders: 8, clicks: 100, spend: 28, acos: 0.16, netProfit: 15 },
+    marketRelative: { relativeGapImproved: true, attributionClear: true },
+    profit: { unitProfitQualityImproved: true },
+    inventory: { riskLevel: 'controlled', invDays: 60 },
+  }));
+
+  assert.strictEqual(result.verdict, 'goal_met');
+  assert.strictEqual(result.status, 'closed_recommended');
+  assert.ok(result.reasons.includes('market_relative_yoy_gap_improved'));
+  assert.ok(result.reasons.includes('market_attribution_clear'));
+  assert.ok(result.reasons.includes('profit_improved'));
+  assert.ok(result.reasons.includes('old_product_ad_spend_reviewed'));
+  assert.ok(result.reasons.includes('old_product_conversion_reviewed'));
+  assert.ok(result.reasons.includes('old_product_inventory_risk_reviewed'));
+}
+
+{
+  const task = {
+    taskId: 'review-old-product-unclear-market-attribution',
+    title: 'OLD1 old-product maintenance 7d review',
+    subject: { sku: 'OLD1' },
+    reviewPlan: {
+      metrics: ['market_relative_yoy_gap', 'orders', 'netProfit'],
+      requiresMarketRelativeImprovement: true,
+      requiresProfitImprovement: true,
+    },
+  };
+  const result = evaluateReviewTask(task, withWindow({
+    baseline: { orders: 4, netProfit: 10 },
+    current: { orders: 8, netProfit: 15 },
+    marketRelative: { relativeGapImproved: true, attributionClear: false },
+    profit: { unitProfitQualityImproved: true },
+  }));
+
+  assert.strictEqual(result.verdict, 'needs_data');
+  assert.strictEqual(result.status, 'blocked');
+  assert.ok(result.reasons.includes('market_attribution_unclear'));
+  assert.ok(result.reasons.includes('profit_improved'));
+}
+
+{
+  const task = {
     taskId: 'review-early',
     title: 'SE6599 1日效果复查',
     subject: { sku: 'SE6599' },
@@ -166,6 +291,8 @@ function withWindow(evidence, baselineAsOf = '2026-05-16', currentAsOf = '2026-0
   });
 
   assert.strictEqual(report.summary.total, 2);
+  assert.strictEqual(report.summary.feedbackApplied, 2);
+  assert.strictEqual(report.summary.effectReviewFeedbackApplied, 2);
   assert.strictEqual(report.summary.byVerdict.goal_missed, 1);
   assert.strictEqual(report.summary.byVerdict.goal_met, 1);
 }
@@ -304,6 +431,7 @@ function withWindow(evidence, baselineAsOf = '2026-05-16', currentAsOf = '2026-0
   });
 
   assert.strictEqual(report.summary.byVerdict.goal_partial, 1);
+  assert.strictEqual(report.summary.feedbackApplied, 1);
   assert.strictEqual(report.summary.staleDowngraded, 1);
   assert.ok(report.results[0].reasons.includes('current_metrics_stale'));
 }

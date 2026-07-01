@@ -2,10 +2,13 @@ const assert = require('assert');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
+const { buildSkuReviewDigest } = require('../src/sku_review_digest');
 const {
   buildActionQuality,
   buildFetchOptions,
   buildKpiRecoveryOverBudgetSchema,
+  buildGbrainActionGuard,
+  buildOldProductMaintenanceArtifacts,
   buildOperatingClosure,
   buildProactiveRecoveryActionSchema,
   buildRunQuality,
@@ -19,6 +22,219 @@ const {
   validateSnapshotFile,
   writeTextFileWithRetry,
 } = require('../scripts/run_today_ops');
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'today-ops-old-products-'));
+  const allSkuReview = {
+    rows: [{
+      sku: 'OLD-DAY-1',
+      asin: 'B0OLDDAY01',
+      lifecycle: 'old_product',
+      verdict: 'old_product_recovery_check',
+      units30d: 20,
+      yoyUnitsPct: -0.5,
+      profitRate: 0.18,
+      invDays: 80,
+      fulRes: 100,
+      ad30: { clicks: 200, orders: 20 },
+      marketAnalysis: {
+        readyForDecisionSupport: false,
+        terms: ['retirement gifts for women', 'retirement bag'],
+        operatingIntelligence: {
+          readyForDecisionSupport: false,
+          missingEvidence: ['selection_product_time_machine'],
+        },
+      },
+    }],
+  };
+
+  const result = buildOldProductMaintenanceArtifacts({
+    businessDate: '2026-06-16',
+    dataDate: '2026-06-15',
+    generatedAt: '2026-06-16T08:00:00.000Z',
+    allSkuReview,
+    depositStatus: { status: 'partial' },
+    taskDir: tmpDir,
+    snapshotDir: tmpDir,
+  });
+
+  assert.strictEqual(result.summary.candidates, 1);
+  assert.strictEqual(result.summary.confirmationSheets, 1);
+  assert.strictEqual(result.summary.marketEvidenceQueue.total, 1);
+  assert.strictEqual(result.summary.skuWatchlistMerge.status, 'no_landed_items');
+  assert.ok(fs.existsSync(result.files.oldProductMaintenanceJson));
+  assert.ok(fs.existsSync(result.files.oldProductMaintenanceMarkdown));
+  assert.ok(fs.existsSync(result.files.oldProductMarketEvidenceQueueJson));
+  assert.ok(fs.existsSync(result.files.oldProductCandidateConfirmationJson));
+  assert.ok(fs.existsSync(result.files.oldProductPendingConfirmationActionsJson));
+  assert.ok(fs.existsSync(result.files.oldProductApprovedExecutionHandoffJson));
+  assert.ok(fs.existsSync(result.files.oldProductApprovedActionSchemaJson));
+  assert.deepStrictEqual(JSON.parse(fs.readFileSync(result.files.oldProductApprovedActionSchemaJson, 'utf8')), []);
+  const executionHandoff = JSON.parse(fs.readFileSync(result.files.oldProductApprovedExecutionHandoffJson, 'utf8'));
+  assert.strictEqual(executionHandoff.summary.total, 0);
+  assert.strictEqual(executionHandoff.policy.noEffectReviewUntilLanded, true);
+
+  const queue = JSON.parse(fs.readFileSync(result.files.oldProductMarketEvidenceQueueJson, 'utf8'));
+  assert.strictEqual(queue.summary.readyToFetch, 1);
+  const confirmation = JSON.parse(fs.readFileSync(result.files.oldProductCandidateConfirmationJson, 'utf8'));
+  assert.strictEqual(confirmation.items[0].conclusionLabel, '市场证据不足');
+  const pendingActions = JSON.parse(fs.readFileSync(result.files.oldProductPendingConfirmationActionsJson, 'utf8'));
+  assert.strictEqual(pendingActions.items.length, 0);
+
+  const summary = buildRunSummary({
+    mode: 'fast',
+    runId: 'old-product-run',
+    time: { businessDate: '2026-06-16' },
+    steps: [],
+    oldProductMaintenance: result.summary,
+    outputFiles: result.files,
+  });
+  assert.strictEqual(summary.oldProductMaintenance.candidates, 1);
+  assert.strictEqual(
+    summary.outputFiles.oldProductMarketEvidenceQueueJson,
+    result.files.oldProductMarketEvidenceQueueJson
+  );
+  assert.strictEqual(
+    summary.outputFiles.oldProductCandidateConfirmationJson,
+    result.files.oldProductCandidateConfirmationJson
+  );
+  assert.strictEqual(
+    summary.outputFiles.oldProductApprovedExecutionHandoffJson,
+    result.files.oldProductApprovedExecutionHandoffJson
+  );
+}
+
+{
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'today-ops-old-watchlist-'));
+  const allSkuReview = {
+    rows: [{
+      sku: 'OLD-LANDED-1',
+      asin: 'B0OLDLAND1',
+      lifecycle: 'old_product',
+      verdict: 'old_product_recovery_check',
+      units7d: 10,
+      units30d: 30,
+      yoyUnitsPct: -0.5,
+      profitRate: 0.2,
+      invDays: 90,
+      fulRes: 120,
+      ad7: { clicks: 80, orders: 8, spend: 24, sales: 160, acos: 0.15 },
+      ad30: { clicks: 300, orders: 30, spend: 90, sales: 600, acos: 0.15 },
+      marketAnalysis: {
+        readyForDecisionSupport: true,
+        terms: ['retirement gifts for women'],
+        operatingIntelligence: {
+          readyForDecisionSupport: true,
+          sourceCoverage: {
+            terms: 1,
+            keywordResearch: 1,
+            productTimeMachine: 1,
+            aba: 1,
+            conversion: 1,
+            seasonality: 1,
+            sourceCount: 5,
+          },
+          opportunityModels: [{ key: 'conversion_economics_usable', term: 'retirement gifts for women' }],
+          riskSignals: [],
+          missingEvidence: [],
+        },
+      },
+    }],
+  };
+
+  const result = buildOldProductMaintenanceArtifacts({
+    businessDate: '2026-06-16',
+    dataDate: '2026-06-15',
+    generatedAt: '2026-06-16T08:00:00.000Z',
+    allSkuReview,
+    approval: {
+      approvedCandidates: [{
+        sku: 'OLD-LANDED-1',
+        approved: true,
+        approvedBy: 'manual',
+        actions: [{
+          id: 'kw-old-landed-1',
+          entityType: 'keyword',
+          actionType: 'bid',
+          currentBid: 0.8,
+          suggestedBid: 0.7,
+          plannedClicks: 180,
+          landingStatus: 'landed',
+          readback: {
+            bid: 0.7,
+            state: 1,
+            campaignState: 1,
+            groupState: 1,
+          },
+        }],
+      }],
+    },
+    depositStatus: { status: 'complete' },
+    taskDir: tmpDir,
+    snapshotDir: tmpDir,
+  });
+
+  assert.strictEqual(result.summary.watchlistItems, 1);
+  assert.strictEqual(result.summary.skuWatchlistMerge.status, 'updated');
+  assert.ok(fs.existsSync(result.files.oldProductWatchlistDeltaJson));
+  assert.ok(fs.existsSync(result.files.oldProductSkuWatchlistJson));
+  assert.ok(fs.existsSync(result.files.oldProductApprovedExecutionHandoffJson));
+  const watchlist = JSON.parse(fs.readFileSync(result.files.oldProductWatchlistDeltaJson, 'utf8'));
+  const skuWatchlist = JSON.parse(fs.readFileSync(result.files.oldProductSkuWatchlistJson, 'utf8'));
+  const executionHandoff = JSON.parse(fs.readFileSync(result.files.oldProductApprovedExecutionHandoffJson, 'utf8'));
+  assert.strictEqual(watchlist.items.length, 1);
+  assert.strictEqual(watchlist.items[0].sku, 'OLD-LANDED-1');
+  assert.strictEqual(watchlist.items[0].nextCheckDate, '2026-06-19');
+  assert.strictEqual(skuWatchlist.items.filter(item => item.sku === 'OLD-LANDED-1').length, 1);
+  assert.strictEqual(executionHandoff.summary.watchlistEligible, 1);
+
+  const digest = buildSkuReviewDigest({
+    today: '2026-06-19',
+    watchlistFile: result.files.oldProductSkuWatchlistJson,
+    reviewQueueFile: path.join(tmpDir, 'missing_review_queue.json'),
+    taskFollowupDir: path.join(tmpDir, 'missing_followups'),
+  });
+  assert.strictEqual(digest.summary.due, 1);
+  assert.strictEqual(digest.items[0].sku, 'OLD-LANDED-1');
+
+  const summary = buildRunSummary({
+    mode: 'fast',
+    runId: 'old-product-watchlist-run',
+    time: { businessDate: '2026-06-16' },
+    steps: [],
+    oldProductMaintenance: result.summary,
+    outputFiles: result.files,
+  });
+  assert.strictEqual(
+    summary.outputFiles.oldProductWatchlistDeltaJson,
+    result.files.oldProductWatchlistDeltaJson
+  );
+}
+
+{
+  const summary = buildRunSummary({
+    mode: 'fast',
+    runId: 'price-followup-run',
+    time: { businessDate: '2026-06-17' },
+    steps: [],
+    priceRaiseFollowup: {
+      total: 2,
+      needsAction: 1,
+      watch: 1,
+      healthy: 0,
+    },
+    outputFiles: {
+      priceRaiseFollowupJson: 'data/tasks/price_raise_followup_2026-06-17.json',
+      priceRaiseFollowupMarkdown: 'data/tasks/price_raise_followup_2026-06-17.md',
+    },
+  });
+
+  assert.strictEqual(summary.priceRaiseFollowup.needsAction, 1);
+  assert.strictEqual(
+    summary.outputFiles.priceRaiseFollowupJson,
+    'data/tasks/price_raise_followup_2026-06-17.json'
+  );
+}
 
 {
   const options = parseArgs(['node', 'scripts/run_today_ops.js', '--execute', '--mode', 'full-snapshot']);
@@ -198,6 +414,100 @@ const {
   assert.strictEqual(tasks[0].kind, 'profit_bleeding');
   assert.strictEqual(tasks[0].subject.sku, 'AGENT1');
   assert.ok(tasks[0].evidence.includes('7d spend with zero orders'));
+}
+
+{
+  const validation = {
+    plan: [{
+      sku: 'GBRAIN1',
+      asin: 'B0GBRAIN001',
+      actions: [{
+        entityType: 'sku',
+        actionType: 'price',
+        id: 'GBRAIN1',
+        currentPrice: 22.99,
+        suggestedPrice: 24.99,
+        source: 'price_full_closure',
+      }],
+    }],
+    review: [],
+    skipped: [],
+  };
+  const recentAdjustments = [{
+    sku: 'GBRAIN1',
+    actionType: 'price',
+    entityType: 'sku',
+    beforeValue: 19.99,
+    afterValue: 22.99,
+    direction: 'up',
+    dryRun: false,
+    businessDate: '2026-06-08',
+    runAt: '2026-06-09T01:00:00.000Z',
+  }];
+  const guard = buildGbrainActionGuard(validation, {
+    businessDate: '2026-06-09',
+    recentAdjustments,
+    gbrainText: '不能让自动流程对同一 SKU 连续两天按新的现价继续提价，除非涨过价以后仍有大量出单。',
+  });
+  assert.strictEqual(guard.ok, false);
+  assert.strictEqual(guard.failures.length, 1);
+  assert.strictEqual(guard.failures[0].ruleId, 'gbrain.price.no_consecutive_raise_without_large_post_raise_sales');
+}
+
+{
+  const schemaFile = path.join(process.cwd(), 'data', 'snapshots', 'action_schema_2026-06-03_price_full_closure_after_daily.json');
+  const adjustmentsFile = path.join(process.cwd(), 'data', 'adjustments', 'adjustments_2026-06-02.json');
+  if (fs.existsSync(schemaFile) && fs.existsSync(adjustmentsFile)) {
+    const validation = { plan: JSON.parse(fs.readFileSync(schemaFile, 'utf8')), review: [], skipped: [] };
+    const recentAdjustments = JSON.parse(fs.readFileSync(adjustmentsFile, 'utf8'));
+    const guard = buildGbrainActionGuard(validation, {
+      businessDate: '2026-06-03',
+      recentAdjustments,
+      gbrainText: '不能让自动流程对同一 SKU 连续两天按新的现价继续提价，除非涨过价以后仍有大量出单。',
+    });
+    assert.ok(
+      guard.failures.some(item => item.sku === 'JIN1883'),
+      'GBrain guard should catch JIN1883-style consecutive price raises in old price schema'
+    );
+  }
+}
+
+{
+  const validation = {
+    plan: [{
+      sku: 'GBRAIN7D',
+      asin: 'B0GBRAIN7D',
+      actions: [{
+        entityType: 'sku',
+        actionType: 'price',
+        id: 'GBRAIN7D',
+        currentPrice: 25.99,
+        suggestedPrice: 28.99,
+        source: 'manual_schema',
+      }],
+    }],
+    review: [],
+    skipped: [],
+  };
+  const recentAdjustments = [{
+    sku: 'GBRAIN7D',
+    actionType: 'price',
+    entityType: 'sku',
+    beforeValue: 22.99,
+    afterValue: 25.99,
+    direction: 'up',
+    dryRun: false,
+    businessDate: '2026-06-04',
+    runAt: '2026-06-05T01:00:00.000Z',
+  }];
+  const guard = buildGbrainActionGuard(validation, {
+    businessDate: '2026-06-09',
+    recentAdjustments,
+    gbrainText: '自动化门禁：同一 SKU 提价后进入 7 天吸收期，除非涨过价以后仍有大量出单，否则不能继续提价。',
+  });
+  assert.strictEqual(guard.ok, false);
+  assert.strictEqual(guard.failures.length, 1);
+  assert.strictEqual(guard.failures[0].sku, 'GBRAIN7D');
 }
 
 {

@@ -143,6 +143,22 @@ function defaultAgentCapabilities() {
       },
     },
     {
+      capabilityId: 'product_line_ops::profile::read',
+      name: 'product line ops profile',
+      sourceSystem: 'product_line_ops',
+      surface: 'profile',
+      operationType: 'read',
+      endpoint: { method: 'LOCAL', path: 'scripts/execute/build_product_line_ops_profile.js' },
+      contract: {
+        params: ['sku', 'asin', 'terms', 'selectionReports', 'sifReports', 'sellerinventory', 'adBackend', 'gbrain'],
+        responseFields: ['productIdentity', 'marketNodes', 'competitorPool', 'keywordRoutes', 'listingFit', 'inventoryCashGate', 'adReadiness', 'decisionGate', 'sourceBoundary'],
+        freshness: 'same_day_or_explicit_snapshot',
+      },
+      verification: {
+        probeCommand: 'npm run ops:product-line:profile -- --sample',
+      },
+    },
+    {
       name: 'sellerinventory origin data',
       sourceSystem: 'sellerinventory',
       surface: 'listing',
